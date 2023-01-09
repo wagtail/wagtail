@@ -4,6 +4,7 @@ from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
@@ -18,13 +19,14 @@ from wagtail.models import (
     Task,
     TaskState,
     Workflow,
+    WorkflowContentType,
     WorkflowPage,
     WorkflowState,
     WorkflowTask,
     get_default_page_content_type,
 )
 from wagtail.signals import page_published
-from wagtail.test.testapp.models import SimplePage, SimpleTask
+from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage, SimpleTask
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -173,6 +175,10 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
         self.root_page = Page.objects.get(depth=1)
+        self.snippet = FullFeaturedSnippet.objects.create(text="foo")
+        self.snippet_content_type = ContentType.objects.get_for_model(
+            FullFeaturedSnippet
+        )
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_workflows:add"), params)
@@ -210,6 +216,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
                 "pages-0-DELETE": [""],
                 "pages-1-page": [""],
                 "pages-1-DELETE": [""],
+                "content_types": [str(self.snippet_content_type.id)],
             }
         )
 
@@ -240,6 +247,15 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
             ).sort_order,
             1,
         )
+
+        # Check that the page has the workflow assigned
+        self.assertEqual(self.root_page.get_workflow(), workflow)
+
+        # Check that the snippet model has the default workflow assigned
+        self.assertEqual(FullFeaturedSnippet.get_default_workflow(), workflow)
+
+        # Check that the instance of the snippet model has the workflow assigned
+        self.assertEqual(self.snippet.get_workflow(), workflow)
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -297,6 +313,52 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
             ["This page already has workflow 'existing_workflow' assigned."],
         )
 
+    def test_snippet_already_has_workflow_check(self):
+        workflow = Workflow.objects.create(name="existing_workflow")
+        WorkflowContentType.objects.create(
+            workflow=workflow, content_type=self.snippet_content_type
+        )
+
+        response = self.post(
+            {
+                "name": ["test_workflow"],
+                "active": ["on"],
+                "workflow_tasks-TOTAL_FORMS": ["2"],
+                "workflow_tasks-INITIAL_FORMS": ["0"],
+                "workflow_tasks-MIN_NUM_FORMS": ["0"],
+                "workflow_tasks-MAX_NUM_FORMS": ["1000"],
+                "workflow_tasks-0-task": [str(self.task_1.id)],
+                "workflow_tasks-0-id": [""],
+                "workflow_tasks-0-ORDER": ["1"],
+                "workflow_tasks-0-DELETE": [""],
+                "workflow_tasks-1-task": [str(self.task_2.id)],
+                "workflow_tasks-1-id": [""],
+                "workflow_tasks-1-ORDER": ["2"],
+                "workflow_tasks-1-DELETE": [""],
+                "pages-TOTAL_FORMS": ["2"],
+                "pages-INITIAL_FORMS": ["1"],
+                "pages-MIN_NUM_FORMS": ["0"],
+                "pages-MAX_NUM_FORMS": ["1000"],
+                "pages-0-page": [str(self.root_page.id)],
+                "pages-0-DELETE": [""],
+                "pages-1-page": [""],
+                "pages-1-DELETE": [""],
+                "content_types": [str(self.snippet_content_type.id)],
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Snippet 'Full-featured snippet' already has workflow 'existing_workflow' assigned.",
+            count=1,
+            html=True,
+        )
+
+        # Check that the assigned workflow is not changed
+        link = WorkflowContentType.objects.get(content_type=self.snippet_content_type)
+        self.assertEqual(link.workflow, workflow)
+
 
 class TestWorkflowsEditView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -312,7 +374,13 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
             workflow=self.workflow, task=self.task_1.task_ptr, sort_order=0
         )
         self.page = Page.objects.first()
+        self.snippet_content_type = ContentType.objects.get_for_model(
+            FullFeaturedSnippet
+        )
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
+        WorkflowContentType.objects.create(
+            workflow=self.workflow, content_type=self.snippet_content_type
+        )
 
         self.editor = self.create_user(
             username="editor",
@@ -352,7 +420,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
     def test_post(self):
         response = self.post(
             {
-                "name": [str(self.workflow.name)],
+                "name": ["Edited workflow"],
                 "active": ["on"],
                 "workflow_tasks-TOTAL_FORMS": ["2"],
                 "workflow_tasks-INITIAL_FORMS": ["1"],
@@ -374,14 +442,15 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
                 "pages-0-DELETE": [""],
                 "pages-1-page": [""],
                 "pages-1-DELETE": [""],
+                "content_types": [str(self.snippet_content_type.id)],
             }
         )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailadmin_workflows:index"))
 
-        # Check that the workflow was created
-        workflows = Workflow.objects.filter(name="workflow_to_edit", active=True)
+        # Check that the workflow was edited
+        workflows = Workflow.objects.filter(name="Edited workflow", active=True)
         self.assertEqual(workflows.count(), 1)
 
         workflow = workflows.first()
@@ -404,6 +473,16 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
             ).sort_order,
             1,
         )
+
+        # Check that the page has the workflow assigned
+        self.assertEqual(self.page.get_workflow(), workflow)
+
+        # Check that the snippet model has the default workflow assigned
+        self.assertEqual(FullFeaturedSnippet.get_default_workflow(), workflow)
+
+        # Check that the instance of the snippet model has the workflow assigned
+        snippet = FullFeaturedSnippet.objects.create(text="foo")
+        self.assertEqual(snippet.get_workflow(), workflow)
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -465,10 +544,59 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
             ["You cannot assign this workflow to the same page multiple times."],
         )
 
-    def test_pages_ignored_if_workflow_disabled(self):
+    def test_snippet_already_has_workflow_check(self):
+        # Change the workflow for the snippet content type to another workflow
+        other_workflow = Workflow.objects.create(name="other_workflow")
+        WorkflowContentType.objects.filter(
+            content_type=self.snippet_content_type
+        ).update(workflow=other_workflow)
+
+        # Try to save the workflow with the snippet content type assigned
+        response = self.post(
+            {
+                "name": [str(self.workflow.name)],
+                "active": ["on"],
+                "workflow_tasks-TOTAL_FORMS": ["2"],
+                "workflow_tasks-INITIAL_FORMS": ["1"],
+                "workflow_tasks-MIN_NUM_FORMS": ["0"],
+                "workflow_tasks-MAX_NUM_FORMS": ["1000"],
+                "workflow_tasks-0-task": [str(self.task_1.id)],
+                "workflow_tasks-0-id": [str(self.workflow_task.id)],
+                "workflow_tasks-0-ORDER": ["1"],
+                "workflow_tasks-0-DELETE": [""],
+                "workflow_tasks-1-task": [str(self.task_2.id)],
+                "workflow_tasks-1-id": [""],
+                "workflow_tasks-1-ORDER": ["2"],
+                "workflow_tasks-1-DELETE": [""],
+                "pages-TOTAL_FORMS": ["2"],
+                "pages-INITIAL_FORMS": ["1"],
+                "pages-MIN_NUM_FORMS": ["0"],
+                "pages-MAX_NUM_FORMS": ["1000"],
+                "pages-0-page": [str(self.page.id)],
+                "pages-0-DELETE": [""],
+                "pages-1-page": [""],
+                "pages-1-DELETE": [""],
+                "content_types": [str(self.snippet_content_type.id)],
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Snippet 'Full-featured snippet' already has workflow 'other_workflow' assigned.",
+            count=1,
+            html=True,
+        )
+
+        # Check that the assigned workflow is not changed
+        link = WorkflowContentType.objects.get(content_type=self.snippet_content_type)
+        self.assertEqual(link.workflow, other_workflow)
+
+    def test_pages_and_content_types_ignored_if_workflow_disabled(self):
         self.workflow.active = False
         self.workflow.save()
         self.workflow.workflow_pages.all().delete()
+        self.workflow.workflow_content_types.all().delete()
 
         response = self.post(
             {
@@ -494,6 +622,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
                 "pages-0-DELETE": [""],
                 "pages-1-page": [""],
                 "pages-1-DELETE": [""],
+                "content_types": [str(self.snippet_content_type.id)],
             }
         )
 
@@ -503,6 +632,9 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         # Check that the pages weren't added to the workflow
         self.workflow.refresh_from_db()
         self.assertFalse(self.workflow.workflow_pages.exists())
+
+        # Check that the workflow is not assigned to any snippet model
+        self.assertFalse(self.workflow.workflow_content_types.exists())
 
 
 class TestRemoveWorkflow(TestCase, WagtailTestUtils):
@@ -551,6 +683,11 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
     def test_no_permissions(self):
         self.login(user=self.editor)
         response = self.post()
+        # The WorkflowPage instance should not be removed
+        self.assertEqual(
+            WorkflowPage.objects.filter(workflow=self.workflow, page=self.page).count(),
+            1,
+        )
         self.assertEqual(response.status_code, 302)
 
     def test_post_with_permission(self):
