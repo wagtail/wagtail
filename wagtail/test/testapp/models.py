@@ -70,6 +70,7 @@ from wagtail.models import (
     RevisionMixin,
     Task,
     TranslatableMixin,
+    WorkflowMixin,
 )
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -1101,6 +1102,29 @@ class LockableModel(LockableMixin, models.Model):
 
 
 register_snippet(LockableModel)
+
+
+# Snippet with all mixins enabled
+
+
+class FullFeaturedSnippet(
+    WorkflowMixin,
+    LockableMixin,
+    DraftStateMixin,
+    RevisionMixin,
+    models.Model,
+):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "full-featured snippet"
+        verbose_name_plural = "full-featured snippets"
+
+
+register_snippet(FullFeaturedSnippet)
 
 
 class StandardIndex(Page):
