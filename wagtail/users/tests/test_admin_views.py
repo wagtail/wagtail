@@ -213,8 +213,10 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse("wagtailusers_users:add"), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse("wagtailusers_users:add"), post_data)
+    def post(self, post_data={}, follow=False):
+        return self.client.post(
+            reverse("wagtailusers_users:add"), post_data, follow=follow
+        )
 
     def test_simple(self):
         response = self.get()
@@ -232,7 +234,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
                 "last_name": "User",
                 "password1": "password",
                 "password2": "password",
-            }
+            },
+            follow=True,
         )
 
         # Should redirect back to index
@@ -241,6 +244,10 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         # Check that the user was created
         users = get_user_model().objects.filter(email="test@user.com")
         self.assertEqual(users.count(), 1)
+        if settings.AUTH_USER_MODEL == "emailuser.EmailUser":
+            self.assertContains(response, "User &#x27;test@user.com&#x27; created.")
+        else:
+            self.assertContains(response, "User &#x27;testuser&#x27; created.")
 
     @unittest.skipUnless(
         settings.AUTH_USER_MODEL == "customuser.CustomUser",
@@ -531,9 +538,11 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data={}, follow=False):
         return self.client.post(
-            reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), post_data
+            reverse("wagtailusers_users:delete", args=(self.test_user.pk,)),
+            post_data,
+            follow=follow,
         )
 
     def test_simple(self):
@@ -542,7 +551,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailusers/users/confirm_delete.html")
 
     def test_delete(self):
-        response = self.post()
+        response = self.post(follow=True)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -550,6 +559,12 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         # Check that the user was deleted
         users = get_user_model().objects.filter(email="testuser@email.com")
         self.assertEqual(users.count(), 0)
+        if settings.AUTH_USER_MODEL == "emailuser.EmailUser":
+            self.assertContains(
+                response, "User &#x27;testuser@email.com&#x27; deleted."
+            )
+        else:
+            self.assertContains(response, "User &#x27;testuser&#x27; deleted.")
 
     def test_user_cannot_delete_self(self):
         response = self.client.get(
@@ -710,10 +725,11 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             params,
         )
 
-    def post(self, post_data={}, user_id=None):
+    def post(self, post_data={}, user_id=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             post_data,
+            follow=follow,
         )
 
     def test_simple(self):
@@ -745,7 +761,8 @@ class TestUserEditView(TestCase, WagtailTestUtils):
                 "password1": "newpassword",
                 "password2": "newpassword",
                 "is_active": "on",
-            }
+            },
+            follow=True,
         )
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -754,6 +771,10 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, "Edited")
         self.assertTrue(user.check_password("newpassword"))
+        if settings.AUTH_USER_MODEL == "emailuser.EmailUser":
+            self.assertContains(response, "User &#x27;test@user.com&#x27; updated.")
+        else:
+            self.assertContains(response, "User &#x27;testuser&#x27; updated.")
 
     def test_password_optional(self):
         """Leaving password fields blank should leave it unchanged"""
