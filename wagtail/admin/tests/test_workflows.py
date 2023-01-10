@@ -26,7 +26,7 @@ from wagtail.models import (
     WorkflowTask,
     get_default_page_content_type,
 )
-from wagtail.signals import page_published
+from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage, SimpleTask
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -1020,20 +1020,26 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
         )
         root_page.add_child(instance=self.object)
         self.object.save_revision()
+        self.object_class = self.object.specific_class
 
         # Assign to workflow
         WorkflowPage.objects.create(workflow=self.workflow, page=self.object)
 
-    def get_url(self, view):
-        return reverse(f"wagtailadmin_pages:{view}", args=(self.object.id,))
+    def get_url(self, view, args=None):
+        return reverse(
+            f"wagtailadmin_pages:{view}",
+            args=(self.object.id,) if args is None else args,
+        )
 
-    def post(self, action):
+    def post(self, action, data=None):
         post_data = {
             "title": str(self.object.title),
             "slug": str(self.object.slug),
             "content": str(self.object.content),
             f"action-{action}": "True",
         }
+        if data:
+            post_data.update(data)
         return self.client.post(self.get_url("edit"), post_data)
 
 
@@ -1046,13 +1052,19 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
             content_type__app_label="tests",
             codename="change_fullfeaturedsnippet",
         )
+        publish_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="publish_fullfeaturedsnippet",
+        )
         self.submitter.user_permissions.add(edit_permission)
+        self.moderator.user_permissions.add(edit_permission, publish_permission)
 
     def setup_object(self):
         self.object = FullFeaturedSnippet.objects.create(
             text="Hello world!", live=False
         )
         self.object.save_revision()
+        self.object_class = type(self.object)
 
         # Assign to workflow
         WorkflowContentType.objects.create(
@@ -1060,17 +1072,19 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
             content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
         )
 
-    def get_url(self, view):
+    def get_url(self, view, args=None):
         return reverse(
             f"{self.object.get_admin_url_namespace()}:{view}",
-            args=(quote(self.object.pk),),
+            args=(quote(self.object.pk),) if args is None else args,
         )
 
-    def post(self, action):
+    def post(self, action, data=None):
         post_data = {
             "text": self.object.text,
             f"action-{action}": "True",
         }
+        if data:
+            post_data.update(data)
         return self.client.post(self.get_url("edit"), post_data)
 
 
@@ -1260,90 +1274,45 @@ class TestSubmitSnippetToWorkflow(TestSubmitPageToWorkflow, BaseSnippetWorkflowT
 
 
 @freeze_time("2020-03-31 12:00:00")
-class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
+class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
+    published_signal = page_published
+    title_field = "title"
+
     def setUp(self):
-        delete_existing_workflows()
-        self.submitter = self.create_user(
-            username="submitter",
-            first_name="Sebastian",
-            last_name="Mitter",
-            email="submitter@email.com",
-            password="password",
-        )
-        editors = Group.objects.get(name="Editors")
-        editors.user_set.add(self.submitter)
-        self.moderator = self.create_user(
-            username="moderator",
-            email="moderator@email.com",
-            password="password",
-        )
-        moderators = Group.objects.get(name="Moderators")
-        moderators.user_set.add(self.moderator)
-
-        self.superuser = self.create_superuser(
-            username="superuser",
-            email="superuser@email.com",
-            password="password",
-        )
-
-        self.login(user=self.submitter)
-
-        # Create a page
-        root_page = Page.objects.get(id=2)
-        self.page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            has_unpublished_changes=True,
-        )
-        root_page.add_child(instance=self.page)
-
-        self.workflow, self.task_1 = self.create_workflow_and_tasks()
-
-        WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
-
-        self.submit()
-
+        super().setUp()
+        self.submitter.first_name = "Sebastian"
+        self.submitter.last_name = "Mitter"
+        self.submitter.save()
+        self.post("submit")
         self.login(user=self.moderator)
 
-    def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
-        task_1.groups.set(Group.objects.filter(name="Moderators"))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        return workflow, task_1
-
-    def submit(self):
-        post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-submit": "True",
-        }
-        return self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        self.task_1.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
         )
 
     @override_settings(WAGTAIL_FINISH_WORKFLOW_ACTION="")
     def test_approve_task_and_workflow(self):
         """
-        This posts to the approve task view and checks that the page was approved and published
+        This posts to the approve task view and checks that the object was approved and published
         """
         # Unset WAGTAIL_FINISH_WORKFLOW_ACTION - default action should be to publish
         del settings.WAGTAIL_FINISH_WORKFLOW_ACTION
-        # Connect a mock signal handler to page_published signal
+        # Connect a mock signal handler to published signal
         mock_handler = mock.MagicMock()
-        page_published.connect(mock_handler)
+        self.published_signal.connect(mock_handler)
 
         # Post
         self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
+            self.get_url(
+                "workflow_action",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             ),
             {"comment": "my comment"},
@@ -1351,7 +1320,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Check that the workflow was approved
 
-        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
             requested_by=self.submitter
         )
 
@@ -1367,22 +1336,24 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         self.assertEqual(task_state.comment, "my comment")
 
-        page = Page.objects.get(id=self.page.id)
-        # Page must be live
-        self.assertTrue(page.live, msg="Approving moderation failed to set live=True")
-        # Page should now have no unpublished changes
+        self.object.refresh_from_db()
+        # Object must be live
+        self.assertTrue(
+            self.object.live, msg="Approving moderation failed to set live=True"
+        )
+        # Object should now have no unpublished changes
         self.assertFalse(
-            page.has_unpublished_changes,
+            self.object.has_unpublished_changes,
             msg="Approving moderation failed to set has_unpublished_changes=False",
         )
 
-        # Check that the page_published signal was fired
+        # Check that the published signal was fired
         self.assertEqual(mock_handler.call_count, 1)
         mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.page.specific_class)
-        self.assertEqual(mock_call["instance"], self.page)
-        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+        self.assertEqual(mock_call["sender"], self.object_class)
+        self.assertEqual(mock_call["instance"], self.object)
+        self.assertIsInstance(mock_call["instance"], self.object_class)
 
     def test_workflow_dashboard_panel(self):
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -1399,14 +1370,14 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         adding a comment
         """
         response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
+            self.get_url(
+                "workflow_action",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
-            )
+            ),
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -1415,12 +1386,12 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         html = json.loads(response.content)["html"]
         self.assertTagInHTML(
             '<form action="'
-            + reverse(
-                "wagtailadmin_pages:workflow_action",
+            + self.get_url(
+                "workflow_action",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             )
             + '" method="POST" novalidate>',
@@ -1428,20 +1399,20 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         )
         self.assertIn("Comment", html)
 
-    def test_workflow_action_view_bad_page_id(self):
+    def test_workflow_action_view_bad_id(self):
         """
-        This tests that the workflow action view handles invalid page ids correctly
+        This tests that the workflow action view handles invalid object ids correctly
         """
         # Post
         response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
+            self.get_url(
+                "workflow_action",
                 args=(
                     127777777777,
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
-            )
+            ),
         )
 
         # Check that the user received a 404 response
@@ -1457,28 +1428,28 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Post
         response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
+            self.get_url(
+                "workflow_action",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
-            )
+            ),
         )
         # Check that the user received a permission denied response
         self.assertRedirects(response, "/admin/")
 
     def test_edit_view_workflow_cancellation_not_in_group(self):
         """
-        This tests that the page edit view for a GroupApprovalTask, locked to a user not in the
+        This tests that the object edit view for a GroupApprovalTask, locked to a user not in the
         specified group/a superuser, still allows the submitter to cancel workflows
         """
         self.login(user=self.submitter)
 
         # Post
         response = self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            self.get_url("edit"),
             {"action-cancel-workflow": "True"},
         )
 
@@ -1486,26 +1457,30 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that the workflow state was marked as cancelled
-        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
             requested_by=self.submitter
         )
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
 
     def test_reject_task_and_workflow(self):
         """
-        This posts to the reject task view and checks that the page was rejected and not published
+        This posts to the reject task view and checks that the object was rejected and not published
         """
         # Post
         self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
-                args=(self.page.id, "reject", self.page.current_workflow_task_state.id),
-            )
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "reject",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
         )
 
         # Check that the workflow was marked as needing changes
 
-        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
             requested_by=self.submitter
         )
 
@@ -1517,9 +1492,9 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         self.assertEqual(task_state.status, task_state.STATUS_REJECTED)
 
-        page = Page.objects.get(id=self.page.id)
-        # Page must not be live
-        self.assertFalse(page.live)
+        self.object.refresh_from_db()
+        # Object must not be live
+        self.assertFalse(self.object.live)
 
     def test_workflow_action_view_rejection_not_in_group(self):
         """
@@ -1531,10 +1506,14 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Post
         response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
-                args=(self.page.id, "reject", self.page.current_workflow_task_state.id),
-            )
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "reject",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
         )
 
         # Check that the user received a permission denied response
@@ -1546,12 +1525,12 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         adding a comment
         """
         response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:collect_workflow_action_data",
+            self.get_url(
+                "collect_workflow_action_data",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             )
         )
@@ -1563,12 +1542,12 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         html = json.loads(response.content)["html"]
         self.assertTagInHTML(
             '<form action="'
-            + reverse(
-                "wagtailadmin_pages:collect_workflow_action_data",
+            + self.get_url(
+                "collect_workflow_action_data",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             )
             + '" method="POST" novalidate>',
@@ -1581,12 +1560,12 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         This tests that a POST request to the collect_workflow_action_data view (for the approve action) returns a modal response with the validated data
         """
         response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:collect_workflow_action_data",
+            self.get_url(
+                "collect_workflow_action_data",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             ),
             {"comment": "This is my comment"},
@@ -1600,16 +1579,13 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
     def test_workflow_action_via_edit_view(self):
         """
-        Posting to the 'edit' view with 'action-workflow-action' set should perform the given workflow action in addition to updating page content
+        Posting to the 'edit' view with 'action-workflow-action' set should perform the given workflow action in addition to updating object content
         """
         # Post
-        self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+        self.post(
+            "workflow-action",
             {
-                "title": "This title was edited while approving",
-                "slug": str(self.page.slug),
-                "content": str(self.page.content),
-                "action-workflow-action": "True",
+                self.title_field: "This title was edited while approving",
                 "workflow-action-name": "approve",
                 "workflow-action-extra-data": '{"comment": "my comment"}',
             },
@@ -1617,7 +1593,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Check that the workflow was approved
 
-        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
             requested_by=self.submitter
         )
 
@@ -1633,10 +1609,10 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         self.assertEqual(task_state.comment, "my comment")
 
-        # Check that page edits made at the same time as the action have been saved
-        page = Page.objects.get(id=self.page.id)
+        # Check that object edits made at the same time as the action have been saved
+        self.object.refresh_from_db()
         self.assertEqual(
-            page.get_latest_revision_as_object().title,
+            getattr(self.object.get_latest_revision_as_object(), self.title_field),
             "This title was edited while approving",
         )
 
@@ -1684,6 +1660,13 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
+
+
+class TestApproveRejectSnippetWorkflow(
+    TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
+):
+    published_signal = published
+    title_field = "text"
 
 
 class TestNotificationPreferences(TestCase, WagtailTestUtils):
