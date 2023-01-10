@@ -2,28 +2,30 @@
 <!-- Wagtail user bar embed code -->
 <template id="wagtail-userbar-template">
     <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar part="userbar">
-        <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/userbar.css' %}">
+        <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
+        {% hook_output 'insert_global_admin_css' %}
+        {% hook_output 'insert_editor_css' %}
         <div class="w-userbar-nav">
+
+            <svg class="w-hidden">
+                <defs>
+                    {% include "wagtailadmin/icons/wagtail.svg" %}
+                    {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                    {% include "wagtailadmin/icons/edit.svg" %}
+                    {% include "wagtailadmin/icons/plus.svg" %}
+                    {% include "wagtailadmin/icons/tick.svg" %}
+                    {% include "wagtailadmin/icons/cross.svg" %}
+                </defs>
+            </svg>
+
             <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="w-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
                 {% block branding_logo %}
-                    <div style="display: none">
-                        <svg>
-                            <defs>
-                                {% include "wagtailadmin/icons/wagtail.svg" %}
-                                {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
-                                {% include "wagtailadmin/icons/edit.svg" %}
-                                {% include "wagtailadmin/icons/plus.svg" %}
-                                {% include "wagtailadmin/icons/tick.svg" %}
-                                {% include "wagtailadmin/icons/cross.svg" %}
-                            </defs>
-                        </svg>
-                    </div>
                     {% comment %} Intentionally not using the icon template tag to show as SVG only {% endcomment %}
                     <svg class="w-userbar-icon" aria-hidden="true">
                         <use href="#icon-wagtail-icon"></use>
                     </svg>
                 {% endblock %}
-                <span class="w-userbar-help-text">{% trans 'View Wagtail quick actions' %}</span>
+                <span class="w-sr-only">{% trans 'View Wagtail quick actions' %}</span>
             </button>
             <ul aria-labelledby="wagtail-userbar-trigger" class="w-userbar-items" id="wagtail-userbar-items" role="menu">
                 {% for item in items %}

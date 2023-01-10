@@ -106,6 +106,7 @@ Changelog
  * Maintenance: Remove unused dev-only react-axe integration (Thibaud Colas)
  * Maintenance: Migrate accessible Skip Link implementation to a Stimulus controller (Loveth Omokaro)
  * Maintenance: Split up `wagtail.admin.panels` into submodules, existing exports have been preserved (Matt Westcott)
+ * Maintenance: Refactor userbar styles to use the same stylesheet as other components (Thibaud Colas)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
