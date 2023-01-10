@@ -102,6 +102,7 @@ Changelog
  * Maintenance: Refactor userbar stylesheets to use the same CSS loading as the rest of the admin (Albina Starykova)
  * Maintenance: Remove unused search-bar and button-filter styles (Thibaud Colas)
  * Maintenance: Use util method to construct dummy requests in tests (Jake Howard)
+ * Maintenance: Remove unused dev-only react-axe integration (Thibaud Colas)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
