@@ -13,8 +13,6 @@ With a free account, you can create a Wagtail project. Choose from a:
 -   [site based on the Wagtail Bakery project](https://www.divio.com/wagtail/), or
 -   [brand new Wagtail project](https://control.divio.com/control/project/create) (see the [how to get started notes](https://docs.divio.com/en/latest/introduction/wagtail/)).
 
-Divio Cloud also hosts a [live Wagtail Bakery demo](https://www.divio.com/wagtail/) (no account required).
-
 ## On PythonAnywhere
 
 [PythonAnywhere](https://www.pythonanywhere.com/) is a Platform-as-a-Service (PaaS) focused on Python hosting and development.
