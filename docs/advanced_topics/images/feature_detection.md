@@ -84,7 +84,7 @@ import rustface.willow
 registry.register_plugin(rustface.willow)
 ```
 
-For example, in an app's [AppConfig.ready](https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready).
+For example, in an app's [AppConfig.ready](https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready).
 
 ## Cropping
 
