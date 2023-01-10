@@ -186,9 +186,9 @@ return an embed.
 
 ### Facebook and Instagram
 
-As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
+As of October 2020, Meta deprecated their public oEmbed APIs. If you would
 like to embed Facebook or Instagram posts in your site, you will need to
-use the new authenticated APIs. This requires you to set up a Facebook
+use the new authenticated APIs. This requires you to set up a Meta
 Developer Account and create a Facebook App that includes the _oEmbed Product_.
 Instructions for creating the necessary app are in the requirements sections of the
 [Facebook](https://developers.facebook.com/docs/plugins/oembed)
@@ -197,7 +197,7 @@ and [Instagram](https://developers.facebook.com/docs/instagram/oembed) documenta
 As of June 2021, the _oEmbed Product_ has been replaced with the _oEmbed Read_
 feature. In order to embed Facebook and Instagram posts your app must activate
 the _oEmbed Read_ feature. Furthermore the app must be reviewed and accepted
-by Facebook. You can find the announcement in the
+by Meta. You can find the announcement in the
 [API changelog](https://developers.facebook.com/docs/graph-api/changelog/version11.0/#oembed).
 
 Apps that activated the oEmbed Product before June 8, 2021 need to activate
