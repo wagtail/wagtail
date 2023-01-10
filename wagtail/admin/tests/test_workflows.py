@@ -11,6 +11,7 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.models import (
     GroupApprovalTask,
     Page,
@@ -1616,6 +1617,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         workflow_submission_emailed_addresses = [
             address for email in workflow_submission_emails for address in email.to
         ]
+        workflow_submission_email_body = workflow_submission_emails[0].body
 
         self.assertEqual(len(task_submission_emails), 3)
         # the moderator is in the Group assigned to the GroupApproval task, so should get an email
@@ -1634,6 +1636,16 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.superuser.email, workflow_submission_emailed_addresses)
         # as the submitter was the triggering user, the submitter should not get an email notification
         self.assertNotIn(self.submitter.email, workflow_submission_emailed_addresses)
+        # check that the email contains the ability to show the notifications tab in the admin account preferences
+        account_notifications_url = (
+            get_admin_base_url()
+            + reverse("wagtailadmin_account")
+            + "#tab-notifications"
+        )
+        self.assertIn(
+            "Edit your notification preferences here: %s" % account_notifications_url,
+            workflow_submission_email_body,
+        )
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
     def test_submitted_email_notifications_superuser_settings(self):
