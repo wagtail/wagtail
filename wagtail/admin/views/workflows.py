@@ -2,6 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
+from django.db.models import Count, OuterRef
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -32,9 +33,11 @@ from wagtail.models import (
     TaskState,
     UserPagePermissionsProxy,
     Workflow,
+    WorkflowContentType,
     WorkflowState,
 )
 from wagtail.permissions import task_permission_policy, workflow_permission_policy
+from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
 
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)
@@ -59,11 +62,16 @@ class Index(IndexView):
         queryset = super().get_queryset()
         if not self.show_disabled():
             queryset = queryset.filter(active=True)
+        content_types = WorkflowContentType.objects.filter(
+            workflow=OuterRef("pk")
+        ).values_list("pk", flat=True)
+        queryset = queryset.annotate(content_types=Count(content_types))
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["showing_disabled"] = self.show_disabled()
+        context["workflow_enabled_models"] = get_workflow_enabled_models()
         return context
 
 

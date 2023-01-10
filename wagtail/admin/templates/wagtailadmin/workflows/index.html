@@ -51,6 +51,16 @@
                                         {% endblocktrans %}
                                     </a>
                                 </div>
+                                {# Only show snippet type count if there's a model with workflows enabled #}
+                                {% if workflow_enabled_models %}
+                                    <div>
+                                        {% blocktrans trimmed count counter=workflow.content_types %}
+                                            1 snippet type
+                                        {% plural %}
+                                            {{ counter }} snippet types
+                                        {% endblocktrans %}
+                                    </div>
+                                {% endif %}
                             </td>
                             <td>
                                 <ul class="workflow-tasks">
