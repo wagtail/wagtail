@@ -88,7 +88,9 @@ export const ColorPalette = () => (
 const variablesMap = Object.entries(generateColorVariables(colors))
   .map(([cssVar, val]) => `${cssVar}: ${val};`)
   .join('');
-const secondaryHSL = colors.secondary.DEFAULT.hsl.match(/\d+/g) as string[];
+const secondaryHSL = colors.secondary.DEFAULT.hsl.match(
+  /\d+(\.\d+)?/g,
+) as string[];
 // Make sure this contains no empty lines, otherwise Sphinx docs will treat this as paragraphs.
 const liveEditorCustomisations = `:root {
   --w-color-primary: ${colors.primary.DEFAULT.hex};
