@@ -4350,6 +4350,26 @@ class TaskStateManager(models.Manager):
             states = states | task.specific.get_task_states_user_can_moderate(user=user)
         return states
 
+    def for_instance(self, instance):
+        """
+        Filters to only TaskStates for the given instance
+        """
+        queryset = self.get_queryset()
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return queryset.filter(
+                workflow_state__base_content_type=instance.get_base_content_type(),
+                workflow_state__object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return queryset.filter(
+                workflow_state__content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                workflow_state__object_id=str(instance.pk),
+            )
+
 
 class TaskState(models.Model):
     """Tracks the status of a given Task for a particular revision."""
