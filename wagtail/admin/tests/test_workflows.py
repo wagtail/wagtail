@@ -3,6 +3,7 @@ import logging
 from unittest import mock
 
 from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import mail
@@ -12,7 +13,7 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.utils import get_admin_base_url
+from wagtail.admin.utils import get_admin_base_url, get_latest_str
 from wagtail.models import (
     GroupApprovalTask,
     Page,
@@ -963,7 +964,9 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
-class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
+class BasePageWorkflowTests(TestCase, WagtailTestUtils):
+    model_name = "page"
+
     def setUp(self):
         delete_existing_workflows()
         self.submitter = self.create_user(
@@ -989,49 +992,95 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
         self.login(user=self.submitter)
 
+        self.setup_workflow_and_tasks()
+        self.setup_object()
+
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        self.task_2 = GroupApprovalTask.objects.create(name="test_task_2")
+        self.task_1.groups.set(Group.objects.filter(name="Moderators"))
+        self.task_2.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_2, sort_order=2
+        )
+
+    def setup_object(self):
         # Create a page
         root_page = Page.objects.get(id=2)
-        self.page = SimplePage(
+        self.object = SimplePage(
             title="Hello world!",
             slug="hello-world",
             content="hello",
             live=False,
             has_unpublished_changes=True,
         )
-        root_page.add_child(instance=self.page)
-        self.page.save_revision()
+        root_page.add_child(instance=self.object)
+        self.object.save_revision()
 
-        self.workflow, self.task_1, self.task_2 = self.create_workflow_and_tasks()
+        # Assign to workflow
+        WorkflowPage.objects.create(workflow=self.workflow, page=self.object)
 
-        WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
+    def get_url(self, view):
+        return reverse(f"wagtailadmin_pages:{view}", args=(self.object.id,))
 
-    def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
-        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
-        task_1.groups.set(Group.objects.filter(name="Moderators"))
-        task_2.groups.set(Group.objects.filter(name="Moderators"))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
-        return workflow, task_1, task_2
-
-    def submit(self):
+    def post(self, action):
         post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-submit": "True",
+            "title": str(self.object.title),
+            "slug": str(self.object.slug),
+            "content": str(self.object.content),
+            f"action-{action}": "True",
         }
-        return self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+        return self.client.post(self.get_url("edit"), post_data)
+
+
+class BaseSnippetWorkflowTests(BasePageWorkflowTests):
+    model_name = FullFeaturedSnippet._meta.verbose_name
+
+    def setUp(self):
+        super().setUp()
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_fullfeaturedsnippet",
+        )
+        self.submitter.user_permissions.add(edit_permission)
+
+    def setup_object(self):
+        self.object = FullFeaturedSnippet.objects.create(
+            text="Hello world!", live=False
+        )
+        self.object.save_revision()
+
+        # Assign to workflow
+        WorkflowContentType.objects.create(
+            workflow=self.workflow,
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
         )
 
+    def get_url(self, view):
+        return reverse(
+            f"{self.object.get_admin_url_namespace()}:{view}",
+            args=(quote(self.object.pk),),
+        )
+
+    def post(self, action):
+        post_data = {
+            "text": self.object.text,
+            f"action-{action}": "True",
+        }
+        return self.client.post(self.get_url("edit"), post_data)
+
+
+class TestSubmitPageToWorkflow(BasePageWorkflowTests):
     def test_submit_for_approval_creates_states(self):
-        """Test that WorkflowState and TaskState objects are correctly created when a Page is submitted for approval"""
+        """Test that WorkflowState and TaskState objects are correctly created when an object is submitted for approval"""
 
-        self.submit()
+        self.post("submit")
 
-        workflow_state = self.page.current_workflow_state
+        workflow_state = self.object.current_workflow_state
 
         self.assertEqual(type(workflow_state), WorkflowState)
         self.assertEqual(workflow_state.workflow, self.workflow)
@@ -1045,24 +1094,24 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
     def test_submit_for_approval_changes_status_in_status_side_panel_meta(self):
-        edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        edit_url = self.get_url("edit")
 
         response = self.client.get(edit_url)
         self.assertContains(response, "Draft", count=1)
 
         # submit for approval
-        self.submit()
+        self.post("submit")
 
         response = self.client.get(edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.page.current_workflow_task.name),
+            r"Sent to[\s|\n]+{}".format(self.object.current_workflow_task.name),
         )
         self.assertNotContains(response, "Draft")
 
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
     def test_submit_sends_mail(self):
-        self.submit()
+        self.post("submit")
         # 3 emails sent:
         # - to moderator - submitted for approval in moderation stage test_task_1
         # - to superuser - submitted for approval in moderation stage test_task_1
@@ -1071,17 +1120,21 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
         # the 'submitted to workflow' email should include the submitter's name
         workflow_message = None
+        email_subject = (
+            f'The {self.model_name} "{get_latest_str(self.object)}" has been submitted '
+            'to workflow "test_workflow"'
+        )
         for msg in mail.outbox:
-            if (
-                msg.subject
-                == 'The page "Hello world! (simple page)" has been submitted to workflow "test_workflow"'
-            ):
+            if msg.subject == email_subject:
                 workflow_message = msg
                 break
 
         self.assertTrue(workflow_message)
         self.assertIn(
-            'The page "Hello world! (simple page)" has been submitted for moderation to workflow "test_workflow" by submitter',
+            (
+                f'The {self.model_name} "{get_latest_str(self.object)}" has been submitted '
+                'for moderation to workflow "test_workflow" by submitter'
+            ),
             workflow_message.body,
         )
         self.assertIn("http://admin.example.com/admin/", workflow_message.body)
@@ -1091,7 +1144,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         # With a missing WAGTAILADMIN_BASE_URL setting, we won't be able to construct absolute URLs
         # for the email, but we don't want it to fail outright either
 
-        self.submit()
+        self.post("submit")
         # 3 emails sent:
         # - to moderator - submitted for approval in moderation stage test_task_1
         # - to superuser - submitted for approval in moderation stage test_task_1
@@ -1100,17 +1153,21 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
         # the 'submitted to workflow' email should include the submitter's name
         workflow_message = None
+        email_subject = (
+            f'The {self.model_name} "{get_latest_str(self.object)}" has been submitted '
+            'to workflow "test_workflow"'
+        )
         for msg in mail.outbox:
-            if (
-                msg.subject
-                == 'The page "Hello world! (simple page)" has been submitted to workflow "test_workflow"'
-            ):
+            if msg.subject == email_subject:
                 workflow_message = msg
                 break
 
         self.assertTrue(workflow_message)
         self.assertIn(
-            'The page "Hello world! (simple page)" has been submitted for moderation to workflow "test_workflow" by submitter',
+            (
+                f'The {self.model_name} "{get_latest_str(self.object)}" has been submitted '
+                'for moderation to workflow "test_workflow" by submitter'
+            ),
             workflow_message.body,
         )
 
@@ -1120,7 +1177,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
 
-        response = self.submit()
+        response = self.post("submit")
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
@@ -1129,8 +1186,8 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_resume_rejected_workflow(self):
         # test that an existing workflow can be resumed by submitting when rejected
-        self.workflow.start(self.page, user=self.submitter)
-        workflow_state = self.page.current_workflow_state
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
         workflow_state.current_task_state.approve(user=self.superuser)
         workflow_state.refresh_from_db()
         workflow_state.current_task_state.reject(user=self.superuser)
@@ -1138,7 +1195,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
 
-        self.submit()
+        self.post("submit")
         workflow_state.refresh_from_db()
 
         # check that the same workflow state's status is now in progress
@@ -1149,8 +1206,8 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_restart_rejected_workflow(self):
         # test that an existing workflow can be restarted when rejected
-        self.workflow.start(self.page, user=self.submitter)
-        workflow_state = self.page.current_workflow_state
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
         workflow_state.current_task_state.approve(user=self.superuser)
         workflow_state.refresh_from_db()
         workflow_state.current_task_state.reject(user=self.superuser)
@@ -1158,22 +1215,14 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
 
-        post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-restart-workflow": "True",
-        }
-        self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
-        )
+        self.post("restart-workflow")
         workflow_state.refresh_from_db()
 
         # check that the same workflow state's status is now cancelled
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
 
         # check that the new workflow has started on the first task
-        new_workflow_state = self.page.current_workflow_state
+        new_workflow_state = self.object.current_workflow_state
         self.assertEqual(new_workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
         self.assertEqual(
             new_workflow_state.current_task_state.task.specific, self.task_1
@@ -1181,19 +1230,11 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_cancel_workflow(self):
         # test that an existing workflow can be cancelled after submission by the submitter
-        self.workflow.start(self.page, user=self.submitter)
-        workflow_state = self.page.current_workflow_state
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
         self.assertEqual(workflow_state.current_task_state.task.specific, self.task_1)
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
-        post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-cancel-workflow": "True",
-        }
-        self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
-        )
+        self.post("cancel-workflow")
         workflow_state.refresh_from_db()
 
         # check that the workflow state's status is now cancelled
@@ -1204,7 +1245,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_email_headers(self):
         # Submit
-        self.submit()
+        self.post("submit")
 
         msg_headers = set(mail.outbox[0].message().items())
         headers = {("Auto-Submitted", "auto-generated")}
@@ -1212,6 +1253,10 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
             headers.issubset(msg_headers),
             msg="Message is missing the Auto-Submitted header.",
         )
+
+
+class TestSubmitSnippetToWorkflow(TestSubmitPageToWorkflow, BaseSnippetWorkflowTests):
+    pass
 
 
 @freeze_time("2020-03-31 12:00:00")
