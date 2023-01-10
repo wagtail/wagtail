@@ -24,7 +24,6 @@ from wagtail.models import (
     WorkflowPage,
     WorkflowState,
     WorkflowTask,
-    get_default_page_content_type,
 )
 from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage, SimpleTask
@@ -1042,6 +1041,25 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
             post_data.update(data)
         return self.client.post(self.get_url("edit"), post_data)
 
+    def workflow_action(self, action, data=None):
+        return self.client.post(
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    action,
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+            data,
+        )
+
+    def approve(self, data=None):
+        return self.workflow_action("approve", data)
+
+    def reject(self, data=None):
+        return self.workflow_action("reject", data)
+
 
 class BaseSnippetWorkflowTests(BasePageWorkflowTests):
     model_name = FullFeaturedSnippet._meta.verbose_name
@@ -1308,17 +1326,7 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.published_signal.connect(mock_handler)
 
         # Post
-        self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "approve",
-                    self.object.current_workflow_task_state.id,
-                ),
-            ),
-            {"comment": "my comment"},
-        )
+        self.approve({"comment": "my comment"})
 
         # Check that the workflow was approved
 
@@ -1429,16 +1437,7 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "approve",
-                    self.object.current_workflow_task_state.id,
-                ),
-            ),
-        )
+        response = self.approve()
         # Check that the user received a permission denied response
         self.assertRedirects(response, "/admin/")
 
@@ -1469,16 +1468,7 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         This posts to the reject task view and checks that the object was rejected and not published
         """
         # Post
-        self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "reject",
-                    self.object.current_workflow_task_state.id,
-                ),
-            ),
-        )
+        self.reject()
 
         # Check that the workflow was marked as needing changes
 
@@ -1507,16 +1497,7 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "reject",
-                    self.object.current_workflow_task_state.id,
-                ),
-            ),
-        )
+        response = self.reject()
 
         # Check that the user received a permission denied response
         self.assertRedirects(response, "/admin/")
@@ -1692,30 +1673,6 @@ class TestPageNotificationPreferences(BasePageWorkflowTests):
         self.task_1.groups.set(Group.objects.filter(name="Moderators"))
         WorkflowTask.objects.create(
             workflow=self.workflow, task=self.task_1, sort_order=1
-        )
-
-    def approve(self):
-        return self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "approve",
-                    self.object.current_workflow_task_state.id,
-                ),
-            )
-        )
-
-    def reject(self):
-        return self.client.post(
-            self.get_url(
-                "workflow_action",
-                args=(
-                    quote(self.object.pk),
-                    "reject",
-                    self.object.current_workflow_task_state.id,
-                ),
-            )
         )
 
     def test_vanilla_profile(self):
@@ -1950,88 +1907,11 @@ class TestSnippetNotificationPreferences(
         )
 
 
-class TestDisableViews(TestCase, WagtailTestUtils):
-    def setUp(self):
-        delete_existing_workflows()
-        self.submitter = self.create_user(
-            username="submitter",
-            email="submitter@email.com",
-            password="password",
-        )
-        editors = Group.objects.get(name="Editors")
-        editors.user_set.add(self.submitter)
-        self.moderator = self.create_user(
-            username="moderator",
-            email="moderator@email.com",
-            password="password",
-        )
-        self.moderator2 = self.create_user(
-            username="moderator2",
-            email="moderator2@email.com",
-            password="password",
-        )
-        moderators = Group.objects.get(name="Moderators")
-        moderators.user_set.add(self.moderator)
-        moderators.user_set.add(self.moderator2)
-
-        self.superuser = self.create_superuser(
-            username="superuser",
-            email="superuser@email.com",
-            password="password",
-        )
-
-        # Create a page
-        root_page = Page.objects.get(id=2)
-        self.page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            has_unpublished_changes=True,
-        )
-        root_page.add_child(instance=self.page)
-
-        self.workflow, self.task_1, self.task_2 = self.create_workflow_and_tasks()
-
-        WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
-
-    def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
-        task_1.groups.set(Group.objects.filter(name="Moderators"))
-        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
-        task_2.groups.set(Group.objects.filter(name="Moderators"))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
-        return workflow, task_1, task_2
-
-    def submit(self):
-        post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-submit": "True",
-        }
-        return self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
-        )
-
-    def approve(self):
-        return self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
-                args=(
-                    self.page.id,
-                    "approve",
-                    self.page.current_workflow_task_state.id,
-                ),
-            )
-        )
-
+class TestDisableViews(BasePageWorkflowTests):
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         self.login(self.superuser)
         self.approve()
 
@@ -2041,7 +1921,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.workflow.refresh_from_db()
         self.assertIs(self.workflow.active, False)
-        states = WorkflowState.objects.for_instance(self.page).filter(
+        states = WorkflowState.objects.for_instance(self.object).filter(
             workflow=self.workflow
         )
         self.assertEqual(
@@ -2062,7 +1942,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
     def test_disable_task_view(self):
         """Test that a view is shown before disabling a task that shows a warning"""
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         self.login(self.superuser)
 
         response = self.client.get(
@@ -2102,7 +1982,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
     def test_disable_task(self):
         """Test that deactivating a task sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         self.login(self.superuser)
 
         response = self.client.post(
@@ -2111,17 +1991,15 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, False)
-        states = TaskState.objects.filter(
-            workflow_state__base_content_type_id=get_default_page_content_type().id,
-            workflow_state__object_id=str(self.page.id),
-            task=self.task_1.task_ptr,
+        states = TaskState.objects.for_instance(self.object).filter(
+            task=self.task_1.task_ptr
         )
         self.assertEqual(states.filter(status=TaskState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=TaskState.STATUS_CANCELLED).count(), 1)
 
-        # Check that the page's WorkflowState has moved on to the next active task
+        # Check that the object's WorkflowState has moved on to the next active task
         self.assertEqual(
-            self.page.current_workflow_state.current_task_state.task.specific,
+            self.object.current_workflow_state.current_task_state.task.specific,
             self.task_2,
         )
 
@@ -2148,6 +2026,10 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, True)
+
+
+class TestDisableViewsWithSnippetWorkflows(TestDisableViews, BaseSnippetWorkflowTests):
+    pass
 
 
 class TestTaskChooserView(TestCase, WagtailTestUtils):
