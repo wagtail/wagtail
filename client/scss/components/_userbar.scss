@@ -2,12 +2,6 @@
 @use 'sass:math';
 @use 'sass:string';
 
-@tailwind base;
-@tailwind components;
-
-@import '../../../../../client/scss/settings';
-@import '../../../../../client/scss/tools';
-
 // =============================================================================
 // Variables
 // =============================================================================
@@ -92,17 +86,6 @@ $positions: (
   font-size: 1rem;
   text-decoration: none;
   position: relative;
-
-  .w-userbar-help-text {
-    // Visually hide the help text
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
 
   .w-icon:before {
     transition: color 0.2s ease;

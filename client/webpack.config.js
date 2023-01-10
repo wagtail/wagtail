@@ -113,14 +113,6 @@ module.exports = function exports(env, argv) {
     'panels',
     'streamfield.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'userbar')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'userbar.scss',
-  );
   sassEntry[getOutputPath('contrib/styleguide', 'css', 'styleguide')] =
     path.resolve(
       'wagtail',
