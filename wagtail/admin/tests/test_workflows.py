@@ -879,6 +879,25 @@ class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
         self.assertContains(response, GroupApprovalTask.get_verbose_name())
         self.assertContains(response, GroupApprovalTask.get_description())
 
+    def test_get_single_task_type(self):
+        with mock.patch(
+            "wagtail.admin.views.workflows.get_task_types"
+        ) as get_task_types:
+            get_task_types.return_value = [GroupApprovalTask]
+            response = self.get()
+
+        # Should redirect to the create task view for the only available task type
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_workflows:add_task",
+                args=(
+                    GroupApprovalTask._meta.app_label,
+                    GroupApprovalTask._meta.model_name,
+                ),
+            ),
+        )
+
 
 class TestEditTaskView(TestCase, WagtailTestUtils):
     def setUp(self):
