@@ -80,7 +80,9 @@ If you are serving documents from the cloud and need to enforce privacy settings
 Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server.
 In particular, original image files need to be read back whenever a new resized rendition is created, and documents may be configured to be served through a Django view in order to enforce permission checks (see [WAGTAILDOCS_SERVE_METHOD](wagtaildocs_serve_method)).
 
-Note that the django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage` and `storages.backends.s3boto3.S3Boto3Storage`) **do not correctly handle duplicate filenames** in their default configuration. When using these backends, `AWS_S3_FILE_OVERWRITE` must be set to `False`.
+```{note}
+The django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage` and `storages.backends.s3boto3.S3Boto3Storage`) **do not correctly handle duplicate filenames** in their default configuration. When using these backends, `AWS_S3_FILE_OVERWRITE` must be set to `False`.
+```
 
 If you are also serving Wagtail's static files from remote storage (using Django's [STATICFILES_STORAGE](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STATICFILES_STORAGE) setting), you'll need to ensure that it is configured to serve [CORS HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), as current browsers will reject remotely-hosted font files that lack a valid header. For Amazon S3, refer to the documentation [Setting Bucket and Object Access Permissions](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/set-permissions.html), or (for the `storages.backends.s3boto.S3Boto3Storage` backend only) add the following to your Django settings:
 
