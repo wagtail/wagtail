@@ -11,7 +11,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true, // Requires `--strictNullChecks` be enabled in order to take effect
+    "strictPropertyInitialization": false,
     "target": "ES2021" // Since lowest browser support is for Safari 14
   },
   "files": [
