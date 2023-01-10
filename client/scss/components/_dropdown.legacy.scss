@@ -257,6 +257,7 @@
     li .button {
       background-color: $color-white;
       color: $color-button;
+      outline-offset: $focus-outline-width;
       border: 0;
 
       &:hover {
