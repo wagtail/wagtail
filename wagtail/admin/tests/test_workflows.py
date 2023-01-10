@@ -1048,16 +1048,18 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
 
     def setUp(self):
         super().setUp()
-        edit_permission = Permission.objects.get(
+        self.edit_permission = Permission.objects.get(
             content_type__app_label="tests",
             codename="change_fullfeaturedsnippet",
         )
-        publish_permission = Permission.objects.get(
+        self.publish_permission = Permission.objects.get(
             content_type__app_label="tests",
             codename="publish_fullfeaturedsnippet",
         )
-        self.submitter.user_permissions.add(edit_permission)
-        self.moderator.user_permissions.add(edit_permission, publish_permission)
+        self.submitter.user_permissions.add(self.edit_permission)
+        self.moderator.user_permissions.add(
+            self.edit_permission, self.publish_permission
+        )
 
     def setup_object(self):
         self.object = FullFeaturedSnippet.objects.create(
@@ -1669,90 +1671,50 @@ class TestApproveRejectSnippetWorkflow(
     title_field = "text"
 
 
-class TestNotificationPreferences(TestCase, WagtailTestUtils):
+class TestPageNotificationPreferences(BasePageWorkflowTests):
     def setUp(self):
-        delete_existing_workflows()
-        self.submitter = self.create_user(
-            username="submitter",
-            email="submitter@email.com",
-            password="password",
-        )
-        editors = Group.objects.get(name="Editors")
-        editors.user_set.add(self.submitter)
-        self.moderator = self.create_user(
-            username="moderator",
-            email="moderator@email.com",
-            password="password",
-        )
+        super().setUp()
         self.moderator2 = self.create_user(
             username="moderator2",
             email="moderator2@email.com",
             password="password",
         )
         moderators = Group.objects.get(name="Moderators")
-        moderators.user_set.add(self.moderator)
         moderators.user_set.add(self.moderator2)
-
-        self.superuser = self.create_superuser(
-            username="superuser",
-            email="superuser@email.com",
-            password="password",
-        )
 
         self.superuser_profile = UserProfile.get_for_user(self.superuser)
         self.moderator2_profile = UserProfile.get_for_user(self.moderator2)
         self.submitter_profile = UserProfile.get_for_user(self.submitter)
 
-        # Create a page
-        root_page = Page.objects.get(id=2)
-        self.page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            has_unpublished_changes=True,
-        )
-        root_page.add_child(instance=self.page)
-
-        self.workflow, self.task_1 = self.create_workflow_and_tasks()
-
-        WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
-
-    def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
-        task_1.groups.set(Group.objects.filter(name="Moderators"))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        return workflow, task_1
-
-    def submit(self):
-        post_data = {
-            "title": str(self.page.title),
-            "slug": str(self.page.slug),
-            "content": str(self.page.content),
-            "action-submit": "True",
-        }
-        return self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        self.task_1.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
         )
 
     def approve(self):
         return self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
+            self.get_url(
+                "workflow_action",
                 args=(
-                    self.page.id,
+                    quote(self.object.pk),
                     "approve",
-                    self.page.current_workflow_task_state.id,
+                    self.object.current_workflow_task_state.id,
                 ),
             )
         )
 
     def reject(self):
         return self.client.post(
-            reverse(
-                "wagtailadmin_pages:workflow_action",
-                args=(self.page.id, "reject", self.page.current_workflow_task_state.id),
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "reject",
+                    self.object.current_workflow_task_state.id,
+                ),
             )
         )
 
@@ -1767,7 +1729,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def test_submitted_email_notifications_sent(self):
         """Test that 'submitted' notifications for WorkflowState and TaskState are both sent correctly"""
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
 
         self.assertEqual(len(mail.outbox), 4)
 
@@ -1818,7 +1780,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         """Test that 'submitted' notifications for WorkflowState and TaskState are not sent to superusers if
         `WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False`"""
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
 
         task_submission_emails = [
             email for email in mail.outbox if "task" in email.subject
@@ -1851,7 +1813,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # Submit
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
 
         workflow_submission_emails = [
             email for email in mail.outbox if "workflow" in email.subject
@@ -1885,7 +1847,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # Submit
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
 
         # Check that only one moderator got a task submitted email
         workflow_submission_emails = [
@@ -1908,7 +1870,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def test_approved_notifications(self):
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         # Approve
         self.login(self.moderator)
         self.approve()
@@ -1928,7 +1890,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.submitter_profile.save()
 
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         # Approve
         self.login(self.moderator)
         self.approve()
@@ -1943,7 +1905,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def test_rejected_notifications(self):
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         # Reject
         self.login(self.moderator)
         self.reject()
@@ -1963,7 +1925,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.submitter_profile.save()
 
         self.login(self.submitter)
-        self.submit()
+        self.post("submit")
         # Reject
         self.login(self.moderator)
         self.reject()
@@ -1975,6 +1937,17 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
             if ("workflow" in email.subject and "rejected" in email.subject)
         ]
         self.assertEqual(len(workflow_rejected_emails), 0)
+
+
+class TestSnippetNotificationPreferences(
+    TestPageNotificationPreferences, BaseSnippetWorkflowTests
+):
+    def setUp(self):
+        super().setUp()
+        self.moderator2.user_permissions.add(
+            self.edit_permission,
+            self.publish_permission,
+        )
 
 
 class TestDisableViews(TestCase, WagtailTestUtils):
