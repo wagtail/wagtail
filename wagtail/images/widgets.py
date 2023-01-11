@@ -59,6 +59,8 @@ class ImageChooserAdapter(BaseChooserAdapter):
     def media(self):
         return forms.Media(
             js=[
+                versioned_static("wagtailimages/js/image-chooser-modal.js"),
+                versioned_static("wagtailimages/js/image-chooser.js"),
                 versioned_static("wagtailimages/js/image-chooser-telepath.js"),
             ]
         )
