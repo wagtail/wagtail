@@ -248,6 +248,14 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
         self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
         self.assertEqual(query, "hello world")
 
+    def test_two_filters_with_quotation_marks_and_query(self):
+        filters, query = separate_filters_from_query(
+            'author:"foo bar" hello world bar:"two beers"'
+        )
+
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "two beers"})
+        self.assertEqual(query, "hello world")
+
 
 class TestParseQueryString(SimpleTestCase):
     def test_simple_query(self):
