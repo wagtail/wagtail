@@ -1,5 +1,5 @@
 import { ChooserModal } from '../../includes/chooserModal';
-import { Chooser } from '../../components/ChooserWidget';
+import { Chooser, ChooserFactory } from '../../components/ChooserWidget';
 
 /* global wagtailConfig */
 
@@ -22,6 +22,11 @@ class SnippetChooser extends Chooser {
   chooserModalClass = SnippetChooserModal;
 }
 window.SnippetChooser = SnippetChooser;
+
+class SnippetChooserFactory extends ChooserFactory {
+  widgetClass = SnippetChooser;
+}
+window.SnippetChooserFactory = SnippetChooserFactory;
 
 function createSnippetChooser(id) {
   /* RemovedInWagtail50Warning */

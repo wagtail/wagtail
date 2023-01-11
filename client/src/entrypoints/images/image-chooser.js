@@ -1,4 +1,4 @@
-import { Chooser } from '../../components/ChooserWidget';
+import { Chooser, ChooserFactory } from '../../components/ChooserWidget';
 
 class ImageChooser extends Chooser {
   // eslint-disable-next-line no-undef
@@ -35,6 +35,11 @@ class ImageChooser extends Chooser {
   }
 }
 window.ImageChooser = ImageChooser;
+
+class ImageChooserFactory extends ChooserFactory {
+  widgetClass = ImageChooser;
+}
+window.ImageChooserFactory = ImageChooserFactory;
 
 function createImageChooser(id) {
   /* RemovedInWagtail50Warning */
