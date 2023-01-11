@@ -1,42 +1,52 @@
 import { Controller } from '@hotwired/stimulus';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
-//  <button data-controller="w-action"
-//  data-w-action-csrf-token-value = '{{ csrf_token|escapejs }}'
-//  data-w-action-post-url-value = '{{ view.get_enable_url }}'
-//  data-w-action-key-name-value = 'csrfmiddlewaretoken'
-//  data-action="click->w-action#enableAction"
-//  type="submit" class="button no">Enable</button>
-
+/**
+ * <button type="submit" class="button no"
+ * data-controller="w-action"
+ * data-action="click->w-action#post"
+ * data-w-action-redirect-value="true"
+ * data-w-action-redirect-url-value="{% url 'wagtailadmin_home' %}"
+ * data-w-action-url-value = '{{ view.get_enable_url }}'>Enable</button>
+ */
 export class ActionController extends Controller {
   static values = {
-    csrfToken: String,
-    postUrl: String,
-    keyName: String,
+    redirect: String,
+    redirectUrl: String,
+    url: String,
   };
 
-  csrfTokenValue!: string;
-  postUrlValue!: string;
-  keyNameValue!: string;
+  urlValue!: string;
+  redirectValue!: any;
+  redirectUrlValue!: string;
 
-  enableAction(event: Event) {
+  post(event: Event) {
     event.preventDefault();
     event.stopPropagation();
 
-    const XHR = new XMLHttpRequest();
-    const formData = new FormData();
+    const formElement = document.createElement('form');
 
-    formData.append(this.keyNameValue, this.csrfTokenValue);
+    formElement.action = this.urlValue;
+    formElement.method = 'POST';
 
-    XHR.addEventListener('load', () => {
-      window.location.reload();
-    });
+    const csrftokenElement = document.createElement('input');
+    csrftokenElement.type = 'hidden';
+    csrftokenElement.name = 'csrfmiddlewaretoken';
+    csrftokenElement.value = WAGTAIL_CONFIG.CSRF_TOKEN;
+    formElement.appendChild(csrftokenElement);
 
-    XHR.addEventListener('error', () => {
-      throw new Error('oops something went wrong ');
-    });
+    if (this.redirectValue) {
+      const nextElement = document.createElement('input');
+      nextElement.type = 'hidden';
+      nextElement.name = 'next';
+      nextElement.value =
+        this.redirectValue === 'false'
+          ? window.location.href
+          : this.redirectUrlValue;
+      formElement.appendChild(nextElement);
+    }
 
-    XHR.open('POST', this.postUrlValue);
-
-    XHR.send(formData);
+    document.body.appendChild(formElement);
+    formElement.submit();
   }
 }

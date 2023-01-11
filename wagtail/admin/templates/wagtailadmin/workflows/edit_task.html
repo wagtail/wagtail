@@ -50,12 +50,10 @@
                                     {% if can_enable %}
                                         <li>
                                             <button class="button no" 
-                                                type="submit"
+                                                data-action="w-action#post"
                                                 data-controller="w-action"
-                                                data-w-action-csrf-token-value = '{{ csrf_token|escapejs }}'
-                                                data-w-action-key-name-value = 'csrfmiddlewaretoken'
-                                                data-w-action-post-url-value = '{{ view.get_enable_url }}'
-                                                data-action="w-action#enableAction">{{ view.enable_item_label }}
+                                                data-w-action-url-value = '{{ view.get_enable_url }}'
+                                                type="submit">{{ view.enable_item_label }}
                                             </button>
                                         </li>
                                     {% elif can_disable %}
