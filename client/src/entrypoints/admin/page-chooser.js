@@ -1,4 +1,4 @@
-import { Chooser } from '../../components/ChooserWidget';
+import { Chooser, ChooserFactory } from '../../components/ChooserWidget';
 
 class PageChooser extends Chooser {
   // eslint-disable-next-line no-undef
@@ -42,6 +42,11 @@ class PageChooser extends Chooser {
   }
 }
 window.PageChooser = PageChooser;
+
+class PageChooserFactory extends ChooserFactory {
+  widgetClass = PageChooser;
+}
+window.PageChooserFactory = PageChooserFactory;
 
 function createPageChooser(id, parentId, options) {
   /* RemovedInWagtail50Warning */
