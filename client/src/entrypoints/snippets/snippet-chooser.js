@@ -25,6 +25,7 @@ window.SnippetChooser = SnippetChooser;
 
 class SnippetChooserFactory extends ChooserFactory {
   widgetClass = SnippetChooser;
+  chooserModalClass = SnippetChooserModal;
 }
 window.SnippetChooserFactory = SnippetChooserFactory;
 

@@ -38,6 +38,8 @@ window.ImageChooser = ImageChooser;
 
 class ImageChooserFactory extends ChooserFactory {
   widgetClass = ImageChooser;
+  // eslint-disable-next-line no-undef
+  chooserModalClass = ImageChooserModal;
 }
 window.ImageChooserFactory = ImageChooserFactory;
 

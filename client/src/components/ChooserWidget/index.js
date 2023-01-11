@@ -134,6 +134,7 @@ export class Chooser {
 
 export class ChooserFactory {
   widgetClass = Chooser;
+  chooserModalClass = ChooserModal;
 
   constructor(html, idPattern, opts = {}) {
     this.html = html;
@@ -149,5 +150,24 @@ export class ChooserFactory {
     const chooser = new this.widgetClass(id, this.opts);
     chooser.setState(initialState);
     return chooser;
+  }
+
+  getModalOptions() {
+    return null;
+  }
+
+  openModal(callback, customOptions) {
+    if (!this.modal) {
+      if (!this.opts.modalUrl) {
+        throw new Error(
+          'ChooserFactory must be passed a modalUrl option if openModal is used',
+        );
+      }
+
+      // eslint-disable-next-line new-cap
+      this.modal = new this.chooserModalClass(this.opts.modalUrl);
+    }
+    const options = { ...this.getModalOptions(), ...customOptions };
+    this.modal.open(options, callback);
   }
 }

@@ -45,6 +45,18 @@ window.PageChooser = PageChooser;
 
 class PageChooserFactory extends ChooserFactory {
   widgetClass = PageChooser;
+  // eslint-disable-next-line no-undef
+  chooserModalClass = PageChooserModal;
+
+  getModalOptions() {
+    return {
+      modelNames: this.opts.modelNames,
+      targetPages: this.opts.targetPages,
+      matchSubclass: this.opts.matchSubclass,
+      canChooseRoot: this.opts.canChooseRoot,
+      userPerms: this.opts.userPerms,
+    };
+  }
 }
 window.PageChooserFactory = PageChooserFactory;
 

@@ -8,6 +8,8 @@ window.DocumentChooser = DocumentChooser;
 
 class DocumentChooserFactory extends ChooserFactory {
   widgetClass = DocumentChooser;
+  // eslint-disable-next-line no-undef
+  chooserModalClass = DocumentChooserModal;
 }
 window.DocumentChooserFactory = DocumentChooserFactory;
 
