@@ -133,7 +133,7 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
   }
   clearTimeout(updateFooterTextTimeout);
   const updateWarnings = () => {
-    warnings.forEach((warning) => {
+    warnings.each((_, warning) => {
       const visible = typeVisibility[warning.dataset.unsavedType];
       // eslint-disable-next-line no-param-reassign
       warning.hidden = !visible;
