@@ -683,6 +683,7 @@ Contributors
 * Alex Simpson
 * GLEF1X
 * Nick Lee
+* Beniamin Bucur
 
 Translators
 ===========

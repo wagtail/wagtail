@@ -82,7 +82,7 @@ def normalise_query_string(query_string):
 
 
 def separate_filters_from_query(query_string):
-    filters_regexp = r'(\w+):(\w+|".+")'
+    filters_regexp = r'(\w+):(\w+|"[^"]+")'
 
     filters = {}
     for match_object in re.finditer(filters_regexp, query_string):
