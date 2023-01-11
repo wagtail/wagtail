@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { Icon, Portal, initDismissibles, initUpgradeNotification } from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
