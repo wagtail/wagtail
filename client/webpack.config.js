@@ -44,6 +44,7 @@ module.exports = function exports(env, argv) {
       'modal-workflow',
       'page-chooser-modal',
       'page-chooser',
+      'page-chooser-telepath',
       'page-editor',
       'preview-panel',
       'privacy-switch',
