@@ -101,6 +101,7 @@ class BaseChooser(widgets.Input):
     icon = None
     classname = None
     model = None
+    js_constructor = "Chooser"
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -231,8 +232,12 @@ class BaseChooser(widgets.Input):
         out = "{0}<script>{1}</script>".format(widget_html, js)
         return mark_safe(out)
 
+    def get_js_init_options(self, id_, name, value_data):
+        return {}
+
     def render_js_init(self, id_, name, value_data):
-        return "new Chooser({0});".format(json.dumps(id_))
+        opts = self.get_js_init_options(id_, name, value_data)
+        return f"new {self.js_constructor}({json.dumps(id_)}, {json.dumps(opts)});"
 
     @cached_property
     def media(self):
@@ -272,6 +277,7 @@ class AdminPageChooser(BaseChooser):
     chooser_modal_url_name = "wagtailadmin_choose_page"
     icon = "doc-empty-inverse"
     classname = "page-chooser"
+    js_constructor = "PageChooser"
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -342,16 +348,14 @@ class AdminPageChooser(BaseChooser):
         data["parent_id"] = parent_page.pk if parent_page else None
         return data
 
-    def render_js_init(self, id_, name, value_data):
+    def get_js_init_options(self, id_, name, value_data):
+        opts = super().get_js_init_options(id_, name, value_data)
+        opts.update(self.client_options)
         value_data = value_data or {}
-        options = self.client_options
         parent_id = value_data.get("parent_id")
         if parent_id is not None:
-            options["parent_id"] = parent_id
-        return "new PageChooser({id}, {options});".format(
-            id=json.dumps(id_),
-            options=json.dumps(options),
-        )
+            opts["parent_id"] = parent_id
+        return opts
 
     @property
     def media(self):
