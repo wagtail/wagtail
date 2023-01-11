@@ -5077,7 +5077,7 @@ class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
 
         js_args = SnippetChooserAdapter().js_args(widget)
 
-        self.assertEqual(len(js_args), 2)
+        self.assertEqual(len(js_args), 3)
         self.assertInHTML(
             '<input type="hidden" name="__NAME__" id="__ID__">', js_args[0]
         )
