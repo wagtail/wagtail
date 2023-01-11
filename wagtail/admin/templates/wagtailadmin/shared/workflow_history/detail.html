@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="tab-content">
-                <div id="tab-tasks" role="tabpanel" data-tab="tasks" hidden>
+                <section id="tab-tasks" role="tabpanel" data-tab="tasks" aria-labelledby="tab-label-tasks" hidden>
                     <table class="workflow-progress-table workflow-progress-table--tasks">
                         <colgroup width="20%"></colgroup>
                         {% for task in tasks %}
@@ -97,9 +97,9 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
+                </section>
 
-                <div id="tab-timeline" role="tabpanel" data-tab="timeline">
+                <section id="tab-timeline" role="tabpanel" data-tab="timeline" aria-labelledby="tab-label-timeline" hidden>
                     <table class="workflow-progress-table workflow-progress-table--timeline">
                         <colgroup width="20%"></colgroup>
                         <colgroup width="80%"></colgroup>
@@ -144,7 +144,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
+                </section>
 
             </div>
         </div>
