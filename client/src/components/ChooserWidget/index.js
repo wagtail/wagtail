@@ -5,7 +5,8 @@ export class Chooser {
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
   editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
 
-  constructor(id) {
+  constructor(id, opts = {}) {
+    this.opts = opts;
     this.initHTMLElements(id);
     this.state = this.getStateFromHTML();
 
@@ -134,9 +135,10 @@ export class Chooser {
 export class ChooserFactory {
   widgetClass = Chooser;
 
-  constructor(html, idPattern) {
+  constructor(html, idPattern, opts = {}) {
     this.html = html;
     this.idPattern = idPattern;
+    this.opts = opts;
   }
 
   render(placeholder, name, id, initialState) {
@@ -144,7 +146,7 @@ export class ChooserFactory {
     // eslint-disable-next-line no-param-reassign
     placeholder.outerHTML = html;
     // eslint-disable-next-line new-cap
-    const chooser = new this.widgetClass(id);
+    const chooser = new this.widgetClass(id, this.opts);
     chooser.setState(initialState);
     return chooser;
   }
