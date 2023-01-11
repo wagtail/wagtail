@@ -105,6 +105,7 @@ Changelog
  * Maintenance: Use util method to construct dummy requests in tests (Jake Howard)
  * Maintenance: Remove unused dev-only react-axe integration (Thibaud Colas)
  * Maintenance: Migrate accessible Skip Link implementation to a Stimulus controller (Loveth Omokaro)
+ * Maintenance: Split up `wagtail.admin.panels` into submodules, existing exports have been preserved (Matt Westcott)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
