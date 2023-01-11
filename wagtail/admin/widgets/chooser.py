@@ -363,6 +363,16 @@ class AdminPageChooser(BaseChooser):
 class PageChooserAdapter(WidgetAdapter):
     js_constructor = "wagtail.widgets.PageChooser"
 
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/page-chooser-modal.js"),
+                versioned_static("wagtailadmin/js/page-chooser.js"),
+                versioned_static("wagtailadmin/js/page-chooser-telepath.js"),
+            ]
+        )
+
     def js_args(self, widget):
         return [
             widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
