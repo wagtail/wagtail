@@ -1,5 +1,3 @@
-import json
-
 from django import forms
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -150,13 +148,11 @@ class DocumentChooserUploadView(
 
 class BaseAdminDocumentChooser(BaseChooser):
     classname = "document-chooser"
+    js_constructor = "DocumentChooser"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.model = get_document_model_string()
-
-    def render_js_init(self, id_, name, value_data):
-        return "new DocumentChooser({0});".format(json.dumps(id_))
 
     @property
     def media(self):

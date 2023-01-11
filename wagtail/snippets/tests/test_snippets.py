@@ -3803,7 +3803,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
 
     def test_render_js(self):
         self.assertIn(
-            'new SnippetChooser("id_advert");',
+            'new SnippetChooser("id_advert", {});',
             self.snippet_chooser_panel.render_html(),
         )
 
@@ -5386,7 +5386,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_render_js(self):
         self.assertIn(
-            'new SnippetChooser("id_advertwithcustomprimarykey");',
+            'new SnippetChooser("id_advertwithcustomprimarykey", {});',
             self.snippet_chooser_panel.render_html(),
         )
 
