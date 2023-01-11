@@ -232,8 +232,14 @@ class BaseChooser(widgets.Input):
         out = "{0}<script>{1}</script>".format(widget_html, js)
         return mark_safe(out)
 
-    def get_js_init_options(self, id_, name, value_data):
+    @property
+    def base_js_init_options(self):
+        """The set of options to pass to the JS initialiser that are constant every time this widget
+        instance is rendered (i.e. do not vary based on id / name / value)"""
         return {}
+
+    def get_js_init_options(self, id_, name, value_data):
+        return {**self.base_js_init_options}
 
     def render_js_init(self, id_, name, value_data):
         opts = self.get_js_init_options(id_, name, value_data)
@@ -255,6 +261,7 @@ class BaseChooserAdapter(WidgetAdapter):
         return [
             widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
             widget.id_for_label("__ID__"),
+            widget.base_js_init_options,
         ]
 
     @cached_property
@@ -325,13 +332,14 @@ class AdminPageChooser(BaseChooser):
         ]
 
     @property
-    def client_options(self):
+    def base_js_init_options(self):
         # a JSON-serializable representation of the configuration options needed for the
         # client-side behaviour of this widget
         return {
             "model_names": self.model_names,
             "can_choose_root": self.can_choose_root,
             "user_perms": self.user_perms,
+            **super().base_js_init_options,
         }
 
     def get_instance(self, value):
@@ -350,7 +358,6 @@ class AdminPageChooser(BaseChooser):
 
     def get_js_init_options(self, id_, name, value_data):
         opts = super().get_js_init_options(id_, name, value_data)
-        opts.update(self.client_options)
         value_data = value_data or {}
         parent_id = value_data.get("parent_id")
         if parent_id is not None:
@@ -367,7 +374,7 @@ class AdminPageChooser(BaseChooser):
         )
 
 
-class PageChooserAdapter(WidgetAdapter):
+class PageChooserAdapter(BaseChooserAdapter):
     js_constructor = "wagtail.widgets.PageChooser"
 
     @cached_property
@@ -379,13 +386,6 @@ class PageChooserAdapter(WidgetAdapter):
                 versioned_static("wagtailadmin/js/page-chooser-telepath.js"),
             ]
         )
-
-    def js_args(self, widget):
-        return [
-            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
-            widget.id_for_label("__ID__"),
-            widget.client_options,
-        ]
 
 
 class AdminPageMoveChooser(AdminPageChooser):
@@ -401,13 +401,11 @@ class AdminPageMoveChooser(AdminPageChooser):
         )
 
     @property
-    def client_options(self):
+    def base_js_init_options(self):
         return {
-            "model_names": self.model_names,
-            "can_choose_root": self.can_choose_root,
-            "user_perms": self.user_perms,
             "target_pages": self.pages_to_move,
             "match_subclass": False,
+            **super().base_js_init_options,
         }
 
 
