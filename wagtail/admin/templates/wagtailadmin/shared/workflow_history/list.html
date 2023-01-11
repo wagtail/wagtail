@@ -27,12 +27,16 @@
                             {{ workflow_state.get_status_display }}
                         </a>
                     </td>
-                    <td>
-                        <h2>{{ workflow_state.workflow.name }}</h2>
+                    <td class="title">
+                        <h2>
+                            <a href="{% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id %}">
+                                {{ workflow_state.workflow.name }}
+                            </a>
+                        </h2>
                         {% trans 'Approved task' as approved_title %}
                         {% trans 'Incomplete task' as incomplete_title %}
                         {% for task in workflow_state.all_tasks_with_status %}
-                            <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
+                            <span tabindex="0" data-tippy-content="{{ task.name }}: {{ task.status_display }}">
                                 {% if task.status == 'approved' %}
                                     {% icon "success" title=approved_title classname="initial" %}
                                 {% else %}
