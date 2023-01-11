@@ -7,27 +7,33 @@ class PageChooser extends Chooser {
   titleStateKey = 'adminTitle';
   editUrlStateKey = 'editUrl';
 
-  constructor(id, parentId, options = {}) {
-    super(id);
-    this.initialParentId = parentId;
-    this.options = options;
+  constructor(id, arg1, arg2) {
+    let opts;
+    if (arg2 || typeof arg1 === 'number') {
+      /* old-style args: (id, parentId, opts) */
+      opts = { parent_id: arg1, ...arg2 };
+    } else {
+      /* new style args: (id, opts) where opts includes 'parent_id' */
+      opts = arg1 || {};
+    }
+    super(id, opts);
   }
 
   getStateFromHTML() {
     const state = super.getStateFromHTML();
     if (state) {
-      state.parentId = this.initialParentId;
+      state.parentId = this.opts.parent_id;
     }
     return state;
   }
 
   getModalOptions() {
     const opts = {
-      model_names: this.options.model_names,
-      target_pages: this.options.target_pages,
-      match_subclass: this.options.match_subclass,
-      can_choose_root: this.options.can_choose_root,
-      user_perms: this.options.user_perms,
+      model_names: this.opts.model_names,
+      target_pages: this.opts.target_pages,
+      match_subclass: this.opts.match_subclass,
+      can_choose_root: this.opts.can_choose_root,
+      user_perms: this.opts.user_perms,
     };
     if (this.state && this.state.parentId) {
       opts.parentId = this.state.parentId;

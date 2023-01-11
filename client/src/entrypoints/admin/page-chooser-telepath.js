@@ -11,7 +11,7 @@ class PageChooserFactory {
     placeholder.outerHTML = html;
     /* the PageChooser object also serves as the JS widget representation */
     // eslint-disable-next-line no-undef
-    const chooser = new PageChooser(id, null, this.config);
+    const chooser = new PageChooser(id, this.config);
     chooser.setState(initialState);
     return chooser;
   }
