@@ -315,18 +315,6 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: create_alias
 
     .. automethod:: update_aliases
-
-    .. autoattribute:: has_workflow
-
-    .. automethod:: get_workflow
-
-    .. autoattribute:: workflow_in_progress
-
-    .. autoattribute:: current_workflow_state
-
-    .. autoattribute:: current_workflow_task_state
-
-    .. autoattribute:: current_workflow_task
 ```
 
 (site_model_ref)=
@@ -652,6 +640,37 @@ The model is added to allow snippets to be locked. See [](wagtailsnippets_lockin
     .. automethod:: get_lock
 
     .. automethod:: with_content_json
+```
+
+## `WorkflowMixin`
+
+`WorkflowMixin` is a mixin class that can be added to any non-page Django model to allow its instances to be submitted to workflows.
+This mixin requires {class}`~wagtail.models.RevisionMixin`, {class}`~wagtail.models.DraftStateMixin`, and {class}`~wagtail.models.LockableMixin` to be applied. Pages already include this mixin, so there is no need to add it.
+
+```{versionadded} 4.2
+The model is added to allow snippets to be submitted to workflows. See [](wagtailsnippets_enabling_workflows) for more details.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: WorkflowMixin
+
+    .. automethod:: get_default_workflow
+
+    .. autoattribute:: has_workflow
+
+    .. automethod:: get_workflow
+
+    .. autoattribute:: workflow_states
+
+    .. autoattribute:: workflow_in_progress
+
+    .. autoattribute:: current_workflow_state
+
+    .. autoattribute:: current_workflow_task_state
+
+    .. autoattribute:: current_workflow_task
 ```
 
 (revision_model_ref)=

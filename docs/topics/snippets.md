@@ -454,6 +454,56 @@ The `LockableMixin` includes additional fields that need to be added to your dat
 
 Locking and unlocking a snippet instance requires `lock` and `unlock` permissions on the snippet model, respectively. For models with `LockableMixin` applied, Wagtail automatically creates the corresponding `lock` and `unlock` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions).
 
+(wagtailsnippets_enabling_workflows)=
+
+## Enabling workflows for snippets
+
+```{versionadded} 4.2
+The `WorkflowMixin` class was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
+
+Since the `WorkflowMixin` utilises revisions, publishing, and locking mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin`, `DraftStateMixin`, and `LockableMixin`. See the above sections for more details.
+
+For example, workflows can be enabled for the `Advert` snippet by defining it as follows:
+
+```python
+# ...
+
+from wagtail.models import DraftStateMixin, LockableMixin, RevisionMixin, WorkflowMixin
+
+# ...
+
+@register_snippet
+class Advert(WorkflowMixin, LockableMixin, DraftStateMixin, RevisionMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
+    workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="advert",
+        for_concrete_model=False,
+    )
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    @property
+    def revisions(self):
+        return self._revisions
+```
+
+The other mixins required by `WorkflowMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
+
+After enabling the mixin, you can assign a workflow to the snippet models through the workflow settings. For more information, see [Configuring moderation workflows](https://guide.wagtail.org/en-latest/how-to/configuring-moderation-workflows).
+
+The admin dashboard and workflow reports will also show you snippets (alongside pages) that have been submitted to workflows.
+
 ## Tagging snippets
 
 Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.

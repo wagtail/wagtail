@@ -866,18 +866,20 @@ class LockableMixin(models.Model):
 
 
 class WorkflowMixin:
+    """A mixin that allows a model to have workflows."""
+
     @classmethod
     def get_default_workflow(cls):
         """
         Returns the active workflow assigned to the model.
 
-        For non-Page models, workflows are assigned to the model's content type,
+        For non-``Page`` models, workflows are assigned to the model's content type,
         thus shared across all instances instead of being assigned to individual
-        instances (unless get_workflow() is overridden). This method is used to
-        determine the workflow to use when creating new instances of the model.
+        instances (unless :meth:`~WorkflowMixin.get_workflow` is overridden).
 
-        On Page models, this method is unused as the workflow can be determined
-        from the parent page's workflow.
+        This method is used to determine the workflow to use when creating new
+        instances of the model. On ``Page`` models, this method is unused as the
+        workflow can be determined from the parent page's workflow.
         """
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return None
