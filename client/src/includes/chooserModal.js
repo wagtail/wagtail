@@ -326,9 +326,12 @@ class ChooserModal {
     return this.baseUrl;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getURLParams(opts) {
-    return {};
+    const urlParams = {};
+    if (opts.multiple) {
+      urlParams.multiple = 1;
+    }
+    return urlParams;
   }
 
   open(opts, callback) {
