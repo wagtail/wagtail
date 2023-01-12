@@ -32,6 +32,10 @@ global.wagtailConfig = {
   ACTIVE_LOCALE: 'en',
 };
 
+document.body.innerHTML = `<script id="wagtail-config">${JSON.stringify({
+  CSRF_TOKEN: 'potato',
+})}</script>`;
+
 global.wagtailVersion = '1.6a1';
 
 global.wagtail = {};
