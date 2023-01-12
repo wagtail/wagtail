@@ -1768,8 +1768,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         new_image = Image.objects.get(title="Test duplicate image")
         existing_image = Image.objects.get(title="Test image")
 
-        choose_new_image_action = reverse(
-            "wagtailimages_chooser:select_format", args=(new_image.id,)
+        choose_new_image_action = (
+            reverse("wagtailimages_chooser:select_format", args=(new_image.id,))
+            + "?select_format=true"
         )
         self.assertEqual(
             response.context["confirm_duplicate_upload_action"], choose_new_image_action
@@ -1783,6 +1784,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
                     "next": reverse(
                         "wagtailimages_chooser:select_format", args=(existing_image.id,)
                     )
+                    + "?select_format=true"
                 }
             )
         )

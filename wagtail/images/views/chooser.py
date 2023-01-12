@@ -18,6 +18,7 @@ from wagtail.admin.views.generic.chooser import (
     ChosenViewMixin,
     CreateViewMixin,
     CreationFormMixin,
+    PreserveURLParametersMixin,
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
@@ -52,12 +53,6 @@ class ImageCreationFormMixin(CreationFormMixin):
 
     def get_creation_form_class(self):
         return get_image_form(self.model)
-
-    def get_create_url(self):
-        url = super().get_create_url()
-        if self.request.GET.get("select_format"):
-            url += "?select_format=true"
-        return url
 
     def get_creation_form_kwargs(self):
         kwargs = super().get_creation_form_kwargs()
@@ -116,12 +111,18 @@ class BaseImageChooseView(BaseChooseView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "will_select_format": self.request.GET.get("select_format"),
-                "collections": self.collections,
-            }
+        chosen_url_name = (
+            "wagtailimages_chooser:select_format"
+            if self.request.GET.get("select_format")
+            else "wagtailimages_chooser:chosen"
         )
+
+        for image in context["results"]:
+            image.chosen_url = self.append_preserved_url_parameters(
+                reverse(chosen_url_name, args=(image.id,))
+            )
+
+        context["collections"] = self.collections
         return context
 
 
@@ -155,13 +156,16 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class SelectFormatResponseMixin:
+class SelectFormatResponseMixin(PreserveURLParametersMixin):
     def render_select_format_response(self, image, form):
+        action_url = self.append_preserved_url_parameters(
+            reverse("wagtailimages_chooser:select_format", args=(image.id,))
+        )
         return render_modal_workflow(
             self.request,
             "wagtailimages/chooser/select_format.html",
             None,
-            {"image": image, "form": form},
+            {"image": image, "form": form, "select_format_action_url": action_url},
             json_data={"step": "select_format"},
         )
 
@@ -208,8 +212,12 @@ class ImageUploadViewMixin(SelectFormatResponseMixin, CreateViewMixin):
             if request.GET.get("select_format")
             else "wagtailimages_chooser:chosen"
         )
-        choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
-        choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
+        choose_new_image_url = self.append_preserved_url_parameters(
+            reverse(next_step_url, args=(new_image.id,))
+        )
+        choose_existing_image_url = self.append_preserved_url_parameters(
+            reverse(next_step_url, args=(existing_image.id,))
+        )
 
         cancel_duplicate_upload_action = (
             f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
@@ -295,6 +303,7 @@ class ImageChooserViewSet(ChooserViewSet):
     select_format_view_class = ImageSelectFormatView
     permission_policy = permission_policy
     register_widget = False
+    preserve_url_parameters = ChooserViewSet.preserve_url_parameters + ["select_format"]
 
     icon = "image"
     choose_one_text = _("Choose an image")
@@ -307,6 +316,7 @@ class ImageChooserViewSet(ChooserViewSet):
     def select_format_view(self):
         return self.select_format_view_class.as_view(
             model=self.model,
+            preserve_url_parameters=self.preserve_url_parameters,
         )
 
     def get_urlpatterns(self):
