@@ -1,9 +1,11 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
 import { InlinePanel } from '../../components/InlinePanel';
+import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { ngettext } from '../../utils/gettext';
 
 window.InlinePanel = InlinePanel;
+window.MultipleChooserPanel = MultipleChooserPanel;
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
