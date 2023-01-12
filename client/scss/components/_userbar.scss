@@ -74,7 +74,6 @@ $positions: (
   width: $size-home-button;
   height: $size-home-button;
   margin: 0;
-  overflow: hidden;
   background-color: $color-white;
   border: 2px solid transparent;
   border-radius: 50%;
@@ -92,6 +91,21 @@ $positions: (
     font-size: 2rem;
     width: auto;
     margin: 0;
+  }
+
+  .w-userbar-axe-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-button-no;
+    border-radius: theme('borderRadius.full');
+    color: $color-white;
+    font-size: theme('fontSize.14');
+    height: theme('spacing.5');
+    width: theme('spacing.5');
+    position: absolute;
+    inset-inline-end: -3px;
+    top: -3px;
   }
 
   &:focus {
@@ -194,7 +208,8 @@ $positions: (
   }
 
   a,
-  .w-action {
+  .w-action,
+  button {
     color: $color-white;
     display: block;
     text-decoration: none;

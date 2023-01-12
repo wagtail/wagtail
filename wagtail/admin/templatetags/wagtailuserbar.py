@@ -4,6 +4,7 @@ from django.utils import translation
 
 from wagtail import hooks
 from wagtail.admin.userbar import (
+    AccessibilityItem,
     AddPageItem,
     AdminItem,
     ApproveModerationEditPageItem,
@@ -71,6 +72,7 @@ def wagtailuserbar(context, position="bottom-right"):
                     EditPageItem(revision.content_object),
                     ApproveModerationEditPageItem(revision),
                     RejectModerationEditPageItem(revision),
+                    AccessibilityItem(),
                 ]
             else:
                 # Not a revision
@@ -79,10 +81,14 @@ def wagtailuserbar(context, position="bottom-right"):
                     ExplorePageItem(page),
                     EditPageItem(page),
                     AddPageItem(page),
+                    AccessibilityItem(),
                 ]
         else:
             # Not a page.
-            items = [AdminItem()]
+            items = [
+                AdminItem(),
+                AccessibilityItem(),
+            ]
 
         for fn in hooks.get_hooks("construct_wagtail_userbar"):
             fn(request, items)

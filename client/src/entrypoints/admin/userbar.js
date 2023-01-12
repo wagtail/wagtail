@@ -1,3 +1,5 @@
+import axe from 'axe-core';
+
 // This entrypoint is not bundled with any polyfills to keep it as light as possible
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
 // More background can be found in webpack.config.js
@@ -17,6 +19,7 @@ class Userbar extends HTMLElement {
 
     const userbar = shadowRoot.querySelector('[data-wagtail-userbar]');
     const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
+    this.trigger = trigger;
     const list = userbar.querySelector('[role=menu]');
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'is-active';
@@ -260,6 +263,53 @@ class Userbar extends HTMLElement {
 
     function clickOutside() {
       hideUserbar();
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await this.initialiseAxe();
+    });
+  }
+
+  // Initialise axe accessibility checker
+
+  async initialiseAxe() {
+    const accessibilityTrigger = this.shadowRoot.getElementById(
+      'accessibility-trigger',
+    );
+
+    if (!accessibilityTrigger) {
+      return;
+    }
+
+    const results = await axe.run(
+      {
+        exclude: {
+          fromShadowDom: ['wagtail-userbar'],
+        },
+      },
+      {
+        runOnly: {
+          type: 'rule',
+          values: ['empty-heading', 'heading-order', 'p-as-heading'],
+        },
+      },
+    );
+
+    // draft UI output for testing purposes
+    if (results.violations.length) {
+      const axeCount = document.createElement('div');
+      axeCount.textContent = results.violations.length;
+      axeCount.classList.add('w-userbar-axe-count');
+      this.trigger.appendChild(axeCount);
+
+      const showAxeResults = () => {
+        results.violations.forEach((violation) => {
+          const annotation = document.createElement('div');
+          annotation.textContent = violation.description;
+          accessibilityTrigger.appendChild(annotation);
+        });
+      };
+      accessibilityTrigger.addEventListener('click', showAxeResults);
     }
   }
 }

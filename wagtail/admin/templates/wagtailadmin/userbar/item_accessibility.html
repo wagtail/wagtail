@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+    <button type="button" id="accessibility-trigger" role="menuitem">
+        {% icon name="tick" class_name="w-action-icon" %}
+        {% trans 'Accessibility' %}
+    </button>
+{% endblock %}
