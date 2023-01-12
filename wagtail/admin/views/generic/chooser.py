@@ -353,12 +353,10 @@ class ChosenResponseMixin:
             "edit_url": self.get_edit_item_url(item),
         }
 
-    def get_chosen_response(self, item):
+    def _wrap_chosen_response_data(self, response_data):
         """
-        Return the HTTP response to indicate that an object has been chosen
+        Wrap a response_data JSON payload in a modal workflow response
         """
-        response_data = self.get_chosen_response_data(item)
-
         return render_modal_workflow(
             self.request,
             None,
@@ -366,6 +364,23 @@ class ChosenResponseMixin:
             None,
             json_data={"step": self.chosen_response_name, "result": response_data},
         )
+
+    def get_multiple_chosen_response(self, items):
+        response_data = [self.get_chosen_response_data(item) for item in items]
+        return self._wrap_chosen_response_data(response_data)
+
+    def get_chosen_response(self, item):
+        """
+        Return the HTTP response to indicate that an object has been chosen
+        """
+        response_data = self.get_chosen_response_data(item)
+
+        if self.request.GET.get("multiple"):
+            # a multiple result was requested but we're only returning one,
+            # so wrap as a list
+            response_data = [response_data]
+
+        return self._wrap_chosen_response_data(response_data)
 
 
 class ChosenViewMixin(ModelLookupMixin):
@@ -387,6 +402,24 @@ class ChosenViewMixin(ModelLookupMixin):
 
 
 class ChosenView(ChosenViewMixin, ChosenResponseMixin, View):
+    pass
+
+
+class ChosenMultipleViewMixin(ModelLookupMixin):
+    """
+    A view that takes a list of 'id' URL parameters and returns a modal workflow response indicating
+    that those objects have been chosen
+    """
+
+    def get_objects(self, pks):
+        return self.model_class.objects.filter(pk__in=pks)
+
+    def get(self, request):
+        items = self.get_objects(request.GET.getlist("id"))
+        return self.get_multiple_chosen_response(items)
+
+
+class ChosenMultipleView(ChosenMultipleViewMixin, ChosenResponseMixin, View):
     pass
 
 
