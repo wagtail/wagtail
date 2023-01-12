@@ -31,6 +31,10 @@ class ChooserViewSet(ViewSet):
 
     per_page = 10  #: Number of results to show per page
 
+    #: A list of URL query parameters that should be passed on unmodified as part of any links or
+    #: form submissions within the chooser modal workflow.
+    preserve_url_parameters = ["multiple"]
+
     #: The view class to use for the overall chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseView``.
     choose_view_class = chooser_views.ChooseView
 
@@ -101,6 +105,7 @@ class ChooserViewSet(ViewSet):
             create_action_label=self.create_action_label,
             create_action_clicked_label=self.create_action_clicked_label,
             permission_policy=self.permission_policy,
+            preserve_url_parameters=self.preserve_url_parameters,
         )
 
     @property
@@ -116,6 +121,7 @@ class ChooserViewSet(ViewSet):
             create_action_label=self.create_action_label,
             create_action_clicked_label=self.create_action_clicked_label,
             permission_policy=self.permission_policy,
+            preserve_url_parameters=self.preserve_url_parameters,
         )
 
     @property
@@ -141,6 +147,7 @@ class ChooserViewSet(ViewSet):
             create_action_label=self.create_action_label,
             create_action_clicked_label=self.create_action_clicked_label,
             permission_policy=self.permission_policy,
+            preserve_url_parameters=self.preserve_url_parameters,
         )
 
     @cached_property

@@ -18,7 +18,7 @@
     {% block results_listing %}
         {% component table %}
     {% endblock %}
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_url %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_pagination_url %}
 {% else %}
     {% if is_searching %}
         {% block no_search_results_message %}
