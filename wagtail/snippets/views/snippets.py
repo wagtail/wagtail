@@ -673,18 +673,42 @@ class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnschedul
 class LockView(PermissionCheckedMixin, lock.LockView):
     permission_required = "lock"
 
+    def user_has_permission(self, permission):
+        if self.request.user.is_superuser:
+            return True
+
+        if permission == self.permission_required and isinstance(
+            self.object, WorkflowMixin
+        ):
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                return current_workflow_task.user_can_lock(
+                    self.object, self.request.user
+                )
+
+        return super().user_has_permission(permission)
+
 
 class UnlockView(PermissionCheckedMixin, lock.UnlockView):
     permission_required = "unlock"
 
     def user_has_permission(self, permission):
-        # Allow unlocking even if the user does not have the 'unlock' permission
-        # if they are the user who locked the object
-        if (
-            permission == self.permission_required
-            and self.object.locked_by_id == self.request.user.pk
-        ):
+        if self.request.user.is_superuser:
             return True
+
+        if permission == self.permission_required:
+            # Allow unlocking even if the user does not have the 'unlock' permission
+            # if they are the user who locked the object
+            if self.object.locked_by_id == self.request.user.pk:
+                return True
+
+            if isinstance(self.object, WorkflowMixin):
+                current_workflow_task = self.object.current_workflow_task
+                if current_workflow_task:
+                    return current_workflow_task.user_can_unlock(
+                        self.object, self.request.user
+                    )
+
         return super().user_has_permission(permission)
 
 

@@ -256,18 +256,36 @@ class CreateEditViewOptionalFeaturesMixin:
         self.current_workflow_task = self.object.current_workflow_task
 
     def user_has_permission(self, permission):
-        # Check with base PermissionCheckedMixin logic before any complex checks
+        user = self.request.user
+        if user.is_superuser:
+            return True
+
+        # Workflow lock/unlock methods take precedence before the base
+        # "lock" and "unlock" permissions -- see PagePermissionTester for reference
+        if permission == "lock":
+            if self.lock:
+                return False
+            if self.current_workflow_task:
+                return self.current_workflow_task.user_can_lock(self.object, user)
+        if permission == "unlock":
+            if not isinstance(self.lock, BasicLock):
+                return False
+            # Allow unlocking even if the user does not have the 'unlock' permission
+            # if they are the user who locked the object
+            if self.object.locked_by_id == user.pk:
+                return True
+            if self.current_workflow_task:
+                return self.current_workflow_task.user_can_unlock(self.object, user)
+
+        # Check with base PermissionCheckedMixin logic
         has_base_permission = super().user_has_permission(permission)
         if has_base_permission:
             return True
 
-        # Allow unlocking even if the user does not have the 'unlock' permission
-        # if they are the user who locked the object
-        if permission == "unlock" and self.object.locked_by_id == self.request.user.pk:
-            return True
-
         # Allow access to the editor if the current workflow task allows it,
-        # even if the user does not normally have edit access
+        # even if the user does not normally have edit access. Users with edit
+        # permissions can always edit regardless what this method returns --
+        # see Task.user_can_access_editor() for reference
         if (
             permission == "change"
             and self.current_workflow_task
@@ -276,6 +294,7 @@ class CreateEditViewOptionalFeaturesMixin:
             )
         ):
             return True
+
         return False
 
     def workflow_action_is_valid(self):
