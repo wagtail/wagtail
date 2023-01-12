@@ -224,18 +224,18 @@ class PageChooserModal extends ChooserModal {
 
   getURLParams(opts) {
     const urlParams = super.getURLParams(opts);
-    urlParams.page_type = opts.model_names.join(',');
-    if (opts.target_pages) {
-      urlParams.target_pages = opts.target_pages;
+    urlParams.page_type = opts.modelNames.join(',');
+    if (opts.targetPages) {
+      urlParams.target_pages = opts.targetPages;
     }
-    if (opts.match_subclass) {
-      urlParams.match_subclass = opts.match_subclass;
+    if (opts.matchSubclass) {
+      urlParams.match_subclass = opts.matchSubclass;
     }
-    if (opts.can_choose_root) {
+    if (opts.canChooseRoot) {
       urlParams.can_choose_root = 'true';
     }
-    if (opts.user_perms) {
-      urlParams.user_perms = opts.user_perms;
+    if (opts.userPerms) {
+      urlParams.user_perms = opts.userPerms;
     }
     return urlParams;
   }

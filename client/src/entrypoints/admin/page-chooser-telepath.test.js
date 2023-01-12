@@ -46,9 +46,9 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
         <input type="hidden" name="__NAME__" id="__ID__">`,
         '__ID__',
         {
-          model_names: ['wagtailcore.page'],
-          can_choose_root: false,
-          user_perms: null,
+          modelNames: ['wagtailcore.page'],
+          canChooseRoot: false,
+          userPerms: null,
         },
       ],
     });

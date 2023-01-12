@@ -336,9 +336,9 @@ class AdminPageChooser(BaseChooser):
         # a JSON-serializable representation of the configuration options needed for the
         # client-side behaviour of this widget
         return {
-            "model_names": self.model_names,
-            "can_choose_root": self.can_choose_root,
-            "user_perms": self.user_perms,
+            "modelNames": self.model_names,
+            "canChooseRoot": self.can_choose_root,
+            "userPerms": self.user_perms,
             **super().base_js_init_options,
         }
 
@@ -361,7 +361,7 @@ class AdminPageChooser(BaseChooser):
         value_data = value_data or {}
         parent_id = value_data.get("parent_id")
         if parent_id is not None:
-            opts["parent_id"] = parent_id
+            opts["parentId"] = parent_id
         return opts
 
     @property
@@ -403,8 +403,8 @@ class AdminPageMoveChooser(AdminPageChooser):
     @property
     def base_js_init_options(self):
         return {
-            "target_pages": self.pages_to_move,
-            "match_subclass": False,
+            "targetPages": self.pages_to_move,
+            "matchSubclass": False,
             **super().base_js_init_options,
         }
 
