@@ -5,7 +5,14 @@ from django.test import TestCase, override_settings
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 
-from wagtail.test.testapp.models import Advert, DraftStateModel, LockableModel
+from wagtail.locks import WorkflowLock
+from wagtail.models import GroupApprovalTask, Workflow, WorkflowTask
+from wagtail.test.testapp.models import (
+    Advert,
+    DraftStateModel,
+    FullFeaturedSnippet,
+    LockableModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -35,8 +42,11 @@ class BaseLockingTestCase(TestCase, WagtailTestUtils):
     def refresh_snippet(self):
         self.snippet.refresh_from_db()
 
-    def set_permissions(self, permission_names):
-        self.user.is_superuser = False
+    def set_permissions(self, permission_names, user=None):
+        if user is None:
+            user = self.user
+
+        user.is_superuser = False
 
         permissions = [
             Permission.objects.get(
@@ -53,8 +63,8 @@ class BaseLockingTestCase(TestCase, WagtailTestUtils):
                 )
             )
 
-        self.user.user_permissions.set(permissions)
-        self.user.save()
+        user.user_permissions.set(permissions)
+        user.save()
 
 
 class DraftStateModelTestCase:
@@ -649,3 +659,49 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
 class TestEditLockedDraftStateSnippet(DraftStateModelTestCase, TestEditLockedSnippet):
     save_button_label = "Save draft"
+
+
+class TestWorkflowLock(BaseLockingTestCase):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.snippet.save_revision()
+        self.moderator = self.create_user("moderator")
+        self.moderators = Group.objects.get(name="Moderators")
+        self.moderator.groups.add(self.moderators)
+        self.set_permissions(["change"], user=self.user)
+        self.set_permissions(["change", "publish"], user=self.moderator)
+
+    def test_when_locked_by_workflow(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task = GroupApprovalTask.objects.create(name="test_task")
+        task.groups.add(self.moderators)
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        workflow.start(self.snippet, self.user)
+
+        lock = self.snippet.get_lock()
+        self.assertIsInstance(lock, WorkflowLock)
+        self.assertTrue(lock.for_user(self.user))
+        self.assertFalse(lock.for_user(self.moderator))
+        self.assertEqual(
+            lock.get_message(self.user),
+            "This full-featured snippet is currently awaiting moderation. "
+            "Only reviewers for this task can edit the full-featured snippet.",
+        )
+        self.assertIsNone(lock.get_message(self.moderator))
+
+        # When visiting a snippet in a workflow with multiple tasks, the message
+        # displayed to users changes to show the current task the snippet is on
+
+        # Add a second task to the workflow
+        other_task = GroupApprovalTask.objects.create(name="another_task")
+        WorkflowTask.objects.create(workflow=workflow, task=other_task, sort_order=2)
+
+        lock = self.snippet.get_lock()
+        self.assertEqual(
+            lock.get_message(self.user),
+            "This full-featured snippet is awaiting <b>'test_task'</b> in the "
+            "<b>'test_workflow'</b> workflow. Only reviewers for this task "
+            "can edit the full-featured snippet.",
+        )
