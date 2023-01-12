@@ -1060,7 +1060,7 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
             post_data.update(data)
         return self.client.post(self.get_url("edit"), post_data)
 
-    def workflow_action(self, action, data=None):
+    def workflow_action(self, action, data=None, **kwargs):
         return self.client.post(
             self.get_url(
                 "workflow_action",
@@ -1072,13 +1072,14 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
             ),
             data,
             follow=True,
+            **kwargs,
         )
 
-    def approve(self, data=None):
-        return self.workflow_action("approve", data)
+    def approve(self, data=None, **kwargs):
+        return self.workflow_action("approve", data, **kwargs)
 
-    def reject(self, data=None):
-        return self.workflow_action("reject", data)
+    def reject(self, data=None, **kwargs):
+        return self.workflow_action("reject", data, **kwargs)
 
 
 class BaseSnippetWorkflowTests(BasePageWorkflowTests):
@@ -1346,7 +1347,8 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.published_signal.connect(mock_handler)
 
         # Post
-        self.approve({"comment": "my comment"})
+        response = self.approve({"comment": "my comment"})
+        self.assertRedirects(response, self.get_url("edit"))
 
         # Check that the workflow was approved
 
@@ -1384,6 +1386,48 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.assertEqual(mock_call["sender"], self.object_class)
         self.assertEqual(mock_call["instance"], self.object)
         self.assertIsInstance(mock_call["instance"], self.object_class)
+
+    def test_approve_task_and_workflow_with_ajax(self):
+        """
+        This posts to the approve task view and checks that the object was approved and published
+        """
+        # Post
+        response = self.approve(
+            {"comment": "my comment"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"step": "success", "redirect": self.get_url("edit")},
+        )
+
+        # Check that the workflow was approved
+
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
+            requested_by=self.submitter
+        )
+
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
+
+        # Check that the task was approved
+
+        task_state = workflow_state.current_task_state
+
+        self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+
+        # Check that the comment was added to the task state correctly
+
+        self.assertEqual(task_state.comment, "my comment")
+
+        self.object.refresh_from_db()
+        # Object must be live
+        self.assertTrue(
+            self.object.live, msg="Approving moderation failed to set live=True"
+        )
+        # Object should now have no unpublished changes
+        self.assertFalse(
+            self.object.has_unpublished_changes,
+            msg="Approving moderation failed to set has_unpublished_changes=False",
+        )
 
     def test_workflow_dashboard_panel(self):
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -1461,6 +1505,46 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         # Check that the user received a permission denied response
         self.assertRedirects(response, "/admin/")
 
+    def test_workflow_action_view_not_in_moderation(self):
+        """
+        This tests that the workflow action view won't allow an action
+        for an object that's not in moderation. For example, the submitter
+        cancelled the workflow before the moderator could approve it.
+        """
+        self.login(user=self.submitter)
+
+        # Keep reference to the current workflow state so we can get the URL
+        current_workflow_task_state = self.object.current_workflow_task_state
+
+        # Cancel the workflow
+        response = self.client.post(
+            self.get_url("edit"),
+            {"action-cancel-workflow": "True"},
+        )
+
+        self.login(self.moderator)
+
+        # Try to approve
+        response = self.client.post(
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    current_workflow_task_state.id,
+                ),
+            ),
+            follow=True,
+        )
+        # Check that the user is redirected to the edit page
+        # and received an error message
+        self.assertRedirects(response, self.get_url("edit"))
+        self.assertContains(
+            response,
+            f"The {self.model_name} &#x27;{get_latest_str(self.object)}&#x27; "
+            "is not currently awaiting moderation.",
+        )
+
     def test_edit_view_workflow_cancellation_not_in_group(self):
         """
         This tests that the object edit view for a GroupApprovalTask, locked to a user not in the
@@ -1503,6 +1587,67 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         task_state = workflow_state.current_task_state
 
         self.assertEqual(task_state.status, task_state.STATUS_REJECTED)
+
+        self.object.refresh_from_db()
+        # Object must not be live
+        self.assertFalse(self.object.live)
+
+    def test_reject_task_and_workflow_without_form(self):
+        """
+        This posts to the reject task view for a task without a form and checks that the object can still be rejected and not published
+        """
+        # Post
+        with mock.patch("wagtail.models.Task.get_form_for_action") as get_form:
+            get_form.return_value = None
+            response = self.reject()
+
+        self.assertRedirects(response, self.get_url("edit"))
+
+        # Check that the workflow was marked as needing changes
+
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
+            requested_by=self.submitter
+        )
+
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
+
+        # Check that the task was rejected
+
+        task_state = workflow_state.current_task_state
+
+        self.assertEqual(task_state.status, task_state.STATUS_REJECTED)
+
+        self.object.refresh_from_db()
+        # Object must not be live
+        self.assertFalse(self.object.live)
+
+    def test_reject_task_and_workflow_with_invalid_form_ajax(self):
+        """
+        This posts to the reject task view with invalid form data and checks that the object was not rejected and not published
+        """
+        # Post
+        with mock.patch("wagtail.forms.TaskStateCommentForm.is_valid") as is_valid:
+            is_valid.return_value = False
+            response = self.reject(HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
+        )
+
+        # Check that the workflow was not marked as needing changes
+
+        workflow_state = WorkflowState.objects.for_instance(self.object).get(
+            requested_by=self.submitter
+        )
+
+        self.assertNotEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
+
+        # Check that the task was not rejected
+
+        task_state = workflow_state.current_task_state
+
+        self.assertNotEqual(task_state.status, task_state.STATUS_REJECTED)
 
         self.object.refresh_from_db()
         # Object must not be live
@@ -1578,6 +1723,48 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.assertEqual(response_json["step"], "success")
         self.assertEqual(
             response_json["cleaned_data"], {"comment": "This is my comment"}
+        )
+
+    def test_collect_workflow_action_data_post_invalid_form(self):
+        """
+        This tests that a POST request to the collect_workflow_action_data view with an invalid form data returns a redirect
+        """
+        with mock.patch("wagtail.forms.TaskStateCommentForm.is_valid") as is_valid:
+            is_valid.return_value = False
+            response = self.client.post(
+                self.get_url(
+                    "collect_workflow_action_data",
+                    args=(
+                        quote(self.object.pk),
+                        "approve",
+                        self.object.current_workflow_task_state.id,
+                    ),
+                ),
+                {"comment": "This is my comment"},
+            )
+        self.assertRedirects(response, self.get_url("edit"))
+
+    def test_collect_workflow_action_data_post_invalid_form_ajax(self):
+        """
+        This tests that a POST request to the collect_workflow_action_data view with an invalid form data returns the form with errors
+        """
+        with mock.patch("wagtail.forms.TaskStateCommentForm.is_valid") as is_valid:
+            is_valid.return_value = False
+            response = self.client.post(
+                self.get_url(
+                    "collect_workflow_action_data",
+                    args=(
+                        quote(self.object.pk),
+                        "approve",
+                        self.object.current_workflow_task_state.id,
+                    ),
+                ),
+                {"comment": "This is my comment"},
+                HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
         )
 
     def test_workflow_action_via_edit_view(self):
@@ -1957,6 +2144,38 @@ class TestDisableViews(BasePageWorkflowTests):
                 status=TaskState.STATUS_IN_PROGRESS,
             ).count(),
             0,
+        )
+
+    def test_get_disable_workflow_shows_warning(self):
+        """Test that deactivating a workflow shows a warning if there are in progress states"""
+        self.login(self.submitter)
+        self.post("submit")
+        self.login(self.superuser)
+        self.approve()
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:disable", args=(self.workflow.pk,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/confirm_disable.html")
+        self.assertContains(
+            response,
+            "This workflow is in progress on 1 page/snippet. Disabling this workflow will cancel moderation on this page/snippet.",
+        )
+
+    def test_get_disable_workflow_no_warning(self):
+        """Test that deactivating a workflow does not show a warning if there are no in progress states"""
+        self.login(self.superuser)
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:disable", args=(self.workflow.pk,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/confirm_disable.html")
+        self.assertNotContains(response, "This workflow is in progress")
+        self.assertNotContains(
+            response,
+            "Disabling this workflow will cancel moderation on this page/snippet.",
         )
 
     def test_disable_task_view(self):

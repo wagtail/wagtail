@@ -68,6 +68,13 @@ class TestCreateView(BaseWorkflowsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')
 
+    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
+    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
+        # Note: remove this when all legacy moderation code has been removed
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'name="action-submit"')
+
     def test_post_submit_for_moderation(self):
         response = self.post({"text": "Newly created", "action-submit": "Submit"})
         object = self.model.objects.get(text="Newly created")
@@ -114,6 +121,13 @@ class TestEditView(BaseWorkflowsTestCase):
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_get_workflow_buttons_not_shown_when_workflow_disabled(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'name="action-submit"')
+
+    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
+    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
+        # Note: remove this when all legacy moderation code has been removed
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')
@@ -215,6 +229,34 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         self.assertContains(response, "In progress")
         self.assertContains(response, "test@email.com")
 
+    def test_get_detail_completed(self):
+        self.workflow_state.current_task_state.approve(user=None)
+        response = self.client.get(
+            self.get_url(
+                "workflow_history_detail",
+                (quote(self.object.pk), self.workflow_state.id),
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/workflow_history/detail.html"
+        )
+
+        self.assertContains(response, self.get_url("edit"))
+        self.assertContains(response, self.get_url("workflow_history"))
+
+        self.assertContains(response, '<div class="w-tabs" data-tabs>')
+        self.assertContains(response, '<div class="tab-content">')
+        self.assertContains(response, "Tasks")
+        self.assertContains(response, "Timeline")
+
+        # Should show the completed workflow with the latest revision
+        self.assertContains(response, "Edited!")
+        self.assertContains(response, "Moderators approval")
+        self.assertContains(response, "Workflow completed")
+        self.assertContains(response, "test@email.com")
+        self.assertNotContains(response, "In progress")
+
     def test_get_detail_with_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
@@ -233,3 +275,58 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         )
 
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+
+class TestWorkflowStatus(BaseWorkflowsTestCase):
+    def setUp(self):
+        super().setUp()
+        self.object.text = "Edited!"
+        self.object.save_revision()
+        self.workflow_state = self.workflow.start(self.object, self.user)
+
+    def test_get_workflow_status(self):
+        response = self.client.get(self.get_url("workflow_status"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/workflow_status.html")
+
+        # Should show link to workflow history page
+        self.assertContains(response, self.get_url("workflow_history"))
+
+        # Should show the currently in progress workflow
+        self.assertContains(response, "Moderators approval")
+        self.assertContains(response, "In progress")
+
+
+class TestConfirmWorkflowCancellation(BaseWorkflowsTestCase):
+    def setUp(self):
+        super().setUp()
+        self.object.text = "Edited!"
+        self.object.save_revision()
+        self.workflow_state = self.workflow.start(self.object, self.user)
+
+    def test_get_confirm_workflow_cancellation(self):
+        response = self.client.get(self.get_url("confirm_workflow_cancellation"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/confirm_workflow_cancellation.html"
+        )
+        self.assertContains(
+            response,
+            "Publishing this full-featured snippet will cancel the current workflow.",
+        )
+        self.assertContains(
+            response, "Would you still like to publish this full-featured snippet?"
+        )
+
+    @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
+    def test_get_confirm_workflow_cancellation_with_disabled_setting(self):
+        response = self.client.get(self.get_url("confirm_workflow_cancellation"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/shared/confirm_workflow_cancellation.html",
+        )
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"step": "no_confirmation_needed"},
+        )
