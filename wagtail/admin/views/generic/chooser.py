@@ -1,5 +1,8 @@
+import re
+import urllib.parse
+
 from django.conf import settings
-from django.contrib.admin.utils import unquote
+from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import (
     ImproperlyConfigured,
     ObjectDoesNotExist,
@@ -66,7 +69,46 @@ class ModelLookupMixin:
             return resolve_model_string(self.model)
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, View):
+class PreserveURLParametersMixin:
+    """
+    Adds support for passing designated URL parameters from the current request when constructing URLs
+    for links / form actions.
+    """
+
+    preserve_url_parameters = ["multiple"]
+
+    @cached_property
+    def _preserved_param_string(self):
+        params = {}
+        for param in self.preserve_url_parameters:
+            try:
+                params[param] = self.request.GET[param]
+            except KeyError:
+                pass
+
+        return urllib.parse.urlencode(params)
+
+    def append_preserved_url_parameters(self, url):
+        """
+        Given a base URL (which might already include URL parameters), append any URL parameters
+        from the preserve_url_parameters list that are present in the current request URL
+        """
+        if self._preserved_param_string:
+            if "?" in url:
+                url += "&" + self._preserved_param_string
+            else:
+                url += "?" + self._preserved_param_string
+
+        return url
+
+
+class BaseChooseView(
+    ModalPageFurnitureMixin,
+    ModelLookupMixin,
+    PreserveURLParametersMixin,
+    ContextMixin,
+    View,
+):
     """
     Provides common functionality for views that present a (possibly searchable / filterable) list
     of objects to choose from
@@ -136,7 +178,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
         return objects
 
     def get_results_url(self):
-        return reverse(self.results_url_name)
+        return self.append_preserved_url_parameters(reverse(self.results_url_name))
 
     @property
     def columns(self):
@@ -145,7 +187,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
                 "title",
                 label=_("Title"),
                 accessor=str,
-                url_name=self.chosen_url_name,
+                get_url=(
+                    lambda obj: self.append_preserved_url_parameters(
+                        reverse(self.chosen_url_name, args=(quote(obj.pk),))
+                    )
+                ),
                 link_attrs={"data-chooser-modal-choice": True},
             ),
         ]
@@ -167,11 +213,19 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        results_url = self.get_results_url()
+
+        # For result pagination links, we need a version of results_url with parameters removed,
+        # so that the pagination include can append its own parameters via the {% querystring %} template tag
+        results_pagination_url = re.sub(r"\?.*$", "", results_url)
+
         context.update(
             {
                 "results": self.results,
                 "table": self.table,
-                "results_url": self.get_results_url(),
+                "results_url": results_url,
+                "results_pagination_url": results_pagination_url,
                 "is_searching": self.filter_form.is_searching,
                 "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
                 "search_query": self.filter_form.search_query,
@@ -184,7 +238,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
         raise NotImplementedError()
 
 
-class CreationFormMixin(ModelLookupMixin):
+class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     """
     Provides a form class for creating new objects
     """
@@ -246,7 +300,7 @@ class CreationFormMixin(ModelLookupMixin):
                 "%r must provide a create_url_name attribute or a get_create_url method"
                 % type(self)
             )
-        return reverse(self.create_url_name)
+        return self.append_preserved_url_parameters(reverse(self.create_url_name))
 
     def get_creation_form_context_data(self, form):
         return {
