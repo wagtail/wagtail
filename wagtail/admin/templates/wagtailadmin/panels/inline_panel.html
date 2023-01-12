@@ -35,18 +35,22 @@
 
 {# Align with guiding line of the preceding child panel. #}
 <div class="w-mb-4 -w-ml-0.5">
-    <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
-        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
-    </button>
+    {% block add_button %}
+        <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
+            {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+        </button>
+    {% endblock %}
 </div>
 
-<script>
-    (function() {
-        var panel = new InlinePanel({
-            formsetPrefix: "id_{{ self.formset.prefix }}",
-            emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
-            canOrder: {% if can_order %}true{% else %}false{% endif %},
-            maxForms: {{ self.formset.max_num|unlocalize }}
-        });
-    })();
-</script>
+{% block js_init %}
+    <script>
+        (function() {
+            var panel = new InlinePanel({
+                formsetPrefix: "id_{{ self.formset.prefix }}",
+                emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
+                canOrder: {% if can_order %}true{% else %}false{% endif %},
+                maxForms: {{ self.formset.max_num|unlocalize }}
+            });
+        })();
+    </script>
+{% endblock %}
