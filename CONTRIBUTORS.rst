@@ -681,6 +681,7 @@ Contributors
 * Rishabh jain
 * Jhonatan Lopes
 * Alex Simpson
+* GLEF1X
 
 Translators
 ===========
