@@ -16,7 +16,8 @@ from wagtail.models import (
     Workflow,
     WorkflowTask,
 )
-from wagtail.test.testapp.models import SimplePage
+from wagtail.models.audit_log import ModelLogEntry
+from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -371,6 +372,74 @@ class TestAuditLog(TestCase):
                 )
                 self.assertEqual(entry[0].comment, "This is my comment")
 
+    def test_snippet_workflow_actions(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        task_2 = Task.objects.create(name="test_task_2")
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+
+        snippet = FullFeaturedSnippet.objects.create(text="Initial", live=False)
+        snippet.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(snippet, user)
+
+        workflow_entry = ModelLogEntry.objects.filter(action="wagtail.workflow.start")
+        self.assertEqual(workflow_entry.count(), 1)
+        self.assertEqual(
+            workflow_entry[0].data,
+            {
+                "workflow": {
+                    "id": workflow.id,
+                    "title": workflow.name,
+                    "status": workflow_state.status,
+                    "task_state_id": workflow_state.current_task_state_id,
+                    "next": {
+                        "id": workflow_state.current_task_state.task.id,
+                        "title": workflow_state.current_task_state.task.name,
+                    },
+                }
+            },
+        )
+
+        # Approve
+        for action in ["approve", "reject"]:
+            with self.subTest(action):
+                task_state = workflow_state.current_task_state
+                task_state.task.on_action(
+                    task_state,
+                    user=None,
+                    action_name=action,
+                    comment="This is my comment",
+                )
+                workflow_state.refresh_from_db()
+
+                entry = ModelLogEntry.objects.filter(
+                    action=f"wagtail.workflow.{action}"
+                )
+                self.assertEqual(entry.count(), 1)
+                self.assertEqual(
+                    entry[0].data,
+                    {
+                        "workflow": {
+                            "id": workflow.id,
+                            "title": workflow.name,
+                            "status": task_state.status,
+                            "task_state_id": task_state.id,
+                            "task": {
+                                "id": task_state.task.id,
+                                "title": task_state.task.name,
+                            },
+                            "next": {
+                                "id": workflow_state.current_task_state.task.id,
+                                "title": workflow_state.current_task_state.task.name,
+                            },
+                        },
+                        "comment": "This is my comment",
+                    },
+                )
+                self.assertEqual(entry[0].comment, "This is my comment")
+
     def test_workflow_completions_logs_publishing_user(self):
         workflow = Workflow.objects.create(name="test_workflow")
         task_1 = Task.objects.create(name="test_task_1")
@@ -388,6 +457,28 @@ class TestAuditLog(TestCase):
 
         self.assertEqual(
             PageLogEntry.objects.get(action="wagtail.publish").user, publisher
+        )
+
+    def test_snippet_workflow_completions_logs_publishing_user(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        self.assertFalse(
+            ModelLogEntry.objects.filter(action="wagtail.publish").exists()
+        )
+
+        snippet = FullFeaturedSnippet.objects.create(text="Initial", live=False)
+        snippet.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(snippet, user)
+
+        publisher = get_user_model().objects.last()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name="approve")
+
+        self.assertEqual(
+            ModelLogEntry.objects.get(action="wagtail.publish").user, publisher
         )
 
     def test_page_privacy(self):
