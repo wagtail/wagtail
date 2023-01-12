@@ -273,6 +273,14 @@ class Userbar extends HTMLElement {
   // Initialise axe accessibility checker
 
   async initialiseAxe() {
+    const accessibilityTrigger = this.shadowRoot.getElementById(
+      'accessibility-trigger',
+    );
+
+    if (!accessibilityTrigger) {
+      return;
+    }
+
     const results = await axe.run(
       {
         exclude: {
@@ -282,11 +290,7 @@ class Userbar extends HTMLElement {
       {
         runOnly: {
           type: 'rule',
-          values: [
-            'empty-heading',
-            'heading-order',
-            'p-as-heading',
-          ],
+          values: ['empty-heading', 'heading-order', 'p-as-heading'],
         },
       },
     );
@@ -297,10 +301,6 @@ class Userbar extends HTMLElement {
       axeCount.textContent = results.violations.length;
       axeCount.classList.add('w-userbar-axe-count');
       this.trigger.appendChild(axeCount);
-
-      const accessibilityTrigger = this.shadowRoot.getElementById(
-        'accessibility-trigger',
-      );
 
       const showAxeResults = () => {
         results.violations.forEach((violation) => {
