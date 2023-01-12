@@ -1108,6 +1108,7 @@ register_snippet(LockableModel)
 
 
 class FullFeaturedSnippet(
+    PreviewableMixin,
     WorkflowMixin,
     LockableMixin,
     DraftStateMixin,
@@ -1118,6 +1119,9 @@ class FullFeaturedSnippet(
 
     def __str__(self):
         return self.text
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_model.html"
 
     class Meta:
         verbose_name = "full-featured snippet"

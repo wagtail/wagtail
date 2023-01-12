@@ -2052,6 +2052,81 @@ class TestDisableViewsWithSnippetWorkflows(TestDisableViews, BaseSnippetWorkflow
     pass
 
 
+class TestPageWorkflowPreview(BasePageWorkflowTests):
+    preview_template = "tests/simple_page.html"
+    preview_content = "Simple page"
+    new_content = "Not-so-simple object"
+
+    def setUp(self):
+        super().setUp()
+        self.edit_object()
+        self.workflow.start(self.object, self.submitter)
+        self.login(self.moderator)
+
+    def edit_object(self):
+        self.object.title = self.new_content
+        self.object.save_revision()
+
+    def test_preview_workflow(self):
+        preview_url = self.get_url(
+            "workflow_preview",
+            args=(quote(self.object.pk), self.object.current_workflow_task.id),
+        )
+        response = self.client.get(preview_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.preview_template)
+        self.assertContains(response, self.preview_content)
+
+    def test_preview_workflow_by_submitter(self):
+        self.login(self.submitter)
+        preview_url = self.get_url(
+            "workflow_preview",
+            args=(quote(self.object.pk), self.object.current_workflow_task.id),
+        )
+        response = self.client.get(preview_url)
+
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_workflow_bad_task_id(self):
+        preview_url = self.get_url(
+            "workflow_preview",
+            args=(quote(self.object.pk), self.task_2.id),
+        )
+        response = self.client.get(preview_url, follow=True)
+
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertContains(
+            response,
+            f"The {self.model_name} &#x27;{get_latest_str(self.object)}&#x27; is not "
+            f"currently awaiting moderation in task &#x27;{self.task_2.name}&#x27;.",
+        )
+        self.assertContains(response, self.new_content)
+
+    def test_preview_workflow_nonexistent_ids(self):
+        preview_url = self.get_url(
+            "workflow_preview",
+            args=(quote(self.object.pk), 123),
+        )
+        response = self.client.get(preview_url)
+
+        self.assertEqual(response.status_code, 404)
+
+        preview_url = self.get_url("workflow_preview", args=(123, self.task_1.id))
+        response = self.client.get(preview_url)
+
+        self.assertEqual(response.status_code, 404)
+
+
+class TestSnippetWorkflowPreview(TestPageWorkflowPreview, BaseSnippetWorkflowTests):
+    preview_template = "tests/previewable_model.html"
+    preview_content = "Not-so-simple object (Default Preview)"
+
+    def edit_object(self):
+        self.object.text = self.new_content
+        self.object.save_revision()
+
+
 class TestTaskChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
