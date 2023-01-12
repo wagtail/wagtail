@@ -21,6 +21,11 @@ exports[`TooltipEntity #openTooltip 1`] = `
       <body
         data-draftail-editor-wrapper="true"
       >
+        <script
+          id="wagtail-config"
+        >
+          {"CSRF_TOKEN":"potato"}
+        </script>
         <div
           data-draftail-trigger="true"
         />
@@ -35,6 +40,11 @@ exports[`TooltipEntity #openTooltip 1`] = `
           "container": <body
             data-draftail-editor-wrapper="true"
           >
+            <script
+              id="wagtail-config"
+            >
+              {"CSRF_TOKEN":"potato"}
+            </script>
             <div
               data-draftail-trigger="true"
             />
