@@ -74,7 +74,6 @@ $positions: (
   width: $size-home-button;
   height: $size-home-button;
   margin: 0;
-  //overflow: hidden;
   background-color: $color-white;
   border: 2px solid transparent;
   border-radius: 50%;
@@ -99,14 +98,14 @@ $positions: (
     justify-content: center;
     align-items: center;
     background-color: $color-button-no;
-    border-radius: 100px;
+    border-radius: theme('borderRadius.full');
     color: $color-white;
-    font-size: 0.8125rem;
-    height: 20px;
-    width: 20px;
+    font-size: theme('fontSize.14');
+    height: theme('spacing.5');
+    width: theme('spacing.5');
     position: absolute;
     inset-inline-end: -3px;
-    inset-block-start: -3px;
+    top: -3px;
   }
 
   &:focus {

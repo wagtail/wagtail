@@ -283,25 +283,13 @@ class Userbar extends HTMLElement {
         runOnly: {
           type: 'rule',
           values: [
-            'button-name',
-            'link-name',
-            'input-button-name',
-            'role-img-alt',
-            'select-name',
-            'valid-lang',
-            'th-has-data-cells',
             'empty-heading',
             'heading-order',
             'p-as-heading',
-            'td-has-header',
-            'page-has-heading-one',
           ],
         },
       },
     );
-
-    // full test result output for testing purposes
-    console.log('Axe test results', results);
 
     // draft UI output for testing purposes
     if (results.violations.length) {
