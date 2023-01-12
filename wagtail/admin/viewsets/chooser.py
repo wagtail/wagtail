@@ -40,6 +40,9 @@ class ChooserViewSet(ViewSet):
     #: The view class used after an item has been chosen; must be a subclass of ``wagtail.admin.views.generic.chooser.ChosenView``.
     chosen_view_class = chooser_views.ChosenView
 
+    #: The view class used after multiple items have been chosen; must be a subclass of ``wagtail.admin.views.generic.chooser.ChosenMultipleView``.
+    chosen_multiple_view_class = chooser_views.ChosenMultipleView
+
     #: The view class used to handle submissions of the 'create' form; must be a subclass of ``wagtail.admin.views.generic.chooser.CreateView``.
     create_view_class = chooser_views.CreateView
 
@@ -118,6 +121,12 @@ class ChooserViewSet(ViewSet):
     @property
     def chosen_view(self):
         return self.chosen_view_class.as_view(
+            model=self.model,
+        )
+
+    @property
+    def chosen_multiple_view(self):
+        return self.chosen_multiple_view_class.as_view(
             model=self.model,
         )
 
@@ -201,6 +210,7 @@ class ChooserViewSet(ViewSet):
             path("", self.choose_view, name="choose"),
             path("results/", self.choose_results_view, name="choose_results"),
             path("chosen/<str:pk>/", self.chosen_view, name="chosen"),
+            path("chosen-multiple/", self.chosen_multiple_view, name="chosen_multiple"),
             path("create/", self.create_view, name="create"),
         ]
 
