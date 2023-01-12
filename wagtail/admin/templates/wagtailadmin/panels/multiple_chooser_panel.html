@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block js_init %}
+    {% with script_id="id_"|add:self.formset.prefix|add:"-CHOOSER_WIDGET" %}
+        {{ chooser_widget_definition|json_script:script_id }}
+    {% endwith %}
+
     <script>
         (function() {
             var panel = new InlinePanel({
