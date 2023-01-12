@@ -1938,8 +1938,12 @@ class TestDisableViews(TestCase, WagtailTestUtils):
             response.context["warning_message"],
             "This task is in progress on 1 page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
         )
+        self.assertContains(
+            response,
+            "This task is in progress on 1 page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+        )
 
-        # create a new, unused, task and check the warning message is accurate
+        # create a new, unused, task and check there is no warning message
         unused_task = GroupApprovalTask.objects.create(name="unused_task_3")
         unused_task.groups.set(Group.objects.filter(name="Moderators"))
 
@@ -1947,9 +1951,12 @@ class TestDisableViews(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_workflows:disable_task", args=(unused_task.pk,))
         )
 
-        self.assertEqual(
-            response.context["warning_message"],
-            "This task is in progress on 0 pages/snippets. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+        self.assertNotIn("warning_message", response.context)
+        self.assertNotContains(response, "This task is in progress")
+        self.assertNotContains(
+            response,
+            "Disabling this task will cause it to be skipped in the moderation workflow "
+            "and not be listed for selection when editing a workflow.",
         )
 
         unused_task.delete()  # clean up

@@ -553,13 +553,14 @@ class DisableTask(DeleteView):
         states_in_progress = TaskState.objects.filter(
             status=TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk
         ).count()
-        context["warning_message"] = ngettext(
-            "This task is in progress on %(states_in_progress)d page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
-            "This task is in progress on %(states_in_progress)d pages/snippets. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
-            states_in_progress,
-        ) % {
-            "states_in_progress": states_in_progress,
-        }
+        if states_in_progress:
+            context["warning_message"] = ngettext(
+                "This task is in progress on %(states_in_progress)d page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+                "This task is in progress on %(states_in_progress)d pages/snippets. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+                states_in_progress,
+            ) % {
+                "states_in_progress": states_in_progress,
+            }
         return context
 
     @property
