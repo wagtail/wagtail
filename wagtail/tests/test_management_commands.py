@@ -15,6 +15,7 @@ from wagtail.signals import page_published, page_unpublished, published, unpubli
 from wagtail.test.testapp.models import (
     DraftStateModel,
     EventPage,
+    FullFeaturedSnippet,
     SecretPage,
     SimplePage,
 )
@@ -632,8 +633,6 @@ class TestPurgeRevisionsCommand(TestCase):
 
         self.page.save_revision(submitted_for_moderation=True)
 
-        revision = self.page.save_revision()
-
         self.run_command()
 
         self.assertTrue(
@@ -649,14 +648,18 @@ class TestPurgeRevisionsCommand(TestCase):
             task_1 = Task.objects.create(name="test_task_1")
             user = get_user_model().objects.first()
             WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+            snippet = FullFeaturedSnippet.objects.create(text="Initial", live=False)
+            page_revision = self.page.save_revision()
+            snippet_revision = snippet.save_revision()
             workflow.start(self.page, user)
-            self.page.save_revision()
+            workflow.start(snippet, user)
             self.run_command()
-            # even though no longer the latest revision, the old revision should stay as it is
-            # attached to an in progress workflow
-            self.assertIn(
-                revision, Revision.page_revisions.filter(object_id=self.page.id)
-            )
+
+            # even though they're no longer the latest revisions, the old revisions
+            # should stay as they are attached to an in progress workflow
+            self.assertTrue(Revision.objects.filter(id=page_revision.id).exists())
+            self.assertTrue(Revision.objects.filter(id=snippet_revision.id).exists())
         except ImportError:
             pass
 
