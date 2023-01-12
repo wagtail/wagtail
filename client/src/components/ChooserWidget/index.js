@@ -123,7 +123,7 @@ export class Chooser {
     if (!this.modal) {
       // eslint-disable-next-line new-cap
       this.modal = new this.chooserModalClass(
-        this.chooserElement.dataset.chooserUrl,
+        this.opts.modalUrl || this.chooserElement.dataset.chooserUrl,
       );
     }
     this.modal.open(this.getModalOptions(), (result) => {

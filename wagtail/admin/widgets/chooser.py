@@ -236,7 +236,9 @@ class BaseChooser(widgets.Input):
     def base_js_init_options(self):
         """The set of options to pass to the JS initialiser that are constant every time this widget
         instance is rendered (i.e. do not vary based on id / name / value)"""
-        return {}
+        return {
+            "modalUrl": self.get_chooser_modal_url(),
+        }
 
     def get_js_init_options(self, id_, name, value_data):
         return {**self.base_js_init_options}
