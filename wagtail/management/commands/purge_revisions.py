@@ -60,7 +60,7 @@ def purge_revisions(days=None):
 
     deleted_revisions_count = 0
 
-    for revision in purgeable_revisions:
+    for revision in purgeable_revisions.iterator():
         # don't delete the latest revision for any page
         if not revision.is_latest_revision():
             revision.delete()

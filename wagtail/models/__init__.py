@@ -2835,15 +2835,16 @@ class Revision(models.Model):
             # special case: a revision without an ID is presumed to be newly-created and is thus
             # newer than any revision that might exist in the database
             return True
-        latest_revision = (
-            Revision.objects.filter(
+
+        return (
+            not Revision.objects.filter(
                 base_content_type_id=self.base_content_type_id,
                 object_id=self.object_id,
+                created_at__gte=self.created_at,
             )
-            .order_by("-created_at", "-id")
-            .first()
+            .exclude(id=self.id)
+            .exists()
         )
-        return latest_revision == self
 
     def delete(self):
         # Update revision_created fields for comments that reference the current revision, if applicable.

@@ -70,6 +70,7 @@ Changelog
  * Fix: Prevent obstructing the outline around rich text fields (Thibaud Colas)
  * Fix: Page editor dropdowns now use indigo backgrounds like elsewhere in the admin interface (Thibaud Colas)
  * Fix: Allow parsing of multiple key/value pairs from string in `wagtail.search.utils.parse_query_string` (Beniamin Bucur)
+ * Fix: Prevent memory exhaustion when purging a large number of revisions (Jake Howard)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
