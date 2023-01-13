@@ -173,6 +173,7 @@ class CollectWorkflowActionData(BaseWorkflowFormView):
         ):
             # show form errors
             return self.render_modal_form(request, form)
+        return redirect(self.redirect_url)
 
 
 class ConfirmWorkflowCancellation(BaseObjectMixin, View):
