@@ -46,15 +46,17 @@
 
             {% if is_multiple_choice %}
                 <form action="{{ chosen_multiple_url }}" method="GET" data-multiple-choice-form>
-            {% endif %}
 
-            <div id="search-results" class="listing">
-                {% include view.results_template_name %}
-            </div>
+                    <div id="search-results" class="listing">
+                        {% include view.results_template_name %}
+                    </div>
 
-            {% if is_multiple_choice %}
-                <input type="submit" value="{% trans 'Confirm selection' %}" class="button" />
+                    <input type="submit" value="{% trans 'Confirm selection' %}" class="button" />
                 </form>
+            {% else %}
+                <div id="search-results" class="listing">
+                    {% include view.results_template_name %}
+                </div>
             {% endif %}
         </section>
 
