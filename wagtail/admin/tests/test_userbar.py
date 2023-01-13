@@ -146,6 +146,25 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         # Make sure nothing was rendered
         self.assertEqual(content, "")
 
+    def test_userbar_accessibility_configuration(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(
+            Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(self.user),
+                }
+            )
+        )
+
+        # Should include the configuration as a JSON script with the specific id
+        self.assertIn(
+            '<script id="accessibility-axe-configuration" type="application/json">',
+            content,
+        )
+        # Should include the custom error message
+        self.assertIn("Use the correct heading order", content)
+
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
     def setUp(self):
