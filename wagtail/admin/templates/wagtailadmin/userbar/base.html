@@ -35,6 +35,13 @@
         </div>
     </div>
 </template>
+{% trans 'Warnings' as dialog_title %}
+{% trans 'Issues found' as issues_found %}
+{% dialog id="accessibility-results" theme="floating" classname="w-dialog--userbar" title=dialog_title subtitle=issues_found %}
+    {# Contents of the dialog created in JS based on those templates. #}
+    <div class="w-a11y-result__row" data-a11y-result-row hidden></div>
+{% enddialog %}
 <wagtail-userbar></wagtail-userbar>
+<script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
 <!-- end Wagtail user bar embed code -->

@@ -1,5 +1,7 @@
 import axe from 'axe-core';
 
+import { dialog } from '../../includes/dialog';
+
 // This entrypoint is not bundled with any polyfills to keep it as light as possible
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
 // More background can be found in webpack.config.js
@@ -297,16 +299,33 @@ class Userbar extends HTMLElement {
 
     // draft UI output for testing purposes
     if (results.violations.length) {
+      const dialogtemplates = document.querySelectorAll(
+        '[data-wagtail-dialog]',
+      );
+      const dialogs = dialog(dialogtemplates, this.shadowRoot);
+
+      if (!dialogs.length) {
+        return;
+      }
+
       const axeCount = document.createElement('div');
       axeCount.textContent = results.violations.length;
       axeCount.classList.add('w-userbar-axe-count');
       this.trigger.appendChild(axeCount);
 
       const showAxeResults = () => {
+        const modal = dialogs[0];
+        modal.show();
+        const modalBody = modal.$el.querySelector('[data-dialog-body]');
+        const rowTemplate = modalBody.querySelector('[data-a11y-result-row]');
+
+        modalBody.innerHTML = '';
+
         results.violations.forEach((violation) => {
-          const annotation = document.createElement('div');
-          annotation.textContent = violation.description;
-          accessibilityTrigger.appendChild(annotation);
+          const row = rowTemplate.cloneNode(true);
+          row.hidden = false;
+          row.textContent = violation.description;
+          modalBody.appendChild(row);
         });
       };
       accessibilityTrigger.addEventListener('click', showAxeResults);

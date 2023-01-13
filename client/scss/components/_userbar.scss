@@ -261,6 +261,11 @@ $positions: (
   }
 }
 
+.w-dialog--userbar {
+  // Display off to the side of the page rather than in the middle.
+  inset-inline-start: auto;
+}
+
 //Media for Windows High Contrast
 
 @media (forced-colors: $media-forced-colours) {
