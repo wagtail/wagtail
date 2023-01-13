@@ -27,7 +27,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.admin.ui.tables import Column, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
@@ -102,6 +102,10 @@ class PreserveURLParametersMixin:
         return url
 
 
+class CheckboxSelectColumn(Column):
+    cell_template_name = "wagtailadmin/generic/chooser/checkbox_select_cell.html"
+
+
 class BaseChooseView(
     ModalPageFurnitureMixin,
     ModelLookupMixin,
@@ -117,6 +121,7 @@ class BaseChooseView(
     per_page = 10
     ordering = None
     chosen_url_name = None
+    chosen_multiple_url_name = None
     results_url_name = None
     icon = "snippet"
     page_title = _("Choose")
@@ -180,6 +185,11 @@ class BaseChooseView(
     def get_results_url(self):
         return self.append_preserved_url_parameters(reverse(self.results_url_name))
 
+    def get_chosen_multiple_url(self):
+        return self.append_preserved_url_parameters(
+            reverse(self.chosen_multiple_url_name)
+        )
+
     @property
     def columns(self):
         return [
@@ -196,6 +206,12 @@ class BaseChooseView(
             ),
         ]
 
+    @property
+    def checkbox_column(self):
+        return CheckboxSelectColumn(
+            "select", label=_("Select"), width="1%", accessor="pk"
+        )
+
     def get_results_page(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
@@ -207,7 +223,12 @@ class BaseChooseView(
     def get(self, request):
         self.filter_form = self.get_filter_form()
         self.results = self.get_results_page(request)
-        self.table = Table(self.columns, self.results)
+        self.is_multiple_choice = request.GET.get("multiple")
+
+        columns = self.columns
+        if self.is_multiple_choice:
+            columns.insert(0, self.checkbox_column)
+        self.table = Table(columns, self.results)
 
         return self.render_to_response()
 
@@ -228,10 +249,13 @@ class BaseChooseView(
                 "results_pagination_url": results_pagination_url,
                 "is_searching": self.filter_form.is_searching,
                 "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
+                "is_multiple_choice": self.is_multiple_choice,
                 "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
             }
         )
+        if self.is_multiple_choice:
+            context["chosen_multiple_url"] = self.get_chosen_multiple_url()
         return context
 
     def render_to_response(self):

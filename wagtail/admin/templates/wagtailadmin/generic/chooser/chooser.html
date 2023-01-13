@@ -44,9 +44,18 @@
                 {% endif %}
             {% endblock %}
 
+            {% if is_multiple_choice %}
+                <form action="{{ chosen_multiple_url }}" method="GET" data-multiple-choice-form>
+            {% endif %}
+
             <div id="search-results" class="listing">
                 {% include view.results_template_name %}
             </div>
+
+            {% if is_multiple_choice %}
+                <input type="submit" value="{% trans 'Confirm selection' %}" class="button" />
+                </form>
+            {% endif %}
         </section>
 
         {% if creation_form %}

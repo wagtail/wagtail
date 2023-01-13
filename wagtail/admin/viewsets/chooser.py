@@ -92,6 +92,7 @@ class ChooserViewSet(ViewSet):
         return self.choose_view_class.as_view(
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
+            chosen_multiple_url_name=self.get_url_name("chosen_multiple"),
             results_url_name=self.get_url_name("choose_results"),
             create_url_name=self.get_url_name("create"),
             icon=self.icon,
@@ -113,6 +114,7 @@ class ChooserViewSet(ViewSet):
         return self.choose_results_view_class.as_view(
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
+            chosen_multiple_url_name=self.get_url_name("chosen_multiple"),
             results_url_name=self.get_url_name("choose_results"),
             per_page=self.per_page,
             creation_form_class=self.creation_form_class,
