@@ -14,6 +14,7 @@ from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenMultipleViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -154,6 +155,12 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
     def get(self, request, *args, pk, **kwargs):
         self.model = get_image_model()
         return super().get(request, *args, pk, **kwargs)
+
+
+class ImageChosenMultipleView(ChosenMultipleViewMixin, ImageChosenResponseMixin, View):
+    def get(self, request, *args, **kwargs):
+        self.model = get_image_model()
+        return super().get(request, *args, **kwargs)
 
 
 class SelectFormatResponseMixin(PreserveURLParametersMixin):
@@ -299,6 +306,7 @@ class ImageChooserViewSet(ChooserViewSet):
     choose_view_class = ImageChooseView
     choose_results_view_class = ImageChooseResultsView
     chosen_view_class = ImageChosenView
+    chosen_multiple_view_class = ImageChosenMultipleView
     create_view_class = ImageUploadView
     select_format_view_class = ImageSelectFormatView
     permission_policy = permission_policy
