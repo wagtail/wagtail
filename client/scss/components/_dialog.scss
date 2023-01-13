@@ -150,3 +150,17 @@
     margin-bottom: 0;
   }
 }
+
+// Variant of the dialog which allows viewing other page content.
+.w-dialog--floating {
+  pointer-events: none;
+
+  .w-dialog__box {
+    pointer-events: auto;
+    box-shadow: theme('boxShadow.md');
+  }
+
+  .w-dialog__overlay {
+    display: none;
+  }
+}

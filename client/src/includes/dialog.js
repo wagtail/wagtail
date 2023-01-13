@@ -8,7 +8,7 @@ export const dialog = (
     const html = document.documentElement;
     const templateContent = template.content.firstElementChild;
 
-    const { dialogRootSelector } = templateContent.dataset;
+    const { dialogRootSelector, theme } = templateContent.dataset;
     const dialogRoot =
       (dialogRootSelector && rootElement.querySelector(dialogRootSelector)) ||
       rootElement;
@@ -16,14 +16,16 @@ export const dialog = (
 
     const dialogTemplate = new A11yDialog(templateContent);
 
-    // Prevent scrolling when dialog is open
-    dialogTemplate
-      .on('show', () => {
-        html.style.overflowY = 'hidden';
-      })
-      .on('hide', () => {
-        html.style.overflowY = '';
-      });
+    if (theme !== 'floating') {
+      // Prevent scrolling when dialog is open
+      dialogTemplate
+        .on('show', () => {
+          html.style.overflowY = 'hidden';
+        })
+        .on('hide', () => {
+          html.style.overflowY = '';
+        });
+    }
 
     // Attach event listeners to the dialog root (element with id), so it's
     // possible to show/close the dialog somewhere else with no access to the
