@@ -21,7 +21,16 @@
         </p>
     {% endif %}
 
+    {% if is_multiple_choice %}
+        <form action="{% url 'wagtailadmin_choose_page_chosen_multiple' %}" method="GET" data-multiple-choice-form>
+    {% endif %}
+
     <div class="page-results">
         {% include 'wagtailadmin/chooser/_browse_results.html' %}
     </div>
+
+    {% if is_multiple_choice %}
+        <input type="submit" value="{% trans 'Confirm selection' %}" class="button" />
+        </form>
+    {% endif %}
 </div>
