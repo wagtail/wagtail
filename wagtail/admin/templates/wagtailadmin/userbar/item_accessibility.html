@@ -6,4 +6,5 @@
         {% icon name="tick" class_name="w-action-icon" %}
         {% trans 'Accessibility' %}
     </button>
+    {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
 {% endblock %}

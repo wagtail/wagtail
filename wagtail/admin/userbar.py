@@ -1,4 +1,5 @@
 from django.template.loader import render_to_string
+from django.utils.translation import gettext_lazy as _
 
 
 class BaseItem:
@@ -31,7 +32,38 @@ class AccessibilityItem(BaseItem):
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
-        return super().render(request)
+        return render_to_string(
+            self.template,
+            {
+                "self": self,
+                "request": request,
+                "axe_configuration": {
+                    # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
+                    "context": {
+                        "include": "body",
+                        "exclude": {"fromShadowDOM": ["wagtail-userbar"]},
+                    },
+                    # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
+                    "options": {
+                        "runOnly": {
+                            "type": "rule",
+                            "values": [
+                                "empty-heading",
+                                "heading-order",
+                                "p-as-heading",
+                            ],
+                        }
+                    },
+                    # Wagtail-specific translatable custom error messages.
+                    "messages": {
+                        "empty-heading": _("Avoid empty headings"),
+                        "heading-order": _("Use the correct heading order"),
+                        "p-as-heading": _("Use heading elements for headings"),
+                    },
+                },
+            },
+            request=request,
+        )
 
 
 class AddPageItem(BaseItem):
