@@ -31,6 +31,9 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
     const initialPageResultsHtml = $('.page-results', modal.body).html();
 
+    // Set up submissions of the "choose multiple items" form to open in the modal.
+    modal.ajaxifyForm($('form[data-multiple-choice-form]', modal.body));
+
     let request;
 
     function search() {
@@ -112,8 +115,12 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       /* Set up behaviour of choose-page links, to pass control back to the calling page */
       // eslint-disable-next-line func-names
       $('a.choose-page', modal.body).on('click', function () {
-        const pageData = $(this).data();
+        let pageData = $(this).data();
         pageData.parentId = jsonData.parent_page_id;
+        if ($('form[data-multiple-choice-form]', modal.body).length) {
+          /* this is a multiple-choice chooser, so wrap in a list before returning */
+          pageData = [pageData];
+        }
         modal.respond('pageChosen', pageData);
         modal.close();
 
@@ -190,6 +197,10 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     });
   },
   external_link_chosen(modal, jsonData) {
+    modal.respond('pageChosen', jsonData.result);
+    modal.close();
+  },
+  page_chosen(modal, jsonData) {
     modal.respond('pageChosen', jsonData.result);
     modal.close();
   },

@@ -50,6 +50,11 @@ urlpatterns = [
         name="wagtailadmin_choose_page_search",
     ),
     path(
+        "choose-page/chosen-multiple/",
+        chooser.ChosenMultipleView.as_view(),
+        name="wagtailadmin_choose_page_chosen_multiple",
+    ),
+    path(
         "choose-external-link/",
         chooser.ExternalLinkView.as_view(),
         name="wagtailadmin_choose_page_external_link",

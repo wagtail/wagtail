@@ -156,10 +156,14 @@ class PageNavigateToChildrenColumn(Column):
         return instance
 
 
+class PageCheckboxSelectColumn(Column):
+    cell_template_name = "wagtailadmin/chooser/tables/page_checkbox_select_cell.html"
+
+
 class BrowseView(View):
     @property
     def columns(self):
-        return [
+        cols = [
             PageTitleColumn(
                 "title", label=_("Title"), show_locale_labels=self.i18n_enabled
             ),
@@ -178,6 +182,14 @@ class BrowseView(View):
             PageStatusColumn("status", label=_("Status"), width="12%"),
             PageNavigateToChildrenColumn("children", label="", width="10%"),
         ]
+        if self.is_multiple_choice:
+            cols.insert(
+                0,
+                PageCheckboxSelectColumn(
+                    "select", label=_("Select"), width="1%", accessor="pk"
+                ),
+            )
+        return cols
 
     def get_object_list(self):
         # Get children of parent page (without streamfields)
@@ -204,6 +216,7 @@ class BrowseView(View):
 
     def get(self, request, parent_page_id=None):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        self.is_multiple_choice = request.GET.get("multiple")
 
         # A missing or empty page_type parameter indicates 'all page types'
         # (i.e. descendants of wagtailcore.page)
@@ -362,6 +375,7 @@ class BrowseView(View):
                 "show_locale_labels": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
+                "is_multiple_choice": self.is_multiple_choice,
             },
         )
 
@@ -377,7 +391,7 @@ class BrowseView(View):
 class SearchView(View):
     @property
     def columns(self):
-        return [
+        cols = [
             PageTitleColumn(
                 "title", label=_("Title"), show_locale_labels=self.i18n_enabled
             ),
@@ -398,9 +412,18 @@ class SearchView(View):
             ),
             PageStatusColumn("status", label=_("Status"), width="12%"),
         ]
+        if self.is_multiple_choice:
+            cols.insert(
+                0,
+                PageCheckboxSelectColumn(
+                    "select", label=_("Select"), width="1%", accessor="pk"
+                ),
+            )
+        return cols
 
     def get(self, request):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        self.is_multiple_choice = request.GET.get("multiple")
         # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
         page_type_string = request.GET.get("page_type") or "wagtailcore.page"
 
@@ -452,6 +475,37 @@ class SearchView(View):
                 },
             ),
         )
+
+
+class ChosenMultipleView(View):
+    """
+    A view that takes a list of 'id' URL parameters and returns a modal workflow response indicating
+    that those objects have been chosen
+    """
+
+    def render_chosen_response(self, result):
+        return render_modal_workflow(
+            self.request,
+            None,
+            None,
+            None,
+            json_data={"step": "page_chosen", "result": result},
+        )
+
+    def get(self, request):
+        pks = request.GET.getlist("id")
+        pages = Page.objects.filter(pk__in=pks).specific()
+        result = [
+            {
+                "id": page.pk,
+                "parentId": page.get_parent().pk,
+                "adminTitle": page.get_admin_display_title(),
+                "editUrl": reverse("wagtailadmin_pages:edit", args=(page.pk,)),
+                "url": page.url,
+            }
+            for page in pages
+        ]
+        return self.render_chosen_response(result)
 
 
 class BaseLinkFormView(View):
