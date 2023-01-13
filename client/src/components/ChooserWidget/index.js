@@ -20,6 +20,9 @@ export class Chooser {
         this.clear();
       });
     }
+
+    // attach a reference to this widget object onto the root element of the chooser
+    this.chooserElement.widget = this;
   }
 
   initHTMLElements(id) {
@@ -70,6 +73,10 @@ export class Chooser {
     } else {
       this.renderEmptyState();
     }
+  }
+
+  setStateFromModalData(data) {
+    this.setState(data);
   }
 
   clear() {
@@ -127,7 +134,7 @@ export class Chooser {
       );
     }
     this.modal.open(this.getModalOptions(), (result) => {
-      this.setState(result);
+      this.setStateFromModalData(result);
     });
   }
 }
@@ -169,5 +176,10 @@ export class ChooserFactory {
     }
     const options = { ...this.getModalOptions(), ...customOptions };
     this.modal.open(options, callback);
+  }
+
+  getById(id) {
+    /* retrieve the widget object corresponding to the given HTML ID */
+    return document.getElementById(`${id}-chooser`).widget;
   }
 }
