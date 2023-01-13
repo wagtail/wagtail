@@ -16,8 +16,15 @@ export class MultipleChooserPanel extends InlinePanel {
     $(`#${opts.formsetPrefix}-OPEN_MODAL`).on('click', () => {
       this.chooserWidgetFactory.openModal(
         (result) => {
-          // eslint-disable-next-line no-console
-          console.log(result);
+          result.forEach((item) => {
+            this.addForm();
+            const formIndex = this.formCount - 1;
+            const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+            const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+            const chooserWidget =
+              this.chooserWidgetFactory.getById(chooserFieldId);
+            chooserWidget.setStateFromModalData(item);
+          });
         },
         { multiple: true },
       );
