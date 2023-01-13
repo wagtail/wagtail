@@ -1,16 +1,17 @@
 import A11yDialog from 'a11y-dialog';
 
 export const dialog = (
-  dialogs = document.querySelectorAll('[data-dialog]'),
+  dialogTemplates = document.querySelectorAll('[data-wagtail-dialog]'),
+  rootElement = document.body,
 ) => {
-  dialogs.forEach((template) => {
+  const dialogs = Array.from(dialogTemplates).map((template) => {
     const html = document.documentElement;
     const templateContent = template.content.firstElementChild;
 
     const { dialogRootSelector } = templateContent.dataset;
     const dialogRoot =
-      (dialogRootSelector && document.querySelector(dialogRootSelector)) ||
-      document.body;
+      (dialogRootSelector && rootElement.querySelector(dialogRootSelector)) ||
+      rootElement;
     dialogRoot.appendChild(templateContent);
 
     const dialogTemplate = new A11yDialog(templateContent);
@@ -33,5 +34,9 @@ export const dialog = (
     templateContent.addEventListener('wagtail:hide', () =>
       dialogTemplate.hide(),
     );
+
+    return dialogTemplate;
   });
+
+  return dialogs;
 };
