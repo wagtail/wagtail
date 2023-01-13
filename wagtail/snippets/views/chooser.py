@@ -5,6 +5,7 @@ from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenMultipleView,
     ChosenView,
     CreationFormMixin,
 )
@@ -58,8 +59,13 @@ class SnippetChosenView(ChosenView):
     response_data_title_key = "string"
 
 
+class SnippetChosenMultipleView(ChosenMultipleView):
+    response_data_title_key = "string"
+
+
 class SnippetChooserViewSet(ChooserViewSet):
     register_widget = False  # registering the snippet chooser widget for a given model is done in register_snippet
     choose_view_class = ChooseView
     choose_results_view_class = ChooseResultsView
     chosen_view_class = SnippetChosenView
+    chosen_multiple_view_class = SnippetChosenMultipleView
