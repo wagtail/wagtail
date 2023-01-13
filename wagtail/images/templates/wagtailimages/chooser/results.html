@@ -7,10 +7,20 @@
     <ul class="listing horiz images chooser">
         {% for image in results %}
             <li>
-                <a data-chooser-modal-choice class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{{ image.chosen_url }}">
-                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
-                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
-                </a>
+                {% if is_multiple_choice %}
+                    <a data-chooser-modal-choice class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{{ image.chosen_url }}">
+                        <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                    </a>
+                    <h3>
+                        <input type="checkbox" name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
+                        {{ image.title|ellipsistrim:60 }}
+                    </h3>
+                {% else %}
+                    <a data-chooser-modal-choice class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{{ image.chosen_url }}">
+                        <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                        <h3>{{ image.title|ellipsistrim:60 }}</h3>
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
