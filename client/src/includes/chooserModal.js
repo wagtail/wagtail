@@ -280,6 +280,8 @@ class ChooserModalOnloadHandlerFactory {
     this.initSearchController(modal);
     this.ajaxifyLinks(modal, modal.body);
     this.ajaxifyCreationForm(modal);
+    // Set up submissions of the "choose multiple items" form to open in the modal.
+    modal.ajaxifyForm($('form[data-multiple-choice-form]', modal.body));
   }
 
   onLoadChosenStep(modal, jsonData) {
