@@ -264,6 +264,28 @@ $positions: (
 .w-dialog--userbar {
   // Display off to the side of the page rather than in the middle.
   inset-inline-start: auto;
+
+  .w-dialog__close-button {
+    $size: theme('spacing.6');
+    width: $size;
+    height: $size;
+    top: calc(-1 * $size / 2);
+    inset-inline-end: calc(-1 * $size / 2);
+    border-radius: theme('borderRadius.full');
+    border: 2px solid theme('colors.primary.DEFAULT');
+  }
+
+  .w-dialog__content {
+    padding: 0;
+  }
+
+  .w-dialog__title {
+    @apply w-h3;
+  }
+
+  .w-dialog__subtitle {
+    @apply w-body-text;
+  }
 }
 
 //Media for Windows High Contrast
