@@ -384,3 +384,43 @@ For another example of using model clusters, see {ref}`tagging`.
 
 For more on `django-modelcluster`, visit
 [the django-modelcluster github project page](https://github.com/wagtail/django-modelcluster)
+
+(multiple_chooser_panel)=
+
+### MultipleChooserPanel
+
+```{versionadded} 4.2
+The `MultipleChooserPanel` panel type was added.
+```
+
+```{eval-rst}
+.. class:: MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
+```
+
+This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
+
+`MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
+
+For example, given a child model that provies a gallery of images on `BlogPage`:
+
+```python
+class BlogPageGalleryImage(Orderable):
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        FieldPanel('image'),
+        FieldPanel('caption'),
+    ]
+```
+
+the `MultipleChooserPanel` definition on `BlogPage` would be:
+
+```python
+        MultipleChooserPanel(
+            'gallery_images', label="Gallery images", chooser_field_name="image"
+        )
+```
