@@ -91,7 +91,7 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         self.assertRedirects(response, doc_url)
 
         # now requests to the documents url should pass authentication
-        response = self.client.get(doc_url)
+        self.client.get(doc_url)
 
         self.client.logout()
 

@@ -73,7 +73,7 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
         needle += "</ul>"
         self.assertInHTML(needle, html)
 
-        response = self.client.post(self.self_delete_url)
+        self.client.post(self.self_delete_url)
 
         # Check user was not deleted
         self.assertTrue(User.objects.filter(pk=self.current_user.pk).exists())

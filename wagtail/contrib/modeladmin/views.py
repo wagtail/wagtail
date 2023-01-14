@@ -274,8 +274,7 @@ class InstanceSpecificView(WMABaseView):
         super().__init__(model_admin)
         self.instance_pk = unquote(instance_pk)
         self.pk_quoted = quote(self.instance_pk)
-        filter_kwargs = {}
-        filter_kwargs[self.pk_attname] = self.instance_pk
+        filter_kwargs = {self.pk_attname: self.instance_pk}
         object_qs = model_admin.model._default_manager.get_queryset().filter(
             **filter_kwargs
         )

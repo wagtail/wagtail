@@ -711,7 +711,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "content": "Some content",
             "slug": "hello-world",
             "action-publish": "Publish",
-            "go_live_at": "",
+            "go_live_at": go_live_at,
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
@@ -880,7 +880,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "content": "Some content",
             "slug": "hello-world",
             "action-publish": "Publish",
-            "go_live_at": "",
+            "go_live_at": go_live_at,
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
@@ -2260,7 +2260,7 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         )
 
     def _approve_page(self, parent):
-        response = self.client.post(
+        self.client.post(
             reverse("wagtailadmin_pages:add", args=("tests", "simplepage", parent.pk)),
             {
                 "title": "Hello, world!",

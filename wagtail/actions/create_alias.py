@@ -149,7 +149,7 @@ class CreatePageAliasAction:
         )
 
         # Update any translatable child objects
-        for (child_relation, old_pk), child_object in child_object_map.items():
+        for child_object in child_object_map.values():
             if isinstance(child_object, TranslatableMixin):
                 if update_locale:
                     child_object.locale = update_locale

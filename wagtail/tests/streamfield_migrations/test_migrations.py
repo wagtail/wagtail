@@ -25,29 +25,24 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
     app_name = None
 
     def setUp(self):
-        instances = []
-        instances.append(
+        instances = [
             self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
                 content__2__char2="Test char 3",
                 content__3__char2="Test char 4",
-            )
-        )
-        instances.append(
+            ),
             self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
                 content__2__char2="Test char 3",
-            )
-        )
-        instances.append(
+            ),
             self.factory(
                 content__0__char2="Test char 1",
                 content__1__char2="Test char 2",
                 content__2__char2="Test char 3",
-            )
-        )
+            ),
+        ]
 
         self.original_raw_data = {}
         self.original_revisions = {}

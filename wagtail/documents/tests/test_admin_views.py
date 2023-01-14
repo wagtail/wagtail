@@ -2009,7 +2009,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
             collection=self.evil_plans_collection,
             permission=add_permission,
         )
-        response = self.client.post(
+        self.client.post(
             reverse("wagtaildocs:edit", args=(self.document.id,)),
             {
                 "title": "Test document changed!",

@@ -458,7 +458,7 @@ class TestStreamFieldCountValidation(TestCase):
         )
 
     def test_block_counts_minimums(self):
-        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
+        JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
 
         # Zero blocks should fail validation (requires one text, one image)
         instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
@@ -486,7 +486,7 @@ class TestStreamFieldCountValidation(TestCase):
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
     def test_block_counts_maximums(self):
-        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
+        JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
 
         # Base is one text, one image
         body = [self.text_body, self.image_body]

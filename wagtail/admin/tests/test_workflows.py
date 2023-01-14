@@ -1416,7 +1416,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
 
         # An email that fails to send should return a message rather than crash the page
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse("wagtailadmin_home"))
+        self.client.get(reverse("wagtailadmin_home"))
 
     def test_resume_rejected_workflow(self):
         # test that an existing workflow can be resumed by submitting when rejected

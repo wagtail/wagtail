@@ -43,7 +43,7 @@ class TestRevisableModel(TestCase):
 
     def test_get_latest_revision_exists(self):
         self.instance.text = "updated"
-        revision = self.instance.save_revision()
+        self.instance.save_revision()
         self.instance.text = "updated twice"
         revision = self.instance.save_revision()
         self.instance.refresh_from_db()

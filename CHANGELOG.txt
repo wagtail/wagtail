@@ -27,6 +27,7 @@ Changelog
  * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
  * Maintenance: Provisional Django 5.0 compatibility fixes (Sage Abdullah)
  * Maintenance: Add unit tests for `CollapseAll` component (Albina Starykova)
+ * Maintenance: Code quality fixes (GLEF1X)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT

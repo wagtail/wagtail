@@ -57,7 +57,7 @@ class TestBulkAddImagesToCollection(WagtailTestUtils, TestCase):
                 "<li>{image_title}</li>".format(image_title=image.title), html
             )
 
-        response = self.client.post(self.url, self.post_data)
+        self.client.post(self.url, self.post_data)
 
         # Images should not be moved to new collection
         for image in self.images:

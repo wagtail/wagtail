@@ -164,15 +164,15 @@ class TestEmbeds(TestCase):
         self.assertEqual(self.hit_count, 1)
 
         # Look for the same embed again and check the hit count hasn't increased
-        embed = get_embed("www.test.com/1234", max_width=400, finder=self.dummy_finder)
+        get_embed("www.test.com/1234", max_width=400, finder=self.dummy_finder)
         self.assertEqual(self.hit_count, 1)
 
         # Look for a different embed, hit count should increase
-        embed = get_embed("www.test.com/4321", max_width=400, finder=self.dummy_finder)
+        get_embed("www.test.com/4321", max_width=400, finder=self.dummy_finder)
         self.assertEqual(self.hit_count, 2)
 
         # Look for the same embed with a different width, this should also increase hit count
-        embed = get_embed("www.test.com/4321", finder=self.dummy_finder)
+        get_embed("www.test.com/4321", finder=self.dummy_finder)
         self.assertEqual(self.hit_count, 3)
 
     def test_get_embed_nonresponsive(self):
