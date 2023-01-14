@@ -93,7 +93,6 @@ def edit(request, app_name, model_name, pk):
     form_class = edit_handler.get_form_class()
     site: Optional[Site] = None
     site_switcher = None
-    form_id: int = None
 
     if issubclass(model, BaseSiteSetting):
         site = get_object_or_404(Site, pk=pk)

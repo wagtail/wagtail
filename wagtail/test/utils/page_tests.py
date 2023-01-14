@@ -363,7 +363,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
             data_to_post["action-publish"] = ""
 
         try:
-            response = self.client.post(path, data_to_post)
+            self.client.post(path, data_to_post)
         except Exception as e:
             msg = self._formatMessage(
                 msg,

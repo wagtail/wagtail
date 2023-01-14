@@ -12,7 +12,6 @@ def chooser(request, get_results=False):
     queries = models.Query.get_most_popular()
 
     # If searching, filter results by query string
-    query_string = None
     if "q" in request.GET:
         searchform = SearchForm(request.GET)
         if searchform.is_valid():

@@ -147,8 +147,7 @@ class FormBuilder:
         return formfields
 
     def get_field_options(self, field):
-        options = {}
-        options["label"] = field.label
+        options = {"label": field.label}
         if getattr(settings, "WAGTAILFORMS_HELP_TEXT_ALLOW_HTML", False):
             options["help_text"] = field.help_text
         else:

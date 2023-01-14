@@ -182,7 +182,7 @@ class StreamField(models.Field):
             # See if it looks like the standard non-smart representation of a
             # StreamField value: a list of (block_name, value) tuples
             try:
-                [None for (x, y) in value]
+                [None for (_, _) in value]
             except (TypeError, ValueError):
                 # Give up trying to make sense of the value
                 raise TypeError(

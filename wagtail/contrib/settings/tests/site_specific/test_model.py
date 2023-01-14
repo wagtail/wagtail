@@ -41,7 +41,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
 
                 # only the first lookup should result in a query
                 with self.assertNumQueries(1):
-                    for i in range(4):
+                    for _ in range(4):
                         TestSiteSetting.for_request(request)
 
     def _create_importantpagessitesetting_object(self):

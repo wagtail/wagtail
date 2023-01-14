@@ -59,7 +59,7 @@ class TestBulkAddTags(TestCase, WagtailTestUtils):
                 "<li>{image_title}</li>".format(image_title=image.title), html
             )
 
-        response = self.client.post(self.url, self.post_data)
+        self.client.post(self.url, self.post_data)
 
         # New tags should not be added to the images
         for image in self.images:

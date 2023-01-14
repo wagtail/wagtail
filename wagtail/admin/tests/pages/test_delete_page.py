@@ -58,7 +58,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
         # And admin should be able to delete page without any confirmation
-        response = self.client.post(
+        self.client.post(
             reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
         )
         # Check that page is deleted
