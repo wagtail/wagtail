@@ -1126,6 +1126,7 @@ def register_icons(icons):
         "tag.svg",
         "tasks.svg",
         "thumbtack.svg",
+        "thumbtack-crossed.svg",
         "tick-inverse.svg",
         "tick.svg",
         "time.svg",
