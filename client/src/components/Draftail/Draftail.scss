@@ -1,4 +1,5 @@
 $draftail-editor-text: $color-input-text;
+$draftail-placeholder-text: theme('colors.grey.400');
 // w-body-text-large
 $draftail-editor-font-size: theme('fontSize.18');
 $draftail-editor-line-height: theme('lineHeight.normal');
@@ -76,9 +77,14 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-Editor {
+  @include input-base();
   // Number used inside a `calc` function, which doesn’t support unitless zero.
   // stylelint-disable-next-line length-zero-no-unit
   --draftail-offset-inline-start: 0px;
+
+  &--focus {
+    outline: $focus-outline-width solid $color-focus-outline;
+  }
 }
 
 .Draftail-Editor__wrapper {
@@ -107,13 +113,37 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-Toolbar {
-  border: 1px solid $color-grey-3;
+  border-width: 0;
+  // Remove once we drop support for Safari 14.
+  // stylelint-disable-next-line property-disallowed-list
+  border-bottom-left-radius: 0;
+  border-end-start-radius: 0;
+  // Remove once we drop support for Safari 14.
+  // stylelint-disable-next-line property-disallowed-list
+  border-bottom-right-radius: 0;
+  border-end-end-radius: 0;
+  background-color: $draftail-editor-background;
+  color: $draftail-placeholder-text;
+
+  .Draftail-Editor--focus & {
+    color: $draftail-editor-text;
+    top: calc(theme('spacing.slim-header') * 2);
+
+    @include media-breakpoint-up(sm) {
+      top: theme('spacing.slim-header');
+    }
+  }
 }
 
 .Draftail-MetaToolbar {
   position: absolute;
   inset-inline-end: 0;
   visibility: hidden;
+  background-color: transparent;
+
+  &:empty {
+    display: none;
+  }
 
   // Make sure the toolbar is always visible for devices that do not hover.
   @media (hover: hover) {
@@ -233,13 +263,6 @@ $draftail-editor-font-family: $font-sans;
   display: none;
 }
 
-.Draftail-ToolbarGroup--controls::before {
-  display: inline-block;
-  height: 1.875rem;
-  background-color: $color-white;
-  opacity: 0.2;
-}
-
 .Draftail-ToolbarButton {
   height: 1.875rem;
   min-width: 1.875rem;
@@ -260,9 +283,29 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.Draftail-Editor__wrapper .public-DraftEditor-content {
-  @include input-base();
-  @include show-focus-outline-inside();
+.Draftail-ToolbarButton--pin {
+  min-width: theme('spacing.6');
+  height: theme('spacing.6');
+  border: 1px solid theme('colors.primary.DEFAULT');
+
+  &:hover {
+    border-color: theme('colors.primary.DEFAULT');
+  }
+
+  .Draftail-Toolbar & {
+    border-color: $color-input-border;
+    background-color: theme('colors.grey.50');
+    border-top-width: 0;
+    border-inline-end-width: 0;
+
+    .Draftail-Editor:hover & {
+      border-color: $color-input-hover-border;
+    }
+  }
+
+  .icon {
+    transform: rotate(30deg);
+  }
 }
 
 .Draftail-block--blockquote {
