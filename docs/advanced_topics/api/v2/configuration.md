@@ -44,7 +44,21 @@ Wagtail provides three endpoint classes you can use:
 -   Images {class}`wagtail.images.api.v2.views.ImagesAPIViewSet`
 -   Documents {class}`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
-You can subclass any of these endpoint classes to customize their functionality.
+You can subclass any of these endpoint classes to customise their functionality.
+For example, in this case if you need to change the `APIViewSet` by setting a desired renderer class:
+
+```python
+from rest_framework.renderers import JSONRenderer
+
+# ...
+
+class CustomPagesAPIViewSet(PagesAPIViewSet):
+    renderer_classes = [JSONRenderer]
+    name = "pages"
+
+api_router.register_endpoint("pages", ProdPagesAPIViewSet)
+```
+
 Additionally, there is a base endpoint class you can use for adding different
 content types to the API: `wagtail.api.v2.views.BaseAPIViewSet`
 
