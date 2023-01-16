@@ -197,9 +197,8 @@ class DraftailInsertBlockCommand {
   }
 
   onSelect({ editorState }) {
-    // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
     const result = window.draftail.splitState(
-      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+      window.draftail.DraftUtils.removeCommandPalettePrompt(editorState),
     );
     if (result.stateAfter.getCurrentContent().hasText()) {
       // There is content after the insertion point, so need to split the existing block.
@@ -246,7 +245,7 @@ class DraftailSplitCommand {
 
   onSelect({ editorState }) {
     const result = window.draftail.splitState(
-      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+      window.draftail.DraftUtils.removeCommandPalettePrompt(editorState),
     );
     // Run the split after a timeout to circumvent potential race condition.
     setTimeout(() => {
