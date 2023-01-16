@@ -451,7 +451,13 @@ class SearchView(View):
             pages = pages.exclude(depth=1)  # never include root
             pages = pages.type(*desired_classes)
             pages = pages.specific()
-            pages = pages.search(search_form.cleaned_data["q"])
+            try:
+                pages = pages.autocomplete(search_form.cleaned_data["q"])
+            except NotImplementedError:
+                # Older search backends do not implement .autocomplete() but do support
+                # partial_match on .search(). Newer ones will ignore partial_match.
+                pages = pages.search(search_form.cleaned_data["q"], partial_match=True)
+
         else:
             pages = pages.none()
 

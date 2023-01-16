@@ -4733,6 +4733,15 @@ class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 
+    def test_partial_match(self):
+        response = self.get({"q": "hello wo"})
+
+        # should perform partial matching and return "Hello World"
+        items = list(response.context["items"].object_list)
+        self.assertNotIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
 
 class TestSnippetChosen(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
