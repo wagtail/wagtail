@@ -12,7 +12,9 @@ from wagtail.admin.filters import (
     FilteredModelChoiceFilter,
     WagtailFilterSet,
 )
+from wagtail.admin.utils import get_latest_str
 from wagtail.admin.widgets import ButtonSelect
+from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
     Task,
     TaskState,
@@ -136,23 +138,37 @@ class WorkflowView(ReportView):
     filterset_class = WorkflowReportFilterSet
 
     export_headings = {
-        "content_object.id": _("Page/Snippet ID"),
-        "content_object.content_type.model_class._meta.verbose_name.title": _(
-            "Page/Snippet Type"
-        ),
-        "content_object.title": _("Page/Snippet Title"),
+        "content_object.pk": _("Page/Snippet ID"),
+        "content_type": _("Page/Snippet Type"),
+        "content_object": _("Page/Snippet Title"),
         "get_status_display": _("Status"),
         "created_at": _("Started at"),
     }
     list_export = [
         "workflow",
-        "content_object.id",
-        "content_object.content_type.model_class._meta.verbose_name.title",
-        "content_object.title",
+        "content_object.pk",
+        "content_type",
+        "content_object",
         "get_status_display",
         "requested_by",
         "created_at",
     ]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.custom_field_preprocess = self.custom_field_preprocess.copy()
+        self.custom_field_preprocess["content_object"] = {
+            self.FORMAT_CSV: self.get_title,
+            self.FORMAT_XLSX: self.get_title,
+        }
+        self.custom_field_preprocess["content_type"] = {
+            self.FORMAT_CSV: get_content_type_label,
+            self.FORMAT_XLSX: get_content_type_label,
+        }
+
+    def get_title(self, content_object):
+        return get_latest_str(content_object)
 
     def get_filename(self):
         return "workflow-report-{}".format(
@@ -181,25 +197,39 @@ class WorkflowTasksView(ReportView):
     filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
-        "workflow_state.content_object.id": _("Page/Snippet ID"),
-        "workflow_state.content_object.content_type.model_class._meta.verbose_name.title": _(
-            "Page/Snippet Type"
-        ),
-        "workflow_state.content_object.title": _("Page/Snippet Title"),
+        "workflow_state.content_object.pk": _("Page/Snippet ID"),
+        "workflow_state.content_type": _("Page/Snippet Type"),
+        "workflow_state.content_object.__str__": _("Page/Snippet Title"),
         "get_status_display": _("Status"),
         "workflow_state.requested_by": _("Requested By"),
     }
     list_export = [
         "task",
-        "workflow_state.content_object.id",
-        "workflow_state.content_object.content_type.model_class._meta.verbose_name.title",
-        "workflow_state.content_object.title",
+        "workflow_state.content_object.pk",
+        "workflow_state.content_type",
+        "workflow_state.content_object.__str__",
         "get_status_display",
         "workflow_state.requested_by",
         "started_at",
         "finished_at",
         "finished_by",
     ]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.custom_field_preprocess = self.custom_field_preprocess.copy()
+        self.custom_field_preprocess["workflow_state.content_object"] = {
+            self.FORMAT_CSV: self.get_title,
+            self.FORMAT_XLSX: self.get_title,
+        }
+        self.custom_field_preprocess["workflow_state.content_type"] = {
+            self.FORMAT_CSV: get_content_type_label,
+            self.FORMAT_XLSX: get_content_type_label,
+        }
+
+    def get_title(self, content_object):
+        return get_latest_str(content_object)
 
     def get_filename(self):
         return "workflow-tasks-{}".format(
