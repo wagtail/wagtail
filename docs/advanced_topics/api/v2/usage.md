@@ -127,7 +127,7 @@ model. You can read about configuration [here](apiv2_page_fields_configuration).
 ```
 
 This doesn't apply to images/documents as there is only one model exposed in
-those endpoints. But for projects that have customized image/document models,
+those endpoints. But for projects that have customised image/document models,
 the `api_fields` attribute can be used to export any custom fields into the
 API.
 
@@ -523,7 +523,7 @@ the URL. For example:
 -   Documents `/api/v2/documents/1/`
 
 All exported fields will be returned in the response by default. You can use the
-`?fields` parameter to customize which fields are shown.
+`?fields` parameter to customise which fields are shown.
 
 For example: `/api/v2/pages/1/?fields=_,title,body` will return just the
 `title` and `body` of the page with the id of 1.
