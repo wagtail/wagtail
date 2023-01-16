@@ -76,7 +76,24 @@ class SearchFilterMixin(forms.Form):
         search_query = self.cleaned_data.get("q")
         if search_query:
             search_backend = get_search_backend()
-            objects = search_backend.search(search_query, objects)
+
+            # The search should work as an autocomplete by preference, but only if
+            # there are AutocompleteFields set up for this model in the search index;
+            # if not, fall back on a standard search so that we get results at all
+            if objects.model.get_autocomplete_search_fields():
+                try:
+                    objects = search_backend.autocomplete(search_query, objects)
+                except NotImplementedError:
+                    # Older search backends do not implement .autocomplete() but do support
+                    # partial_match on .search(). Newer ones will ignore partial_match.
+                    objects = search_backend.search(
+                        search_query, objects, partial_match=True
+                    )
+            else:
+                objects = search_backend.search(
+                    search_query, objects, partial_match=True
+                )
+
             self.is_searching = True
             self.search_query = search_query
         return objects

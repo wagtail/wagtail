@@ -57,6 +57,7 @@ class SearchableSnippet(index.Indexed, models.Model):
 
     search_fields = [
         index.SearchField("text"),
+        index.AutocompleteField("text"),
     ]
 
     def __str__(self):
