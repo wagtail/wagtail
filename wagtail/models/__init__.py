@@ -67,6 +67,7 @@ from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
+    get_content_type_label,
     get_supported_content_language_variant,
     resolve_model_string,
 )
@@ -3548,6 +3549,10 @@ class WorkflowContentType(models.Model):
         verbose_name=_("workflow"),
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        content_type_label = get_content_type_label(self.content_type)
+        return f"WorkflowContentType: {content_type_label} - {self.workflow}"
 
 
 class WorkflowTask(Orderable):

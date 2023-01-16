@@ -10,7 +10,7 @@ from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
-from wagtail.coreutils import get_model_string
+from wagtail.coreutils import get_content_type_label, get_model_string
 from wagtail.models import Page, Task, Workflow, WorkflowContentType, WorkflowPage
 from wagtail.snippets.models import get_workflow_enabled_models
 
@@ -155,7 +155,7 @@ class BaseWorkflowPagesFormSet(forms.BaseInlineFormSet):
 class WorkflowContentTypeForm(forms.Form):
     class ContentTypeMultipleChoiceField(forms.ModelMultipleChoiceField):
         def label_from_instance(self, obj):
-            return capfirst(obj.name)
+            return get_content_type_label(obj)
 
     class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         """Custom CheckboxSelectMultiple widget that renders errors for each content type ID"""
