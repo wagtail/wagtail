@@ -106,7 +106,7 @@
     "a11y-dialog": "^7.4.0",
     "axe-core": "^4.6.2",
     "draft-js": "^0.10.5",
-    "draftail": "^2.0.0-rc.2",
+    "draftail": "^2.0.0-rc.5",
     "draftjs-filters": "^3.0.1",
     "focus-trap-react": "^8.4.2",
     "immer": "^9.0.6",
