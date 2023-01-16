@@ -270,8 +270,23 @@ class Userbar extends HTMLElement {
     });
   }
 
-  // Initialise axe accessibility checker
+  getAxeConfiguration() {
+    const script = this.shadowRoot.getElementById(
+      'accessibility-axe-configuration',
+    );
+    try {
+      return JSON.parse(script?.textContent);
+    } catch (err) {
+      /* eslint-disable no-console */
+      console.error('Error loading Axe config');
+      console.error(err);
+    }
 
+    // If the config fails to load, we won’t initialise Axe.
+    return null;
+  }
+
+  // Initialise axe accessibility checker
   async initialiseAxe() {
     const accessibilityTrigger = this.shadowRoot.getElementById(
       'accessibility-trigger',
@@ -281,19 +296,13 @@ class Userbar extends HTMLElement {
       return;
     }
 
-    const results = await axe.run(
-      {
-        exclude: {
-          fromShadowDom: ['wagtail-userbar'],
-        },
-      },
-      {
-        runOnly: {
-          type: 'rule',
-          values: ['empty-heading', 'heading-order', 'p-as-heading'],
-        },
-      },
-    );
+    const config = this.getAxeConfiguration();
+
+    if (!config) {
+      return;
+    }
+
+    const results = await axe.run(config.context, config.options);
 
     // draft UI output for testing purposes
     if (results.violations.length) {
@@ -305,7 +314,8 @@ class Userbar extends HTMLElement {
       const showAxeResults = () => {
         results.violations.forEach((violation) => {
           const annotation = document.createElement('div');
-          annotation.textContent = violation.description;
+          annotation.textContent =
+            config.messages[violation.id] || violation.description;
           accessibilityTrigger.appendChild(annotation);
         });
       };
