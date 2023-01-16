@@ -3,7 +3,7 @@
 
 {% block item_content %}
     <button type="button" id="accessibility-trigger" role="menuitem">
-        {% icon name="tick" class_name="w-action-icon" %}
+        <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count></span>
         {% trans 'Accessibility' %}
     </button>
     {{ axe_configuration|json_script:"accessibility-axe-configuration" }}

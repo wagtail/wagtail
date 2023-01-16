@@ -46,9 +46,15 @@ class AccessibilityItem(BaseItem):
             },
             # Wagtail-specific translatable custom error messages.
             "messages": {
-                "empty-heading": _("Avoid empty headings"),
-                "heading-order": _("Use the correct heading order"),
-                "p-as-heading": _("Use heading elements for headings"),
+                "empty-heading": _(
+                    "Empty heading found. Use meaningful text in headings."
+                ),
+                "heading-order": _(
+                    "Misusing paragraphs as headings. Use proper heading tags."
+                ),
+                "p-as-heading": _(
+                    "Incorrect heading hierarchy. Avoid skipping levels."
+                ),
             },
         }
 
