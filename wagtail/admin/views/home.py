@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.db import connection
-from django.db.models import CharField, IntegerField, Max, OuterRef, Q, Subquery
+from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
@@ -123,17 +123,16 @@ class UserObjectsInWorkflowModerationPanel(Component):
             # implicit type casts when querying on GenericRelations. We also need
             # to cast the object_id to integer when querying the pages for the same reason.
             # https://code.djangoproject.com/ticket/16055
-            # Once the issue is resolved, the subquery can be removed and the
+            # Once the issue is resolved, this query can be removed and the
             # filter can be changed to:
             # Q(page__owner=request.user) | Q(requested_by=request.user)
             pages_owned_by_user = Q(
-                base_content_type_id=get_default_page_content_type().id,
-                object_id__in=Subquery(
-                    Page.objects.filter(
-                        owner=request.user,
-                        id=Cast(OuterRef("object_id"), output_field=IntegerField()),
-                    ).values_list(Cast("id", output_field=CharField()), flat=True)
-                ),
+                base_content_type_id=get_default_page_content_type().id
+            ) & Exists(
+                Page.objects.filter(
+                    owner=request.user,
+                    id=Cast(OuterRef("object_id"), output_field=IntegerField()),
+                )
             )
             # Find in progress workflow states which are either requested by the user or on pages owned by the user
             context["workflow_states"] = (
