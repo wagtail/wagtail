@@ -102,6 +102,16 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
     }
 
+    function updateMultipleChoiceSubmitEnabledState() {
+      // update the enabled state of the multiple choice submit button depending on whether
+      // any items have been selected
+      if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+        $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
+      } else {
+        $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
+      }
+    }
+
     function ajaxifyBrowseResults() {
       /* Set up page navigation links to open in the modal */
       $(
@@ -133,6 +143,11 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
 
       wagtail.ui.initDropDowns();
+
+      updateMultipleChoiceSubmitEnabledState();
+      $('[data-multiple-choice-select]', modal.body).on('change', () => {
+        updateMultipleChoiceSubmitEnabledState();
+      });
     }
     ajaxifyBrowseResults();
     initTooltips();

@@ -12,7 +12,7 @@
                         <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     </a>
                     <h3>
-                        <input type="checkbox" name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
+                        <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
                         {{ image.title|ellipsistrim:60 }}
                     </h3>
                 {% else %}

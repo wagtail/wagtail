@@ -1,4 +1,4 @@
 {% load i18n %}
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
-    <input type="checkbox" name="id" value="{{ value }}" {% if not instance.can_choose %}disabled{% endif %} title="{% blocktrans trimmed with title=instance %}Select {{ title }}{% endblocktrans %}">
+    <input type="checkbox" data-multiple-choice-select name="id" value="{{ value }}" {% if not instance.can_choose %}disabled{% endif %} title="{% blocktrans trimmed with title=instance %}Select {{ title }}{% endblocktrans %}">
 </td>
