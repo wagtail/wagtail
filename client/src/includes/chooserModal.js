@@ -228,6 +228,21 @@ class ChooserModalOnloadHandlerFactory {
 
     // Reinitialise any tooltips
     initTooltips();
+
+    this.updateMultipleChoiceSubmitEnabledState(modal);
+    $('[data-multiple-choice-select]', containerElement).on('change', () => {
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+    });
+  }
+
+  updateMultipleChoiceSubmitEnabledState(modal) {
+    // update the enabled state of the multiple choice submit button depending on whether
+    // any items have been selected
+    if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+      $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
+    } else {
+      $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
+    }
   }
 
   modalHasTabs(modal) {
