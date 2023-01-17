@@ -3872,7 +3872,10 @@ class GroupApprovalTask(Task):
     }
 
     def start(self, workflow_state, user=None):
-        if workflow_state.content_object.locked_by:
+        if (
+            isinstance(workflow_state, LockableMixin)
+            and workflow_state.content_object.locked_by
+        ):
             # If the person who locked the object isn't in one of the groups, unlock the object
             if not workflow_state.content_object.locked_by.groups.filter(
                 id__in=self.groups.all()
@@ -4099,7 +4102,11 @@ class WorkflowState(models.Model):
         return self.update(user=user, next_task=current_task_state.task)
 
     def user_can_cancel(self, user):
-        if self.content_object.locked and self.content_object.locked_by != user:
+        if (
+            isinstance(self.content_object, LockableMixin)
+            and self.content_object.locked
+            and self.content_object.locked_by != user
+        ):
             return False
         return (
             user == self.requested_by
