@@ -682,6 +682,7 @@ Contributors
 * Jhonatan Lopes
 * Alex Simpson
 * GLEF1X
+* Nick Lee
 
 Translators
 ===========
