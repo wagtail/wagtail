@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from django.utils.functional import cached_property
 from django.views.generic import TemplateView
 
 from wagtail.admin.views.generic.base import BaseObjectMixin
@@ -14,11 +15,8 @@ class WorkflowHistoryView(BaseObjectMixin, TemplateView):
     workflow_history_url_name = None
     workflow_history_detail_url_name = None
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.workflow_states = self.get_workflow_states()
-
-    def get_workflow_states(self):
+    @cached_property
+    def workflow_states(self):
         return WorkflowState.objects.for_instance(self.object).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
@@ -44,24 +42,16 @@ class WorkflowHistoryDetailView(BaseObjectMixin, TemplateView):
     workflow_state_url_kwarg = "workflow_state_id"
     workflow_history_url_name = None
 
-    def dispatch(self, request, *args, **kwargs):
-        # Do these here instead of setup() so that subclasses can do permission
-        # checking using self.object before these are called
-        self.workflow_state = self.get_workflow_state()
-        self.revisions = self.get_revisions()
-        self.tasks = self.get_tasks()
-        self.task_states_by_revision = self.get_task_states_by_revision()
-        self.timeline = self.get_timeline()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_workflow_state(self):
+    @cached_property
+    def workflow_state(self):
         return get_object_or_404(
             WorkflowState.objects.for_instance(self.object).filter(
                 id=self.kwargs[self.workflow_state_url_kwarg]
             ),
         )
 
-    def get_revisions(self):
+    @cached_property
+    def revisions(self):
         """
         Get QuerySet of all revisions that have existed during this workflow state.
         It's possible that the object is edited while the workflow is running,
@@ -78,10 +68,12 @@ class WorkflowHistoryDetailView(BaseObjectMixin, TemplateView):
             .order_by("-created_at")
         )
 
-    def get_tasks(self):
+    @cached_property
+    def tasks(self):
         return self.workflow_state.workflow.tasks.all()
 
-    def get_task_states_by_revision(self):
+    @cached_property
+    def task_states_by_revision(self):
         """Get QuerySet of tasks completed for each revision."""
         task_states_by_revision_task = [
             (
@@ -105,7 +97,8 @@ class WorkflowHistoryDetailView(BaseObjectMixin, TemplateView):
 
         return task_states_by_revision
 
-    def get_timeline(self):
+    @cached_property
+    def timeline(self):
         """Generate timeline."""
         completed_task_states = (
             TaskState.objects.filter(workflow_state=self.workflow_state)
