@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["DOM", "DOM.iterable"],
+    "lib": ["ES2021", "DOM", "DOM.iterable"],
     "moduleResolution": "node",
     "noImplicitAny": false, // TODO: Enable once all existing code is typed
     "noUnusedLocals": true,
