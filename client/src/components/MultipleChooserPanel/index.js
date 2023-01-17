@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 import { InlinePanel } from '../InlinePanel';
 
 export class MultipleChooserPanel extends InlinePanel {
@@ -13,7 +11,10 @@ export class MultipleChooserPanel extends InlinePanel {
       ),
     );
 
-    $(`#${opts.formsetPrefix}-OPEN_MODAL`).on('click', () => {
+    const openModalButton = document.getElementById(
+      `${opts.formsetPrefix}-OPEN_MODAL`,
+    );
+    openModalButton.addEventListener('click', () => {
       this.chooserWidgetFactory.openModal(
         (result) => {
           result.forEach((item) => {
