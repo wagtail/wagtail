@@ -38,6 +38,49 @@ const BR_ICON =
   'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
 const ADD_ICON = <Icon name="plus" />;
 
+const pinButton = {
+  floatingIcon: <Icon name="thumbtack" />,
+  stickyIcon: <Icon name="thumbtack-crossed" />,
+  floatingDescription: gettext('Pin toolbar'),
+  stickyDescription: gettext('Unpin toolbar'),
+};
+
+const getSavedToolbar = () => {
+  let saved = 'floating';
+  try {
+    saved = localStorage.getItem('wagtail:draftail-toolbar') || saved;
+  } catch {
+    // Use the default if localStorage isn’t available.
+  }
+  return saved;
+};
+
+/**
+ * Scroll to keep the field on the same spot when switching toolbars,
+ * and save the choice in localStorage.
+ */
+const onSetToolbar = (choice, callback) => {
+  const activeEditor = document.activeElement;
+  const before = activeEditor.getBoundingClientRect().top;
+  callback(choice);
+
+  // Delay scrolling until reflow has been fully computed.
+  requestAnimationFrame(() => {
+    const after = activeEditor.getBoundingClientRect().top;
+    const scrollArea = document.querySelector('#main');
+    scrollArea.scrollBy({
+      // Scroll by a positive amount if the editor moved down, negative if up.
+      top: after - before,
+      behavior: 'instant',
+    });
+  });
+  try {
+    localStorage.setItem('wagtail:draftail-toolbar', choice);
+  } catch {
+    // Skip saving the preference if localStorage isn’t available.
+  }
+};
+
 /**
  * Registry for client-side code of Draftail plugins.
  */
@@ -153,7 +196,12 @@ const initEditor = (selector, originalOptions, currentScript) => {
             comboPlaceholder={gettext('Search blocks')}
             noResultsText={gettext('No results')}
           />
-          <InlineToolbar {...props} />
+          <InlineToolbar
+            {...props}
+            pinButton={pinButton}
+            defaultToolbar={getSavedToolbar()}
+            onSetToolbar={onSetToolbar}
+          />
         </>
       ),
       bottomToolbar: MetaToolbar,
