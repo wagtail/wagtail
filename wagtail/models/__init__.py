@@ -865,6 +865,39 @@ class WorkflowMixin:
     """A mixin that allows a model to have workflows."""
 
     @classmethod
+    def check(cls, **kwargs):
+        return [
+            *super().check(**kwargs),
+            *cls._check_draftstate_and_revision_mixins(),
+        ]
+
+    @classmethod
+    def _check_draftstate_and_revision_mixins(cls):
+        mro = cls.mro()
+        error = checks.Error(
+            "WorkflowMixin requires DraftStateMixin and RevisionMixin "
+            "(in that order).",
+            hint=(
+                "Make sure your model's inheritance order is as follows: "
+                "WorkflowMixin, DraftStateMixin, RevisionMixin."
+            ),
+            obj=cls,
+            id="wagtailcore.E006",
+        )
+
+        try:
+            if not (
+                mro.index(WorkflowMixin)
+                < mro.index(DraftStateMixin)
+                < mro.index(RevisionMixin)
+            ):
+                return [error]
+        except ValueError:
+            return [error]
+
+        return []
+
+    @classmethod
     def get_default_workflow(cls):
         """
         Returns the active workflow assigned to the model.
