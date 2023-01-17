@@ -384,7 +384,6 @@ class PageChooserAdapter(BaseChooserAdapter):
         return forms.Media(
             js=[
                 versioned_static("wagtailadmin/js/page-chooser-modal.js"),
-                versioned_static("wagtailadmin/js/page-chooser.js"),
                 versioned_static("wagtailadmin/js/page-chooser-telepath.js"),
             ]
         )

@@ -1,17 +1,6 @@
-import { Chooser, ChooserFactory } from '../../components/ChooserWidget';
+import { DocumentChooser } from '../../components/ChooserWidget/DocumentChooserWidget';
 
-class DocumentChooser extends Chooser {
-  // eslint-disable-next-line no-undef
-  chooserModalClass = DocumentChooserModal;
-}
 window.DocumentChooser = DocumentChooser;
-
-class DocumentChooserFactory extends ChooserFactory {
-  widgetClass = DocumentChooser;
-  // eslint-disable-next-line no-undef
-  chooserModalClass = DocumentChooserModal;
-}
-window.DocumentChooserFactory = DocumentChooserFactory;
 
 function createDocumentChooser(id) {
   /* RemovedInWagtail50Warning */

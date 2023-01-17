@@ -1,5 +1,4 @@
 import './telepath/telepath';
-import './page-chooser';
 import './page-chooser-telepath';
 
 describe('telepath: wagtail.widgets.PageChooser', () => {
