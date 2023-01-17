@@ -128,7 +128,7 @@ class Column(metaclass=MediaDefiningClass):
 
 
 class TitleColumn(Column):
-    """A column where data is styled as a title and wrapped in a link"""
+    """A column where data is styled as a title and wrapped in a link or <label>"""
 
     cell_template_name = "wagtailadmin/tables/title_cell.html"
 
@@ -137,6 +137,8 @@ class TitleColumn(Column):
         name,
         url_name=None,
         get_url=None,
+        label_prefix=None,
+        get_label_id=None,
         link_classname=None,
         link_attrs=None,
         id_accessor="pk",
@@ -145,6 +147,8 @@ class TitleColumn(Column):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
+        self.label_prefix = label_prefix
+        self._get_label_id_func = get_label_id
         self.link_attrs = link_attrs or {}
         self.link_classname = link_classname
         self.id_accessor = id_accessor
@@ -157,14 +161,22 @@ class TitleColumn(Column):
         )
         if self.link_classname is not None:
             context["link_attrs"]["class"] = self.link_classname
+        context["label_id"] = self.get_label_id(instance, parent_context)
         return context
 
     def get_link_url(self, instance, parent_context):
         if self._get_url_func:
             return self._get_url_func(instance)
-        else:
+        elif self.url_name:
             id = multigetattr(instance, self.id_accessor)
             return reverse(self.url_name, args=(quote(id),))
+
+    def get_label_id(self, instance, parent_context):
+        if self._get_label_id_func:
+            return self._get_label_id_func(instance)
+        elif self.label_prefix:
+            id = multigetattr(instance, self.id_accessor)
+            return "%s-%s" % (self.label_prefix, id)
 
 
 class StatusFlagColumn(Column):

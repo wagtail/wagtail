@@ -190,10 +190,25 @@ class BaseChooseView(
             reverse(self.chosen_multiple_url_name)
         )
 
+    @cached_property
+    def is_multiple_choice(self):
+        return self.request.GET.get("multiple")
+
     @property
     def columns(self):
-        return [
-            TitleColumn(
+        return [self.title_column]
+
+    @property
+    def title_column(self):
+        if self.is_multiple_choice:
+            return TitleColumn(
+                "title",
+                label=_("Title"),
+                accessor=str,
+                label_prefix="chooser-modal-select",
+            )
+        else:
+            return TitleColumn(
                 "title",
                 label=_("Title"),
                 accessor=str,
@@ -203,8 +218,7 @@ class BaseChooseView(
                     )
                 ),
                 link_attrs={"data-chooser-modal-choice": True},
-            ),
-        ]
+            )
 
     @property
     def checkbox_column(self):
@@ -223,7 +237,6 @@ class BaseChooseView(
     def get(self, request):
         self.filter_form = self.get_filter_form()
         self.results = self.get_results_page(request)
-        self.is_multiple_choice = request.GET.get("multiple")
 
         columns = self.columns
         if self.is_multiple_choice:
