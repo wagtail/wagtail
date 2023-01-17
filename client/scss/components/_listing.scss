@@ -132,7 +132,8 @@ ul.listing {
       color: $color-white;
 
       .title a,
-      .title a:hover {
+      .title a:hover,
+      .title label {
         color: $color-white;
       }
 

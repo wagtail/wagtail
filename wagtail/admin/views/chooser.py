@@ -116,9 +116,12 @@ class PageChooserTable(Table):
 class PageTitleColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/page_title_cell.html"
 
-    def __init__(self, *args, show_locale_labels=False, **kwargs):
+    def __init__(
+        self, *args, show_locale_labels=False, is_multiple_choice=False, **kwargs
+    ):
         super().__init__(*args, **kwargs)
         self.show_locale_labels = show_locale_labels
+        self.is_multiple_choice = is_multiple_choice
 
     def get_value(self, instance):
         return instance.get_admin_display_title()
@@ -165,7 +168,10 @@ class BrowseView(View):
     def columns(self):
         cols = [
             PageTitleColumn(
-                "title", label=_("Title"), show_locale_labels=self.i18n_enabled
+                "title",
+                label=_("Title"),
+                show_locale_labels=self.i18n_enabled,
+                is_multiple_choice=self.is_multiple_choice,
             ),
             DateColumn(
                 "updated",

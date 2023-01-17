@@ -2,6 +2,8 @@
     <div class="title-wrapper">
         {% if link_url %}
             <a {% include "wagtailadmin/tables/attrs.html" with attrs=link_attrs %}>{{ value }}</a>
+        {% elif label_id %}
+            <label for="{{ label_id }}">{{ value }}</label>
         {% else %}
             {{ value }}
         {% endif %}
