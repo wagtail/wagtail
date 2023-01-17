@@ -391,7 +391,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             if lock_message:
                 if isinstance(self.lock, BasicLock) and self.page_perms.can_unlock():
                     lock_message = format_html(
-                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
                         lock_message,
                         reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                         _("Unlock"),
@@ -402,7 +402,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     and self.page_perms.can_unschedule()
                 ):
                     lock_message = format_html(
-                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
                         lock_message,
                         reverse(
                             "wagtailadmin_pages:revisions_unschedule",

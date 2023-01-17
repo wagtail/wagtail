@@ -433,7 +433,7 @@ class CreateEditViewOptionalFeaturesMixin:
         if lock_message:
             if user_can_unlock:
                 lock_message = format_html(
-                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
                     lock_message,
                     self.get_unlock_url(),
                     _("Unlock"),
@@ -441,7 +441,7 @@ class CreateEditViewOptionalFeaturesMixin:
 
             if user_can_unschedule:
                 lock_message = format_html(
-                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
                     lock_message,
                     reverse(
                         self.revisions_unschedule_url_name,

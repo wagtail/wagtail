@@ -3049,7 +3049,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
             args=[self.test_snippet.pk, self.latest_revision.pk],
         )
         self.assertTagInHTML(
-            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            f'<button data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unschedule_url}">Cancel scheduled publish</button>',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -3115,7 +3115,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
             args=[self.test_snippet.pk, self.latest_revision.pk],
         )
         self.assertTagInHTML(
-            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            f'<button data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unschedule_url}">Cancel scheduled publish</button>',
             html,
             count=0,
             allow_extra_attrs=True,
@@ -3177,7 +3177,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
             args=[self.test_snippet.pk, self.latest_revision.pk],
         )
         self.assertTagInHTML(
-            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            f'<button data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unschedule_url}">Cancel scheduled publish</button>',
             html,
             count=1,
             allow_extra_attrs=True,

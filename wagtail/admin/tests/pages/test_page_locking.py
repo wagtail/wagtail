@@ -154,11 +154,8 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.child_page.save()
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertContains(response, "Your locked pages")
-        # check that LockUnlockAction is present and passes a valid csrf token
-        self.assertRegex(
-            response.content.decode("utf-8"),
-            r"LockUnlockAction\(\'\w+\'\, \'\/admin\/'\)",
-        )
+        # check that Unlock button is present
+        self.assertContains(response, "Unlock")
 
     def test_unlock_post(self):
         # Lock the page

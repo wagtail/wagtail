@@ -8,7 +8,6 @@ describe('ActionController', () => {
       class="button no"
       data-controller="w-action"
       data-action="w-action#post"
-      data-w-action-redirect-value="false"
       data-w-action-url-value="https://www.github.com"
     >
       Enable

@@ -20,23 +20,20 @@ const definitions = [
   },
 ];
 
-const Template = ({ debug = false }) => {
-  return (
-    <StimulusWrapper debug={debug} definitions={definitions}>
-      <button
-        type="button"
-        className="button button-small button-secondary"
-        data-action="w-action#post"
-        data-controller="w-action"
-        data-w-action-redirect-value="false"
-        data-w-action-url-value={window.location.href}
-      >
-        Lock
-      </button>
+const Template = ({ debug = false }) => (
+  <StimulusWrapper debug={debug} definitions={definitions}>
+    <button
+      type="button"
+      className="button button-small button-secondary"
+      data-controller="w-action"
+      data-action="w-action#post"
+      data-w-action-url-value={window.location.href}
+    >
+      Lock
+    </button>
 
-      <p>Click to lock post and redirect</p>
-    </StimulusWrapper>
-  );
-};
+    <p>Click to lock post and redirect</p>
+  </StimulusWrapper>
+);
 
 export const Base = Template.bind({});

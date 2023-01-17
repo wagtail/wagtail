@@ -2,20 +2,26 @@ import { Controller } from '@hotwired/stimulus';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
- * <button type="submit" class="button no"
- * data-controller="w-action"
- * data-action="w-action#post"
- * data-w-action-redirect-value="false"
- * data-w-action-url-value = '{{ view.get_enable_url }}'>Enable</button>
+ *
+ * @example
+ * <button
+ *  type="submit"
+ *  class="button no"
+ *  data-controller="w-action"
+ *  data-action="w-action#post"
+ *  data-w-action-url-value='url/to/post/to'
+ * >
+ *  Enable
+ * </button>
  */
 export class ActionController extends Controller {
   static values = {
-    redirect: { type: String, default: '' },
+    continue: { type: Boolean, default: false },
     url: String,
   };
 
+  continueValue: boolean;
   urlValue: string;
-  redirectValue: any;
 
   post(event: Event) {
     event.preventDefault();
@@ -32,7 +38,10 @@ export class ActionController extends Controller {
     csrftokenElement.value = WAGTAIL_CONFIG.CSRF_TOKEN;
     formElement.appendChild(csrftokenElement);
 
-    if (this.redirectValue) {
+    /** If continue is false, pass the current URL as the next param
+     * so that the user is redirected back to the current page instead
+     * of continuing to the submitted page */
+    if (!this.continueValue) {
       const nextElement = document.createElement('input');
       nextElement.type = 'hidden';
       nextElement.name = 'next';

@@ -78,10 +78,10 @@
 {% block action %}
     {% if user_can_unlock and lock %}
         {% trans 'Unlock' as unlock_text %}
-        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=unlock_url text=unlock_text %}
+        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=unlock_url text=unlock_text %}
     {% endif %}
     {% if user_can_lock and not lock %}
         {% trans 'Lock' as lock_text %}
-        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=lock_url text=lock_text %}
+        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=lock_url text=lock_text %}
     {% endif %}
 {% endblock %}
