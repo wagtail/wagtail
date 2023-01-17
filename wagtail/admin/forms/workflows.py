@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.db import transaction
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -231,17 +232,19 @@ class WorkflowContentTypeForm(forms.Form):
 
         content_types = self.cleaned_data["content_types"]
 
-        # Remove any content types that are no longer selected
-        WorkflowContentType.objects.filter(workflow=self.workflow).exclude(
-            content_type__in=content_types
-        ).delete()
+        with transaction.atomic():
+            # Remove any content types that are no longer selected
+            WorkflowContentType.objects.filter(workflow=self.workflow).exclude(
+                content_type__in=content_types
+            ).delete()
 
-        # Add any new content types, ignoring exiting ones
-        objects = [
-            WorkflowContentType(workflow=self.workflow, content_type=ct)
-            for ct in content_types
-        ]
-        WorkflowContentType.objects.bulk_create(objects, ignore_conflicts=True)
+            # Add any new content types, ignoring conflicts with existing ones
+            # to avoid additional query for existing content types
+            objects = [
+                WorkflowContentType(workflow=self.workflow, content_type=ct)
+                for ct in content_types
+            ]
+            WorkflowContentType.objects.bulk_create(objects, ignore_conflicts=True)
 
 
 WorkflowPagesFormSet = forms.inlineformset_factory(
