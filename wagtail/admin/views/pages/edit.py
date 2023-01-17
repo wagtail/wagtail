@@ -877,6 +877,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "current_task_state": self.page.current_workflow_task_state,
                 "publishing_will_cancel_workflow": self.workflow_tasks
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),
+                "confirm_workflow_cancellation_url": reverse(
+                    "wagtailadmin_pages:confirm_workflow_cancellation",
+                    args=(self.page.id,),
+                ),
                 "locale": None,
                 "translations": [],
                 "media": bound_panel.media

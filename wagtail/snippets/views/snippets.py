@@ -918,6 +918,9 @@ class SnippetViewSet(ViewSet):
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
+            confirm_workflow_cancellation_url_name=self.get_url_name(
+                "confirm_workflow_cancellation"
+            ),
         )
 
     @property
@@ -974,6 +977,9 @@ class SnippetViewSet(ViewSet):
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
+            confirm_workflow_cancellation_url_name=self.get_url_name(
+                "confirm_workflow_cancellation"
+            ),
         )
 
     @property

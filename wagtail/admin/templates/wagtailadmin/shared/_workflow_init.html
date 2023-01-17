@@ -1,0 +1,36 @@
+<script>
+    $(function() {
+        ActivateWorkflowActionsForEditView('[data-edit-form]');
+
+        {% if publishing_will_cancel_workflow %}
+            /* Make user confirm before publishing the object if it will cancel an ongoing workflow */
+            let cancellationConfirmed = false;
+            $('[name=action-publish]').click((e) => {
+                if (!cancellationConfirmed) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    ModalWorkflow({
+                        'url': "{{ confirm_workflow_cancellation_url }}",
+                        'onload': {
+                            'confirm': function(modal, jsonData) {
+                                $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                    cancellationConfirmed = true;
+                                    modal.close();
+                                    e.currentTarget.click();
+                                })
+                                $('[data-cancel-dialog]', modal.body).click((event) => {
+                                    modal.close();
+                                })
+                            },
+                            'no_confirmation_needed': function(modal, jsonData) {
+                                modal.close();
+                                cancellationConfirmed = true;
+                                e.currentTarget.click();
+                            }
+                        },
+                    });
+                }
+            });
+        {% endif %}
+    });
+</script>
