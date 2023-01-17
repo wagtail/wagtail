@@ -19,7 +19,7 @@
             {% blocktrans trimmed with title=title task=task.name model_name=model_name asvar message %}
                 The {{ model_name }} "{{ title }}" has been submitted for approval in moderation stage "{{ task }}".
             {% endblocktrans %}
-            {{ message|capfirst|safe }}
+            {{ message|capfirst }}
         </p>
 
         {% if object.is_previewable or edit_url %}
@@ -28,7 +28,7 @@
                     {% blocktrans trimmed with model_name=model_name asvar preview_message %}
                         You can preview the {{ model_name }} here:
                     {% endblocktrans %}
-                    {{ preview_message|capfirst|safe }}
+                    {{ preview_message|capfirst }}
                     <a href="{{ base_url }}{{ preview_url }}">{{ base_url }}{{ preview_url }}</a>
                     <br/>
                 {% endif %}
@@ -36,7 +36,7 @@
                     {% blocktrans trimmed with model_name=model_name asvar edit_message %}
                         You can edit the {{ model_name }} here:
                     {% endblocktrans %}
-                    {{ edit_message|capfirst|safe }}
+                    {{ edit_message|capfirst }}
                     <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
                 {% endif %}
             </p>

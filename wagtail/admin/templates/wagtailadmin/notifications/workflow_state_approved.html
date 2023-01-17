@@ -12,7 +12,7 @@
             {% blocktrans trimmed with title=title workflow=workflow.name model_name=model_name asvar message %}
                 The {{ model_name }} "{{ title }}" has been approved in workflow "{{ workflow }}".
             {% endblocktrans %}
-            {{ message|capfirst|safe }}
+            {{ message|capfirst }}
         </p>
     {% endif %}
 {% endblock %}

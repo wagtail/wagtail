@@ -13,14 +13,14 @@
             {% blocktrans trimmed with title=title task=task.name model_name=model_name asvar message %}
                 The {{ model_name }} "{{ title }}" has been rejected in moderation stage "{{ task }}".
             {% endblocktrans %}
-            {{ message|capfirst|safe }}
+            {{ message|capfirst }}
         </p>
         {% if edit_url %}
             <p>
                 {% blocktrans trimmed with model_name=model_name asvar edit_message %}
                     You can edit the {{ model_name }} here:
                 {% endblocktrans %}
-                {{ edit_message|capfirst|safe }}
+                {{ edit_message|capfirst }}
                 <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
             </p>
         {% endif %}

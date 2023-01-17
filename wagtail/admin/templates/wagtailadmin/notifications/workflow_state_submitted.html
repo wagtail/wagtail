@@ -21,14 +21,14 @@
                 {% blocktrans trimmed with workflow=workflow.name title=title requester=requested_by|user_display_name model_name=model_name asvar message %}
                     The {{ model_name }} "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.
                 {% endblocktrans %}
-                {{ message|capfirst|safe }}
+                {{ message|capfirst }}
             </p>
         {% else %}
             <p>
                 {% blocktrans trimmed with workflow=workflow.name title=title model_name=model_name asvar message %}
                     The {{ model_name }} "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".
                 {% endblocktrans %}
-                {{ message|capfirst|safe }}
+                {{ message|capfirst }}
             </p>
         {% endif %}
         {% if edit_url %}
@@ -36,7 +36,7 @@
                 {% blocktrans trimmed with model_name=model_name asvar edit_message %}
                     You can edit the {{ model_name }} here:
                 {% endblocktrans %}
-                {{ edit_message|capfirst|safe }}
+                {{ edit_message|capfirst }}
                 <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
             </p>
         {% endif %}
