@@ -94,7 +94,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             return context["model"].get_default_workflow() is not None
 
         return (
-            not context.get("locked_for_user")
+            context["view"] == "edit"
             and context["instance"].has_workflow
             and not context["instance"].workflow_in_progress
         )
@@ -143,7 +143,7 @@ class WorkflowMenuItem(ActionMenuItem):
         return context
 
     def is_shown(self, context):
-        return not context.get("locked_for_user")
+        return context["view"] == "edit" and not context.get("locked_for_user")
 
     def get_url(self, parent_context):
         instance = parent_context["instance"]
@@ -167,7 +167,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
     def is_shown(self, context):
         if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
             return False
-        if context["view"] == "create":
+        if context["view"] != "edit":
             return False
         workflow_state = context["instance"].current_workflow_state
         return (
@@ -185,7 +185,7 @@ class CancelWorkflowMenuItem(ActionMenuItem):
     icon_name = "error"
 
     def is_shown(self, context):
-        if context["view"] == "create":
+        if context["view"] != "edit":
             return False
         workflow_state = context["instance"].current_workflow_state
         return workflow_state and workflow_state.user_can_cancel(
