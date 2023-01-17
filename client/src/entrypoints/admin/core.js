@@ -164,8 +164,8 @@ function enableDirtyFormCheck(formSelector, options) {
       const observer = new MutationObserver((mutationList) => {
         const hasMutationWithValidInputNode = mutationList.some(
           (mutation) =>
-            mutation.addedNodes.some(isValidInputNode) ||
-            mutation.removedNodes.some(isValidInputNode),
+            Array.from(mutation.addedNodes).some(isValidInputNode) ||
+            Array.from(mutation.removedNodes).some(isValidInputNode),
         );
 
         if (hasMutationWithValidInputNode) {
