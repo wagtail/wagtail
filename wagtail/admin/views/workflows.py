@@ -119,6 +119,7 @@ class Create(CreateView):
 
         context["edit_handler"] = bound_panel
         context["pages_formset"] = pages_formset
+        context["has_workflow_enabled_models"] = bool(get_workflow_enabled_models())
         context["content_type_form"] = self.get_content_type_form()
         context["media"] = form.media + bound_panel.media + pages_formset.media
         return context
@@ -212,6 +213,7 @@ class Edit(EditView):
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
         context["pages_formset"] = pages_formset
+        context["has_workflow_enabled_models"] = bool(get_workflow_enabled_models())
         context["content_type_form"] = self.get_content_type_form()
         context["can_disable"] = (
             self.permission_policy is None
