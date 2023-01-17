@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import transaction
+from django.db.models import Q
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -194,11 +195,18 @@ class WorkflowContentTypeForm(forms.Form):
 
         super().__init__(*args, **kwargs)
 
-        workflow_cts = ContentType.objects.get_for_models(
-            *get_workflow_enabled_models()
-        ).values()
+        # Start with an always-false query, as Django can optimise it by
+        # returning an empty queryset without running any database queries.
+        workflow_enabled_q = Q(pk__in=[])
+
+        # Then union the query for each workflow-enabled model.
+        for model in get_workflow_enabled_models():
+            workflow_enabled_q |= Q(
+                app_label=model._meta.app_label, model=model._meta.model_name
+            )
+
         self.fields["content_types"].queryset = ContentType.objects.filter(
-            pk__in=[ct.pk for ct in workflow_cts]
+            workflow_enabled_q
         )
 
     def clean(self):

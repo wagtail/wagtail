@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
@@ -32,6 +34,7 @@ def get_snippet_models():
     return SNIPPET_MODELS
 
 
+@lru_cache(maxsize=None)
 def get_workflow_enabled_models():
     return [model for model in SNIPPET_MODELS if issubclass(model, WorkflowMixin)]
 
