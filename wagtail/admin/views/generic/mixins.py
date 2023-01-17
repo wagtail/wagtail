@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -226,34 +227,40 @@ class CreateEditViewOptionalFeaturesMixin:
         self.object = self.get_object()
         self.lock = self.get_lock()
         self.locked_for_user = self.lock and self.lock.for_user(request.user)
-        self.setup_workflow()
         super().setup(request, *args, **kwargs)
 
-    def setup_workflow(self):
-        workflow_enabled = self.model and issubclass(self.model, WorkflowMixin)
-        self.workflow_state = None
-        self.workflow_tasks = []
-        self.current_workflow_task = None
+    @cached_property
+    def workflow(self):
+        if not self.model or not issubclass(self.model, WorkflowMixin):
+            return None
+        if self.object:
+            return self.object.get_workflow()
+        return self.model.get_default_workflow()
 
-        if workflow_enabled:
-            if self.object:
-                self.workflow = self.object.get_workflow()
-            else:
-                self.workflow = self.model.get_default_workflow()
+    @cached_property
+    def workflow_enabled(self):
+        return self.workflow is not None
 
-        self.workflow_enabled = workflow_enabled and self.workflow is not None
-
+    @cached_property
+    def workflow_state(self):
         if not self.workflow_enabled or not self.object:
-            return
-
-        self.workflow_state = (
+            return None
+        return (
             self.object.current_workflow_state
             or self.object.workflow_states.order_by("created_at").last()
         )
-        if self.workflow_state:
-            self.workflow_tasks = self.workflow_state.all_tasks_with_status()
 
-        self.current_workflow_task = self.object.current_workflow_task
+    @cached_property
+    def current_workflow_task(self):
+        if not self.workflow_enabled or not self.object:
+            return None
+        return self.object.current_workflow_task
+
+    @cached_property
+    def workflow_tasks(self):
+        if not self.workflow_state:
+            return []
+        return self.workflow_state.all_tasks_with_status()
 
     def user_has_permission(self, permission):
         user = self.request.user
@@ -620,10 +627,10 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["live_last_updated_info"] = self.get_live_last_updated_info()
-        context["publishing_will_cancel_workflow"] = self.workflow_tasks and getattr(
-            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
-        )
         context["workflow_history_url"] = self.get_workflow_history_url()
+        context["publishing_will_cancel_workflow"] = getattr(
+            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+        ) and bool(self.workflow_tasks)
         return context
 
     def post(self, request, *args, **kwargs):
