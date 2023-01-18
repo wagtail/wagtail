@@ -50,7 +50,7 @@ class GenericSettingModelTestCase(GenericSettingsTestMixin, TestCase):
 
                 # only the first lookup should result in a query
                 with self.assertNumQueries(1):
-                    for _ in range(4):
+                    for i in range(4):
                         self.default_settings.load(request_or_site=request)
 
     def test_select_related(self, expected_queries=4):
