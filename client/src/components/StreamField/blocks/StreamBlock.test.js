@@ -517,7 +517,8 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
 
   test('it renders correctly', () => {
     boundBlock.inserters[0].open();
-    expect(document.body.innerHTML).toMatchSnapshot();
+    const listbox = document.querySelector('[role="listbox"]');
+    expect(listbox.innerHTML).toMatchSnapshot();
   });
 });
 
@@ -589,7 +590,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     // Test menu
     expect(
       document
-        .querySelector('button[data-streamblock-menu-open]')
+        .querySelector('button[title="Insert a block"]')
         .getAttribute('disabled'),
     ).toBe(null);
   };
@@ -606,7 +607,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     // Test menu
     expect(
       document
-        .querySelector('button[data-streamblock-menu-open]')
+        .querySelector('button[title="Insert a block"]')
         .getAttribute('disabled'),
     ).toEqual('disabled');
   };
@@ -807,28 +808,9 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     ).toBe(null);
 
     // Test menu item
-    expect(
-      document
-        .querySelector('button.action-add-block-test_block_a')
-        .getAttribute('disabled'),
-    ).toBe(null);
-  };
-
-  const assertCannotAddBlock = () => {
-    // Test duplicate button is always enabled
-    // querySelector always returns the first element it sees so this only checks the first block
-    expect(
-      document
-        .querySelector('button[title="Duplicate"]')
-        .getAttribute('disabled'),
-    ).toBe(null);
-
-    // Test menu item
-    expect(
-      document
-        .querySelector('button.action-add-block-test_block_a')
-        .getAttribute('disabled'),
-    ).toEqual('disabled');
+    expect(document.querySelector('[role="listbox"]').innerHTML).toContain(
+      'Test Block &lt;A&gt;',
+    );
   };
 
   test('addSibling capability works', () => {
@@ -873,7 +855,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     assertCanAddBlock();
   });
 
-  test('initialising at max_num disables adding new block of that type', () => {
+  test('initialising at max_num retains ability to add new block of that type', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -894,10 +876,10 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     ]);
     boundBlock.inserters[0].open();
 
-    assertCannotAddBlock();
+    assertCanAddBlock();
   });
 
-  test('insert disables new block', () => {
+  test('insert retains ability to add new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -924,10 +906,10 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       2,
     );
 
-    assertCannotAddBlock();
+    assertCanAddBlock();
   });
 
-  test('delete enables new block', () => {
+  test('delete does not change availability of new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -948,7 +930,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     ]);
     boundBlock.inserters[0].open();
 
-    assertCannotAddBlock();
+    assertCanAddBlock();
 
     boundBlock.deleteBlock(2);
 

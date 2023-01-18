@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
+import tippy from 'tippy.js';
 
 import {
   BaseSequenceBlock,
@@ -10,6 +12,12 @@ import {
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
 import { range } from '../../../utils/range';
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../../ComboBox/ComboBox';
+import { hideTooltipOnEsc } from '../../../includes/initTooltips';
 
 /* global $ */
 
@@ -69,145 +77,104 @@ class StreamBlockMenu extends BaseInsertionControl {
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.groupedChildBlockDefs = opts.groupedChildBlockDefs;
-    const animate = opts.animate;
 
     const dom = $(`
       <div>
-        <button data-streamblock-menu-open type="button" title="${h(
-          opts.strings.ADD,
-        )}"
-            class="c-sf-add-button c-sf-add-button--visible">
+        <button type="button" title="${comboBoxTriggerLabel}" class="c-sf-add-button c-sf-add-button--visible">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
-        <div data-streamblock-menu-outer>
-          <div data-streamblock-menu-inner class="c-sf-add-panel"></div>
-        </div>
       </div>
     `);
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
-
-    this.addButton = dom.find('[data-streamblock-menu-open]');
-    this.addButton.click(() => {
-      this.toggle();
-    });
-
-    this.outerContainer = dom.find('[data-streamblock-menu-outer]');
-    this.innerContainer = dom.find('[data-streamblock-menu-inner]');
-    this.hasRenderedMenu = false;
-    this.isOpen = false;
+    this.addButton = dom.find('button');
+    this.combobox = document.createElement('div');
     this.canAddBlock = true;
     this.disabledBlockTypes = new Set();
-    this.close({ animate: false });
-    if (animate) {
-      dom.hide().slideDown();
-    }
+
+    this.tooltip = tippy(this.addButton.get(0), {
+      content: this.combobox,
+      trigger: 'click',
+      interactive: true,
+      theme: 'dropdown',
+      arrow: false,
+      placement: 'bottom',
+      plugins: [hideTooltipOnEsc],
+      onShow: this.renderMenu.bind(this),
+      onHidden: () => {
+        ReactDOM.render(null, this.combobox);
+      },
+    });
   }
 
   renderMenu() {
-    if (this.hasRenderedMenu) return;
-    this.hasRenderedMenu = true;
+    const items = this.groupedChildBlockDefs.map(([group, blockDefs]) => {
+      const groupItems = blockDefs
+        // Allow adding all blockDefs even when disabled, so validation only impedes when saving.
+        // Keeping the previous filtering here for future reference.
+        // .filter((blockDef) => !this.disabledBlockTypes.has(blockDef.name))
+        .map((blockDef) => ({
+          type: blockDef.name,
+          label: blockDef.meta.label,
+          icon: blockDef.meta.icon,
+        }));
 
-    this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
-      if (group) {
-        const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(
-          group,
-        );
-        this.innerContainer.append(heading);
-      }
-      const grid = $('<div class="c-sf-add-panel__grid"></div>');
-      this.innerContainer.append(grid);
-      blockDefs.forEach((blockDef) => {
-        const button = $(`
-          <button type="button" class="c-sf-button action-add-block-${h(
-            blockDef.name,
-          )}">
-            <svg class="icon icon-${h(
-              blockDef.meta.icon,
-            )} c-sf-button__icon" aria-hidden="true">
-              <use href="#icon-${h(blockDef.meta.icon)}"></use>
-            </svg>
-            ${h(blockDef.meta.label)}
-          </button>
-        `);
-        grid.append(button);
-        button.click(() => {
-          if (this.onRequestInsert) {
-            this.onRequestInsert(this.index, { type: blockDef.name });
-          }
-          this.close({ animate: true });
-        });
-      });
+      return {
+        label: group || '',
+        type: group || '',
+        items: groupItems,
+      };
     });
 
-    // Disable buttons for any disabled block types
-    this.disabledBlockTypes.forEach((blockType) => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
-        'disabled',
-        'true',
-      );
-    });
+    ReactDOM.render(
+      <ComboBox
+        label={comboBoxLabel}
+        placeholder={comboBoxLabel}
+        items={items}
+        getItemLabel={(type, item) => item.label}
+        getItemDescription={(item) => item.label}
+        getSearchFields={(item) => [item.label, item.type]}
+        noResultsText={comboBoxNoResults}
+        onSelect={this.onSelectBlock.bind(this)}
+      />,
+      this.combobox,
+    );
+  }
+
+  onSelectBlock(change) {
+    if (this.onRequestInsert) {
+      this.onRequestInsert(this.index, { type: change.selectedItem.type });
+    }
+    this.addButton.removeClass('c-sf-add-button--always-visible');
+    this.close();
   }
 
   setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
     this.canAddBlock = canAddBlock;
     this.disabledBlockTypes = disabledBlockTypes;
-
     // Disable/enable menu open button
     if (this.canAddBlock) {
       this.addButton.removeAttr('disabled');
     } else {
       this.addButton.attr('disabled', 'true');
     }
-
-    // Close menu if its open and we no longer can add blocks
-    if (!canAddBlock && this.isOpen) {
-      this.close({ animate: true });
-    }
-
-    // Disable/enable individual block type buttons
-    $('button', this.innerContainer).removeAttr('disabled');
-    disabledBlockTypes.forEach((blockType) => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
-        'disabled',
-        'true',
-      );
-    });
   }
 
-  toggle() {
-    if (this.isOpen) {
-      this.close({ animate: true });
-    } else {
-      this.open({ animate: true });
-    }
+  reveal() {
+    this.addButton.addClass('c-sf-add-button--always-visible');
   }
 
-  open(opts) {
+  open() {
     if (!this.canAddBlock) {
       return;
     }
-
-    this.renderMenu();
-    if (opts && opts.animate) {
-      this.outerContainer.slideDown();
-    } else {
-      this.outerContainer.show();
-    }
-    this.addButton.addClass('c-sf-add-button--close');
-    this.outerContainer.attr('aria-hidden', 'false');
-    this.isOpen = true;
+    this.addButton.attr('aria-expanded', 'true');
+    this.tooltip.show();
   }
 
-  close(opts) {
-    if (opts && opts.animate) {
-      this.outerContainer.slideUp();
-    } else {
-      this.outerContainer.hide();
-    }
-    this.addButton.removeClass('c-sf-add-button--close');
-    this.outerContainer.attr('aria-hidden', 'true');
-    this.isOpen = false;
+  close() {
+    this.addButton.attr('aria-expanded', 'false');
+    this.tooltip.hide();
   }
 }
 
@@ -431,8 +398,8 @@ export class StreamBlock extends BaseSequenceBlock {
   setState(values) {
     super.setState(values);
     if (values.length === 0) {
-      /* for an empty list, begin with the menu open */
-      this.inserters[0].open({ animate: false });
+      /* for an empty list, begin with the toggle revealed */
+      this.inserters[0].reveal();
     }
   }
 

@@ -18,10 +18,10 @@
   .icon {
     width: theme('spacing.3');
     height: theme('spacing.3');
-    transition: transform $add-transition-duration ease-in-out;
+    transition: transform 0.3s ease;
   }
 
-  &--close .icon {
+  &[aria-expanded='true'] .icon {
     transform: rotate(45deg);
   }
 
@@ -35,6 +35,12 @@
       .w-panel--nested:is(:hover, :focus-within) & {
         opacity: 1;
       }
+    }
+  }
+
+  &--always-visible {
+    @media (hover: hover) {
+      opacity: 1;
     }
   }
 
