@@ -55,9 +55,13 @@ function ModalWorkflow(opts) {
     $('body').append(self.container);
     self.container.modal('hide');
 
-    // add listener - once modal is about to be hidden, re-enable the trigger
+    // add listener - once modal is about to be hidden, re-enable the trigger unless it's been forcibly
+    // disabled by adding a `data-force-disabled` attribute; this mechanism is necessary to accommodate
+    // response handlers that disable the trigger to prevent it from reopening
     self.container.on('hide.bs.modal', () => {
-      self.triggerElement.removeAttribute('disabled');
+      if (!self.triggerElement.hasAttribute('data-force-disabled')) {
+        self.triggerElement.removeAttribute('disabled');
+      }
     });
 
     // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM

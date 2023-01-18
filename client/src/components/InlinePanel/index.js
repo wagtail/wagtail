@@ -27,6 +27,12 @@ export class InlinePanel extends ExpandingFormset {
       this.initChildControls(childPrefix);
     }
 
+    this.updateControlStates();
+  }
+
+  updateControlStates() {
+    /* Update states of listing controls in response to a change of state such as
+    adding, deleting or moving an element */
     this.updateChildCount();
     this.updateMoveButtonDisabledStates();
     this.updateAddButtonState();
@@ -43,9 +49,7 @@ export class InlinePanel extends ExpandingFormset {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
       currentChild.addClass('deleted').slideUp(() => {
-        this.updateChildCount();
-        this.updateMoveButtonDisabledStates();
-        this.updateAddButtonState();
+        this.updateControlStates();
       });
     });
 
@@ -72,8 +76,7 @@ export class InlinePanel extends ExpandingFormset {
         currentChildOrderElem.val(prevChildOrder);
         prevChildOrderElem.val(currentChildOrder);
 
-        this.updateChildCount();
-        this.updateMoveButtonDisabledStates();
+        this.updateControlStates();
       });
 
       $down.on('click', () => {
@@ -98,8 +101,7 @@ export class InlinePanel extends ExpandingFormset {
         currentChildOrderElem.val(nextChildOrder);
         nextChildOrderElem.val(currentChildOrder);
 
-        this.updateChildCount();
-        this.updateMoveButtonDisabledStates();
+        this.updateControlStates();
       });
     }
 
@@ -110,9 +112,7 @@ export class InlinePanel extends ExpandingFormset {
       $('#' + childId)
         .addClass('deleted')
         .hide(0, () => {
-          this.updateChildCount();
-          this.updateMoveButtonDisabledStates();
-          this.updateAddButtonState();
+          this.updateControlStates();
         });
 
       $('#' + childId)
@@ -145,14 +145,18 @@ export class InlinePanel extends ExpandingFormset {
     });
   }
 
+  getChildCount() {
+    const forms = $('> [data-inline-panel-child]', this.formsElt).not(
+      '.deleted',
+    );
+    return forms.length;
+  }
+
   updateAddButtonState() {
     if (this.opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', this.formsElt).not(
-        '.deleted',
-      );
       const addButton = $('#' + this.opts.formsetPrefix + '-ADD');
 
-      if (forms.length >= this.opts.maxForms) {
+      if (this.getChildCount() >= this.opts.maxForms) {
         addButton.prop('disabled', true);
       } else {
         addButton.prop('disabled', false);
@@ -228,9 +232,7 @@ export class InlinePanel extends ExpandingFormset {
       $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
     }
 
-    this.updateChildCount();
-    this.updateMoveButtonDisabledStates();
-    this.updateAddButtonState();
+    this.updateControlStates();
     initCollapsiblePanels(
       document.querySelectorAll(
         `#inline_child_${newChildPrefix} [data-panel-toggle]`,
