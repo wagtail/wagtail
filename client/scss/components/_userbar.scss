@@ -261,6 +261,8 @@ $positions: (
 .w-dialog--userbar {
   // Display off to the side of the page rather than in the middle.
   inset-inline-start: auto;
+  font-family: $font-sans;
+  padding-inline-end: 2rem;
 
   .w-dialog__close-button {
     $size: theme('spacing.6');
@@ -315,7 +317,7 @@ $positions: (
   }
 
   .w-a11y-result__subtotal_count {
-    color: theme('colors.black.DEFAULT');
+    color: theme('colors.grey.600');
   }
 
   .w-a11y-result__selector {
