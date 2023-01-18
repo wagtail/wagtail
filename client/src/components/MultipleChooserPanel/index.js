@@ -18,6 +18,7 @@ export class MultipleChooserPanel extends InlinePanel {
       this.chooserWidgetFactory.openModal(
         (result) => {
           result.forEach((item) => {
+            if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
             this.addForm();
             const formIndex = this.formCount - 1;
             const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
@@ -30,5 +31,28 @@ export class MultipleChooserPanel extends InlinePanel {
         { multiple: true },
       );
     });
+  }
+
+  updateOpenModalButtonState() {
+    if (this.opts.maxForms) {
+      const openModalButton = document.getElementById(
+        `${this.opts.formsetPrefix}-OPEN_MODAL`,
+      );
+      if (this.getChildCount() >= this.opts.maxForms) {
+        // need to set the data-force-disabled attribute to override the standard modal-workflow
+        // behaviour of re-enabling the button after the modal closes (which potentially happens
+        // after this code has run)
+        openModalButton.setAttribute('disabled', 'true');
+        openModalButton.setAttribute('data-force-disabled', 'true');
+      } else {
+        openModalButton.removeAttribute('disabled');
+        openModalButton.removeAttribute('data-force-disabled');
+      }
+    }
+  }
+
+  updateControlStates() {
+    super.updateControlStates();
+    this.updateOpenModalButtonState();
   }
 }
