@@ -3,7 +3,7 @@ import tippy, { Content, Props, Instance } from 'tippy.js';
 /**
  * Hides tooltip when escape key is pressed
  */
-const hideTooltipOnEsc = {
+export const hideTooltipOnEsc = {
   name: 'hideOnEsc',
   defaultValue: true,
   fn({ hide }: Instance) {

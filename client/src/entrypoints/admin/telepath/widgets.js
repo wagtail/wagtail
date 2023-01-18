@@ -160,7 +160,7 @@ class DraftailInsertBlockCommand {
     this.split = split;
 
     this.blockMax = addSibling.getBlockMax(blockDef.name);
-    this.icon = `#icon-${blockDef.meta.icon}`;
+    this.icon = blockDef.meta.icon;
     this.description = blockDef.meta.label;
     this.type = blockDef.name;
   }
@@ -220,7 +220,7 @@ class DraftailSplitCommand {
     this.description = gettext('Split block');
   }
 
-  icon = '#icon-cut';
+  icon = 'cut';
   type = 'split';
 
   onSelect({ editorState }) {
@@ -326,7 +326,7 @@ class BoundDraftailWidget {
             new DraftailInsertBlockCommand(this, blockDef, addSibling, split),
         );
         return {
-          label: group || gettext('Blocks'),
+          label: group || gettext('StreamField blocks'),
           type: `streamfield-${group}`,
           items: blockControls,
         };
@@ -343,7 +343,6 @@ class BoundDraftailWidget {
 
     options.commands = [
       {
-        label: gettext('Rich text'),
         type: 'blockTypes',
       },
       {

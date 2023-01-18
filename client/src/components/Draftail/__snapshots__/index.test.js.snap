@@ -13,7 +13,6 @@ Object {
   "autoCorrect": null,
   "blockTypes": Array [],
   "bottomToolbar": [Function],
-  "commandPalette": [Function],
   "commandToolbar": [Function],
   "commands": true,
   "controls": Array [],
