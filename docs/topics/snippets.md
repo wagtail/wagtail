@@ -450,6 +450,8 @@ class Advert(LockableMixin, models.Model):
     ]
 ```
 
+If you use the other mixins, make sure to apply `LockableMixin` after the other mixins, but before the `RevisionMixin` (in left-to-right order). For example, with `DraftStateMixin` and `RevisionMixin`, the correct inheritance of the model would be `class MyModel(DraftStateMixin, LockableMixin, RevisionMixin)`. There is a system check to enforce the ordering of the mixins.
+
 The `LockableMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
 
 Locking and unlocking a snippet instance requires `lock` and `unlock` permissions on the snippet model, respectively. For models with `LockableMixin` applied, Wagtail automatically creates the corresponding `lock` and `unlock` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions).
@@ -464,9 +466,9 @@ The `WorkflowMixin` class was introduced.
 
 If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
 
-Since the `WorkflowMixin` utilises revisions, publishing, and locking mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin`, `DraftStateMixin`, and `LockableMixin`. See the above sections for more details.
+Since the `WorkflowMixin` utilises revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. In addition, it is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
 
-For example, workflows can be enabled for the `Advert` snippet by defining it as follows:
+For example, workflows (with locking) can be enabled for the `Advert` snippet by defining it as follows:
 
 ```python
 # ...
@@ -476,7 +478,7 @@ from wagtail.models import DraftStateMixin, LockableMixin, RevisionMixin, Workfl
 # ...
 
 @register_snippet
-class Advert(WorkflowMixin, LockableMixin, DraftStateMixin, RevisionMixin, models.Model):
+class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")

@@ -589,6 +589,12 @@ class DraftStateMixin(models.Model):
 
         self.save(update_fields=update_fields)
 
+    def get_lock(self):
+        # Scheduled publishing lock should take precedence over other locks
+        if self.scheduled_revision:
+            return ScheduledForPublishLock(self)
+        return super().get_lock()
+
 
 class PreviewableMixin:
     """A mixin that allows a model to have previews."""
@@ -854,9 +860,6 @@ class LockableMixin(models.Model):
         """
         Returns a sub-class of ``BaseLock`` if the instance is locked, otherwise ``None``.
         """
-        if isinstance(self, DraftStateMixin) and self.scheduled_revision:
-            return ScheduledForPublishLock(self)
-
         if self.locked:
             return BasicLock(self)
 
@@ -1042,9 +1045,9 @@ class WorkflowMixin:
 
 class AbstractPage(
     WorkflowMixin,
-    LockableMixin,
     PreviewableMixin,
     DraftStateMixin,
+    LockableMixin,
     RevisionMixin,
     TranslatableMixin,
     MP_Node,

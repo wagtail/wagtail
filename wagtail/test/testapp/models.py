@@ -1007,7 +1007,7 @@ class RevisableGrandChildModel(RevisableChildModel):
 
 
 # Models with DraftStateMixin
-class DraftStateModel(LockableMixin, DraftStateMixin, RevisionMixin, models.Model):
+class DraftStateModel(DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
     text = models.TextField()
 
     panels = [
@@ -1110,8 +1110,8 @@ register_snippet(LockableModel)
 class FullFeaturedSnippet(
     PreviewableMixin,
     WorkflowMixin,
-    LockableMixin,
     DraftStateMixin,
+    LockableMixin,
     RevisionMixin,
     models.Model,
 ):
