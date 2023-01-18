@@ -26,7 +26,6 @@
     width: 100%;
     position: relative;
     margin: auto;
-    overflow: hidden;
     max-width: theme('maxWidth.2xl');
     z-index: theme('zIndex.dialog');
     background: theme('colors.white.DEFAULT');
@@ -148,5 +147,19 @@
 
   &__message-description {
     margin-bottom: 0;
+  }
+}
+
+// Variant of the dialog which allows viewing other page content.
+.w-dialog--floating {
+  pointer-events: none;
+
+  .w-dialog__box {
+    pointer-events: auto;
+    box-shadow: theme('boxShadow.md');
+  }
+
+  .w-dialog__overlay {
+    display: none;
   }
 }

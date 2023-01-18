@@ -1,5 +1,7 @@
 import axe from 'axe-core';
 
+import { dialog } from '../../includes/dialog';
+
 // This entrypoint is not bundled with any polyfills to keep it as light as possible
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
 // More background can be found in webpack.config.js
@@ -270,6 +272,9 @@ class Userbar extends HTMLElement {
     });
   }
 
+  // Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
+  // Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+  // See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
   getAxeConfiguration() {
     const script = this.shadowRoot.getElementById(
       'accessibility-axe-configuration',
@@ -282,7 +287,7 @@ class Userbar extends HTMLElement {
       console.error(err);
     }
 
-    // If the config fails to load, we won’t initialise Axe.
+    // Skip initialization of Axe if config fails to load
     return null;
   }
 
@@ -302,25 +307,125 @@ class Userbar extends HTMLElement {
       return;
     }
 
+    // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
     const results = await axe.run(config.context, config.options);
 
-    // draft UI output for testing purposes
-    if (results.violations.length) {
-      const axeCount = document.createElement('div');
-      axeCount.textContent = results.violations.length;
-      axeCount.classList.add('w-userbar-axe-count');
-      this.trigger.appendChild(axeCount);
+    const a11yErrorsNumber = results.violations.reduce(
+      (sum, violation) => sum + violation.nodes.length,
+      0,
+    );
 
-      const showAxeResults = () => {
-        results.violations.forEach((violation) => {
-          const annotation = document.createElement('div');
-          annotation.textContent =
-            config.messages[violation.id] || violation.description;
-          accessibilityTrigger.appendChild(annotation);
-        });
-      };
-      accessibilityTrigger.addEventListener('click', showAxeResults);
+    if (results.violations.length) {
+      const a11yErrorBadge = document.createElement('span');
+      a11yErrorBadge.textContent = a11yErrorsNumber;
+      a11yErrorBadge.classList.add('w-userbar-axe-count');
+      this.trigger.appendChild(a11yErrorBadge);
     }
+
+    const dialogtemplates = document.querySelectorAll('[data-wagtail-dialog]');
+    const dialogs = dialog(dialogtemplates, this.shadowRoot);
+
+    if (!dialogs.length) {
+      return;
+    }
+    const modal = dialogs[0];
+    const modalBody = modal.$el.querySelector('[data-dialog-body]');
+    const accessibilityResultsBox = this.shadowRoot.querySelector(
+      '#accessibility-results',
+    );
+    const a11yRowTemplate = this.shadowRoot.querySelector(
+      '#w-a11y-result-row-template',
+    );
+    const a11ySelectorTemplate = this.shadowRoot.querySelector(
+      '#w-a11y-result-selector-template',
+    );
+
+    const modalErrorBadge = document.createElement('span');
+    modalErrorBadge.setAttribute('data-a11y-result-count', '');
+    modalErrorBadge.classList.add('w-a11y-result__count');
+    const headerElement = modal.$el.querySelector('.w-dialog__subtitle');
+    headerElement.appendChild(modalErrorBadge);
+
+    // Solution for future refactoring to move badges to Django template
+    const innerErrorBadges = this.shadowRoot.querySelectorAll(
+      '[data-a11y-result-count]',
+    );
+    innerErrorBadges.forEach((badge) => {
+      // eslint-disable-next-line no-param-reassign
+      badge.textContent = a11yErrorsNumber || '0';
+      if (results.violations.length) {
+        badge.classList.add('has-errors');
+      } else {
+        badge.classList.remove('has-errors');
+      }
+    });
+
+    const showAxeResults = () => {
+      modal.show();
+      modalBody.innerHTML = '';
+
+      if (results.violations.length) {
+        results.violations.forEach((violation, violationIndex) => {
+          modalBody.appendChild(a11yRowTemplate.content.cloneNode(true));
+          const currentA11yRow = modalBody.querySelectorAll(
+            '[data-a11y-result-row]',
+          )[violationIndex];
+
+          const a11yErrorName = currentA11yRow.querySelector(
+            '[data-a11y-result-name]',
+          );
+          a11yErrorName.id = `w-a11y-result__name-${violationIndex}`;
+          // Display custom error messages for rules supported by Wagtail out of the box, fallback to default error message from Axe
+          a11yErrorName.textContent =
+            config.messages[violation.id] || violation.help;
+          const a11yErrorCount = currentA11yRow.querySelector(
+            '[data-a11y-result-count]',
+          );
+          a11yErrorCount.textContent = violation.nodes.length;
+
+          const a11yErrorContainer = currentA11yRow.querySelector(
+            '[data-a11y-result-container]',
+          );
+
+          violation.nodes.forEach((node, nodeIndex) => {
+            a11yErrorContainer.appendChild(
+              a11ySelectorTemplate.content.cloneNode(true),
+            );
+            const currentA11ySelector = a11yErrorContainer.querySelectorAll(
+              '[data-a11y-result-selector]',
+            )[nodeIndex];
+
+            currentA11ySelector.setAttribute(
+              'aria-describedby',
+              a11yErrorName.id,
+            );
+            // Remove unnecessary details before displaying selectors to the user
+            currentA11ySelector.textContent = `${node.target}`.replace(
+              /\[data-block-key="\w{5}"\]/,
+              '',
+            );
+            currentA11ySelector.addEventListener('click', () => {
+              const inaccessibleElement = document.querySelector(node.target);
+              inaccessibleElement.style.scrollMargin = '6.25rem';
+              inaccessibleElement.scrollIntoView({
+                behavior: 'smooth',
+              });
+              inaccessibleElement.focus();
+            });
+          });
+        });
+      }
+    };
+
+    const toggleAxeResults = () => {
+      if (accessibilityResultsBox.getAttribute('aria-hidden') === 'true') {
+        showAxeResults();
+      } else {
+        modal.hide();
+      }
+    };
+
+    accessibilityTrigger.addEventListener('click', toggleAxeResults);
   }
 }
 
