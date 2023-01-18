@@ -7,6 +7,7 @@ Changelog
  * Added StreamField data migration helpers (Sandil Ranasinghe, Jacob Topp-Mugglestone, Joshua Munn, Karl Hobley)
  * Added ability to lock snippet models with `LockableMixin` (Sage Abdullah)
  * Create `{% fullpageurl %}` tag for getting the absolute URL of a page (Jake Howard)
+ * Added `MultipleChooserPanel`, a variant of `InlinePanel` with improved editor experience when inserting multiple linked objects (Matt Westcott)
  * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
  * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
  * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
