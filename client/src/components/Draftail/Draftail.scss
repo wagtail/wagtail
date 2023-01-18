@@ -172,7 +172,7 @@ $draftail-editor-font-family: $font-sans;
   color: theme('colors.secondary.DEFAULT');
   width: theme('spacing.4');
   height: theme('spacing.4');
-  margin-inline-end: theme('spacing.1');
+  margin-inline-end: 1px;
 
   @include media-breakpoint-up(sm) {
     width: theme('spacing.5');

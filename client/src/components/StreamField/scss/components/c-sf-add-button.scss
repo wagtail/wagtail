@@ -13,7 +13,7 @@
   pointer-events: none;
   border: 1px solid currentColor;
   border-radius: theme('borderRadius.full');
-  margin-inline-start: theme('spacing.[0.5]');
+  margin-inline-start: -1px;
 
   .icon {
     width: theme('spacing.3');
