@@ -121,6 +121,7 @@ Changelog
  * Maintenance: Migrate admin upgrade notification message implementation to a Stimulus controller (Loveth Omokaro)
  * Maintenance: Migrate workflow and workflow tasks enable action and lock/unlock actions to a Stimulus controller (Loveth Omokaro)
  * Maintenance: Pull out icon sprite setup function from inline script to its own TypeScript file & add unit tests (Loveth Omokaro)
+ * Maintenance: Upgraded Transifex configuration to v3 (Loic Teixeira)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
