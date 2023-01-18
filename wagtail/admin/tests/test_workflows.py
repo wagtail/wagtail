@@ -1,3 +1,4 @@
+import io
 import json
 import logging
 from unittest import mock
@@ -11,6 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
+from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.utils import get_admin_base_url, get_latest_str
@@ -2012,6 +2014,50 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "This title was edited while approving",
         )
 
+
+class TestApproveRejectSnippetWorkflow(
+    TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
+):
+    published_signal = published
+    title_field = "text"
+
+
+# Do the same tests without LockableMixin
+class TestApproveRejectSnippetWorkflowNotLockable(TestApproveRejectSnippetWorkflow):
+    model = ModeratedModel
+
+
+@freeze_time("2020-03-31 12:00:00")
+class TestPageWorkflowReport(BasePageWorkflowTests):
+    export_formats = ["xlsx", "csv"]
+
+    def setUp(self):
+        super().setUp()
+        self.submitter.first_name = "Sebastian"
+        self.submitter.last_name = "Mitter"
+        self.submitter.save()
+        self.post("submit")
+        self.login(user=self.moderator)
+
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        self.task_1.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+
+    def get_file_content(self, response, format):
+        if format == "xlsx":
+            workbook = load_workbook(io.BytesIO(response.getvalue()))
+            worksheet = workbook.active
+            return "".join(
+                str(worksheet.cell(row=i, column=j).value)
+                for j in range(1, worksheet.max_column + 1)
+                for i in range(1, worksheet.max_row + 1)
+            )
+        return response.getvalue().decode()
+
     def test_workflow_report(self):
         response = self.client.get(reverse("wagtailadmin_reports:workflow"))
         self.assertEqual(response.status_code, 200)
@@ -2057,17 +2103,75 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
 
+    def test_workflow_report_export(self):
+        for export_format in self.export_formats:
+            with self.subTest(export_format=export_format):
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow"),
+                    {"export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn("Hello world!", content)
+                self.assertIn("test_workflow", content)
+                self.assertIn("submitter", content)
+                self.assertIn("2020-03-31", content)
 
-class TestApproveRejectSnippetWorkflow(
-    TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
-):
-    published_signal = published
-    title_field = "text"
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow_tasks"),
+                    {"export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn("Hello world!", content)
+
+    def test_workflow_report_filtered_export(self):
+        for export_format in self.export_formats:
+            with self.subTest(export_format=export_format):
+                # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
+                self.login(self.moderator)
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow"),
+                    {"reviewable": "true", "export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn("Hello world!", content)
+                self.assertIn("test_workflow", content)
+                self.assertIn("submitter", content)
+                self.assertIn("2020-03-31", content)
+
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow_tasks"),
+                    {"reviewable": "true", "export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn("Hello world!", content)
+
+                # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
+                self.login(self.submitter)
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow"),
+                    {"reviewable": "true", "export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertNotIn("Hello world!", content)
+                self.assertNotIn("submitter", content)
+                self.assertNotIn("2020-03-31", content)
+
+                response = self.client.get(
+                    reverse("wagtailadmin_reports:workflow_tasks"),
+                    {"reviewable": "true", "export": export_format},
+                )
+                content = self.get_file_content(response, export_format)
+                self.assertEqual(response.status_code, 200)
+                self.assertNotIn("Hello world!", content)
 
 
-# Do the same tests without LockableMixin
-class TestApproveRejectSnippetWorkflowNotLockable(TestApproveRejectSnippetWorkflow):
-    model = ModeratedModel
+class TestSnippetWorkflowReport(TestPageWorkflowReport, BaseSnippetWorkflowTests):
+    pass
 
 
 class TestPageNotificationPreferences(BasePageWorkflowTests):
