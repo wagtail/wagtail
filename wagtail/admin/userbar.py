@@ -50,10 +50,10 @@ class AccessibilityItem(BaseItem):
                     "Empty heading found. Use meaningful text in headings."
                 ),
                 "heading-order": _(
-                    "Misusing paragraphs as headings. Use proper heading tags."
+                    "Incorrect heading hierarchy. Avoid skipping levels."
                 ),
                 "p-as-heading": _(
-                    "Incorrect heading hierarchy. Avoid skipping levels."
+                    "Misusing paragraphs as headings. Use proper heading tags."
                 ),
             },
         }

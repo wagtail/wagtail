@@ -163,7 +163,7 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
             content,
         )
         # Should include the custom error message
-        self.assertIn("Use the correct heading order", content)
+        self.assertIn("Empty heading found", content)
 
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
