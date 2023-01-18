@@ -1171,6 +1171,102 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
         self.assertNotContains(response, "Draft")
 
+    def test_workflow_action_menu_items(self):
+        edit_url = self.get_url("edit")
+
+        # Initial view as the submitter, should only see save and submit buttons
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should only see cancel button
+        response = self.client.get(edit_url)
+        self.assertNotContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # After submit, as a moderator, should only see save, approve, and reject buttons
+        self.login(self.moderator)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertContains(response, "Approve")
+        self.assertContains(response, "Request changes")
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save, cancel, and restart buttons
+        self.login(self.submitter)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+    def test_workflow_action_menu_items_when_reverting(self):
+        old_revision = self.object.latest_revision
+        revert_url = self.get_url(
+            "revisions_revert",
+            args=(quote(self.object.pk), old_revision.id),
+        )
+
+        # Initial view as the submitter, should only see save button
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should not see any buttons
+        response = self.client.get(revert_url)
+        self.assertNotContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # After submit, as a moderator, should only see save button
+        self.login(self.moderator)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save button
+        self.login(self.submitter)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
     def test_submit_sends_mail(self):
         self.post("submit")
@@ -1324,6 +1420,104 @@ class TestSubmitSnippetToWorkflow(TestSubmitPageToWorkflow, BaseSnippetWorkflowT
 # Do the same tests without LockableMixin
 class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
     model = ModeratedModel
+
+    def test_workflow_action_menu_items(self):
+        edit_url = self.get_url("edit")
+
+        # Initial view as the submitter, should only see save and submit buttons
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should only see save and cancel buttons
+        # Save button is visible because the model is not lockable
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # After submit, as a moderator, should only see save, approve, and reject buttons
+        self.login(self.moderator)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertContains(response, "Approve")
+        self.assertContains(response, "Request changes")
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save, cancel, and restart buttons
+        self.login(self.submitter)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+    def test_workflow_action_menu_items_when_reverting(self):
+        old_revision = self.object.latest_revision
+        revert_url = self.get_url(
+            "revisions_revert",
+            args=(quote(self.object.pk), old_revision.id),
+        )
+
+        # Initial view as the submitter, should only see save button
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should only see save button
+        # Save button is visible because the model is not lockable
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        # After submit, as a moderator, should only see save button
+        self.login(self.moderator)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save button
+        self.login(self.submitter)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
 
 
 @freeze_time("2020-03-31 12:00:00")
