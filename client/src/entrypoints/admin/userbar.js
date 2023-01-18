@@ -272,11 +272,9 @@ class Userbar extends HTMLElement {
     });
   }
 
-  /**
-   * Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
-   * Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI. 
-   * See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
-   */
+  // Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
+  // Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+  // See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
   getAxeConfiguration() {
     const script = this.shadowRoot.getElementById(
       'accessibility-axe-configuration',
@@ -309,7 +307,7 @@ class Userbar extends HTMLElement {
       return;
     }
 
-    // Initialise Axe based on the configuration defined in Python.
+    // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
     const results = await axe.run(config.context, config.options);
 
     const a11yErrorsNumber = results.violations.reduce(
@@ -355,7 +353,11 @@ class Userbar extends HTMLElement {
     innerErrorBadges.forEach((badge) => {
       // eslint-disable-next-line no-param-reassign
       badge.textContent = a11yErrorsNumber || '0';
-      badge.classList.toggle('has-errors', a11yErrorsNumber !== 0);
+      if (results.violations.length) {
+        badge.classList.add('has-errors');
+      } else {
+        badge.classList.remove('has-errors');
+      }
     });
 
     const showAxeResults = () => {
@@ -398,7 +400,7 @@ class Userbar extends HTMLElement {
               a11yErrorName.id,
             );
             // Remove unnecessary details before displaying selectors to the user
-            currentA11ySelector.textContent = node.target.replace(
+            currentA11ySelector.textContent = `${node.target}`.replace(
               /\[data-block-key="\w{5}"\]/,
               '',
             );
