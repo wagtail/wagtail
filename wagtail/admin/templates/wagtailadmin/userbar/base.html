@@ -15,6 +15,7 @@
                     {% include "wagtailadmin/icons/plus.svg" %}
                     {% include "wagtailadmin/icons/tick.svg" %}
                     {% include "wagtailadmin/icons/cross.svg" %}
+                    {% include "wagtailadmin/icons/crosshairs.svg" %}
                 </defs>
             </svg>
 
@@ -50,6 +51,8 @@
     </template>
     <template id="w-a11y-result-selector-template">
         <button class="w-a11y-result__selector" data-a11y-result-selector type="button">
+            {% icon name="crosshairs" class_name="w-a11y-result__icon" %}
+            <span data-a11y-result-selector-text></span>
         </button>
     </template>
 {% enddialog %}
