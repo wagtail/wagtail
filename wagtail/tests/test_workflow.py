@@ -21,7 +21,7 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
+from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel, SimplePage
 
 
 class TestWorkflowModels(TestCase):
@@ -420,7 +420,12 @@ class TestPageWorkflows(TestCase):
 
 class TestSnippetWorkflows(TestPageWorkflows):
     fixtures = None
+    model = FullFeaturedSnippet
 
     @classmethod
     def setUpTestData(cls):
-        cls.object = FullFeaturedSnippet.objects.create(text="foo")
+        cls.object = cls.model.objects.create(text="foo")
+
+
+class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
+    model = ModeratedModel

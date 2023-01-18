@@ -26,7 +26,12 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.signals import page_published, published
-from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage, SimpleTask
+from wagtail.test.testapp.models import (
+    FullFeaturedSnippet,
+    ModeratedModel,
+    SimplePage,
+    SimpleTask,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -1083,34 +1088,36 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
 
 
 class BaseSnippetWorkflowTests(BasePageWorkflowTests):
-    model_name = FullFeaturedSnippet._meta.verbose_name
+    model = FullFeaturedSnippet
 
     def setUp(self):
         super().setUp()
         self.edit_permission = Permission.objects.get(
             content_type__app_label="tests",
-            codename="change_fullfeaturedsnippet",
+            codename=f"change_{self.model._meta.model_name}",
         )
         self.publish_permission = Permission.objects.get(
             content_type__app_label="tests",
-            codename="publish_fullfeaturedsnippet",
+            codename=f"publish_{self.model._meta.model_name}",
         )
         self.submitter.user_permissions.add(self.edit_permission)
         self.moderator.user_permissions.add(
             self.edit_permission, self.publish_permission
         )
 
+    @property
+    def model_name(self):
+        return self.model._meta.verbose_name
+
     def setup_object(self):
-        self.object = FullFeaturedSnippet.objects.create(
-            text="Hello world!", live=False
-        )
+        self.object = self.model.objects.create(text="Hello world!", live=False)
         self.object.save_revision()
         self.object_class = type(self.object)
 
         # Assign to workflow
         WorkflowContentType.objects.create(
             workflow=self.workflow,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(self.model),
         )
 
     def get_url(self, view, args=None):
@@ -1312,6 +1319,11 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
 
 class TestSubmitSnippetToWorkflow(TestSubmitPageToWorkflow, BaseSnippetWorkflowTests):
     pass
+
+
+# Do the same tests without LockableMixin
+class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
+    model = ModeratedModel
 
 
 @freeze_time("2020-03-31 12:00:00")
@@ -1857,6 +1869,11 @@ class TestApproveRejectSnippetWorkflow(
 ):
     published_signal = published
     title_field = "text"
+
+
+# Do the same tests without LockableMixin
+class TestApproveRejectSnippetWorkflowNotLockable(TestApproveRejectSnippetWorkflow):
+    model = ModeratedModel
 
 
 class TestPageNotificationPreferences(BasePageWorkflowTests):
@@ -2774,11 +2791,32 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
             f"can edit the {self.model_name}."
         )
         self.assertContains(response, needle, count=1)
+        self.assertNotContains(response, "Save draft")
 
         self.login(self.moderator)
         response = self.client.get(self.get_url("edit"))
         self.assertNotContains(response, needle)
+        self.assertContains(response, "Save draft")
 
 
 class TestSnippetWorkflowStatus(TestPageWorkflowStatus, BaseSnippetWorkflowTests):
     pass
+
+
+class TestSnippetWorkflowStatusNotLockable(TestSnippetWorkflowStatus):
+    model = ModeratedModel
+
+    def test_workflow_edit_locked_message(self):
+        # Without LockableMixin, the edit view should not be locked
+        self.post("submit")
+        self.login(self.submitter)
+        response = self.client.get(self.get_url("edit"))
+
+        needle = "Only reviewers for this task can edit"
+        self.assertNotContains(response, needle)
+        self.assertContains(response, "Save draft")
+
+        self.login(self.moderator)
+        response = self.client.get(self.get_url("edit"))
+        self.assertNotContains(response, needle)
+        self.assertContains(response, "Save draft")

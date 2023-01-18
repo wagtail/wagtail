@@ -1104,6 +1104,21 @@ class LockableModel(LockableMixin, models.Model):
 register_snippet(LockableModel)
 
 
+# Models with WorkflowMixin
+# Note: do not use Workflow in the model name to avoid incorrect counts in tests
+# that look for the word "workflow"
+
+
+class ModeratedModel(WorkflowMixin, DraftStateMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(ModeratedModel)
+
+
 # Snippet with all mixins enabled
 
 

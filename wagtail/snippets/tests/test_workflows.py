@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.models import Workflow, WorkflowContentType, WorkflowState
-from wagtail.test.testapp.models import FullFeaturedSnippet
+from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel
 from wagtail.test.utils import WagtailTestUtils
 
 # This module serves to gather snippets-equivalent of workflows-related tests
@@ -103,6 +103,10 @@ class TestCreateView(BaseWorkflowsTestCase):
         )
 
 
+class TestCreateViewNotLockable(TestCreateView):
+    model = ModeratedModel
+
+
 class TestEditView(BaseWorkflowsTestCase):
     def get(self):
         return self.client.get(self.get_url("edit"))
@@ -159,6 +163,10 @@ class TestEditView(BaseWorkflowsTestCase):
             self.object.current_workflow_task_state.revision,
             self.object.latest_revision,
         )
+
+
+class TestEditViewNotLockable(TestEditView):
+    model = ModeratedModel
 
 
 class TestWorkflowHistory(BaseWorkflowsTestCase):
