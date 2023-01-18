@@ -1,7 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 <template data-wagtail-dialog>
-    <div
-        id="{{ id }}"
+    <div id="{{ id }}"
         aria-labelledby="title-{{ id }}"
         aria-hidden="true"
         class="w-dialog {% if theme %}w-dialog--{{ theme }}{% endif %} {% if classname %} {{ classname }}{% endif %}"
