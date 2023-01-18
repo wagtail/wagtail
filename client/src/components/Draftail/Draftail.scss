@@ -208,8 +208,13 @@ $draftail-editor-font-family: $font-sans;
   }
 
   .icon {
+    transition: transform 0.3s ease;
     width: theme('spacing.3');
     height: theme('spacing.3');
+  }
+
+  &[aria-expanded='true'] .icon {
+    transform: rotate(45deg);
   }
 }
 

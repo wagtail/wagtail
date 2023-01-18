@@ -24,6 +24,11 @@ import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../ComboBox/ComboBox';
 import CommentableEditor, {
   splitState,
 } from './CommentableEditor/CommentableEditor';
@@ -191,10 +196,11 @@ const initEditor = (selector, originalOptions, currentScript) => {
           <BlockToolbar
             {...props}
             triggerIcon={ADD_ICON}
-            triggerLabel={gettext('Insert a block')}
-            comboLabel={gettext('Search blocks')}
-            comboPlaceholder={gettext('Search blocks')}
-            noResultsText={gettext('No results')}
+            triggerLabel={comboBoxTriggerLabel}
+            comboLabel={comboBoxLabel}
+            comboPlaceholder={comboBoxLabel}
+            noResultsText={comboBoxNoResults}
+            ComboBoxComponent={ComboBox}
           />
           <InlineToolbar
             {...props}
@@ -205,8 +211,12 @@ const initEditor = (selector, originalOptions, currentScript) => {
         </>
       ),
       bottomToolbar: MetaToolbar,
-      commandPalette: (props) => (
-        <CommandPalette {...props} noResultsText={gettext('No results')} />
+      commandToolbar: (props) => (
+        <CommandPalette
+          {...props}
+          noResultsText={gettext('No results')}
+          ComboBoxComponent={ComboBox}
+        />
       ),
       maxListNesting: 4,
       stripPastedStyles: false,
