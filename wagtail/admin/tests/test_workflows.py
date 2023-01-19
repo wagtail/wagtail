@@ -1044,7 +1044,6 @@ class BasePageWorkflowTests(TestCase, WagtailTestUtils):
             has_unpublished_changes=True,
         )
         root_page.add_child(instance=self.object)
-        self.object.save_revision()
         self.object_class = self.object.specific_class
 
         # Assign to workflow
@@ -1112,8 +1111,11 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
         return self.model._meta.verbose_name
 
     def setup_object(self):
-        self.object = self.model.objects.create(text="Hello world!", live=False)
-        self.object.save_revision()
+        self.object = self.model.objects.create(
+            text="Hello world!",
+            live=False,
+            has_unpublished_changes=True,
+        )
         self.object_class = type(self.object)
 
         # Assign to workflow
@@ -1139,6 +1141,11 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
 
 
 class TestSubmitPageToWorkflow(BasePageWorkflowTests):
+    def setUp(self):
+        super().setUp()
+        # Ensure a revision exists
+        self.object.save_revision()
+
     def test_submit_for_approval_creates_states(self):
         """Test that WorkflowState and TaskState objects are correctly created when an object is submitted for approval"""
 
