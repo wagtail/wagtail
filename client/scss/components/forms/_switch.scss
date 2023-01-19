@@ -22,7 +22,7 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
     height: $switch-height;
     position: absolute;
     top: 50%;
-    transform: translate(5px, -50%);
+    transform: translate(calc(var(--w-direction-factor) * 5px), -50%);
     color: $color-white;
 
     @media (forced-colors: active) {
@@ -52,7 +52,10 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
     &::after {
       position: absolute;
       top: 50%;
-      transform: translate($switch-border, -50%);
+      transform: translate(
+        calc(var(--w-direction-factor) * $switch-border),
+        -50%
+      );
       height: $switch-height;
       width: $switch-height;
       border: $switch-border solid $color-white;
@@ -72,7 +75,12 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
   }
 
   [type='checkbox']:checked + &__toggle::after {
-    transform: translate(calc(#{$switch-width + $switch-border} - 100%), -50%);
+    transform: translate(
+      calc(
+        var(--w-direction-factor) * (#{$switch-width + $switch-border} - 100%)
+      ),
+      -50%
+    );
   }
 
   [type='checkbox']:disabled + &__toggle {
