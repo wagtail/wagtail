@@ -645,10 +645,10 @@ The model is added to allow snippets to be locked. See [](wagtailsnippets_lockin
 ## `WorkflowMixin`
 
 `WorkflowMixin` is a mixin class that can be added to any non-page Django model to allow its instances to be submitted to workflows.
-This mixin requires {class}`~wagtail.models.RevisionMixin`, {class}`~wagtail.models.DraftStateMixin`, and {class}`~wagtail.models.LockableMixin` to be applied. Pages already include this mixin, so there is no need to add it.
+This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.models.DraftStateMixin` to be applied. Pages already include this mixin, so there is no need to add it.
 
 ```{versionadded} 4.2
-The model is added to allow snippets to be submitted to workflows. See [](wagtailsnippets_enabling_workflows) for more details.
+The model is added to allow snippets to be submitted for moderation. See [](wagtailsnippets_enabling_workflows) for more details.
 ```
 
 ### Methods and properties
@@ -873,7 +873,7 @@ The model has been renamed from ``PageRevision`` to ``Revision`` and it now refe
 
 ## `Workflow`
 
-Workflows represent sequences of tasks which much be approved for an action to be performed on a page - typically publication.
+Workflows represent sequences of tasks which must be approved for an action to be performed on an object - typically publication.
 
 ### Database fields
 
@@ -890,7 +890,7 @@ Workflows represent sequences of tasks which much be approved for an action to b
 
         (boolean)
 
-        Whether or not the workflow is active: active workflows can be added to pages, and started. Inactive workflows cannot.
+        Whether or not the workflow is active: active workflows can be added to pages and snippets, and started. Inactive workflows cannot.
 ```
 
 ### Methods and properties
@@ -910,18 +910,40 @@ Workflows represent sequences of tasks which much be approved for an action to b
 
 ## `WorkflowState`
 
-Workflow states represent the status of a started workflow on a page.
+Workflow states represent the status of a started workflow on an object.
 
 ### Database fields
 
 ```{eval-rst}
 .. class:: WorkflowState
 
-    .. attribute:: page
+    .. attribute:: content_object
 
-        (foreign key to ``Page``)
+        (generic foreign key)
 
-        The page on which the workflow has been started
+        The object on which the workflow has been started. For page workflows, the object is an instance of the base ``Page`` model.
+
+        .. versionchanged:: 4.2
+
+           This field has been changed from a ``ForeignKey`` to ``Page`` into a :class:`~django.contrib.contenttypes.fields.GenericForeignKey` to any Django model instance.
+
+    .. attribute:: content_type
+
+        (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
+
+        The content type of the object this workflow state belongs to. For page workflows, this means the content type of the specific page type.
+
+    .. attribute:: base_content_type
+
+        (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
+
+        The base content type of the object this workflow state belongs to. For page workflows, this means the content type of the :class:`~wagtail.models.Page` model.
+
+    .. attribute:: object_id
+
+        (string)
+
+        The primary key of the object this revision belongs to.
 
     .. attribute:: workflow
 
@@ -1056,7 +1078,7 @@ Tasks represent stages in a workflow which must be approved for the workflow to 
 
 ## `TaskState`
 
-Task states store state information about the progress of a task on a particular page revision.
+Task states store state information about the progress of a task on a particular revision.
 
 ### Database fields
 
@@ -1065,19 +1087,23 @@ Task states store state information about the progress of a task on a particular
 
     .. attribute:: workflow_state
 
-        (foreign key to ``WorkflowState``)
+        (foreign key to :class:`~wagtail.models.WorkflowState`)
 
         The workflow state which started this task state.
 
     .. attribute:: revision
 
-        (foreign key to ``Revision``)
+        (foreign key to :class:`~wagtail.models.Revision`)
 
         The revision this task state was created on.
 
+        .. versionchanged:: 4.2
+
+           This field has been renamed from ``page_revision`` to ``revision``.
+
     .. attribute:: task
 
-        (foreign key to ``Task``)
+        (foreign key to :class:`~wagtail.models.Task`)
 
         The task that this task state is storing state information for.
 
@@ -1183,11 +1209,32 @@ Represents the assignment of a workflow to a page and its descendants.
 
     .. attribute:: workflow
 
-        (foreign key to ``Workflow``)
+        (foreign key to :class:`~wagtail.models.Workflow`)
 
     .. attribute:: page
 
-        (foreign key to ``Page``)
+        (foreign key to :class:`~wagtail.models.Page`)
+```
+
+## `WorkflowContentType`
+
+Represents the assignment of a workflow to a Django model.
+
+### Database fields
+
+```{eval-rst}
+.. class:: WorkflowContentType
+
+    .. attribute:: workflow
+
+        (foreign key to :class:`~wagtail.models.Workflow`)
+
+    .. attribute:: content_type
+
+        (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
+
+        A foreign key to the ``ContentType`` object that represents the model that is assigned to the workflow.
+
 ```
 
 ## `BaseLogEntry`

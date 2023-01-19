@@ -85,7 +85,7 @@ class UserApprovalTask(Task):
 ## Custom TaskState models
 
 You might also need to store custom state information for the task: for example, a rating left by an approving user.
-Normally, this is done on an instance of `TaskState`, which is created when a page starts the task. However, this can
+Normally, this is done on an instance of `TaskState`, which is created when an object starts the task. However, this can
 also be subclassed equivalently to `Task`:
 
 ```python
@@ -124,26 +124,30 @@ class UserApprovalTask(Task):
 
 Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behaviour. Here are some of the most useful:
 
-`Task.user_can_access_editor(page, user)`, `Task.user_can_lock(page, user)`, `Task.user_can_unlock(page, user)`:
+`Task.user_can_access_editor(obj, user)`, `Task.user_can_lock(obj, user)`, `Task.user_can_unlock(obj, user)`:
 
-These methods determine if users usually without permission can access the editor, and lock, or unlock the page, by returning True or False.
+These methods determine if users usually without permission can access the editor, and lock, or unlock the object, by returning True or False.
 Note that returning `False` will not prevent users who would normally be able to perform those actions. For example, for our `UserApprovalTask`:
 
 ```python
-def user_can_access_editor(self, page, user):
+def user_can_access_editor(self, obj, user):
     return user == self.user
 ```
 
-`Task.page_locked_for_user(page, user)`:
+`Task.locked_for_user(obj, user)`:
 
-This returns `True` if the page should be locked and uneditable by the user. It is used by `GroupApprovalTask` to lock the page to any users not in the approval group.
+This returns `True` if the object should be locked and uneditable by the user. It is used by `GroupApprovalTask` to lock the object to any users not in the approval group.
 
 ```python
-def page_locked_for_user(self, page, user):
+def locked_for_user(self, obj, user):
     return user != self.user
 ```
 
-`Task.get_actions(page, user)`:
+```{versionchanged} 4.2
+This method was previously named ``page_locked_for_user``, using ``page_locked_for_user`` will be removed in a future release. Along with the other similar methods, the ``obj`` parameter was previously named ``page``.
+```
+
+`Task.get_actions(obj, user)`:
 
 This returns a list of `(action_name, action_verbose_name, action_requires_additional_data_from_modal)` tuples, corresponding to the actions available for the task in the edit view menu.
 `action_requires_additional_data_from_modal` should be a boolean, returning `True` if choosing the action should open a modal for additional data input - for example, entering a comment.
@@ -151,7 +155,7 @@ This returns a list of `(action_name, action_verbose_name, action_requires_addit
 For example:
 
 ```python
-def get_actions(self, page, user):
+def get_actions(self, obj, user):
     if user == self.user:
         return [
             ('approve', "Approve", False),
@@ -172,7 +176,7 @@ Returns the name of a custom template to be used in rendering the data entry mod
 
 `Task.on_action(task_state, user, action_name, **kwargs)`:
 
-This performs the actions specified in `Task.get_actions(page, user)`: it is passed an action name, for example, `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
+This performs the actions specified in `Task.get_actions(obj, user)`: it is passed an action name, for example, `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
 
 For example, let's say we wanted to add an additional option: cancelling the entire workflow:
 
@@ -186,7 +190,7 @@ def on_action(self, task_state, user, action_name):
 
 `Task.get_task_states_user_can_moderate(user, **kwargs)`:
 
-This returns a QuerySet of `TaskStates` (or subclasses) the given user can moderate - this is currently used to select pages to display on the user's dashboard.
+This returns a QuerySet of `TaskStates` (or subclasses) the given user can moderate - this is currently used to select objects to display on the user's dashboard.
 
 For example:
 
@@ -237,13 +241,13 @@ class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def can_handle(self, instance, **kwargs):
         if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, UserApprovalTask):
-            # Don't send notifications if a Task has been cancelled and then resumed - when page was updated to a new revision
+            # Don't send notifications if a Task has been cancelled and then resumed - when object was updated to a new revision
             return not TaskState.objects.filter(workflow_state=instance.workflow_state, task=instance.task, status=TaskState.STATUS_CANCELLED).exists()
         return False
 
     def get_context(self, task_state, **kwargs):
         context = super().get_context(task_state, **kwargs)
-        context['page'] = task_state.workflow_state.page
+        context['object'] = task_state.workflow_state.content_object
         context['task'] = task_state.task.specific
         return context
 
