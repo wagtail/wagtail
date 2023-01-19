@@ -185,7 +185,7 @@ $draftail-editor-font-family: $font-sans;
     background: transparent;
     display: block;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(var(--w-direction-factor) * -50%), -50%);
     inset-inline-start: 50%;
     top: 50%;
     width: $draftail-trigger-additional-size;
