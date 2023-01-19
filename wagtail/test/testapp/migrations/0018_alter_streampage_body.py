@@ -9,7 +9,7 @@ import wagtail.test.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0012_set_genericsnippetpage_content_type_blank"),
+        ("tests", "0017_moderatedmodel"),
     ]
 
     operations = [
