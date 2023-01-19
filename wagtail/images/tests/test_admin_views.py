@@ -44,6 +44,16 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/index.html")
         self.assertContains(response, "Add an image")
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_empty_q(self):
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "")
+        self.assertContains(response, "Add an image")
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
 
     def test_search(self):
         response = self.get({"q": "Hello"})
