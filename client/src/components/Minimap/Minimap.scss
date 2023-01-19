@@ -18,11 +18,16 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   height: calc(100vh - 100%);
   z-index: $minimap-z-index;
   width: $minimap-width;
-  transform: translateX(calc(100% - $minimap-collapsed-width-mobile));
+  transform: translateX(
+    calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width-mobile))
+  );
 
   @include media-breakpoint-up(sm) {
     transform: translateX(
-      calc(100% - $minimap-collapsed-width - $minimap-overflow)
+      calc(
+        var(--w-direction-factor) *
+          (100% - $minimap-collapsed-width - $minimap-overflow)
+      )
     );
   }
 
