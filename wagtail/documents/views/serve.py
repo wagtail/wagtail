@@ -28,7 +28,7 @@ def document_etag(request, document_id, document_filename):
         )
 
 
-@cache_control(max_age=0, public=True)
+@cache_control(max_age=0)
 @etag(document_etag)
 def serve(request, document_id, document_filename):
     # The cache control should be placed higher than the etag decorator as per the django documentation
