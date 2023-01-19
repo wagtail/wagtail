@@ -3,7 +3,7 @@
 {% for id, errors in errors_by_id.items %}
     {% if id == widget.value %}
         <div class="w-field__errors" data-field-errors>
-            {% icon name="warning" class_name="w-field__errors-icon" %}
+            {% icon name="warning" classname="w-field__errors-icon" %}
             <p class="error-message">
                 {% for error in errors %}{{ error.message }} {% endfor %}
             </p>
