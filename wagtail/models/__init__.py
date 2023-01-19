@@ -2944,15 +2944,16 @@ class Revision(models.Model):
             # newer than any revision that might exist in the database
             return True
 
-        return (
-            not Revision.objects.filter(
+        latest_revision_id = (
+            Revision.objects.filter(
                 base_content_type_id=self.base_content_type_id,
                 object_id=self.object_id,
-                created_at__gte=self.created_at,
             )
-            .exclude(id=self.id)
-            .exists()
+            .order_by("-created_at", "-id")
+            .values_list("id", flat=True)
+            .first()
         )
+        return latest_revision_id == self.id
 
     def delete(self):
         # Update revision_created fields for comments that reference the current revision, if applicable.
