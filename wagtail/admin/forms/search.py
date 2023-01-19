@@ -9,4 +9,8 @@ class SearchForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["q"].widget.attrs = {"placeholder": placeholder}
 
-    q = forms.CharField(label=gettext_lazy("Search term"), widget=forms.TextInput())
+    q = forms.CharField(
+        label=gettext_lazy("Search term"),
+        widget=forms.TextInput(),
+        required=False,
+    )

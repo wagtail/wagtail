@@ -479,6 +479,23 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_empty_q(self):
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+
+        # All snippets should be in items
+        items = list(response.context["page_obj"].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
     def test_is_searchable(self):
         self.assertTrue(self.get().context["is_searchable"])
 
