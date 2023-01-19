@@ -73,6 +73,8 @@ Changelog
  * Fix: Page editor dropdowns now use indigo backgrounds like elsewhere in the admin interface (Thibaud Colas)
  * Fix: Allow parsing of multiple key/value pairs from string in `wagtail.search.utils.parse_query_string` (Beniamin Bucur)
  * Fix: Prevent memory exhaustion when purging a large number of revisions (Jake Howard)
+ * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
+ * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
