@@ -101,6 +101,7 @@ $positions: (
     border-radius: theme('borderRadius.full');
     color: $color-white;
     font-size: theme('fontSize.14');
+    line-height: theme('lineHeight.none');
     height: theme('spacing.5');
     width: theme('spacing.5');
     position: absolute;
@@ -369,6 +370,7 @@ $positions: (
   background-color: theme('colors.positive.100');
   border-radius: theme('borderRadius.full');
   font-size: theme('fontSize.14');
+  line-height: theme('lineHeight.none');
   height: theme('spacing.5');
   width: theme('spacing.5');
   color: theme('colors.white.DEFAULT');
