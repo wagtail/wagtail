@@ -4,7 +4,7 @@
   --width: #{$menu-width};
 
   visibility: hidden;
-  transform: translateX(-100%);
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
   position: fixed;
   height: 100vh;
   padding: 0;

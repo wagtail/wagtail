@@ -49,10 +49,14 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
   // with parent panels’ guiding line.
   .w-panel__header {
     gap: 0;
-    transform: translateX(calc(-1 * theme('spacing.5')));
+    transform: translateX(
+      calc(var(--w-direction-factor) * -1 * theme('spacing.5'))
+    );
 
     @include media-breakpoint-up(sm) {
-      transform: translateX(theme('spacing.1'));
+      transform: translateX(
+        calc(var(--w-direction-factor) * theme('spacing.1'))
+      );
     }
   }
 
