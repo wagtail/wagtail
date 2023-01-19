@@ -270,7 +270,7 @@ $(() => {
     const search = function () {
       const newQuery = $input.val();
       const searchParams = new URLSearchParams(window.location.search);
-      const currentQuery = searchParams.get('q');
+      const currentQuery = searchParams.get('q') || '';
       // only do the query if it has changed for trimmed queries
       // for example - " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
