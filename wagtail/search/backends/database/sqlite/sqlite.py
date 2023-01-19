@@ -650,7 +650,11 @@ class SQLiteSearchResults(BaseSearchResults):
 
 class SQLiteSearchBackend(BaseSearchBackend):
     query_compiler_class = SQLiteSearchQueryCompiler
-    autocomplete_query_compiler_class = SQLiteAutocompleteQueryCompiler
+
+    # FIXME: the implementation of SQLiteAutocompleteQueryCompiler is incomplete -
+    # leave this undefined so that we get a clean NotImplementedError from BaseSearchBackend
+    # autocomplete_query_compiler_class = SQLiteAutocompleteQueryCompiler
+
     results_class = SQLiteSearchResults
     rebuilder_class = SQLiteSearchRebuilder
     atomic_rebuilder_class = SQLiteSearchAtomicRebuilder

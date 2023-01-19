@@ -633,7 +633,11 @@ class MySQLSearchAtomicRebuilder(MySQLSearchRebuilder):
 
 class MySQLSearchBackend(BaseSearchBackend):
     query_compiler_class = MySQLSearchQueryCompiler
-    autocomplete_query_compiler_class = MySQLAutocompleteQueryCompiler
+
+    # FIXME: the implementation of MySQLAutocompleteQueryCompiler is incomplete -
+    # leave this undefined so that we get a clean NotImplementedError from BaseSearchBackend
+    # autocomplete_query_compiler_class = MySQLAutocompleteQueryCompiler
+
     results_class = MySQLSearchResults
     rebuilder_class = MySQLSearchRebuilder
     atomic_rebuilder_class = MySQLSearchAtomicRebuilder

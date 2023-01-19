@@ -8,6 +8,7 @@ from django.test.utils import override_settings
 
 from wagtail.search.backends.database.sqlite.utils import fts5_available
 from wagtail.search.tests.test_backends import BackendTests
+from wagtail.test.search import models
 
 
 @unittest.skipUnless(
@@ -42,6 +43,10 @@ class TestSQLiteSearchBackend(BackendTests, TestCase):
     @skip("The SQLite backend doesn't score annotations.")
     def test_annotate_score_with_slice(self):
         return super().test_annotate_score_with_slice()
+
+    def test_autocomplete_raises_not_implemented_error(self):
+        with self.assertRaises(NotImplementedError):
+            self.backend.autocomplete("Py", models.Book)
 
     @skip("The SQLite backend doesn't support autocomplete.")
     def test_autocomplete(self):
