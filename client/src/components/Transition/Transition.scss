@@ -11,7 +11,7 @@ $c-transition-duration: 200ms;
 }
 
 .c-transition-push-enter {
-  transform: translateX(100%);
+  transform: translateX(calc(var(--w-direction-factor) * 100%));
   transition: transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 0;
@@ -30,7 +30,7 @@ $c-transition-duration: 200ms;
 }
 
 .c-transition-push-leave-active {
-  transform: translateX(-100%);
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
   opacity: 0;
 }
 
@@ -38,7 +38,7 @@ $c-transition-duration: 200ms;
 // Pop transition
 // =============================================================================
 .c-transition-pop-enter {
-  transform: translateX(-100%);
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
   transition: transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 0;
@@ -57,6 +57,6 @@ $c-transition-duration: 200ms;
 }
 
 .c-transition-pop-leave-active {
-  transform: translateX(100%);
+  transform: translateX(calc(var(--w-direction-factor) * 100%));
   opacity: 0;
 }

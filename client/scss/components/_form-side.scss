@@ -23,6 +23,7 @@
       md:w-w-1/3
       w-transform
       w-translate-x-full
+      rtl:-w-translate-x-full
       w-bg-white
       w-box-border
       w-transition-all
@@ -40,7 +41,7 @@
   z-index: calc(theme('zIndex.header') - 10);
 
   &--open {
-    @apply w-translate-x-0;
+    @apply w-translate-x-0 rtl:w-translate-x-0;
   }
 
   &--initial {

@@ -9,16 +9,6 @@
   color: $color-white;
 }
 
-.page404__wrapper {
-  position: absolute;
-  top: 50%;
-  inset-inline-start: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .page404__logo {
   float: left;
   width: 400px;
