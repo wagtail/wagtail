@@ -6,6 +6,7 @@ Changelog
 
  * Added StreamField data migration helpers (Sandil Ranasinghe, Jacob Topp-Mugglestone, Joshua Munn, Karl Hobley)
  * Added ability to lock snippet models with `LockableMixin` (Sage Abdullah)
+ * Added ability to submit snippets for moderation with `WorkflowMixin` (Sage Abdullah)
  * Create `{% fullpageurl %}` tag for getting the absolute URL of a page (Jake Howard)
  * Added `MultipleChooserPanel`, a variant of `InlinePanel` with improved editor experience when inserting multiple linked objects (Matt Westcott)
  * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
@@ -31,7 +32,7 @@ Changelog
  * Make the rich text block trigger and slash-commands always available regardless of where the cursor is (Thibaud Colas)
  * Adjust the size of panel labels on the "Account" form (Thibaud Colas)
  * Delay hiding the contents of the side panels when closing, so the animation is smoother (Thibaud Colas)
- * Added ability to submit snippets for moderation with `WorkflowMixin` (Sage Abdullah)
+ * ListBlock now shows item-by-item differences when comparing versions (Tidiane Dia)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
