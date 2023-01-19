@@ -14,6 +14,18 @@
   --tw-content: '';
 }
 
+// Default to LTR if `dir` is not set.
+:root,
+:host,
+[dir='ltr'] {
+  // Flips the direction of `transform` declarations, based on whether the UI is LTR or RTL.
+  --w-direction-factor: 1;
+}
+
+[dir='rtl'] {
+  --w-direction-factor: -1;
+}
+
 html {
   height: 100%;
   // Set the whole admin to border-box by default.
