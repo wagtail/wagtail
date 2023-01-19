@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
-from django.views.decorators.cache import cache_control
 from django.views.decorators.http import etag
 
 from wagtail import hooks
@@ -29,7 +28,6 @@ def document_etag(request, document_id, document_filename):
 
 
 @etag(document_etag)
-@cache_control(max_age=3600, public=True)
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)

@@ -166,12 +166,6 @@ class TestServeView(TestCase):
     def test_has_etag_header(self):
         self.assertEqual(self.get()["ETag"], '"123456"')
 
-    def test_has_cache_control_header(self):
-        self.assertIn(
-            self.get()["Cache-Control"],
-            ["max-age=3600, public", "public, max-age=3600"],
-        )
-
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
 
