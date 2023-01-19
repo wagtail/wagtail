@@ -764,8 +764,8 @@ def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
 
         warn(
             (
-                "Icon template tag `class_name` has been renamed to `classname`, please adopt the new usage instead.",
-                f'Replace `{{% icon ... class_name="{class_name}" %}}` with `{{% icon ... classname="{class_name}" %}}`',
+                "Icon template tag `class_name` has been renamed to `classname`, please adopt the new usage instead. "
+                f'Replace `{{% icon ... class_name="{class_name}" %}}` with `{{% icon ... classname="{class_name}" %}}`'
             ),
             category=RemovedInWagtail50Warning,
         )
