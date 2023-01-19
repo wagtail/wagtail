@@ -1045,6 +1045,7 @@ def register_icons(icons):
         "comment-add.svg",
         "comment-add-reversed.svg",
         "cross.svg",
+        "crosshairs.svg",
         "cut.svg",
         "date.svg",
         "desktop.svg",

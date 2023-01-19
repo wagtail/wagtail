@@ -362,6 +362,7 @@ class Userbar extends HTMLElement {
 
     const showAxeResults = () => {
       modal.show();
+      // Reset modal contents to support multiple runs of Axe checks in the preview panel
       modalBody.innerHTML = '';
 
       if (results.violations.length) {
@@ -399,8 +400,11 @@ class Userbar extends HTMLElement {
               'aria-describedby',
               a11yErrorName.id,
             );
+            const currentA11ySelectorText = currentA11ySelector.querySelector(
+              '[data-a11y-result-selector-text]',
+            );
             // Remove unnecessary details before displaying selectors to the user
-            currentA11ySelector.textContent = `${node.target}`.replace(
+            currentA11ySelectorText.textContent = `${node.target}`.replace(
               /\[data-block-key="\w{5}"\]/,
               '',
             );
