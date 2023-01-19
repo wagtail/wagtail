@@ -27,11 +27,16 @@
   }
 
   &__iframe {
-    transform-origin: 0 0;
+    transform-origin: top left;
     width: var(--preview-iframe-width);
     height: calc(100% / var(--preview-width-ratio));
     transform: scale(var(--preview-width-ratio));
     display: block;
+
+    [dir='rtl'] & {
+      // Transform with the top-right physical corner as the origin since the layout is reversed.
+      transform-origin: top right;
+    }
   }
 
   &__sizes {
