@@ -3,7 +3,6 @@ import $ from 'jquery';
 import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
 import { initStimulus } from '../../includes/initStimulus';
-import { initTooltips } from '../../includes/initTooltips';
 
 /** initialise Wagtail Stimulus application with core controller definitions */
 window.Stimulus = initStimulus({ definitions: coreControllerDefinitions });
@@ -216,62 +215,6 @@ $(() => {
     .on('dragleave dragend drop', function onDragLeave() {
       $(this).removeClass('hovered');
     });
-
-  /* Header search behaviour */
-  if (window.headerSearch) {
-    let searchCurrentIndex = 0;
-    let searchNextIndex = 0;
-    const $input = $(window.headerSearch.termInput);
-    const $inputContainer = $input.parent();
-    const $icon = $inputContainer.find('use');
-    const baseIcon = $icon.attr('href');
-
-    $input.on('keyup cut paste change', () => {
-      clearTimeout($input.data('timer'));
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      $input.data('timer', setTimeout(search, 200));
-    });
-
-    // auto focus on search box
-    $input.trigger('focus');
-
-    // eslint-disable-next-line func-names
-    const search = function () {
-      const newQuery = $input.val();
-      const searchParams = new URLSearchParams(window.location.search);
-      const currentQuery = searchParams.get('q') || '';
-      // only do the query if it has changed for trimmed queries
-      // for example - " " === "" and "firstword " ==== "firstword"
-      if (currentQuery.trim() !== newQuery.trim()) {
-        $icon.attr('href', '#icon-spinner');
-        searchNextIndex += 1;
-        const index = searchNextIndex;
-
-        // Update q, reset to first page, and keep other query params
-        searchParams.set('q', newQuery);
-        searchParams.delete('p');
-        const queryString = searchParams.toString();
-
-        $.ajax({
-          url: window.headerSearch.url,
-          data: queryString,
-          success(data) {
-            if (index > searchCurrentIndex) {
-              searchCurrentIndex = index;
-              $(window.headerSearch.targetOutput).html(data).slideDown(800);
-              window.history.replaceState(null, null, '?' + queryString);
-              $input[0].dispatchEvent(new Event('search-success'));
-            }
-          },
-          complete() {
-            // Reinitialise any tooltips
-            initTooltips();
-            $icon.attr('href', baseIcon);
-          },
-        });
-      }
-    };
-  }
 });
 
 // =============================================================================

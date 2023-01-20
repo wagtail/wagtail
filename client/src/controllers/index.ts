@@ -12,6 +12,7 @@ import { ProgressController } from './ProgressController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
+import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
 import { TagController } from './TagController';
 import { UpgradeController } from './UpgradeController';
@@ -32,6 +33,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
+  { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
   { controllerConstructor: TagController, identifier: 'w-tag' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
