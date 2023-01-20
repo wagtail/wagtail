@@ -50,10 +50,11 @@ class BaseDocumentForm(BaseCollectionMemberForm):
                 self.original_file.storage.delete(self.original_file.name)
                 self.original_file = None
 
+        super().save(commit=commit)
+
+        if commit:
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(self.instance)
-
-        super().save(commit=commit)
 
         return self.instance
 
