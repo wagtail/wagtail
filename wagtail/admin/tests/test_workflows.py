@@ -1306,6 +1306,10 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
         self.assertIn("http://admin.example.com/admin/", workflow_message.body)
 
+    @override_settings(WAGTAILADMIN_NOTIFICATION_USE_HTML=True)
+    def test_submit_sends_html_mail(self):
+        self.test_submit_sends_mail()
+
     @override_settings(WAGTAILADMIN_BASE_URL=None)
     def test_submit_sends_mail_without_base_url(self):
         # With a missing WAGTAILADMIN_BASE_URL setting, we won't be able to construct absolute URLs
@@ -1337,6 +1341,10 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
             ),
             workflow_message.body,
         )
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_USE_HTML=True)
+    def test_submit_sends_html_mail_without_base_url(self):
+        self.test_submit_sends_mail_without_base_url()
 
     @mock.patch.object(
         EmailMultiAlternatives, "send", side_effect=IOError("Server down")
@@ -1414,12 +1422,29 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         # Submit
         self.post("submit")
 
-        msg_headers = set(mail.outbox[0].message().items())
+        message = mail.outbox[0].message()
+        msg_headers = set(message.items())
         headers = {("Auto-Submitted", "auto-generated")}
         self.assertTrue(
             headers.issubset(msg_headers),
             msg="Message is missing the Auto-Submitted header.",
         )
+
+        self.assertFalse(message.is_multipart())
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_USE_HTML=True)
+    def test_html_email_headers(self):
+        self.post("submit")
+
+        message = mail.outbox[0].message()
+        msg_headers = set(message.items())
+        headers = {("Auto-Submitted", "auto-generated")}
+        self.assertTrue(
+            headers.issubset(msg_headers),
+            msg="Message is missing the Auto-Submitted header.",
+        )
+
+        self.assertTrue(mail.outbox[0].message().is_multipart())
 
 
 class TestSubmitSnippetToWorkflow(TestSubmitPageToWorkflow, BaseSnippetWorkflowTests):
@@ -2425,6 +2450,11 @@ class TestPageNotificationPreferences(BasePageWorkflowTests):
         self.assertEqual(len(workflow_rejected_emails), 0)
 
 
+@override_settings(WAGTAILADMIN_NOTIFICATION_USE_HTML=True)
+class TestPageNotificationPreferencesHTML(TestPageNotificationPreferences):
+    pass
+
+
 class TestSnippetNotificationPreferences(
     TestPageNotificationPreferences, BaseSnippetWorkflowTests
 ):
@@ -2434,6 +2464,11 @@ class TestSnippetNotificationPreferences(
             self.edit_permission,
             self.publish_permission,
         )
+
+
+@override_settings(WAGTAILADMIN_NOTIFICATION_USE_HTML=True)
+class TestSnippetNotificationPreferencesHTML(TestSnippetNotificationPreferences):
+    pass
 
 
 class TestDisableViews(BasePageWorkflowTests):
