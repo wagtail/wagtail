@@ -86,6 +86,7 @@ Changelog
  * Fix: Center-align StreamField and rich text block picker buttons with the dotted guide line (Thibaud Colas)
  * Fix: Search bar in chooser modals now performs autocomplete searches under PostgreSQL (Matt Westcott)
  * Fix: Server-side document filenames are preserved when replacing a document file (Suyash Singh, Matt Westcott)
+ * Fix: Add missing wagtailadmin_tags in `workflow_state_approved.html` template (Alex Tomkins)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
