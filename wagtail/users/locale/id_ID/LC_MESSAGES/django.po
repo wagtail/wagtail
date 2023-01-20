@@ -3,20 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
-"Language: id_ID\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -57,8 +59,8 @@ msgstr "Administrator"
 
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Administrator memiliki akses penuh untuk mengelola objek atau pengaturan apa"
-" saja."
+"Administrator memiliki akses penuh untuk mengelola objek atau pengaturan apa "
+"saja."
 
 msgid "A group with that name already exists."
 msgstr "Grup dengan nama tersebut sudah ada."
@@ -207,7 +209,8 @@ msgstr "Tidak Aktif"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Maaf, tidak ada pengguna yang sesuai dengan \"<em>%(query_string)s</em>\""
+msgstr ""
+"Maaf, tidak ada pengguna yang sesuai dengan \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grup"
@@ -218,22 +221,22 @@ msgstr "Tambah grup"
 msgid "Search groups"
 msgstr "Pencarian Grup"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grup '%(object)s' dibuat."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Grup '%(object)s' diperbarui."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grup tidak dapat disimpan karena suatu kesalahan."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grup '%(object)s' dihapus."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Pengguna '%(object)s' berhasil diperbaharui."
 
@@ -244,7 +247,7 @@ msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
 msgid "Editing %(object)s"
 msgstr "Mengubah %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Pengguna '%(object)s' dihapus."
 

@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021-2022\n"
-"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/sv/)\n"
-"Language: sv\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail API v2"
@@ -81,29 +82,19 @@ msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
 msgid "Comment"
 msgstr "Kommentar"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>dig</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Sida '{page_title}' är låst</b> av <b>dig</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>{}</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Sidan '{page_title}' är låst</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Sidan väntar på moderering"
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
-
 msgid "Only reviewers for this task can edit the page."
 msgstr "Endast granskare för denna uppgift kan redigera sidan."
-
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
-msgstr "Sidan '{}' är låst och har blivit schemalagd att gå live vid {}"
 
 msgid "latest revision"
 msgstr "senaste revision"
@@ -166,11 +157,11 @@ msgid "slug"
 msgstr "slugg"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Namnet på sidan så som den kommer att synas i URLer t.ex "
-"http://domain.com/blog/[min-slugg]/"
+"Namnet på sidan så som den kommer att synas i URLer t.ex http://domain.com/"
+"blog/[min-slugg]/"
 
 msgid "content type"
 msgstr "innehållstyp"
@@ -210,9 +201,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "senaste revision skapad vid"
-
-msgid "This slug is already in use"
-msgstr "Den här sluggen är redan i användning"
 
 msgid "in moderation"
 msgstr "under moderering"
@@ -332,8 +320,8 @@ msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
-"Aktiva uppgifter kan läggas till på arbetsflöden. Inaktivering av en uppgift"
-" tar inte bort den från existerande arbetsflöden."
+"Aktiva uppgifter kan läggas till på arbetsflöden. Inaktivering av en uppgift "
+"tar inte bort den från existerande arbetsflöden."
 
 msgid "tasks"
 msgstr "uppgifter"
@@ -403,7 +391,7 @@ msgstr ""
 "Det kan bara finnas en pågående eller behöver förändringar "
 "arbetsflödesstatus per sida."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr "Arbetsflöde '%(workflow_name)s' på Sida '%(page_title)s': %(status)s"
 
@@ -437,7 +425,7 @@ msgstr "färdigställdes vid"
 msgid "finished by"
 msgstr "färdigställdes av"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Uppgift '%(task_name)s' på Sidorevision '%(revision_info)s': %(status)s"
@@ -478,12 +466,9 @@ msgstr "loggpost"
 msgid "log entries"
 msgstr "loggposter"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "Loggningen '%(action_name)s' har inte blivit registrerad."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "användare %(id)s (raderad)"
 
 msgid "system"
 msgstr "system"
@@ -602,8 +587,8 @@ msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "
 "with an account that has access."
 msgstr ""
-"Ditt konto har inte tillgång till den här sidan. För att fortsätta, vänligen"
-" logga in med ett konto som har tillgång."
+"Ditt konto har inte tillgång till den här sidan. För att fortsätta, vänligen "
+"logga in med ett konto som har tillgång."
 
 msgid "Password required"
 msgstr "Lösenord krävs"

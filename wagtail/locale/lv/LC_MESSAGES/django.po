@@ -10,15 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022\n"
-"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/lv/)\n"
-"Language: lv\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 
 msgid "Add Comment"
 msgstr "Pievienot komentāru"
@@ -72,15 +74,11 @@ msgstr ""
 msgid "Comment"
 msgstr "Komentārs"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Lapu '{}' slēdzāt</b> <b>jūs</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Jūs</b> esat <b>slēguši lapu '{page_title}'</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Lapu '{}' slēdza</b> <b>{}</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Lapa '{page_title}' ir bloķēta</b>"
 
@@ -89,9 +87,6 @@ msgstr "Šī lapa šobrīd gaida pārbaudi."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Tikai apskatitāji var rediģēt šo lapu. "
-
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
-msgstr "Lapa '{}' tika bloķēta un tās publikācija ieplānota {}."
 
 msgid "latest revision"
 msgstr "pēdējā revīzija"
@@ -151,8 +146,8 @@ msgid "slug"
 msgstr "saites daļa"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
 "Lapas nosaukums, kas parādās saitē, t. i., http://domain.com/blog/[jūsu-"
 "saites-daļa]/"
@@ -193,9 +188,6 @@ msgstr "Teksts, kas tiek rādīts zem virsraksta mēklētājprogrammās."
 
 msgid "latest revision created at"
 msgstr "pēdējā versija tika izveidota"
-
-msgid "This slug is already in use"
-msgstr "Šis tekstuālais identifikators jau tiek lietots"
 
 msgid "in moderation"
 msgstr "pārbaudē"

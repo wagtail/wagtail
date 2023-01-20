@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
-"Language: nb\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
@@ -46,11 +47,11 @@ msgstr "Standard"
 msgid "Add site"
 msgstr "Legg til nettsted"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "Nettstedet \"%(object)s\" er opprettet."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Nettstedet \"%(object)s\" er oppdatert."
 
@@ -60,7 +61,7 @@ msgstr "Nettstedet kunne ikke lagres grunnet feil."
 msgid "Delete site"
 msgstr "Slett nettsted"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Nettstedet \"%(object)s\" er slettet."
 

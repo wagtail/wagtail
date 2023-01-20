@@ -7,7 +7,9 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2018
 # Loic Teixeira, 2020-2022
 # Loic Teixeira, 2018
 # nahuel, 2014
@@ -18,15 +20,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
-"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/fr/)\n"
-"Language: fr\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -90,33 +94,48 @@ msgstr ""
 msgid "Comment"
 msgstr "Commentaire"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+#, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
 msgstr ""
-"<b>Cette page « {} » a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
+"<b>Cette page « {page_title} » a été verrouillée</b> par <b>vous</b> le "
+"<b>{datetime}</b>."
 
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Cette page « {page_title} » est verrouillée</b> par <b>vous</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+#, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
 msgstr ""
-"<b>Cette page « {} » a été verrouillée</b> par <b>{}</b> le <b>{}</b>."
+"<b>Cette page « {page_title} » a été verrouillée</b> par <b>{user}</b> le "
+"<b>{datetime}</b>."
 
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Cette page « {page_title} » est verrouillée</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Cette page est actuellement en attente de modération."
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+#, python-brace-format
+msgid ""
+"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
+"workflow."
 msgstr ""
-"Cette page est en attente « <b>{}</b> » dans le workflow « <b>{}</b> »."
+"Cette page est en attente « <b>{task_name}</b> » dans le workflow "
+"« <b>{workflow_name}</b> »."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
 
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
+#, python-brace-format
+msgid ""
+"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
 msgstr ""
-"La page « {} » est verrouillée et a été planifiée pour la publication le {}"
+"La page « {page_title} » est verrouillée et a été planifiée pour la "
+"publication le {datetime}"
 
 msgid "latest revision"
 msgstr "dernière version"
@@ -173,18 +192,17 @@ msgid "title"
 msgstr "Titre"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr ""
-"Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
+msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
 
 msgid "slug"
 msgstr "slug"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Le nom de la page comme elle apparaîtra dans l'URL e.g "
-"http://domain.com/blog/[my-slug]/"
+"Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
+"blog/[my-slug]/"
 
 msgid "content type"
 msgstr "type de contenu"
@@ -227,8 +245,13 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "dernière version créée le"
 
-msgid "This slug is already in use"
-msgstr "Ce slug est déjà utilisé"
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Le slug « %(page_slug)s » est déjà utilisé au niveau de la page parent "
+"sélectionnée à « %(parent_url_path)s »"
 
 msgid "in moderation"
 msgstr "en cours de modération"
@@ -348,8 +371,8 @@ msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
-"Les tâches actives peuvent être ajoutées aux workflows. Désactiver une tâche"
-" ne la supprime pas des workflows existants."
+"Les tâches actives peuvent être ajoutées aux workflows. Désactiver une tâche "
+"ne la supprime pas des workflows existants."
 
 msgid "tasks"
 msgstr "tâches"
@@ -420,7 +443,7 @@ msgstr ""
 "Il ne peut y avoir qu'un seul état de workflow « en cours » ou « "
 "modifications nécessaires » par page"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr ""
 "Workflow « %(workflow_name)s » sur la page « %(page_title)s » : %(status)s"
@@ -455,7 +478,7 @@ msgstr "terminé à"
 msgid "finished by"
 msgstr "terminé par"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Tâche « %(task_name)s » sur la version de page « %(revision_info)s » : "
@@ -497,12 +520,9 @@ msgstr "entrée de journal"
 msgid "log entries"
 msgstr "entrées de journal"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "L'action de journal « %(action_name)s » n'a pas été déclarée."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "utilisateur « %(id)s » (supprimé)"
 
 msgid "system"
 msgstr "système"
@@ -551,8 +571,8 @@ msgid ""
 msgstr ""
 "Définissez cette valeur à autre chose que 80 si vous avez besoin qu'un port "
 "spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
-"Ceci n'affecte pas la prise en charge des requêtes (les redirections de port"
-" continuent de fonctionner)."
+"Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
+"continuent de fonctionner)."
 
 msgid "site name"
 msgstr "nom du site"
@@ -570,8 +590,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont"
-" pas de site défini."
+"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
+"pas de site défini."
 
 msgid "site"
 msgstr "site"
@@ -858,8 +878,7 @@ msgstr "Supprimer le commentaire"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
-msgstr ""
-"Le commentaire « %(text)s »  a été supprimé sur le champ « %(field)s »"
+msgstr "Le commentaire « %(text)s »  a été supprimé sur le champ « %(field)s »"
 
 msgid "Deleted a comment"
 msgstr "Un commentaire a été supprimé"

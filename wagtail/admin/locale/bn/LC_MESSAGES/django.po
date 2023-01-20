@@ -5,18 +5,20 @@
 # Translators:
 # Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021
 # MA Rahman <ugikot@gmail.com>, 2020
+# MA Rahman <ugikot@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021\n"
-"Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/bn/)\n"
-"Language: bn\n"
+"Last-Translator: MA Rahman <ugikot@gmail.com>, 2020\n"
+"Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
+"bn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -25,9 +27,11 @@ msgstr "প্রকাশ করুন "
 msgid "Submit for moderation"
 msgstr "সম্পাদনার জন্য জমা দিন "
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "পুনরায় জমা দিন %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "জমা দিন %(workflow_name)s"
 
@@ -107,8 +111,8 @@ msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
 msgstr ""
-"অনুক্রমিক অবস্থান নির্বাচন করুন। দ্রষ্টব্য: একটি সংগ্রহ নিজের বা তার "
-"বংশধরদের মধ্যে একটি হতে পারে না।"
+"অনুক্রমিক অবস্থান নির্বাচন করুন। দ্রষ্টব্য: একটি সংগ্রহ নিজের বা তার বংশধরদের মধ্যে "
+"একটি হতে পারে না।"
 
 msgid "Please select another parent"
 msgstr "অন্য জনক নির্বাচন করুন"
@@ -175,9 +179,6 @@ msgstr "ভবিষ্যতের পরিবর্তনের সাথে 
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "সাব পেজ কপি করার সময় আপনি একটি পেজ কপি করতে পারবেন না"
-
-msgid "This slug is already in use"
-msgstr "এই স্লাগ ইতিমধ্যে ব্যবহার করা হয়"
 
 msgid "For search engines"
 msgstr "সার্চ ইঞ্জিনের জন্য"

@@ -4,6 +4,7 @@
 #
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 # Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Reshi Mahendra <reshimahendra@gmail.com>, 2020
@@ -14,14 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>, 2020\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
-"Language: id_ID\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -30,9 +32,11 @@ msgstr "Publikasikan"
 msgid "Submit for moderation"
 msgstr "Kirim untuk dimoderasi"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Pengajuan ulang ke %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Pengajuan ke %(workflow_name)s"
 
@@ -179,8 +183,8 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
-"Sejumlah %(count)s halaman yang disalin telah terpublikasi. Apakah anda akan"
-" mempublikasi salinannya juga?"
+"Sejumlah %(count)s halaman yang disalin telah terpublikasi. Apakah anda akan "
+"mempublikasi salinannya juga?"
 
 msgid "Alias"
 msgstr "Alias"
@@ -201,9 +205,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ketika melakukan penyalinan sub-halaman, anda tidak dapat menyalin sebuah "
 "halaman ke dirinya sendiri "
-
-msgid "This slug is already in use"
-msgstr "Slug ini telah digunakan"
 
 msgid "Visibility"
 msgstr "Visibilitas"
@@ -800,11 +801,11 @@ msgstr "Tambah sebuah koleksi"
 msgid "Add collection"
 msgstr "Tambah koleksi"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Koleksi '%(object)s' telah dibuat."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Koleksi '%(object)s' diperbarui."
 
@@ -814,7 +815,7 @@ msgstr "Koleksi tidak dapat disimpan karena suatu galat."
 msgid "Delete collection"
 msgstr "Hapus koleksi"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksi '%(object)s' telah dihapus."
 
@@ -833,12 +834,12 @@ msgstr "Paling akhir"
 msgid "Dashboard"
 msgstr "Dasbor"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
 "Telah menyalin halaman '%(page_title)s' dan %(subpages_count)s sub-halaman."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Halaman '%(page_title)s' telah disalin."
 
@@ -848,46 +849,46 @@ msgstr "Tampilkan konsep"
 msgid "View live"
 msgstr "Tampilkan yang aktif"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Halaman '%(page_title)s' telah dibuat."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr ""
 "Halaman '%(page_title)s' telah dibuat dan dijadwalkan untuk dipublikasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Halaman '%(page_title)s' telah dibuat dan dipublikasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Halaman '%(page_title)s' telah dibuat dan dikirim untuk dimoderasi."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Halaman '%(page_title)s' dihapus."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Halaman '%(page_title)s' telah diperbarui."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Halaman '%(page_title)s' telah dijadwalkan untuk publikasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Halaman '%(page_title)s' telah dipublikasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Halaman '%(page_title)s' telah dikirim untuk moderasi."
 
@@ -897,33 +898,33 @@ msgstr "Halaman ini tidak dapat disimpan karena terkunci"
 msgid "The page could not be saved due to validation errors"
 msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Halaman '%(page_title)s' sekarang tidak dikunci."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Halaman '%(page_title)s' tidak dalam proses moderasi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Halaman '%(page_title)s' telah dipublikasi."
 
 msgid "Failed to send approval notifications"
 msgstr "Gagal mengirim notifikasi persetujuan"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Publikasi halaman '%(page_title)s' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Halaman '%(page_title)s' telah dipindah."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Halaman '%(page_title)s' ditarik dari publikasi."
 
@@ -935,6 +936,10 @@ msgstr "Menunggu ulasan saya"
 
 msgid "Pages"
 msgstr "Halaman"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Ubah '%(title)s'"
 
 msgid "Add child page"
 msgstr "Tambahkan halaman turunan"

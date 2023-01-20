@@ -9,36 +9,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
-"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/lv/)\n"
-"Language: lv\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Atbalstītie formāti: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Attēla formāts nav atbalstīts. Atbalstītie formāti: %(supported_formats)s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Attēls %s nav derīgs."
 
 #, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"Fails pārāk liels (%(file_size)s). Maksimālais faila izmērs "
-"%(max_filesize)s."
+"Fails pārāk liels (%(file_size)s). Maksimālais faila izmērs %(max_filesize)s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
@@ -190,7 +186,7 @@ msgstr "Labot šo attēlu"
 msgid "Search images"
 msgstr "Meklēt attēlus"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Attēls '%(image_title)s' atjaunots."
 
@@ -200,11 +196,11 @@ msgstr "Labot vēlreiz"
 msgid "The image could not be saved due to errors."
 msgstr "Attēlu nevarēja saglabāt kļūdu dēļ."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Attēls '%(image_title)s' dzēsts."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Attēls '%(image_title)s' pievienots."
 

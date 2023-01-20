@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/mi/)\n"
-"Language: mi\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Publish"
@@ -36,12 +37,6 @@ msgstr "Pitopito kōrero-a-Wagtail"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' kua muku."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d%(model_name)s mukuhia"
-msgstr[1] "%(count)d %(model_name)s kua mukuhia."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

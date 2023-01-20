@@ -5,14 +5,15 @@
 # Translators:
 # Adi Ron <adi@bnop.co>, 2019
 # Men770, 2021
+# Men770, 2021
 # Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Men770, 2021\n"
+"Last-Translator: Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"

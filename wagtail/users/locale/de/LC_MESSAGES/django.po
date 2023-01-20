@@ -3,9 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Florian Vogt <flori@vorlif.org>, 2015
 # Florian Vogt <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Oliver Engel <codeangel@posteo.de>, 2021
@@ -15,9 +19,11 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
+# Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Peter Dreuw <archandha@gmx.net>, 2019
-# th3hamm0r <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Florian Vogt <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -25,14 +31,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
-"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/de/)\n"
-"Language: de\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail users"
@@ -216,8 +223,7 @@ msgstr "Gruppe löschen"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
-"members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
 "Der Gruppe „%(group_name)s“ ist <strong>%(group_user_count)s</strong> "
 "Benutzer zugeordnet."
@@ -358,6 +364,10 @@ msgstr ""
 "Es sind keine Benutzer eingerichtet. Warum nicht <a "
 "href=\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Benutzer %(id)s (gelöscht)"
+
 msgid "Assign role to selected users"
 msgstr "Rolle dem ausgewählten Benutzer zuordnen"
 
@@ -400,22 +410,22 @@ msgstr "Eine Gruppe hinzufügen"
 msgid "Search groups"
 msgstr "Gruppe suchen"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Gruppe ‚%(object)s‘ erstellt."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Gruppe ‚%(object)s‘ aktualisiert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppe ‚%(object)s‘ gelöscht."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Benutzer ‚%(object)s‘ aktualisiert."
 
@@ -426,7 +436,7 @@ msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 msgid "Editing %(object)s"
 msgstr "Bearbeite %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Benutzer ‚%(object)s‘ gelöscht."
 

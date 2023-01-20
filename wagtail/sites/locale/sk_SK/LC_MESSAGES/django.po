@@ -5,6 +5,7 @@
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
 # Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
 # Stevo Backor, 2016
@@ -12,15 +13,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/language/sk_SK/)\n"
-"Language: sk_SK\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Choose a root page"
 msgstr "Zvoliť koreňovú stránku"
@@ -46,11 +49,11 @@ msgstr "Predvolené"
 msgid "Add site"
 msgstr "Pridať sídlo"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "Sídlo '%(object)s' vytvorené."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Sídlo '%(object)s' upravené."
 
@@ -60,7 +63,7 @@ msgstr "Sídlo nemôže byť uložené kvôli chybám."
 msgid "Delete site"
 msgstr "Zmazať sídlo"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Sídlo '%(object)s' zmazané."
 

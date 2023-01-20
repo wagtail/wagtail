@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
-"Language: is_IS\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Publish"
@@ -41,12 +42,6 @@ msgstr "Eyða völdum snifsum"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' eytt."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)s eytt."
-msgstr[1] "%(count)d %(model_name)s eytt."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -147,9 +142,6 @@ msgstr "Brauðmolar"
 msgid "Snippets"
 msgstr "Snifsi"
 
-msgid "New: "
-msgstr "Nýtt:"
-
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Breyti %(snippet_type)s %(title)s"
@@ -241,8 +233,7 @@ msgid "Instances"
 msgstr "Færslur"
 
 msgid "The snippet could not be created due to errors."
-msgstr ""
-"Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
+msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
@@ -301,11 +292,11 @@ msgstr "Dagsetning"
 msgid "Snippet history"
 msgstr "Saga snifsis"
 
-#, python-brace-format
+#, python-format
 msgid "Edit this %(model_name)s"
 msgstr "Breyta þessu %(model_name)s"
 
-#, python-brace-format
+#, python-format
 msgid "%(model_name)s history"
 msgstr "%(model_name)s saga"
 

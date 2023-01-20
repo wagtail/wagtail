@@ -4,20 +4,22 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Ragnar Rebase <rrebase@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
-"Language: et\n"
+"Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -26,9 +28,11 @@ msgstr "Avalda"
 msgid "Submit for moderation"
 msgstr "Esita modereerimiseks"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Esita uuesti %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Esita %(workflow_name)s"
 
@@ -195,9 +199,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alamlehtede kopeerimisel ei saa lehte endasse kopeerida"
 
-msgid "This slug is already in use"
-msgstr "See nälkjas on juba kasutusel"
-
 msgid "Visibility"
 msgstr "Nähtavus"
 
@@ -210,7 +211,7 @@ msgstr "Valige vähemalt üks rühm."
 msgid "All types"
 msgstr "Kõik tüübid"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
 msgstr "Sellele lehele on juba määratud töövoog '%(workflow_name)s'."
 
@@ -282,8 +283,8 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"Kui selle aadressi jaoks on konto olemas, saadeti teile parooli lähtestamise"
-" link."
+"Kui selle aadressi jaoks on konto olemas, saadeti teile parooli lähtestamise "
+"link."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Parooli lähtestamiseks järgige allolevat linki:"
@@ -553,15 +554,18 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Leht \"%(page)s\" on moderatsiooniks esitatud"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr "Leht \"%(title)s\" on moderatsiooniks esitatud staadiumis \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"Leht \"%(title)s\" on moderatsiooniks esitatud staadiumis \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Leht \"%(title)s\" on kinnitatud \"%(task)s\"."
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "Leht \"%(title)s\" on tagasi lükatud \"%(task)s\"."
 
 #, python-format
@@ -597,14 +601,16 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"Lehe \"%(title)s\" lükkas töövoo \"%(task)s\" käigus \"%(workflow)s\" tagasi"
-" %(rejector)s."
+"Lehe \"%(title)s\" lükkas töövoo \"%(task)s\" käigus \"%(workflow)s\" tagasi "
+"%(rejector)s."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\"."
-msgstr "Leht \"%(title)s\" lükkati töövoo \"%(task)s\" käigus \"%(workflow)s\" tagasi."
+msgstr ""
+"Leht \"%(title)s\" lükkati töövoo \"%(task)s\" käigus \"%(workflow)s\" "
+"tagasi."
 
 #, python-format
 msgid "The following comment was left: \"%(comment)s\""
@@ -618,7 +624,8 @@ msgstr "Leht \"%(title)s\" lükati \"%(workflow)s\" ajal tagasi."
 msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
-msgstr "Leht \"%(title)s\" on edastatud töövoo \"%(workflow)s\" modereerimiseks."
+msgstr ""
+"Leht \"%(title)s\" on edastatud töövoo \"%(workflow)s\" modereerimiseks."
 
 msgid "Page privacy"
 msgstr "Lehe privaatsus"
@@ -684,8 +691,8 @@ msgid ""
 "later."
 msgstr ""
 "Teise võimalusena võite lehe <a href=\"%(unpublish_url)s\">avaldamise "
-"tühistada</a>. See eemaldab lehe avalikust vaateväljast ja saate seda hiljem"
-" uuesti muuta või uuesti avaldada."
+"tühistada</a>. See eemaldab lehe avalikust vaateväljast ja saate seda hiljem "
+"uuesti muuta või uuesti avaldada."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1073,8 +1080,8 @@ msgid ""
 "href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
 "applies to."
 msgstr ""
-"Töövood kehtivad ka alamlehtedele. Kui valite siin vanemlehe, kasutavad seda"
-" töövoogu ka tema alamlehed. Vaadake <a "
+"Töövood kehtivad ka alamlehtedele. Kui valite siin vanemlehe, kasutavad seda "
+"töövoogu ka tema alamlehed. Vaadake <a "
 "href=\"%(workflow_pages_url)s\">loendeid lehtedest,</a> kus teie töövoog "
 "kehtib."
 
@@ -1115,12 +1122,14 @@ msgstr[1] "+%(counter)s juurde"
 #, python-format
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr "Töövooge pole loodud. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
+msgstr ""
+"Töövooge pole loodud. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr "Lubatud töövooge pole. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
+msgstr ""
+"Lubatud töövooge pole. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Valige, millist tüüpi ülesandeid soovite luua."
@@ -1157,13 +1166,15 @@ msgid "Show disabled tasks"
 msgstr "Kuva keelatud ülesanded"
 
 #, python-format
-msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ühtegi ülesannet pole loodud. Miks mitte <a href=\"%(add_url)s\">lisada "
-"üks</a>?"
+"Ühtegi ülesannet pole loodud. Miks mitte <a href=\"%(add_url)s\">lisada üks</"
+"a>?"
 
 #, python-format
-msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Lubatud ülesandeid pole. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
 
@@ -1244,11 +1255,11 @@ msgstr "Lisage kogu"
 msgid "Add collection"
 msgstr "Lisa kogu"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Kogu '%(object)s' on loodud."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Kogu '%(object)s' on värskendatud."
 
@@ -1258,7 +1269,7 @@ msgstr "Kogu ei õnnestunud vigade tõttu salvestada."
 msgid "Delete collection"
 msgstr "Kustuta kogu"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kogu '%(object)s' on kustutatud."
 
@@ -1277,11 +1288,11 @@ msgstr "Uusim"
 msgid "Dashboard"
 msgstr "Armatuurlaud"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "Leht '%(page_title)s' ja %(subpages_count)s alamlehed on kopeeritud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Leht '%(page_title)s' on kopeeritud."
 
@@ -1291,33 +1302,33 @@ msgstr "Kuva mustand"
 msgid "View live"
 msgstr "Vaadake otseülekannet"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Leht '%(page_title)s' on loodud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Leht '%(page_title)s' on loodud ja avaldamiseks ajastatud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Leht '%(page_title)s' on loodud ja avaldatud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Leht %(page_title)s loodi ja saadeti modereerimiseks."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Valideerimisvigade tõttu ei saanud lehte luua"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Leht '%(page_title)s' on kustutatud."
 
 msgid "This page is currently awaiting moderation"
 msgstr "See leht ootab praegu modereerimist"
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
@@ -1325,15 +1336,15 @@ msgstr ""
 "Lehekülg '%(page_title)s' on asendatud versiooniga versioonilt "
 "%(previous_revision_datetime)s."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Lehte '%(page_title)s' on värskendatud."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr "Töövoog lehel %(page_title)s on tühistatud."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
@@ -1341,30 +1352,30 @@ msgstr ""
 "Lehe '%(page_title)s' versioon lehelt %(previous_revision_datetime)s on "
 "ajastatud avaldamiseks."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
 msgstr ""
 "Leht %(page_title)s on aktiivne ja selle versiooni avaldamine on ajastatud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Lehe '%(page_title)s' avaldamine on ajastatud."
 
-#, python-brace-format
+#, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr "Lehe '%(page_title)s' versioon lehelt %(datetime)s on avaldatud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Leht '%(page_title)s' on avaldatud."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Leht '%(page_title)s' on modereerimiseks esitatud."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Töövoog lehel %(page_title)s on taaskäivitatud."
 
@@ -1377,37 +1388,37 @@ msgstr "Valideerimisvigade tõttu ei õnnestunud lehte salvestada"
 msgid "Page history"
 msgstr "Lehe ajalugu"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Leht %(page_title)s on nüüd lukustamata."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Leht %(page_title)s ei oota praegu modereerimist."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Leht '%(page_title)s' on avaldatud."
 
 msgid "Failed to send approval notifications"
 msgstr "Kinnitamisteatiste saatmine ebaõnnestus"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Leht '%(page_title)s' lükati avaldamiseks tagasi."
 
 msgid "Failed to send rejection notifications"
 msgstr "Tagasilükkamisteatiste saatmine ebaõnnestus"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "Slug '%(page_slug)s'  on valitud vanemalehel juba kasutusel. Veenduge, et "
 "nälkjas on ainulaadne, ja proovige uuesti"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Leht '%(page_title)s' on teisaldatud."
 
@@ -1416,20 +1427,18 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> "
-"kasutajalt%(user)s"
+"Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Lehe '%(page_title)s' avaldamine tühistati."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
 "'%(task_name)s'."
 msgstr ""
-"Leht '%(page_title)s' ei oota praegu ülesandes '%(task_name)s' "
-"modereerimist."
+"Leht '%(page_title)s' ei oota praegu ülesandes '%(task_name)s' modereerimist."
 
 msgid "Site history"
 msgstr "Saidi ajalugu"
@@ -1476,14 +1485,14 @@ msgstr "Lisage töövoog"
 msgid "New workflow"
 msgstr "Uus töövoog"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' created."
 msgstr "Töövoog '%(object)s' on loodud."
 
 msgid "Editing workflow"
 msgstr "Töövoo muutmine"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' updated."
 msgstr "Töövoog '%(object)s' on värskendatud."
 
@@ -1496,7 +1505,7 @@ msgstr "Luba"
 msgid "Disable workflow"
 msgstr "Keela töövoog"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Töövoog '%(object)s' on keelatud."
 
@@ -1505,8 +1514,8 @@ msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
-" workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
 msgstr[0] ""
 "See töövoog on lehel %(states_in_progress)d pooleli. Selle töövoo keelamine "
 "tühistab selle lehe modereerimise."
@@ -1514,25 +1523,25 @@ msgstr[1] ""
 "See töövoog on %(states_in_progress)d lehtedel pooleli. Selle töövoo "
 "keelamine tühistab nende lehtede modereerimise."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Töövoog '%(workflow_name)s' on lubatud."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
 msgstr "Töövoog eemaldati lehelt '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Uus töövoo ülesanne"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' created."
 msgstr "Ülesanne '%(object)s' on loodud."
 
 msgid "Editing workflow task"
 msgstr "Töövoo ülesande muutmine"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Ülesanne '%(object)s' on värskendatud."
 
@@ -1543,11 +1552,11 @@ msgstr "%(task_type)s muutmine"
 msgid "Disable task"
 msgstr "Keela ülesanne"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Ülesanne '%(object)s' on keelatud."
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Ülesanne '%(task_name)s' on lubatud."
 

@@ -5,31 +5,41 @@
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
+# Eugene <eugene.mechanism@gmail.com>, 2017
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Влад <integration.into.society@gmail.com>, 2022
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
+# Михаил Герасимов, 2019
+# Никита Викторович <hnknta@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
-"Language: ru\n"
+"Last-Translator: Михаил Герасимов, 2019\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Пользователи Wagtail"
@@ -108,8 +118,8 @@ msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
-"Получать уведомление, когда комментарии были созданы, закрыты или удалены на"
-" странице, на которую вы подписались"
+"Получать уведомление, когда комментарии были созданы, закрыты или удалены на "
+"странице, на которую вы подписались"
 
 msgid "preferred language"
 msgstr "Предпочтительный язык"
@@ -349,6 +359,10 @@ msgstr ""
 "Пользователи не сконфигурированы. <a "
 "href=\"%(wagtailusers_add_url)s\">Добавить пользователя</a>."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "пользователь 1%(id)s (удален)"
+
 msgid "Assign role to selected users"
 msgstr "Назначить роль выбранным пользователям"
 
@@ -399,22 +413,22 @@ msgstr "Добавить группу"
 msgid "Search groups"
 msgstr "Поиск групп"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Группа '%(object)s' создана."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Группа '%(object)s' обновлена."
 
 msgid "The group could not be saved due to errors."
 msgstr "Группа не может быть сохранена из-за ошибок."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Группа '%(object)s' удалена."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Пользователь '%(object)s' обновлен."
 
@@ -425,7 +439,7 @@ msgstr "Пользователь но может быть сохранен из-
 msgid "Editing %(object)s"
 msgstr "Редактирование %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Пользователь '%(object)s' удалён."
 

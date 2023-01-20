@@ -5,10 +5,12 @@
 # Translators:
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Fatih Koç koç <fatihinemaili@gmail.com>, 2021
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 # suayip uzulmez <suayip.541@gmail.com>, 2021
@@ -17,14 +19,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: suayip uzulmez <suayip.541@gmail.com>, 2021\n"
-"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/tr/)\n"
-"Language: tr\n"
+"Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Publish"
@@ -33,9 +36,11 @@ msgstr "Yayınla"
 msgid "Submit for moderation"
 msgstr "Denetleme için gönder"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Tekrar gönderildi %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Gönderildi %(workflow_name)s"
 
@@ -191,9 +196,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız"
 
-msgid "This slug is already in use"
-msgstr "Bu başlık url'si zaten kullanılıyor"
-
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -333,8 +335,7 @@ msgstr "Kaydet"
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
-"Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini "
-"belirler."
+"Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
 
 msgid "Privacy"
 msgstr "Gizlilik"
@@ -498,8 +499,7 @@ msgstr "\"%(title)s\" sayfası reddedildi."
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
 msgstr ""
-"\"%(page)s\" sayfası, %(editor)s tarafından kontrol edilmek üzere "
-"gönderildi."
+"\"%(page)s\" sayfası, %(editor)s tarafından kontrol edilmek üzere gönderildi."
 
 msgid "You can preview the page here:"
 msgstr "Sayfayı buradan önizleyebilirsiniz:"
@@ -814,8 +814,8 @@ msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "ascending order."
 msgstr ""
-"'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre artan şekilde"
-" sırala."
+"'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre artan şekilde "
+"sırala."
 
 #, python-format
 msgid ""
@@ -850,11 +850,11 @@ msgstr "Bir koleksiyon ekle"
 msgid "Add collection"
 msgstr "Koleksiyon ekle"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Koleksiyon '%(object)s' oluşturuldu."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Koleksiyon '%(object)s' güncellendi."
 
@@ -864,7 +864,7 @@ msgstr "Hatalardan dolayı koleksiyon kaydedilemedi."
 msgid "Delete collection"
 msgstr "Koleksiyonu sil"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksiyon '%(object)s' silindi."
 
@@ -883,11 +883,11 @@ msgstr "En yeni"
 msgid "Dashboard"
 msgstr "Kontrol paneli"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "Sayfa '%(page_title)s' ve %(subpages_count)s altsayfa kopyalandı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Sayfa '%(page_title)s' kopyalandı."
 
@@ -897,19 +897,19 @@ msgstr "Taslak görüntüle"
 msgid "View live"
 msgstr "Canlı gör"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Page '%(page_title)s' oluşturuldu."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Sayfa '%(page_title)s' oluşturuldu ve yayın için planlandı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Sayfa '%(page_title)s' oluşturuldu ve yayınlandı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Sayfa '%(page_title)s' oluşturuldu ve kontrol edilmek üzere gönderildi."
@@ -917,26 +917,26 @@ msgstr ""
 msgid "The page could not be created due to validation errors"
 msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Bu sayfa kontrol edilmek üzere bekliyor"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Sayfa '%(page_title)s' güncellendi."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Sayfa '%(page_title)s' yayınlanmak için planlandı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Sayfa '%(page_title)s' yayınlandı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Sayfa '%(page_title)s' kontrol için gönderildi."
 
@@ -946,41 +946,41 @@ msgstr "Sayfa kilitli olduğu için kaydedilemedi"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Sayfa '%(page_title)s' yayınlandı."
 
 msgid "Failed to send approval notifications"
 msgstr "Onay bildirimleri gönderilemedi"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "'%(page_title)s' sayfasının yayınlanması reddedildi."
 
 msgid "Failed to send rejection notifications"
 msgstr "Red bildirimleri gönderilemedi"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "Başlık url'si '%(page_slug)s' seçili üst sayfada zaten kullanılıyor. Özgün "
 "bir başlık url'si girerek tekrar deneyin"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Sayfa '%(page_title)s' taşındı."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sayfa '%(page_title)s' yayından kaldırıldı."
 

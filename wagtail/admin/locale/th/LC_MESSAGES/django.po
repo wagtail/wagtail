@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
-"Language: th\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -150,9 +151,7 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-"%(count)s ของหน้าที่ถูกก็อปปี้กำลังถ่ายทอดสดอยู่ "
-"คุณต้องการจะตีพิมพ์ก็อปปี้นี้มั้ย?"
+msgstr[0] "%(count)s ของหน้าที่ถูกก็อปปี้กำลังถ่ายทอดสดอยู่ คุณต้องการจะตีพิมพ์ก็อปปี้นี้มั้ย?"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -166,9 +165,6 @@ msgstr "Slugนี้ถูกใช้อยู่ในบริเวณห�
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "คุณไม่สามารถที่จะคัดลอกหน้าแรกมาใส่ในหน้าย่อยได้"
-
-msgid "This slug is already in use"
-msgstr "slug อันนี้ถูกใช้งานอยู่"
 
 msgid "Visibility"
 msgstr "ความชัดเจน"
@@ -313,9 +309,7 @@ msgstr "ชื่อ"
 msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
-msgstr ""
-"ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a "
-"href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
+msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Yes, delete"
 msgstr ""
@@ -509,8 +503,7 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"อีกทางเลือกหนึ่งของคุณ <a href=\"%(unpublish_url)s\">ยกเลิกการพิมพ์หน้า</a>."
-" "
+"อีกทางเลือกหนึ่งของคุณ <a href=\"%(unpublish_url)s\">ยกเลิกการพิมพ์หน้า</a>. "
 "มันทำให้หน้านี้ถูกลบจากหน้าสาธารณะและคุณสามารถแก้ไขหรือตีพิมพ์ภายหลังอีกครั้งหนึ่งได้"
 
 #, python-format
@@ -525,9 +518,7 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะเ
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
-"คุณแน่ใจว่าคุณต้องการจะเคลื่อนย้ายหน้านี้และหน้าย่อยทั้งหมดไปยัง "
-"'%(title)s'?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะเคลื่อนย้ายหน้านี้และหน้าย่อยทั้งหมดไปยัง '%(title)s'?"
 
 msgid "Yes, move this page"
 msgstr "ใช่,เคลื่อนย้ายหน้านี้"
@@ -736,11 +727,11 @@ msgstr "เพิ่มเติมชุด"
 msgid "Add collection"
 msgstr "เพิ่มเติมชุด"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "ชุด'%(object)s'ถูกสร้างแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "ชุด'%(object)s'อัพเดทแล้ว"
 
@@ -749,10 +740,6 @@ msgstr "ชุดนี้ไม่สามารถเซฟได้ในร
 
 msgid "Delete collection"
 msgstr "ลบทิ้งชุดนี้"
-
-#, python-brace-format
-msgid "Collection '%(object)s' deleted."
-msgstr "ชุด'%(object)s'ถูกลบแล้ว"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "คุณแน่ใจว่าคุณต้องการลบทิ้งชุดนี้?"
@@ -769,11 +756,11 @@ msgstr "ล่าสุด"
 msgid "Dashboard"
 msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "หน้า'%(page_title)s'และ%(subpages_count)sเป็นหน้าย่อยที่ถูกก๊อปปี้"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "หน้า%(page_title)sถูกคัดลอกแล้ว"
 
@@ -783,26 +770,26 @@ msgstr "ดูข้อความที่เก็บเอาไว้ทำ
 msgid "View live"
 msgstr "ดูถ่ายทอดสด"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "หน้า'%(page_title)s'ถูกสร้าง"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "หน้า'%(page_title)s'ถูกสร้างและตีพิมพ์สำหรับตาราง"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "หน้า'%(page_title)s'ถูกสร้างและตีพิมพ์"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "หน้า'%(page_title)s'ถูกสร้างและถูกส่งสำหรับตรวจ"
 
 msgid "The page could not be created due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr ""
 "หน้า%(page_title)s\n"
@@ -811,19 +798,19 @@ msgstr ""
 msgid "This page is currently awaiting moderation"
 msgstr "หน้าที่กำลังแสดงอยู่นี้กำลังรอคอยการตรวจอยู่"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "หน้า%(page_title)sได้อัพเดทแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "หน้า%(page_title)sได้จัดตารางในการพิมพ์เรียบร้อยแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "หน้า%(page_title)s ได้จัดพิมพ์เรียบร้อยแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "หน้า'%(page_title)s'ถูกส่งสำหรับตรวจแล้ว"
 
@@ -833,40 +820,44 @@ msgstr "หน้านี้ไม่สามารถเซฟได้เน
 msgid "The page could not be saved due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "หน้า'%(page_title)s'ตอนนี้ได้ถูกปลดล็อกแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "หน้า%(page_title)sถูกจัดพิมพ์แล้ว"
 
 msgid "Failed to send approval notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนให้อนุมัติ"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "หน้า'%(page_title)s' ถูกปฏิเสธสำหรับสิ่งพิมพ์"
 
 msgid "Failed to send rejection notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนการปฏิเสธ"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr ""
 "หน้า%(page_title)s \n"
 "เคลื่อนย้ายแล้ว"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "หน้า%(page_title)s ยกเลิกจัดพิมพ์แล้ว"
 
 msgid "Pages"
 msgstr "หลายหน้า"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "แก้ไข'%(title)s'"
 
 msgid "Add child page"
 msgstr "หน้าย่อย"

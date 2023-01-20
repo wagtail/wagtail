@@ -14,14 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
-"Language: fi\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail API v2"
@@ -81,23 +82,16 @@ msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
 msgid "Comment"
 msgstr "Kommentti"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Sinä</b> lukitsit <b>sivun '{}'</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Sinä</b> olet lukinnut <b>sivun '{page_title}'</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Sivun '{}' lukitsi</b> <b>{}</b> <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Sivu '{page_title}' on lukittu.</b>"
 
 msgid "This page is currently awaiting moderation."
 msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Tämä sivu odottaa <b>'{}'</b> työnkulussa <b>'{}'</b>."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."
@@ -160,11 +154,11 @@ msgid "slug"
 msgstr "lyhytnimi"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Sivun nimi kuten se esiintyy URL:eissa esim. "
-"http://domain.com/blog/[polkutunnus]/"
+"Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/"
+"[polkutunnus]/"
 
 msgid "content type"
 msgstr "sisältötyyppi"
@@ -200,9 +194,6 @@ msgstr "Kuvaileva teksti, joka näytetään hakukonetulosten alapuolella."
 
 msgid "latest revision created at"
 msgstr "uusin versio luotu"
-
-msgid "This slug is already in use"
-msgstr "Lyhytnimi on jo käytössä."
 
 msgid "in moderation"
 msgstr "tarkastettavana"
@@ -308,8 +299,8 @@ msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
-"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin. Työnkulun aktivoinnin"
-" poistaminen ei poista työnkulkua olemassa olevasta sivusta."
+"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin. Työnkulun aktivoinnin "
+"poistaminen ei poista työnkulkua olemassa olevasta sivusta."
 
 msgid "workflows"
 msgstr "työnkulut"
@@ -356,7 +347,7 @@ msgstr "pyytänyt"
 msgid "current task state"
 msgstr "nykyinen tehtävän tila"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr "Työnkulku '%(workflow_name)s' sivulla '%(page_title)s': %(status)s"
 
@@ -417,12 +408,9 @@ msgstr "lokimerkintä"
 msgid "log entries"
 msgstr "lokimerkinnät"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "Lokitoimintoa '%(action_name)s' ei ole rekisteröity."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "käyttäjä %(id)s (poistettu)"
 
 msgid "system"
 msgstr "järjestelmä"
@@ -469,8 +457,8 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Aseta tämä joksikin muuksi kuin 80 jos tarvitset tietyn portin käyttöön "
-"URL:eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen "
+"Aseta tämä joksikin muuksi kuin 80 jos tarvitset tietyn portin käyttöön URL:"
+"eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen "
 "käsittelyyn (porttiohjaus toimii edelleen)."
 
 msgid "site name"
@@ -506,8 +494,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys"
-" ennen kuin määrität tämän sivuston oletussivustoksi."
+"%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys "
+"ennen kuin määrität tämän sivuston oletussivustoksi."
 
 msgid "Public"
 msgstr "Julkinen"

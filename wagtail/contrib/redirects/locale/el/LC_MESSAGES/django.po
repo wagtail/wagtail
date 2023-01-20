@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>, 2015
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # 1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>, 2015
@@ -12,18 +13,20 @@
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # 1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>, 2015
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
+# Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
-"Language: el\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Type"
@@ -136,8 +139,8 @@ msgstr "Διόρθωση της ανακατεύθυνσης"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το "
-"\"<em>%(query_string)s</em>\""
+"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -150,7 +153,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Αναζήτηση ανακατευθύνσεων"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Η ανακατεύθυνση '%(redirect_title)s' αποθηκεύθηκε."
 
@@ -160,11 +163,11 @@ msgstr "Επεξεργασία"
 msgid "The redirect could not be saved due to errors."
 msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Η ανακατεύθυνση '%(redirect_title)s' διαγράφηκε."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Η ανακατεύθυνση '%(redirect_title)s' προστέθηκε."
 

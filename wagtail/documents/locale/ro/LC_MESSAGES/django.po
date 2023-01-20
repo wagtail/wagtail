@@ -4,20 +4,23 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
-"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/ro/)\n"
-"Language: ro\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 msgid "Wagtail documents"
 msgstr "Documente Wagtail"
@@ -64,6 +67,13 @@ msgstr "document"
 msgid "documents"
 msgstr "documente"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Adaugă etichete la 1 document"
+msgstr[1] "Adaugă etichete la %(counter)s documente"
+msgstr[2] "Adaugă etichete la %(counter)s documente"
+
 msgid "Add tags to documents"
 msgstr "Adaugă etichete la documente"
 
@@ -85,6 +95,13 @@ msgstr "Da, adaugă"
 msgid "No, don't add"
 msgstr "Nu, nu adaugă"
 
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Adaugă 1 document la colecție nouă"
+msgstr[1] "Adaugă %(counter)s documente la colecție nouă"
+msgstr[2] "Adaugă %(counter)s documente la colecție nouă"
+
 msgid "Add documents to collection"
 msgstr "Adaugă documente la colecție"
 
@@ -101,11 +118,17 @@ msgstr[2] ""
 "Sigur doriți să adăugați documentele următoare la colecția selectată?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Nu aveți permisiunea de a adăuga acest document la o colecție"
 msgstr[1] "Nu aveți permisiunea de a adăuga aceste documente la o colecție"
 msgstr[2] "Nu aveți permisiunea de a adăuga aceste documente la o colecție"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Șterge 1 document"
+msgstr[1] "Șterge %(counter)s documente"
+msgstr[2] "Șterge %(counter)s documente"
 
 msgid "Delete documents"
 msgstr "Șterge documente"
@@ -149,6 +172,13 @@ msgstr "Nu ați încărcat nici un document în această colecție."
 
 msgid "You haven't uploaded any documents."
 msgstr "Nu ați încărcat nici un document. "
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"De ce să nu <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>încărcați unul acum</a>?"
 
 msgid "Change document:"
 msgstr "Schimbă documentul:"
@@ -210,6 +240,13 @@ msgid "Select document"
 msgstr "Selecteaă document"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Există %(counter)s potrivire"
+msgstr[1] "Sunt %(counter)s potriviri"
+msgstr[2] "Sunt %(counter)s potriviri"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
@@ -237,6 +274,26 @@ msgstr "Utilizare %(title)s"
 
 msgid "Usage of"
 msgstr "Utilizare"
+
+msgid "Field"
+msgstr "Câmp"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> document <span class=\"visuallyhidden\">creat în "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> documente <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> documente <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
@@ -305,10 +362,8 @@ msgid "%(num_parent_objects)d document has been added to %(collection)s"
 msgid_plural ""
 "%(num_parent_objects)d documents have been added to %(collection)s"
 msgstr[0] "%(num_parent_objects)d document a fost adăugat la %(collection)s"
-msgstr[1] ""
-"%(num_parent_objects)d documente au fost adăugate la %(collection)s"
-msgstr[2] ""
-"%(num_parent_objects)d documente au fost adăugate la %(collection)s"
+msgstr[1] "%(num_parent_objects)d documente au fost adăugate la %(collection)s"
+msgstr[2] "%(num_parent_objects)d documente au fost adăugate la %(collection)s"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -335,14 +390,14 @@ msgstr "Editează acest document"
 msgid "Search documents"
 msgstr "Caută documente"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documentul '%(document_title)s' a fost adăugat."
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documentul '%(document_title)s' a fost actualizat."
 
@@ -350,9 +405,13 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documentul '%(document_title)s' a fost șters."
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(%(object)s privat/ă)"
 
 #, python-format
 msgid "Edit this %(object)s"

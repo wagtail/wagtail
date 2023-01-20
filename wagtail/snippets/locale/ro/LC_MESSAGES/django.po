@@ -4,22 +4,25 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2021
+# Dan Braghis, 2014-2022
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Dan Braghis, 2014-2021\n"
-"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/ro/)\n"
-"Language: ro\n"
+"Last-Translator: Dan Braghis, 2014-2022\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 msgid "Publish"
 msgstr "Publică"
@@ -36,16 +39,12 @@ msgstr "Salvează"
 msgid "Wagtail snippets"
 msgstr "Fragment Wagtail"
 
+msgid "Delete selected snippets"
+msgstr "Șterge fragmentele selectate"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' a fost eliminat(ă)."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)s șters."
-msgstr[1] "%(count)d %(model_name)s șterse."
-msgstr[2] "%(count)d de %(model_name)s șterse."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -69,11 +68,31 @@ msgstr "Sigur doriți să ștergeți acest %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Sigur doriți să ștergeți %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nu aveți permisiunea de a șterge %(snippet_type_name)s"
+
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un "
+"fragment"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Nu au fost create %(snippet_type_name)s. De să nu <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">incepeți acum</a>?"
 
 msgid "Usage"
 msgstr "Utilizare"
@@ -96,6 +115,9 @@ msgstr "În curs de salvare..."
 msgid "Replace current draft"
 msgstr "Înlocuiește ciorna curentă"
 
+msgid "Replace current revision"
+msgstr "Înlocuiește reviziunea curentă"
+
 msgid "Save draft"
 msgstr "Salvare ciornă"
 
@@ -109,6 +131,10 @@ msgstr "Nou"
 msgid "Actions"
 msgstr "Acțiuni"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Editare %(snippet_type_name)s - %(object)s"
+
 msgid "Toggle breadcrumbs"
 msgstr "Comută breadcrumb"
 
@@ -118,11 +144,30 @@ msgstr "Traseu navigare"
 msgid "Snippets"
 msgstr "Fragmente"
 
-msgid "New: "
-msgstr "Nou:"
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nou: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Editare %(snippet_type)s %(title)s"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Istoria fragmentului %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Editează acest fragment"
 
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Există %(counter)s potrivire"
+msgstr[1] "Sunt %(counter)s potriviri"
+msgstr[2] "Sunt %(counter)s potriviri"
 
 #, python-format
 msgid ""
@@ -164,6 +209,9 @@ msgstr "Fragmente %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Adaugă %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Selectează toate fragmentele din listă"
+
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Utilizare %(title)s"
@@ -174,11 +222,17 @@ msgstr "Utilizare"
 msgid "Title"
 msgstr "Titlu"
 
+msgid "Field"
+msgstr "Câmp"
+
 msgid "Choose"
 msgstr "Alege"
 
 msgid "Name"
 msgstr "Nume"
+
+msgid "Instances"
+msgstr "Instanțe"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
@@ -193,6 +247,10 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' a fost actualizat(ă)."
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(%(object)s privat/ă)"
 
 #, python-format
 msgid "Edit this %(object)s"

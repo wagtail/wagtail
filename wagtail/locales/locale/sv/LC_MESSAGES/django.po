@@ -5,20 +5,21 @@
 #
 # Translators:
 # Martin Sandström <martin@marteinn.se>, 2020
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail locales"
@@ -58,11 +59,11 @@ msgstr "Användning"
 msgid "Add locale"
 msgstr "Lägg till översättning"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Översättning '%(object)s' skapad."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Översättning '%(object)s' uppdaterad."
 
@@ -72,7 +73,7 @@ msgstr "Översättning kunde inte raderas p.g.a fel."
 msgid "Delete locale"
 msgstr "Radera översättning"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Översättning '%(object)s' raderad."
 

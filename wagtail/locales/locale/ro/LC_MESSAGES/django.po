@@ -5,21 +5,23 @@
 #
 # Translators:
 # Dan Braghis, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Dan Braghis, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Romanian (https://www.transifex.com/torchbox/teams/8009/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 msgid "Wagtail locales"
 msgstr "Localizări Wagtail"
@@ -43,8 +45,8 @@ msgid ""
 "This locale's current language code is not supported. Please choose a new "
 "language or delete this locale."
 msgstr ""
-"Codul limbii curent pentru această localizare nu este suportat. Selectează o"
-" limbă nouă sau șterge această localizare."
+"Codul limbii curent pentru această localizare nu este suportat. Selectează o "
+"limbă nouă sau șterge această localizare."
 
 msgid "Locales"
 msgstr "Localizări"
@@ -58,11 +60,11 @@ msgstr "Utilizare"
 msgid "Add locale"
 msgstr "Adaugă localizare"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Localizarea '%(object)s' a fost creată."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Localizarea '%(object)s' a fost actualizată."
 
@@ -72,7 +74,7 @@ msgstr "Localizarea nu a putut fi salvată din cauza erorilor."
 msgid "Delete locale"
 msgstr "Șterge localizare"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Localizarea '%(object)s' a fost ștearsă."
 

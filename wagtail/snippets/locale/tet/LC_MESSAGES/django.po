@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
-"Language: tet\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -36,11 +37,6 @@ msgstr "Wagtail snippets"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' hamoos ona."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)s hamoos ona"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -166,6 +162,10 @@ msgstr "hadia iha %(object)s"
 
 msgid "Date"
 msgstr "Data"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
 
 #, python-format
 msgid "Choose %(object)s"

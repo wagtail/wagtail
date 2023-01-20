@@ -5,6 +5,7 @@
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
@@ -14,15 +15,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
-"Language: cs\n"
+"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -75,23 +78,16 @@ msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
 msgid "Comment"
 msgstr "Komentář"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Stránku '{}' jste uzamknul</b>:<b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Stránku '{page_title}' jste uzamknul</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Stránka '{}' byla uzamčena</b> uživatelem <b>{}</b>: <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Stránka '{page_title}' je uzamčena</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Tato stránka nyní čeká na posouzení."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Tato stránka čeká <b>'{}'</b> v postupu <b>'{}'</b> ."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
@@ -154,10 +150,9 @@ msgid "slug"
 msgstr "slug (identifikátor)"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
-msgstr ""
-"Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug]/"
 
 msgid "content type"
 msgstr "content type (typ obsahu)"
@@ -191,14 +186,10 @@ msgstr "meta popis"
 msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
-msgstr ""
-"Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
+msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
 
 msgid "latest revision created at"
 msgstr "poslední verze vytvořena:"
-
-msgid "This slug is already in use"
-msgstr "Slug (identifikátor) je už používán"
 
 msgid "in moderation"
 msgstr "probíhá schvalování"
@@ -376,10 +367,10 @@ msgstr "aktuální stav úlohy"
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
-"Smí být jen jediný postup se stavem \"probíhá\" nebo \"vyžaduje úpravy\" pro"
-" danou stránku."
+"Smí být jen jediný postup se stavem \"probíhá\" nebo \"vyžaduje úpravy\" pro "
+"danou stránku."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr "Postup '%(workflow_name)s' na stránce '%(page_title)s': %(status)s"
 
@@ -413,7 +404,7 @@ msgstr "dokončeno v"
 msgid "finished by"
 msgstr "dokončeno (kým)"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Úloha '%(task_name)s' pro Stránku Verze '%(revision_info)s': %(status)s"
@@ -454,12 +445,9 @@ msgstr "položka logu"
 msgid "log entries"
 msgstr "položky logu"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "Akce logu '%(action_name)s' není registrována."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "uživatel %(id)s (odstraněn)"
 
 msgid "system"
 msgstr "systém"
@@ -537,8 +525,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve"
-" zrušit."
+"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve "
+"zrušit."
 
 msgid "Public"
 msgstr "Veřejné"
@@ -571,8 +559,8 @@ msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "
 "with an account that has access."
 msgstr ""
-"Váš účet nemá oprávnění k této stránce. Je potřeba se přihlásit účtem, který"
-" taková oprávnění má."
+"Váš účet nemá oprávnění k této stránce. Je potřeba se přihlásit účtem, který "
+"taková oprávnění má."
 
 msgid "Password required"
 msgstr "Je vyžadováno heslo"
@@ -720,8 +708,8 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
 "%(go_live_at)s."
 msgstr ""
-"Verzi %(revision_id)s z %(created_at)s bylo zrušeno zveřejnění, plánované na"
-" %(go_live_at)s."
+"Verzi %(revision_id)s z %(created_at)s bylo zrušeno zveřejnění, plánované na "
+"%(go_live_at)s."
 
 #, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"

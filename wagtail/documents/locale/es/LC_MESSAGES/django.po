@@ -3,17 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Chimeno <daniel@chimeno.me>, 2016
+# Florian Merges, 2023
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
+# Oscar Luciano Espirilla Flores, 2020
 # Oscar Luciano Espirilla Flores, 2020
 # X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016-2017
@@ -21,15 +24,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
-"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/es/)\n"
-"Language: es\n"
+"Last-Translator: Florian Merges, 2023\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
@@ -131,8 +136,7 @@ msgstr[2] ""
 "seleccionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "No tienes permiso para añadir este documento a una colección"
 msgstr[1] "No tienes permiso para añadir estos documentos a una colección"
 msgstr[2] "No tienes permiso para añadir estos documentos a una colección"
@@ -327,8 +331,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Carga subida exitosamente. Por favor, actualice este documento con un título"
-" más apropiado si lo cree conveniente. También puede eliminar el documento "
+"Carga subida exitosamente. Por favor, actualice este documento con un título "
+"más apropiado si lo cree conveniente. También puede eliminar el documento "
 "completamente si la subida no era necesaria."
 
 msgid "Sorry, upload failed."
@@ -401,19 +405,19 @@ msgid "Choose another document"
 msgstr "Elegir otro documento"
 
 msgid "Edit this document"
-msgstr "Editar este docuemento"
+msgstr "Editar este documento"
 
 msgid "Search documents"
 msgstr "Buscar documentos"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documento '%(document_title)s' añadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "El documento no pudo ser guardado debido a errores."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' actualizado"
 
@@ -423,7 +427,7 @@ msgstr ""
 "El archivo no ha sido encontrado. Por favor cambie la fuente o elimine el "
 "documento."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminado."
 

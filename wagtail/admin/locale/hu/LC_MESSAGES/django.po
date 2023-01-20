@@ -7,20 +7,23 @@
 # B N <biczoxd@gmail.com>, 2018
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# Patrik Radics, 2022
 # Patrik Radics, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Patrik Radics, 2022\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -29,9 +32,11 @@ msgstr "Közzététel"
 msgid "Submit for moderation"
 msgstr "Beküldés moderálásra"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Újraküldés ide: %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Beküldés ide: %(workflow_name)s"
 
@@ -200,8 +205,8 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
-"A másolni kívánt oldalt már közzétették %(count)s példányban. A másolatát is"
-" közzéteszi?"
+"A másolni kívánt oldalt már közzétették %(count)s példányban. A másolatát is "
+"közzéteszi?"
 msgstr[1] ""
 "A másolni kívánt oldalakat már közzétették %(count)s példányban. A "
 "másolatait is közzéteszi?"
@@ -227,9 +232,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Aloldalak másolásakor nem lehet egy oldalt saját magára másolni"
 
-msgid "This slug is already in use"
-msgstr "Ez a domain-darabka már használatban van"
-
 msgid "Select a new parent for this page."
 msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
 
@@ -250,10 +252,9 @@ msgstr "Kérjük válasszon ki legalább egy csoportot."
 msgid "All types"
 msgstr "Összes típus"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
-msgstr ""
-"Ez az oldal már a következő munkamenetbe tartozik: '%(workflow_name)s'"
+msgstr "Ez az oldal már a következő munkamenetbe tartozik: '%(workflow_name)s'"
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
@@ -272,11 +273,11 @@ msgstr "Feladat"
 msgid "1 page selected"
 msgstr "1 oldal kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s pages selected"
 msgstr "%(objects)s oldal kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s pages on this screen selected"
 msgstr "Mind a(z) %(objects)s oldal ezen a képernyőn kiválasztva"
 
@@ -286,11 +287,11 @@ msgstr "Összes oldal a listában kiválasztva"
 msgid "1 document selected"
 msgstr "1 dokumentum kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s documents selected"
 msgstr "%(objects)s dokumentum kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s documents on this screen selected"
 msgstr "Mint a(z) %(objects)s dokumentum kiválasztva ezen a képernyőn"
 
@@ -300,11 +301,11 @@ msgstr "Összes dokumentum kiválasztva a listában"
 msgid "1 image selected"
 msgstr "1 kép kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s images selected"
 msgstr "%(objects)s kép kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s images on this screen selected"
 msgstr "Mint a(z) %(objects)s kép kiválasztva ezen a képernyőn"
 
@@ -314,11 +315,11 @@ msgstr "Minden kép kiválasztva a listában"
 msgid "1 user selected"
 msgstr "1 felhasználó kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s users selected"
 msgstr "%(objects)s felhasználó kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s users on this screen selected"
 msgstr "Mind a(z) %(objects)s felhasználó kiválasztva ezen a képernyőn"
 
@@ -328,11 +329,11 @@ msgstr "Minden felhasználó kiválasztva a listában"
 msgid "1 snippet selected"
 msgstr "1 elem kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s snippets selected"
 msgstr "%(objects)s elem kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s snippets on this screen selected"
 msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
 
@@ -342,11 +343,11 @@ msgstr "Minden elem kiválasztva a listában"
 msgid "1 item selected"
 msgstr "1 elem kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s items selected"
 msgstr "%(objects)s elem kiválasztva"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s items on this screen selected"
 msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
 
@@ -493,11 +494,11 @@ msgstr "Oldal kiválasztása"
 
 #, python-format
 msgid ""
-"Only pages of type \"%(type)s\" may be chosen for this field. Search results"
-" will exclude pages of other types."
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
 msgid_plural ""
-"Only the following page types may be chosen for this field: %(type)s. Search"
-" results will exclude pages of other types."
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
 msgstr[0] ""
 "Csak a következő típust lehet kiválasztani ehhez a mezőhöz: %(type)s. A "
 "keresés találati oldal el fogja rejteni a többi típust."
@@ -516,8 +517,8 @@ msgid ""
 "rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
 "A beírt URL: <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, úgy tűnik, hogy megegyezik"
-" a(z) %(page)s oldalllal, amelynek linkje <a target=\"_blank\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, úgy tűnik, hogy megegyezik "
+"a(z) %(page)s oldalllal, amelynek linkje <a target=\"_blank\" "
 "rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
@@ -605,8 +606,7 @@ msgstr ""
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr ""
-"Sajnáljuk, de nincs találat erre a kifejezésre: "
-"\"<em>%(search_query)s</em>\""
+"Sajnáljuk, de nincs találat erre a kifejezésre: \"<em>%(search_query)s</em>\""
 
 msgid "No items have been created."
 msgstr "Nem jött létre új elem."
@@ -624,8 +624,8 @@ msgid ""
 "Preview cannot display due to validation errors. <br /> Click save to "
 "highlight the relevant fields."
 msgstr ""
-"Az előnézet a kitöltési hibák miatt nem elérhető. <br /> Kattintson a mentés"
-" gombra a hibás mezők megjelöléséhez."
+"Az előnézet a kitöltési hibák miatt nem elérhető. <br /> Kattintson a mentés "
+"gombra a hibás mezők megjelöléséhez."
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -663,8 +663,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott"
-" oldalairól."
+"Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
+"oldalairól."
 
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
@@ -740,13 +740,11 @@ msgstr[1] ""
 
 #, python-format
 msgid ""
-"Wagtail upgrade available. Your version: "
-"<strong>%(current_version)s</strong>. New version: <strong data-upgrade-"
-"version></strong>."
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
 msgstr ""
-"Új Wagtail verzió elérhető. Az ön verziója: "
-"<strong>%(current_version)s</strong>. Új verzió: <strong data-upgrade-"
-"version></strong>"
+"Új Wagtail verzió elérhető. Az ön verziója: <strong>%(current_version)s</"
+"strong>. Új verzió: <strong data-upgrade-version></strong>"
 
 msgid "Read the release notes."
 msgstr "Frissítési dokumentáció megtekintése."
@@ -853,7 +851,8 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
 "A(z) \"%(title)s\" jóvá lett hagyva a következő engedélyezési lépésben: "
 "\"%(task)s\"."
@@ -863,10 +862,11 @@ msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "A(z) \"%(title)s\" jóvá lett hagyva itt: \"%(task)s\"."
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr ""
-"A(z) \"%(title)s\" oldal el lett utasítva a moderációs folyamat \"%(task)s\""
-" lépésében."
+"A(z) \"%(title)s\" oldal el lett utasítva a moderációs folyamat \"%(task)s\" "
+"lépésében."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1239,11 +1239,11 @@ msgid_plural ""
 "Deleting this page will also delete 1 translation and its combined "
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
-"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s"
-" lefordított gyermekoldal is törlődni fog."
+"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s "
+"lefordított gyermekoldal is törlődni fog."
 msgstr[1] ""
-"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s"
-" lefordított gyermekoldal is törlődni fog."
+"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s "
+"lefordított gyermekoldal is törlődni fog."
 
 #, python-format
 msgid ""
@@ -1314,8 +1314,8 @@ msgstr ""
 #, python-format
 msgid "This will also move one translation of this page and its child pages"
 msgid_plural ""
-"This will also move %(translations_to_move_count)s translations of this page"
-" and their child pages"
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
 msgstr[0] "Ezzel 1 fordítást, és annak gyermekoldalait is átmozgatja."
 msgstr[1] ""
 "Ezzel %(translations_to_move_count)s fordítást, és azok gyemrekoldalait is "
@@ -1332,8 +1332,7 @@ msgid "This will also unpublish one translation of the page."
 msgid_plural ""
 "This will also unpublish all %(translation_count)s translations of the page."
 msgstr[0] "Ez egyben visszavonja az oldal fordítását is."
-msgstr[1] ""
-"Ez egyben visszavonja az oldal %(translation_count)s fordítását is."
+msgstr[1] "Ez egyben visszavonja az oldal %(translation_count)s fordítását is."
 
 #, python-format
 msgid ""
@@ -1343,8 +1342,8 @@ msgid_plural ""
 "This page has %(live_descendant_count)s child pages and its translations "
 "have a combined one translated child page. Unpublish these too"
 msgstr[0] ""
-"Ennek az oldalnak egy gyermekoldala és fordítása van. Kérjük ezeket is vonja"
-" vissza"
+"Ennek az oldalnak egy gyermekoldala és fordítása van. Kérjük ezeket is vonja "
+"vissza"
 msgstr[1] ""
 "Ennek az oldalnak %(live_descendant_count)s gyermekoldala és lefordított "
 "oldala van. Kérjük ezeket is vonja vissza"
@@ -1389,8 +1388,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This page is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
 msgstr ""
 "Ez az oldal jelenleg a(z) <strong>%(workflow)s</strong> munkafolyamat "
 "<strong>%(task)s</strong> feladatánál tart."
@@ -1539,8 +1538,7 @@ msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Miért nem <a href=\"%(add_page_url)s\">hoz létre egyet</a>?"
 
 msgid "This page is locked, by you, to further editing"
-msgstr ""
-"Ez az oldal zárolva van, ezzel a felhasználóval, további szerkesztésre"
+msgstr "Ez az oldal zárolva van, ezzel a felhasználóval, további szerkesztésre"
 
 msgid "This page is locked to further editing"
 msgstr "Ez az oldal zárolva van, így nem lehet szerkeszteni"
@@ -1715,8 +1713,7 @@ msgstr "Közzététel időzítése"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
 
-msgid ""
-"This publishing schedule will only take effect after you have published"
+msgid "This publishing schedule will only take effect after you have published"
 msgstr "Az időzítés csak akkor működik, ha az oldal közzé van téve"
 
 msgid "Anyone with editing permissions can create schedules"
@@ -1834,9 +1831,6 @@ msgstr "Szűrő"
 
 msgid "Apply filters"
 msgstr "Szűrés"
-
-msgid "New: "
-msgstr "Új: "
 
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
@@ -2024,9 +2018,6 @@ msgstr "Előnézet mód"
 msgid "First published "
 msgstr "Első közzététel"
 
-msgid "Errors Count: "
-msgstr "Hibák száma: "
-
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
 "Here are the <a href=\"https://www.enable-javascript.com/\" "
@@ -2057,8 +2048,7 @@ msgid ""
 "sure you want to delete this workflow?"
 msgstr ""
 "Ez a munkafolyamat %(workflow_states_in_progress)s oldalnál fut. Ha "
-"kikapcsolja ezt a munkafolyamatot, ezeken az oldalakon megszakad a "
-"moderálás."
+"kikapcsolja ezt a munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
 
 msgid "No"
 msgstr "Nem"
@@ -2088,8 +2078,8 @@ msgid ""
 "href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
 "applies to."
 msgstr ""
-"A munkafolyamatok a gyermekoldalakra is vonatkoznak. Ha itt egy szülő oldalt"
-" választ, annak gyermekoldalai is ezt a munkafolyamatot fogják használni. A "
+"A munkafolyamatok a gyermekoldalakra is vonatkoznak. Ha itt egy szülő oldalt "
+"választ, annak gyermekoldalai is ezt a munkafolyamatot fogják használni. A "
 "munkafolyamat alá tartozó <a href=\"%(workflow_pages_url)s\">oldalak "
 "listáját itt megtekinthei</a>."
 
@@ -2181,8 +2171,8 @@ msgid ""
 "Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>create one now</a>?"
 msgstr ""
-"Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>hoz"
-" létre egyet most</a>?"
+"Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>hoz "
+"létre egyet most</a>?"
 
 msgid "Hide disabled tasks"
 msgstr "Kikapcsolt feladatok elrejtése"
@@ -2191,13 +2181,15 @@ msgid "Show disabled tasks"
 msgstr "Kikapcsolt feladatok megjelenítése"
 
 #, python-format
-msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Nincs még feladat létrehozva. Miért nem <a href=\"%(add_url)s\">ad hozzá "
 "egyet</a>?"
 
 #, python-format
-msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Nincs még engedélyezett feladat. Miért nem <a href=\"%(add_url)s\">ad hozzá "
 "egyet</a>?"
@@ -2280,10 +2272,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(user_display_name)s ekkor: %(time)s"
 
 #, python-format
-msgid "%(time)s"
-msgstr "%(time)s"
-
-#, python-format
 msgid "just now by %(user_display_name)s"
 msgstr "%(user_display_name)s épp most"
 
@@ -2351,11 +2339,11 @@ msgstr "Gyűjtemény létrehozása"
 msgid "Add collection"
 msgstr "Gyűjtemény létrehozása"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr " Gyűjtemény létrehozva: '%(object)s'."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Gyűjtemény frissítve: '%(object)s'."
 
@@ -2365,7 +2353,7 @@ msgstr "Hiba történt a gyűjtemény mentése során."
 msgid "Delete collection"
 msgstr "Gyűjtemény törlése"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Gyűjtemény törölve: '%(object)s'."
 
@@ -2380,26 +2368,25 @@ msgstr ""
 "A(z) %(model_name)s egy korábbi verzióját látja, amelyet %(user)s készített "
 "ekkor: <b>%(created_at)s</b>"
 
-#, python-brace-format
+#, python-format
 msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
 msgstr ""
-"A(z) '%(object)s' %(model_name)s le lett cserélve a %(timestamp)s időpontban"
-" szerkesztett verzióval."
+"A(z) '%(object)s' %(model_name)s le lett cserélve a %(timestamp)s időpontban "
+"szerkesztett verzióval."
 
-#, python-brace-format
+#, python-format
 msgid ""
-"Version from %(timestamp)s of %(model_name)s '%(object)s' has been "
-"published."
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
 msgstr ""
 "A(z) '%(object)s' %(model_name)s  %(timestamp)s időpontban szerkesztett "
 "verziója közzé lett téve."
 
-#, python-brace-format
+#, python-format
 msgid ""
-"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled"
-" for publishing."
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
+"for publishing."
 msgstr ""
 "A(z) '%(object)s' %(model_name)s %(timestamp)s időpontban szerkesztett "
 "verziója időzítve lett."
@@ -2408,22 +2395,22 @@ msgstr ""
 msgid "Search %(model_name)s"
 msgstr "%(model_name)s keresése"
 
-#, python-brace-format
+#, python-format
 msgid "'%(object)s' created and scheduled for publishing."
 msgstr "'%(object)s' létrehozva és időzítve."
 
-#, python-brace-format
+#, python-format
 msgid "'%(object)s' created and published."
 msgstr "'%(object)s' létrehozva és közzétéve."
 
 msgid "Editing"
 msgstr "Szerkesztés"
 
-#, python-brace-format
+#, python-format
 msgid "'%(object)s' updated and scheduled for publishing."
 msgstr "'%(object)s' frissítve és időzítve."
 
-#, python-brace-format
+#, python-format
 msgid "'%(object)s' updated and published."
 msgstr "'%(object)s' frissítve és közzétéve."
 
@@ -2433,15 +2420,15 @@ msgstr "Legkorábbi"
 msgid "Latest"
 msgstr "Legkésőbbi"
 
-#, python-brace-format
+#, python-format
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' visszavonva."
 
-#, python-brace-format
+#, python-format
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "'%(object)s' %(revision_id)s verziójának időzítése visszavonva."
 
-#, python-brace-format
+#, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "\"%(object)s\" %(revision_id)s verziója"
 
@@ -2469,8 +2456,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
 msgstr[0] ""
 "%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
 msgstr[1] ""
@@ -2496,8 +2483,7 @@ msgstr "1 oldal közzétéve"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "1 oldal és %(num_child_objects)d aloldal közzétéve"
 msgstr[1] "1 oldal és %(num_child_objects)d aloldal közzétéve"
 
@@ -2510,8 +2496,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" published"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
 msgstr[0] ""
 "%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
 msgstr[1] ""
@@ -2539,22 +2525,22 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" unpublished"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
 msgstr[0] ""
 "%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
 msgstr[1] ""
 "%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "A(z) '%(page_title)s' oldal hagyományos oldallá lett konvertálva."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "'%(page_title)s' oldal és %(subpages_count)s aloldal átmásolva."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "'%(page_title)s' oldal átmásolva."
 
@@ -2564,33 +2550,29 @@ msgstr "Vázlat megtekintése"
 msgid "View live"
 msgstr "Megtekintés az oldalon"
 
-#, python-brace-format
-msgid "Page '%(page_title)s' created."
-msgstr " '%(page_title)s' oldal létrehozva."
-
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "A(z) '%(page_title)s' oldal letrehozva, közzététele időzítve."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr " '%(page_title)s' létrehozva és közzétéve."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr " '%(page_title)s' be lett nyújtva moderálásra."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' oldal törölve."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Ez az oldal jelenleg moderálásra vár"
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
@@ -2598,15 +2580,15 @@ msgstr ""
 "A(z) '%(page_title)s' oldal le lett cserélve a "
 "%(previous_revision_datetime)s által szerkesztett verzióra."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "'%(page_title)s' oldal frissítve."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr "A munkafolyamat a(z) '%(page_title)s' oldalon meg lett szakítva."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
@@ -2614,32 +2596,32 @@ msgstr ""
 "A(z) '%(page_title)s' oldal %(previous_revision_datetime)s által készített "
 "verziójának közzététele időzítve lett."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
 msgstr ""
 "A(z) '%(page_title)s' oldal élő, és ezen verzió közzététele időzítve lett."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "'%(page_title)s' oldal közzététele időzítve."
 
-#, python-brace-format
+#, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr ""
 "A(z) '%(page_title)s' oldal %(datetime)s által szerkesztett verziója közzé "
 "lett téve."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "'%(page_title)s' oldal közzétéve."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "'%(page_title)s' be lett nyújtva moderálásra."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "A munkafolyamat a(z) '%(page_title)s' oldalon újra lett indítva."
 
@@ -2655,37 +2637,37 @@ msgstr "Megjegyzés akciók elrejtése"
 msgid "Page history"
 msgstr "Oldaltörténet"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' oldal zárolása fel lett oldva."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' oldal jelenleg moderálásra vár."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "'%(page_title)s' oldal közzétéve."
 
 msgid "Failed to send approval notifications"
 msgstr "Nem sikerült értesítést küldeni a jóváhagyásról."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "'%(page_title)s' oldal közzététele el lett utasítva."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nem sikerült értesítést küldeni az elutasításról."
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "A '%(page_slug)s' domain-darabka már használatban van a kiválasztott "
 "szülőoldalon. Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "'%(page_title)s' oldal átmozgatva."
 
@@ -2697,11 +2679,11 @@ msgstr ""
 "Az oldal egy korábbi verzióját látja, amelyet %(user)s készített ekkor: "
 "<b>%(created_at)s</b>"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "'%(page_title)s' oldal visszavonva."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
 "'%(task_name)s'."
@@ -2763,14 +2745,14 @@ msgstr "Munkafolyamat hozzáadása"
 msgid "New workflow"
 msgstr "Új munkafolyamat"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' created."
 msgstr "'%(object)s' munkafolyamat létrehozva."
 
 msgid "Editing workflow"
 msgstr "Munkafolyamat szerkesztése"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' updated."
 msgstr "'%(object)s' munkafolyamat frissítve."
 
@@ -2783,7 +2765,7 @@ msgstr "Bekapcsol"
 msgid "Disable workflow"
 msgstr "Munkafolyamat kikapcsolása"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "'%(object)s' munkafolyamat kikapcsolva."
 
@@ -2792,35 +2774,34 @@ msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
-" workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
 msgstr[0] ""
-"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a"
-" munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
+"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a "
+"munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
 msgstr[1] ""
-"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a"
-" munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
+"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a "
+"munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "'%(workflow_name)s' munkafolyamat bekapcsolva."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
-msgstr ""
-"A munkafolyamat el lett távolítva erről az oldalról: '%(page_title)s'."
+msgstr "A munkafolyamat el lett távolítva erről az oldalról: '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Új munkafolyamat feladat"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' created."
 msgstr "'%(object)s' feladat létrehozva."
 
 msgid "Editing workflow task"
 msgstr "Munkafolyamat feladat szerkesztése"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' updated."
 msgstr "'%(object)s' feladat frissítve."
 
@@ -2831,15 +2812,15 @@ msgstr "%(task_type)s szerkesztése"
 msgid "Disable task"
 msgstr "Feladat kikapcsolása"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "'%(object)s' feladat kikapcsolva."
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task"
-" will cause it to be skipped in the moderation workflow and not be listed "
-"for selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
@@ -2853,7 +2834,7 @@ msgstr[1] ""
 "kikapcsolása esetén a munkafolyamatben ez át lesz lépve, és a munkamenet "
 "szerkesztésekor sem lesz kiválasztható."
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "'%(task_name)s' feladat bekapcsolva."
 
@@ -2950,7 +2931,7 @@ msgstr "Kód"
 msgid "Reports"
 msgstr "Kimutatások"
 
-#, python-brace-format
+#, python-format
 msgid "What's new in Wagtail %(version)s"
 msgstr "Újdonságok a Wagtail %(version)s verzióban"
 

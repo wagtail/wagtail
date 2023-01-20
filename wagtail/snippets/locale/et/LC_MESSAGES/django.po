@@ -4,18 +4,20 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -38,12 +40,6 @@ msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s \"%(object)s\" kustutatud."
 
 #, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d%(model_name)s kustutatud."
-msgstr[1] "%(count)d%(model_name)s kustutatud."
-
-#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Kustuta %(snippet_type_name)s"
 
@@ -62,8 +58,7 @@ msgstr "Kas sa oled kindel, et tahad kustutada seda %(snippet_type_name)s?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
-msgstr ""
-"Kas sa oled kindel, et tahad kustutada %(count)s%(snippet_type_name)s?"
+msgstr "Kas sa oled kindel, et tahad kustutada %(count)s%(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Jah, kustuta"

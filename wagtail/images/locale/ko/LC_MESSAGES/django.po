@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
-"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/ko/)\n"
-"Language: ko\n"
+"Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -30,36 +31,38 @@ msgstr "GIF, JPEG, PNG, WEBP"
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
-msgstr "지원 포맷: %(supported_formats)s. 최대 파일 사이즈: %(max_upload_size)s."
+msgstr ""
+"지원 포맷: %(supported_formats)s. 최대 파일 사이즈: %(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "지원 포맷: %(supported_formats)s"
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
-msgstr "지원하지 않는 이미지 포맷입니다. 지원 포맷은 %(supported_formats)s 입니다."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "%s 는 사용 가능한 이미지가 아닙니다."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"지원하지 않는 이미지 포맷입니다. 지원 포맷은 %(supported_formats)s 입니다."
 
 #, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"이 파일 사이즈는 너무 큽니다(%(file_size)s). 최대 허용 가능한 파일 사이즈는 %(max_filesize)s 입니다."
+"이 파일 사이즈는 너무 큽니다(%(file_size)s). 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
 
 #, python-format
 msgid ""
 "This file has too many pixels (%(num_pixels)s). Maximum pixels "
 "%(max_pixels_count)s."
-msgstr "이 파일은 픽셀이 너무 많습니다 (%(num_pixels)s). 최대 픽셀 %(max_pixels_count)s."
+msgstr ""
+"이 파일은 픽셀이 너무 많습니다 (%(num_pixels)s). 최대 픽셀 "
+"%(max_pixels_count)s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
-msgstr "이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 %(max_filesize)s 입니다."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
 
 msgid "Full width"
 msgstr "전체 너비"
@@ -217,7 +220,8 @@ msgstr "(선택)"
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "above."
-msgstr "이미지의 중요한 영역을 정하려면, 박스를 이미지로 드래그하여 주시기 바랍니다."
+msgstr ""
+"이미지의 중요한 영역을 정하려면, 박스를 이미지로 드래그하여 주시기 바랍니다."
 
 msgid "Current focal point shown"
 msgstr "현재 표시된 중요부분"
@@ -248,7 +252,8 @@ msgstr "픽셀"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 이미지 결과가 없습니다."
+msgstr ""
+"죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 이미지 결과가 없습니다."
 
 #, python-format
 msgid ""
@@ -263,8 +268,8 @@ msgid ""
 "You haven't uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 "
-"건 어떠세요?"
+"업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">"
+"업로드</a> 해 보는 건 어떠세요?"
 
 msgid "Generating URL"
 msgstr "URL 생성"
@@ -278,7 +283,9 @@ msgstr "프리뷰"
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr "여기 프리뷰에서는 화면 사이즈보다 크게 생성된 이미지는 화면 사이즈에 맞게 작게 보여지게 됩니다."
+msgstr ""
+"여기 프리뷰에서는 화면 사이즈보다 크게 생성된 이미지는 화면 사이즈에 맞게 작"
+"게 보여지게 됩니다."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -310,8 +317,8 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"성공적으로 업로드 되었습니다. 가능하면 이미지의 제목을 알맞게 변경하여 주시기 바랍니다. 업로드가 필요하지 않다면 이미지를 완전히 삭제할"
-" 수도 있습니다."
+"성공적으로 업로드 되었습니다. 가능하면 이미지의 제목을 알맞게 변경하여 주시"
+"기 바랍니다. 업로드가 필요하지 않다면 이미지를 완전히 삭제할 수도 있습니다."
 
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패하였습니다."
@@ -363,7 +370,7 @@ msgstr "이 이미지 수정"
 msgid "Search images"
 msgstr "이미지 검색"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "'%(image_title)s' 이미지가 업데이트 되었습니다."
 
@@ -374,15 +381,17 @@ msgid "The image could not be saved due to errors."
 msgstr "에러로 인해 이미지를 저장할 수 없습니다."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
-msgstr "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시기 바랍니다."
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
+"기 바랍니다."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "'%(image_title)s' 이미지가 삭제되었습니다."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "'%(image_title)s' 이미지가 추가 되었습니다."
 

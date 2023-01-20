@@ -6,20 +6,22 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Eetu Häivälä, 2016
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
-"Language: fi\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -55,8 +57,7 @@ msgstr "Poista"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
-"Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
+msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Etsi nostettuja tuloksia"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Toimituksen valinnat kohteelle '%(query)s' luotu."
 
@@ -149,7 +150,7 @@ msgstr "Muokkaa"
 msgid "Recommendations have not been created due to errors"
 msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Toimituksen valinnat kohteelle '%(query)s' päivitetty."
 

@@ -7,6 +7,7 @@
 # Axel Haustant, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020-2022
 # nahuel, 2014
@@ -16,15 +17,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2022\n"
-"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/fr/)\n"
-"Language: fr\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail redirects"
 msgstr "Règles de Redirections Wagtail"
@@ -87,8 +90,8 @@ msgid "target page route"
 msgstr "route de la page cible"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "La route de page vers laquelle effectuer la redirection, ou la route par "
 "défaut si laissé vide."
@@ -126,11 +129,15 @@ msgstr "Importer des règles de redirection"
 msgid ""
 "<p>Select a file where redirects are separated into rows and contains the "
 "columns representing <code>from</code> and <code>to</code> (they can be "
-"named anything).</p> <p>After submitting you will be taken to a confirmation"
-" view where you can customize your redirects before import.</p>"
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
-"<p>Sélectionnez un fichier dans lequel chaque ligne représente une règle de redirection et où chaque ligne est composée de deux colonnes représentant la <code>source</code> et <code>destination</code> (le nom des colonnes est libre).</p>\n"
-"<p>Après soumission du formulaire, vous pourrez personnaliser les redirections lors de l'étape de confirmation.</p>"
+"<p>Sélectionnez un fichier dans lequel chaque ligne représente une règle de "
+"redirection et où chaque ligne est composée de deux colonnes représentant la "
+"<code>source</code> et <code>destination</code> (le nom des colonnes est "
+"libre).</p>\n"
+"<p>Après soumission du formulaire, vous pourrez personnaliser les "
+"redirections lors de l'étape de confirmation.</p>"
 
 msgid "Import"
 msgstr "Importer"
@@ -175,11 +182,10 @@ msgstr "Sommaire"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
-"%(total)s règles de redirection trouvées, %(successes)s créées et %(errors)s"
-" erreurs."
+"%(total)s règles de redirection trouvées, %(successes)s créées et %(errors)s "
+"erreurs."
 
 msgid "From"
 msgstr "Depuis"
@@ -215,8 +221,8 @@ msgstr[2] "Il y a %(counter)s correspondances"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Désolé, aucune règle de redirection ne correspond à "
-"« <em>%(query_string)s</em> »"
+"Désolé, aucune règle de redirection ne correspond à « <em>%(query_string)s</"
+"em> »"
 
 #, python-format
 msgid ""
@@ -229,7 +235,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Rechercher une règle de redirection"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Règle de Redirection « %(redirect_title)s » mise à jour."
 
@@ -239,17 +245,18 @@ msgstr "Modifier"
 msgid "The redirect could not be saved due to errors."
 msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Règle de Redirection « %(redirect_title)s » supprimée."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Règle de Redirection « %(redirect_title)s » ajoutée."
 
 msgid "The redirect could not be created due to errors."
 msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "Le format de fichier « %(extension)s » n'est pas supporté"
 

@@ -7,19 +7,22 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ultraify media <ultraify@gmail.com>, 2018
 # Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/ar/)\n"
-"Language: ar\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Parent page"
 msgstr "صفحة الأم"
@@ -44,7 +47,7 @@ msgstr "تعديل"
 
 #, python-format
 msgid "Edit this %(object)s"
-msgstr "عدل %(object)s"
+msgstr "تحرير هذا %(object)s"
 
 msgid "Delete"
 msgstr "حذف"
@@ -105,8 +108,8 @@ msgid ""
 "first remove references from the following objects, then try again:"
 msgstr ""
 "'%(instance_name)s' تتم الإشارة إليها حاليًا بواسطة كائنات أخرى ، ولا يمكن "
-"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع"
-" من الكائنات التالية ، ثم حاول مرة أخرى:"
+"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع "
+"من الكائنات التالية ، ثم حاول مرة أخرى:"
 
 msgid "Go back to listing"
 msgstr "العودة إلى القائمة"

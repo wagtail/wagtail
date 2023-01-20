@@ -1,3 +1,4 @@
+#
 # Translators:
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
 # karlsander <karlsander@gmail.com>, 2022
@@ -10,15 +11,21 @@
 # aw.wunderweiss, 2022
 # Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2022
-# th3hamm0r <stefan@hammerworxx.com>, 2022
+# Loic Teixeira, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
-"Language: de\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s Fehler)"
+msgstr[1] "(%(errorCount)s Fehler)"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s neue Elemente in diesem Menü)"
@@ -33,6 +40,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s Fehler"
 msgstr[1] "%(num)s Fehler"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s Pixel"
+msgstr[1] "%(num)s Pixel"
 
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"
@@ -203,8 +215,8 @@ msgstr "Block teilen"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte"
-" Version zurückgesetzt."
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
+"Version zurückgesetzt."
 
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."

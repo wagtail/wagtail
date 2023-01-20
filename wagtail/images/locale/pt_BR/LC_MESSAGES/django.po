@@ -16,15 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Iuri L. Machado, 2021-2022\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail images"
 msgstr "Imagens Wagtail"
@@ -45,22 +47,16 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Formatos suportados: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Não é um formato de imagem suportado. Formatos suportados: "
 "%(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Não é uma imagem %s válida."
-
-#, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"Esse arquivo é muito grande (%(file_size)s). Tamanho máximo "
-"%(max_filesize)s."
+"Esse arquivo é muito grande (%(file_size)s). Tamanho máximo %(max_filesize)s."
 
 #, python-format
 msgid ""
@@ -201,8 +197,7 @@ msgstr "Adicionar imagens a uma coleção"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected "
-"collection?"
+"Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
 "Você tem certeza que deseja adicionar a imagem a seguir na coleção "
 "selecionada?"
@@ -345,7 +340,8 @@ msgstr "pixels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Desculpe, não há resultados de imagens para \"<em>%(query_string)s</em>\""
+msgstr ""
+"Desculpe, não há resultados de imagens para \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -409,9 +405,9 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Carregamento com sucesso. Por favor, atualize esta imagem com um título mais"
-" apropriado, se necessário. Você também pode apagar a imagem completamente "
-"se o upload não era necessário."
+"Carregamento com sucesso. Por favor, atualize esta imagem com um título mais "
+"apropriado, se necessário. Você também pode apagar a imagem completamente se "
+"o upload não era necessário."
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
@@ -494,7 +490,7 @@ msgstr "Editar esta imagem"
 msgid "Search images"
 msgstr "Buscar imagens"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imagem '%(image_title)s' enviada."
 
@@ -505,17 +501,17 @@ msgid "The image could not be saved due to errors."
 msgstr "A imagem não pôde ser salva devido à erros."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr ""
 "O arquivo de imagem não pode ser encontrado. Por favor altere a fonte ou "
 "delete a imagem."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imagem '%(image_title)s' apagada."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imagem '%(image_title)s' adicionada."
 

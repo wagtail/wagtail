@@ -5,19 +5,21 @@
 # Translators:
 # Chih Wang <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
+# Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020-2021\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -152,13 +154,17 @@ msgstr "對不起。沒找到符合\"<em>%(query_string)s</em>\"的文件"
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "此集合中還沒有文件。為何不 <a href=\"%(wagtaildocs_add_document_url)s\">上傳一份</a> ？"
+msgstr ""
+"此集合中還沒有文件。為何不 <a href=\"%(wagtaildocs_add_document_url)s\">上傳"
+"一份</a> ？"
 
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "一個文件都沒有呢，現在<a href=\"%(wagtaildocs_add_document_url)s\">上傳一個</a> ？"
+msgstr ""
+"一個文件都沒有呢，現在<a href=\"%(wagtaildocs_add_document_url)s\">上傳一個</"
+"a> ？"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -186,7 +192,9 @@ msgid ""
 "Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
-msgstr "上傳成功。如有必要，可為圖片填寫更合適的標題。如果不需要本次上傳的圖片，也可以徹底刪除它們。"
+msgstr ""
+"上傳成功。如有必要，可為圖片填寫更合適的標題。如果不需要本次上傳的圖片，也可"
+"以徹底刪除它們。"
 
 msgid "Sorry, upload failed."
 msgstr "對不起，上傳失敗。"
@@ -227,14 +235,14 @@ msgstr "編輯此文件"
 msgid "Search documents"
 msgstr "搜索文件"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "文件'%(document_title)s' 已新增"
 
 msgid "The document could not be saved due to errors."
 msgstr "無法儲存文件，出現錯誤。"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "文件'%(document_title)s' 已更新"
 
@@ -242,7 +250,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "無法找到文件。請修改源或者刪除文件。"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "文件'%(document_title)s' 已刪除"
 

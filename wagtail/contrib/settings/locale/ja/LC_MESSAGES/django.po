@@ -4,13 +4,14 @@
 #
 # Translators:
 # shuhei hirota, 2019
+# shuhei hirota, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: 溝江 智徳 <tomo.mizoe@gmail.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"

@@ -6,20 +6,22 @@
 # Translators:
 # 汇民 王 <whuim@qq.com>, 2020
 # Ford Guo <agile.guo@gmail.com>, 2020
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/teams/8009/zh_CN/)\n"
-"Language: zh_CN\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/"
+"teams/8009/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail locales"
@@ -57,11 +59,11 @@ msgstr "用法"
 msgid "Add locale"
 msgstr "添加区域设置"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "区域设置 '%(object)s' 已创建。"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "区域设置 '%(object)s' 已更新。"
 
@@ -71,7 +73,7 @@ msgstr "由于出现错误，无法保存区域设置。"
 msgid "Delete locale"
 msgstr "删除区域设置"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "区域设置 '%(object)s' 已删除。"
 

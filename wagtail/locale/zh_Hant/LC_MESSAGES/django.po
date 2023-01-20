@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2020,2022
 # Chih Wang <ihcgno@icloud.com>, 2022
 # Chih Wang <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail core"
@@ -132,8 +133,8 @@ msgid "slug"
 msgstr "縮略名"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr "用於URL的頁面名稱，如http://domain.com/work/[my-work]/"
 
 msgid "content type"
@@ -157,9 +158,6 @@ msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
 
 msgid "latest revision created at"
 msgstr "最近修訂版本創建於"
-
-msgid "This slug is already in use"
-msgstr "此縮略名已被使用"
 
 msgid "in moderation"
 msgstr "審核中"
@@ -424,7 +422,9 @@ msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
-msgstr "將此處設置為一個非80的值，如果你需要指定顯示在URL中的埠（如8000）。不影響請求處理（埠轉發依舊有效）。"
+msgstr ""
+"將此處設置為一個非80的值，如果你需要指定顯示在URL中的埠（如8000）。不影響請求"
+"處理（埠轉發依舊有效）。"
 
 msgid "site name"
 msgstr "站點名稱"
@@ -456,7 +456,9 @@ msgstr "預設"
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
-msgstr "%(hostname)s已被配置為預設站點。在您將此站點設置為預設前，您必須取消原來的預設站點。"
+msgstr ""
+"%(hostname)s已被配置為預設站點。在您將此站點設置為預設前，您必須取消原來的預"
+"設站點。"
 
 msgid "Public"
 msgstr "公開"

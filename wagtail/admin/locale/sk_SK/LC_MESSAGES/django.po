@@ -3,25 +3,30 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
+# Stevo Backor, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Martin Janšto <mato@jansto.sk>, 2017\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/language/sk_SK/)\n"
-"Language: sk_SK\n"
+"Last-Translator: Stevo Backor, 2016\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -171,9 +176,6 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nemôžete skopírovať stránku do seba samej."
-
-msgid "This slug is already in use"
-msgstr "Tento slug sa už používa"
 
 msgid "Visibility"
 msgstr "Viditeľnosť"
@@ -654,8 +656,7 @@ msgid "Lock"
 msgstr "Zamknúť"
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
+msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
 msgid "Add a child page"
 msgstr "Pridať podstránku"
@@ -694,11 +695,11 @@ msgstr "Pridať kolekciu"
 msgid "Add collection"
 msgstr "Pridať kolekciu"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Kolekcia '%(object)s' bola vytvorená."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Kolekcia '%(object)s' bola aktualizovaná."
 
@@ -708,7 +709,7 @@ msgstr "Kolekcia nemôže byť uložená kvôli chybám."
 msgid "Delete collection"
 msgstr "Zmazať kolekciu"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kolekcia '%(object)s' bola zmazaná."
 
@@ -727,12 +728,12 @@ msgstr "Najnovšie"
 msgid "Dashboard"
 msgstr "Nástenka"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
 "Stránka '%(page_title)s' a %(subpages_count)s podstránok skopírovaných."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Stránka '%(page_title)s' bola skopírovaná."
 
@@ -742,19 +743,19 @@ msgstr "Zobraziť koncept"
 msgid "View live"
 msgstr "Zobraziť live"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Stránka '%(page_title)s' bola vytvorená."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Stránka '%(page_title)s' vytvorená a naplánovaná pre publikáciu."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Stránka '%(page_title)s' bola úspešne vytvorená a publikovaná."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Stránka '%(page_title)s' bola úspešne vytvorená a odoslaná na moderáciu."
@@ -762,26 +763,26 @@ msgstr ""
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stránka '%(page_title)s' bola zmazaná."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Stránka '%(page_title)s' bola aktualizovaná."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Stránka '%(page_title)s' bola naplánovaná pre publikáciu."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Stránka '%(page_title)s' bola publikovaná."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Stránka '%(page_title)s' bola odoslaná na moderáciu."
 
@@ -791,38 +792,42 @@ msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 msgid "The page could not be saved due to validation errors"
 msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stránka '%(page_title)s' bola odomknutá."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Stránka '%(page_title)s'  momentálne čaká na moderáciu"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Stránka '%(page_title)s' bola publikovaná."
 
 msgid "Failed to send approval notifications"
 msgstr "Odoslanie notifikácií o schválení zlyhalo"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Publikácia stránky '%(page_title)s' zamietnutá."
 
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Stránka '%(page_title)s' bola presunutá."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stránka '%(page_title)s' bola odpublikovaná."
 
 msgid "Pages"
 msgstr "Stránky"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Upraviť '%(title)s'"
 
 msgid "Add child page"
 msgstr "Pridať podstránku"

@@ -1,17 +1,19 @@
+#
 # Translators:
-# Matt Westcott <matthew@torchbox.com>, 2022
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2022
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2022
 # Mario <mario@catalpa.io>, 2022
 # Joanico Barros <joanico@catalpa.io>, 2022
 # Peter Coward <peter@catalpa.io>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2022\n"
-"Language-Team: Tetum (Tetun) (https://www.transifex.com/torchbox/teams/8009/tet/)\n"
-"Language: tet\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Tetum (Tetun) (https://www.transifex.com/torchbox/teams/8009/"
+"tet/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Alt text"
@@ -88,8 +90,7 @@ msgstr "Hatudu konteúdu ikus"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
+msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
 
 msgid "This field is required."
 msgstr "Presiza hatama dadus nee"

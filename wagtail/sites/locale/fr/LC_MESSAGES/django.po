@@ -4,22 +4,26 @@
 #
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
+# incognitae <pierre@onoffdesign.com>, 2016
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2022
 # Loic Teixeira, 2022
 # incognitae <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/fr/)\n"
-"Language: fr\n"
+"Last-Translator: incognitae <pierre@onoffdesign.com>, 2016\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail sites"
 msgstr "Sites Wagtail"
@@ -48,11 +52,11 @@ msgstr "Défaut"
 msgid "Add site"
 msgstr "Ajouter un site"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "Site « %(object)s » créé."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Site « %(object)s » mis à jour."
 
@@ -62,7 +66,7 @@ msgstr "Le site ne peut être enregistré du fait d'erreurs."
 msgid "Delete site"
 msgstr "Supprimer le site"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Site « %(object)s » supprimé."
 

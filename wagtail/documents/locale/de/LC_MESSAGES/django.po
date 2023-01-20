@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
@@ -11,27 +12,31 @@
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # Matthias Martin, 2019
+# Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Oliver Engel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# th3hamm0r <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
-"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/de/)\n"
-"Language: de\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -133,14 +138,11 @@ msgstr[1] ""
 "Sammlung hinzufügen möchten?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] ""
-"Sie haben nicht die Berechtigung, dieses Dokument einer Sammlung "
-"hinzuzufügen"
+"Sie haben nicht die Berechtigung, dieses Dokument einer Sammlung hinzuzufügen"
 msgstr[1] ""
-"Sie haben nicht die Berechtigung, diese Dokumente einer Sammlung "
-"hinzuzufügen"
+"Sie haben nicht die Berechtigung, diese Dokumente einer Sammlung hinzuzufügen"
 
 #, python-format
 msgid "Delete 1 document"
@@ -270,8 +272,8 @@ msgid ""
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a "
-"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines "
-"hoch!</a>"
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid ""
@@ -279,8 +281,8 @@ msgid ""
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Dokumente hochgeladen. <a "
-"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines "
-"hoch!</a>"
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -398,14 +400,14 @@ msgstr "Dieses Dokument bearbeiten"
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokument ‚%(document_title)s‘ wurde hinzugefügt."
 
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument ‚%(document_title)s‘ aktualisiert"
 
@@ -415,7 +417,7 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument ‚%(document_title)s‘ gelöscht."
 

@@ -7,30 +7,37 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2021
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Sergey Mazanov <mvver@outlook.com>, 2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -92,29 +99,25 @@ msgstr "Введённый вами пароль неверный. Попроб�
 msgid "Comment"
 msgstr "Комментарий"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Страница '{}' была заблокирована</b> <b>Вами</b> в<b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Страница {page_title} заблокирована</b> <b>Вами</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Страница '{}' была заблокирована</b> <b>{}</b> в <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Страница {page_title} заблокирована</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "В настоящее время эта страница ожидает модерации."
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Страница ожидает<b>'{}'</b> в рабочем процессе <b>'{}'</b>"
-
 msgid "Only reviewers for this task can edit the page."
 msgstr "Только рецензенты данной задачи могут редактировать страницу."
 
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
-msgstr "Страница '{}' заблокирована и должна быть опубликована по адресу {}"
+#, python-brace-format
+msgid ""
+"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+msgstr ""
+"Страница '{page_title}' заблокирована и должна быть опубликована {datetime}"
 
 msgid "latest revision"
 msgstr "последняя версия"
@@ -177,11 +180,11 @@ msgid "slug"
 msgstr "слаг"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Имя страницы, которое будет отображаться в URL, например "
-"http://domain.com/blog/[my-slug]/"
+"Имя страницы, которое будет отображаться в URL, например http://domain.com/"
+"blog/[my-slug]/"
 
 msgid "content type"
 msgstr "тип содержимого"
@@ -199,8 +202,8 @@ msgid ""
 "The name of the page displayed on search engine results as the clickable "
 "headline."
 msgstr ""
-"Кликабельное название страницы, отображаемое в результатах поисковой системы"
-" в виде заголовка."
+"Кликабельное название страницы, отображаемое в результатах поисковой системы "
+"в виде заголовка."
 
 msgid "show in menus"
 msgstr "показывать в меню"
@@ -221,9 +224,6 @@ msgstr "Описание, отображаемое под заголовком �
 
 msgid "latest revision created at"
 msgstr "последняя версия создана"
-
-msgid "This slug is already in use"
-msgstr "Этот слаг уже используется"
 
 msgid "in moderation"
 msgstr "на модерации"
@@ -343,8 +343,8 @@ msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
-"Активные задачи могут быть добавлены в рабочий процесс. Неактивная задача не"
-" удаляется из существующего рабочего процесса."
+"Активные задачи могут быть добавлены в рабочий процесс. Неактивная задача не "
+"удаляется из существующего рабочего процесса."
 
 msgid "tasks"
 msgstr "задачи"
@@ -414,7 +414,7 @@ msgstr ""
 "Только один прогресс выполнения или нужно изменить состояние для каждой "
 "страницы."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr ""
 "Процесс выполнения '%(workflow_name)s' на Странице '%(page_title)s': "
@@ -450,7 +450,7 @@ msgstr "завершен в"
 msgid "finished by"
 msgstr "закончен"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Задача '%(task_name)s' на Ревизии Страницы '%(revision_info)s': %(status)s"
@@ -491,12 +491,9 @@ msgstr "запись в журнале"
 msgid "log entries"
 msgstr "записи в журнале"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "Действие лога '%(action_name)s' не зарегистрировано."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "пользователь 1%(id)s (удален)"
 
 msgid "system"
 msgstr "система"
@@ -580,9 +577,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить"
-" эту настройку у него, прежде, чем вы можете сохранить этот сайт по "
-"умолчанию."
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
+"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
 
 msgid "Public"
 msgstr "Публично"

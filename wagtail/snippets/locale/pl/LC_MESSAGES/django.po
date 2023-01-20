@@ -4,6 +4,8 @@
 #
 # Translators:
 # Dominik Lech, 2022
+# Dominik Lech, 2022
+# Łukasz Bołdys (Lukasz Boldys), 2014,2021
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Matt Westcott <matthew@torchbox.com>, 2019
@@ -15,15 +17,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Dominik Lech, 2022\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014,2021\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Opublikuj"
@@ -43,14 +48,6 @@ msgstr "Snippety Wagtail"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' usunięte."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)s usunięty."
-msgstr[1] "%(count)d %(model_name)s usunięte."
-msgstr[2] "%(count)d %(model_name)s usunięte."
-msgstr[3] "%(count)d %(model_name)s usunięte."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -123,9 +120,6 @@ msgstr "Breadcrumb"
 
 msgid "Snippets"
 msgstr "Snippety"
-
-msgid "New: "
-msgstr "Nowe:"
 
 msgid "No log entries found."
 msgstr "Brak wpisów w logu."

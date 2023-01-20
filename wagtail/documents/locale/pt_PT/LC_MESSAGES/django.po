@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Jose Lourenco <jose@lourenco.ws>, 2015
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -14,15 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/wagtail/language/pt_PT/)\n"
-"Language: pt_PT\n"
+"Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
@@ -75,18 +79,14 @@ msgstr "Adicionar palavras-chave a documentos"
 msgid "Are you sure you want to tag the following document?"
 msgid_plural "Are you sure you want to tag the following documents?"
 msgstr[0] "Tem a certeza que quer adicionar palavras-chave a este documento?"
-msgstr[1] ""
-"Tem a certeza que quer adicionar palavras-chave a estes documentos?"
-msgstr[2] ""
-"Tem a certeza que quer adicionar palavras-chave a estes documentos?"
+msgstr[1] "Tem a certeza que quer adicionar palavras-chave a estes documentos?"
+msgstr[2] "Tem a certeza que quer adicionar palavras-chave a estes documentos?"
 
 msgid "You don't have permission to add tags to this document"
 msgid_plural "You don't have permission to add tags to these documents"
 msgstr[0] "Não tem permissão para adicionar palavras-chave a este documento."
-msgstr[1] ""
-"Não tem permissão para adicionar palavras-chave a estes documentos."
-msgstr[2] ""
-"Não tem permissão para adicionar palavras-chave a estes documentos."
+msgstr[1] "Não tem permissão para adicionar palavras-chave a estes documentos."
+msgstr[2] "Não tem permissão para adicionar palavras-chave a estes documentos."
 
 msgid "Yes, add"
 msgstr "Sim, adicionar"
@@ -113,8 +113,7 @@ msgstr[2] ""
 "selecionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Não tem permissão para adicionar este documento a uma coleção."
 msgstr[1] "Não tem permissão para adicionar estes documentos a uma coleção."
 msgstr[2] "Não tem permissão para adicionar estes documentos a uma coleção."
@@ -263,8 +262,8 @@ msgid ""
 "upload wasn't required."
 msgstr ""
 "Carregamento bem sucedido. Por favor atualize o nome do documento para algo "
-"mais apropriado, caso necessário. Também pode apagar este documento se o seu"
-" carregamento não era necessário."
+"mais apropriado, caso necessário. Também pode apagar este documento se o seu "
+"carregamento não era necessário."
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
@@ -336,14 +335,14 @@ msgstr "Alterar este documento"
 msgid "Search documents"
 msgstr "Pesquisar documentos"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documento '%(document_title)s' adicionado."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser guardado devido a erros."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' atualizado"
 
@@ -352,7 +351,7 @@ msgid ""
 msgstr ""
 "O ficheiro não foi encontrado. Por favor mude a origem ou apague o documento"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' apagado."
 

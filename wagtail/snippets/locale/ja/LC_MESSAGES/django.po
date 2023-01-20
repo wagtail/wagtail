@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# bayside kent, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# shuhei hirota, 2019
 # shuhei hirota, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -11,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
-"Language: ja\n"
+"Last-Translator: bayside kent, 2022\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -35,6 +38,9 @@ msgstr "保存"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail スニペット"
+
+msgid "Delete selected snippets"
+msgstr "選択したスニペットを削除します"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -55,6 +61,14 @@ msgstr "%(snippet_type_name)sを削除してよろしいですか？"
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "%(count)s件の%(snippet_type_name)sを削除してよろしいですか？"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "この %(snippet_type_name)s を削除する権限がありません"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "これらの %(snippet_plural_name)s を削除する権限がありません"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
@@ -99,6 +113,9 @@ msgstr "パンくず"
 msgid "Snippets"
 msgstr "スニペット"
 
+msgid "Edit this snippet"
+msgstr "スニペットを編集"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -118,6 +135,9 @@ msgstr "プレビュー"
 
 msgid "Edit"
 msgstr "編集"
+
+msgid "Compare with previous version"
+msgstr "前の改定と比較する"
 
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
@@ -164,6 +184,10 @@ msgstr "ユーザー"
 
 msgid "Date"
 msgstr "日付"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s'を編集します"
 
 #, python-format
 msgid "Choose %(object)s"

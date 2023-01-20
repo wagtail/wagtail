@@ -1,13 +1,16 @@
+#
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022\n"
-"Language-Team: Mongolian (https://www.transifex.com/torchbox/teams/8009/mn/)\n"
-"Language: mn\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Mongolian (https://www.transifex.com/torchbox/teams/8009/"
+"mn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Alt text"

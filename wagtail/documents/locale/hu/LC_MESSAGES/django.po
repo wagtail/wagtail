@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -112,8 +113,7 @@ msgstr[1] ""
 "gyűjteményhez?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Nincs jogosultsága hozzáadni a dokumentumot a gyűjteményhez"
 msgstr[1] ""
 "Nincs jogosultsága hozzáadni ezeket a dokumentumokat a gyűjteményhez"
@@ -370,14 +370,14 @@ msgstr "Dokumentum szerkesztése"
 msgid "Search documents"
 msgstr "Keresés a dokumentumokban"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "A '%(document_title)s' indexű dokumentum hozzáadva."
 
 msgid "The document could not be saved due to errors."
 msgstr "A dokumentumot nem lehetett elmenteni."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "A '%(document_title)s' indexű dokumentum frissítésre került."
 
@@ -387,7 +387,7 @@ msgstr ""
 "A fájl nem található. Kérjük adjon meg új forrásfájlt, vagy törölje a "
 "dokumentumot"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' dokumentum törölve."
 

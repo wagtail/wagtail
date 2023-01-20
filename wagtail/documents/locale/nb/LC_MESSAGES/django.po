@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
-"Language: nb\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -183,9 +184,9 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende"
-" tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen "
-"ikke var nødvendig."
+"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende "
+"tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen ikke "
+"var nødvendig."
 
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
@@ -217,14 +218,14 @@ msgstr "Endre dette dokumentet"
 msgid "Search documents"
 msgstr "Søk i dokumenter"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokumentet \"%(document_title)s\" er lagt til."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunne ikke lagres grunnet feil."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumentet \"%(document_title)s\" er oppdatert"
 
@@ -232,7 +233,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentet \"%(document_title)s\" er slettet."
 

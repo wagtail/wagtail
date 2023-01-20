@@ -4,6 +4,8 @@
 #
 # Translators:
 # Anastasiia La, 2021
+# Anastasiia La, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
@@ -11,19 +13,24 @@
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
+# Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022\n"
-"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/uk/)\n"
-"Language: uk\n"
+"Last-Translator: Zoriana Zaiats, 2018\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Опублікувати"
@@ -31,9 +38,11 @@ msgstr "Опублікувати"
 msgid "Submit for moderation"
 msgstr "Надіслати на модерацію"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Оновити %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Надіслати в %(workflow_name)s"
 
@@ -205,17 +214,17 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
-"%(count)s сторінку, що ви копіюєте, вже опубліковано. Хочете опублїкувати її"
-" копїю?"
+"%(count)s сторінку, що ви копіюєте, вже опубліковано. Хочете опублїкувати її "
+"копїю?"
 msgstr[1] ""
-"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх"
-" копїю?"
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
 msgstr[2] ""
-"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх"
-" копїю?"
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
 msgstr[3] ""
-"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх"
-" копїю?"
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
 
 msgid "Alias"
 msgstr "Псевдонім"
@@ -238,9 +247,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Не можливо скопіювати сторінку в саму себе, коли копіюєте підсторінки"
 
-msgid "This slug is already in use"
-msgstr "Ця коротка назва вже використовується"
-
 msgid "Select a new parent for this page."
 msgstr "Виберіть нову батьківську сторінку для цієї сторінки"
 
@@ -256,7 +262,7 @@ msgstr "Будь ласка, виберіть як мінімум одну гр�
 msgid "All types"
 msgstr "Усі типи"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
 msgstr "Сторінка вже належить робочому процесу '%(workflow_name)s'. "
 
@@ -276,11 +282,11 @@ msgstr "Завдання"
 msgid "1 page selected"
 msgstr "Обрано 1 сторінку"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s pages selected"
 msgstr "Обрано %(objects)s сторінок"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s pages on this screen selected"
 msgstr "Обрано всі %(objects)s сторінок на цьому екрані"
 
@@ -290,11 +296,11 @@ msgstr "Обрано всі сторінки у списку"
 msgid "1 document selected"
 msgstr "Обрано 1 документ"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s documents selected"
 msgstr "Обрано %(objects)s документів"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s documents on this screen selected"
 msgstr "Обрано всі %(objects)s документів на цьому екрані"
 
@@ -304,11 +310,11 @@ msgstr "Обрано всі документи у списку"
 msgid "1 image selected"
 msgstr "Обрано 1 зображення"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s images selected"
 msgstr "Обрано %(objects)s зображень"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s images on this screen selected"
 msgstr "Обрано всі %(objects)s зображень на цьому екрані"
 
@@ -318,11 +324,11 @@ msgstr "Обрано всі зображення у списку"
 msgid "1 user selected"
 msgstr "Обрано 1 користувача"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s users selected"
 msgstr "Обрано %(objects)s користувачів"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s users on this screen selected"
 msgstr "Обрано всі %(objects)s користувачів на цьому екрані"
 
@@ -332,11 +338,11 @@ msgstr "Обрано всіх користувачів у списку"
 msgid "1 item selected"
 msgstr "Обрано 1 об'єкт"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s items selected"
 msgstr "Обрано %(objects)s об'єктів"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s items on this screen selected"
 msgstr "Обрано всі %(objects)s об'єктів на цьому екрані"
 
@@ -715,15 +721,18 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Сторінка \"%(page)s\" направлена на модерацію"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr "Сторінку \"%(title)s\"  було затверджено на етапі модерації \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\"  було затверджено на етапі модерації \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Сторінку \"%(title)s\" було затверджено в \"%(task)s\"."
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "Сторінку \"%(title)s\" було відхилено на етапі модерації \"%(task)s\"."
 
 #, python-format
@@ -783,7 +792,8 @@ msgstr "%(editor)s оновив коментарі до \"%(title)s\""
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
-msgstr "Сторінку \"%(title)s\" було затверджено в робочому процесі \"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було затверджено в робочому процесі \"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1002,8 +1012,8 @@ msgid ""
 "later."
 msgstr ""
 "У якості альтернативи ви можете <a href=\"%(unpublish_url)s\">зняти з "
-"публікації сторінку</a>. Цим самим ви видалите сторінку з публічного доступу"
-" і зможете відредагувати чи опублікувати її потім знову. "
+"публікації сторінку</a>. Цим самим ви видалите сторінку з публічного доступу "
+"і зможете відредагувати чи опублікувати її потім знову. "
 
 #, python-format
 msgid "Move %(title)s"
@@ -1513,13 +1523,15 @@ msgid "Show disabled tasks"
 msgstr "Показати вимкнуті завдання"
 
 #, python-format
-msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного завдання не створено. Чому б не <a href=\"%(add_url)s\">додати "
-"одне</a>?"
+"Жодного завдання не створено. Чому б не <a href=\"%(add_url)s\">додати одне</"
+"a>?"
 
 #, python-format
-msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Немає увімкнутих завдань. Чому б не <a href=\"%(add_url)s\">додати одне</a>?"
 
@@ -1624,11 +1636,11 @@ msgstr "Додати колекцію"
 msgid "Add collection"
 msgstr "Додати колекцію"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Колекцію '%(object)s' створено."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Колекцію '%(object)s' оновлено."
 
@@ -1638,7 +1650,7 @@ msgstr "Ця колекція не може бути збережена чере
 msgid "Delete collection"
 msgstr "Видалили колекцію"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Колекцію '%(object)s' видалено."
 
@@ -1680,8 +1692,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
 msgstr[0] ""
 "Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірню "
 "сторінку"
@@ -1717,8 +1729,7 @@ msgstr "1 сторінку було опубліковано"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "Опубліковано 1 сторінку і %(num_child_objects)d дочірню сторінку"
 msgstr[1] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
 msgstr[2] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
@@ -1733,11 +1744,11 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" published"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
 msgstr[0] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня"
-" сторінка"
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня "
+"сторінка"
 msgstr[1] ""
 "Опубліковано %(num_parent_objects)d сторінку і %(num_child_objects)d "
 "дочірніх сторінок"
@@ -1776,8 +1787,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" unpublished"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
 msgstr[0] ""
 "Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
 "дочірня сторінка"
@@ -1791,17 +1802,16 @@ msgstr[3] ""
 "Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
 "дочірніх сторінок"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Сторінку '%(page_title)s' було конвертовано в звичайну сторінку."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
-"Сторінка '%(page_title)s' і %(subpages_count)s вкладені сторінки "
-"скопійовано."
+"Сторінка '%(page_title)s' і %(subpages_count)s вкладені сторінки скопійовано."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Сторінку '%(page_title)s' скопійовано."
 
@@ -1811,33 +1821,33 @@ msgstr "Переглянути чернетку"
 msgid "View live"
 msgstr "Побачити наживо"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Сторінку '%(page_title)s' створено."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Сторінку '%(page_title)s' створено і заплановано до публікації. "
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Сторінку '%(page_title)s' створено і опубліковано."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Сторінку '%(page_title)s' створено і направлено на модерацію."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Цю сторінку не можна створити через помилки валідації"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Сторінку '%(page_title)s' видалено."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Ця сторінка очікує на модерацію"
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
@@ -1845,15 +1855,15 @@ msgstr ""
 "Сторінку '%(page_title)s' було замінено версією від "
 "%(previous_revision_datetime)s."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Сторінку '%(page_title)s' оновлено."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr "Робочий процес на сторінці '%(page_title)s' було скасовано."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
@@ -1861,7 +1871,7 @@ msgstr ""
 "Версія від %(previous_revision_datetime)s сторінки '%(page_title)s' було "
 "заплановано на публікацію."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
@@ -1869,23 +1879,23 @@ msgstr ""
 "Сторінка '%(page_title)s' у режимі наживо і цю версію було заплановано до "
 "публікації."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Сторінку '%(page_title)s' заплановано до публікації."
 
-#, python-brace-format
+#, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr "Версію від %(datetime)s сторінки '%(page_title)s' опубліковано."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Сторінку '%(page_title)s' опубліковано."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Сторінку '%(page_title)s' надіслано на модерацію."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Робочий процес на сторінці '%(page_title)s' перезапущений."
 
@@ -1901,37 +1911,37 @@ msgstr "Приховати дії коментування"
 msgid "Page history"
 msgstr "Історія змін"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Сторінку '%(page_title)s' розблоковано."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Сторінка '%(page_title)s' не перебуває в очікуванні модерації."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Сторінку '%(page_title)s' опубліковано."
 
 msgid "Failed to send approval notifications"
 msgstr "Надсилання сповіщення про схвалення зазнало невдачі"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Публікацію сторінки '%(page_title)s' відхилено."
 
 msgid "Failed to send rejection notifications"
 msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "Коротка назва '%(page_slug)s' вже використовується у обраних батьківських "
 "сторінках. Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Сторінку '%(page_title)s' переміщено."
 
@@ -1943,11 +1953,11 @@ msgstr ""
 "Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
 "створену %(user)s "
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Сторінку '%(page_title)s' знято з публікації."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
 "'%(task_name)s'."
@@ -2000,14 +2010,14 @@ msgstr "Додати робочий процес"
 msgid "New workflow"
 msgstr "Новий робочий процес"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' created."
 msgstr "Робочий процес '%(object)s' створено."
 
 msgid "Editing workflow"
 msgstr "Редагування робочого процесу"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' updated."
 msgstr "Робочий процес '%(object)s' оновлено."
 
@@ -2020,7 +2030,7 @@ msgstr "Увімкнути"
 msgid "Disable workflow"
 msgstr "Вимкнути робочий процес"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Робочий процес '%(object)s' вимнуто."
 
@@ -2029,8 +2039,8 @@ msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
-" workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
 msgstr[0] ""
 "Даний робочий процес виконується на %(states_in_progress)d сторінці. "
 "Вимкнення робочого процесу скасує процес модерації на цій сторінці. "
@@ -2044,25 +2054,25 @@ msgstr[3] ""
 "Даний робочий процес виконується на %(states_in_progress)d сторінках. "
 "Вимкнення робочого процесу скасує процес модерації на цих сторінках."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Робочий процес '%(workflow_name)s' увімкнено."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
 msgstr "Робочий процес знятий з сторінки '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Нове завдання робочого процесу"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' created."
 msgstr "Завдання '%(object)s' створено."
 
 msgid "Editing workflow task"
 msgstr "Редагування завдання робочого процесу"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Завдання '%(object)s' оновлено."
 
@@ -2073,37 +2083,37 @@ msgstr "Редагування %(task_type)s"
 msgid "Disable task"
 msgstr "Вимкнути завдання"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Завдання '%(object)s' вимкнено."
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task"
-" will cause it to be skipped in the moderation workflow and not be listed "
-"for selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
 "Це завдання виконується на %(states_in_progress)d сторінці. Вимкнення цього "
-"завдання скасує процес модерації на цих сторінках і не відображатиметься для"
-" вибору під час редагування робочого процесу."
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[1] ""
-"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього"
-" завдання скасує процес модерації на цих сторінках і не відображатиметься "
-"для вибору під час редагування робочого процесу."
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[2] ""
-"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього"
-" завдання скасує процес модерації на цих сторінках і не відображатиметься "
-"для вибору під час редагування робочого процесу."
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[3] ""
-"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього"
-" завдання скасує процес модерації на цих сторінках і не відображатиметься "
-"для вибору під час редагування робочого процесу."
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Завдання \"%(task_name)s\" увімкнено."
 

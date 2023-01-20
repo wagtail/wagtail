@@ -1,3 +1,4 @@
+#
 # Translators:
 # 小口英昭 <oguchi@bluff-lab.com>, 2022
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
@@ -7,13 +8,14 @@
 # shuhei hirota, 2022
 # kojikojikojikoji, 2022
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Japanese (https://www.transifex.com/torchbox/teams/8009/ja/)\n"
-"Language: ja\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"
@@ -129,7 +131,9 @@ msgstr "新着内容を表示します"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "エディタがクラッシュしました。内容が最後に保存されたバージョンになっています。"
+msgstr ""
+"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
+"す。"
 
 msgid "This field is required."
 msgstr "この項目は必須です。"

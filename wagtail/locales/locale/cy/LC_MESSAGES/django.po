@@ -5,21 +5,23 @@
 #
 # Translators:
 # Philip Crisp, 2022
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/torchbox/teams/8009/cy/)\n"
-"Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
 
 msgid "Wagtail locales"
 msgstr "Locales Wagtail"
@@ -58,11 +60,11 @@ msgstr "Defnydd"
 msgid "Add locale"
 msgstr "Ychwanegu locale"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Locale '%(object)s' wedi'i creu."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Locale '%(object)s' wedi'i diweddaru."
 
@@ -72,7 +74,7 @@ msgstr "Ni fu modd cadw'r locale oherwydd gwallau."
 msgid "Delete locale"
 msgstr "Dileu locale"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Locale '%(object)s' wedi'i dileu."
 

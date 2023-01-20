@@ -7,7 +7,9 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Виктор Виктор <spam.vitek@gmail.com>, 2020-2021
 # Влад <integration.into.society@gmail.com>, 2022
@@ -15,15 +17,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -50,10 +55,10 @@ msgstr "%(model_name)s '%(object)s' удалёно."
 #, python-format
 msgid "%(count)d %(model_name)s deleted."
 msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)sудалён."
+msgstr[0] "%(count)d %(model_name)s удалено."
 msgstr[1] "%(count)d %(model_name)s удалено."
 msgstr[2] "%(count)d %(model_name)s удалено."
-msgstr[3] "%(count)d %(model_name)sудалено"
+msgstr[3] "%(count)d %(model_name)s удалено."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -95,8 +100,8 @@ msgstr "Нет, не удалять"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"К сожалению, нет фрагментов, соответствующих запросу "
-"\"<em>%(search_query)s</em>\""
+"К сожалению, нет фрагментов, соответствующих запросу \"<em>%(search_query)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -153,9 +158,6 @@ msgstr "Навигационная цепочка"
 
 msgid "Snippets"
 msgstr "Фрагменты"
-
-msgid "New: "
-msgstr "Новый:"
 
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
@@ -232,6 +234,9 @@ msgstr "Использование"
 msgid "Title"
 msgstr "Заголовок"
 
+msgid "Field"
+msgstr "Поле"
+
 msgid "Choose"
 msgstr "Выбрать"
 
@@ -252,6 +257,10 @@ msgstr "%(model_name)s '%(object)s' создан."
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' создан и опубликован."
 
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' создано и запланировано к публикации."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
 
@@ -262,6 +271,18 @@ msgstr "%(model_name)s '%(object)s' обновлен."
 #, python-format
 msgid "%(model_name)s '%(object)s' updated and published."
 msgstr "%(model_name)s '%(object)s' обновлен и опубликован."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' было запланировано к публикации."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s '%(object)s' опубликовано, и текущая версия запланирована к "
+"дальнейшей публикации."
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -279,11 +300,11 @@ msgstr "Дата"
 msgid "Snippet history"
 msgstr "История фрагмента"
 
-#, python-brace-format
+#, python-format
 msgid "Edit this %(model_name)s"
 msgstr "Редактировать %(model_name)s"
 
-#, python-brace-format
+#, python-format
 msgid "%(model_name)s history"
 msgstr "%(model_name)s история"
 

@@ -1,14 +1,21 @@
+#
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
+# Loic Teixeira, 2022
 # X Bello <xbello@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (https://www.transifex.com/torchbox/teams/8009/gl/)\n"
-"Language: gl\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s erro)"
+msgstr[1] "(%(errorCount)s erros)"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s novos elementos neste menú)"
@@ -23,6 +30,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s erro"
 msgstr[1] "%(num)s erros"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s píxel"
+msgstr[1] "%(num)s píxels"
 
 msgid "Add a comment"
 msgstr "Engadir un comentario"

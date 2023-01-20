@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
-"Language: tet\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -227,22 +228,22 @@ msgstr "Hatama grupu"
 msgid "Search groups"
 msgstr "Buka grupu sira"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupu '%(object)s' kria ona."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Grupu '%(object)s' troka ona."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupu labele rai tamba erru."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupu '%(object)s' hamoos ona."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Usuariu '%(object)s' troka ona"
 
@@ -253,7 +254,7 @@ msgstr "Usuariu labele rai tamba erru."
 msgid "Editing %(object)s"
 msgstr "Hadia hela %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Usuariu '%(object)s' hamoos ona."
 

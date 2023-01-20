@@ -4,22 +4,25 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2021
+# Dan Braghis, 2014-2022
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Dan Braghis, 2014-2021\n"
-"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/ro/)\n"
-"Language: ro\n"
+"Last-Translator: Dan Braghis, 2014-2022\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 msgid "Wagtail users"
 msgstr "Utilizatori Wagtail"
@@ -116,6 +119,13 @@ msgstr "profil utilizator"
 msgid "user profiles"
 msgstr "profiluri utilizatori"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Adaugă rol la 1 utilizator"
+msgstr[1] "Adaugă rol la %(counter)s utilizatori"
+msgstr[2] "Adaugă rol la %(counter)s utilizatori"
+
 msgid "Assign role"
 msgstr "Adaugă rol"
 
@@ -133,6 +143,13 @@ msgstr "Da, atribuie"
 
 msgid "No, don't assign"
 msgstr "Nu, nu atribuie"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Șterge 1 utilizator"
+msgstr[1] "Șterge %(counter)s utilizatori"
+msgstr[2] "Șterge %(counter)s utilizatori"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -152,6 +169,13 @@ msgstr "Da, șterge"
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Schimbă starea activă pentru 1 utilizator"
+msgstr[1] "Schimbă starea activă pentru %(counter)s utilizatori"
+msgstr[2] "Schimbă starea activă pentru %(counter)s utilizatori"
+
 msgid "Set active state"
 msgstr "Setează stare activă"
 
@@ -169,6 +193,18 @@ msgstr "Nu, nu schimba stare"
 
 msgid "Delete group"
 msgstr "Șterge grup"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> membru."
+msgstr[1] ""
+"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> membri."
+msgstr[2] ""
+"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> membri."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -276,6 +312,13 @@ msgid "Inactive"
 msgstr "Inactiv"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Există %(counter)s potrivire"
+msgstr[1] "Sunt %(counter)s potriviri"
+msgstr[2] "Sunt %(counter)s potriviri"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
@@ -296,6 +339,10 @@ msgid ""
 msgstr ""
 "Nu există nici un utilizator. De ce să nu <a "
 "href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "utilizator %(id)s (șters)"
 
 msgid "Assign role to selected users"
 msgstr "Adaugă rol la utilizatorii selectați"
@@ -343,22 +390,22 @@ msgstr "Adaugă un grup"
 msgid "Search groups"
 msgstr "Caută grupuri"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupul '%(object)s' a fost creat."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Grupul '%(object)s' a fost actualizat."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupul nu a fost salvat din cauza erorilor."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupul '%(object)s' a fost șters."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utilizatorul '%(object)s' a fost actualizat."
 
@@ -369,7 +416,7 @@ msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 msgid "Editing %(object)s"
 msgstr "Editare %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilizatorul '%(object)s' a fost șters."
 

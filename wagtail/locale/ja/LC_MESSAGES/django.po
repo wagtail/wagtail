@@ -8,6 +8,7 @@
 # shuhei hirota, 2019
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# shuhei hirota, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -15,14 +16,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Goto Hayato <habita.gh@gmail.com>, 2021\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
-"Language: ja\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail core"
@@ -121,8 +123,8 @@ msgid "slug"
 msgstr "スラッグ"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slug]/）"
 
 msgid "content type"
@@ -154,9 +156,6 @@ msgstr "検索エンジンの検索結果でヘッドラインの下に表示さ
 
 msgid "latest revision created at"
 msgstr "最終更新日時"
-
-msgid "This slug is already in use"
-msgstr "このスラッグはすでに使われています"
 
 msgid "page"
 msgstr "ページ"
@@ -355,7 +354,9 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディングはこれまで通り機能します）。"
+"URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください"
+"（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディ"
+"ングはこれまで通り機能します）。"
 
 msgid "site name"
 msgstr "サイト名"
@@ -372,7 +373,9 @@ msgstr "デフォルトのサイトです"
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
-msgstr "はい >> このサイトはサイトエントリーのないホスト名のもとでのリクエストをも処理します。"
+msgstr ""
+"はい >> このサイトはサイトエントリーのないホスト名のもとでのリクエストをも処"
+"理します。"
 
 msgid "site"
 msgstr "サイト"
@@ -387,7 +390,9 @@ msgstr "デフォルト"
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
-msgstr "現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してからこのサイトをデフォルトに設定してください。"
+msgstr ""
+"現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してから"
+"このサイトをデフォルトに設定してください。"
 
 msgid "Public"
 msgstr "公開"
@@ -419,7 +424,9 @@ msgstr "ユーザネームとパスワードが一致しませんでした。再
 msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "
 "with an account that has access."
-msgstr "あなたのアカウントにはこのページへのアクセス権限がありません。進めるには、アクセス権限のあるアカウントにログインしてください。"
+msgstr ""
+"あなたのアカウントにはこのページへのアクセス権限がありません。進めるには、ア"
+"クセス権限のあるアカウントにログインしてください。"
 
 msgid "Password required"
 msgstr "パスワードが必要です。"

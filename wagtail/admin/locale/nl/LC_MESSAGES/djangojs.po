@@ -1,18 +1,19 @@
+#
 # Translators:
 # mahulst, 2022
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
-# Loic Teixeira, 2022
 # Storm Heg <storm@stormbase.digital>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
-"Language: nl\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "(%(number)s new items in this menu)"

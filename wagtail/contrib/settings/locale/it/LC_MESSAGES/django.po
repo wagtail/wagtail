@@ -5,18 +5,21 @@
 # Translators:
 # Carlo Miron <carlo@miron.it>, 2016
 # Carlo Miron <carlo@miron.it>, 2016
+# Carlo Miron <carlo@miron.it>, 2016
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2022
 # Marco Lerco <marcolerco@gmail.com>, 2021
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Marco Lerco <marcolerco@gmail.com>, 2021\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +31,14 @@ msgstr ""
 
 msgid "default"
 msgstr "default"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s per %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Modifica %(instance)s"
 
 msgid "Site"
 msgstr "Sito"

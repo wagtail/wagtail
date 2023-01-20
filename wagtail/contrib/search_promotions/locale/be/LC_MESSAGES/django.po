@@ -8,15 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/language/be/)\n"
-"Language: be\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Пошукавае прасоўванне Wagtail"
@@ -114,7 +117,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Пошук рэкламных вынікаў"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Зроблена падборка для '%(query)s'."
 
@@ -124,7 +127,7 @@ msgstr "Рэдактаваць"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рэкамендацыі не былі створаны з-за памылкі"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Падборка для «%(query)s» абнаўляецца."
 

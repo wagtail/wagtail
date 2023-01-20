@@ -6,27 +6,32 @@
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Matthias Martin, 2019
+# Matthias Martin, 2019
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
-# th3hamm0r <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
-"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/de/)\n"
-"Language: de\n"
+"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>, 2015\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail forms"
@@ -121,8 +126,8 @@ msgid ""
 "Comma or new line separated list of choices. Only applicable in checkboxes, "
 "radio and dropdown."
 msgstr ""
-"Liste der Wahlmöglichkeiten, durch Kommas oder Zeilenumbrüche getrennt. Gilt"
-" nur für Checkboxen, Dropdowns und Radiobuttons."
+"Liste der Wahlmöglichkeiten, durch Kommas oder Zeilenumbrüche getrennt. Gilt "
+"nur für Checkboxen, Dropdowns und Radiobuttons."
 
 msgid "default value"
 msgstr "Vorgabewert"

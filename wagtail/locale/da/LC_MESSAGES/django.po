@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -35,9 +35,6 @@ msgstr "Dette felt er påkrævet."
 
 msgid "title"
 msgstr "Titel"
-
-msgid "This slug is already in use"
-msgstr "Dette slug er allerede i brug"
 
 msgid "created at"
 msgstr "oprettet"

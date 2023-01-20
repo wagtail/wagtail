@@ -6,20 +6,21 @@
 # Translators:
 # Kyungil Choi <hanpama@gmail.com>, 2021
 # Kyu Choi, 2022
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Kyu Choi, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/torchbox/teams/8009/ko/)\n"
-"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail locales"
@@ -43,7 +44,9 @@ msgstr "뒤로"
 msgid ""
 "This locale's current language code is not supported. Please choose a new "
 "language or delete this locale."
-msgstr "이 로케일의 현재 언어 코드는 지원되지 않습니다. 새 언어를 선택하거나 이 로케일을 삭제하십시오."
+msgstr ""
+"이 로케일의 현재 언어 코드는 지원되지 않습니다. 새 언어를 선택하거나 이 로케"
+"일을 삭제하십시오."
 
 msgid "Locales"
 msgstr "영역"
@@ -57,11 +60,11 @@ msgstr "사용"
 msgid "Add locale"
 msgstr "로케일 추가"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "로케일 '%(object)s' 생성됨"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "로케일 '%(object)s' 업데이트됨"
 
@@ -71,7 +74,7 @@ msgstr "로케일이 오류로인해 저장될 수 없음"
 msgid "Delete locale"
 msgstr "로케일 삭제"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "로케일 '%(object)s' 삭제"
 
@@ -84,4 +87,6 @@ msgstr "다른 로케일이 없기에 이 로케일은 삭제될 수 없습니�
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
-msgstr "이 로케일을 사용하는 페이지 및/또는 다른 개체가 있으므로 이 로케일을 삭제할 수 없습니다."
+msgstr ""
+"이 로케일을 사용하는 페이지 및/또는 다른 개체가 있으므로 이 로케일을 삭제할 "
+"수 없습니다."

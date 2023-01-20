@@ -5,6 +5,7 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Matt Westcott <matthew@torchbox.com>, 2022
@@ -14,15 +15,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
-"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/it/)\n"
-"Language: it\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail images"
 msgstr "Immagini Wagtail"
@@ -43,14 +46,17 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Formati supportati: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Formato immagine non supportato. Formati supportati: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Immagine %s non valida"
+msgid ""
+"Not a valid %(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Immagine %(extension)s non valida. L'estensione non corrisponde al formato "
+"del file (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -213,8 +219,7 @@ msgstr "Aggiungi immagini alla raccolta"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected "
-"collection?"
+"Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
 "Sei sicuro di voler aggiungere la seguente immagine alla raccolta "
 "selezionata?"
@@ -275,6 +280,9 @@ msgstr "Esistente"
 msgid "New"
 msgstr "Nuovo"
 
+msgid "Use new image"
+msgstr "Utilizza una nuova immagine"
+
 msgid "Latest images"
 msgstr "Ultime immagini"
 
@@ -305,6 +313,9 @@ msgstr "Modifica immagine %(title)s"
 
 msgid "Editing"
 msgstr "Modifica"
+
+msgid "Image focal point"
+msgstr "Punto focale immagine"
 
 msgid "URL Generator"
 msgstr "URL Generator"
@@ -364,7 +375,8 @@ msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Spiacente, nessun immagine corrispondente a \"<em>%(query_string)s</em>\""
+msgstr ""
+"Spiacente, nessun immagine corrispondente a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -515,7 +527,7 @@ msgstr "Modifica questa immagine"
 msgid "Search images"
 msgstr "Cerca immagini"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Immagine '%(image_title)s' aggiornata."
 
@@ -526,17 +538,17 @@ msgid "The image could not be saved due to errors."
 msgstr "L'immagine non può essere salvata a causa di errori."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr ""
 "Il file dell'immagine non è stato trovato. Cambia il file oppure elimina "
 "l'immagine."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Immagine '%(image_title)s' eliminata."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Immagine '%(image_title)s' aggiunta."
 

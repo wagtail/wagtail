@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017\n"
-"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/ca/)\n"
-"Language: ca\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Type"
@@ -143,7 +144,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Cerca redireccions"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redireccionament '%(redirect_title)s' actualitzat."
 
@@ -153,11 +154,11 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "És possible que el redireccionament no s'hagi guardat degut a errors."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Redireccionamnet '%(redirect_title)s' eliminat."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "S'ha afegit la redirecció '%(redirect_title)s'"
 

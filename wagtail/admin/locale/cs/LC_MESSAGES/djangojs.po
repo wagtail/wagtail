@@ -1,18 +1,21 @@
+#
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
 # IT Management <hudan@itmanagement.cz>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
-# Mirek Zvolský <zvolsky@seznam.cz>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2022
+# Mirek Zvolský <zvolsky@seznam.cz>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/torchbox/teams/8009/cs/)\n"
-"Language: cs\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Add a comment"
 msgstr "Přidej komentář"

@@ -16,14 +16,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/nl/)\n"
-"Language: nl\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -59,13 +60,13 @@ msgstr ""
 "op de minder gebruikelijke term \" <em>geven</em>\".</p> "
 
 msgid ""
-"<p>The \"Search term(s)/phrase\" field below must contain the full and exact"
-" search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from"
-" search terms that have been popular with users of your site.</p>"
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
 msgstr ""
-"<p>Het \"Zoekterm(en)\" veld moet een volledige zoekterm, <em>inclusief</em>"
-" mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
+"<p>Het \"Zoekterm(en)\" veld moet een volledige zoekterm, <em>inclusief</em> "
+"mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
 "resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
 "zoektermen van gebruikers van de website.</p>            "
 
@@ -166,7 +167,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Zoek gepromote resultaten"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Editor aanbevelingen voor '%(query)s' aangemaakt."
 
@@ -176,7 +177,7 @@ msgstr "Wijzig"
 msgid "Recommendations have not been created due to errors"
 msgstr "Aanbevelingen zijn vanwege fouten niet aangemaakt."
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Editor aanbevelingen voor '%(query)s' gewijzigd."
 

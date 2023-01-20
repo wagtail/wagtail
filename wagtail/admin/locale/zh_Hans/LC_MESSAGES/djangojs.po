@@ -1,3 +1,4 @@
+#
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2022
 # 汇民 王 <whuim@qq.com>, 2022
@@ -8,13 +9,15 @@
 # Favo Yang <favoyang@gmail.com>, 2022
 # Yin Guanhao <sopium@mysterious.site>, 2022
 # Ford Guo <agile.guo@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2022\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/teams/8009/zh_CN/)\n"
-"Language: zh_CN\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/"
+"teams/8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"

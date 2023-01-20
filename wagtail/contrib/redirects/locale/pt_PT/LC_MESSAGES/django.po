@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Jose Lourenco <jose@lourenco.ws>, 2015-2016
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -14,15 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/wagtail/language/pt_PT/)\n"
-"Language: pt_PT\n"
+"Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail redirects"
 msgstr "Redirecionamentos do Wagtail"
@@ -75,8 +79,7 @@ msgid ""
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Recomendado. Os redirecionamentos permanentes obrigam os motores de busca a "
-"esquecer-se da página antiga (o 'Redirecionar de') e a indexar a nova "
-"página."
+"esquecer-se da página antiga (o 'Redirecionar de') e a indexar a nova página."
 
 msgid "redirect to a page"
 msgstr "redirecionar para uma página"
@@ -85,8 +88,8 @@ msgid "target page route"
 msgstr "caminho para a página de destino"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "Especifique opcionalmente um caminho de redirecionamento na página de "
 "destino. Deixe em branco para redirecionar para o caminho de página pré-"
@@ -162,11 +165,10 @@ msgstr "Resumo"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
-"Encontrados %(total)s redirecionamentos, criados %(successes)s e encontrados"
-" %(errors)s erros."
+"Encontrados %(total)s redirecionamentos, criados %(successes)s e encontrados "
+"%(errors)s erros."
 
 msgid "From"
 msgstr "De"
@@ -195,8 +197,7 @@ msgstr "Nenhum redirecionamento encontrado."
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Desculpe, nenhum redirecionamento corresponde a "
-"\"<em>%(query_string)s</em>\""
+"Desculpe, nenhum redirecionamento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -209,7 +210,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redirecionamento '%(redirect_title)s' atualizado."
 
@@ -219,17 +220,18 @@ msgstr "Alterar"
 msgid "The redirect could not be saved due to errors."
 msgstr "O redirecionamento não pôde ser guardado devido a erros."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Redirecionamento '%(redirect_title)s' apagado."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirecionamento '%(redirect_title)s' adicionado."
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pôde ser criado devido a erros."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "O formato de ficheiro do tipo \"%(extension)s\" não é permitido"
 

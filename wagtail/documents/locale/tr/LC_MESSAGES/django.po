@@ -7,18 +7,20 @@
 # Halim Turan <halim_turan_61@hotmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>, 2022\n"
-"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/tr/)\n"
-"Language: tr\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail documents"
@@ -216,14 +218,14 @@ msgstr "Belgeyi düzenle"
 msgid "Search documents"
 msgstr "Belgelerde ara"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "'%(document_title)s' belgesi eklendi."
 
 msgid "The document could not be saved due to errors."
 msgstr "Hata nediyle belge kaydedilemedi."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' belgesi güncellendi"
 
@@ -231,7 +233,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' belgesi silindi."
 

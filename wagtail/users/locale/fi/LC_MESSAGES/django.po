@@ -14,14 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
-"Language: fi\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail users"
@@ -32,8 +33,8 @@ msgstr "Vaadittu. Vain kirjaimia, numeroita ja merkkejä @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
-"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ "
-"-erikoismerkkejä."
+"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ -"
+"erikoismerkkejä."
 
 msgid "A user with that username already exists."
 msgstr "Käyttäjä tällä käyttäjänimellä on jo olemassa."
@@ -198,8 +199,7 @@ msgstr "Poista ryhmä"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
-"members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
 "Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsen."
 msgstr[1] ""
@@ -320,8 +320,7 @@ msgstr[1] "Löytyi %(counter)s osumaa"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään käyttäjä ei täsmää hakuun "
-"\"<em>%(query_string)s</em>\""
+"Pahoittelut, yksikään käyttäjä ei täsmää hakuun \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -338,6 +337,10 @@ msgid ""
 msgstr ""
 "Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
 "href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "käyttäjä %(id)s (poistettu)"
 
 msgid "Assign role to selected users"
 msgstr "Määritä rooli valituille käyttäjille"
@@ -381,22 +384,22 @@ msgstr "Lisää ryhmä"
 msgid "Search groups"
 msgstr "Hae ryhmiä"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Ryhmä '%(object)s' luotu."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Ryhmä '%(object)s' päivitetty."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Ryhmä '%(object)s' poistettu."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Käyttäjä '%(object)s' päivitetty."
 
@@ -407,7 +410,7 @@ msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
 msgid "Editing %(object)s"
 msgstr "Muokataan %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Käyttäjä '%(object)s' poistettu."
 

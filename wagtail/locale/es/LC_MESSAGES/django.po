@@ -3,15 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020-2021
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Maylon Pedroso <maylonpedroso@gmail.com>, 2020
+# Oscar Luciano Espirilla Flores, 2020
 # Oscar Luciano Espirilla Flores, 2020
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
@@ -22,15 +25,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
-"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail API v2"
 msgstr "API de Wagtail v2"
@@ -92,31 +97,19 @@ msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
 msgid "Comment"
 msgstr "Comentario"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Página '{}' fue bloqueado</b> por <b>usted</b> en <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Página '{page_title}' está bloqueada</b> por <b>usted</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Página '{}' fue bloqueado</b> por <b>{}</b> en <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Página '{page_title}' se encuentra bloqueada</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Esta página está actualmente esperando moderación."
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr ""
-"Esta página está esperando <b>'{}'</b> en el <b>'{}'</b> flujo de trabajo."
-
 msgid "Only reviewers for this task can edit the page."
 msgstr "Solo los revisores de esta tarea pueden editar la página."
-
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
-msgstr ""
-"La página '{}' está bloqueada y ha sido programada para estar en vivo en {}"
 
 msgid "latest revision"
 msgstr "última revisión"
@@ -179,11 +172,11 @@ msgid "slug"
 msgstr "marquilla"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"El nombre de la página tal como aparecerá en URLs p.ej. "
-"http://domain.com/blog/[my-slug]/"
+"El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
+"blog/[my-slug]/"
 
 msgid "content type"
 msgstr "tipo de contenido"
@@ -201,8 +194,8 @@ msgid ""
 "The name of the page displayed on search engine results as the clickable "
 "headline."
 msgstr ""
-"El nombre de la página mostrado en los resultados del motor de búsqueda como"
-" titular para hacer clic."
+"El nombre de la página mostrado en los resultados del motor de búsqueda como "
+"titular para hacer clic."
 
 msgid "show in menus"
 msgstr "mostrar en menús"
@@ -223,9 +216,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "última revisión creada a las"
-
-msgid "This slug is already in use"
-msgstr "Este slug ya está en uso"
 
 msgid "in moderation"
 msgstr "en moderación"
@@ -345,8 +335,8 @@ msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
-"Las tareas activas pueden ser añadidas a flujos de trabajo. Desactivando una"
-" tarea no la elimina de los flujos de trabajo existentes."
+"Las tareas activas pueden ser añadidas a flujos de trabajo. Desactivando una "
+"tarea no la elimina de los flujos de trabajo existentes."
 
 msgid "tasks"
 msgstr "tareas"
@@ -355,8 +345,8 @@ msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
-"Los flujos de trabajo activos pueden ser añadidos a páginas. Desactivando un"
-" flujo de trabajo no lo elimina de las páginas existentes."
+"Los flujos de trabajo activos pueden ser añadidos a páginas. Desactivando un "
+"flujo de trabajo no lo elimina de las páginas existentes."
 
 msgid "workflows"
 msgstr "flujos de trabajo"
@@ -368,8 +358,8 @@ msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
 "groups of users"
 msgstr ""
-"Las páginas en este paso en un flujo de trabajo será moderado o aprobado por"
-" estos grupos de usuarios"
+"Las páginas en este paso en un flujo de trabajo será moderado o aprobado por "
+"estos grupos de usuarios"
 
 msgid "Request changes"
 msgstr "Solicitar cambios"
@@ -417,7 +407,7 @@ msgstr ""
 "Solo puede haber uno en progreso o necesita cambios en el estado del flujo "
 "de trabajo por página"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr ""
 "Flujo de trabajo '%(workflow_name)s' en Página '%(page_title)s': %(status)s"
@@ -452,7 +442,7 @@ msgstr "terminado el"
 msgid "finished by"
 msgstr "finalizado por"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Tarea '%(task_name)s' en Revisión de Página '%(revision_info)s': %(status)s"
@@ -493,12 +483,9 @@ msgstr "entrada de registro"
 msgid "log entries"
 msgstr "entradas de registro"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "La acción de log '%(action_name)s' no ha sido registrado."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "usuario %(id)s (eliminado)"
 
 msgid "system"
 msgstr "sistema"
@@ -546,8 +533,8 @@ msgid ""
 "handling (so port forwarding still works)."
 msgstr ""
 "Cambia esto a algo que no sea el puerto 80 si necesitas que un puerto "
-"específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no"
-" afecta al manejo de solicitudes (así que la redirección de puertos sigue "
+"específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no "
+"afecta al manejo de solicitudes (así que la redirección de puertos sigue "
 "funcionando)."
 
 msgid "site name"
@@ -891,7 +878,8 @@ msgstr "Eliminar respuesta a comentario"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
-msgstr "Eliminada una respuesta a un comentario en campo %(field)s: \"%(text)s\""
+msgstr ""
+"Eliminada una respuesta a un comentario en campo %(field)s: \"%(text)s\""
 
 msgid "Deleted a reply"
 msgstr "Eliminada una respuesta"

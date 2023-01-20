@@ -10,15 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2018-2019\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Miłosz Miśkiewicz, 2016\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail sites"
 msgstr "Serwisy Wagtail"
@@ -47,11 +50,11 @@ msgstr "Domyślny"
 msgid "Add site"
 msgstr "Dodaj serwis"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "Stworzono serwis '%(object)s'."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Uaktualniono serwis '%(object)s'."
 
@@ -61,7 +64,7 @@ msgstr "Serwis nie mógł zostać zapisany z powodu błędów."
 msgid "Delete site"
 msgstr "Usuń serwis"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Serwis '%(object)s' usunięty."
 

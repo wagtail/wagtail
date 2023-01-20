@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2016
@@ -14,14 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz, 2015\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
-"Language: el\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Date from"
@@ -111,7 +113,8 @@ msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
-"Προαιρετικό - οι υποβολές φορμών θα αποστέλλονται με email σε αυτές τις διευθύνσεις.\n"
+"Προαιρετικό - οι υποβολές φορμών θα αποστέλλονται με email σε αυτές τις "
+"διευθύνσεις.\n"
 "Διαχωρίστε πολλαπλές διευθύνσεις με κόμμα."
 
 msgid "from address"

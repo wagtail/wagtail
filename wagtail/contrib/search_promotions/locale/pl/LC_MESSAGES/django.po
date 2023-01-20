@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
 # Miłosz Miśkiewicz, 2018-2020
 # Miłosz Miśkiewicz, 2016
@@ -11,22 +12,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2018-2020\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Wyszukiwanie promowanych Wagtail"
 
 msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Proszę podaj conajmniej jedną rekomendację dla tej frazy wyszukiwania."
+msgstr "Proszę podaj conajmniej jedną rekomendację dla tej frazy wyszukiwania."
 
 msgid "page"
 msgstr "strona"
@@ -131,7 +134,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Wyszukaj promowane wyniki"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Stworzono wybór redakcji dla '%(query)s'"
 
@@ -141,7 +144,7 @@ msgstr "Edytuj"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacje nie zostały utworzone z powodu błędów"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Zaktualizowano wybór redakcji dla '%(query)s'."
 

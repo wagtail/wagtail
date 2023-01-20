@@ -4,19 +4,22 @@
 #
 # Translators:
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail ModelAdmin"
 msgstr "Wagtail ModelAdmin"
@@ -54,8 +57,20 @@ msgstr "Kopiraj"
 msgid "image"
 msgstr "slika"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Nazaj na %(model_name)s seznam"
+
 msgid "Choose a parent page"
 msgstr "Izberite nadrejeno stran"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s lahko dodate na več kot eno mesto na vašem spletnem mestu. Katero "
+"od naslednjih bi želeli uporabiti kot nadrejeno stran vaše nove strani?"
 
 msgid "Continue"
 msgstr "Nadaljuj"
@@ -65,6 +80,24 @@ msgstr "Shranjevanje ..."
 
 msgid "Save"
 msgstr "Shrani"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s ni bilo mogoče izbrisati"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' se trenutno sklicuje na druge objekte in ga ni mogoče "
+"izbrisati, ne da bi ogrozili celovitost podatkov. Če ga želite uspešno "
+"izbrisati, najprej odstranite sklice iz naslednjih predmetov in nato "
+"poskusite znova:"
+
+msgid "Go back to listing"
+msgstr "Nazaj na seznam"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -78,8 +111,21 @@ msgstr "Zadnje posodobljeno"
 msgid "History"
 msgstr "Zgodovina"
 
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s od %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Žal, ni rezultatov za %(name)s , ki bi ustrezali vašim iskanim parametrom"
+
 msgid "Search for"
 msgstr "Išči"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Iskanje %(name)s"
 
 msgid "Search"
 msgstr "Iskanje"
@@ -93,14 +139,34 @@ msgstr "Prenesi CSV"
 msgid "Filter"
 msgstr "Filter"
 
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Noben %(name)s še ni bil ustvarjen. Eden od naslednjih more biti ustvarjen "
+"preden lahko dodate %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Noben %(name)s še ni bil ustvarjen."
+
 msgid "Pagination"
 msgstr "Paginacija"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Stran %(current_page)s od%(num_pages)s."
 
 msgid "Previous"
 msgstr "Prejšnja"
 
 msgid "Next"
 msgstr "Naslednja"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' ustvarjen."
 
 msgid "New"
 msgstr "Nov"
@@ -115,6 +181,10 @@ msgstr "Urejanje %(object)s"
 #, python-format
 msgid "Confirm deletion of %(object)s"
 msgstr "Confirm deletion Potrdi izbris %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' izbrisan."
 
 msgid "Inspecting"
 msgstr "Pregledovanje"

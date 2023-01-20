@@ -4,21 +4,21 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Loic Teixeira, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Loic Teixeira, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail locales"
@@ -43,8 +43,8 @@ msgid ""
 "This locale's current language code is not supported. Please choose a new "
 "language or delete this locale."
 msgstr ""
-"De taalcode van de huidige taalregio wordt niet ondersteund. Kies een andere"
-" taal of verwijder deze taalregio."
+"De taalcode van de huidige taalregio wordt niet ondersteund. Kies een andere "
+"taal of verwijder deze taalregio."
 
 msgid "Locales"
 msgstr "Taalregio's"
@@ -58,11 +58,11 @@ msgstr "Gebruik"
 msgid "Add locale"
 msgstr "Taalregio toevoegen"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Taalregio '%(object)s' aangemaakt."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Taalregio '%(object)s' gewijzigd."
 
@@ -72,7 +72,7 @@ msgstr "De taalregio kon vanwege fouten niet worden opgeslagen."
 msgid "Delete locale"
 msgstr "Verwijder taalregio"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Taalregio '%(object)s' verwijderd."
 

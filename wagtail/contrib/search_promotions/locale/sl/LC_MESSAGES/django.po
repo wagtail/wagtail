@@ -4,20 +4,23 @@
 #
 # Translators:
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Promocije iskanja Wagtail"
@@ -53,8 +56,8 @@ msgstr "Izbriši"
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Ali ste prepričani, da želite izbrisati vse promovirane rezultati za iskalni"
-" niz?"
+"Ali ste prepričani, da želite izbrisati vse promovirane rezultati za iskalni "
+"niz?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -87,11 +90,23 @@ msgstr "Dodaj nov promoviran rezultat"
 msgid "Search term(s)"
 msgstr "Iskalni niz(i)"
 
+msgid "Order by search term alphabetically"
+msgstr "Razvrsti po iskanem nizu po abecedi"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Razvrsti po iskanem nizu obratno po abecedi"
+
 msgid "Promoted results"
 msgstr "Promovirani rezultati"
 
 msgid "Views (past week)"
 msgstr "Ogledi (pretekli teden)"
+
+msgid "Order by views (lowest first)"
+msgstr "Razvrsti po ogledih (najmanjši najprej)"
+
+msgid "Order by views (highest first)"
+msgstr "Razvrsti po ogledih (največji najprej)"
 
 msgid "Edit this promotion"
 msgstr "Uredi promoviran rezultat"
@@ -102,8 +117,8 @@ msgstr "/"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Žal ni promoviranega rezultata, ki bi ustrezal nizu "
-"\"<em>%(query_string)s</em>\""
+"Žal ni promoviranega rezultata, ki bi ustrezal nizu \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -116,7 +131,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Iskanje po promoviranih rezultatih"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Promoviran rezultat za '%(query)s' ustvarjen."
 
@@ -126,7 +141,7 @@ msgstr "Uredi"
 msgid "Recommendations have not been created due to errors"
 msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Promoviran rezultat za '%(query)s' posodobljen."
 

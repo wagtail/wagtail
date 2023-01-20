@@ -11,15 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail simple translation"
 msgstr "Traduction Simple Wagtail"
@@ -33,11 +34,12 @@ msgstr "Régions"
 msgid "All child pages will be created."
 msgstr "Toutes les sous-pages seront crées."
 
+#, python-format
 msgid "Include subtree (%(descendant_count)s page)"
 msgid_plural "Include subtree (%(descendant_count)s pages)"
 msgstr[0] "Inclure le sous-arbre (%(descendant_count)s page)"
-msgstr[1] "Inclure le sous-arbre (%(descendant_count)s pages)"
-msgstr[2] "Inclure le sous-arbre (%(descendant_count)s pages)"
+msgstr[1] "Inclure le sous-arbre (%(descendant_count)s page)"
+msgstr[2] "Inclure le sous-arbre (%(descendant_count)s page)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -62,21 +64,23 @@ msgstr "Soumettre"
 msgid "Translate"
 msgstr "Traduire"
 
+#. Translators: always plural
+#, python-format
 msgid "%(locales_count)s locales"
 msgstr "%(locales_count)s régions"
 
 msgid "Translate page"
 msgstr "Traduire la page"
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' was successfully created in %(locales)s"
 msgstr "La page '%(page_title)s' a été crée avec succès en %(locales)s"
 
-#, python-brace-format
+#, python-format
 msgid "Translate %(model_name)s"
 msgstr "Traduire %(model_name)s"
 
-#, python-brace-format
+#, python-format
 msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
 "Les régions %(locales)s ont été créées avec succès pour %(model_name)s "

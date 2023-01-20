@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail API v2"
@@ -81,32 +82,19 @@ msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
 msgid "Comment"
 msgstr "Megjegyzés"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr ""
-"<b>A(z) '{}' oldal zárolva van</b>, lezárta: <b>én</b>, időpont: <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>A(z) '{page_title}' oldal zárolva van</b>, lezáró: <b>én</b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr ""
-"<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>{}</b>, időpont: <b>{}</b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>A(z) '{page_title}' oldal zárolva van</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Ez az oldal jelenleg moderálásra vár."
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr ""
-"Az oldal jelenleg a(z) <b>'{}'</b> munkafolyamatvan vár erre:<b>'{}'</b> "
-
 msgid "Only reviewers for this task can edit the page."
 msgstr "Csak az ellenőrzők szerkeszthetik az oldalt."
-
-msgid "Page '{}' is locked and has been scheduled to go live at {}"
-msgstr "A(z) '{}' oldal le van zárva, és {} időpontban élesedik"
 
 msgid "latest revision"
 msgstr "utolsó verzió"
@@ -169,11 +157,11 @@ msgid "slug"
 msgstr "domain-darabka"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Az oldal neve, ahogy az URL-ben szerepelni fog, pl. "
-"http://domain.com/blog/[oldal domain-darabkája]/"
+"Az oldal neve, ahogy az URL-ben szerepelni fog, pl. http://domain.com/blog/"
+"[oldal domain-darabkája]/"
 
 msgid "content type"
 msgstr "tartalomtípus"
@@ -209,9 +197,6 @@ msgstr "Az oldal kerés oldalakon megjelenített leírása."
 
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
-
-msgid "This slug is already in use"
-msgstr "Ez a rövidítés már használatban van"
 
 msgid "in moderation"
 msgstr "jóváhagyás alatt"
@@ -402,7 +387,7 @@ msgstr ""
 "Egy oldal esetén csak egyetlen folyamatban vagy változtatás szükséges "
 "munkafolyamat állapot lehet"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr ""
 "'%(workflow_name)s' munkafolyamat a(z) '%(page_title)s' oldalon: %(status)s"
@@ -437,7 +422,7 @@ msgstr "befejezve: "
 msgid "finished by"
 msgstr "befejező: "
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "'%(task_name)s' feladat a(z) '%(revision_info)s' oldal verzión: %(status)s"
@@ -478,12 +463,9 @@ msgstr "napló bejegyzés"
 msgid "log entries"
 msgstr "napló bejegyzések"
 
+#, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr "A '%(action_name)s' napló akció nincs regisztrálva."
-
-#, python-format
-msgid "user %(id)s (deleted)"
-msgstr "%(id)s felhasználó (törölt)"
 
 msgid "system"
 msgstr "rendszer"
@@ -752,8 +734,8 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
 "%(go_live_at)s."
 msgstr ""
-"A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió"
-" közzététele időzítve ekkorra: %(go_live_at)s."
+"A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió "
+"közzététele időzítve ekkorra: %(go_live_at)s."
 
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
@@ -770,8 +752,8 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
 "%(go_live_at)s."
 msgstr ""
-"A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió"
-" visszavonása időzítve ekkorra: %(go_live_at)s."
+"A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió "
+"visszavonása időzítve ekkorra: %(go_live_at)s."
 
 #, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"

@@ -4,18 +4,20 @@
 #
 # Translators:
 # Chih Wang <ihcgno@icloud.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail redirects"
@@ -146,12 +148,13 @@ msgid ""
 "No redirects have been created. Why not <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"還沒有創建過重定向呢。為何不 <a href=\"%(wagtailredirects_add_redirect_url)s\">創建一個</a>?"
+"還沒有創建過重定向呢。為何不 <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">創建一個</a>?"
 
 msgid "Search redirects"
 msgstr "搜索重定向"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "重定向'%(redirect_title)s'已更新"
 
@@ -161,11 +164,11 @@ msgstr "編輯"
 msgid "The redirect could not be saved due to errors."
 msgstr "重定向不能儲存。出現錯誤。"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "重定向 '%(redirect_title)s'已刪除"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "重定向 '%(redirect_title)s'已增加"
 

@@ -7,18 +7,20 @@
 # Benjamin Bach <benjaoming@gmail.com>, 2022
 # Mads Kronborg <madskronborg99@gmail.com>, 2018
 # MRostgaard <Mrostgaard@gmail.com>, 2019
+# MRostgaard <Mrostgaard@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Benjamin Bach <benjaoming@gmail.com>, 2022\n"
-"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/da/)\n"
-"Language: da\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -180,9 +182,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan ikke kopiere en side til sig selv når du kopierer undersider"
 
-msgid "This slug is already in use"
-msgstr "Dette slug er allerede i brug"
-
 msgid "Visibility"
 msgstr "Synlighed"
 
@@ -241,8 +240,7 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
 msgstr ""
-"Ugyldigt password reset link, formentligt fordi det allerede er blevet "
-"brugt."
+"Ugyldigt password reset link, formentligt fordi det allerede er blevet brugt."
 
 msgid "Request a new password reset"
 msgstr "Anmod om et password reset"
@@ -315,8 +313,8 @@ msgstr "Gem"
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
-"Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne"
-" side."
+"Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne "
+"side."
 
 msgid "Privacy"
 msgstr "Privatliv"
@@ -648,11 +646,11 @@ msgstr "Seneste"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "SIde '%(page_title)s' og %(subpages_count)s undersider blev kopieret."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "SIde '%(page_title)s' kopieret."
 
@@ -662,36 +660,40 @@ msgstr "Vis skitse"
 msgid "View live"
 msgstr "Vis live"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Side  '%(page_title)s' lavet."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Side '%(page_title)s' slettet."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Side '%(page_title)s' er blevet opdateret."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Side '%(page_title)s' er blevet udgivet."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Side '%(page_title)s' er blivet indsendt til moderation."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "SIde '%(page_title)s' flyttet."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "SIde '%(page_title)s' afpubliceret."
 
 msgid "Pages"
 msgstr "Sider"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Rediger '%(title)s'"
 
 msgid "Add child page"
 msgstr "Tilføj en underside"

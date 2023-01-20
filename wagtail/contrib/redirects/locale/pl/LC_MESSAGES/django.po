@@ -4,6 +4,8 @@
 #
 # Translators:
 # Dominik Lech, 2022
+# Dominik Lech, 2022
+# Łukasz Bołdys (Lukasz Boldys), 2014,2021
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
@@ -14,15 +16,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Dominik Lech, 2022\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014,2021\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Przekierowania Wagtail"
@@ -150,8 +155,7 @@ msgstr "Podsumowanie"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 "Znaleziono %(total)s przekierowań, utworzono %(successes)s i znaleziono "
 "%(errors)s błędów."
@@ -183,8 +187,8 @@ msgstr "Nie znaleziono przekierowań."
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Przepraszamy, żadne przekierowanie nie pasuje do "
-"\"<em>%(query_string)s</em>\""
+"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -197,7 +201,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Szukaj przekierowań"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Uaktualniono przekierowanie '%(redirect_title)s'."
 
@@ -207,17 +211,18 @@ msgstr "Edytuj"
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Usunięto przekierowanie '%(redirect_title)s'."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Przekierowanie '%(redirect_title)s' dodane."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "Format pliku typu \"%(extension)s\" nie jest wspierany"
 

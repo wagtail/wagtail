@@ -9,15 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/language/lt/)\n"
-"Language: lt\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Publikuoti"
@@ -213,9 +216,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
 
-msgid "This slug is already in use"
-msgstr "Šis trumpinys jau naudojamas"
-
 msgid "Visibility"
 msgstr "Matomumas"
 
@@ -286,8 +286,8 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
 msgstr ""
-"Slaptažodžio atstatymo nuoroda negaliojanti, galimai dėl to, jog ji jau buvo"
-" panaudota."
+"Slaptažodžio atstatymo nuoroda negaliojanti, galimai dėl to, jog ji jau buvo "
+"panaudota."
 
 msgid "Check your email"
 msgstr "Patikrinkite savo elektroninį paštą"
@@ -697,9 +697,9 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Antraip jūs galite <a href=\"%(unpublish_url)s\">nebepublikuoti "
-"puslapio</a>. Tai ištrina puslapį iš viešo atvaizdavimo ir jūs galite jį "
-"redaguoti arba publikuoti vėliau."
+"Antraip jūs galite <a href=\"%(unpublish_url)s\">nebepublikuoti puslapio</"
+"a>. Tai ištrina puslapį iš viešo atvaizdavimo ir jūs galite jį redaguoti "
+"arba publikuoti vėliau."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1089,11 +1089,11 @@ msgstr "Pridėti kolekciją"
 msgid "Add collection"
 msgstr "Pridėti kolekciją"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Kolekcija '%(object)s' sukurta."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Kolekcija '%(object)s' atnaujinta."
 
@@ -1103,7 +1103,7 @@ msgstr "Kolekcija negalėjo būti išsaugota dėl klaidų."
 msgid "Delete collection"
 msgstr "Ištrinti kolekciją"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kolekcija '%(object)s' ištrinta."
 
@@ -1122,13 +1122,13 @@ msgstr "Vėliausias"
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
 "Puslapis '%(page_title)s' ir  '%(subpages_count)s' vidiniai puslapiai "
 "atkopijuoti."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Puslapis '%(page_title)s' nukopijuotas."
 
@@ -1138,45 +1138,45 @@ msgstr "Žiūrėti juodraštį"
 msgid "View live"
 msgstr "Žiūrėti veikiantį"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Puslapis '%(page_title)s' sukurtas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Puslapis '%(page_title)s' sukurtas ir suplanuotas publikavimui."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Puslapis '%(page_title)s' sukurtas ir publikuotas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Puslapis '%(page_title)s' sukurtas ir pateiktas moderavimui."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Puslapis '%(page_title)s' ištrintas."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Šis puslapis laukia moderavimo"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Puslapis '%(page_title)s' buvo atnaujintas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Puslapis '%(page_title)s' buvo suplanuotas publikavimui."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Puslapis '%(page_title)s' buvo publikuotas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Puslapis '%(page_title)s' buvo pateiktas moderavimui."
 
@@ -1192,33 +1192,33 @@ msgstr "Slėpti komentavimo veiksmus"
 msgid "Page history"
 msgstr "Puslapio istorija"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Puslapis '%(page_title)s' dabar atrakintas."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Puslapis '%(page_title)s' dabar nelaukia moderavimo."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Puslapis '%(page_title)s' publikuotas."
 
 msgid "Failed to send approval notifications"
 msgstr "Nepavyko nusiųsti patvirtinimo pranešimų"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Puslapis '%(page_title)s' publikavimui atmestas."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Puslapis '%(page_title)s' buvo perkeltas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Puslapis '%(page_title)s' nebepublikuojamas."
 

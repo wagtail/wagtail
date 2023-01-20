@@ -5,21 +5,24 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2021\n"
-"Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/teams/8009/hr_HR/)\n"
-"Language: hr_HR\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
+"teams/8009/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Wagtail locales"
 msgstr "Wagtail lokaliteti"
@@ -58,11 +61,11 @@ msgstr "Upotreba"
 msgid "Add locale"
 msgstr "Dodaj lokalitet"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Lokalitet '%(object)s' je stvoren."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Lokalitet '%(object)s' je ažuriran."
 
@@ -72,7 +75,7 @@ msgstr "Nije moguće sačuvati lokalitet zbog grešaka."
 msgid "Delete locale"
 msgstr "Izbriši lokalitet"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Lokalitet '%(object)s' je izbrisan."
 

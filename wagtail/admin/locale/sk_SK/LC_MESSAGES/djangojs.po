@@ -1,15 +1,18 @@
+#
 # Translators:
-# karabellyj <jozefkarabelly@gmail.com>, 2022
 # dellax <michalnebbia@gmail.com>, 2022
 # Martin Janšto <mato@jansto.sk>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Martin Janšto <mato@jansto.sk>, 2022\n"
-"Language-Team: Slovak (Slovakia) (https://www.transifex.com/torchbox/teams/8009/sk_SK/)\n"
-"Language: sk_SK\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Slovak (Slovakia) (https://www.transifex.com/torchbox/"
+"teams/8009/sk_SK/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Close"
 msgstr "Zavrieť"

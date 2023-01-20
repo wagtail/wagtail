@@ -4,11 +4,12 @@
 #
 # Translators:
 # Chih Wang <ihcgno@icloud.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"

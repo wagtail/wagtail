@@ -5,21 +5,24 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenti"
@@ -42,6 +45,9 @@ msgstr "Uredi katerikoli dokument"
 msgid "Choose"
 msgstr "Izberite"
 
+msgid "Select documents in choosers"
+msgstr "Izberite dokumente v izbirnikih"
+
 msgid "title"
 msgstr "naziv"
 
@@ -63,11 +69,39 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumenti"
 
+msgid "Add tags to documents"
+msgstr "Dodajte oznake dokumentom"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Ali ste prepričani, da želite označiti naslednji dokument?"
+msgstr[1] "Ali ste prepričani, da želite označiti naslednja dokumenta?"
+msgstr[2] "Ali ste prepričani, da želite označiti naslednje dokumente?"
+msgstr[3] "Ali ste prepričani, da želite označiti naslednje dokumente?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Nimate dovoljenja za dodajanje oznak v ta dokument"
+msgstr[1] "Nimate dovoljenja za dodajanje oznak tema dokumentoma"
+msgstr[2] "Nimate dovoljenja za dodajanje oznak tem dokumentom"
+msgstr[3] "Nimate dovoljenja za dodajanje oznak tem dokumentom"
+
 msgid "Yes, add"
 msgstr "Da, dodaj"
 
 msgid "No, don't add"
 msgstr "Ne, ne dodaj"
+
+msgid "Add documents to collection"
+msgstr "Dodajte dokumente v zbirko"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Izbrišite 1 dokument"
+msgstr[1] "Izbrišite %(counter)s dokumenta"
+msgstr[2] "Izbrišite %(counter)s dokumente"
+msgstr[3] "Izbrišite %(counter)s dokumente"
 
 msgid "Delete documents"
 msgstr "Izbrišite dokumente"
@@ -87,6 +121,13 @@ msgstr[1] "Uporabljeno %(usage_count)s krat"
 msgstr[2] "Uporabljeno %(usage_count)s krat"
 msgstr[3] "Uporabljeno %(usage_count)s krat"
 
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Nimate dovoljenja za brisanje tega dokumenta"
+msgstr[1] "Nimate dovoljenja za brisanje teh dveh dokumentov"
+msgstr[2] "Nimate dovoljenja za brisanje teh dokumentov"
+msgstr[3] "Nimate dovoljenja za brisanje teh dokumentov"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -95,6 +136,12 @@ msgstr "Ne, ne izbriši"
 
 msgid "Latest documents"
 msgstr "Zadnji dokumenti"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "V to zbirko niste naložili nobenega dokumenta."
+
+msgid "You haven't uploaded any documents."
+msgstr "Naložili niste nobenega dokumenta."
 
 msgid "Change document:"
 msgstr "Spremeni dokument:"
@@ -140,6 +187,9 @@ msgstr "Uporaba"
 msgid "Documents"
 msgstr "Dokumenti"
 
+msgid "Select all documents in listing"
+msgstr "Izberite vse dokumente na seznamu"
+
 msgid "Title"
 msgstr "Naziv"
 
@@ -148,6 +198,9 @@ msgstr "Datoteka"
 
 msgid "Created"
 msgstr "Ustvarjeno"
+
+msgid "Select document"
+msgstr "Izberite dokument"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -176,6 +229,9 @@ msgstr "Uporabe %(title)s"
 msgid "Usage of"
 msgstr "Uporabe"
 
+msgid "Field"
+msgstr "Polje"
+
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
 
@@ -203,6 +259,9 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Prenos žal ni uspel."
 
+msgid "Document updated."
+msgstr "Dokument posodobljen."
+
 msgid "You need a password to access this document."
 msgstr "Za dostop do tega dokumenta potrebujete geslo."
 
@@ -211,6 +270,9 @@ msgstr "Dovoljenja dokumenta"
 
 msgid "Add a document permission"
 msgstr "Dodaj dovoljenje dokumenta"
+
+msgid "Tags"
+msgstr "Oznake"
 
 msgid "Tag"
 msgstr "Oznaka"
@@ -221,8 +283,14 @@ msgstr "Dodajte oznake izbranim dokumentom"
 msgid "Add to collection"
 msgstr "Dodaj v zbirko"
 
+msgid "Add selected documents to collection"
+msgstr "Dodajte izbrane dokumente v zbirko"
+
 msgid "Delete"
 msgstr "Izbriši"
+
+msgid "Delete selected documents"
+msgstr "Izbriši izbrane dokumente"
 
 msgid "Choose a document"
 msgstr "Izberite dokument"
@@ -236,14 +304,14 @@ msgstr "Uredi dokument"
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokument '%(document_title)s' dodan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenta, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument '%(document_title)s' prenesen"
 
@@ -253,9 +321,13 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' izbrisan."
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Zasebno%(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"

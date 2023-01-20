@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
@@ -11,14 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
@@ -48,11 +50,11 @@ msgstr "Alapértelmezett"
 msgid "Add site"
 msgstr "Webhely hozzáadása"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "'%(object)s' webhely létrehozva."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "'%(object)s' oldal frissítve."
 
@@ -62,7 +64,7 @@ msgstr "Az oldalt hibák miatt nem lehetett elmenteni."
 msgid "Delete site"
 msgstr "Oldal törlése"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "A(z) '%(object)s' oldal törölve lett."
 

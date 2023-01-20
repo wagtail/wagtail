@@ -5,21 +5,23 @@
 #
 # Translators:
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/torchbox/teams/8009/cs/)\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail locales"
 msgstr "Wagtail místní nastavení"
@@ -58,11 +60,11 @@ msgstr "Použití"
 msgid "Add locale"
 msgstr "Přidat místní nastavení"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Místní nastavení '%(object)s' bylo vytvořeno."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Místní nastavení '%(object)s' bylo aktualizováno."
 
@@ -72,7 +74,7 @@ msgstr "Místní nastavení nelze uložit kvůli chybám."
 msgid "Delete locale"
 msgstr "Zrušit místní nastavení"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Místní nastavení '%(object)s' bylo zrušeno."
 

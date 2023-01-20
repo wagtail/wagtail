@@ -7,18 +7,21 @@
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
 # Soft Exim, 2022
+# visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Soft Exim, 2022\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/mn/)\n"
-"Language: mn\n"
+"Last-Translator: visual, 2022\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -27,9 +30,11 @@ msgstr "Нийтлэх"
 msgid "Submit for moderation"
 msgstr "Хянуулахаар илгээсэн"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "%(task_name)s -д дахин бүртгүүлэх"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "%(workflow_name)s -д бүртгүүлэх"
 
@@ -224,8 +229,9 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Дэд хуудсуудтай хуулж байгаа үед өөрийн дэд хуудас руу хуулах боломжгүй"
 
-msgid "This slug is already in use"
-msgstr "Ийм слагтай мэдээ өмнө нь нийтлэгдсэн байна"
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "%(page_slug)s ийм нэртэй холбоос эцэг хуудсанд ашиглагдаж байна."
 
 msgid "Select a new parent for this page."
 msgstr "Энэ хуудасны эцгийг шинээр сонгох"
@@ -233,8 +239,7 @@ msgstr "Энэ хуудасны эцгийг шинээр сонгох"
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
-"Таг нь %(max_tag_length)d тэмдэгтийн урттай байхаас %(value_too_long)s "
-"байна."
+"Таг нь %(max_tag_length)d тэмдэгтийн урттай байхаас %(value_too_long)s байна."
 
 msgid "Visibility"
 msgstr "Харагдац"
@@ -248,7 +253,7 @@ msgstr "Ядаж нэг бүлэг сонгоно уу."
 msgid "All types"
 msgstr "Бүх төрөл"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
 msgstr "Энэ хуудсанд '%(workflow_name)s' ажлын урсгал оноосон байна."
 
@@ -264,12 +269,23 @@ msgstr "Даалгавар"
 msgid "1 page selected"
 msgstr "Сонгосон 1 хуудас"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s pages selected"
 msgstr "Сонгогдсон хуудас %(objects)s "
 
 msgid "All pages in listing selected"
 msgstr "Жагсаалтаас сонгосон бүх хуудас"
+
+msgid "1 document selected"
+msgstr "1 документ сонгогдсон"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)sдокумент сонгогдсон"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Дэлгэц дээрх бүх %(objects)s документыг сонгосон"
 
 msgid "Page title"
 msgstr "Хуудасны гарчиг"
@@ -500,6 +516,10 @@ msgstr "Татгалзах"
 msgid "Preview"
 msgstr "Урдчилж харах"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "%(name)s"
+
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
 
@@ -512,8 +532,26 @@ msgstr "Огноо"
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
+msgid "Your pages in a workflow"
+msgstr "Ажлын урсгал дах хуудсууд"
+
+msgid "Changes requested at"
+msgstr "Өөрчлөлт хүссэн"
+
+msgid "Awaiting"
+msgstr "Хүлээгдэж байгаа"
+
 msgid "Close"
 msgstr "Хаах"
+
+msgid "Awaiting your review"
+msgstr "Таны хүсэлт хүлээгдэж байна"
+
+msgid "Tasks"
+msgstr "Үүрэг даалгавар"
+
+msgid "Task submitted by"
+msgstr "Үүрэг даалгавар бүртгэсэн"
 
 msgid "Sign in"
 msgstr "Нэвтрэх"
@@ -525,6 +563,12 @@ msgstr "Нэвтрэх"
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Таны %(username_field)s болон нууц үг тохирохгүй байна. Дахин оролдоно уу."
+
+msgid "Forgotten password?"
+msgstr "Нууц үг марсан уу?"
+
+msgid "Remember me"
+msgstr "Сануулах"
 
 msgid "Signing in…"
 msgstr "Нэвтэрч байна..."
@@ -569,6 +613,27 @@ msgstr "Хуудсыг энд урдчилж харах боломжтой:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr " \"%(page)s\" хуудсыг хянуулахаар илгээсэн байна."
 
+msgid "New comments"
+msgstr "Шинэ сэтгэгдэл"
+
+msgid "Resolved comments"
+msgstr "Өөрчилсөн сэтгэгдэл"
+
+msgid "Deleted comments"
+msgstr "Устгасан сэтгэгдэл"
+
+msgid "New replies"
+msgstr "Шинээр хариулах"
+
+msgid "New comments:"
+msgstr "Шинэ сэтгэгдэл:"
+
+msgid "Deleted comments:"
+msgstr "Устгасан сэтгэгдэл:"
+
+msgid "New replies:"
+msgstr "Шинэ хариулт:"
+
 msgid "Page privacy"
 msgstr "Хуудасны нууцлал"
 
@@ -577,8 +642,14 @@ msgstr ""
 "Эцэг хуудас нь \"хувийн\" тохиргоотой болсон тул энэ хуудас \"хувийн\" "
 "тохиргоотой болсон."
 
+msgid "Save the page before leaving"
+msgstr "Гарахаасаа өмнө хадгална уу"
+
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
+
+msgid "Publish this version"
+msgstr "Энэ хувилбарыг нийтлэх"
 
 msgid "Saving…"
 msgstr "Хадгалж байна..."
@@ -599,6 +670,9 @@ msgstr "хуудас үүсгэх"
 msgid "Choose which type of page you'd like to create."
 msgstr "Үүсгэх хуудасныхаа төрлийг сонгоно уу."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Уучлаарай, энэ хэсэгт та хуудас үүсгэх боломжгүй"
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s-г ашиглаж буй хуудсууд"
@@ -609,8 +683,29 @@ msgstr "Үгүй, устгахгүй"
 msgid "Move"
 msgstr "Зөөх"
 
+msgid "Yes, move these pages"
+msgstr "Тийм, хуудсыг зөөх"
+
+msgid "No, don't move"
+msgstr "Үгүй, зөөхгүй"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Үүнийг нийтлэхдээ итгэлтэй байна уу?"
+
+msgid "Yes, publish"
+msgstr "Тийм, нийтлэх"
+
+msgid "No, don't publish"
+msgstr "Үгүй, нийтлэхгүй"
+
+msgid "Yes, unpublish"
+msgstr "Тийм, нийтлэхгүй"
+
 msgid "No, don't unpublish"
 msgstr "Үгүй"
+
+msgid "Yes, convert it"
+msgstr "Тийм, хөрвүүлэх"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -654,6 +749,9 @@ msgstr "Тийм, энэ хуудсыг зөө"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Энэ хуудсыг үнэхээр хандах боломжгүй болгох уу?"
+
+msgid "Publish page"
+msgstr "Хуудас нийтлэх"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -855,11 +953,11 @@ msgstr "Цуглуулга нэмэх"
 msgid "Add collection"
 msgstr "Цуглуулга нэмэх"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "'%(object)s' цуглуулга үүслээ."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "'%(object)s' цуглуулга шинэчлэгдлээ."
 
@@ -869,7 +967,7 @@ msgstr "Алдаанаас шалтгаалж цуглуулга хадгала�
 msgid "Delete collection"
 msgstr "Цуглуулгыг устгах"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "'%(object)s' цуглуулга устлаа."
 
@@ -888,12 +986,12 @@ msgstr "Хамгийн сүүлийн"
 msgid "Dashboard"
 msgstr "Хянах самбар"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
 "Хуудас '%(page_title)s' болон %(subpages_count)s дэд хуудсууд хуулагдлаа."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "'%(page_title)s' хуудас хуулагдлаа."
 
@@ -903,37 +1001,37 @@ msgstr "Ноорог харах"
 msgid "View live"
 msgstr "Нийтлэгдсэн хувилбарыг үзэх"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "'%(page_title)s' хуудас үүслээ."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "'%(page_title)s' хуудас үүсч, нийтлэгдлээ."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "'%(page_title)s' хуудас үүсч, хянуулахаар илгээгдлээ."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас үүсгэж чадсангүй"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' хуудас устлаа."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Энэ хуудас хянуулахаар хүлээгдэж байна"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "'%(page_title)s' хуудас шинэчлэгдлээ."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "'%(page_title)s' хуудас нийтлэгдлээ."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар илгээгдлээ."
 
@@ -943,38 +1041,42 @@ msgstr "Түгжигдсэн хуудсыг засах хадгалах боло
 msgid "The page could not be saved due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' хуудасны түгжээ тайлагдлаа."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "'%(page_title)s' хуудас нийтлэгдлээ."
 
 msgid "Failed to send approval notifications"
 msgstr "Зөвшөөрсөн мэдэгдэл илгээхэд алдаа гарлаа"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "'%(page_title)s' хуудас нийтлэхээс татгалзагдлаа."
 
 msgid "Failed to send rejection notifications"
 msgstr "Татгалзсан мэдэгдэл илгээхэд алдаа гарлаа"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "'%(page_title)s' хуудас зөөгдлөө."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "'%(page_title)s' хуудсыг хаалаа."
 
 msgid "Pages"
 msgstr "Хуудсууд"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' засах"
 
 msgid "Add child page"
 msgstr "Шинэ мэдээ нэмэх"

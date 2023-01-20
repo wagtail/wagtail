@@ -5,18 +5,20 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022
 # saevarom <saevar@saevar.is>, 2015,2019,2022
+# saevarom <saevar@saevar.is>, 2015,2019,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
-"Language: is_IS\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Wagtail redirects"
@@ -69,8 +71,8 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Mælt með. Varanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni"
-" (þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
+"Mælt með. Varanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni "
+"(þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
 
 msgid "redirect to a page"
 msgstr "tilvísun á síðu"
@@ -79,8 +81,8 @@ msgid "target page route"
 msgstr "slóð til að vísa á"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "Þú getur gefið upp slóð á síðuna sem þú vilt vísa á. Skildu eftir autt til "
 "að vísa á sjálfgefna slóð."
@@ -118,14 +120,13 @@ msgstr "Lesa inn tilvísanir"
 msgid ""
 "<p>Select a file where redirects are separated into rows and contains the "
 "columns representing <code>from</code> and <code>to</code> (they can be "
-"named anything).</p> <p>After submitting you will be taken to a confirmation"
-" view where you can customize your redirects before import.</p>"
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
 "<p>Veldu skrá sem er með tilvísun í hverri línu sem inniheldur dálka sem "
-"standa fyrir <code>frá</code> og <code>til</code> (þeir geta heitið hvað sem"
-" er).</p>  <p>Eftir að skráin er send inn birtist staðfestingarsíða þar sem "
-"þú getur farið yfir tilvísanirnar áður en þær eru lesnar inn.</p>"
-"            "
+"standa fyrir <code>frá</code> og <code>til</code> (þeir geta heitið hvað sem "
+"er).</p>  <p>Eftir að skráin er send inn birtist staðfestingarsíða þar sem "
+"þú getur farið yfir tilvísanirnar áður en þær eru lesnar inn.</p>            "
 
 msgid "Import"
 msgstr "Lesa inn"
@@ -170,8 +171,7 @@ msgstr "Samantekt"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 "Fann %(total)s tilvísanir, bjó til %(successes)s og fann %(errors)s villur."
 
@@ -208,8 +208,8 @@ msgstr[1] " Það eru %(counter)s niðurstöður        "
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Því miður finnast engar tilvísanir sem passa við "
-"\"<em>%(query_string)s</em>\""
+"Því miður finnast engar tilvísanir sem passa við \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Leita í tilvísunum"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Tilvísun '%(redirect_title)s' uppfærð."
 
@@ -233,11 +233,11 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Tilvísun '%(redirect_title)s' eytt."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Tilvísun '%(redirect_title)s' var bætt við."
 
@@ -245,6 +245,7 @@ msgid "The redirect could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "Skráarsnið af tegundinni \"%(extension)s\" er ekki stutt"
 

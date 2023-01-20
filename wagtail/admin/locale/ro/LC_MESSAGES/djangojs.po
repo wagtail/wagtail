@@ -1,15 +1,24 @@
+#
 # Translators:
 # Bogdan Mateescu, 2022
 # Julian C <jcuotpc@gmail.com>, 2022
+# Loic Teixeira, 2022
 # Dan Braghis, 2022
 #
 msgid ""
 msgstr ""
 "Last-Translator: Dan Braghis, 2022\n"
 "Language-Team: Romanian (https://www.transifex.com/torchbox/teams/8009/ro/)\n"
-"Language: ro\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 articol nou în acest meniu)"
+
+msgid "(New)"
+msgstr "(Nou)"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"
@@ -34,6 +43,9 @@ msgstr "Număr de caractere:"
 
 msgid "Close"
 msgstr "Închideți"
+
+msgid "Collapse all"
+msgstr "Restrânge toate"
 
 msgid "Comment"
 msgstr "Comentariu"
@@ -70,6 +82,9 @@ msgstr "Introduceți răspunsul Dvs"
 
 msgid "Error while sending preview data."
 msgstr "Eroare în timpul transmiterii datelor pentru previzualizare."
+
+msgid "Expand all"
+msgstr "Extinde toate"
 
 msgid "Focus comment"
 msgstr "Focalizează comentariu"

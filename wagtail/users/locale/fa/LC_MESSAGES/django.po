@@ -4,20 +4,22 @@
 #
 # Translators:
 # Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Amir Mahmoodi, 2022\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/fa/)\n"
-"Language: fa\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
@@ -205,8 +207,8 @@ msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند"
-" مورد اضافه کنید</a>؟"
+"هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
+"مورد اضافه کنید</a>؟"
 
 msgid "Groups"
 msgstr "گروه ها"
@@ -217,22 +219,22 @@ msgstr "افزودن گروه"
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "گروه '%(object)s' ایجاد شد."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "گروه  '%(object)s'  بروزرسانی شد."
 
 msgid "The group could not be saved due to errors."
 msgstr "به دلیل بروز خطا گروه ذخیره نشد."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "گروه '%(object)s' حذف شد."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "کاربر  '%(object)s' بروزرسانی شد."
 
@@ -243,7 +245,7 @@ msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
 msgid "Editing %(object)s"
 msgstr "ویرایش %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "کاربر '%(object)s' حذف شد."
 

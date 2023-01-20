@@ -4,23 +4,30 @@
 #
 # Translators:
 # Andrey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2015
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Влад <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Поисковое продвижение Wagtail"
@@ -54,20 +61,20 @@ msgstr ""
 "<p>Рекламные результаты поиска — это средство рекомендации определенных "
 "страниц, которые могут не занимать первые места в результатах поиска. "
 "Например, рекомендуя вашу основную страницу донатов пользователю, "
-"выполняющему поиск по менее распространенному термину "
-"«<em>пожертвование</em>».</p>"
+"выполняющему поиск по менее распространенному термину «<em>пожертвование</"
+"em>».</p>"
 
 msgid ""
-"<p>The \"Search term(s)/phrase\" field below must contain the full and exact"
-" search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from"
-" search terms that have been popular with users of your site.</p>"
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
 msgstr ""
 "<p>\"Поисковый запрос(ы)/фраза\" в поле ниже должны содержать полный и "
 "точный поисковый запрос, для которого вы хотите рекомендовать что-то, "
 "<em>включая</em> любые ошибки и опечатки, которые может допустить "
-"пользователь. Для помощи, вы можете выбрать из наиболее популярных поисковых"
-" запросов, которые совершали пользователи вашего сайта.</p>            "
+"пользователь. Для помощи, вы можете выбрать из наиболее популярных поисковых "
+"запросов, которые совершали пользователи вашего сайта.</p>            "
 
 msgid "Save"
 msgstr "Сохранить"
@@ -168,7 +175,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Продвигаемые результаты"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Подборка для '%(query)s' создана."
 
@@ -178,7 +185,7 @@ msgstr "Редактировать"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендации не были созданы из-за ошибок"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Подборка для '%(query)s' обновлена."
 

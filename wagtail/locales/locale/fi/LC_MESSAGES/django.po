@@ -5,20 +5,21 @@
 #
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail locales"
@@ -58,11 +59,11 @@ msgstr "Käyttö"
 msgid "Add locale"
 msgstr "Lisää maa-asetusto"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Maa-asetusto '%(object)s' luotu."
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Maa-asetusto '%(object)s' päivitetty."
 
@@ -72,7 +73,7 @@ msgstr "Maa-asetustoa ei voitu tallentaa virheiden vuoksi."
 msgid "Delete locale"
 msgstr "Poista maa-asetusto"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Maa-asetusto '%(object)s' poistettu."
 

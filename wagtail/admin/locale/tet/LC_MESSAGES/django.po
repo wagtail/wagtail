@@ -7,6 +7,7 @@
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
 # Mario <mario@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2019
 # Matt Westcott <matthew@torchbox.com>, 2020-2021
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019-2020
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
@@ -15,14 +16,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020-2021\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
-"Language: tet\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -84,8 +86,7 @@ msgid "Enter your %(username_field_name)s"
 msgstr "Hatama ita nia 1%(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
-msgstr ""
-"Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
+msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
 
 msgid "URL"
 msgstr "URL"
@@ -177,9 +178,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina oan sira"
-
-msgid "This slug is already in use"
-msgstr "Slug nee uza tiha ona"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -351,8 +349,8 @@ msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama"
-" ida</a>?"
+"Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
+"ida</a>?"
 
 msgid "Yes, delete"
 msgstr "Sin, hamoos"
@@ -544,8 +542,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Ita boot mos bele <a href=\"%(unpublish_url)s\">subar pajina </a>. Nee subar"
-" pajina husi publika, no ita boot bele troka ka halo publika tarde liu."
+"Ita boot mos bele <a href=\"%(unpublish_url)s\">subar pajina </a>. Nee subar "
+"pajina husi publika, no ita boot bele troka ka halo publika tarde liu."
 
 #, python-format
 msgid "Move %(title)s"
@@ -777,11 +775,11 @@ msgstr "Hatama Koleksaun"
 msgid "Add collection"
 msgstr "Hatama Koleksaun"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Koleksaun '%(object)s' kria ona."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Koleksaun '%(object)s' hadia ona."
 
@@ -791,7 +789,7 @@ msgstr "Koleksaun iha erru, labele rai"
 msgid "Delete collection"
 msgstr "Hamoos Koleksaun"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksaun '%(object)s' hamoos ona."
 
@@ -810,12 +808,16 @@ msgstr "Painel kontrolu"
 msgid "View live"
 msgstr "Haree iha situ"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Pajina '%(page_title)s' hammos ona."
 
 msgid "Pages"
 msgstr "Pajina sira"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
 
 msgid "Add child page"
 msgstr "Aumenta pajina iha okos"

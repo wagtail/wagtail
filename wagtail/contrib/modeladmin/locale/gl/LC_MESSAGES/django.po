@@ -5,19 +5,21 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/gl/)\n"
-"Language: gl\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail ModelAdmin"
@@ -46,7 +48,7 @@ msgstr "Editar"
 
 #, python-format
 msgid "Edit this %(object)s"
-msgstr "Editar esta %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -107,8 +109,8 @@ msgid ""
 "first remove references from the following objects, then try again:"
 msgstr ""
 "'%(instance_name)s' é actualmente referenciada por outros obxectos, e non "
-"pode ser eliminada sen por en perigo a integridade dos datos. Para eliminala"
-" satisfactoriamente, primeiro elimina as referencias dende os seguintes "
+"pode ser eliminada sen por en perigo a integridade dos datos. Para eliminala "
+"satisfactoriamente, primeiro elimina as referencias dende os seguintes "
 "obxectos, entón téntao de novo:"
 
 msgid "Go back to listing"
@@ -136,8 +138,7 @@ msgstr "%(result_count)s de %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
-msgstr ""
-"Síntoo, non hai %(name)s que coincidan cos teus parámetros de procura."
+msgstr "Síntoo, non hai %(name)s que coincidan cos teus parámetros de procura."
 
 msgid "Search for"
 msgstr "Procurar por"

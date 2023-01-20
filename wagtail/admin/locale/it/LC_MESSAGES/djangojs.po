@@ -1,19 +1,22 @@
+#
 # Translators:
-# Alessio Di Stasio <aledista@gmail.com>, 2022
 # Stefano Marchetto <airbatum@gmail.com>, 2022
+# Alessio Di Stasio <aledista@gmail.com>, 2022
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
-# Marco Badan <marco.badan@gmail.com>, 2022
 # gcm, 2022
+# Loic Teixeira, 2022
+# Marco Badan <marco.badan@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: gcm, 2022\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
 "Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
-"Language: it\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Add a comment"
 msgstr "Aggiungi un commento"
@@ -24,11 +27,17 @@ msgstr "Testo alternativo"
 msgid "Are you sure?"
 msgstr "Sei sicuro/a?"
 
+msgid "Blocks"
+msgstr "Blocchi"
+
 msgid "Broken link"
 msgstr "Link non funzionante"
 
 msgid "Cancel"
 msgstr "Annulla"
+
+msgid "Character count:"
+msgstr "Conteggio caratteri:"
 
 msgid "Close"
 msgstr "Chiudi"
@@ -60,11 +69,17 @@ msgstr "Modifica '%(title)s'"
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
 
+msgid "Enter your comments..."
+msgstr "Inserisci i tuoi commenti..."
+
 msgid "Focus comment"
 msgstr "Evidenzia commento"
 
 msgid "Horizontal line"
 msgstr "Linea orizzontale"
+
+msgid "Insert a block"
+msgstr "Inserisci un blocco"
 
 msgid "Line break"
 msgstr "Interruzione di linea"
@@ -136,6 +151,9 @@ msgstr "Salvataggio in corso..."
 msgid "Search"
 msgstr "Cerca"
 
+msgid "Search blocks"
+msgstr "Blocchi ricerca"
+
 msgid "See all"
 msgstr "Vedi tutto"
 
@@ -159,6 +177,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
+
+msgid "Toggle side panel"
+msgstr "Attiva/disattiva barra laterale"
 
 msgid "Toggle sidebar"
 msgstr "Attiva/disattiva barra laterale"

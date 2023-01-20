@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
-"Language: nb\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -39,14 +40,8 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Støttede formater: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
-msgstr ""
-"Ikke et støttet bildeformat. Støttede formater: %(supported_formats)s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Ikke et gyldig %s-bilde."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Ikke et støttet bildeformat. Støttede formater: %(supported_formats)s."
 
 #, python-format
 msgid ""
@@ -312,8 +307,8 @@ msgid ""
 "required."
 msgstr ""
 "Opplasting vellykket. Du kan oppdatere dette bildet me den mer passende "
-"tittel, om nødvendig. Du kan også slette bildet dersom opplastingen ikke var"
-" nødvendig."
+"tittel, om nødvendig. Du kan også slette bildet dersom opplastingen ikke var "
+"nødvendig."
 
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
@@ -354,7 +349,7 @@ msgstr "Rediger dette bildet"
 msgid "Search images"
 msgstr "Søk i bilder"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Bildet \"%(image_title)s\" er oppdatert."
 
@@ -365,15 +360,15 @@ msgid "The image could not be saved due to errors."
 msgstr "Bildet kunne ikke lagres grunnet feil."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Bildet \"%(image_title)s\" er slettet."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Bildet \"%(image_title)s\" er lagt til."
 

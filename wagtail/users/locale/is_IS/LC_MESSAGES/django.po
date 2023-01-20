@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
-"Language: is_IS\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Wagtail users"
@@ -192,8 +193,7 @@ msgstr "Eyða hóp"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
-"members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
 "Hópurinn '%(group_name)s' er með <strong>%(group_user_count)s</strong> "
 "notendur."
@@ -315,7 +315,8 @@ msgstr[1] " Það eru %(counter)s niðurstöður        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
+msgstr ""
+"Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -332,6 +333,10 @@ msgid ""
 msgstr ""
 "Það eru engir skráðir notendur.  Viltu <a "
 "href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "notandi %(id)s (eytt)"
 
 msgid "Assign role to selected users"
 msgstr "Gefa völdum notendum réttindi"
@@ -375,22 +380,22 @@ msgstr "Bæta við hóp"
 msgid "Search groups"
 msgstr "Leita í hópum"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Hópur '%(object)s' búinn til."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Hópur '%(object)s' uppfærður."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófanir"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Hópi '%(object)s' eytt."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Notandi '%(object)s' uppfærður."
 
@@ -402,7 +407,7 @@ msgstr ""
 msgid "Editing %(object)s"
 msgstr "Breyti %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Notanda '%(object)s' eytt."
 

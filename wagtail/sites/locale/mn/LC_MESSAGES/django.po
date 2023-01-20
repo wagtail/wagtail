@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/mn/)\n"
-"Language: mn\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
@@ -45,11 +46,11 @@ msgstr "Өгөгдмөл"
 msgid "Add site"
 msgstr "Сайт нэмэх"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "'%(object)s' сайт үүслээ."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Сайт '%(object)s' шинэчлэгдлээ."
 
@@ -59,7 +60,7 @@ msgstr "Дараах алдаануудаас болж сайт хадгалаг
 msgid "Delete site"
 msgstr "Сайт устгах"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "'%(object)s' сайт устлаа."
 

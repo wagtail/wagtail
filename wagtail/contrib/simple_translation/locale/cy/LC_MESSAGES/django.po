@@ -5,21 +5,23 @@
 #
 # Translators:
 # Philip Crisp, 2022
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/torchbox/teams/8009/cy/)\n"
-"Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
 
 msgid "Wagtail simple translation"
 msgstr "Cyfieithiad Wagtail syml"
@@ -33,13 +35,6 @@ msgstr "Locales"
 msgid "All child pages will be created."
 msgstr "Bydd holl dudalennau plentyn yn cael eu creu."
 
-msgid "Include subtree (%(descendant_count)s page)"
-msgid_plural "Include subtree (%(descendant_count)s pages)"
-msgstr[0] "Cynnwys is-goeden (%(descendant_count)s tudalen)"
-msgstr[1] "Cynnwys is-goeden (%(descendant_count)s tudalen)"
-msgstr[2] "Cynnwys is-goeden (%(descendant_count)s tudalen)"
-msgstr[3] "Cynnwys is-goeden (%(descendant_count)s tudalen)"
-
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
 "Some locales are disabled because some parent pages are not translated."
@@ -47,14 +42,14 @@ msgstr[0] ""
 "Mae locale wedi'i analluogi oherwydd nad yw tudalen rhiant yn cael ei "
 "chyfieithu."
 msgstr[1] ""
-"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn"
-" cael eu cyfieithu."
+"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn "
+"cael eu cyfieithu."
 msgstr[2] ""
-"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn"
-" cael eu cyfieithu."
+"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn "
+"cael eu cyfieithu."
 msgstr[3] ""
-"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn"
-" cael eu cyfieithu."
+"Mae rhai locales wedi'u hanalluogi oherwydd nad yw rhai tudalennau rhiant yn "
+"cael eu cyfieithu."
 
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
@@ -69,21 +64,23 @@ msgstr "Cyflwyno"
 msgid "Translate"
 msgstr "Cyfieithu"
 
+#. Translators: always plural
+#, python-format
 msgid "%(locales_count)s locales"
 msgstr "%(locales_count)s locales"
 
 msgid "Translate page"
 msgstr "Cyfieithu tudalen"
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' was successfully created in %(locales)s"
 msgstr "Crëwyd y dudalen '%(page_title)s' yn llwyddiannus yn %(locales)s"
 
-#, python-brace-format
+#, python-format
 msgid "Translate %(model_name)s"
 msgstr "Cyfieithu %(model_name)s"
 
-#, python-brace-format
+#, python-format
 msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
 "Wedi creu %(locales)s yn llwyddiannus ar gyfer %(model_name)s '%(object)s'"

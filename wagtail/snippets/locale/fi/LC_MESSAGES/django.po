@@ -6,20 +6,22 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Eetu Häivälä, 2016
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
-"Language: fi\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -43,12 +45,6 @@ msgstr "Poista valitut pätkät"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s-pätkä '%(object)s' poistettu."
-
-#, python-format
-msgid "%(count)d %(model_name)s deleted."
-msgid_plural "%(count)d %(model_name)s deleted."
-msgstr[0] "%(count)d %(model_name)s-pätkä poistettu."
-msgstr[1] "%(count)d %(model_name)s-pätkää poistettu."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -127,8 +123,9 @@ msgstr "Linkkipolku"
 msgid "Snippets"
 msgstr "Pätkät"
 
-msgid "New: "
-msgstr "Uusi: "
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Uusi: %(model_name)s"
 
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"

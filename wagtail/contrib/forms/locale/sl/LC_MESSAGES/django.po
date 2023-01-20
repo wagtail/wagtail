@@ -5,21 +5,24 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 # Lev Predan Kowarski <predan.kowarski@gmail.com>, 2020
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail forms"
 msgstr "Obrazci Wagtail"
@@ -75,8 +78,14 @@ msgstr "čas oddaje"
 msgid "form submission"
 msgstr "oddani obrazci"
 
+msgid "form submissions"
+msgstr "oddaje obrazcev"
+
 msgid "name"
 msgstr "ime"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Varno ime polja obrazca, oznaka pretvorjena v ascii_snake_case"
 
 msgid "label"
 msgstr "oznaka"
@@ -111,6 +120,13 @@ msgstr "Začetna stran"
 msgid "to address"
 msgstr "naslov prejemnika"
 
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Izbirno – oddani obrazci bodo poslani po e-pošti na te naslove. Več naslovov "
+"ločite z vejico."
+
 msgid "from address"
 msgstr "naslov pošiljatelja"
 
@@ -120,6 +136,13 @@ msgstr "zadeva"
 #, python-format
 msgid "%(model_name)s submissions"
 msgstr "%(model_name)s stališča"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Izbrišite podatke obrazca %(title)s"
+
+msgid "Delete form data"
+msgstr "Izbriši podatke obrazca"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -135,6 +158,9 @@ msgstr "Naziv"
 
 msgid "Origin"
 msgstr "Izvor"
+
+msgid "Delete selected submissions"
+msgstr "Izbriši izbrane oddaje"
 
 msgid "Total submissions"
 msgstr "Skupaj prispevkov"
@@ -155,8 +181,20 @@ msgstr "Prenesi XLSX"
 msgid "Download CSV"
 msgstr "Prenesi CSV"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Ni bilo nobenih predložitev '%(title)s' obrazca."
+
 msgid "Filter"
 msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Uporabi filter"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Ena oddaja je bila izbrisana."
+msgstr[1] "%(count)d prispevka sta bila izbrisana."
+msgstr[2] "%(count)d prispevkov je bilo izbrisanih."
+msgstr[3] "%(count)d prispevkov je bilo izbrisanih."

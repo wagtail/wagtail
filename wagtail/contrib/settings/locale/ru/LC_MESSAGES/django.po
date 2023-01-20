@@ -7,20 +7,23 @@
 # Anatoly <pandorinpan@gmail.com>, 2021
 # Eugene <eugene.mechanism@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Zhdan Parfenov, 2022
 # Влад <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Zhdan Parfenov, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +61,7 @@ msgid "Settings"
 msgstr "Настройки"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Эта настройка не может быть открыта так как сайт не определён."
+msgstr "Эта настройка не может быть открыта, так как сайт не определён."
 
 #, python-format
 msgid "%(setting_type)s updated."

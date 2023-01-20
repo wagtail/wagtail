@@ -5,19 +5,22 @@
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2020
 # Philip Crisp, 2022
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/cy/)\n"
-"Language: cy\n"
+"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
 
 msgid "Wagtail images"
 msgstr "Delweddau Wagtail"
@@ -38,15 +41,10 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Fformatau a gefnogir: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Nid yw'n fformat delwedd a gefnogir. Fformatau a gefnogir: "
 "%(supported_formats)s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Ddim yn ddelwedd ddilys %s."
 
 #, python-format
 msgid ""
@@ -196,8 +194,7 @@ msgstr "Ychwanegu lluniau i'r casgliad"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected "
-"collection?"
+"Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
 "Ydych chi'n siŵr eich bod am ychwanegu'r llun canlynol i'r casgliad a "
 "ddewiswyd?"
@@ -345,7 +342,8 @@ msgstr "picsel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Mae'n ddrwg gennym, dim lluniau yn cyfateb \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, dim lluniau yn cyfateb \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -410,8 +408,8 @@ msgid ""
 "required."
 msgstr ""
 "Llwytho i fyny yn llwyddiannus. Diweddarwch y llun hwn gyda theitl mwy "
-"priodol, os oes angen. Gallwch hefyd ddileu'r llun yn gyfan gwbl os nad oedd"
-" angen yr uwchlwythiad."
+"priodol, os oes angen. Gallwch hefyd ddileu'r llun yn gyfan gwbl os nad oedd "
+"angen yr uwchlwythiad."
 
 msgid "Sorry, upload failed."
 msgstr "Mae'n ddrwg gennym, ni fu modd uwchlwytho."
@@ -443,14 +441,10 @@ msgstr "Ychwanegu tagiau at y lluniau a ddewiswyd"
 #, python-format
 msgid "New tags have been added to %(num_parent_objects)d image"
 msgid_plural "New tags have been added to %(num_parent_objects)d images"
-msgstr[0] ""
-"Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
-msgstr[1] ""
-"Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
-msgstr[2] ""
-"Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
-msgstr[3] ""
-"Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
+msgstr[0] "Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
+msgstr[1] "Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
+msgstr[2] "Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
+msgstr[3] "Mae tagiau newydd wedi eu hychwanegu at %(num_parent_objects)d llun"
 
 msgid "Add to collection"
 msgstr "Ychwanegu at casgliad"
@@ -499,7 +493,7 @@ msgstr "Golygu'r llun hon"
 msgid "Search images"
 msgstr "Chwilio delweddau"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Llun '%(image_title)s' wedi'i diweddaru."
 
@@ -510,17 +504,17 @@ msgid "The image could not be saved due to errors."
 msgstr "Ni fu modd cadw'r llun oherwydd gwallau."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr ""
 "Nid oedd modd dod o hyd i'r ffeil delwedd ffynhonnell. Newidiwch y "
 "ffynhonnell neu dilëwch y ddelwedd."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Llun '%(image_title)s' wedi'i dileu."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Llun '%(image_title)s' wedi'i ychwanegu."
 

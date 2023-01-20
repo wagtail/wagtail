@@ -5,18 +5,21 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2018
 # Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
+# hanfeng <appweb.cn@gmail.com>, 2018
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2020
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>, 2020\n"
+"Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"

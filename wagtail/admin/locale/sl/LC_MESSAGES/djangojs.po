@@ -1,21 +1,46 @@
+#
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2022
-# Andrej Marsetič, 2022
+# Loic Teixeira, 2022
+# Andrej Marsetič, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2023\n"
+"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
+"sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s napaka)"
+msgstr[1] "(%(errorCount)s napaki)"
+msgstr[2] "(%(errorCount)s napak)"
+msgstr[3] "(%(errorCount)s napak)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 nov element v tem meniju)"
 
 msgid "(New)"
 msgstr "(Novo)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s napaka"
+msgstr[1] "%(num)s napaki"
+msgstr[2] "%(num)s napak"
+msgstr[3] "%(num)s napak"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s piksel"
+msgstr[1] "%(num)s piksla"
+msgstr[2] "%(num)s pikslov"
+msgstr[3] "%(num)s pikslov"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"

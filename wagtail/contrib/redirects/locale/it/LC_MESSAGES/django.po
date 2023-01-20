@@ -5,21 +5,24 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
 # Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
-"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/it/)\n"
-"Language: it\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail redirects"
 msgstr "Reindirizzi Wagtail"
@@ -82,8 +85,8 @@ msgid "target page route"
 msgstr "percorso pagina di destinazione"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "In aggiunta puoi specificare un percorso per pagina di destinazione a cui "
 "reindirizzare. Lascia vuoto per reindirizzare al percorso predefinito della "
@@ -122,8 +125,8 @@ msgstr "Importa reindirizzamenti"
 msgid ""
 "<p>Select a file where redirects are separated into rows and contains the "
 "columns representing <code>from</code> and <code>to</code> (they can be "
-"named anything).</p> <p>After submitting you will be taken to a confirmation"
-" view where you can customize your redirects before import.</p>"
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
 " <p>Seleziona un file dove i reindirizzamenti sono separati in righe e che "
 "contenga le colonne che rappresentano <code>da</code> e <code>verso</code> "
@@ -174,8 +177,7 @@ msgstr "Riepilogo"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 "Trovate %(total)s redirezioni, create %(successes)s e trovati %(errors)s "
 "errori."
@@ -214,8 +216,8 @@ msgstr[2] "Ci sono %(counter)s corrispondenze"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Spiacente, nessun reindirizzamento corrispondente a "
-"\"<em>%(query_string)s</em>\""
+"Spiacente, nessun reindirizzamento corrispondente a \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -228,7 +230,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Cerca reindirizzamenti"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Reindirizzamento '%(redirect_title)s' aggiornato."
 
@@ -238,17 +240,18 @@ msgstr "Modifica"
 msgid "The redirect could not be saved due to errors."
 msgstr "Il reindirizzamento non può essere salvato a causa di errori. "
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Reindirizzamento '%(redirect_title)s' eliminato."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Reindirizzamento '%(redirect_title)s' aggiunto."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Il reindirizzamento non può essere creato a causa di errori."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "Il formato file di tipo \"%(extension)s\" non è supportato"
 

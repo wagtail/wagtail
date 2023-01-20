@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022\n"
-"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/ca/)\n"
-"Language: ca\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -39,14 +40,9 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Formats permesos: %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "No és un format d'imatge permès. Formats permesos: %(supported_formats)s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "No és una imatge %s vàlida"
 
 #, python-format
 msgid ""
@@ -191,8 +187,7 @@ msgstr "Afegir imatges a una col·lecció"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected "
-"collection?"
+"Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
 "N'esteu segur que voleu afegir la imatge següent a la col·lecció "
 "seleccionada?"
@@ -367,9 +362,9 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Pujada finalitzada correctament. Actualitzeu aquesta imatge amb un títol més"
-" adequat, si s'escau. També podeu eliminar del tot la imatge si la pujada no"
-" era requerida."
+"Pujada finalitzada correctament. Actualitzeu aquesta imatge amb un títol més "
+"adequat, si s'escau. També podeu eliminar del tot la imatge si la pujada no "
+"era requerida."
 
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
@@ -422,7 +417,7 @@ msgstr "Editar aquesta imatge"
 msgid "Search images"
 msgstr "Cercar imatges"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imatge '%(image_title)s' actualitzada."
 
@@ -433,17 +428,17 @@ msgid "The image could not be saved due to errors."
 msgstr "No s'ha pogut desar la imatge."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr ""
-"No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la"
-" imatge."
+"No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
+"imatge."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imatge '%(image_title)s' eliminada."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imatge '%(image_title)s' afegida."
 

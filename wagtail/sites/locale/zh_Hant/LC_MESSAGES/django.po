@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail sites"
@@ -44,11 +45,11 @@ msgstr "預設"
 msgid "Add site"
 msgstr "新增站點"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "站點 '%(object)s' 已創建。"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "站點 '%(object)s' 已更新。"
 
@@ -58,7 +59,7 @@ msgstr "此站點無法儲存，出現錯誤。"
 msgid "Delete site"
 msgstr "刪除站點"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "站點 '%(object)s' 已刪除。"
 

@@ -4,8 +4,10 @@
 #
 # Translators:
 # Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
+# Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019,2022
 # Maarten Kling <kling.maarten@gmail.com>, 2018
+# Meteor0id, 2021
 # Meteor0id, 2021
 # Rob Moorman <rob@moori.nl>, 2016
 # Storm Heg <storm@stormbase.digital>, 2022
@@ -14,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2019,2022\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2016,2020\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"

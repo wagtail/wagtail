@@ -9,8 +9,10 @@
 # Éder Brito <britoederr@gmail.com>, 2021
 # Ed Wurch <ewurch@gmail.com>, 2021
 # Gilson Filho <me@gilsondev.in>, 2014
+# Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
+# Gustavo Simões, 2022
 # Gustavo Simões, 2022
 # Iuri L. Machado, 2021-2022
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
@@ -22,15 +24,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Gustavo Simões, 2022\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Last-Translator: Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>, "
+"2020\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Publish"
 msgstr "Publicar"
@@ -38,9 +43,11 @@ msgstr "Publicar"
 msgid "Submit for moderation"
 msgstr "Enviar para moderação"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "Reenviar para %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Enviar para %(workflow_name)s"
 
@@ -239,9 +246,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Você não pode copiar uma página em si mesmo ao copiar subpáginas"
 
-msgid "This slug is already in use"
-msgstr "Esse endereço já existe"
-
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -254,7 +258,7 @@ msgstr "Por favor selecione pelo menos um grupo."
 msgid "All types"
 msgstr "Todos os tipos"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
 msgstr ""
 "Esta página já possui o fluxo de trabalho '%(workflow_name)s' atribuído."
@@ -275,11 +279,11 @@ msgstr "Tarefa"
 msgid "1 page selected"
 msgstr "1 página selecionada"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s pages selected"
 msgstr "%(objects)s páginas selecionadas"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s pages on this screen selected"
 msgstr "Todas as %(objects)s páginas na tela foram selecionadas"
 
@@ -289,11 +293,11 @@ msgstr "Todas as páginas na lista foram selecionadas"
 msgid "1 document selected"
 msgstr "1 documento selecionado"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s documents selected"
 msgstr "%(objects)s documentos selecionados"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s documents on this screen selected"
 msgstr "Todos os %(objects)s documentos na tela foram selecionados"
 
@@ -303,11 +307,11 @@ msgstr "Todos os documentos na lista foram selecionados"
 msgid "1 image selected"
 msgstr "1 imagem selecionada"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s images selected"
 msgstr "%(objects)s imagens selecionadas"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s images on this screen selected"
 msgstr "Todas as %(objects)s imagens na tela foram selecionadas"
 
@@ -317,11 +321,11 @@ msgstr "Todas as imagens listadas foram selecionadas"
 msgid "1 user selected"
 msgstr "1 usuário selecionado"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s users selected"
 msgstr "%(objects)s usuários selecionados"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s users on this screen selected"
 msgstr "Todos os %(objects)s usuários selecionados na tela foram selecionados"
 
@@ -331,11 +335,11 @@ msgstr "Todos os usuários na lista foram selecionados"
 msgid "1 item selected"
 msgstr "1 item selecionado"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s items selected"
 msgstr "%(objects)s itens selecionados"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s items on this screen selected"
 msgstr "Todos os %(objects)s itens na tela foram selecionados"
 
@@ -400,8 +404,7 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
 msgstr ""
-"O link de redefinição de senha é inválido, possivelmente porque já foi "
-"usado."
+"O link de redefinição de senha é inválido, possivelmente porque já foi usado."
 
 msgid "Request a new password reset"
 msgstr "Solicitar uma nova redefinição de senha"
@@ -536,8 +539,7 @@ msgstr "Privativo"
 
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
-msgstr ""
-"Esta coleção não pode ser excluída, porque ela não está vazia. Contém:"
+msgstr "Esta coleção não pode ser excluída, porque ela não está vazia. Contém:"
 
 msgid "Name"
 msgstr "Nome"
@@ -722,16 +724,20 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A página \"%(page)s\" foi enviado para moderação"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr "A página \"%(title)s\" foi aprovada em estágio de moderação \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi aprovada em estágio de moderação \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "A página \"%(title)s\" foi aprovada em \"%(task)s\"."
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
-msgstr "A página \"%(title)s\" foi rejeitada em estágio de moderação \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi rejeitada em estágio de moderação \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1017,8 +1023,7 @@ msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
 msgstr ""
-"Tem certeza que deseja mover essa página e suas filhas dentro de "
-"'%(title)s'?"
+"Tem certeza que deseja mover essa página e suas filhas dentro de '%(title)s'?"
 
 msgid "Yes, move this page"
 msgstr "Sim, quero mover"
@@ -1519,13 +1524,15 @@ msgid "Show disabled tasks"
 msgstr "Mostrar tarefas desativadas"
 
 #, python-format
-msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nenhuma tarefa foi criada. Por que não <a href=\"%(add_url)s\">adicionar "
-"um</a>?"
+"Nenhuma tarefa foi criada. Por que não <a href=\"%(add_url)s\">adicionar um</"
+"a>?"
 
 #, python-format
-msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Não há tarefas habilitadas. Por que não <a href=\"%(add_url)s\">adicionar "
 "um</a>?"
@@ -1631,11 +1638,11 @@ msgstr "Adicionar uma coleção"
 msgid "Add collection"
 msgstr "Adicionar coleção"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Coleção '%(object)s' criada."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Coleção '%(object)s' atualizada."
 
@@ -1645,7 +1652,7 @@ msgstr "A coleção não pôde ser salvo devido a erros."
 msgid "Delete collection"
 msgstr "Remover coleção"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Coleção '%(object)s' excluída."
 
@@ -1686,8 +1693,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
 msgstr[0] ""
 "%(num_parent_objects)dpáginas e%(num_child_objects)dpágina filha foram "
 "excluídas"
@@ -1719,8 +1726,7 @@ msgstr "1 página foi publicada"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "1 página e%(num_child_objects)dpágina filha foram publicadas"
 msgstr[1] "1 página e %(num_child_objects)dpáginas filha foram publicadas"
 msgstr[2] "1 página e %(num_child_objects)dpáginas filha foram publicadas"
@@ -1734,8 +1740,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" published"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
 msgstr[0] ""
 "%(num_parent_objects)dpáginas e%(num_child_objects)dpágina filha foram "
 "publicadas"
@@ -1769,8 +1775,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
-" unpublished"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
 msgstr[0] ""
 "%(num_parent_objects)dpáginas e%(num_child_objects)dpágina filha foram "
 "despublicadas"
@@ -1781,15 +1787,15 @@ msgstr[2] ""
 "%(num_parent_objects)dpáginas e %(num_child_objects)dpáginas filha foram "
 "despublicadas"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "A página '%(page_title)s' foi convertida em uma página comum."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "Página '%(page_title)s' e %(subpages_count)s subpáginas copiadas."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Página '%(page_title)s' copiada."
 
@@ -1799,33 +1805,33 @@ msgstr "Ver rascunho"
 msgid "View live"
 msgstr "Ver online"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Página '%(page_title)s' criada."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Página '%(page_title)s' criada e programada para publicação."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Página '%(page_title)s' criada e publicada."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Página '%(page_title)s' criada e enviada para moderação."
 
 msgid "The page could not be created due to validation errors"
 msgstr "A página não pôde ser criada devido a erros de validação"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Página '%(page_title)s' excluida."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Essa página está atualmente esperando moderação"
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
@@ -1833,15 +1839,15 @@ msgstr ""
 "Página '%(page_title)s' foi substituída pela versão de "
 "%(previous_revision_datetime)s."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Página '%(page_title)s' foi atualizada."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr "O fluxo de trabalho na página '%(page_title)s' foi cancelado."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
@@ -1849,7 +1855,7 @@ msgstr ""
 "A versão de %(previous_revision_datetime)s da página '%(page_title)s' foi "
 "agendada para publicação."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
@@ -1857,23 +1863,23 @@ msgstr ""
 "A página '%(page_title)s' está ativa e esta versão foi agendada para "
 "publicação."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Página '%(page_title)s' foi agendada para publicação."
 
-#, python-brace-format
+#, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr "A versão de %(datetime)s da página '%(page_title)s' foi publicada."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Página '%(page_title)s' foi publicada."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Página '%(page_title)s' foi enviada para moderação."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "O fluxo de trabalho na página '%(page_title)s' foi reiniciado."
 
@@ -1889,37 +1895,37 @@ msgstr "Ocultar ações de comentários"
 msgid "Page history"
 msgstr "Histórico da página"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Agora a página '%(page_title)s' está desbloqueada."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "A página '%(page_title)s' não está mais esperando moderação."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Página '%(page_title)s' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Não foi possível enviar notificações de aprovação"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Página '%(page_title)s' rejeitada para publicação."
 
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar notificações de rejeição"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "O slug '%(page_slug)s' já está em uso na página pai selecionada. Certifique-"
 "se de que o slug é único e tente novamente"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Página '%(page_title)s' movida."
 
@@ -1931,11 +1937,11 @@ msgstr ""
 "Você está visualizando uma versão anterior desta página de "
 "<b>%(created_at)s</b> por %(user)s"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Página '%(page_title)s' despublicada."
 
-#, python-brace-format
+#, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
 "'%(task_name)s'."
@@ -1997,14 +2003,14 @@ msgstr "Adicionar um fluxo de trabalho"
 msgid "New workflow"
 msgstr "Novo fluxo de trabalho"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' created."
 msgstr "Fluxo de trabalho '%(object)s' criado."
 
 msgid "Editing workflow"
 msgstr "Editando fluxo de trabalho"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' updated."
 msgstr "Fluxo de trabalho '%(object)s' atualizado."
 
@@ -2017,7 +2023,7 @@ msgstr "Habilitar"
 msgid "Disable workflow"
 msgstr "Desativar fluxo de trabalho"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Fluxo de trabalho '%(object)s' desativado."
 
@@ -2026,8 +2032,8 @@ msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
-" workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
 msgstr[0] ""
 "Este fluxo de trabalho está em andamento em %(states_in_progress)d página. "
 "Desativar este fluxo de trabalho cancelará a moderação nesta página."
@@ -2038,25 +2044,25 @@ msgstr[2] ""
 "Este fluxo de trabalho está em andamento em %(states_in_progress)d páginas. "
 "Desativar este fluxo de trabalho cancelará a moderação nessas páginas."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Workflow '%(workflow_name)s' habilitado."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
 msgstr "Workflow removido da Página '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Nova tarefa de fluxo de trabalho"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' created."
 msgstr "Tarefa '%(object)s' criada."
 
 msgid "Editing workflow task"
 msgstr "Editando tarefa de fluxo de trabalho"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarefa '%(object)s' atualizada."
 
@@ -2067,33 +2073,33 @@ msgstr "Editando %(task_type)s"
 msgid "Disable task"
 msgstr "Desativar tarefa"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Tarefa '%(object)s' desativada."
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task"
-" will cause it to be skipped in the moderation workflow and not be listed "
-"for selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
 "Esta tarefa está em progresso em %(states_in_progress)dpágina. Desativar "
-"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação"
-" e não seja listada para seleção ao editar um fluxo de trabalho. "
+"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação "
+"e não seja listada para seleção ao editar um fluxo de trabalho. "
 msgstr[1] ""
 "Esta tarefa está em progresso em %(states_in_progress)dpáginas. Desativar "
-"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação"
-" e não seja listada para seleção ao editar um fluxo de trabalho. "
+"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação "
+"e não seja listada para seleção ao editar um fluxo de trabalho. "
 msgstr[2] ""
 "Esta tarefa está em progresso em %(states_in_progress)dpáginas. Desativar "
-"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação"
-" e não seja listada para seleção ao editar um fluxo de trabalho. "
+"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação "
+"e não seja listada para seleção ao editar um fluxo de trabalho. "
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Tarefa '%(task_name)s' habilitada."
 

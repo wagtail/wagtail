@@ -9,15 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/language/be/)\n"
-"Language: be\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Публікаваць"
@@ -25,9 +28,11 @@ msgstr "Публікаваць"
 msgid "Submit for moderation"
 msgstr "Адправіць на мадэрацыю"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "аднавіць %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "Адправіць у %(workflow_name)s"
 
@@ -197,11 +202,8 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
-"Вы не можаце зрабіць копію старонкі ў сябе, калі выбрана опцыя \"капіраванне"
-" падстаронак\""
-
-msgid "This slug is already in use"
-msgstr "Гэты slug ужо выкарыстоўваецца"
+"Вы не можаце зрабіць копію старонкі ў сябе, калі выбрана опцыя \"капіраванне "
+"падстаронак\""
 
 msgid "Visibility"
 msgstr "Бачнасць"
@@ -855,11 +857,11 @@ msgstr "Дадаць калекцыю"
 msgid "Add collection"
 msgstr "Дадаць калекцыю"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "Калекцыя '%(object)s' створана."
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "Калекцыя '%(object)s' абноўлена."
 
@@ -869,7 +871,7 @@ msgstr "Калекцыя не можа быць захавана з-за пам�
 msgid "Delete collection"
 msgstr "Выдаліць калекцыю"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Калекцыя '%(object)s' выдаленая."
 
@@ -888,12 +890,12 @@ msgstr "Апошні"
 msgid "Dashboard"
 msgstr "Панэль кіравання"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr ""
 "Старонка '%(page_title)s' і %(subpages_count)s падстаронак скапіравана."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Старонка '%(page_title)s' скапіявана."
 
@@ -903,45 +905,45 @@ msgstr "Глядзець чарнавік"
 msgid "View live"
 msgstr "Глядзець на сайце"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Старонка '%(page_title)s' створана."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "Старонка '%(page_title)s' створана і запланавана да публікацыі."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "Старонка '%(page_title)s' створана і апублікаваная."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Старонка '%(page_title)s' створана і адпраўлена на мадэрацыю."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Гэтая старонка не можа быць створана з-за памылак пры праверцы"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Старонка '%(page_title)s' выдаленая."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Старонка '%(page_title)s' абноўлена."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "Старонка '%(page_title)s' запланаваная да публікацыі."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "Старонка '%(page_title)s' апублікаваная."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Старонка '%(page_title)s' была адпраўлена на мадэрацыю."
 
@@ -951,41 +953,41 @@ msgstr "Старонка не можа быць захавана, таму шт�
 msgid "The page could not be saved due to validation errors"
 msgstr "Старонка не можа быць захавана з-за памылак пры праверцы"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Старонка '%(page_title)s' адмыкнутая."
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Старонка '%(page_title)s' у цяперашні час на мадэрацыі."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Старонка '%(page_title)s' апублікавана."
 
 msgid "Failed to send approval notifications"
 msgstr "Не атрымалася адправіць апавяшчэння аб пацвярджэнні"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Публікацыя старонкі '%(page_title)s' адхілена."
 
 msgid "Failed to send rejection notifications"
 msgstr "Не атрымалася адправіць апавяшчэння аб адхіленні"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
-" sure the slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
 "Слаг '%(page_slug)s' ужо выкарыстоўваецца ў абранай бацькоўскай старонцы. "
 "Пераканайцеся што слаг унікальны і паспрабуйце нанова"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Старонка '%(page_title)s' перамешчана."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Старонка '%(page_title)s' знята з публікацыі."
 

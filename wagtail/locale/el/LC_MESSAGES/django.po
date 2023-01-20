@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Dimitri Fekas, 2022
+# fekioh, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -16,14 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Dimitri Fekas, 2022\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
-"Language: el\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add Comment"
@@ -129,11 +132,11 @@ msgid "slug"
 msgstr "slug"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
-"Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ "
-"http://domain.com/blog/[my-slug]/"
+"Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
+"domain.com/blog/[my-slug]/"
 
 msgid "content type"
 msgstr "Τύπος περιεχομένου"
@@ -174,9 +177,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
-
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται ήδη"
 
 msgid "in moderation"
 msgstr "υπό έλεγχο"
@@ -288,8 +288,8 @@ msgid ""
 "it from existing workflows."
 msgstr ""
 "Εργασίες εν ενεργεία μπορούν να προστεθούν σε ροές εργασιών . Η "
-"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές εργασιών."
-"  "
+"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές "
+"εργασιών.  "
 
 msgid "tasks"
 msgstr "εργασίες"
@@ -298,8 +298,8 @@ msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
-"Ροές εργασιών εν ενεργεία μπορούν να προστεθούν σε σελίδες. Η απενεργοποίηση"
-" μιας ροής εργασιών δεν την διαγράφει από υπάρχουσες σελίδες."
+"Ροές εργασιών εν ενεργεία μπορούν να προστεθούν σε σελίδες. Η απενεργοποίηση "
+"μιας ροής εργασιών δεν την διαγράφει από υπάρχουσες σελίδες."
 
 msgid "workflows"
 msgstr "ροές εργασιών"
@@ -400,8 +400,7 @@ msgid "Log in"
 msgstr "Είσοδος"
 
 msgid "Your username and password didn't match. Please try again."
-msgstr ""
-"Το όνομα χρήστη και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+msgstr "Το όνομα χρήστη και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
 
 msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "

@@ -5,20 +5,23 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail uporabniki"
@@ -84,6 +87,9 @@ msgstr "zavrnitev objave"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Prejmi obvestilo, ko je objava strani zavrnjena"
 
+msgid "updated comments notifications"
+msgstr "posodobljena obvestila o komentarjih"
+
 msgid "preferred language"
 msgstr "Želeni jezik"
 
@@ -108,11 +114,20 @@ msgstr "uporabniški profili"
 msgid "Assign role"
 msgstr "Dodeli vlogo"
 
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Ali ste prepričani, da želite dodeliti to vlogo tem uporabnikom?"
+
 msgid "Yes, assign"
 msgstr "Da, dodeli"
 
+msgid "No, don't assign"
+msgstr "Ne, ne dodeli"
+
 msgid "Delete"
 msgstr "Izbriši"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Ali ste prepričani, da želite izbrisati te uporabnike?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -126,6 +141,15 @@ msgstr "Nastavite aktivno stanje"
 msgid "Are you sure you want to change the active state for these users?"
 msgstr ""
 "Ali ste prepričani, da želite spremeniti aktivno stanje za te uporabnike?"
+
+msgid "You cannot change your own active status"
+msgstr "Svojega statusa aktivnosti ne morete spremeniti"
+
+msgid "Yes, change state"
+msgstr "Da, spremeni stanje"
+
+msgid "No, don't change state"
+msgstr "Ne, ne spreminjaj stanja"
 
 msgid "Delete group"
 msgstr "Izbriši skupino"
@@ -145,6 +169,9 @@ msgstr "Dodaj skupino"
 
 msgid "Editing"
 msgstr "Urejanje"
+
+msgid "View users in this group"
+msgstr "Ogled uporabnikov v tej skupini"
 
 msgid "Save"
 msgstr "Shrani"
@@ -175,6 +202,10 @@ msgstr "Stran"
 
 msgid "Add a page permission"
 msgstr "Dodaj dovoljenje strani"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Nobena skupina se ne ujema z \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -233,8 +264,26 @@ msgstr "Neaktiven"
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Ni konfiguriranih uporabnikov. Zakaj jih nebi<a "
+"href=\"%(wagtailusers_add_url)s\">dodali</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "uporabnik%(id)s (izbrisan)"
+
+msgid "Assign role to selected users"
+msgstr "Dodeli vlogo izbranim uporabnikom"
+
 msgid "Delete selected users"
 msgstr "Izbriši izbrane uporabnike"
+
+msgid "Change the active state for selected users"
+msgstr "Spremenite aktivno stanje za izbrane uporabnike"
 
 msgid "Groups"
 msgstr "Skupine"
@@ -245,22 +294,22 @@ msgstr "Dodaj skupino"
 msgid "Search groups"
 msgstr "Iskanje po skupinah"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Skupina '%(object)s' ustvarjena."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Skupina '%(object)s' posodobljena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' izbrisana."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Uporabnik '%(object)s' posodobljen."
 
@@ -271,7 +320,7 @@ msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
 msgid "Editing %(object)s"
 msgstr "Urejanje %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Uporabnik '%(object)s' izbrisan."
 

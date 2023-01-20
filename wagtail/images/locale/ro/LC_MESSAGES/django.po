@@ -4,20 +4,23 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2016,2018-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dan Braghis, 2014-2016,2018-2022\n"
-"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/ro/)\n"
-"Language: ro\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 msgid "Wagtail images"
 msgstr "Imagini Wagtail"
@@ -30,29 +33,22 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Formate suportate: %(supported_formats)s. Mărime maximă: "
-"%(max_upload_size)s."
+"Formate suportate: %(supported_formats)s. Mărime maximă: %(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Formate suportate:  %(supported_formats)s."
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Format de imagine neacceptat. Formate suportate: %(supported_formats)s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Imaginea %s nu este validă."
 
 #, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"Acest fișier este prea mare (%(file_size)s). Mărime maximă: "
-"%(max_filesize)s."
+"Acest fișier este prea mare (%(file_size)s). Mărime maximă: %(max_filesize)s."
 
 #, python-format
 msgid ""
@@ -165,6 +161,13 @@ msgstr "imagine"
 msgid "images"
 msgstr "imagini"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Adaugă etichete la 1 imagine"
+msgstr[1] "Adaugă etichete la %(counter)s imagini"
+msgstr[2] "Adaugă etichete la %(counter)s imagini"
+
 msgid "Add tags to images"
 msgstr "Adaugă etichete la imagini"
 
@@ -186,19 +189,23 @@ msgstr "Da, adaugă"
 msgid "No, don't add"
 msgstr "Nu, nu adaugă"
 
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Adaugă 1 imagine la colecție nouă"
+msgstr[1] "Adaugă %(counter)s imagini la colecție nouă"
+msgstr[2] "Adaugă %(counter)s imagini la colecție nouă"
+
 msgid "Add images to collection"
 msgstr "Adaugă imagini la colecție"
 
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected "
-"collection?"
+"Are you sure you want to add the following images to the selected collection?"
 msgstr[0] "Sigur doriți să adăugați imaginea următoare la colecția selectată?"
-msgstr[1] ""
-"Sigur doriți să adăugați imaginile următoare la colecția selectată?"
-msgstr[2] ""
-"Sigur doriți să adăugați imaginile următoare la colecția selectată?"
+msgstr[1] "Sigur doriți să adăugați imaginile următoare la colecția selectată?"
+msgstr[2] "Sigur doriți să adăugați imaginile următoare la colecția selectată?"
 
 msgid "You don't have permission to add this image to a collection"
 msgid_plural "You don't have permission to add these images to a collection"
@@ -244,20 +251,63 @@ msgstr "Nu, nu șterge"
 msgid "Popular tags"
 msgstr "Etichete populare"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Încărcare reușită. Cu toate acestea, noua imagine pare a fi o copie a unei "
+"imagini existente. Puteți să o ștergeți dacă nu a fost necesară."
+
 msgid "Existing"
 msgstr "Existente"
 
 msgid "New"
 msgstr "Nou"
 
+msgid "Use new image"
+msgstr "Utilizează noua imagine"
+
+msgid "Use existing and delete new"
+msgstr "Utilizează imagea existentă și sterge imagea nouă"
+
 msgid "Latest images"
 msgstr "Imagini recente"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Nu ați încărcat nici o imagine în această colecție."
+
+msgid "You haven't uploaded any images."
+msgstr "Nu ați încărcat nici o imagine."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"De ce să nu <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>încărcați ceva acum</a>?"
 
 msgid "Choose a format"
 msgstr "Alege un format"
 
 msgid "Insert image"
 msgstr "Inserează imagine"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> imagine <span class=\"visuallyhidden\">creată în "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> imagini <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> imagini <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
@@ -274,12 +324,21 @@ msgstr "Salvează"
 msgid "Delete image"
 msgstr "Șterge imagine"
 
+msgid "Keep new image"
+msgstr "Păstrează imaginea nouă"
+
+msgid "Delete new image"
+msgstr "Șterge imaginea nouă"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editare imagine %(title)s"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Image focal point"
+msgstr "Punctul focal al imaginii"
 
 msgid "URL Generator"
 msgstr "Generator URL"
@@ -294,8 +353,8 @@ msgid ""
 "To define this image's most important region, drag a box over the image "
 "above."
 msgstr ""
-"Pentru a defini regiunea cea mai importantă a imaginii, trageți un perimetru"
-" peste imaginea de mai sus."
+"Pentru a defini regiunea cea mai importantă a imaginii, trageți un perimetru "
+"peste imaginea de mai sus."
 
 msgid "Current focal point shown"
 msgstr "Punctul focal curent este afișat"
@@ -318,11 +377,27 @@ msgstr "Utilizare"
 msgid "Images"
 msgstr "Imagini"
 
+msgid "Sort by"
+msgstr "Sortează după"
+
+msgid "Entries per page"
+msgstr "Imagini pe pagină"
+
 msgid "Popular Tags:"
 msgstr "Etichete populare:"
 
+msgid "Clear"
+msgstr "Curăță"
+
 msgid "Select all images in listing"
 msgstr "Selectează toate imaginile din listă"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Există %(counter)s potrivire"
+msgstr[1] "Sunt %(counter)s potriviri"
+msgstr[2] "Sunt %(counter)s potriviri"
 
 msgid "Select image"
 msgstr "Selectează imagine"
@@ -333,8 +408,7 @@ msgstr "pixeli"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o "
-"imagine"
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
 
 #, python-format
 msgid ""
@@ -379,6 +453,9 @@ msgstr "Utilizare"
 msgid "Title"
 msgstr "Titlu"
 
+msgid "Field"
+msgstr "Câmp"
+
 msgid "Add multiple images"
 msgstr "Adaugă mai multe imagini"
 
@@ -387,8 +464,7 @@ msgstr "Adaugă imagini"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
-"Trageți și plasați fișiere imagini în această zonă pentru încărcare "
-"imediată."
+"Trageți și plasați fișiere imagini în această zonă pentru încărcare imediată."
 
 msgid "Or choose from your computer"
 msgstr "Sau alege de pe computer"
@@ -404,6 +480,13 @@ msgstr ""
 "Încărcare de success. Dacă este necesar, actualizați această imagine cu un "
 "titlu potrivit. Puteți deasemenea să ștergeți imaginea în întregime dacă "
 "încărcarea nu a fost necesară."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Încărcare reușită. Cu toate acestea, noua imagine pare a fi o copie a "
+"acestei imagini existente. Puteți să o ștergeți dacă nu a fost necesară."
 
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."
@@ -484,10 +567,28 @@ msgstr "Alege altă imagine"
 msgid "Edit this image"
 msgstr "Editează această imagine"
 
+msgid "Newest"
+msgstr "Cea mai nouă"
+
+msgid "Oldest"
+msgstr "Cea mai veche"
+
+msgid "Title: (A -> Z)"
+msgstr "Titlu: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titlu: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Mărime fișier: (de la mică la mare)"
+
+msgid "File size: (high to low)"
+msgstr "Mărime fișier: (de la mare la mică)"
+
 msgid "Search images"
 msgstr "Caută imagini"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imaginea '%(image_title)s' a fost actualizată."
 
@@ -498,22 +599,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Imaginea nu a fost salvată din cauza erorilor."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
+"The source image file could not be found. Please change the source or delete "
+"the image."
 msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imaginea '%(image_title)s' a fost ștearsă."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imaginea '%(image_title)s' a fost adăugată."
 
 msgid "The image could not be created due to errors."
 msgstr "Imaginea nu a fost creată din cauza erorilor."
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(%(object)s privat/ă)"
 
 #, python-format
 msgid "Edit this %(object)s"

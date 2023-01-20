@@ -8,15 +8,16 @@
 # José Luis <alagunajs@gmail.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2016,2018
 # Oscar Luciano Espirilla Flores, 2020
+# Oscar Luciano Espirilla Flores, 2020
 # X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Antoni Aloy <aaloy@apsl.net>, 2022\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>, 2016,2018\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"

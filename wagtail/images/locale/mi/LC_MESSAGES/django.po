@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 13:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/mi/)\n"
-"Language: mi\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail images"
@@ -37,14 +38,9 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Pou hōputu: %(supported_formats)s. "
 
 #, python-format
-msgid ""
-"Not a supported image format. Supported formats: %(supported_formats)s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Ehara tēnei whakaahua e pou hōputu. Ngā pou hōputu: %(supported_formats)s. "
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Ehara he pono %s whakaahua."
 
 #, python-format
 msgid ""
@@ -248,18 +244,18 @@ msgstr "Tukuna atu..."
 msgid "Choose an image"
 msgstr "Kōhiti he whakaahua"
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Whakahua '%(image_title)s' kua whakahou"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Whakahua '%(image_title)s' kua mukuhia."
 
-#, python-brace-format
+#, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Whakahua '%(image_title)s' kua tāpiri."
 

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Matt Westcott <matthew@torchbox.com>, 2021
@@ -11,14 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/gl/)\n"
-"Language: gl\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -51,15 +53,15 @@ msgid ""
 "\"<em>giving</em>\".</p>"
 msgstr ""
 "<p>Os resultados de busca promocionada son unha forma de recomendar páxinas "
-"específicas que poderían non sair moi arriba de forma natural nos resultados"
-" de busca. P. ex. recomendar a túa páxina principal de doazón a un usuario "
+"específicas que poderían non sair moi arriba de forma natural nos resultados "
+"de busca. P. ex. recomendar a túa páxina principal de doazón a un usuario "
 "que busca o termo menos común \"<em>dar</em>\".</p>            "
 
 msgid ""
-"<p>The \"Search term(s)/phrase\" field below must contain the full and exact"
-" search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from"
-" search terms that have been popular with users of your site.</p>"
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
 msgstr ""
 "<p>O campo de \"termo(s)/frase de Busca\" debe conter a busca completa e "
 "exacta pola que desexas que se proporcionen os resultados recomendados, "
@@ -163,7 +165,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Procurar resultados promocionados"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Seleccións do editor para '%(query)s' creadas."
 
@@ -173,7 +175,7 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendaciones non foron creadas debido a erros"
 
-#, python-brace-format
+#, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Seleccións do editor para '%(query)s' actualizadas."
 

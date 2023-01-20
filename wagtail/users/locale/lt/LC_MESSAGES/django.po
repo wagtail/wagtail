@@ -5,19 +5,23 @@
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
 # Naglis Jonaitis, 2020,2022
+# Naglis Jonaitis, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/language/lt/)\n"
-"Language: lt\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail vartotojai"
@@ -229,22 +233,22 @@ msgstr "Pridėti grupę"
 msgid "Search groups"
 msgstr "Ieškoti grupių"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupė '%(object)s' sukurta."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Grupė '%(object)s' atnaujinta."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupė '%(object)s' ištrinta."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Vartotojas '%(object)s' atnaujintas."
 
@@ -255,7 +259,7 @@ msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 msgid "Editing %(object)s"
 msgstr "Redaguojamas %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Vartotojas '%(object)s' ištrintas."
 

@@ -7,6 +7,7 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2017
 # Iuri L. Machado, 2021
+# Iuri L. Machado, 2021
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
@@ -14,15 +15,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Iuri L. Machado, 2021\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
@@ -110,10 +113,8 @@ msgstr[2] ""
 "selecionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
-msgstr[0] ""
-"Você não tem permissão para adicionar este documento a uma coleção."
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Você não tem permissão para adicionar este documento a uma coleção."
 msgstr[1] ""
 "Você não tem permissão para adicionar estes documentos a uma coleção."
 msgstr[2] ""
@@ -338,14 +339,14 @@ msgstr "Editar este documento"
 msgid "Search documents"
 msgstr "Buscar documentos"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documento '%(document_title)s' adicionado."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' atualizado"
 
@@ -355,7 +356,7 @@ msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' apagado."
 

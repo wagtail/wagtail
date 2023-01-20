@@ -3,23 +3,27 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Dimitri Fekas, 2022
+# fekioh, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# Yiannis Inglessis <negtheone@gmail.com>, 2016
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Dimitri Fekas, 2022\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
-"Language: el\n"
+"Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
@@ -49,11 +53,11 @@ msgstr "Προεπιλογή"
 msgid "Add site"
 msgstr "Προσθήκη δικτυακού τόπου"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "Δημιουργήθηκε ο δικτυακός τόπος '%(object)s'."
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Ενημέρωση του δικτυακού τόπου '%(object)s'."
 
@@ -63,7 +67,7 @@ msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
 msgid "Delete site"
 msgstr "Διαγραφή site"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Το site '%(object)s' διαγράφηκε"
 

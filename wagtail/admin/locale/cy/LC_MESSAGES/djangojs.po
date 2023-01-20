@@ -33,6 +33,9 @@ msgstr "Dileu"
 msgid "Edit"
 msgstr "Golygu"
 
+msgid "Edit '%(title)s'"
+msgstr "Golygu '%(title)s'"
+
 msgid "Missing document"
 msgstr "Dogfen ar goll"
 

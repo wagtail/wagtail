@@ -3,22 +3,26 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# andrej55 <andrej.marsetic@gmail.com>, 2022
 # Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Wagtail preusmeritve"
@@ -80,8 +84,8 @@ msgid "target page route"
 msgstr "pot ciljne strani"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "Po želji določite pot na ciljni strani, na katero želite preusmeriti. "
 "Pustite prazno za preusmeritev na privzeto pot strani."
@@ -112,6 +116,9 @@ msgstr "Shrani"
 
 msgid "Redirects"
 msgstr "Preusmeritve"
+
+msgid "Import redirects"
+msgstr "Uvozite preusmeritve"
 
 msgid "Import"
 msgstr "preusmeri"
@@ -154,6 +161,13 @@ msgstr "Izbriši preusmeritev"
 msgid "Summary"
 msgstr "Povzetek"
 
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Našel %(total)s preusmeritev, ustvaril %(successes)s in našel %(errors)s "
+"napak."
+
 msgid "From"
 msgstr "Iz"
 
@@ -166,6 +180,9 @@ msgstr "Napaka"
 msgid "Continue"
 msgstr "Nadaljuj"
 
+msgid "Export redirects"
+msgstr "Izvozite preusmeritve"
+
 msgid "Site"
 msgstr "Spletno mesto"
 
@@ -177,7 +194,8 @@ msgstr "Preusmeritve niso bile najdene."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr "Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
+msgstr ""
+"Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -190,7 +208,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Preusmeritev '%(redirect_title)s' posodobljena."
 
@@ -200,16 +218,28 @@ msgstr "Uredi"
 msgid "The redirect could not be saved due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Preusmeritev '%(redirect_title)s' izbrisana."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Preusmeritev '%(redirect_title)s' dodana."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Uvožena datoteka ima napačno kodiranje: %(error_message)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Uvožena%(total)d preusmeritev"
+msgstr[1] "Uvoženi%(total)d preusmeritvi"
+msgstr[2] "Uvoženih %(total)d preusmeritev"
+msgstr[3] "Uvoženih %(total)d preusmeritev"
 
 msgid "Export Redirects"
 msgstr "Izvozite preusmeritve"

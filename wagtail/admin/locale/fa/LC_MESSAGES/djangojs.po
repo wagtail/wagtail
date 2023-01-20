@@ -1,15 +1,17 @@
+#
 # Translators:
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2022
 # Mostafa Heidarian <tabvar@gmail.com>, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Persian (https://www.transifex.com/torchbox/teams/8009/fa/)\n"
-"Language: fa\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Alt text"

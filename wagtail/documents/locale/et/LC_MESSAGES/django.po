@@ -4,19 +4,21 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -183,8 +185,8 @@ msgid ""
 "upload wasn't required."
 msgstr ""
 "Üleslaadimine õnnestus. Vajadusel värskendage seda dokumenti sobivama "
-"pealkirjaga. Võite ka dokumendi täielikult kustutada, kui üleslaadimist pole"
-" vaja."
+"pealkirjaga. Võite ka dokumendi täielikult kustutada, kui üleslaadimist pole "
+"vaja."
 
 msgid "Sorry, upload failed."
 msgstr "Vabandust, üleslaadimine ebaõnnestus."
@@ -213,14 +215,14 @@ msgstr "Muutke seda dokumenti"
 msgid "Search documents"
 msgstr "Dokumentide otsimine"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokument '%(document_title)s' on lisatud."
 
 msgid "The document could not be saved due to errors."
 msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumendi '%(document_title)s' värskendamine on toimunud"
 
@@ -228,7 +230,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' on kustutatud."
 

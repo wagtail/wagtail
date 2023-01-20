@@ -4,22 +4,25 @@
 #
 # Translators:
 # Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2020
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Basitlik İyidir, 2020\n"
-"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/tr/)\n"
-"Language: tr\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail users"
@@ -171,8 +174,7 @@ msgid ""
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "Herhangi bir grup ayarlanmadı. Neden <a "
-"href=\"%(wagtailusers_create_group_url)s\">bir kaç tane "
-"ayarlamıyorsunuz</a>?"
+"href=\"%(wagtailusers_create_group_url)s\">bir kaç tane ayarlamıyorsunuz</a>?"
 
 msgid "Delete user"
 msgstr "Kullanıcıyı sil"
@@ -229,22 +231,22 @@ msgstr "Bir grup ekle"
 msgid "Search groups"
 msgstr "Gruplarda ara"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "'%(object)s' grubu oluşturuldu."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "'%(object)s' grubu güncellendi."
 
 msgid "The group could not be saved due to errors."
 msgstr "Hata nedeniyle grup kaydedilemedi."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' grubu silindi."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "'%(object)s' kullanıcısı güncellendi."
 
@@ -255,7 +257,7 @@ msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
 msgid "Editing %(object)s"
 msgstr "%(object)s düzenleniyor"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "'%(object)s' kullanıcısı silindi."
 

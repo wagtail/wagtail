@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
@@ -11,15 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
-"Language: cs\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail redirects"
 msgstr "Wagtail přesměrování"
@@ -144,8 +147,7 @@ msgstr "Rekapitulace"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 "Nalezeno %(total)s přiřazení, vytvořeno %(successes)s a nalezeno %(errors)s "
 "chyb."
@@ -191,7 +193,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hledat přesměrování"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Přesměrování '%(redirect_title)s' bylo upraveno."
 
@@ -201,17 +203,18 @@ msgstr "Upravit"
 msgid "The redirect could not be saved due to errors."
 msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Přesměrování '%(redirect_title)s' bylo smazáno."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Přesměrování nelze vytvořit, zkontrolujte správné vyplnění polí."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "Formát souboru \"%(extension)s\" není podporován"
 

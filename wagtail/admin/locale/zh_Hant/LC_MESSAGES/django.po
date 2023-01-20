@@ -4,24 +4,26 @@
 #
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
-# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2019,2022
 # Chih Wang <ihcgno@icloud.com>, 2022
 # Chih Wang <ihcgno@icloud.com>, 2019
 # Chih Wang <ihcgno@icloud.com>, 2020-2021
+# Ocin Leung, 2020
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -30,9 +32,11 @@ msgstr "發佈"
 msgid "Submit for moderation"
 msgstr "提交審核"
 
+#, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "重新提交至 %(task_name)s"
 
+#, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr "提交至 %(workflow_name)s"
 
@@ -205,9 +209,6 @@ msgstr "此短標題已被其上階頁面 \"%(parent_page_title)s\" 使用。"
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在複製子頁面時不能複製當前頁面本身"
 
-msgid "This slug is already in use"
-msgstr "此短標題已被使用"
-
 msgid "Visibility"
 msgstr "可見"
 
@@ -220,7 +221,7 @@ msgstr "請至少選擇一群組。"
 msgid "All types"
 msgstr "所有類型"
 
-#, python-brace-format
+#, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
 msgstr "此頁面已指派至工作流程 '%(workflow_name)s'"
 
@@ -239,11 +240,11 @@ msgstr "作業"
 msgid "1 page selected"
 msgstr "已選擇 1 頁面"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s pages selected"
 msgstr "已選擇 %(objects)s 頁面"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s pages on this screen selected"
 msgstr "已選擇顯示範圍內所有 %(objects)s 項頁面"
 
@@ -253,11 +254,11 @@ msgstr "已選擇列表中的所有頁面"
 msgid "1 document selected"
 msgstr "已選擇 1 項文件"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s documents selected"
 msgstr "已選擇 %(objects)s 項文件"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s documents on this screen selected"
 msgstr "已選擇顯示範圍內所有 %(objects)s 項文件"
 
@@ -267,11 +268,11 @@ msgstr "已選擇列表中的所有文件"
 msgid "1 image selected"
 msgstr "已選擇 1 項圖片"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s images selected"
 msgstr "已選擇 %(objects)s 項圖片"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s images on this screen selected"
 msgstr "已選擇顯示範圍內所有 %(objects)s 項圖片"
 
@@ -281,11 +282,11 @@ msgstr "已選擇列表中的所有圖片"
 msgid "1 user selected"
 msgstr "已選擇 1 位使用者"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s users selected"
 msgstr "已選擇 %(objects)s 位使用者"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s users on this screen selected"
 msgstr "已選擇顯示範圍內所有 %(objects)s 位使用者"
 
@@ -295,11 +296,11 @@ msgstr "已選擇列表中的所有使用者"
 msgid "1 item selected"
 msgstr "已選擇 1 個項目"
 
-#, python-brace-format
+#, python-format
 msgid "%(objects)s items selected"
 msgstr "已選擇 %(objects)s 個項目"
 
-#, python-brace-format
+#, python-format
 msgid "All %(objects)s items on this screen selected"
 msgstr "已選擇顯示範圍內所有 %(objects)s 個項目"
 
@@ -479,7 +480,8 @@ msgstr "名稱"
 msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
-msgstr "沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
+msgstr ""
+"沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
 
 msgid "Yes, delete"
 msgstr "確認刪除"
@@ -641,7 +643,8 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "頁面\"%(page)s\"已提交審核"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
 
 #, python-format
@@ -649,7 +652,8 @@ msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
 
 #, python-format
@@ -713,7 +717,9 @@ msgstr "頁面 \"%(title)s\" 已於 \"%(workflow)s\" 核準"
 msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
-msgstr "頁面 \"%(title)s\" 已由 %(rejector)s 於工作流程 \"%(workflow)s\" 之 \"%(task)s\" 駁回"
+msgstr ""
+"頁面 \"%(title)s\" 已由 %(rejector)s 於工作流程 \"%(workflow)s\" 之 "
+"\"%(task)s\" 駁回"
 
 #, python-format
 msgid ""
@@ -870,7 +876,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"或者你可以 <a href=\"%(unpublish_url)s\">取消發佈此頁面</a>。此頁面將不再公開展示，稍後你可以進行編輯或者重新發佈。"
+"或者你可以 <a href=\"%(unpublish_url)s\">取消發佈此頁面</a>。此頁面將不再公開"
+"展示，稍後你可以進行編輯或者重新發佈。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -1407,11 +1414,11 @@ msgstr "新增一個集合"
 msgid "Add collection"
 msgstr "新增集合"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' created."
 msgstr "集合 '%(object)s' 已創建"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' updated."
 msgstr "集合 '%(object)s' 已更新"
 
@@ -1421,7 +1428,7 @@ msgstr "發生錯誤，無法儲存集合。"
 msgid "Delete collection"
 msgstr "刪除集合"
 
-#, python-brace-format
+#, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "集合 '%(object)s' 已刪除"
 
@@ -1446,11 +1453,11 @@ msgstr "刪除選取頁面"
 msgid "Move selected pages"
 msgstr "移動選取頁面"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
 msgstr "頁面 '%(page_title)s' 和 %(subpages_count)s 個子頁面已複製。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "頁面'%(page_title)s'已複製。"
 
@@ -1460,53 +1467,53 @@ msgstr "查看草稿"
 msgid "View live"
 msgstr "檢視線上版本"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "頁面'%(page_title)s'已創建"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr "頁面 %(page_title)s 已創建並計劃發佈中。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr "頁面'%(page_title)s'已創建並發佈。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "頁面 '%(page_title)s' 已創建並提交審核。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "驗證錯誤，頁面無法創建。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "頁面'%(page_title)s'已刪除"
 
 msgid "This page is currently awaiting moderation"
 msgstr "頁面等待審核中"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "頁面 '%(page_title)s' 已被更新。"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr "已取消頁面 '%(page_title)s' 之工作流程"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr "頁面 %(page_title)s 已預定發佈時間。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr "頁面 '%(page_title)s' 已經發佈。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "頁面 '%(page_title)s' 已提交審核。"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "已重啟頁面  '%(page_title)s' 之工作流程"
 
@@ -1522,33 +1529,33 @@ msgstr "隠藏論論動作"
 msgid "Page history"
 msgstr "頁面歷史"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "頁面 '%(page_title)s'已解鎖。"
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "頁面 '%(page_title)s'目前不在等待審核。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "頁面'%(page_title)s'已發佈"
 
 msgid "Failed to send approval notifications"
 msgstr "發送批準通知失敗。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "頁面 '%(page_title)s'審核失敗"
 
 msgid "Failed to send rejection notifications"
 msgstr "發送駁回通知失敗。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "頁面 '%(page_title)s' 已移動。"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "頁面'%(page_title)s'已取消發佈。"
 
@@ -1594,14 +1601,14 @@ msgstr "增加工作流程"
 msgid "New workflow"
 msgstr "新增工作流程"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' created."
 msgstr "已建立工作流程 '%(object)s'"
 
 msgid "Editing workflow"
 msgstr "編輯工作流程"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' updated."
 msgstr "已更新流程 '%(object)s'"
 
@@ -1614,29 +1621,29 @@ msgstr "啟用"
 msgid "Disable workflow"
 msgstr "禁用工作流程"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "已禁用工作流程 '%(object)s'"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "已啟用流程 '%(workflow_name)s'"
 
-#, python-brace-format
+#, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
 msgstr "已移除頁面 '%(page_title)s' 之工作流程"
 
 msgid "New workflow task"
 msgstr "新增工作流程作業"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' created."
 msgstr "已建立作業 '%(object)s'"
 
 msgid "Editing workflow task"
 msgstr "編輯工作流程作業"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' updated."
 msgstr "已更新作業 '%(object)s'"
 
@@ -1647,11 +1654,11 @@ msgstr "編輯 %(task_type)s"
 msgid "Disable task"
 msgstr "禁用作業"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "已禁用作業 '%(object)s'"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "已啟用作業 '%(task_name)s'"
 

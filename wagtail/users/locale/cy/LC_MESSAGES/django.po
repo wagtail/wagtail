@@ -4,19 +4,22 @@
 #
 # Translators:
 # Philip Crisp, 2022
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/cy/)\n"
-"Language: cy\n"
+"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
 
 msgid "Wagtail users"
 msgstr "Defnyddiwr Wagtail"
@@ -56,8 +59,7 @@ msgid "Administrator"
 msgstr "Gweinyddwr"
 
 msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Mae gan weinyddwyr fynediad llawn i reoli unrhyw wrthrych neu osodiad."
+msgstr "Mae gan weinyddwyr fynediad llawn i reoli unrhyw wrthrych neu osodiad."
 
 msgid "A group with that name already exists."
 msgstr "Mae grŵp gyda'r enw hwnnw eisoes yn bodoli."
@@ -288,8 +290,8 @@ msgid ""
 "The %(group_name)s group has no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Nid oes gan y grŵp  %(group_name)s unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam"
-" ddim <a href=\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
+"Nid oes gan y grŵp  %(group_name)s unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam "
+"ddim <a href=\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
 
 #, python-format
 msgid ""
@@ -331,14 +333,10 @@ msgstr "Newid y cyflwr gweithredol ar gyfer defnyddwyr dethol"
 #, python-format
 msgid "%(num_parent_objects)d user has been marked as active"
 msgid_plural "%(num_parent_objects)d users have been marked as active"
-msgstr[0] ""
-"Mae %(num_parent_objects)d defnyddiwr wedi cael eu marcio fel actif"
-msgstr[1] ""
-"Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
-msgstr[2] ""
-"Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
-msgstr[3] ""
-"Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
+msgstr[0] "Mae %(num_parent_objects)d defnyddiwr wedi cael eu marcio fel actif"
+msgstr[1] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
+msgstr[2] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
+msgstr[3] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu marcio fel actif"
 
 #, python-format
 msgid "%(num_parent_objects)d user has been marked as inactive"
@@ -357,22 +355,22 @@ msgstr "Ychwanegu grwp"
 msgid "Search groups"
 msgstr "Chwilio grwpiau"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grwp '%(object)s' wedi'i creu."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Grwp '%(object)s' wedi'i diweddaru."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nid oedd modd cadw'r grwp oherwydd gwallau."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grwp '%(object)s' wedi'i dileu."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Defnyddiwr '%(object)s' wedi'i diweddaru."
 
@@ -383,7 +381,7 @@ msgstr "Nid oedd modd cadw'r defnyddiwr oherwydd gwallau."
 msgid "Editing %(object)s"
 msgstr "Golygu %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Defnyddiwr '%(object)s' wedi'i dileu."
 

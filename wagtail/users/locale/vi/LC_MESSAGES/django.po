@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2015\n"
-"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/language/vi/)\n"
-"Language: vi\n"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
+"language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
@@ -121,22 +122,22 @@ msgstr "Tạo nhóm"
 msgid "Search groups"
 msgstr "Tìm nhóm"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Nhóm '%(object)s' đã được tạo."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Nhóm '%(object)s' đã được cập nhật."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nhóm không thể lưu vì lỗi."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Nhóm '%(object)s' đã được xoá."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Người dùng '%(object)s' đã được cập nhật."
 

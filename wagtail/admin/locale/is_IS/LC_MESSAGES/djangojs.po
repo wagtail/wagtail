@@ -1,13 +1,16 @@
+#
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
 # saevarom <saevar@saevar.is>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: saevarom <saevar@saevar.is>, 2022\n"
-"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/teams/8009/is_IS/)\n"
-"Language: is_IS\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "(%(number)s new items in this menu)"
@@ -18,11 +21,6 @@ msgstr "(1 nýr hlutur í þessari valmynd)"
 
 msgid "(New)"
 msgstr "(Nýtt)"
-
-msgid "%(num)s error"
-msgid_plural "%(num)s errors"
-msgstr[0] "%(num)s villa"
-msgstr[1] "%(num)s villur"
 
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"

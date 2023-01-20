@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
-"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/bg/)\n"
-"Language: bg\n"
+"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -60,9 +61,6 @@ msgstr "Редакция"
 
 msgid "Delete"
 msgstr "Изтрий"
-
-msgid "This slug is already in use"
-msgstr "Този слъг е вече в употреба"
 
 msgid "Page title"
 msgstr "Заглавие на Страница"
@@ -329,11 +327,11 @@ msgstr "Преглед на Чернова"
 msgid "View live"
 msgstr "Преглед на живо"
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' created."
 msgstr "Страница '%(page_title)s' е създадена."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' е изтрита."
 
@@ -343,23 +341,23 @@ msgstr "Тази страница очаква да бъде модериран�
 msgid "The page could not be saved due to validation errors"
 msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
 
-#, python-brace-format
+#, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Страница '%(page_title)s' не очаква да бъде модерирана."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' published."
 msgstr "Страница '%(page_title)s' е публикувана."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' rejected for publication."
 msgstr "Страница '%(page_title)s' отхвърлена от публикуване."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Страница '%(page_title)s' преместена."
 
-#, python-brace-format
+#, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Страница '%(page_title)s' отменена от публикуване."
 

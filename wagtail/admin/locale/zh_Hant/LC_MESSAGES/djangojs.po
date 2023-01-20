@@ -1,15 +1,18 @@
+#
 # Translators:
 # Yu Hsun Lee <andylee0914.tw@gmail.com>, 2022
 # Yeh Yen-Ke <yyken@outlook.com>, 2022
 # Brian Xu, 2022
 # Chih Wang <ihcgno@icloud.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
-"Language-Team: Chinese Traditional (https://www.transifex.com/torchbox/teams/8009/zh-Hant/)\n"
-"Language: zh-Hant\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Chinese Traditional (https://www.transifex.com/torchbox/"
+"teams/8009/zh-Hant/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"

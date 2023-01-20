@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
-"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/bg/)\n"
-"Language: bg\n"
+"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
@@ -100,7 +101,7 @@ msgstr "Активен"
 msgid "Inactive"
 msgstr "Неактивен"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Потребител '%(object)s' обновен."
 

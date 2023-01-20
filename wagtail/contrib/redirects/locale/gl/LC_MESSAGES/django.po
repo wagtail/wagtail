@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # X Bello <xbello@gmail.com>, 2022
@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/gl/)\n"
-"Language: gl\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail redirects"
@@ -82,8 +83,8 @@ msgid "target page route"
 msgstr "ruta da páxina de destino"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to"
-" redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
 msgstr ""
 "Opcionalmente especifica unha ruta na páxina de destino a que redirixir. "
 "Déixao en blanco para redirixir á páxina por defecto."
@@ -121,8 +122,8 @@ msgstr "Importar redireccións"
 msgid ""
 "<p>Select a file where redirects are separated into rows and contains the "
 "columns representing <code>from</code> and <code>to</code> (they can be "
-"named anything).</p> <p>After submitting you will be taken to a confirmation"
-" view where you can customize your redirects before import.</p>"
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
 "<p>Selecciona un arquivo no que as redireccións estén separados en filas e "
 "conteñan as columnas que representen <code>dende</code> e <code>cara</code> "
@@ -173,8 +174,7 @@ msgstr "Sumario"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s "
-"errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 "Atopáronse %(total)s redireccións, creáronse %(successes)s e atopáronse "
 "%(errors)s erros."
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Buscar redireccións"
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redirección '%(redirect_title)s' actualizada"
 
@@ -234,17 +234,18 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "A redirección non pede ser gardada debido a erros."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Redirección '%(redirect_title)s' eliminada."
 
-#, python-brace-format
+#, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirección '%(redirect_title)s' engadida."
 
 msgid "The redirect could not be created due to errors."
 msgstr "A redirección non pede ser creada debido a erros."
 
+#, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr "O formato de arquivo \"%(extension)s\" non está permitido"
 

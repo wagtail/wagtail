@@ -1,13 +1,15 @@
+#
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
 # Erlend <debcf78e@opayq.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Erlend <debcf78e@opayq.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Estonian (https://www.transifex.com/torchbox/teams/8009/et/)\n"
-"Language: et\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Alt text"

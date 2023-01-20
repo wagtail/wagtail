@@ -4,18 +4,20 @@
 #
 # Translators:
 # ime11 <pmh.yourworstnightmare@gmail.com>, 2019
+# ime11 <pmh.yourworstnightmare@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
-"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/my/)\n"
-"Language: my\n"
+"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
+"my/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: my\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail sites"
@@ -45,11 +47,11 @@ msgstr "မူလ"
 msgid "Add site"
 msgstr "ဆိုက်ထည့်ပါ"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' created."
 msgstr "'%(object)s'ဆိုက်ကို ဖန်တီးပြီးပါပြီ။"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' updated."
 msgstr "'%(object)s'ဆိုက်ကို မြှင့်တင်ပြီးပါပြီ။"
 
@@ -59,7 +61,7 @@ msgstr "အမှားအယွင်းများကြောင့် ဆ�
 msgid "Delete site"
 msgstr "ဆိုက်ကိုဖျက်သိမ်းပါ"
 
-#, python-brace-format
+#, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "'%(object)s'ဆိုက်ကို ဖျက်သိမ်းပြီးပါပြီ။"
 

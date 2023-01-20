@@ -5,11 +5,12 @@
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
 # Naglis Jonaitis, 2021
+# Naglis Jonaitis, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"

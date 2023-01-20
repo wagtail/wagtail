@@ -5,20 +5,21 @@
 #
 # Translators:
 # Awatea Randall <awatea@octave.nz>, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Maori (https://www.transifex.com/torchbox/teams/8009/mi/)\n"
-"Language: mi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail locales"
@@ -58,11 +59,11 @@ msgstr "Whakamahi"
 msgid "Add locale"
 msgstr "Tāpiri rohe"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' created."
 msgstr "Rohe '%(object)s' e hanga"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' updated."
 msgstr "Rohe '%(object)s' kua whakahou"
 
@@ -72,7 +73,7 @@ msgstr "Ehara ka taea te puritia kī te rohe nei, he raruraru "
 msgid "Delete locale"
 msgstr "Mukuhia rohe"
 
-#, python-brace-format
+#, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Rohe '%(object)s' kua mukuhia"
 
@@ -87,5 +88,5 @@ msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
 msgstr ""
-"Ehara tēnei rohe ka taea kī te muku, nōtemea e whakamahi ana ētahi whārangi,"
-" ahanoa atu ī te rohe nei"
+"Ehara tēnei rohe ka taea kī te muku, nōtemea e whakamahi ana ētahi whārangi, "
+"ahanoa atu ī te rohe nei"

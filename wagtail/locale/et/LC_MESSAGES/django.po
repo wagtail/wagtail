@@ -4,19 +4,21 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail core"
@@ -61,23 +63,16 @@ msgstr "Sisestatud parool pole õige. Palun proovi uuesti."
 msgid "Comment"
 msgstr "Kommentaar"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b> Teie </b> lukustasite <b> lehe '{}' </b> saidil <b> {} </b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b> teie </b> on <b> leht '{page_title} lukustatud </b>."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b> Lehe '{}' lukustas </b> <b> {} </b> saidil <b> {} </b>."
-
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b> Lehekülg '{page_title}' on lukus </b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "See leht ootab praegu modereerimist."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "See leht ootab <b> '{}' </b> töövoos <b> '{}' </b>."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
@@ -140,8 +135,8 @@ msgid "slug"
 msgstr "nälkjas"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g "
-"http://domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
 "Lehe nimi sellisena, nagu see URL-ides ilmub, nt http://domain.com/blog/[my-"
 "slug]/"
@@ -164,9 +159,6 @@ msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
 
 msgid "latest revision created at"
 msgstr "viimane redaktsioon loodud aadressil"
-
-msgid "This slug is already in use"
-msgstr "See nälkjas on juba kasutusel"
 
 msgid "in moderation"
 msgstr "mõõdukalt"
@@ -287,8 +279,8 @@ msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
-"Aktiivseid töövooge saab lehtedele lisada. Töövoo deaktiveerimine ei eemalda"
-" seda olemasolevatelt lehtedelt."
+"Aktiivseid töövooge saab lehtedele lisada. Töövoo deaktiveerimine ei eemalda "
+"seda olemasolevatelt lehtedelt."
 
 msgid "workflows"
 msgstr "töövood"
@@ -346,7 +338,7 @@ msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr "Lehel võib olla ainult üks pooleli või vajab muudatusi töövoo olek."
 
-#, python-brace-format
+#, python-format
 msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
 msgstr "Töövoog '%(workflow_name)s' lehel '%(page_title)s': %(status)s"
 
@@ -380,7 +372,7 @@ msgstr "valmis kell"
 msgid "finished by"
 msgstr "valmis"
 
-#, python-brace-format
+#, python-format
 msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
 msgstr ""
 "Ülesanne '%(task_name)s' lehe redaktsioonil '%(revision_info)s': %(status)s"

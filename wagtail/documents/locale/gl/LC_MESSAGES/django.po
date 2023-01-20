@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # X Bello <xbello@gmail.com>, 2022
@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/gl/)\n"
-"Language: gl\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -112,8 +113,7 @@ msgstr[1] ""
 "Seguro que queres engadir os seguintes documentos á colección seleccionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural ""
-"You don't have permission to add these documents to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Non tes permiso para engadir este documento a unha colección"
 msgstr[1] "Non tes permiso para engadir estes documentos a unha colección"
 
@@ -298,8 +298,8 @@ msgid ""
 "upload wasn't required."
 msgstr ""
 "Subido correctamente. Por favor, actualiza estes documentos con un título "
-"máis axeitado si fai falta. Tamén podes eliminar o documento por completo se"
-" non facía falta subilo."
+"máis axeitado si fai falta. Tamén podes eliminar o documento por completo se "
+"non facía falta subilo."
 
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
@@ -368,14 +368,14 @@ msgstr "Editar este documento"
 msgid "Search documents"
 msgstr "Procurar documentos"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documento '%(document_title)s' engadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento non puido ser gardado debido a erros."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' actualizado"
 
@@ -385,7 +385,7 @@ msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminado."
 

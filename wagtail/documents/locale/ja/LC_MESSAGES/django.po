@@ -5,6 +5,7 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # shuhei hirota, 2019
+# shuhei hirota, 2019
 # Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
@@ -13,14 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
-"Language: ja\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -172,7 +174,8 @@ msgid "Add documents"
 msgstr "ドキュメントを追加"
 
 msgid "Drag and drop documents into this area to upload immediately."
-msgstr "ドキュメントをここにドラッグ&ドロップするとすぐにアップロードできます。"
+msgstr ""
+"ドキュメントをここにドラッグ&ドロップするとすぐにアップロードできます。"
 
 msgid "Or choose from your computer"
 msgstr "もしくはファイルを参照"
@@ -184,7 +187,9 @@ msgid ""
 "Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
-msgstr "アップロードに成功しました。必要の際にはドキュメントを更新できます。また、アップロードする必要のないドキュメントを削除することもできます。"
+msgstr ""
+"アップロードに成功しました。必要の際にはドキュメントを更新できます。また、"
+"アップロードする必要のないドキュメントを削除することもできます。"
 
 msgid "Sorry, upload failed."
 msgstr "アップロードに失敗しました。"
@@ -216,22 +221,24 @@ msgstr "ドキュメントを編集"
 msgid "Search documents"
 msgstr "ドキュメントを検索"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "'%(document_title)s' が追加されました"
 
 msgid "The document could not be saved due to errors."
 msgstr "エラーが発生したため、ドキュメントを保存できませんでした。"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s'のドキュメントが更新されました。"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
-msgstr "ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してください。"
+msgstr ""
+"ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してくだ"
+"さい。"
 
-#, python-brace-format
+#, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s'のドキュメントを削除しました。"
 

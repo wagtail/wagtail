@@ -1,14 +1,17 @@
+#
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
 # Py Data Geek <pydatageek@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2022\n"
-"Language-Team: Turkish (Turkey) (https://www.transifex.com/torchbox/teams/8009/tr_TR/)\n"
-"Language: tr_TR\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Turkish (Turkey) (https://www.transifex.com/torchbox/"
+"teams/8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Alt text"

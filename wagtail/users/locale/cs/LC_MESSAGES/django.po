@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2022
@@ -12,15 +13,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2022\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
-"Language: cs\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail uživatelé"
@@ -261,6 +264,10 @@ msgstr ""
 "Nejsou určeni uživatelé. Pojďme <a href=\"%(wagtailusers_add_url)s\">nějaké "
 "přidat</a>?"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "uživatel %(id)s (odstraněn)"
+
 msgid "Groups"
 msgstr "Skupiny"
 
@@ -270,22 +277,22 @@ msgstr "Přidat skupinu"
 msgid "Search groups"
 msgstr "Hledat skupiny"
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' created."
 msgstr "Skupina '%(object)s' byla vytvořena."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' updated."
 msgstr "Skupina '%(object)s' byla upravena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
+#, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' byla smazána."
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Uživatel '%(object)s' byl upraven."
 
@@ -296,7 +303,7 @@ msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
 msgid "Editing %(object)s"
 msgstr "Editování %(object)s"
 
-#, python-brace-format
+#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Uživatel '%(object)s' byl smazán."
 

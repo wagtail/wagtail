@@ -1,3 +1,4 @@
+#
 # Translators:
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2022
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
@@ -8,14 +9,16 @@
 # X Bello <xbello@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
-"Language: es\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nuevos items en este menú)"
@@ -25,12 +28,6 @@ msgstr "(1 elemento nuevo en este menú)"
 
 msgid "(New)"
 msgstr "(Nuevo)"
-
-msgid "%(num)s error"
-msgid_plural "%(num)s errors"
-msgstr[0] "%(num)s error"
-msgstr[1] "%(num)s errores"
-msgstr[2] "%(num)s errores"
 
 msgid "Add a comment"
 msgstr "Añadir un comentario"
