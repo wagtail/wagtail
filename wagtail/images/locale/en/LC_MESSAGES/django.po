@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -331,15 +331,20 @@ msgstr ""
 msgid "Latest images"
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:22
+#: templates/wagtailimages/chooser/results.html:14
+#, python-format
+msgid "Select %(title)s"
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:32
 msgid "You haven't uploaded any images in this collection."
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:24
+#: templates/wagtailimages/chooser/results.html:34
 msgid "You haven't uploaded any images."
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:27
+#: templates/wagtailimages/chooser/results.html:37
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>upload one now</a>?"
@@ -369,7 +374,7 @@ msgid "Change image file:"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
-#: templates/wagtailimages/images/index.html:42
+#: templates/wagtailimages/images/index.html:26
 msgid "Add an image"
 msgstr ""
 
@@ -455,28 +460,28 @@ msgid "Usage"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:6
-#: templates/wagtailimages/images/index.html:39 wagtail_hooks.py:54
+#: templates/wagtailimages/images/index.html:23 wagtail_hooks.py:54
 #: wagtail_hooks.py:168
 msgid "Images"
 msgstr ""
 
-#: templates/wagtailimages/images/index.html:60
+#: templates/wagtailimages/images/index.html:44
 msgid "Sort by"
 msgstr ""
 
-#: templates/wagtailimages/images/index.html:69
+#: templates/wagtailimages/images/index.html:53
 msgid "Entries per page"
 msgstr ""
 
-#: templates/wagtailimages/images/index.html:81
+#: templates/wagtailimages/images/index.html:65
 msgid "Popular Tags:"
 msgstr ""
 
-#: templates/wagtailimages/images/index.html:90
+#: templates/wagtailimages/images/index.html:74
 msgid "Clear"
 msgstr ""
 
-#: templates/wagtailimages/images/index.html:99
+#: templates/wagtailimages/images/index.html:83
 msgid "Select all images in listing"
 msgstr ""
 
@@ -658,23 +663,23 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:49 views/chooser.py:301
+#: views/chooser.py:51 views/chooser.py:318
 msgid "Upload"
 msgstr ""
 
-#: views/chooser.py:50 views/chooser.py:302
+#: views/chooser.py:52 views/chooser.py:319
 msgid "Uploading…"
 msgstr ""
 
-#: views/chooser.py:300 widgets.py:15
+#: views/chooser.py:317 widgets.py:13
 msgid "Choose an image"
 msgstr ""
 
-#: views/chooser.py:303
+#: views/chooser.py:320
 msgid "Choose another image"
 msgstr ""
 
-#: views/chooser.py:304 widgets.py:17
+#: views/chooser.py:321 widgets.py:15
 msgid "Edit this image"
 msgstr ""
 
@@ -760,6 +765,6 @@ msgid_plural "%(count)s images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:16
+#: widgets.py:14
 msgid "Change image"
 msgstr ""

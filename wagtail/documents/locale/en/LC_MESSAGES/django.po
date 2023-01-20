@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,31 +23,31 @@ msgid "Wagtail documents"
 msgstr ""
 
 #: forms.py:24 templates/wagtaildocs/documents/list.html:24
-#: views/bulk_actions/add_to_collection.py:13 views/chooser.py:104
+#: views/bulk_actions/add_to_collection.py:13 views/chooser.py:102
 msgid "Collection"
 msgstr ""
 
-#: forms.py:137
+#: forms.py:138
 msgid "Add"
 msgstr ""
 
-#: forms.py:137
+#: forms.py:138
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:138 views/documents.py:144 views/documents.py:194
+#: forms.py:139 views/documents.py:144 views/documents.py:194
 msgid "Edit"
 msgstr ""
 
-#: forms.py:138
+#: forms.py:139
 msgid "Edit any document"
 msgstr ""
 
-#: forms.py:139
+#: forms.py:140
 msgid "Choose"
 msgstr ""
 
-#: forms.py:139
+#: forms.py:140
 msgid "Select documents in choosers"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgid "Change document:"
 msgstr ""
 
 #: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:29
+#: templates/wagtaildocs/documents/index.html:23
 msgid "Add a document"
 msgstr ""
 
@@ -218,11 +218,11 @@ msgstr ""
 msgid "Add document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:204
+#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:201
 msgid "Uploading…"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:203
+#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:200
 msgid "Upload"
 msgstr ""
 
@@ -261,12 +261,12 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:26 wagtail_hooks.py:60
+#: templates/wagtaildocs/documents/index.html:20 wagtail_hooks.py:60
 #: wagtail_hooks.py:140
 msgid "Documents"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:49
+#: templates/wagtaildocs/documents/index.html:43
 msgid "Select all documents in listing"
 msgstr ""
 
@@ -276,12 +276,12 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:22 views/chooser.py:99
+#: templates/wagtaildocs/documents/list.html:22 views/chooser.py:97
 msgid "File"
 msgstr ""
 
 #: templates/wagtaildocs/documents/list.html:29
-#: templates/wagtaildocs/documents/list.html:32 views/chooser.py:100
+#: templates/wagtaildocs/documents/list.html:32 views/chooser.py:98
 msgid "Created"
 msgstr ""
 
@@ -436,15 +436,15 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:202
+#: views/chooser.py:199
 msgid "Choose a document"
 msgstr ""
 
-#: views/chooser.py:205
+#: views/chooser.py:202
 msgid "Choose another document"
 msgstr ""
 
-#: views/chooser.py:206
+#: views/chooser.py:203
 msgid "Edit this document"
 msgstr ""
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/entrypoints/admin/page-editor.js:72
+#: src/entrypoints/admin/page-editor.js:74
 msgid "(%(errorCount)s error)"
 msgid_plural "(%(errorCount)s errors)"
 msgstr[0] ""
@@ -26,13 +26,13 @@ msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/sidePanel.js:136
+#: src/includes/sidePanel.js:145
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:326
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:328
 msgid "Add a comment"
 msgstr ""
 
@@ -43,10 +43,6 @@ msgstr ""
 #: src/components/CommentApp/components/Comment/index.tsx:411
 #: src/components/CommentApp/components/CommentReply/index.tsx:192
 msgid "Are you sure?"
-msgstr ""
-
-#: src/entrypoints/admin/telepath/widgets.js:349
-msgid "Blocks"
 msgstr ""
 
 #: src/components/Draftail/decorators/Link.js:26
@@ -138,20 +134,20 @@ msgstr ""
 msgid "Expand all"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:521
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:524
 #: src/entrypoints/admin/comments.js:112
 msgid "Focus comment"
 msgstr ""
 
-#: src/components/Draftail/index.js:103
+#: src/components/Draftail/index.js:151
 msgid "Horizontal line"
 msgstr ""
 
-#: src/components/Draftail/index.js:151
+#: src/components/ComboBox/ComboBox.tsx:13
 msgid "Insert a block"
 msgstr ""
 
-#: src/components/Draftail/index.js:143
+#: src/components/Draftail/index.js:191
 msgid "Line break"
 msgstr ""
 
@@ -171,8 +167,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-#: src/components/Draftail/index.js:154
-#: src/components/Draftail/index.js:161
+#: src/components/ComboBox/ComboBox.tsx:15
+#: src/components/Draftail/index.js:217
 #: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
@@ -190,6 +186,10 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
+#: src/components/Draftail/index.js:49
+msgid "Pin toolbar"
+msgstr ""
+
 #: src/components/Draftail/EditorFallback/EditorFallback.js:96
 msgid "Reload saved content"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/includes/chooserModal.js:48
+#: src/includes/chooserModal.js:47
 msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
@@ -215,10 +215,6 @@ msgstr ""
 #: src/components/CommentApp/components/CommentReply/index.tsx:161
 #: src/components/CommentApp/components/CommentReply/index.tsx:261
 msgid "Retry"
-msgstr ""
-
-#: src/entrypoints/admin/telepath/widgets.js:366
-msgid "Rich text"
 msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:318
@@ -255,9 +251,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: src/components/Draftail/index.js:152
-#: src/components/Draftail/index.js:153
-msgid "Search blocks"
+#: src/components/ComboBox/ComboBox.tsx:14
+msgid "Search options…"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:24
@@ -266,7 +261,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
-#: src/includes/chooserModal.js:58
+#: src/includes/chooserModal.js:57
 msgid "Server Error"
 msgstr ""
 
@@ -278,15 +273,19 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:241
+#: src/entrypoints/admin/telepath/widgets.js:220
 msgid "Split block"
+msgstr ""
+
+#: src/entrypoints/admin/telepath/widgets.js:329
+msgid "StreamField blocks"
 msgstr ""
 
 #: src/components/Draftail/EditorFallback/EditorFallback.js:112
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/includes/chooserModal.js:23
+#: src/includes/chooserModal.js:22
 msgid "This field is required."
 msgstr ""
 
@@ -294,8 +293,8 @@ msgstr ""
 msgid "Toggle side panel"
 msgstr ""
 
-#: src/components/Sidebar/Sidebar.tsx:188
-#: src/components/Sidebar/Sidebar.tsx:223
+#: src/components/Sidebar/Sidebar.tsx:187
+#: src/components/Sidebar/Sidebar.tsx:222
 msgid "Toggle sidebar"
 msgstr ""
 
@@ -303,10 +302,14 @@ msgstr ""
 msgid "Unfocus comment"
 msgstr ""
 
+#: src/components/Draftail/index.js:50
+msgid "Unpin toolbar"
+msgstr ""
+
 #: src/components/PageExplorer/PageExplorerItem.tsx:75
 msgid "View child pages of '%(title)s'"
 msgstr ""
 
-#: src/components/Draftail/index.js:140
+#: src/components/Draftail/index.js:188
 msgid "Write something or type ‘/’ to insert a block"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: action_menu.py:69
+#: action_menu.py:70
 #: templates/wagtailsnippets/snippets/action_menu/publish.html:4
 msgid "Publish"
 msgstr ""
 
-#: action_menu.py:79
+#: action_menu.py:83
+msgid "Submit for moderation"
+msgstr ""
+
+#: action_menu.py:111
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr ""
+
+#: action_menu.py:121
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr ""
+
+#: action_menu.py:162
+msgid "Restart workflow "
+msgstr ""
+
+#: action_menu.py:183
+msgid "Cancel workflow "
+msgstr ""
+
+#: action_menu.py:197
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:101 bulk_actions/delete.py:10 wagtail_hooks.py:69
+#: action_menu.py:221 bulk_actions/delete.py:10 wagtail_hooks.py:69
 msgid "Delete"
 msgstr ""
 
-#: action_menu.py:123
+#: action_menu.py:245
 #: templates/wagtailsnippets/snippets/action_menu/save.html:15
 msgid "Save"
 msgstr ""
 
-#: apps.py:8
+#: action_menu.py:252
+#: templates/wagtailsnippets/snippets/action_menu/locked.html:4
+msgid "Locked"
+msgstr ""
+
+#: action_menu.py:329
+#, python-format
+msgid "%(label)s and Publish"
+msgstr ""
+
+#: apps.py:9
 msgid "Wagtail snippets"
 msgstr ""
 
@@ -44,12 +76,12 @@ msgstr ""
 msgid "Delete selected snippets"
 msgstr ""
 
-#: bulk_actions/delete.py:34 views/snippets.py:509
+#: bulk_actions/delete.py:34 views/snippets.py:426
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
 
-#: bulk_actions/delete.py:40 views/snippets.py:518
+#: bulk_actions/delete.py:40 views/snippets.py:435
 #, python-format
 msgid "%(count)d %(model_name)s deleted."
 msgid_plural "%(count)d %(model_name)s deleted."
@@ -171,7 +203,7 @@ msgid "New"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:21
-#: templates/wagtailsnippets/snippets/edit.html:21
+#: templates/wagtailsnippets/snippets/edit.html:22
 msgid "Actions"
 msgstr ""
 
@@ -190,7 +222,7 @@ msgstr ""
 
 #: templates/wagtailsnippets/snippets/headers/_base_header.html:27
 #: templates/wagtailsnippets/snippets/headers/list_header.html:7
-#: views/snippets.py:82 wagtail_hooks.py:42
+#: views/snippets.py:87 wagtail_hooks.py:42
 msgid "Snippets"
 msgstr ""
 
@@ -250,7 +282,7 @@ msgid "Preview"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/revisions/_actions.html:16
-#: views/snippets.py:266 views/snippets.py:406 wagtail_hooks.py:58
+#: wagtail_hooks.py:58
 msgid "Edit"
 msgstr ""
 
@@ -301,95 +333,58 @@ msgstr ""
 msgid "Field"
 msgstr ""
 
-#: views/chooser.py:18
+#: views/chooser.py:19
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:117
+#: views/snippets.py:122
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:123
+#: views/snippets.py:128
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:221
+#: views/snippets.py:217
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:246
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr ""
-
-#: views/snippets.py:248
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr ""
-
-#: views/snippets.py:251
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr ""
-
-#: views/snippets.py:333
+#: views/snippets.py:309
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:379
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr ""
-
-#: views/snippets.py:382
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr ""
-
-#: views/snippets.py:386
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr ""
-
-#: views/snippets.py:391
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr ""
-
-#: views/snippets.py:593
+#: views/snippets.py:510
 #, python-format
 msgid "(Private %(object)s)"
 msgstr ""
 
-#: views/snippets.py:599 widgets.py:26
+#: views/snippets.py:516 widgets.py:25
 #, python-format
 msgid "Edit this %(object)s"
 msgstr ""
 
-#: views/snippets.py:634 views/snippets.py:707
+#: views/snippets.py:551 views/snippets.py:625
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:638
+#: views/snippets.py:555
 msgid "User"
 msgstr ""
 
-#: views/snippets.py:643 views/snippets.py:710
+#: views/snippets.py:560 views/snippets.py:628
 msgid "Date"
 msgstr ""
 
-#: views/snippets.py:679
+#: views/snippets.py:597
 msgid "Snippet history"
 msgstr ""
 
-#: views/snippets.py:736
+#: views/snippets.py:654
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:742
+#: views/snippets.py:660
 #, python-format
 msgid "%(model_name)s history"
 msgstr ""
@@ -404,12 +399,12 @@ msgstr ""
 msgid "Delete '%(title)s'"
 msgstr ""
 
-#: widgets.py:24
+#: widgets.py:23
 #, python-format
 msgid "Choose %(object)s"
 msgstr ""
 
-#: widgets.py:25
+#: widgets.py:24
 #, python-format
 msgid "Choose another %(object)s"
 msgstr ""
