@@ -36,3 +36,11 @@ window.addEventListener('load', () => {
   initAnchoredPanels();
   initMinimap();
 });
+
+/**
+ * When search results are successful, reinitialise widgets
+ * that could be inside the newly injected DOM.
+ */
+window.addEventListener('w-swap:success', () => {
+  initTooltips(); // reinitialise any tooltips
+});
