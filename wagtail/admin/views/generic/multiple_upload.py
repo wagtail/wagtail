@@ -171,6 +171,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
         # actual rendering of forms will happen on AJAX POST rather than here
         upload_form_class = self.get_upload_form_class()
         self.form = upload_form_class(user=self.request.user)
+        selected_collection_id = self.request.GET.get("collection_id")
 
         collections = self.permission_policy.collections_user_has_permission_for(
             self.request.user, "add"
@@ -184,6 +185,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
                 "help_text": self.form.fields["file"].help_text,
                 "collections": collections,
                 "form_media": self.form.media,
+                "selected_collection_id": selected_collection_id,
             }
         )
 

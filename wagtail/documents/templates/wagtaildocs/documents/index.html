@@ -38,7 +38,7 @@
         {% endif %}
 
         <div id="document-results" class="documents">
-            {% include "wagtaildocs/documents/results.html" %}
+            {% include "wagtaildocs/documents/results.html" with querystring=querystring %}
         </div>
     </div>
     {% trans "Select all documents in listing" as select_all_text %}

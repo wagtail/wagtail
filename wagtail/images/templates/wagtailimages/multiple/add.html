@@ -29,7 +29,7 @@
                     {% field label_text=label_text id_for_label="id_addimage_collection" classname="w-mx-auto w-mt-4 w-grid w-justify-center" %}
                         <select id="id_addimage_collection" name="collection">
                             {% for pk, display_name in collections.get_indented_choices %}
-                                <option value="{{ pk|unlocalize }}">
+                                <option value="{{ pk|unlocalize }}"{% if pk|unlocalize == selected_collection_id %} selected{% endif %} >
                                     {{ display_name }}
                                 </option>
                             {% endfor %}

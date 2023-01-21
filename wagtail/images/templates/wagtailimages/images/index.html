@@ -79,7 +79,7 @@
         </form>
 
         <div id="image-results">
-            {% include "wagtailimages/images/results.html" %}
+            {% include "wagtailimages/images/results.html" with querystring=querystring %}
         </div>
         {% trans "Select all images in listing" as select_all_text %}
         {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=images parent=current_collection.id %}
