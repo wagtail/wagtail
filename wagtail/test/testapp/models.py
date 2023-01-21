@@ -2055,3 +2055,14 @@ class GalleryPageImage(Orderable):
         on_delete=models.CASCADE,
         related_name="+",
     )
+
+
+class GenericSnippetNoIndexPage(GenericSnippetPage):
+    wagtail_reference_index_ignore = True
+
+
+class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
+    snippet_content_type_nonindexed = models.ForeignKey(
+        ContentType, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
