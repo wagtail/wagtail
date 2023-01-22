@@ -300,57 +300,6 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 
 Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable).
 
-(inline_panels)=
-
-## Inline Panels and Model Clusters
-
-The `django-modelcluster` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called `ParentalKey`. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via `ParentalKey` can be created on-the-fly and saved to a draft revision of a `Page` object.
-
-Let's look at the example of adding related links to a [`Page`](wagtail.models.Page)-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
-
-```python
-from wagtail.models import Orderable, Page
-from modelcluster.fields import ParentalKey
-
-# The abstract model for related links, complete with panels
-class RelatedLink(models.Model):
-    title = models.CharField(max_length=255)
-    link_external = models.URLField("External link", blank=True)
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('link_external'),
-    ]
-
-    class Meta:
-        abstract = True
-
-# The real model which combines the abstract model, an
-# Orderable helper class, and what amounts to a ForeignKey link
-# to the model we want to add related links to (BookPage)
-class BookPageRelatedLinks(Orderable, RelatedLink):
-    page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='related_links')
-
-class BookPage(Page):
-    # ...
-
-    content_panels = Page.content_panels + [
-        InlinePanel('related_links', heading="Related Links", label="Related link"),
-    ]
-```
-
-The `RelatedLink` class is a vanilla Django abstract model. The `BookPageRelatedLinks` model extends it with capability for being ordered in the Wagtail interface via the `Orderable` class as well as adding a `page` property which links the model to the `BookPage` model we're adding the related links objects to. Finally, in the panel definitions for `BookPage`, we'll add an [`InlinePanel`](wagtail.admin.panels.InlinePanel) to provide an interface for it all. Let's look again at the parameters that [`InlinePanel`](wagtail.admin.panels.InlinePanel) accepts:
-
-```python
-InlinePanel(relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None)
-```
-
-The `relation_name` is the `related_name` label given to the cluster's `ParentalKey` relation. You can add the `panels` manually or make them part of the cluster model. `heading` and `help_text` provide a heading and caption, respectively, for the Wagtail editor. `label` sets the text on the add button and child panels, and is used as the heading when `heading` is not present. Finally, `min_num` and `max_num` allow you to set the minimum/maximum number of forms that the user must submit.
-
-For another example of using model clusters, see {ref}`tagging`.
-
-For more on `django-modelcluster`, visit
-[the django-modelcluster github project page](https://github.com/wagtail/django-modelcluster)
 
 (multiple_chooser_panel)=
 
