@@ -84,9 +84,40 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 .. class:: InlinePanel(relation_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
-```
 
-This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of `InlinePanel`, see {ref}`inline_panels`.
+    .. attribute:: InlinePanel.relation_name
+
+        The related_name label given to the cluster’s ParentalKey relation.
+
+    .. attribute:: InlinePanel.panels (optional)
+
+        The list of panels that will make up the child object's form. If not specified here, the `panels` definition on the child model will be used.
+
+    .. attribute:: InlinePanel.classname (optional)
+
+        A class to apply to the InlinePanel as a whole.
+
+    .. attribute:: InlinePanel.heading
+
+        A heading for the panel in the Wagtail editor.
+
+    .. attribute:: InlinePanel.label
+
+        Text for the add button and heading for child panels. Used as the heading when ``heading`` is not present.
+
+    .. attribute:: InlinePanel.help_text (optional)
+
+        Help text to be displayed in the Wagtail editor.
+
+    .. attribute:: InlinePanel.min_num (optional)
+
+        Minimum number of forms a user must submit.
+
+    .. attribute:: InlinePanel.max_num (optional)
+
+        Maximum number of forms a user must submit.
+
+```
 
 #### Collapsing InlinePanels to save space
 
