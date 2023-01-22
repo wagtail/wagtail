@@ -370,6 +370,34 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
+In the above example, the `BlogPageRelatedLink` model can also be refactored into an abstract model:
+
+```python
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.models import Orderable
+
+# The abstract model for related links, complete with panels
+class RelatedLink(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.URLField()
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('url'),
+    ]
+
+    class Meta:
+        abstract = True
+
+# The real model which combines the abstract model
+class BlogPageRelatedLink(Orderable,RelatedLink):
+    page = ParentalKey("wagtailcore.Page", on_delete=models.CASCADE, related_name='related_links')
+
+```
+
+Notice the change of `ParentalKey` to `"wagtailcore.Page"` model. The `related_links` relation will be set up on the base Page model, which means it will be available on all page types. Most likely we don't want to use it on all page types (for example, related links are not very useful on a homepage).
+
 To add this to the admin interface, use the {class}`~wagtail.admin.panels.InlinePanel` edit panel class:
 
 ```python
