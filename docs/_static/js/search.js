@@ -234,17 +234,17 @@ function displayPagination(page, totalPages) {
     if (flag === true) {
       if (page > 0) {
         pagination
-          .querySelector('.pagination-previous')
+          .querySelector('[data-pagination-previous]')
           .removeEventListener('click', runPreviousPage);
         pagination
-          .querySelector('.pagination-next')
+          .querySelector('[data-pagination-next]')
           .removeEventListener('click', runNextPage);
       }
       pagination
-        .querySelector('.pagination-previous')
+        .querySelector('[data-pagination-previous]')
         .addEventListener('click', runPreviousPage);
       pagination
-        .querySelector('.pagination-next')
+        .querySelector('[data-pagination-next]')
         .addEventListener('click', runNextPage);
     }
 
