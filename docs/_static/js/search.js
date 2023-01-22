@@ -209,7 +209,8 @@ function displayPagination(page, totalPages) {
 
   pagination.querySelector('[data-pagination-previous]').hidden = false;
   pagination.querySelector('[data-pagination-previous]').hidden = page === 0;
-  pagination.querySelector('[data-pagination-next]').hidden = page === totalPages - 1;
+  pagination.querySelector('[data-pagination-next]').hidden =
+    page === totalPages - 1;
 
   const toBeDisplayed = 7;
   const [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed);
