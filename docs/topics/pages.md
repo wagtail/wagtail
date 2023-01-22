@@ -381,6 +381,7 @@ content_panels = [
 ```
 
 The first argument must match the value of the `related_name` attribute of the `ParentalKey`.
+For a brief description of parameters taken by `InlinePanel`, see [Inline Panel](https://docs.wagtail.org/en/latest/reference/pages/panels.html#inlinepanel) 
 
 ## Working with pages
 
