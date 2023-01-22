@@ -204,12 +204,12 @@ function runNextPage() {
 }
 // eslint-disable-next-line
 function displayPagination(page, totalPages) {
-  const pagination = document.querySelector('#pagination');
-  const paginationList = pagination.querySelector('.pagination-list');
+  const pagination = document.querySelector('[data-pagination]');
+  const paginationList = pagination.querySelector('[data-pagination-list]');
 
-  pagination.querySelector('.pagination-previous').hidden = false;
-  pagination.querySelector('.pagination-previous').hidden = page === 0;
-  pagination.querySelector('.pagination-next').hidden = page === totalPages - 1;
+  pagination.querySelector('[data-pagination-previous]').hidden = false;
+  pagination.querySelector('[data-pagination-previous]').hidden = page === 0;
+  pagination.querySelector('[data-pagination-next]').hidden = page === totalPages - 1;
 
   const toBeDisplayed = 7;
   const [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed);
