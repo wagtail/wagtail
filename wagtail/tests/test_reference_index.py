@@ -7,15 +7,17 @@ from django.test import TestCase
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, ReferenceIndex
+from wagtail.models.reference_index import compile_ignore_list
 from wagtail.test.testapp.models import (
     EventPage,
     EventPageCarouselItem,
     GenericSnippetPage,
     ModelWithNullableParentalKey,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestCreateOrUpdateForObject(TestCase):
+class TestCreateOrUpdateForObject(WagtailTestUtils, TestCase):
     def setUp(self):
         image_model = get_image_model()
         self.image_content_type = ContentType.objects.get_for_model(image_model)
@@ -192,6 +194,145 @@ class TestCreateOrUpdateForObject(TestCase):
 
         refs = ReferenceIndex.get_references_to(self.event_page)
         self.assertEqual(refs.count(), 1)
+
+    def test_hook_module_index_ignore_generic_foreign_key(self):
+        def reference_index_ignore(ignore_list):
+            ignore_list.extend(
+                [
+                    "tests",
+                ]
+            )
+            return ignore_list
+
+        refs = ReferenceIndex.get_references_to(self.test_image_1)
+        self.assertEqual(refs.count(), 2)
+
+        with self.register_hook(
+            "register_reference_index_ignore", reference_index_ignore
+        ):
+            # Now force evaluation of the ignore list
+            compile_ignore_list()
+
+            # Add another copy of the image
+            self.event_page.carousel_items.add(
+                EventPageCarouselItem(
+                    caption="1234567", image=self.test_image_1, sort_order=4
+                )
+            )
+            self.event_page.save()
+
+        # Reset the ignore list
+        compile_ignore_list()
+
+        # There should be no more references
+        refs = ReferenceIndex.get_references_to(self.test_image_1)
+        self.assertEqual(refs.count(), 2)
+
+    def test_hook_model_index_ignore_generic_foreign_key(self):
+        def reference_index_ignore(ignore_list):
+            ignore_list.extend(
+                [
+                    "tests.genericsnippetpage",
+                ]
+            )
+            return ignore_list
+
+        with self.register_hook(
+            "register_reference_index_ignore", reference_index_ignore
+        ):
+            # Force evaluation of the ignore list
+            compile_ignore_list()
+
+            page1 = GenericSnippetPage(
+                title="generic snippet page", snippet_content_object=self.event_page
+            )
+            self.root_page.add_child(instance=page1)
+
+        # Reset the ignore list
+        compile_ignore_list()
+
+        # There should be no references
+        refs = ReferenceIndex.get_references_to(self.event_page)
+        self.assertEqual(refs.count(), 0)
+
+    def test_hook_model_index_ignore_related_model(self):
+        def reference_index_ignore_contenttype(ignore_list):
+            ignore_list.extend(
+                [
+                    "wagtailimages.image",
+                ]
+            )
+            return ignore_list
+
+        with self.register_hook(
+            "register_reference_index_ignore",
+            reference_index_ignore_contenttype,
+        ):
+            compile_ignore_list()
+
+            self.event_page.carousel_items.add(
+                EventPageCarouselItem(
+                    caption="1234567", image=self.test_image_1, sort_order=4
+                )
+            )
+            self.event_page.save()
+
+            # There should be no references to the image
+            refs = ReferenceIndex.get_references_to(self.test_image_1)
+            self.assertEqual(refs.count(), 0)
+
+    def test_hook_model_index_ignore_warnings_1(self):
+        def reference_index_ignore_genericsnippetpage_extra(ignore_list):
+            ignore_list.extend(
+                [
+                    "tests.genericsnippetpage.extra",
+                ]
+            )
+            return ignore_list
+
+        with self.register_hook(
+            "register_reference_index_ignore",
+            reference_index_ignore_genericsnippetpage_extra,
+        ):
+            errors = compile_ignore_list(check=True)
+            self.assertEqual(len(errors), 1)
+            self.assertEqual(errors[0].id, "wagtailcore.W002")
+            self.assertIn("has too many elements", errors[0].msg)
+
+    def test_hook_model_index_ignore_warnings_2(self):
+        def reference_index_ignore_not_tests(ignore_list):
+            ignore_list.extend(
+                [
+                    "not_tests",
+                ]
+            )
+            return ignore_list
+
+        with self.register_hook(
+            "register_reference_index_ignore", reference_index_ignore_not_tests
+        ):
+            errors = compile_ignore_list(check=True)
+            self.assertEqual(len(errors), 1)
+            self.assertEqual(errors[0].id, "wagtailcore.W002")
+            self.assertIn("doesn't match an app label", errors[0].msg)
+
+    def test_hook_model_index_ignore_warnings_3(self):
+        def reference_index_ignore_not_genericsnippetpage(ignore_list):
+            ignore_list.extend(
+                [
+                    "tests.not_genericsnippetpage",
+                ]
+            )
+            return ignore_list
+
+        with self.register_hook(
+            "register_reference_index_ignore",
+            reference_index_ignore_not_genericsnippetpage,
+        ):
+            errors = compile_ignore_list(check=True)
+            self.assertEqual(len(errors), 1)
+            self.assertEqual(errors[0].id, "wagtailcore.W002")
+            self.assertIn("doesn't match a model", errors[0].msg)
 
     def test_rebuild_references_index_no_verbosity(self):
         stdout = StringIO()
