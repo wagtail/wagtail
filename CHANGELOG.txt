@@ -42,6 +42,7 @@ Changelog
  * Fix: Avoid `ValueError` when extending `PagesAPIViewSet` and setting `meta_fields` to an empty list (Henry Harutyunyan, Alex Morega)
  * Fix: Improve accessibility for header search, remove autofocus on page load, advise screen readers that content has changed when results update (LB (Ben) Johnston)
  * Fix: Fix incorrect override of `PagePermissionHelper.user_can_unpublish_obj()` in ModelAdmin (Sébastien Corbin)
+ * Fix: Prevent memory exhaustion when updating a large number of image renditions (Jake Howard)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
