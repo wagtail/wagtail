@@ -83,6 +83,18 @@ class TestRoutablePage(TestCase):
         self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
+    def test_get_external_view_allows_punctuation(self):
+        response = self.client.get(self.routable_page.url + "external/joe-._~bloggs/")
+
+        self.assertContains(response, "EXTERNAL VIEW: joe-._~bloggs")
+
+    @override_settings(WAGTAIL_APPEND_SLASH=False, APPEND_SLASH=False)
+    def test_get_external_view_allows_punctuation_no_append_slash_with_slash(self):
+        # We are testing this with a slash because of this issue: https://github.com/wagtail/wagtail/issues/2871
+        response = self.client.get(self.routable_page.url + "external/joe-._~bloggs/")
+
+        self.assertContains(response, "EXTERNAL VIEW: joe-._~bloggs")
+
     def test_reverse_index_route_view(self):
         url = self.routable_page.reverse_subpage("index_route")
 
