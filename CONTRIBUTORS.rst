@@ -689,6 +689,7 @@ Contributors
 * Aadi jindal
 * Satvik Vashisht
 * Rishabh Kumar Bahukhandi
+* Ayman Makroo
 
 Translators
 ===========
