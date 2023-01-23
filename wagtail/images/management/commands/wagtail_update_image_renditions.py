@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db import transaction
 
 from wagtail.images import get_image_model
 
@@ -16,41 +17,46 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        renditions = get_image_model().get_rendition_model().objects.all()
-        if len(renditions) == 0:
+        Rendition = get_image_model().get_rendition_model()
+
+        renditions = Rendition.objects.all()
+
+        if not renditions.exists():
             self.stdout.write("No image renditions found.")
             return
 
-        success_count = 0
         if options["purge_only"]:
-            for rendition in renditions:
-                try:
-                    rendition_image = rendition.image
-                    rendition.delete()
-                    success_count = success_count + 1
-                except Exception:  # noqa: BLE001
-                    self.stderr.write(
-                        f"Could not purge rendition for {rendition_image.title}"
-                    )
+            rendition_count = renditions.count()
+            renditions.delete()
             self.stdout.write(
                 self.style.SUCCESS(
-                    f"Successfully purged {success_count} image rendition(s)"
+                    f"Successfully purged {rendition_count} image rendition(s)"
                 )
             )
         else:
-            for rendition in renditions:
-                try:
+            self.stdout.write(
+                self.style.HTTP_INFO(f"Regenerating {renditions.count()} rendition(s)")
+            )
+            # Pre-calculate the ids of the renditions to change, otherwise `.iterator` never
+            # ends.
+            rendition_ids = list(renditions.values_list("id", flat=True))
+
+            for rendition in (
+                renditions.filter(id__in=rendition_ids)
+                .select_related("image")
+                .iterator(chunk_size=10)
+            ):
+                with transaction.atomic():
                     rendition_filter = rendition.filter
                     rendition_image = rendition.image
+
+                    # Delete the existing rendition
                     rendition.delete()
+
+                    # Create a new one
                     rendition_image.get_rendition(rendition_filter)
-                    success_count = success_count + 1
-                except Exception:  # noqa: BLE001
-                    self.stderr.write(
-                        f"Could not regenerate rendition for {rendition_image.title}"
-                    )
             self.stdout.write(
                 self.style.SUCCESS(
-                    f"Successfully regenerated {success_count} image rendition(s)"
+                    f"Successfully regenerated {len(rendition_ids)} image rendition(s)"
                 )
             )
