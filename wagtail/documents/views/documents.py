@@ -63,7 +63,8 @@ class BaseListingView(TemplateView):
             self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
             if self.form.is_valid():
                 query_string = self.form.cleaned_data["q"]
-                documents = documents.search(query_string)
+                if query_string:
+                    documents = documents.search(query_string)
         else:
             self.form = SearchForm(placeholder=_("Search documents"))
 
