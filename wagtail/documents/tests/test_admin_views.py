@@ -30,15 +30,35 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def test_simple(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
         self.assertContains(response, "Add a document")
+        self.assertContains(response, "Hello document")
+        self.assertContains(response, "Bonjour document")
 
     def test_search(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
+        self.assertContains(response, "Hello document")
+        self.assertNotContains(response, "Bonjour document")
+
+    def test_empty_q(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Hello document")
+        self.assertContains(response, "Bonjour document")
 
     def make_docs(self):
         for i in range(50):
