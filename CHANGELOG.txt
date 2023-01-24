@@ -9,7 +9,7 @@ Changelog
  * Added ability to submit snippets for moderation with `WorkflowMixin` (Sage Abdullah)
  * Create `{% fullpageurl %}` tag for getting the absolute URL of a page (Jake Howard)
  * Added `MultipleChooserPanel`, a variant of `InlinePanel` with improved editor experience when inserting multiple linked objects (Matt Westcott)
- * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
+ * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to determine whether to publish the page (Harry Percival, Akua Dokua Asiedu, Matt Westcott)
  * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
  * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
  * Add `purge_embeds` management command to delete all the cached embed objects in the database (Aman Pandey)

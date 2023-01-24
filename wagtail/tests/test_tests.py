@@ -125,6 +125,7 @@ class TestWagtailPageTests(WagtailPageTests):
             },
         )
         self.assertTrue(EventIndex.objects.exists())
+        self.assertTrue(EventIndex.objects.get().live)
 
         self.assertCanCreate(
             self.root,
@@ -172,13 +173,15 @@ class TestWagtailPageTests(WagtailPageTests):
             },
         )
 
-    def test_assert_can_create_for_page_with_publish(self):
+    def test_assert_can_create_for_page_without_publish(self):
         self.assertCanCreate(
             self.root,
             SimplePage,
             {"title": "Simple Lorem Page", "content": "Lorem ipsum dolor sit amet"},
-            publish=True,
+            publish=False,
         )
+        created_page = Page.objects.get(title="Simple Lorem Page")
+        self.assertFalse(created_page.live)
 
     def test_assert_can_create_with_form_helpers(self):
         # same as test_assert_can_create, but using the helpers from wagtail.test.utils.form_data
