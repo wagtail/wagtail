@@ -235,6 +235,13 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
         self.assertDictEqual(filters, {"author": "foo bar", "bar": "two beers"})
         self.assertEqual(query, "hello world")
 
+        filters, query = separate_filters_from_query(
+            "author:'foo bar' hello world bar:'two beers'"
+        )
+
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "two beers"})
+        self.assertEqual(query, "hello world")
+
 
 class TestParseQueryString(SimpleTestCase):
     def test_simple_query(self):
@@ -249,8 +256,20 @@ class TestParseQueryString(SimpleTestCase):
         self.assertDictEqual(filters, {})
         self.assertEqual(repr(query), repr(Phrase("hello world")))
 
+        filters, query = parse_query_string("'hello world'")
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
     def test_with_simple_and_phrase(self):
         filters, query = parse_query_string('this is simple "hello world"')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(
+            repr(query), repr(And([PlainText("this is simple"), Phrase("hello world")]))
+        )
+
+        filters, query = parse_query_string("this is simple 'hello world'")
 
         self.assertDictEqual(filters, {})
         self.assertEqual(
@@ -270,8 +289,25 @@ class TestParseQueryString(SimpleTestCase):
             ),
         )
 
+        filters, query = parse_query_string(
+            "this is simple 'hello world'", operator="or"
+        )
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(
+            repr(query),
+            repr(
+                Or([PlainText("this is simple", operator="or"), Phrase("hello world")])
+            ),
+        )
+
     def test_with_phrase_unclosed(self):
         filters, query = parse_query_string('"hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
+        filters, query = parse_query_string("'hello world")
 
         self.assertDictEqual(filters, {})
         self.assertEqual(repr(query), repr(Phrase("hello world")))
@@ -282,11 +318,33 @@ class TestParseQueryString(SimpleTestCase):
         self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
         self.assertEqual(repr(query), repr(Phrase("hello world")))
 
+        filters, query = parse_query_string("'hello world' author:'foo bar' bar:beer")
+
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
     def test_multiple_phrases(self):
         filters, query = parse_query_string('"hello world" "hi earth"')
 
         self.assertEqual(
             repr(query), repr(And([Phrase("hello world"), Phrase("hi earth")]))
+        )
+
+        filters, query = parse_query_string("'hello world' 'hi earth'")
+
+        self.assertEqual(
+            repr(query), repr(And([Phrase("hello world"), Phrase("hi earth")]))
+        )
+
+    def test_mixed_phrases_with_filters(self):
+        filters, query = parse_query_string(
+            """"lord of the rings" army_1:"elves" army_2:'humans'"""
+        )
+
+        self.assertDictEqual(filters, {"army_1": "elves", "army_2": "humans"})
+        self.assertEqual(
+            repr(query),
+            repr(Phrase("lord of the rings")),
         )
 
 
