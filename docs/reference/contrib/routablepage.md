@@ -153,7 +153,7 @@ The route name defaults to the name of the view. You can override this name with
 
 ```python
 from wagtail.models import Page
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, re_path
 
 
 class EventPage(RoutablePageMixin, Page):
