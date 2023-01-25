@@ -7,7 +7,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSetPrivacyView(TestCase, WagtailTestUtils):
+class TestSetPrivacyView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -302,7 +302,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         )
 
 
-class TestPrivacyIndicators(TestCase, WagtailTestUtils):
+class TestPrivacyIndicators(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

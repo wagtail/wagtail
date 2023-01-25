@@ -6,7 +6,7 @@ from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
+class TestWorkflowHistoryDetail(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

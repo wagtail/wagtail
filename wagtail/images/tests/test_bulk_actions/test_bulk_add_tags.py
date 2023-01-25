@@ -14,7 +14,7 @@ def get_tag_list(image):
     return [tag.name for tag in image.tags.all()]
 
 
-class TestBulkAddTags(TestCase, WagtailTestUtils):
+class TestBulkAddTags(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.new_tags = ["first", "second"]

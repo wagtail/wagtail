@@ -173,7 +173,7 @@ class TestImageQuerySet(TestCase):
             self.assertIn("aardvark", results["Test image 0"])
 
 
-class TestImagePermissions(TestCase, WagtailTestUtils):
+class TestImagePermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
         self.user = self.create_user(
@@ -645,7 +645,7 @@ class TestIssue573(TestCase):
 
 
 @override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
-class TestIssue613(TestCase, WagtailTestUtils):
+class TestIssue613(WagtailTestUtils, TestCase):
     def get_elasticsearch_backend(self):
         from django.conf import settings
 

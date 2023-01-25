@@ -491,7 +491,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
 
 # TODO(telepath) replace this with a functional test
-class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
+class TestTableBlockPageEdit(WagtailTestUtils, TestCase):
     def setUp(self):
         self.value = {
             "first_row_is_table_header": True,

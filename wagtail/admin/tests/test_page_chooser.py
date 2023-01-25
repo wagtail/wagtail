@@ -16,7 +16,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestChooserBrowse(TestCase, WagtailTestUtils):
+class TestChooserBrowse(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -51,7 +51,7 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["table"].data[1].specific, page)
 
 
-class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
+class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -67,7 +67,7 @@ class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
         self.assertContains(response, "/admin/pages/1/edit/")
 
 
-class TestChooserBrowseChild(TestCase, WagtailTestUtils):
+class TestChooserBrowseChild(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -307,7 +307,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["pagination_page"].number, 5)
 
 
-class TestChooserSearch(TestCase, WagtailTestUtils):
+class TestChooserSearch(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -444,7 +444,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["pages"][0].specific, page)
 
 
-class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
+class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
     def setUp(self):
         self.tree_root = Page.objects.get(id=1)
         self.home_page = Page.objects.get(id=2)
@@ -534,7 +534,7 @@ class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
         )
 
 
-class TestChooserExternalLink(TestCase, WagtailTestUtils):
+class TestChooserExternalLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.internal_page = SimplePage(title="About", content="About Foo")
@@ -746,7 +746,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
 
-class TestChooserAnchorLink(TestCase, WagtailTestUtils):
+class TestChooserAnchorLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -829,7 +829,7 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestChooserEmailLink(TestCase, WagtailTestUtils):
+class TestChooserEmailLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -912,7 +912,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestChooserPhoneLink(TestCase, WagtailTestUtils):
+class TestChooserPhoneLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -991,7 +991,7 @@ class TestChooserPhoneLink(TestCase, WagtailTestUtils):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestCanChoosePage(TestCase, WagtailTestUtils):
+class TestCanChoosePage(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1109,7 +1109,7 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
+class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'

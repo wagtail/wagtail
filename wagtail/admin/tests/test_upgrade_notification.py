@@ -4,7 +4,7 @@ from wagtail.admin.views.home import UpgradeNotificationPanel
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestUpgradeNotificationPanel(TestCase, WagtailTestUtils):
+class TestUpgradeNotificationPanel(WagtailTestUtils, TestCase):
     DATA_ATTRIBUTE_UPGRADE_CHECK = "data-w-upgrade"
     DATA_ATTRIBUTE_UPGRADE_CHECK_LTS = "data-w-upgrade-lts-only"
 

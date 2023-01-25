@@ -10,7 +10,7 @@ from .base import SiteSettingsTestMixin
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "other"])
-class TemplateTestCase(SiteSettingsTestMixin, TestCase, WagtailTestUtils):
+class TemplateTestCase(SiteSettingsTestMixin, WagtailTestUtils, TestCase):
     def render(self, request, string, context=None, site=None):
         template = Template(string)
         context = RequestContext(request, context)

@@ -11,7 +11,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestAuditLogAdmin(TestCase, WagtailTestUtils):
+class TestAuditLogAdmin(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 

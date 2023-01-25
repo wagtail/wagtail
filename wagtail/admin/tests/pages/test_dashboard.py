@@ -8,7 +8,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestRecentEditsPanel(TestCase, WagtailTestUtils):
+class TestRecentEditsPanel(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -116,7 +116,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         self.assertEqual(ctx["last_edits"][0][1], page)
 
 
-class TestRecentEditsQueryCount(TestCase, WagtailTestUtils):
+class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

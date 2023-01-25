@@ -7,7 +7,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestModerationList(TestCase, WagtailTestUtils):
+class TestModerationList(WagtailTestUtils, TestCase):
     """Test moderation list rendered by `wagtailadmin_home` view"""
 
     def setUp(self):

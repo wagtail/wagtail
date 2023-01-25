@@ -272,7 +272,7 @@ class TestEmbedHash(TestCase):
         self.assertEqual(get_embed_hash(url, 1), "427830227a86093b50417e11dbd2f28e")
 
 
-class TestChooser(TestCase, WagtailTestUtils):
+class TestChooser(WagtailTestUtils, TestCase):
     def setUp(self):
         # login
         self.login()

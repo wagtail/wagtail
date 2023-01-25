@@ -5,7 +5,7 @@ from django.urls import reverse
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestGenericIndexView(TestCase, WagtailTestUtils):
+class TestGenericIndexView(WagtailTestUtils, TestCase):
 
     fixtures = ["test.json"]
 
@@ -21,7 +21,7 @@ class TestGenericIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "second modelwithstringtypeprimarykey model")
 
 
-class TestGenericEditView(TestCase, WagtailTestUtils):
+class TestGenericEditView(WagtailTestUtils, TestCase):
 
     fixtures = ["test.json"]
 
@@ -58,7 +58,7 @@ class TestGenericEditView(TestCase, WagtailTestUtils):
         self.assertEqual(delete_url_pk, quote(object_pk))
 
 
-class TestGenericDeleteView(TestCase, WagtailTestUtils):
+class TestGenericDeleteView(WagtailTestUtils, TestCase):
 
     fixtures = ["test.json"]
 

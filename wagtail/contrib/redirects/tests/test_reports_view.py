@@ -9,7 +9,7 @@ from wagtail.models import Site
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestRedirectReport(TestCase, WagtailTestUtils):
+class TestRedirectReport(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 

@@ -13,7 +13,7 @@ from .fields import ConvertedValue, ConvertedValueField
 @unittest.skipUnless(
     settings.AUTH_USER_MODEL == "customuser.CustomUser", "Only applicable to CustomUser"
 )
-class TestConvertedValueField(TestCase, WagtailTestUtils):
+class TestConvertedValueField(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 

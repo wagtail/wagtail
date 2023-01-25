@@ -16,7 +16,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPreview(TestCase, WagtailTestUtils):
+class TestPreview(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -276,7 +276,7 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertContains(response, "Multiple modes (Alternate Preview)")
 
 
-class TestEnablePreview(TestCase, WagtailTestUtils):
+class TestEnablePreview(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.single = PreviewableModel.objects.create(text="Single preview mode")
@@ -418,7 +418,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         self.assertContains(response, preview_url)
 
 
-class TestDisablePreviewWithEmptyModes(TestCase, WagtailTestUtils):
+class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
     """
     Preview can be disabled by setting preview_modes to an empty list.
     """

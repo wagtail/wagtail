@@ -2849,7 +2849,7 @@ class TestCopyForTranslation(TestCase):
         self.assertEqual(fr_eventindex.alias_of, self.en_eventindex)
 
 
-class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
+class TestSubpageTypeBusinessRules(WagtailTestUtils, TestCase):
     def test_allowed_subpage_models(self):
         # SimplePage does not define any restrictions on subpage types
         # SimplePage is a valid subpage of SimplePage

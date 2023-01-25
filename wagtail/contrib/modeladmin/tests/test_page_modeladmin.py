@@ -6,7 +6,7 @@ from wagtail.test.testapp.models import BusinessIndex, EventCategory, EventPage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestIndexView(TestCase, WagtailTestUtils):
+class TestIndexView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -63,7 +63,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertNotIn(root_page, response.context["paginator"].object_list)
 
 
-class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
+class TestExcludeFromExplorer(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -84,7 +84,7 @@ class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
         self.assertContains(response, "Claim your free present!")
 
 
-class TestCreateView(TestCase, WagtailTestUtils):
+class TestCreateView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -111,7 +111,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
         )
 
 
-class TestInspectView(TestCase, WagtailTestUtils):
+class TestInspectView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json", "modeladmintest_test.json"]
 
     def setUp(self):
@@ -192,7 +192,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestEditView(TestCase, WagtailTestUtils):
+class TestEditView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -222,7 +222,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
 
-class TestDeleteView(TestCase, WagtailTestUtils):
+class TestDeleteView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -241,7 +241,7 @@ class TestDeleteView(TestCase, WagtailTestUtils):
         )
 
 
-class TestChooseParentView(TestCase, WagtailTestUtils):
+class TestChooseParentView(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -287,7 +287,7 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
+class TestChooseParentViewForNonSuperuser(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -334,7 +334,7 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Private Business Index")
 
 
-class TestEditorAccess(TestCase, WagtailTestUtils):
+class TestEditorAccess(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -349,7 +349,7 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         self.assertRedirects(response, "/admin/")
 
 
-class TestModeratorAccess(TestCase, WagtailTestUtils):
+class TestModeratorAccess(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
@@ -366,7 +366,7 @@ class TestModeratorAccess(TestCase, WagtailTestUtils):
         )
 
 
-class TestSearch(TestCase, WagtailTestUtils):
+class TestSearch(WagtailTestUtils, TestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):

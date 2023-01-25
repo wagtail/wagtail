@@ -15,7 +15,7 @@ from wagtail.models import Page, PageLogEntry
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestLockedPagesView(TestCase, WagtailTestUtils):
+class TestLockedPagesView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -146,7 +146,7 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
-class TestFilteredLockedPagesView(TestCase, WagtailTestUtils):
+class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -180,7 +180,7 @@ class TestFilteredLockedPagesView(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "My locked page")
 
 
-class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
+class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -303,7 +303,7 @@ class TestExcelDateFormatter(TestCase):
             self.assertEqual(formatter.format("m/d/Y g:i A"), "mm/dd/yyyy h:mm AM/PM")
 
 
-class TestAgingPagesView(TestCase, WagtailTestUtils):
+class TestAgingPagesView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root = Page.objects.first()
@@ -425,7 +425,7 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected_deleted_string)
 
 
-class TestFilteredAgingPagesView(TestCase, WagtailTestUtils):
+class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

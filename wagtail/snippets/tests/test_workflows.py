@@ -19,7 +19,7 @@ from wagtail.test.utils import WagtailTestUtils
 #     for testing workflow operations through views and testing Workflow settings views
 
 
-class BaseWorkflowsTestCase(TestCase, WagtailTestUtils):
+class BaseWorkflowsTestCase(WagtailTestUtils, TestCase):
     model = FullFeaturedSnippet
 
     def setUp(self):

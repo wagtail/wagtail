@@ -45,7 +45,7 @@ def delete_existing_workflows():
     WorkflowTask.objects.all().delete()
 
 
-class TestWorkflowMenus(TestCase, WagtailTestUtils):
+class TestWorkflowMenus(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -81,7 +81,7 @@ class TestWorkflowMenus(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '"url": "/admin/reports/workflow_tasks/"')
 
 
-class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
+class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -157,7 +157,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
+class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -367,7 +367,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(link.workflow, workflow)
 
 
-class TestWorkflowsEditView(TestCase, WagtailTestUtils):
+class TestWorkflowsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -644,7 +644,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         self.assertFalse(self.workflow.workflow_content_types.exists())
 
 
-class TestRemoveWorkflow(TestCase, WagtailTestUtils):
+class TestRemoveWorkflow(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -703,7 +703,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestTaskIndexView(TestCase, WagtailTestUtils):
+class TestTaskIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -780,7 +780,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestCreateTaskView(TestCase, WagtailTestUtils):
+class TestCreateTaskView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -866,7 +866,7 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
+class TestSelectTaskTypeView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -906,7 +906,7 @@ class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
         )
 
 
-class TestEditTaskView(TestCase, WagtailTestUtils):
+class TestEditTaskView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -989,7 +989,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
-class BasePageWorkflowTests(TestCase, WagtailTestUtils):
+class BasePageWorkflowTests(WagtailTestUtils, TestCase):
     model_name = "page"
 
     def setUp(self):
@@ -2703,7 +2703,7 @@ class TestSnippetWorkflowPreview(TestPageWorkflowPreview, BaseSnippetWorkflowTes
         self.object.save_revision()
 
 
-class TestTaskChooserView(TestCase, WagtailTestUtils):
+class TestTaskChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -2938,7 +2938,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         )
 
 
-class TestTaskChooserChosenView(TestCase, WagtailTestUtils):
+class TestTaskChooserChosenView(WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -2966,7 +2966,7 @@ class TestTaskChooserChosenView(TestCase, WagtailTestUtils):
         )
 
 
-class TestWorkflowUsageView(TestCase, WagtailTestUtils):
+class TestWorkflowUsageView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.workflow = Workflow.objects.get()

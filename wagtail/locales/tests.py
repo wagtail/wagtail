@@ -8,7 +8,7 @@ from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestLocaleIndexView(TestCase, WagtailTestUtils):
+class TestLocaleIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -21,7 +21,7 @@ class TestLocaleIndexView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
 
 
-class TestLocaleCreateView(TestCase, WagtailTestUtils):
+class TestLocaleCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.english = Locale.objects.get()
@@ -92,7 +92,7 @@ class TestLocaleCreateView(TestCase, WagtailTestUtils):
         )
 
 
-class TestLocaleEditView(TestCase, WagtailTestUtils):
+class TestLocaleEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.english = Locale.objects.get()
@@ -200,7 +200,7 @@ class TestLocaleEditView(TestCase, WagtailTestUtils):
         )
 
 
-class TestLocaleDeleteView(TestCase, WagtailTestUtils):
+class TestLocaleDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.english = Locale.objects.get()

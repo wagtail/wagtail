@@ -84,7 +84,7 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         self.assertEqual(search_picks, [])
 
 
-class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
+class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -235,7 +235,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["queries"][-2].query_string, "suboptimal")
 
 
-class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
+class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -285,7 +285,7 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
         )
 
 
-class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
+class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -447,7 +447,7 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
         )
 
 
-class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
+class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

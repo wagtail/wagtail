@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageMove(TestCase, WagtailTestUtils):
+class TestPageMove(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

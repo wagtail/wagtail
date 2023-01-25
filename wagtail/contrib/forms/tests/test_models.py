@@ -204,7 +204,7 @@ class TestFormSubmission(TestCase):
         self.assertIn("hello world", str(submission))
 
 
-class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
+class TestFormWithCustomSubmission(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page_with_custom_submission()
@@ -480,7 +480,7 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
 
 
 class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(
-    TestCase, WagtailTestUtils
+    WagtailTestUtils, TestCase
 ):
     def setUp(self):
         # Create a form page
@@ -566,7 +566,7 @@ class TestFormWithRedirect(TestCase):
         )
 
 
-class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
+class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
     def setUp(self):
 
         home_page = Page.objects.get(url_path="/home/")
@@ -780,7 +780,7 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
 
-class TestIssue798(TestCase, WagtailTestUtils):
+class TestIssue798(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -831,7 +831,7 @@ class TestNonHtmlExtension(TestCase):
         )
 
 
-class TestFormFieldCleanNameCreation(TestCase, WagtailTestUtils):
+class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -852,7 +852,7 @@ class TestFormFieldCleanNameCreation(TestCase, WagtailTestUtils):
         self.assertEqual(field.clean_name, "telefon_nummer")
 
 
-class TestFormFieldCleanNameCreationOverride(TestCase, WagtailTestUtils):
+class TestFormFieldCleanNameCreationOverride(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a form page
         home_page = Page.objects.get(url_path="/home/")

@@ -725,7 +725,7 @@ class TestPageQuerySetSearch(TestCase):
         self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
 
 
-class TestSpecificQuery(TestCase, WagtailTestUtils):
+class TestSpecificQuery(WagtailTestUtils, TestCase):
     """
     Test the .specific() queryset method. This is isolated in its own test case
     because it is sensitive to database changes that might happen for other

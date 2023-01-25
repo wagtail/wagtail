@@ -22,7 +22,7 @@ def menu_item_hook(*args, cls=MenuItem, **kwargs):
     return hook_fn
 
 
-class TestMenuRendering(TestCase, WagtailTestUtils):
+class TestMenuRendering(WagtailTestUtils, TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/admin")
         self.request.user = self.create_superuser(username="admin")

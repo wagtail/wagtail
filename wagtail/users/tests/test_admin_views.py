@@ -84,7 +84,7 @@ class TestUserFormHelpers(TestCase):
         self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
-class TestGroupUsersView(TestCase, WagtailTestUtils):
+class TestGroupUsersView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -140,7 +140,7 @@ class TestGroupUsersView(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
 
 
-class TestUserIndexView(TestCase, WagtailTestUtils):
+class TestUserIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -206,7 +206,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context_data["ordering"], "username")
 
 
-class TestUserCreateView(TestCase, WagtailTestUtils):
+class TestUserCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -519,7 +519,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
 
-class TestUserDeleteView(TestCase, WagtailTestUtils):
+class TestUserDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -641,7 +641,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
 
-class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
+class TestUserDeleteViewForNonSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -705,7 +705,7 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
         self.assertTrue(get_user_model().objects.filter(pk=self.superuser.pk).exists())
 
 
-class TestUserEditView(TestCase, WagtailTestUtils):
+class TestUserEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a user to edit
         self.test_user = self.create_user(
@@ -1139,7 +1139,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
 
-class TestUserProfileCreation(TestCase, WagtailTestUtils):
+class TestUserProfileCreation(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a user
         self.test_user = self.create_user(
@@ -1162,7 +1162,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.assertFalse(user_profile.avatar)
 
 
-class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
+class TestUserEditViewForNonSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user with edit permission
         self.editor_user = self.create_user(username="editor", password="password")
@@ -1217,7 +1217,7 @@ class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
         self.assertIs(user.is_superuser, False)
 
 
-class TestGroupIndexView(TestCase, WagtailTestUtils):
+class TestGroupIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1235,7 +1235,7 @@ class TestGroupIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["search_form"]["q"].value(), "Hello")
 
 
-class TestGroupCreateView(TestCase, WagtailTestUtils):
+class TestGroupCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.add_doc_permission = Permission.objects.get(
@@ -1425,7 +1425,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         self.assertNotInHTML("Can publish advert", html)
 
 
-class TestGroupEditView(TestCase, WagtailTestUtils):
+class TestGroupEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a group to edit
         self.test_group = Group.objects.create(name="test group")
@@ -1902,7 +1902,7 @@ class TestGroupViewSet(TestCase):
             )
 
 
-class TestAuthorisationIndexView(TestCase, WagtailTestUtils):
+class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self._user = self.create_user(username="auth_user", password="password")
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
@@ -1934,7 +1934,7 @@ class TestAuthorisationIndexView(TestCase, WagtailTestUtils):
             self._user.user_permissions.remove(permission_object)
 
 
-class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
+class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self._user = self.create_user(username="auth_user", password="password")
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
@@ -2006,7 +2006,7 @@ class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
         self.assertTrue(user.exists())
 
 
-class TestAuthorisationEditView(TestCase, WagtailTestUtils):
+class TestAuthorisationEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self._user = self.create_user(username="auth_user", password="password")
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
@@ -2095,7 +2095,7 @@ class TestAuthorisationEditView(TestCase, WagtailTestUtils):
         self.assertTrue(user.check_password("newpassword"))
 
 
-class TestAuthorisationDeleteView(TestCase, WagtailTestUtils):
+class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self._user = self.create_user(username="auth_user", password="password")
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))

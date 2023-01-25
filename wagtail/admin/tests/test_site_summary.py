@@ -8,7 +8,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPagesSummary(TestCase, WagtailTestUtils):
+class TestPagesSummary(WagtailTestUtils, TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

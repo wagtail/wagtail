@@ -16,7 +16,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class BaseLockingTestCase(TestCase, WagtailTestUtils):
+class BaseLockingTestCase(WagtailTestUtils, TestCase):
     model = LockableModel
 
     def setUp(self):

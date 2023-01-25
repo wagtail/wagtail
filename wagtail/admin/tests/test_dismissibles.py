@@ -5,7 +5,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestDismissiblesView(TestCase, WagtailTestUtils):
+class TestDismissiblesView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.profile = UserProfile.get_for_user(self.user)

@@ -6,7 +6,7 @@ from wagtail.test.testapp.models import NotYetRegisteredSiteSetting
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestRegister(TestCase, WagtailTestUtils):
+class TestRegister(WagtailTestUtils, TestCase):
     def setUp(self):
         self.registry = Registry()
         self.login()

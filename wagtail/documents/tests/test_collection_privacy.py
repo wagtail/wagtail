@@ -13,7 +13,7 @@ except ImportError:
     from urllib import quote
 
 
-class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
+class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

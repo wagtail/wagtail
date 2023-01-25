@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageCopy(TestCase, WagtailTestUtils):
+class TestPageCopy(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

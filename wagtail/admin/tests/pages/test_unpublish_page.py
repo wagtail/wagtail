@@ -12,7 +12,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageUnpublish(TestCase, WagtailTestUtils):
+class TestPageUnpublish(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -159,7 +159,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         )
 
 
-class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
+class TestPageUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         # Find root page

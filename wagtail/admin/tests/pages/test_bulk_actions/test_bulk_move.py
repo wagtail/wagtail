@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import BusinessChild, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBulkMove(TestCase, WagtailTestUtils):
+class TestBulkMove(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

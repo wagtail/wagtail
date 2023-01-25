@@ -30,7 +30,7 @@ from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
-class TestAvatarTemplateTag(TestCase, WagtailTestUtils):
+class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a user
         self.test_user = self.create_user(

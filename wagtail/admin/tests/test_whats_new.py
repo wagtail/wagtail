@@ -6,7 +6,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
+class TestWhatsNewInWagtailVersionPanel(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.panel = WhatsNewInWagtailVersionPanel()
@@ -57,7 +57,7 @@ class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
         self.assertEqual(result, "")
 
 
-class TestWhatsNewOnDashboard(TestCase, WagtailTestUtils):
+class TestWhatsNewOnDashboard(WagtailTestUtils, TestCase):
     """Test 'What's New In Wagtail' banner rendered by `wagtailadmin_home` view"""
 
     def setUp(self):

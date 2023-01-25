@@ -30,7 +30,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
-class TestPageCreation(TestCase, WagtailTestUtils):
+class TestPageCreation(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1193,7 +1193,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["page"].locale, fr_locale)
 
 
-class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
+class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1234,7 +1234,7 @@ class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
         self.assertContains(response, '"secret_data"')
 
 
-class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
+class TestSubpageBusinessRules(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1376,7 +1376,7 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         )
 
 
-class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+class TestInlinePanelMedia(WagtailTestUtils, TestCase):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
     """
@@ -1403,7 +1403,7 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
         self.assertContains(response, "wagtailadmin/js/draftail.js")
 
 
-class TestInlineStreamField(TestCase, WagtailTestUtils):
+class TestInlineStreamField(WagtailTestUtils, TestCase):
     """
     Test that streamfields inside an inline child work
     """
@@ -1424,7 +1424,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertContains(response, '<div id="sections-__prefix__-body" data-block="')
 
 
-class TestIssue2994(TestCase, WagtailTestUtils):
+class TestIssue2994(WagtailTestUtils, TestCase):
     """
     In contrast to most "standard" form fields, StreamField form widgets generally won't
     provide a postdata field with a name exactly matching the field name. To prevent Django
@@ -1460,7 +1460,7 @@ class TestIssue2994(TestCase, WagtailTestUtils):
         self.assertEqual("hello world", new_page.body[0].value)
 
 
-class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
+class TestInlinePanelWithTags(WagtailTestUtils, TestCase):
     # https://github.com/wagtail/wagtail/issues/5414#issuecomment-567080707
 
     def setUp(self):
@@ -1499,7 +1499,7 @@ class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
         self.assertEqual(new_page.addresses.first().tags.count(), 2)
 
 
-class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
+class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
     """
     Test that non field errors will render for InlinePanels
     https://github.com/wagtail/wagtail/issues/3890
@@ -1553,7 +1553,7 @@ class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(TestCase, WagtailTestUtils):
+class TestLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1633,7 +1633,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
+class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1682,7 +1682,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
         self.assertNotContains(response, f'href="{add_translation_url}"')
 
 
-class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

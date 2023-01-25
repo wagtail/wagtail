@@ -21,7 +21,7 @@ from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestAuditLogManager(TestCase, WagtailTestUtils):
+class TestAuditLogManager(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.create_superuser(
             username="administrator",
@@ -501,7 +501,7 @@ def test_hook(actions):
     return actions.register_action("test.custom_action", "Custom action", "Tested!")
 
 
-class TestAuditLogHooks(TestCase, WagtailTestUtils):
+class TestAuditLogHooks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 

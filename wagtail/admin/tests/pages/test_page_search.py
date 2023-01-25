@@ -9,7 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestPageSearch(TestCase, WagtailTestUtils):
+class TestPageSearch(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 

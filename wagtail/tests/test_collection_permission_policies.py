@@ -13,7 +13,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
 
 
-class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Permissions
         document_content_type = ContentType.objects.get_for_model(Document)
@@ -1042,7 +1042,7 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
 
 class TestCollectionManagementPermission(
-    PermissionPolicyTestUtils, TestCase, WagtailTestUtils
+    PermissionPolicyTestUtils, WagtailTestUtils, TestCase
 ):
     def setUp(self):
         self.policy = CollectionMangementPermissionPolicy(Collection)

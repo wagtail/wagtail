@@ -18,7 +18,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestGenericSettingMenu(TestCase, WagtailTestUtils):
+class TestGenericSettingMenu(WagtailTestUtils, TestCase):
     def login_only_admin(self):
         """Log in with a user that only has permission to access the admin"""
         user = self.create_user(username="test", password="password")
@@ -68,7 +68,7 @@ class TestGenericSettingMenu(TestCase, WagtailTestUtils):
         )
 
 
-class BaseTestGenericSettingView(TestCase, WagtailTestUtils):
+class BaseTestGenericSettingView(WagtailTestUtils, TestCase):
     def get(self, params={}, setting=TestGenericSetting):
         url = self.edit_url(setting=setting)
         return self.client.get(url, params)
@@ -164,7 +164,7 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         )
 
 
-class TestAdminPermission(TestCase, WagtailTestUtils):
+class TestAdminPermission(WagtailTestUtils, TestCase):
     def test_registered_permission(self):
         permission = Permission.objects.get_by_natural_key(
             app_label="tests",

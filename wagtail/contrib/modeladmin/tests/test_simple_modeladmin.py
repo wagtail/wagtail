@@ -28,7 +28,7 @@ from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin, EventsAdmi
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBookIndexView(TestCase, WagtailTestUtils):
+class TestBookIndexView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -233,7 +233,7 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["result_count"], 4)
 
 
-class TestAuthorIndexView(TestCase, WagtailTestUtils):
+class TestAuthorIndexView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -305,7 +305,7 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestTranslatableBookIndexView(TestCase, WagtailTestUtils):
+class TestTranslatableBookIndexView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -357,7 +357,7 @@ class TestTranslatableBookIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Le Seigneur des anneaux", html=True)
 
 
-class TestCreateView(TestCase, WagtailTestUtils):
+class TestCreateView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -474,7 +474,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestTranslatableCreateView(TestCase, WagtailTestUtils):
+class TestTranslatableCreateView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -500,7 +500,7 @@ class TestTranslatableCreateView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestRevisableCreateView(TestCase, WagtailTestUtils):
+class TestRevisableCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -530,7 +530,7 @@ class TestRevisableCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(log_entries.first().revision, revision)
 
 
-class TestInspectView(TestCase, WagtailTestUtils):
+class TestInspectView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -611,7 +611,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestEditView(TestCase, WagtailTestUtils):
+class TestEditView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -743,7 +743,7 @@ class TestEditView(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
+class TestTranslatableBookEditView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -776,7 +776,7 @@ class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestRevisableEditView(TestCase, WagtailTestUtils):
+class TestRevisableEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.instance = Publisher.objects.create(name="foo")
@@ -809,7 +809,7 @@ class TestRevisableEditView(TestCase, WagtailTestUtils):
         self.assertEqual(log_entries.first().revision, revision)
 
 
-class TestPageSpecificViews(TestCase, WagtailTestUtils):
+class TestPageSpecificViews(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
     expected_status_code = 404
 
@@ -821,7 +821,7 @@ class TestPageSpecificViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, self.expected_status_code)
 
 
-class TestConfirmDeleteView(TestCase, WagtailTestUtils):
+class TestConfirmDeleteView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -853,7 +853,7 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         self.assertFalse(Book.objects.filter(id=1).exists())
 
 
-class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
+class TestDeleteViewWithProtectedRelation(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -911,7 +911,7 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         self.assertTrue(Author.objects.filter(id=5).exists())
 
 
-class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
+class TestDeleteViewModelReprPrimary(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -922,7 +922,7 @@ class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestEditorAccess(TestCase, WagtailTestUtils):
+class TestEditorAccess(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -1024,7 +1024,7 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         self.assertRedirects(response, "/admin/modeladmintest/book/")
 
 
-class TestHistoryView(TestCase, WagtailTestUtils):
+class TestHistoryView(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):
@@ -1047,7 +1047,7 @@ class TestHistoryView(TestCase, WagtailTestUtils):
         )
 
 
-class TestQuoting(TestCase, WagtailTestUtils):
+class TestQuoting(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
     expected_status_code = 200
 
@@ -1080,7 +1080,7 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
+class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.warning_id = "wagtailadmin.W002"
 
@@ -1158,7 +1158,7 @@ There are no default tabs on non-Page models so there will be no\
         delattr(Publisher, "edit_handler")
 
 
-class TestMenuSetting(TestCase, WagtailTestUtils):
+class TestMenuSetting(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]
 
     def setUp(self):

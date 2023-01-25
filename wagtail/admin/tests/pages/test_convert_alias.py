@@ -7,7 +7,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestConvertAlias(TestCase, WagtailTestUtils):
+class TestConvertAlias(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

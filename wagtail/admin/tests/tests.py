@@ -21,7 +21,7 @@ from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestHome(TestCase, WagtailTestUtils):
+class TestHome(WagtailTestUtils, TestCase):
     def setUp(self):
         # Login
         self.login()
@@ -116,7 +116,7 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestEditorHooks(TestCase, WagtailTestUtils):
+class TestEditorHooks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.homepage = Page.objects.get(id=2)
         self.login()
@@ -308,7 +308,7 @@ class TestSendMail(TestCase):
         self.assertEqual(mail.outbox[0].reply_to, ["reply_to.test@email.com"])
 
 
-class TestTagsAutocomplete(TestCase, WagtailTestUtils):
+class TestTagsAutocomplete(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         Tag.objects.create(name="Test", slug="test")
@@ -385,7 +385,7 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(data, [])
 
 
-class TestMenuItem(TestCase, WagtailTestUtils):
+class TestMenuItem(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -396,7 +396,7 @@ class TestMenuItem(TestCase, WagtailTestUtils):
         self.assertIs(menuitem.is_active(self.request), True)
 
 
-class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
+class TestUserPassesTestPermissionDecorator(WagtailTestUtils, TestCase):
     """
     Test for custom user_passes_test permission decorators.
     testapp_bob_only_zone is a view configured to only grant access to users with a first_name of Bob
@@ -435,7 +435,7 @@ class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
-class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
+class TestUserHasAnyPagePermission(WagtailTestUtils, TestCase):
     def test_superuser(self):
         user = self.create_superuser(
             username="superuser", email="admin@example.com", password="p"
@@ -473,7 +473,7 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
         self.assertFalse(user_has_any_page_permission(user))
 
 
-class Test404(TestCase, WagtailTestUtils):
+class Test404(WagtailTestUtils, TestCase):
     def test_admin_404_template_used_append_slash_true(self):
         self.login()
         with self.settings(APPEND_SLASH=True):
@@ -492,7 +492,7 @@ class Test404(TestCase, WagtailTestUtils):
         )
 
 
-class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
+class TestAdminURLAppendSlash(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

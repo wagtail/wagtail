@@ -7,7 +7,7 @@ from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestLoginView(TestCase, WagtailTestUtils):
+class TestLoginView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
