@@ -112,7 +112,7 @@ class TestAuthentication(WagtailTestUtils, TestCase):
         self.login()
 
         # Get logout page
-        response = self.client.get(reverse("wagtailadmin_logout"))
+        response = self.client.post(reverse("wagtailadmin_logout"))
 
         # Check that the user was redirected to the login page
         self.assertRedirects(response, reverse("wagtailadmin_login"))
