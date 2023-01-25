@@ -154,6 +154,8 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
 
 class DatabaseSearchResults(BaseSearchResults):
+    iterator_chunk_size = 2000
+
     def get_queryset(self):
         queryset = self.query_compiler.queryset
 
@@ -180,7 +182,7 @@ class DatabaseSearchResults(BaseSearchResults):
                 **{self._score_field: Value(None, output_field=models.FloatField())}
             )
 
-        return queryset.iterator()
+        return queryset.iterator(self.iterator_chunk_size)
 
     def _do_count(self):
         return self.get_queryset().count()
