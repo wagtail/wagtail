@@ -270,7 +270,7 @@ class TestLocaleDeleteView(WagtailTestUtils, TestCase):
         for lang in ("fr", "de", "pl", "ja"):
             Locale.objects.create(language_code=lang)
 
-        self.assertTrue(Page.get_first_root_node().locale.language_code, "en")
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "en")
         Page.objects.filter(depth__gt=1).delete()
         response = self.post()
 
@@ -282,7 +282,7 @@ class TestLocaleDeleteView(WagtailTestUtils, TestCase):
 
         # root node's locale should now have been reassigned to the one matching the current
         # LANGUAGE_CODE
-        self.assertTrue(Page.get_first_root_node().locale.language_code, "de")
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "de")
 
     @override_settings(
         LANGUAGE_CODE="de-at",
@@ -297,7 +297,7 @@ class TestLocaleDeleteView(WagtailTestUtils, TestCase):
     def test_can_delete_default_locale_when_language_code_has_no_locale(self):
         Locale.objects.create(language_code="fr")
 
-        self.assertTrue(Page.get_first_root_node().locale.language_code, "en")
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "en")
         Page.objects.filter(depth__gt=1).delete()
         response = self.post()
 
@@ -309,7 +309,7 @@ class TestLocaleDeleteView(WagtailTestUtils, TestCase):
 
         # root node's locale should now have been reassigned to 'fr' despite that not matching
         # LANGUAGE_CODE (because it's the only remaining Locale record)
-        self.assertTrue(Page.get_first_root_node().locale.language_code, "fr")
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "fr")
 
     def test_cannot_delete_last_remaining_locale(self):
         Page.objects.filter(depth__gt=1).delete()

@@ -33,12 +33,13 @@ class PermissionPolicyTestUtils:
                 if expected_result:
                     self.assertTrue(
                         self.policy.user_has_permission(user, action),
-                        "User %s should be able to %s, but can't" % (user, action),
+                        msg="User %s should be able to %s, but can't" % (user, action),
                     )
                 else:
                     self.assertFalse(
                         self.policy.user_has_permission(user, action),
-                        "User %s should not be able to %s, but can" % (user, action),
+                        msg="User %s should not be able to %s, but can"
+                        % (user, action),
                     )
 
     def assertUserInstancePermissionMatrix(self, instance, test_cases):
@@ -59,7 +60,7 @@ class PermissionPolicyTestUtils:
                         self.policy.user_has_permission_for_instance(
                             user, action, instance
                         ),
-                        "User %s should be able to %s instance %s, but can't"
+                        msg="User %s should be able to %s instance %s, but can't"
                         % (user, action, instance),
                     )
                 else:
@@ -67,7 +68,7 @@ class PermissionPolicyTestUtils:
                         self.policy.user_has_permission_for_instance(
                             user, action, instance
                         ),
-                        "User %s should not be able to %s instance %s, but can"
+                        msg="User %s should not be able to %s instance %s, but can"
                         % (user, action, instance),
                     )
 
