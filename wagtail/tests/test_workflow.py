@@ -1,6 +1,5 @@
 import datetime
 
-import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -177,7 +176,7 @@ class TestPageWorkflows(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 workflow_state.created_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -192,7 +191,7 @@ class TestPageWorkflows(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 task_state.started_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -236,7 +235,7 @@ class TestPageWorkflows(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 task_state.finished_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(

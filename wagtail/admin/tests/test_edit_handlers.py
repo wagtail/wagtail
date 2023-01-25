@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from functools import wraps
 from unittest import mock
 
@@ -12,7 +12,6 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.html import json_script
 from freezegun import freeze_time
-from pytz import utc
 
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.panels import (
@@ -1614,7 +1613,8 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
 
         if settings.USE_TZ:
             self.assertEqual(
-                resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0, tzinfo=utc)
+                resolved_comment.resolved_at,
+                datetime(2017, 1, 1, 12, 0, 0, tzinfo=timezone.utc),
             )
         else:
             self.assertEqual(

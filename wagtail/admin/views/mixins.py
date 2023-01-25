@@ -143,7 +143,7 @@ class SpreadsheetExportMixin:
             FORMAT_XLSX: lambda value: (
                 value
                 if timezone.is_naive(value)
-                else timezone.make_naive(value, timezone.utc)
+                else timezone.make_naive(value, datetime.timezone.utc)
             )
         },
         (datetime.date, datetime.time): {FORMAT_XLSX: None},
