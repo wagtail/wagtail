@@ -1,6 +1,5 @@
 import datetime
 
-import pytz
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
@@ -24,10 +23,10 @@ class TestSitemapGenerator(TestCase):
                 content="hello",
                 live=True,
                 last_published_at=datetime.datetime(
-                    2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc
+                    2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
                 ),
                 latest_revision_created_at=datetime.datetime(
-                    2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc
+                    2017, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
                 ),
             )
         )
@@ -60,7 +59,7 @@ class TestSitemapGenerator(TestCase):
                 content="hello",
                 live=True,
                 latest_revision_created_at=datetime.datetime(
-                    2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc
+                    2017, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
                 ),
             )
         )
@@ -202,7 +201,8 @@ class TestSitemapGenerator(TestCase):
             if url["location"] == "http://localhost/hello-world/"
         ][0]
         self.assertDatesEqual(
-            child_page_lastmod, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            child_page_lastmod,
+            datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
         )
 
         # if no last_publish_date is defined, use latest revision date
@@ -212,13 +212,14 @@ class TestSitemapGenerator(TestCase):
             if url["location"] == "http://localhost/no-last-publish-date/"
         ][0]
         self.assertDatesEqual(
-            child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
+            child_page_lastmod,
+            datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
         )
 
     def test_latest_lastmod(self):
         # give the homepage a lastmod
         self.home_page.last_published_at = datetime.datetime(
-            2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc
+            2017, 3, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
         )
         self.home_page.save()
 
@@ -230,7 +231,7 @@ class TestSitemapGenerator(TestCase):
 
         self.assertDatesEqual(
             sitemap.latest_lastmod,
-            datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc),
+            datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
         )
 
     def test_latest_lastmod_missing(self):

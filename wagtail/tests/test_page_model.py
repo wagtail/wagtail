@@ -2,7 +2,6 @@ import datetime
 import unittest
 from unittest.mock import Mock
 
-import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
@@ -980,12 +979,12 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 page.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             # first_published_at should not change
             self.assertEqual(
                 page.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -998,7 +997,9 @@ class TestLiveRevision(TestCase):
                 # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
                 page.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
 
@@ -1019,18 +1020,20 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 page.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 page.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
                 # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
                 page.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
             self.assertEqual(
@@ -1058,11 +1061,11 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 new_about_us.first_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 new_about_us.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -1094,7 +1097,7 @@ class TestLiveRevision(TestCase):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
         if settings.USE_TZ:
             about_us.go_live_at = datetime.datetime(
-                2018, 1, 1, 12, 0, 0, tzinfo=pytz.utc
+                2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
             )
         else:
             about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0)
@@ -1109,23 +1112,27 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 about_us.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 about_us.last_published_at,
-                datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
                 about_us.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
             self.assertEqual(
                 about_us.last_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
 
@@ -1530,7 +1537,9 @@ class TestCopyPage(TestCase):
 
         # Set the created_at of the revision to a time in the past
         revision = christmas_event.get_latest_revision()
-        revision.created_at = datetime.datetime(2014, 1, 1, 0, 0, 0, tzinfo=pytz.utc)
+        revision.created_at = datetime.datetime(
+            2014, 1, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+        )
         revision.save()
 
         # Copy it
@@ -1552,7 +1561,7 @@ class TestCopyPage(TestCase):
         if settings.USE_TZ:
             christmas_event.save_revision(
                 approved_go_live_at=datetime.datetime(
-                    2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc
+                    2014, 9, 16, 9, 12, 00, tzinfo=datetime.timezone.utc
                 )
             )
         else:
@@ -1571,7 +1580,7 @@ class TestCopyPage(TestCase):
                 christmas_event.revisions.order_by("created_at")
                 .first()
                 .approved_go_live_at,
-                datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc),
+                datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
