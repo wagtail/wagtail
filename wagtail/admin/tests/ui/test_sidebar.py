@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.sidebar import (
+    ActionMenuItem,
     LinkMenuItem,
     MainMenuModule,
     PageExplorerMenuItem,
@@ -196,7 +197,7 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
             LinkMenuItem(
                 "account", "Account", reverse("wagtailadmin_account"), icon_name="user"
             ),
-            LinkMenuItem(
+            ActionMenuItem(
                 "logout", "Logout", reverse("wagtailadmin_logout"), icon_name="logout"
             ),
         ]
@@ -239,14 +240,15 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
                             ],
                         },
                         {
-                            "_type": "wagtail.sidebar.LinkMenuItem",
+                            "_type": "wagtail.sidebar.ActionMenuItem",
                             "_args": [
                                 {
                                     "name": "logout",
                                     "label": "Logout",
                                     "icon_name": "logout",
                                     "classnames": "",
-                                    "url": reverse("wagtailadmin_logout"),
+                                    "action": reverse("wagtailadmin_logout"),
+                                    "method": "POST",
                                     "attrs": {},
                                 }
                             ],
