@@ -20,8 +20,8 @@ export class ActionController extends Controller {
     url: String,
   };
 
-  continueValue: boolean;
-  urlValue: string;
+  declare continueValue: boolean;
+  declare urlValue: string;
 
   post(event: Event) {
     event.preventDefault();

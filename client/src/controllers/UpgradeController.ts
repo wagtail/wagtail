@@ -28,12 +28,12 @@ export class UpgradeController extends Controller<HTMLElement> {
     url: { default: 'https://releases.wagtail.org/latest.txt', type: String },
   };
 
-  currentVersionValue: string;
-  hiddenClass: string;
-  latestVersionTarget: HTMLElement;
-  linkTarget: HTMLElement;
-  ltsOnlyValue: any;
-  urlValue: string;
+  declare currentVersionValue: string;
+  declare hiddenClass: string;
+  declare latestVersionTarget: HTMLElement;
+  declare linkTarget: HTMLElement;
+  declare ltsOnlyValue: any;
+  declare urlValue: string;
 
   connect() {
     this.checkVersion();
