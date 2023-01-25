@@ -82,12 +82,14 @@ def normalise_query_string(query_string):
 
 
 def separate_filters_from_query(query_string):
-    filters_regexp = r'(\w+):(\w+|"[^"]+")'
+    filters_regexp = r'(\w+):(\w+|"[^"]+"|\'[^\']+\')'
 
     filters = {}
     for match_object in re.finditer(filters_regexp, query_string):
         key, value = match_object.groups()
-        filters[key] = value.strip('"')
+        filters[key] = (
+            value.strip('"') if value.strip('"') is not value else value.strip("'")
+        )
 
     query_string = re.sub(filters_regexp, "", query_string).strip()
 
@@ -112,7 +114,12 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
 
     is_phrase = False
     tokens = []
-    for part in query_string.split('"'):
+    if '"' in query_string:
+        parts = query_string.split('"')
+    else:
+        parts = query_string.split("'")
+
+    for part in parts:
         part = part.strip()
 
         if part:
