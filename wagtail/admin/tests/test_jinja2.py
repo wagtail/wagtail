@@ -7,7 +7,7 @@ from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestCoreJinja(TestCase, WagtailTestUtils):
+class TestCoreJinja(WagtailTestUtils, TestCase):
     def setUp(self):
         self.engine = engines["jinja2"]
 

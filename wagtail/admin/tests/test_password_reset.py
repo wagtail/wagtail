@@ -8,7 +8,7 @@ from django.urls import reverse
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestUserPasswordReset(TestCase, WagtailTestUtils):
+class TestUserPasswordReset(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF

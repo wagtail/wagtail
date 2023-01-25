@@ -54,7 +54,7 @@ class ReorderOnlyPagePerms(BasePagePerms):
         return True
 
 
-class TestButtonsHooks(TestCase, WagtailTestUtils):
+class TestButtonsHooks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

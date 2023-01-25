@@ -8,7 +8,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
+class TestPageSlugChangedSignal(WagtailTestUtils, TestCase):
     """
     Tests for the `wagtail.signals.page_slug_changed` signal
     """

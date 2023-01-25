@@ -22,7 +22,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestAuthentication(TestCase, WagtailTestUtils):
+class TestAuthentication(WagtailTestUtils, TestCase):
     """
     This tests that users can login and logout of the admin interface
     """
@@ -235,7 +235,7 @@ class TestAccountSectionUtilsMixin:
         return self.client.post(reverse("wagtailadmin_account"), post_data)
 
 
-class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
+class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     """
     This tests that the accounts section is working
     """
@@ -553,7 +553,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
 
 
-class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
+class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
         self.avatar = get_test_image_file()
@@ -644,7 +644,7 @@ class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtil
         self.assertIn("test.png", profile.avatar.url)
 
 
-class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
+class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):
     """
     Tests of reduced-functionality for editors
     """
@@ -683,7 +683,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
 
 
 class TestAccountManagementForAdminOnlyUser(
-    TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin
+    WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin
 ):
     """
     Tests for users with no edit/publish permissions at all
@@ -711,7 +711,7 @@ class TestAccountManagementForAdminOnlyUser(
         self.assertPanelNotActive(response, "notifications")
 
 
-class TestPasswordReset(TestCase, WagtailTestUtils):
+class TestPasswordReset(WagtailTestUtils, TestCase):
     """
     This tests that the password reset is working
     """

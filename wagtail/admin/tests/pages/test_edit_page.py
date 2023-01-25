@@ -46,7 +46,7 @@ from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timest
 from wagtail.users.models import UserProfile
 
 
-class TestPageEdit(TestCase, WagtailTestUtils):
+class TestPageEdit(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1757,7 +1757,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             )
 
 
-class TestPageEditReordering(TestCase, WagtailTestUtils):
+class TestPageEditReordering(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1879,7 +1879,7 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
         self.check_order(response, ["abcdefg", "1234567", "7654321"])
 
 
-class TestIssue197(TestCase, WagtailTestUtils):
+class TestIssue197(WagtailTestUtils, TestCase):
     def test_issue_197(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1918,7 +1918,7 @@ class TestIssue197(TestCase, WagtailTestUtils):
         self.assertIn("world", page.tags.slugs())
 
 
-class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
+class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
     # In our test models we define AdvertPlacement as a child relation on the Page model.
     # Here we check that this behaves correctly when exposed on the edit form of a Page
     # subclass (StandardIndex here).
@@ -2082,7 +2082,7 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertContains(response, "alwaysDirty: true")
 
 
-class TestIssue2492(TestCase, WagtailTestUtils):
+class TestIssue2492(WagtailTestUtils, TestCase):
     """
     The publication submission message generation was performed using
     the Page class, as opposed to the specific_class for that Page.
@@ -2146,7 +2146,7 @@ class TestIssue2492(TestCase, WagtailTestUtils):
             break
 
 
-class TestIssue3982(TestCase, WagtailTestUtils):
+class TestIssue3982(WagtailTestUtils, TestCase):
     """
     Pages that are not associated with a site, and thus do not have a live URL,
     should not display a "View live" link in the flash message after being
@@ -2305,7 +2305,7 @@ class TestIssue3982(TestCase, WagtailTestUtils):
         )
 
 
-class TestParentalM2M(TestCase, WagtailTestUtils):
+class TestParentalM2M(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2483,7 +2483,7 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationErrorMessages(TestCase, WagtailTestUtils):
+class TestValidationErrorMessages(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2622,7 +2622,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         )
 
 
-class TestNestedInlinePanel(TestCase, WagtailTestUtils):
+class TestNestedInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2726,7 +2726,7 @@ class TestNestedInlinePanel(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(TestCase, WagtailTestUtils):
+class TestLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2793,7 +2793,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         self.assertNotContains(response, f'href="{edit_translation_url}"')
 
 
-class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -2913,7 +2913,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         self.assertFalse(PageSubscription.objects.get().comment_notifications)
 
 
-class TestCommenting(TestCase, WagtailTestUtils):
+class TestCommenting(WagtailTestUtils, TestCase):
     """
     Tests both the comment notification and audit logging logic of the edit page view.
     """

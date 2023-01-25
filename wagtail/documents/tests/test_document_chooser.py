@@ -12,7 +12,7 @@ from wagtail.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestChooser(TestCase, WagtailTestUtils):
+class TestChooser(WagtailTestUtils, TestCase):
     """Test chooser panel rendered by `wagtaildocs_chooser:choose` view"""
 
     _NO_DOCS_TEXT = "You haven't uploaded any documents."

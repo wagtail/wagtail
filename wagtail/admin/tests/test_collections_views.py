@@ -42,7 +42,7 @@ class CollectionInstanceTestUtils:
         self.marketing_user.groups.add(self.marketing_group)
 
 
-class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
+class TestCollectionsIndexViewAsSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -101,7 +101,7 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         self.login(self.marketing_user, password="password")
@@ -186,7 +186,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertContains(response, "Add a collection")
 
 
-class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestAddCollectionAsSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -221,7 +221,7 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         self.login(self.marketing_user, password="password")
@@ -288,7 +288,7 @@ class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils)
         )
 
 
-class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestEditCollectionAsSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -361,7 +361,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         # Grant the marketing group permission to edit their collection
@@ -517,7 +517,7 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.assertContains(response, "Delete collection")
 
 
-class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestDeleteCollectionAsSuperuser(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -610,7 +610,7 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertTrue(Collection.objects.get(id=self.root_collection.id))
 
 
-class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         # Grant the marketing group permission to delete

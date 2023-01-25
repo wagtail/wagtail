@@ -14,7 +14,7 @@ TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 @override_settings(
     ALLOWED_HOSTS=["testserver", "localhost", "test.example.com", "other.example.com"]
 )
-class TestImportAdminViews(TestCase, WagtailTestUtils):
+class TestImportAdminViews(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

@@ -9,7 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 Document = get_document_model()
 
 
-class TestBulkAddDocumentsToCollection(TestCase, WagtailTestUtils):
+class TestBulkAddDocumentsToCollection(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()

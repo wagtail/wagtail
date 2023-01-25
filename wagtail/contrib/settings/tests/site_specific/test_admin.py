@@ -19,7 +19,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSiteSettingMenu(TestCase, WagtailTestUtils):
+class TestSiteSettingMenu(WagtailTestUtils, TestCase):
     def login_only_admin(self):
         """Log in with a user that only has permission to access the admin"""
         user = self.create_user(username="test", password="password")
@@ -67,7 +67,7 @@ class TestSiteSettingMenu(TestCase, WagtailTestUtils):
         )
 
 
-class BaseTestSiteSettingView(TestCase, WagtailTestUtils):
+class BaseTestSiteSettingView(WagtailTestUtils, TestCase):
     def get(self, site_pk=1, params={}, setting=TestSiteSetting):
         url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.get(url, params)
@@ -265,7 +265,7 @@ class TestMultiSite(BaseTestSiteSettingView):
         self.assertEqual(default_setting.email, "default@example.com")
 
 
-class TestAdminPermission(TestCase, WagtailTestUtils):
+class TestAdminPermission(WagtailTestUtils, TestCase):
     def test_registered_permission(self):
         permission = Permission.objects.get_by_natural_key(
             app_label="tests",

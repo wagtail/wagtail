@@ -17,7 +17,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestIssue2599(TestCase, WagtailTestUtils):
+class TestIssue2599(WagtailTestUtils, TestCase):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its
     (future) position in the tree. The naive way of doing this is to give it an index number
@@ -85,7 +85,7 @@ def clear_edit_handler(page_cls):
     return decorator
 
 
-class TestPreview(TestCase, WagtailTestUtils):
+class TestPreview(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -415,7 +415,7 @@ class TestPreview(TestCase, WagtailTestUtils):
                 self.assertTemplateUsed(response, template)
 
 
-class TestEnablePreview(TestCase, WagtailTestUtils):
+class TestEnablePreview(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         self.user = self.login()
@@ -563,7 +563,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         self.assertContains(response, preview_url)
 
 
-class TestDisablePreviewButton(TestCase, WagtailTestUtils):
+class TestDisablePreviewButton(WagtailTestUtils, TestCase):
     """
     Test that preview button can be disabled by setting preview_modes to an empty list
     """

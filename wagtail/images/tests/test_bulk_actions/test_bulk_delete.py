@@ -10,7 +10,7 @@ Image = get_image_model()
 test_file = get_test_image_file()
 
 
-class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
+class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 

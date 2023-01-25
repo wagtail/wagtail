@@ -6,7 +6,7 @@ from wagtail.test.testapp.models import EventPage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestContentTypeUse(TestCase, WagtailTestUtils):
+class TestContentTypeUse(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

@@ -187,7 +187,7 @@ class TestAdaptSearchModule(TestCase):
         )
 
 
-class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
+class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
     def test_adapt(self):
         main_menu = [
             LinkMenuItem("pages", "Pages", "/pages/"),

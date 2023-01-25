@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBulkPublish(TestCase, WagtailTestUtils):
+class TestBulkPublish(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -222,7 +222,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         )
 
 
-class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
+class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 

@@ -9,7 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 User = get_user_model()
 
 
-class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
+class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
     def setUp(self):
         self.musicians = Group.objects.create(name="Musicians")
         self.actors = Group.objects.create(name="Actors")

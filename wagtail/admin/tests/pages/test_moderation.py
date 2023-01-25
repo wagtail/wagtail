@@ -16,7 +16,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestApproveRejectModeration(TestCase, WagtailTestUtils):
+class TestApproveRejectModeration(WagtailTestUtils, TestCase):
     def setUp(self):
         self.submitter = self.create_superuser(
             username="submitter",
@@ -194,7 +194,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.assertContains(response, "Hello world!")
 
 
-class TestNotificationPreferences(TestCase, WagtailTestUtils):
+class TestNotificationPreferences(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -372,7 +372,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         )
 
 
-class TestApproveRejectModerationWithoutUser(TestCase, WagtailTestUtils):
+class TestApproveRejectModerationWithoutUser(WagtailTestUtils, TestCase):
     def setUp(self):
         self.submitter = self.create_superuser(
             username="submitter",

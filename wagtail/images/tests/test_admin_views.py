@@ -32,7 +32,7 @@ from .utils import Image, get_test_image_file
 urlquote_safechars = RFC3986_SUBDELIMS + str("/~:@")
 
 
-class TestImageIndexView(TestCase, WagtailTestUtils):
+class TestImageIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.kitten_image = Image.objects.create(
@@ -387,7 +387,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             self.get()
 
 
-class TestImageListingResultsView(TestCase, WagtailTestUtils):
+class TestImageListingResultsView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -409,7 +409,7 @@ class TestImageListingResultsView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageAddView(TestCase, WagtailTestUtils):
+class TestImageAddView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -644,7 +644,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
+class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         add_image_permission = Permission.objects.get(
             content_type__app_label="wagtailimages", codename="add_image"
@@ -724,7 +724,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
         )
 
 
-class TestImageEditView(TestCase, WagtailTestUtils):
+class TestImageEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -1081,7 +1081,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
-class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
+class TestImageEditViewWithCustomImageModel(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1110,7 +1110,7 @@ class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
         self.assertContains(response, "wagtailadmin/js/draftail.js")
 
 
-class TestImageDeleteView(TestCase, WagtailTestUtils):
+class TestImageDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -1166,7 +1166,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestUsage(TestCase, WagtailTestUtils):
+class TestUsage(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1285,7 +1285,7 @@ class TestUsage(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestImageChooserView(TestCase, WagtailTestUtils):
+class TestImageChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -1493,7 +1493,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
             self.get()
 
 
-class TestImageChooserChosenView(TestCase, WagtailTestUtils):
+class TestImageChooserChosenView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1527,7 +1527,7 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["result"][0]["title"], "Test image")
 
 
-class TestImageChooserChosenMultipleView(TestCase, WagtailTestUtils):
+class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1567,7 +1567,7 @@ class TestImageChooserChosenMultipleView(TestCase, WagtailTestUtils):
         self.assertEqual(titles, {"Test image", "Another test image"})
 
 
-class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
+class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1662,7 +1662,7 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageChooserUploadView(TestCase, WagtailTestUtils):
+class TestImageChooserUploadView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1944,7 +1944,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
+class TestImageChooserUploadViewWithLimitedPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         add_image_permission = Permission.objects.get(
             content_type__app_label="wagtailimages", codename="add_image"
@@ -2023,7 +2023,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
         )
 
 
-class TestMultipleImageUploader(TestCase, WagtailTestUtils):
+class TestMultipleImageUploader(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
@@ -2510,7 +2510,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
-class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
+class TestMultipleImageUploaderWithCustomImageModel(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     with a custom image model
@@ -2791,7 +2791,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImageWithAuthor")
-class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUtils):
+class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     with a custom image model
@@ -3026,7 +3026,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertTrue(response_json["success"])
 
 
-class TestURLGeneratorView(TestCase, WagtailTestUtils):
+class TestURLGeneratorView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3073,7 +3073,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestGenerateURLView(TestCase, WagtailTestUtils):
+class TestGenerateURLView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3202,7 +3202,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         )
 
 
-class TestPreviewView(TestCase, WagtailTestUtils):
+class TestPreviewView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3244,7 +3244,7 @@ class TestPreviewView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 400)
 
 
-class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
+class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image to edit
         self.image = Image.objects.create(
@@ -3313,7 +3313,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestImageAddMultipleView(TestCase, WagtailTestUtils):
+class TestImageAddMultipleView(WagtailTestUtils, TestCase):
     def test_as_superuser(self):
         self.login()
         response = self.client.get(reverse("wagtailimages:add_multiple"))

@@ -6,7 +6,7 @@ from wagtail.test.snippets.models import StandardSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSnippetDeleteView(TestCase, WagtailTestUtils):
+class TestSnippetDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.snippet_model = StandardSnippet
 

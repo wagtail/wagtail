@@ -9,7 +9,7 @@ from wagtail.test.testapp.models import BusinessChild, BusinessIndex
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestUserbarTag(TestCase, WagtailTestUtils):
+class TestUserbarTag(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.create_superuser(
             username="test", email="test@email.com", password="password"
@@ -166,7 +166,7 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         self.assertIn("Empty heading found", content)
 
 
-class TestUserbarFrontend(TestCase, WagtailTestUtils):
+class TestUserbarFrontend(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.homepage = Page.objects.get(id=2)
@@ -191,7 +191,7 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
-class TestUserbarAddLink(TestCase, WagtailTestUtils):
+class TestUserbarAddLink(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -239,7 +239,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         self.assertNotContains(response, expected_link)
 
 
-class TestUserbarModeration(TestCase, WagtailTestUtils):
+class TestUserbarModeration(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.homepage = Page.objects.get(id=2)

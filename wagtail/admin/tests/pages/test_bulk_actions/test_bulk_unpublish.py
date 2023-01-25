@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBulkUnpublish(TestCase, WagtailTestUtils):
+class TestBulkUnpublish(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create pages to unpublish
         self.root_page = Page.objects.get(id=2)
@@ -196,7 +196,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         )
 
 
-class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
+class TestBulkUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

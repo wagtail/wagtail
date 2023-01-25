@@ -12,7 +12,7 @@ from wagtail.test.testapp.models import SimplePage, StandardChild, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageDelete(TestCase, WagtailTestUtils):
+class TestPageDelete(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

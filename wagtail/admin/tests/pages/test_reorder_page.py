@@ -6,7 +6,7 @@ from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageReorder(TestCase, WagtailTestUtils):
+class TestPageReorder(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def __init__(self, methodName: str = ...) -> None:

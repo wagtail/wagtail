@@ -11,7 +11,7 @@ Image = get_image_model()
 test_file = get_test_image_file()
 
 
-class TestBulkAddImagesToCollection(TestCase, WagtailTestUtils):
+class TestBulkAddImagesToCollection(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()

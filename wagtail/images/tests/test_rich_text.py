@@ -11,7 +11,7 @@ from wagtail.test.utils import WagtailTestUtils
 from .utils import Image, get_test_image_file
 
 
-class TestEditorHtmlImageEmbedHandler(TestCase, WagtailTestUtils):
+class TestEditorHtmlImageEmbedHandler(WagtailTestUtils, TestCase):
     def test_get_db_attributes(self):
         soup = BeautifulSoup(
             '<b data-id="test-id" data-format="test-format" data-alt="test-alt">foo</b>',
@@ -90,7 +90,7 @@ class TestEditorHtmlImageEmbedHandler(TestCase, WagtailTestUtils):
         )
 
 
-class TestFrontendImageEmbedHandler(TestCase, WagtailTestUtils):
+class TestFrontendImageEmbedHandler(WagtailTestUtils, TestCase):
     def test_expand_db_attributes_for_frontend(self):
         Image.objects.create(id=1, title="Test", file=get_test_image_file())
         result = FrontendImageEmbedHandler.expand_db_attributes(
@@ -132,7 +132,7 @@ class TestFrontendImageEmbedHandler(TestCase, WagtailTestUtils):
         )
 
 
-class TestExtractReferencesWithImage(TestCase, WagtailTestUtils):
+class TestExtractReferencesWithImage(WagtailTestUtils, TestCase):
     def test_extract_references(self):
         self.assertEqual(
             list(

@@ -229,7 +229,7 @@ class TestMissingImage(TestCase):
         )
 
 
-class TestFormat(TestCase, WagtailTestUtils):
+class TestFormat(WagtailTestUtils, TestCase):
     def setUp(self):
         # test format
         self.format = Format("test name", "test label", "test classnames", "original")
@@ -642,7 +642,7 @@ class TestRect(TestCase):
         self.assertEqual(rect, Rect(75, 190, 125, 210))
 
 
-class TestGetImageForm(TestCase, WagtailTestUtils):
+class TestGetImageForm(WagtailTestUtils, TestCase):
     def test_fields(self):
         form = get_image_form(Image)
 

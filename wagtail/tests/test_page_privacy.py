@@ -5,7 +5,7 @@ from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPagePrivacy(TestCase, WagtailTestUtils):
+class TestPagePrivacy(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

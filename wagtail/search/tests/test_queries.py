@@ -178,7 +178,7 @@ class TestGarbageCollectCommand(TestCase):
         )
 
 
-class TestQueryChooserView(TestCase, WagtailTestUtils):
+class TestQueryChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

@@ -11,7 +11,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestPageExplorer(TestCase, WagtailTestUtils):
+class TestPageExplorer(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -374,7 +374,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
 
 
-class TestBreadcrumb(TestCase, WagtailTestUtils):
+class TestBreadcrumb(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_breadcrumb_next_present(self):
@@ -418,7 +418,7 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
-class TestPageExplorerSidePanel(TestCase, WagtailTestUtils):
+class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_side_panel_present(self):
@@ -438,7 +438,7 @@ class TestPageExplorerSidePanel(TestCase, WagtailTestUtils):
         )
 
 
-class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
+class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -601,7 +601,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
 
-class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
+class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
     This is isolated in its own test case because it requires a custom page tree and custom set of
@@ -740,7 +740,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(TestCase, WagtailTestUtils):
+class TestLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 @override_settings(WAGTAILREDIRECTS_AUTO_CREATE=True)
-class TestAutocreateRedirects(TestCase, WagtailTestUtils):
+class TestAutocreateRedirects(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

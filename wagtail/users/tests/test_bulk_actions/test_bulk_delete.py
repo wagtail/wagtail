@@ -9,7 +9,7 @@ from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 User = get_user_model()
 
 
-class TestUserDeleteView(TestCase, WagtailTestUtils):
+class TestUserDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a set of test users
         self.test_users = [

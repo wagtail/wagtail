@@ -572,7 +572,7 @@ class TestRedirects(TestCase):
         self.assertIs(redirect.is_permanent, True)
 
 
-class TestRedirectsIndexView(TestCase, WagtailTestUtils):
+class TestRedirectsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -620,7 +620,7 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["redirects"][0].old_path, "/aaargh")
 
 
-class TestRedirectsAddView(TestCase, WagtailTestUtils):
+class TestRedirectsAddView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -771,7 +771,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertIsNone(redirects.first().site)
 
 
-class TestRedirectsEditView(TestCase, WagtailTestUtils):
+class TestRedirectsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(
@@ -880,7 +880,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
+class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(

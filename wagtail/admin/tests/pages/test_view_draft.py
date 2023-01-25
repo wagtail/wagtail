@@ -8,7 +8,7 @@ from wagtail.test.testapp.models import SimplePage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestDraftAccess(TestCase, WagtailTestUtils):
+class TestDraftAccess(WagtailTestUtils, TestCase):
     """Tests for the draft view access restrictions."""
 
     def setUp(self):

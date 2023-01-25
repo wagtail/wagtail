@@ -72,7 +72,7 @@ class PermissionPolicyTestUtils:
                     )
 
 
-class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Permissions
         image_content_type = ContentType.objects.get_for_model(Image)

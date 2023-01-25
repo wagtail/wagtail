@@ -8,7 +8,7 @@ from wagtail.test.utils import WagtailTestUtils
 Document = get_document_model()
 
 
-class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
+class TestDocumentBulkDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 

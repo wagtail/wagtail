@@ -28,7 +28,7 @@ def get_total_page_count():
     )
 
 
-class TestPageListing(TestCase, WagtailTestUtils):
+class TestPageListing(WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):

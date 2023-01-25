@@ -10,7 +10,7 @@ from wagtail.admin.navigation import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestExplorablePages(TestCase, WagtailTestUtils):
+class TestExplorablePages(WagtailTestUtils, TestCase):
     """
     Test the way that the explorer nav menu behaves for users with different permissions.
 

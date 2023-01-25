@@ -11,7 +11,7 @@ from .base import GenericSettingsTestMixin
 
 @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "other"])
 class GenericSettingTemplateTestCase(
-    GenericSettingsTestMixin, TestCase, WagtailTestUtils
+    GenericSettingsTestMixin, WagtailTestUtils, TestCase
 ):
     def render(self, request, string, context=None):
         template = Template(string)

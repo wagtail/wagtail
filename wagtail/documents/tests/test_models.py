@@ -48,7 +48,7 @@ class TestDocumentQuerySet(TestCase):
         self.assertEqual(list(results), [zzz_document, aaa_document])
 
 
-class TestDocumentPermissions(TestCase, WagtailTestUtils):
+class TestDocumentPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
         self.user = self.create_user(

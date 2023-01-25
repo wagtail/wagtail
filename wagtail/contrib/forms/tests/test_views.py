@@ -75,7 +75,7 @@ class TestFormResponsesPanel(TestCase):
         self.assertFalse(self.panel.is_shown())
 
 
-class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils):
+class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/")
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
@@ -124,7 +124,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         self.assertFalse(self.panel.is_shown())
 
 
-class TestFormsIndex(TestCase, WagtailTestUtils):
+class TestFormsIndex(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -232,7 +232,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestFormsIndexWithLocalisationEnabled(TestCase, WagtailTestUtils):
+class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -327,7 +327,7 @@ class TestFormsIndexWithLocalisationEnabled(TestCase, WagtailTestUtils):
         self.assertNotContains(response, self.get_switch_link_markup(self.fr_locale))
 
 
-class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
+class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page()
@@ -515,7 +515,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertIn("this is a really old message", first_row_values)
 
 
-class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
+class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page()
@@ -820,7 +820,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn("vim", data_lines[1])
 
 
-class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
+class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
     def create_test_user_without_admin(self, username):
         return self.create_user(username=username, password="123")
 
@@ -1027,7 +1027,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn("vim", data_lines[1])
 
 
-class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
+class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
     def create_test_user_without_admin(self, username):
         return self.create_user(username=username, password="123")
 
@@ -1198,7 +1198,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         )
 
 
-class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
+class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1291,7 +1291,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         )
 
 
-class TestDeleteCustomFormSubmission(TestCase, WagtailTestUtils):
+class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1362,7 +1362,7 @@ class TestDeleteCustomFormSubmission(TestCase, WagtailTestUtils):
         self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
 
 
-class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
+class TestFormsWithCustomSubmissionsList(WagtailTestUtils, TestCase):
     def create_test_user_without_admin(self, username):
         return self.create_user(username=username, password="123")
 
@@ -1557,7 +1557,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertIn("Old chocolate idea", first_row_values)
 
 
-class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
+class TestFormsWithCustomFormBuilderSubmissionsList(WagtailTestUtils, TestCase):
     def setUp(self):
         home_page = Page.objects.get(url_path="/home/")
         form_page = home_page.add_child(
@@ -1612,7 +1612,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
         self.assertContains(response, "192.0.2.15")
 
 
-class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
+class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585
@@ -1777,7 +1777,7 @@ class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
         )
 
 
-class TestPreview(TestCase, WagtailTestUtils):
+class TestPreview(WagtailTestUtils, TestCase):
 
     post_data = {
         "title": "Form page!",

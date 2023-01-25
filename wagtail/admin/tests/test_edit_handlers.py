@@ -368,7 +368,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         )
 
 
-class TestTabbedInterface(TestCase, WagtailTestUtils):
+class TestTabbedInterface(WagtailTestUtils, TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/")
         user = self.create_superuser(username="admin")
@@ -1069,7 +1069,7 @@ class TestPageChooserPanel(TestCase):
         self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
 
-class TestInlinePanel(TestCase, WagtailTestUtils):
+class TestInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1380,7 +1380,7 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         delattr(EventPageSpeaker, "content_panels")
 
 
-class TestCommentPanel(TestCase, WagtailTestUtils):
+class TestCommentPanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1696,7 +1696,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         # The existing reply was from the same user, so should be deletable
 
 
-class TestPublishingPanel(TestCase, WagtailTestUtils):
+class TestPublishingPanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1747,7 +1747,7 @@ class TestPublishingPanel(TestCase, WagtailTestUtils):
         self.assertIn("expire_at", form.base_fields)
 
 
-class TestMultipleChooserPanel(TestCase, WagtailTestUtils):
+class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

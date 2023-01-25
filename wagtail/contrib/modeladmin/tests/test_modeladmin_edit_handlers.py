@@ -8,7 +8,7 @@ from wagtail.test.modeladmintest.wagtail_hooks import PersonAdmin
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
+class TestExtractPanelDefinitionsFromModelAdmin(WagtailTestUtils, TestCase):
     """tests that edit_handler and panels can be defined on modeladmin"""
 
     def setUp(self):

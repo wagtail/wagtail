@@ -7,7 +7,7 @@ from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSiteIndexView(TestCase, WagtailTestUtils):
+class TestSiteIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -27,7 +27,7 @@ class TestSiteIndexView(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
 
 
-class TestSiteCreateView(TestCase, WagtailTestUtils):
+class TestSiteCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -130,7 +130,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(Site.objects.filter(hostname="localhost").count(), 1)
 
 
-class TestSiteEditView(TestCase, WagtailTestUtils):
+class TestSiteEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(id=2)
@@ -248,7 +248,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         self.assertIs(Site.objects.get(id=second_site.id).is_default_site, False)
 
 
-class TestSiteDeleteView(TestCase, WagtailTestUtils):
+class TestSiteDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -284,7 +284,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
             Site.objects.get(id=self.localhost.id)
 
 
-class TestLimitedPermissions(TestCase, WagtailTestUtils):
+class TestLimitedPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a user
         user = self.create_user(username="test", password="password")
