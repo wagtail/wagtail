@@ -449,7 +449,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_create_simplepage_scheduled(self):
@@ -480,7 +480,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(page.go_live_at.date(), go_live_at.date())
         self.assertEqual(page.expire_at.date(), expire_at.date())
         self.assertIs(page.expired, False)
-        self.assertTrue(page.status_string, "draft")
+        self.assertEqual(page.status_string, "draft")
 
         # No revisions with approved_go_live_at
         self.assertFalse(
@@ -601,7 +601,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_create_simplepage_post_publish_scheduled(self):
@@ -643,7 +643,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # But Page won't be live
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
-        self.assertTrue(page.status_string, "scheduled")
+        self.assertEqual(page.status_string, "scheduled")
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
