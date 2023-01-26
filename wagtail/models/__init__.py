@@ -230,6 +230,11 @@ class RevisionMixin(models.Model):
         editable=False,
     )
 
+    # An array of additional field names that will not be included when the object is copied.
+    default_exclude_fields_in_copy = [
+        "latest_revision",
+    ]
+
     @property
     def revisions(self):
         """
