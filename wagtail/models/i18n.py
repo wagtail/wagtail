@@ -10,13 +10,12 @@ from django.utils import translation
 from django.utils.encoding import force_str
 from modelcluster.fields import ParentalKey
 
+from wagtail.actions.copy_for_translation import CopyForTranslationAction
 from wagtail.coreutils import (
     get_content_languages,
     get_supported_content_language_variant,
 )
 from wagtail.signals import pre_validate_delete
-
-from .copying import _copy
 
 
 def pk(obj):
@@ -205,22 +204,17 @@ class TranslatableMixin(models.Model):
             self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
         )
 
-    def copy_for_translation(self, locale):
+    def copy_for_translation(self, locale, exclude_fields=None):
         """
         Creates a copy of this instance with the specified locale.
 
         Note that the copy is initially unsaved.
         """
-        translated, child_object_map = _copy(self)
-        translated.locale = locale
-
-        # Update locale on any translatable child objects as well
-        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
-        for (_child_relation, _old_pk), child_object in child_object_map.items():
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
-
-        return translated
+        return CopyForTranslationAction(
+            self,
+            locale,
+            exclude_fields=exclude_fields,
+        ).execute()
 
     def get_default_locale(self):
         """
