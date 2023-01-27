@@ -271,7 +271,7 @@ The userbar can be positioned where it works best with your design. Alternativel
 wagtail-userbar::part(userbar) {
     bottom: 30px;
 }
-``` 
+```
 
 ## Varying output between preview and live
 

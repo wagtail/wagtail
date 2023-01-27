@@ -50,7 +50,7 @@ Any Wagtail sites you start up in this virtualenv will now run against this deve
 pip install -e path/to/wagtail"[testing, docs]" -U
 ```
 
-Here, `path/to/wagtail`is the path to your local Wagtail copy.
+Here, `path/to/wagtail` is the path to your local Wagtail copy.
 
 (development_on_windows)=
 
