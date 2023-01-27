@@ -1117,6 +1117,7 @@ class FullFeaturedSnippet(
     DraftStateMixin,
     LockableMixin,
     RevisionMixin,
+    TranslatableMixin,
     models.Model,
 ):
     text = models.TextField()
@@ -1127,7 +1128,7 @@ class FullFeaturedSnippet(
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "full-featured snippet"
         verbose_name_plural = "full-featured snippets"
 
