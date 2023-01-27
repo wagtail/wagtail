@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
-from wagtail.models import Page, TranslatableMixin
+from wagtail.models import DraftStateMixin, Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 from .forms import SubmitTranslationForm
@@ -135,7 +135,11 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         if not issubclass(model, TranslatableMixin):
             raise Http404
 
-        return get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
+        object = get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
+        if isinstance(object, DraftStateMixin):
+            object = object.get_latest_revision_as_object()
+
+        return object
 
     def get_success_url(self, translated_snippet=None):
         app_label = self.kwargs["app_label"]
