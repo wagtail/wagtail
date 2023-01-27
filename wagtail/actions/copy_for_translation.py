@@ -193,7 +193,11 @@ class CopyForTranslationAction:
 
     @transaction.atomic
     def _copy_for_translation(self, object, locale, exclude_fields=None):
-        from wagtail.models import TranslatableMixin
+        from wagtail.models import DraftStateMixin, TranslatableMixin
+
+        # Make sure the copy includes the latest changes, including draft
+        if isinstance(object, DraftStateMixin):
+            object = object.get_latest_revision_as_object()
 
         exclude_fields = (
             getattr(object, "default_exclude_fields_in_copy", [])
