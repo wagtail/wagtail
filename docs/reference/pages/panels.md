@@ -116,7 +116,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
     .. attribute:: InlinePanel.label
         
-        Text for the add button and heading for child panels. Used as the heading when ``Heading`` is not present.
+        Text for the add button and heading for child panels. Used as the heading when ``heading`` is not present.
 
     .. attribute:: InlinePanel.help_text (optional)
         
