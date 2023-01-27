@@ -104,7 +104,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
     
     .. attribute:: InlinePanel.panels (optional)
         
-        Panels to be added to the InlinePanel. Can be added manually or as a part of the cluster model.
+        The list of panels that will make up the child object's form. If not specified here, the `panels` definition on the child model will be used.
 
     .. attribute:: InlinePanel.classname (optional)
         
