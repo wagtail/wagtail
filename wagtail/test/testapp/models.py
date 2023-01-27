@@ -1088,6 +1088,32 @@ class NonPreviewableModel(PreviewableMixin, RevisionMixin, models.Model):
 register_snippet(NonPreviewableModel)
 
 
+# Snippet with all mixins enabled
+
+
+class FullFeaturedSnippet(
+    PreviewableMixin,
+    DraftStateMixin,
+    RevisionMixin,
+    TranslatableMixin,
+    models.Model,
+):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_model.html"
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = "full-featured snippet"
+        verbose_name_plural = "full-featured snippets"
+
+
+register_snippet(FullFeaturedSnippet)
+
+
 class StandardIndex(Page):
     """Index for the site"""
 
