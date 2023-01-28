@@ -78,12 +78,14 @@ Here are some Wagtail-specific types that you might include as fields in your mo
         Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to ``FieldPanel.permission``.
 ```
 
+(inline_panels)=
+
 ### InlinePanel
 
 ```{eval-rst}
 .. class:: InlinePanel(relation_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 
-    This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
+    This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_models`.
 
     .. attribute:: InlinePanel.relation_name
 
@@ -122,6 +124,47 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 #### Collapsing InlinePanels to save space
 
 Note that you can use `classname="collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
+
+
+(multiple_chooser_panel)=
+
+### MultipleChooserPanel
+
+```{versionadded} 4.2
+The `MultipleChooserPanel` panel type was added.
+```
+
+```{eval-rst}
+.. class:: MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
+```
+
+This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
+
+`MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
+
+For example, given a child model that provies a gallery of images on `BlogPage`:
+
+```python
+class BlogPageGalleryImage(Orderable):
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        FieldPanel('image'),
+        FieldPanel('caption'),
+    ]
+```
+
+The `MultipleChooserPanel` definition on `BlogPage` would be:
+
+```python
+        MultipleChooserPanel(
+            'gallery_images', label="Gallery images", chooser_field_name="image"
+        )
+```
 
 ### FieldRowPanel
 
@@ -300,43 +343,3 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 
 Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable).
 
-
-(multiple_chooser_panel)=
-
-### MultipleChooserPanel
-
-```{versionadded} 4.2
-The `MultipleChooserPanel` panel type was added.
-```
-
-```{eval-rst}
-.. class:: MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
-```
-
-This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
-
-`MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
-
-For example, given a child model that provies a gallery of images on `BlogPage`:
-
-```python
-class BlogPageGalleryImage(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
-    image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-    )
-    caption = models.CharField(blank=True, max_length=250)
-
-    panels = [
-        FieldPanel('image'),
-        FieldPanel('caption'),
-    ]
-```
-
-the `MultipleChooserPanel` definition on `BlogPage` would be:
-
-```python
-        MultipleChooserPanel(
-            'gallery_images', label="Gallery images", chooser_field_name="image"
-        )
-```
