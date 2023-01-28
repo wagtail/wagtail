@@ -331,6 +331,8 @@ class BlogPage(Page):
         })
 ```
 
+(inline_models)=
+
 ## Inline models
 
 Wagtail allows the nesting of other models within a page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page.
@@ -370,7 +372,21 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
-In the above example, the `BlogPageRelatedLink` model can also be refactored into an abstract model:
+To add this to the admin interface, use the `InlinePanel` edit panel class:
+
+```python
+content_panels = [
+    ...
+
+    InlinePanel('related_links', label="Related links"),
+]
+```
+
+The first argument must match the value of the `related_name` attribute of the `ParentalKey`.
+For a brief description of parameters taken by `InlinePanel`, see {ref}`inline_panels`.
+
+## Re-using inline models across multiple page types
+In the above example, related links are defined as a child object on the `BlogPage` page type. Often, the same kind of inline child object will appear on several page types, and in these cases, it's undesirable to repeat the entire model definition. This can be avoided by refactoring the common fields into an abstract model:
 
 ```python
 from django.db import models
@@ -390,26 +406,28 @@ class RelatedLink(models.Model):
     class Meta:
         abstract = True
 
-# The real model which combines the abstract model
+# The real model which extends the abstract model with a ParentalKey relation back to the page model.
+# This can be repeated for each page type where the relation is to be added
+# (for example, NewsPageRelatedLink, PublicationPageRelatedLink and so on).
 class BlogPageRelatedLink(Orderable,RelatedLink):
-    page = ParentalKey("wagtailcore.Page", on_delete=models.CASCADE, related_name='related_links')
-
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
 ```
 
-Notice the change of `ParentalKey` to `"wagtailcore.Page"` model. The `related_links` relation will be set up on the base Page model, which means it will be available on all page types. Most likely we don't want to use it on all page types (for example, related links are not very useful on a homepage).
-
-To add this to the admin interface, use the {class}`~wagtail.admin.panels.InlinePanel` edit panel class:
+Alternatively, if RelatedLink is going to appear on a significant number of the page types defined in your project, it may be more appropriate to set up a single `RelatedLink` model pointing to the base `wagtailcore.Page` model:
 
 ```python
-content_panels = [
-    ...
-
-    InlinePanel('related_links', label="Related links"),
-]
+class RelatedLink(Orderable):
+    page = ParentalKey("wagtailcore.Page", on_delete=models.CASCADE, related_name='related_links')
+    name = models.CharField(max_length=255)
+    url = models.URLField()
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('url'),
+    ]
 ```
 
-The first argument must match the value of the `related_name` attribute of the `ParentalKey`.
-For a brief description of parameters taken by `InlinePanel`, see [Inline Panel](https://docs.wagtail.org/en/latest/reference/pages/panels.html#inlinepanel) 
+This will then make `related_links` available as a relation across all page types, although it will still only be editable on page types that include the `InlinePanel` in their panel definitions - for other page types, the set of related links will remain empty.
+
 
 ## Working with pages
 
