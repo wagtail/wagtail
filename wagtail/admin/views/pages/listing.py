@@ -14,8 +14,16 @@ from wagtail.models import Page, UserPagePermissionsProxy
 
 @user_passes_test(user_has_any_page_permission)
 def index(request, parent_page_id=None):
+    
+    WAGTAIL_GROUP_USER_PAGES_ISOLATE = getattr(settings, "WAGTAIL_GROUP_USER_PAGES_ISOLATE", [])
+    group_user_isolation = request.user.groups.filter(name__in=WAGTAIL_GROUP_USER_PAGES_ISOLATE).exists()
+
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
+        if group_user_isolation:
+            if not parent_page.owner.is_superuser:
+                if request.user != parent_page.owner:
+                    raise ValueError("Unauthorized to access the page")
     else:
         parent_page = Page.get_first_root_node()
 
@@ -30,10 +38,17 @@ def index(request, parent_page_id=None):
     parent_page = parent_page.specific
 
     user_perms = UserPagePermissionsProxy(request.user)
-    pages = (
-        parent_page.get_children().prefetch_related("content_type", "sites_rooted_here")
-        & user_perms.explorable_pages()
-    )
+    
+    if group_user_isolation:
+        pages = (
+            parent_page.get_children().prefetch_related("content_type", "sites_rooted_here").filter(owner=request.user)
+            & user_perms.explorable_pages().filter(owner=request.user)
+        )
+    else:
+        pages = (
+            parent_page.get_children().prefetch_related("content_type", "sites_rooted_here")
+            & user_perms.explorable_pages()
+        )
 
     # Get page ordering
     ordering = request.GET.get("ordering", "-latest_revision_created_at")
