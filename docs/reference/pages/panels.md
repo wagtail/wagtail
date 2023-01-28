@@ -171,7 +171,7 @@ class BlogPageGalleryImage(Orderable):
     ]
 ```
 
-the `MultipleChooserPanel` definition on `BlogPage` would be:
+The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```python
         MultipleChooserPanel(
