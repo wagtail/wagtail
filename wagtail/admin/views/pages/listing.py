@@ -14,9 +14,8 @@ from wagtail.models import Page, UserPagePermissionsProxy
 
 @user_passes_test(user_has_any_page_permission)
 def index(request, parent_page_id=None):
-    
-    WAGTAIL_GROUP_USER_PAGES_ISOLATE = getattr(settings, "WAGTAIL_GROUP_USER_PAGES_ISOLATE", [])
-    group_user_isolation = request.user.groups.filter(name__in=WAGTAIL_GROUP_USER_PAGES_ISOLATE).exists()
+    wagtail_group_user_pages_isolate = getattr(settings, "WAGTAIL_GROUP_USER_PAGES_ISOLATE", [])
+    group_user_isolation = request.user.groups.filter(name__in=wagtail_group_user_pages_isolate).exists()
 
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
@@ -38,7 +37,6 @@ def index(request, parent_page_id=None):
     parent_page = parent_page.specific
 
     user_perms = UserPagePermissionsProxy(request.user)
-    
     if group_user_isolation:
         pages = (
             parent_page.get_children().prefetch_related("content_type", "sites_rooted_here").filter(owner=request.user)
