@@ -10,7 +10,7 @@ import requests
 from django.core.exceptions import ImproperlyConfigured
 
 from wagtail import __version__
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 logger = logging.getLogger("wagtail.frontendcache")
 
@@ -368,8 +368,8 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
         if self._legacy_azure_library:
             warnings.warn(
-                f"Support for azure-mgmt-frontdoor {__version__} will be dropped in the next release. Please upgrade to azure-mgmt-frontdoor >= 1.0.",
-                RemovedInWagtail50Warning,
+                f"Support for azure-mgmt-frontdoor {__version__} will be dropped in Wagtail 6.0. Please upgrade to azure-mgmt-frontdoor >= 1.0.",
+                RemovedInWagtail60Warning,
             )
 
         super().__init__(params)
@@ -412,8 +412,8 @@ class AzureCdnBackend(AzureBaseBackend):
 
         if self._legacy_azure_library:
             warnings.warn(
-                f"Support for azure-mgmt-cdn {__version__} will be dropped in the next release. Please upgrade to azure-mgmt-cdn >= 10.",
-                RemovedInWagtail50Warning,
+                f"Support for azure-mgmt-cdn {__version__} will be dropped in Wagtail 6.0. Please upgrade to azure-mgmt-cdn >= 10.",
+                RemovedInWagtail60Warning,
             )
 
         super().__init__(params)

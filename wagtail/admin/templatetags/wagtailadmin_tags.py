@@ -760,14 +760,14 @@ def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
         raise ValueError("You must supply an icon name")
 
     if class_name:
-        from wagtail.utils.deprecation import RemovedInWagtail50Warning
+        from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
         warn(
             (
                 "Icon template tag `class_name` has been renamed to `classname`, please adopt the new usage instead. "
                 f'Replace `{{% icon ... class_name="{class_name}" %}}` with `{{% icon ... classname="{class_name}" %}}`'
             ),
-            category=RemovedInWagtail50Warning,
+            category=RemovedInWagtail60Warning,
         )
 
     return {
