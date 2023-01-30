@@ -1287,7 +1287,7 @@ class TestInlinePanelGetComparison(TestCase):
         page = Page.objects.get(id=4).specific
         comparison = (
             page.get_edit_handler()
-            .bind_to(instance=page, request=self.request)
+            .get_bound_panel(instance=page, request=self.request)
             .get_comparison()
         )
 

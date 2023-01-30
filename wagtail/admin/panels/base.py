@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.safestring import mark_safe
 
@@ -10,7 +8,6 @@ from wagtail.admin.forms.models import (
 from wagtail.admin.ui.components import Component
 from wagtail.coreutils import safe_snake_case
 from wagtail.models import DraftStateMixin
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 def get_form_for_model(
@@ -98,54 +95,7 @@ class Panel:
         that this panel can use.
         This will only be called after binding to a model (i.e. self.model is available).
         """
-        options = {}
-
-        if not getattr(self.widget_overrides, "is_original_method", False):
-            warn(
-                "The `widget_overrides` method (on %r) is deprecated; "
-                "these should be returned from `get_form_options` as a "
-                "`widgets` item instead." % type(self),
-                category=RemovedInWagtail50Warning,
-            )
-            options["widgets"] = self.widget_overrides()
-
-        if not getattr(self.required_fields, "is_original_method", False):
-            warn(
-                "The `required_fields` method (on %r) is deprecated; "
-                "these should be returned from `get_form_options` as a "
-                "`fields` item instead." % type(self),
-                category=RemovedInWagtail50Warning,
-            )
-            options["fields"] = self.required_fields()
-
-        if not getattr(self.required_formsets, "is_original_method", False):
-            warn(
-                "The `required_formsets` method (on %r) is deprecated; "
-                "these should be returned from `get_form_options` as a "
-                "`formsets` item instead." % type(self),
-                category=RemovedInWagtail50Warning,
-            )
-            options["formsets"] = self.required_formsets()
-
-        return options
-
-    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
-    def widget_overrides(self):
         return {}
-
-    widget_overrides.is_original_method = True
-
-    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
-    def required_fields(self):
-        return []
-
-    required_fields.is_original_method = True
-
-    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
-    def required_formsets(self):
-        return {}
-
-    required_formsets.is_original_method = True
 
     def get_form_class(self):
         """
@@ -173,15 +123,6 @@ class Panel:
         new.model = model
         new.on_model_bound()
         return new
-
-    def bind_to(self, model=None, instance=None, request=None, form=None):
-        warn(
-            "The %s.bind_to() method has been replaced by bind_to_model(model) and get_bound_panel(instance=instance, request=request, form=form)"
-            % type(self).__name__,
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        return self.get_bound_panel(instance=instance, request=request, form=form)
 
     def get_bound_panel(self, instance=None, request=None, form=None, prefix="panel"):
         """
@@ -299,22 +240,6 @@ class Panel:
 
         def is_required(self):
             return False
-
-        def render_as_object(self):
-            warn(
-                "Panel.render_as_object is deprecated. Use render_html instead",
-                category=RemovedInWagtail50Warning,
-                stacklevel=2,
-            )
-            return self.render_html()
-
-        def render_as_field(self):
-            warn(
-                "Panel.render_as_field is deprecated. Use render_html instead",
-                category=RemovedInWagtail50Warning,
-                stacklevel=2,
-            )
-            return self.render_html()
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
