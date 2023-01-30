@@ -85,6 +85,47 @@ class LinkMenuItem(MenuItem):
         )
 
 
+@adapter("wagtail.sidebar.ActionMenuItem", base=BaseSidebarAdapter)
+class ActionMenuItem(MenuItem):
+    def __init__(
+        self,
+        name: str,
+        label: str,
+        action: str,
+        icon_name: str = "",
+        classnames: str = "",
+        method: str = "POST",
+        attrs: Mapping[str, Any] = None,
+    ):
+        super().__init__(
+            name,
+            label,
+            icon_name=icon_name,
+            classnames=classnames,
+            attrs=attrs,
+        )
+        self.action = action
+        self.method = method
+
+    def js_args(self):
+        args = super().js_args()
+        args[0]["action"] = self.action
+        args[0]["method"] = self.method
+        return args
+
+    def __eq__(self, other):
+        return (
+            self.__class__ == other.__class__
+            and self.name == other.name
+            and self.label == other.label
+            and self.action == other.action
+            and self.method == other.method
+            and self.icon_name == other.icon_name
+            and self.classnames == other.classnames
+            and self.attrs == other.attrs
+        )
+
+
 @adapter("wagtail.sidebar.SubMenuItem", base=BaseSidebarAdapter)
 class SubMenuItem(MenuItem):
     def __init__(
