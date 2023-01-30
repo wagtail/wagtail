@@ -360,8 +360,8 @@ $positions: (
   border-radius: theme('borderRadius.full');
   font-size: theme('fontSize.14');
   line-height: theme('lineHeight.none');
-      height: theme('spacing.5');
-      width: theme('spacing.5');
+  height: theme('spacing.5');
+  width: theme('spacing.5');
   color: theme('colors.white.DEFAULT');
 
   &.has-errors {
@@ -400,7 +400,7 @@ $positions: (
     .w-userbar-items {
       #{$vertical}: 100%;
       #{$horizontal}: 0;
-      padding-#{$vertical}: 0.5rem;
+      padding-#{$vertical}: theme('spacing.2');
     }
 
     .w-userbar-nav .w-userbar__item {
