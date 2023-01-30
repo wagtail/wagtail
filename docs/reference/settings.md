@@ -24,10 +24,6 @@ This is the base URL used by the Wagtail admin site. It is typically used for ge
 
 If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
 
-```{versionchanged} 3.0
-This setting was previously named ``BASE_URL`` and was undocumented, using ``BASE_URL`` will be removed in a future release.
-```
-
 (append_slash)=
 
 ## Append Slash
