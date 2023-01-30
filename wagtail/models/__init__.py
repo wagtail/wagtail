@@ -2103,7 +2103,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     "wagtail_serve", args=(self.url_path[len(root_path) :],)
                 )
         except NoReverseMatch:
-            return (site_id, None, None)
+            """
+            wagtail_serve is not mounted, this is most likely a headless Wagtail,
+            use the path rather than processsing through wagtail_serve -1 maintains
+            the leading slash needed to create a root relative URL Path.
+
+            TODO: review whether additional work is needed to support Multisite and i18n
+            url generation in headless Wagtail.
+            """
+            page_path = self.url_path[len(root_path) - 1 :]
 
         # Remove the trailing slash from the URL reverse generates if
         # WAGTAIL_APPEND_SLASH is False and we're not trying to serve

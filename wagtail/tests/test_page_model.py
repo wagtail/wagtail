@@ -432,15 +432,19 @@ class TestRouting(TestCase):
         # for now headless installations will return the url relative to the default site.
         # additional work probably needs to be done to enable multisite in headless modes
         # without this page links in richtext blocks have href=None
-        self.assertEqual(homepage.get_url_parts(), (default_site.id, "http://localhost", "/"))
+        self.assertEqual(
+            homepage.get_url_parts(), (default_site.id, "http://localhost", "/")
+        )
         self.assertEqual(homepage.full_url, "http://localhost/")
         self.assertEqual(homepage.url, "/")
 
         events_page = Page.objects.get(url_path="/home/events/")
-        self.assertEqual(events_page.get_url_parts(), (default_site.id, "http://localhost", "/events/"))
+        self.assertEqual(
+            events_page.get_url_parts(),
+            (default_site.id, "http://localhost", "/events/"),
+        )
         self.assertEqual(events_page.full_url, "http://localhost/events/")
         self.assertEqual(events_page.url, "/events/")
-
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path="/home/")
