@@ -91,10 +91,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import (
-    RemovedInWagtail50Warning,
-    RemovedInWagtail60Warning,
-)
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -1792,16 +1789,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return revision
 
-    def get_latest_revision_as_page(self):
-        warnings.warn(
-            "Pages should use .get_latest_revision_as_object() instead of "
-            ".get_latest_revision_as_page() to retrieve the latest revision as a "
-            "Page instance.",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        return self.get_latest_revision_as_object()
-
     def get_latest_revision_as_object(self):
         if not self.has_unpublished_changes:
             # Use the live database copy in preference to the revision record, as:
@@ -2819,27 +2806,6 @@ class Revision(models.Model):
     def base_content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
-    @property
-    def page(self):
-        warnings.warn(
-            "Revisions should access .content_object instead of .page "
-            "to retrieve the object.",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        return self.content_object
-
-    @property
-    def page_id(self):
-        warnings.warn(
-            "Revisions should access .object_id instead of .page_id "
-            "to retrieve the object's primary key. For page revisions, "
-            "you may need to cast the object_id to integer first.",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        return int(self.object_id)
-
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
         # We cannot use auto_now_add as that will override
@@ -2887,15 +2853,6 @@ class Revision(models.Model):
 
     def as_object(self):
         return self.content_object.with_content_json(self.content)
-
-    def as_page_object(self):
-        warnings.warn(
-            "Revisions should use .as_object() instead of .as_page_object() "
-            "to create the object.",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        return self.as_object()
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
