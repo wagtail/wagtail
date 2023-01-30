@@ -22,7 +22,6 @@ import wagtail.test.testapp.models
 
 class Migration(migrations.Migration):
 
-    # RemovedInWagtail50Warning: Remove the old individual migrations 0001-0073.
     replaces = [
         ("tests", "0001_initial"),
         ("tests", "0002_customimage_collections"),
