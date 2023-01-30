@@ -1,17 +1,13 @@
-import warnings
-
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
 from wagtail.models import Site
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .registry import register_setting
 
 __all__ = [
-    "BaseSetting",  # RemovedInWagtail50Warning
     "BaseGenericSetting",
     "BaseSiteSetting",
     "register_setting",
@@ -204,21 +200,3 @@ class BaseGenericSetting(AbstractSetting):
 
     def __str__(self):
         return self._meta.verbose_name
-
-
-class BaseSetting(BaseSiteSetting):
-    class Meta:
-        abstract = True
-
-    def __init__(self, *args, **kwargs):
-        warnings.warn(
-            (
-                "`wagtail.contrib.settings.models.BaseSetting` "
-                "is obsolete and should be replaced by "
-                "`wagtail.contrib.settings.models.BaseSiteSetting` or "
-                "`wagtail.contrib.settings.models.BaseGenericSetting`"
-            ),
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
