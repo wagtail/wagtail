@@ -1,4 +1,3 @@
-import warnings
 from functools import partial
 from urllib.parse import urlencode
 
@@ -50,7 +49,6 @@ from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetSidePanels
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 # == Helper functions ==
@@ -68,15 +66,6 @@ def get_snippet_model_from_url_params(app_name, model_name):
         raise Http404
 
     return model
-
-
-def get_snippet_edit_handler(model):
-    warnings.warn(
-        "The get_snippet_edit_handler function has been moved to wagtail.admin.panels.get_edit_handler",
-        category=RemovedInWagtail50Warning,
-        stacklevel=2,
-    )
-    return get_edit_handler(model)
 
 
 # == Views ==

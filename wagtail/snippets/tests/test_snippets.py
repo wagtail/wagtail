@@ -23,7 +23,7 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
+from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page, ReferenceIndex, Revision
 from wagtail.signals import published, unpublished
@@ -33,7 +33,6 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -69,7 +68,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -4977,16 +4975,6 @@ class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
         form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertTrue(issubclass(form_class, FancySnippetForm))
-
-    def test_get_snippet_edit_handler(self):
-        # TODO: Remove in Wagtail 5.0
-        with self.assertWarnsMessage(
-            RemovedInWagtail50Warning,
-            "The get_snippet_edit_handler function has been moved to wagtail.admin.panels.get_edit_handler",
-        ):
-            edit_handler = get_snippet_edit_handler(StandardSnippet)
-        self.assertIsNotNone(edit_handler)
-        self.assertIsInstance(edit_handler, Panel)
 
 
 class TestInlinePanelMedia(TestCase, WagtailTestUtils):
