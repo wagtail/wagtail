@@ -8,7 +8,6 @@ from wagtail.admin.forms.models import (  # NOQA
 
 from .base import *  # NOQA
 from .comment_panel import *  # NOQA
-from .deprecated import *  # NOQA
 from .field_panel import *  # NOQA
 from .group import *  # NOQA
 from .help_panel import *  # NOQA

@@ -193,20 +193,6 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
        ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
 ```
 
-### ImageChooserPanel
-
-```{eval-rst}
-.. module:: wagtail.images.edit_handlers
-
-.. class:: ImageChooserPanel(field_name)
-
-    Deprecated; use ``FieldPanel`` instead.
-
-    .. versionchanged:: 3.0
-
-       ``ImageChooserPanel`` is no longer required to obtain an image chooser interface.
-```
-
 ### FormSubmissionsPanel
 
 ```{eval-rst}
@@ -226,34 +212,6 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
             content_panels = [
                 FormSubmissionsPanel(),
             ]
-```
-
-### DocumentChooserPanel
-
-```{eval-rst}
-.. module:: wagtail.documents.edit_handlers
-
-.. class:: DocumentChooserPanel(field_name)
-
-    Deprecated; use ``FieldPanel`` instead.
-
-    .. versionchanged:: 3.0
-
-       ``DocumentChooserPanel`` is no longer required to obtain a document chooser interface.
-```
-
-### SnippetChooserPanel
-
-```{eval-rst}
-.. module:: wagtail.snippets.edit_handlers
-
-.. class:: SnippetChooserPanel(field_name, snippet_type=None)
-
-    Deprecated; use ``FieldPanel`` instead.
-
-    .. versionchanged:: 3.0
-
-       ``SnippetChooserPanel`` is no longer required to obtain a document chooser interface.
 ```
 
 ## Field Customisation
