@@ -925,7 +925,7 @@ def sidebar_props(context):
         sidebar.LinkMenuItem(
             "account", _("Account"), reverse("wagtailadmin_account"), icon_name="user"
         ),
-        sidebar.LinkMenuItem(
+        sidebar.ActionMenuItem(
             "logout", _("Log out"), reverse("wagtailadmin_logout"), icon_name="logout"
         ),
     ]
