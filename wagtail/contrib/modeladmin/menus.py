@@ -1,7 +1,4 @@
-from warnings import warn
-
-from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
+from wagtail.admin.menu import MenuItem, SubmenuMenuItem
 
 
 class ModelAdminMenuItem(MenuItem):
@@ -56,13 +53,3 @@ class GroupMenuItem(SubmenuMenuItem):
             icon_name=icon_name,
             order=order,
         )
-
-
-def SubMenu(items):
-    warn(
-        "wagtail.contrib.modeladmin.menus.SubMenu is deprecated. Use wagtail.admin.menus.Menu and "
-        "pass the list of menu items as the 'items' keyword argument instead",
-        category=RemovedInWagtail50Warning,
-        stacklevel=2,
-    )
-    return Menu(items=items)

@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.conf import settings
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
@@ -14,9 +12,7 @@ from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.menu import Menu
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Page, TranslatableMixin
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .helpers import (
     AdminURLHelper,
@@ -166,17 +162,7 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled
         )
         url_helper_class = self.get_url_helper_class()
-        if accepts_kwarg(url_helper_class, "base_url_path"):
-            self.url_helper = url_helper_class(
-                self.model, base_url_path=self.base_url_path
-            )
-        else:
-            warn(
-                "%s.__init__ needs to be updated to accept a `base_url_path` keyword argument"
-                % url_helper_class.__name__,
-                category=RemovedInWagtail50Warning,
-            )
-            self.url_helper = url_helper_class(self.model)
+        self.url_helper = url_helper_class(self.model, base_url_path=self.base_url_path)
 
         # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105
@@ -368,9 +354,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.prepopulated_fields or {}
 
-    # RemovedInWagtail50Warning - remove request arg, included here so that old-style super()
-    # calls will still work
-    def get_form_fields_exclude(self, request=None):
+    def get_form_fields_exclude(self):
         """
         Returns a list or tuple of fields names to be excluded from Create/Edit pages.
         """
@@ -484,9 +468,7 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.history_view_class
         return view_class.as_view(**kwargs)(request)
 
-    # RemovedInWagtail50Warning - remove instance and request args, included here so that
-    # old-style super() calls will still work
-    def get_edit_handler(self, instance=None, request=None):
+    def get_edit_handler(self):
         """
         Returns the appropriate edit_handler for this modeladmin class.
         edit_handlers can be defined either on the model itself or on the
@@ -504,16 +486,7 @@ class ModelAdmin(WagtailRegisterable):
             panels = self.model.panels
             edit_handler = ObjectList(panels)
         else:
-            try:
-                fields_to_exclude = self.get_form_fields_exclude()
-            except TypeError:
-                fields_to_exclude = self.get_form_fields_exclude(request=None)
-                warn(
-                    "%s.get_form_fields_exclude should not accept a request argument"
-                    % type(self).__name__,
-                    category=RemovedInWagtail50Warning,
-                )
-
+            fields_to_exclude = self.get_form_fields_exclude()
             panels = extract_panel_definitions_from_model_class(
                 self.model, exclude=fields_to_exclude
             )
