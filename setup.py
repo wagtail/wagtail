@@ -69,7 +69,7 @@ testing_extras = [
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For streamfield migration toolkit
-    "wagtail-factories>=4.0,<5",
+    "wagtail-factories @ git+https://github.com/gasman/wagtail-factories.git@remove-wagtail-upper-bound#egg=wagtail-factories",
 ]
 
 # Documentation dependencies
