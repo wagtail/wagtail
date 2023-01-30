@@ -429,11 +429,18 @@ class TestRouting(TestCase):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
 
-        # The page should not be routable because wagtail_serve is not registered
-        # However it is still associated with a site
-        self.assertEqual(homepage.get_url_parts(), (default_site.id, None, None))
-        self.assertIsNone(homepage.full_url)
-        self.assertIsNone(homepage.url)
+        # for now headless installations will return the url relative to the default site.
+        # additional work probably needs to be done to enable multisite in headless modes
+        # without this page links in richtext blocks have href=None
+        self.assertEqual(homepage.get_url_parts(), (default_site.id, "http://localhost", "/"))
+        self.assertEqual(homepage.full_url, "http://localhost/")
+        self.assertEqual(homepage.url, "/")
+
+        events_page = Page.objects.get(url_path="/home/events/")
+        self.assertEqual(events_page.get_url_parts(), (default_site.id, "http://localhost", "/events/"))
+        self.assertEqual(events_page.full_url, "http://localhost/events/")
+        self.assertEqual(events_page.url, "/events/")
+
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path="/home/")
