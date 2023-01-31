@@ -438,9 +438,10 @@ class CreateEditViewOptionalFeaturesMixin:
         }
 
     def get_success_url(self):
-        if self.draftstate_enabled and self.action in ["create", "edit"]:
-            # If DraftStateMixin is enabled and the action is saving a draft,
-            # remain on the edit view
+        # If DraftStateMixin is enabled and the action is saving a draft
+        # or cancelling a workflow, remain on the edit view
+        remain_actions = {"create", "edit", "cancel-workflow"}
+        if self.draftstate_enabled and self.action in remain_actions:
             return self.get_edit_url()
         return super().get_success_url()
 
