@@ -838,8 +838,6 @@ class TestServeView(TestCase):
         self.assertContains(response, "bad googlebot no cookie")
 
 
-
-
 class TestMovePage(TestCase):
     fixtures = ["test.json"]
 

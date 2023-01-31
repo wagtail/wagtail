@@ -517,7 +517,6 @@ class EventIndex(Page):
 
         return super().route(request, path_components)
 
-    
     def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
         return super().get_sitemap_urls(request=request) + [
