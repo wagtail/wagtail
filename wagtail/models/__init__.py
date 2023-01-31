@@ -2523,19 +2523,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             }
         ]
 
-    def get_static_site_paths(self):
-        """
-        This is a generator of URL paths to feed into a static site generator
-        Override this if you would like to create static versions of subpages
-        """
-        # Yield path for this page
-        yield "/"
-
-        # Yield paths for child pages
-        for child in self.get_children().live():
-            for path in child.specific.get_static_site_paths():
-                yield "/" + child.slug + path
-
     def get_ancestors(self, inclusive=False):
         """
         Returns a queryset of the current page's ancestors, starting at the root page
