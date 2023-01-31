@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*
 import json
-from unittest import skip
 
 from django.apps import apps
 from django.db import connection, models
@@ -16,18 +15,14 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
-    BlockCountsStreamModel,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
-    MinMaxCountStreamModel,
-    StreamModel,
 )
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class TestLazyStreamField(TestCase):
-    model = StreamModel
+    model = JSONStreamModel
 
     def setUp(self):
         self.image = Image.objects.create(
@@ -183,13 +178,7 @@ class TestLazyStreamField(TestCase):
                 instance.save()
 
 
-class TestJSONLazyStreamField(TestLazyStreamField):
-    model = JSONStreamModel
-
-
 class TestSystemCheck(TestCase):
-    use_json_field = False
-
     def tearDown(self):
         # unregister InvalidStreamModel from the overall model registry
         # so that it doesn't break tests elsewhere
@@ -207,7 +196,7 @@ class TestSystemCheck(TestCase):
                     ("heading", blocks.CharBlock()),
                     ("rich text", blocks.RichTextBlock()),
                 ],
-                use_json_field=self.use_json_field,
+                use_json_field=True,
             )
 
         errors = InvalidStreamModel.check()
@@ -217,57 +206,18 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[0].obj, InvalidStreamModel._meta.get_field("body"))
 
 
-class TestJSONSystemCheck(TestSystemCheck):
-    use_json_field = True
-
-
-class TestUseJsonFieldWarning(TestCase):
-    def tearDown(self):
-        # unregister DeprecatedStreamModel from the overall model registry
-        # so that it doesn't break tests elsewhere
-        for package in ("wagtailcore", "wagtail.tests"):
-            try:
-                del apps.all_models[package]["deprecatedstreammodel"]
-            except KeyError:
-                pass
-        apps.clear_cache()
-
-    def test_system_check_validates_block(self):
-        message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
-        with self.assertWarnsMessage(RemovedInWagtail50Warning, message):
-
-            class DeprecatedStreamModel(models.Model):
-                body = StreamField(
-                    [
-                        ("heading", blocks.CharBlock()),
-                        ("rich text", blocks.RichTextBlock()),
-                    ],
-                )
-
-
 class TestStreamValueAccess(TestCase):
-    model = StreamModel
-
     def setUp(self):
-        self.json_body = self.model.objects.create(
+        self.json_body = JSONStreamModel.objects.create(
             body=json.dumps([{"type": "text", "value": "foo"}])
         )
-
-    def test_can_read_non_json_content(self):
-        """StreamField columns should handle non-JSON database content gracefully"""
-        nonjson_body = self.model.objects.create(body="<h1>hello world</h1>")
-        self.assertIsInstance(nonjson_body.body, StreamValue)
-        # the main list-like content of the StreamValue should be blank
-        self.assertFalse(nonjson_body.body)
-        # the unparsed text content should be available in raw_text
-        self.assertEqual(nonjson_body.body.raw_text, "<h1>hello world</h1>")
 
     def test_can_assign_as_list(self):
         self.json_body.body = [("rich_text", RichText("<h2>hello world</h2>"))]
         self.json_body.save()
 
         # the body should now be a stream consisting of a single rich_text block
-        fetched_body = self.model.objects.get(id=self.json_body.id).body
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
         self.assertIsInstance(fetched_body, StreamValue)
         self.assertEqual(len(fetched_body), 1)
         self.assertIsInstance(fetched_body[0].value, RichText)
@@ -277,7 +227,7 @@ class TestStreamValueAccess(TestCase):
         self.json_body.body.append(("text", "bar"))
         self.json_body.save()
 
-        fetched_body = self.model.objects.get(id=self.json_body.id).body
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
         self.assertIsInstance(fetched_body, StreamValue)
         self.assertEqual(len(fetched_body), 2)
         self.assertEqual(fetched_body[0].block_type, "text")
@@ -286,16 +236,8 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[1].value, "bar")
 
 
-class TestJSONStreamValueAccess(TestStreamValueAccess):
-    model = JSONStreamModel
-
-    @skip("JSONField-based StreamField does not support storing non-json content.")
-    def test_can_read_non_json_content(self):
-        pass
-
-
 class TestStreamFieldRenderingBase(TestCase):
-    model = StreamModel
+    model = JSONStreamModel
 
     def setUp(self):
         self.image = Image.objects.create(
@@ -336,10 +278,6 @@ class TestStreamFieldRendering(TestStreamFieldRenderingBase):
         self.assertIsInstance(rendered, SafeString)
 
 
-class TestJSONStreamFieldRendering(TestStreamFieldRendering):
-    model = JSONStreamModel
-
-
 class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
     def render(self, string, context):
         return Template(string).render(Context(context))
@@ -347,10 +285,6 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
     def test_render(self):
         rendered = self.render("{{ instance.body }}", {"instance": self.instance})
         self.assertHTMLEqual(rendered, self.expected)
-
-
-class TestJSONStreamFieldDjangoRendering(TestStreamFieldDjangoRendering):
-    model = JSONStreamModel
 
 
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
@@ -366,19 +300,13 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
         self.assertHTMLEqual(rendered, self.expected)
 
 
-class TestJSONStreamFieldJinjaRendering(TestStreamFieldJinjaRendering):
-    model = JSONStreamModel
-
-
 class TestRequiredStreamField(TestCase):
-    use_json_field = False
-
     def test_non_blank_field_is_required(self):
         # passing a block list
         field = StreamField(
             [("paragraph", blocks.CharBlock())],
             blank=False,
-            use_json_field=self.use_json_field,
+            use_json_field=True,
         )
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
@@ -391,9 +319,7 @@ class TestRequiredStreamField(TestCase):
                 required = False
 
         # passing a block instance
-        field = StreamField(
-            MyStreamBlock(), blank=False, use_json_field=self.use_json_field
-        )
+        field = StreamField(MyStreamBlock(), blank=False, use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
@@ -401,25 +327,21 @@ class TestRequiredStreamField(TestCase):
         field = StreamField(
             MyStreamBlock(required=False),
             blank=False,
-            use_json_field=self.use_json_field,
+            use_json_field=True,
         )
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
         # passing a block class
-        field = StreamField(
-            MyStreamBlock, blank=False, use_json_field=self.use_json_field
-        )
+        field = StreamField(MyStreamBlock, blank=False, use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
     def test_blank_false_is_implied_by_default(self):
         # passing a block list
-        field = StreamField(
-            [("paragraph", blocks.CharBlock())], use_json_field=self.use_json_field
-        )
+        field = StreamField([("paragraph", blocks.CharBlock())], use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
@@ -431,20 +353,18 @@ class TestRequiredStreamField(TestCase):
                 required = False
 
         # passing a block instance
-        field = StreamField(MyStreamBlock(), use_json_field=self.use_json_field)
+        field = StreamField(MyStreamBlock(), use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
-        field = StreamField(
-            MyStreamBlock(required=False), use_json_field=self.use_json_field
-        )
+        field = StreamField(MyStreamBlock(required=False), use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
         # passing a block class
-        field = StreamField(MyStreamBlock, use_json_field=self.use_json_field)
+        field = StreamField(MyStreamBlock, use_json_field=True)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
@@ -454,7 +374,7 @@ class TestRequiredStreamField(TestCase):
         field = StreamField(
             [("paragraph", blocks.CharBlock())],
             blank=True,
-            use_json_field=self.use_json_field,
+            use_json_field=True,
         )
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
@@ -466,35 +386,23 @@ class TestRequiredStreamField(TestCase):
                 required = True
 
         # passing a block instance
-        field = StreamField(
-            MyStreamBlock(), blank=True, use_json_field=self.use_json_field
-        )
+        field = StreamField(MyStreamBlock(), blank=True, use_json_field=True)
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
         field = StreamField(
-            MyStreamBlock(required=True), blank=True, use_json_field=self.use_json_field
+            MyStreamBlock(required=True), blank=True, use_json_field=True
         )
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
         # passing a block class
-        field = StreamField(
-            MyStreamBlock, blank=True, use_json_field=self.use_json_field
-        )
+        field = StreamField(MyStreamBlock, blank=True, use_json_field=True)
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
 
-class TestJSONRequiredStreamField(TestRequiredStreamField):
-    use_json_field = True
-
-
 class TestStreamFieldCountValidation(TestCase):
-    min_max_count_model = MinMaxCountStreamModel
-    block_counts_model = BlockCountsStreamModel
-    use_json_field = False
-
     def setUp(self):
         self.image = Image.objects.create(
             title="Test image", file=get_test_image_file()
@@ -505,14 +413,14 @@ class TestStreamFieldCountValidation(TestCase):
         self.text_body = {"type": "text", "value": "Hello, World!"}
 
     def test_minmax_pass_to_block(self):
-        instance = self.min_max_count_model.objects.create(body=json.dumps([]))
+        instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps([]))
         internal_block = instance.body.stream_block
 
         self.assertEqual(internal_block.meta.min_num, 2)
         self.assertEqual(internal_block.meta.max_num, 5)
 
     def test_counts_pass_to_block(self):
-        instance = self.block_counts_model.objects.create(body=json.dumps([]))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
         block_counts = instance.body.stream_block.meta.block_counts
 
         self.assertEqual(block_counts.get("text"), {"min_num": 1})
@@ -522,7 +430,7 @@ class TestStreamFieldCountValidation(TestCase):
     def test_minimum_count(self):
         # Single block should fail validation
         body = [self.rich_text_body]
-        instance = self.min_max_count_model.objects.create(body=json.dumps(body))
+        instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
@@ -531,18 +439,18 @@ class TestStreamFieldCountValidation(TestCase):
 
         # 2 blocks okay
         body = [self.rich_text_body, self.text_body]
-        instance = self.min_max_count_model.objects.create(body=json.dumps(body))
+        instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
     def test_maximum_count(self):
         # 5 blocks okay
         body = [self.rich_text_body] * 5
-        instance = self.min_max_count_model.objects.create(body=json.dumps(body))
+        instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
         # 6 blocks should fail validation
         body = [self.rich_text_body, self.text_body] * 3
-        instance = self.min_max_count_model.objects.create(body=json.dumps(body))
+        instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
@@ -550,10 +458,10 @@ class TestStreamFieldCountValidation(TestCase):
         )
 
     def test_block_counts_minimums(self):
-        instance = self.block_counts_model.objects.create(body=json.dumps([]))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
 
         # Zero blocks should fail validation (requires one text, one image)
-        instance = self.block_counts_model.objects.create(body=json.dumps([]))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         errors = list(catcher.exception.params["__all__"])
@@ -564,7 +472,7 @@ class TestStreamFieldCountValidation(TestCase):
 
         # One plain text should fail validation
         body = [self.text_body]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
@@ -574,15 +482,15 @@ class TestStreamFieldCountValidation(TestCase):
 
         # One text, one image should be okay
         body = [self.text_body, self.image_body]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
     def test_block_counts_maximums(self):
-        instance = self.block_counts_model.objects.create(body=json.dumps([]))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
 
         # Base is one text, one image
         body = [self.text_body, self.image_body]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
         # Two rich text should error
@@ -592,14 +500,14 @@ class TestStreamFieldCountValidation(TestCase):
             self.rich_text_body,
             self.rich_text_body,
         ]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
 
         with self.assertRaises(StreamBlockValidationError):
             instance.body.stream_block.clean(instance.body)
 
         # Two images should error
         body = [self.text_body, self.image_body, self.image_body]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
 
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
@@ -610,7 +518,7 @@ class TestStreamFieldCountValidation(TestCase):
 
         # One text, one rich, one image should be okay
         body = [self.text_body, self.image_body, self.rich_text_body]
-        instance = self.block_counts_model.objects.create(body=json.dumps(body))
+        instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
     def test_streamfield_count_argument_precedence(self):
@@ -624,7 +532,7 @@ class TestStreamFieldCountValidation(TestCase):
                 block_counts = {"heading": {"max_num": 1}}
 
         # args being picked up from the class definition
-        field = StreamField(TestStreamBlock, use_json_field=self.use_json_field)
+        field = StreamField(TestStreamBlock, use_json_field=True)
         self.assertEqual(field.stream_block.meta.min_num, 2)
         self.assertEqual(field.stream_block.meta.max_num, 5)
         self.assertEqual(field.stream_block.meta.block_counts["heading"]["max_num"], 1)
@@ -635,7 +543,7 @@ class TestStreamFieldCountValidation(TestCase):
             min_num=3,
             max_num=6,
             block_counts={"heading": {"max_num": 2}},
-            use_json_field=self.use_json_field,
+            use_json_field=True,
         )
         self.assertEqual(field.stream_block.meta.min_num, 3)
         self.assertEqual(field.stream_block.meta.max_num, 6)
@@ -647,17 +555,11 @@ class TestStreamFieldCountValidation(TestCase):
             min_num=None,
             max_num=None,
             block_counts=None,
-            use_json_field=self.use_json_field,
+            use_json_field=True,
         )
         self.assertIsNone(field.stream_block.meta.min_num)
         self.assertIsNone(field.stream_block.meta.max_num)
         self.assertIsNone(field.stream_block.meta.block_counts)
-
-
-class TestJSONStreamFieldCountValidation(TestStreamFieldCountValidation):
-    min_max_count_model = JSONMinMaxCountStreamModel
-    block_counts_model = JSONBlockCountsStreamModel
-    use_json_field = True
 
 
 class TestJSONStreamField(TestCase):
@@ -669,14 +571,11 @@ class TestJSONStreamField(TestCase):
         )
 
     def test_internal_type(self):
-        text = StreamField([("paragraph", blocks.CharBlock())], use_json_field=False)
         json = StreamField([("paragraph", blocks.CharBlock())], use_json_field=True)
-
-        self.assertEqual(text.get_internal_type(), "TextField")
         self.assertEqual(json.get_internal_type(), "JSONField")
 
     def test_json_body_equals_to_text_body(self):
-        instance_text = StreamModel.objects.create(
+        instance_text = JSONStreamModel.objects.create(
             body=json.dumps([{"type": "text", "value": "foo"}]),
         )
         self.assertEqual(
