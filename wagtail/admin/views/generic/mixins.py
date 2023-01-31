@@ -380,6 +380,8 @@ class CreateEditViewOptionalFeaturesMixin:
         )
 
     def get_error_message(self):
+        if self.action == "cancel-workflow":
+            return None
         if self.locked_for_user:
             return capfirst(
                 _("The %(model_name)s could not be saved as it is locked")
@@ -550,6 +552,21 @@ class CreateEditViewOptionalFeaturesMixin:
 
         return response
 
+    def form_invalid(self, form):
+        # Even if the object is locked due to not having permissions,
+        # the original submitter can still cancel the workflow
+        if self.action == "cancel-workflow":
+            self.cancel_workflow_action()
+            messages.success(
+                self.request,
+                self.get_success_message(),
+                buttons=self.get_success_buttons(),
+            )
+            # Refresh the lock object as now WorkflowLock no longer applies
+            self.lock = self.get_lock()
+            self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
+        return super().form_invalid(form)
+
     def get_live_last_updated_info(self):
         # Create view doesn't have last updated info
         if self.view_name == "create":
@@ -652,15 +669,6 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locked_for_user and form.is_valid():
             return self.form_valid(form)
         else:
-            # Even if the page is locked due to not having permissions,
-            # the original submitter can still cancel the workflow
-            if self.action == "cancel-workflow":
-                self.cancel_workflow_action()
-                messages.success(
-                    self.request,
-                    self.get_success_message(),
-                    buttons=self.get_success_buttons(),
-                )
             return self.form_invalid(form)
 
 
