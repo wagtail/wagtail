@@ -16,21 +16,29 @@
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
     - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
+    - `breadcrumb` - Custom breadcrumbs content as a variable, displayed in place of breadcrumb block before the header content
+    - `header` - Replaces the header `h1` completely with custom variable content
+    - `search` - An alternative search content variable displayed if provided and search_url url is not present
+    - `extra_rows` - Shown at the end of the header container
 
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
-    {% block breadcrumb %}{% endblock %}
+    {% block breadcrumb %}{{ breadcrumb }}{% endblock %}
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1 class="w-header__title" id="header-title">
-                    {% if icon %}
-                        {% icon classname="w-header__glyph" name=icon %}
-                    {% elif avatar %}
-                        <div class="w-header__glyph avatar large"><img src="{{ avatar }}" alt="" /></div>
-                    {% endif %}
-                    {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
-                </h1>
+                {% if heading %}
+                    {{ heading }}
+                {% else %}
+                    <h1 class="w-header__title" id="header-title">
+                        {% if icon %}
+                            {% icon classname="w-header__glyph" name=icon %}
+                        {% elif avatar %}
+                            <div class="w-header__glyph avatar large"><img src="{{ avatar }}" alt="" /></div>
+                        {% endif %}
+                        {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
+                    </h1>
+                {% endif %}
                 {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
             </div>
             {% if search_url %}
@@ -42,6 +50,8 @@
                     <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
                     <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
                 </form>
+            {% elif search %}
+                {{ search }}
             {% endif %}
         </div>
         <div class="{% block right_column_classname %}right{% endblock %}">
@@ -59,5 +69,5 @@
             {% endif %}
         </div>
     </div>
-    {% block extra_rows %}{% endblock %}
+    {% block extra_rows %}{{ extra_rows }}{% endblock %}
 </header>
