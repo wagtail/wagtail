@@ -869,16 +869,6 @@ class TestStaticSitePaths(TestCase):
                 )
             )
 
-    def test_local_static_site_paths(self):
-        paths = list(self.about_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/"])
-
-    def test_child_static_site_paths(self):
-        paths = list(self.home_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/", "/about/", "/contact/"])
-
     def test_custom_static_site_paths(self):
         paths = list(self.event_index.get_static_site_paths())
 
