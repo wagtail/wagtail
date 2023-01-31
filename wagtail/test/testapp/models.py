@@ -517,18 +517,7 @@ class EventIndex(Page):
 
         return super().route(request, path_components)
 
-    def get_static_site_paths(self):
-        # Get page count
-        page_count = self.get_paginator().num_pages
-
-        # Yield a path for each page
-        for page in range(page_count):
-            yield "/%d/" % (page + 1)
-
-        # Yield from superclass
-        for path in super().get_static_site_paths():
-            yield path
-
+    
     def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
         return super().get_sitemap_urls(request=request) + [

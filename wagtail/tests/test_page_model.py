@@ -838,52 +838,6 @@ class TestServeView(TestCase):
         self.assertContains(response, "bad googlebot no cookie")
 
 
-class TestStaticSitePaths(TestCase):
-    def setUp(self):
-        self.root_page = Page.objects.get(id=1)
-
-        # For simple tests
-        self.home_page = self.root_page.add_child(
-            instance=SimplePage(title="Homepage", slug="home2", content="hello")
-        )
-        self.about_page = self.home_page.add_child(
-            instance=SimplePage(title="About us", slug="about", content="hello")
-        )
-        self.contact_page = self.home_page.add_child(
-            instance=SimplePage(title="Contact", slug="contact", content="hello")
-        )
-
-        # For custom tests
-        self.event_index = self.root_page.add_child(
-            instance=EventIndex(title="Events", slug="events")
-        )
-        for i in range(20):
-            self.event_index.add_child(
-                instance=EventPage(
-                    title="Event " + str(i),
-                    slug="event" + str(i),
-                    location="the moon",
-                    audience="public",
-                    cost="free",
-                    date_from="2001-01-01",
-                )
-            )
-
-    def test_custom_static_site_paths(self):
-        paths = list(self.event_index.get_static_site_paths())
-
-        # Event index path
-        expected_paths = ["/"]
-
-        # One path for each page of results
-        expected_paths.extend(["/" + str(i + 1) + "/" for i in range(5)])
-
-        # One path for each event page
-        expected_paths.extend(["/event" + str(i) + "/" for i in range(20)])
-
-        paths.sort()
-        expected_paths.sort()
-        self.assertEqual(paths, expected_paths)
 
 
 class TestMovePage(TestCase):
