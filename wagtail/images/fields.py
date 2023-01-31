@@ -10,7 +10,6 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
 ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp"]
-SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
 
 
 class WagtailImageField(ImageField):
@@ -28,17 +27,23 @@ class WagtailImageField(ImageField):
         )
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
+        self.allowed_image_extensions = getattr(
+            settings, "WAGTAILIMAGES_EXTENSIONS", ALLOWED_EXTENSIONS
+        )
+
+        self.supported_formats_text = ", ".join(self.allowed_image_extensions).upper()
+
         # Help text
         if self.max_upload_size is not None:
             self.help_text = _(
                 "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
             ) % {
-                "supported_formats": SUPPORTED_FORMATS_TEXT,
+                "supported_formats": self.supported_formats_text,
                 "max_upload_size": self.max_upload_size_text,
             }
         else:
             self.help_text = _("Supported formats: %(supported_formats)s.") % {
-                "supported_formats": SUPPORTED_FORMATS_TEXT,
+                "supported_formats": self.supported_formats_text,
             }
 
         # Error messages
@@ -46,7 +51,7 @@ class WagtailImageField(ImageField):
         # either right now if all values are known, otherwise when used.
         self.error_messages["invalid_image_extension"] = _(
             "Not a supported image format. Supported formats: %(supported_formats)s."
-        ) % {"supported_formats": SUPPORTED_FORMATS_TEXT}
+        ) % {"supported_formats": self.supported_formats_text}
 
         self.error_messages["invalid_image_known_format"] = _(
             "Not a valid .%(extension)s image. The extension does not match the file format (%(image_format)s)"
@@ -68,7 +73,7 @@ class WagtailImageField(ImageField):
         # Check file extension
         extension = os.path.splitext(f.name)[1].lower()[1:]
 
-        if extension not in ALLOWED_EXTENSIONS:
+        if extension not in self.allowed_image_extensions:
             raise ValidationError(
                 self.error_messages["invalid_image_extension"],
                 code="invalid_image_extension",

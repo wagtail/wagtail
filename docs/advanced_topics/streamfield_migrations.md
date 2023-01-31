@@ -509,7 +509,7 @@ class MyBlockOperation(BaseBlockOperation):
         new_block_value = block_value[:self.length]
         return new_block_value
 
-    
+
     @property
     def operation_name_fragment(self):
         return "truncate_{}".format(self.length)
