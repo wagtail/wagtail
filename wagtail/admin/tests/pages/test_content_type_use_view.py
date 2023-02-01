@@ -32,3 +32,4 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
             + urlencode({"next": request_url})
         )
         self.assertContains(response, delete_url)
+        self.assertNotContains(response, "data-bulk-action-select-all-checkbox")
