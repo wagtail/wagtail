@@ -70,9 +70,13 @@
     @include show-focus-outline-inside();
 
     &-toggle {
-      @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
+      @apply w-pl-2 w-inline-flex min-w-0 w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
     }
 
+    .icon {
+      flex-shrink: 0;
+    }
+    
     &-label {
       @apply w-text-white w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
     }
