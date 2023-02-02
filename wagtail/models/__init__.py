@@ -3267,15 +3267,16 @@ class UserPagePermissionsProxy:
     @cached_property
     def _site_details(self):
         root_page = self.explorable_root_page()
+        root_site = None
+        real_site_name = settings.WAGTAIL_SITE_NAME
+
         if root_page:
             root_site = root_page.get_site()
-        else:
-            root_site = None
-        real_site_name = settings.WAGTAIL_SITE_NAME
-        if root_site:
-            real_site_name = (
-                root_site.site_name if root_site.site_name else root_site.hostname
-            )
+            if root_site:
+                real_site_name = (
+                    root_site.site_name if root_site.site_name else root_site.hostname
+                )
+
         return {
             "root_page": root_page,
             "root_site": root_site,
