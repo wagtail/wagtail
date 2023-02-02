@@ -278,6 +278,32 @@ class BulkActionsCheckboxColumn(Column):
         return context
 
 
+class ReferencesColumn(Column):
+    cell_template_name = "wagtailadmin/tables/references_cell.html"
+
+    def __init__(
+        self,
+        name,
+        label=None,
+        accessor=None,
+        classname=None,
+        sort_key=None,
+        width=None,
+        get_url=None,
+    ):
+        super().__init__(name, label, accessor, classname, sort_key, width)
+        self._get_url_func = get_url
+
+    def get_edit_url(self, instance):
+        if self._get_url_func:
+            return self._get_url_func(instance)
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["edit_url"] = self.get_edit_url(instance)
+        return context
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
