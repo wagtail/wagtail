@@ -89,6 +89,7 @@ Changelog
  * Fix: Add missing wagtailadmin_tags in `workflow_state_approved.html` template (Alex Tomkins)
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
  * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
+ * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
