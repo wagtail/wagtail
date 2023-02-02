@@ -11,11 +11,11 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -266,36 +266,16 @@ def delete(request, document_id):
     )
 
 
-@permission_checker.require("change")
-def usage(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
+class UsageView(generic.UsageView):
+    model = get_document_model()
+    pk_url_kwarg = "document_id"
+    permission_policy = permission_policy
+    permission_required = "change"
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", doc
-    ):
-        raise PermissionDenied
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, permission, self.object
+        )
 
-    paginator = Paginator(doc.get_usage(), per_page=20)
-    object_page = paginator.get_page(request.GET.get("p"))
-
-    # Add edit URLs to each source object
-    url_finder = AdminURLFinder(request.user)
-    results = []
-    for object, references in object_page:
-        edit_url = url_finder.get_edit_url(object)
-        if edit_url is None:
-            label = _("(Private %(object)s)") % {"object": object._meta.verbose_name}
-            edit_link_title = None
-        else:
-            label = str(object)
-            edit_link_title = _("Edit this %(object)s") % {
-                "object": object._meta.verbose_name
-            }
-        results.append((label, edit_url, edit_link_title, references))
-
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/usage.html",
-        {"document": doc, "results": results, "object_page": object_page},
-    )
+    def get_page_subtitle(self):
+        return self.object.title
