@@ -118,6 +118,7 @@ Changelog
  * Docs: Document the policy needed to create invalidations in CloudFront (Jake Howard)
  * Docs: Document how to add permission restriction to a report view (Rishabh jain)
  * Docs: Add example for how to configure API `renderer_classes` (Aman Pandey)
+ * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
