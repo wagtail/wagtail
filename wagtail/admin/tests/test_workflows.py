@@ -876,16 +876,44 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
-    def submit(self):
+    def post(self, action, data=None, **kwargs):
         post_data = {
             "title": str(self.page.title),
             "slug": str(self.page.slug),
             "content": str(self.page.content),
-            "action-submit": "True",
+            f"action-{action}": "True",
         }
+        if data:
+            post_data.update(data)
         return self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            post_data,
+            **kwargs,
         )
+
+    def submit(self):
+        return self.post("submit")
+
+    def workflow_action(self, action, data=None, **kwargs):
+        return self.client.post(
+            reverse(
+                "wagtailadmin_pages:workflow_action",
+                args=(
+                    self.page.id,
+                    action,
+                    self.page.current_workflow_task_state.id,
+                ),
+            ),
+            data,
+            follow=True,
+            **kwargs,
+        )
+
+    def approve(self, data=None, **kwargs):
+        return self.workflow_action("approve", data, **kwargs)
+
+    def reject(self, data=None, **kwargs):
+        return self.workflow_action("reject", data, **kwargs)
 
     def test_submit_for_approval_creates_states(self):
         """Test that WorkflowState and TaskState objects are correctly created when a Page is submitted for approval"""
@@ -920,6 +948,160 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
             r"Sent to[\s|\n]+{}".format(self.page.current_workflow_task.name),
         )
         self.assertNotContains(response, "Draft")
+
+    def test_workflow_action_menu_items(self):
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+
+        # Initial view as the submitter, should only see save and submit buttons
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should only see cancel and locked buttons
+        response = self.client.get(edit_url)
+        self.assertNotContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+
+        # After submit, as a moderator, should only see save, approve, and reject buttons
+        self.login(self.moderator)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertContains(response, "Approve")
+        self.assertContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save, cancel, and restart buttons
+        self.login(self.submitter)
+        response = self.client.get(edit_url)
+        self.assertContains(response, "Save draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertContains(response, "Cancel workflow")
+        self.assertContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+
+        # After cancel, as a submitter, should only see save and submit buttons
+        response = self.post("cancel-workflow", follow=True)
+        self.assertContains(response, "Save draft")
+        self.assertContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+
+    def test_workflow_action_menu_items_when_reverting(self):
+        old_revision = self.page.latest_revision
+        revert_url = reverse(
+            "wagtailadmin_pages:revisions_revert", args=(self.page.id, old_revision.id)
+        )
+
+        # Initial view as the submitter, should only see save button
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save warning" disabled>',
+        )
+
+        # submit for approval
+        self.post("submit")
+
+        # After submit, as a submitter, should only see locked button
+        response = self.client.get(revert_url)
+        self.assertNotContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertContains(
+            response,
+            '<button type="submit" class="button action-save warning" disabled>',
+        )
+
+        # After submit, as a moderator, should only see save button
+        self.login(self.moderator)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save warning" disabled>',
+        )
+
+        self.reject()
+
+        # After reject, as a submitter, should only see save button
+        self.login(self.submitter)
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save warning" disabled>',
+        )
+
+        # After cancel, as a submitter, should only see save button
+        self.post("cancel-workflow")
+        response = self.client.get(revert_url)
+        self.assertContains(response, "Replace current draft")
+        self.assertNotContains(response, "Submit to test_workflow")
+        self.assertNotContains(response, "Cancel workflow")
+        self.assertNotContains(response, "Restart workflow")
+        self.assertNotContains(response, "Approve")
+        self.assertNotContains(response, "Request changes")
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save warning" disabled>',
+        )
 
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
     def test_submit_sends_mail(self):
@@ -1052,8 +1234,10 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
             "content": str(self.page.content),
             "action-cancel-workflow": "True",
         }
-        self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            post_data,
+            follow=True,
         )
         workflow_state.refresh_from_db()
 
@@ -1061,6 +1245,19 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
         self.assertEqual(
             workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED
+        )
+
+        self.assertNotContains(
+            response,
+            '<button type="submit" class="button action-save " disabled>',
+        )
+        self.assertNotContains(
+            response,
+            "The page could not be saved as it is locked",
+        )
+        self.assertNotContains(
+            response,
+            "The page could not be saved due to validation errors",
         )
 
     def test_email_headers(self):
