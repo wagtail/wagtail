@@ -11,6 +11,7 @@ from wagtail.models import (
     DraftStateMixin,
     LockableMixin,
     Page,
+    ReferenceIndex,
     UserPagePermissionsProxy,
 )
 
@@ -58,10 +59,19 @@ class BaseStatusSidePanel(BaseSidePanel):
         templates = ["wagtailadmin/shared/side_panels/includes/status/workflow.html"]
 
         if context.get("locale"):
-            templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/locale.html"
+            )
 
-        if self.object.pk and self.locking_enabled:
-            templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
+        if self.object.pk:
+            if self.locking_enabled:
+                templates.append(
+                    "wagtailadmin/shared/side_panels/includes/status/locked.html"
+                )
+
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/usage.html"
+            )
 
         return templates
 
@@ -155,19 +165,31 @@ class BaseStatusSidePanel(BaseSidePanel):
             "locking_enabled": self.locking_enabled,
         }
 
+    def get_usage_context(self):
+        return {
+            "usage_count": ReferenceIndex.get_references_to(self.object)
+            .group_by_source_object()
+            .count(),
+            "usage_url": getattr(self.object, "usage_url", None),
+        }
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["status_templates"] = self.get_status_templates(context)
         context.update(self.get_scheduled_publishing_context())
         context.update(self.get_lock_context())
+        if self.object.pk:
+            context.update(self.get_usage_context())
         return context
 
 
 class PageStatusSidePanel(BaseStatusSidePanel):
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
-        templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
+        templates.insert(
+            -1, "wagtailadmin/shared/side_panels/includes/status/privacy.html"
+        )
         return templates
 
     def get_context_data(self, parent_context):
@@ -187,6 +209,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "workflow_history_url": reverse(
                         "wagtailadmin_pages:workflow_history", args=(page.id,)
                     ),
+                    "usage_url": reverse("wagtailadmin_pages:usage", args=(page.id,)),
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),

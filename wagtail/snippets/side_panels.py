@@ -10,11 +10,6 @@ from wagtail.models import PreviewableMixin
 
 
 class SnippetStatusSidePanel(BaseStatusSidePanel):
-    def get_status_templates(self, context):
-        templates = super().get_status_templates(context)
-        templates.append("wagtailsnippets/side_panels/usage.html")
-        return templates
-
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         inherit = [

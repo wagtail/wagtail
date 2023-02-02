@@ -8,9 +8,9 @@
                 </h3>
             </div>
             <a class="w-text-14 w-text-secondary hover:w-text-secondary-600 w-no-underline w-transition"
-                href="{{ object.usage_url }}"
+                href="{{ usage_url }}"
             >
-                {% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
+                {% blocktrans trimmed count usage_count=usage_count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
             </a>
         </div>
     </section>
