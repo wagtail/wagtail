@@ -172,6 +172,7 @@ Changelog
  * Fix: Close the userbar when clicking its toggle (Albina Starykova)
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
  * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
+ * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
 
 
 4.1.1 (11.11.2022)
