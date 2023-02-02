@@ -13,7 +13,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail.admin.admin_url_finder import AdminURLFinder, register_admin_url_finder
+from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import (
@@ -447,74 +447,11 @@ class DeleteView(generic.DeleteView):
         return context
 
 
-class UsageView(generic.IndexView):
+class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
-    paginate_by = 20
-    page_kwarg = "p"
-    is_searchable = False
     permission_required = "change"
-
-    def setup(self, request, *args, pk, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.pk = pk
-        self.object = self.get_object()
-
-    def get_object(self):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
-        if isinstance(object, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
-
-    def get_queryset(self):
-        return self.object.get_usage()
-
-    def paginate_queryset(self, queryset, page_size):
-        paginator = self.get_paginator(
-            queryset,
-            page_size,
-            orphans=self.get_paginate_orphans(),
-            allow_empty_first_page=self.get_allow_empty(),
-        )
-
-        page_number = self.request.GET.get(self.page_kwarg)
-        page = paginator.get_page(page_number)
-
-        # Add edit URLs to each source object
-        url_finder = AdminURLFinder(self.request.user)
-        for object, references in page:
-            object.edit_url = url_finder.get_edit_url(object)
-
-        return (paginator, page, page.object_list, page.has_other_pages())
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # Add edit URLs to each source object
-        url_finder = AdminURLFinder(self.request.user)
-        results = []
-        for object, references in context.get("page_obj"):
-            edit_url = url_finder.get_edit_url(object)
-            if edit_url is None:
-                label = _("(Private %(object)s)") % {
-                    "object": object._meta.verbose_name
-                }
-                edit_link_title = None
-            else:
-                label = str(object)
-                edit_link_title = _("Edit this %(object)s") % {
-                    "object": object._meta.verbose_name
-                }
-            results.append((label, edit_url, edit_link_title, references))
-
-        context.update(
-            {
-                "object": self.object,
-                "results": results,
-                "model_opts": self.model._meta,
-            }
-        )
-        return context
+    header_icon = "snippet"
 
 
 def redirect_to_edit(request, app_label, model_name, pk):
