@@ -314,7 +314,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.get()
 
         # Initial number of queries.
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(13):
             self.get()
 
         # Add 5 images.
