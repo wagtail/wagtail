@@ -170,6 +170,7 @@ Changelog
  * Fix: Fix horizontal positioning of rich text inline toolbar (Thibaud Colas)
  * Fix: Close the userbar when clicking its toggle (Albina Starykova)
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
+ * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
 
 
 4.1.1 (11.11.2022)
