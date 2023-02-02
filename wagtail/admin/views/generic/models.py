@@ -91,8 +91,7 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        if not hasattr(self, "columns"):
-            self.columns = self.get_columns()
+        self.columns = self.get_columns()
         self.setup_search()
 
     def setup_search(self):
@@ -317,6 +316,14 @@ class IndexView(
             ordering = self.default_ordering
         return ordering
 
+    def get_table(self, object_list, **kwargs):
+        return self.table_class(
+            self.columns,
+            object_list,
+            ordering=self.get_ordering(),
+            **kwargs,
+        )
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -324,12 +331,7 @@ class IndexView(
         context = super().get_context_data(*args, object_list=queryset, **kwargs)
 
         index_url = self.get_index_url()
-        table = self.table_class(
-            self.columns,
-            context["object_list"],
-            base_url=index_url,
-            ordering=self.get_ordering(),
-        )
+        table = self.get_table(context["object_list"], base_url=index_url)
 
         context["can_add"] = (
             self.permission_policy is None
