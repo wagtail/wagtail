@@ -3115,11 +3115,9 @@ class UserPagePermissionsProxy:
         """
         pages = self.pages_with_direct_explore_permission()
         try:
-            root_page = first_common_ancestor(pages, include_self=True, strict=True)
+            return first_common_ancestor(pages, include_self=True, strict=True)
         except Page.DoesNotExist:
-            root_page = None
-
-        return root_page
+            return None
 
     def explorable_root_page(self):
         return self._explorable_root_page
@@ -3273,7 +3271,7 @@ class UserPagePermissionsProxy:
             root_site = root_page.get_site()
         else:
             root_site = None
-        real_site_name = None
+        real_site_name = settings.WAGTAIL_SITE_NAME
         if root_site:
             real_site_name = (
                 root_site.site_name if root_site.site_name else root_site.hostname
@@ -3281,9 +3279,7 @@ class UserPagePermissionsProxy:
         return {
             "root_page": root_page,
             "root_site": root_site,
-            "site_name": real_site_name
-            if real_site_name
-            else settings.WAGTAIL_SITE_NAME,
+            "site_name": real_site_name,
         }
 
     def site_details(self):

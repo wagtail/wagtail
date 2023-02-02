@@ -615,14 +615,15 @@ def first_common_ancestor(pages, model=None, include_self=False, strict=False):
     This is similar to `PageQuerySet.first_common_ancestor` but works
     for a list of pages instead of a queryset.
     """
+    from wagtail.models import Page
+
     if model is None:
-        from wagtail.models import Page
 
         model = Page
 
     if not pages:
         if strict:
-            raise model.DoesNotExist("Can not find ancestor of empty queryset")
+            raise model.DoesNotExist("Can not find ancestor of empty list")
         return model.get_first_root_node()
 
     if include_self:
