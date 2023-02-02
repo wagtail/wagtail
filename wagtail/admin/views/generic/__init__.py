@@ -18,3 +18,4 @@ from .models import (  # noqa
     UnpublishView,
 )
 from .permissions import PermissionCheckedMixin  # noqa
+from .usage import UsageView  # noqa

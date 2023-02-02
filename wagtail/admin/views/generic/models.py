@@ -356,6 +356,7 @@ class IndexView(
         context["search_form"] = self.search_form
         context["is_searching"] = self.is_searching
         context["query_string"] = self.search_query
+        context["model_opts"] = self.model and self.model._meta
         return context
 
 
