@@ -26,5 +26,7 @@ urlpatterns = [
         multiple.DeleteUploadView.as_view(),
         name="delete_upload_multiple",
     ),
-    path("usage/<int:document_id>/", documents.usage, name="document_usage"),
+    path(
+        "usage/<int:document_id>/", documents.UsageView.as_view(), name="document_usage"
+    ),
 ]
