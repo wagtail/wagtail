@@ -155,7 +155,7 @@ class TitleColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["link_attrs"] = self.link_attrs.copy()
+        context["link_attrs"] = self.get_link_attrs(instance, parent_context)
         context["link_attrs"]["href"] = context["link_url"] = self.get_link_url(
             instance, parent_context
         )
@@ -163,6 +163,9 @@ class TitleColumn(Column):
             context["link_attrs"]["class"] = self.link_classname
         context["label_id"] = self.get_label_id(instance, parent_context)
         return context
+
+    def get_link_attrs(self, instance, parent_context):
+        return self.link_attrs.copy()
 
     def get_link_url(self, instance, parent_context):
         if self._get_url_func:
