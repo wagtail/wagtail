@@ -99,6 +99,7 @@ Changelog
  * Fix: Server-side document filenames are preserved when replacing a document file (Suyash Singh, Matt Westcott)
  * Fix: Add missing wagtailadmin_tags in `workflow_state_approved.html` template (Alex Tomkins)
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
+ * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
