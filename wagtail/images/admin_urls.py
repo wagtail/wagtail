@@ -16,7 +16,7 @@ urlpatterns = [
     ),
     path("<int:image_id>/preview/<str:filter_spec>/", images.preview, name="preview"),
     path("add/", images.add, name="add"),
-    path("usage/<int:image_id>/", images.usage, name="image_usage"),
+    path("usage/<int:image_id>/", images.UsageView.as_view(), name="image_usage"),
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),
     path("multiple/<int:image_id>/", multiple.EditView.as_view(), name="edit_multiple"),
     path(
