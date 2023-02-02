@@ -1871,7 +1871,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-    def test_page_edit_num_queries(self):
+    def test_page_edit_num_queries_as_superuser(self):
         # Warm up cache so that result is the same when running this test in isolation
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
@@ -1881,7 +1881,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
 
-        # Check number of queries for non-admin users.
+    def test_page_edit_num_queries_as_editor(self):
         self.as_editor()
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
