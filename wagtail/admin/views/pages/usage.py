@@ -1,9 +1,11 @@
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
 
-from wagtail.models import Page
+from wagtail.admin.views import generic
+from wagtail.models import Page, UserPagePermissionsProxy
 
 
 def content_type_use(request, content_type_app_name, content_type_model_name):
@@ -35,3 +37,15 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
             "page_class": page_class,
         },
     )
+
+
+class UsageView(generic.UsageView):
+    model = Page
+    pk_url_kwarg = "page_id"
+    header_icon = "doc-empty-inverse"
+
+    def dispatch(self, request, *args, **kwargs):
+        user_perms = UserPagePermissionsProxy(request.user)
+        if not user_perms.for_page(self.object).can_edit():
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
