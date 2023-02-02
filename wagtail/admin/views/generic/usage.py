@@ -5,7 +5,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui import tables
 from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic import BaseObjectMixin, IndexView
-from wagtail.models import DraftStateMixin
+from wagtail.models import DraftStateMixin, ReferenceIndex
 
 
 class TitleColumn(tables.TitleColumn):
@@ -28,7 +28,7 @@ class UsageView(BaseObjectMixin, IndexView):
         return get_latest_str(self.object)
 
     def get_queryset(self):
-        return self.object.get_usage()
+        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_columns(self):
         return [
