@@ -176,6 +176,7 @@ Changelog
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
  * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
  * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
+ * Fix: Prevent `latest_revision` pointer from being copied over when copying translatable snippets for translation (Sage Abdullah)
  * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
 
 
