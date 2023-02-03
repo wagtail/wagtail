@@ -47,7 +47,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
     .. attribute:: FieldPanel.disable_comments (optional)
 
-        This allows you to prevent a field level comment button showing for this panel if set to ``True``. See `Commenting <https://guide.wagtail.org/en-latest/how-to/creating-and-editing-pages/#commenting>`_.
+        This allows you to prevent a field level comment button showing for this panel if set to ``True``. See `Create and edit comments <https://guide.wagtail.org/en-latest/how-to-guides/manage-pages/#create-and-edit-comments>`_.
 
     .. attribute:: FieldPanel.permission (optional)
 

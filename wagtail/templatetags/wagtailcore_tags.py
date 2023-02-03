@@ -98,7 +98,7 @@ def wagtail_release_notes_path():
 
 @register.simple_tag
 def wagtail_feature_release_whats_new_link():
-    return "https://guide.wagtail.org/en-latest/releases/new-in-wagtail-4-1/"
+    return "https://guide.wagtail.org/en-latest/releases/latest/"
 
 
 @register.simple_tag
