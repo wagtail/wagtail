@@ -1,5 +1,6 @@
 from warnings import warn
 
+from django.db.models.expressions import BaseExpression
 from django.db.models.functions.datetime import Extract as ExtractDate
 from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
@@ -120,6 +121,13 @@ class BaseSearchQueryCompiler:
                         + where_node.lhs.lookup_name
                         + '" queries are not supported.'
                     )
+            elif (
+                isinstance(where_node.lhs, BaseExpression)
+                and where_node.lhs.get_source_expressions()
+            ):
+                field_attname = where_node.lhs.get_source_expressions()[
+                    0
+                ].output_field.attname
             else:
                 field_attname = where_node.lhs.target.attname
             lookup = where_node.lookup_name

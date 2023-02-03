@@ -491,6 +491,13 @@ class BackendTests(WagtailTestUtils):
                 )
             )
 
+    # EXCLUDE WITH RELATIONSHIPS TESTS
+    def test_exclude_with_relationships(self):
+        with self.assertRaises(FieldError):
+            self.backend.search(
+                MATCH_ALL, models.Author.objects.exclude(books__title="The Hobbit")
+            )
+
     # ORDER BY RELEVANCE
 
     def test_order_by_relevance(self):
