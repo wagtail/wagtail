@@ -71,6 +71,12 @@
 
     &-toggle {
       @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
+
+      min-width: 0;
+
+      .icon {
+        flex-shrink: 0;
+      }
     }
 
     &-label {

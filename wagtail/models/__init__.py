@@ -234,6 +234,11 @@ class RevisionMixin(models.Model):
         editable=False,
     )
 
+    # An array of additional field names that will not be included when the object is copied.
+    default_exclude_fields_in_copy = [
+        "latest_revision",
+    ]
+
     @property
     def revisions(self):
         """
@@ -2522,19 +2527,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 "lastmod": (self.last_published_at or self.latest_revision_created_at),
             }
         ]
-
-    def get_static_site_paths(self):
-        """
-        This is a generator of URL paths to feed into a static site generator
-        Override this if you would like to create static versions of subpages
-        """
-        # Yield path for this page
-        yield "/"
-
-        # Yield paths for child pages
-        for child in self.get_children().live():
-            for path in child.specific.get_static_site_paths():
-                yield "/" + child.slug + path
 
     def get_ancestors(self, inclusive=False):
         """

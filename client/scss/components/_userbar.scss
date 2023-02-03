@@ -234,6 +234,10 @@ $positions: (
       margin-inline-end: 0.5em;
       fill: currentColor;
     }
+
+    .w-a11y-result__count {
+      margin-inline-end: theme('spacing.2');
+    }
   }
 
   .w-icon {
@@ -286,17 +290,25 @@ $positions: (
     max-height: 60vh;
   }
 
+  .w-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .w-dialog__title {
     @apply w-h3;
     padding: theme('spacing.4') theme('spacing.5');
+    margin-bottom: 0;
   }
 
   .w-dialog__subtitle {
     @apply w-body-text;
-    padding-inline-start: theme('spacing.5');
+    padding-inline-end: theme('spacing.5');
     display: flex;
     align-items: center;
     gap: theme('spacing.2');
+    margin-bottom: 0;
   }
 
   .w-a11y-result__row {
@@ -363,8 +375,8 @@ $positions: (
 }
 
 .w-a11y-result__count {
-  margin-inline-end: theme('spacing.2');
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
   background-color: theme('colors.positive.100');

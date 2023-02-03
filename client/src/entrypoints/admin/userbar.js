@@ -322,8 +322,10 @@ class Userbar extends HTMLElement {
       this.trigger.appendChild(a11yErrorBadge);
     }
 
-    const dialogtemplates = document.querySelectorAll('[data-wagtail-dialog]');
-    const dialogs = dialog(dialogtemplates, this.shadowRoot);
+    const dialogTemplates = this.shadowRoot.querySelectorAll(
+      '[data-wagtail-dialog]',
+    );
+    const dialogs = dialog(dialogTemplates, this.shadowRoot);
 
     if (!dialogs.length) {
       return;
@@ -340,13 +342,6 @@ class Userbar extends HTMLElement {
       '#w-a11y-result-selector-template',
     );
 
-    const modalErrorBadge = document.createElement('span');
-    modalErrorBadge.setAttribute('data-a11y-result-count', '');
-    modalErrorBadge.classList.add('w-a11y-result__count');
-    const headerElement = modal.$el.querySelector('.w-dialog__subtitle');
-    headerElement.appendChild(modalErrorBadge);
-
-    // Solution for future refactoring to move badges to Django template
     const innerErrorBadges = this.shadowRoot.querySelectorAll(
       '[data-a11y-result-count]',
     );
@@ -403,13 +398,14 @@ class Userbar extends HTMLElement {
             const currentA11ySelectorText = currentA11ySelector.querySelector(
               '[data-a11y-result-selector-text]',
             );
+            const selectorName = node.target[0];
             // Remove unnecessary details before displaying selectors to the user
-            currentA11ySelectorText.textContent = `${node.target}`.replace(
+            currentA11ySelectorText.textContent = selectorName.replace(
               /\[data-block-key="\w{5}"\]/,
               '',
             );
             currentA11ySelector.addEventListener('click', () => {
-              const inaccessibleElement = document.querySelector(node.target);
+              const inaccessibleElement = document.querySelector(selectorName);
               inaccessibleElement.style.scrollMargin = '6.25rem';
               inaccessibleElement.scrollIntoView({
                 behavior: 'smooth',

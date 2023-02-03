@@ -1,6 +1,17 @@
 Changelog
 =========
 
+5.0 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
+ * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
+ * Maintenance: Update djhtml (html formatting) library to v 1.5.2 (Loveth Omokaro)
+ * Maintenance: Re-enable `strictPropertyInitialization` in tsconfig (Thibaud Colas)
+ * Maintenance: Refactor accessibility checker userbar item (Albina Starykova)
+ * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
+
+
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -9,7 +20,7 @@ Changelog
  * Added ability to submit snippets for moderation with `WorkflowMixin` (Sage Abdullah)
  * Create `{% fullpageurl %}` tag for getting the absolute URL of a page (Jake Howard)
  * Added `MultipleChooserPanel`, a variant of `InlinePanel` with improved editor experience when inserting multiple linked objects (Matt Westcott)
- * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
+ * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to determine whether to publish the page (Harry Percival, Akua Dokua Asiedu, Matt Westcott)
  * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
  * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
  * Add `purge_embeds` management command to delete all the cached embed objects in the database (Aman Pandey)
@@ -86,6 +97,11 @@ Changelog
  * Fix: Center-align StreamField and rich text block picker buttons with the dotted guide line (Thibaud Colas)
  * Fix: Search bar in chooser modals now performs autocomplete searches under PostgreSQL (Matt Westcott)
  * Fix: Server-side document filenames are preserved when replacing a document file (Suyash Singh, Matt Westcott)
+ * Fix: Add missing wagtailadmin_tags in `workflow_state_approved.html` template (Alex Tomkins)
+ * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
+ * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
+ * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
+ * Fix: Prevent `latest_revision` pointer from being copied over when copying translatable snippets for translation (Sage Abdullah)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -104,6 +120,8 @@ Changelog
  * Docs: Document the policy needed to create invalidations in CloudFront (Jake Howard)
  * Docs: Document how to add permission restriction to a report view (Rishabh jain)
  * Docs: Add example for how to configure API `renderer_classes` (Aman Pandey)
+ * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
+ * Docs: Add documentation for the reference index mechanism (Daniel Kirkham)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
@@ -156,6 +174,12 @@ Changelog
  * Fix: Use the correct padding for autocomplete block picker (Umar Farouk Yunusa)
  * Fix: Fix horizontal positioning of rich text inline toolbar (Thibaud Colas)
  * Fix: Close the userbar when clicking its toggle (Albina Starykova)
+ * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
+ * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
+ * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
+ * Fix: Prevent `latest_revision` pointer from being copied over when copying translatable snippets for translation (Sage Abdullah)
+ * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
+ * Docs: Add documentation for the reference index mechanism (Daniel Kirkham)
 
 
 4.1.1 (11.11.2022)

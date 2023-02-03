@@ -60,15 +60,16 @@ testing_extras = [
     "flake8-print==5.0.0",
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
-    "semgrep",
+    # For enforcing string formatting mechanism in source files
+    "semgrep==1.3.0",
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting
-    "djhtml==1.4.13",
+    "djhtml==1.5.2",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For streamfield migration toolkit
-    "wagtail-factories>=4.0,<5",
+    "wagtail-factories @ git+https://github.com/gasman/wagtail-factories.git@remove-wagtail-upper-bound#egg=wagtail-factories",
 ]
 
 # Documentation dependencies

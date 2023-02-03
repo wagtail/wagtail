@@ -35,6 +35,16 @@ urlquote_safechars = RFC3986_SUBDELIMS + str("/~:@")
 class TestImageIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        self.kitten_image = Image.objects.create(
+            title="a cute kitten",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2020, 1, 1),
+        )
+        self.puppy_image = Image.objects.create(
+            title="a cute puppy",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2022, 2, 2),
+        )
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailimages:index"), params)
@@ -46,6 +56,9 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Add an image")
         # The search box should not raise an error
         self.assertNotContains(response, "This field is required.")
+        # all results should be returned
+        self.assertContains(response, "a cute kitten")
+        self.assertContains(response, "a cute puppy")
 
     def test_empty_q(self):
         response = self.get({"q": ""})
@@ -54,11 +67,16 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Add an image")
         # The search box should not raise an error
         self.assertNotContains(response, "This field is required.")
+        # all results should be returned
+        self.assertContains(response, "a cute kitten")
+        self.assertContains(response, "a cute puppy")
 
     def test_search(self):
-        response = self.get({"q": "Hello"})
+        response = self.get({"q": "kitten"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["query_string"], "kitten")
+        self.assertContains(response, "a cute kitten")
+        self.assertNotContains(response, "a cute puppy")
 
     def test_collection_query_search(self):
         root_collection = Collection.get_first_root_node()
@@ -127,7 +145,14 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             or ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
         )
 
-    def test_ordering(self):
+    def test_order_by_title(self):
+        response = self.get({"ordering": "title"})
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context["images"].object_list[0], self.kitten_image)
+        self.assertEqual(context["images"].object_list[1], self.puppy_image)
+
+    def test_valid_orderings(self):
         orderings = [
             "title",
             "-title",
@@ -142,7 +167,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
             context = response.context
             self.assertEqual(context["current_ordering"], ordering)
-            self.assertEqual(context["images"].object_list.query.order_by, (ordering,))
 
     def test_default_ordering_used_if_invalid_ordering_provided(self):
         response = self.get({"ordering": "bogus"})
@@ -151,9 +175,8 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         context = response.context
         default_ordering = "-created_at"
         self.assertEqual(context["current_ordering"], default_ordering)
-        self.assertEqual(
-            context["images"].object_list.query.order_by, (default_ordering,)
-        )
+        self.assertEqual(context["images"].object_list[0], self.puppy_image)
+        self.assertEqual(context["images"].object_list[1], self.kitten_image)
 
     def test_default_entries_per_page(self):
         for i in range(1, 33):
@@ -267,7 +290,8 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # no filtering
         response = self.get()
-        self.assertEqual(response.context["images"].paginator.count, 3)
+        # three images created above plus the two untagged ones created in setUp()
+        self.assertEqual(response.context["images"].paginator.count, 5)
 
         # filter all images with tag 'one'
         response = self.get({"tag": "one"})
@@ -343,7 +367,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.get()
 
         # Initial number of queries.
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(15):
             self.get()
 
         # Add 5 images.
@@ -1858,7 +1882,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             response,
             "form",
             "file",
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter
@@ -2214,6 +2238,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
 
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["jpg", "gif"])
     def test_add_post_bad_extension(self):
         """
         The add view must check that the uploaded file extension is a valid
@@ -2227,6 +2252,14 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             },
         )
 
+        post_with_invalid_extension = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "files[]": SimpleUploadedFile(
+                    "test.png", get_test_image_file().file.getvalue()
+                ),
+            },
+        )
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
@@ -2240,7 +2273,25 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertFalse(response_json["success"])
         self.assertEqual(
             response_json["error_message"],
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: JPG, GIF.",
+        )
+
+        # Check post_with_invalid_extension
+        self.assertEqual(post_with_invalid_extension.status_code, 200)
+        self.assertEqual(
+            post_with_invalid_extension["Content-Type"], "application/json"
+        )
+
+        # Check JSON
+        response_json = json.loads(post_with_invalid_extension.content.decode())
+        self.assertNotIn("image_id", response_json)
+        self.assertNotIn("form", response_json)
+        self.assertIn("success", response_json)
+        self.assertIn("error_message", response_json)
+        self.assertFalse(response_json["success"])
+        self.assertEqual(
+            response_json["error_message"],
+            "Not a supported image format. Supported formats: JPG, GIF.",
         )
 
     def test_add_post_duplicate(self):

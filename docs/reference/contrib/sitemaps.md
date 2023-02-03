@@ -7,14 +7,14 @@ using the `wagtail.contrib.sitemaps` module.
 
 ```{note}
 As of Wagtail 1.10 the Django contrib sitemap app is used to generate
-sitemaps.  However since Wagtail requires the Site instance to be available
+sitemaps. However since Wagtail requires the Site instance to be available
 during the sitemap generation you will have to use the views from the
 `wagtail.contrib.sitemaps.views` module instead of the views
 provided by Django (`django.contrib.sitemaps.views`).
 
 The usage of these views is otherwise identical, which means that
 customisation and caching of the sitemaps are done using the default Django
-patterns.  See the Django documentation for in-depth information.
+patterns. See the Django documentation for in-depth information.
 ```
 
 ## Basic configuration

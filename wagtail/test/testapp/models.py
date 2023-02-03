@@ -517,18 +517,6 @@ class EventIndex(Page):
 
         return super().route(request, path_components)
 
-    def get_static_site_paths(self):
-        # Get page count
-        page_count = self.get_paginator().num_pages
-
-        # Yield a path for each page
-        for page in range(page_count):
-            yield "/%d/" % (page + 1)
-
-        # Yield from superclass
-        for path in super().get_static_site_paths():
-            yield path
-
     def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
         return super().get_sitemap_urls(request=request) + [
@@ -1129,6 +1117,7 @@ class FullFeaturedSnippet(
     DraftStateMixin,
     LockableMixin,
     RevisionMixin,
+    TranslatableMixin,
     models.Model,
 ):
     text = models.TextField()
@@ -1139,7 +1128,7 @@ class FullFeaturedSnippet(
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "full-featured snippet"
         verbose_name_plural = "full-featured snippets"
 
@@ -2066,3 +2055,14 @@ class GalleryPageImage(Orderable):
         on_delete=models.CASCADE,
         related_name="+",
     )
+
+
+class GenericSnippetNoIndexPage(GenericSnippetPage):
+    wagtail_reference_index_ignore = True
+
+
+class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
+    snippet_content_type_nonindexed = models.ForeignKey(
+        ContentType, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    snippet_content_type_nonindexed.wagtail_reference_index_ignore = True

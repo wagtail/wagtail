@@ -112,7 +112,7 @@ class ReferenceIndex(models.Model):
     # The model_path is the path to the field on content_type where the reference was extracted from.
     # the content_path is the path to a specific block on the instance where the reference is extracted from.
 
-    # These are dotted path, always starting with a field orchild relation name. If
+    # These are dotted path, always starting with a field or child relation name. If
     # the reference was extracted from an inline panel or streamfield, other components
     # of the path can be used to locate where the reference was extracted.
     #
@@ -239,7 +239,7 @@ class ReferenceIndex(models.Model):
             content_type_id (int): The ID of the ContentType record representing
                                    the model of the referenced object
 
-            object_id (str): The primary key of hte referenced object, converted
+            object_id (str): The primary key of the referenced object, converted
                              to a string
 
             model_path (str): The path to the field on the model of the source
@@ -396,7 +396,7 @@ class ReferenceIndex(models.Model):
         # Construct the set of reference records that have been found on the object but are not
         # already present in the database
         new_references = references - set(existing_references.keys())
-        # Create database records for thos reference records
+        # Create database records for those reference records
         cls.objects.bulk_create(
             [
                 cls(

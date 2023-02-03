@@ -684,6 +684,8 @@ Contributors
 * GLEF1X
 * Nick Lee
 * Beniamin Bucur
+* Ananjan-R
+* Yosr Karoui
 
 Translators
 ===========

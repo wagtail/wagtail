@@ -812,7 +812,12 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.workflow_state.cancel(user=self.request.user)
             self.add_cancel_workflow_confirmation_message()
 
-        if self.locked_for_user:
+            # Refresh the lock object as now WorkflowLock no longer applies
+            self.lock = self.page.get_lock()
+            self.locked_for_user = self.lock is not None and self.lock.for_user(
+                self.request.user
+            )
+        elif self.locked_for_user:
             messages.error(
                 self.request, _("The page could not be saved as it is locked")
             )

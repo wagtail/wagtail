@@ -103,8 +103,8 @@ class BaseListingView(TemplateView):
             self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
             if self.form.is_valid():
                 query_string = self.form.cleaned_data["q"]
-
-                images = images.search(query_string)
+                if query_string:
+                    images = images.search(query_string)
         else:
             self.form = SearchForm(placeholder=_("Search images"))
 

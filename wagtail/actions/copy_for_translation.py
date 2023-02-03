@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 
 from wagtail.coreutils import find_available_slug
+from wagtail.models.copying import _copy
 
 
 class ParentNotTranslatedError(Exception):
@@ -13,11 +14,15 @@ class ParentNotTranslatedError(Exception):
     pass
 
 
-class CopyPageForTranslationPermissionError(PermissionDenied):
+class CopyForTranslationPermissionError(PermissionDenied):
     """
-    Raised when the page translation copy cannot be performed due to insufficient permissions.
+    Raised when the object translation copy cannot be performed due to insufficient permissions.
     """
 
+    pass
+
+
+class CopyPageForTranslationPermissionError(CopyForTranslationPermissionError):
     pass
 
 
@@ -153,3 +158,68 @@ class CopyPageForTranslationAction:
             self.walk(self.page)
 
         return translated_page
+
+
+class CopyForTranslationAction:
+    """
+    Creates a copy of this object in the specified locale.
+
+    The ``exclude_fields`` parameter can be used to set any fields to a blank value
+    in the copy.
+    """
+
+    def __init__(
+        self,
+        object,
+        locale,
+        exclude_fields=None,
+        user=None,
+    ):
+        self.object = object
+        self.locale = locale
+        self.exclude_fields = exclude_fields
+        self.user = user
+
+    def check(self, skip_permission_checks=False):
+        # Permission checks
+        if (
+            self.user
+            and not skip_permission_checks
+            and not self.user.has_perms(["simple_translation.submit_translation"])
+        ):
+            raise CopyForTranslationPermissionError(
+                "You do not have permission to submit a translation for this object."
+            )
+
+    @transaction.atomic
+    def _copy_for_translation(self, object, locale, exclude_fields=None):
+        from wagtail.models import DraftStateMixin, TranslatableMixin
+
+        # Make sure the copy includes the latest changes, including draft
+        if isinstance(object, DraftStateMixin):
+            object = object.get_latest_revision_as_object()
+
+        exclude_fields = (
+            getattr(object, "default_exclude_fields_in_copy", [])
+            + getattr(object, "exclude_fields_in_copy", [])
+            + (exclude_fields or [])
+        )
+        translated, child_object_map = _copy(object, exclude_fields=exclude_fields)
+        translated.locale = locale
+
+        # Update locale on any translatable child objects as well
+        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
+        for (_child_relation, _old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                child_object.locale = locale
+
+        return translated
+
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
+
+        translated_object = self._copy_for_translation(
+            self.object, self.locale, self.exclude_fields
+        )
+
+        return translated_object
