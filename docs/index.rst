@@ -26,7 +26,7 @@ If you'd like to get a quick feel for Wagtail, try spinning up a `temporary deve
 
 * **For editors**
 
-  * `Editors guide (separate site) <https://guide.wagtail.org/>`_
+  * `Editors guide (separate site) <https://guide.wagtail.org/4.2.x/>`_
 
 
 Index

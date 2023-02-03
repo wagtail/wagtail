@@ -502,7 +502,7 @@ class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, model
 
 The other mixins required by `WorkflowMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
 
-After enabling the mixin, you can assign a workflow to the snippet models through the workflow settings. For more information, see [Configuring moderation workflows](https://guide.wagtail.org/en-latest/how-to/configuring-moderation-workflows).
+After enabling the mixin, you can assign a workflow to the snippet models through the workflow settings. For more information, see how to [configure workflows for moderation](https://guide.wagtail.org/en-4.2.x/how-to-guides/configure-workflows-for-moderation/).
 
 The admin dashboard and workflow reports will also show you snippets (alongside pages) that have been submitted to workflows.
 
