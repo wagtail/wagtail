@@ -163,6 +163,7 @@ Changelog
  * Fix: Close the userbar when clicking its toggle (Albina Starykova)
  * Fix: Do not show bulk actions checkbox in page type usage view (Sage Abdullah)
  * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
+ * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
  * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
 
 
