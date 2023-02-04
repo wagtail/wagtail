@@ -68,6 +68,14 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Last Christmas I gave you my heart")
 
+        # Should show edit link in the userbar
+        # https://github.com/wagtail/wagtail/issues/10002
+        self.assertContains(response, "Edit this page")
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_event.id,)),
+        )
+
     def test_preview_revision_with_no_page_permissions_redirects_to_admin(self):
         admin_only_user = self.create_user(
             username="admin_only", email="admin_only@email.com", password="password"

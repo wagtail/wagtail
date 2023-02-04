@@ -1103,6 +1103,22 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
             '<button type="submit" class="button action-save warning" disabled>',
         )
 
+    def test_preview_workflow_show_edit_link_in_userbar(self):
+        self.submit()
+        self.login(self.moderator)
+        preview_url = reverse(
+            "wagtailadmin_pages:workflow_preview",
+            args=(self.page.id, self.page.current_workflow_task.id),
+        )
+        response = self.client.get(preview_url)
+
+        # Should show edit link in the userbar
+        # https://github.com/wagtail/wagtail/issues/10002
+        self.assertContains(response, "Edit this page")
+        self.assertContains(
+            response, reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        )
+
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
     def test_submit_sends_mail(self):
         self.submit()

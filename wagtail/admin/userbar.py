@@ -87,7 +87,7 @@ class EditPageItem(BaseItem):
         # Don't render if request is a preview. This is to avoid confusion that
         # might arise when the user clicks edit on a preview.
         try:
-            if request.is_preview:
+            if request.is_preview and request.is_editing:
                 return ""
         except AttributeError:
             pass
