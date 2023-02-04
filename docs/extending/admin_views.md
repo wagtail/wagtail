@@ -227,3 +227,49 @@ def register_calendar_menu_item():
 The 'Calendar' item will now appear as a group of menu items. When expanded, the 'Calendar' item will now show our two custom menu items.
 
 ![Wagtail admin sidebar menu, showing an expanded "Calendar" group menu item with a date icon, showing two child menu items, 'Calendar' and 'Month'.](../_static/images/adminviews_menu_group_expanded.png)
+
+## Tip: adding modeladmin menu to the group
+You might want to combine your menuitem with a modeladmin. You can achieve this in fairly easy way by using the `ModelAdminGroup` class.'
+This would look as follows:
+    
+```{code-block} python
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin,
+    modeladmin_register,
+    ModelAdminGroup,
+)
+from wagtail.admin.menu import Menu, MenuItem
+from wagtail import hooks
+
+class EventAdmin(ModelAdmin):
+    model = CalenderEvent
+    menu_label = "Events"
+    menu_icon = "date"
+    menu_order = 200
+    list_display = ('title', 'date')
+
+@hooks.register('register_admin_urls')
+def register_calendar_url():
+    return [
+        path('calendar/', index, name='calendar'),
+        path('calendar/month/', month, name='calendar-month'),
+    ]
+
+class CalenderGroup(ModelAdminGroup):
+    menu_label = "Calender Events"
+    menu_icon = "folder-open-inverse"
+    menu_order = 900
+    items = (EventAdmin,)
+
+    def get_submenu_items(self):
+        menu_items = super().get_submenu_items()
+        menu_items.append(
+            MenuItem('Calendar', reverse('calendar'), icon_name='date'),
+        )
+        return menu_items
+        
+modeladmin_register(CalenderGroup)
+
+   
+
+ 
