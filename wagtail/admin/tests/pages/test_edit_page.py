@@ -1314,6 +1314,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "tests/simple_page.html")
         self.assertContains(response, "I&#39;ve been edited!", html=True)
 
+        # Should not show edit link in the userbar
+        # https://github.com/wagtail/wagtail/issues/8765
+        self.assertNotContains(response, "Edit this page")
+        self.assertNotContains(
+            response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        )
+
     def test_preview_on_edit_no_session_key(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.child_page.id,)

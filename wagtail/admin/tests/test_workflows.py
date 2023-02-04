@@ -1,7 +1,7 @@
 import io
 import json
 import logging
-from unittest import mock
+from unittest import expectedFailure, mock
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -2763,6 +2763,20 @@ class TestPageWorkflowPreview(BasePageWorkflowTests):
         self.assertTemplateUsed(response, self.preview_template)
         self.assertContains(response, self.preview_content)
 
+    def test_preview_workflow_show_edit_link_in_userbar(self):
+        preview_url = self.get_url(
+            "workflow_preview",
+            args=(quote(self.object.pk), self.object.current_workflow_task.id),
+        )
+        response = self.client.get(preview_url)
+
+        # Should show edit link in the userbar
+        # https://github.com/wagtail/wagtail/issues/10002
+        self.assertContains(response, "Edit this page")
+        self.assertContains(
+            response, reverse("wagtailadmin_pages:edit", args=(quote(self.object.pk),))
+        )
+
     def test_preview_workflow_by_submitter(self):
         self.login(self.submitter)
         preview_url = self.get_url(
@@ -2810,6 +2824,11 @@ class TestSnippetWorkflowPreview(TestPageWorkflowPreview, BaseSnippetWorkflowTes
     def edit_object(self):
         self.object.text = self.new_content
         self.object.save_revision()
+
+    @expectedFailure
+    def test_preview_workflow_show_edit_link_in_userbar(self):
+        # TODO: Add edit link to userbar on snippet previews
+        super().test_preview_workflow_show_edit_link_in_userbar()
 
 
 class TestTaskChooserView(TestCase, WagtailTestUtils):

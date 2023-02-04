@@ -811,6 +811,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(response.context["self"].path.startswith(self.root_page.path))
         self.assertEqual(response.context["self"].get_parent(), self.root_page)
 
+        # Should not show edit link in the userbar
+        self.assertNotContains(response, "Edit this page")
+
     def test_preview_with_custom_validation(self):
         post_data = {
             "title": "New page!",
