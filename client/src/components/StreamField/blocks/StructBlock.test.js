@@ -188,6 +188,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
 
 describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
   let boundBlock;
+  let blockDefWithBadLabelFormat;
 
   beforeEach(() => {
     // Create mocks for callbacks
@@ -198,42 +199,48 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
     focus = jest.fn();
 
     // Define a test block
+    const blockOpts = {
+      label: 'Heading block',
+      required: false,
+      icon: 'title',
+      formTemplate: `<div class="custom-form-template">
+        <p>here comes the first field:</p>
+        <div data-structblock-child="heading_text"></div>
+        <p>and here is the second:</p>
+        <div data-structblock-child="size"></div>
+      </div>`,
+      labelFormat: '{heading_text} - {size}',
+    };
+    const headingTextBlockDef = new FieldBlockDefinition(
+      'heading_text',
+      new DummyWidgetDefinition('Heading widget'),
+      {
+        label: 'Heading text',
+        required: true,
+        icon: 'placeholder',
+        classname: 'w-field w-field--char_field w-field--text_input',
+      },
+    );
+    const sizeBlockDef = new FieldBlockDefinition(
+      'size',
+      new DummyWidgetDefinition('Size widget'),
+      {
+        label: 'Size',
+        required: false,
+        icon: 'placeholder',
+        classname: 'w-field w-field--choice_field w-field--select',
+      },
+    );
+
     const blockDef = new StructBlockDefinition(
       'heading_block',
-      [
-        new FieldBlockDefinition(
-          'heading_text',
-          new DummyWidgetDefinition('Heading widget'),
-          {
-            label: 'Heading text',
-            required: true,
-            icon: 'placeholder',
-            classname: 'w-field w-field--char_field w-field--text_input',
-          },
-        ),
-        new FieldBlockDefinition(
-          'size',
-          new DummyWidgetDefinition('Size widget'),
-          {
-            label: 'Size',
-            required: false,
-            icon: 'placeholder',
-            classname: 'w-field w-field--choice_field w-field--select',
-          },
-        ),
-      ],
-      {
-        label: 'Heading block',
-        required: false,
-        icon: 'title',
-        formTemplate: `<div class="custom-form-template">
-          <p>here comes the first field:</p>
-          <div data-structblock-child="heading_text"></div>
-          <p>and here is the second:</p>
-          <div data-structblock-child="size"></div>
-        </div>`,
-        labelFormat: '{heading_text} - {size}',
-      },
+      [headingTextBlockDef, sizeBlockDef],
+      blockOpts,
+    );
+    blockDefWithBadLabelFormat = new StructBlockDefinition(
+      'heading_block',
+      [headingTextBlockDef, sizeBlockDef],
+      { ...blockOpts, labelFormat: '{bad_variable} - {size}' },
     );
 
     // Render it
@@ -306,6 +313,19 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
     expect(boundBlock.getTextLabel()).toBe(
       'label: the-prefix-heading_text - label: the-prefix-size',
     );
+  });
+
+  test('getTextLabel() gracefully handles bad variables in labelFormat', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDefWithBadLabelFormat.render(
+      $('#placeholder'),
+      'the-prefix',
+      {
+        heading_text: 'Test heading text',
+        size: '123',
+      },
+    );
+    expect(boundBlock.getTextLabel()).toBe(' - label: the-prefix-size');
   });
 });
 

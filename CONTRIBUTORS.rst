@@ -686,6 +686,7 @@ Contributors
 * Beniamin Bucur
 * Ananjan-R
 * Yosr Karoui
+* Aadi jindal
 
 Translators
 ===========
