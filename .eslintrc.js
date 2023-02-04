@@ -75,6 +75,15 @@ module.exports = {
         'react/require-default-props': 'off',
       },
     },
+    // Rules for TypeScript files only
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        // note you must disable the base rule as it can report incorrect errors
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
+      },
+    },
     // Rules we want to enforce or change for Stimulus Controllers
     {
       files: ['*Controller.ts'],
