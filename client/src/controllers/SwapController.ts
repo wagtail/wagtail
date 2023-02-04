@@ -24,9 +24,22 @@ const getGlobalHeaderSearchOptions = (): {
  * patch the results into a results DOM container. The query
  * input can be the controlled element or the containing form.
  * It supports the ability to update the URL with the query
- * when processed.
+ * when processed or simply make a query based on a form's
+ * values.
  *
- * @example
+ * @example - A form that will update the results based on the form's input
+ *  <div id="results"></div>
+ *  <form
+ *    data-controller="w-swap"
+ *    data-action="input->w-swap#submitLazy"
+ *    data-w-swap-src-value="path/to/search"
+ *    data-w-swap-target-value="#results"
+ *  >
+ *  <input id="search" type="text" name="query" />
+ *  <input id="filter" type="text" name="filter" />
+ * </form>
+ *
+ * @example - A single input that will update the results & the URL
  *  <div id="results"></div>
  *  <input
  *    id="search"
@@ -37,6 +50,7 @@ const getGlobalHeaderSearchOptions = (): {
  *    data-w-swap-src-value="path/to/search"
  *    data-w-swap-target-value="#results"
  *  />
+ *
  */
 export class SwapController extends Controller<
   HTMLFormElement | HTMLInputElement
@@ -68,8 +82,12 @@ export class SwapController extends Controller<
   abortController?: AbortController;
   /** The related icon element to attach the spinner to */
   iconElement?: SVGUseElement | null;
+  /** Debounced function to request a URL and then replace the DOM with the results */
+  replaceLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to search results and then replace the DOM */
   searchLazy?: { (...args: any[]): void; cancel(): void };
+  /** Debounced function to submit the serialised form and then replace the DOM */
+  submitLazy?: { (...args: any[]): void; cancel(): void };
   /** Element that receives the fetch result HTML output */
   targetElement?: HTMLElement;
 
@@ -131,8 +149,13 @@ export class SwapController extends Controller<
     // set up initial loading state (if set originally in the HTML)
     this.loadingValue = false;
 
-    // set up debounced method
+    // set up debounced methods
+    this.replaceLazy = debounce(this.replace.bind(this), this.waitValue);
     this.searchLazy = debounce(this.search.bind(this), this.waitValue);
+    this.submitLazy = debounce(this.submit.bind(this), this.waitValue);
+
+    // dispatch event for any initial action usage
+    this.dispatch('ready', { cancelable: false });
   }
 
   getTarget(targetValue = this.targetValue) {
@@ -173,10 +196,14 @@ export class SwapController extends Controller<
   }
 
   /**
-   * Perform a search based on a single input query, and only if that query's value
-   * differs from the current matching URL param. Once complete, update the URL param.
-   * Additionally, clear the `'p'` pagination param in the URL if present, can be overridden
-   * via action params if needed.
+   * Perform a URL search param update based on the input's value with a comparison against the
+   * matching URL search params. Will replace the target element's content with the results
+   * of the async search request based on the query.
+   *
+   * Search will only be performed with the URL param value is different to the input value.
+   * Cleared params will be removed from the URL if present.
+   *
+   * `clear` can be provided as Event detail or action param to override the default of 'p'.
    */
   search(
     data?: CustomEvent<{ clear: string }> & {
@@ -221,21 +248,41 @@ export class SwapController extends Controller<
   }
 
   /**
+   * Update the target element's content with the response from a request based on the input's form
+   * values serialised. Do not account for anything in the main location/URL, simply replace the content within
+   * the target element.
+   */
+  submit() {
+    const form = (
+      this.hasInputTarget ? this.inputTarget.form : this.element
+    ) as HTMLFormElement;
+
+    // serialise the form to a query string
+    // https://github.com/microsoft/TypeScript/issues/43797
+    const searchParams = new URLSearchParams(new FormData(form) as any);
+
+    const queryString = '?' + searchParams.toString();
+    const url = this.srcValue;
+
+    this.replace(url + queryString);
+  }
+
+  /**
    * Abort any existing requests & set up new abort controller, then fetch and replace
    * the HTML target with the new results.
    * Cancel any in progress results request using the AbortController so that
    * a faster response does not replace an in flight request.
    */
   async replace(
-    data:
+    data?:
       | string
       | (CustomEvent<{ url: string }> & { params?: { url?: string } }),
   ) {
     /** Parse a request URL from the supplied param, as a string or inside a custom event */
     const requestUrl =
-      typeof data === 'string'
+      (typeof data === 'string'
         ? data
-        : data.detail.url || data.params?.url || '';
+        : data?.detail?.url || data?.params?.url || '') || this.srcValue;
 
     if (this.abortController) this.abortController.abort();
     this.abortController = new AbortController();
@@ -297,6 +344,8 @@ export class SwapController extends Controller<
    */
   disconnect() {
     this.loadingValue = false;
+    this.replaceLazy?.cancel();
     this.searchLazy?.cancel();
+    this.submitLazy?.cancel();
   }
 }
