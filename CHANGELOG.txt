@@ -4,6 +4,7 @@ Changelog
 5.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 

@@ -8,4 +8,5 @@ maxdepth: 1
 ---
 custom_clean
 reversing_urls
+modeladmingroup_extra_views
 ```
