@@ -142,7 +142,7 @@ export class StructBlock {
         /\{(\w+)\}/g,
         (tag, blockName) => {
           const block = this.childBlocks[blockName];
-          if (block.getTextLabel) {
+          if (block && block.getTextLabel) {
             /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
           in the format string, and dividing the remainder across all the placeholders in the string,
           rather than just passing opts on to the child. But that would get complicated, and this is
