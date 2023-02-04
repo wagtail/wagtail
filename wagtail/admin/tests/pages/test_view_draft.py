@@ -100,3 +100,15 @@ class TestDraftAccess(WagtailTestUtils, TestCase):
             HTTP_USER_AGENT="EvilHacker",
         )
         self.assertEqual(response.status_code, 403)
+
+    def test_show_edit_link_in_userbar(self):
+        self.login()
+        response = self.client.get(
+            reverse("wagtailadmin_pages:view_draft", args=(self.child_page.id,))
+        )
+        # Should show edit link in the userbar
+        # https://github.com/wagtail/wagtail/issues/10002
+        self.assertContains(response, "Edit this page")
+        self.assertContains(
+            response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        )

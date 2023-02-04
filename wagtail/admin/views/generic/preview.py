@@ -106,7 +106,8 @@ class PreviewOnEdit(View):
             raise PermissionDenied
 
         extra_attrs = {
-            "in_preview_panel": request.GET.get("in_preview_panel") == "true"
+            "in_preview_panel": request.GET.get("in_preview_panel") == "true",
+            "is_editing": True,
         }
 
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
