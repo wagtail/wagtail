@@ -612,4 +612,391 @@ describe('SwapController', () => {
       document.removeEventListener('w-swap:begin', beginEventHandler);
     });
   });
+
+  describe('performing a content update via actions on a controlled form using form values', () => {
+    let beginEventHandler;
+    let formElement;
+    let onSuccess;
+    const results = getMockResults({ total: 2 });
+
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <main>
+      <form
+        id="form"
+        action="/path/to/form/action/"
+        method="get"
+        data-controller="w-swap"
+        data-action="custom:event->w-swap#replaceLazy submit:prevent->w-swap#replace"
+        data-w-swap-target-value="#content"
+      >
+        <button type="submit">Submit<button>
+      </form>
+      <div id="content"></div>
+      </main>
+      `;
+
+      window.history.replaceState(null, '', '?');
+
+      formElement = document.getElementById('form');
+
+      onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(results),
+        }),
+      );
+    });
+
+    it('should allow for actions to call the replace method directly, defaulting to the form action url', async () => {
+      const expectedRequestUrl = '/path/to/form/action/';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support replace with a src value', async () => {
+      const expectedRequestUrl = '/path/to-src-value/';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support replace with a url value provided via the Custom event detail', async () => {
+      const expectedRequestUrl = '/path/to/url-in-event-detail/?q=alpha';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', {
+          bubbles: false,
+          detail: { url: expectedRequestUrl },
+        }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support replace with a url value provided via an action param', async () => {
+      const expectedRequestUrl = '/path/to/url-in-action-param/#hash';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.setAttribute('data-w-swap-url-param', expectedRequestUrl);
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+  });
+
+  describe('performing a content update via actions on a controlled form using form values', () => {
+    beforeEach(() => {
+      // intentionally testing without target input (icon not needed & should work without this)
+
+      document.body.innerHTML = `
+      <main>
+      <form
+        class="search-form"
+        action="/path/to/form/action/"
+        method="get"
+        role="search"
+        data-controller="w-swap"
+        data-action="change->w-swap#submitLazy submit:prevent->w-swap#submitLazy"
+        data-w-swap-target-value="#task-results"
+      >
+        <input id="search" type="text" name="q"/>
+        <input name="type" type="hidden" value="some-type" />
+        <input name="other" type="text" />
+        <button type="submit">Submit<button>
+      </form>
+      <div id="task-results"></div>
+      </main>
+      `;
+
+      window.history.replaceState(null, '', '?');
+    });
+
+    it('should allow for searching via a declared action on input changes', async () => {
+      const input = document.getElementById('search');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(results),
+        }),
+      );
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should allow for blocking the request with custom events', async () => {
+      const input = document.getElementById('search');
+
+      const results = getMockResults({ total: 5 });
+
+      const beginEventHandler = jest.fn((event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(results),
+        }),
+      );
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+      await Promise.resolve(requestAnimationFrame);
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+      });
+
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.removeEventListener('w-swap:begin', beginEventHandler);
+    });
+  });
 });
