@@ -13,70 +13,70 @@
 To change the way your `MyPageModel` is displayed in the CreateView and the EditView, simply define an `edit_handler` or `panels` attribute on your model class.
 
 ```python
-    class MyPageModel(models.Model):
-        first_name = models.CharField(max_length=100)
-        last_name = models.CharField(max_length=100)
-        address = models.TextField()
+class MyPageModel(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.TextField()
 
-        panels = [
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('first_name', classname='fn'),
-                    FieldPanel('last_name', classname='ln'),
-                ]),
-                FieldPanel('address', classname='custom1',)
-            ])
-        ]
+    panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('first_name', classname='fn'),
+                FieldPanel('last_name', classname='ln'),
+            ]),
+            FieldPanel('address', classname='custom1',)
+        ])
+    ]
 ```
 
 Or alternatively:
 
 ```python
-    class MyPageModel(models.Model):
-        first_name = models.CharField(max_length=100)
-        last_name = models.CharField(max_length=100)
-        address = models.TextField()
+class MyPageModel(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.TextField()
 
-        custom_panels = [
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('first_name', classname='fn'),
-                    FieldPanel('last_name', classname='ln'),
-                ]),
-                FieldPanel('address', classname='custom1',)
-            ])
-        ]
-        edit_handler = ObjectList(custom_panels)
-        # or
-        edit_handler = TabbedInterface([
-            ObjectList(custom_panels, heading='First Tab'),
-            ObjectList(...)
+    custom_panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('first_name', classname='fn'),
+                FieldPanel('last_name', classname='ln'),
+            ]),
+            FieldPanel('address', classname='custom1',)
         ])
+    ]
+    edit_handler = ObjectList(custom_panels)
+    # or
+    edit_handler = TabbedInterface([
+        ObjectList(custom_panels, heading='First Tab'),
+        ObjectList(...)
+    ])
 ```
 
 `edit_handler` and `panels` can alternatively be defined on a `ModelAdmin` definition. This feature is especially useful for use cases where you have to work with models that are 'out of reach' (due to being part of a third-party package, for example).
 
 ```python
-    class BookAdmin(ModelAdmin):
-        model = Book
+class BookAdmin(ModelAdmin):
+    model = Book
 
-        panels = [
-            FieldPanel('title'),
-            FieldPanel('author'),
-        ]
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('author'),
+    ]
 ```
 
 Or alternatively:
 
 ```python
-    class BookAdmin(ModelAdmin):
-        model = Book
+class BookAdmin(ModelAdmin):
+    model = Book
 
-        custom_panels = [
-            FieldPanel('title'),
-            FieldPanel('author'),
-        ]
-        edit_handler = ObjectList(custom_panels)
+    custom_panels = [
+        FieldPanel('title'),
+        FieldPanel('author'),
+    ]
+    edit_handler = ObjectList(custom_panels)
 ```
 
 (modeladmin_form_view_extra_css)=
