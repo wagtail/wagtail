@@ -90,16 +90,15 @@ For reference, `modeladmin` looks for templates with the following names for eac
 To add extra information to a block within one of the above Wagtail templates, use Django's `{{ block.super }}` within the `{% block ... %}` that you wish to extend. For example, if you wish to display an image in an edit form below the fields of the model that is being edited, you could do the following:
 
 ```html+django
+{% extends "modeladmin/edit.html" %}
+{% load static %}
 
-    {% extends "modeladmin/edit.html" %}
-    {% load static %}
-
-    {% block content %}
-        {{ block.super }}
-        <div>
-            <img src="{% get_media_prefix %}{{ instance.image }}"/>
-        </div>
-    {% endblock %}
+{% block content %}
+    {{ block.super }}
+    <div>
+        <img src="{% get_media_prefix %}{{ instance.image }}"/>
+    </div>
+{% endblock %}
 ```
 
 If for any reason you'd rather bypass the above behaviour and explicitly specify a template for a specific view, you can set either of the following attributes on your `ModelAdmin` class:
@@ -127,18 +126,18 @@ For all of the views offered by `ModelAdmin`, the class provides an attribute th
 For example, if you'd like to create your own view class and use it for the `IndexView`, you would do the following:
 
 ```python
-    from wagtail.contrib.modeladmin.views import IndexView
-    from wagtail.contrib.modeladmin.options import ModelAdmin
-    from .models import MyModel
+from wagtail.contrib.modeladmin.views import IndexView
+from wagtail.contrib.modeladmin.options import ModelAdmin
+from .models import MyModel
 
-    class MyCustomIndexView(IndexView):
-        # New functionality and existing method overrides added here
-        ...
+class MyCustomIndexView(IndexView):
+    # New functionality and existing method overrides added here
+    ...
 
 
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
-        index_view_class = MyCustomIndexView
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
+    index_view_class = MyCustomIndexView
 ```
 
 Or, if you have no need for any of `IndexView`'s existing functionality in your view and would rather create your own view from scratch, `modeladmin` will support that too. However, it's highly recommended that you use `modeladmin.views.WMABaseView` as a base for your view. It'll make integrating with your `ModelAdmin` class much easier and will provide a bunch of useful attributes and methods to get you started.
@@ -172,32 +171,32 @@ If you find that the above helper classes don't work for your needs, you can eas
 Once your class is defined, set the `url_helper_class` attribute on your `ModelAdmin` class to use your custom URLHelper, like so:
 
 ```python
-    from wagtail.contrib.modeladmin.helpers import AdminURLHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-    from .models import MyModel
+from wagtail.contrib.modeladmin.helpers import AdminURLHelper
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from .models import MyModel
 
 
-    class MyURLHelper(AdminURLHelper):
-        ...
+class MyURLHelper(AdminURLHelper):
+    ...
 
 
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
-        url_helper_class = MyURLHelper
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
+    url_helper_class = MyURLHelper
 
-    modeladmin_register(MyModelAdmin)
+modeladmin_register(MyModelAdmin)
 ```
 
 Or, if you have a more complicated use case, where simply setting that attribute isn't possible (due to circular imports, for example) or doesn't meet your needs, you can override the `get_url_helper_class` method, like so:
 
 ```python
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
 
-        def get_url_helper_class(self):
-            if self.some_attribute is True:
-                return MyURLHelper
-            return AdminURLHelper
+    def get_url_helper_class(self):
+        if self.some_attribute is True:
+            return MyURLHelper
+        return AdminURLHelper
 ```
 
 (modeladmin_permission_helper_class)=
@@ -209,32 +208,32 @@ By default, the `modeladmin.helpers.permission.PagePermissionHelper` class is us
 If you find that the above helper classes don't work for your needs, you can easily create your own helper class, by sub-classing `PermissionHelper` (or `PagePermissionHelper` if your model extends Wagtail's `Page` model), and making any necessary additions/overrides. Once defined, you set the `permission_helper_class` attribute on your `ModelAdmin` class to use your custom class instead of the default, like so:
 
 ```python
-    from wagtail.contrib.modeladmin.helpers import PermissionHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-    from .models import MyModel
+from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from .models import MyModel
 
 
-    class MyPermissionHelper(PermissionHelper):
-        ...
+class MyPermissionHelper(PermissionHelper):
+    ...
 
 
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
-        permission_helper_class = MyPermissionHelper
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
+    permission_helper_class = MyPermissionHelper
 
-    modeladmin_register(MyModelAdmin)
+modeladmin_register(MyModelAdmin)
 ```
 
 Or, if you have a more complicated use case, where simply setting an attribute isn't possible or doesn't meet your needs, you can override the `get_permission_helper_class` method, like so:
 
 ```python
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
 
-        def get_permission_helper_class(self):
-            if self.some_attribute is True:
-                return MyPermissionHelper
-            return PermissionHelper
+    def get_permission_helper_class(self):
+        if self.some_attribute is True:
+            return MyPermissionHelper
+        return PermissionHelper
 ```
 
 (modeladmin_button_helper_class)=
@@ -246,68 +245,69 @@ By default, the `modeladmin.helpers.button.PageButtonHelper` class is used when 
 If you wish to add or change buttons for your model's IndexView, you'll need to create your own button helper class by sub-classing `ButtonHelper` or `PageButtonHelper` (if your model extend's Wagtail's `Page` model), and make any necessary additions/overrides. Once defined, you set the `button_helper_class` attribute on your `ModelAdmin` class to use your custom class instead of the default, like so:
 
 ```python
-    from wagtail.contrib.modeladmin.helpers import ButtonHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-    from .models import MyModel
+from wagtail.contrib.modeladmin.helpers import ButtonHelper
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from .models import MyModel
 
 
-    class MyButtonHelper(ButtonHelper):
-        def add_button(self, classnames_add=None, classnames_exclude=None):
-            if classnames_add is None:
-                classnames_add = []
-            if classnames_exclude is None:
-                classnames_exclude = []
-            classnames = self.add_button_classnames + classnames_add
-            cn = self.finalise_classname(classnames, classnames_exclude)
-            return {
-                'url': self.url_helper.create_url,
-                'label': _('Add %s') % self.verbose_name,
-                'classname': cn,
-                'title': _('Add a new %s') % self.verbose_name,
-            }
+class MyButtonHelper(ButtonHelper):
+    def add_button(self, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
+        classnames = self.add_button_classnames + classnames_add
+        cn = self.finalise_classname(classnames, classnames_exclude)
+        return {
+            'url': self.url_helper.create_url,
+            'label': _('Add %s') % self.verbose_name,
+            'classname': cn,
+            'title': _('Add a new %s') % self.verbose_name,
+        }
 
-        def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
-            ...
+    def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
+        ...
 
-        def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
-            ...
+    def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
+        ...
 
-        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
-            ...
+    def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+        ...
 
 
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
-        button_helper_class = MyButtonHelper
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
+    button_helper_class = MyButtonHelper
 
-    modeladmin_register(MyModelAdmin)
+modeladmin_register(MyModelAdmin)
 ```
 
 To customise the buttons found in the ModelAdmin List View you can change the returned dictionary in the `add_button`, `delete_button`, `edit_button` or `inspect_button` methods. For example if you wanted to change the `Delete` button you could modify the `delete_button` method in your `ButtonHelper` like so:
 
 ```python
-    class MyButtonHelper(ButtonHelper):
-        ...
-        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
-            ...
-            return {
-                'url': reverse("your_custom_url"),
-                'label': _('Delete'),
-                'classname': "custom-css-class",
-                'title': _('Delete this item')
-            }
+class MyButtonHelper(ButtonHelper):
+    #...
+
+    def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+        #...
+        return {
+            'url': reverse("your_custom_url"),
+            'label': _('Delete'),
+            'classname': "custom-css-class",
+            'title': _('Delete this item')
+        }
 ```
 
 Or, if you have a more complicated use case, where simply setting an attribute isn't possible or doesn't meet your needs, you can override the `get_button_helper_class` method, like so:
 
 ```python
-    class MyModelAdmin(ModelAdmin):
-        model = MyModel
+class MyModelAdmin(ModelAdmin):
+    model = MyModel
 
-        def get_button_helper_class(self):
-            if self.some_attribute is True:
-                return MyButtonHelper
-            return ButtonHelper
+    def get_button_helper_class(self):
+        if self.some_attribute is True:
+            return MyButtonHelper
+        return ButtonHelper
 ```
 
 (modeladmin_helpers_in_custom_views)=
