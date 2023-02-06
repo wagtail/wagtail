@@ -151,7 +151,7 @@ Changelog
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
 
 
-4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)
