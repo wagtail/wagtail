@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -523,9 +523,6 @@ msgstr "日付"
 msgid "Site summary"
 msgstr "サイトの概要"
 
-msgid "Your pages in a workflow"
-msgstr "あなたのページはワークフローに含まれています"
-
 msgid "Task started"
 msgstr "タスク開始時刻"
 
@@ -859,22 +856,6 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
-msgid "Workflow history"
-msgstr "ワークフローの履歴"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)sのワークフロー履歴"
-
-msgid "Edit page"
-msgstr "ページを編集"
-
-msgid "Requested by"
-msgstr "リクエストしたユーザ"
-
-msgid "Started at"
-msgstr "開始時刻"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "%(label)sを追加"
@@ -909,11 +890,11 @@ msgstr "アイテムを編集"
 msgid "Workflow"
 msgstr "ワークフロー"
 
-msgid "Page"
-msgstr "ページ"
+msgid "Requested by"
+msgstr "リクエストしたユーザ"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "承認が必要なページはありません。"
+msgid "Started at"
+msgstr "開始時刻"
 
 msgid "Completed at"
 msgstr "完了時刻"
@@ -978,6 +959,13 @@ msgstr "ロックする"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "公開設定の変更はすべての孫ページに反映されます。"
 
+msgid "Workflow history"
+msgstr "ワークフローの履歴"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)sのワークフロー履歴"
+
 msgid "Add a child page"
 msgstr "子ページを追加"
 
@@ -986,6 +974,9 @@ msgstr "エクスプローラーに表示"
 
 msgid "Create"
 msgstr "作成"
+
+msgid "Page"
+msgstr "ページ"
 
 msgid "New"
 msgstr "新規作成"
@@ -1194,9 +1185,6 @@ msgstr "自分のレビュー待ち"
 
 msgid "Workflows"
 msgstr "ワークフロー"
-
-msgid "Page Title"
-msgstr "ページタイトル"
 
 msgid "Workflow tasks"
 msgstr "ワークフローのタスク"

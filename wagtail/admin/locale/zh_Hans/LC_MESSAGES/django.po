@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -625,9 +625,6 @@ msgstr "日期"
 msgid "Site summary"
 msgstr "网站摘要"
 
-msgid "Your pages in a workflow"
-msgstr "工作流中的页面"
-
 msgid "Task started"
 msgstr "任务已启动"
 
@@ -1197,70 +1194,6 @@ msgstr "输入上面的搜索条件"
 msgid "No pages use"
 msgstr "没有页面使用"
 
-msgid "Workflow progress"
-msgstr "工作流进展"
-
-msgid "Edit / Review"
-msgstr "编辑 / 审核"
-
-msgid "Workflow history"
-msgstr "工作流历史"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "请求人为<b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "启动时间为<b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "状态为<span class=\"status-tag primary\">%(status)s</span>"
-
-msgid "Timeline"
-msgstr "时间轴"
-
-msgid "Initial Revision"
-msgstr "初版"
-
-msgid "Page edited"
-msgstr "页面已编辑"
-
-msgid "with comment:"
-msgstr "有评论："
-
-msgid "Workflow started"
-msgstr "工作流已启动"
-
-msgid "Workflow completed"
-msgstr "工作流已完成"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)s的工作流历史"
-
-msgid "Workflow history for"
-msgstr "工作流历史"
-
-msgid "Edit page"
-msgstr "编辑页面"
-
-msgid "Requested by"
-msgstr "请求人"
-
-msgid "Started at"
-msgstr "开始于"
-
-msgid "Approved task"
-msgstr "已批准的任务"
-
-msgid "Incomplete task"
-msgstr "未完成的任务"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "此页面尚未提交审核"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "增加 %(label)s"
@@ -1320,11 +1253,14 @@ msgstr "按任务"
 msgid "Workflow"
 msgstr "工作流"
 
-msgid "Page"
-msgstr "页面"
+msgid "Requested by"
+msgstr "请求人"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "尚未提交任何页面进行审核"
+msgid "Started at"
+msgstr "开始于"
+
+msgid "Incomplete task"
+msgstr "未完成的任务"
 
 msgid "By Workflow"
 msgstr "按工作流"
@@ -1426,6 +1362,55 @@ msgstr "查看详情"
 msgid "View history"
 msgstr "查看历史"
 
+msgid "Workflow progress"
+msgstr "工作流进展"
+
+msgid "Edit / Review"
+msgstr "编辑 / 审核"
+
+msgid "Workflow history"
+msgstr "工作流历史"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "请求人为<b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "启动时间为<b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "状态为<span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Timeline"
+msgstr "时间轴"
+
+msgid "Initial Revision"
+msgstr "初版"
+
+msgid "with comment:"
+msgstr "有评论："
+
+msgid "Workflow started"
+msgstr "工作流已启动"
+
+msgid "Workflow completed"
+msgstr "工作流已完成"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)s的工作流历史"
+
+msgid "Workflow history for"
+msgstr "工作流历史"
+
+msgid "Approved task"
+msgstr "已批准的任务"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "此页面尚未提交审核"
+
 msgid "Skip to main content"
 msgstr "跳到主要内容"
 
@@ -1480,6 +1465,9 @@ msgstr "未使用"
 
 msgid "Assigned pages"
 msgstr "已分配的页面"
+
+msgid "Page"
+msgstr "页面"
 
 msgid "Assign to another page"
 msgstr "分配到另一页面"
@@ -1694,6 +1682,14 @@ msgstr "集合 '%(object)s' 已删除"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "确定删除此集合？"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' 已更新。"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' 已创建。"
 
 msgid "Editing"
 msgstr "正在编辑"
@@ -1977,15 +1973,6 @@ msgstr "等待我的审核"
 msgid "Workflows"
 msgstr "工作流"
 
-msgid "Page ID"
-msgstr "页面ID"
-
-msgid "Page Type"
-msgstr "页面类型"
-
-msgid "Page Title"
-msgstr "页面标题"
-
 msgid "Workflow tasks"
 msgstr "工作流任务"
 
@@ -2023,17 +2010,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "工作流 '%(object)s' 已禁用。"
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"此工作流正在页面%(states_in_progress)d上进行。禁用此工作流将取消对这些页面的"
-"审核。"
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "工作流 '%(workflow_name)s' 已启用。"
 
@@ -2065,19 +2041,6 @@ msgstr "禁用任务"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "任务 '%(object)s' 已禁用。"
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"此任务正在进行中，共%(states_in_progress)d个页面。禁用此任务将导致在审核工作"
-"流中跳过该任务，并且在编辑工作流时不会将其列出以供选择。"
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

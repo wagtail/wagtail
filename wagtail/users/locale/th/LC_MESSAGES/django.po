@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -141,6 +141,12 @@ msgstr "เพิ่ม,เติม"
 
 msgid "Change"
 msgstr "เปลี่ยน"
+
+msgid "Publish"
+msgstr "จัดพิมพ์,ตีพิมพ์"
+
+msgid "Lock"
+msgstr "ล็อค"
 
 msgid "Other permissions"
 msgstr "การอนุญาตอย่างอื่น"

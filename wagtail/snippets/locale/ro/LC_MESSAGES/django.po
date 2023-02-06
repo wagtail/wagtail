@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publică"
 
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Retrimite la %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Trimite la %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Repornește flux de lucru"
+
+msgid "Cancel workflow "
+msgstr "Anulează flux de lucru"
+
 msgid "Unpublish"
 msgstr "Anulare publicare"
 
@@ -35,6 +52,13 @@ msgstr "Șterge"
 
 msgid "Save"
 msgstr "Salvează"
+
+msgid "Locked"
+msgstr "A blocat"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s și publică"
 
 msgid "Wagtail snippets"
 msgstr "Fragment Wagtail"
@@ -237,16 +261,8 @@ msgstr "Instanțe"
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' a fost creat(ă)."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Fragmentul nu a fost salvat din cauza erorilor."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' a fost actualizat(ă)."
 
 #, python-format
 msgid "(Private %(object)s)"

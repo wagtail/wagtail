@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2022-2023
 # Matt Westcott <matthew@torchbox.com>, 2022
 # saevarom <saevar@saevar.is>, 2015-2016,2018-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2022-2023\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Setja í birtingu"
 
+msgid "Submit for moderation"
+msgstr "Senda inn til samþykktar"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Endursenda til %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Senda til %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Byrja vinnuflæði upp á nýtt"
+
+msgid "Cancel workflow "
+msgstr "Hætta við vinnuflæði"
+
 msgid "Unpublish"
 msgstr "Taka úr loftinu"
 
@@ -32,6 +50,13 @@ msgstr "Eyða"
 
 msgid "Save"
 msgstr "Vista"
+
+msgid "Locked"
+msgstr "Læst"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s og setja í birtingu"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snifsi"
@@ -42,6 +67,12 @@ msgstr "Eyða völdum snifsum"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' eytt."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s eytt."
+msgstr[1] "%(count)d %(model_name)s eytt."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -143,6 +174,10 @@ msgid "Snippets"
 msgstr "Snifsi"
 
 #, python-format
+msgid "New: %(model_name)s"
+msgstr "Nýtt: %(model_name)s"
+
+#, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Breyti %(snippet_type)s %(title)s"
 
@@ -235,42 +270,8 @@ msgstr "Færslur"
 msgid "The snippet could not be created due to errors."
 msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' búið til."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s '%(object)s' búin til og sett í loftið"
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr ""
-"%(model_name)s '%(object)s' búin til og tímastillt til að setja í loftið."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' uppfært."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "%(model_name)s '%(object)s' uppfært og sett í loftið"
-
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr ""
-"%(model_name)s '%(object)s' hefur verið tímastillt til að setja í loftið."
-
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr ""
-"%(model_name)s '%(object)s' er í birtingu og þessi útgáfa hefur verið "
-"tímastillt fyrir birtingu."
 
 #, python-format
 msgid "(Private %(object)s)"

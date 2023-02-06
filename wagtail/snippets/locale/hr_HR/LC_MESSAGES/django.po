@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -23,6 +23,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Objavi"
 
+msgid "Submit for moderation"
+msgstr "Pošalji moderatoru"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ponovno pošalji na %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Pošalji na %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Ponovno pokreni tijek rada"
+
+msgid "Cancel workflow "
+msgstr "Otkaži tijek rada"
+
 msgid "Unpublish"
 msgstr "Odjavi"
 
@@ -31,6 +48,13 @@ msgstr "Izbriši"
 
 msgid "Save"
 msgstr "Spremi"
+
+msgid "Locked"
+msgstr "Zaključano"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s i Objavi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail izresci"
@@ -180,16 +204,8 @@ msgstr "Naziv"
 msgid "The snippet could not be created due to errors."
 msgstr "Nije moguće stvoriti izrezak zbog grešaka."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' je stvoren."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Nije moguće sačuvati izrezak zbog grešaka."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' je ažuriran."
 
 #, python-format
 msgid "Edit this %(object)s"

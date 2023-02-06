@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -146,6 +146,12 @@ msgstr "bloccata"
 msgid "locked by"
 msgstr "bloccata da"
 
+msgid "in moderation"
+msgstr "in moderazione"
+
+msgid "live + in moderation"
+msgstr "live + in moderazione"
+
 msgid "title"
 msgstr "titolo"
 
@@ -200,12 +206,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "ultima revisione creata"
-
-msgid "in moderation"
-msgstr "in moderazione"
-
-msgid "live + in moderation"
-msgstr "live + in moderazione"
 
 msgid "page"
 msgstr "pagina"
@@ -322,25 +322,11 @@ msgstr ""
 msgid "tasks"
 msgstr "attività"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"I flussi di lavoro attivi possono essere aggiunti alle pagine. Quando "
-"disattivi un flusso di lavoro non viene rimosso dalle pagine esistenti."
-
 msgid "workflows"
 msgstr "flussi di lavoro"
 
 msgid "groups"
 msgstr "gruppi"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Le pagine in questo passaggio di un flusso di lavoro saranno moderate o "
-"approvate da questi gruppi di utenti"
 
 msgid "Request changes"
 msgstr "Richiedi modifiche"
@@ -381,18 +367,6 @@ msgstr "richiesto da"
 msgid "current task state"
 msgstr "stato attività corrente"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato "
-"del flusso di lavoro per la pagina."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Flusso di lavoro '%(workflow_name)s' per la pagina '%(page_title)s': "
-"%(status)s"
-
 msgid "Not started"
 msgstr "Non iniziato"
 
@@ -411,9 +385,6 @@ msgstr "Saltato"
 msgid "workflow state"
 msgstr "stato flusso di lavoro"
 
-msgid "page revision"
-msgstr "revisione pagina"
-
 msgid "started at"
 msgstr "iniziata il"
 
@@ -422,12 +393,6 @@ msgstr "conclusa il"
 
 msgid "finished by"
 msgstr "conclusa da"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Attività '%(task_name)s' nella revisione della pagina '%(revision_info)s': "
-"%(status)s"
 
 msgid "Task state"
 msgstr "Stato attività"

@@ -1,17 +1,22 @@
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
 # saevarom <saevar@saevar.is>, 2022
 # Loic Teixeira, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s villa)"
+msgstr[1] "(%(errorCount)s villur)"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nýjir hlutir í þessari valmynd)"
@@ -22,6 +27,16 @@ msgstr "(1 nýr hlutur í þessari valmynd)"
 msgid "(New)"
 msgstr "(Nýtt)"
 
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s villa"
+msgstr[1] "%(num)s villur"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixill"
+msgstr[1] "%(num)s pixlar"
+
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"
 
@@ -30,9 +45,6 @@ msgstr "Alt eigindi"
 
 msgid "Are you sure?"
 msgstr "Ertu viss?"
-
-msgid "Blocks"
-msgstr "Blokkir"
 
 msgid "Broken link"
 msgstr "Brotinn hlekkur"
@@ -124,6 +136,9 @@ msgstr "Veftré"
 msgid "Pages"
 msgstr "Síður"
 
+msgid "Pin toolbar"
+msgstr "Festa tækjastiku"
+
 msgid "Reload saved content"
 msgstr "Endurhlaða vistuðu efni"
 
@@ -143,9 +158,6 @@ msgstr "Leysa"
 
 msgid "Retry"
 msgstr "Reyna aftur"
-
-msgid "Rich text"
-msgstr "Sniðinn texti"
 
 msgid "Save"
 msgstr "Vista"
@@ -168,8 +180,8 @@ msgstr "Vista..."
 msgid "Search"
 msgstr "Leita"
 
-msgid "Search blocks"
-msgstr "Leita í blokkum"
+msgid "Search options…"
+msgstr "Leitar möguleikar..."
 
 msgid "See all"
 msgstr "Sjá allt"
@@ -185,6 +197,9 @@ msgstr "Sýna nýjasta efni"
 
 msgid "Split block"
 msgstr "Skipta í tvennt"
+
+msgid "StreamField blocks"
+msgstr "StreamField blokkir"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -203,6 +218,9 @@ msgstr "Hliðarstika af/á"
 
 msgid "Unfocus comment"
 msgstr "Taka fókus af athugasemd"
+
+msgid "Unpin toolbar"
+msgstr "Losa tækjastiku"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Skoða undirsíður '%(title)s'"

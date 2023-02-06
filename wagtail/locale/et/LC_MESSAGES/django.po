@@ -5,14 +5,15 @@
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
 # Erlend <debcf78e@opayq.com>, 2020
+# Martin <martinpajuste@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
+"Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail südamik"
+
+msgid "Add Comment"
+msgstr "Lisage kommentaar"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -77,6 +81,9 @@ msgstr "See leht ootab praegu modereerimist."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
 
+msgid "latest revision"
+msgstr "uusim redaktsioon"
+
 msgid "live"
 msgstr "elama"
 
@@ -125,6 +132,12 @@ msgstr "lukustatud kell"
 msgid "locked by"
 msgstr "lukustatud"
 
+msgid "in moderation"
+msgstr "mõõdukalt"
+
+msgid "live + in moderation"
+msgstr "live + mõõdukalt"
+
 msgid "title"
 msgstr "pealkiri"
 
@@ -160,12 +173,6 @@ msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
 msgid "latest revision created at"
 msgstr "viimane redaktsioon loodud aadressil"
 
-msgid "in moderation"
-msgstr "mõõdukalt"
-
-msgid "live + in moderation"
-msgstr "live + mõõdukalt"
-
 msgid "page"
 msgstr "lehele"
 
@@ -186,6 +193,12 @@ msgstr "sisu JSON"
 
 msgid "approved go live at"
 msgstr "heakskiidetud otseülekanne kell"
+
+msgid "revision"
+msgstr "redaktsioon"
+
+msgid "revisions"
+msgstr "redaktsioonid"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"
@@ -275,25 +288,11 @@ msgstr ""
 msgid "tasks"
 msgstr "ülesandeid"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Aktiivseid töövooge saab lehtedele lisada. Töövoo deaktiveerimine ei eemalda "
-"seda olemasolevatelt lehtedelt."
-
 msgid "workflows"
 msgstr "töövood"
 
 msgid "groups"
 msgstr "rühmadesse"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Need kasutajarühmad modereerivad või kinnitavad töövoo selles etapis olevad "
-"lehed"
 
 msgid "Request changes"
 msgstr "Taotle muudatusi"
@@ -334,14 +333,6 @@ msgstr "nõutud"
 msgid "current task state"
 msgstr "praegune ülesande olek"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr "Lehel võib olla ainult üks pooleli või vajab muudatusi töövoo olek."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr "Töövoog '%(workflow_name)s' lehel '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Alustamata"
 
@@ -360,9 +351,6 @@ msgstr "Jäeti vahele"
 msgid "workflow state"
 msgstr "töövoo olek"
 
-msgid "page revision"
-msgstr "lehekülje redaktsioon"
-
 msgid "started at"
 msgstr "algas kell"
 
@@ -371,11 +359,6 @@ msgstr "valmis kell"
 
 msgid "finished by"
 msgstr "valmis"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Ülesanne '%(task_name)s' lehe redaktsioonil '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Ülesande olek"

@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,14 @@ msgstr "Tuetut muodot: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr "Kuvan muoto ei ole tuettu. Tuetut muodot: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ei kelvollinen .%(extension)s-kuva. Tiedostopääte ei vastaa tiedostomuotoa "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -272,6 +280,10 @@ msgstr "Käytä olemassa olevaa ja poista uusi"
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Valitse %(title)s"
+
 msgid "You haven't uploaded any images in this collection."
 msgstr "Et ole lähettänyt kuvia tähän kokoelmaan."
 
@@ -446,6 +458,9 @@ msgstr "Käyttö"
 
 msgid "Title"
 msgstr "Otsikko"
+
+msgid "Field"
+msgstr "Kenttä"
 
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"

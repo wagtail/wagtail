@@ -5,10 +5,11 @@
 # Mostafa Heidarian <tabvar@gmail.com>, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Amir Mahmoodi, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Amir Mahmoodi, 2023\n"
 "Language-Team: Persian (https://www.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -52,6 +53,9 @@ msgstr "در حال بارگذاری"
 
 msgid "Missing document"
 msgstr "پرونده گم شده"
+
+msgid "More actions"
+msgstr "اعمال بیشتر"
 
 msgid "No results"
 msgstr "بدون نتیجه"

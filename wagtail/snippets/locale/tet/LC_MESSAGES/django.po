@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -22,6 +22,9 @@ msgstr ""
 msgid "Publish"
 msgstr "Publika"
 
+msgid "Submit for moderation"
+msgstr "Submete ba moderasaun"
+
 msgid "Unpublish"
 msgstr "La publika "
 
@@ -30,6 +33,9 @@ msgstr "Hamoos"
 
 msgid "Save"
 msgstr "Rai"
+
+msgid "Locked"
+msgstr "Xavi tiha ona"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
@@ -145,16 +151,8 @@ msgstr "Naran"
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet labele kria tanba erru."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' kria ona"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snippet labele rai tanba erru."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' hadia ona."
 
 #, python-format
 msgid "Edit this %(object)s"

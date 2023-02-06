@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -90,8 +90,16 @@ msgstr ""
 "b>."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' foi bloqueado</b> por <b>ti</b> en <b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>A páxina '{page_title}' está bloqueada</b> por <b>ti</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title} está bloqueado</b> por <b>ti</b>."
 
 #, python-brace-format
 msgid ""
@@ -101,11 +109,23 @@ msgstr ""
 "<b>{datetime}</b>."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' foi bloqueado</b> por <b>{user}</b> en <b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>A páxina '{page_title}' está bloqueada</b>."
 
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' está bloqueado</b>."
+
 msgid "This page is currently awaiting moderation."
 msgstr "Esta páxina está esperando a ser moderada."
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Este %(model_name)s está esperando a ser moderado."
 
 #, python-brace-format
 msgid ""
@@ -113,16 +133,36 @@ msgid ""
 "workflow."
 msgstr ""
 "Esta páxina está esperando <b>'{task_name}'</b> no fluxo de traballo "
-"<b>'{workflow_name}'</b>-"
+"<b>'{workflow_name}'</b>."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Este {model_name} está esperando <b>'{task_name}'</b> no fluxo de traballo "
+"<b>'{workflow_name}'</b>."
 
 msgid "Only reviewers for this task can edit the page."
-msgstr "Só os revisores desta tarea poden editar a páxina."
+msgstr "Só os revisores desta tarefa poden editar a páxina."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Só os revisores desta tarefa poden editar o %(model_name)s."
 
 #, python-brace-format
 msgid ""
 "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
 msgstr ""
 "A páxina '{page_title}' está bloqueada e foi adiada a estar en vivo en "
+"{datetime}"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' está bloqueado e foi adiado a estar en vivo en "
 "{datetime}"
 
 msgid "latest revision"
@@ -175,6 +215,12 @@ msgstr "bloqueada en"
 
 msgid "locked by"
 msgstr "bloqueada por"
+
+msgid "in moderation"
+msgstr "en moderación"
+
+msgid "live + in moderation"
+msgstr "en vivo + en moderación"
 
 msgid "title"
 msgstr "título"
@@ -238,12 +284,6 @@ msgid ""
 msgstr ""
 "O slug '%(page_slug)s' xa se está usando dentro da páxina nai en "
 "'%(parent_url_path)s'"
-
-msgid "in moderation"
-msgstr "en moderación"
-
-msgid "live + in moderation"
-msgstr "en vivo + en moderación"
 
 msgid "page"
 msgstr "páxina"
@@ -364,11 +404,12 @@ msgid "tasks"
 msgstr "tarefas"
 
 msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
 msgstr ""
-"Os fluxos de traballo activos poden engadirse ás páxinas. Desactivar un "
-"fluxo de traballo non o elimina das páxinas existentes."
+"Os fluxos de traballo activos poden engadirse ás páxinas/fragmentos. "
+"Desactivar un fluxo de traballo non o elimina das páxinas/fragmentos "
+"existentes."
 
 msgid "workflows"
 msgstr "fluxos de traballo"
@@ -377,11 +418,11 @@ msgid "groups"
 msgstr "grupos"
 
 msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
 msgstr ""
-"As páxinas neste paso dun fluxo de traballo serán moderadas ou aprobadas por "
-"estes grupos de usuarios."
+"As páxinas/fragmentos neste paso dun fluxo de traballo serán moderadas ou "
+"aprobadas por estes grupos de usuarios."
 
 msgid "Request changes"
 msgstr "Solicitar cambios"
@@ -423,15 +464,17 @@ msgid "current task state"
 msgstr "estado actual da tarefa"
 
 msgid ""
-"There may only be one in progress or needs changes workflow state per page."
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
 msgstr ""
 "So pode haber un estado de fluxo de traballo de ir indo ou precisar cambios "
-"por páxina."
+"por páxina/fragmento."
 
 #, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
 msgstr ""
-"Fluxo de traballo '%(workflow_name)s' na Páxina '%(page_title)s': %(status)s"
+"Fluxo de traballo '%(workflow_name)s' no %(model_name)s '%(title)s': "
+"%(status)s"
 
 msgid "Not started"
 msgstr "Non comezóu"
@@ -451,9 +494,6 @@ msgstr "Saltado"
 msgid "workflow state"
 msgstr "estado do fluxo de traballo"
 
-msgid "page revision"
-msgstr "revisión da páxina"
-
 msgid "started at"
 msgstr "comezado en"
 
@@ -464,9 +504,8 @@ msgid "finished by"
 msgstr "rematado por"
 
 #, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Tarefa '%(task_name)s' na Revisión da Páxina '%(revision_info)s': %(status)s"
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Tarefa '%(task_name)s' na Revisión de '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Estado da tarefa"

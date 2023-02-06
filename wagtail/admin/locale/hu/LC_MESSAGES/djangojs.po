@@ -31,9 +31,6 @@ msgstr "Alt szöveg"
 msgid "Are you sure?"
 msgstr "Biztos benne?"
 
-msgid "Blocks"
-msgstr "Blokkok"
-
 msgid "Broken link"
 msgstr "Törött link"
 
@@ -144,9 +141,6 @@ msgstr "Megoldás"
 msgid "Retry"
 msgstr "Újra"
 
-msgid "Rich text"
-msgstr "Formázott szöveg"
-
 msgid "Save"
 msgstr "Mentés"
 
@@ -167,9 +161,6 @@ msgstr "Mentés..."
 
 msgid "Search"
 msgstr "Keresés"
-
-msgid "Search blocks"
-msgstr "Blokkok keresése"
 
 msgid "See all"
 msgstr "Összes megjelenítése"

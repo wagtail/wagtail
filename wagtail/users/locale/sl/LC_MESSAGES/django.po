@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -90,6 +90,14 @@ msgstr "Prejmi obvestilo, ko je objava strani zavrnjena"
 msgid "updated comments notifications"
 msgstr "posodobljena obvestila o komentarjih"
 
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Prejmite obvestilo, ko so bili komentarji ustvarjeni, razrešeni ali "
+"izbrisani na strani, na katero ste se naročili na prejemanje obvestil o "
+"komentarjih"
+
 msgid "preferred language"
 msgstr "Želeni jezik"
 
@@ -117,6 +125,13 @@ msgstr "Dodeli vlogo"
 msgid "Are you sure you want to assign this role to these users?"
 msgstr "Ali ste prepričani, da želite dodeliti to vlogo tem uporabnikom?"
 
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nimate dovoljenja za urejanje tega uporabnika"
+msgstr[1] "Nimate dovoljenja za urejanje teh dveh uporabnikov"
+msgstr[2] "Nimate dovoljenja za urejanje teh uporabnikov"
+msgstr[3] "Nimate dovoljenja za urejanje teh uporabnikov"
+
 msgid "Yes, assign"
 msgstr "Da, dodeli"
 
@@ -128,6 +143,13 @@ msgstr "Izbriši"
 
 msgid "Are you sure you want to delete these users?"
 msgstr "Ali ste prepričani, da želite izbrisati te uporabnike?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nimate dovoljenja za brisanje tega uporabnika"
+msgstr[1] "Nimate dovoljenja za brisanje teh dveh uporabnikov"
+msgstr[2] "Nimate dovoljenja za brisanje teh uporabnikov"
+msgstr[3] "Nimate dovoljenja za brisanje teh uporabnikov"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -187,6 +209,15 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Spremeni"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Lock"
+msgstr "Zakleni"
+
+msgid "Unlock"
+msgstr "Odkleni"
 
 msgid "Custom permissions"
 msgstr "Dovoljenja po meri"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -532,9 +532,6 @@ msgstr "Огноо"
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
-msgid "Your pages in a workflow"
-msgstr "Ажлын урсгал дах хуудсууд"
-
 msgid "Changes requested at"
 msgstr "Өөрчлөлт хүссэн"
 
@@ -878,9 +875,6 @@ msgstr "Түгжигдсэн хуудас олдсонгүй."
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
-msgid "Page"
-msgstr "Хуудас"
-
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
@@ -921,6 +915,9 @@ msgstr "Түгжих"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
+
+msgid "Page"
+msgstr "Хуудас"
 
 msgid "New"
 msgstr "Шинэ"
@@ -973,6 +970,14 @@ msgstr "'%(object)s' цуглуулга устлаа."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s%(object)s боллоо."
 
 msgid "Editing"
 msgstr "Засч байна"

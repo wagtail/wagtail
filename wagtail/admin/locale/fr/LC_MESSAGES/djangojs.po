@@ -6,11 +6,11 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2023\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -52,9 +52,6 @@ msgstr "Texte alternatif"
 
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr(e) ?"
-
-msgid "Blocks"
-msgstr "Blocs"
 
 msgid "Broken link"
 msgstr "Lien mort"
@@ -147,6 +144,9 @@ msgstr "Explorateur"
 msgid "Pages"
 msgstr "Pages"
 
+msgid "Pin toolbar"
+msgstr "Épingler la barre d'outils"
+
 msgid "Reload saved content"
 msgstr "Recharger le contenu sauvegardé"
 
@@ -167,9 +167,6 @@ msgstr "Archiver"
 
 msgid "Retry"
 msgstr "Réessayer"
-
-msgid "Rich text"
-msgstr "Texte riche"
 
 msgid "Save"
 msgstr "Enregistrer"
@@ -192,8 +189,8 @@ msgstr "Enregistrement…"
 msgid "Search"
 msgstr "Rechercher"
 
-msgid "Search blocks"
-msgstr "Blocs de recherche"
+msgid "Search options…"
+msgstr "Options de recherche…"
 
 msgid "See all"
 msgstr "Tout voir"
@@ -209,6 +206,9 @@ msgstr "Montrer le dernier contenu"
 
 msgid "Split block"
 msgstr "Scinder le bloc"
+
+msgid "StreamField blocks"
+msgstr "Blocs StreamField"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -227,6 +227,9 @@ msgstr "Afficher/masquer la barre latérale"
 
 msgid "Unfocus comment"
 msgstr "Mettre le commentaire en arrière-plan"
+
+msgid "Unpin toolbar"
+msgstr "Désépingler la barre d'outils"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Voir les sous-pages de '%(title)s'"

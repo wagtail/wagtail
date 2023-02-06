@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2023
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
 # saevarom <saevar@saevar.is>, 2015,2017-2022
@@ -11,9 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2023\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -232,6 +233,11 @@ msgstr ""
 "Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
 "undirsíður"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir þessari yfirsíðu"
+
 msgid "Select a new parent for this page."
 msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
@@ -257,6 +263,13 @@ msgstr "Þessi síða hefur þegar verið úthlutað vinnuflæði '%(workflow_na
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Þú getur ekki úthlutað þessu vinnuflæði oft á sömu síðu."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Snifsinu '%(content_type)s' hefur þegar verið úthlutað vinnuflæðinu "
+"'%(workflow_name)s'."
 
 msgid "Give your workflow a name"
 msgstr "Gefðu vinnuflæðinu nafn"
@@ -507,6 +520,9 @@ msgstr[1] ""
 "Aðeins eftirtaldar síðutegundir eru leyfðar í þessum reit: %(type)s. "
 "Leitarniðurstöður munu ekki innihalda síður af öðrum tegundum."
 
+msgid "Confirm selection"
+msgstr "Staðfesta val"
+
 msgid "Convert to internal link"
 msgstr "Breyta í hlekk á innri síðu"
 
@@ -546,6 +562,10 @@ msgstr "Bæta við ytri hlekk"
 
 msgid "Add a phone link"
 msgstr "Bæta við símahlekk"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Velja %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -738,16 +758,17 @@ msgstr[1] "<span>%(total)s</span> Síður búnar til í %(site_name)s</span>"
 #, python-format
 msgid ""
 "Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-upgrade-version></strong>."
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
 msgstr ""
 "Wagtail uppfærsla í boði. Þín útgáfa: <strong>%(current_version)s</strong>. "
-"Nýjasta útgáfan: <strong data-upgrade-version></strong>."
+"Nýjasta útgáfan: <strong data-w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lestu útgáfu tilkynninguna."
 
-msgid "Your pages in a workflow"
-msgstr "Þínar síður í vinnuflæði"
+msgid "Your pages and snippets in a workflow"
+msgstr "Þínar síður og snifsi í vinnuflæði"
 
 msgid "Task started"
 msgstr "Skref hófst"
@@ -853,8 +874,24 @@ msgstr ""
 "Síðan \"%(title)s\" hefur verið samþykkt í yfirferðarskrefi \"%(task)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið samþykkt í yfirferðarskrefi "
+"\"%(task)s\"."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Þú getur breytt  %(model_name)s hér:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Síðan \"%(title)s\" hefur verið samþykkt í skrefi \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "%(model_name)s \"%(title)s\" hefur verið samþykkt í \"%(task)s\"."
 
 #, python-format
 msgid ""
@@ -863,8 +900,20 @@ msgstr ""
 "Síðan \"%(title)s\" hefur verið hafnað í yfirferðarskrefi \"%(task)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið hafnað í yfirferðarskrefi "
+"\"%(task)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "Síðan \"%(title)s\" hefur verið hafnað í skrefi \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "%(model_name)s \"%(title)s\" hefur verið hafnað í skrefi \"%(task)s\"."
 
 #, python-format
 msgid ""
@@ -873,6 +922,18 @@ msgid ""
 msgstr ""
 "Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi "
 "\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið sent inn til yfirferðar í skrefi "
+"\"%(task)s\""
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Þú getur forskoðað %(model_name)s hér:"
 
 #, python-format
 msgid ""
@@ -884,10 +945,26 @@ msgstr ""
 
 #, python-format
 msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval to "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið sent inn til yfirferðar í skrefi "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\""
 msgstr ""
 "Síðan \"%(title)s\" hefur verið send inn til yfirferðar í skrefi \"%(task)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\""
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið sent inn til yfirferðar í skrefi "
+"\"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -930,8 +1007,20 @@ msgstr ""
 "Síðan \"%(title)s\" hefur verið samþykkt í vinnuflæði \"%(workflow)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið samþykkt í vinnuflæði "
+"\"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
 msgstr "Síðan \"%(title)s\" hefur verið samþykkt í \"%(workflow)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "%(model_name)s \"%(title)s\" hefur verið samþykkt í  \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -954,8 +1043,29 @@ msgid "The following comment was left: \"%(comment)s\""
 msgstr "Eftirfarandi athugasemd var eftir: \"%(comment)s\""
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið hafnað í skrefi \"%(task)s\" í "
+"vinnuflæði \"%(workflow)s\" af %(rejector)s."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið hafnað í skrefi \"%(task)s\" í "
+"vinnuflæði \"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Síðunni \"%(title)s\" hefur verið hafnað í \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "%(model_name)s \"%(title)s\" hefur verið hafnað í \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -974,8 +1084,32 @@ msgstr ""
 "\"%(workflow)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\" by %(requester)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
+"\"%(workflow)s\" af %(requester)s."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
+"\"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr "Síðan \"%(title)s\" hefur verið send inn í vinnuflæði \"%(workflow)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"%(model_name)s \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
+"\"%(workflow)s\""
 
 msgid "Page privacy"
 msgstr "Síðu aðgengi"
@@ -1605,82 +1739,6 @@ msgstr "Sláðu inn leitarorð hér að ofan"
 msgid "No pages use"
 msgstr "Engar síður nota"
 
-msgid "Workflow progress"
-msgstr "Staða vinnuflæðis"
-
-msgid "Edit / Review"
-msgstr "Breyta / yfirfara"
-
-msgid "Workflow history"
-msgstr "Saga vinnuflæðis"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Umbeðið af <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Hófst <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Staða <span class=\"status-tag primary\"> %(status)s</span>"
-
-msgid "Timeline"
-msgstr "Tímalína"
-
-msgid "Initial Revision"
-msgstr "Fyrsta útgáfa"
-
-msgid "Page edited"
-msgstr "Síðu breytt"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
-msgstr "%(action)s eftir <b>%(who)s</b> <b>%(at)s</b>"
-
-#, python-format
-msgid "%(action)s at <b>%(at)s</b>"
-msgstr "%(action)s  <b>%(at)s</b>"
-
-msgid "with comment:"
-msgstr "með athugasemdum:"
-
-msgid "Workflow started"
-msgstr "Vinnuflæði byrjað"
-
-msgid "Workflow completed"
-msgstr "Vinnuflæði lokið"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b>"
-msgstr "%(action)s eftir <b>%(who)s</b>"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Saga vinnuflæðis fyrir %(title)s"
-
-msgid "Workflow history for"
-msgstr "Saga vinnuflæðis fyrir"
-
-msgid "Edit page"
-msgstr "Breyta síðu"
-
-msgid "Requested by"
-msgstr "Umbeðið af"
-
-msgid "Started at"
-msgstr "Byrjaði"
-
-msgid "Approved task"
-msgstr "Samþykkt skref"
-
-msgid "Incomplete task"
-msgstr "Óklárað skref"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Þessi síða hefur ekki verið send inn til yfirferðar ennþá"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Bæta við %(label)s"
@@ -1769,11 +1827,20 @@ msgstr "Eftir skrefi"
 msgid "Workflow"
 msgstr "Vinnuflæði"
 
-msgid "Page"
-msgstr "Síða"
+msgid "Page/Snippet"
+msgstr "Síða/Snifsi"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Engin síða hefur verið send inn til yfirferðar ennþá"
+msgid "Requested by"
+msgstr "Umbeðið af"
+
+msgid "Started at"
+msgstr "Byrjaði"
+
+msgid "Incomplete task"
+msgstr "Óklárað skref"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Engar síður/snifsi hafa verið send inn til yfirferðar ennþá"
 
 msgid "By Workflow"
 msgstr "Eftir vinnuflæði"
@@ -1805,6 +1872,34 @@ msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
 msgid "Yes, unpublish it"
 msgstr "Já, taka úr loftinu"
 
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Setja %(model_name)s í birtingu"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Beðið var um breytingar á %(model_name)s í skrefi <strong>%(task)s</strong> "
+"í <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"%(model_name)s er núna í skrefi <strong>%(task)s</strong> í "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Að setja %(model_name)s í loftið mun stöðva núverandi vinnuflæði."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Viltu samt setja %(model_name)s í loftið?"
+
 msgid "Close dialog"
 msgstr "Loka glugga"
 
@@ -1816,6 +1911,10 @@ msgstr "Sía"
 
 msgid "Apply filters"
 msgstr "Bæta við síum"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nýtt: %(model_name)s"
 
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
@@ -1864,6 +1963,9 @@ msgstr "Hliðarvalmyndir"
 msgid "Toggle side panel"
 msgstr "Sýna/fela hliðarstiku"
 
+msgid "Side panel width"
+msgstr "Breidd hliðarvalmyndar"
+
 msgid "Minimap"
 msgstr "Yfirlit"
 
@@ -1886,6 +1988,9 @@ msgstr "Skipta um þýðingu"
 msgid "Page locking: "
 msgstr "Læsing síðu:"
 
+msgid "Locking: "
+msgstr "Læsi:"
+
 msgid ""
 "You can edit this page, but others may not. Unlock it to allow others to "
 "edit."
@@ -1893,14 +1998,34 @@ msgstr ""
 "Þú getur breytt þessari síðu, en ekki endilega aðrir notendur. Aflæstu henni "
 "til að leyfa öðrum að breyta."
 
+#, python-format
+msgid ""
+"You can edit this %(model_name)s, but others may not. Unlock it to allow "
+"others to edit."
+msgstr ""
+"Þú getur breytt %(model_name)s, en ekki endilega aðrir notendur. Aflæstu því "
+"til að leyfa öðrum að breyta."
+
 msgid "You can edit this page, but others may not."
 msgstr "Þú getur breytt þessari síðu, en ekki endilega aðrir notendur."
+
+#, python-format
+msgid "You can edit this %(model_name)s, but others may not."
+msgstr "Þú getur breytt %(model_name)s, en aðrir ekki."
 
 msgid "You cannot edit this page. Unlock it to edit."
 msgstr "Þú getur ekki breytt þessari síðu. Aflæstu henni til að breyta."
 
+#, python-format
+msgid "You cannot edit this %(model_name)s. Unlock it to edit."
+msgstr "Þú getur ekki breytt %(model_name)s. Aflæstu því til að breyta."
+
 msgid "You cannot edit this page."
 msgstr "Þú getur ekki breytt þessari síðu."
+
+#, python-format
+msgid "You cannot edit this %(model_name)s."
+msgstr "Þú getur ekki breytt %(model_name)s. "
 
 msgid "Unlocked"
 msgstr "Aflæst"
@@ -1910,8 +2035,19 @@ msgstr ""
 "Allir geta breytt þessari síðu. Læstu henni til að koma í veg fyrir að aðrir "
 "notendur geti breytt henni."
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s. Lock it to prevent others from editing."
+msgstr ""
+"Allir geta breytt %(model_name)s. Læstu því til að koma í veg fyrir að aðrir "
+"notendur geti breytt því."
+
 msgid "Anyone can edit this page."
 msgstr "Allir geta breytt þessari síðu."
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s."
+msgstr "Allir geta breytt %(model_name)s."
 
 msgid "Lock"
 msgstr "Læsa"
@@ -1948,9 +2084,6 @@ msgstr "Bíður samþykktar"
 
 msgid "View details"
 msgstr "Skoða nánar"
-
-msgid "Moderators approval"
-msgstr "Samþykki stjórnanda"
 
 #, python-format
 msgid "by %(user)s"
@@ -2002,6 +2135,71 @@ msgstr "Forskoðun"
 msgid "First published "
 msgstr "Fyrst sett í loftið"
 
+msgid "Workflow progress"
+msgstr "Staða vinnuflæðis"
+
+msgid "Edit / Review"
+msgstr "Breyta / yfirfara"
+
+msgid "Workflow history"
+msgstr "Saga vinnuflæðis"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Umbeðið af <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Hófst <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Staða <span class=\"status-tag primary\"> %(status)s</span>"
+
+msgid "Timeline"
+msgstr "Tímalína"
+
+msgid "Initial Revision"
+msgstr "Fyrsta útgáfa"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s eftir <b>%(who)s</b> <b>%(at)s</b>"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s  <b>%(at)s</b>"
+
+msgid "with comment:"
+msgstr "með athugasemdum:"
+
+msgid "Workflow started"
+msgstr "Vinnuflæði byrjað"
+
+msgid "Workflow completed"
+msgstr "Vinnuflæði lokið"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s eftir <b>%(who)s</b>"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Saga vinnuflæðis fyrir %(title)s"
+
+msgid "Workflow history for"
+msgstr "Saga vinnuflæðis fyrir"
+
+msgid "Approved task"
+msgstr "Samþykkt skref"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Þessi síða hefur ekki verið send inn til yfirferðar ennþá"
+
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "%(model_name)s hefur ekki verið send inn til yfirferðar ennþá"
+
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
 "Here are the <a href=\"https://www.enable-javascript.com/\" "
@@ -2018,6 +2216,15 @@ msgstr "Hoppa yfir í aðal efni"
 
 msgid "View Wagtail quick actions"
 msgstr "Skoða flýtivalmynd Wagtail"
+
+msgid "Warnings"
+msgstr "Viðvaranir"
+
+msgid "Issues found"
+msgstr "Atriði fundust"
+
+msgid "Accessibility"
+msgstr "Aðgengi"
 
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
@@ -2050,6 +2257,9 @@ msgstr "Ertu viss um að þú viljir afvirkja þetta skref?"
 msgid "Assign your workflow to pages"
 msgstr "Tengja vinnuflæði við síður"
 
+msgid "Assign your workflow to snippets"
+msgstr "Tengja vinnuflæði við snifsi"
+
 msgid "Creating…"
 msgstr "Bý til..."
 
@@ -2072,6 +2282,10 @@ msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
 "Þetta vinnuflæði er óvirkt svo það er ekki hægt að hengja það á neinar síður."
 
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"Þetta vinnuflæði er óvirkt svo það er ekki hægt að hengja það á nein snifsi."
+
 msgid "Used on the following active workflows"
 msgstr "Notað af eftirfarandi virkum vinnuflæðum"
 
@@ -2080,6 +2294,9 @@ msgstr "Ekki notað"
 
 msgid "Assigned pages"
 msgstr "Tengdar síður"
+
+msgid "Page"
+msgstr "Síða"
 
 msgid "Assign to another page"
 msgstr "Tengja við aðra síðu"
@@ -2098,6 +2315,12 @@ msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1 síða"
 msgstr[1] "%(counter)s síður"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 tegund snifsa"
+msgstr[1] "%(counter)s tegundir snifsa"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -2287,6 +2510,15 @@ msgstr "Sýna/fela athugasemdir"
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
 
+msgid "Empty heading found. Use meaningful text in headings."
+msgstr "Tóm fyrirsögn fannst. Notið lýsandi texta í fyrirsagnir."
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "Röng stærðarröð fyrirsagna. Varist að sleppa stærðum."
+
+msgid "Misusing paragraphs as headings. Use proper heading tags."
+msgstr "Málsgrein notuð sem fyrirsögn. Notið rétt tög fyrir fyrirsagnir."
+
 msgid "Profile"
 msgstr "Prófíll"
 
@@ -2310,6 +2542,9 @@ msgstr "Stillingarnar þínar hafa verið uppfærðar!"
 
 msgid "You have been successfully logged out."
 msgstr "Þú hefur verið skráður út."
+
+msgid "Select"
+msgstr "Velja"
 
 msgid "Collections"
 msgstr "Söfn"
@@ -2340,6 +2575,64 @@ msgstr "Safni '%(object)s' eytt."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ertu viss um að þú viljir eyða þessu safni?"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' er nú ólæst."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s var ekki hægt að vista þar sem það er læst."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' uppfært."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' búið til."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr ""
+"%(model_name)s '%(object)s' hefur verið tímastillt til að setja í loftið."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr ""
+"%(model_name)s '%(object)s' búin til og tímastillt til að setja í loftið."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s '%(object)s' er í birtingu og þessi útgáfa hefur verið "
+"tímastillt fyrir birtingu."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' uppfært og sett í loftið"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' búin til og sett í loftið"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been submitted for moderation."
+msgstr "%(model_name)s '%(object)s' hefur verið send inn til yfirferðar."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and submitted for moderation."
+msgstr "%(model_name)s '%(object)s' búin til og send til samþykkis."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr "Vinnuflæði á %(model_name)s '%(object)s' hefur verið rendurræst."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
+msgstr "Hætt hefur verið við vinnuflæði á  %(model_name)s '%(object)s'."
 
 #, python-format
 msgid ""
@@ -2376,24 +2669,8 @@ msgstr ""
 msgid "Search %(model_name)s"
 msgstr "Leita að  %(model_name)s"
 
-#, python-format
-msgid "'%(object)s' created and scheduled for publishing."
-msgstr "'%(object)s' vistuð og tímastillt til að setja í loftið."
-
-#, python-format
-msgid "'%(object)s' created and published."
-msgstr "'%(object)s' vistuð og sett í loftið."
-
 msgid "Editing"
 msgstr "Breyti"
-
-#, python-format
-msgid "'%(object)s' updated and scheduled for publishing."
-msgstr "'%(object)s' uppfærð og tímastillt til að setja í loftið."
-
-#, python-format
-msgid "'%(object)s' updated and published."
-msgstr "'%(object)s' uppfærð og sett í loftið."
 
 msgid "Earliest"
 msgstr "Fyrsta"
@@ -2412,6 +2689,18 @@ msgstr "Útgáfa %(revision_id)s af \"%(object)s\" tekin úr tímastillingu."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "útgáfa %(revision_id)s af \"%(object)s\""
+
+#, python-format
+msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
+msgstr "%(model_name)s '%(title)s' bíður ekki samþykkis til birtingar."
+
+#, python-format
+msgid ""
+"The %(model_name)s '%(title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"%(model_name)s '%(title)s' er ekki að bíða eftir yfirferð í skrefi "
+"'%(task_name)s'."
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -2721,14 +3010,14 @@ msgstr "Bíður yfirferðar"
 msgid "Workflows"
 msgstr "Vinnuflæði"
 
-msgid "Page ID"
-msgstr "Síðu ID"
+msgid "Page/Snippet ID"
+msgstr "ID síðu/snifsis"
 
-msgid "Page Type"
-msgstr "Tegund síðu"
+msgid "Page/Snippet Type"
+msgstr "Tegund síðu/snifsis"
 
-msgid "Page Title"
-msgstr "Titill síðu"
+msgid "Page/Snippet Title"
+msgstr "Titill síðu/snifsis"
 
 msgid "Workflow tasks"
 msgstr "Skref vinnuflæðis"
@@ -2768,17 +3057,17 @@ msgstr "Vinnuflæði '%(object)s' óvirkt."
 
 #, python-format
 msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
 msgstr[0] ""
-"Þetta vinnuflæði er í vinnslu á %(states_in_progress)d síðu. Að gera það "
-"óvirkt afvirkjar vinnuflæðið á þessari síðu."
+"Þetta vinnuflæði er í vinnslu á %(states_in_progress)d síðu/snifsi. Að gera "
+"það óvirkt afvirkjar vinnuflæðið á þessari síðu/snifsi."
 msgstr[1] ""
-"Þetta vinnuflæði er í vinnslu á %(states_in_progress)d síðum. Að gera það "
-"óvirkt afvirkjar vinnuflæðið á þessum síðum."
+"Þetta vinnuflæði er í vinnslu á %(states_in_progress)d síðum/snifsum. Að "
+"gera það óvirkt afvirkjar vinnuflæðið á þessum síðum/snifsum."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
@@ -2815,21 +3104,21 @@ msgstr "Skref '%(object)s' óvirkt."
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
 msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
-"Þetta skref er í vinnslu á %(states_in_progress)d síðu. Að gera það óvirkt "
-"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í "
-"valmyndum þegar vinnuflæði er breytt."
+"Þetta skref er í vinnslu á %(states_in_progress)d síðu/snifsi. Að gera það "
+"óvirkt veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki "
+"sýnt í valmyndum þegar vinnuflæði er breytt."
 msgstr[1] ""
-"Þetta skref er í vinnslu á %(states_in_progress)d síðum. Að gera það óvirkt "
-"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í "
-"valmyndum þegar vinnuflæði er breytt."
+"Þetta skref er í vinnslu á %(states_in_progress)d síðum/snifsum. Að gera það "
+"óvirkt veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki "
+"sýnt í valmyndum þegar vinnuflæði er breytt."
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

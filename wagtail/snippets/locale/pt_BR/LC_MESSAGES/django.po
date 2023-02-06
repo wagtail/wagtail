@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021\n"
@@ -30,6 +30,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publicar"
 
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Reenviar para %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Enviar para %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Reiniciar fluxo de trabalho"
+
+msgid "Cancel workflow "
+msgstr "Cancelar fluxo de trabalho"
+
 msgid "Unpublish"
 msgstr "Despublicar"
 
@@ -38,6 +55,13 @@ msgstr "Excluir"
 
 msgid "Save"
 msgstr "Salvar"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s e publicar"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
@@ -176,16 +200,8 @@ msgstr "Nome"
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado por conter erros."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' criado."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "O snippet não pode ser salvo por conter erros."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' atualizado."
 
 #, python-format
 msgid "Edit this %(object)s"

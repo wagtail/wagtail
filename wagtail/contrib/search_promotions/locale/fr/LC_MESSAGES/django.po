@@ -9,7 +9,7 @@
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020,2022
-# Loic Teixeira, 2020,2022
+# Loic Teixeira, 2020,2022-2023
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
+"Last-Translator: Loic Teixeira, 2020,2022-2023\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgid "Order by views (highest first)"
 msgstr "Trier par vues (décroissant)"
 
 msgid "Edit this promotion"
-msgstr "Éditer cette promotion"
+msgstr "Modifier cette promotion"
 
 msgid "None"
 msgstr "Aucun"

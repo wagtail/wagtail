@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,12 @@ msgstr "zárolva ekkor: "
 msgid "locked by"
 msgstr "zároló: "
 
+msgid "in moderation"
+msgstr "jóváhagyás alatt"
+
+msgid "live + in moderation"
+msgstr "közzétéve + moderálás alatt"
+
 msgid "title"
 msgstr "cím"
 
@@ -197,12 +203,6 @@ msgstr "Az oldal kerés oldalakon megjelenített leírása."
 
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
-
-msgid "in moderation"
-msgstr "jóváhagyás alatt"
-
-msgid "live + in moderation"
-msgstr "közzétéve + moderálás alatt"
 
 msgid "page"
 msgstr "oldal"
@@ -322,25 +322,11 @@ msgstr ""
 msgid "tasks"
 msgstr "feladatok"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz. A "
-"munkafolyamat inaktiválása nem fogja azt törölni a meglévő oldalakból."
-
 msgid "workflows"
 msgstr "munkafolyamatok"
 
 msgid "groups"
 msgstr "csoportok"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Az adott lépésnél tartó oldalakat ezek a felhasználók fogják moderálni vagy "
-"jóváhagyni"
 
 msgid "Request changes"
 msgstr "Változtatások kérése"
@@ -381,17 +367,6 @@ msgstr "kérelmező "
 msgid "current task state"
 msgstr "jelenlegi feladat állapot"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Egy oldal esetén csak egyetlen folyamatban vagy változtatás szükséges "
-"munkafolyamat állapot lehet"
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"'%(workflow_name)s' munkafolyamat a(z) '%(page_title)s' oldalon: %(status)s"
-
 msgid "Not started"
 msgstr "Nincs elindítva"
 
@@ -410,9 +385,6 @@ msgstr "Átlépve"
 msgid "workflow state"
 msgstr "munkafolyamat állapot"
 
-msgid "page revision"
-msgstr "oldal verzió"
-
 msgid "started at"
 msgstr "elindítva: "
 
@@ -421,11 +393,6 @@ msgstr "befejezve: "
 
 msgid "finished by"
 msgstr "befejező: "
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"'%(task_name)s' feladat a(z) '%(revision_info)s' oldal verzión: %(status)s"
 
 msgid "Task state"
 msgstr "Feladat állapot"

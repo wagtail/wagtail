@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2023
 # saevarom <saevar@saevar.is>, 2017-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2023\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -235,6 +236,15 @@ msgstr "Bæta við"
 msgid "Change"
 msgstr "Breyta"
 
+msgid "Publish"
+msgstr "Setja í birtingu"
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Unlock"
+msgstr "Aflæsa"
+
 msgid "Custom permissions"
 msgstr "Sérsniðnar heimildir"
 
@@ -394,6 +404,10 @@ msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófa
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Hópi '%(object)s' eytt."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Notandi '%(object)s' búinn til."
 
 #, python-format
 msgid "User '%(object)s' updated."

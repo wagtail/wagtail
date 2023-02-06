@@ -28,7 +28,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -118,8 +118,16 @@ msgstr ""
 "gesperrt."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}'</b> wurde von <b>Ihnen</b> am <b>{datetime}</b> gesperrt."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "<b>Die Seite '{page_title}'</b> ist von <b>Ihnen</b> gesperrt."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}'</b> ist von <b>Ihnen</b> gesperrt."
 
 #, python-brace-format
 msgid ""
@@ -129,11 +137,24 @@ msgstr ""
 "gesperrt."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}'</b> wurde von <b>{user}</b> am <b>{datetime}</b> gesperrt."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Die Seite '{page_title}' ist gesperrt</b>."
 
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' ist gesperrt</b>."
+
 msgid "This page is currently awaiting moderation."
 msgstr "Diese Seite wartet derzeit auf Moderation."
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Dieses %(model_name)s-Objekt wartet derzeit auf Moderation."
 
 #, python-brace-format
 msgid ""
@@ -143,14 +164,36 @@ msgstr ""
 "Diese Seite erwartet <b>'{task_name}'</b> in dem Workflow "
 "<b>'{workflow_name}'</b>."
 
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Dieses {model_name}-Objekt erwartet <b>'{task_name}'</b> in dem Workflow "
+"<b>'{workflow_name}'</b>."
+
 msgid "Only reviewers for this task can edit the page."
 msgstr "Nur Gutachter für diese Aufgabe können die Seite bearbeiten."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr ""
+"Nur Gutachter für diese Aufgabe können dieses %(model_name)s-Objekt "
+"bearbeiten."
 
 #, python-brace-format
 msgid ""
 "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
 msgstr ""
 "Seite '{page_title}' ist gesperrt und wurde zur Veröffentlichung am "
+"{datetime} eingeplant"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' ist gesperrt und wurde zur Veröffentlichung am "
 "{datetime} eingeplant"
 
 msgid "latest revision"
@@ -203,6 +246,12 @@ msgstr "Gesperrt am"
 
 msgid "locked by"
 msgstr "Gesperrt von"
+
+msgid "in moderation"
+msgstr "in Moderation"
+
+msgid "live + in moderation"
+msgstr "Live + in Moderation"
 
 msgid "title"
 msgstr "Titel"
@@ -268,12 +317,6 @@ msgstr ""
 "Der Kurztitel '%(page_slug)s' wird innerhalb der übergeordneten Seite unter "
 "'%(parent_url_path)s' bereits verwendet."
 
-msgid "in moderation"
-msgstr "in Moderation"
-
-msgid "live + in moderation"
-msgstr "Live + in Moderation"
-
 msgid "page"
 msgstr "Seite"
 
@@ -281,7 +324,7 @@ msgid "pages"
 msgstr "Seiten"
 
 msgid "object id"
-msgstr "Objekt ID"
+msgstr "Objekt-ID"
 
 msgid "submitted for moderation"
 msgstr "Zur Freischaltung eingereicht"
@@ -394,11 +437,12 @@ msgid "tasks"
 msgstr "Aufgaben"
 
 msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
 msgstr ""
-"Aktive Workflows können zu Seiten hinzugefügt werden. Die Deaktivierung "
-"eines Workflows entfernt diesen nicht aus bestehenden Seiten."
+"Aktive Workflows können zu Seiten/Schnipseln hinzugefügt werden. Die "
+"Deaktivierung eines Workflows entfernt diesen nicht aus bestehenden Seiten/"
+"Schnipseln."
 
 msgid "workflows"
 msgstr "Workflows"
@@ -407,11 +451,11 @@ msgid "groups"
 msgstr "Gruppen"
 
 msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
 msgstr ""
-"Seiten in diesem Schritt eines Workflows werden durch diese Gruppen von  "
-"Benutzern moderiert oder freigeschaltet"
+"Seiten/Schnipsel in diesem Schritt eines Workflows werden durch diese "
+"Gruppen von  Benutzern moderiert oder freigeschaltet"
 
 msgid "Request changes"
 msgstr "Änderungen anfordern"
@@ -454,14 +498,16 @@ msgid "current task state"
 msgstr "Aktueller Zustand der Aufgabe"
 
 msgid ""
-"There may only be one in progress or needs changes workflow state per page."
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
 msgstr ""
 "Es kann nur einen Workflow-Zustand „in Bearbeitung“ oder „Änderungen "
-"benötigt“ pro Seite geben."
+"benötigt“ pro Seite/Schnipsel geben."
 
 #, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr "Workflow ‚%(workflow_name)s‘ auf Seite ‚%(page_title)s‘: %(status)s"
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Workflow '%(workflow_name)s' auf %(model_name)s '%(title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Nicht begonnen"
@@ -481,9 +527,6 @@ msgstr "Übersprungen"
 msgid "workflow state"
 msgstr "Workflow-Zustand"
 
-msgid "page revision"
-msgstr "Seitenrevision"
-
 msgid "started at"
 msgstr "Gestartet am"
 
@@ -494,9 +537,8 @@ msgid "finished by"
 msgstr "Beendet von"
 
 #, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Aufgabe „%(task_name)s“ bei Seitenrevision „%(revision_info)s“: %(status)s"
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Aufgabe '%(task_name)s' bei Revision '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Zustand der Aufgabe"

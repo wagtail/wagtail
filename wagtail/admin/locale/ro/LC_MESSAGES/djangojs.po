@@ -29,9 +29,6 @@ msgstr "Text alternativ"
 msgid "Are you sure?"
 msgstr "Ești sigur?"
 
-msgid "Blocks"
-msgstr "Blocuri"
-
 msgid "Broken link"
 msgstr "Link nefuncțional"
 
@@ -144,9 +141,6 @@ msgstr "Rezolva"
 msgid "Retry"
 msgstr "Încearcă din nou"
 
-msgid "Rich text"
-msgstr "Text bogat"
-
 msgid "Save"
 msgstr "Salvează"
 
@@ -167,9 +161,6 @@ msgstr "În curs de salvare..."
 
 msgid "Search"
 msgstr "Căută"
-
-msgid "Search blocks"
-msgstr "Caută blocuri"
 
 msgid "See all"
 msgstr "Vezi toate"

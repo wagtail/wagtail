@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,29 @@ msgstr "Afegir promoció de cerca"
 
 msgid "Add search pick"
 msgstr "Afegir triar de cercar"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Els resultats de la cerca promocionada són un mitjà per recomanar pàgines "
+"específiques que podrien no aparèixer de manera orgànica als resultats de la "
+"cerca. P.e.: recomanar la teva pàgina de donació principal a un usuari que "
+"està cercant amb el menys comú terme \"ofrena\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>El camp \"Terme(s)/frase de cerca\" que hi ha a continuació ha de "
+"contenir la cerca completa i exacta per a la qual voleu proporcionar "
+"resultats recomanats, <em>incloent</em> qualsevol error ortogràfic o "
+"d'usuari. Per ajudar-vos, podeu triar entre termes de cerca que han estat "
+"populars entre els usuaris del vostre lloc.</p>"
 
 msgid "Save"
 msgstr "Desa"
@@ -73,6 +96,9 @@ msgstr "Puja"
 
 msgid "Move down"
 msgstr "Baixa"
+
+msgid "Recommended page"
+msgstr "Pàgina recomanada"
 
 msgid "Promoted search results"
 msgstr "Resultats de cerca promocionada"
@@ -112,6 +138,12 @@ msgstr "Editeu aquesta promoció"
 
 msgid "None"
 msgstr "Cap"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "S'ha trobat %(counter)s coincidència"
+msgstr[1] "S'ha trobat %(counter)s coincidències"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -49,14 +49,6 @@ msgstr "Formati supportati: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Formato immagine non supportato. Formati supportati: %(supported_formats)s."
-
-#, python-format
-msgid ""
-"Not a valid %(extension)s image. The extension does not match the file "
-"format (%(image_format)s)"
-msgstr ""
-"Immagine %(extension)s non valida. L'estensione non corrisponde al formato "
-"del file (%(image_format)s)"
 
 #, python-format
 msgid ""

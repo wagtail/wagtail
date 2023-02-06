@@ -10,16 +10,16 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Matt Westcott <matthew@torchbox.com>, 2019
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2020
+# Miłosz Miśkiewicz, 2017-2020,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014,2021\n"
+"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Opublikuj"
 
+msgid "Submit for moderation"
+msgstr "Przekaż do przeglądu"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Wyślij ponownie do %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Wyślij do %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Zrestartuj proces"
+
+msgid "Cancel workflow "
+msgstr "Anuluj proces"
+
 msgid "Unpublish"
 msgstr "Cofnij publikację"
 
@@ -42,12 +59,30 @@ msgstr "Usuń"
 msgid "Save"
 msgstr "Zapisz"
 
+msgid "Locked"
+msgstr "Zablokowany"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s i Opublikuj"
+
 msgid "Wagtail snippets"
 msgstr "Snippety Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Usuń wybrane snippety"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' usunięte."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s usunięty."
+msgstr[1] "%(count)d %(model_name)s usunięte."
+msgstr[2] "%(count)d %(model_name)s usunięte."
+msgstr[3] "%(count)d %(model_name)s usunięte."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -72,11 +107,34 @@ msgstr "Czy na pewno chcesz usunąć ten %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Czy na pewno chcesz usunąć %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nie masz uprawnień żeby usunąć ten %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Nie masz uprawnień żeby usunąć te %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Przepraszamy, żaden snippet nie pasuje do \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Nie utworzyłeś żadnego snippetu %(snippet_type_name)s. Dlaczego nie <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">utworzyć jednego teraz</a>?"
 
 msgid "Usage"
 msgstr "Użycie"
@@ -99,6 +157,9 @@ msgstr "Zapisywanie…"
 msgid "Replace current draft"
 msgstr "Zastąp aktualny szkic"
 
+msgid "Replace current revision"
+msgstr "Zastąp aktualną rewizję"
+
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
@@ -112,6 +173,10 @@ msgstr "Nowy"
 msgid "Actions"
 msgstr "Akcje"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Edycja %(snippet_type_name)s - %(object)s"
+
 msgid "Toggle breadcrumbs"
 msgstr "Przełącz okruszki"
 
@@ -121,8 +186,37 @@ msgstr "Breadcrumb"
 msgid "Snippets"
 msgstr "Snippety"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nowy: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Edycja %(snippet_type)s %(title)s"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Historia snippetu dla %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Edytuj snippet"
+
 msgid "No log entries found."
 msgstr "Brak wpisów w logu."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Jest %(counter)s dopasowanie"
+msgstr[1] "Jest %(counter)s dopasowań"
+msgstr[2] "Jest %(counter)s dopasowań"
+msgstr[3] "Jest %(counter)s dopasowań"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr ""
+"Przepraszamy, żaden %(snippet_type_name_plural)s pasuje do twojego "
+"wyszukiwania"
 
 #, python-format
 msgid ""
@@ -164,6 +258,9 @@ msgstr "Snippety %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Dodaj %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Zaznacz wszystkie snippety na liście"
+
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Użycie %(title)s"
@@ -174,25 +271,27 @@ msgstr "Użycie"
 msgid "Title"
 msgstr "Tytuł"
 
+msgid "Field"
+msgstr "Pole"
+
 msgid "Choose"
 msgstr "Wybierz"
 
 msgid "Name"
 msgstr "Nazwa"
 
+msgid "Instances"
+msgstr "Instancje"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' utworzone."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 
 #, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' zaktualizowane."
+msgid "(Private %(object)s)"
+msgstr "(Prywatny %(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -209,6 +308,14 @@ msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Historia snippetu"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Edytuj ten %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Historia %(model_name)s "
 
 #, python-format
 msgid "Edit '%(title)s'"

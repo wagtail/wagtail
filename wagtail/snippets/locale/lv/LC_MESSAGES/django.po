@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,15 @@ msgstr ""
 msgid "Publish"
 msgstr "Publicēt"
 
+msgid "Submit for moderation"
+msgstr "Iesniegt moderācijai"
+
+msgid "Restart workflow "
+msgstr "Restartēt darbplūsmu"
+
+msgid "Cancel workflow "
+msgstr "Atcelt darbplūsmu"
+
 msgid "Unpublish"
 msgstr "Atsaukt publicēšanu"
 
@@ -31,6 +40,9 @@ msgstr "Dzēst"
 
 msgid "Save"
 msgstr "Saglabāt"
+
+msgid "Locked"
+msgstr "Slēgts"
 
 msgid "Yes, delete"
 msgstr "Dzēst"

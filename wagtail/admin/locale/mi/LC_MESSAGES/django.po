@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -496,9 +496,6 @@ msgstr "Hohenga"
 msgid "Comment"
 msgstr "Tākupu"
 
-msgid "Started at"
-msgstr "Tīmata ki"
-
 msgid "Move up"
 msgstr "Mū ki runga"
 
@@ -508,8 +505,8 @@ msgstr "Mū ki raro"
 msgid "Workflow"
 msgstr "Mahi pūheke"
 
-msgid "Page"
-msgstr "Whārangi"
+msgid "Started at"
+msgstr "Tīmata ki"
 
 msgid "Completed at"
 msgstr "I whakatutuki ki"
@@ -519,6 +516,9 @@ msgstr "Tātari"
 
 msgid "Lock"
 msgstr "Raka"
+
+msgid "Page"
+msgstr "Whārangi"
 
 msgid "New"
 msgstr "Hou"
@@ -532,6 +532,14 @@ msgstr "%(time_period)s mai rā anō"
 
 msgid "Password"
 msgstr "Kupu muna"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' kua whakahou."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' kua hangaia."
 
 msgid "Editing"
 msgstr "Whakarerekē"

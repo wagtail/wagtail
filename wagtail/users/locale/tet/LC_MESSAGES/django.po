@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -148,6 +148,12 @@ msgstr "Hatama"
 
 msgid "Change"
 msgstr "Troka"
+
+msgid "Publish"
+msgstr "Publika"
+
+msgid "Lock"
+msgstr "Xavi"
 
 msgid "Other permissions"
 msgstr "Permisaun sira seluk"

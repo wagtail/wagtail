@@ -705,7 +705,7 @@ Translators
 * Czech: Ales Dvorak, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Benjamin Bach, Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
-* Estonian: Erlend Eelmets, Ragnar Rebase
+* Estonian: Erlend Eelmets, Martin, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: X Bello, Amós Oviedo

@@ -7,16 +7,16 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2015,2017
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2023
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 # Tomas Walch <tomas@alternaliv.se>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2022\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2023\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publicera"
 
+msgid "Submit for moderation"
+msgstr "Lämna in för moderering"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Skicka igen till %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Lämna in till %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Starta om arbetsflöde"
+
+msgid "Cancel workflow "
+msgstr "Avbryt arbetsflöde"
+
 msgid "Unpublish"
 msgstr "Avpublicera"
 
@@ -37,12 +54,28 @@ msgstr "Radera"
 msgid "Save"
 msgstr "Spara"
 
+msgid "Locked"
+msgstr "Låst"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s och Publicera"
+
 msgid "Wagtail snippets"
-msgstr "Wagtail kodsnuttar"
+msgstr "Wagtail snuttar"
+
+msgid "Delete selected snippets"
+msgstr "Radera valda snuttar"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' raderad."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s raderad."
+msgstr[1] "%(count)d %(model_name)s raderade."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -65,11 +98,33 @@ msgstr "Är du säker på att du vill radera %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Är du säker på att du vill radera %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Du saknar rättigheter att radera denna %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Du saknar rättigheter att radera dessa %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
 msgid "No, don't delete"
 msgstr "Nej, radera inte."
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Ledsen, inga snuttar matchade \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">skapa en nu</a>?"
 
 msgid "Usage"
 msgstr "Användning"
@@ -92,6 +147,9 @@ msgstr "Sparar…"
 msgid "Replace current draft"
 msgstr "Ersätt existerande utkast"
 
+msgid "Replace current revision"
+msgstr "Ersätt nuvarande revision"
+
 msgid "Save draft"
 msgstr "Spara utkast"
 
@@ -105,14 +163,43 @@ msgstr "Ny"
 msgid "Actions"
 msgstr "Handlingar"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Redigera %(snippet_type_name)s - %(object)s"
+
 msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
 
 msgid "Snippets"
 msgstr "Snuttar"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Ny: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Redigera %(snippet_type)s %(title)s"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Snutthistorik för %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Redigera snutten"
+
 msgid "No log entries found."
 msgstr "Inga loggposter funna"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Ledsen, inga %(snippet_type_name_plural)s matchar din sökning"
 
 #, python-format
 msgid ""
@@ -154,6 +241,9 @@ msgstr "Snuttar %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Skapa %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Välj alla snuttar i listan"
+
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Användning av %(title)s"
@@ -164,25 +254,23 @@ msgstr "Användning av"
 msgid "Title"
 msgstr "Rubrik"
 
+msgid "Field"
+msgstr "Fält"
+
 msgid "Choose"
 msgstr "Välj"
 
 msgid "Name"
 msgstr "Namn"
 
+msgid "Instances"
+msgstr "Instans"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunde inte skapas p.g.a. fel."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' skapad."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunde inte sparas p.g.a. fel."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' uppdaterad."
 
 #, python-format
 msgid "(Private %(object)s)"
@@ -203,6 +291,14 @@ msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Snutthistorik"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Redigera denna %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s historik"
 
 #, python-format
 msgid "Edit '%(title)s'"

@@ -9,16 +9,16 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2020
+# Miłosz Miśkiewicz, 2017-2020,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
+"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -74,6 +74,14 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumenty"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Dodaj tagi do 1 dokumentu"
+msgstr[1] "Dodaj tagi do %(counter)s dokumentów"
+msgstr[2] "Dodaj tagi do %(counter)s dokumentów"
+msgstr[3] "Dodaj tagi do %(counter)s dokumentów"
+
 msgid "Add tags to documents"
 msgstr "Dodaj tagi do dokumentów"
 
@@ -96,6 +104,14 @@ msgstr "Tak, dodaj"
 
 msgid "No, don't add"
 msgstr "Nie, nie dodawaj"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Dodaj 1 dokument do nowej kolekcji"
+msgstr[1] "Dodaj %(counter)s dokumentów do nowej kolekcji"
+msgstr[2] "Dodaj %(counter)s dokumentów do nowej kolekcji"
+msgstr[3] "Dodaj %(counter)s dokumentów do nowej kolekcji"
 
 msgid "Add documents to collection"
 msgstr "Dodaj dokumenty do kolekcji"
@@ -171,6 +187,13 @@ msgstr "Nie przesłano żadnych dokumentów do tej kolekcji."
 msgid "You haven't uploaded any documents."
 msgstr "Nie przesłano żadnych dokumentów."
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Dlaczego nie <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>wgrać jednego teraz</a>?"
+
 msgid "Change document:"
 msgstr "Zmień dokument:"
 
@@ -231,6 +254,14 @@ msgid "Select document"
 msgstr "Wybierz dokument"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Jest %(counter)s dopasowanie"
+msgstr[1] "Jest %(counter)s dopasowań"
+msgstr[2] "Jest %(counter)s dopasowań"
+msgstr[3] "Jest %(counter)s dopasowań"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
@@ -257,6 +288,29 @@ msgstr "Użycie %(title)s"
 
 msgid "Usage of"
 msgstr "Użycie"
+
+msgid "Field"
+msgstr "Pole"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\">utworzony w "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Dokumentów <span class=\"visuallyhidden\">utworzonych "
+"w %(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Dokumentów <span class=\"visuallyhidden\">utworzonych "
+"w %(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Dokumentów<span class=\"visuallyhidden\">utworzonych "
+"w %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Dodaj wiele dokumentów"
@@ -307,17 +361,45 @@ msgstr "Tag"
 msgid "Add tags to the selected documents"
 msgstr "Dodaj tagi do wybranych dokumentów"
 
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Nowe tagi zostały dodane do %(num_parent_objects)d dokumentu"
+msgstr[1] "Nowe tagi zostały dodane do %(num_parent_objects)d dokumentów"
+msgstr[2] "Nowe tagi zostały dodane do %(num_parent_objects)d dokumentów"
+msgstr[3] "Nowe tagi zostały dodane do %(num_parent_objects)d dokumentów"
+
 msgid "Add to collection"
 msgstr "Dodaj do kolekcji"
 
 msgid "Add selected documents to collection"
 msgstr "Dodaj wybrane dokumenty do kolekcji "
 
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d dokument został dodany do %(collection)s"
+msgstr[1] ""
+"%(num_parent_objects)d dokumentów zostało dodanych do %(collection)s"
+msgstr[2] ""
+"%(num_parent_objects)d dokumentów zostało dodanych do %(collection)s"
+msgstr[3] ""
+"%(num_parent_objects)d dokumentów zostało dodanych do %(collection)s"
+
 msgid "Delete"
 msgstr "Usuń"
 
 msgid "Delete selected documents"
 msgstr "Usuń wybrane dokumenty"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokument został usunięty"
+msgstr[1] "%(num_parent_objects)d dokumentów zostało usunięte"
+msgstr[2] "%(num_parent_objects)d dokumentów zostało usunięte"
+msgstr[3] "%(num_parent_objects)d dokumentów zostało usunięte"
 
 msgid "Choose a document"
 msgstr "Wybierz dokument"
@@ -350,6 +432,10 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Usunięto dokument '%(document_title)s'"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Prywatny %(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"

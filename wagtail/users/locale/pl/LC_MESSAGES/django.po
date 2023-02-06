@@ -8,16 +8,16 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2020
+# Miłosz Miśkiewicz, 2017-2020,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
+"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Użytkownicy Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Wymagane. Wyłącznie litery, cyfry oraz @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Ta wartość może zawierać tylko litery, liczby oraz znaki @/./+/-/_. "
@@ -96,6 +99,14 @@ msgstr "Otrzymuj powiadomienie gdy twoja zmiana strony została odrzucona"
 msgid "updated comments notifications"
 msgstr "Zaktualizowano powiadomienia komentarzy"
 
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Utrzymuj powiadomienie kiedy komentarze będą tworzone, rozwiązywane lub "
+"usuwane na stronie którą zasubskrybowałeś do otrzymywania powiadomień o "
+"komentarzach"
+
 msgid "preferred language"
 msgstr "preferowany język"
 
@@ -117,8 +128,19 @@ msgstr "profil użytkownika"
 msgid "user profiles"
 msgstr "profile użytkownika"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Przypisz rolę do 1 użytkownika"
+msgstr[1] "Przypisz rolę do %(counter)s użytkowników"
+msgstr[2] "Przypisz rolę do %(counter)s użytkowników"
+msgstr[3] "Przypisz rolę do %(counter)s użytkowników"
+
 msgid "Assign role"
 msgstr "Przypisz rolę"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Czy na pewno chcesz przypisać tę rolę do tych użytkowników?"
 
 msgid "You don't have permission to edit this user"
 msgid_plural "You don't have permission to edit these users"
@@ -127,8 +149,32 @@ msgstr[1] "Nie posiadasz uprawnień do edycji tych użytkowników"
 msgstr[2] "Nie posiadasz uprawnień do edycji tych użytkowników"
 msgstr[3] "Nie posiadasz uprawnień do edycji tych użytkowników"
 
+msgid "Yes, assign"
+msgstr "Tak, przypisz"
+
+msgid "No, don't assign"
+msgstr "Nie, nie przypisuj"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Usuń 1 użytkownika"
+msgstr[1] "Usuń %(counter)s użytkowników"
+msgstr[2] "Usuń %(counter)s użytkowników"
+msgstr[3] "Usuń %(counter)s użytkowników"
+
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Czy na pewno chcesz usunąć tych użytkowników?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nie posiadasz uprawnień do usunięcia tego użytkownika"
+msgstr[1] "Nie posiadasz uprawnień do usunięcia tych użytkowników"
+msgstr[2] "Nie posiadasz uprawnień do usunięcia tych użytkowników"
+msgstr[3] "Nie posiadasz uprawnień do usunięcia tych użytkowników"
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
@@ -136,11 +182,49 @@ msgstr "Tak, usuń"
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Zmień status aktywności dla 1 użytkownika"
+msgstr[1] "Zmień status aktywności dla %(counter)s użytkowników"
+msgstr[2] "Zmień status aktywności dla %(counter)s użytkowników"
+msgstr[3] "Zmień status aktywności dla %(counter)s użytkowników"
+
+msgid "Set active state"
+msgstr "Ustaw status aktywności"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Czy na pewno chcesz zmienić status aktywności dla tych użytkowników?"
+
+msgid "You cannot change your own active status"
+msgstr "Nie możesz zmienić swojego statusu aktywności"
+
 msgid "Yes, change state"
 msgstr "Tak, zmień stan"
 
+msgid "No, don't change state"
+msgstr "Nie, nie zmieniaj statusu"
+
 msgid "Delete group"
 msgstr "Usuń grupę"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grupa '%(group_name)s' ma <strong>%(group_user_count)s</strong> przypisanego "
+"użytkownika."
+msgstr[1] ""
+"Grupa '%(group_name)s' ma <strong>%(group_user_count)s</strong> przypisanych "
+"użytkownikó."
+msgstr[2] ""
+"Grupa '%(group_name)s' ma <strong>%(group_user_count)s</strong> przypisanych "
+"użytkowników."
+msgstr[3] ""
+"Grupa '%(group_name)s' ma <strong>%(group_user_count)s</strong> przypisanych "
+"użytkowników."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -175,6 +259,15 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Zmień"
+
+msgid "Publish"
+msgstr "Opublikuj"
+
+msgid "Lock"
+msgstr "Zablokuj"
+
+msgid "Unlock"
+msgstr "Odblokuj"
 
 msgid "Custom permissions"
 msgstr "Uprawnienia niestandardowe"
@@ -224,6 +317,9 @@ msgstr "Użytkownicy"
 msgid "Add a user"
 msgstr "Dodaj użytkownika"
 
+msgid "Select all users in listing"
+msgstr "Wybierz wszystkich użytkowników z listy"
+
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
@@ -244,6 +340,14 @@ msgstr "Aktywny"
 
 msgid "Inactive"
 msgstr "Nieaktywny"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Jest %(counter)s dopasowanie"
+msgstr[1] "Jest %(counter)s dopasowań"
+msgstr[2] "Jest %(counter)s dopasowań"
+msgstr[3] "Jest %(counter)s dopasowań"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -270,8 +374,49 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "użytkownik %(id)s (usunięty)"
 
+msgid "Assign role to selected users"
+msgstr "Przypisz rolę do wybranych użytkowników"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d użytkownik został przypisany jako %(role)s"
+msgstr[1] "%(num_parent_objects)d użytkownicy zostali przypisani jako %(role)s"
+msgstr[2] "%(num_parent_objects)d użytkownicy zostali przypisani jako %(role)s"
+msgstr[3] "%(num_parent_objects)d użytkownicy zostali przypisani jako %(role)s"
+
 msgid "Delete selected users"
 msgstr "Usuń wybranych użytkowników"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d użytkownik został usunięty"
+msgstr[1] "%(num_parent_objects)d użytkowników zostało usuniętych"
+msgstr[2] "%(num_parent_objects)d użytkowników zostało usuniętych"
+msgstr[3] "%(num_parent_objects)d użytkowników zostało usuniętych"
+
+msgid "Change the active state for selected users"
+msgstr "Zmień status aktywności dla wybranych użytkowników"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d użytkownik został oznaczeny jako aktywny"
+msgstr[1] "%(num_parent_objects)d użytkownicy zostali oznaczeni jako aktywni"
+msgstr[2] "%(num_parent_objects)d użytkownicy zostali oznaczeni jako aktywni"
+msgstr[3] "%(num_parent_objects)d użytkownicy zostali oznaczeni jako aktywni"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d użytkownik został oznaczony jako nieaktywny"
+msgstr[1] ""
+"%(num_parent_objects)d użytkownicy zostali oznaczeni jako nieaktywni"
+msgstr[2] ""
+"%(num_parent_objects)d użytkownicy zostali oznaczeni jako nieaktywni"
+msgstr[3] ""
+"%(num_parent_objects)d użytkownicy zostali oznaczeni jako nieaktywni"
 
 msgid "Groups"
 msgstr "Grupy"
@@ -296,6 +441,10 @@ msgstr "Grupa nie mogła zostać zapisana z powodu błędów."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' została usunięta."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Użytkownik '%(object)s' utworzony."
 
 #, python-format
 msgid "User '%(object)s' updated."

@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Михаил Герасимов, 2019\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -256,6 +256,15 @@ msgstr "Добавить"
 
 msgid "Change"
 msgstr "Изменить"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Lock"
+msgstr "Блокировка"
+
+msgid "Unlock"
+msgstr "Разблокировать"
 
 msgid "Custom permissions"
 msgstr "Пользовательские разрешения"

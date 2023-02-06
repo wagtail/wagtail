@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -25,6 +25,20 @@ msgstr ""
 msgid "Publish"
 msgstr "Publikasi"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Pengajuan ulang ke %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Pengajuan ke %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Restart alur kerja"
+
+msgid "Cancel workflow "
+msgstr "Batalkan alur kerja"
+
 msgid "Unpublish"
 msgstr "Batal Publikasi"
 
@@ -33,6 +47,13 @@ msgstr "Hapus"
 
 msgid "Save"
 msgstr "Simpan"
+
+msgid "Locked"
+msgstr "Terkunci"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s dan Publikasikan"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail potongan"

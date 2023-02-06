@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,13 @@ msgstr ""
 msgid "Publish"
 msgstr "انشر"
 
+msgid "Submit for moderation"
+msgstr "قدّم للمراجعة"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "إعادة اﻹدخال إلي %(task_name)s"
+
 msgid "Unpublish"
 msgstr "غير منشور"
 
@@ -35,6 +42,13 @@ msgstr "احذف"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Locked"
+msgstr "مغلق"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و إنشر"
 
 msgid "Wagtail snippets"
 msgstr "قصاصات Wagtail"
@@ -142,16 +156,8 @@ msgstr "اسم"
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "تم تحديث '%(object)s' '%(model_name)s'."
 
 #, python-format
 msgid "Edit this %(object)s"

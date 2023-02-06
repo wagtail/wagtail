@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -449,9 +449,6 @@ msgstr "Datums"
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
-msgid "Your pages in a workflow"
-msgstr "Jūsu lapas darbplūsmā"
-
 msgid "Task started"
 msgstr "Uzdevums uzsākts"
 
@@ -662,9 +659,6 @@ msgstr "Lūdzu ievadiet meklēšanas terminu"
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
 
-msgid "Started at"
-msgstr "Sākās plkst."
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Pievienot %(label)s"
@@ -687,8 +681,8 @@ msgstr "Rediģēt šo vienību"
 msgid "Workflow"
 msgstr "Darbplūsma"
 
-msgid "Page"
-msgstr "Lapa"
+msgid "Started at"
+msgstr "Sākās plkst."
 
 msgid "Completed at"
 msgstr "Pabeigts plkst."
@@ -724,6 +718,9 @@ msgstr "Parādīt pārlūkā"
 
 msgid "No"
 msgstr "Nē"
+
+msgid "Page"
+msgstr "Lapa"
 
 msgid "New"
 msgstr "Jauns"

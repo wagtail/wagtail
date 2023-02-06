@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -240,6 +240,15 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Promijeni"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Lock"
+msgstr "Zaključavanje"
+
+msgid "Unlock"
+msgstr "Otključavanje"
 
 msgid "Other permissions"
 msgstr "Ostale dozvole"

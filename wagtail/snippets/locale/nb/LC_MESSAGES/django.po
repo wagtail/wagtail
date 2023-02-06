@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -23,6 +23,9 @@ msgstr ""
 msgid "Publish"
 msgstr "Publiser"
 
+msgid "Submit for moderation"
+msgstr "Send til godkjenning"
+
 msgid "Unpublish"
 msgstr "Avpublisér"
 
@@ -31,6 +34,9 @@ msgstr "Slett"
 
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Locked"
+msgstr "Låst"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail-snutter"
@@ -147,16 +153,8 @@ msgstr "Navn"
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s «%(object)s» opprettet."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s «%(object)s» oppdatert."
 
 #, python-format
 msgid "Edit this %(object)s"

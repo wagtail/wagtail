@@ -27,9 +27,6 @@ msgstr "Testo alternativo"
 msgid "Are you sure?"
 msgstr "Sei sicuro/a?"
 
-msgid "Blocks"
-msgstr "Blocchi"
-
 msgid "Broken link"
 msgstr "Link non funzionante"
 
@@ -150,9 +147,6 @@ msgstr "Salvataggio in corso..."
 
 msgid "Search"
 msgstr "Cerca"
-
-msgid "Search blocks"
-msgstr "Blocchi ricerca"
 
 msgid "See all"
 msgstr "Vedi tutto"
