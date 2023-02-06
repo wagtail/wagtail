@@ -124,11 +124,11 @@ Make sure to test your forms’ implementation with assistive technologies, and 
 
 ## Authoring accessible content
 
-Here are things you can do to help authors create accessible content.
+A number of built-in tools and additional resources are available to help create accessible content.
 
-### built-in accessibility checker
+### Built-in accessibility checker
 
-Wagtail includes an accessibility checker built into the [`wagtailuserbar`](wagtailuserbar_tag). The checker can help authors create more accessible websites in compliance with the Web Content Accessibility Guidelines (WCAG) 2.0 and the Authoring Tool Accessibility Guidelines (ATAG) 2.0.
+Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag). The checker can help authors create more accessible websites in compliance with the Web Content Accessibility Guidelines (WCAG) 2.0 and the Authoring Tool Accessibility Guidelines (ATAG) 2.0.
 
 The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors, displaying the results in the GUI.
 
