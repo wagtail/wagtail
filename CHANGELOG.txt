@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)
