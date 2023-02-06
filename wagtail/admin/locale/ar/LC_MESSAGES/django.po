@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -792,9 +792,6 @@ msgstr "أدخل مصطلح البحث أعلاه"
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
 
-msgid "Edit page"
-msgstr "تعديل الصفحة"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "اضف %(label)s"
@@ -822,9 +819,6 @@ msgstr "لم يتم العثور على صفحات مقفلة"
 
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
-
-msgid "Page"
-msgstr "صفحة"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -880,6 +874,9 @@ msgstr "اعرض في المستكشف"
 msgid "Creating…"
 msgstr "يتم إنشاء..."
 
+msgid "Page"
+msgstr "صفحة"
+
 msgid "New"
 msgstr "جديد"
 
@@ -934,6 +931,14 @@ msgstr "المجموعة '%(object)s' محذوفة."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "تم تحديث '%(object)s' '%(model_name)s'."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
 
 msgid "Editing"
 msgstr "جاري التعديل"

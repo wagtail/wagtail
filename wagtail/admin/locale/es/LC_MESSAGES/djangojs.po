@@ -38,9 +38,6 @@ msgstr "Texto alternativo"
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-msgid "Blocks"
-msgstr "Bloques"
-
 msgid "Broken link"
 msgstr "Enlace roto"
 
@@ -152,9 +149,6 @@ msgstr "Resolver"
 msgid "Retry"
 msgstr "Reintentar"
 
-msgid "Rich text"
-msgstr "Texto enriquecido"
-
 msgid "Save"
 msgstr "Guardar"
 
@@ -175,9 +169,6 @@ msgstr "Guardando..."
 
 msgid "Search"
 msgstr "Buscar"
-
-msgid "Search blocks"
-msgstr "Buscar bloques"
 
 msgid "See all"
 msgstr "Ver todo"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -206,6 +206,15 @@ msgstr "Ychwanegu"
 
 msgid "Change"
 msgstr "Newid"
+
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Lock"
+msgstr "Clo"
+
+msgid "Unlock"
+msgstr "Datgloi"
 
 msgid "Custom permissions"
 msgstr "Caniatadau personol"

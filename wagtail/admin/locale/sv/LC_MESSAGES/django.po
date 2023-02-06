@@ -11,15 +11,16 @@
 # Martin Sandström <martin@marteinn.se>, 2020-2022
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2022
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
 # Thomas Kunambi <kunambi@gmail.com>, 2015
+# Tomas Walch <tomas@alternaliv.se>, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2022\n"
+"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2023\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -169,7 +170,7 @@ msgid "Expiry date/time must be in the future"
 msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
 msgid "New title"
-msgstr "Ny titel"
+msgstr "Ny rubrik"
 
 msgid "New slug"
 msgstr "Nytt URL-fragment"
@@ -343,6 +344,9 @@ msgstr "Alla %(objects)s objekt i denna vy är valda"
 msgid "All items in listing selected"
 msgstr "Alla objekt i lista valda"
 
+msgid "Page title"
+msgstr "Sidrubrik"
+
 msgid "For search engines"
 msgstr "För sökmotorer"
 
@@ -459,6 +463,12 @@ msgstr "Telefonlänk"
 msgid "Anchor link"
 msgstr "Förankringslänk"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
 msgid "Add an anchor link"
 msgstr "Lägg till förankringslänk"
 
@@ -488,6 +498,10 @@ msgstr "Infoga extern länk"
 
 msgid "Add a phone link"
 msgstr "Lägg till Telefonlänk"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Välj %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -582,7 +596,7 @@ msgid "Your locked pages"
 msgstr "Dina låsta sidor"
 
 msgid "Title"
-msgstr "Titel"
+msgstr "Rubrik"
 
 msgid "Locked at"
 msgstr "Låstes"
@@ -621,7 +635,7 @@ msgid "Preview"
 msgstr "Förhandsgranska"
 
 msgid "Your most recent edits"
-msgstr "Dina senaste editeringar"
+msgstr "Dina senaste ändringar"
 
 msgid "Status"
 msgstr "Status"
@@ -631,9 +645,6 @@ msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Sajtsammanställning"
-
-msgid "Your pages in a workflow"
-msgstr "Dina sidor i ett arbetsflöde"
 
 msgid "Task started"
 msgstr "Uppgift påbörjad"
@@ -646,6 +657,18 @@ msgstr "Avvaktar"
 
 msgid "Close"
 msgstr "Stäng"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"Oroa dig inte, vi backar upp dig om det behövs. Kolla in <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtails redaktörshandbok</a> för att ta reda på vad som "
+"ändras och några spännande nya funktioner!"
 
 msgid "Awaiting your review"
 msgstr "Inväntar din granskning"
@@ -721,6 +744,10 @@ msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
 "Sidan \"%(title)s\" har blivit godkänt i moderationsstadiet \"%(task)s\"."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Du kan redigera %(model_name)s här:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
@@ -908,6 +935,12 @@ msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Du saknar rättigheter att flytta denna sida"
 msgstr[1] "Du saknar rättigheter att flytta dessa sidor"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s"
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Denna sida kan inte flyttas till %(dest_title)s"
+msgstr[1] "Dessa sidor kan inte flyttas till %(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -1184,70 +1217,6 @@ msgstr "Ange en sökterm ovan"
 msgid "No pages use"
 msgstr "Inga sidor använder"
 
-msgid "Workflow progress"
-msgstr "Arbetsflöde framsteg"
-
-msgid "Edit / Review"
-msgstr "Redigera / Granska"
-
-msgid "Workflow history"
-msgstr "Arbetsflödeshistorik"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Begärdes av <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Påbörjades vid <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Status <span class=\"status-tag primary\"> %(status)s</span>"
-
-msgid "Timeline"
-msgstr "Tidslinje"
-
-msgid "Initial Revision"
-msgstr "Initial Revision"
-
-msgid "Page edited"
-msgstr "Sida redigerad"
-
-msgid "with comment:"
-msgstr "med kommentar:"
-
-msgid "Workflow started"
-msgstr "Arbetsflöde påbörjat"
-
-msgid "Workflow completed"
-msgstr "Arbetsflöde slutfört"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Arbetsflödeshistorik för %(title)s"
-
-msgid "Workflow history for"
-msgstr "Arbetsflödeshistorik för"
-
-msgid "Edit page"
-msgstr "Redigera sida"
-
-msgid "Requested by"
-msgstr "Begärdes av"
-
-msgid "Started at"
-msgstr "Påbörjades vid"
-
-msgid "Approved task"
-msgstr "Godkänn uppgift"
-
-msgid "Incomplete task"
-msgstr "Ej slutförd uppgift"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Denna sida här ännu inte lämnats in för moderering"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Lägg till %(label)s"
@@ -1303,11 +1272,14 @@ msgstr "Av Uppgift"
 msgid "Workflow"
 msgstr "Arbetsflöde"
 
-msgid "Page"
-msgstr "Sida"
+msgid "Requested by"
+msgstr "Begärdes av"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Inga sidor har lämnats in för moderering ännu"
+msgid "Started at"
+msgstr "Påbörjades vid"
+
+msgid "Incomplete task"
+msgstr "Ej slutförd uppgift"
 
 msgid "By Workflow"
 msgstr "Av Arbetsflöde"
@@ -1340,6 +1312,14 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Filtrera"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Ny: %(model_name)s"
+
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Redigerar %(page_type)s %(title)s"
 
 msgid "Visit the live page"
 msgstr "Besök live-sidan"
@@ -1376,6 +1356,55 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Ändring av sekretessinställningar påverkar även alla undersidor till denna "
 "sida."
+
+msgid "Workflow progress"
+msgstr "Arbetsflöde framsteg"
+
+msgid "Edit / Review"
+msgstr "Redigera / Granska"
+
+msgid "Workflow history"
+msgstr "Arbetsflödeshistorik"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Begärdes av <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Påbörjades vid <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Status <span class=\"status-tag primary\"> %(status)s</span>"
+
+msgid "Timeline"
+msgstr "Tidslinje"
+
+msgid "Initial Revision"
+msgstr "Initial Revision"
+
+msgid "with comment:"
+msgstr "med kommentar:"
+
+msgid "Workflow started"
+msgstr "Arbetsflöde påbörjat"
+
+msgid "Workflow completed"
+msgstr "Arbetsflöde slutfört"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Arbetsflödeshistorik för %(title)s"
+
+msgid "Workflow history for"
+msgstr "Arbetsflödeshistorik för"
+
+msgid "Approved task"
+msgstr "Godkänn uppgift"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Denna sida här ännu inte lämnats in för moderering"
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -1433,6 +1462,9 @@ msgstr "Används ej"
 
 msgid "Assigned pages"
 msgstr "Tilldelade sidor"
+
+msgid "Page"
+msgstr "Sida"
 
 msgid "Assign to another page"
 msgstr "Tilldela till en annan sida"
@@ -1582,6 +1614,9 @@ msgstr "%(time_period)s sedan"
 msgid "Log out"
 msgstr "Logga ut"
 
+msgid "Toggle status"
+msgstr "Växla status"
+
 msgid "Comments"
 msgstr "Kommentarer"
 
@@ -1638,6 +1673,14 @@ msgstr "Samling '%(object)s' raderad."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Är du säker på att du vill radera denna samling?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' uppdaterad."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' skapad."
 
 msgid "Editing"
 msgstr "Redigerar"
@@ -1950,14 +1993,8 @@ msgstr "Inväntar min granskning"
 msgid "Workflows"
 msgstr "Arbetsflöden"
 
-msgid "Page ID"
-msgstr "Sid-ID"
-
-msgid "Page Type"
-msgstr "Sidtyp"
-
-msgid "Page Title"
-msgstr "Sidtitel"
+msgid "Page/Snippet Title"
+msgstr "Sid-/snutt-rubrik"
 
 msgid "Workflow tasks"
 msgstr "Arbetsflödesuppgifter"
@@ -1996,20 +2033,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "Arbetsflöde '%(object)s' inaktiverat."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Detta arbetsflöde pågår på %(states_in_progress)d sida. Inaktivering av "
-"detta arbetsflöde avbryter moderering på denna sida.."
-msgstr[1] ""
-"Detta arbetsflöde pågår på %(states_in_progress)d sidor. Inaktivering av "
-"detta arbetsflöde avbryter moderering på dessa sidor.."
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Arbetsflöde '%(workflow_name)s' aktiverat."
 
@@ -2041,24 +2064,6 @@ msgstr "Inaktivera uppgift"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Uppgift '%(object)s' inaktiverad.."
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"Denna uppgift är pågående på %(states_in_progress)d sida. Att inaktivera "
-"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
-"kommer inte längre bli valbar när arbetsflöde redigeras."
-msgstr[1] ""
-"Denna uppgift är pågående på %(states_in_progress)d sidor. Att inaktivera "
-"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
-"kommer inte längre bli valbar när arbetsflöde redigeras."
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."
@@ -2153,6 +2158,9 @@ msgstr "Kod"
 
 msgid "Reports"
 msgstr "Rapporter"
+
+msgid "Editor Guide"
+msgstr "Redaktörshandbok"
 
 msgid "Yes"
 msgstr "Ja"

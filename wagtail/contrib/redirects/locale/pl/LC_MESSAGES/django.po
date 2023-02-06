@@ -9,16 +9,16 @@
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018,2020-2021
+# Miłosz Miśkiewicz, 2018,2020-2021,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014,2021\n"
+"Last-Translator: Miłosz Miśkiewicz, 2018,2020-2021,2023\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -85,8 +85,21 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "przekieruj na stronę"
 
+msgid "target page route"
+msgstr "ścieżka strony docelowej"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcjonalnie zdefiniuj ścieżkę na stronie docelowej do przekierowania. "
+"Pozostaw puste aby przekierować do domyślnej ścieżki."
+
 msgid "redirect to any URL"
 msgstr "przekieruj na dowolny adres URL"
+
+msgid "automatically created"
+msgstr "automatycznie utworzone"
 
 msgid "created at"
 msgstr "utworzono dnia"
@@ -111,6 +124,17 @@ msgstr "Przekierowania"
 
 msgid "Import redirects"
 msgstr "Import przekierowań"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Wybierz plik gdzie przekierowania są podzielone w wiersze i zawierają "
+"kolumny reprezentujące <code>z</code> oraz <code>na</code> (nazwy mogą być "
+"dowolne).</p> <p>Po wysłaniu zostaniesz poproszony o potwierdzenie i "
+"będziesz mógł zmienić przekierowania przed importem.</p>"
 
 msgid "Import"
 msgstr "Import"
@@ -183,6 +207,14 @@ msgstr "Edytuj to przekierowanie"
 
 msgid "No redirects found."
 msgstr "Nie znaleziono przekierowań."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Jest %(counter)s dopasowanie"
+msgstr[1] "Jest %(counter)s dopasowań"
+msgstr[2] "Jest %(counter)s dopasowań"
+msgstr[3] "Jest %(counter)s dopasowań"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

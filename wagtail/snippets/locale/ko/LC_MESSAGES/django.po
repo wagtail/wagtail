@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -26,6 +26,23 @@ msgstr ""
 msgid "Publish"
 msgstr "게시"
 
+msgid "Submit for moderation"
+msgstr "검토를 위한 제출"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)s에 다시 제출"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)s에 제출"
+
+msgid "Restart workflow "
+msgstr "워크플로우 재시작"
+
+msgid "Cancel workflow "
+msgstr "워크플로우 취소"
+
 msgid "Unpublish"
 msgstr "게시 해제"
 
@@ -34,6 +51,13 @@ msgstr "삭제"
 
 msgid "Save"
 msgstr "저장"
+
+msgid "Locked"
+msgstr "잠겨 있는"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s 그리고 게시"
 
 msgid "Wagtail snippets"
 msgstr "웨그테일 스니펫"
@@ -188,16 +212,8 @@ msgstr "이름"
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' 생성됨."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' 수정됨."
 
 #, python-format
 msgid "Edit this %(object)s"

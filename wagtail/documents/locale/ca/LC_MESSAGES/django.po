@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2022
+# Roger Pons <rogerpons@gmail.com>, 2017,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,12 @@ msgstr "document"
 msgid "documents"
 msgstr "documents"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Afegir etiquetes a 1 document"
+msgstr[1] "Afegir etiquetes a %(counter)s documents"
+
 msgid "Add tags to documents"
 msgstr "Afegir etiquetes als documents"
 
@@ -84,6 +90,12 @@ msgstr "Afegir"
 
 msgid "No, don't add"
 msgstr "No afegir"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Afegir 1 document a la nova col·lecció"
+msgstr[1] "Afegir %(counter)s documents a la nova col·lecció"
 
 msgid "Add documents to collection"
 msgstr "Afegir documents a la col·lecció"
@@ -105,6 +117,12 @@ msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "No teniu permís per afegir aquest document a una col·lecció"
 msgstr[1] "No teniu permís per afegir aquests documents a una col·lecció"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Esborrar 1 document"
+msgstr[1] "Esborrar %(counter)s documents"
 
 msgid "Delete documents"
 msgstr "Esborrar documents"
@@ -145,6 +163,13 @@ msgstr "No heu pujat cap document a aquest col·lecció."
 
 msgid "You haven't uploaded any documents."
 msgstr "No heu pujat cap document."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Per què no <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>pujar-ne un ara</a>?"
 
 msgid "Change document:"
 msgstr "Canvia el document:"
@@ -206,6 +231,12 @@ msgid "Select document"
 msgstr "Seleccionar document"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "S'ha trobat %(counter)s coincidència"
+msgstr[1] "S'ha trobat %(counter)s coincidències"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
 
@@ -231,6 +262,23 @@ msgstr "Utilització de %(title)s"
 
 msgid "Usage of"
 msgstr "Utilització de"
+
+msgid "Field"
+msgstr "Camp"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">creat a "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">creats a "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Afegir diversos documents"
@@ -343,6 +391,10 @@ msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Document '%(document_title)s' esborrat."
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Privat %(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"

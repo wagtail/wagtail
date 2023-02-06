@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publiceren"
 
+msgid "Submit for moderation"
+msgstr "Dien in ter controle"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Stuur opnieuw door naar %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Stuur door naar %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Workflow herstarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow annuleren"
+
 msgid "Unpublish"
 msgstr "Depubliceren"
 
@@ -35,6 +52,13 @@ msgstr "Verwijder"
 
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "Locked"
+msgstr "Geblokkeerd"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s en publiceren"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
@@ -151,6 +175,10 @@ msgid "Snippets"
 msgstr "Snippets"
 
 #, python-format
+msgid "New: %(model_name)s"
+msgstr "Nieuw: %(model_name)s"
+
+#, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Wijzigen: %(snippet_type)s %(title)s"
 
@@ -227,6 +255,9 @@ msgstr "Gebruik van"
 msgid "Title"
 msgstr "Titel"
 
+msgid "Field"
+msgstr "Veld"
+
 msgid "Choose"
 msgstr "Kies"
 
@@ -239,40 +270,8 @@ msgstr "Instanties"
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' aangemaakt."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s '%(object)s' aangemaakt en gepubliceerd."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr "%(model_name)s '%(object)s' is aangemaakt en gepland om live te gaan."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' gewijzigd."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "%(model_name)s '%(object)s' gewijzigd en gepubliceerd."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr "%(model_name)s '%(object)s' is ingepland voor publicatie."
-
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr ""
-"%(model_name)s '%(object)s' is live en deze versie is gepland voor "
-"publicatie."
 
 #, python-format
 msgid "(Private %(object)s)"

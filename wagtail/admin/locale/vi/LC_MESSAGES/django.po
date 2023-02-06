@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -215,16 +215,6 @@ msgid "Comment"
 msgstr "Bình luận"
 
 #, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Trạng thái <span class=\"status-tag primary\">%(status)s</span>"
-
-msgid "Workflow started"
-msgstr "Luồng công việc đã bắt đầu"
-
-msgid "Edit page"
-msgstr "Sửa trang"
-
-#, python-format
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
 
@@ -237,9 +227,6 @@ msgstr "Tải CSV"
 msgid "Locked"
 msgstr "Đã bị khóa"
 
-msgid "Page"
-msgstr "Trang"
-
 msgid "Add comment"
 msgstr "Thêm bình luận"
 
@@ -248,6 +235,16 @@ msgstr "Đã được mở khóa"
 
 msgid "Lock"
 msgstr "Khóa"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Trạng thái <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Workflow started"
+msgstr "Luồng công việc đã bắt đầu"
+
+msgid "Page"
+msgstr "Trang"
 
 msgid "New"
 msgstr "Mới"

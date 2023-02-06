@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Zoriana Zaiats, 2018\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,6 +155,12 @@ msgstr "заблоковано в"
 msgid "locked by"
 msgstr "заблокований"
 
+msgid "in moderation"
+msgstr "на модерації"
+
+msgid "live + in moderation"
+msgstr "наживо + на модерації"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -210,12 +216,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "останню ревізію створено о"
-
-msgid "in moderation"
-msgstr "на модерації"
-
-msgid "live + in moderation"
-msgstr "наживо + на модерації"
 
 msgid "page"
 msgstr "сторінка"
@@ -335,25 +335,11 @@ msgstr ""
 msgid "tasks"
 msgstr "завдання"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Активні робочі процеси можуть бути додані до сторінок. Деактивация робочого "
-"процесу не видаляє її з існуючих сторінок. "
-
 msgid "workflows"
 msgstr "робочі процеси"
 
 msgid "groups"
 msgstr "групи"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Сторінки на цьому кроці робочого процесу будуть промодеровані і схвалені "
-"цією групою користувачів "
 
 msgid "Request changes"
 msgstr "Запит на зміни"
@@ -394,17 +380,6 @@ msgstr "за вимогою"
 msgid "current task state"
 msgstr "поточний стан завдання"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Можливий тільки один прогрес виконання або потрібно змінити стан робочого "
-"процесу для кожної сторінки. "
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Робочий процес '%(workflow_name)s' на сторінці '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Не запущено"
 
@@ -423,9 +398,6 @@ msgstr "Пропущено"
 msgid "workflow state"
 msgstr "стан робочого процесу"
 
-msgid "page revision"
-msgstr "ревізія сторінки"
-
 msgid "started at"
 msgstr "запущено о"
 
@@ -434,11 +406,6 @@ msgstr "завершено о"
 
 msgid "finished by"
 msgstr "завершено"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Завдання '%(task_name)s' на ревізії сторінки '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Стан завдання"

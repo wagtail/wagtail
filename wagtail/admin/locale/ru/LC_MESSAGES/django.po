@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Alexey Sveshnikov, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -741,19 +741,8 @@ msgstr "Дата"
 msgid "Site summary"
 msgstr "Общая информация"
 
-#, python-format
-msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-upgrade-version></strong>."
-msgstr ""
-"Доступно обновление Wagtail. Ваша версия: <strong>%(current_version)s</"
-"strong>. Новая версия: <strong data-upgrade-version></strong>."
-
 msgid "Read the release notes."
 msgstr "Прочтите примечания к выпуску."
-
-msgid "Your pages in a workflow"
-msgstr "Ваши страницы в рабочем процессе"
 
 msgid "Task started"
 msgstr "Задача запущена"
@@ -1504,70 +1493,6 @@ msgstr "Введите критерий поиска выше"
 msgid "No pages use"
 msgstr "Нет страниц использующих"
 
-msgid "Workflow progress"
-msgstr "Прогресс рабочего процесса"
-
-msgid "Edit / Review"
-msgstr "Редактировать / Проверить"
-
-msgid "Workflow history"
-msgstr "История рабочего процесса"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Запрошен <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Начало: <b>%(started_at)s</b>."
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Статус: <span class=\"status-tag primary\">%(status)s</span>."
-
-msgid "Timeline"
-msgstr "Хронология"
-
-msgid "Initial Revision"
-msgstr "Начальная Ревизия"
-
-msgid "Page edited"
-msgstr "Страница отредактирована"
-
-msgid "with comment:"
-msgstr "с комментарием:"
-
-msgid "Workflow started"
-msgstr "Рабочий процесс запущен"
-
-msgid "Workflow completed"
-msgstr "Рабочий процесс завершен"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "История рабочего процесса %(title)s"
-
-msgid "Workflow history for"
-msgstr "История рабочего процесса для"
-
-msgid "Edit page"
-msgstr "Редактировать страницу"
-
-msgid "Requested by"
-msgstr "Запрошен"
-
-msgid "Started at"
-msgstr "Запущен в"
-
-msgid "Approved task"
-msgstr "Утвержденная задача"
-
-msgid "Incomplete task"
-msgstr "Незавершенная задача"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Страница еще не была отправлена на модерацию"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Добавить %(label)s"
@@ -1652,11 +1577,14 @@ msgstr "По Задаче"
 msgid "Workflow"
 msgstr "Рабочий процесс"
 
-msgid "Page"
-msgstr "Страница"
+msgid "Requested by"
+msgstr "Запрошен"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Ни одна страница еще не была отправлена на модерацию"
+msgid "Started at"
+msgstr "Запущен в"
+
+msgid "Incomplete task"
+msgstr "Незавершенная задача"
 
 msgid "By Workflow"
 msgstr "По рабочему процессу"
@@ -1833,9 +1761,6 @@ msgstr "На модерации"
 msgid "View details"
 msgstr "Посмотреть детали"
 
-msgid "Moderators approval"
-msgstr "Одобрение модераторов"
-
 msgid "View history"
 msgstr "Посмотреть историю"
 
@@ -1878,6 +1803,55 @@ msgstr "Режим предпросмотра"
 
 msgid "First published "
 msgstr "Впервые опубликовано "
+
+msgid "Workflow progress"
+msgstr "Прогресс рабочего процесса"
+
+msgid "Edit / Review"
+msgstr "Редактировать / Проверить"
+
+msgid "Workflow history"
+msgstr "История рабочего процесса"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Запрошен <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Начало: <b>%(started_at)s</b>."
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Статус: <span class=\"status-tag primary\">%(status)s</span>."
+
+msgid "Timeline"
+msgstr "Хронология"
+
+msgid "Initial Revision"
+msgstr "Начальная Ревизия"
+
+msgid "with comment:"
+msgstr "с комментарием:"
+
+msgid "Workflow started"
+msgstr "Рабочий процесс запущен"
+
+msgid "Workflow completed"
+msgstr "Рабочий процесс завершен"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "История рабочего процесса %(title)s"
+
+msgid "Workflow history for"
+msgstr "История рабочего процесса для"
+
+msgid "Approved task"
+msgstr "Утвержденная задача"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Страница еще не была отправлена на модерацию"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
@@ -1957,6 +1931,9 @@ msgstr "Не задействован"
 
 msgid "Assigned pages"
 msgstr "Присвоенные страницы"
+
+msgid "Page"
+msgstr "Страница"
 
 msgid "Assign to another page"
 msgstr "Присвоить другой странице"
@@ -2223,6 +2200,38 @@ msgid "Are you sure you want to delete this collection?"
 msgstr "Вы уверены что хотите удалить эту коллекцию?"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' обновлена"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' создана."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' было запланировано к публикации."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' создано и запланировано к публикации."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s '%(object)s' опубликовано, и текущая версия запланирована к "
+"дальнейшей публикации."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' обновлен и опубликован."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' создан и опубликован."
+
+#, python-format
 msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
@@ -2245,24 +2254,8 @@ msgstr ""
 msgid "Search %(model_name)s"
 msgstr "Поиск %(model_name)s"
 
-#, python-format
-msgid "'%(object)s' created and scheduled for publishing."
-msgstr "\"%(object)s\" создано и запланировано к публикации."
-
-#, python-format
-msgid "'%(object)s' created and published."
-msgstr "\"%(object)s\" создано и опубликовано."
-
 msgid "Editing"
 msgstr "Редактирование"
-
-#, python-format
-msgid "'%(object)s' updated and scheduled for publishing."
-msgstr "\"%(object)s\" обновлено и запланировано к публикации."
-
-#, python-format
-msgid "'%(object)s' updated and published."
-msgstr "\"%(object)s\" обновлено и опубликовано."
 
 msgid "Earliest"
 msgstr "Ранний"
@@ -2573,15 +2566,6 @@ msgstr "В ожидании моего отзыва"
 msgid "Workflows"
 msgstr "Рабочие процессы"
 
-msgid "Page ID"
-msgstr "ID страницы"
-
-msgid "Page Type"
-msgstr "Тип страницы"
-
-msgid "Page Title"
-msgstr "Заголовок страницы"
-
 msgid "Workflow tasks"
 msgstr "Задачи рабочего процесса"
 
@@ -2619,26 +2603,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "Рабочий процесс '%(object)s' отключен."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Данный рабочий процесс исполняется на %(states_in_progress)d странице. Его "
-"отключение отменит процесс модерации на этой странице."
-msgstr[1] ""
-"Данный рабочий процесс исполняется на %(states_in_progress)d страницах. Его "
-"отключение отменит процесс модерации на всех этих страницах."
-msgstr[2] ""
-"Данный рабочий процесс исполняется на%(states_in_progress)d страницах. Его "
-"отключение отменит процесс модерации на всех этих страницах."
-msgstr[3] ""
-"Данный рабочий процесс исполняется на %(states_in_progress)d страницах. Его "
-"отключение отменит процесс модерации на всех этих страницах."
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Рабочий процесс '%(workflow_name)s' включен."
 
@@ -2670,32 +2634,6 @@ msgstr "Отключить задачу"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Задача '%(object)s' отключена."
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"Эта задача выполняется на %(states_in_progress)d странице. Отключение этой "
-"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
-"и не будет указана для выбора при редактировании рабочего процесса."
-msgstr[1] ""
-"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
-"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
-"и не будет указана для выбора при редактировании рабочего процесса."
-msgstr[2] ""
-"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
-"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
-"и не будет указана для выбора при редактировании рабочего процесса."
-msgstr[3] ""
-"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
-"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
-"и не будет указана для выбора при редактировании рабочего процесса."
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

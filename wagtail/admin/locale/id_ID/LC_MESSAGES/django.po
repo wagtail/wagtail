@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -687,9 +687,6 @@ msgstr "Masukkan kata kunci pencarian di atas"
 msgid "No pages use"
 msgstr "Tidak ada halaman yang menggunakan"
 
-msgid "Started at"
-msgstr "Dimulai pada"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Tambah %(label)s"
@@ -712,8 +709,8 @@ msgstr "Ubah ini"
 msgid "Workflow"
 msgstr "Alur Kerja"
 
-msgid "Page"
-msgstr "Halaman"
+msgid "Started at"
+msgstr "Dimulai pada"
 
 msgid "Completed at"
 msgstr "Diselesaikan pada"
@@ -769,6 +766,9 @@ msgstr "Tambah turunan halaman"
 
 msgid "Show in Explorer"
 msgstr "Tampilkan di Penjelajah"
+
+msgid "Page"
+msgstr "Halaman"
 
 msgid "New"
 msgstr "Baru"

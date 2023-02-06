@@ -12,14 +12,14 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -282,6 +282,10 @@ msgstr "Gebruik bestaande en verwijder nieuwe"
 msgid "Latest images"
 msgstr "Laatste afbeeldingen"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Selecteer %(title)s"
+
 msgid "You haven't uploaded any images in this collection."
 msgstr "Je hebt nog geen afbeelding geüpload naar deze collectie."
 
@@ -454,6 +458,9 @@ msgstr "Gebruik van"
 
 msgid "Title"
 msgstr "Titel"
+
+msgid "Field"
+msgstr "Veld"
 
 msgid "Add multiple images"
 msgstr "Voeg meerdere afbeeldingen toe"

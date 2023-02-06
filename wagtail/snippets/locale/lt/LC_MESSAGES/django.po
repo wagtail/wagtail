@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -26,6 +26,9 @@ msgstr ""
 msgid "Publish"
 msgstr "Publikuoti"
 
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
 msgid "Unpublish"
 msgstr "Nebepublikuoti"
 
@@ -34,6 +37,13 @@ msgstr "Ištrinti"
 
 msgid "Save"
 msgstr "Išsaugoti"
+
+msgid "Locked"
+msgstr "Užrakinta"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ir publikuoti"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail nuokarpos"
@@ -170,16 +180,8 @@ msgstr "Vardas"
 msgid "The snippet could not be created due to errors."
 msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' sukurta."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' atnaujinta."
 
 #, python-format
 msgid "Edit this %(object)s"

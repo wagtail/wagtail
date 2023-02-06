@@ -6,15 +6,15 @@
 # Dominik Lech, 2022
 # Dominik Lech, 2022
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018-2020
+# Miłosz Miśkiewicz, 2018-2020,2023
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2016\n"
+"Last-Translator: Miłosz Miśkiewicz, 2018-2020,2023\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -124,11 +124,19 @@ msgstr "Tak, usuń"
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Przez %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Ostatnio aktualizowane"
 
 msgid "History"
 msgstr "Historia"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s z %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -164,6 +172,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Żadna %(name)s nie została jeszcze utworzona."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Czemu nie <a href=\"%(url)s\">dodać jednego</a>?"
 
 msgid "Pagination"
 msgstr "Stronicowanie"

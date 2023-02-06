@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -47,10 +47,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Not a valid %(extension)s image. The extension does not match the file "
+"Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"Non é unha imaxe %(extension)s válida. A extensión non concorda co formato "
+"Non é unha imaxe .%(extension)s válida. A extensión non concorda co formato "
 "do archivo (%(image_format)s)"
 
 #, python-format
@@ -276,6 +276,10 @@ msgstr "Usar a existente e eliminar a nova."
 
 msgid "Latest images"
 msgstr "Últimas imaxes"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Seleccionar %(title)s"
 
 msgid "You haven't uploaded any images in this collection."
 msgstr "Non subiches ningunha imaxe nesta colección."

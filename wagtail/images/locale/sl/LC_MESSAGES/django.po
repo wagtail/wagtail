@@ -5,7 +5,7 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 # UP, 2021
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -47,14 +47,6 @@ msgstr "Podprte oblike zapisa: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Oblika zapisa slike ni podprta. Podprte oblike so: %(supported_formats)s."
-
-#, python-format
-msgid ""
-"Not a valid %(extension)s image. The extension does not match the file "
-"format (%(image_format)s)"
-msgstr ""
-"Ni veljavna %(extension)s slika. Končnica se ne ujema z obliko datoteke "
-"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -202,6 +194,19 @@ msgstr "Ne, ne dodaj"
 
 msgid "Add images to collection"
 msgstr "Dodajte slike v zbirko"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"Ali ste prepričani, da želite dodati naslednjo sliko v izbrano zbirko?"
+msgstr[1] ""
+"Ali ste prepričani, da želite dodati naslednji sliki v izbrano zbirko?"
+msgstr[2] ""
+"Ali ste prepričani, da želite dodati naslednje slike v izbrano zbirko?"
+msgstr[3] ""
+"Ali ste prepričani, da želite dodati naslednje slike v izbrano zbirko?"
 
 #, python-format
 msgid "Delete 1 image"

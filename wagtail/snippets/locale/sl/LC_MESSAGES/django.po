@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -28,6 +28,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Objavi"
 
+msgid "Submit for moderation"
+msgstr "Oddaj v potrditev"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ponovno pošljite na %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Pošlji na %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Znova zaženite potek dela"
+
+msgid "Cancel workflow "
+msgstr "Prekliči potek dela"
+
 msgid "Unpublish"
 msgstr "Umakni iz objave"
 
@@ -36,6 +53,13 @@ msgstr "Izbriši"
 
 msgid "Save"
 msgstr "Shrani"
+
+msgid "Locked"
+msgstr "Zaklenjeno"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s in Objavi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail delci"
@@ -197,14 +221,6 @@ msgstr "Število"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' ustvarjen."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s '%(object)s' ustvarjen in objavjen."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."

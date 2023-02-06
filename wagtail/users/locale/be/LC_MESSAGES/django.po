@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -144,6 +144,15 @@ msgstr "Дадаць"
 
 msgid "Change"
 msgstr "Змяніць"
+
+msgid "Publish"
+msgstr "Апублікаваць"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
 
 msgid "Other permissions"
 msgstr "Іншыя дазволы"

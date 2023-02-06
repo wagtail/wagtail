@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2017
-# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2017\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020,2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,14 @@ msgstr ""
 
 msgid "default"
 msgstr "per defecte"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s per %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Editant %(instance)s"
 
 msgid "Site"
 msgstr "Lloc web"

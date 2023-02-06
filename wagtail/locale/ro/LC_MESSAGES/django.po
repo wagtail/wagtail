@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,12 @@ msgstr "blocat la"
 msgid "locked by"
 msgstr "blocat de"
 
+msgid "in moderation"
+msgstr "în moderație"
+
+msgid "live + in moderation"
+msgstr "live + în moderație"
+
 msgid "title"
 msgstr "titlu"
 
@@ -202,12 +208,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
-
-msgid "in moderation"
-msgstr "în moderație"
-
-msgid "live + in moderation"
-msgstr "live + în moderație"
 
 msgid "page"
 msgstr "pagină"
@@ -327,25 +327,11 @@ msgstr ""
 msgid "tasks"
 msgstr "sarcini"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Sarcini active pot fi adăugate la fluxuri de lucru. Dezactivarea unui flux "
-"de lucru nu rezultă în eliminarea ei de la paginile existente."
-
 msgid "workflows"
 msgstr "fluxuri de lucru"
 
 msgid "groups"
 msgstr "grupuri"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Paginile în această fază într-un flux de lucru vor fi moderate sau aprobate "
-"de aceste grupuri de utilizatori"
 
 msgid "Request changes"
 msgstr "Solicită modificări"
@@ -386,17 +372,6 @@ msgstr "solicitat de"
 msgid "current task state"
 msgstr "starea sarcinii curente"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Numai un statut de în progres sau necesită schimbări este permis pentru o "
-"pagină."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Fluxul de lucru '%(workflow_name)s' în pagina '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Neînceput"
 
@@ -415,9 +390,6 @@ msgstr "Omis"
 msgid "workflow state"
 msgstr "statut flux de lucru"
 
-msgid "page revision"
-msgstr "revizie pagină"
-
 msgid "started at"
 msgstr "început la"
 
@@ -426,11 +398,6 @@ msgstr "terminat la"
 
 msgid "finished by"
 msgstr "terminat de"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Sarcina '%(task_name)s' la revizia paginii '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Stare sarcină"

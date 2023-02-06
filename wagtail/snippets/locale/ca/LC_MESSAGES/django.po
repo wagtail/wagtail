@@ -6,14 +6,14 @@
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2016,2022
+# Roger Pons <rogerpons@gmail.com>, 2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022-2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publicar"
 
+msgid "Submit for moderation"
+msgstr "Envia per moderació"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Torna a enviar a %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Envia a %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Reinicia el fluxe de treball"
+
+msgid "Cancel workflow "
+msgstr "Cancel·lar fluxe de treball"
+
 msgid "Unpublish"
 msgstr "Despublicar"
 
@@ -34,12 +51,28 @@ msgstr "Esborrar"
 msgid "Save"
 msgstr "Desar"
 
+msgid "Locked"
+msgstr "Bloquejada"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)si Publica"
+
 msgid "Wagtail snippets"
 msgstr "Fragments de Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Esborrar els fragments seleccionats"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' esborrat."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "Esborrat %(count)d %(model_name)s."
+msgstr[1] "Esborrats %(count)d %(model_name)s."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -62,11 +95,33 @@ msgstr "Estàs segur que vols esborrar aquest %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "N'esteu segur que voleu esborrar %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "No teniu permís per esborrar aquest %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "No teniu permís per esborrar aquests %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Esborrar"
 
 msgid "No, don't delete"
 msgstr "No esborrar"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Cap fragment coincideix amb \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"No heu creat cap fragment %(snippet_type_name)s. Voleu <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">crear-ne un ara</a>?"
 
 msgid "Usage"
 msgstr "Ús"
@@ -89,6 +144,9 @@ msgstr "Desant…"
 msgid "Replace current draft"
 msgstr "Reemplaçar l'esborrany actual"
 
+msgid "Replace current revision"
+msgstr "Substituir la revisió actual"
+
 msgid "Save draft"
 msgstr "Desa esborrany"
 
@@ -102,8 +160,46 @@ msgstr "Nou"
 msgid "Actions"
 msgstr "Accions"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Editant %(snippet_type_name)s - %(object)s"
+
+msgid "Toggle breadcrumbs"
+msgstr "Commutar rutes de navegació"
+
+msgid "Breadcrumb"
+msgstr "Ruta de navegació"
+
 msgid "Snippets"
 msgstr "Fragments"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nou: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Editant %(snippet_type)s %(title)s"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Historial de fragment de %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Editar aquest fragment"
+
+msgid "No log entries found."
+msgstr "No s'han trobat entrades de registre."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "S'ha trobat %(counter)s coincidència"
+msgstr[1] "S'ha trobat %(counter)s coincidències"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Cap %(snippet_type_name_plural)s coincideix amb la vostra consulta"
 
 #, python-format
 msgid ""
@@ -145,6 +241,9 @@ msgstr "Fragments %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Afegeix %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Seleccionar tots els fragments de la llista"
+
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Utilització de %(title)s"
@@ -155,25 +254,27 @@ msgstr "Utilització de"
 msgid "Title"
 msgstr "Títol"
 
+msgid "Field"
+msgstr "Camp"
+
 msgid "Choose"
 msgstr "Triar"
 
 msgid "Name"
 msgstr "Nom"
 
+msgid "Instances"
+msgstr "Instàncies"
+
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' creat."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "El fragment no s'ha pogut desar degut a errors."
 
 #, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' actualitzat."
+msgid "(Private %(object)s)"
+msgstr "(Privat %(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -190,6 +291,14 @@ msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Historial del fragment"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Editar aquest %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Historial de %(model_name)s"
 
 #, python-format
 msgid "Edit '%(title)s'"

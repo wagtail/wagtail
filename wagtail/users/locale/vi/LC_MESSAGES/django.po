@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2015\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -84,6 +84,15 @@ msgstr "Thêm"
 
 msgid "Change"
 msgstr "Sửa"
+
+msgid "Publish"
+msgstr "Xuất bản"
+
+msgid "Lock"
+msgstr "Khóa"
+
+msgid "Unlock"
+msgstr "Mở khóa"
 
 msgid "Other permissions"
 msgstr "Quyền khác"

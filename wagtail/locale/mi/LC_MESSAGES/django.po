@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -109,6 +109,12 @@ msgstr "Kua raka ki"
 msgid "locked by"
 msgstr "I raka nō"
 
+msgid "in moderation"
+msgstr "kia whakaōrite"
+
+msgid "live + in moderation"
+msgstr "mataora + kia whakaōrite"
+
 msgid "title"
 msgstr "taitara"
 
@@ -145,12 +151,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "I hanga whakahou ki"
-
-msgid "in moderation"
-msgstr "kia whakaōrite"
-
-msgid "live + in moderation"
-msgstr "mataora + kia whakaōrite"
 
 msgid "page"
 msgstr "Whārangi"
@@ -261,25 +261,11 @@ msgstr ""
 msgid "tasks"
 msgstr "mahi"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Ka taea ngā hohe mahi pūheke ki te tāpiri ki ngā whārangi. Mēna ka whakaweto "
-"e koe i tētahi mahi pūheke, ehara ka hura mai i ngā whārangi e tauoranga."
-
 msgid "workflows"
 msgstr "Ngā mahi pūheke"
 
 msgid "groups"
 msgstr "Rōpū"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Ka whakaōrite, whakamiha rānei ēnei whārangi i te arawhata i roto i tētahi "
-"mahi pūheke, mai i ēnei rōpū o kaiwhakamahi"
 
 msgid "Request changes"
 msgstr "Tono kōrure"
@@ -320,17 +306,6 @@ msgstr "I tonoa a"
 msgid "current task state"
 msgstr "te tātaku ō te mahi o nāianei"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Tēra pea kōtahi anake e haere ana, a, ka hiahia te mahi pūheke ngā kōrure "
-"rānei ki ia whārangi."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Mahi pūheke '%(workflow_name)s' kī whārangi '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Kāhore ē timata"
 
@@ -349,9 +324,6 @@ msgstr "Piu"
 msgid "workflow state"
 msgstr "tātaku ō te mahi pūheke"
 
-msgid "page revision"
-msgstr "Whārangi whakahou"
-
 msgid "started at"
 msgstr "Tīmata ki"
 
@@ -360,12 +332,6 @@ msgstr "I mutu ī"
 
 msgid "finished by"
 msgstr "I mutu a"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Mahi '%(task_name)s' kī te whakahou-a-whārangi '%(revision_info)s': "
-"%(status)s"
 
 msgid "Task state"
 msgstr "Mahi tātaku"

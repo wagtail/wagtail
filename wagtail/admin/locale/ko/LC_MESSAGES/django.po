@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -667,9 +667,6 @@ msgid_plural ""
 msgstr[0] ""
 "<span>%(total)s</span>페이지는 <span class=\"visuallyhidden\">%(site_name)s</"
 "span>안에 생성되었습니다."
-
-msgid "Your pages in a workflow"
-msgstr "작업 속의 당신의 페이지"
 
 msgid "Task started"
 msgstr "업무 시작"
@@ -1329,82 +1326,6 @@ msgstr "위의 검색어를 입력하세요"
 msgid "No pages use"
 msgstr "사용하는 페이지가 없습니다"
 
-msgid "Workflow progress"
-msgstr "작업흐름 과정"
-
-msgid "Edit / Review"
-msgstr "수정 / 검토"
-
-msgid "Workflow history"
-msgstr "워크플로우 히스토리"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "<b>%(modified_by)s</b>에 의해 요청됨"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "<b>%(started_at)s</b>에 시작됨"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "<span class=\"status-tag primary\">%(status)s</span>상태"
-
-msgid "Timeline"
-msgstr "시간대"
-
-msgid "Initial Revision"
-msgstr "초판 개정"
-
-msgid "Page edited"
-msgstr "페이지 수정됨"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
-msgstr "<b>%(at)s</b>에 <b>%(who)s</b>의해 %(action)s"
-
-#, python-format
-msgid "%(action)s at <b>%(at)s</b>"
-msgstr "<b>%(at)s</b>의%(action)s"
-
-msgid "with comment:"
-msgstr "댓글과 함께:"
-
-msgid "Workflow started"
-msgstr "워크플로우 시작됨"
-
-msgid "Workflow completed"
-msgstr "워크플로우 완성됨"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b>"
-msgstr "<b>%(who)s</b>에 의한 %(action)s"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)s의 워크 히스토리"
-
-msgid "Workflow history for"
-msgstr "위한 워크플로우 히스토리"
-
-msgid "Edit page"
-msgstr "페이지 수정"
-
-msgid "Requested by"
-msgstr "에 의해 요청됨"
-
-msgid "Started at"
-msgstr "에서 시작됨"
-
-msgid "Approved task"
-msgstr "업무 수락됨"
-
-msgid "Incomplete task"
-msgstr "업무 미완성"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "이 페이지는 조정을 위해 제출되지 않음"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "%(label)s 추가"
@@ -1472,11 +1393,14 @@ msgstr "업무에 의해"
 msgid "Workflow"
 msgstr "작업흐름"
 
-msgid "Page"
-msgstr "페이지"
+msgid "Requested by"
+msgstr "에 의해 요청됨"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "조정을 위해 제출된 페이지가 아직 없습니다"
+msgid "Started at"
+msgstr "에서 시작됨"
+
+msgid "Incomplete task"
+msgstr "업무 미완성"
 
 msgid "By Workflow"
 msgstr "작업흐름에 의해"
@@ -1596,6 +1520,67 @@ msgstr "상세 확인"
 msgid "View history"
 msgstr "히스토리 확인"
 
+msgid "Workflow progress"
+msgstr "작업흐름 과정"
+
+msgid "Edit / Review"
+msgstr "수정 / 검토"
+
+msgid "Workflow history"
+msgstr "워크플로우 히스토리"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "<b>%(modified_by)s</b>에 의해 요청됨"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "<b>%(started_at)s</b>에 시작됨"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "<span class=\"status-tag primary\">%(status)s</span>상태"
+
+msgid "Timeline"
+msgstr "시간대"
+
+msgid "Initial Revision"
+msgstr "초판 개정"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "<b>%(at)s</b>에 <b>%(who)s</b>의해 %(action)s"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "<b>%(at)s</b>의%(action)s"
+
+msgid "with comment:"
+msgstr "댓글과 함께:"
+
+msgid "Workflow started"
+msgstr "워크플로우 시작됨"
+
+msgid "Workflow completed"
+msgstr "워크플로우 완성됨"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "<b>%(who)s</b>에 의한 %(action)s"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)s의 워크 히스토리"
+
+msgid "Workflow history for"
+msgstr "위한 워크플로우 히스토리"
+
+msgid "Approved task"
+msgstr "업무 수락됨"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "이 페이지는 조정을 위해 제출되지 않음"
+
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
 "Here are the <a href=\"https://www.enable-javascript.com/\" "
@@ -1671,6 +1656,9 @@ msgstr "사용되지 않음"
 
 msgid "Assigned pages"
 msgstr "할당된 페이지"
+
+msgid "Page"
+msgstr "페이지"
 
 msgid "Assign to another page"
 msgstr "다른 페이지에 할당됨"
@@ -1891,6 +1879,14 @@ msgstr "'%(object)s' 모음이 삭제됨."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "이 모음을 지우려는 것이 확실한가요?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' 수정됨."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' 생성됨."
 
 msgid "Editing"
 msgstr "수정"
@@ -2185,15 +2181,6 @@ msgstr "나의 후기 기다리는 중"
 msgid "Workflows"
 msgstr "워크플로우"
 
-msgid "Page ID"
-msgstr "페이지 신원"
-
-msgid "Page Type"
-msgstr "페이지 종류"
-
-msgid "Page Title"
-msgstr "페이지 이름"
-
 msgid "Workflow tasks"
 msgstr "워크플로우 작업"
 
@@ -2231,17 +2218,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "워크플로우 '%(object)s' 불가"
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"이 워크플로우는 %(states_in_progress)d페이지에서 진행중입니다. 이 워크플로우"
-"를 사용하지 않도록 설정하면 이 페이지에서 조정이 취소됩니다."
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "워크플로우 '%(workflow_name)s' 불가"
 
@@ -2273,20 +2249,6 @@ msgstr "불가한 작업"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "작업 '%(object)s' 불가"
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"이 작업은 %(states_in_progress)d페이지에서 진행중입니다. 이 작업을 그만두는 "
-"것은 일반 워크플로우로 이동시킬 것이고 워크플로우를 수정할 때 목록에 선택되"
-"지 않습니다. "
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

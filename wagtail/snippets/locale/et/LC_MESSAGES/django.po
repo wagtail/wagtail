@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Avalda"
 
+msgid "Submit for moderation"
+msgstr "Esita modereerimiseks"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Esita uuesti %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Esita %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Taaskäivitage töövoog"
+
+msgid "Cancel workflow "
+msgstr "Töövoo tühistamine"
+
 msgid "Unpublish"
 msgstr "Tühista avaldamine"
 
@@ -31,6 +48,13 @@ msgstr "Kustuta"
 
 msgid "Save"
 msgstr "Salvesta"
+
+msgid "Locked"
+msgstr "Lukustatud"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ja Avalda"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail jupid"
@@ -165,16 +189,8 @@ msgstr "Nimi"
 msgid "The snippet could not be created due to errors."
 msgstr "Seda juppi ei saanud vigade tõttu luua. "
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s \"%(object)s\" loodud."
-
 msgid "The snippet could not be saved due to errors."
 msgstr " Seda juppi ei saanud vigade tõttu salvestada."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s \"%(object)s\" uuendatud."
 
 #, python-format
 msgid "Edit this %(object)s"

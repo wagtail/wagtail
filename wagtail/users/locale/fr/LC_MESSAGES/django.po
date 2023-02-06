@@ -12,7 +12,7 @@
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020-2022
+# Loic Teixeira, 2018,2020-2023
 # nahuel, 2014
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Last-Translator: Loic Teixeira, 2018,2020-2023\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -260,6 +260,15 @@ msgstr "Ajouter"
 msgid "Change"
 msgstr "Modifier"
 
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
 msgid "Custom permissions"
 msgstr "Permissions personnalisées"
 
@@ -427,6 +436,10 @@ msgstr "Le groupe ne peut être enregistré du fait d'erreurs."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groupe « %(object)s » supprimé."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Utilisateur « %(object)s » créé."
 
 #, python-format
 msgid "User '%(object)s' updated."

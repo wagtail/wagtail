@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Consultar Visites Diàries"
+
+msgid "index entry"
+msgstr "Entrada d'índex"
+
+msgid "index entries"
+msgstr "Entrades d'índex"
 
 msgid "Popular search terms"
 msgstr "terminis de cerca populars"
