@@ -13,7 +13,7 @@ Changelog
  * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
 
 
-4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField data migration helpers (Sandil Ranasinghe, Jacob Topp-Mugglestone, Joshua Munn, Karl Hobley)
