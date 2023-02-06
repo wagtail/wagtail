@@ -138,14 +138,6 @@ By default, the checker includes the following rules that are among the most com
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as this can cause confusion for users who rely on headings to navigate content.
 -   `heading-order`: This rule checks for incorrect heading order. Headings should be ordered in a logical and consistent manner, with the main heading (h1) followed by subheadings (h2, h3, etc.).
 
-The accessibility checker can be turned off using the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook:
-
-```python
-@hooks.register('construct_wagtail_userbar')
-def remove_userbar_accessibility_checks(request, items):
-    items[:] = [item for item in items if not isinstance(item, AccessibilityItem)]
-```
-
 ### wagtail-accessibility
 
 [wagtail-accessibility](https://github.com/neon-jungle/wagtail-accessibility) is a third-party package which adds [tota11y](https://khan.github.io/tota11y/) to Wagtail previews.
