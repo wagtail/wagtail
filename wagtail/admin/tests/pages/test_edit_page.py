@@ -35,6 +35,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     FilePage,
     ManyToManyBlogPage,
+    PageChooserModel,
     SimplePage,
     SingleEventPage,
     StandardIndex,
@@ -156,10 +157,30 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, "data-form-side-explorer")
 
+        # test that usage info is shown
+        self.assertContains(response, "Used 0 times")
+        self.assertContains(
+            response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
+        )
+
         # test that AdminURLFinder returns the edit view for the page
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
+
+    def test_usage_count_information_shown(self):
+        PageChooserModel.objects.create(page=self.event_page)
+
+        # Tests that the edit page loads
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+
+        # test that usage info is shown
+        self.assertContains(response, "Used 1 time")
+        self.assertContains(
+            response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
+        )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_buttons_not_shown_when_workflow_disabled(self):
