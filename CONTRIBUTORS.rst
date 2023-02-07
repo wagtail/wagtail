@@ -688,6 +688,7 @@ Contributors
 * Yosr Karoui
 * Aadi jindal
 * Satvik Vashisht
+* Rishabh Kumar Bahukhandi
 
 Translators
 ===========
