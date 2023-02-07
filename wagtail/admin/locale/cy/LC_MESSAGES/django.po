@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -379,9 +379,6 @@ msgstr "Cadarnhau"
 msgid "History"
 msgstr "Hanes"
 
-msgid "Started at"
-msgstr "Dechreuwyd yn"
-
 msgid "Move up"
 msgstr "Symyd i fyny"
 
@@ -397,8 +394,8 @@ msgstr "Lawrlwythwch CSV"
 msgid "Workflow"
 msgstr "Llif gwaith"
 
-msgid "Page"
-msgstr "Tudalen"
+msgid "Started at"
+msgstr "Dechreuwyd yn"
 
 msgid "Completed at"
 msgstr "Wedi'i gwblhau yn"
@@ -412,6 +409,9 @@ msgstr "Hidlydd"
 msgid "Lock"
 msgstr "Clo"
 
+msgid "Page"
+msgstr "Tudalen"
+
 msgid "New"
 msgstr "Newydd"
 
@@ -424,6 +424,14 @@ msgstr "%(time_period)s yn ôl"
 
 msgid "Password"
 msgstr "Cyfrinair"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' wedi'i greu."
 
 msgid "Editing"
 msgstr "Golygu"

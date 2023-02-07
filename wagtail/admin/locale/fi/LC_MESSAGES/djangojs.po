@@ -3,11 +3,11 @@
 # Aarni Koskela, 2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2022
 # Loic Teixeira, 2022
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2022\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2023\n"
 "Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -45,9 +45,6 @@ msgstr "Vaihtoehtoinen teksti"
 
 msgid "Are you sure?"
 msgstr "Oletko varma?"
-
-msgid "Blocks"
-msgstr "Lohkot"
 
 msgid "Broken link"
 msgstr "Särkynyt linkki"
@@ -139,6 +136,9 @@ msgstr "Sivuselain"
 msgid "Pages"
 msgstr "Sivut"
 
+msgid "Pin toolbar"
+msgstr "Kiinnitä työkalupalkki"
+
 msgid "Reload saved content"
 msgstr "Lataa tallennettu sisältö"
 
@@ -180,9 +180,6 @@ msgstr "Tallennetaan..."
 msgid "Search"
 msgstr "Haku"
 
-msgid "Search blocks"
-msgstr "Hae lohkoja"
-
 msgid "See all"
 msgstr "Katso kaikki"
 
@@ -197,6 +194,9 @@ msgstr "Näytä viimeisin sisältö"
 
 msgid "Split block"
 msgstr "Jaa lohko"
+
+msgid "StreamField blocks"
+msgstr "StreamField-lohkot"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -215,6 +215,9 @@ msgstr "Sivupalkki päälle/pois"
 
 msgid "Unfocus comment"
 msgstr "Poista kommentin kohdistus"
+
+msgid "Unpin toolbar"
+msgstr "Poista työkalupalkin kiinnitys"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Näytä sivun '%(title)s' alasivut"

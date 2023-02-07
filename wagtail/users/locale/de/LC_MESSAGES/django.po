@@ -7,7 +7,7 @@
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Oliver Engel <codeangel@posteo.de>, 2022
-# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020,2023
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Florian Vogt <flori@vorlif.org>, 2015
 # Florian Vogt <flori@vorlif.org>, 2015
@@ -31,9 +31,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, "
+"2016-2017,2019-2020,2023\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -265,6 +266,15 @@ msgstr "Hinzufügen"
 msgid "Change"
 msgstr "Ändern"
 
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Unlock"
+msgstr "Entsperren"
+
 msgid "Custom permissions"
 msgstr "Benutzerdefinierte Berechtigungen"
 
@@ -424,6 +434,10 @@ msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppe ‚%(object)s‘ gelöscht."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Benutzer '%(object)s' erstellt."
 
 #, python-format
 msgid "User '%(object)s' updated."

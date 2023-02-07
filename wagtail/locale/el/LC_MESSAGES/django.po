@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -122,6 +122,12 @@ msgstr "κλειδώθηκε στις"
 msgid "locked by"
 msgstr "κλειδώθηκε από"
 
+msgid "in moderation"
+msgstr "υπό έλεγχο"
+
+msgid "live + in moderation"
+msgstr "τρέχουσα + υπό έλεγχο"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -177,12 +183,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
-
-msgid "in moderation"
-msgstr "υπό έλεγχο"
-
-msgid "live + in moderation"
-msgstr "τρέχουσα + υπό έλεγχο"
 
 msgid "page"
 msgstr "σελίδα"
@@ -294,13 +294,6 @@ msgstr ""
 msgid "tasks"
 msgstr "εργασίες"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Ροές εργασιών εν ενεργεία μπορούν να προστεθούν σε σελίδες. Η απενεργοποίηση "
-"μιας ροής εργασιών δεν την διαγράφει από υπάρχουσες σελίδες."
-
 msgid "workflows"
 msgstr "ροές εργασιών"
 
@@ -309,9 +302,6 @@ msgstr "ομάδες"
 
 msgid "Approve"
 msgstr "Έγκριση"
-
-msgid "page revision"
-msgstr "αναθεώρηση σελίδας"
 
 msgid "Draft saved"
 msgstr "Προσχέδιο αποθηκεύτηκε"

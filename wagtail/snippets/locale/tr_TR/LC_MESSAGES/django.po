@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -26,6 +26,9 @@ msgstr ""
 msgid "Publish"
 msgstr "Yayınla"
 
+msgid "Submit for moderation"
+msgstr "Denetleme için gönder"
+
 msgid "Unpublish"
 msgstr "Yayından Kaldır"
 
@@ -34,6 +37,9 @@ msgstr "Sil"
 
 msgid "Save"
 msgstr "Kaydet"
+
+msgid "Locked"
+msgstr "Kilitlendi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail kod parçacıkları (snippets)"
@@ -153,16 +159,8 @@ msgstr "Ad"
 msgid "The snippet could not be created due to errors."
 msgstr "Hata nedeniyle kod parçacığı oluşturulamadı."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' oluşturuldu."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Hata nedeniyle kod parçacığı kaydedilemedi."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' güncellendi."
 
 #, python-format
 msgid "Edit this %(object)s"

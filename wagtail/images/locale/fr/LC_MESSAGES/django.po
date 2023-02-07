@@ -10,7 +10,7 @@
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2018
-# Loic Teixeira, 2020-2022
+# Loic Teixeira, 2020-2023
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2022\n"
+"Last-Translator: Loic Teixeira, 2020-2023\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -57,10 +57,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Not a valid %(extension)s image. The extension does not match the file "
+"Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"Image %(extension)s non valide. L'extension de fichier ne correspond pas "
+"Image .%(extension)s non valide. L'extension de fichier ne correspond pas "
 "format du fichier (%(image_format)s)"
 
 #, python-format
@@ -307,6 +307,10 @@ msgstr "Utiliser l'image existante et supprimer la nouvelle"
 
 msgid "Latest images"
 msgstr "Dernières images"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Sélectionner %(title)s"
 
 msgid "You haven't uploaded any images in this collection."
 msgstr "Vous n’avez pas encore transféré d'images dans cette collection."

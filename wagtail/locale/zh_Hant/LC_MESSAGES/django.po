@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -123,6 +123,12 @@ msgstr "已鎖定"
 msgid "locked at"
 msgstr "鎖定於"
 
+msgid "in moderation"
+msgstr "審核中"
+
+msgid "live + in moderation"
+msgstr "上線 + 審核中"
+
 msgid "title"
 msgstr "標題"
 
@@ -158,12 +164,6 @@ msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
 
 msgid "latest revision created at"
 msgstr "最近修訂版本創建於"
-
-msgid "in moderation"
-msgstr "審核中"
-
-msgid "live + in moderation"
-msgstr "上線 + 審核中"
 
 msgid "page"
 msgstr "頁面"
@@ -278,21 +278,11 @@ msgstr "啟用中的作業可添加至工作流程。停用作業不會將其由
 msgid "tasks"
 msgstr "作業"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr "啟用中的工作流程可增加至頁面。停用工作流程不會將其由現有的頁面中移除。"
-
 msgid "workflows"
 msgstr "工作流程"
 
 msgid "groups"
 msgstr "組"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr "於此工作流程階段之頁面將由群組中的使用者進行審核"
 
 msgid "Request changes"
 msgstr "變更請求"
@@ -350,9 +340,6 @@ msgstr "已略過"
 
 msgid "workflow state"
 msgstr "工作流程狀態"
-
-msgid "page revision"
-msgstr "頁版本"
 
 msgid "started at"
 msgstr "開始於"

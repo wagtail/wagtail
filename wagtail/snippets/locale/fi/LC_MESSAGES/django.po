@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Julkaise"
 
+msgid "Submit for moderation"
+msgstr "Lähetä tarkistettavaksi"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Lähetä uudelleen tehtävään %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Lähetä työnkulkuun %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Käynnistä työnkulku uudelleen"
+
+msgid "Cancel workflow "
+msgstr "Peruuta työnkulku"
+
 msgid "Unpublish"
 msgstr "Piilota"
 
@@ -35,6 +52,13 @@ msgstr "Poista"
 
 msgid "Save"
 msgstr "Tallenna"
+
+msgid "Locked"
+msgstr "Lukittu"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ja julkaise"
 
 msgid "Wagtail snippets"
 msgstr "Wagtailin pätkät"
@@ -193,6 +217,9 @@ msgstr "Käyttö"
 msgid "Title"
 msgstr "Otsikko"
 
+msgid "Field"
+msgstr "Kenttä"
+
 msgid "Choose"
 msgstr "Valitse"
 
@@ -202,24 +229,8 @@ msgstr "Nimi"
 msgid "The snippet could not be created due to errors."
 msgstr "Pätkää ei voitu luoda virheiden vuoksi."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s-pätkä '%(object)s' luotu."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s '%(object)s' luotu ja julkaistu."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s-pätkä '%(object)s' päivitetty."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "%(model_name)s '%(object)s' päivitetty ja julkaistu."
 
 #, python-format
 msgid "(Private %(object)s)"

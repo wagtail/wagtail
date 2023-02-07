@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -244,6 +244,10 @@ msgstr "Ny"
 msgid "Latest images"
 msgstr "Senaste bilder"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Välj %(title)s"
+
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>upload one now</a>?"
@@ -322,6 +326,12 @@ msgstr "Populära Taggar:"
 msgid "Select all images in listing"
 msgstr "Välj alla bilder i listan"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
 msgid "Select image"
 msgstr "Välj bild"
 
@@ -373,6 +383,9 @@ msgstr "Användning av"
 
 msgid "Title"
 msgstr "Titel"
+
+msgid "Field"
+msgstr "Fält"
 
 msgid "Add multiple images"
 msgstr "Lägg till flera bilder"

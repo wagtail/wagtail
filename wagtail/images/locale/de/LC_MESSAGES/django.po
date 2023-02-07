@@ -10,6 +10,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019-2020
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Florian Vogt <flori@vorlif.org>, 2023
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Bohreromir, 2020
@@ -27,7 +28,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -37,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Florian Vogt <flori@vorlif.org>, 2023\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -74,10 +75,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Not a valid %(extension)s image. The extension does not match the file "
+"Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"Kein gültiges %(extension)s-Bild. Die Erweiterung stimmt nicht mit dem "
+"Kein gültiges .%(extension)s-Bild. Die Erweiterung stimmt nicht mit dem "
 "Dateiformat überein (%(image_format)s)"
 
 #, python-format
@@ -309,6 +310,10 @@ msgstr "Vorhandenes verwenden und neues löschen"
 msgid "Latest images"
 msgstr "Neueste Bilder"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s auswählen"
+
 msgid "You haven't uploaded any images in this collection."
 msgstr "Sie haben in dieser Sammlung keine Bilder hochgeladen."
 
@@ -393,7 +398,7 @@ msgid "Current focal point shown"
 msgstr "Aktueller Fokuspunkt wird angezeigt"
 
 msgid "Remove focal area"
-msgstr "Schwerpunktbereich entfernen"
+msgstr "Fokusbereich entfernen"
 
 msgid "Max dimensions"
 msgstr "Max Dimensionen"
@@ -405,7 +410,7 @@ msgid "File not found"
 msgstr "Datei nicht gefunden"
 
 msgid "Usage"
-msgstr "Benutzung"
+msgstr "Verwendung"
 
 msgid "Images"
 msgstr "Bilder"

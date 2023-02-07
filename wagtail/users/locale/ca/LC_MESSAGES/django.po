@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Usuaris de Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obligatori. Només lletres, dígits i @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -88,6 +91,16 @@ msgstr "notificacions rebutjades"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Rebre una notificació quan l'edició de la teva pàgina és rebutjada"
 
+msgid "updated comments notifications"
+msgstr "notificacions de comentaris actualitzades"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Rebre notificació quan comentaris hagin estat creats, resolts o esborrats en "
+"una pàgina a la que esteu subscrit per rebre notificacions de comentaris"
+
 msgid "preferred language"
 msgstr "llengua preferida"
 
@@ -109,8 +122,45 @@ msgstr "perfil d'usuari"
 msgid "user profiles"
 msgstr "imatges de perfil"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Assignar rol a 1 usuari"
+msgstr[1] "Assignar rol a %(counter)s usuaris"
+
+msgid "Assign role"
+msgstr "Assignar rol"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Segur que voleu assignar aquest rol a aquests usuaris?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "No teniu permí per editar aquest usuari"
+msgstr[1] "No teniu permís per editar aquests usuaris"
+
+msgid "Yes, assign"
+msgstr "Assignar"
+
+msgid "No, don't assign"
+msgstr "No assignar"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Esborrar 1 usuari"
+msgstr[1] "Esborrar %(counter)s usuaris"
+
 msgid "Delete"
 msgstr "Eliminar"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Segur que voleu esborrar aquests usuaris?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "No teniu permís per esborrar aquest usuari"
+msgstr[1] "No teniu permís per esborrar aquests usuaris"
 
 msgid "Yes, delete"
 msgstr "Sí, suprimir"
@@ -118,8 +168,39 @@ msgstr "Sí, suprimir"
 msgid "No, don't delete"
 msgstr "No, no esborrar"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Canviar l'estat actiu d'1 usuari"
+msgstr[1] "Canviar l'estat actiu de %(counter)s usuaris"
+
+msgid "Set active state"
+msgstr "Establir estat actiu"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Segur que voleu canviar l'estat actiu d'aquests usuaris?"
+
+msgid "You cannot change your own active status"
+msgstr "No podeu canviar el vostre propi estat actiu"
+
+msgid "Yes, change state"
+msgstr "Canviar l'estat"
+
+msgid "No, don't change state"
+msgstr "No canviar l'estat"
+
 msgid "Delete group"
 msgstr "Eliminar grup"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"El grup '%(group_name)s' té <strong>%(group_user_count)s</strong> membre."
+msgstr[1] ""
+"El grup '%(group_name)s' té <strong>%(group_user_count)s</strong> membres."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -154,6 +235,18 @@ msgstr "Afegir"
 
 msgid "Change"
 msgstr "Canviar"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Lock"
+msgstr "Bloqueja"
+
+msgid "Unlock"
+msgstr "Desbloquejar"
+
+msgid "Custom permissions"
+msgstr "Permisos personalitzats"
 
 msgid "Other permissions"
 msgstr "Altres permisos"
@@ -200,6 +293,9 @@ msgstr "Usuaris"
 msgid "Add a user"
 msgstr "Afegir un usuari"
 
+msgid "Select all users in listing"
+msgstr "Seleccionar tots els usuaris de la llista"
+
 msgid "Username"
 msgstr "Nom d'usuari"
 
@@ -222,6 +318,12 @@ msgid "Inactive"
 msgstr "Inactiu"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "S'ha trobat %(counter)s coincidència"
+msgstr[1] "S'ha trobat %(counter)s coincidències"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
 
@@ -240,6 +342,43 @@ msgid ""
 msgstr ""
 "No hi ha cap usuari configurat. En voleu <a "
 "href=\"%(wagtailusers_add_url)s\">afegir</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "usuari %(id)s (esborrat)"
+
+msgid "Assign role to selected users"
+msgstr "Assignar rols als usuaris seleccionats"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "S'ha assignat %(num_parent_objects)d usuari com a %(role)s"
+msgstr[1] "S'han assignat %(num_parent_objects)d usuaris com a %(role)s"
+
+msgid "Delete selected users"
+msgstr "Esborrar els usuaris seleccionats"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "S'ha esborrat %(num_parent_objects)d usuari"
+msgstr[1] "S'han esborrat %(num_parent_objects)d usuaris"
+
+msgid "Change the active state for selected users"
+msgstr "Canviar l'estat actiu dels usuaris seleccionats"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "S'ha marcat com a actiu %(num_parent_objects)d usuari"
+msgstr[1] "S'han marcat com a actius %(num_parent_objects)d usuaris"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "S'ha marcat com a inactiu %(num_parent_objects)d usuari"
+msgstr[1] "S'ha marcat com a inactius %(num_parent_objects)d usuari"
 
 msgid "Groups"
 msgstr "Grups"
@@ -264,6 +403,10 @@ msgstr "No s'ha pogut desar el grup a causa d'errors."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "S'ha eliminat el grup '%(object)s'."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "S'ha creat l'usuari '%(object)s'."
 
 #, python-format
 msgid "User '%(object)s' updated."

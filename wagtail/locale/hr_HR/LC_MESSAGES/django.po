@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -124,6 +124,12 @@ msgstr "zaključano u"
 msgid "locked by"
 msgstr "zaključao/la"
 
+msgid "in moderation"
+msgstr "u moderiranju"
+
+msgid "live + in moderation"
+msgstr "uživo + u moderiranju"
+
 msgid "title"
 msgstr "naslov"
 
@@ -178,12 +184,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "zadnja revizija stvorena"
-
-msgid "in moderation"
-msgstr "u moderiranju"
-
-msgid "live + in moderation"
-msgstr "uživo + u moderiranju"
 
 msgid "page"
 msgstr "stranica"
@@ -294,25 +294,11 @@ msgstr ""
 msgid "tasks"
 msgstr "zadaci"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Akitvni tijekovi rada se mogu dodati stranicama. Obustavljanje tijeka rada "
-"ga ne briše iz postojećih stranica."
-
 msgid "workflows"
 msgstr "tijekovi rada"
 
 msgid "groups"
 msgstr "grupe"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Stranice u ovom koraku radnog tijeka će biti moderirane ili odobrene od "
-"strane ovih grupa korisnika."
 
 msgid "Request changes"
 msgstr "Zatraži izmjene"
@@ -353,17 +339,6 @@ msgstr "zatražio korisnik"
 msgid "current task state"
 msgstr "trenutno stanje zadatka"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Po stranici može biti samo jedan status tijeka rada „u tijeku“ ili „potrebne "
-"izmjene“."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Radni zadatak '%(workflow_name)s' za stranicu '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Nije započeto"
 
@@ -382,9 +357,6 @@ msgstr "Preskočeno"
 msgid "workflow state"
 msgstr "stanje radnog tijeka"
 
-msgid "page revision"
-msgstr "revizija stranice"
-
 msgid "started at"
 msgstr "Započeto"
 
@@ -393,11 +365,6 @@ msgstr "završeno u"
 
 msgid "finished by"
 msgstr "izvršio korisnik"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Zadatak '%(task_name)s' za reviziju stranice '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Stanje zadatka"

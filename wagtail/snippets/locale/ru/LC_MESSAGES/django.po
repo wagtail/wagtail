@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -33,6 +33,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Опубликовать"
 
+msgid "Submit for moderation"
+msgstr "Отправить на модерацию"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Обновить %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Отправить в \"%(workflow_name)s\""
+
+msgid "Restart workflow "
+msgstr "Перезапустить рабочий процесс"
+
+msgid "Cancel workflow "
+msgstr "Отменить рабочий процесс"
+
 msgid "Unpublish"
 msgstr "Отменить публикацию"
 
@@ -41,6 +58,13 @@ msgstr "Удалить"
 
 msgid "Save"
 msgstr "Сохранить"
+
+msgid "Locked"
+msgstr "Заблокировано"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s и Опубликовать"
 
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"
@@ -249,40 +273,8 @@ msgstr "Экземпляры"
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' создан."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s '%(object)s' создан и опубликован."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr "%(model_name)s '%(object)s' создано и запланировано к публикации."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' обновлен."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "%(model_name)s '%(object)s' обновлен и опубликован."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr "%(model_name)s '%(object)s' было запланировано к публикации."
-
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr ""
-"%(model_name)s '%(object)s' опубликовано, и текущая версия запланирована к "
-"дальнейшей публикации."
 
 #, python-format
 msgid "Edit this %(object)s"

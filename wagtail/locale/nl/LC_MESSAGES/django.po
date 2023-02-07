@@ -6,17 +6,18 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022
+# Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
 # Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -86,18 +87,51 @@ msgid "Comment"
 msgstr "Opmerking"
 
 #, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"De pagina  <b>'{page_title}'</b> is door <b>jou</b> vergrendeld op "
+"<b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
 msgstr "</b>De pagina '{page_title}' is geblokkeerd door jou."
+
+#, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"De pagina <b>'{page_title}'</b> is door <b>{user}</b> vergrendeld op "
+"<b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "De pagina '{page_title}' is geblokkeerd."
 
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' is vergrendeld</b>."
+
 msgid "This page is currently awaiting moderation."
 msgstr "Deze pagina is in afwachting van content goedkeuring."
 
+#, python-brace-format
+msgid ""
+"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
+"workflow."
+msgstr ""
+"Deze pagina wacht nog op <b>'{task_name}'</b> als onderdeel van de workflow "
+"<b>'{workflow_name}'</b>."
+
 msgid "Only reviewers for this task can edit the page."
 msgstr "Alleen reviewers van deze taak kunnen deze pagina bewerken."
+
+#, python-brace-format
+msgid ""
+"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+msgstr ""
+"De pagina '{page_title}' is vergrendeld en zal op {datetime} gepubliceerd "
+"worden."
 
 msgid "latest revision"
 msgstr "Nieuwste revisie"
@@ -149,6 +183,12 @@ msgstr "geblokkeerd op"
 
 msgid "locked by"
 msgstr "geblokkeerd door"
+
+msgid "in moderation"
+msgstr "ter goedkeuring"
+
+msgid "live + in moderation"
+msgstr "live + ter goedkeuring"
 
 msgid "title"
 msgstr "titel"
@@ -205,12 +245,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
-
-msgid "in moderation"
-msgstr "ter goedkeuring"
-
-msgid "live + in moderation"
-msgstr "live + ter goedkeuring"
 
 msgid "page"
 msgstr "pagina"
@@ -330,25 +364,11 @@ msgstr ""
 msgid "tasks"
 msgstr "taken"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Actieve workflows kunnen aan pagina's worden toegevoegd. Een workflow "
-"deactiveren zal deze niet verwijderen van bestaande pagina's."
-
 msgid "workflows"
 msgstr "workflows"
 
 msgid "groups"
 msgstr "groepen"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Pagina's in deze stap van de workflow zullen worden beoordeeld of "
-"goedgekeurd door deze groep gebruikers"
 
 msgid "Request changes"
 msgstr "Wijzigingsverzoek"
@@ -389,16 +409,6 @@ msgstr "gevraagd door"
 msgid "current task state"
 msgstr "huidige status taak"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Er mag maar één in behandeling of heeft wijziging nodig workflow-status zijn "
-"per pagina."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr "Workflow '%(workflow_name)s' op pagina '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Niet gestart"
 
@@ -417,9 +427,6 @@ msgstr "Overgeslagen"
 msgid "workflow state"
 msgstr "workflow-status"
 
-msgid "page revision"
-msgstr "pagina revisie"
-
 msgid "started at"
 msgstr "Gestart op"
 
@@ -428,10 +435,6 @@ msgstr "Afgerond op"
 
 msgid "finished by"
 msgstr "Afgerond door"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr "Taak '%(task_name)s' op pagina-revisie '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Taak-status"

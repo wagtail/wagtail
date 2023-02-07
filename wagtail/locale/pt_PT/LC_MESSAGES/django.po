@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -141,6 +141,12 @@ msgstr "bloqueado a"
 msgid "locked by"
 msgstr "bloqueado por"
 
+msgid "in moderation"
+msgstr "em moderação"
+
+msgid "live + in moderation"
+msgstr "publicada + em moderação"
+
 msgid "title"
 msgstr "título"
 
@@ -197,12 +203,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "última versão criada em"
-
-msgid "in moderation"
-msgstr "em moderação"
-
-msgid "live + in moderation"
-msgstr "publicada + em moderação"
 
 msgid "page"
 msgstr "página"
@@ -313,25 +313,11 @@ msgstr ""
 msgid "tasks"
 msgstr "tarefas"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Fluxos de trabalho ativos podem ser adicionados a páginas. Desativar um "
-"fluxo de trabalho não o retira de páginas existentes."
-
 msgid "workflows"
 msgstr "fluxos de trabalho"
 
 msgid "groups"
 msgstr "grupos"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Páginas neste passo do fluxo de trabalho irão ser moderadas ou aprovadas por "
-"estes grupos de utilizadores"
 
 msgid "Request changes"
 msgstr "Solicitar mudanças"
@@ -372,17 +358,6 @@ msgstr "solicitado por"
 msgid "current task state"
 msgstr "estado atual da tarefa"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Só pode haver um estado de fluxo de trabalho a decorrer ou a precisar de "
-"mudanças por página."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
-msgstr ""
-"Fluxo de trabalho '%(workflow_name)s' na Página '%(page_title)s': %(status)s"
-
 msgid "Not started"
 msgstr "Não iniciado"
 
@@ -401,9 +376,6 @@ msgstr "Saltado"
 msgid "workflow state"
 msgstr "estado do fluxo de trabalho"
 
-msgid "page revision"
-msgstr "versão da página"
-
 msgid "started at"
 msgstr "iniciado a"
 
@@ -412,11 +384,6 @@ msgstr "terminado a"
 
 msgid "finished by"
 msgstr "terminado por"
-
-#, python-format
-msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Tarefa '%(task_name)s' na Versão de Página '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Estado da tarefa"

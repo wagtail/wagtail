@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Perehi"
 
+msgid "Submit for moderation"
+msgstr "Tukungia hei whakaōrite"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Tukungia anō ki %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Tukungia ki %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Tīmata ano te mahi pūheke"
+
+msgid "Cancel workflow "
+msgstr "Whakakore te mahi pūheke"
+
 msgid "Unpublish"
 msgstr "whakakore te whakaputa"
 
@@ -30,6 +47,10 @@ msgstr "Muku"
 
 msgid "Save"
 msgstr "Puritia"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s me perehi"
 
 msgid "Wagtail snippets"
 msgstr "Pitopito kōrero-a-Wagtail"
@@ -125,16 +146,8 @@ msgstr "Ingoa"
 msgid "The snippet could not be created due to errors."
 msgstr "Ehara tēnei pitopito kōrero e taea ki te hangaia, he raruraru "
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' kua hangaia."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pitopito kōrero nei, he raruraru "
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' kua whakahou."
 
 #, python-format
 msgid "Edit this %(object)s"

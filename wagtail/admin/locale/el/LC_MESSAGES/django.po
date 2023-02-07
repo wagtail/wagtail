@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -508,9 +508,6 @@ msgstr "Ημερομηνία"
 msgid "Site summary"
 msgstr "Κατάσταση site"
 
-msgid "Your pages in a workflow"
-msgstr "Οι σελίδες σας σε ροή εργασιών"
-
 msgid "Task started"
 msgstr "Η εργασία ξεκίνησε"
 
@@ -886,12 +883,6 @@ msgstr "Εισάγετε όρο αναζήτησης"
 msgid "No pages use"
 msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτε"
 
-msgid "Workflow progress"
-msgstr "Πρόοδος ροής εργασιών"
-
-msgid "Workflow history"
-msgstr "Ιστορικό ροής εργασιών"
-
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
 
@@ -912,9 +903,6 @@ msgstr "Ανά Εργασία"
 
 msgid "Workflow"
 msgstr "Ροή εργασιών"
-
-msgid "Page"
-msgstr "Σελίδα"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -947,6 +935,12 @@ msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
 "υποσελίδες αυτής της σελίδας."
 
+msgid "Workflow progress"
+msgstr "Πρόοδος ροής εργασιών"
+
+msgid "Workflow history"
+msgstr "Ιστορικό ροής εργασιών"
+
 msgid "Add a child page"
 msgstr "Προσθέστε μια υποσελίδα"
 
@@ -958,6 +952,9 @@ msgstr "Όχι"
 
 msgid "Create"
 msgstr "Δημιουργία"
+
+msgid "Page"
+msgstr "Σελίδα"
 
 msgid "New"
 msgstr "Νέο"
@@ -1025,6 +1022,14 @@ msgstr "Η συλλογή '%(object)s' διαγράφηκε."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Θέλετε να διαγράψετε τη συλλογή;"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' αναθεωρήθηκε."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' δημιουργήθηκε"
 
 msgid "Editing"
 msgstr "Διόρθωση"

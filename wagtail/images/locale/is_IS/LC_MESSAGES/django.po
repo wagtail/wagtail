@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2023
 # saevarom <saevar@saevar.is>, 2015,2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2021-2022\n"
+"2015-2018,2021-2023\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,14 @@ msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Ekki stuðningur við skráarsniðið. Einungis stuðningur við: "
 "%(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ekki nothæf .%(extension)s mynd. Endingin passar ekki við skráartegundina "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -265,6 +273,10 @@ msgstr "Nota gömlu og eyða nýju"
 
 msgid "Latest images"
 msgstr "Nýjustu myndirnar"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Velja %(title)s"
 
 msgid "You haven't uploaded any images in this collection."
 msgstr "Þú hefur ekki hlaðið neinum myndum inn í þetta safn."

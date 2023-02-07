@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -94,6 +94,13 @@ msgstr "Ne, ne dodaj"
 
 msgid "Add documents to collection"
 msgstr "Dodajte dokumente v zbirko"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Nimate dovoljenja za dodajanje tega dokumenta v zbirko"
+msgstr[1] "Nimate dovoljenja za dodajanje teh dokumentov v zbirko"
+msgstr[2] "Nimate dovoljenja za dodajanje teh dokumentov v zbirko"
+msgstr[3] "Nimate dovoljenja za dodajanje teh dokumentov v zbirko"
 
 #, python-format
 msgid "Delete 1 document"

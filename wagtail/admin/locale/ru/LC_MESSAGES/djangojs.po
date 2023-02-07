@@ -55,9 +55,6 @@ msgstr "Текст подсказки"
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
-msgid "Blocks"
-msgstr "Блоки"
-
 msgid "Broken link"
 msgstr "Битая ссылка"
 
@@ -169,9 +166,6 @@ msgstr "Закрыть обсуждение"
 msgid "Retry"
 msgstr "Повторить"
 
-msgid "Rich text"
-msgstr "Расширенный текст"
-
 msgid "Save"
 msgstr "Сохранить"
 
@@ -192,9 +186,6 @@ msgstr "Сохранение..."
 
 msgid "Search"
 msgstr "Поиск"
-
-msgid "Search blocks"
-msgstr "Поиск блоков"
 
 msgid "See all"
 msgstr "Смотреть все"

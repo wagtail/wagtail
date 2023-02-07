@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -239,6 +239,15 @@ msgstr "Lisää"
 msgid "Change"
 msgstr "Muuta"
 
+msgid "Publish"
+msgstr "Julkaise"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "Unlock"
+msgstr "Avaa lukitus"
+
 msgid "Custom permissions"
 msgstr "Mukautetut oikeudet"
 
@@ -398,6 +407,10 @@ msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Ryhmä '%(object)s' poistettu."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Käyttäjä '%(object)s' luotu."
 
 #, python-format
 msgid "User '%(object)s' updated."

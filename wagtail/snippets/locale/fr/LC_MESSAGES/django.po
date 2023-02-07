@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -33,6 +33,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publier"
 
+msgid "Submit for moderation"
+msgstr "Soumettre pour modération"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Resoumettre à %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Soumettre à %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Relancer le workflow"
+
+msgid "Cancel workflow "
+msgstr "Annuler le workflow"
+
 msgid "Unpublish"
 msgstr "Dépublier"
 
@@ -41,6 +58,13 @@ msgstr "Supprimer"
 
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Locked"
+msgstr "Verrouillé(e)"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr " %(label)s et Publier"
 
 msgid "Wagtail snippets"
 msgstr "Fragments Wagtail"
@@ -259,41 +283,8 @@ msgstr "Occurrences"
 msgid "The snippet could not be created due to errors."
 msgstr "Le fragment ne peut être créé du fait d'erreurs."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s « %(object)s » créé(e)."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "%(model_name)s « %(object)s » créé(e) et publié(e)."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr ""
-"%(model_name)s « %(object)s » créé(e) et planifié(e) pour la publication."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Le fragment ne peut être enregistré du fait d'erreurs."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s « %(object)s » modifié(e)."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "%(model_name)s « %(object)s » modifié(e) et publié(e)."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr "%(model_name)s « %(object)s » a été planifié pour la publication."
-
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr ""
-"%(model_name)s « %(object)s » est publié(e) et cette version a été planifié "
-"pour la publication."
 
 #, python-format
 msgid "(Private %(object)s)"

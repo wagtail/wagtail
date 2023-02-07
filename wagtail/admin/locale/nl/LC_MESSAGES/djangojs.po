@@ -4,17 +4,22 @@
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Storm Heg <storm@stormbase.digital>, 2022
-# Thijs Kramer <thijskramer@gmail.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Thijs Kramer <thijskramer@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2023\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s foutmelding)"
+msgstr[1] "(%(errorCount)sfoutmeldingen) "
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nieuwe items in dit menu)"
@@ -25,6 +30,16 @@ msgstr "(1 nieuw item in dit menu)"
 msgid "(New)"
 msgstr "(Nieuw)"
 
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s foutmelding"
+msgstr[1] "%(num)s foutmeldingen"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixels"
+
 msgid "Add a comment"
 msgstr "Voeg opmerking toe"
 
@@ -33,9 +48,6 @@ msgstr "Alt tekst"
 
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
-
-msgid "Blocks"
-msgstr "Blokken"
 
 msgid "Broken link"
 msgstr "Defecte link"
@@ -147,9 +159,6 @@ msgstr "Markeer als opgelost"
 msgid "Retry"
 msgstr "Opnieuw proberen"
 
-msgid "Rich text"
-msgstr "Opgemaakte tekst"
-
 msgid "Save"
 msgstr "Opslaan"
 
@@ -170,9 +179,6 @@ msgstr "Bezig met opslaan..."
 
 msgid "Search"
 msgstr "Zoeken"
-
-msgid "Search blocks"
-msgstr "Zoek blokken"
 
 msgid "See all"
 msgstr "Toon"

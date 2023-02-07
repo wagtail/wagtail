@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -145,6 +145,12 @@ msgstr "zaklenjena na"
 msgid "locked by"
 msgstr "zaklenil"
 
+msgid "in moderation"
+msgstr "v pregledu"
+
+msgid "live + in moderation"
+msgstr "objavljeno + v pregledu"
+
 msgid "title"
 msgstr "naziv"
 
@@ -199,12 +205,6 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
-
-msgid "in moderation"
-msgstr "v pregledu"
-
-msgid "live + in moderation"
-msgstr "objavljeno + v pregledu"
 
 msgid "page"
 msgstr "stran"
@@ -296,8 +296,17 @@ msgstr "stran poteka dela"
 msgid "workflow pages"
 msgstr "strani potekov dela"
 
+msgid "workflow_tasks"
+msgstr "potekdela_naloge"
+
 msgid "task"
 msgstr "naloga"
+
+msgid "workflow task order"
+msgstr "vrstni red opravil poteka dela"
+
+msgid "workflow task orders"
+msgstr "naloge poteka dela"
 
 msgid "name"
 msgstr "ime"
@@ -313,13 +322,6 @@ msgstr "delovni potek"
 
 msgid "groups"
 msgstr "skupine"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Strani bodo v tem koraku poteka dela moderirale ali odobrile naslednje "
-"skupine uporabnikov"
 
 msgid "Request changes"
 msgstr "Zahtevajte spremembe"
@@ -363,6 +365,9 @@ msgstr "trenutno stanje naloge"
 msgid "Not started"
 msgstr "Ni začeto"
 
+msgid "Workflow state"
+msgstr "potekdela_stanje"
+
 msgid "Workflow states"
 msgstr "Stanja poteka dela"
 
@@ -374,9 +379,6 @@ msgstr "Preskočeno"
 
 msgid "workflow state"
 msgstr "stanje poteka dela"
-
-msgid "page revision"
-msgstr "različica strani"
 
 msgid "started at"
 msgstr "začeto ob"
@@ -662,6 +664,10 @@ msgstr "Premaknjeno"
 msgid "Reorder"
 msgstr "Preuredite"
 
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Preurejeno pod '%(parent)s'"
+
 msgid "Reordered"
 msgstr "Preurejeno"
 
@@ -701,6 +707,10 @@ msgstr "Dodana omejitev pogleda"
 
 msgid "Update view restrictions"
 msgstr "Posodobite omejitve pogleda"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Omejitev pogleda je posodobljena na '%(restriction)s'"
 
 msgid "Updated view restriction"
 msgstr "Posodobljena omejitev pogleda"
@@ -758,6 +768,10 @@ msgstr "Razrešen komentar"
 msgid "Reply to comment"
 msgstr "Odgovorite na komentar"
 
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Odgovoril na komentar na polje %(field)s: \"%(text)s\""
+
 msgid "Replied to a comment"
 msgstr "Odgovoril na komentar"
 
@@ -792,6 +806,10 @@ msgstr "Naloga poteka dela odobrena"
 
 msgid "Workflow: reject task"
 msgstr "Potek dela: zavrni nalogo"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Zavrnjeno ob '%(task)s'. Zahtevane so spremembe"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Naloga poteka dela zavrnjena. Potek dela končan"

@@ -124,7 +124,19 @@ Make sure to test your forms’ implementation with assistive technologies, and 
 
 ## Authoring accessible content
 
-Here are things you can do to help authors create accessible content.
+A number of built-in tools and additional resources are available to help create accessible content.
+
+### Built-in accessibility checker
+
+Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag). The checker can help authors create more accessible websites in compliance with the Web Content Accessibility Guidelines (WCAG) 2.0 and the Authoring Tool Accessibility Guidelines (ATAG) 2.0.
+
+The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors, displaying the results in the GUI.
+
+By default, the checker includes the following rules that are among the most common and critical accessibility issues to be violated by editors in Wagtail:
+
+-   `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
+-   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as this can cause confusion for users who rely on headings to navigate content.
+-   `heading-order`: This rule checks for incorrect heading order. Headings should be ordered in a logical and consistent manner, with the main heading (h1) followed by subheadings (h2, h3, etc.).
 
 ### wagtail-accessibility
 

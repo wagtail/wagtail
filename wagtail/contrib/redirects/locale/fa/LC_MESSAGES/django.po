@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -127,6 +127,12 @@ msgstr "سایت"
 
 msgid "Edit this redirect"
 msgstr "ویرایش این ریدایرکت"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s مورد همخوانی دارد"
+msgstr[1] "%(counter)s مورد همخوانی دارد"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

@@ -5,6 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
+ * Update user list column level to `Access level` to be easier to understand (Vallabh Tiwari)
+ * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Maintenance: Update djhtml (html formatting) library to v 1.5.2 (Loveth Omokaro)
  * Maintenance: Re-enable `strictPropertyInitialization` in tsconfig (Thibaud Colas)
@@ -12,7 +14,7 @@ Changelog
  * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
 
 
-4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField data migration helpers (Sandil Ranasinghe, Jacob Topp-Mugglestone, Joshua Munn, Karl Hobley)
@@ -162,7 +164,7 @@ Changelog
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
 
 
-4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)

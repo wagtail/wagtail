@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -746,9 +746,6 @@ msgstr "Не знойдзены заблякаваныя старонкі."
 msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
 
-msgid "Page"
-msgstr "Старонка"
-
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Старонка %(page_num)s з %(total_pages)s."
@@ -809,6 +806,9 @@ msgstr "Дадаць даччыную старонку"
 
 msgid "Show in Explorer"
 msgstr "Паказаць Правадыр"
+
+msgid "Page"
+msgstr "Старонка"
 
 msgid "New"
 msgstr "Новы"

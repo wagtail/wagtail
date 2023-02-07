@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Нийтлэх"
 
+msgid "Submit for moderation"
+msgstr "Хянуулахаар илгээсэн"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)s -д дахин бүртгүүлэх"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)s -д бүртгүүлэх"
+
+msgid "Restart workflow "
+msgstr "Ажлын урсгалыг дахин эхлүүлэх"
+
+msgid "Cancel workflow "
+msgstr "Ажлын урсгалыг цуцлах"
+
 msgid "Unpublish"
 msgstr "Нийтлэхгүй байх"
 
@@ -30,6 +47,13 @@ msgstr "Устгах"
 
 msgid "Save"
 msgstr "Хадгалах"
+
+msgid "Locked"
+msgstr "Түгжигдсэн"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s , нийтлэх"
 
 msgid "Wagtail snippets"
 msgstr "Туслах хэсгүүд"
@@ -149,16 +173,8 @@ msgstr "Нэр"
 msgid "The snippet could not be created due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж хадгалагдсангүй."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s%(object)s боллоо."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
 
 #, python-format
 msgid "Edit this %(object)s"

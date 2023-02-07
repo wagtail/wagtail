@@ -10,13 +10,13 @@
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
 # aw.wunderweiss, 2022
 # Oliver Engel <codeangel@posteo.de>, 2022
-# Ettore Atalan <atalanttore@googlemail.com>, 2022
 # Loic Teixeira, 2022
-# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -54,9 +54,6 @@ msgstr "Alternativtext"
 
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
-
-msgid "Blocks"
-msgstr "Blöcke"
 
 msgid "Broken link"
 msgstr "Defekter Link"
@@ -148,6 +145,9 @@ msgstr "Seitenübersicht"
 msgid "Pages"
 msgstr "Seiten"
 
+msgid "Pin toolbar"
+msgstr "Werkzeugleiste anheften"
+
 msgid "Reload saved content"
 msgstr "Gespeicherten Inhalt erneut laden"
 
@@ -170,9 +170,6 @@ msgstr "Lösen"
 msgid "Retry"
 msgstr "Wiederholen"
 
-msgid "Rich text"
-msgstr "Rich Text"
-
 msgid "Save"
 msgstr "Speichern"
 
@@ -194,8 +191,8 @@ msgstr "Speichern..."
 msgid "Search"
 msgstr "Suche"
 
-msgid "Search blocks"
-msgstr "Blöcke suchen"
+msgid "Search options…"
+msgstr "Suchoptionen…"
 
 msgid "See all"
 msgstr "Alles einsehen"
@@ -211,6 +208,9 @@ msgstr "Aktuellen Inhalt anzeigen"
 
 msgid "Split block"
 msgstr "Block teilen"
+
+msgid "StreamField blocks"
+msgstr "StreamField-Blöcke"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -229,6 +229,9 @@ msgstr "Seitenleiste ein-/ausblenden"
 
 msgid "Unfocus comment"
 msgstr "Fokussierung des Kommentars aufheben"
+
+msgid "Unpin toolbar"
+msgstr "Werkzeugleiste lösen"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Unterseiten von ‚%(title)s‘ anzeigen"

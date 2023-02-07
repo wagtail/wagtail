@@ -51,9 +51,6 @@ msgstr "Nadomestno besedilo"
 msgid "Are you sure?"
 msgstr "Ali ste prepričani?"
 
-msgid "Blocks"
-msgstr "Bloki"
-
 msgid "Broken link"
 msgstr "Nepravilna povezava"
 
@@ -165,9 +162,6 @@ msgstr "Reši"
 msgid "Retry"
 msgstr "Poskusi ponovno"
 
-msgid "Rich text"
-msgstr "Obogateno besedilo"
-
 msgid "Save"
 msgstr "Shrani"
 
@@ -188,9 +182,6 @@ msgstr "Shranjevanje..."
 
 msgid "Search"
 msgstr "Iskanje"
-
-msgid "Search blocks"
-msgstr "Poiščite blok"
 
 msgid "See all"
 msgstr "Poglej vse"

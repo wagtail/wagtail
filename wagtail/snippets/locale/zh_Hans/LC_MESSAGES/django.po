@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -33,6 +33,23 @@ msgstr ""
 msgid "Publish"
 msgstr "发布"
 
+msgid "Submit for moderation"
+msgstr "提交审核"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "重新提交给%(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "提交给%(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "重启工作流"
+
+msgid "Cancel workflow "
+msgstr "取消工作流"
+
 msgid "Unpublish"
 msgstr "取消发布"
 
@@ -41,6 +58,13 @@ msgstr "删除"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Locked"
+msgstr "已锁定"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s 和发布"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail 片段"
@@ -180,16 +204,8 @@ msgstr "名字"
 msgid "The snippet could not be created due to errors."
 msgstr "无法创建片段，出现错误。"
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' 已创建。"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "无法保存片段，出现错误。"
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' 已更新。"
 
 #, python-format
 msgid "Edit this %(object)s"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -24,6 +24,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Апублікаваць"
 
+msgid "Submit for moderation"
+msgstr "Адправіць на мадэрацыю"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "аднавіць %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Адправіць у %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Перазапусціць працоўны працэс"
+
+msgid "Cancel workflow "
+msgstr "Адмяніць працоўны працэс"
+
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"
 
@@ -32,6 +49,13 @@ msgstr "Выдаліць"
 
 msgid "Save"
 msgstr "Захаваць"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s і Апублікаваць"
 
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -186,6 +186,10 @@ msgstr "جدید"
 msgid "Latest images"
 msgstr "آخرین تصاویر"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "انتخاب %(title)s"
+
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>upload one now</a>?"
@@ -244,6 +248,12 @@ msgstr "فایل پیدا نشد"
 
 msgid "Images"
 msgstr "عکس‌ها"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s مورد همخوانی دارد"
+msgstr[1] "%(counter)s مورد همخوانی دارد"
 
 msgid "pixels"
 msgstr "پیکسل ها"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -246,9 +246,6 @@ msgstr "Patvirtinti su komentaru"
 
 msgid "current task state"
 msgstr "dabartinė užduoties būsena"
-
-msgid "page revision"
-msgstr "puslapio revizija"
 
 msgid "Draft saved"
 msgstr "Juodraštis išsaugotas"

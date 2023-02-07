@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Közzététel"
 
+msgid "Submit for moderation"
+msgstr "Beküldés moderálásra"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Újraküldés ide: %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Beküldés ide: %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Munkafolyamat újraindítása"
+
+msgid "Cancel workflow "
+msgstr "Munkafolyamat felfüggesztése"
+
 msgid "Unpublish"
 msgstr "Visszavonás"
 
@@ -30,6 +47,13 @@ msgstr "Törlés"
 
 msgid "Save"
 msgstr "Mentés"
+
+msgid "Locked"
+msgstr "Lezárt"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s és közzététel"
 
 msgid "Wagtail snippets"
 msgstr "Elemek"
@@ -233,38 +257,8 @@ msgstr "Példányok"
 msgid "The snippet could not be created due to errors."
 msgstr "Hiba történt az elem létrehozása közben."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "'%(object)s' %(model_name)s létrehozva."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and published."
-msgstr "'%(object)s' %(model_name)s létrehozva és közzétéve."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
-msgstr "'%(object)s' %(model_name)s létrehozva és időzítve."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Hiba történt az elem frissítése közben."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "'%(object)s' %(model_name)s frissítve."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated and published."
-msgstr "'%(object)s' %(model_name)s frissítve és közzétéve."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
-msgstr "'%(object)s' %(model_name)s időzítve."
-
-#, python-format
-msgid ""
-"%(model_name)s '%(object)s' is live and this version has been scheduled for "
-"publishing."
-msgstr "'%(object)s' %(model_name)s közzétéve, és ez a verzió időzítve van."
 
 #, python-format
 msgid "(Private %(object)s)"

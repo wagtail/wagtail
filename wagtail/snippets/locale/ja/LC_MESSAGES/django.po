@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: bayside kent, 2022\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,23 @@ msgstr ""
 msgid "Publish"
 msgstr "公開"
 
+msgid "Submit for moderation"
+msgstr "承認を受ける"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)sに再提出する"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)sに提出する"
+
+msgid "Restart workflow "
+msgstr "ワークフローを再開"
+
+msgid "Cancel workflow "
+msgstr "ワークフローの中止"
+
 msgid "Unpublish"
 msgstr "非公開"
 
@@ -35,6 +52,13 @@ msgstr "削除"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Locked"
+msgstr "ロックあり"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)sと公開 "
 
 msgid "Wagtail snippets"
 msgstr "Wagtail スニペット"

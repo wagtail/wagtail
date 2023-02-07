@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -32,6 +32,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Δημοσίευση"
 
+msgid "Submit for moderation"
+msgstr "Υποβολή για έλεγχο"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Υποβολή σε %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Υποβολή σε %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Επανεκκίνηση ροής εργασιών"
+
+msgid "Cancel workflow "
+msgstr "Ακύρωση ροής εργασιών"
+
 msgid "Unpublish"
 msgstr "Κατάργηση δημοσίευσης"
 
@@ -40,6 +57,13 @@ msgstr "Διαγραφή"
 
 msgid "Save"
 msgstr "Αποθήκευση"
+
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s και έκδοση"
 
 msgid "Wagtail snippets"
 msgstr "Αποσπάσματα Wagtail"
@@ -153,16 +177,8 @@ msgstr "Όνομα"
 msgid "The snippet could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' δημιουργήθηκε"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' αναθεωρήθηκε."
 
 #, python-format
 msgid "Edit this %(object)s"

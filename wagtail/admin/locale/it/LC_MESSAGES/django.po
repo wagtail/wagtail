@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -717,9 +717,6 @@ msgstr[2] ""
 msgid "Read the release notes."
 msgstr "Leggi le note di rilascio."
 
-msgid "Your pages in a workflow"
-msgstr "Le tue pagine in un flusso di lavoro"
-
 msgid "Task started"
 msgstr "Attività iniziata"
 
@@ -1400,70 +1397,6 @@ msgstr "Inserisce un termine di ricerca sopra"
 msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
-msgid "Workflow progress"
-msgstr "Andamento flusso di lavoro"
-
-msgid "Edit / Review"
-msgstr "Modifica / Revisiona"
-
-msgid "Workflow history"
-msgstr "Storico flusso di lavoro"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Richiesto da <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Iniziato il <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Stato <span class=\"status-tag primary\">%(status)s</span>"
-
-msgid "Timeline"
-msgstr "Sequenza temporale"
-
-msgid "Initial Revision"
-msgstr "Revisione iniziale"
-
-msgid "Page edited"
-msgstr "Pagina modificata"
-
-msgid "with comment:"
-msgstr "con commento:"
-
-msgid "Workflow started"
-msgstr "Flusso di lavoro iniziato"
-
-msgid "Workflow completed"
-msgstr "Flusso di lavoro completato"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Storico flusso di lavoro %(title)s"
-
-msgid "Workflow history for"
-msgstr "Storico flusso di lavoro"
-
-msgid "Edit page"
-msgstr "Modifica pagina"
-
-msgid "Requested by"
-msgstr "Richiesto da"
-
-msgid "Started at"
-msgstr "Iniziato alle"
-
-msgid "Approved task"
-msgstr "Attività approvata"
-
-msgid "Incomplete task"
-msgstr "Attività non completata"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Questa pagina non è stata ancora inviata per la moderazione."
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Aggiungi %(label)s"
@@ -1519,11 +1452,14 @@ msgstr "Per attività"
 msgid "Workflow"
 msgstr "Flusso di lavoro"
 
-msgid "Page"
-msgstr "Pagina"
+msgid "Requested by"
+msgstr "Richiesto da"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Nessuna pagina è ancora stata inviata per la moderazione."
+msgid "Started at"
+msgstr "Iniziato alle"
+
+msgid "Incomplete task"
+msgstr "Attività non completata"
 
 msgid "By Workflow"
 msgstr "Per flusso di lavoro"
@@ -1643,6 +1579,55 @@ msgstr "Modalità anteprima"
 msgid "First published "
 msgstr "Prima pubblicazione"
 
+msgid "Workflow progress"
+msgstr "Andamento flusso di lavoro"
+
+msgid "Edit / Review"
+msgstr "Modifica / Revisiona"
+
+msgid "Workflow history"
+msgstr "Storico flusso di lavoro"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Richiesto da <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Iniziato il <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Stato <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Timeline"
+msgstr "Sequenza temporale"
+
+msgid "Initial Revision"
+msgstr "Revisione iniziale"
+
+msgid "with comment:"
+msgstr "con commento:"
+
+msgid "Workflow started"
+msgstr "Flusso di lavoro iniziato"
+
+msgid "Workflow completed"
+msgstr "Flusso di lavoro completato"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Storico flusso di lavoro %(title)s"
+
+msgid "Workflow history for"
+msgstr "Storico flusso di lavoro"
+
+msgid "Approved task"
+msgstr "Attività approvata"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Questa pagina non è stata ancora inviata per la moderazione."
+
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
 "Here are the <a href=\"https://www.enable-javascript.com/\" "
@@ -1712,6 +1697,9 @@ msgstr "Non utilizzato"
 
 msgid "Assigned pages"
 msgstr "Pagine assegnate"
+
+msgid "Page"
+msgstr "Pagina"
 
 msgid "Assign to another page"
 msgstr "Assegna ad un'altra pagina"
@@ -1943,6 +1931,14 @@ msgstr "Raccolta '%(object)s' eliminata."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sei sicuro di voler eliminare questa raccolta?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' aggiornato."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' creato."
 
 msgid "Editing"
 msgstr "Modifica"
@@ -2277,15 +2273,6 @@ msgstr "In attesa della mia review"
 msgid "Workflows"
 msgstr "Flussi di lavoro"
 
-msgid "Page ID"
-msgstr "ID pagina"
-
-msgid "Page Type"
-msgstr "Tipologia di pagina"
-
-msgid "Page Title"
-msgstr "Titolo pagina"
-
 msgid "Workflow tasks"
 msgstr "Attività nei flussi di lavoro"
 
@@ -2323,26 +2310,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "Flusso di lavoro '%(object)s' disabilitato."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Questo flusso di lavoro è in corso sulla pagina %(states_in_progress)d. Se "
-"disabiliti questo flusso di lavoro verrà rimossa la moderazione da questa "
-"pagina."
-msgstr[1] ""
-"Questo flusso di lavoro è in corso sulle pagine %(states_in_progress)d. Se "
-"disabiliti questo flusso di lavoro verrà rimossa la moderazione da queste "
-"pagine."
-msgstr[2] ""
-"Questo flusso di lavoro è in corso sulle pagine %(states_in_progress)d. Se "
-"disabiliti questo flusso di lavoro verrà rimossa la moderazione da queste "
-"pagine."
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Flusso di lavoro '%(workflow_name)s' abilitato."
 
@@ -2374,31 +2341,6 @@ msgstr "Disabilita attività"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "Attività '%(object)s' disabilitata."
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"Questa attività è in corso su %(states_in_progress)d pagina. La "
-"disattivazione di questa attività farà sì che venga saltata nel flusso di "
-"lavoro di moderazione e non sarà elencata per la selezione durante la "
-"modifica di un flusso di lavoro."
-msgstr[1] ""
-"Questa attività è in corso su %(states_in_progress)d pagine. La "
-"disattivazione di questa attività farà sì che venga saltata nel flusso di "
-"lavoro di moderazione e non sarà elencata per la selezione durante la "
-"modifica di un flusso di lavoro."
-msgstr[2] ""
-"Questa attività è in corso su %(states_in_progress)d pagine. La "
-"disattivazione di questa attività farà sì che venga saltata nel flusso di "
-"lavoro di moderazione e non sarà elencata per la selezione durante la "
-"modifica di un flusso di lavoro."
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

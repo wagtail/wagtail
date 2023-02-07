@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -479,9 +479,6 @@ msgstr "Kuupäev"
 msgid "Site summary"
 msgstr "Saidi kokkuvõte"
 
-msgid "Your pages in a workflow"
-msgstr "Teie lehed töövoos"
-
 msgid "Task started"
 msgstr "Ülesanne algas"
 
@@ -870,70 +867,6 @@ msgstr "Sisestage ülal otsingutermin"
 msgid "No pages use"
 msgstr "Ühtegi lehte ei kasutata"
 
-msgid "Workflow progress"
-msgstr "Töövoo edenemine"
-
-msgid "Edit / Review"
-msgstr "Redigeerimine / ülevaade"
-
-msgid "Workflow history"
-msgstr "Töövoo ajalugu"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Taotleb <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Algas <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Staatus <span class=\"status-tag primary\"> %(status)s</span>"
-
-msgid "Timeline"
-msgstr "Ajaskaala"
-
-msgid "Initial Revision"
-msgstr "Esmane läbivaatamine"
-
-msgid "Page edited"
-msgstr "Leht muudetud"
-
-msgid "with comment:"
-msgstr "koos kommentaariga:"
-
-msgid "Workflow started"
-msgstr "Töövoog algas"
-
-msgid "Workflow completed"
-msgstr "Töövoog on lõpule viidud"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)s töövoo ajalugu"
-
-msgid "Workflow history for"
-msgstr "Töövoo ajalugu"
-
-msgid "Edit page"
-msgstr "Muuda lehte"
-
-msgid "Requested by"
-msgstr "Nõutud"
-
-msgid "Started at"
-msgstr "Algus kell"
-
-msgid "Approved task"
-msgstr "Kinnitatud ülesanne"
-
-msgid "Incomplete task"
-msgstr "Mittetäielik ülesanne"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Seda lehte ei ole veel modereerimiseks esitatud"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Lisage %(label)s"
@@ -974,11 +907,14 @@ msgstr "Autor ülesanne"
 msgid "Workflow"
 msgstr "Töövoog"
 
-msgid "Page"
-msgstr "Leht"
+msgid "Requested by"
+msgstr "Nõutud"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Ühtegi lehte pole modereerimiseks veel esitatud"
+msgid "Started at"
+msgstr "Algus kell"
+
+msgid "Incomplete task"
+msgstr "Mittetäielik ülesanne"
 
 msgid "By Workflow"
 msgstr "Töövoo järgi"
@@ -1043,6 +979,55 @@ msgstr "Lukusta"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Privaatsuse muudatused kehtivad ka kõigile selle lehe lastele."
 
+msgid "Workflow progress"
+msgstr "Töövoo edenemine"
+
+msgid "Edit / Review"
+msgstr "Redigeerimine / ülevaade"
+
+msgid "Workflow history"
+msgstr "Töövoo ajalugu"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Taotleb <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Algas <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Staatus <span class=\"status-tag primary\"> %(status)s</span>"
+
+msgid "Timeline"
+msgstr "Ajaskaala"
+
+msgid "Initial Revision"
+msgstr "Esmane läbivaatamine"
+
+msgid "with comment:"
+msgstr "koos kommentaariga:"
+
+msgid "Workflow started"
+msgstr "Töövoog algas"
+
+msgid "Workflow completed"
+msgstr "Töövoog on lõpule viidud"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)s töövoo ajalugu"
+
+msgid "Workflow history for"
+msgstr "Töövoo ajalugu"
+
+msgid "Approved task"
+msgstr "Kinnitatud ülesanne"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Seda lehte ei ole veel modereerimiseks esitatud"
+
 msgid "Skip to main content"
 msgstr "Otse põhisisu juurde"
 
@@ -1096,6 +1081,9 @@ msgstr "Pole kasutatud"
 
 msgid "Assigned pages"
 msgstr "Määratud lehed"
+
+msgid "Page"
+msgstr "Leht"
 
 msgid "Assign to another page"
 msgstr "Määra teisele lehele"
@@ -1275,6 +1263,14 @@ msgstr "Kogu '%(object)s' on kustutatud."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' on värskendatud."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' on loodud."
 
 msgid "Editing"
 msgstr "Redigeerimine"
@@ -1464,15 +1460,6 @@ msgstr "Ootan minu ülevaadet"
 msgid "Workflows"
 msgstr "Töövood"
 
-msgid "Page ID"
-msgstr "Lehe ID"
-
-msgid "Page Type"
-msgstr "Lehe tüüp"
-
-msgid "Page Title"
-msgstr "Lehe pealkiri"
-
 msgid "Workflow tasks"
 msgstr "Töövoo ülesanded"
 
@@ -1508,20 +1495,6 @@ msgstr "Keela töövoog"
 #, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Töövoog '%(object)s' on keelatud."
-
-#, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"See töövoog on lehel %(states_in_progress)d pooleli. Selle töövoo keelamine "
-"tühistab selle lehe modereerimise."
-msgstr[1] ""
-"See töövoog on %(states_in_progress)d lehtedel pooleli. Selle töövoo "
-"keelamine tühistab nende lehtede modereerimise."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."

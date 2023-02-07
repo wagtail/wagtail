@@ -5,7 +5,7 @@
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Patrik Radics, 2022\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -232,6 +232,10 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Aloldalak másolásakor nem lehet egy oldalt saját magára másolni"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "A(z) '%(page_slug)s' rövidítés már használatban van a szülőoldal alatt"
+
 msgid "Select a new parent for this page."
 msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
 
@@ -260,6 +264,13 @@ msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
 "Ezt a munkafolyamatot nem lehet többször hozzárendelni ugyanahhoz az "
 "oldalhoz."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"A(z) '%(content_type)s' elem már a következő munkamenetbe tartozik: "
+"'%(workflow_name)s'."
 
 msgid "Give your workflow a name"
 msgstr "Munkafolyamat elnevezése"
@@ -506,6 +517,9 @@ msgstr[1] ""
 "Csak a következő típusokat lehet kiválasztani ehhez a mezőhöz: %(type)s. A "
 "keresés találati oldal el fogja rejteni a többi típust."
 
+msgid "Confirm selection"
+msgstr "Kiválasztás megerősítése"
+
 msgid "Convert to internal link"
 msgstr "Átalakítás belső linkké"
 
@@ -544,6 +558,10 @@ msgstr "Külső link hozzáadása"
 
 msgid "Add a phone link"
 msgstr "Telefonszám link hozzáadása"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s kiválasztása"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -741,16 +759,17 @@ msgstr[1] ""
 #, python-format
 msgid ""
 "Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-upgrade-version></strong>."
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
 msgstr ""
 "Új Wagtail verzió elérhető. Az ön verziója: <strong>%(current_version)s</"
-"strong>. Új verzió: <strong data-upgrade-version></strong>"
+"strong>. Új verzió: <strong data-w-upgrade-target=\"latestVersion\"></strong>"
 
 msgid "Read the release notes."
 msgstr "Frissítési dokumentáció megtekintése."
 
-msgid "Your pages in a workflow"
-msgstr "Munkafolyamatban lévő oldalak"
+msgid "Your pages and snippets in a workflow"
+msgstr "Munkafolyamatban lévő oldalak és elemek"
 
 msgid "Task started"
 msgstr "Feladat elindítva"
@@ -1621,82 +1640,6 @@ msgstr "Kérjük adja meg a keresett kifejezést"
 msgid "No pages use"
 msgstr "Egyetlen oldal sem használja: "
 
-msgid "Workflow progress"
-msgstr "Munkafolyamat állapot"
-
-msgid "Edit / Review"
-msgstr "Szerkesztés / ellenőrzés"
-
-msgid "Workflow history"
-msgstr "Munkafolyamat történet"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Kérelmezte: <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Indítás ideje: <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Státusz: <span class=\"status-tag primary\">%(status)s</span>"
-
-msgid "Timeline"
-msgstr "Idővonal"
-
-msgid "Initial Revision"
-msgstr "Eredeti verzió"
-
-msgid "Page edited"
-msgstr "Oldal szerkesztve"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
-msgstr "%(action)s végrehajtva <b>%(who)s</b> által ekkor: <b>%(at)s</b>"
-
-#, python-format
-msgid "%(action)s at <b>%(at)s</b>"
-msgstr "%(action)s végrehajtva ekkor: <b>%(at)s</b>"
-
-msgid "with comment:"
-msgstr "ezzel a megjegyzéssel: "
-
-msgid "Workflow started"
-msgstr "Munkafolyamat elindult"
-
-msgid "Workflow completed"
-msgstr "Munkafolyamat befejeződött"
-
-#, python-format
-msgid "%(action)s by <b>%(who)s</b>"
-msgstr "%(action)s végrehajtva <b>%(who)s</b> által"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Munkamenet történet: %(title)s"
-
-msgid "Workflow history for"
-msgstr "Munkamenet történet: "
-
-msgid "Edit page"
-msgstr "Oldal szerkesztése"
-
-msgid "Requested by"
-msgstr "Kérelmező"
-
-msgid "Started at"
-msgstr "Elindítva: "
-
-msgid "Approved task"
-msgstr "Jóváhagyott feladat"
-
-msgid "Incomplete task"
-msgstr "Befejezetlen feladat"
-
-msgid "This page hasn't been submitted for moderation yet"
-msgstr "Az oldal még nem lett moderálásra küldve"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "%(label)s hozzáadása"
@@ -1784,11 +1727,14 @@ msgstr "Feladat szerint"
 msgid "Workflow"
 msgstr "Munkamenet"
 
-msgid "Page"
-msgstr "Oldal"
+msgid "Requested by"
+msgstr "Kérelmező"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Még nem lett oldal beküldve moderálásra"
+msgid "Started at"
+msgstr "Elindítva: "
+
+msgid "Incomplete task"
+msgstr "Befejezetlen feladat"
 
 msgid "By Workflow"
 msgstr "Munkafolyamat szerint"
@@ -1966,9 +1912,6 @@ msgstr "Jóváhagyás alatt"
 msgid "View details"
 msgstr "Részletek megtekintése"
 
-msgid "Moderators approval"
-msgstr "Moderátor jóváhagyás"
-
 #, python-format
 msgid "by %(user)s"
 msgstr "létrehozó: %(user)s"
@@ -2017,6 +1960,67 @@ msgstr "Előnézet mód"
 
 msgid "First published "
 msgstr "Első közzététel"
+
+msgid "Workflow progress"
+msgstr "Munkafolyamat állapot"
+
+msgid "Edit / Review"
+msgstr "Szerkesztés / ellenőrzés"
+
+msgid "Workflow history"
+msgstr "Munkafolyamat történet"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Kérelmezte: <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Indítás ideje: <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Státusz: <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Timeline"
+msgstr "Idővonal"
+
+msgid "Initial Revision"
+msgstr "Eredeti verzió"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s végrehajtva <b>%(who)s</b> által ekkor: <b>%(at)s</b>"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s végrehajtva ekkor: <b>%(at)s</b>"
+
+msgid "with comment:"
+msgstr "ezzel a megjegyzéssel: "
+
+msgid "Workflow started"
+msgstr "Munkafolyamat elindult"
+
+msgid "Workflow completed"
+msgstr "Munkafolyamat befejeződött"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s végrehajtva <b>%(who)s</b> által"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Munkamenet történet: %(title)s"
+
+msgid "Workflow history for"
+msgstr "Munkamenet történet: "
+
+msgid "Approved task"
+msgstr "Jóváhagyott feladat"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Az oldal még nem lett moderálásra küldve"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
@@ -2095,6 +2099,9 @@ msgstr "Nem szerepel"
 
 msgid "Assigned pages"
 msgstr "Hozzárendelt oldalak"
+
+msgid "Page"
+msgstr "Oldal"
 
 msgid "Assign to another page"
 msgstr "Másik oldalhoz rendelés"
@@ -2361,6 +2368,36 @@ msgid "Are you sure you want to delete this collection?"
 msgstr "Biztosan törli a gyűjteményt?"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s'%(object)s' frissítve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' létrehozva."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s időzítve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s létrehozva és időzítve."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "'%(object)s' %(model_name)s közzétéve, és ez a verzió időzítve van."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "'%(object)s' %(model_name)s frissítve és közzétéve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "'%(object)s' %(model_name)s létrehozva és közzétéve."
+
+#, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
 "<b>%(created_at)s</b> by %(user)s"
@@ -2395,24 +2432,8 @@ msgstr ""
 msgid "Search %(model_name)s"
 msgstr "%(model_name)s keresése"
 
-#, python-format
-msgid "'%(object)s' created and scheduled for publishing."
-msgstr "'%(object)s' létrehozva és időzítve."
-
-#, python-format
-msgid "'%(object)s' created and published."
-msgstr "'%(object)s' létrehozva és közzétéve."
-
 msgid "Editing"
 msgstr "Szerkesztés"
-
-#, python-format
-msgid "'%(object)s' updated and scheduled for publishing."
-msgstr "'%(object)s' frissítve és időzítve."
-
-#, python-format
-msgid "'%(object)s' updated and published."
-msgstr "'%(object)s' frissítve és közzétéve."
 
 msgid "Earliest"
 msgstr "Legkorábbi"
@@ -2724,15 +2745,6 @@ msgstr "Átnézésre vár"
 msgid "Workflows"
 msgstr "Munkafolyamatok"
 
-msgid "Page ID"
-msgstr "Oldal azonosító"
-
-msgid "Page Type"
-msgstr "Oldal típusa"
-
-msgid "Page Title"
-msgstr "Oldal címe"
-
 msgid "Workflow tasks"
 msgstr "Munkafolyamat feladatok"
 
@@ -2770,20 +2782,6 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "'%(object)s' munkafolyamat kikapcsolva."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a "
-"munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
-msgstr[1] ""
-"Ez a munkafolyamat %(states_in_progress)d oldalnál fut. Ha kikapcsolja ezt a "
-"munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
-
-#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "'%(workflow_name)s' munkafolyamat bekapcsolva."
 
@@ -2815,24 +2813,6 @@ msgstr "Feladat kikapcsolása"
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr "'%(object)s' feladat kikapcsolva."
-
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"Ez a feladat épp folyamatban van %(states_in_progress)d oldalon. A feladat "
-"kikapcsolása esetén a munkafolyamatben ez át lesz lépve, és a munkamenet "
-"szerkesztésekor sem lesz kiválasztható."
-msgstr[1] ""
-"Ez a feladat épp folyamatban van %(states_in_progress)d oldalon. A feladat "
-"kikapcsolása esetén a munkafolyamatben ez át lesz lépve, és a munkamenet "
-"szerkesztésekor sem lesz kiválasztható."
 
 #, python-format
 msgid "Task '%(task_name)s' enabled."

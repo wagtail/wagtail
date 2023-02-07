@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -282,9 +282,6 @@ msgstr "ワークフローの状態"
 
 msgid "Workflow states"
 msgstr "ワークフローの状態"
-
-msgid "page revision"
-msgstr "ページの修正"
 
 msgid "Task state"
 msgstr "タスクの状態"

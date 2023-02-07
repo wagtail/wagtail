@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Vu Pham, 2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -23,6 +23,9 @@ msgstr ""
 msgid "Publish"
 msgstr "Xuất bản"
 
+msgid "Restart workflow "
+msgstr "Khởi động lại luồng công việc"
+
 msgid "Unpublish"
 msgstr "Thu hồi xuất bản"
 
@@ -31,6 +34,13 @@ msgstr "Xoá"
 
 msgid "Save"
 msgstr "Lưu"
+
+msgid "Locked"
+msgstr "Đã bị khóa"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)svà Xuất bản"
 
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"

@@ -2,11 +2,11 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # Loic Teixeira, 2022
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
 "Language-Team: Galician (https://www.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
@@ -44,9 +44,6 @@ msgstr "Texto alternativo"
 
 msgid "Are you sure?"
 msgstr "Estás seguro?"
-
-msgid "Blocks"
-msgstr "Bloques"
 
 msgid "Broken link"
 msgstr "Enlace roto"
@@ -138,6 +135,9 @@ msgstr "Explorador de páxinas"
 msgid "Pages"
 msgstr "Páxinas"
 
+msgid "Pin toolbar"
+msgstr "Fixar barra de ferramentas"
+
 msgid "Reload saved content"
 msgstr "Recargar contido gardado"
 
@@ -158,9 +158,6 @@ msgstr "Resolver"
 
 msgid "Retry"
 msgstr "Reintentar"
-
-msgid "Rich text"
-msgstr "Texto enriquecido"
 
 msgid "Save"
 msgstr "Gardar"
@@ -183,8 +180,8 @@ msgstr "Gardando..."
 msgid "Search"
 msgstr "Porcurar"
 
-msgid "Search blocks"
-msgstr "Buscar bloques"
+msgid "Search options…"
+msgstr "Opcións de búsqueda…"
 
 msgid "See all"
 msgstr "Ver todo"
@@ -201,6 +198,9 @@ msgstr "Amosar último contido"
 msgid "Split block"
 msgstr "Partir bloque"
 
+msgid "StreamField blocks"
+msgstr "Bloques StreamField"
+
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
@@ -216,6 +216,9 @@ msgstr "Permutar barra lateral"
 
 msgid "Unfocus comment"
 msgstr "Desenfocar comentario"
+
+msgid "Unpin toolbar"
+msgstr "Soltar barra de ferramentas"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ver as páxinas fillas de '%(title)s'"

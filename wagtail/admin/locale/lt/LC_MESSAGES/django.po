@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2020-2022
+# Naglis Jonaitis, 2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Naglis Jonaitis, 2020-2022\n"
+"Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -867,19 +867,6 @@ msgstr "Aukščiau įveskite paieškos frazę"
 msgid "No pages use"
 msgstr "Jokie puslapiai nenaudoja"
 
-msgid "Edit / Review"
-msgstr "Redaguoti / Peržiūrėti"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Būsena <span class=\"status-tag primary\">%(status)s</span> "
-
-msgid "Page edited"
-msgstr "Puslapis redaguotas"
-
-msgid "Edit page"
-msgstr "Redaguoti puslapį"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Pridėti %(label)s"
@@ -931,9 +918,6 @@ msgstr "Redaguoti šį elementą"
 
 msgid "By Task"
 msgstr "Pagal užduotį"
-
-msgid "Page"
-msgstr "Puslapis"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1001,6 +985,13 @@ msgstr "Puslapio būsena:"
 msgid "View history"
 msgstr "Peržiūrėti istoriją"
 
+msgid "Edit / Review"
+msgstr "Redaguoti / Peržiūrėti"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Būsena <span class=\"status-tag primary\">%(status)s</span> "
+
 msgid "Add a child page"
 msgstr "Pridėti vidinį puslapį"
 
@@ -1009,6 +1000,9 @@ msgstr "Rodyti naršyklėje"
 
 msgid "Create"
 msgstr "Sukurti"
+
+msgid "Page"
+msgstr "Puslapis"
 
 #, python-format
 msgid "1 page"
@@ -1109,6 +1103,14 @@ msgstr "Kolekcija '%(object)s' ištrinta."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ar tikrai norite ištrinti šią kolekciją?"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atnaujintas."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' sukurtas."
 
 msgid "Editing"
 msgstr "Redaguojama"
@@ -1243,15 +1245,6 @@ msgstr "Užrakinti puslapiai"
 msgid "Show"
 msgstr "Rodyti"
 
-msgid "Page ID"
-msgstr "Puslapio ID"
-
-msgid "Page Type"
-msgstr "Puslapio tipas"
-
-msgid "Page Title"
-msgstr "Puslapio pavadinimas"
-
 msgid "Disable"
 msgstr "Išjungti"
 
@@ -1315,6 +1308,9 @@ msgstr "Nuoroda"
 
 msgid "Reports"
 msgstr "Ataskaitos"
+
+msgid "Help"
+msgstr "Pagalba"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"

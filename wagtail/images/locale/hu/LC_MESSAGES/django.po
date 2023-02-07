@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 13:14+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: aaao <aron.santa@gmail.com>, 2019\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -266,6 +266,10 @@ msgstr "Meglévő kép használata és az új törlése"
 
 msgid "Latest images"
 msgstr "Legfrissebb képek"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s kiválasztása"
 
 msgid "You haven't uploaded any images in this collection."
 msgstr "Ebbe a gyűjteménybe még nincs kép feltöltve."

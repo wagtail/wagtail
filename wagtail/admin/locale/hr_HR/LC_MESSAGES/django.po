@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -544,9 +544,6 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Sažetak"
 
-msgid "Your pages in a workflow"
-msgstr "Vaše stranice u tijeku rada"
-
 msgid "Changes requested at"
 msgstr "Zatražene promjene u"
 
@@ -963,67 +960,6 @@ msgstr "Unesite iznad pojam za pretraživanje"
 msgid "No pages use"
 msgstr "Nema stranica koje koriste"
 
-msgid "Workflow progress"
-msgstr "Napredak tijeka rada"
-
-msgid "Edit / Review"
-msgstr "Uredi / Pregledaj"
-
-msgid "Workflow history"
-msgstr "Povijest tijeka rada"
-
-#, python-format
-msgid "Requested by <b>%(modified_by)s</b>"
-msgstr "Zatražio korisnik <b>%(modified_by)s</b>"
-
-#, python-format
-msgid "Started at <b>%(started_at)s</b>"
-msgstr "Započeto u <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Status <span class=\"status-tag primary\">%(status)s</span>"
-
-msgid "Timeline"
-msgstr "Vremenska crta"
-
-msgid "Initial Revision"
-msgstr "Početna revizija"
-
-msgid "Page edited"
-msgstr "Stranica uređena"
-
-msgid "with comment:"
-msgstr "uz komentar:"
-
-msgid "Workflow started"
-msgstr "Tijek rada je započeo"
-
-msgid "Workflow completed"
-msgstr "Tijek rada je završio"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Povijest tijeka rada od %(title)s"
-
-msgid "Workflow history for"
-msgstr "Povijest tijeka rada od"
-
-msgid "Edit page"
-msgstr "Uredi stranicu"
-
-msgid "Requested by"
-msgstr "Zatražio korisnik"
-
-msgid "Started at"
-msgstr "Započeto u"
-
-msgid "Approved task"
-msgstr "Odobren zadatak"
-
-msgid "Incomplete task"
-msgstr "Nepotpun zadatak"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Dodaj %(label)s"
@@ -1061,11 +997,14 @@ msgstr "Po zadatku"
 msgid "Workflow"
 msgstr "Tijek rada"
 
-msgid "Page"
-msgstr "Stranica"
+msgid "Requested by"
+msgstr "Zatražio korisnik"
 
-msgid "No pages have been submitted for moderation yet"
-msgstr "Nijedna stranica još nije poslana na moderiranje"
+msgid "Started at"
+msgstr "Započeto u"
+
+msgid "Incomplete task"
+msgstr "Nepotpun zadatak"
 
 msgid "By Workflow"
 msgstr "Po tijeku rada"
@@ -1131,6 +1070,52 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Postavke privatnosti će se također primijeniti na sve podređene stranice."
 
+msgid "Workflow progress"
+msgstr "Napredak tijeka rada"
+
+msgid "Edit / Review"
+msgstr "Uredi / Pregledaj"
+
+msgid "Workflow history"
+msgstr "Povijest tijeka rada"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Zatražio korisnik <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Započeto u <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Status <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Timeline"
+msgstr "Vremenska crta"
+
+msgid "Initial Revision"
+msgstr "Početna revizija"
+
+msgid "with comment:"
+msgstr "uz komentar:"
+
+msgid "Workflow started"
+msgstr "Tijek rada je započeo"
+
+msgid "Workflow completed"
+msgstr "Tijek rada je završio"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Povijest tijeka rada od %(title)s"
+
+msgid "Workflow history for"
+msgstr "Povijest tijeka rada od"
+
+msgid "Approved task"
+msgstr "Odobren zadatak"
+
 msgid "Show in Explorer"
 msgstr "Prikaži u pretraživaču"
 
@@ -1176,6 +1161,9 @@ msgstr "Ne koristi se"
 
 msgid "Assigned pages"
 msgstr "Pridružene stranice"
+
+msgid "Page"
+msgstr "Stranica"
 
 msgid "Assign to another page"
 msgstr "Pridruži drugu stranicu"
@@ -1355,6 +1343,14 @@ msgstr "Zbirka '%(object)s' je izbrisana."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' je ažuriran."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' je stvoren."
+
 msgid "Editing"
 msgstr "Uređivanje"
 
@@ -1496,15 +1492,6 @@ msgstr "Čekaju moj pregled"
 msgid "Workflows"
 msgstr "Tijekovi rada"
 
-msgid "Page ID"
-msgstr "ID stranice"
-
-msgid "Page Type"
-msgstr "Vrsta stranice"
-
-msgid "Page Title"
-msgstr "Naslov Stranice"
-
 msgid "Workflow tasks"
 msgstr "Zadaci tijeka rada"
 
@@ -1540,23 +1527,6 @@ msgstr "Onemogući tijek rada"
 #, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Tijek rada '%(object)s' je onemogućen."
-
-#, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"%(states_in_progress)d stranica je u ovome tijeku rada. Onemogućivanje ovog "
-"tijeka će otkazati moderaciju na toj stranici."
-msgstr[1] ""
-"%(states_in_progress)d stranica je u ovome tijeku rada. Onemogućivanje ovog "
-"tijeka će otkazati moderaciju na tim stranicama."
-msgstr[2] ""
-"%(states_in_progress)d stranica je u ovome tijeku rada. Onemogućivanje ovog "
-"tijeka će otkazati moderaciju na tim stranicama."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."

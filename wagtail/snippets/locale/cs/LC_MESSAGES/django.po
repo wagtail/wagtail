@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,23 @@ msgstr ""
 msgid "Publish"
 msgstr "Publikovat"
 
+msgid "Submit for moderation"
+msgstr "Odeslat ke schválení"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Potvrdit %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Potvrdit %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Obnovit zpracování"
+
+msgid "Cancel workflow "
+msgstr "Stornovat zpracování"
+
 msgid "Unpublish"
 msgstr "Nezveřejňovat"
 
@@ -35,6 +52,13 @@ msgstr "Smazat"
 
 msgid "Save"
 msgstr "Uložit"
+
+msgid "Locked"
+msgstr "Uzamčeno"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a publikovat"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail fragmenty"
@@ -171,16 +195,8 @@ msgstr "Jméno"
 msgid "The snippet could not be created due to errors."
 msgstr "Úryvek nemohl být vytvořen kvůli chybám."
 
-#, python-format
-msgid "%(model_name)s '%(object)s' created."
-msgstr "%(model_name)s '%(object)s' vytvořeno."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Úryvek nemohl být uložen kvůli chybám."
-
-#, python-format
-msgid "%(model_name)s '%(object)s' updated."
-msgstr "%(model_name)s '%(object)s' aktualizováno."
 
 #, python-format
 msgid "Edit this %(object)s"
