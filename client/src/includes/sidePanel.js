@@ -23,6 +23,12 @@ export default function initSidePanel() {
     return { minWidth, maxWidth, width, range, percentage };
   };
 
+  // We force the slider input to have dir="ltr" in the HTML so that the slider
+  // works the same way across Safari, Chrome and Firefox. Here, we correct the
+  // percentage value to follow the direction set on the root <html> element.
+  const getDirectedPercentage = (value) =>
+    document.documentElement.dir === 'rtl' ? value : 100 - value;
+
   let hidePanelTimeout;
 
   const setPanel = (panelName) => {
@@ -104,7 +110,7 @@ export default function initSidePanel() {
       setTimeout(() => {
         const { percentage } = getSidePanelWidthStyles();
         // Invert the percentage to make the slider work in the opposite direction
-        widthInput.value = 100 - percentage;
+        widthInput.value = getDirectedPercentage(percentage);
       }, 500);
     }
   };
@@ -149,7 +155,8 @@ export default function initSidePanel() {
     ).replace('%(num)s', newWidth);
 
     sidePanelWrapper.style.width = `${newWidth}px`;
-    widthInput.value = 100 - ((newWidth - minWidth) / range) * 100;
+    const inputPercentage = ((newWidth - minWidth) / range) * 100;
+    widthInput.value = getDirectedPercentage(inputPercentage);
     widthInput.setAttribute('aria-valuetext', valueText);
 
     // Save the new width to localStorage unless we're in the explorer
@@ -166,8 +173,9 @@ export default function initSidePanel() {
 
   const onPointerMove = (e) => {
     if (!e.screenX || !startPos || !startWidth) return;
+    const direction = document.documentElement.dir === 'rtl' ? -1 : 1;
     const delta = startPos - e.screenX;
-    setSidePanelWidth(startWidth + delta);
+    setSidePanelWidth(startWidth + delta * direction);
   };
 
   resizeGrip.addEventListener('pointerdown', (e) => {
@@ -195,8 +203,9 @@ export default function initSidePanel() {
   // Handle resizing with keyboard using a hidden range input.
   widthInput.addEventListener('change', (event) => {
     const { minWidth, range } = getSidePanelWidthStyles();
-    const inputPercentage = 100 - parseInt(event.target.value, 10);
-    const newWidth = minWidth + (range * inputPercentage) / 100;
+    const inputPercentage = parseInt(event.target.value, 10);
+    const directedPercentage = getDirectedPercentage(inputPercentage);
+    const newWidth = minWidth + (range * directedPercentage) / 100;
     setSidePanelWidth(newWidth);
   });
 
