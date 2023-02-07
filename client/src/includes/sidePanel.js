@@ -171,6 +171,10 @@ export default function initSidePanel() {
   };
 
   resizeGrip.addEventListener('pointerdown', (e) => {
+    // Ignore right-click, because it opens the context menu and doesn't trigger
+    // pointerup when the click is released.
+    if (e.button !== 0) return;
+
     // Remember the starting position and width of the side panel, so we can
     // calculate the new width based on the position change during the drag and
     // not resize the panel when it has gone past the minimum/maximum width.
