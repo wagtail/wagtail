@@ -164,10 +164,6 @@ These child objects are now accessible through the page's `advert_placements` pr
 
 ## Making snippets previewable
 
-```{versionadded} 4.0
-The `PreviewableMixin` class was introduced.
-```
-
 If a snippet model inherits from {class}`~wagtail.models.PreviewableMixin`, Wagtail will automatically add a live preview panel in the editor. In addition to inheriting the mixin, the model must also override {meth}`~wagtail.models.PreviewableMixin.get_preview_template` or {meth}`~wagtail.models.PreviewableMixin.serve_preview`. For example, the `Advert` snippet could be made previewable as follows:
 
 ```python
@@ -278,10 +274,6 @@ class Advert(index.Indexed, models.Model):
 
 ## Saving revisions of snippets
 
-```{versionadded} 4.0
-The `RevisionMixin` class was introduced.
-```
-
 If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
 In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model and override the {attr}`~wagtail.models.RevisionMixin.revisions` property to return the `GenericRelation`. For example, the `Advert` snippet could be made revisable as follows:
 
@@ -357,14 +349,6 @@ You can also save revisions programmatically by calling the {meth}`~wagtail.mode
 (wagtailsnippets_saving_draft_changes_of_snippets)=
 
 ## Saving draft changes of snippets
-
-```{versionadded} 4.0
-The `DraftStateMixin` class was introduced.
-```
-
-```{versionadded} 4.1
-Support for scheduled publishing via `PublishingPanel` was introduced.
-```
 
 If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected in the "live" snippet instance until you publish the changes.
 

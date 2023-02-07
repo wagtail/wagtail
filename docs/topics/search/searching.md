@@ -192,10 +192,6 @@ If you are looking to implement phrase queries using the double-quote syntax, se
 
 ### Fuzzy matching
 
-```{versionadded} 4.0
-
-```
-
 Fuzzy matching will return documents which contain terms similar to the search term, as measured by a [Levenshtein edit distance](https://en.wikipedia.org/wiki/Levenshtein_distance).
 
 A maximum of one edit (transposition, insertion, or removal of a character) is permitted for three to five letter terms, two edits for longer terms, and shorter terms must match exactly.

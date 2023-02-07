@@ -132,10 +132,6 @@ These allow editing of model fields. The `FieldPanel` class will choose the corr
 -   {class}`~wagtail.admin.panels.FieldPanel`
 -   {class}`~wagtail.admin.panels.PageChooserPanel`
 
-```{versionchanged} 3.0
-Previously, certain field types required special-purpose panels: `StreamFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel` and `SnippetChooserPanel`. These are now all handled by `FieldPanel`.
-```
-
 **Structural**
 
 These are used for structuring fields in the interface.

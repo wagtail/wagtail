@@ -110,7 +110,3 @@ In summary, interactions between BoundBlocks and plain values work according to 
 3. Accessing a child of a StructBlock (as in `value.heading`) will return a plain value; to retrieve the BoundBlock instead, use `value.bound_blocks.heading`.
 4. Likewise, accessing children of a ListBlock (for example `for item in value`) will return plain values; to retrieve BoundBlocks instead, use `value.bound_blocks`.
 5. StructBlock and StreamBlock values always know how to render their own templates, even if you only have the plain value rather than the BoundBlock.
-
-```{versionchanged} 2.16
-The value of a ListBlock now provides a `bound_blocks` property; previously it was a plain Python list of child values.
-```

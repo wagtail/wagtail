@@ -54,18 +54,6 @@ Here are some Wagtail-specific types that you might include as fields in your mo
         Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
 ```
 
-### StreamFieldPanel
-
-```{eval-rst}
-.. class:: StreamFieldPanel(field_name, classname=None, widget=None)
-
-    Deprecated; use ``FieldPanel`` instead.
-
-    .. versionchanged:: 3.0
-
-       ``StreamFieldPanel`` is no longer required for ``StreamField``.
-```
-
 ### MultiFieldPanel
 
 ```{eval-rst}
@@ -188,11 +176,6 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
-    .. versionchanged:: 3.0
-
-       ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
-```
-
 ### FormSubmissionsPanel
 
 ```{eval-rst}
@@ -226,10 +209,6 @@ Use `classname="title"` to make Page's built-in title field stand out with more 
 (collapsible)=
 
 ### Collapsible
-
-```{versionchanged} 4.0
-All panels are now collapsible by default.
-```
 
 Using `classname="collapsed"` will load the editor page with the panel collapsed under its heading.
 

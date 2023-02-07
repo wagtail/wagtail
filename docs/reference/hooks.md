@@ -1415,10 +1415,6 @@ def additional_log_actions(actions):
             }
 ```
 
-```{versionchanged} 2.15
-The ``LogFormatter`` class was introduced. Previously, dynamic messages were achieved by passing a callable as the ``message`` argument to ``register_action``.
-```
-
 ## Images
 
 (register_image_operations)=
