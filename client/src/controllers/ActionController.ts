@@ -25,6 +25,15 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * >
  *  Enable
  * </button>
+ *
+ * @example - triggering a dynamic redirect
+ * // note: a link is preferred normally
+ * <form>
+ *   <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
+ *     <option value="/path/to/1">1</option>
+ *     <option value="/path/to/2">2</option>
+ *   </select>
+ * </form>
  */
 export class ActionController extends Controller<
   HTMLButtonElement | HTMLInputElement
@@ -69,5 +78,17 @@ export class ActionController extends Controller<
 
     document.body.appendChild(formElement);
     formElement.submit();
+  }
+
+  /**
+   * Trigger a redirect based on the custom event's detail, the Stimulus param
+   * or finally check the controlled element for a value to use.
+   */
+  redirect(
+    event: CustomEvent<{ url?: string }> & { params?: { url?: string } },
+  ) {
+    const url = event?.params?.url || event?.detail?.url || this.element.value;
+    if (!url) return;
+    window.location.assign(url);
   }
 }

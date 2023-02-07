@@ -115,6 +115,7 @@ Changelog
  * Maintenance: Migrate initDismissibles behaviour to a Stimulus controller `w-disimissible` (Loveth Omokaro)
  * Maintenance: Replace jQuery autosize v3 with Stimulus `w-autosize` controller using autosize npm package v6 (Suyash Srivastava)
  * Maintenance: Update `w-action` controller to support a click method (Suyash Srivastava)
+ * Maintenance: Migrate the site settings switcher select from jQuery to a refined version of the `w-action` controller usage (Aadi jindal, LB (Ben) Johnston)
 
 
 4.2.2 (03.04.2023)
