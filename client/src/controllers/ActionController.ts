@@ -2,6 +2,8 @@ import { Controller } from '@hotwired/stimulus';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
+ * Adds the ability for an element to activate a form submission
+ * where the form is created dynamically in the DOM and then submitted.
  *
  * @example
  * <button
@@ -14,7 +16,7 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *  Enable
  * </button>
  */
-export class ActionController extends Controller {
+export class ActionController extends Controller<HTMLButtonElement> {
   static values = {
     continue: { type: Boolean, default: false },
     url: String,
