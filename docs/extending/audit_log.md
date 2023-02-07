@@ -52,10 +52,6 @@ When adding logging, you need to log the action or actions that happen to the ob
         )
 ```
 
-```{versionchanged} 2.15
-The `log` function was added. Previously, logging was only implemented for pages, and invoked through the `PageLogEntry.objects.log_action` method.
-```
-
 ## Log actions provided by Wagtail
 
 | Action                            | Notes                                                                            |

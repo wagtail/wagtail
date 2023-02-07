@@ -336,10 +336,6 @@ to only include descendants of that page (children, grandchildren etc.).
 
 ### Filtering pages by site
 
-```{versionadded} 4.0
-
-```
-
 By default, the API will look for the site based on the hostname of the request.
 In some cases, you might want to query pages belonging to a different site.
 The `?site=` filter is used to filter the listing to only include pages that

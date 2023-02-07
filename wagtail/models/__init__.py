@@ -2022,8 +2022,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def _get_relevant_site_root_paths(self, cache_object=None):
         """
-        .. versionadded::2.16
-
         Returns a tuple of root paths for all sites this page belongs to.
         """
         return tuple(
@@ -2479,8 +2477,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def get_route_paths(self):
         """
-        .. versionadded:: 2.16
-
         Returns a list of paths that this page can be viewed at.
 
         These values are combined with the dynamic portion of the page URL to

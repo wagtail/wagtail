@@ -523,10 +523,6 @@ my_page.save()
 
 ## Retrieving blocks by name
 
-```{versionadded} 4.0
-The `blocks_by_name` and `first_block_by_name` methods were added.
-```
-
 StreamField values provide a `blocks_by_name` method for retrieving all blocks of a given name:
 
 ```python

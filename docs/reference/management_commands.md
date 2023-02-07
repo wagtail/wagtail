@@ -6,11 +6,6 @@
 
 ## publish_scheduled
 
-```{versionchanged} 4.1
-This command has been renamed from `publish_scheduled_pages` to `publish_scheduled` and it now also handles non-page objects.
-The `publish_scheduled_pages` command is still available as an alias, but it is recommended to update your configuration to run the `publish_scheduled` command instead.
-```
-
 ```sh
 ./manage.py publish_scheduled
 ```
