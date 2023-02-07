@@ -24,6 +24,12 @@ export class AutoFieldController extends Controller<
       );
     }
 
+    // Update form action based on selected option
+    if (this.element.type === 'select-one') {
+      const selectedOption = this.element.options[this.element.selectedIndex];
+      form.action = selectedOption.dataset.action;
+    }
+
     if (form.requestSubmit) {
       form.requestSubmit();
     } else {
