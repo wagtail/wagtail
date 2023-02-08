@@ -70,6 +70,9 @@ class StructValue(collections.OrderedDict):
             ]
         )
 
+    def __reduce__(self):
+        return (self.__class__, (self.block,), None, None, iter(self.items()))
+
 
 class PlaceholderBoundBlock(BoundBlock):
     """
