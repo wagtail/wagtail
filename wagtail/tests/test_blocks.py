@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 import base64
 import collections
+import copy
 import json
 import unittest
 from decimal import Decimal
@@ -2156,6 +2157,19 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({"title": "Bonjour", "body": "monde <i>italique</i>"})
         result = value.render_as_block(context={"language": "fr"})
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
+
+    def test_copy_structvalue(self):
+        block = SectionBlock()
+        value = block.to_python({"title": "Hello", "body": "world"})
+        copied = copy.copy(value)
+
+        # Ensure we have a new object
+        self.assertIsNot(value, copied)
+
+        # Check copy operation
+        self.assertIsInstance(copied, blocks.StructValue)
+        self.assertIs(value.block, copied.block)
+        self.assertEqual(value, copied)
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
