@@ -1,9 +1,11 @@
 import json
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.models import PAGE_MODEL_CLASSES, Page, Site
+from wagtail.test.dummy_external_storage import DummyExternalStorage
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
@@ -429,3 +431,28 @@ class TestFormDataHelpers(TestCase):
     def test_rich_text_with_alternative_editor(self):
         result = rich_text("<h2>title</h2><p>para</p>", editor="custom")
         self.assertEqual(result, "<h2>title</h2><p>para</p>")
+
+
+class TestDummyExternalStorage(WagtailTestUtils, TestCase):
+    def test_save_with_incorrect_file_object_position(self):
+        """
+        Test that DummyExternalStorage correctly warns about attempts
+        to write files that are not rewound to the start
+        """
+        # This is a 1x1 black png
+        png = (
+            b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00"
+            b"\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00"
+            b"\x1f\x15\xc4\x89\x00\x00\x00\rIDATx\x9cc````"
+            b"\x00\x00\x00\x05\x00\x01\xa5\xf6E@\x00\x00"
+            b"\x00\x00IEND\xaeB`\x82"
+        )
+        simple_png = SimpleUploadedFile(
+            name="test.png", content=png, content_type="image/png"
+        )
+        simple_png.read()
+        with self.assertRaisesMessage(
+            ValueError,
+            "Content file pointer should be at 0 - got 70 instead",
+        ):
+            DummyExternalStorage().save("test.png", simple_png)

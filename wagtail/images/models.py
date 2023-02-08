@@ -214,6 +214,8 @@ class WagtailImageFieldFile(models.fields.files.ImageFieldFile):
         finally:
             if close:
                 self.close()
+            else:
+                self.seek(0)
 
 
 class WagtailImageField(models.ImageField):

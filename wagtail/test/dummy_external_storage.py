@@ -5,6 +5,7 @@
 #  - Calling .path on the storage or image file raises NotImplementedError
 #  - File.open() after the file has been closed raises an error
 #  - File.size exceptions raise DummyExternalStorageError
+#  - Storage._save() fails loudly if the content file's pointer is not at the start
 
 from django.core.files.base import File
 from django.core.files.storage import FileSystemStorage, Storage
@@ -26,10 +27,15 @@ class DummyExternalStorage(Storage):
         # File object
         return DummyExternalStorageFile(open(self.wrapped.path(name), mode))
 
-    # Wrap all other functions
-
     def _save(self, name, content):
+        file_pos = content.tell()
+        if file_pos != 0:
+            raise ValueError(
+                "Content file pointer should be at 0 - got %d instead" % file_pos
+            )
         return self.wrapped._save(name, content)
+
+    # Wrap all other functions
 
     def delete(self, name):
         self.wrapped.delete(name)
