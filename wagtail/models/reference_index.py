@@ -58,6 +58,10 @@ class ReferenceGroups:
     def _count(self):
         return self.qs.values("base_content_type", "object_id").distinct().count()
 
+    @cached_property
+    def is_protected(self):
+        return any(reference.on_delete == models.PROTECT for reference in self.qs)
+
     def count(self):
         """
         Returns the number of rows that will be returned by iterating this
@@ -498,6 +502,66 @@ class ReferenceIndex(models.Model):
         # the cache.
         return ContentType.objects.get_for_id(self.content_type_id)
 
+    @cached_property
+    def model_name(self):
+        """
+        The model name of the object from which the reference was extracted.
+        For most cases, this is also where the reference exists on the database
+        (i.e. ``related_field_model_name``). However, for ClusterableModels, the
+        reference is extracted from the parent model.
+
+        Example:
+        A relationship between a BlogPage, BlogPageGalleryImage, and Image
+        is extracted from the BlogPage model, but the reference is stored on
+        on the BlogPageGalleryImage model.
+        """
+        return self._content_type.name
+
+    @cached_property
+    def related_field_model_name(self):
+        """
+        The model name where the reference exists on the database.
+        """
+        return self.related_field.model._meta.verbose_name
+
+    @cached_property
+    def on_delete(self):
+        try:
+            return self.reverse_related_field.on_delete
+        except AttributeError:
+            # It might be a custom field/relation that doesn't have an on_delete attribute,
+            # or other reference collected from extract_references(), e.g. StreamField.
+            return models.SET_NULL
+
+    @cached_property
+    def source_field(self):
+        """
+        The field from which the reference was extracted.
+        This may be a related field (e.g. ForeignKey), a reverse related field
+        (e.g. ManyToOneRel), a StreamField, or any other field that defines
+        extract_references().
+        """
+        model_path_components = self.model_path.split(".")
+        field_name = model_path_components[0]
+        field = self._content_type.model_class()._meta.get_field(field_name)
+        return field
+
+    @cached_property
+    def related_field(self):
+        # The field stored on the reference index can be a related field or a
+        # reverse related field, depending on whether the reference was extracted
+        # directly from a ForeignKey or through a parent ClusterableModel. This
+        # property normalises to the related field.
+        if isinstance(self.source_field, models.ForeignObjectRel):
+            return self.source_field.remote_field
+        return self.source_field
+
+    @cached_property
+    def reverse_related_field(self):
+        # This property normalises to the reverse related field, which is where
+        # the on_delete attribute is stored.
+        return self.related_field.remote_field
+
     def describe_source_field(self):
         """
         Returns a string describing the field that this reference was extracted from.
@@ -505,9 +569,8 @@ class ReferenceIndex(models.Model):
         For StreamField, this returns the label of the block that contains the reference.
         For other fields, this returns the verbose name of the field.
         """
+        field = self.source_field
         model_path_components = self.model_path.split(".")
-        field_name = model_path_components[0]
-        field = self._content_type.model_class()._meta.get_field(field_name)
 
         # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
         if isinstance(field, models.ManyToOneRel):
@@ -531,6 +594,47 @@ class ReferenceIndex(models.Model):
                 # https://github.com/django/django/blob/7b94847e384b1a8c05a7d4c8778958c0290bdf9a/django/db/models/fields/__init__.py#L858
                 field_name = field.name.replace("_", " ")
             return capfirst(field_name)
+
+    def describe_on_delete(self):
+        """
+        Returns a string describing the action that will be taken when the referenced object is deleted.
+        """
+        if self.on_delete == models.CASCADE:
+            return _("the %(model_name)s will also be deleted") % {
+                "model_name": self.related_field_model_name,
+            }
+        if self.on_delete == models.PROTECT:
+            return _("prevents deletion")
+        if self.on_delete == models.SET_DEFAULT:
+            return _("will be set to the default %(model_name)s") % {
+                "model_name": self.related_field_model_name,
+            }
+        if self.on_delete == models.DO_NOTHING:
+            return _("will do nothing")
+
+        # It's technically possible to know whether RESTRICT will prevent the
+        # deletion or not, but the only way to reliably do so is to use Django's
+        # internal Collector class, which is not publicly documented.
+        # It also uses its own logic to find the references in real-time, which
+        # may be slower than our ReferenceIndex. For now, we'll just say that
+        # RESTRICT *may* prevent deletion, but we do not add any safe guards
+        # around the possible exception.
+        if self.on_delete == models.RESTRICT:
+            return _("may prevent deletion")
+
+        # SET is a function that returns the actual callable used for on_delete,
+        # so we need to check for it by inspecting the deconstruct() result.
+        if (
+            hasattr(self.on_delete, "deconstruct")
+            and self.on_delete.deconstruct()[0] == "django.db.models.SET"
+        ):
+            return _("will be set to a %(model_name)s specified by the system") % {
+                "model_name": self.related_field_model_name,
+            }
+
+        # It's either models.SET_NULL or a custom value, but we cannot be sure what
+        # will happen with the latter, so assume that the reference will be unset.
+        return _("will unset the reference")
 
 
 # Ignore relations formed by any django-taggit 'through' model, as this causes any tag attached to
