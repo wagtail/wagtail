@@ -11,7 +11,7 @@ import wagtail.test.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0018_alter_streampage_body"),
+        ("tests", "0020_genericsnippetnoindexpage_and_more"),
     ]
 
     operations = [
