@@ -3,6 +3,7 @@ import uuid
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -25,31 +26,34 @@ class ReferenceGroups:
     """
 
     def __init__(self, qs):
-        self.qs = qs
+        self.qs = qs.order_by("base_content_type", "object_id")
 
     def __iter__(self):
-        object = None
+        reference_fk = None
         references = []
-        for reference in self.qs.order_by("base_content_type", "object_id"):
-            if object != (reference.base_content_type, reference.object_id):
-                if object is not None:
-                    yield object[0].get_object_for_this_type(pk=object[1]), references
+        for reference in self.qs:
+            if reference_fk != (reference.base_content_type_id, reference.object_id):
+                if reference_fk is not None:
+                    content_type = ContentType.objects.get_for_id(reference_fk[0])
+                    object = content_type.get_object_for_this_type(pk=reference_fk[1])
+                    yield object, references
                     references = []
 
-                object = (reference.base_content_type, reference.object_id)
+                reference_fk = (reference.base_content_type_id, reference.object_id)
 
             references.append(reference)
 
         if references:
-            yield object[0].get_object_for_this_type(pk=object[1]), references
+            content_type = ContentType.objects.get_for_id(reference_fk[0])
+            object = content_type.get_object_for_this_type(pk=reference_fk[1])
+            yield object, references
 
     def __len__(self):
-        return (
-            self.qs.order_by("base_content_type", "object_id")
-            .values("base_content_type", "object_id")
-            .distinct()
-            .count()
-        )
+        return self._count
+
+    @cached_property
+    def _count(self):
+        return self.qs.values("base_content_type", "object_id").distinct().count()
 
     def count(self):
         """
@@ -484,6 +488,13 @@ class ReferenceIndex(models.Model):
             to_object_id=object.pk,
         )
 
+    @property
+    def _content_type(self):
+        # Accessing a ContentType from a ForeignKey does not make use of the
+        # ContentType manager's cache, so we use this property to make use of
+        # the cache.
+        return ContentType.objects.get_for_id(self.content_type_id)
+
     def describe_source_field(self):
         """
         Returns a string describing the field that this reference was extracted from.
@@ -493,7 +504,7 @@ class ReferenceIndex(models.Model):
         """
         model_path_components = self.model_path.split(".")
         field_name = model_path_components[0]
-        field = self.content_type.model_class()._meta.get_field(field_name)
+        field = self._content_type.model_class()._meta.get_field(field_name)
 
         # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
         if isinstance(field, models.ManyToOneRel):
