@@ -480,10 +480,6 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 `PreviewableMixin` is a mixin class that can be added to any non-page Django model to allow previewing its instances.
 Pages already include this mixin, so there is no need to add it.
 
-```{versionadded} 4.0
-The class is added to allow snippets to have live preview in the editor. See [](wagtailsnippets_making_snippets_previewable) for more details.
-```
-
 ### Methods and properties
 
 ```{eval-rst}
@@ -506,10 +502,6 @@ The class is added to allow snippets to have live preview in the editor. See [](
 
 `RevisionMixin` is an abstract model that can be added to any non-page Django model to allow saving revisions of its instances.
 Pages already include this mixin, so there is no need to add it.
-
-```{versionadded} 4.0
-The model is added to allow snippets to save revisions, revert to a previous revision, and compare changes between revisions. See [](wagtailsnippets_saving_revisions_of_snippets) for more details.
-```
 
 ### Database fields
 
@@ -542,10 +534,6 @@ The model is added to allow snippets to save revisions, revert to a previous rev
 
 `DraftStateMixin` is an abstract model that can be added to any non-page Django model to allow its instances to have unpublished changes.
 This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages already include this mixin, so there is no need to add it.
-
-```{versionadded} 4.0
-The model is added to allow snippets to have changes that are not immediately reflected to the instance. See [](wagtailsnippets_saving_draft_changes_of_snippets) for more details.
-```
 
 ### Database fields
 
@@ -763,10 +751,6 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
         .. code-block:: python
 
             Revision.page_revisions.all()
-
-        .. versionadded:: 4.0
-
-            This manager is added as a shorthand to retrieve page revisions.
 
     .. attribute:: submitted_revisions
 
