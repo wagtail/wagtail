@@ -37,10 +37,6 @@ For an editor's guide to the interface, see our how-to guide: [Manage redirects]
 
 ## Automatic redirect creation
 
-```{versionadded} 2.16
-
-```
-
 Wagtail automatically creates permanent redirects for pages (and their descendants) when they are moved or their slug is changed. This helps to preserve SEO rankings of pages over time, and helps site visitors get to the right place when using bookmarks or using outdated links.
 
 ### Creating redirects for alternative page routes
@@ -50,12 +46,6 @@ If your project uses `RoutablePageMixin` to create pages with alternative routes
 For more information, please see :meth:`~wagtail.models.Page.get_route_paths`.
 
 ### Disabling automatic redirect creation
-
-```{versionadded} 4.0
-When generating redirects, custom field values are now fetched as part of the
-initial database query, so using custom field values in overridden url methods
-will no longer trigger additional per-object queries.
-```
 
 Wagtail's default implementation works best for small-to-medium sized projects (5000 pages or fewer) that mostly use Wagtail's built-in methods for URL generation.
 

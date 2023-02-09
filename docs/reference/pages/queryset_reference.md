@@ -187,10 +187,6 @@ menu_items = homepage.get_children().live().in_menu()
 
     .. automethod:: private
 
-    .. versionadded:: 4.1
-
-        The ``private`` method was added as an alias of ``not_public``.
-
     .. automethod:: search
 
         See: :ref:`wagtailsearch_searching_pages`
