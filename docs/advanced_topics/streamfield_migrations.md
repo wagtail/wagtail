@@ -115,6 +115,7 @@ def pagerevision_to_streamfield(revision_data):
 
 
 def page_to_richtext(page):
+    changed = False
     if page.body:
         try:
             body_data = json.loads(page.body)
