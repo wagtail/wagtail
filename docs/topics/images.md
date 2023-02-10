@@ -445,4 +445,9 @@ Wagtail's underlying image library, Willow, is configured to mitigate known XML 
 
 When including SVG images in templates via the `image` tag, they will be rendered as html `img` elements. In this case, `script` elements in SVGs will not be executed, mitigating XSS attacks.
 
-If a user navigates directly to the URL of the SVG file embedded scripts may be executed, depending on server/storage configuration. This can be mitigated by setting appropriate Content-Security-Policy and Content-Disposition headers, and serving media from a different domain to the Wagtail site.
+If a user navigates directly to the URL of the SVG file embedded scripts may be executed, depending on server/storage configuration. This can be mitigated by setting appropriate Content-Security-Policy or Content-Disposition headers for SVG responses:
+
+- setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
+- setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
+
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
