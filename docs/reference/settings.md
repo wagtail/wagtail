@@ -367,6 +367,14 @@ If this isn't supplied, all of GIF, JPG, JPEG, PNG, WEBP are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
 
+### `WAGTAILIMAGES_ALLOW_SVG`
+
+```python
+WAGTAILIMAGES_ALLOW_SVG = True
+```
+
+If `True`, this setting allows editors to upload and use SVG images alongside the default image formats (`False` by default).
+
 ## Documents
 
 ### `WAGTAILDOCS_DOCUMENT_MODEL`
