@@ -512,6 +512,30 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         root_collection = Collection.get_first_root_node()
         self.assertEqual(image.collection, root_collection)
 
+    def test_add_svg_denied(self):
+        """
+        SVGs should be disallowed by default
+        """
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": SimpleUploadedFile(
+                    "test.svg",
+                    get_test_image_file_svg().file.getvalue(),
+                    content_type="text/html",
+                ),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response,
+            "form",
+            "file",
+            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
+        )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["svg"])
     def test_add_svg(self):
         response = self.post(
             {

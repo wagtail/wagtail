@@ -257,5 +257,3 @@ MESSAGE_TAGS = {
     message_constants.WARNING: "my-custom-tag",
     message_constants.ERROR: "my-custom-tag",
 }
-
-WAGTAILIMAGES_ALLOW_SVG = True

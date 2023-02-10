@@ -425,7 +425,11 @@ See [](image_renditions).
 
 ## SVG images
 
-Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, set `WAGTAILIMAGES_ALLOW_SVG` to `True`.
+Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, add "svg" to the list of allowed image extensions by configuring `WAGTAILIMAGES_EXTENSIONS`:
+
+```python
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+```
 
 SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterised are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterisation, so may be used freely (see [](available_resizing_methods)).
 
