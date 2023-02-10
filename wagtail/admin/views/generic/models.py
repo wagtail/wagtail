@@ -25,7 +25,7 @@ from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin
+from wagtail.models import DraftStateMixin, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -632,6 +632,7 @@ class DeleteView(
     model = None
     index_url_name = None
     delete_url_name = None
+    usage_url_name = None
     template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
     permission_required = "delete"
@@ -642,6 +643,9 @@ class DeleteView(
             self.kwargs["pk"] = self.args[0]
         self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
         return super().get_object(queryset)
+
+    def get_usage(self):
+        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_success_url(self):
         if not self.index_url_name:
@@ -662,6 +666,14 @@ class DeleteView(
             )
         return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
+    def get_usage_url(self):
+        # Usage URL is optional, allow it to be unset
+        if self.usage_url_name:
+            return (
+                reverse(self.usage_url_name, args=(quote(self.object.pk),))
+                + "?describe_on_delete=1"
+            )
+
     def get_success_message(self):
         if self.success_message is None:
             return None
@@ -680,6 +692,18 @@ class DeleteView(
         if hook_response is not None:
             return hook_response
         return HttpResponseRedirect(success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["model_opts"] = self.object._meta
+        context["usage_url"] = self.get_usage_url()
+        if context["usage_url"]:
+            # Get this here instead of the template so that we do not iterate through
+            # the usage and potentially trigger a database query for each item
+            usage = self.get_usage()
+            context["usage_count"] = usage.count()
+            context["is_protected"] = usage.is_protected
+        return context
 
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
