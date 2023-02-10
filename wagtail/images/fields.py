@@ -9,17 +9,25 @@ from django.forms.fields import FileField, ImageField
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
-ALLOW_SVG = getattr(settings, "WAGTAILIMAGES_ALLOW_SVG", False)
-if ALLOW_SVG:
-    ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
-    SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP, SVG")
-else:
-    ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp"]
-    SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
+
+def get_allowed_image_extensions():
+    return getattr(
+        settings, "WAGTAILIMAGES_EXTENSIONS", ["gif", "jpg", "jpeg", "png", "webp"]
+    )
+
+
+def ImageFileExtensionValidator(value):
+    # This makes testing different values of WAGTAILIMAGES_EXTENSIONS easier:
+    # if WagtailImageField.default_validators
+    #      = FileExtensionValidator(get_allowed_image_extensions())
+    # then the formats that will pass validation are fixed at the time the class
+    # is created, so changes to WAGTAILIMAGES_EXTENSIONS via override_settings
+    # has no effect.
+    return FileExtensionValidator(get_allowed_image_extensions())(value)
 
 
 class WagtailImageField(ImageField):
-    default_validators = [FileExtensionValidator(ALLOWED_EXTENSIONS)]
+    default_validators = [ImageFileExtensionValidator]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -33,9 +41,7 @@ class WagtailImageField(ImageField):
         )
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
-        self.allowed_image_extensions = getattr(
-            settings, "WAGTAILIMAGES_EXTENSIONS", ALLOWED_EXTENSIONS
-        )
+        self.allowed_image_extensions = get_allowed_image_extensions()
 
         self.supported_formats_text = ", ".join(self.allowed_image_extensions).upper()
 
