@@ -1,3 +1,5 @@
+(extending_the_draftail_editor)=
+
 # Extending the Draftail Editor
 
 Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/), and its functionality can be extended through plugins.

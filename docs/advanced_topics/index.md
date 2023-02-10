@@ -6,6 +6,7 @@ maxdepth: 2
 ---
 images/index
 documents/index
+icons
 embeds
 add_to_django_project
 deploying
