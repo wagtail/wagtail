@@ -3860,7 +3860,7 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         page.save()
 
         gfk_page = GenericSnippetPage(
-            title="Generic snippet page",
+            title="Foobar Title",
             snippet_content_object=Advert.objects.get(pk=1),
         )
         page.add_child(instance=gfk_page)
@@ -3872,7 +3872,8 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
             )
         )
         self.assertContains(response, "Welcome to the Wagtail test site!")
-        self.assertContains(response, "Generic snippet page")
+        self.assertContains(response, "Foobar Title")
+        self.assertContains(response, "<td>Generic snippet page</td>", html=True)
         self.assertContains(response, "Snippet content object")
 
     def test_usage_without_edit_permission_on_snippet(self):
@@ -3922,6 +3923,7 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Welcome to the Wagtail test site!")
         self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Page</td>", html=True)
 
 
 class TestSnippetHistory(WagtailTestUtils, TestCase):

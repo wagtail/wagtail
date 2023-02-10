@@ -1221,6 +1221,7 @@ class TestUsage(WagtailTestUtils, TestCase):
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
         self.assertContains(response, "Christmas")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(
@@ -1282,6 +1283,7 @@ class TestUsage(WagtailTestUtils, TestCase):
         # User has no permission over the page linked to, so should not see its details
         self.assertNotContains(response, "Christmas")
         self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_image permission but not change_image

@@ -1857,6 +1857,7 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         event_page_related_link.save()
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         self.assertContains(response, "Christmas")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
@@ -1898,6 +1899,7 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         # User has no permission over the page linked to, so should not see its details
         self.assertNotContains(response, "Christmas")
         self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_document permission but not change_document

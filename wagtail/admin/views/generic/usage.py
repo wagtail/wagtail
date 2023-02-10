@@ -1,3 +1,4 @@
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
@@ -37,6 +38,14 @@ class UsageView(BaseObjectMixin, IndexView):
                 label=_("Name"),
                 accessor="label",
                 get_url=lambda r: r["edit_url"],
+            ),
+            tables.Column(
+                "content_type",
+                label=_("Type"),
+                # Use the content type from the ReferenceIndex object instead of the
+                # object itself, so we can get the specific content type without
+                # having to fetch the specific object from the database.
+                accessor=lambda r: capfirst(r["references"][0].model_name),
             ),
             tables.ReferencesColumn(
                 "field",
