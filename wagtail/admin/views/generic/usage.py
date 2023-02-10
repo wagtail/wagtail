@@ -1,3 +1,4 @@
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -18,6 +19,10 @@ class UsageView(BaseObjectMixin, IndexView):
     paginate_by = 20
     is_searchable = False
     page_title = gettext_lazy("Usage of")
+
+    @cached_property
+    def describe_on_delete(self):
+        return bool(self.request.GET.get("describe_on_delete"))
 
     def get_object(self):
         object = super().get_object()
@@ -49,9 +54,12 @@ class UsageView(BaseObjectMixin, IndexView):
             ),
             tables.ReferencesColumn(
                 "field",
-                label=_("Field"),
+                label=_("If you confirm deletion")
+                if self.describe_on_delete
+                else _("Field"),
                 accessor="references",
                 get_url=lambda r: r["edit_url"],
+                describe_on_delete=self.describe_on_delete,
             ),
         ]
 

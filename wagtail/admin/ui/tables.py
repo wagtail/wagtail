@@ -290,9 +290,11 @@ class ReferencesColumn(Column):
         sort_key=None,
         width=None,
         get_url=None,
+        describe_on_delete=False,
     ):
         super().__init__(name, label, accessor, classname, sort_key, width)
         self._get_url_func = get_url
+        self.describe_on_delete = describe_on_delete
 
     def get_edit_url(self, instance):
         if self._get_url_func:
@@ -301,6 +303,7 @@ class ReferencesColumn(Column):
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["edit_url"] = self.get_edit_url(instance)
+        context["describe_on_delete"] = self.describe_on_delete
         return context
 
 
