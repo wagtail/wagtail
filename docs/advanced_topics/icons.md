@@ -6,11 +6,11 @@ Wagtail comes with an SVG icon set. The icons are used throughout the admin inte
 
 Elements that use icons are:
 
-- [Register Admin Menu Item](register_admin_menu_item)
-- [Client-side components](extending_clientside_components)
-- [Rich text editor toolbar buttons](extending_the_draftail_editor)
-- [ModelAdmin menu](modeladmin_menu_icon)
-- [StreamField blocks](custom_streamfield_blocks)
+-   [Register Admin Menu Item](register_admin_menu_item)
+-   [Client-side components](extending_clientside_components)
+-   [Rich text editor toolbar buttons](extending_the_draftail_editor)
+-   [ModelAdmin menu](modeladmin_menu_icon)
+-   [StreamField blocks](custom_streamfield_blocks)
 
 This document describes how to choose, add and customise icons.
 
@@ -18,7 +18,7 @@ This document describes how to choose, add and customise icons.
 
 An icon name corresponds with the value of `id` in the SVG file: `<svg id="<name>"`.
 
-Icons are SVG files in the [Wagtail admin template folder](https://github.com/wagtail/wagtail/tree/main/wagtail/admin/templates/wagtailadmin/icons). 
+Icons are SVG files in the [Wagtail admin template folder](https://github.com/wagtail/wagtail/tree/main/wagtail/admin/templates/wagtailadmin/icons).
 
 Alternatively, enable the [styleguide](styleguide) to view the available icons and their names.
 
@@ -38,10 +38,10 @@ Draw or download an icon and save it in a template folder:
 
 The `svg` tag should:
 
-- Set the `id="icon-<name>"` attribute, icons are referenced by this name
-- Set the `xmlns="http://www.w3.org/2000/svg"` attribute
-- Set the `viewBox="..."` attribute
-- Include license information, if applicable.
+-   Set the `id="icon-<name>"` attribute, icons are referenced by this name
+-   Set the `xmlns="http://www.w3.org/2000/svg"` attribute
+-   Set the `viewBox="..."` attribute
+-   Include license information, if applicable.
 
 Set `<path fill="currentColor"` to give the icon the current color.
 

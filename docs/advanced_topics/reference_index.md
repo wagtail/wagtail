@@ -1,4 +1,5 @@
 (managing_the_reference_index)=
+
 # Managing the Reference Index
 
 Wagtail maintains a reference index, which records references between objects whenever those objects are saved. The index allows Wagtail to efficiently report the usage of images, documents and snippets within pages, including within StreamField and rich text fields.

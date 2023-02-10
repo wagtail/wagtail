@@ -175,6 +175,7 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
+```
 
 ### FormSubmissionsPanel
 
