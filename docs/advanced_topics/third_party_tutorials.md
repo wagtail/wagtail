@@ -26,7 +26,7 @@ the latest Wagtail versions.
 -   [What's this? A new website? - Explainer for building a new website with Wagtail](https://theorangeone.net/posts/whats-this-a-new-website/) (10 October 2022)
 -   [Guide to integrate Wagtail CRX with a Snipcart storefront](https://github.com/justicepelteir/wagtail_crx_snipcart_storefront) (9 October 2022)
 -   [Adding featured events to the HomePage with Wagtail 4.0 (video)](https://www.youtube.com/watch?v=opQ_ktAXplo) (6 October 2022)
--   [Wagtail: Extending the Draftail Editor Part 2 - Block Styles](https://enzedonline.com/en/tech-blog/wagtail-extending-the-draftail-editor-part-2-block-styles/) (5 october 2022)
+-   [Wagtail: Extending the Draftail Editor Part 2 - Block Styles](https://enzedonline.com/en/tech-blog/wagtail-extending-the-draftail-editor-part-2-block-styles/) (5 October 2022)
 -   [Wagtail: Extending the Draftail Editor Part 1 - Inline Styles](https://enzedonline.com/en/tech-blog/wagtail-extending-the-draftail-editor-part-1-inline-styles/) (5 October 2022)
 -   [Creating an interactive event budgeting tool within Wagtail](https://dev.to/lb/creating-an-interactive-event-budgeting-tool-within-wagtail-53b3) (4 October 2022)
 -   [Configuring Rich Text Blocks for Your Wagtail Site](https://enzedonline.com/en/tech-blog/configuring-rich-text-blocks-for-your-wagtail-site/) (26 September 2022)
