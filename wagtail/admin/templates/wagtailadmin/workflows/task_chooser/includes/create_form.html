@@ -19,7 +19,16 @@
             {% endif %}
         {% endfor %}
         <li>
-            <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Creating…' %}">{% icon name="spinner" %}<em>{% trans "Create" %}</em></button>
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-active-value="{% trans 'Creating…' %}"
+            >
+                {% icon name="spinner" %}
+                <em data-w-progress-target="label">{% trans "Create" %}</em>
+            </button>
         </li>
     </ul>
 </form>

@@ -75,7 +75,7 @@ describe('ProgressController', () => {
     // change to 4 seconds
     document
       .getElementById('button')
-      .setAttribute('data-w-progress-duration-seconds-value', '4');
+      .setAttribute('data-w-progress-duration-value', '4000');
 
     button.click();
     jest.runAllTimers();

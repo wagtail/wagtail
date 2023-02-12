@@ -1,5 +1,14 @@
 {% load i18n wagtailadmin_tags %}
-<button type="submit" name="{{ name }}" value="{{ name }}" class="button action-save button-longrunning{% if is_revision %} warning{% endif %}" data-clicked-text="{% trans 'Publishing…' %}">
+<button
+    type="submit"
+    name="{{ name }}"
+    value="{{ name }}"
+    class="button action-save button-longrunning{% if is_revision %} warning{% endif %}"
+    data-controller="w-progress"
+    data-action="w-progress#activate"
+    data-w-progress-active-value="{% trans 'Publishing…' %}"
+>
     {% icon name=icon_name classname="button-longrunning__icon" %}
-    {% icon name="spinner" %}<em>{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+    {% icon name="spinner" %}
+    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
 </button>

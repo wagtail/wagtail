@@ -28,7 +28,16 @@
         <footer class="footer">
             <ul>
                 <li class="actions dropdown dropup match-width footer__container">
-                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Saving…' %}">{% icon name="spinner" %}<em>{% trans 'Save' %}</em></button>
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{% trans 'Saving…' %}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Save' %}</em>
+                    </button>
                 </li>
             </ul>
         </footer>

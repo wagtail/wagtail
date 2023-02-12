@@ -17,7 +17,16 @@
             {% endfor %}
             <li>
                 {% if create_action_clicked_label %}
-                    <button type="submit" class="button button-longrunning" data-clicked-text="{{ create_action_clicked_label }}">{% icon name="spinner" %}<em>{{ create_action_label }}</em></button>
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{{ create_action_clicked_label }}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{{ create_action_label }}</em>
+                    </button>
                 {% else %}
                     <button type="submit" class="button">{{ create_action_label }}</button>
                 {% endif %}

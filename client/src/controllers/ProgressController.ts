@@ -25,7 +25,7 @@ export class ProgressController extends Controller {
   static targets = ['label'];
   static values = {
     active: { default: '', type: String },
-    durationSeconds: { default: 30, type: Number },
+    duration: { default: 30000, type: Number },
     label: { default: '', type: String },
     loading: { default: false, type: Boolean },
   };
@@ -33,7 +33,7 @@ export class ProgressController extends Controller {
   declare activeClass: string;
   /** Label to use when loading */
   declare activeValue: string;
-  declare durationSecondsValue: number;
+  declare durationValue: number;
   /** Label to store the original text on the button */
   declare labelValue: string;
   declare loadingValue: boolean;
@@ -61,9 +61,26 @@ export class ProgressController extends Controller {
             `.${DEFAULT_CLASS}:not([${controllerAttribute}~='${identifier}'])`,
           )
           .forEach((button) => {
-            button.setAttribute(controllerAttribute, identifier);
-            button.setAttribute(actionAttribute, `${identifier}#activate`);
+            // set the controller attribute, appending to existing if present
+            button.setAttribute(
+              controllerAttribute,
+              [button.getAttribute(controllerAttribute) || '', identifier]
+                .filter(Boolean)
+                .join(' '),
+            );
 
+            // set the action attribute, appending to existing if present
+            button.setAttribute(
+              actionAttribute,
+              [
+                button.getAttribute(actionAttribute) || '',
+                `${identifier}#activate`,
+              ]
+                .filter(Boolean)
+                .join(' '),
+            );
+
+            // set the active text label to replace the legacy data-click-text
             const activeText = button.getAttribute('data-clicked-text');
             if (activeText) {
               button.setAttribute(
@@ -72,20 +89,17 @@ export class ProgressController extends Controller {
               );
               button.removeAttribute('data-clicked-text');
             }
-
-            const labelElement = button.querySelector('em');
-            if (labelElement) {
-              labelElement.setAttribute(`data-${identifier}-target`, 'label');
-            }
-
-            button.setAttribute(
-              `data-${identifier}-duration-seconds-value`,
-              '30',
-            );
           });
       },
       { once: true, passive: true },
     );
+  }
+
+  connect() {
+    if (this.hasLabelTarget) return;
+    const labelElement = this.element.querySelector('em');
+    if (!labelElement) return;
+    labelElement.setAttribute(`data-${this.identifier}-target`, 'label');
   }
 
   activate() {
@@ -105,11 +119,9 @@ export class ProgressController extends Controller {
     window.setTimeout(() => {
       this.loadingValue = true;
 
-      const durationMs = this.durationSecondsValue * 1000;
-
       this.timer = window.setTimeout(() => {
         this.loadingValue = false;
-      }, durationMs);
+      }, this.durationValue);
     });
   }
 

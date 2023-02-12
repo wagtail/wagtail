@@ -23,7 +23,12 @@
         </a>
         <form method="POST">
             {% csrf_token %}
-            <a href="{{ cancel_duplicate_upload_action }}" class="use-existing-image button button-longrunning">
+            <a
+                href="{{ cancel_duplicate_upload_action }}"
+                class="use-existing-image button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+            >
                 {% trans "Use existing and delete new" %}
             </a>
         </form>
