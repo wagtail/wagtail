@@ -6,7 +6,13 @@
         <figcaption>{{ existing_image.title }}</figcaption>
     </figure>
     <div>
-        <button class="button button-longrunning confirm-upload">{% icon name="spinner" %}{% trans 'Keep new image' %}</button>
+        <button
+            class="button button-longrunning confirm-upload"
+            data-controller="w-progress"
+            data-action="w-progress#activate"
+        >
+            {% icon name="spinner" %}{% trans 'Keep new image' %}
+        </button>
         <form method="POST">
             {% csrf_token %}
             <a href="{{ delete_action }}" class="delete button no">{% trans "Delete new image" %}</a>

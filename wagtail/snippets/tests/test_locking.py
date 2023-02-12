@@ -428,7 +428,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
                 # Should show Save action menu item
                 self.assertContains(
                     response,
-                    f"<em>{self.save_button_label}</em>",
+                    f'<em data-w-progress-target="label">{self.save_button_label}</em>',
                     html=True,
                 )
 
@@ -486,7 +486,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should not show Save action menu item
         self.assertNotContains(
             response,
-            f"<em>{self.save_button_label}</em>",
+            f'<em data-w-progress-target="label">{self.save_button_label}</em>',
             html=True,
         )
 
@@ -540,7 +540,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should not show Save action menu item
         self.assertNotContains(
             response,
-            f"<em>{self.save_button_label}</em>",
+            f'<em data-w-progress-target="label">{self.save_button_label}</em>',
             html=True,
         )
 
@@ -591,7 +591,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show Save action menu item
         self.assertContains(
             response,
-            f"<em>{self.save_button_label}</em>",
+            f'<em data-w-progress-target="label">{self.save_button_label}</em>',
             html=True,
         )
 
@@ -636,7 +636,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show Save action menu item
         self.assertContains(
             response,
-            f"<em>{self.save_button_label}</em>",
+            f'<em data-w-progress-target="label">{self.save_button_label}</em>',
             html=True,
         )
 

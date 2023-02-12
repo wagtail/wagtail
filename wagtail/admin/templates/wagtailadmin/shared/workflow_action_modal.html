@@ -14,7 +14,16 @@
                     {% include "wagtailadmin/shared/field.html" with field=field %}
                 {% endif %}
             {% endfor %}
-            <li><button type="submit" class="button button-longrunning">{% icon name="spinner" %}{{ action_verbose }}</button></li>
+            <li>
+                <button
+                    type="submit"
+                    class="button button-longrunning"
+                    data-controller="w-progress"
+                    data-action="w-progress#activate"
+                >
+                    {% icon name="spinner" %}{{ action_verbose }}
+                </button>
+            </li>
         </ul>
     </form>
 </div>

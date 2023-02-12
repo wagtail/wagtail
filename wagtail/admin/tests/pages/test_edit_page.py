@@ -1622,18 +1622,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             )
 
         publish_button = """
-            <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
+            <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-controller="w-progress" data-action="w-progress#activate" data-w-progress-active-value="Publishing…">
                 <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true"><use href="#icon-upload"></use></svg>
 
-                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg><em>Publish</em>
+                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg><em data-w-progress-target="label">Publish</em>
             </button>
         """
         save_button = """
-            <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
+            <button type="submit" class="button action-save button-longrunning " data-controller="w-progress" data-action="w-progress#activate" data-w-progress-active-value="Saving…" >
                 <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true"><use href="#icon-draft"></use></svg>
 
                 <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg>
-                <em>Save draft</em>
+                <em data-w-progress-target="label">Save draft</em>
             </button>
         """
 

@@ -31,8 +31,15 @@
                     <li class="actions footer__container">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">
-                                    {% icon name="spinner" %}<em>{% trans 'Create' %}</em>
+                                <button
+                                    type="submit"
+                                    class="button action-save button-longrunning"
+                                    data-controller="w-progress"
+                                    data-action="w-progress#activate"
+                                    data-w-progress-active-value="{% trans 'Creating…' %}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{% trans 'Create' %}</em>
                                 </button>
                             </div>
                         {% endblock %}

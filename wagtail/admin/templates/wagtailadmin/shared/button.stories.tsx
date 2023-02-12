@@ -273,47 +273,68 @@ const Template = ({ url }) => (
       Currently only <code>button</code> elements are supported.
     </p>
 
-    <button type="button" className="button button-longrunning">
-      <svg className="icon icon-spinner icon" aria-hidden="true">
-        <use href="#icon-spinner" />
-      </svg>
-      Click me
-    </button>
     <button
       type="button"
-      className="button button-secondary button-longrunning"
+      className="button button-longrunning"
+      data-controller="w-progress"
+      data-action="w-progress#activate"
+      data-w-progress-duration-value="5000"
     >
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
       </svg>
-      Click me
+      Click me 5s
     </button>
-    <button type="button" className="button button-small button-longrunning">
+    <button
+      type="button"
+      className="button button-secondary button-longrunning"
+      data-controller="w-progress"
+      data-action="w-progress#activate"
+      data-w-progress-duration-value="5000"
+    >
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
       </svg>
-      Click me
+      Click me 5s
+    </button>
+    <button
+      type="button"
+      className="button button-small button-longrunning"
+      data-controller="w-progress"
+      data-action="w-progress#activate"
+      data-w-progress-duration-value="5000"
+    >
+      <svg className="icon icon-spinner icon" aria-hidden="true">
+        <use href="#icon-spinner" />
+      </svg>
+      Click me 5s
     </button>
 
     <h4>Buttons where the text is replaced on click</h4>
     <button
       type="button"
       className="button button-longrunning"
-      data-clicked-text="Test"
+      data-controller="w-progress"
+      data-action="w-progress#activate"
+      data-w-progress-duration-value="5000"
+      data-w-progress-active-value="Test"
     >
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
       </svg>
-      <em>Click me</em>
+      <em data-w-progress-target="label">Click me</em>
     </button>
     <button
       type="button"
       className="button disabled button-longrunning--active"
+      data-controller="w-progress"
+      data-action="w-progress#activate"
+      data-w-progress-duration-value="5000"
     >
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
       </svg>
-      <span>Test</span>
+      <span data-w-progress-target="label">Test</span>
     </button>
 
     <h3>Mixtures</h3>

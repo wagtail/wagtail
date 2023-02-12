@@ -13,7 +13,14 @@
             {% endif %}
         {% endfor %}
         <li>
-            <button type="submit" class="button button-longrunning">{% icon name="spinner" %}{% trans 'Update' %}</button>
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+            >
+                {% icon name="spinner" %}{% trans 'Update' %}
+            </button>
             <a href="{{ delete_action }}" class="delete button no">{% trans "Delete" %}</a>
         </li>
     </ul>
