@@ -132,7 +132,7 @@ Wagtail includes an accessibility checker built into the [user bar](wagtailuserb
 
 The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors.
 
-By default, the checker includes the following rules that find common accessibility issues in authored content:
+By default, the checker includes the following rules to find common accessibility issues in authored content:
 
 -   `button-name`: `<button>` elements must always have a text label.
 -   `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
