@@ -637,6 +637,7 @@ class DeleteView(
     context_object_name = None
     permission_required = "delete"
     success_message = None
+    page_title = gettext_lazy("Delete")
 
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
@@ -673,6 +674,12 @@ class DeleteView(
                 reverse(self.usage_url_name, args=(quote(self.object.pk),))
                 + "?describe_on_delete=1"
             )
+
+    @property
+    def confirmation_message(self):
+        return _("Are you sure you want to delete this %(model_name)s?") % {
+            "model_name": self.object._meta.verbose_name
+        }
 
     def get_success_message(self):
         if self.success_message is None:
