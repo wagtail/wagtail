@@ -8,7 +8,6 @@
 
 $size-home-button: 3.5em;
 $position: 2em;
-$width-arrow: 0.6em;
 $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1),
   0 1px 10px 0 rgba(107, 214, 230, 0.7);
 $max-items: 12;
@@ -20,22 +19,18 @@ $positions: (
   'top-left': (
     'vertical': 'top',
     'horizontal': 'left',
-    'arrow': 'bottom',
   ),
   'top-right': (
     'vertical': 'top',
     'horizontal': 'right',
-    'arrow': 'bottom',
   ),
   'bottom-left': (
     'vertical': 'bottom',
     'horizontal': 'left',
-    'arrow': 'top',
   ),
   'bottom-right': (
     'vertical': 'bottom',
     'horizontal': 'right',
-    'arrow': 'top',
   ),
 );
 
@@ -105,8 +100,8 @@ $positions: (
     height: theme('spacing.5');
     width: theme('spacing.5');
     position: absolute;
-    inset-inline-end: -3px;
-    top: -3px;
+    inset-inline-end: -5px;
+    top: -5px;
 
     @media (forced-colors: $media-forced-colours) {
       border: theme('spacing.px') solid ButtonText;
@@ -132,28 +127,6 @@ $positions: (
 
   .w-userbar.is-active & {
     visibility: visible;
-  }
-}
-
-// Arrow
-.w-userbar-items:after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  border: solid $width-arrow transparent;
-  transition-duration: 0.15s;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  .w-userbar.is-active & {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.3s;
   }
 }
 
@@ -233,6 +206,7 @@ $positions: (
       @include svg-icon(1.1em, middle);
       margin-inline-end: 0.5em;
       fill: currentColor;
+      opacity: 0.4;
     }
 
     .w-a11y-result__count {
@@ -255,7 +229,7 @@ $positions: (
   button {
     font-size: 0.875rem;
     text-align: start;
-    padding: 0.8em;
+    padding: theme('spacing.[3.5]');
   }
 
   button {
@@ -264,6 +238,7 @@ $positions: (
     background-color: transparent;
     outline: none;
     display: flex;
+    align-items: center;
   }
 }
 
@@ -338,6 +313,8 @@ $positions: (
 
   .w-a11y-result__subtotal_count {
     color: theme('colors.grey.600');
+    width: theme('spacing.5');
+    text-align: center;
   }
 
   .w-a11y-result__selector {
@@ -406,10 +383,6 @@ $positions: (
   .w-userbar__item {
     border: 1px solid $system-color-button-text;
   }
-
-  .w-userbar-items::after {
-    border: $width-arrow solid Canvas;
-  }
 }
 
 // =============================================================================
@@ -419,7 +392,6 @@ $positions: (
 @each $pos, $attrs in $positions {
   $vertical: map.get($attrs, vertical);
   $horizontal: map.get($attrs, horizontal);
-  $arrow: map.get($attrs, arrow);
 
   .w-userbar--#{$pos} {
     #{$vertical}: $position;
@@ -428,7 +400,7 @@ $positions: (
     .w-userbar-items {
       #{$vertical}: 100%;
       #{$horizontal}: 0;
-      padding-#{$vertical}: $width-arrow * 2;
+      padding-#{$vertical}: theme('spacing.2');
     }
 
     .w-userbar-nav .w-userbar__item {
@@ -436,20 +408,6 @@ $positions: (
         transform: translateY(1em);
       } @else {
         transform: translateY(-1em);
-      }
-    }
-
-    .w-userbar-items:after {
-      #{$vertical}: 2px;
-      #{$horizontal}: math.div($size-home-button, 2) -
-        math.div($width-arrow, 2);
-      border-#{$arrow}-color: $color-grey-1;
-
-      @if $vertical == 'bottom' {
-        transform: translateY($width-arrow);
-      }
-      @if $vertical == 'top' {
-        transform: translateY($width-arrow);
       }
     }
 
