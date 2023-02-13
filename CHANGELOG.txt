@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Support creating `StructValue` copies (Tidiane Dia)
+
+
 4.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~
 
