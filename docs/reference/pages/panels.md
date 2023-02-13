@@ -86,9 +86,8 @@ Here are some Wagtail-specific types that you might include as fields in your mo
         Help text to be displayed against the panel.
 
     .. attribute:: MultiFieldPanel.permission (optional)
-        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form.
-        Similar to `FieldPanel.permission`
-        The panel group will not be visible if the permission check does not pass.
+
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to ``FieldPanel.permission``.
 ```
 
 ### InlinePanel
@@ -127,9 +126,8 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
         Help text to be displayed against the panel.
 
     .. attribute:: FieldRowPanel.permission (optional)
-        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form.
-        Similar to `FieldPanel.permission`
-        The panel group will not be visible if the permission check does not pass.
+
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to ``FieldPanel.permission``.
 ```
 
 ### HelpPanel
