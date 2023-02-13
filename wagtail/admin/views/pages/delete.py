@@ -3,13 +3,14 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.actions.delete_page import DeletePageAction
 from wagtail.admin import messages
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.models import Page
+from wagtail.models import Page, ReferenceIndex
 
 
 def delete(request, page_id):
@@ -80,6 +81,7 @@ def delete(request, page_id):
                     return redirect(next_url)
                 return redirect("wagtailadmin_explore", parent_id)
 
+    usage = ReferenceIndex.get_references_to(page).group_by_source_object()
     descendant_count = page.get_descendant_count()
     return TemplateResponse(
         request,
@@ -88,6 +90,11 @@ def delete(request, page_id):
             "page": page,
             "descendant_count": descendant_count,
             "next": next_url,
+            "model_opts": page._meta,
+            "usage_url": reverse("wagtailadmin_pages:usage", args=(page.id,))
+            + "?describe_on_delete=1",
+            "usage_count": usage.count(),
+            "is_protected": usage.is_protected,
             # if the number of pages ( child pages + current page) exceeds this limit, then confirm before delete.
             "confirm_before_delete": (descendant_count + 1)
             >= getattr(settings, "WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT", 10),
