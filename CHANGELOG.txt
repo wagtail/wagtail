@@ -151,6 +151,14 @@ Changelog
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
 
 
+4.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
+ * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
+ * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
+
+
 4.1.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~~~
 
