@@ -22,6 +22,12 @@ Changelog
  * Maintenance: Provisional Django 5.0 compatibility fixes (Sage Abdullah)
 
 
+4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Support creating `StructValue` copies (Tidiane Dia)
+
+
 4.2 (06.02.2023)
 ~~~~~~~~~~~~~~~~
 
