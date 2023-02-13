@@ -7,6 +7,7 @@ Changelog
  * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
  * Update user list column level to `Access level` to be easier to understand (Vallabh Tiwari)
  * Migrate `.button-longrunning` behaviour to a Stimulus controller with support for custom label element & duration (Loveth Omokaro)
+ * Implement new simplified userbar designs (Albinas Starykova)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
