@@ -7,6 +7,7 @@ Changelog
  * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
  * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
+ * Fix: Support creating `StructValue` copies (Tidiane Dia)
 
 
 4.1.2 (06.02.2023)
