@@ -3361,7 +3361,7 @@ class TestSnippetUnpublish(WagtailTestUtils, TestCase):
 
         # Check that the user received an unpublish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/confirm_unpublish.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_unpublish.html")
 
     def test_unpublish_view_invalid_pk(self):
         """

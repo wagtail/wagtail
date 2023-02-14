@@ -819,7 +819,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     edit_url_name = None
     unpublish_url_name = None
     success_message = _("'%(object)s' unpublished.")
-    template_name = "wagtailadmin/shared/confirm_unpublish.html"
+    template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):
         super().setup(request, *args, **kwargs)
