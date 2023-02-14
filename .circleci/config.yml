@@ -50,6 +50,7 @@ jobs:
           root: ~/project
           paths:
             - wagtail
+      - run: npm run build-storybook
       - run: npm run lint:js
       - run: npm run lint:css
       - run: npm run lint:format
