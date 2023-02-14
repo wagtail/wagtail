@@ -32,9 +32,11 @@ global.wagtailConfig = {
   ACTIVE_LOCALE: 'en',
 };
 
-document.body.innerHTML = `<script id="wagtail-config">${JSON.stringify({
-  CSRF_TOKEN: 'potato',
-})}</script>`;
+const script = document.createElement('script');
+script.type = 'application/json';
+script.id = 'wagtail-config';
+script.textContent = JSON.stringify({ CSRF_TOKEN: 'potato' });
+document.body.appendChild(script);
 
 global.wagtailVersion = '1.6a1';
 
