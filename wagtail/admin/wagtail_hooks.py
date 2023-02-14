@@ -1084,6 +1084,7 @@ def register_icons(icons):
         "image.svg",  # aka picture
         "info-circle.svg",
         "italic.svg",
+        "key.svg",
         "link.svg",
         "link-external.svg",
         "list-ol.svg",
