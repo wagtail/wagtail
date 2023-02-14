@@ -12,7 +12,7 @@ class Benchmark:
         memory_usage = []
         tracemalloc.start()
 
-        for _ in range(self.repeat):
+        for i in range(self.repeat):
             before_memory = tracemalloc.take_snapshot()
             start_time = time.time()
 

@@ -577,9 +577,8 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
         return {"match": {"content_type": content_type}}
 
     def get_filters(self):
-        filters = [self.get_content_type_filter()]
-
         # Filter by content type
+        filters = [self.get_content_type_filter()]
 
         # Apply filters from queryset
         queryset_filters = self._get_filters_from_queryset()
