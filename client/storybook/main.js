@@ -14,6 +14,18 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
+  // Redefine Babel config to allow TypeScript class fields `declare`.
+  // See https://github.com/storybookjs/storybook/issues/12479.
+  // The resulting configuration is closer to Wagtail’s Webpack + TypeScript setup,
+  // preventing other potential issues with JS transpilation differences.
+  babel: async (options) => ({
+    ...options,
+    plugins: [],
+    presets: [
+      ['@babel/preset-typescript', { allowDeclareFields: true }],
+      ['@babel/preset-react', { runtime: 'automatic' }],
+    ],
+  }),
   webpackFinal: (config) => {
     /* eslint-disable no-param-reassign */
 
