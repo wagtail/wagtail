@@ -882,6 +882,7 @@ class SnippetViewSet(ViewSet):
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             unpublish_url_name=self.get_url_name("unpublish"),
+            usage_url_name=self.get_url_name("usage"),
         )
 
     @property

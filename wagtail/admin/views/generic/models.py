@@ -818,6 +818,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     index_url_name = None
     edit_url_name = None
     unpublish_url_name = None
+    usage_url_name = None
     success_message = _("'%(object)s' unpublished.")
     template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
@@ -834,6 +835,9 @@ class UnpublishView(HookResponseMixin, TemplateView):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
         return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_usage(self):
+        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_objects_to_unpublish(self):
         # Hook to allow child classes to have more objects to unpublish (e.g. page descendants)
@@ -872,6 +876,11 @@ class UnpublishView(HookResponseMixin, TemplateView):
             )
         return reverse(self.unpublish_url_name, args=(quote(self.object.pk),))
 
+    def get_usage_url(self):
+        # Usage URL is optional, allow it to be unset
+        if self.usage_url_name:
+            return reverse(self.usage_url_name, args=(quote(self.object.pk),))
+
     def unpublish(self):
         hook_response = self.run_hook("before_unpublish", self.request, self.object)
         if hook_response is not None:
@@ -899,11 +908,15 @@ class UnpublishView(HookResponseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["model_opts"] = self.model._meta
+        context["model_opts"] = self.object._meta
         context["object"] = self.object
         context["object_display_title"] = self.get_object_display_title()
         context["unpublish_url"] = self.get_unpublish_url()
         context["next_url"] = self.get_next_url()
+        context["usage_url"] = self.get_usage_url()
+        if context["usage_url"]:
+            usage = self.get_usage()
+            context["usage_count"] = usage.count()
         return context
 
 

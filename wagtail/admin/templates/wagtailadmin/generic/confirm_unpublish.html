@@ -6,6 +6,9 @@
     {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=object_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
+        {% if usage_url %}
+            {% include "wagtailadmin/shared/usage_summary.html" %}
+        {% endif %}
         {% block confirmation_text %}
             <p>
                 {% blocktrans trimmed with model_name=model_opts.verbose_name %}
