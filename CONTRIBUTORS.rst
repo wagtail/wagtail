@@ -687,6 +687,7 @@ Contributors
 * Ananjan-R
 * Yosr Karoui
 * Aadi jindal
+* Satvik Vashisht
 
 Translators
 ===========

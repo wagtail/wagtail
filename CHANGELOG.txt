@@ -33,6 +33,7 @@ Changelog
 
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
  * Fix: Fix image uploads on storage backends that require file pointer to be at the start of the file (Matt Westcott)
+ * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
 
 
 4.2 (06.02.2023)
