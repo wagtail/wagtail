@@ -19,14 +19,14 @@ Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure y
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
-Clone a copy of [the Wagtail codebase](https://github.com/wagtail/wagtail):
+Fork the [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
 
 ```sh
-git clone https://github.com/wagtail/wagtail.git
+git clone https://github.com/username/wagtail/wagtail.git
 cd wagtail
 ```
 
-**With your preferred virtualenv activated,** install the Wagtail package in development mode with the included testing and documentation dependencies:
+**With your preferred [virtualenv activated](virtual_environment_creation),** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
 pip install -e ."[testing,docs]" -U

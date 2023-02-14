@@ -13,7 +13,7 @@
 
 ## Dependencies needed for installation
 
--   [Python 3](https://www.python.org/downloads/)
+-   [Python 3](https://www.python.org/downloads/).
 -   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
     See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
@@ -65,3 +65,25 @@ demo_site
 integrating_into_django
 the_zen_of_wagtail
 ```
+
+(common_installation_issues)=
+
+## Common issues
+
+### Python is not available in `path`
+
+```sh
+python
+> command not found: python
+```
+
+For detailed guidance, see this guide on [how to add Python to your path](https://realpython.com/add-python-to-path/).
+
+### python3 not available
+
+```sh
+python3 -m pip install --upgrade pip
+> command not found: python3
+```
+
+If this error occurs, [the `python3` can be replaced with `py`](https://docs.python.org/3/faq/windows.html#how-do-i-run-a-python-program-under-windows).
