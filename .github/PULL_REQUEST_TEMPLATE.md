@@ -1,8 +1,12 @@
-<!--
-Thanks for contributing to Wagtail! 🎉
+<!-- Thanks for contributing to Wagtail! 🎉  Please add a description below, explaining the purpose of this pull request - including the issue number of the issue you're fixing (if applicable). -->
 
-Before submitting, please review the [contributor guidelines](https://docs.wagtail.org/en/latest/contributing/index.html).
--->
+Fixes #...
+
+
+
+
+
+
 
 _Please check the following:_
 
