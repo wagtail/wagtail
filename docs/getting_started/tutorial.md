@@ -31,6 +31,8 @@ The way to do this varies by platform—see Pillow's
 [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
 
+(virtual_environment_creation)=
+
 ### Create and activate a virtual environment
 
 We recommend using a virtual environment, which isolates installed dependencies from other projects.
