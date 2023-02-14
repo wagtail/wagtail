@@ -8,6 +8,7 @@ Changelog
  * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
+ * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
 
 
 4.1.2 (06.02.2023)
