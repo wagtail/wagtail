@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 const middleware = require('storybook-django/src/middleware');
 
-const origin = process.env.TEST_ORIGIN ?? 'http://localhost:8000';
+// Target the Django server with IPV4 address explicitly to avoid DNS resolution of localhost to IPV6.
+const origin = process.env.TEST_ORIGIN ?? 'http://127.0.0.1:8000';
 
 module.exports = middleware.createDjangoAPIMiddleware({
   origin,

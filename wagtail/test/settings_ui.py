@@ -9,6 +9,9 @@ INSTALLED_APPS += [  # noqa
     "pattern_library",
 ]
 
+# Allow loopback address to access the server without DNS resolution (lack of Happy Eyeballs in Node 18).
+ALLOWED_HOSTS += ["127.0.0.1"]  # noqa
+
 TEMPLATES[0]["OPTIONS"]["builtins"] = ["pattern_library.loader_tags"]  # noqa
 
 PATTERN_LIBRARY = {
