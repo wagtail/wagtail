@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { StimulusWrapper } from '../../storybook/StimulusWrapper';
-import { AutoFieldController } from './AutoFieldController';
+import { SubmitController } from './SubmitController';
 
 export default {
-  title: 'Shared / AutoFieldController',
+  title: 'Shared / SubmitController',
   argTypes: {
     debug: {
       control: 'boolean',
@@ -15,8 +15,8 @@ export default {
 
 const definitions = [
   {
-    identifier: 'w-auto-field',
-    controllerConstructor: AutoFieldController,
+    identifier: 'w-submit',
+    controllerConstructor: SubmitController,
   },
 ];
 
@@ -34,8 +34,8 @@ const Template = ({ debug = false }) => {
         <select
           name="order"
           defaultValue="A-Z"
-          data-action="w-auto-field#submit"
-          data-controller="w-auto-field"
+          data-action="w-submit#submit"
+          data-controller="w-submit"
         >
           <option value="num">Numerical</option>
           <option value="A-Z">A to Z</option>
