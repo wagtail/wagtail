@@ -1166,7 +1166,7 @@ Called at the beginning of the create snippet view. Works in a similar way to `b
 
 ### `after_delete_snippet`
 
-Called when a Snippet is deleted. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+Called when a Snippet is deleted. The callable passed into the hook will receive the model instance(s) as a list along with the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
 
 ```python
 from django.http import HttpResponse
@@ -1175,7 +1175,7 @@ from wagtail import hooks
 
 @hooks.register('after_delete_snippet')
 def after_snippet_delete(request, instances):
-    # "instances" is a QuerySet
+    # "instances" is a list
     total = len(instances)
     return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 ```
@@ -1184,7 +1184,7 @@ def after_snippet_delete(request, instances):
 
 ### `before_delete_snippet`
 
-Called at the beginning of the delete snippet view. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+Called at the beginning of the delete snippet view. The callable passed into the hook will receive the model instance(s) as a list along with the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
 
 ```python
 from django.http import HttpResponse
@@ -1193,14 +1193,15 @@ from wagtail import hooks
 
 @hooks.register('before_delete_snippet')
 def before_snippet_delete(request, instances):
-    # "instances" is a QuerySet
+    # "instances" is a list
     total = len(instances)
 
     if request.method == 'POST':
-      # Override the deletion behaviour
-      instances.delete()
+        for instance in instances:
+            # Override the deletion behaviour
+            instance.delete()
 
-      return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+        return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 ```
 
 (register_snippet_action_menu_item)=
