@@ -1,6 +1,6 @@
 import axe from 'axe-core';
 
-import { dialog } from '../../includes/dialog';
+import { dialog } from './dialog';
 
 // This entrypoint is not bundled with any polyfills to keep it as light as possible
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
@@ -9,7 +9,7 @@ import { dialog } from '../../includes/dialog';
 // This component implements a roving tab index for keyboard navigation
 // Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 
-class Userbar extends HTMLElement {
+export class Userbar extends HTMLElement {
   connectedCallback() {
     const template = document.getElementById('wagtail-userbar-template');
     const shadowRoot = this.attachShadow({
