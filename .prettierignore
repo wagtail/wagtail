@@ -12,3 +12,4 @@ _build
 # Files which contain incompatible syntax.
 *.html
 .mypy_cache
+/storybook-static

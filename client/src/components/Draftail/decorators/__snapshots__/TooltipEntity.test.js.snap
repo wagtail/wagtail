@@ -23,6 +23,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
       >
         <script
           id="wagtail-config"
+          type="application/json"
         >
           {"CSRF_TOKEN":"potato"}
         </script>
@@ -42,6 +43,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
           >
             <script
               id="wagtail-config"
+              type="application/json"
             >
               {"CSRF_TOKEN":"potato"}
             </script>
