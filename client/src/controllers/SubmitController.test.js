@@ -1,19 +1,19 @@
 import { Application } from '@hotwired/stimulus';
 
-import { AutoFieldController } from './AutoFieldController';
+import { SubmitController } from './SubmitController';
 
-describe('AutoFieldController', () => {
+describe('SubmitController', () => {
   beforeEach(() => {
     document.body.innerHTML = `
   <form id="form">
-    <select name="order" data-controller="w-auto-field" data-action="change->w-auto-field#submit" value="A-Z">
+    <select name="order" data-controller="w-submit" data-action="change->w-submit#submit" value="A-Z">
       <option value="A-Z" selected>A to Z</option>
-      <option value="Z-A">Z to A</option> 
+      <option value="Z-A">Z to A</option>
     </select>
   </form>
   `;
 
-    Application.start().register('w-auto-field', AutoFieldController);
+    Application.start().register('w-submit', SubmitController);
   });
 
   afterEach(() => {

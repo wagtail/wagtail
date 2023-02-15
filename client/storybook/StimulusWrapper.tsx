@@ -12,7 +12,7 @@ import { initStimulus } from '../src/includes/initStimulus';
  * import { StimulusWrapper } from '../storybook/StimulusWrapper';
  * const Template = ({ debug }) =>
  *   <StimulusWrapper
- *     definitions={[{ controllerConstructor: AutoFieldController, identifier: 'w-something' }]}
+ *     definitions={[{ controllerConstructor: SubmitController, identifier: 'w-something' }]}
  *     debug={debug}
  *   >
  *     <form data-controller="w-something" />

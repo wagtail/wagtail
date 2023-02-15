@@ -6,13 +6,13 @@ import { Controller } from '@hotwired/stimulus';
  * @example
  * // once any change is made to the below select field, the form will be auto submitted
  * <form>
- *   <select name="order" data-controller="w-auto-field" data-action="change->w-auto-field#submit">
+ *   <select name="order" data-controller="w-submit" data-action="change->w-submit#submit">
  *     <option value="A-Z">A to Z</option>
  *     <option value="Z-A">Z to A</option>
  *   </select>
  * </form>
  */
-export class AutoFieldController extends Controller<
+export class SubmitController extends Controller<
   HTMLInputElement | HTMLSelectElement
 > {
   submit() {
