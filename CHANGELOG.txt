@@ -28,6 +28,7 @@ Changelog
  * Maintenance: Provisional Django 5.0 compatibility fixes (Sage Abdullah)
  * Maintenance: Add unit tests for `CollapseAll` component (Albina Starykova)
  * Maintenance: Code quality fixes (GLEF1X)
+ * Maintenance: Refactor image / document / snippet usage views into a shared generic view (Sage Abdullah)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
