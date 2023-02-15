@@ -3703,68 +3703,6 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertFalse(Advert.objects.filter(pk=advert.pk).exists())
 
 
-class TestSnippetDeleteMultipleWithOne(WagtailTestUtils, TestCase):
-    # test deletion of one snippet using the delete-multiple URL
-    # behaviour should mimic the TestSnippetDelete but with different URl structure
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        self.snippet = Advert.objects.get(id=1)
-        self.login()
-
-    def test_delete_get(self):
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % (self.snippet.id)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_delete_post(self):
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % (self.snippet.id)
-        response = self.client.post(url)
-
-        # Should be redirected to the listing page
-        self.assertRedirects(response, reverse("wagtailsnippets_tests_advert:list"))
-
-        # Check that the page is gone
-        self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
-
-
-class TestSnippetDeleteMultipleWithThree(WagtailTestUtils, TestCase):
-    # test deletion of three snippets using the delete-multiple URL
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        # first advert is in the fixtures
-        Advert.objects.create(text="Boreas").save()
-        Advert.objects.create(text="Cloud 9").save()
-        self.snippets = Advert.objects.all()
-        self.login()
-
-    def test_delete_get(self):
-        # tests that the URL is available on get
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % (
-            "&id=".join(["%s" % snippet.id for snippet in self.snippets])
-        )
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_delete_post(self):
-        # tests that the URL is available on post and deletes snippets
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % (
-            "&id=".join(["%s" % snippet.id for snippet in self.snippets])
-        )
-        response = self.client.post(url)
-
-        # Should be redirected to the listing page
-        self.assertRedirects(response, reverse("wagtailsnippets_tests_advert:list"))
-
-        # Check that the page is gone
-        self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
-
-
 class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
@@ -4845,13 +4783,6 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
         # permission should be denied
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_get_delete_mulitple(self):
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % self.test_snippet.id
-        response = self.client.get(url)
-        # permission should be denied
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
-
 
 class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -4905,13 +4836,6 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
         # permission should be denied
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_get_delete_mulitple(self):
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % self.test_snippet.id
-        response = self.client.get(url)
-        # permission should be denied
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
-
 
 class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -4960,15 +4884,6 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
                 args=[quote(self.test_snippet.pk)],
             )
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
-        )
-
-    def test_get_delete_mulitple(self):
-        url = reverse("wagtailsnippets_tests_advert:delete-multiple")
-        url += "?id=%s" % self.test_snippet.id
-        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailsnippets/snippets/confirm_delete.html"

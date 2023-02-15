@@ -1,17 +1,15 @@
 from functools import partial
-from urllib.parse import urlencode
 
 import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy, ngettext
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
@@ -33,7 +31,6 @@ from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditVi
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
-from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -146,7 +143,7 @@ class SnippetTitleColumn(TitleColumn):
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
-    delete_multiple_url_name = None
+    delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
     paginate_by = 20
     page_kwarg = "p"
@@ -173,9 +170,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 "model_opts": self.model._meta,
                 "can_add_snippet": self.permission_policy.user_has_permission(
                     self.request.user, "add"
-                ),
-                "can_delete_snippets": self.permission_policy.user_has_permission(
-                    self.request.user, "delete"
                 ),
             }
         )
@@ -369,82 +363,26 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
 class DeleteView(generic.DeleteView):
     view_name = "delete"
-    delete_multiple_url_name = None
-    permission_required = "delete"
+    page_title = gettext_lazy("Delete")
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
+    permission_required = "delete"
+    header_icon = "snippet"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = self.get_object()
 
     def run_before_hook(self):
-        return self.run_hook("before_delete_snippet", self.request, self.objects)
+        return self.run_hook("before_delete_snippet", self.request, [self.object])
 
     def run_after_hook(self):
-        return self.run_hook("after_delete_snippet", self.request, self.objects)
-
-    def setup(self, request, *args, pk=None, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.pk = pk
-        self.objects = self.get_objects()
-
-    def get_object(self, queryset=None):
-        # DeleteView requires either a pk kwarg or a positional arg, but we use
-        # an `id` query param for multiple objects. We need to explicitly override
-        # this so that we don't have to override `post()`.
-        return None
-
-    def get_objects(self):
-        # Replaces get_object to allow returning multiple objects instead of just one
-
-        if self.pk:
-            return [get_object_or_404(self.model, pk=unquote(self.pk))]
-
-        ids = self.request.GET.getlist("id")
-        objects = self.model.objects.filter(pk__in=ids)
-        return objects
-
-    def get_delete_url(self):
-        return (
-            reverse(
-                self.delete_multiple_url_name,
-            )
-            + "?"
-            + urlencode([("id", instance.pk) for instance in self.objects])
-        )
+        return self.run_hook("after_delete_snippet", self.request, [self.object])
 
     def get_success_message(self):
-        count = len(self.objects)
-        if count == 1:
-            return _("%(model_name)s '%(object)s' deleted.") % {
-                "model_name": capfirst(self.model._meta.verbose_name),
-                "object": self.objects[0],
-            }
-
-        # This message is only used in plural form, but we'll define it with ngettext so that
-        # languages with multiple plural forms can be handled correctly (or, at least, as
-        # correctly as possible within the limitations of verbose_name_plural...)
-        return ngettext(
-            "%(count)d %(model_name)s deleted.",
-            "%(count)d %(model_name)s deleted.",
-            count,
-        ) % {
-            "model_name": capfirst(self.model._meta.verbose_name_plural),
-            "count": count,
+        return _("%(model_name)s '%(object)s' deleted.") % {
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": self.object,
         }
-
-    def delete_action(self):
-        with transaction.atomic():
-            for instance in self.objects:
-                log(instance=instance, action="wagtail.delete")
-                instance.delete()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "objects": self.objects,
-                "action_url": self.get_delete_url(),
-            }
-        )
-        return context
 
 
 class UsageView(generic.UsageView):
@@ -798,7 +736,7 @@ class SnippetViewSet(ViewSet):
             index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
-            delete_multiple_url_name=self.get_url_name("delete-multiple"),
+            delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
         )
 
@@ -813,7 +751,7 @@ class SnippetViewSet(ViewSet):
             index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
-            delete_multiple_url_name=self.get_url_name("delete-multiple"),
+            delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
         )
 
@@ -855,7 +793,7 @@ class SnippetViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
-            delete_multiple_url_name=self.get_url_name("delete-multiple"),
+            delete_url_name=self.get_url_name("delete"),
         )
 
     @property
@@ -1043,7 +981,6 @@ class SnippetViewSet(ViewSet):
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
             path("edit/<str:pk>/", self.edit_view, name="edit"),
-            path("multiple/delete/", self.delete_view, name="delete-multiple"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
