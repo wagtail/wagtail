@@ -371,10 +371,6 @@ class DeleteView(generic.DeleteView):
     permission_required = "delete"
     header_icon = "snippet"
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.object = self.get_object()
-
     def run_before_hook(self):
         return self.run_hook("before_delete_snippet", self.request, [self.object])
 

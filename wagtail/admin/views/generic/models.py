@@ -639,7 +639,14 @@ class DeleteView(
     success_message = None
     page_title = gettext_lazy("Delete")
 
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = self.get_object()
+
     def get_object(self, queryset=None):
+        # If the object has already been loaded, return it to avoid another query
+        if getattr(self, "object", None):
+            return self.object
         if self.pk_url_kwarg not in self.kwargs:
             self.kwargs[self.pk_url_kwarg] = self.args[0]
         self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
