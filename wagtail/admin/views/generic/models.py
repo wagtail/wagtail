@@ -640,9 +640,9 @@ class DeleteView(
     page_title = gettext_lazy("Delete")
 
     def get_object(self, queryset=None):
-        if "pk" not in self.kwargs:
-            self.kwargs["pk"] = self.args[0]
-        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
+        if self.pk_url_kwarg not in self.kwargs:
+            self.kwargs[self.pk_url_kwarg] = self.args[0]
+        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
         return super().get_object(queryset)
 
     def get_usage(self):
