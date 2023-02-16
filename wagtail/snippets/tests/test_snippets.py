@@ -1844,8 +1844,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         self.assertRedirects(response, self.get_edit_url())
 
-        # The instance should not be updated
-        self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
+        # The instance should be updated, since it is still a draft
+        self.assertEqual(self.test_snippet.text, "Draft-enabled Bar")
 
         # The instance should be a draft
         self.assertFalse(self.test_snippet.live)
@@ -1960,8 +1960,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             # Should remain on the edit page
             self.assertRedirects(response, self.get_edit_url())
 
-            # The instance should not be edited
-            self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
+            # The instance should be edited, since it is still a draft
+            self.assertEqual(self.test_snippet.text, "Edited draft Foo")
 
             # The instance should not be live
             self.assertFalse(self.test_snippet.live)
@@ -4548,8 +4548,8 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
             object_id=self.snippet.pk,
         )
 
-        # The instance should not be updated
-        self.assertEqual(self.snippet.text, "Draft-enabled Foo")
+        # The instance should be updated, since it is still a draft
+        self.assertEqual(self.snippet.text, "Draft-enabled Foo reverted")
         # The initial revision, edited revision, and revert revision
         self.assertEqual(self.snippet.revisions.count(), 3)
         # The latest revision should be the revert revision

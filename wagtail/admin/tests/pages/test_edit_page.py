@@ -364,6 +364,86 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_page_edit_post_unpublished_page(self):
+        # Based on test_page_edit_post(), but tests changes on a draft page vs. live page.
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "hello edited",
+            "slug": "hello-unpublished-world-edited",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+        self.assertFalse(child_page_new.live)
+
+        # Page fields should be changed, since the page is still a draft
+        self.assertEqual(child_page_new.title, "Hello unpublished world! edited")
+        self.assertEqual(child_page_new.content, "hello edited")
+        self.assertEqual(child_page_new.slug, "hello-unpublished-world-edited")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data["title"])
+
+        # Publish the page
+        go_live_at = timezone.now()
+        post_data.update(
+            {
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # The page should be live now
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.live)
+
+        # We edit the live page again, but now those changes must not be written to the database.
+        post_data = {
+            "title": "Hello unpublished world! edited 2",
+            "content": "hello edited 2",
+            "slug": "hello-unpublished-world-edited-2",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # live Page fields should not be changed
+        self.assertEqual(child_page_new.title, "Hello unpublished world! edited")
+        self.assertEqual(child_page_new.content, "hello edited")
+        self.assertEqual(child_page_new.slug, "hello-unpublished-world-edited")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data["title"])
+
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
 
