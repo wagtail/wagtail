@@ -32,7 +32,7 @@ Changelog
  * Maintenance: Refactor accessibility checker userbar item (Albina Starykova)
  * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
  * Maintenance: Provisional Django 5.0 compatibility fixes (Sage Abdullah)
- * Maintenance: Add unit tests for `CollapseAll` component (Albina Starykova)
+ * Maintenance: Add unit tests for `CollapseAll` and `MinimapItem` components (Albina Starykova)
  * Maintenance: Code quality fixes (GLEF1X)
  * Maintenance: Refactor image / document / snippet usage views into a shared generic view (Sage Abdullah)
  * Maintenance: Rename the Stimulus `AutoFieldController` to the less confusing `SubmitController` (Loveth Omokaro)
