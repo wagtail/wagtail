@@ -649,6 +649,9 @@ class DeleteView(
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_success_url(self):
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
         if not self.index_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide an "
@@ -704,6 +707,7 @@ class DeleteView(
         context = super().get_context_data(**kwargs)
         context["model_opts"] = self.object._meta
         context["usage_url"] = self.get_usage_url()
+        context["next"] = self.get_success_url()
         if context["usage_url"]:
             # Get this here instead of the template so that we do not iterate through
             # the usage and potentially trigger a database query for each item
