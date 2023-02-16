@@ -3631,7 +3631,7 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
-        self.assertContains(response, "This advert is currently used 2 times")
+        self.assertContains(response, "This advert is referenced 2 times")
         self.assertContains(
             response, self.test_snippet.usage_url() + "?describe_on_delete=1"
         )
@@ -5161,7 +5161,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertContains(
             response,
-            "This standard snippet with custom primary key is currently used 0 times",
+            "This standard snippet with custom primary key is referenced 0 times",
         )
         self.assertContains(
             response, self.snippet_a.usage_url() + "?describe_on_delete=1"

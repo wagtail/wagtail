@@ -12,16 +12,16 @@ Variables this template accepts:
 <p>
     <a href="{{ usage_url }}">
         {% blocktrans trimmed with model_name=model_opts.verbose_name count usage_count=usage_count asvar usage_message %}
-            This {{ model_name }} is currently used {{ usage_count }} time.
+            This {{ model_name }} is referenced {{ usage_count }} time.
         {% plural %}
-            This {{ model_name }} is currently used {{ usage_count }} times.
+            This {{ model_name }} is referenced {{ usage_count }} times.
         {% endblocktrans %}
         {# Use capfirst in case the translated message starts with {{ model_name }}. #}
         {{ usage_message|capfirst }}
     </a>
     {% if is_protected %}
         {% blocktrans trimmed with model_name=model_opts.verbose_name asvar protected_message %}
-            One or more usages of this {{ model_name }} prevent it from being deleted.
+            One or more references to this {{ model_name }} prevent it from being deleted.
         {% endblocktrans %}
         {{ protected_message|capfirst }}
     {% endif %}
