@@ -158,7 +158,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "data-form-side-explorer")
 
         # test that usage info is shown
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(response, "Referenced 0 times")
         self.assertContains(
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
         )
@@ -177,7 +177,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # test that usage info is shown
-        self.assertContains(response, "Used 1 time")
+        self.assertContains(response, "Referenced 1 time")
         self.assertContains(
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
         )

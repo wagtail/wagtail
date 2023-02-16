@@ -3,7 +3,7 @@ from django.forms import Media
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
 from wagtail.locks import BasicLock
@@ -192,6 +192,18 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         )
         return templates
 
+    def get_usage_context(self):
+        context = super().get_usage_context()
+        context["usage_url"] = reverse(
+            "wagtailadmin_pages:usage", args=(self.object.id,)
+        )
+        context["usage_url_text"] = ngettext(
+            "Referenced %(count)s time",
+            "Referenced %(count)s times",
+            context["usage_count"],
+        ) % {"count": context["usage_count"]}
+        return context
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
@@ -209,7 +221,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "workflow_history_url": reverse(
                         "wagtailadmin_pages:workflow_history", args=(page.id,)
                     ),
-                    "usage_url": reverse("wagtailadmin_pages:usage", args=(page.id,)),
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
