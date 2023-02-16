@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 window.$ = $;
 
-import { initTagField } from './initTagField';
+import { initTagField } from './TagController';
 
 describe('initTagField', () => {
   let element;
