@@ -10,7 +10,11 @@
             <a class="w-text-14 w-text-secondary hover:w-text-secondary-600 w-no-underline w-transition"
                 href="{{ usage_url }}"
             >
-                {% blocktrans trimmed count usage_count=usage_count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
+                {% if usage_url_text %}
+                    {{ usage_url_text }}
+                {% else %}
+                    {% blocktrans trimmed count usage_count=usage_count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
+                {% endif %}
             </a>
         </div>
     </section>
