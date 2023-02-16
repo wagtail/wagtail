@@ -1,4 +1,5 @@
-import { Application, Controller } from '@hotwired/stimulus';
+import { Controller } from '@hotwired/stimulus';
+import type { Application } from '@hotwired/stimulus';
 
 const DEFAULT_CLASS = 'button-longrunning';
 
@@ -20,7 +21,7 @@ const DEFAULT_CLASS = 'button-longrunning';
  *  <em data-w-progress-target="label">{% trans 'Sign in' %}</em>
  * </button>
  */
-export class ProgressController extends Controller {
+export class ProgressController extends Controller<HTMLButtonElement> {
   static classes = ['active'];
   static targets = ['label'];
   static values = {
@@ -45,9 +46,9 @@ export class ProgressController extends Controller {
   /**
    * Ensure we have backwards compatibility with buttons that have
    * not yet adopted the new data attribute syntax.
-   * Will warn and advise in release notes that this support
-   * will be removed in a future version.
-   * @deprecated - RemovedInWagtail60
+   * Will be removed in a future release.
+   *
+   * @deprecated RemovedInWagtail60
    */
   static afterLoad(identifier: string, application: Application) {
     const { controllerAttribute } = application.schema;
