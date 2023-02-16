@@ -4849,6 +4849,8 @@ class PageSubscription(models.Model):
 
     comment_notifications = models.BooleanField()
 
+    wagtail_reference_index_ignore = True
+
     class Meta:
         unique_together = [
             ("page", "user"),
