@@ -4,6 +4,7 @@ import { ProgressController } from './ProgressController';
 jest.useFakeTimers();
 
 const flushPromises = () => new Promise(setImmediate);
+
 describe('ProgressController', () => {
   // form submit is not implemented in jsdom
   const mockSubmit = jest.fn((e) => e.preventDefault());
