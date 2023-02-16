@@ -772,7 +772,7 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
             reverse("wagtaildocs:delete", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_delete(self):
         # Submit title change
@@ -791,9 +791,9 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
             reverse("wagtaildocs:delete", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertContains(response, self.document.usage_url)
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(response, "This document is referenced 0 times")
 
 
 class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
@@ -2072,7 +2072,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
             reverse("wagtaildocs:delete", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_get_add_multiple(self):
         response = self.client.get(reverse("wagtaildocs:add_multiple"))
