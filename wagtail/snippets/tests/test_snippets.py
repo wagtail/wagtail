@@ -3630,11 +3630,11 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertContains(response, "This advert is currently used 2 times")
+        self.assertContains(
+            response, self.test_snippet.usage_url() + "?describe_on_delete=1"
         )
-        self.assertContains(response, "Used 2 times")
-        self.assertContains(response, self.test_snippet.usage_url())
 
     def test_before_delete_snippet_hook_get(self):
         advert = Advert.objects.create(
@@ -4890,9 +4890,7 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
 
 class TestSnippetEditHandlers(WagtailTestUtils, TestCase):
@@ -5150,9 +5148,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_usage_link(self):
         response = self.client.get(
@@ -5162,11 +5158,14 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertContains(
+            response,
+            "This standard snippet with custom primary key is currently used 0 times",
         )
-        self.assertContains(response, "Used 0 times")
-        self.assertContains(response, self.snippet_a.usage_url())
+        self.assertContains(
+            response, self.snippet_a.usage_url() + "?describe_on_delete=1"
+        )
 
     def test_redirect_to_edit(self):
         response = self.client.get(
