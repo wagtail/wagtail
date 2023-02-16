@@ -522,7 +522,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             return self.save_action()
 
     def save_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -547,7 +547,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_and_remain()
 
     def publish_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -643,7 +643,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def submit_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -690,7 +690,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def restart_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # save revision
@@ -732,7 +732,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def perform_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         if self.has_content_changes:
@@ -772,7 +772,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
     def cancel_workflow_action(self):
         self.workflow_state.cancel(user=self.request.user)
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
