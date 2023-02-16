@@ -3,23 +3,7 @@
 
 {% block main_content %}
     {% if usage_url %}
-        <p>
-            <a href="{{ usage_url }}">
-                {% blocktrans trimmed with model_name=model_opts.verbose_name usage_url=usage_url count usage_count=usage_count asvar usage_message %}
-                    This {{ model_name }} is currently used {{ usage_count }} time.
-                {% plural %}
-                    This {{ model_name }} is currently used {{ usage_count }} times.
-                {% endblocktrans %}
-                {# Use capfirst in case the translated message starts with {{ model_name }}. #}
-                {{ usage_message|capfirst|safe }}
-            </a>
-            {% if is_protected %}
-                {% blocktrans trimmed with model_name=model_opts.verbose_name asvar protected_message %}
-                    One or more usages of this {{ model_name }} prevent it from being deleted.
-                {% endblocktrans %}
-                {{ protected_message|capfirst }}
-            {% endif %}
-        </p>
+        {% include "wagtailadmin/shared/usage_summary.html" %}
     {% endif %}
     {% if not is_protected %}
         <p>{{ view.confirmation_message }}</p>

@@ -7,21 +7,7 @@
     {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
-        <p>
-            {% blocktrans trimmed with model_name=model_opts.verbose_name usage_url=usage_url count usage_count=usage_count asvar usage_message %}
-                This {{ model_name }} is currently <a href="{{ usage_url }}">used {{ usage_count }} time</a>.
-            {% plural %}
-                This {{ model_name }} is currently <a href="{{ usage_url }}">used {{ usage_count }} times</a>.
-            {% endblocktrans %}
-            {# Use capfirst in case the translated message starts with {{ model_name }}. #}
-            {{ usage_message|capfirst }}
-            {% if is_protected %}
-                {% blocktrans trimmed with model_name=model_opts.verbose_name asvar protected_message %}
-                    One or more usages of this {{ model_name }} prevent it from being deleted.
-                {% endblocktrans %}
-                {{ protected_message|capfirst }}
-            {% endif %}
-        </p>
+        {% include "wagtailadmin/shared/usage_summary.html" %}
         {% if not is_protected %}
             <p>
                 {% trans 'Are you sure you want to delete this page?' %}
