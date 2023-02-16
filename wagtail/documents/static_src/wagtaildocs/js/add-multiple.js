@@ -174,9 +174,6 @@ $(function () {
         });
       } else {
         form.replaceWith(data.form);
-
-        // run tagit enhancement on new form
-        $('.tag_field input', form).tagit(window.tagit_opts);
       }
     });
   });

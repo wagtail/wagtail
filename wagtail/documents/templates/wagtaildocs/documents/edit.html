@@ -7,15 +7,6 @@
     {{ block.super }}
 
     {{ form.media.js }}
-
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    <script>
-        $(function() {
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
-        });
-    </script>
 {% endblock %}
 
 {% block extra_css %}

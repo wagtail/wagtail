@@ -3,15 +3,12 @@ import $ from 'jquery';
 import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
 import { initStimulus } from '../../includes/initStimulus';
-import { initTagField } from '../../includes/initTagField';
 import { initTooltips } from '../../includes/initTooltips';
 
 /** initialise Wagtail Stimulus application with core controller definitions */
 window.Stimulus = initStimulus({ definitions: coreControllerDefinitions });
 
 window.escapeHtml = escapeHtml;
-
-window.initTagField = initTagField;
 
 /*
  * Enables a "dirty form check", prompting the user if they are navigating away

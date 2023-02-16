@@ -14,6 +14,13 @@ class AdminTagWidget(TagWidget):
         self.tag_model = kwargs.pop("tag_model", Tag)
         # free_tagging = None means defer to the tag model's setting
         self.free_tagging = kwargs.pop("free_tagging", None)
+
+        default_attrs = {"data-controller": "w-tag"}
+        attrs = kwargs.get("attrs")
+        if attrs:
+            default_attrs.update(attrs)
+        kwargs["attrs"] = default_attrs
+
         super().__init__(*args, **kwargs)
 
     def get_context(self, name, value, attrs):
@@ -41,8 +48,8 @@ class AdminTagWidget(TagWidget):
             help_text = _("Tags can only consist of a single word, no spaces allowed.")
 
         context["widget"]["help_text"] = help_text
-        context["widget"]["autocomplete_url"] = autocomplete_url
-        context["widget"]["options_json"] = json.dumps(
+        context["widget"]["attrs"]["data-w-tag-url-value"] = autocomplete_url
+        context["widget"]["attrs"]["data-w-tag-options-value"] = json.dumps(
             {
                 "allowSpaces": getattr(settings, "TAG_SPACES_ALLOWED", True),
                 "tagLimit": getattr(settings, "TAG_LIMIT", None),

@@ -36,9 +36,6 @@
                     $titleField.val(data.title);
                 }
             );
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
         });
     </script>
 {% endblock %}

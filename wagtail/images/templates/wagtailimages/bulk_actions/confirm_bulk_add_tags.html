@@ -3,18 +3,6 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed count counter=items|length %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}{% endblock %}
 
-{% block extra_js %}
-    {{ block.super }}
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    <script>
-        $(function() {
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
-        });
-    </script>
-{% endblock %}
-
 {% block header %}
     {% trans "Add tags to images" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}

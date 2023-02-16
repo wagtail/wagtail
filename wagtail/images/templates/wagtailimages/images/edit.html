@@ -12,15 +12,6 @@
 
     {{ form.media.js }}
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    <script>
-        $(function() {
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
-        });
-    </script>
-
     <!-- Focal point chooser -->
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
     <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>

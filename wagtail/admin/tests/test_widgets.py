@@ -1,8 +1,11 @@
 import json
+import re
+from html import unescape
 
 from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.utils.html import escape
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
@@ -387,30 +390,32 @@ class TestAdminDateTimeInput(TestCase):
 
 class TestAdminTagWidget(TestCase):
     def get_js_init_params(self, html):
-        """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # example - ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
-        start = "initTagField("
-        end = ");"
-        items_after_init = html.split(start)[1]
-        if items_after_init:
-            params_raw = items_after_init.split(end)[0]
-            if params_raw:
-                # stuff parameter string into an array so that we can unpack it as JSON
-                return json.loads("[%s]" % params_raw)
-        return []
+        """
+        Returns a list of the key parts of data needed for the w-tag controlled element
+        An id for the element with the 'w-tag' controller, the autocomplete url & tag options
 
-    def get_help_text_html_element(self, html):
-        """Return a help text html element with content as string"""
-        start = """<input type="text" name="tags">"""
-        end = "<script>"
-        items_after_input_tag = html.split(start)[1]
-        if items_after_input_tag:
-            help_text_element = items_after_input_tag.split(end)[0].strip()
-            return help_text_element
-        return []
+        example element <input data-controller="w-tag" id="test_id" data-w-tag-url-value="/admin/tag-autocomplete/" data-w-tag-options-value="{...encoded json opts}" />
+        example result - ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
+        """
+
+        element_id = re.search(
+            r'data-controller=\"w-tag\" id=\"((?:\\.|[^"\\])*)\"\s+', html
+        ).group(1)
+        autocomplete_url = re.search(
+            r'data-w-tag-url-value=\"((?:\\.|[^"\\])*)"', html
+        ).group(1)
+        options = re.search(
+            r'data-w-tag-options-value=\"((?:\\.|[^"\\])*)"', html
+        ).group(1)
+
+        return [
+            element_id,
+            autocomplete_url,
+            json.loads(unescape(options)),
+        ]
 
     def test_render_js_init_basic(self):
-        """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render("tags", None, attrs={"id": "alpha"})
@@ -427,7 +432,7 @@ class TestAdminTagWidget(TestCase):
 
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
-        """Checks that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets based  on TAG_SPACES_ALLOWED in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render("tags", None, attrs={"id": "alpha"})
@@ -444,7 +449,8 @@ class TestAdminTagWidget(TestCase):
 
     @override_settings(TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):
-        """Checks that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widget using options based on TAG_LIMIT in settings"""
+
         widget = widgets.AdminTagWidget()
 
         html = widget.render("tags", None, attrs={"id": "alpha"})
@@ -461,7 +467,8 @@ class TestAdminTagWidget(TestCase):
 
     def test_render_js_init_with_tag_model(self):
         """
-        Checks that 'initTagField' is passed the correct autocomplete URL for the custom model,
+        Checks that the 'w-tag' controller attributes are correctly added to the tag widget using
+        the correct autocomplete URL for the custom model,
         and sets autocompleteOnly according to that model's free_tagging attribute
         """
         widget = widgets.AdminTagWidget(tag_model=RestaurantTag)
@@ -517,16 +524,15 @@ class TestAdminTagWidget(TestCase):
         help_text = widget.get_context(None, None, {})["widget"]["help_text"]
 
         html = widget.render("tags", None, {})
-        help_text_html_element = self.get_help_text_html_element(html)
 
         self.assertEqual(
             help_text,
             'Multi-word tags with spaces will automatically be enclosed in double quotes (").',
         )
 
-        self.assertHTMLEqual(
-            help_text_html_element,
-            """<p class="help">%s</p>""" % help_text,
+        self.assertIn(
+            """<p class="help">%s</p>""" % escape(help_text),
+            html,
         )
 
     @override_settings(TAG_SPACES_ALLOWED=False)
@@ -536,15 +542,14 @@ class TestAdminTagWidget(TestCase):
         help_text = widget.get_context(None, None, {})["widget"]["help_text"]
 
         html = widget.render("tags", None, {})
-        help_text_html_element = self.get_help_text_html_element(html)
 
         self.assertEqual(
             help_text, "Tags can only consist of a single word, no spaces allowed."
         )
 
-        self.assertHTMLEqual(
-            help_text_html_element,
-            """<p class="help">%s</p>""" % help_text,
+        self.assertIn(
+            """<p class="help">%s</p>""" % escape(help_text),
+            html,
         )
 
 
