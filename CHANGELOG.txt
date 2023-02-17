@@ -37,6 +37,7 @@ Changelog
  * Maintenance: Refactor image / document / snippet usage views into a shared generic view (Sage Abdullah)
  * Maintenance: Rename the Stimulus `AutoFieldController` to the less confusing `SubmitController` (Loveth Omokaro)
  * Maintenance: Replace `script` tags with `template` tag for image/document bulk uploads (Rishabh Kumar Bahukhandi)
+ * Maintenance: Remove unneeded float styles on 404 page (Fabien Le Frapper)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
