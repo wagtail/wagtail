@@ -2,7 +2,6 @@ import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
-import { ngettext } from '../../utils/gettext';
 
 window.InlinePanel = InlinePanel;
 window.MultipleChooserPanel = MultipleChooserPanel;
@@ -30,48 +29,6 @@ function initSlugAutoPopulate() {
 
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
-function initErrorDetection() {
-  const errorSections = {};
-
-  // first count up all the errors
-  $('.error-message,.help-critical').each(function collectError() {
-    const parentSection = $(this).closest('section[role="tabpanel"]');
-
-    if (!errorSections[parentSection.attr('id')]) {
-      errorSections[parentSection.attr('id')] = 0;
-    }
-
-    errorSections[parentSection.attr('id')] =
-      errorSections[parentSection.attr('id')] + 1;
-  });
-
-  // now identify them on each tab
-  Object.entries(errorSections).forEach(([sectionId, errorCount]) => {
-    const tabErrorsElement = $(`[data-tabs] a[href="#${sectionId}"]`).find(
-      '[data-tabs-errors]',
-    );
-
-    // show and add error count
-    tabErrorsElement
-      .addClass('!w-flex')
-      .find('[data-tabs-errors-count]')
-      .text(errorCount);
-
-    // update label for screen readers
-    tabErrorsElement
-      .find('[data-tabs-errors-statement]')
-      .text(
-        ngettext(
-          '(%(errorCount)s error)',
-          '(%(errorCount)s errors)',
-          errorCount,
-        ).replace('%(errorCount)s', errorCount),
-      );
-  });
-}
-
-window.initErrorDetection = initErrorDetection;
-
 function initKeyboardShortcuts() {
   // eslint-disable-next-line no-undef
   Mousetrap.bind(['mod+p'], () => {
@@ -96,8 +53,6 @@ $(() => {
   if (!$('body').hasClass('page-is-live')) {
     initSlugAutoPopulate();
   }
-
-  initErrorDetection();
   initKeyboardShortcuts();
 });
 
