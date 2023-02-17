@@ -104,6 +104,7 @@ Changelog
  * Fix: Fix initialisation of commenting widgets within StreamField (Thibaud Colas)
  * Fix: Fix various regressions in the commenting UI (Thibaud Colas)
  * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
+ * Fix: Correctly show the "new item" badge within menu sections previously dismissed (Sage Abdullah)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)

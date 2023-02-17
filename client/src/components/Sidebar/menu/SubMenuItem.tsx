@@ -25,6 +25,11 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
   const isActive = isOpen || state.activePath.startsWith(path);
   const depth = path.split('.').length;
   const [isVisible, setIsVisible] = React.useState(false);
+  const [hasBeenOpened, setHasBeenOpened] = React.useState(false);
+
+  const dismissibleCount = item.menuItems.filter(
+    (subItem) => !isDismissed(subItem, state),
+  ).length;
 
   React.useEffect(() => {
     if (isOpen) {
@@ -40,7 +45,21 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
   }, [isOpen]);
 
   const onClick = () => {
-    if (!isDismissed(item, state)) {
+    // Only dispatch set-dismissible-state when there are dismissible items
+    // in the submenu and the submenu has not been opened before. Note that
+    // the term "submenu" for this component means that this menu item *has*
+    // "sub" items (children), rather than the actual "sub" menu items inside it.
+    if (!hasBeenOpened && dismissibleCount > 0) {
+      // Dispatching set-dismissible-state from this submenu also collect
+      // all dismissible items in the submenu and set their state to dismissed
+      // on the server, so that those child items won't show up as "new" again on
+      // the next load.
+      // However, the client state for the child items is only updated on the
+      // next reload or if the individual items are clicked, so that the user
+      // has the chance to see the "new" badge for those items.
+      // After clicking this at least once, even if hasBeenOpened is false on
+      // the next load, all the child items have been dismissed (dismissibleCount == 0),
+      // so the "new" badge will not show up again (unless the server adds a new item).
       dispatch({
         type: 'set-dismissible-state',
         item,
@@ -60,6 +79,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
         type: 'set-navigation-path',
         path,
       });
+      setHasBeenOpened(true);
     }
   };
 
@@ -71,10 +91,6 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
   const sidebarTriggerIconClassName =
     'sidebar-sub-menu-trigger-icon' +
     (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '');
-
-  const dismissibleCount = item.menuItems.filter(
-    (subItem) => !isDismissed(subItem, state),
-  ).length;
 
   return (
     <li className={className}>
@@ -91,7 +107,12 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
             <Icon name={item.iconName} className="icon--menuitem" />
           )}
           <span className="menuitem-label">{item.label}</span>
-          {dismissibleCount > 0 && !isDismissed(item, state) && (
+
+          {
+            // Only show the dismissible badge if the menu item has not been
+            // opened yet, so it's less distracting after the user has opened it.
+          }
+          {dismissibleCount > 0 && !hasBeenOpened && (
             <span className="w-dismissible-badge w-dismissible-badge--count">
               <span aria-hidden="true">{dismissibleCount}</span>
               <span className="w-sr-only">
