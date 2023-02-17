@@ -46,6 +46,17 @@ repos:
         additional_dependencies:
           - stylelint@14.2.0
           - '@wagtail/stylelint-config-wagtail@0.3.2'
+  - repo: https://github.com/thibaudcolas/curlylint.git
+    rev: v0.13.1
+      - id: curlylint
+        name: curlylint
+        # description: A linter which checks the indentation and the correctness of Jinja-like/HTML templates.
+        # language: python
+        # language_version: python3
+        entry: curlylint
+        types_or: [html, jinja, twig]
+        require_serial: true
+    
   - repo: https://github.com/rtts/djhtml
     rev: v1.4.13
     hooks:
