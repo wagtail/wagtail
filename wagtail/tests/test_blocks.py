@@ -21,7 +21,7 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter
 from wagtail.blocks.static_block import StaticBlockAdapter
 from wagtail.blocks.stream_block import StreamBlockAdapter
-from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -2103,6 +2103,29 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({"title": "Torchbox", "link": "not a url"})
         with self.assertRaises(ValidationError):
             block.clean(value)
+
+    def test_non_block_validation_error(self):
+        class LinkBlock(blocks.StructBlock):
+            page = blocks.PageChooserBlock(required=False)
+            url = blocks.URLBlock(required=False)
+
+            def clean(self, value):
+                result = super().clean(value)
+                if not (result["page"] or result["url"]):
+                    raise StructBlockValidationError(
+                        non_block_errors=ErrorList(
+                            ["Either page or URL must be specified"]
+                        )
+                    )
+                return result
+
+        block = LinkBlock()
+        bad_data = {"page": None, "url": ""}
+        with self.assertRaises(ValidationError):
+            block.clean(bad_data)
+
+        good_data = {"page": None, "url": "https://wagtail.org/"}
+        self.assertEqual(block.clean(good_data), good_data)
 
     def test_bound_blocks_are_available_on_template(self):
         """
