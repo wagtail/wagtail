@@ -48,6 +48,7 @@ Changelog
  * Maintenance: Add curlylint and update djhtml, semgrep versions in pre-commit config (Himanshu Garg)
  * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
  * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
+ * Maintenance: Migrate `initErrorDetection` (tabs error counts) to a Stimulus Controller `w-count` (Aman Pandey)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
