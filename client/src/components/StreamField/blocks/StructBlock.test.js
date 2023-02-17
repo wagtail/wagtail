@@ -178,9 +178,19 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
 
   test('setError passes error messages to children', () => {
     boundBlock.setError([
-      new StructBlockValidationError({
+      new StructBlockValidationError(null, {
         size: [new ValidationError(['This is too big'])],
       }),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError shows non-block errors', () => {
+    boundBlock.setError([
+      new StructBlockValidationError(
+        [new ValidationError(['This is just generally wrong'])],
+        null,
+      ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });

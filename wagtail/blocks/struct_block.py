@@ -1,7 +1,7 @@
 import collections
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
@@ -17,24 +17,36 @@ __all__ = ["BaseStructBlock", "StructBlock", "StructValue"]
 
 
 class StructBlockValidationError(ValidationError):
-    def __init__(self, block_errors=None):
+    def __init__(self, block_errors=None, non_block_errors=None):
         self.block_errors = block_errors
-        super().__init__("Validation error in StructBlock", params=block_errors)
+        self.non_block_errors = non_block_errors
+
+        params = {}
+        if block_errors:
+            params.update(block_errors)
+        if non_block_errors:
+            params[NON_FIELD_ERRORS] = non_block_errors
+        super().__init__("Validation error in StructBlock", params=params)
 
 
 class StructBlockValidationErrorAdapter(Adapter):
     js_constructor = "wagtail.blocks.StructBlockValidationError"
 
     def js_args(self, error):
-        if error.block_errors is None:
-            return [None]
+        if error.non_block_errors:
+            non_block_errors = error.non_block_errors.as_data()
         else:
-            return [
-                {
-                    name: error_list.as_data()
-                    for name, error_list in error.block_errors.items()
-                }
-            ]
+            non_block_errors = None
+
+        if error.block_errors:
+            block_errors = {
+                name: error_list.as_data()
+                for name, error_list in error.block_errors.items()
+            }
+        else:
+            block_errors = None
+
+        return [non_block_errors, block_errors]
 
     @cached_property
     def media(self):
