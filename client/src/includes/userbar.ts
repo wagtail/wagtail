@@ -383,13 +383,67 @@ export class Userbar extends HTMLElement {
       }
     });
 
+    const sortAxeResults = () => {
+      interface inaccessibleNode {
+        selectedNode: HTMLElement;
+        selectorName: string;
+      }
+      const inaccessibleNodes: inaccessibleNode[] = [];
+
+      results.violations.forEach((violation) => {
+        violation.nodes.forEach((node) => {
+          const selectorName = node.target[0];
+          const selectedNode =
+            document.querySelector<HTMLElement>(selectorName);
+          if (!selectedNode) return;
+          // push both node (to compare DOM position) and selector (to find in axe results)
+          inaccessibleNodes.push({
+            selectedNode,
+            selectorName,
+          });
+        });
+      });
+
+      // Sort nodes based on their position in DOM. if a contains b, parent (a) goes first
+      const sortedNodes = inaccessibleNodes.sort((a, b) =>
+        // method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+        // eslint-disable-next-line no-bitwise
+        a.selectedNode.compareDocumentPosition(b.selectedNode) &
+        Node.DOCUMENT_POSITION_PRECEDING
+          ? 1
+          : -1,
+      );
+
+      console.log(sortedNodes.map((a) => a.selectorName));
+
+      // Utility object with index in order not to use find each time
+      const selectorIndex = {};
+      sortedNodes.forEach((sortedNode, index) => {
+        selectorIndex[sortedNode.selectorName] = index;
+      });
+
+      // Only need 1 min index per violation
+      const getMinIndex = (violationToSort) =>
+        Math.min(
+          ...violationToSort.nodes.map(
+            (sortedNode) => selectorIndex[sortedNode.target[0]],
+          ),
+        );
+
+      const sortedViolations = results.violations.sort(
+        (a, b) => getMinIndex(a) - getMinIndex(b),
+      );
+      return sortedViolations;
+    };
+
     const showAxeResults = () => {
       modal.show();
       // Reset modal contents to support multiple runs of Axe checks in the preview panel
       modalBody.innerHTML = '';
 
       if (results.violations.length) {
-        results.violations.forEach((violation, violationIndex) => {
+        const sortedViolations = sortAxeResults();
+        sortedViolations.forEach((violation, violationIndex) => {
           modalBody.appendChild(a11yRowTemplate.content.cloneNode(true));
           const currentA11yRow = modalBody.querySelectorAll(
             '[data-a11y-result-row]',
