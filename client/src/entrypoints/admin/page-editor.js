@@ -30,16 +30,6 @@ function initSlugAutoPopulate() {
 
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
-function initSlugCleaning() {
-  // eslint-disable-next-line func-names
-  $('#id_slug').on('blur', function () {
-    // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
-    $(this).val(cleanForSlug($(this).val(), false));
-  });
-}
-
-window.initSlugCleaning = initSlugCleaning;
-
 function initErrorDetection() {
   const errorSections = {};
 
@@ -107,7 +97,6 @@ $(() => {
     initSlugAutoPopulate();
   }
 
-  initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
 });

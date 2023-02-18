@@ -642,3 +642,23 @@ class TestFilteredSelect(TestCase):
             </select>
         """,
         )
+
+
+class TestSlugInput(TestCase):
+    def test_has_data_attr(self):
+        widget = widgets.slug.SlugInput()
+
+        html = widget.render("test", None, attrs={"id": "test-id"})
+
+        self.assertInHTML(
+            '<input type="text" name="test" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify" data-w-slug-allow-unicode-value id="test-id">',
+            html,
+        )
+
+    @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False)
+    def test_render_data_atrrs_from_settings(self):
+        widget = widgets.slug.SlugInput()
+
+        html = widget.render("test", None, attrs={"id": "test-id"})
+
+        self.assertNotIn("data-w-slug-allow-unicode-value", html)

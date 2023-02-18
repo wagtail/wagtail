@@ -4,6 +4,7 @@ import type { Definition } from '@hotwired/stimulus';
 import { ActionController } from './ActionController';
 import { ProgressController } from './ProgressController';
 import { SkipLinkController } from './SkipLinkController';
+import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
 import { UpgradeController } from './UpgradeController';
 
@@ -15,6 +16,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: ActionController, identifier: 'w-action' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
+  { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
 ];
