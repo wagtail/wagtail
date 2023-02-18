@@ -39,13 +39,13 @@ export function cleanForSlug(
   // just do the "replace"
   if (unicodeSlugsEnabled) {
     return val
-      .replace(/\s/g, '-')
+      .replace(/\s+/g, '-')
       .replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '')
       .toLowerCase();
   }
 
   return val
-    .replace(/\s/g, '-')
+    .replace(/\s+/g, '-')
     .replace(/[^A-Za-z0-9\-_]/g, '')
     .toLowerCase();
 }
