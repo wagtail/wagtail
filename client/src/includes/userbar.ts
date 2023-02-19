@@ -11,6 +11,55 @@ This component implements a roving tab index for keyboard navigation
 Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 */
 
+export const sortAxeViolations = (violations: AxeResults['violations']) => {
+  interface inaccessibleNode {
+    selectedNode: HTMLElement;
+    selectorName: string;
+  }
+  const inaccessibleNodes: inaccessibleNode[] = [];
+
+  violations.forEach((violation) => {
+    violation.nodes.forEach((node) => {
+      const selectorName = node.target[0];
+      const selectedNode = document.querySelector<HTMLElement>(selectorName);
+      if (!selectedNode) return;
+      // Push both node (to compare DOM position) and selector (to sort Axe results)
+      inaccessibleNodes.push({
+        selectedNode,
+        selectorName,
+      });
+    });
+  });
+
+  const sortedNodes = inaccessibleNodes.sort((a, b) =>
+    // Method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+    // eslint-disable-next-line no-bitwise
+    a.selectedNode.compareDocumentPosition(b.selectedNode) &
+    Node.DOCUMENT_POSITION_PRECEDING
+      ? 1
+      : -1,
+  );
+
+  // Utility object with index in order not to use find each time
+  const selectorIndex = {};
+  sortedNodes.forEach((sortedNode, index) => {
+    selectorIndex[sortedNode.selectorName] = index;
+  });
+
+  // Only need 1 min node index per violation
+  const getMinIndex = (violationToSort) =>
+    Math.min(
+      ...violationToSort.nodes.map(
+        (sortedNode) => selectorIndex[sortedNode.target[0]],
+      ),
+    );
+
+  const sortedViolations = violations.sort(
+    (a, b) => getMinIndex(a) - getMinIndex(b),
+  );
+
+  return sortedViolations;
+};
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
 
@@ -383,66 +432,13 @@ export class Userbar extends HTMLElement {
       }
     });
 
-    const sortAxeResults = () => {
-      interface inaccessibleNode {
-        selectedNode: HTMLElement;
-        selectorName: string;
-      }
-      const inaccessibleNodes: inaccessibleNode[] = [];
-
-      results.violations.forEach((violation) => {
-        violation.nodes.forEach((node) => {
-          const selectorName = node.target[0];
-          const selectedNode =
-            document.querySelector<HTMLElement>(selectorName);
-          if (!selectedNode) return;
-          // push both node (to compare DOM position) and selector (to find in axe results)
-          inaccessibleNodes.push({
-            selectedNode,
-            selectorName,
-          });
-        });
-      });
-
-      // Sort nodes based on their position in DOM. if a contains b, parent (a) goes first
-      const sortedNodes = inaccessibleNodes.sort((a, b) =>
-        // method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
-        // eslint-disable-next-line no-bitwise
-        a.selectedNode.compareDocumentPosition(b.selectedNode) &
-        Node.DOCUMENT_POSITION_PRECEDING
-          ? 1
-          : -1,
-      );
-
-      console.log(sortedNodes.map((a) => a.selectorName));
-
-      // Utility object with index in order not to use find each time
-      const selectorIndex = {};
-      sortedNodes.forEach((sortedNode, index) => {
-        selectorIndex[sortedNode.selectorName] = index;
-      });
-
-      // Only need 1 min index per violation
-      const getMinIndex = (violationToSort) =>
-        Math.min(
-          ...violationToSort.nodes.map(
-            (sortedNode) => selectorIndex[sortedNode.target[0]],
-          ),
-        );
-
-      const sortedViolations = results.violations.sort(
-        (a, b) => getMinIndex(a) - getMinIndex(b),
-      );
-      return sortedViolations;
-    };
-
     const showAxeResults = () => {
       modal.show();
       // Reset modal contents to support multiple runs of Axe checks in the preview panel
       modalBody.innerHTML = '';
 
       if (results.violations.length) {
-        const sortedViolations = sortAxeResults();
+        const sortedViolations = sortAxeViolations(results.violations);
         sortedViolations.forEach((violation, violationIndex) => {
           modalBody.appendChild(a11yRowTemplate.content.cloneNode(true));
           const currentA11yRow = modalBody.querySelectorAll(
@@ -486,14 +482,13 @@ export class Userbar extends HTMLElement {
               /\[data-block-key="\w{5}"\]/,
               '',
             );
-            currentA11ySelector.addEventListener('click', () => {
+            currentA11ySelector.addEventListener('click', (event) => {
+              event.preventDefault();
               const inaccessibleElement =
                 document.querySelector<HTMLElement>(selectorName);
               if (!inaccessibleElement) return;
               inaccessibleElement.style.scrollMargin = '6.25rem';
-              inaccessibleElement.scrollIntoView({
-                behavior: 'smooth',
-              });
+              inaccessibleElement.scrollIntoView();
               inaccessibleElement.focus();
             });
           });
