@@ -690,6 +690,7 @@ Contributors
 * Satvik Vashisht
 * Rishabh Kumar Bahukhandi
 * Ayman Makroo
+* Suyash Srivastava
 
 Translators
 ===========
