@@ -31,7 +31,7 @@ This module was contributed by Coen van der Kamp.
 Commenting
 ~~~~~~~~~~
 
-The page editor now supports :ref:`leaving comments on fields and StreamField blocks <commenting>`, by entering commenting mode (using the button in the top right of the editor). Inline comments are available in rich text fields using the Draftail editor.
+The page editor now supports leaving comments on fields and StreamField blocks, by entering commenting mode (using the button in the top right of the editor). Inline comments are available in rich text fields using the Draftail editor.
 
 This feature was developed by Jacob Topp-Mugglestone, Karl Hobley and Simon Evans and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 

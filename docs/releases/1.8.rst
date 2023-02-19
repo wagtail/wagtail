@@ -30,8 +30,6 @@ Restrictions on bulk-deletion of pages
 
 Previously, any user with edit permission over a page and its descendants was able to delete them all as a single action, which led to the risk of accidental deletions. To guard against this, the permission rules have been revised so that a user with basic permissions can only delete pages that have no children; in order to delete a whole subtree, they must individually delete each child page first. A new "bulk delete" permission type has been added which allows a user to delete pages with children, as before; superusers receive this permission implicitly, and so there is no change of behaviour for them.
 
-See: :ref:`permissions`
-
 This feature was developed by Matt Westcott.
 
 
