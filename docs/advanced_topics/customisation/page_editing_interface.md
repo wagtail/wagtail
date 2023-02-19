@@ -4,7 +4,7 @@
 
 ## Customising the tabbed interface
 
-As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Promote' and 'Settings'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an `edit_handler` attribute on the page or snippet model. For example:
+As standard, Wagtail organises panels for pages into two tabs: 'Content' and 'Promote'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` attribute on the page or snippet model. For example:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
@@ -26,7 +26,6 @@ class BlogPage(Page):
         ObjectList(content_panels, heading='Content'),
         ObjectList(sidebar_content_panels, heading='Sidebar content'),
         ObjectList(Page.promote_panels, heading='Promote'),
-        ObjectList(Page.settings_panels, heading='Settings'),
     ])
 ```
 
