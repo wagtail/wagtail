@@ -539,7 +539,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
             html=True,
         )
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
@@ -553,7 +553,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
             html=True,
         )
 
@@ -566,7 +566,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
             html=True,
         )
 
@@ -577,7 +577,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertContains(response, "Sorry, no filterable snippets match your query")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="PH">Philippines</button>',
+            '<label for="id_country_code_2"><input type="radio" name="country_code" value="PH" id="id_country_code_2" checked>Philippines</label>',
             html=True,
         )
 
@@ -589,7 +589,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
             html=True,
         )
 
@@ -600,7 +600,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertContains(response, "Sorry, no filterable snippets match your query")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
             html=True,
         )
 
@@ -612,7 +612,7 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
-            '<button class="button button-select__option button-select__option--selected" value="UK">United Kingdom</button>',
+            '<label for="id_country_code_3"><input type="radio" name="country_code" value="UK" id="id_country_code_3" checked>United Kingdom</label>',
             html=True,
         )
 
