@@ -2,7 +2,6 @@ import $ from 'jquery';
 
 import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
-import { initButtonSelects } from '../../includes/initButtonSelects';
 import { initStimulus } from '../../includes/initStimulus';
 import { initTagField } from '../../includes/initTagField';
 import { initTooltips } from '../../includes/initTooltips';
@@ -500,7 +499,5 @@ function initDropDowns() {
 $(document).ready(initDropDowns);
 wagtail.ui.initDropDowns = initDropDowns;
 wagtail.ui.DropDownController = DropDownController;
-
-$(document).ready(initButtonSelects);
 
 window.wagtail = wagtail;
