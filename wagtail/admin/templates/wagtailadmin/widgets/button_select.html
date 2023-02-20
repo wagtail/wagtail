@@ -1,12 +1,11 @@
 <div class="button-select">
-    <input type="hidden" name="{{ widget.name }}" value="{{ widget.value.0 }}" {% include "django/forms/widgets/attrs.html" %}>
-
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% if group_name %}
             <h4>{{ group_name }}</h4>
         {% endif %}
         {% for option in group_choices %}
-            {% include option.template_name with widget=option %}
+        <input type="radio" name="{{ option.template_name }}" value="{{ option.template_name }}" {% include "django/forms/widgets/attrs.html" %}>
+        <label for="html">{{option.label}}</label><br>        
         {% endfor %}
     {% endfor %}
 </div>

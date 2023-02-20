@@ -2,17 +2,17 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 
-class ButtonSelect(forms.Select):
+class ButtonSelect(forms.RadioSelect):
     """
     A select widget for fields with choices. Displays as a list of buttons.
     """
 
-    input_type = "hidden"
+    input_type = "radio"
     template_name = "wagtailadmin/widgets/button_select.html"
     option_template_name = "wagtailadmin/widgets/button_select_option.html"
 
 
-class BooleanButtonSelect(ButtonSelect):
+class BooleanFilterSelect(ButtonSelect):
     """
     A select widget for boolean fields. Displays as three buttons. "All", "Yes" and "No".
     """

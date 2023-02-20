@@ -5,7 +5,7 @@ from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.admin.widgets import (
     AdminDateInput,
-    BooleanButtonSelect,
+    BooleanFilterSelect,
     ButtonSelect,
     FilteredSelect,
 )
@@ -106,7 +106,7 @@ class WagtailFilterSet(django_filters.FilterSet):
             params.setdefault("widget", DateRangePickerWidget)
 
         elif filter_class == django_filters.BooleanFilter:
-            params.setdefault("widget", BooleanButtonSelect)
+            params.setdefault("widget", BooleanFilterSelect)
 
         return filter_class, params
 
