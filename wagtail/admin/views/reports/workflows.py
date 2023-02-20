@@ -1,6 +1,7 @@
 import datetime
 
 import django_filters
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Q
@@ -13,7 +14,6 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.utils import get_latest_str
-from wagtail.admin.widgets import ButtonSelect
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
     Task,
@@ -61,7 +61,7 @@ class WorkflowReportFilterSet(WagtailFilterSet):
         method="filter_reviewable",
         choices=(("true", _("Awaiting my review")),),
         empty_label=_("All"),
-        widget=ButtonSelect,
+        widget=forms.RadioSelect,
     )
     requested_by = django_filters.ModelChoiceFilter(
         field_name="requested_by", queryset=get_requested_by_queryset
@@ -107,7 +107,7 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
         method="filter_reviewable",
         choices=(("true", _("Awaiting my review")),),
         empty_label=_("All"),
-        widget=ButtonSelect,
+        widget=forms.RadioSelect,
     )
 
     def filter_reviewable(self, queryset, name, value):

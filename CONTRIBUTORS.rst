@@ -701,6 +701,7 @@ Contributors
 * Deepam Priyadarshi
 * Mng
 * George Sakkis
+* Mehul Aggarwal
 
 Translators
 ===========
