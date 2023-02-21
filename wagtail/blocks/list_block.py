@@ -47,30 +47,6 @@ class ListBlockValidationError(ValidationError):
         return result
 
 
-class ListBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.blocks.ListBlockValidationError"
-
-    def js_args(self, error):
-        return [
-            [
-                elist.as_data() if elist is not None else elist
-                for elist in error.block_errors
-            ],
-            error.non_block_errors.as_data(),
-        ]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/blocks.js"),
-            ]
-        )
-
-
-register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
-
-
 class ListValue(MutableSequence):
     """
     The native data type used by ListBlock. Behaves as a list of values, but also provides

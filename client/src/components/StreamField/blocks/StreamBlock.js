@@ -21,13 +21,6 @@ import { hideTooltipOnEsc } from '../../../includes/initTooltips';
 
 /* global $ */
 
-export class StreamBlockValidationError {
-  constructor(nonBlockErrors, blockErrors) {
-    this.nonBlockErrors = nonBlockErrors;
-    this.blockErrors = blockErrors;
-  }
-}
-
 class StreamChild extends BaseSequenceChild {
   /*
   wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata

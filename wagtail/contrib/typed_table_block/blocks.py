@@ -43,35 +43,6 @@ class TypedTableBlockValidationError(ValidationError):
         return result
 
 
-class TypedTableBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.contrib.typed_table_block.TypedTableBlockValidationError"
-
-    def js_args(self, error):
-        if error.cell_errors is None:
-            return [None]
-        else:
-            return [
-                {
-                    row_index: {
-                        col_index: cell_error
-                        for col_index, cell_error in row_errors.items()
-                    }
-                    for row_index, row_errors in error.cell_errors.items()
-                }
-            ]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("typed_table_block/js/typed_table_block.js"),
-            ]
-        )
-
-
-register(TypedTableBlockValidationErrorAdapter(), TypedTableBlockValidationError)
-
-
 class TypedTable:
     template = "typed_table_block/typed_table_block.html"
 
