@@ -9,6 +9,7 @@ Changelog
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
+ * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
 
 
 4.1.2 (06.02.2023)
