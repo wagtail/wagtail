@@ -61,10 +61,10 @@ function initBlockWidget(id) {
   const blockDefData = JSON.parse(body.dataset.block);
   const blockDef = window.telepath.unpack(blockDefData);
   const blockValue = JSON.parse(body.dataset.value);
-  const blockErrors = window.telepath.unpack(JSON.parse(body.dataset.errors));
+  const blockError = JSON.parse(body.dataset.error);
 
   // replace the 'body' element with the populated HTML structure for the block
-  blockDef.render(body, id, blockValue, blockErrors);
+  blockDef.render(body, id, blockValue, blockError);
 }
 window.initBlockWidget = initBlockWidget;
 

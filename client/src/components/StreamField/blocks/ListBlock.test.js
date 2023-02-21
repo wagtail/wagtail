@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import * as uuid from 'uuid';
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
-import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
+import { ListBlockDefinition } from './ListBlock';
 import { StreamBlockDefinition } from './StreamBlock';
 
 // Mock uuid for consistent snapshot results
@@ -51,12 +51,6 @@ class DummyWidgetDefinition {
       },
       idForLabel: id,
     };
-  }
-}
-
-class ValidationError {
-  constructor(messages) {
-    this.messages = messages;
   }
 }
 
@@ -304,22 +298,16 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
   });
 
   test('setError passes error messages to children', () => {
-    boundBlock.setError([
-      new ListBlockValidationError(
-        [null, [new ValidationError(['Not as good as the first one'])]],
-        [],
-      ),
-    ]);
+    boundBlock.setError({
+      blockErrors: [null, { messages: ['Not as good as the first one'] }],
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
   test('setError renders non-block errors', () => {
-    boundBlock.setError([
-      new ListBlockValidationError(
-        [null, null],
-        [new ValidationError(['At least three blocks are required'])],
-      ),
-    ]);
+    boundBlock.setError({
+      messages: ['At least three blocks are required'],
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
