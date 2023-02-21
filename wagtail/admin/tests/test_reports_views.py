@@ -4,6 +4,7 @@ from io import BytesIO
 from django.conf import settings
 from django.conf.locale import LANG_INFO
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -11,7 +12,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import ModelLogEntry, Page, PageLogEntry
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -278,6 +279,34 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.edit_log_3,
             ],
         )
+
+    def test_log_entry_with_stale_content_type(self):
+        stale_content_type = ContentType.objects.create(
+            app_label="fake_app", model="deleted model"
+        )
+
+        ModelLogEntry.objects.create(
+            object_id=123,
+            content_type=stale_content_type,
+            label="This instance's model was deleted, but its content type was not",
+            action="wagtail.create",
+            timestamp=timezone.now(),
+        )
+
+        response = self.get()
+        self.assertContains(response, "Deleted model")
+
+    def test_log_entry_with_null_content_type(self):
+        ModelLogEntry.objects.create(
+            object_id=123,
+            content_type=None,
+            label="This instance's model was deleted, and so was its content type",
+            action="wagtail.create",
+            timestamp=timezone.now(),
+        )
+
+        response = self.get()
+        self.assertContains(response, "Unknown content type")
 
 
 @override_settings(
