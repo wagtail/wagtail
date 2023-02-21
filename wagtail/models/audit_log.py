@@ -65,8 +65,19 @@ class LogEntryQuerySet(models.QuerySet):
             {}
         )  # lookup of (content_type_id, stringified_object_id) to instance
         for content_type_id, object_ids in ids_by_content_type.items():
-            model = ContentType.objects.get_for_id(content_type_id).model_class()
-            model_instances = model.objects.in_bulk(object_ids)
+            try:
+                content_type = ContentType.objects.get_for_id(content_type_id)
+                model = content_type.model_class()
+            except ContentType.DoesNotExist:
+                model = None
+
+            if model:
+                model_instances = model.objects.in_bulk(object_ids)
+            else:
+                # The model class for the logged instance no longer exists,
+                # so we have no instance to return. Return None instead.
+                model_instances = {object_id: None for object_id in object_ids}
+
             for object_id, instance in model_instances.items():
                 instances_by_id[(content_type_id, str(object_id))] = instance
 
