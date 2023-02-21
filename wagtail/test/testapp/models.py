@@ -55,6 +55,7 @@ from wagtail.contrib.settings.models import (
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.documents import get_document_model
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import AbstractDocument, Document
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model
@@ -74,6 +75,7 @@ from wagtail.models import (
     WorkflowMixin,
 )
 from wagtail.search import index
+from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
@@ -1134,6 +1136,79 @@ class FullFeaturedSnippet(
 
 
 register_snippet(FullFeaturedSnippet)
+
+
+def get_default_advert():
+    return Advert.objects.first()
+
+
+class VariousOnDeleteModel(models.Model):
+    text = models.TextField()
+    on_delete_cascade = models.ForeignKey(
+        Advert, on_delete=models.CASCADE, null=True, blank=True, related_name="+"
+    )
+    on_delete_protect = models.ForeignKey(
+        Advert, on_delete=models.PROTECT, null=True, blank=True, related_name="+"
+    )
+    on_delete_restrict = models.ForeignKey(
+        Advert, on_delete=models.RESTRICT, null=True, blank=True, related_name="+"
+    )
+    on_delete_set_null = models.ForeignKey(
+        Advert, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
+    )
+    on_delete_set_default = models.ForeignKey(
+        Advert,
+        on_delete=models.SET_DEFAULT,
+        null=True,
+        blank=True,
+        default=get_default_advert,
+        related_name="+",
+    )
+    on_delete_set = models.ForeignKey(
+        Advert,
+        on_delete=models.SET(get_default_advert),
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    on_delete_do_nothing = models.ForeignKey(
+        Advert, on_delete=models.DO_NOTHING, null=True, blank=True, related_name="+"
+    )
+
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, null=True, blank=True
+    )
+    object_id = models.UUIDField(null=True, blank=True)
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    stream_field = StreamField(
+        [
+            (
+                "advertisement_content",
+                StreamBlock(
+                    [
+                        (
+                            "captioned_advert",
+                            StructBlock(
+                                [
+                                    ("advert", SnippetChooserBlock(Advert)),
+                                    ("caption", CharBlock()),
+                                ],
+                            ),
+                        ),
+                        ("rich_text", RichTextBlock()),
+                    ]
+                ),
+            ),
+            ("image", ImageChooserBlock()),
+            ("document", DocumentChooserBlock()),
+        ],
+        use_json_field=True,
+    )
+    rich_text = RichTextField(blank=True)
+
+
+register_snippet(VariousOnDeleteModel)
 
 
 class StandardIndex(Page):
