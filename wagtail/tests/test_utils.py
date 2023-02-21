@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 import pickle
 
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils.text import slugify
@@ -14,6 +15,7 @@ from wagtail.coreutils import (
     cautious_slugify,
     find_available_slug,
     get_content_languages,
+    get_content_type_label,
     get_dummy_request,
     get_supported_content_language_variant,
     multigetattr,
@@ -293,6 +295,21 @@ class TestGetContentLanguages(TestCase):
                 "The language zh is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.",
             ),
         )
+
+
+def TestGetContentTypeLabel(TestCase):
+    def test_none(self):
+        self.assertEqual(get_content_type_label(None), "Unknown content type")
+
+    def test_valid_content_type(self):
+        page_content_type = ContentType.objects.get_for_model(Page)
+        self.assertEqual(get_content_type_label(page_content_type), "Page")
+
+    def test_stale_content_type(self):
+        stale_content_type = ContentType.objects.create(
+            app_label="fake_app", model="deleted model"
+        )
+        self.assertEqual(get_content_type_label(stale_content_type), "Deleted model")
 
 
 @override_settings(
