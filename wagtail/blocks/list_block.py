@@ -11,7 +11,13 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import Block, BoundBlock, get_help_icon
+from .base import (
+    Block,
+    BoundBlock,
+    get_error_json_data,
+    get_error_list_json_data,
+    get_help_icon,
+)
 
 __all__ = ["ListBlock", "ListBlockValidationError"]
 
@@ -27,6 +33,18 @@ class ListBlockValidationError(ValidationError):
         if non_block_errors:
             params["non_block_errors"] = non_block_errors
         super().__init__("Validation error in ListBlock", params=params)
+
+    def as_json_data(self):
+        result = {}
+        if self.non_block_errors:
+            result["messages"] = get_error_list_json_data(self.non_block_errors)
+        if self.block_errors:
+            result["blockErrors"] = [
+                get_error_json_data(error_list.as_data()[0]) if error_list else None
+                for error_list in self.block_errors
+            ]
+
+        return result
 
 
 class ListBlockValidationErrorAdapter(Adapter):

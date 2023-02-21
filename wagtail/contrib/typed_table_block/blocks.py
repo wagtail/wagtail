@@ -5,14 +5,42 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.blocks.base import Block, DeclarativeSubBlocksMetaclass, get_help_icon
+from wagtail.blocks.base import (
+    Block,
+    DeclarativeSubBlocksMetaclass,
+    get_error_json_data,
+    get_error_list_json_data,
+    get_help_icon,
+)
 from wagtail.telepath import Adapter, register
 
 
 class TypedTableBlockValidationError(ValidationError):
-    def __init__(self, cell_errors=None):
+    def __init__(self, cell_errors=None, non_block_errors=None):
         self.cell_errors = cell_errors
-        super().__init__("Validation error in TypedTableBlock", params=cell_errors)
+        self.non_block_errors = non_block_errors
+
+        params = {}
+        if cell_errors:
+            params["cell_errors"] = cell_errors
+        if non_block_errors:
+            params["non_block_errors"] = non_block_errors
+
+        super().__init__("Validation error in TypedTableBlock", params=params)
+
+    def as_json_data(self):
+        result = {}
+        if self.non_block_errors:
+            result["messages"] = get_error_list_json_data(self.non_block_errors)
+        if self.cell_errors:
+            result["blockErrors"] = {
+                row_index: {
+                    col_index: get_error_json_data(cell_error)
+                    for col_index, cell_error in row_errors.items()
+                }
+                for row_index, row_errors in self.cell_errors.items()
+            }
+        return result
 
 
 class TypedTableBlockValidationErrorAdapter(Adapter):
