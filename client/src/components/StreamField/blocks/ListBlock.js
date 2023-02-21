@@ -11,13 +11,6 @@ import { range } from '../../../utils/range';
 
 /* global $ */
 
-export class ListBlockValidationError {
-  constructor(blockErrors, nonBlockErrors) {
-    this.blockErrors = blockErrors;
-    this.nonBlockErrors = nonBlockErrors;
-  }
-}
-
 class ListChild extends BaseSequenceChild {
   /*
   wrapper for an item inside a ListBlock

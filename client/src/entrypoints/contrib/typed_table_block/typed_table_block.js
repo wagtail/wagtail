@@ -584,13 +584,3 @@ window.telepath.register(
   'wagtail.contrib.typed_table_block.blocks.TypedTableBlock',
   TypedTableBlockDefinition,
 );
-
-export class TypedTableBlockValidationError {
-  constructor(cellErrors) {
-    this.cellErrors = cellErrors;
-  }
-}
-window.telepath.register(
-  'wagtail.contrib.typed_table_block.TypedTableBlockValidationError',
-  TypedTableBlockValidationError,
-);

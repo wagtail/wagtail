@@ -47,37 +47,6 @@ class StructBlockValidationError(ValidationError):
         return result
 
 
-class StructBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.blocks.StructBlockValidationError"
-
-    def js_args(self, error):
-        if error.non_block_errors:
-            non_block_errors = error.non_block_errors.as_data()
-        else:
-            non_block_errors = None
-
-        if error.block_errors:
-            block_errors = {
-                name: error_list.as_data()
-                for name, error_list in error.block_errors.items()
-            }
-        else:
-            block_errors = None
-
-        return [non_block_errors, block_errors]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/blocks.js"),
-            ]
-        )
-
-
-register(StructBlockValidationErrorAdapter(), StructBlockValidationError)
-
-
 class StructValue(collections.OrderedDict):
     """A class that generates a StructBlock value from provided sub-blocks"""
 

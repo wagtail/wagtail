@@ -9,17 +9,14 @@ import {
 import {
   StructBlock,
   StructBlockDefinition,
-  StructBlockValidationError,
 } from '../../../components/StreamField/blocks/StructBlock';
 import {
   ListBlock,
   ListBlockDefinition,
-  ListBlockValidationError,
 } from '../../../components/StreamField/blocks/ListBlock';
 import {
   StreamBlock,
   StreamBlockDefinition,
-  StreamBlockValidationError,
 } from '../../../components/StreamField/blocks/StreamBlock';
 
 const wagtailStreamField = window.wagtailStreamField || {};
@@ -33,15 +30,12 @@ wagtailStreamField.blocks = {
 
   StructBlock,
   StructBlockDefinition,
-  StructBlockValidationError,
 
   ListBlock,
   ListBlockDefinition,
-  ListBlockValidationError,
 
   StreamBlock,
   StreamBlockDefinition,
-  StreamBlockValidationError,
 };
 
 function initBlockWidget(id) {
@@ -71,19 +65,7 @@ window.initBlockWidget = initBlockWidget;
 window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);
 window.telepath.register('wagtail.blocks.StaticBlock', StaticBlockDefinition);
 window.telepath.register('wagtail.blocks.StructBlock', StructBlockDefinition);
-window.telepath.register(
-  'wagtail.blocks.StructBlockValidationError',
-  StructBlockValidationError,
-);
 window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
-window.telepath.register(
-  'wagtail.blocks.ListBlockValidationError',
-  ListBlockValidationError,
-);
 window.telepath.register('wagtail.blocks.StreamBlock', StreamBlockDefinition);
-window.telepath.register(
-  'wagtail.blocks.StreamBlockValidationError',
-  StreamBlockValidationError,
-);
 
 window.wagtailStreamField = wagtailStreamField;

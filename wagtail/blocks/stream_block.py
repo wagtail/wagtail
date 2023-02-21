@@ -54,30 +54,6 @@ class StreamBlockValidationError(ValidationError):
         return result
 
 
-class StreamBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.blocks.StreamBlockValidationError"
-
-    def js_args(self, error):
-        return [
-            error.non_block_errors.as_data(),
-            {
-                block_id: child_errors.as_data()
-                for block_id, child_errors in error.block_errors.items()
-            },
-        ]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/blocks.js"),
-            ]
-        )
-
-
-register(StreamBlockValidationErrorAdapter(), StreamBlockValidationError)
-
-
 class BaseStreamBlock(Block):
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs

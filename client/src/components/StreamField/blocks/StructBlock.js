@@ -3,13 +3,6 @@
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
 
-export class StructBlockValidationError {
-  constructor(nonBlockErrors, blockErrors) {
-    this.nonBlockErrors = nonBlockErrors;
-    this.blockErrors = blockErrors;
-  }
-}
-
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
     const state = initialState || {};
