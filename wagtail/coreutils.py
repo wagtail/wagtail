@@ -19,6 +19,7 @@ from django.test import RequestFactory
 from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
+from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -156,6 +157,9 @@ def get_content_type_label(content_type):
     Return a human-readable label for a content type object, suitable for display in the admin
     in place of the default 'wagtailcore | page' representation
     """
+    if content_type is None:
+        return _("Unknown content type")
+
     model = content_type.model_class()
     if model:
         return str(capfirst(model._meta.verbose_name))
