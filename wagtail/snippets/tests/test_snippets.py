@@ -64,6 +64,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
+    VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
@@ -3569,23 +3570,51 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:delete",
-                args=[quote(self.test_snippet.pk)],
-            )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
         )
+        response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, delete_url)
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_delete_get_with_i18n_enabled(self):
-        response = self.client.get(
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, delete_url)
+
+    def test_delete_get_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(
+            text="Undeletable", on_delete_protect=self.test_snippet
+        )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This advert is referenced 1 time.")
+        self.assertContains(
+            response,
+            "One or more references to this advert prevent it from being deleted.",
+        )
+        self.assertContains(
+            response,
             reverse(
-                "wagtailsnippets_tests_advert:delete",
+                "wagtailsnippets_tests_advert:usage",
                 args=[quote(self.test_snippet.pk)],
             )
+            + "?describe_on_delete=1",
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, delete_url)
 
     def test_delete_post_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -3617,6 +3646,23 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
+
+    def test_delete_post_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(
+            text="Undeletable", on_delete_protect=self.test_snippet
+        )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.post(delete_url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the snippet is still here
+        self.assertTrue(Advert.objects.filter(pk=self.test_snippet.pk).exists())
 
     def test_usage_link(self):
         output = StringIO()

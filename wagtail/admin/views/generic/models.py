@@ -1,7 +1,7 @@
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db import models, transaction
 from django.db.models.functions import Cast
 from django.forms import Form
@@ -642,6 +642,10 @@ class DeleteView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.object = self.get_object()
+        # Get this here instead of the template so that we do not iterate through
+        # the usage and potentially trigger a database query for each item
+        self.usage_url = self.get_usage_url()
+        self.usage = self.get_usage()
 
     def get_object(self, queryset=None):
         # If the object has already been loaded, return it to avoid another query
@@ -653,6 +657,8 @@ class DeleteView(
         return super().get_object(queryset)
 
     def get_usage(self):
+        if not self.usage_url:
+            return None
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_success_url(self):
@@ -702,6 +708,8 @@ class DeleteView(
             self.object.delete()
 
     def form_valid(self, form):
+        if self.usage and self.usage.is_protected:
+            raise PermissionDenied
         success_url = self.get_success_url()
         self.delete_action()
         messages.success(self.request, self.get_success_message())
@@ -713,14 +721,11 @@ class DeleteView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["model_opts"] = self.object._meta
-        context["usage_url"] = self.get_usage_url()
         context["next"] = self.get_success_url()
-        if context["usage_url"]:
-            # Get this here instead of the template so that we do not iterate through
-            # the usage and potentially trigger a database query for each item
-            usage = self.get_usage()
-            context["usage_count"] = usage.count()
-            context["is_protected"] = usage.is_protected
+        if self.usage_url:
+            context["usage_url"] = self.usage_url
+            context["usage_count"] = self.usage.count()
+            context["is_protected"] = self.usage.is_protected
         return context
 
 
