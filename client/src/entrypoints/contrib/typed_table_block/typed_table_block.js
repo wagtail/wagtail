@@ -3,6 +3,10 @@
 
 import { escapeHtml as h } from '../../../utils/text';
 import { range } from '../../../utils/range';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -458,19 +462,10 @@ export class TypedTableBlock {
 
     // Non block errors
     const container = this.container[0];
-    container
-      .querySelectorAll(':scope > .help-block.help-critical')
-      .forEach((element) => element.remove());
+    removeErrorMessages(container);
 
     if (error.messages) {
-      // Add a help block for each error raised
-      error.messages.forEach((message) => {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('help-block');
-        errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(message);
-        container.insertBefore(errorElement, container.childNodes[0]);
-      });
+      addErrorMessages(container, error.messages);
     }
 
     if (error.blockErrors) {

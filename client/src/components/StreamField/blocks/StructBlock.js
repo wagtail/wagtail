@@ -2,6 +2,10 @@
 
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -90,21 +94,12 @@ export class StructBlock {
 
   setError(error) {
     if (!error) return;
+
     // Non block errors
     const container = this.container[0];
-    container
-      .querySelectorAll(':scope > .help-block.help-critical')
-      .forEach((element) => element.remove());
-
+    removeErrorMessages(container);
     if (error.messages) {
-      // Add a help block for each error raised
-      error.messages.forEach((message) => {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('help-block');
-        errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(message);
-        container.insertBefore(errorElement, container.childNodes[0]);
-      });
+      addErrorMessages(container, error.messages);
     }
 
     if (error.blockErrors) {
