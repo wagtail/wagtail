@@ -1,6 +1,10 @@
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from django.test import TestCase
 
 from wagtail import blocks
+from wagtail.blocks.base import get_error_json_data
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
     TypedTableBlock,
@@ -187,3 +191,38 @@ class TestTableBlock(TestCase):
         self.assertIn('<th scope="col">Country</th>', html)
         # rendering should use the block renderings of the child blocks ('FR' not 'fr')
         self.assertIn("<td>FR</td>", html)
+
+    def test_validation_error_as_json(self):
+        error = TypedTableBlockValidationError(
+            cell_errors={
+                1: {
+                    2: StructBlockValidationError(
+                        block_errors={
+                            "first_name": ErrorList(
+                                [ValidationError("This field is required.")]
+                            )
+                        }
+                    )
+                }
+            },
+            non_block_errors=ErrorList(
+                [ValidationError("The maximum number of rows is 1000.")]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    1: {
+                        2: {
+                            "blockErrors": {
+                                "first_name": {"messages": ["This field is required."]}
+                            }
+                        }
+                    }
+                },
+                "messages": [
+                    "The maximum number of rows is 1000.",
+                ],
+            },
+        )

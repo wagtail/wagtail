@@ -1,4 +1,5 @@
 import collections
+import itertools
 import json
 import re
 from functools import lru_cache
@@ -606,6 +607,34 @@ def get_help_icon():
     return render_to_string(
         "wagtailadmin/shared/icon.html", {"name": "help", "classname": "default"}
     )
+
+
+def get_error_json_data(error):
+    """
+    Translate a ValidationError instance raised against a block (which may potentially be a
+    ValidationError subclass specialised for a particular block type) into a JSON-serialisable dict
+    consisting of one or both of:
+    messages: a list of error message strings to be displayed against the block
+    blockErrors: a structure specific to the block type, containing further error objects in this
+        format to be displayed against this block's children
+    """
+    if hasattr(error, "as_json_data"):
+        return error.as_json_data()
+    else:
+        return {"messages": error.messages}
+
+
+def get_error_list_json_data(error_list):
+    """
+    Flatten an ErrorList instance containing any number of ValidationErrors
+    (which may themselves contain multiple messages) into a list of error message strings.
+    This does not consider any other properties of ValidationError other than `message`,
+    so should not be used where ValidationError subclasses with nested block errors may be
+    present.
+    (In terms of StreamBlockValidationError et al: it's valid for use on non_block_errors
+    but not block_errors)
+    """
+    return list(itertools.chain(*(err.messages for err in error_list.as_data())))
 
 
 DECONSTRUCT_ALIASES = {

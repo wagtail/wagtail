@@ -11,7 +11,14 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
+from .base import (
+    Block,
+    BoundBlock,
+    DeclarativeSubBlocksMetaclass,
+    get_error_json_data,
+    get_error_list_json_data,
+    get_help_icon,
+)
 
 __all__ = ["BaseStructBlock", "StructBlock", "StructValue"]
 
@@ -27,6 +34,17 @@ class StructBlockValidationError(ValidationError):
         if non_block_errors:
             params[NON_FIELD_ERRORS] = non_block_errors
         super().__init__("Validation error in StructBlock", params=params)
+
+    def as_json_data(self):
+        result = {}
+        if self.non_block_errors:
+            result["messages"] = get_error_list_json_data(self.non_block_errors)
+        if self.block_errors:
+            result["blockErrors"] = {
+                k: get_error_json_data(error_list.as_data()[0])
+                for (k, error_list) in self.block_errors.items()
+            }
+        return result
 
 
 class StructBlockValidationErrorAdapter(Adapter):
