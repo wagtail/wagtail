@@ -95,25 +95,21 @@ export class StructBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
-    }
-    const error = errorList[0];
-
+  setError(error) {
+    if (!error) return;
     // Non block errors
     const container = this.container[0];
     container
       .querySelectorAll(':scope > .help-block.help-critical')
       .forEach((element) => element.remove());
 
-    if (error.nonBlockErrors) {
+    if (error.messages) {
       // Add a help block for each error raised
-      error.nonBlockErrors.forEach((nonBlockError) => {
+      error.messages.forEach((message) => {
         const errorElement = document.createElement('p');
         errorElement.classList.add('help-block');
         errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(nonBlockError.messages[0]);
+        errorElement.innerHTML = h(message);
         container.insertBefore(errorElement, container.childNodes[0]);
       });
     }

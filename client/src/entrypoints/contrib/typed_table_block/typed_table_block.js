@@ -84,6 +84,7 @@ export class TypedTableBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+    this.container = dom;
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
 
@@ -452,15 +453,30 @@ export class TypedTableBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
+  setError(error) {
+    if (!error) return;
+
+    // Non block errors
+    const container = this.container[0];
+    container
+      .querySelectorAll(':scope > .help-block.help-critical')
+      .forEach((element) => element.remove());
+
+    if (error.messages) {
+      // Add a help block for each error raised
+      error.messages.forEach((message) => {
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('help-block');
+        errorElement.classList.add('help-critical');
+        errorElement.innerHTML = h(message);
+        container.insertBefore(errorElement, container.childNodes[0]);
+      });
     }
-    const error = errorList[0];
-    if (error.cellErrors) {
-      for (const [rowIndex, rowErrors] of Object.entries(error.cellErrors)) {
+
+    if (error.blockErrors) {
+      for (const [rowIndex, rowErrors] of Object.entries(error.blockErrors)) {
         for (const [colIndex, cellError] of Object.entries(rowErrors)) {
-          this.rows[rowIndex].blocks[colIndex].setError([cellError]);
+          this.rows[rowIndex].blocks[colIndex].setError(cellError);
         }
       }
     }

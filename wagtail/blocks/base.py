@@ -535,13 +535,15 @@ class BlockWidget(forms.Widget):
         value_json = json.dumps(self.block_def.get_form_state(value))
 
         if errors:
-            errors_json = json.dumps(self.js_context.pack(errors.as_data()))
+            # errors is expected to be an ErrorList consisting of a single validation error
+            error = errors.as_data()[0]
+            error_json = json.dumps(get_error_json_data(error))
         else:
-            errors_json = "[]"
+            error_json = "null"
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-errors="{errors_json}"></div>
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
                 <script>
                     initBlockWidget('{id}');
                 </script>
@@ -549,7 +551,7 @@ class BlockWidget(forms.Widget):
             id=name,
             block_json=self.block_json,
             value_json=value_json,
-            errors_json=errors_json,
+            error_json=error_json,
         )
 
     def render(self, name, value, attrs=None, renderer=None):

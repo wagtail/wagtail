@@ -191,6 +191,24 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     expect(boundBlock.rows.length).toBe(2);
     expect(document.getElementsByName('mytable-row-count')[0].value).toBe('3');
   });
+
+  test('setError passes error messages to children', () => {
+    boundBlock.setError({
+      blockErrors: {
+        0: {
+          1: { messages: ['This is not enough cheese'] },
+        },
+      },
+    });
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError shows non-block errors', () => {
+    boundBlock.setError({
+      messages: ['This is just generally wrong'],
+    });
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });
 
 describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBlock', () => {
