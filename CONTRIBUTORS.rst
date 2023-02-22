@@ -695,6 +695,7 @@ Contributors
 * Kenny Wolf
 * Himanshu Garg
 * Christopher Wardle
+* Jatin Kumar
 
 Translators
 ===========
