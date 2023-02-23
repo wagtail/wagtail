@@ -1,7 +1,7 @@
 import collections
 
 from django import forms
-from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
@@ -25,15 +25,33 @@ __all__ = ["BaseStructBlock", "StructBlock", "StructValue"]
 
 class StructBlockValidationError(ValidationError):
     def __init__(self, block_errors=None, non_block_errors=None):
-        self.block_errors = block_errors
-        self.non_block_errors = non_block_errors
+        # non_block_errors may be passed here as an ErrorList, a plain list (of strings or
+        # ValidationErrors), or None.
+        # Normalise it to be an ErrorList, which provides an as_data() method that consistently
+        # returns a flat list of ValidationError objects.
+        self.non_block_errors = ErrorList(non_block_errors)
 
-        params = {}
-        if block_errors:
-            params.update(block_errors)
-        if non_block_errors:
-            params[NON_FIELD_ERRORS] = non_block_errors
-        super().__init__("Validation error in StructBlock", params=params)
+        # block_errors may be passed here as None, or a dict keyed by the names of the child blocks
+        # with errors.
+        # Items in this list / dict may be:
+        #  - a ValidationError instance (potentially a subclass such as StructBlockValidationError)
+        #  - an ErrorList containing a single ValidationError
+        #  - a plain list containing a single ValidationError
+        # All representations will be normalised to a dict of ValidationError instances,
+        # which is also the preferred format for the original argument to be in.
+        self.block_errors = {}
+        if block_errors is None:
+            pass
+        else:
+            for name, val in block_errors.items():
+                if isinstance(val, ErrorList):
+                    self.block_errors[name] = val.as_data()[0]
+                elif isinstance(val, list):
+                    self.block_errors[name] = val[0]
+                else:
+                    self.block_errors[name] = val
+
+        super().__init__("Validation error in StructBlock")
 
     def as_json_data(self):
         result = {}
@@ -41,8 +59,8 @@ class StructBlockValidationError(ValidationError):
             result["messages"] = get_error_list_json_data(self.non_block_errors)
         if self.block_errors:
             result["blockErrors"] = {
-                k: get_error_json_data(error_list.as_data()[0])
-                for (k, error_list) in self.block_errors.items()
+                name: get_error_json_data(error)
+                for (name, error) in self.block_errors.items()
             }
         return result
 
@@ -136,7 +154,7 @@ class BaseStructBlock(Block):
             try:
                 result.append((name, self.child_blocks[name].clean(val)))
             except ValidationError as e:
-                errors[name] = ErrorList([e])
+                errors[name] = e
 
         if errors:
             raise StructBlockValidationError(errors)
