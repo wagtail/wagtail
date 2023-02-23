@@ -2761,10 +2761,9 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_val)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                "block_errors": [None],
-                "non_block_errors": ["The minimum number of items is 2"],
+                "messages": ["The minimum number of items is 2"],
             },
         )
 
@@ -2779,10 +2778,9 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_val)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                "block_errors": [None, None, None],
-                "non_block_errors": ["The maximum number of items is 2"],
+                "messages": ["The maximum number of items is 2"],
             },
         )
 
@@ -5306,7 +5304,10 @@ class TestValidationErrorAsJsonData(TestCase):
             },
         )
 
-    def test_listblock_validation_error(self):
+    def test_listblock_validation_error_constructed_with_list(self):
+        # test the pre-Wagtail-5.0 constructor format for ListBlockValidationError:
+        # block_errors passed as a list with None for 'no error', and
+        # a single-item ErrorList for validation errors
         error = ListBlockValidationError(
             block_errors=[
                 None,
@@ -5345,24 +5346,105 @@ class TestValidationErrorAsJsonData(TestCase):
         self.assertEqual(
             get_error_json_data(error),
             {
-                "blockErrors": [
-                    None,
-                    {
+                "blockErrors": {
+                    1: {
                         "messages": [
                             "Either email or telephone number must be specified."
                         ]
                     },
-                    {
+                    2: {
                         "blockErrors": {
                             "name": {
                                 "messages": ["This field is required."],
                             }
                         }
                     },
-                ],
+                },
                 "messages": [
                     "The minimum number of items is 2",
                     "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_listblock_validation_error_constructed_with_dict(self):
+        # test the Wagtail >=5.0 constructor format for ListBlockValidationError:
+        # block_errors passed as a dict keyed by block index, where values can be
+        # ValidationErrors and plain single-item lists as well as single-item ErrorLists
+        error = ListBlockValidationError(
+            block_errors={
+                1: [
+                    StructBlockValidationError(
+                        non_block_errors=ErrorList(
+                            [
+                                ValidationError(
+                                    "Either email or telephone number must be specified."
+                                )
+                            ]
+                        )
+                    )
+                ],
+                2: StructBlockValidationError(
+                    block_errors={
+                        "name": ErrorList([ValidationError("This field is required.")]),
+                    }
+                ),
+            },
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    1: {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    2: {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                },
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_listblock_validation_error_with_no_non_block_errors(self):
+        error = ListBlockValidationError(
+            block_errors={2: ValidationError("This field is required.")},
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    2: {"messages": ["This field is required."]},
+                },
+            },
+        )
+
+    def test_listblock_validation_error_with_no_block_errors(self):
+        error = ListBlockValidationError(
+            non_block_errors=[
+                ValidationError("The minimum number of items is 2"),
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "The minimum number of items is 2",
                 ],
             },
         )
