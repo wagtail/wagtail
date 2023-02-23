@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
@@ -18,15 +19,8 @@ from wagtail.telepath import Adapter, register
 class TypedTableBlockValidationError(ValidationError):
     def __init__(self, cell_errors=None, non_block_errors=None):
         self.cell_errors = cell_errors
-        self.non_block_errors = non_block_errors
-
-        params = {}
-        if cell_errors:
-            params["cell_errors"] = cell_errors
-        if non_block_errors:
-            params["non_block_errors"] = non_block_errors
-
-        super().__init__("Validation error in TypedTableBlock", params=params)
+        self.non_block_errors = ErrorList(non_block_errors)
+        super().__init__("Validation error in TypedTableBlock")
 
     def as_json_data(self):
         result = {}
