@@ -1,5 +1,5 @@
 import uuid
-from collections.abc import MutableSequence
+from collections.abc import Mapping, MutableSequence
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -24,25 +24,61 @@ __all__ = ["ListBlock", "ListBlockValidationError"]
 
 class ListBlockValidationError(ValidationError):
     def __init__(self, block_errors=None, non_block_errors=None):
-        self.non_block_errors = non_block_errors or ErrorList()
-        self.block_errors = block_errors or []
+        # non_block_errors may be passed here as an ErrorList, a plain list (of strings or
+        # ValidationErrors), or None.
+        # Normalise it to be an ErrorList, which provides an as_data() method that consistently
+        # returns a flat list of ValidationError objects.
+        # (note: iterating over ErrorList itself appears to give a list of message strings,
+        # but doesn't correctly account for ValidationErrors containing multiple messages)
+        # (note 2: items in this list are expected to be plain ValidationError instances; there is
+        # no special treatment of subclasses such as StructBlockValidationError)
+        self.non_block_errors = ErrorList(non_block_errors)
 
-        params = {}
-        if block_errors:
-            params["block_errors"] = block_errors
-        if non_block_errors:
-            params["non_block_errors"] = non_block_errors
-        super().__init__("Validation error in ListBlock", params=params)
+        # block_errors may be passed here as a list (corresponding to the block value's elements,
+        # with None for child blocks with no errors) or a dict whose keys are the indexes of the
+        # child blocks with errors.
+        # Items in this list / dict may be:
+        #  - a ValidationError instance (potentially a subclass such as StructBlockValidationError)
+        #  - an ErrorList containing a single ValidationError
+        #  - a plain list containing a single ValidationError
+        # All representations will be normalised to a dict of ValidationError instances,
+        # which is also the preferred format for the original argument to be in.
+
+        # normalise to a dict
+        if block_errors is None:
+            block_errors_dict = {}
+        elif isinstance(block_errors, Mapping):
+            block_errors_dict = block_errors
+        elif isinstance(block_errors, list):
+            block_errors_dict = {
+                index: val for index, val in enumerate(block_errors) if val is not None
+            }
+        else:
+            raise ValueError(
+                "Expected dict or list for block_errors, got %r" % block_errors
+            )
+
+        # normalise items to ValidationError instances
+        self.block_errors = {}
+        for index, val in block_errors_dict.items():
+            if isinstance(val, ErrorList):
+                self.block_errors[index] = val.as_data()[0]
+            elif isinstance(val, list):
+                self.block_errors[index] = val[0]
+            else:
+                self.block_errors[index] = val
+
+        super().__init__("Validation error in ListBlock")
 
     def as_json_data(self):
         result = {}
         if self.non_block_errors:
             result["messages"] = get_error_list_json_data(self.non_block_errors)
         if self.block_errors:
-            result["blockErrors"] = [
-                get_error_json_data(error_list.as_data()[0]) if error_list else None
-                for error_list in self.block_errors
-            ]
+            result["blockErrors"] = {
+                index: get_error_json_data(error)
+                for index, error in self.block_errors.items()
+            }
 
         return result
 
@@ -151,9 +187,9 @@ class ListBlock(Block):
             value = ListValue(self, values=value)
 
         result = []
-        errors = []
+        block_errors = {}
         non_block_errors = ErrorList()
-        for bound_block in value.bound_blocks:
+        for index, bound_block in enumerate(value.bound_blocks):
             try:
                 result.append(
                     ListValue.ListChild(
@@ -163,9 +199,7 @@ class ListBlock(Block):
                     )
                 )
             except ValidationError as e:
-                errors.append(ErrorList([e]))
-            else:
-                errors.append(None)
+                block_errors[index] = e
 
         if self.meta.min_num is not None and self.meta.min_num > len(value):
             non_block_errors.append(
@@ -183,9 +217,9 @@ class ListBlock(Block):
                 )
             )
 
-        if any(errors) or non_block_errors:
+        if block_errors or non_block_errors:
             raise ListBlockValidationError(
-                block_errors=errors, non_block_errors=non_block_errors
+                block_errors=block_errors, non_block_errors=non_block_errors
             )
 
         return ListValue(self, bound_blocks=result)
