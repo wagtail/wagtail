@@ -226,3 +226,27 @@ class TestTableBlock(TestCase):
                 ],
             },
         )
+
+    def test_validation_error_without_cell_errors(self):
+        error = TypedTableBlockValidationError(
+            non_block_errors=[ValidationError("The maximum number of rows is 1000.")]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "The maximum number of rows is 1000.",
+                ],
+            },
+        )
+
+    def test_validation_error_without_non_block_errors(self):
+        error = TypedTableBlockValidationError(
+            cell_errors={1: {2: ValidationError("This field is required.")}},
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {1: {2: {"messages": ["This field is required."]}}},
+            },
+        )
