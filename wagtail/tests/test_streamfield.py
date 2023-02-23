@@ -434,7 +434,8 @@ class TestStreamFieldCountValidation(TestCase):
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The minimum number of items is 2"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The minimum number of items is 2"]},
         )
 
         # 2 blocks okay
@@ -454,7 +455,8 @@ class TestStreamFieldCountValidation(TestCase):
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The maximum number of items is 5"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The maximum number of items is 5"]},
         )
 
     def test_block_counts_minimums(self):
@@ -464,7 +466,7 @@ class TestStreamFieldCountValidation(TestCase):
         instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps([]))
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
-        errors = list(catcher.exception.params["__all__"])
+        errors = catcher.exception.as_json_data()["messages"]
         self.assertIn("This field is required.", errors)
         self.assertIn("Text: The minimum number of items is 1", errors)
         self.assertIn("Image: The minimum number of items is 1", errors)
@@ -476,8 +478,8 @@ class TestStreamFieldCountValidation(TestCase):
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Image: The minimum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Image: The minimum number of items is 1"]},
         )
 
         # One text, one image should be okay
@@ -512,8 +514,8 @@ class TestStreamFieldCountValidation(TestCase):
         with self.assertRaises(StreamBlockValidationError) as catcher:
             instance.body.stream_block.clean(instance.body)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Image: The maximum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Image: The maximum number of items is 1"]},
         )
 
         # One text, one rich, one image should be okay

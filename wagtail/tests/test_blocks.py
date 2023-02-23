@@ -3386,10 +3386,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                0: ["This field is required."],
-                3: ["Enter a valid URL."],
+                "blockErrors": {
+                    0: {"messages": ["This field is required."]},
+                    3: {"messages": ["Enter a valid URL."]},
+                }
             },
         )
 
@@ -3405,7 +3407,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The minimum number of items is 1"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The minimum number of items is 1"]},
         )
 
         # a value with >= 1 blocks should pass validation
@@ -3432,7 +3435,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The maximum number of items is 1"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The maximum number of items is 1"]},
         )
 
         # a value with 1 block should pass validation
@@ -3457,8 +3461,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Char: The minimum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Char: The minimum number of items is 1"]},
         )
 
         # a value with 1 char block should pass validation
@@ -3492,8 +3496,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Char: The maximum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Char: The maximum number of items is 1"]},
         )
 
         # a value with 1 char block should pass validation
@@ -5331,6 +5335,38 @@ class TestValidationErrorAsJsonData(TestCase):
                     "The minimum number of items is 2",
                     "The maximum number of items is 5",
                 ],
+            },
+        )
+
+    def test_streamblock_validation_error_with_no_block_errors(self):
+        error = StreamBlockValidationError(
+            non_block_errors=[
+                ValidationError("The minimum number of items is 2"),
+            ],
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "The minimum number of items is 2",
+                ],
+            },
+        )
+
+    def test_streamblock_validation_error_with_no_non_block_errors(self):
+        error = StreamBlockValidationError(
+            block_errors={
+                4: [ValidationError("This field is required.")],
+                6: ValidationError("This field is required."),
+            },
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    4: {"messages": ["This field is required."]},
+                    6: {"messages": ["This field is required."]},
+                }
             },
         )
 
