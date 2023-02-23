@@ -5243,6 +5243,36 @@ class TestValidationErrorAsJsonData(TestCase):
             },
         )
 
+    def test_structblock_validation_error_with_no_block_errors(self):
+        error = StructBlockValidationError(
+            non_block_errors=[
+                ValidationError("Either email or telephone number must be specified.")
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "Either email or telephone number must be specified.",
+                ],
+            },
+        )
+
+    def test_structblock_validation_error_with_no_non_block_errors(self):
+        error = StructBlockValidationError(
+            block_errors={
+                "name": ValidationError("This field is required."),
+            },
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    "name": {"messages": ["This field is required."]},
+                },
+            },
+        )
+
     def test_streamblock_validation_error(self):
         error = StreamBlockValidationError(
             block_errors={
