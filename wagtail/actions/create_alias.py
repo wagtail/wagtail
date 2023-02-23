@@ -106,7 +106,6 @@ class CreatePageAliasAction:
         reset_translation_key,
         _mpnode_attrs,
     ):
-
         specific_page = page.specific
 
         # FIXME: Switch to the same fields that are excluded from copy
@@ -212,9 +211,9 @@ class CreatePageAliasAction:
         )
 
         # Copy child pages
-        if recursive:
-            from wagtail.models import Page
+        from wagtail.models import Page, PageViewRestriction
 
+        if recursive:
             numchild = 0
 
             for child_page in page.get_children().specific().iterator():
@@ -239,6 +238,24 @@ class CreatePageAliasAction:
             if numchild > 0:
                 alias.numchild = numchild
                 alias.save(clean=False, update_fields=["numchild"])
+
+        parent_page_restriction = page.get_parent().get_view_restrictions()
+
+        if parent_page_restriction.exists() is False:
+            for restriction in self.page.view_restrictions.all():
+                restrictions_copy = {
+                    "page": alias,
+                    "restriction_type": restriction.restriction_type,
+                }
+
+                if restriction.restriction_type == "password":
+                    restrictions_copy["password"] = restriction.password
+
+                copy_page_restrictions = PageViewRestriction(**restrictions_copy)
+                copy_page_restrictions.save(user=self.user)
+
+                if copy_page_restrictions.restriction_type == "groups":
+                    copy_page_restrictions.groups.add(*restriction.groups.all())
 
         return alias
 

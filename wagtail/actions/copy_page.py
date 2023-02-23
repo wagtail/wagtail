@@ -149,7 +149,6 @@ class CopyPageAction:
         )
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
-
             if self.process_child_object:
                 self.process_child_object(
                     specific_page, page_copy, child_relation, child_object
@@ -306,7 +305,7 @@ class CopyPageAction:
         )
 
         # Copy child pages
-        from wagtail.models import Page
+        from wagtail.models import Page, PageViewRestriction
 
         if self.recursive:
             numchild = 0
@@ -325,6 +324,27 @@ class CopyPageAction:
             if numchild > 0:
                 page_copy.numchild = numchild
                 page_copy.save(clean=False, update_fields=["numchild"])
+
+        if to:
+            parent_page_restriction = to.get_view_restrictions()
+        else:
+            parent_page_restriction = self.page.get_parent().get_view_restrictions()
+
+        if parent_page_restriction.exists() is False:
+            for restriction in self.page.view_restrictions.all():
+                restrictions_copy = {
+                    "page": page_copy,
+                    "restriction_type": restriction.restriction_type,
+                }
+
+                if restriction.restriction_type == "password":
+                    restrictions_copy["password"] = restriction.password
+
+                copy_page_restrictions = PageViewRestriction(**restrictions_copy)
+                copy_page_restrictions.save(user=self.user)
+
+                if copy_page_restrictions.restriction_type == "groups":
+                    copy_page_restrictions.groups.add(*restriction.groups.all())
 
         return page_copy
 

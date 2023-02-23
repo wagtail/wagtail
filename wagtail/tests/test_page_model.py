@@ -23,6 +23,7 @@ from wagtail.models import (
     Page,
     PageLogEntry,
     PageManager,
+    PageViewRestriction,
     Site,
     Workflow,
     WorkflowTask,
@@ -1355,7 +1356,6 @@ class TestCopyPage(TestCase):
         )
 
     def test_copy_page_with_process_child_object_supplied(self):
-
         # We'll provide this when copying and test that it gets called twice:
         # Once for the single speaker, and another for the single advert_placement
         modify_child = Mock()
@@ -2101,6 +2101,203 @@ class TestCopyPage(TestCase):
 
         # The copy should just be a copy of the original page, not an alias
         self.assertIsNone(about_us_alias_copy.alias_of)
+
+    def test_copy_restrictions(self):
+        """Test Case to check if the restrictions are being correctly copied for password, login and groups"""
+
+        page_to_copy = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # Create a page restriction of login
+        PageViewRestriction.objects.create(
+            page=page_to_copy, restriction_type=PageViewRestriction.LOGIN
+        )
+        copy_page = page_to_copy.copy(
+            update_attrs={"title": "About Us Copy 1", "slug": "about-page-1"}
+        )
+
+        # Fetch the restrictions of copied page and page that it is copied from
+        page_to_copy_restrictions = page_to_copy.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        copy_page_restrictions = copy_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the copied page was correctly copied
+        self.assertQuerysetEqual(page_to_copy_restrictions, copy_page_restrictions)
+
+        # Delete the old restrictions
+        page_to_copy.view_restrictions.all().delete()
+
+        # Create a page restriction of password
+        PageViewRestriction.objects.create(
+            page=page_to_copy,
+            restriction_type=PageViewRestriction.PASSWORD,
+            password="test",
+        )
+        copy_page = page_to_copy.copy(
+            update_attrs={"title": "About Us Copy 2", "slug": "about-page-2"}
+        )
+
+        # Fetch the restrictions of copied page and page that it is copied from
+        page_to_copy_restrictions = page_to_copy.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        copy_page_restrictions = copy_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the copied page was correctly copied
+        self.assertQuerysetEqual(page_to_copy_restrictions, copy_page_restrictions)
+
+        # Delete the old restrictions
+        page_to_copy.view_restrictions.all().delete()
+
+        # Create a page restriction of groups
+        group = Group.objects.create(name="Test Group")
+        page_to_copy_restrictions = PageViewRestriction.objects.create(
+            page=page_to_copy, restriction_type=PageViewRestriction.GROUPS
+        )
+        page_to_copy_restrictions.groups.add(group)
+        copy_page = page_to_copy.copy(
+            update_attrs={"title": "About Us Copy 3", "slug": "about-page-3"}
+        )
+
+        # Fetch the restrictions of copied page and page that it is copied from
+        page_to_copy_restrictions = page_to_copy.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        copy_page_restrictions = copy_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the copied page was correctly copied
+        self.assertQuerysetEqual(page_to_copy_restrictions, copy_page_restrictions)
+
+    def test_copy_restrictions_if_parent_page_has_restrictions(self):
+        """Test Case to check if the copy page doesn't copy restrictions from the page to be copied, if the parent have restrictions"""
+
+        homepage = Page.objects.get(url_path="/home/")
+        page_to_copy = SimplePage(
+            title="Test Page 1", slug="test-page-1", content="test page 1"
+        )
+        homepage.add_child(instance=page_to_copy)
+
+        # Add PageViewRestriction to homepage, page_to_copy
+        PageViewRestriction.objects.create(
+            page=page_to_copy,
+            password="test",
+            restriction_type=PageViewRestriction.PASSWORD,
+        )
+        PageViewRestriction.objects.create(
+            page=homepage,
+            password="hello",
+            restriction_type=PageViewRestriction.PASSWORD,
+        )
+
+        copy_page = page_to_copy.copy(
+            update_attrs={"title": "Test Page 2", "slug": "test-page-2"}
+        )
+
+        # Check that Homepage contains restrictions
+        self.assertTrue(PageViewRestriction.objects.filter(page=homepage).exists())
+
+        # Check that the copy page doesn't copy restrictions if parent page has restrictions
+        self.assertFalse(PageViewRestriction.objects.filter(page=copy_page).exists())
+
+    def test_copy_restrictions_alias(self):
+        """Test Case to check if the restrictions are being correctly copied for password, login and groups for alias"""
+        original_page = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # Create a page restriction of login
+        PageViewRestriction.objects.create(
+            page=original_page, restriction_type=PageViewRestriction.LOGIN
+        )
+        alias = original_page.create_alias(update_slug="alias-test-1")
+
+        # Fetch the restrictions of alias page and original page
+        original_page_restrictions = original_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        alias_restrictions = alias.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the alias page was correctly copied
+        self.assertQuerysetEqual(original_page_restrictions, alias_restrictions)
+
+        # Delete the old restrictions
+        original_page.view_restrictions.all().delete()
+
+        # Create a page restriction of password
+        PageViewRestriction.objects.create(
+            page=original_page,
+            restriction_type=PageViewRestriction.PASSWORD,
+            password="test",
+        )
+        alias = original_page.create_alias(update_slug="alias-test-2")
+
+        # Fetch the restrictions of alias page and original page
+        original_page_restrictions = original_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        alias_restrictions = alias.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the alias page was correctly copied
+        self.assertQuerysetEqual(original_page_restrictions, alias_restrictions)
+
+        # Delete the old restrictions
+        original_page.view_restrictions.all().delete()
+
+        # Create a page restriction of groups
+        group = Group.objects.create(name="Test Group")
+        original_page_restrictions = PageViewRestriction.objects.create(
+            page=original_page, restriction_type=PageViewRestriction.GROUPS
+        )
+        original_page_restrictions.groups.add(group)
+        alias = original_page.create_alias(update_slug="alias-test-3")
+
+        # Fetch the restrictions of alias page and original page
+        original_page_restrictions = original_page.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+        alias_restrictions = alias.view_restrictions.all().values_list(
+            "restriction_type", "password", "groups"
+        )
+
+        # Check if the restrictions of the alias page was correctly copied
+        self.assertQuerysetEqual(original_page_restrictions, alias_restrictions)
+
+    def test_copy_restrictions_alias_if_parent_page_has_restrictions(self):
+        """Test Case to check if the alias page doesn't copy restrictions from the page to be aliased, if the parent have restrictions"""
+
+        homepage = Page.objects.get(url_path="/home/")
+        page_to_alias = SimplePage(
+            title="Test Page 1", slug="test-page-1", content="test page 1"
+        )
+        homepage.add_child(instance=page_to_alias)
+
+        # Add PageViewRestriction to homepage, page_to_alias
+        PageViewRestriction.objects.create(
+            page=page_to_alias,
+            password="test",
+            restriction_type=PageViewRestriction.PASSWORD,
+        )
+        PageViewRestriction.objects.create(
+            page=homepage,
+            password="home",
+            restriction_type=PageViewRestriction.PASSWORD,
+        )
+
+        alias = page_to_alias.create_alias(update_slug="alias-test-1")
+
+        # Check that Homepage contains restrictions
+        self.assertTrue(PageViewRestriction.objects.filter(page=homepage).exists())
+
+        # Check that the copy page doesn't copy restrictions if parent page has restrictions
+        self.assertFalse(PageViewRestriction.objects.filter(page=alias).exists())
 
 
 class TestCreateAlias(TestCase):
