@@ -694,6 +694,7 @@ Contributors
 * Julian Bigler
 * Kenny Wolf
 * Himanshu Garg
+* Christopher Wardle
 
 Translators
 ===========
