@@ -36,6 +36,7 @@ from wagtail.admin.ui import sidebar
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_latest_str,
+    get_user_display_name,
     get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
@@ -888,23 +889,7 @@ def timesince_last_update(
 
 @register.filter
 def user_display_name(user):
-    """
-    Returns the preferred display name for the given user object: the result of
-    user.get_full_name() if implemented and non-empty, or user.get_username() otherwise.
-    """
-    try:
-        full_name = user.get_full_name().strip()
-        if full_name:
-            return full_name
-    except AttributeError:
-        pass
-
-    try:
-        return user.get_username()
-    except AttributeError:
-        # we were passed None or something else that isn't a valid user object; return
-        # empty string to replicate the behaviour of {{ user.get_full_name|default:user.get_username }}
-        return ""
+    return get_user_display_name(user)
 
 
 @register.filter
