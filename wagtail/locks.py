@@ -22,6 +22,8 @@ class BaseLock:
 
         self.object = object
         self.is_page = isinstance(object, Page)
+        # Use the base page's model name instead of the specific type for brevity
+        self.model_name = (Page if self.is_page else object)._meta.verbose_name
 
     def for_user(self, user):
         """
@@ -63,74 +65,39 @@ class BasicLock(BaseLock):
 
         if self.object.locked_by_id == user.pk:
             if self.object.locked_at:
-                if self.is_page:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-                        ),
-                        page_title=title,
-                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                    )
-                else:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-                        ),
-                        title=title,
-                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                    )
+                return format_html(
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+                    ),
+                    title=title,
+                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                )
 
             else:
-                if self.is_page:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _("<b>Page '{page_title}' is locked</b> by <b>you</b>."),
-                        page_title=title,
-                    )
-                else:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _("<b>'{title}' is locked</b> by <b>you</b>."),
-                        title=title,
-                    )
+                return format_html(
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _("<b>'{title}' is locked</b> by <b>you</b>."),
+                    title=title,
+                )
         else:
             if self.object.locked_by and self.object.locked_at:
-                if self.is_page:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-                        ),
-                        page_title=title,
-                        user=str(self.object.locked_by),
-                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                    )
-                else:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-                        ),
-                        title=title,
-                        user=str(self.object.locked_by),
-                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                    )
+                return format_html(
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+                    ),
+                    title=title,
+                    user=str(self.object.locked_by),
+                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                )
             else:
-                # Page was probably locked with an old version of Wagtail, or a script
-                if self.is_page:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _("<b>Page '{page_title}' is locked</b>."),
-                        page_title=title,
-                    )
-                else:
-                    return format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _("<b>'{title}' is locked</b>."),
-                        title=title,
-                    )
+                # Object was probably locked with an old version of Wagtail, or a script
+                return format_html(
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _("<b>'{title}' is locked</b>."),
+                    title=title,
+                )
 
 
 class WorkflowLock(BaseLock):
@@ -153,44 +120,28 @@ class WorkflowLock(BaseLock):
                 and len(current_workflow_state.all_tasks_with_status()) == 1
             ):
                 # If only one task in workflow, show simple message
-                if self.is_page:
-                    workflow_info = _("This page is currently awaiting moderation.")
-                else:
-                    workflow_info = capfirst(
-                        _("This %(model_name)s is currently awaiting moderation.")
-                        % {"model_name": self.object._meta.verbose_name}
-                    )
-            else:
-                if self.is_page:
-                    workflow_info = format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
-                        ),
-                        task_name=self.task.name,
-                        workflow_name=current_workflow_state.workflow.name,
-                    )
-                else:
-                    workflow_info = format_html(
-                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                        _(
-                            "This {model_name} is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
-                        ),
-                        model_name=self.object._meta.verbose_name,
-                        task_name=self.task.name,
-                        workflow_name=current_workflow_state.workflow.name,
-                    )
-                    # Make sure message is correctly capitalised even if it
-                    # starts with model_name.
-                    workflow_info = mark_safe(capfirst(workflow_info))
-
-            if self.is_page:
-                reviewers_info = _("Only reviewers for this task can edit the page.")
-            else:
-                reviewers_info = capfirst(
-                    _("Only reviewers for this task can edit the %(model_name)s.")
-                    % {"model_name": self.object._meta.verbose_name}
+                workflow_info = capfirst(
+                    _("This %(model_name)s is currently awaiting moderation.")
+                    % {"model_name": self.model_name}
                 )
+            else:
+                workflow_info = format_html(
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "This {model_name} is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
+                    ),
+                    model_name=self.model_name,
+                    task_name=self.task.name,
+                    workflow_name=current_workflow_state.workflow.name,
+                )
+                # Make sure message is correctly capitalised even if it
+                # starts with model_name.
+                workflow_info = mark_safe(capfirst(workflow_info))
+
+            reviewers_info = capfirst(
+                _("Only reviewers for this task can edit the %(model_name)s.")
+                % {"model_name": self.model_name}
+            )
 
             return mark_safe(workflow_info + " " + reviewers_info)
 
@@ -209,27 +160,13 @@ class ScheduledForPublishLock(BaseLock):
     def get_message(self, user):
         scheduled_revision = self.object.scheduled_revision
 
-        if self.is_page:
-            return format_html(
-                # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                _(
-                    "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-                ),
-                page_title=self.object.get_admin_display_title(),
-                datetime=scheduled_revision.approved_go_live_at.strftime(
-                    "%d %b %Y %H:%M"
-                ),
-            )
-        else:
-            message = format_html(
-                # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                _(
-                    "{model_name} '{title}' is locked and has been scheduled to go live at {datetime}"
-                ),
-                model_name=self.object._meta.verbose_name,
-                title=scheduled_revision.object_str,
-                datetime=scheduled_revision.approved_go_live_at.strftime(
-                    "%d %b %Y %H:%M"
-                ),
-            )
-            return mark_safe(capfirst(message))
+        message = format_html(
+            # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+            _(
+                "{model_name} '{title}' is locked and has been scheduled to go live at {datetime}"
+            ),
+            model_name=self.model_name,
+            title=scheduled_revision.object_str,
+            datetime=scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
+        )
+        return mark_safe(capfirst(message))

@@ -176,6 +176,7 @@ class BaseStatusSidePanel(BaseSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
+        context["base_model_name"] = context["model_name"]
         context["status_templates"] = self.get_status_templates(context)
         context.update(self.get_scheduled_publishing_context())
         context.update(self.get_lock_context())
@@ -265,6 +266,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         context.update(
             {
                 "model_name": self.model.get_verbose_name(),
+                "base_model_name": Page._meta.verbose_name,
                 "model_description": self.model.get_page_description(),
                 "status_templates": self.get_status_templates(context),
             }
