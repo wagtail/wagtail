@@ -19,7 +19,7 @@ from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.utils import get_latest_str
-from wagtail.locks import BasicLock, ScheduledForPublishLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
@@ -270,14 +270,9 @@ class CreateEditViewOptionalFeaturesMixin:
 
         # Workflow lock/unlock methods take precedence before the base
         # "lock" and "unlock" permissions -- see PagePermissionTester for reference
-        if permission == "lock":
-            if self.lock:
-                return False
-            if self.current_workflow_task:
-                return self.current_workflow_task.user_can_lock(self.object, user)
+        if permission == "lock" and self.current_workflow_task:
+            return self.current_workflow_task.user_can_lock(self.object, user)
         if permission == "unlock":
-            if not isinstance(self.lock, BasicLock):
-                return False
             # Allow unlocking even if the user does not have the 'unlock' permission
             # if they are the user who locked the object
             if self.object.locked_by_id == user.pk:
@@ -597,7 +592,9 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locking_enabled:
             return {}
 
-        user_can_lock = not self.lock and self.user_has_permission("lock")
+        user_can_lock = (
+            not self.lock or isinstance(self.lock, WorkflowLock)
+        ) and self.user_has_permission("lock")
         user_can_unlock = (
             isinstance(self.lock, BasicLock)
         ) and self.user_has_permission("unlock")

@@ -28,11 +28,11 @@
 {% endblock %}
 
 {% block action %}
-    {% if user_can_unlock and lock %}
+    {% if user_can_unlock %}
         {% trans 'Unlock' as unlock_text %}
         {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=unlock_url text=unlock_text %}
     {% endif %}
-    {% if user_can_lock and not lock %}
+    {% if user_can_lock %}
         {% trans 'Lock' as lock_text %}
         {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=lock_url text=lock_text %}
     {% endif %}

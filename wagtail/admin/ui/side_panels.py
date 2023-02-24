@@ -6,7 +6,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.locks import BasicLock
 from wagtail.models import (
     DraftStateMixin,
     LockableMixin,
@@ -152,15 +151,19 @@ class BaseStatusSidePanel(BaseSidePanel):
 
         return context
 
-    def get_lock_context(self):
+    def get_lock_context(self, parent_context):
         self.lock = None
         lock_context = {}
         if self.locking_enabled:
             self.lock = self.object.get_lock()
             if self.lock:
-                lock_context = self.lock.get_context_for_user(self.request.user)
+                lock_context = self.lock.get_context_for_user(
+                    self.request.user, parent_context
+                )
         return {
             "lock": self.lock,
+            "user_can_lock": parent_context.get("user_can_lock"),
+            "user_can_unlock": parent_context.get("user_can_unlock"),
             "lock_context": lock_context,
         }
 
@@ -178,7 +181,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         context["base_model_name"] = context["model_name"]
         context["status_templates"] = self.get_status_templates(context)
         context.update(self.get_scheduled_publishing_context())
-        context.update(self.get_lock_context())
+        context.update(self.get_lock_context(parent_context))
         if self.object.pk:
             context.update(self.get_usage_context())
         return context
@@ -224,9 +227,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
-                    "user_can_lock": user_perms.for_page(page).can_lock(),
-                    "user_can_unlock": isinstance(self.lock, BasicLock)
-                    and user_perms.for_page(page).can_unlock(),
                     "locale": None,
                     "translations": [],
                 }

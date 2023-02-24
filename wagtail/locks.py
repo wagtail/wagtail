@@ -55,7 +55,7 @@ class BaseLock:
         """
         return capfirst(_("No one can make changes while the %(model_name)s is locked"))
 
-    def get_context_for_user(self, user):
+    def get_context_for_user(self, user, parent_context=None):
         """
         Returns a context dictionary to use in templates for the given user.
         """
@@ -198,17 +198,46 @@ class WorkflowLock(BaseLock):
 
             return mark_safe(workflow_info + " " + reviewers_info)
 
-    def get_icon(self, user):
+    def get_icon(self, user, can_lock=False):
+        if can_lock:
+            return "lock-open"
         return super().get_icon(user)
 
-    def get_locked_by(self, user):
+    def get_locked_by(self, user, can_lock=False):
+        if can_lock:
+            return _("Unlocked")
         return _("Locked by workflow")
 
-    def get_description(self, user):
+    def get_description(self, user, can_lock=False):
+        if can_lock:
+            return capfirst(
+                _(
+                    "Reviewers can edit this %(model_name)s – lock it to prevent other reviewers from editing"
+                )
+                % {"model_name": self.model_name}
+            )
         return capfirst(
             _("Only reviewers can edit and approve the %(model_name)s")
             % {"model_name": self.model_name}
         )
+
+    def get_context_for_user(self, user, parent_context=None):
+        context = super().get_context_for_user(user, parent_context)
+        # BasicLock can still be applied on top of WorkflowLock, so we need to
+        # check if the user can lock the object based on the parent context.
+        # We're utilising the parent context instead of self.task.user_can_lock()
+        # because the latter does not take into account the user's permissions,
+        # while the parent context does and also checks self.task.user_can_lock().
+        if parent_context and "user_can_lock" in parent_context:
+            can_lock = parent_context.get("user_can_lock", False)
+            context.update(
+                {
+                    "icon": self.get_icon(user, can_lock),
+                    "locked_by": self.get_locked_by(user, can_lock),
+                    "description": self.get_description(user, can_lock),
+                }
+            )
+        return context
 
 
 class ScheduledForPublishLock(BaseLock):
