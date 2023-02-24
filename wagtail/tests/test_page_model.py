@@ -3572,11 +3572,11 @@ class TestGetLock(TestCase):
         self.assertFalse(lock.for_user(moderator))
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
         )
 
     def test_when_locked_without_locked_at(self):
@@ -3589,11 +3589,11 @@ class TestGetLock(TestCase):
         lock = christmas_event.get_lock()
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            "<b>Page 'Christmas' is locked</b>.",
+            "<b>'Christmas' is locked</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>Page 'Christmas' is locked</b> by <b>you</b>.",
+            "<b>'Christmas' is locked</b> by <b>you</b>.",
         )
 
     @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
@@ -3611,11 +3611,11 @@ class TestGetLock(TestCase):
         self.assertTrue(lock.for_user(moderator))
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
         )
 
     @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
@@ -3640,11 +3640,11 @@ class TestGetLock(TestCase):
 
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
         )
 
     def test_when_locked_by_workflow(self):

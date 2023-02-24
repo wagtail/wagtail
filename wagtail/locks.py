@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
-from wagtail.admin.utils import get_latest_str
+from wagtail.admin.utils import get_latest_str, get_user_display_name
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
@@ -36,6 +36,36 @@ class BaseLock:
         Returns a message to display to the given user describing the lock.
         """
         return None
+
+    def get_icon(self, user):
+        """
+        Returns the name of the icon to use for the lock.
+        """
+        return "lock"
+
+    def get_locked_by(self, user):
+        """
+        Returns a string that represents the user or mechanism that locked the object.
+        """
+        return _("Locked")
+
+    def get_description(self, user):
+        """
+        Returns a description of the lock to display to the given user.
+        """
+        return capfirst(_("No one can make changes while the %(model_name)s is locked"))
+
+    def get_context_for_user(self, user):
+        """
+        Returns a context dictionary to use in templates for the given user.
+        """
+        return {
+            "locked": self.for_user(user),
+            "message": self.get_message(user),
+            "icon": self.get_icon(user),
+            "locked_by": self.get_locked_by(user),
+            "description": self.get_description(user),
+        }
 
 
 class BasicLock(BaseLock):
@@ -88,7 +118,7 @@ class BasicLock(BaseLock):
                         "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
                     ),
                     title=title,
-                    user=str(self.object.locked_by),
+                    user=get_user_display_name(self.object.locked_by),
                     datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
                 )
             else:
@@ -98,6 +128,29 @@ class BasicLock(BaseLock):
                     _("<b>'{title}' is locked</b>."),
                     title=title,
                 )
+
+    def get_locked_by(self, user):
+        if self.object.locked_by_id == user.pk:
+            return _("Locked by you")
+        if self.object.locked_by_id:
+            return _("Locked by another user")
+        return super().get_locked_by(user)
+
+    def get_description(self, user):
+        if self.object.locked_by_id == user.pk:
+            return capfirst(
+                _("Only you can make changes while the %(model_name)s is locked")
+                % {"model_name": self.model_name}
+            )
+        if self.object.locked_by_id:
+            return capfirst(
+                _("Only %(user)s can make changes while the %(model_name)s is locked")
+                % {
+                    "user": get_user_display_name(self.object.locked_by),
+                    "model_name": self.model_name,
+                }
+            )
+        return super().get_description(user)
 
 
 class WorkflowLock(BaseLock):
@@ -145,6 +198,18 @@ class WorkflowLock(BaseLock):
 
             return mark_safe(workflow_info + " " + reviewers_info)
 
+    def get_icon(self, user):
+        return super().get_icon(user)
+
+    def get_locked_by(self, user):
+        return _("Locked by workflow")
+
+    def get_description(self, user):
+        return capfirst(
+            _("Only reviewers can edit and approve the %(model_name)s")
+            % {"model_name": self.model_name}
+        )
+
 
 class ScheduledForPublishLock(BaseLock):
     """
@@ -170,3 +235,9 @@ class ScheduledForPublishLock(BaseLock):
             datetime=scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
         )
         return mark_safe(capfirst(message))
+
+    def get_locked_by(self, user):
+        return _("Locked by schedule")
+
+    def get_description(self, user):
+        return _("Currently locked and will go live on the scheduled date")

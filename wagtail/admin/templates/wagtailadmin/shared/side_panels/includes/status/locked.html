@@ -5,27 +5,7 @@
     {% trans 'Locking: ' as screen_reader_title_prefix %}
 
     {% if lock %}
-        {% trans 'Locked' as title %}
-
-        {% if not locked_for_user and user_can_unlock %}
-            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                You can edit this {{ model_name }}, but others may not. Unlock it to allow others to edit.
-            {% endblocktrans %}
-        {% elif not locked_for_user %}
-            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                You can edit this {{ model_name }}, but others may not.
-            {% endblocktrans %}
-        {% elif user_can_unlock %}
-            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                You cannot edit this {{ model_name }}. Unlock it to edit.
-            {% endblocktrans %}
-        {% else %}
-            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                You cannot edit this {{ model_name }}.
-            {% endblocktrans %}
-        {% endif %}
-
-        {% with icon_name='lock' %}
+        {% with icon_name=lock_context.icon title=lock_context.locked_by help_text=lock_context.description %}
             {{ block.super }}
         {% endwith %}
     {% else %}
@@ -33,11 +13,11 @@
 
         {% if user_can_lock %}
             {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                Anyone can edit this {{ model_name }}. Lock it to prevent others from editing.
+                Anyone can edit this {{ model_name }} – lock it to prevent others from editing
             {% endblocktrans %}
         {% else %}
             {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
-                Anyone can edit this {{ model_name }}.
+                Anyone can edit this {{ model_name }}
             {% endblocktrans %}
         {% endif %}
 

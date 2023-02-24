@@ -154,15 +154,14 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_lock_context(self):
         self.lock = None
-        self.locked_for_user = False
+        lock_context = {}
         if self.locking_enabled:
             self.lock = self.object.get_lock()
-            self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
-
+            if self.lock:
+                lock_context = self.lock.get_context_for_user(self.request.user)
         return {
             "lock": self.lock,
-            "locked_for_user": self.locked_for_user,
-            "locking_enabled": self.locking_enabled,
+            "lock_context": lock_context,
         }
 
     def get_usage_context(self):
