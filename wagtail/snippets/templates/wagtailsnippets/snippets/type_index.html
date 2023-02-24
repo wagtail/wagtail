@@ -19,8 +19,8 @@
     {% include 'wagtailsnippets/snippets/headers/list_header.html' %}
 
     <header class="w-header">
-        <div class="row">
-            <div class="left">
+        <div class="w-header__main">
+            <div class="w-header__primary">
                 <div class="col">
                     <h1 class="w-header__title">
                         {% icon classname="w-header__glyph" name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
@@ -40,7 +40,7 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="right col">
+            <div class="w-header__secondary col">
                 <form>
                     {% if locale %}
                         {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}

@@ -4,14 +4,14 @@
   white-space: nowrap;
 }
 
-.redirects header .right {
+.redirects header .w-header__secondary {
   display: flex;
 }
 
-.redirects header .right .actionbutton {
+.redirects header .w-header__secondary .actionbutton {
   margin-inline-start: 10px;
 }
 
-.redirects header .right .dropdown {
+.redirects header .w-header__secondary .dropdown {
   margin-inline-start: 10px;
 }

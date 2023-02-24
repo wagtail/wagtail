@@ -45,7 +45,7 @@
   // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
   // Use w-header--with-padding for headers that don't contain .row elements.
   &.w-header--with-padding,
-  > .row {
+  > .w-header__main {
     padding-top: theme('spacing.2');
     padding-bottom: theme('spacing.[2.5]');
     padding-inline-start: 110px;
@@ -61,14 +61,14 @@
     margin-inline-end: 2em;
   }
 
-  .left {
+  .w-header__primary {
     float: left;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
   }
 
-  .right {
+  .w-header__secondary {
     text-align: end;
     float: right;
   }
@@ -113,7 +113,7 @@
 
 @include media-breakpoint-up(sm) {
   .w-header {
-    .row {
+    .w-header__main {
       padding-inline-start: $desktop-nice-padding;
       padding-inline-end: $desktop-nice-padding;
       padding-top: theme('spacing.10');
@@ -129,7 +129,7 @@
       }
     }
 
-    .left {
+    .w-header__primary {
       float: left;
       margin-inline-end: 0;
 
@@ -142,8 +142,8 @@
     .second {
       clear: none;
 
-      .right,
-      .left {
+      .w-header__secondary,
+      .w-header__primary {
         float: right;
       }
     }

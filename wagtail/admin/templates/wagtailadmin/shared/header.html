@@ -24,8 +24,8 @@
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
     {% block breadcrumb %}{{ breadcrumb }}{% endblock %}
-    <div class="row">
-        <div class="left">
+    <div class="w-header__main">
+        <div class="w-header__primary">
             <div class="col">
                 {% if heading %}
                     {{ heading }}
@@ -54,7 +54,8 @@
                 {{ search }}
             {% endif %}
         </div>
-        <div class="{% block right_column_classname %}right{% endblock %}">
+        <!-- no longer supported in the release notes.
+            <div class="{% block right_column_classname %}right{% endblock %}">
             {% block right_column %}
                 {% if action_url %}
                     <div class="actionbutton">
@@ -67,7 +68,7 @@
             {% if extra_actions %}
                 {{ extra_actions }}
             {% endif %}
-        </div>
+        </div> -->
     </div>
     {% block extra_rows %}{{ extra_rows }}{% endblock %}
 </header>

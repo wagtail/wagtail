@@ -111,7 +111,7 @@ $zindex-modal-background: 500;
     color: theme('colors.white.DEFAULT');
     background-color: theme('colors.primary.DEFAULT');
 
-    > .row {
+    >.w-header__main {
       // reset inline padding added to w-header for sidebar offset
       padding-inline-start: theme('spacing.16');
       // ensure title can never overlap the close button
