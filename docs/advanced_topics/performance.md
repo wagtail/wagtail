@@ -58,6 +58,8 @@ Another side benefit is it prevents errors during conversation from causing page
 
 The same can be achieved in Python using [`generate_image_url`](dynamic_image_urls).
 
+(performance_page_urls)=
+
 ## Page URLs
 
 To fully resolve the URL of a page, Wagtail requires information from a few different sources.
