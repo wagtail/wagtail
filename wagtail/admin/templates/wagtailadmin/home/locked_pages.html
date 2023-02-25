@@ -1,4 +1,5 @@
 {% load i18n wagtailadmin_tags %}
+{% load wagtailcore_tags %}
 {% if locked_pages %}
     {% trans "Your locked pages" as heading %}
     {% panel id="locked-pages" heading=heading %}
@@ -48,11 +49,10 @@
                                     <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a></li>
                                 {% endif %}
                                 {% if page.live %}
-                                    {% with page_url=page.url %}
-                                        {% if page_url is not None %}
-                                            <li><a href="{{ page_url }}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Live' %}</a></li>
-                                        {% endif %}
-                                    {% endwith %}
+                                    {% pageurl page as page_url %}
+                                    {% if page_url is not None %}
+                                        <li><a href="{{ page_url }}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Live' %}</a></li>
+                                    {% endif %}
                                 {% endif %}
                             </ul>
                         </td>

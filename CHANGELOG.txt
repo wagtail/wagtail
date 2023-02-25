@@ -74,6 +74,7 @@ Changelog
  * Maintenance: Update Algolia DocSearch to use new application and correct versioning setup (Thibaud Colas)
  * Maintenance: Move snippet choosers and model check registration to `SnippetViewSet.on_register()` (Sage Abdullah)
  * Maintenance: Remove unused snippets delete-multiple view (Sage Abdullah)
+ * Maintenance: Improve performance of determining live page URLs across the admin interface using `pageurl` template tag (Satvik Vashisht)
 
 
 4.2.1 (13.03.2023)
