@@ -65,7 +65,7 @@ Changelog
  * Maintenance: Remove unneeded float styles on 404 page (Fabien Le Frapper)
  * Maintenance: Convert userbar implementation to TypeScript (Albina Starykova)
  * Maintenance: Migrate slug field behaviour to a Stimulus controller and create new `SlugInput` widget (Loveth Omokaro)
- * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston)
+ * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston, Himanshu Garg)
  * Maintenance: Add curlylint and update djhtml, semgrep versions in pre-commit config (Himanshu Garg)
  * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
  * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
