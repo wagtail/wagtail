@@ -47,6 +47,10 @@ We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://esli
 
 Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a lightweight framework to attach interactive behaviour to DOM elements via `data-` attributes.
 
+### Why Stimulus
+
+Stimulus is a lightweight framework that allows developers to create interactive UI elements in a simple way. It makes it easy to do small-scale reactivity via changes to data attributes and does not require developers to 'init' things everywhere, unlike JQuery. It also provides an alternative to using inline script tag usage and window globals which reduces complexity in the codebase.
+
 ### When to use Stimulus
 
 Stimulus is our [preferred library](https://github.com/wagtail/rfcs/pull/78) for simple client-side interactivity. It’s a good fit when:
@@ -64,8 +68,10 @@ First think of how to name the controller. Keep it concise, one or two words ide
 1. Start with the HTML templates, build as much of the UI as you can in HTML alone. Ensure it is accessible and follows the CSS guidelines.
 2. Create the controller file in our `client/src/controllers` folder, along with its tests (see [](testing)) and Storybook stories.
 3. For initialisation, consider which [controller lifecycle methods](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#methods) to use, if any (`connect`, `initialize`).
-4. If relevant, also consider how to handle the controlled element being removed from the DOM (`disconnect` lifecycle method).
+4. If relevant, also consider how to handle the controlled element being removed from the DOM [`disconnect` lifecycle method](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#disconnection). 
 5. Document controller classes and methods with [JSDoc annotations](https://jsdoc.app/index.html).
+6. Arrange the `data attributes` in a consistent way. The `id`, `class`, and `type` comes first followed by `data-controller` and then alpha sorting of all other data attributes.
+7. Build the behaviour around small, discrete, methods and use [Stimulus actions](https://stimulus.hotwired.dev/reference/actions) declared in HTML to drive when they are called.
 
 ## Multilingual support
 
