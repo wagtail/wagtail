@@ -46,12 +46,17 @@ repos:
         additional_dependencies:
           - stylelint@14.2.0
           - '@wagtail/stylelint-config-wagtail@0.3.2'
+  - repo: https://github.com/thibaudcolas/curlylint
+    rev: v0.13.1
+    hooks:
+      - id: curlylint
+        args: ['--parse-only']
   - repo: https://github.com/rtts/djhtml
-    rev: v1.4.13
+    rev: v1.5.2
     hooks:
       - id: djhtml
   - repo: https://github.com/returntocorp/semgrep
-    rev: v0.117.0
+    rev: v1.3.0
     hooks:
       - id: semgrep
         args: ['--config', '.semgrep.yml', '--error']

@@ -1,4 +1,5 @@
 import collections
+import itertools
 import json
 import re
 from functools import lru_cache
@@ -534,13 +535,15 @@ class BlockWidget(forms.Widget):
         value_json = json.dumps(self.block_def.get_form_state(value))
 
         if errors:
-            errors_json = json.dumps(self.js_context.pack(errors.as_data()))
+            # errors is expected to be an ErrorList consisting of a single validation error
+            error = errors.as_data()[0]
+            error_json = json.dumps(get_error_json_data(error))
         else:
-            errors_json = "[]"
+            error_json = "null"
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-errors="{errors_json}"></div>
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
                 <script>
                     initBlockWidget('{id}');
                 </script>
@@ -548,7 +551,7 @@ class BlockWidget(forms.Widget):
             id=name,
             block_json=self.block_json,
             value_json=value_json,
-            errors_json=errors_json,
+            error_json=error_json,
         )
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -606,6 +609,34 @@ def get_help_icon():
     return render_to_string(
         "wagtailadmin/shared/icon.html", {"name": "help", "classname": "default"}
     )
+
+
+def get_error_json_data(error):
+    """
+    Translate a ValidationError instance raised against a block (which may potentially be a
+    ValidationError subclass specialised for a particular block type) into a JSON-serialisable dict
+    consisting of one or both of:
+    messages: a list of error message strings to be displayed against the block
+    blockErrors: a structure specific to the block type, containing further error objects in this
+        format to be displayed against this block's children
+    """
+    if hasattr(error, "as_json_data"):
+        return error.as_json_data()
+    else:
+        return {"messages": error.messages}
+
+
+def get_error_list_json_data(error_list):
+    """
+    Flatten an ErrorList instance containing any number of ValidationErrors
+    (which may themselves contain multiple messages) into a list of error message strings.
+    This does not consider any other properties of ValidationError other than `message`,
+    so should not be used where ValidationError subclasses with nested block errors may be
+    present.
+    (In terms of StreamBlockValidationError et al: it's valid for use on non_block_errors
+    but not block_errors)
+    """
+    return list(itertools.chain(*(err.messages for err in error_list.as_data())))
 
 
 DECONSTRUCT_ALIASES = {

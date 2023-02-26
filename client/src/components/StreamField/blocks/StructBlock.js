@@ -2,12 +2,10 @@
 
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
-
-export class StructBlockValidationError {
-  constructor(blockErrors) {
-    this.blockErrors = blockErrors;
-  }
-}
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -21,6 +19,7 @@ export class StructBlock {
       const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
       const dom = $(html);
       $(placeholder).replaceWith(dom);
+      const blockErrors = initialError?.blockErrors || {};
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
         const childBlockElement = dom
           .find('[data-structblock-child="' + childBlockDef.name + '"]')
@@ -29,10 +28,11 @@ export class StructBlock {
           childBlockElement,
           prefix + '-' + childBlockDef.name,
           state[childBlockDef.name],
-          initialError?.blockErrors[childBlockDef.name],
+          blockErrors[childBlockDef.name],
         );
         this.childBlocks[childBlockDef.name] = childBlock;
       });
+      this.container = dom;
     } else {
       const dom = $(`
         <div class="${h(this.blockDef.meta.classname || '')}">
@@ -67,11 +67,12 @@ export class StructBlock {
           .find('[data-streamfield-block]')
           .get(0);
         const labelElement = childDom.find('label').get(0);
+        const blockErrors = initialError?.blockErrors || {};
         const childBlock = childBlockDef.render(
           childBlockElement,
           prefix + '-' + childBlockDef.name,
           state[childBlockDef.name],
-          initialError?.blockErrors[childBlockDef.name],
+          blockErrors[childBlockDef.name],
           new Map(),
         );
 
@@ -80,6 +81,7 @@ export class StructBlock {
           labelElement.setAttribute('for', childBlock.idForLabel);
         }
       });
+      this.container = dom;
     }
   }
 
@@ -90,15 +92,21 @@ export class StructBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
-    }
-    const error = errorList[0];
+  setError(error) {
+    if (!error) return;
 
-    for (const blockName in error.blockErrors) {
-      if (hasOwn(error.blockErrors, blockName)) {
-        this.childBlocks[blockName].setError(error.blockErrors[blockName]);
+    // Non block errors
+    const container = this.container[0];
+    removeErrorMessages(container);
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
+    }
+
+    if (error.blockErrors) {
+      for (const blockName in error.blockErrors) {
+        if (hasOwn(error.blockErrors, blockName)) {
+          this.childBlocks[blockName].setError(error.blockErrors[blockName]);
+        }
       }
     }
   }

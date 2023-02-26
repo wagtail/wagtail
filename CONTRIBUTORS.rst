@@ -693,6 +693,9 @@ Contributors
 * Suyash Srivastava
 * Julian Bigler
 * Kenny Wolf
+* Himanshu Garg
+* Christopher Wardle
+* Jatin Kumar
 
 Translators
 ===========

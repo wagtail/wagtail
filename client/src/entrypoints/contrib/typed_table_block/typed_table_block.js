@@ -3,6 +3,10 @@
 
 import { escapeHtml as h } from '../../../utils/text';
 import { range } from '../../../utils/range';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -84,6 +88,7 @@ export class TypedTableBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+    this.container = dom;
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
 
@@ -452,15 +457,21 @@ export class TypedTableBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
+  setError(error) {
+    if (!error) return;
+
+    // Non block errors
+    const container = this.container[0];
+    removeErrorMessages(container);
+
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
     }
-    const error = errorList[0];
-    if (error.cellErrors) {
-      for (const [rowIndex, rowErrors] of Object.entries(error.cellErrors)) {
+
+    if (error.blockErrors) {
+      for (const [rowIndex, rowErrors] of Object.entries(error.blockErrors)) {
         for (const [colIndex, cellError] of Object.entries(rowErrors)) {
-          this.rows[rowIndex].blocks[colIndex].setError([cellError]);
+          this.rows[rowIndex].blocks[colIndex].setError(cellError);
         }
       }
     }
@@ -567,14 +578,4 @@ export class TypedTableBlockDefinition {
 window.telepath.register(
   'wagtail.contrib.typed_table_block.blocks.TypedTableBlock',
   TypedTableBlockDefinition,
-);
-
-export class TypedTableBlockValidationError {
-  constructor(cellErrors) {
-    this.cellErrors = cellErrors;
-  }
-}
-window.telepath.register(
-  'wagtail.contrib.typed_table_block.TypedTableBlockValidationError',
-  TypedTableBlockValidationError,
 );

@@ -47,8 +47,8 @@ describe('cleanForSlug', () => {
         'on-this-day-in-november',
       );
       expect(cleanForSlug('This & That', false)).toBe('this--that');
-      expect(cleanForSlug('The Price is $72.00!', false)).toBe(
-        'the-price-is-7200',
+      expect(cleanForSlug('Lisboa é ótima à beira-mar', false)).toBe(
+        'lisboa--tima--beira-mar',
       );
     });
   });
@@ -62,8 +62,8 @@ describe('cleanForSlug', () => {
       /* true triggers to use django's urlify */
 
       expect(cleanForSlug('This & That', true)).toBe('this-that');
-      expect(cleanForSlug('The Price is $72.00!', false)).toBe(
-        'the-price-is-7200',
+      expect(cleanForSlug('Lisboa é ótima à beira-mar', false)).toBe(
+        'lisboa-é-ótima-à-beira-mar',
       );
     });
 
@@ -71,8 +71,8 @@ describe('cleanForSlug', () => {
       /* false triggers ignores django's urlify */
 
       expect(cleanForSlug('This & That', false)).toBe('this--that');
-      expect(cleanForSlug('The Price is $72.00!', false)).toBe(
-        'the-price-is-7200',
+      expect(cleanForSlug('Lisboa é ótima à beira-mar', false)).toBe(
+        'lisboa-é-ótima-à-beira-mar',
       );
     });
   });

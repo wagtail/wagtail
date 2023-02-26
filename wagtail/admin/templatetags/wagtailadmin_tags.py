@@ -779,6 +779,41 @@ def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
     }
 
 
+@register.inclusion_tag("wagtailadmin/shared/status_tag.html")
+def status(
+    label=None,
+    classname=None,
+    url=None,
+    title=None,
+    hidden_label=None,
+    attrs=None,
+):
+    """
+    Generates a status-tag css with <span></span> or <a><a/> implementation.
+
+    Usage:
+
+        {% status label="live" url="/test/" title="title" hidden_label="current status:" classname="primary" %}
+
+    :param label: the status test, (string)
+    :param classname: defaults to 'status-tag' if not provided (string)
+    :param url: the status url(to specify the use of anchor tag instead of default span), (string)
+    :param title: accessible label intended for screen readers (string)
+    :param hidden_label : the to specify the additional visually hidden span text, (string)
+    :param attrs: any additional HTML attributes (as a string) to append to the root element
+    :return: Rendered template snippet (string)
+
+    """
+    return {
+        "label": label,
+        "attrs": attrs,
+        "classname": classname,
+        "hidden_label": hidden_label,
+        "title": title,
+        "url": url,
+    }
+
+
 @register.filter()
 def timesince_simple(d):
     """

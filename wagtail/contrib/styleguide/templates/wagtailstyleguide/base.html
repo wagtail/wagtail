@@ -617,9 +617,10 @@
             <p>{% avatar size="small" %} Avatar small</p>
 
             <h3>Status tags</h3>
-            <div class="status-tag primary">Primary tag</div>
-
-            <div class="status-tag">Secondary tag</div>
+            <div>{% status "status tag primary" classname="primary" %}</div>
+            <div>{% status "status tag secondary" %}</div>
+            <div>{% status "status tag label" classname="status-tag--label" %}</div>
+            <div>{% status "status tag link" url="https://wagtail.org/" title="wagtail.org" hidden_label="current status" classname="primary" %}</div>
 
             <h3>Loading mask</h3>
             <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>

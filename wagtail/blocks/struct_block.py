@@ -1,7 +1,7 @@
 import collections
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
@@ -11,41 +11,40 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
+from .base import (
+    Block,
+    BoundBlock,
+    DeclarativeSubBlocksMetaclass,
+    get_error_json_data,
+    get_error_list_json_data,
+    get_help_icon,
+)
 
 __all__ = ["BaseStructBlock", "StructBlock", "StructValue"]
 
 
 class StructBlockValidationError(ValidationError):
-    def __init__(self, block_errors=None):
+    def __init__(self, block_errors=None, non_block_errors=None):
         self.block_errors = block_errors
-        super().__init__("Validation error in StructBlock", params=block_errors)
+        self.non_block_errors = non_block_errors
 
+        params = {}
+        if block_errors:
+            params.update(block_errors)
+        if non_block_errors:
+            params[NON_FIELD_ERRORS] = non_block_errors
+        super().__init__("Validation error in StructBlock", params=params)
 
-class StructBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.blocks.StructBlockValidationError"
-
-    def js_args(self, error):
-        if error.block_errors is None:
-            return [None]
-        else:
-            return [
-                {
-                    name: error_list.as_data()
-                    for name, error_list in error.block_errors.items()
-                }
-            ]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/blocks.js"),
-            ]
-        )
-
-
-register(StructBlockValidationErrorAdapter(), StructBlockValidationError)
+    def as_json_data(self):
+        result = {}
+        if self.non_block_errors:
+            result["messages"] = get_error_list_json_data(self.non_block_errors)
+        if self.block_errors:
+            result["blockErrors"] = {
+                k: get_error_json_data(error_list.as_data()[0])
+                for (k, error_list) in self.block_errors.items()
+            }
+        return result
 
 
 class StructValue(collections.OrderedDict):

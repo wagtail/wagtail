@@ -11,7 +11,7 @@
 
     <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
         {% trans "Privacy" %}
-        <button type="button" data-a11y-dialog-show="set-privacy" class="status-tag primary">
+        <button type="button" data-a11y-dialog-show="set-privacy" class="button button-small button-secondary">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
             <span class="label-public icon icon-view" aria-label="{% trans 'Set collection privacy. Current status: Public' %}">
                 {% trans "Public" %}

@@ -132,6 +132,19 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             ["Root", "Evil plans", "Good plans"],
         )
 
+    def test_index_with_collection_filtered(self):
+        root_collection = Collection.get_first_root_node()
+        travel_plans = root_collection.add_child(name="Travel plans")
+
+        self.make_docs()
+
+        response = self.get({"collection_id": travel_plans.pk})
+        # should append the correct params to the add document button
+        url = reverse("wagtaildocs:add_multiple")
+        self.assertContains(
+            response, f'<a href="{url}?collection_id={travel_plans.pk}"'
+        )
+
     def test_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
         evil_plans = root_collection.add_child(name="Evil plans")
@@ -819,9 +832,20 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
 
-        # collection chooser should exisst
+        # collection chooser should exist
         self.assertContains(response, "id_adddocument_collection")
         self.assertContains(response, "Evil plans")
+
+    def test_add_with_selected_collection(self):
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name="Evil plans")
+
+        response = self.client.get(
+            reverse("wagtaildocs:add_multiple") + f"?collection_id={collection.pk}"
+        )
+        self.assertEqual(response.status_code, 200)
+        # collection chooser should have selected collection passed with parameter
+        self.assertContains(response, f'<option value="{collection.pk}" selected>')
 
     def test_add_post(self):
         """

@@ -106,6 +106,13 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         for i in range(0, 10, 2):
             self.assertIn("Baker %i" % i, response_body)
 
+        # should append the correct params to the add images button
+        url = reverse("wagtailimages:add_multiple")
+        self.assertContains(
+            response,
+            f'<a href="{url}?q=Baker&amp;collection_id={child_collection[0].pk}"',
+        )
+
     def test_pagination(self):
         pages = ["0", "1", "-1", "9999", "Not a page"]
         for page in pages:
@@ -611,6 +618,19 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         # Test that it was placed in the Evil Plans collection
         image = images.first()
         self.assertEqual(image.collection, evil_plans_collection)
+
+    def test_add_with_selected_collection(self):
+
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name="Travel pics")
+
+        response = self.client.get(
+            reverse("wagtailimages:add_multiple") + f"?collection_id={collection.pk}"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # collection chooser should have selected collection passed with parameter
+        self.assertContains(response, f'option value="{collection.pk}" selected')
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_unique_together_validation_error(self):
