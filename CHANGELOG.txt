@@ -47,6 +47,7 @@ Changelog
  * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston)
  * Maintenance: Add curlylint and update djhtml, semgrep versions in pre-commit config (Himanshu Garg)
  * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
+ * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
