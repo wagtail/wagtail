@@ -9,9 +9,9 @@ from django.urls import reverse
 from urllib.parse import urlencode
 from openpyxl import load_workbook
 
-from wagtail.admin.forms import WagtailAdminPageForm, models
+from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.panels import get_form_for_model
-from wagtail.contrib.forms.models import FormSubmission, AbstractForm, AbstractFormField
+from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.tests.utils import (
     make_form_page,
@@ -30,7 +30,7 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomSubmissionListView,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.test.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 
 
 class TestFormResponsesPanel(TestCase):
@@ -363,20 +363,19 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         self.login()
 
     def get_url(self, viewname, *args, **kwargs):
-            """
-            Reverse a URL and append querystring arguments.
-            """
-            querystring = kwargs.pop('querystring', None)
-            url = reverse(viewname, args=args, kwargs=kwargs)
-            if querystring:
-                url += '?' + urlencode(querystring)
-            return url
-
+        """
+        Reverse a URL and append querystring arguments.
+        """
+        querystring = kwargs.pop('querystring', None)
+        url = reverse(viewname, args=args, kwargs=kwargs)
+        if querystring:
+            url += '?' + urlencode(querystring)
+        return url
 
     def test_export_urls_include_filters(self):
         # Set up some test submissions
         submission = FormSubmission(
-        page=self.form_page, form_data={'name': 'Alice'}
+            page=self.form_page, form_data={'name': 'Alice'}
         )
         submission.save()
 
