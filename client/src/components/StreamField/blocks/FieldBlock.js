@@ -50,13 +50,11 @@ export class FieldBlock {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
-      this.setError([
-        {
-          messages: [
-            'This widget failed to render, please check the console for details',
-          ],
-        },
-      ]);
+      this.setError({
+        messages: [
+          'This widget failed to render, please check the console for details',
+        ],
+      });
       return;
     }
 
@@ -115,26 +113,26 @@ export class FieldBlock {
     }
   }
 
-  setError(errorList) {
-    const errors = this.field.querySelector('[data-field-errors]');
+  setError(error) {
+    const errorContainer = this.field.querySelector('[data-field-errors]');
 
-    errors
+    errorContainer
       .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
 
-    if (errorList) {
+    if (error) {
       this.field.classList.add('w-field--error');
-      errors.querySelector('.icon').removeAttribute('hidden');
+      errorContainer.querySelector('.icon').removeAttribute('hidden');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList
-        .map((error) => `<span>${h(error.messages[0])}</span>`)
+      errorElement.innerHTML = error.messages
+        .map((message) => `<span>${h(message)}</span>`)
         .join('');
-      errors.appendChild(errorElement);
+      errorContainer.appendChild(errorElement);
     } else {
       this.field.classList.remove('w-field--error');
-      errors.querySelector('.icon').setAttribute('hidden', 'true');
+      errorContainer.querySelector('.icon').setAttribute('hidden', 'true');
     }
   }
 

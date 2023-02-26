@@ -23,9 +23,8 @@
             {% for workflow_state in workflow_states %}
                 <tr>
                     <td>
-                        <a href="{% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id %}" class="status-tag primary">
-                            {{ workflow_state.get_status_display }}
-                        </a>
+                        {% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id as status_url %}
+                        {% status workflow_state.get_status_display url=status_url classname="primary" %}
                     </td>
                     <td class="title">
                         <h2>

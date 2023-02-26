@@ -11,7 +11,13 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import Block, BoundBlock, get_help_icon
+from .base import (
+    Block,
+    BoundBlock,
+    get_error_json_data,
+    get_error_list_json_data,
+    get_help_icon,
+)
 
 __all__ = ["ListBlock", "ListBlockValidationError"]
 
@@ -28,29 +34,17 @@ class ListBlockValidationError(ValidationError):
             params["non_block_errors"] = non_block_errors
         super().__init__("Validation error in ListBlock", params=params)
 
-
-class ListBlockValidationErrorAdapter(Adapter):
-    js_constructor = "wagtail.blocks.ListBlockValidationError"
-
-    def js_args(self, error):
-        return [
-            [
-                elist.as_data() if elist is not None else elist
-                for elist in error.block_errors
-            ],
-            error.non_block_errors.as_data(),
-        ]
-
-    @cached_property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/blocks.js"),
+    def as_json_data(self):
+        result = {}
+        if self.non_block_errors:
+            result["messages"] = get_error_list_json_data(self.non_block_errors)
+        if self.block_errors:
+            result["blockErrors"] = [
+                get_error_json_data(error_list.as_data()[0]) if error_list else None
+                for error_list in self.block_errors
             ]
-        )
 
-
-register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
+        return result
 
 
 class ListValue(MutableSequence):

@@ -45,7 +45,15 @@
                 </td>
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
-                <td class="status" valign="top"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
+                <td class="status" valign="top">
+                    {% if user.is_active %}
+                        {% trans "Active" as status_label %}
+                        {% status status_label classname="primary" %}
+                    {% else %}
+                        {% trans "Inactive" as status_label %}
+                        {% status status_label %}
+                    {% endif %}
+                </td>
                 <td>{% if user.last_login %}{% human_readable_date user.last_login %}{% endif %}</td>
             </tr>
         {% endfor %}

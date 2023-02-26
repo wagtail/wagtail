@@ -22,7 +22,10 @@ class CopyForm(forms.Form):
         )
         allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
         self.fields["new_slug"] = forms.SlugField(
-            initial=self.page.slug, label=_("New slug"), allow_unicode=allow_unicode
+            initial=self.page.slug,
+            label=_("New slug"),
+            allow_unicode=allow_unicode,
+            widget=widgets.slug.SlugInput,
         )
         self.fields["new_parent_page"] = forms.ModelChoiceField(
             initial=self.page.get_parent(),

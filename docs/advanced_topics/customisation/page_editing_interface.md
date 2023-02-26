@@ -69,7 +69,7 @@ body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
 
 The feature identifiers provided on a default Wagtail installation are as follows:
 
--   `h1`, `h2`, `h3`, `h4`, `h5`, `h6` - heading elements
+-   `h2`, `h3`, `h4` - heading elements
 -   `bold`, `italic` - bold / italic text
 -   `ol`, `ul` - ordered / unordered lists
 -   `hr` - horizontal rules
@@ -78,8 +78,9 @@ The feature identifiers provided on a default Wagtail installation are as follow
 -   `image` - embedded images
 -   `embed` - embedded media (see [](embedded_content))
 
-We have few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifiers. These are as follows:
+We have a few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifiers. These are as follows:
 
+-   `h1`, `h5`, `h6` - heading elements
 -   `code` - inline code
 -   `superscript`, `subscript`, `strikethrough` - text formatting
 -   `blockquote` - blockquote

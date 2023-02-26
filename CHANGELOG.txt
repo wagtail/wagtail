@@ -10,6 +10,8 @@ Changelog
  * Implement new simplified userbar designs (Albina Starykova)
  * Add more Axe rules to the accessibility checker (Albina Starykova)
  * Add usage view for pages (Sage Abdullah)
+ * Copy page form now updates the slug field dynamically with a slugified value on blur (Loveth Omokaro)
+ * Ensure selected collection is kept when navigating from documents or images listings to add multiple views & upon upload (Aman Pandey, Bojan Mihelac)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
@@ -20,6 +22,8 @@ Changelog
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
  * Fix: No longer allow invalid duplicate site hostname creation as hostnames and domain names are a case insensitive (Coen van der Kamp)
  * Fix: Image and Document multiple upload update forms now correctly use the progress button (longrunning) behaviour when clicked (Loveth Omokaro)
+ * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
+ * Fix: Ensure that the privacy collection privacy edit button is styled as a button (Jatin Kumar)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -39,6 +43,11 @@ Changelog
  * Maintenance: Replace `script` tags with `template` tag for image/document bulk uploads (Rishabh Kumar Bahukhandi)
  * Maintenance: Remove unneeded float styles on 404 page (Fabien Le Frapper)
  * Maintenance: Convert userbar implementation to TypeScript (Albina Starykova)
+ * Maintenance: Migrate slug field behaviour to a Stimulus controller and create new `SlugInput` widget (Loveth Omokaro)
+ * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston)
+ * Maintenance: Add curlylint and update djhtml, semgrep versions in pre-commit config (Himanshu Garg)
+ * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
+ * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -47,6 +56,7 @@ Changelog
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
  * Fix: Fix image uploads on storage backends that require file pointer to be at the start of the file (Matt Westcott)
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
+ * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
 
 
 4.2 (06.02.2023)
@@ -208,6 +218,7 @@ Changelog
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
+ * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
 
 
 4.1.2 (06.02.2023)

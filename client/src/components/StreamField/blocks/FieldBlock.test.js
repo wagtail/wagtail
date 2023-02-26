@@ -51,12 +51,6 @@ class DummyWidgetDefinition {
   }
 }
 
-class ValidationError {
-  constructor(messages) {
-    this.messages = messages;
-  }
-}
-
 describe('telepath: wagtail.blocks.FieldBlock', () => {
   let boundBlock;
 
@@ -135,10 +129,12 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
   });
 
   test('setError() renders errors', () => {
-    boundBlock.setError([
-      new ValidationError(['Field must not contain the letter E']),
-      new ValidationError(['Field must contain a story about kittens']),
-    ]);
+    boundBlock.setError({
+      messages: [
+        'Field must not contain the letter E',
+        'Field must contain a story about kittens',
+      ],
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

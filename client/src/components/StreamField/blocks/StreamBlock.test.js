@@ -1,11 +1,7 @@
 import $ from 'jquery';
 import * as uuid from 'uuid';
 import { FieldBlockDefinition } from './FieldBlock';
-import {
-  StreamBlockDefinition,
-  StreamBlockValidationError,
-} from './StreamBlock';
-import { StructBlockDefinition } from './StructBlock';
+import { StreamBlockDefinition } from './StreamBlock';
 
 // Mock uuid for consistent snapshot results
 jest.mock('uuid');
@@ -54,12 +50,6 @@ class DummyWidgetDefinition {
       },
       idForLabel: id,
     };
-  }
-}
-
-class ValidationError {
-  constructor(messages) {
-    this.messages = messages;
   }
 }
 
@@ -321,18 +311,16 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
   });
 
   test('setError renders error messages', () => {
-    boundBlock.setError([
-      new StreamBlockValidationError(
-        [
-          /* non-block error */
-          new ValidationError(['At least three blocks are required']),
-        ],
-        {
-          /* block error */
-          1: [new ValidationError(['Not as good as the first one'])],
-        },
-      ),
-    ]);
+    boundBlock.setError({
+      messages: [
+        /* non-block error */
+        'At least three blocks are required',
+      ],
+      blockErrors: {
+        /* block error */
+        1: { messages: ['Not as good as the first one'] },
+      },
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

@@ -18,15 +18,12 @@ import ComboBox, {
   comboBoxTriggerLabel,
 } from '../../ComboBox/ComboBox';
 import { hideTooltipOnEsc } from '../../../includes/initTooltips';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 /* global $ */
-
-export class StreamBlockValidationError {
-  constructor(nonBlockErrors, blockErrors) {
-    this.nonBlockErrors = nonBlockErrors;
-    this.blockErrors = blockErrors;
-  }
-}
 
 class StreamChild extends BaseSequenceChild {
   /*
@@ -403,34 +400,23 @@ export class StreamBlock extends BaseSequenceBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
-    }
-    const error = errorList[0];
+  setError(error) {
+    if (!error) return;
 
-    // Non block errors
+    // Non block errors (messages applying to the block as a whole)
     const container = this.container[0];
-    container
-      .querySelectorAll(':scope > .help-block.help-critical')
-      .forEach((element) => element.remove());
+    removeErrorMessages(container);
 
-    if (error.nonBlockErrors.length > 0) {
-      // Add a help block for each error raised
-      error.nonBlockErrors.forEach((nonBlockError) => {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('help-block');
-        errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(nonBlockError.messages[0]);
-        container.insertBefore(errorElement, container.childNodes[0]);
-      });
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
     }
 
-    // Block errors
-
-    for (const blockIndex in error.blockErrors) {
-      if (hasOwn(error.blockErrors, blockIndex)) {
-        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+    if (error.blockErrors) {
+      // Block errors (to be propagated to child blocks)
+      for (const blockIndex in error.blockErrors) {
+        if (hasOwn(error.blockErrors, blockIndex)) {
+          this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+        }
       }
     }
   }

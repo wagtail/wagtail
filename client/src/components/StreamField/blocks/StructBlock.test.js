@@ -1,10 +1,7 @@
 import $ from 'jquery';
 import { FieldBlockDefinition } from './FieldBlock';
 import { StreamBlockDefinition } from './StreamBlock';
-import {
-  StructBlockDefinition,
-  StructBlockValidationError,
-} from './StructBlock';
+import { StructBlockDefinition } from './StructBlock';
 
 window.$ = $;
 
@@ -51,12 +48,6 @@ class DummyWidgetDefinition {
       },
       idForLabel: id,
     };
-  }
-}
-
-class ValidationError {
-  constructor(messages) {
-    this.messages = messages;
   }
 }
 
@@ -177,11 +168,18 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
   });
 
   test('setError passes error messages to children', () => {
-    boundBlock.setError([
-      new StructBlockValidationError({
-        size: [new ValidationError(['This is too big'])],
-      }),
-    ]);
+    boundBlock.setError({
+      blockErrors: {
+        size: { messages: ['This is too big'] },
+      },
+    });
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError shows non-block errors', () => {
+    boundBlock.setError({
+      messages: ['This is just generally wrong'],
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

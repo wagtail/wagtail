@@ -17,11 +17,12 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
+from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.field_block import FieldBlockAdapter
-from wagtail.blocks.list_block import ListBlockAdapter
+from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
-from wagtail.blocks.stream_block import StreamBlockAdapter
-from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.blocks.stream_block import StreamBlockAdapter, StreamBlockValidationError
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -2103,6 +2104,29 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({"title": "Torchbox", "link": "not a url"})
         with self.assertRaises(ValidationError):
             block.clean(value)
+
+    def test_non_block_validation_error(self):
+        class LinkBlock(blocks.StructBlock):
+            page = blocks.PageChooserBlock(required=False)
+            url = blocks.URLBlock(required=False)
+
+            def clean(self, value):
+                result = super().clean(value)
+                if not (result["page"] or result["url"]):
+                    raise StructBlockValidationError(
+                        non_block_errors=ErrorList(
+                            ["Either page or URL must be specified"]
+                        )
+                    )
+                return result
+
+        block = LinkBlock()
+        bad_data = {"page": None, "url": ""}
+        with self.assertRaises(ValidationError):
+            block.clean(bad_data)
+
+        good_data = {"page": None, "url": "https://wagtail.org/"}
+        self.assertEqual(block.clean(good_data), good_data)
 
     def test_bound_blocks_are_available_on_template(self):
         """
@@ -5175,3 +5199,170 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
         )
         template = block.get_template()
         self.assertEqual(template, block.my_new_template)
+
+
+class TestValidationErrorAsJsonData(TestCase):
+    def test_plain_validation_error(self):
+        error = ValidationError("everything is broken")
+        self.assertEqual(
+            get_error_json_data(error), {"messages": ["everything is broken"]}
+        )
+
+    def test_validation_error_with_multiple_messages(self):
+        error = ValidationError(
+            [
+                ValidationError("everything is broken"),
+                ValidationError("even more broken than before"),
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {"messages": ["everything is broken", "even more broken than before"]},
+        )
+
+    def test_structblock_validation_error(self):
+        error = StructBlockValidationError(
+            block_errors={
+                "name": ErrorList(
+                    [
+                        ValidationError("This field is required."),
+                    ]
+                )
+            },
+            non_block_errors=ErrorList(
+                [ValidationError("Either email or telephone number must be specified.")]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    "name": {"messages": ["This field is required."]},
+                },
+                "messages": [
+                    "Either email or telephone number must be specified.",
+                ],
+            },
+        )
+
+    def test_streamblock_validation_error(self):
+        error = StreamBlockValidationError(
+            block_errors={
+                2: ErrorList(
+                    [
+                        StructBlockValidationError(
+                            non_block_errors=ErrorList(
+                                [
+                                    ValidationError(
+                                        "Either email or telephone number must be specified."
+                                    )
+                                ]
+                            )
+                        )
+                    ]
+                ),
+                4: ErrorList([ValidationError("This field is required.")]),
+                6: ErrorList(
+                    [
+                        StructBlockValidationError(
+                            block_errors={
+                                "name": ErrorList(
+                                    [ValidationError("This field is required.")]
+                                ),
+                            }
+                        )
+                    ]
+                ),
+            },
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    2: {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    4: {"messages": ["This field is required."]},
+                    6: {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                },
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_listblock_validation_error(self):
+        error = ListBlockValidationError(
+            block_errors=[
+                None,
+                ErrorList(
+                    [
+                        StructBlockValidationError(
+                            non_block_errors=ErrorList(
+                                [
+                                    ValidationError(
+                                        "Either email or telephone number must be specified."
+                                    )
+                                ]
+                            )
+                        )
+                    ]
+                ),
+                ErrorList(
+                    [
+                        StructBlockValidationError(
+                            block_errors={
+                                "name": ErrorList(
+                                    [ValidationError("This field is required.")]
+                                ),
+                            }
+                        )
+                    ]
+                ),
+            ],
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": [
+                    None,
+                    {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                ],
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )

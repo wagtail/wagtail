@@ -93,7 +93,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
@@ -160,7 +160,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
@@ -235,7 +235,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
