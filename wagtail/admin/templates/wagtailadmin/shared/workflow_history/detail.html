@@ -87,7 +87,7 @@
                                                     {% endblocktrans %}
                                                 {% endif %}
                                             {% else %}
-                                                <div class="status-tag primary">{{ task_state.get_status_display }}</div>
+                                                {% status label=task_state.get_status_display classname='primary' %}
                                             {% endif %}
                                             {% if task_state.specific.get_comment %}
                                                 <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
@@ -115,7 +115,7 @@
                                             <b>{% trans "Workflow started" %}</b>
                                         {% elif timeline_item.action == 'workflow_completed' %}
                                             <b>{% trans "Workflow completed" %}</b>
-                                            <div class="status-tag primary">{{ timeline_item.workflow_state.get_status_display }}</div>
+                                            {% status label=timeline_item.workflow_state.get_status_display classname='primary' %}
                                         {% elif timeline_item.action == 'edited' %}
                                             {% trans "Edited" as action %}
                                             {% if revision.user %}
@@ -133,7 +133,7 @@
                                                     {{ action }} by <b>{{ who }}</b>
                                                 {% endblocktrans %}
                                             {% else %}
-                                                <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
+                                                {% status label=timeline_item.task_state.get_status_display classname="primary" %}
                                             {% endif %}
 
                                             {% if timeline_item.task_state.specific.get_comment %}

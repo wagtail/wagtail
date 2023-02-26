@@ -1,7 +1,8 @@
+{% load wagtailadmin_tags %}
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if value %}
-        {% if column.true_label %}<div class="status-tag primary">{{ column.true_label }}</div>{% endif %}
+        {% if column.true_label %}{% status label=column.true_label  classname='primary' %}{% endif %}
     {% else %}
-        {% if column.false_label %}<div class="status-tag primary">{{ column.false_label }}</div>{% endif %}
+        {% if column.false_label %}{% status label=column.false_label  classname='primary' %}>{% endif %}
     {% endif %}
 </td>
