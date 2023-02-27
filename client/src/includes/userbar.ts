@@ -384,8 +384,17 @@ export class Userbar extends HTMLElement {
       this.shadowRoot.querySelector<HTMLTemplateElement>(
         '#w-a11y-result-selector-template',
       );
+    const a11yOutlineTemplate =
+      this.shadowRoot.querySelector<HTMLTemplateElement>(
+        '#w-a11y-result-outline-template',
+      );
 
-    if (!accessibilityResultsBox || !a11yRowTemplate || !a11ySelectorTemplate) {
+    if (
+      !accessibilityResultsBox ||
+      !a11yRowTemplate ||
+      !a11ySelectorTemplate ||
+      !a11yOutlineTemplate
+    ) {
       return;
     }
 
@@ -455,10 +464,62 @@ export class Userbar extends HTMLElement {
             currentA11ySelector.addEventListener('click', () => {
               const inaccessibleElement =
                 document.querySelector<HTMLElement>(selectorName);
-              if (!inaccessibleElement) return;
+              const a11yOutlineContainer =
+                this.shadowRoot?.querySelector<HTMLElement>(
+                  '[data-a11y-result-outline-container]',
+                );
+              if (a11yOutlineContainer?.firstElementChild) {
+                a11yOutlineContainer.removeChild(
+                  a11yOutlineContainer.firstElementChild,
+                );
+              }
+              a11yOutlineContainer?.appendChild(
+                a11yOutlineTemplate.content.cloneNode(true),
+              );
+              const currentA11yOutline =
+                this.shadowRoot?.querySelector<HTMLElement>(
+                  '[data-a11y-result-outline]',
+                );
+              if (
+                !this.shadowRoot ||
+                !inaccessibleElement ||
+                !currentA11yOutline ||
+                !a11yOutlineContainer
+              )
+                return;
+
+              const styleA11yOutline = () => {
+                const rect = inaccessibleElement.getBoundingClientRect();
+                currentA11yOutline.style.cssText = `
+                top: ${
+                  rect.height < 5
+                    ? `${rect.top + window.scrollY - 2.5}px`
+                    : `${rect.top + window.scrollY}px`
+                };
+                left: ${
+                  rect.width < 5
+                    ? `${rect.left + window.scrollX - 2.5}px`
+                    : `${rect.left + window.scrollX}px`
+                };
+                width: ${rect.width < 5 ? '5px' : `${rect.width}px`};
+                height: ${rect.height < 5 ? '5px' : `${rect.height}px`};
+                position: absolute;
+                z-index: 129;
+                outline: 1px solid #CD4444;
+                box-shadow: 0px 0px 12px 1px #FF0000;
+                `;
+              };
+
+              styleA11yOutline();
+              window.onresize = styleA11yOutline;
+
               inaccessibleElement.style.scrollMargin = '6.25rem';
               inaccessibleElement.scrollIntoView();
               inaccessibleElement.focus();
+
+              accessibilityResultsBox.addEventListener('hide', () => {
+                currentA11yOutline.style.cssText = '';
+              });
             });
           });
         });
