@@ -552,6 +552,10 @@ hero_image = my_page.body.first_block_by_name('image')
 <div class="hero-image">{{ page.body.first_block_by_name.image }}</div>
 ```
 
+## Custom validation
+
+Custom validation logic can be added to blocks by overriding the block's `clean` method. For more information, see [](streamfield_validation).
+
 ## Migrations
 
 Since StreamField data is stored as a single JSON field, rather than being arranged in a formal database structure, it will often be necessary to write data migrations when changing the data structure of a StreamField or converting to or from other field types. For more information on how StreamField interacts with Django's migration system, and a guide to migrating rich text to StreamFields, see [](streamfield_migrations).

@@ -73,3 +73,34 @@ Or:
     {% endif %}
 {% endfor %}
 ```
+
+## Custom validation
+
+As with other blocks, validation logic on `TypedTableBlock` can be customised by overriding the `clean` method (see [](streamfield_validation)). Raising a `ValidationError` exception from this method will attach the error message to the table as a whole. To attach errors to individual child blocks, the exception class `wagtail.contrib.typed_table_block.blocks.TypedTableBlockValidationError` can be used - in addition to the standard `non_block_errors` argument, this accepts a `cell_errors` argument consisting of a nested dict structure where the outer keys are row indexes and the inner keys are column indexes. For example:
+
+```python
+from django.core.exceptions import ValidationError
+from wagtail.blocks import IntegerBlock
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock, TypedTableBlockValidationError
+
+
+class LuckyTableBlock(TypedTableBlock):
+    number = IntegerBlock()
+
+    def clean(self, value):
+        result = super().clean(value)
+        errors = {}
+        print(result.row_data)
+        for row_num, row in enumerate(result.row_data):
+            row_errors = {}
+            for col_num, cell in enumerate(row['values']):
+                if cell == 13:
+                    row_errors[col_num] = ValidationError("Table cannot contain the number 13")
+            if row_errors:
+                errors[row_num] = row_errors
+
+        if errors:
+            raise TypedTableBlockValidationError(cell_errors=errors)
+
+        return result
+```
