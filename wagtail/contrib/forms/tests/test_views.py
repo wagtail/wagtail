@@ -404,7 +404,7 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         expected_url = self.get_url(
             viewname="wagtailforms:list_submissions",
             page_id=self.form_page.id,
-            querystring={"name": "Alice", "export": "csv"}
+            querystring={"name": "Alice", "export": "csv"},
         )
         self.assertEqual(view.csv_export_url, expected_url)
 
