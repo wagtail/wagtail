@@ -10,46 +10,48 @@ const mockDocument = `
 
 // Multiple selectors per violation, multiple violations per selector
 const mockViolations = {
-  a: { id: 'axe-1', nodes: [{ target: ['#d'] }, { target: ['#a'] }] },
-  b: { id: 'axe-2', nodes: [{ target: ['#d'] }, { target: ['#b'] }] },
+  da: { id: 'axe-1', nodes: [{ target: ['#d'] }, { target: ['#a'] }] },
+  db: { id: 'axe-2', nodes: [{ target: ['#d'] }, { target: ['#b'] }] },
   c: { id: 'axe-3', nodes: [{ target: ['#c'] }] },
 };
 
-it('works with no nodes', () => {
-  const violations = [
-    { id: 'axe-1', nodes: [] },
-    { id: 'axe-2', nodes: [] },
-  ] as unknown as AxeResults['violations'];
-  expect(sortAxeViolations(violations)).toEqual([
-    { id: 'axe-1', nodes: [] },
-    { id: 'axe-2', nodes: [] },
-  ]);
-});
+describe('sortAxeViolations', () => {
+  it('works with no nodes', () => {
+    const violations = [
+      { id: 'axe-1', nodes: [] },
+      { id: 'axe-2', nodes: [] },
+    ] as unknown as AxeResults['violations'];
+    expect(sortAxeViolations(violations)).toEqual([
+      { id: 'axe-1', nodes: [] },
+      { id: 'axe-2', nodes: [] },
+    ]);
+  });
 
-it('preserves the existing order if correct', () => {
-  document.body.innerHTML = mockDocument;
-  const violations = [
-    mockViolations.a,
-    mockViolations.b,
-    mockViolations.c,
-  ] as AxeResults['violations'];
-  expect(sortAxeViolations(violations)).toEqual([
-    mockViolations.a,
-    mockViolations.b,
-    mockViolations.c,
-  ]);
-});
+  it('preserves the existing order if correct', () => {
+    document.body.innerHTML = mockDocument;
+    const violations = [
+      mockViolations.da,
+      mockViolations.db,
+      mockViolations.c,
+    ] as AxeResults['violations'];
+    expect(sortAxeViolations(violations)).toEqual([
+      mockViolations.da,
+      mockViolations.db,
+      mockViolations.c,
+    ]);
+  });
 
-it('changes the order to match the DOM', () => {
-  document.body.innerHTML = mockDocument;
-  const violations = [
-    mockViolations.c,
-    mockViolations.b,
-    mockViolations.a,
-  ] as AxeResults['violations'];
-  expect(sortAxeViolations(violations)).toEqual([
-    mockViolations.a,
-    mockViolations.b,
-    mockViolations.c,
-  ]);
+  it('changes the order to match the DOM', () => {
+    document.body.innerHTML = mockDocument;
+    const violations = [
+      mockViolations.c,
+      mockViolations.db,
+      mockViolations.da,
+    ] as AxeResults['violations'];
+    expect(sortAxeViolations(violations)).toEqual([
+      mockViolations.da,
+      mockViolations.db,
+      mockViolations.c,
+    ]);
+  });
 });

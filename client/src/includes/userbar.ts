@@ -1,4 +1,4 @@
-import axe, { AxeResults } from 'axe-core';
+import axe, { AxeResults, NodeResult } from 'axe-core';
 
 import { dialog } from './dialog';
 
@@ -11,55 +11,25 @@ This component implements a roving tab index for keyboard navigation
 Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 */
 
-export const sortAxeViolations = (violations: AxeResults['violations']) => {
-  interface inaccessibleNode {
-    selectedNode: HTMLElement;
-    selectorName: string;
-  }
-  const inaccessibleNodes: inaccessibleNode[] = [];
-
-  violations.forEach((violation) => {
-    violation.nodes.forEach((node) => {
-      const selectorName = node.target[0];
-      const selectedNode = document.querySelector<HTMLElement>(selectorName);
-      if (!selectedNode) return;
-      // Push both node (to compare DOM position) and selector (to sort Axe results)
-      inaccessibleNodes.push({
-        selectedNode,
-        selectorName,
-      });
-    });
-  });
-
-  const sortedNodes = inaccessibleNodes.sort((a, b) =>
-    // Method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
-    // eslint-disable-next-line no-bitwise
-    a.selectedNode.compareDocumentPosition(b.selectedNode) &
-    Node.DOCUMENT_POSITION_PRECEDING
-      ? 1
-      : -1,
-  );
-
-  // Utility object with index in order not to use find each time
-  const selectorIndex = {};
-  sortedNodes.forEach((sortedNode, index) => {
-    selectorIndex[sortedNode.selectorName] = index;
-  });
-
-  // Only need 1 min node index per violation
-  const getMinIndex = (violationToSort) =>
-    Math.min(
-      ...violationToSort.nodes.map(
-        (sortedNode) => selectorIndex[sortedNode.target[0]],
-      ),
-    );
-
-  const sortedViolations = violations.sort(
-    (a, b) => getMinIndex(a) - getMinIndex(b),
-  );
-
-  return sortedViolations;
+const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
+  if (!nodeResultA || !nodeResultB) return 0;
+  const nodeA = document.querySelector<HTMLElement>(nodeResultA.target[0]);
+  const nodeB = document.querySelector<HTMLElement>(nodeResultB.target[0]);
+  if (!nodeA || !nodeB) return 0;
+  // Method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+  // eslint-disable-next-line no-bitwise
+  return nodeA.compareDocumentPosition(nodeB) & Node.DOCUMENT_POSITION_PRECEDING
+    ? 1
+    : -1;
 };
+
+export const sortAxeViolations = (violations: AxeResults['violations']) =>
+  violations.sort((violationA, violationB) => {
+    const earliestNodeA = violationA.nodes.sort(sortAxeNodes)[0];
+    const earliestNodeB = violationB.nodes.sort(sortAxeNodes)[0];
+    return sortAxeNodes(earliestNodeA, earliestNodeB);
+  });
+
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
 
@@ -482,8 +452,7 @@ export class Userbar extends HTMLElement {
               /\[data-block-key="\w{5}"\]/,
               '',
             );
-            currentA11ySelector.addEventListener('click', (event) => {
-              event.preventDefault();
+            currentA11ySelector.addEventListener('click', () => {
               const inaccessibleElement =
                 document.querySelector<HTMLElement>(selectorName);
               if (!inaccessibleElement) return;
