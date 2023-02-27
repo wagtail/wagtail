@@ -11,8 +11,8 @@
 
 <a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1">
     {{ title }}
-    <div data-tabs-errors class="w-tabs__errors">
-        <span data-tabs-errors-count aria-hidden="true"></span>
-        <span data-tabs-errors-statement class="w-sr-only"></span>
+    <div class="w-tabs__errors" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#tab-{{ tab_id }}">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
     </div>
 </a>
