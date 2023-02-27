@@ -20,7 +20,12 @@ from .base import (
     get_help_icon,
 )
 
-__all__ = ["BaseStructBlock", "StructBlock", "StructValue"]
+__all__ = [
+    "BaseStructBlock",
+    "StructBlock",
+    "StructValue",
+    "StructBlockValidationError",
+]
 
 
 class StructBlockValidationError(ValidationError):
