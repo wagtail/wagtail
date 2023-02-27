@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
 from io import BytesIO
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
-from urllib.parse import urlencode
 from openpyxl import load_workbook
 
 from wagtail.admin.forms import WagtailAdminPageForm
