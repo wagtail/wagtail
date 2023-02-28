@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
+from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.models import (
@@ -21,6 +22,7 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel, SimplePage
+from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
 class TestWorkflowModels(TestCase):
@@ -116,7 +118,7 @@ class TestWorkflowModels(TestCase):
         self.assertTrue(workflow_2.all_pages().filter(id=goodbye_page.id).exists())
 
 
-class TestPageWorkflows(TestCase):
+class TestPageWorkflows(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -416,6 +418,37 @@ class TestPageWorkflows(TestCase):
             )[0],
         )
 
+    def test_start_workflow_group_approval_task_locked(self):
+        self.object.locked = True
+        self.object.locked_at = timezone.now()
+        self.object.locked_by = self.create_user("user1")
+        self.object.save()
+
+        # Create a workflow with one group approval task for the moderators group
+        moderators = Group.objects.get(name="Moderators")
+        workflow = Workflow.objects.create(name="test_workflow_foo")
+        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        task_1.groups.add(moderators)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        # The object was locked by a non-moderator
+        self.assertFalse(self.object.locked_by.groups.filter(id=moderators.id).exists())
+
+        # Start the workflow as another user
+        self.object.save_revision()
+        workflow_state = workflow.start(self.object, self.create_user("user2"))
+
+        self.assertEqual(workflow_state.workflow, workflow)
+        self.assertEqual(workflow_state.content_object, self.object)
+        self.assertEqual(workflow_state.status, "in_progress")
+
+        self.object.refresh_from_db()
+
+        # The lock should be removed as otherwise the object would be stuck
+        self.assertFalse(self.object.locked)
+        self.assertIsNone(self.object.locked_at)
+        self.assertIsNone(self.object.locked_by)
+
 
 class TestSnippetWorkflows(TestPageWorkflows):
     fixtures = None
@@ -428,3 +461,21 @@ class TestSnippetWorkflows(TestPageWorkflows):
 
 class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
     model = ModeratedModel
+
+    def test_start_workflow_group_approval_task_locked(self):
+        # Test normal GroupApprovalTask.start() as the object is not lockable
+
+        # Create a workflow with one group approval task for the moderators group
+        moderators = Group.objects.get(name="Moderators")
+        workflow = Workflow.objects.create(name="test_workflow_foo")
+        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        task_1.groups.add(moderators)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        # Start the workflow
+        self.object.save_revision()
+        workflow_state = workflow.start(self.object, self.create_user("user2"))
+
+        self.assertEqual(workflow_state.workflow, workflow)
+        self.assertEqual(workflow_state.content_object, self.object)
+        self.assertEqual(workflow_state.status, "in_progress")
