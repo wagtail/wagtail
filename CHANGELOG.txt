@@ -9,6 +9,7 @@ Changelog
  * Fix: Fix image uploads on storage backends that require file pointer to be at the start of the file (Matt Westcott)
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
  * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
+ * Fix: Fix page/snippet cannot proceed a `GroupApprovalTask` if it's locked by someone outside of the group (Sage Abdullah)
 
 
 4.2 (06.02.2023)

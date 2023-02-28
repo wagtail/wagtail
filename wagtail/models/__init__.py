@@ -3915,7 +3915,7 @@ class GroupApprovalTask(Task):
 
     def start(self, workflow_state, user=None):
         if (
-            isinstance(workflow_state, LockableMixin)
+            isinstance(workflow_state.content_object, LockableMixin)
             and workflow_state.content_object.locked_by
         ):
             # If the person who locked the object isn't in one of the groups, unlock the object
