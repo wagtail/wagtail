@@ -27,6 +27,8 @@ Changelog
  * Fix: Ensure that the privacy collection privacy edit button is styled as a button (Jatin Kumar)
  * Fix: Fix page/snippet cannot proceed a `GroupApprovalTask` if it's locked by someone outside of the group (Sage Abdullah)
  * Fix: Allow manual lock even if `WorkflowLock` is currently applied (Sage Abdullah)
+ * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
+ * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
