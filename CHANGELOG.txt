@@ -25,6 +25,7 @@ Changelog
  * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
  * Fix: Ensure that the privacy collection privacy edit button is styled as a button (Jatin Kumar)
  * Fix: Fix page/snippet cannot proceed a `GroupApprovalTask` if it's locked by someone outside of the group (Sage Abdullah)
+ * Fix: Allow manual lock even if `WorkflowLock` is currently applied (Sage Abdullah)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
