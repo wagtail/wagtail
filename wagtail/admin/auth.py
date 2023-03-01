@@ -2,12 +2,13 @@ import types
 from functools import wraps
 
 import l18n
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.timezone import activate as activate_tz
+from django.utils.timezone import override as override_tz
 from django.utils.translation import gettext as _
 from django.utils.translation import override
 
@@ -175,8 +176,9 @@ def require_admin_access(view_func):
                     )
                     l18n.set_language(preferred_language)
                     time_zone = user.wagtail_userprofile.get_current_time_zone()
-                    activate_tz(time_zone)
-                with LogContext(user=user):
+                else:
+                    time_zone = settings.TIME_ZONE
+                with override_tz(time_zone), LogContext(user=user):
                     if preferred_language:
                         with override(preferred_language):
                             response = view_func(request, *args, **kwargs)
