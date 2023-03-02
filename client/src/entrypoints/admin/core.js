@@ -10,20 +10,6 @@ import { initTooltips } from '../../includes/initTooltips';
 /** initialise Wagtail Stimulus application with core controller definitions */
 window.Stimulus = initStimulus({ definitions: coreControllerDefinitions });
 
-/* generic function for adding a message to message area through JS alone */
-function addMessage(status, text) {
-  $('.messages')
-    .addClass('new')
-    .empty()
-    .append('<ul><li class="' + status + '">' + text + '</li></ul>');
-  const addMsgTimeout = setTimeout(() => {
-    $('.messages').addClass('appear');
-    clearTimeout(addMsgTimeout);
-  }, 100);
-}
-
-window.addMessage = addMessage;
-
 window.escapeHtml = escapeHtml;
 
 window.initTagField = initTagField;

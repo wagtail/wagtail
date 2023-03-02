@@ -19,7 +19,6 @@ $(function () {
       maxFileSize: window.fileupload_opts.errormessages.max_file_size,
     },
     add: function (e, data) {
-      $('.messages').empty();
       var $this = $(this);
       var that = $this.data('blueimp-fileupload') || $this.data('fileupload');
       var li = $($('#upload-list-item').html()).addClass('upload-uploading');
@@ -204,8 +203,12 @@ $(function () {
       url: this.action,
     }).done(function (data) {
       if (data.success) {
-        var statusText = $('.status-msg.update-success').text();
-        addMessage('success', statusText);
+        var text = $('.status-msg.update-success').first().text();
+        document.dispatchEvent(
+          new CustomEvent('w-messages:add', {
+            detail: { clear: true, text, type: 'success' },
+          }),
+        );
         itemElement.slideUp(function () {
           $(this).remove();
         });

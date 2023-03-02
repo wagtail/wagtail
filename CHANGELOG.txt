@@ -14,6 +14,7 @@ Changelog
  * Copy page form now updates the slug field dynamically with a slugified value on blur (Loveth Omokaro)
  * Ensure selected collection is kept when navigating from documents or images listings to add multiple views & upon upload (Aman Pandey, Bojan Mihelac)
  * Keep applied filters when downloading form submissions (Suyash Srivastava)
+ * Messages added dynamically via JavaScript now have an icon to be consistent with those supplied in the page's HTML (Aman Pandey)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
@@ -31,6 +32,7 @@ Changelog
  * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
  * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
+ * Fix: When multiple documents are uploaded and then subsequently updated, ensure that existing success messages are cleared correctly (Aman Pandey)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -58,6 +60,7 @@ Changelog
  * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
  * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
  * Maintenance: Migrate `initErrorDetection` (tabs error counts) to a Stimulus Controller `w-count` (Aman Pandey)
+ * Maintenance: Migrate `window.addMessage` behaviour to a global event listener & Stimulus Controller approach with `w-messages` (Aman Pandey)
 
 
 4.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
