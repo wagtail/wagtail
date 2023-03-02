@@ -86,7 +86,9 @@
 
                         // Post
                         $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
-                            addMessage('success', '"' + $(movedElement).data('page-title') + '" has been moved successfully.')
+                            const text = `"${$(movedElement).data('page-title')}" has been moved successfully.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text,  type: 'success' } });
+                            document.dispatchEvent(event);
                         })
                     }
                 });
@@ -117,7 +119,9 @@
                         url += `?position=${(index)}`;
                         let CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
                         $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
-                            addMessage('success', `"${$(currentlySelected).data('page-title')}" has been moved successfully from ${currentPosition +1} to ${index +1}.`)
+                            const text = `"${$(currentlySelected).data('page-title')}" has been moved successfully from ${currentPosition + 1} to ${index + 1}.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text, type: 'success' } });
+                            document.dispatchEvent(event);
                         }).done(function() {
                             currentlySelected = undefined;
                         })
