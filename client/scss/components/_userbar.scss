@@ -258,6 +258,7 @@ $positions: (
     border: 2px solid theme('colors.primary.DEFAULT');
     background: theme('colors.white.DEFAULT');
   }
+  .w-dialog__box { overflow: visible; }
 
   .w-dialog__content {
     padding: 0;

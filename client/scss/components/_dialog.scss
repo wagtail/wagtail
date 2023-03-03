@@ -157,6 +157,13 @@
   .w-dialog__box {
     pointer-events: auto;
     box-shadow: theme('boxShadow.md');
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .w-dialog__message{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   .w-dialog__overlay {
