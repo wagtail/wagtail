@@ -400,13 +400,13 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
             page_id=self.form_page.id,
             querystring={"name": "Alice", "export": "xlsx"},
         )
-        self.assertEqual(view.xlsx_export_url, expected_url)
+        self.assertIn(expected_url, response.content.decode())
         expected_url = self.get_url(
             viewname="wagtailforms:list_submissions",
             page_id=self.form_page.id,
             querystring={"name": "Alice", "export": "csv"},
         )
-        self.assertEqual(view.csv_export_url, expected_url)
+        self.assertIn(expected_url, response.content.decode())
 
     def make_list_submissions(self):
         """
