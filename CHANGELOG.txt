@@ -17,6 +17,7 @@ Changelog
  * Keep applied filters when downloading form submissions (Suyash Srivastava)
  * Messages added dynamically via JavaScript now have an icon to be consistent with those supplied in the page's HTML (Aman Pandey)
  * Switch lock/unlock side panel toggle to a switch, with more appropriate confirmation message status (Sage Abdullah)
+ * Ensure that changed or cleared selection from choosers will dispatch a DOM `change` event (George Sakkis)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)

@@ -700,6 +700,7 @@ Contributors
 * Sam
 * Deepam Priyadarshi
 * Mng
+* George Sakkis
 
 Translators
 ===========
