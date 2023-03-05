@@ -20,6 +20,7 @@ from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
+from hashlib import md5
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -419,6 +420,23 @@ def get_dummy_request(*, path: str = "/", site: "Site" = None) -> HttpRequest:
 
     # `SERVER_PORT` doesn't work when passed to the constructor
     return RequestFactory(SERVER_NAME=server_name).get(path, SERVER_PORT=server_port)
+
+
+def safe_md5(data=b"", usedforsecurity=True):
+    """
+    Safely use the MD5 hash algorithm with the given ``data`` and a flag
+    indicating if the purpose of the digest is for security or not.
+
+    On security-restricted systems (such as FIPS systems), insecure hashes
+    like MD5 are disabled by default. But passing ``usedforsecurity`` as
+    ``False`` tells the underlying security implementation we're not trying
+    to use the digest for secure purposes and to please just go ahead and
+    allow it to happen.
+    """
+    if accepts_kwarg(md5, "usedforsecurity"):
+        return md5(data, usedforsecurity=usedforsecurity)
+    else:
+        return md5(data)
 
 
 class BatchProcessor:
