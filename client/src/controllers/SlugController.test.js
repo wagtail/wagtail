@@ -60,3 +60,168 @@ describe('SlugController', () => {
     expect(slugInput.value).toEqual('visiter-toulouse-en-été-2025');
   });
 });
+
+describe('compare behaviour', () => {
+  let application;
+
+  beforeEach(() => {
+    application?.stop();
+
+    document.body.innerHTML = `
+      <input
+        id="id_slug"
+        name="slug"
+        type="text"
+        data-controller="w-slug"
+      />`;
+
+    application = Application.start();
+    application.register('w-slug', SlugController);
+
+    const slugInput = document.querySelector('#id_slug');
+
+    slugInput.dataset.action = [
+      'blur->w-slug#slugify',
+      'custom:event->w-slug#compare',
+    ].join(' ');
+  });
+
+  it('should not prevent default if input has no value', () => {
+    const event = new CustomEvent('custom:event', {
+      detail: { value: 'title alpha' },
+    });
+
+    event.preventDefault = jest.fn();
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(document.getElementById('id_slug').value).toBe('');
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should not prevent default if the values are the same', () => {
+    document.querySelector('#id_slug').setAttribute('value', 'title-alpha');
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: 'title alpha' },
+    });
+
+    event.preventDefault = jest.fn();
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should prevent default if the values are not the same', () => {
+    document.querySelector('#id_slug').setAttribute('value', 'title-alpha');
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: 'title beta' },
+    });
+
+    event.preventDefault = jest.fn();
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should not prevent default if both values are empty strings', () => {
+    const slugInput = document.querySelector('#id_slug');
+    slugInput.setAttribute('value', '');
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: '' },
+    });
+
+    event.preventDefault = jest.fn();
+
+    slugInput.dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should prevent default if the new value is an empty string but the existing value is not', () => {
+    const slugInput = document.querySelector('#id_slug');
+    slugInput.setAttribute('value', 'existing-value');
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: '' },
+    });
+
+    event.preventDefault = jest.fn();
+
+    slugInput.dispatchEvent(event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+});
+
+describe('urlify behaviour', () => {
+  require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
+    .default;
+  let application;
+
+  beforeEach(() => {
+    application?.stop();
+
+    document.body.innerHTML = `
+      <input
+        id="id_slug"
+        name="slug"
+        type="text"
+        data-controller="w-slug"
+      />`;
+
+    application = Application.start();
+    application.register('w-slug', SlugController);
+
+    const slugInput = document.querySelector('#id_slug');
+
+    slugInput.dataset.action = [
+      'blur->w-slug#slugify',
+      'custom:event->w-slug#urlify:prevent',
+    ].join(' ');
+  });
+
+  it('should update slug input value if the values are the same', () => {
+    const slugInput = document.getElementById('id_slug');
+    slugInput.value = 'urlify Testing On edit page  ';
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: 'urlify Testing On edit page' },
+      bubbles: false,
+    });
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(slugInput.value).toBe('urlify-testing-on-edit-page');
+  });
+
+  it('should transform input with special characters to their ASCII equivalent', () => {
+    const slugInput = document.getElementById('id_slug');
+    slugInput.value = 'Some Title with éçà Spaces';
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: 'Some Title with éçà Spaces' },
+    });
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(slugInput.value).toBe('some-title-with-eca-spaces');
+  });
+
+  it('should return an empty string when input contains only special characters', () => {
+    const slugInput = document.getElementById('id_slug');
+    slugInput.value = '$$!@#$%^&*';
+
+    const event = new CustomEvent('custom:event', {
+      detail: { value: '$$!@#$%^&*' },
+    });
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(slugInput.value).toBe('');
+  });
+});

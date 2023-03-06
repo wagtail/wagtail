@@ -23,7 +23,11 @@ def set_default_page_edit_handlers(cls):
                 attrs={
                     "placeholder": format_lazy(
                         "{title}*", title=gettext_lazy("Page title")
-                    )
+                    ),
+                    "data-controller": "w-sync",
+                    "data-action": "focus->w-sync#check blur->w-sync#apply",
+                    # ensure that if the page is live, the slug field does not receive updates from changes to the title field
+                    "data-w-sync-target-value": "body:not(.page-is-live) [data-edit-form] #id_slug",
                 }
             ),
         ),
