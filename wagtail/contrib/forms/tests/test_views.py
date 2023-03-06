@@ -6,6 +6,8 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from django.utils.html import escape
+from django.utils.http import urlencode
 from openpyxl import load_workbook
 
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -360,6 +362,17 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
 
         # Login
         self.login()
+
+    def test_export_urls_include_filters(self):
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+
+        # Ensure that the download URLs include the filter parameters
+        response = self.client.get(list_url, {"name": "Alice"})
+        for format in ("xlsx", "csv"):
+            with self.subTest(format=format):
+                params = urlencode({"name": "Alice", "export": format})
+                expected_url = f"{list_url}?{params}"
+                self.assertContains(response, escape(expected_url))
 
     def make_list_submissions(self):
         """
