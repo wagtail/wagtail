@@ -5,19 +5,20 @@ from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminAutoHeightTextInput(widgets.Textarea):
-    template_name = "wagtailadmin/widgets/auto_height_text_input.html"
+    # template_name = "wagtailadmin/widgets/auto_height_text_input.html"
 
     def __init__(self, attrs=None):
         # Use more appropriate rows default, given autoheight will alter this anyway
-        default_attrs = {"rows": "1"}
+        default_attrs = {"rows": "1",'data-controller': 'w-auto-size'}
         if attrs:
             default_attrs.update(attrs)
 
         # add a w-field__autosize classname
         try:
-            default_attrs["class"] += " w-field__autosize"
+            default_attrs["class"] += " w-auto-size"
         except KeyError:
-            default_attrs["class"] = "w-field__autosize"
+            default_attrs["class"] = "w-auto-size"
+
 
         super().__init__(default_attrs)
 

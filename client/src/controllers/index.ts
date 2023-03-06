@@ -8,6 +8,7 @@ import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
 import { UpgradeController } from './UpgradeController';
+import { AutoSizeController } from './AutoSizeController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
@@ -21,4 +22,5 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
+  { controllerConstructor: AutoSizeController, identifier: 'w-auto-size' },
 ];
