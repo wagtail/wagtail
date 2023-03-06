@@ -7,12 +7,17 @@
 {% block content %}
     {% fragment as editing_actions %}
         {% if site_switcher %}
-            <form method="get" id="settings-site-switch" novalidate>
-                <label for="{{ site_switcher.site.id_for_label }}">
-                    {% trans "Site" %}:
-                </label>
-                {{ site_switcher.site }}
-            </form>
+           <form method="get" id="settings-site-switch" novalidate>
+    <select
+        name="site-switcher"
+        data-controller="w-submit"
+        data-action="change->w-submit#submit"
+        data-w-submit-update-action-value="true"
+    >
+        <option value="/path/to/current-site" selected>current.com</option>
+        <option value="/path/to/other-site">other.com</option>
+    </select>
+</form>
         {% endif %}
     {% endfragment %}
     {% trans "Editing" as editing_str %}
