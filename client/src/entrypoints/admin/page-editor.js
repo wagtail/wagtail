@@ -1,33 +1,9 @@
 import $ from 'jquery';
-import { cleanForSlug } from '../../utils/text';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 
 window.InlinePanel = InlinePanel;
 window.MultipleChooserPanel = MultipleChooserPanel;
-window.cleanForSlug = cleanForSlug;
-
-function initSlugAutoPopulate() {
-  let slugFollowsTitle = false;
-
-  // eslint-disable-next-line func-names
-  $('#id_title').on('focus', function () {
-    /* slug should only follow the title field if its value matched the title's value at the time of focus */
-    const currentSlug = $('#id_slug').val();
-    const slugifiedTitle = cleanForSlug(this.value, true);
-    slugFollowsTitle = currentSlug === slugifiedTitle;
-  });
-
-  // eslint-disable-next-line func-names
-  $('#id_title').on('keyup keydown keypress blur', function () {
-    if (slugFollowsTitle) {
-      const slugifiedTitle = cleanForSlug(this.value, true);
-      $('#id_slug').val(slugifiedTitle);
-    }
-  });
-}
-
-window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initKeyboardShortcuts() {
   // eslint-disable-next-line no-undef
@@ -49,10 +25,6 @@ function initKeyboardShortcuts() {
 window.initKeyboardShortcuts = initKeyboardShortcuts;
 
 $(() => {
-  /* Only non-live pages should auto-populate the slug from the title */
-  if (!$('body').hasClass('page-is-live')) {
-    initSlugAutoPopulate();
-  }
   initKeyboardShortcuts();
 });
 
