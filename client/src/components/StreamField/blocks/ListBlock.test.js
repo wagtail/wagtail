@@ -299,7 +299,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
 
   test('setError passes error messages to children', () => {
     boundBlock.setError({
-      blockErrors: [null, { messages: ['Not as good as the first one'] }],
+      blockErrors: { 1: { messages: ['Not as good as the first one'] } },
     });
     expect(document.body.innerHTML).toMatchSnapshot();
   });

@@ -1,7 +1,7 @@
 import io
 import json
 import logging
-from unittest import expectedFailure, mock
+from unittest import expectedFailure, mock, skip
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -15,7 +15,11 @@ from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.utils import get_admin_base_url, get_latest_str
+from wagtail.admin.utils import (
+    get_admin_base_url,
+    get_latest_str,
+    get_user_display_name,
+)
 from wagtail.models import (
     GroupApprovalTask,
     Page,
@@ -1101,10 +1105,16 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
             content_type__app_label="tests",
             codename=f"publish_{self.model._meta.model_name}",
         )
+        self.lock_permission = Permission.objects.filter(
+            content_type__app_label="tests",
+            codename=f"lock_{self.model._meta.model_name}",
+        ).first()
         self.submitter.user_permissions.add(self.edit_permission)
         self.moderator.user_permissions.add(
             self.edit_permission, self.publish_permission
         )
+        if self.lock_permission:
+            self.moderator.user_permissions.add(self.lock_permission)
 
     @property
     def model_name(self):
@@ -1174,11 +1184,178 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.post("submit")
 
         response = self.client.get(edit_url)
+
+        # Should show the moderation status
         self.assertRegex(
             response.content.decode("utf-8"),
             r"Sent to[\s|\n]+{}".format(self.object.current_workflow_task.name),
         )
+        self.assertContains(response, "In Moderation")
         self.assertNotContains(response, "Draft")
+
+    def test_submit_for_approval_changes_lock_status(self):
+        edit_url = self.get_url("edit")
+
+        response = self.client.get(edit_url)
+
+        # Should show the lock information as unlocked
+        self.assertContains(response, "Unlocked", count=1)
+        self.assertContains(
+            response, f"Anyone can edit this {self.model_name}", count=1
+        )
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, self.get_url("lock"))
+
+        # submit for approval
+        self.post("submit")
+
+        response = self.client.get(edit_url)
+
+        # Should show the lock information as locked
+        self.assertContains(response, "Locked by workflow", count=1)
+        self.assertContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+            count=1,
+        )
+
+        self.assertNotContains(response, "Unlocked")
+        self.assertNotContains(
+            response,
+            f"Anyone can edit this {self.model_name}",
+        )
+
+        # Should be unable to unlock
+        self.assertNotContains(response, self.get_url("unlock"))
+
+    def test_can_manual_lock_while_in_workflow(self):
+        edit_url = self.get_url("edit")
+
+        # Submit to workflow as submitter
+        self.post("submit")
+
+        # Login as a moderator to have lock permission
+        self.login(self.moderator)
+
+        response = self.client.get(edit_url)
+
+        # Should show the lock information as unlocked
+        self.assertContains(response, "Unlocked", count=1)
+        self.assertContains(
+            response,
+            f"Reviewers can edit this {self.model_name} – lock it to prevent other reviewers from editing",
+            count=1,
+        )
+        self.assertContains(response, self.get_url("lock"), count=1)
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, self.get_url("unlock"))
+
+    def test_can_unlock_manual_lock_while_in_workflow(self):
+        edit_url = self.get_url("edit")
+
+        # Submit to workflow as submitter
+        self.post("submit")
+
+        # Login as a moderator to have lock permission
+        self.login(self.moderator)
+
+        # Lock the object
+        self.client.post(self.get_url("lock"))
+
+        response = self.client.get(edit_url)
+
+        # Should show the lock information as locked
+        self.assertContains(response, "Locked by you", count=1)
+        self.assertContains(
+            response,
+            f"Only you can make changes while the {self.model_name} is locked",
+            count=1,
+        )
+        # One in the side panel, one in the message banner
+        self.assertContains(response, self.get_url("unlock"), count=2)
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, self.get_url("lock"))
+
+    def test_can_unlock_other_users_manual_lock_while_in_workflow(self):
+        edit_url = self.get_url("edit")
+
+        # Submit to workflow as submitter
+        self.post("submit")
+
+        # Login as a moderator to have lock permission
+        self.login(self.moderator)
+
+        # Lock the object
+        self.client.post(self.get_url("lock"))
+
+        # Login as a superuser that has unlock permission
+        self.login(self.superuser)
+
+        response = self.client.get(edit_url)
+
+        display_name = get_user_display_name(self.moderator)
+        # Should show the lock information as locked
+        self.assertContains(response, "Locked by another user", count=1)
+        self.assertContains(
+            response,
+            f"Only {display_name} can make changes while the {self.model_name} is locked",
+            count=1,
+        )
+        # One in the side panel, one in the message banner
+        self.assertContains(response, self.get_url("unlock"), count=2)
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, self.get_url("lock"))
+
+    def test_cannot_unlock_other_users_manual_lock_while_in_workflow(self):
+        edit_url = self.get_url("edit")
+
+        # Submit to workflow as submitter
+        self.post("submit")
+
+        # Login as a superuser to have lock permission
+        self.login(self.superuser)
+
+        # Lock the object
+        self.client.post(self.get_url("lock"))
+
+        # Login as a moderator that does not have unlock permission
+        # according to the workflow
+        self.login(self.moderator)
+
+        response = self.client.get(edit_url)
+
+        display_name = get_user_display_name(self.superuser)
+        # Should show the lock information as locked
+        self.assertContains(response, "Locked by another user", count=1)
+        self.assertContains(
+            response,
+            f"Only {display_name} can make changes while the {self.model_name} is locked",
+            count=1,
+        )
+        # Has no permission to unlock
+        self.assertNotContains(response, self.get_url("unlock"))
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, self.get_url("lock"))
 
     def test_workflow_action_menu_items(self):
         edit_url = self.get_url("edit")
@@ -1661,6 +1838,48 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
             response,
             '<button type="submit" class="button action-save warning" disabled>',
         )
+
+    def test_submit_for_approval_changes_lock_status(self):
+        edit_url = self.get_url("edit")
+
+        # submit for approval
+        self.post("submit")
+
+        # Login as a moderator
+        self.login(self.moderator)
+
+        response = self.client.get(edit_url)
+
+        # Model is not lockable, should not show any lock information or buttons
+
+        self.assertNotContains(response, "Unlocked")
+        self.assertNotContains(response, f"Anyone can edit this {self.model_name}")
+        self.assertNotContains(
+            response,
+            f"Reviewers can edit this {self.model_name} – lock it to prevent other reviewers from editing",
+        )
+        self.assertNotContains(response, "Locked by workflow")
+        self.assertNotContains(
+            response,
+            f"Only reviewers can edit and approve the {self.model_name}",
+        )
+        self.assertNotContains(response, "Locked by another user")
+
+    @skip("Model is not lockable")
+    def test_can_manual_lock_while_in_workflow(self):
+        pass
+
+    @skip("Model is not lockable")
+    def test_can_unlock_manual_lock_while_in_workflow(self):
+        pass
+
+    @skip("Model is not lockable")
+    def test_can_unlock_other_users_manual_lock_while_in_workflow(self):
+        pass
+
+    @skip("Model is not lockable")
+    def test_cannot_unlock_other_users_manual_lock_while_in_workflow(self):
+        pass
 
 
 @freeze_time("2020-03-31 12:00:00")

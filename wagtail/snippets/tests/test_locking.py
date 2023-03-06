@@ -5,6 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 
+from wagtail.admin.utils import get_user_display_name
 from wagtail.locks import WorkflowLock
 from wagtail.models import GroupApprovalTask, Workflow, WorkflowTask
 from wagtail.test.testapp.models import (
@@ -443,10 +444,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
                 # Should show lock information in the side panel
                 self.assertContains(
                     response,
-                    (
-                        f"You can edit this {self.model_name}, but others may not. "
-                        "Unlock it to allow others to edit."
-                    ),
+                    f"Only you can make changes while the {self.model_name} is locked",
                 )
 
                 # Should show unlock buttons, one in the message and one in the side panel
@@ -470,6 +468,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         response = self.client.get(self.get_url("edit"))
         html = response.content.decode()
         unlock_url = self.get_url("unlock")
+        display_name = get_user_display_name(user)
 
         # Should show lock message
         self.assertContains(
@@ -480,7 +479,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show lock information in the side panel
         self.assertContains(
             response,
-            f"You cannot edit this {self.model_name}. Unlock it to edit.",
+            f"Only {display_name} can make changes while the {self.model_name} is locked",
         )
 
         # Should not show Save action menu item
@@ -521,6 +520,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         response = self.client.get(self.get_url("edit"))
         html = response.content.decode()
         unlock_url = self.get_url("unlock")
+        display_name = get_user_display_name(user)
 
         # Should show lock message
         self.assertContains(
@@ -531,11 +531,11 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show lock information in the side panel
         self.assertContains(
             response,
-            f"You cannot edit this {self.model_name}.",
+            f"Only {display_name} can make changes while the {self.model_name} is locked",
         )
 
         # Should not show instruction to unlock
-        self.assertNotContains(response, "Unlock it to edit.")
+        self.assertNotContains(response, "Unlock")
 
         # Should not show Save action menu item
         self.assertNotContains(
@@ -579,13 +579,13 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show unlocked information in the side panel
         self.assertContains(
             response,
-            f"Anyone can edit this {self.model_name}.",
+            f"Anyone can edit this {self.model_name}",
         )
 
         # Should not show info to lock the object in the side panel
         self.assertNotContains(
             response,
-            "Lock it to prevent others from editing.",
+            "lock it to prevent others from editing",
         )
 
         # Should show Save action menu item
@@ -630,7 +630,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Should show unlocked information in the side panel
         self.assertContains(
             response,
-            f"Anyone can edit this {self.model_name}. Lock it to prevent others from editing.",
+            f"Anyone can edit this {self.model_name} – lock it to prevent others from editing",
         )
 
         # Should show Save action menu item

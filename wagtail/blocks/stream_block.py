@@ -4,7 +4,7 @@ from collections import OrderedDict, defaultdict
 from collections.abc import Mapping, MutableSequence
 
 from django import forms
-from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
@@ -32,15 +32,33 @@ __all__ = [
 
 class StreamBlockValidationError(ValidationError):
     def __init__(self, block_errors=None, non_block_errors=None):
-        self.non_block_errors = non_block_errors
-        self.block_errors = block_errors
+        # non_block_errors may be passed here as an ErrorList, a plain list (of strings or
+        # ValidationErrors), or None.
+        # Normalise it to be an ErrorList, which provides an as_data() method that consistently
+        # returns a flat list of ValidationError objects.
+        self.non_block_errors = ErrorList(non_block_errors)
 
-        params = {}
-        if block_errors:
-            params.update(block_errors)
-        if non_block_errors:
-            params[NON_FIELD_ERRORS] = non_block_errors
-        super().__init__("Validation error in StreamBlock", params=params)
+        # block_errors may be passed here as None, or a dict keyed by the indexes of the child blocks
+        # with errors.
+        # Items in this list / dict may be:
+        #  - a ValidationError instance (potentially a subclass such as StructBlockValidationError)
+        #  - an ErrorList containing a single ValidationError
+        #  - a plain list containing a single ValidationError
+        # All representations will be normalised to a dict of ValidationError instances,
+        # which is also the preferred format for the original argument to be in.
+        self.block_errors = {}
+        if block_errors is None:
+            pass
+        else:
+            for index, val in block_errors.items():
+                if isinstance(val, ErrorList):
+                    self.block_errors[index] = val.as_data()[0]
+                elif isinstance(val, list):
+                    self.block_errors[index] = val[0]
+                else:
+                    self.block_errors[index] = val
+
+        super().__init__("Validation error in StreamBlock")
 
     def as_json_data(self):
         result = {}
@@ -48,8 +66,8 @@ class StreamBlockValidationError(ValidationError):
             result["messages"] = get_error_list_json_data(self.non_block_errors)
         if self.block_errors:
             result["blockErrors"] = {
-                k: get_error_json_data(error_list.as_data()[0])
-                for (k, error_list) in self.block_errors.items()
+                index: get_error_json_data(error)
+                for (index, error) in self.block_errors.items()
             }
         return result
 
@@ -148,7 +166,7 @@ class BaseStreamBlock(Block):
                     (child.block.name, child.block.clean(child.value), child.id)
                 )
             except ValidationError as e:
-                errors[i] = ErrorList([e])
+                errors[i] = e
 
         if self.meta.min_num is not None and self.meta.min_num > len(value):
             non_block_errors.append(

@@ -21,7 +21,7 @@ from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.exceptions import PageClassNotFoundError
-from wagtail.locks import BasicLock, ScheduledForPublishLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     COMMENTS_RELATION_NAME,
     Comment,
@@ -843,6 +843,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user_perms = UserPagePermissionsProxy(self.request.user)
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
@@ -886,6 +887,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     "wagtailadmin_pages:confirm_workflow_cancellation",
                     args=(self.page.id,),
                 ),
+                "user_can_lock": (not self.lock or isinstance(self.lock, WorkflowLock))
+                and user_perms.for_page(self.page).can_lock(),
+                "user_can_unlock": isinstance(self.lock, BasicLock)
+                and user_perms.for_page(self.page).can_unlock(),
                 "locale": None,
                 "translations": [],
                 "media": bound_panel.media
@@ -896,8 +901,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            user_perms = UserPagePermissionsProxy(self.request.user)
-
             context.update(
                 {
                     "locale": self.page.locale,

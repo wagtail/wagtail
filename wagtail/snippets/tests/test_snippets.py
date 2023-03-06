@@ -3041,9 +3041,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         )
 
         # Should show the lock information in the status side panel
+        self.assertContains(response, "Locked by schedule")
         self.assertContains(
             response,
-            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            '<div class="w-help-text">Currently locked and will go live on the scheduled date</div>',
             html=True,
             count=1,
         )
@@ -3107,9 +3108,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         )
 
         # Should show the lock information in the status side panel
+        self.assertContains(response, "Locked by schedule")
         self.assertContains(
             response,
-            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            '<div class="w-help-text">Currently locked and will go live on the scheduled date</div>',
             html=True,
             count=1,
         )
@@ -3168,9 +3170,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         )
 
         # Should show the lock information in the status side panel
+        self.assertContains(response, "Locked by schedule")
         self.assertContains(
             response,
-            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            '<div class="w-help-text">Currently locked and will go live on the scheduled date</div>',
             html=True,
             count=1,
         )

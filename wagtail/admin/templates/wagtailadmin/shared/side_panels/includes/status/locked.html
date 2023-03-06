@@ -2,71 +2,23 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block content %}
-    {% if page %}
-        {% trans 'Page locking: ' as screen_reader_title_prefix %}
-    {% else %}
-        {% trans 'Locking: ' as screen_reader_title_prefix %}
-    {% endif %}
+    {% trans 'Locking: ' as screen_reader_title_prefix %}
 
     {% if lock %}
-        {% trans 'Locked' as title %}
-
-        {% if not locked_for_user and user_can_unlock %}
-            {% if page %}
-                {% trans 'You can edit this page, but others may not. Unlock it to allow others to edit.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    You can edit this {{ model_name }}, but others may not. Unlock it to allow others to edit.
-                {% endblocktrans %}
-            {% endif %}
-        {% elif not locked_for_user %}
-            {% if page %}
-                {% trans 'You can edit this page, but others may not.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    You can edit this {{ model_name }}, but others may not.
-                {% endblocktrans %}
-            {% endif %}
-        {% elif user_can_unlock %}
-            {% if page %}
-                {% trans 'You cannot edit this page. Unlock it to edit.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    You cannot edit this {{ model_name }}. Unlock it to edit.
-                {% endblocktrans %}
-            {% endif %}
-        {% else %}
-            {% if page %}
-                {% trans 'You cannot edit this page.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    You cannot edit this {{ model_name }}.
-                {% endblocktrans %}
-            {% endif %}
-        {% endif %}
-
-        {% with icon_name='lock' %}
+        {% with icon_name=lock_context.icon title=lock_context.locked_by help_text=lock_context.description %}
             {{ block.super }}
         {% endwith %}
     {% else %}
         {% trans 'Unlocked' as title %}
 
         {% if user_can_lock %}
-            {% if page %}
-                {% trans 'Anyone can edit this page. Lock it to prevent others from editing.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    Anyone can edit this {{ model_name }}. Lock it to prevent others from editing.
-                {% endblocktrans %}
-            {% endif %}
+            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
+                Anyone can edit this {{ model_name }} – lock it to prevent others from editing
+            {% endblocktrans %}
         {% else %}
-            {% if page %}
-                {% trans 'Anyone can edit this page.' as help_text %}
-            {% else %}
-                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
-                    Anyone can edit this {{ model_name }}.
-                {% endblocktrans %}
-            {% endif %}
+            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
+                Anyone can edit this {{ model_name }}
+            {% endblocktrans %}
         {% endif %}
 
         {% with icon_name='lock-open' help_text=help_text|capfirst %}
@@ -76,11 +28,11 @@
 {% endblock %}
 
 {% block action %}
-    {% if user_can_unlock and lock %}
+    {% if user_can_unlock %}
         {% trans 'Unlock' as unlock_text %}
         {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=unlock_url text=unlock_text %}
     {% endif %}
-    {% if user_can_lock and not lock %}
+    {% if user_can_lock %}
         {% trans 'Lock' as lock_text %}
         {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with data_url=lock_url text=lock_text %}
     {% endif %}

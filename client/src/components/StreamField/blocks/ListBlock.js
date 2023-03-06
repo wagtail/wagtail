@@ -267,12 +267,9 @@ export class ListBlock extends BaseSequenceBlock {
     }
 
     if (error.blockErrors) {
-      // error.blockErrors = a list with the same length as the data,
-      // with nulls for items without errors
-      error.blockErrors.forEach((blockError, blockIndex) => {
-        if (blockError) {
-          this.children[blockIndex].setError(blockError);
-        }
+      // error.blockErrors = a dict of errors, keyed by block index
+      Object.entries(error.blockErrors).forEach(([index, blockError]) => {
+        this.children[index].setError(blockError);
       });
     }
   }
