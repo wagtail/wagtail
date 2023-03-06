@@ -211,64 +211,6 @@ describe('telepath: wagtail.widgets.Select', () => {
   });
 });
 
-describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
-  let boundWidget;
-
-  beforeEach(() => {
-    window.autosize = jest.fn();
-
-    // Create a placeholder to render the widget
-    document.body.innerHTML = '<div id="placeholder"></div>';
-
-    // Unpack and render a textarea using the AdminAutoHeightTextInput widget
-    const widgetDef = window.telepath.unpack({
-      _type: 'wagtail.widgets.AdminAutoHeightTextInput',
-      _args: [
-        '<textarea name="__NAME__" cols="40" rows="1" id="__ID__"></textarea>',
-        '__ID__',
-      ],
-    });
-    boundWidget = widgetDef.render(
-      document.getElementById('placeholder'),
-      'the-name',
-      'the-id',
-      'The Value',
-    );
-  });
-
-  test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe(
-      '<textarea name="the-name" cols="40" rows="1" id="the-id"></textarea>',
-    );
-    expect(document.querySelector('textarea').value).toBe('The Value');
-  });
-
-  test('window.autosize was called', () => {
-    expect(window.autosize.mock.calls.length).toBe(1);
-    expect(window.autosize.mock.calls[0][0].get(0)).toBe(
-      document.querySelector('textarea'),
-    );
-  });
-
-  test('getValue() returns the current value', () => {
-    expect(boundWidget.getValue()).toBe('The Value');
-  });
-
-  test('getState() returns the current state', () => {
-    expect(boundWidget.getState()).toBe('The Value');
-  });
-
-  test('setState() changes the current state', () => {
-    boundWidget.setState('The new Value');
-    expect(document.querySelector('textarea').value).toBe('The new Value');
-  });
-
-  test('focus() focuses the text input', () => {
-    boundWidget.focus();
-    expect(document.activeElement).toBe(document.querySelector('textarea'));
-  });
-});
-
 describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
   let inputElement;

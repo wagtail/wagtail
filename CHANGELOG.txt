@@ -72,6 +72,7 @@ Changelog
  * Fix: Avoid showing scrollbars in the block picker unless necessary (Babitha Kumari)
  * Fix: Always show Add buttons, guide lines, Move up/down, Duplicate, Delete; in StreamField and Inline Panel (Thibaud Colas)
  * Fix: Make admin JS i18n endpoint accessible to non-authenticated users (Matt Westcott)
+ * Autosize text area field will now correctly resize when switching between comments toggle states (Suyash Srivastava)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -112,6 +113,7 @@ Changelog
  * Maintenance: Migrate select all checkbox in simple translation's submit translation page to Stimulus controller `w-bulk`, remove inline script usage (Hanoon)
  * Maintenance: Refactor `SnippetViewSet` to extend `ModelViewSet` (Sage Abdullah)
  * Maintenance: Migrate initDismissibles behaviour to a Stimulus controller `w-disimissible` (Loveth Omokaro)
+ * Maintenance: Replace jQuery autosize v3 with Stimulus `w-autosize` controller using autosize npm package v6 (Suyash Srivastava)
 
 
 4.2.2 (03.04.2023)
