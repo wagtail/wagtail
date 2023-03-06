@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from io import BytesIO
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
@@ -360,6 +361,52 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
 
         # Login
         self.login()
+
+    def get_url(self, viewname, *args, **kwargs):
+        """
+        Reverse a URL and append querystring arguments.
+        """
+        querystring = kwargs.pop("querystring", None)
+        url = reverse(viewname, args=args, kwargs=kwargs)
+        if querystring:
+            url += "?" + urlencode(querystring)
+        return url
+
+    def test_export_urls_include_filters(self):
+        # Set up some test submissions
+        submission = FormSubmission(page=self.form_page, form_data={"name": "Alice"})
+        submission.save()
+
+        # Apply some filters to the submissions view
+        self.client.get(
+            self.get_url(
+                viewname="wagtailforms:list_submissions",
+                page_id=self.form_page.id,
+                querystring={"name": "Alice"},
+            )
+        )
+
+        # Ensure that the xlsx_export_url and csv_export_url include the filter parameters
+        response = self.client.get(
+            self.get_url(
+                viewname="wagtailforms:list_submissions",
+                page_id=self.form_page.id,
+                querystring={"name": "Alice"},
+            )
+        )
+        view = response.context["view"]
+        expected_url = self.get_url(
+            viewname="wagtailforms:list_submissions",
+            page_id=self.form_page.id,
+            querystring={"name": "Alice", "export": "xlsx"},
+        )
+        self.assertIn(expected_url, response.content.decode())
+        expected_url = self.get_url(
+            viewname="wagtailforms:list_submissions",
+            page_id=self.form_page.id,
+            querystring={"name": "Alice", "export": "csv"},
+        )
+        self.assertIn(expected_url, response.content.decode())
 
     def make_list_submissions(self):
         """
