@@ -88,6 +88,7 @@ Changelog
  * Maintenance: Move snippet choosers and model check registration to `SnippetViewSet.on_register()` (Sage Abdullah)
  * Maintenance: Remove unused snippets delete-multiple view (Sage Abdullah)
  * Maintenance: Improve performance of determining live page URLs across the admin interface using `pageurl` template tag (Satvik Vashisht)
+ * Maintenance: Replace jQuery autosize v3.0.4 with Stimulus `w-autosize` controller using autosize npm package v6.0.1 (Sudeep Ranjan Sahoo, Suyash Srivastava, LB (Ben) Johnston)
 
 
 4.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
