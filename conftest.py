@@ -4,7 +4,7 @@ import warnings
 
 import django
 
-
+# This function adds command line options to pytest.
 def pytest_addoption(parser):
     parser.addoption(
         "--deprecation",
@@ -14,10 +14,12 @@ def pytest_addoption(parser):
     parser.addoption("--postgres", action="store_true")
     parser.addoption("--elasticsearch", action="store_true")
 
-
+# This function configures pytest with the provided options.
 def pytest_configure(config):
+    # Get the chosen deprecation level from the command line arguments.
     deprecation = config.getoption("deprecation")
 
+    # Filter deprecation warnings from Wagtail based on the chosen level.
     only_wagtail = r"^wagtail(\.|$)"
     if deprecation == "all":
         # Show all deprecation warnings from all packages
@@ -40,6 +42,7 @@ def pytest_configure(config):
         # Deprecation warnings are ignored by default
         pass
 
+    # If the --postgres option is provided, set the DATABASE_ENGINE environment variable.
     if config.getoption("postgres"):
         os.environ["DATABASE_ENGINE"] = "django.db.backends.postgresql"
 
@@ -59,7 +62,7 @@ def pytest_configure(config):
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
-
+# This function cleans up after pytest finishes.
 def pytest_unconfigure(config):
     from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
 
