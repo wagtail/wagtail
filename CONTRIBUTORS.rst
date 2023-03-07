@@ -685,6 +685,7 @@ Contributors
 * Nick Lee
 * Beniamin Bucur
 * Satvik Vashisht
+* Sam
 
 Translators
 ===========

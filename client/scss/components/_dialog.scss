@@ -106,6 +106,8 @@
     display: flex;
     align-items: center;
     padding: theme('spacing.5');
+    border-start-start-radius: theme('borderRadius.md');
+    border-start-end-radius: theme('borderRadius.md');
 
     @media (forced-colors: $media-forced-colours) {
       border-bottom: 1px solid currentColor;

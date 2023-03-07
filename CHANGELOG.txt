@@ -12,6 +12,7 @@ Changelog
  * Fix: Fix page/snippet cannot proceed a `GroupApprovalTask` if it's locked by someone outside of the group (Sage Abdullah)
  * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
+ * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
 
 
 4.2 (06.02.2023)
