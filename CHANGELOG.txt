@@ -35,6 +35,7 @@ Changelog
  * Docs: Add helpful troubleshooting links and refine wording for getting started with development (Loveth Omokaro)
  * Docs: Ensure search autocomplete overlay on mobile does not overflow the viewport (Ayman Makroo)
  * Docs: Improve documentation for InlinePanel (Vallabh Tiwari)
+ * Docs: Fix typo in "Extending Draftail" documentation (Hans Kelson)
  * Maintenance: Removed features deprecated in Wagtail 3.0 and 4.0 (Matt Westcott)
  * Maintenance: Update djhtml (html formatting) library to v 1.5.2 (Loveth Omokaro)
  * Maintenance: Re-enable `strictPropertyInitialization` in tsconfig (Thibaud Colas)

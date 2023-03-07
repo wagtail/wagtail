@@ -696,6 +696,7 @@ Contributors
 * Himanshu Garg
 * Christopher Wardle
 * Jatin Kumar
+* Hans Kelson
 
 Translators
 ===========
