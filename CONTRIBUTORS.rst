@@ -697,6 +697,7 @@ Contributors
 * Christopher Wardle
 * Jatin Kumar
 * Hans Kelson
+* Sam
 
 Translators
 ===========

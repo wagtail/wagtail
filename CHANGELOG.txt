@@ -30,6 +30,7 @@ Changelog
  * Fix: Allow manual lock even if `WorkflowLock` is currently applied (Sage Abdullah)
  * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
+ * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -67,6 +68,7 @@ Changelog
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
  * Fix: Prevent audit log report from failing on missing models (Andy Chosak)
  * Fix: Fix page/snippet cannot proceed a `GroupApprovalTask` if it's locked by someone outside of the group (Sage Abdullah)
+ * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
 
 
 4.2 (06.02.2023)
