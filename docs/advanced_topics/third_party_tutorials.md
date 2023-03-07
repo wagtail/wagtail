@@ -6,6 +6,7 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Introduction to Stimulus in Wagtail for contributors (video)](https://youtu.be/5WS7B8R0x0U) (28 February 2023)
 -   [How to pick a good Wagtail package](https://wagtail.org/blog/pick-out-packages/) (1 February 2023)
 -   [Dockerized Wagtail 4 + NuxtJS 3 + Graphene 3 + Vuetify 3 (with template)](https://dev.to/ordigital/dockerized-wagtail-4-nuxtjs-3-graphene-3-vuetify-3-1n8m) (26 January 2023)
 -   [Wagtail: Extending the Draftail Editor Part 4 - Custom Lists](https://enzedonline.com/en/tech-blog/wagtail-extending-the-draftail-editor-part-4-custom-lists/) (29 December 2022)
