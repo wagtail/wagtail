@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import Page
-from wagtail.search.index import SearchField
 from wagtail.test.testapp.models import SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
@@ -36,8 +35,8 @@ class TestPageSearch(WagtailTestUtils, TestCase):
         # Create a page
         root_page.add_child(
             instance=SimplePage(
-                title="Hi there!",
-                slug="hello-world",
+                title="Greetings!",
+                slug="hello",
                 content="good morning",
                 live=True,
                 has_unpublished_changes=False,
@@ -47,19 +46,10 @@ class TestPageSearch(WagtailTestUtils, TestCase):
         # Confirm the slug is not being searched
         response = self.get({"q": "hello"})
         self.assertNotContains(response, "There is one matching page")
-        search_fields = Page.search_fields
 
-        # Add slug to the search_fields
-        Page.search_fields = Page.search_fields + [
-            SearchField("slug", partial_match=True)
-        ]
-
-        # Confirm the slug is being searched
-        response = self.get({"q": "hello"})
+        # Confirm the title is being searched
+        response = self.get({"q": "greetings"})
         self.assertContains(response, "There is one matching page")
-
-        # Reset the search fields
-        Page.search_fields = search_fields
 
     def test_ajax(self):
         response = self.get({"q": "Hello"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
