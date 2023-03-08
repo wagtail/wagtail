@@ -8,9 +8,9 @@
     <main class="content-wrapper w-overflow-x-hidden" id="main">
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
-            <div class="messages" role="status">
-                {% if messages %}
-                    <ul>
+            <div class="messages" role="status" data-controller="w-messages" data-action="w-messages:add@document->w-messages#add" data-w-messages-added-class="new" data-w-messages-show-class="appear">
+                <ul data-w-messages-target="container">
+                    {% if messages %}
                         {% for message in messages %}
                             {% message_level_tag message as level_tag %}
                             <li class="{% message_tags message %}">
@@ -27,8 +27,17 @@
                                 {{ message|safe }}
                             </li>
                         {% endfor %}
-                    </ul>
-                {% endif %}
+                    {% endif %}
+                </ul>
+                <template data-w-messages-target="template" data-type="success">
+                    <li class="success">{% icon name="success" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="success">
+                    <li class="error">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="warning">
+                    <li class="warning">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
             </div>
 
             {% block content %}{% endblock %}
