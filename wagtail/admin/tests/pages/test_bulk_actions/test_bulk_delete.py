@@ -261,13 +261,13 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         post_delete_signals_received = []
 
         def page_unpublished_handler(sender, instance, **kwargs):
-            unpublish_signals_received.append((sender, instance.id))
+            unpublish_signals_received.append((sender, instance.pk))
 
         def pre_delete_handler(sender, instance, **kwargs):
-            pre_delete_signals_received.append((sender, instance.id))
+            pre_delete_signals_received.append((sender, instance.pk))
 
         def post_delete_handler(sender, instance, **kwargs):
-            post_delete_signals_received.append((sender, instance.id))
+            post_delete_signals_received.append((sender, instance.pk))
 
         page_unpublished.connect(page_unpublished_handler)
         pre_delete.connect(pre_delete_handler)
