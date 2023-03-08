@@ -515,12 +515,18 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
                 vector, " ", False
             )  # We add the subsequent vectors to the combined vector.
 
-        expr = MatchExpression(
-            self.fields or ["title", "body"], search_query
-        )  # Build the FTS match expression.
-        objs = SQLiteFTSIndexEntry.objects.filter(expr).select_related(
-            "index_entry"
-        )  # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
+        # Build the FTS match expression.
+        expr = MatchExpression(self.fields or ["title", "body"], search_query)
+        # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
+        objs = (
+            SQLiteFTSIndexEntry.objects.filter(expr)
+            .select_related("index_entry")
+            .filter(
+                index_entry__content_type__in=get_descendants_content_types_pks(
+                    self.queryset.model
+                )
+            )
+        )
 
         if self.order_by_relevance:
             objs = objs.order_by(BM25().desc())
