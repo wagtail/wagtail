@@ -1,9 +1,11 @@
 import collections
 import json
+from io import StringIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
+from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -1047,7 +1049,35 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
-    # SEARCH
+    # REGRESSION TESTS
+
+    def test_issue_3967(self):
+        # The API crashed whenever the listing view was called without a site configured
+        Site.objects.all().delete()
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
+
+
+class TestPageListingSearch(WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
+
+    def get_page_id_list(self, content):
+        return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
 
     def test_search_for_blog(self):
         response = self.get_response(search="blog")
@@ -1157,14 +1187,6 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-type"], "application/json")
         self.assertEqual(content["meta"]["total_count"], 0)
-
-    # REGRESSION TESTS
-
-    def test_issue_3967(self):
-        # The API crashed whenever the listing view was called without a site configured
-        Site.objects.all().delete()
-        response = self.get_response()
-        self.assertEqual(response.status_code, 200)
 
 
 class TestPageDetail(TestCase):
