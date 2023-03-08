@@ -117,28 +117,31 @@ class TestBulkUnpublish(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post to the unpublish page
-        response = self.client.post(self.url)
+        try:
+            # Post to the unpublish page
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # Check that the child pages were unpublished
-        for child_page in self.pages_to_be_unpublished:
-            self.assertFalse(SimplePage.objects.get(id=child_page.id).live)
+            # Check that the child pages were unpublished
+            for child_page in self.pages_to_be_unpublished:
+                self.assertFalse(SimplePage.objects.get(id=child_page.id).live)
 
-        # Check that the child pages not to be unpublished remain
-        for child_page in self.pages_not_to_be_unpublished:
-            self.assertTrue(SimplePage.objects.get(id=child_page.id).live)
+            # Check that the child pages not to be unpublished remain
+            for child_page in self.pages_not_to_be_unpublished:
+                self.assertTrue(SimplePage.objects.get(id=child_page.id).live)
 
-        # Check that the page_unpublished signal was fired
-        self.assertEqual(mock_handler.call_count, len(self.pages_to_be_unpublished))
+            # Check that the page_unpublished signal was fired
+            self.assertEqual(mock_handler.call_count, len(self.pages_to_be_unpublished))
 
-        for i, child_page in enumerate(self.pages_to_be_unpublished):
-            mock_call = mock_handler.mock_calls[i][2]
-            self.assertEqual(mock_call["sender"], child_page.specific_class)
-            self.assertEqual(mock_call["instance"], child_page)
-            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+            for i, child_page in enumerate(self.pages_to_be_unpublished):
+                mock_call = mock_handler.mock_calls[i][2]
+                self.assertEqual(mock_call["sender"], child_page.specific_class)
+                self.assertEqual(mock_call["instance"], child_page)
+                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_after_unpublish_page(self):
         def hook_func(request, action_type, pages, action_class_instance):

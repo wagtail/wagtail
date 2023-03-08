@@ -613,57 +613,60 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Set has_unpublished_changes=True on the existing record to confirm that the publish action
-        # is resetting it (and not just leaving it alone)
-        self.child_page.has_unpublished_changes = True
-        self.child_page.save()
+        try:
+            # Set has_unpublished_changes=True on the existing record to confirm that the publish action
+            # is resetting it (and not just leaving it alone)
+            self.child_page.has_unpublished_changes = True
+            self.child_page.save()
 
-        # Save current value of first_published_at so we can check that it doesn't change
-        first_published_at = SimplePage.objects.get(
-            id=self.child_page.id
-        ).first_published_at
+            # Save current value of first_published_at so we can check that it doesn't change
+            first_published_at = SimplePage.objects.get(
+                id=self.child_page.id
+            ).first_published_at
 
-        # Tests publish from edit page
-        post_data = {
-            "title": "I've been edited!",
-            "content": "Some content",
-            "slug": "hello-world-new",
-            "action-publish": "Publish",
-        }
-        response = self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
-            post_data,
-            follow=True,
-        )
+            # Tests publish from edit page
+            post_data = {
+                "title": "I've been edited!",
+                "content": "Some content",
+                "slug": "hello-world-new",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                post_data,
+                follow=True,
+            )
 
-        # Should be redirected to explorer
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # Check that the page was edited
-        child_page_new = SimplePage.objects.get(id=self.child_page.id)
-        self.assertEqual(child_page_new.title, post_data["title"])
-        self.assertEqual(child_page_new.draft_title, post_data["title"])
+            # Check that the page was edited
+            child_page_new = SimplePage.objects.get(id=self.child_page.id)
+            self.assertEqual(child_page_new.title, post_data["title"])
+            self.assertEqual(child_page_new.draft_title, post_data["title"])
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], child_page_new.specific_class)
-        self.assertEqual(mock_call["instance"], child_page_new)
-        self.assertIsInstance(mock_call["instance"], child_page_new.specific_class)
+            self.assertEqual(mock_call["sender"], child_page_new.specific_class)
+            self.assertEqual(mock_call["instance"], child_page_new)
+            self.assertIsInstance(mock_call["instance"], child_page_new.specific_class)
 
-        # The page shouldn't have "has_unpublished_changes" flag set
-        self.assertFalse(child_page_new.has_unpublished_changes)
+            # The page shouldn't have "has_unpublished_changes" flag set
+            self.assertFalse(child_page_new.has_unpublished_changes)
 
-        # first_published_at should not change as it was already set
-        self.assertEqual(first_published_at, child_page_new.first_published_at)
+            # first_published_at should not change as it was already set
+            self.assertEqual(first_published_at, child_page_new.first_published_at)
 
-        # The "View Live" button should have the updated slug.
-        for message in response.context["messages"]:
-            self.assertIn("hello-world-new", message.message)
-            break
+            # The "View Live" button should have the updated slug.
+            for message in response.context["messages"]:
+                self.assertIn("hello-world-new", message.message)
+                break
+        finally:
+            page_published.disconnect(mock_handler)
 
     def test_first_published_at_editable(self):
         """Test that we can update the first_published_at via the Page edit form,

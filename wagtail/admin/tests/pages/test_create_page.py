@@ -560,49 +560,52 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Post
-        post_data = {
-            "title": "New page!",
-            "content": "Some content",
-            "slug": "hello-world",
-            "action-publish": "Publish",
-        }
-        response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", self.root_page.id),
-            ),
-            post_data,
-        )
+        try:
+            # Post
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+            )
 
-        # Find the page and check it
-        page = Page.objects.get(
-            path__startswith=self.root_page.path, slug="hello-world"
-        ).specific
+            # Find the page and check it
+            page = Page.objects.get(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).specific
 
-        # Should be redirected to explorer
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        self.assertEqual(page.title, post_data["title"])
-        self.assertEqual(page.draft_title, post_data["title"])
-        self.assertIsInstance(page, SimplePage)
-        self.assertTrue(page.live)
-        self.assertTrue(page.first_published_at)
+            self.assertEqual(page.title, post_data["title"])
+            self.assertEqual(page.draft_title, post_data["title"])
+            self.assertIsInstance(page, SimplePage)
+            self.assertTrue(page.live)
+            self.assertTrue(page.first_published_at)
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], page.specific_class)
-        self.assertEqual(mock_call["instance"], page)
-        self.assertIsInstance(mock_call["instance"], page.specific_class)
+            self.assertEqual(mock_call["sender"], page.specific_class)
+            self.assertEqual(mock_call["instance"], page)
+            self.assertIsInstance(mock_call["instance"], page.specific_class)
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
+        finally:
+            page_published.disconnect(mock_handler)
 
     def test_create_simplepage_post_publish_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)

@@ -142,30 +142,33 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Post to the publish page
-        response = self.client.post(self.url)
+        try:
+            # Post to the publish page
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # Check that the child pages were published
-        for child_page in self.pages_to_be_published:
-            published_page = SimplePage.objects.get(id=child_page.id)
-            self.assertTrue(published_page.live)
-            self.assertIn("Hello published", published_page.content)
+            # Check that the child pages were published
+            for child_page in self.pages_to_be_published:
+                published_page = SimplePage.objects.get(id=child_page.id)
+                self.assertTrue(published_page.live)
+                self.assertIn("Hello published", published_page.content)
 
-        # Check that the child pages not to be published remain
-        for child_page in self.pages_not_to_be_published:
-            self.assertFalse(Page.objects.get(id=child_page.id).live)
+            # Check that the child pages not to be published remain
+            for child_page in self.pages_not_to_be_published:
+                self.assertFalse(Page.objects.get(id=child_page.id).live)
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, len(self.pages_to_be_published))
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, len(self.pages_to_be_published))
 
-        for i, child_page in enumerate(self.pages_to_be_published):
-            mock_call = mock_handler.mock_calls[i][2]
-            self.assertEqual(mock_call["sender"], child_page.specific_class)
-            self.assertEqual(mock_call["instance"], child_page)
-            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+            for i, child_page in enumerate(self.pages_to_be_published):
+                mock_call = mock_handler.mock_calls[i][2]
+                self.assertEqual(mock_call["sender"], child_page.specific_class)
+                self.assertEqual(mock_call["instance"], child_page)
+                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+        finally:
+            page_published.disconnect(mock_handler)
 
     def test_after_publish_page(self):
         def hook_func(request, action_type, pages, action_class_instance):

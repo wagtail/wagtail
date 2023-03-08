@@ -48,30 +48,37 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
-        )
+        try:
+            # Post
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:approve_moderation", args=(self.revision.id,)
+                )
+            )
 
-        # Check that the user was redirected to the dashboard
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
+            # Check that the user was redirected to the dashboard
+            self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-        page = Page.objects.get(id=self.page.id)
-        # Page must be live
-        self.assertTrue(page.live, msg="Approving moderation failed to set live=True")
-        # Page should now have no unpublished changes
-        self.assertFalse(
-            page.has_unpublished_changes,
-            msg="Approving moderation failed to set has_unpublished_changes=False",
-        )
+            page = Page.objects.get(id=self.page.id)
+            # Page must be live
+            self.assertTrue(
+                page.live, msg="Approving moderation failed to set live=True"
+            )
+            # Page should now have no unpublished changes
+            self.assertFalse(
+                page.has_unpublished_changes,
+                msg="Approving moderation failed to set has_unpublished_changes=False",
+            )
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.page.specific_class)
-        self.assertEqual(mock_call["instance"], self.page)
-        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+            self.assertEqual(mock_call["sender"], self.page.specific_class)
+            self.assertEqual(mock_call["instance"], self.page)
+            self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+        finally:
+            page_published.disconnect(mock_handler)
 
     def test_approve_moderation_when_later_revision_exists(self):
         self.page.title = "Goodbye world!"
@@ -405,27 +412,34 @@ class TestApproveRejectModerationWithoutUser(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
-        )
+        try:
+            # Post
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:approve_moderation", args=(self.revision.id,)
+                )
+            )
 
-        # Check that the user was redirected to the dashboard
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
+            # Check that the user was redirected to the dashboard
+            self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-        page = Page.objects.get(id=self.page.id)
-        # Page must be live
-        self.assertTrue(page.live, msg="Approving moderation failed to set live=True")
-        # Page should now have no unpublished changes
-        self.assertFalse(
-            page.has_unpublished_changes,
-            msg="Approving moderation failed to set has_unpublished_changes=False",
-        )
+            page = Page.objects.get(id=self.page.id)
+            # Page must be live
+            self.assertTrue(
+                page.live, msg="Approving moderation failed to set live=True"
+            )
+            # Page should now have no unpublished changes
+            self.assertFalse(
+                page.has_unpublished_changes,
+                msg="Approving moderation failed to set has_unpublished_changes=False",
+            )
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.page.specific_class)
-        self.assertEqual(mock_call["instance"], self.page)
-        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+            self.assertEqual(mock_call["sender"], self.page.specific_class)
+            self.assertEqual(mock_call["instance"], self.page)
+            self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+        finally:
+            page_published.disconnect(mock_handler)

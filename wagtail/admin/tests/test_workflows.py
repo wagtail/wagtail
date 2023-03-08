@@ -1914,46 +1914,49 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         mock_handler = mock.MagicMock()
         self.published_signal.connect(mock_handler)
 
-        # Post
-        response = self.approve({"comment": "my comment"})
-        self.assertRedirects(response, self.get_url("edit"))
+        try:
+            # Post
+            response = self.approve({"comment": "my comment"})
+            self.assertRedirects(response, self.get_url("edit"))
 
-        # Check that the workflow was approved
+            # Check that the workflow was approved
 
-        workflow_state = WorkflowState.objects.for_instance(self.object).get(
-            requested_by=self.submitter
-        )
+            workflow_state = WorkflowState.objects.for_instance(self.object).get(
+                requested_by=self.submitter
+            )
 
-        self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
+            self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
 
-        # Check that the task was approved
+            # Check that the task was approved
 
-        task_state = workflow_state.current_task_state
+            task_state = workflow_state.current_task_state
 
-        self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+            self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
 
-        # Check that the comment was added to the task state correctly
+            # Check that the comment was added to the task state correctly
 
-        self.assertEqual(task_state.comment, "my comment")
+            self.assertEqual(task_state.comment, "my comment")
 
-        self.object.refresh_from_db()
-        # Object must be live
-        self.assertTrue(
-            self.object.live, msg="Approving moderation failed to set live=True"
-        )
-        # Object should now have no unpublished changes
-        self.assertFalse(
-            self.object.has_unpublished_changes,
-            msg="Approving moderation failed to set has_unpublished_changes=False",
-        )
+            self.object.refresh_from_db()
+            # Object must be live
+            self.assertTrue(
+                self.object.live, msg="Approving moderation failed to set live=True"
+            )
+            # Object should now have no unpublished changes
+            self.assertFalse(
+                self.object.has_unpublished_changes,
+                msg="Approving moderation failed to set has_unpublished_changes=False",
+            )
 
-        # Check that the published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.object_class)
-        self.assertEqual(mock_call["instance"], self.object)
-        self.assertIsInstance(mock_call["instance"], self.object_class)
+            self.assertEqual(mock_call["sender"], self.object_class)
+            self.assertEqual(mock_call["instance"], self.object)
+            self.assertIsInstance(mock_call["instance"], self.object_class)
+        finally:
+            self.published_signal.disconnect(mock_handler)
 
     def test_approve_task_and_workflow_with_ajax(self):
         """

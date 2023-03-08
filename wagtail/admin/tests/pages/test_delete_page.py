@@ -166,36 +166,39 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
-        )
+        try:
+            # Post
+            response = self.client.post(
+                reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+            )
 
-        # Should be redirected to explorer page
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the page is gone
-        self.assertEqual(
-            Page.objects.filter(
-                path__startswith=self.root_page.path, slug="hello-world"
-            ).count(),
-            0,
-        )
+            # Check that the page is gone
+            self.assertEqual(
+                Page.objects.filter(
+                    path__startswith=self.root_page.path, slug="hello-world"
+                ).count(),
+                0,
+            )
 
-        # Check that the page_unpublished signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_unpublished signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.child_page.specific_class)
-        self.assertEqual(mock_call["instance"], self.child_page)
-        self.assertIsInstance(mock_call["instance"], self.child_page.specific_class)
+            self.assertEqual(mock_call["sender"], self.child_page.specific_class)
+            self.assertEqual(mock_call["instance"], self.child_page)
+            self.assertIsInstance(mock_call["instance"], self.child_page.specific_class)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_page_delete_notlive_post(self):
         # Same as above, but this makes sure the page_unpublished signal is not fired
@@ -209,31 +212,34 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
-        )
+        try:
+            # Post
+            response = self.client.post(
+                reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+            )
 
-        # Should be redirected to explorer page
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the page is gone
-        self.assertEqual(
-            Page.objects.filter(
-                path__startswith=self.root_page.path, slug="hello-world"
-            ).count(),
-            0,
-        )
+            # Check that the page is gone
+            self.assertEqual(
+                Page.objects.filter(
+                    path__startswith=self.root_page.path, slug="hello-world"
+                ).count(),
+                0,
+            )
 
-        # Check that the page_unpublished signal was not fired
-        self.assertEqual(mock_handler.call_count, 0)
+            # Check that the page_unpublished signal was not fired
+            self.assertEqual(mock_handler.call_count, 0)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
@@ -254,48 +260,59 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         pre_delete.connect(pre_delete_handler)
         post_delete.connect(post_delete_handler)
 
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:delete", args=(self.child_index.id,))
-        )
+        try:
+            # Post
+            response = self.client.post(
+                reverse("wagtailadmin_pages:delete", args=(self.child_index.id,))
+            )
 
-        # Should be redirected to explorer page
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the page is gone
-        self.assertFalse(StandardIndex.objects.filter(id=self.child_index.id).exists())
-        self.assertFalse(Page.objects.filter(id=self.child_index.id).exists())
+            # Check that the page is gone
+            self.assertFalse(
+                StandardIndex.objects.filter(id=self.child_index.id).exists()
+            )
+            self.assertFalse(Page.objects.filter(id=self.child_index.id).exists())
 
-        # Check that the subpage is also gone
-        self.assertFalse(
-            StandardChild.objects.filter(id=self.grandchild_page.id).exists()
-        )
-        self.assertFalse(Page.objects.filter(id=self.grandchild_page.id).exists())
+            # Check that the subpage is also gone
+            self.assertFalse(
+                StandardChild.objects.filter(id=self.grandchild_page.id).exists()
+            )
+            self.assertFalse(Page.objects.filter(id=self.grandchild_page.id).exists())
 
-        # Check that the signals were fired for both pages
-        self.assertIn((StandardIndex, self.child_index.id), unpublish_signals_received)
-        self.assertIn(
-            (StandardChild, self.grandchild_page.id), unpublish_signals_received
-        )
+            # Check that the signals were fired for both pages
+            self.assertIn(
+                (StandardIndex, self.child_index.id), unpublish_signals_received
+            )
+            self.assertIn(
+                (StandardChild, self.grandchild_page.id), unpublish_signals_received
+            )
 
-        self.assertIn((StandardIndex, self.child_index.id), pre_delete_signals_received)
-        self.assertIn(
-            (StandardChild, self.grandchild_page.id), pre_delete_signals_received
-        )
+            self.assertIn(
+                (StandardIndex, self.child_index.id), pre_delete_signals_received
+            )
+            self.assertIn(
+                (StandardChild, self.grandchild_page.id), pre_delete_signals_received
+            )
 
-        self.assertIn(
-            (StandardIndex, self.child_index.id), post_delete_signals_received
-        )
-        self.assertIn(
-            (StandardChild, self.grandchild_page.id), post_delete_signals_received
-        )
+            self.assertIn(
+                (StandardIndex, self.child_index.id), post_delete_signals_received
+            )
+            self.assertIn(
+                (StandardChild, self.grandchild_page.id), post_delete_signals_received
+            )
+        finally:
+            page_unpublished.disconnect(page_unpublished_handler)
+            pre_delete.disconnect(pre_delete_handler)
+            post_delete.disconnect(post_delete_handler)
 
     def test_before_delete_page_hook(self):
         def hook_func(request, page):

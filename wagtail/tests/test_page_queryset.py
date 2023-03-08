@@ -701,28 +701,31 @@ class TestPageQuerySetSearch(TestCase):
 
         page_unpublished.connect(page_unpublished_handler)
 
-        events_index = Page.objects.get(url_path="/home/events/")
-        events_index.get_children().unpublish()
+        try:
+            events_index = Page.objects.get(url_path="/home/events/")
+            events_index.get_children().unpublish()
 
-        # Previously-live children of event index should now be non-live
-        christmas = EventPage.objects.get(url_path="/home/events/christmas/")
-        saint_patrick = SingleEventPage.objects.get(
-            url_path="/home/events/saint-patrick/"
-        )
-        unpublished_event = EventPage.objects.get(
-            url_path="/home/events/tentative-unpublished-event/"
-        )
+            # Previously-live children of event index should now be non-live
+            christmas = EventPage.objects.get(url_path="/home/events/christmas/")
+            saint_patrick = SingleEventPage.objects.get(
+                url_path="/home/events/saint-patrick/"
+            )
+            unpublished_event = EventPage.objects.get(
+                url_path="/home/events/tentative-unpublished-event/"
+            )
 
-        self.assertFalse(christmas.live)
-        self.assertFalse(saint_patrick.live)
+            self.assertFalse(christmas.live)
+            self.assertFalse(saint_patrick.live)
 
-        # Check that a signal was fired for each unpublished page
-        self.assertIn((EventPage, christmas), unpublish_signals_fired)
-        self.assertIn((SingleEventPage, saint_patrick), unpublish_signals_fired)
+            # Check that a signal was fired for each unpublished page
+            self.assertIn((EventPage, christmas), unpublish_signals_fired)
+            self.assertIn((SingleEventPage, saint_patrick), unpublish_signals_fired)
 
-        # a signal should not be fired for pages that were in the queryset
-        # but already unpublished
-        self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
+            # a signal should not be fired for pages that were in the queryset
+            # but already unpublished
+            self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
+        finally:
+            page_unpublished.disconnect(page_unpublished_handler)
 
 
 class TestSpecificQuery(WagtailTestUtils, TestCase):

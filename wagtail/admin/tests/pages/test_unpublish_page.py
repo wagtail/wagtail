@@ -80,26 +80,29 @@ class TestPageUnpublish(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post to the unpublish page
-        response = self.client.post(
-            reverse("wagtailadmin_pages:unpublish", args=(self.page.id,))
-        )
+        try:
+            # Post to the unpublish page
+            response = self.client.post(
+                reverse("wagtailadmin_pages:unpublish", args=(self.page.id,))
+            )
 
-        # Should be redirected to explorer page
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # Check that the page was unpublished
-        self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
+            # Check that the page was unpublished
+            self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
 
-        # Check that the page_unpublished signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_unpublished signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.page.specific_class)
-        self.assertEqual(mock_call["instance"], self.page)
-        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+            self.assertEqual(mock_call["sender"], self.page.specific_class)
+            self.assertEqual(mock_call["instance"], self.page)
+            self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_after_unpublish_page(self):
         def hook_func(request, page):

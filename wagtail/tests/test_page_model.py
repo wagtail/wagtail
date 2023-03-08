@@ -2048,12 +2048,15 @@ class TestCopyPage(TestCase):
             signal_page = instance
 
         page_published.connect(page_published_handler)
-        copy_page = christmas_page.copy(
-            update_attrs={"title": "New christmas", "slug": "new-christmas"},
-        )
+        try:
+            copy_page = christmas_page.copy(
+                update_attrs={"title": "New christmas", "slug": "new-christmas"},
+            )
 
-        self.assertTrue(signal_fired)
-        self.assertEqual(signal_page, copy_page)
+            self.assertTrue(signal_fired)
+            self.assertEqual(signal_page, copy_page)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_unpublished_not_emits_signal(self):
         """Test that copying of an unpublished page not emits a page_published signal."""
@@ -2069,8 +2072,11 @@ class TestCopyPage(TestCase):
 
         page_published.connect(page_published_handler)
 
-        homepage.copy(update_attrs={"slug": "new_slug"})
-        self.assertFalse(signal_fired)
+        try:
+            homepage.copy(update_attrs={"slug": "new_slug"})
+            self.assertFalse(signal_fired)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_keep_live_false_not_emits_signal(self):
         """Test that copying of a live page with keep_live=False not emits a page_published signal."""
@@ -2081,10 +2087,13 @@ class TestCopyPage(TestCase):
             nonlocal signal_fired
             signal_fired = True
 
-        page_published.connect(page_published_handler)
+        try:
+            page_published.connect(page_published_handler)
 
-        homepage.copy(keep_live=False, update_attrs={"slug": "new_slug"})
-        self.assertFalse(signal_fired)
+            homepage.copy(keep_live=False, update_attrs={"slug": "new_slug"})
+            self.assertFalse(signal_fired)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_alias_page(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
