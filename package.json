@@ -59,7 +59,7 @@
     "@storybook/addon-docs": "^6.4.19",
     "@storybook/builder-webpack5": "^6.4.19",
     "@storybook/manager-webpack5": "^6.4.19",
-    "@storybook/react": "^6.1.21",
+    "@storybook/react": "^6.4.19",
     "@types/autosize": "^4.0.1",
     "@types/draft-js": "^0.10.45",
     "@types/jest": "^26.0.24",

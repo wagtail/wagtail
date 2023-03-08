@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import autosize from "autosize";
+import autosize from 'autosize';
 
-export  class AutoSizeController extends Controller {
+export class AutoSizeController extends Controller {
   static targets = ['input'];
 
   connect() {
@@ -11,4 +11,5 @@ export  class AutoSizeController extends Controller {
   disconnect() {
     autosize.destroy(this.element);
   }
+
 }
