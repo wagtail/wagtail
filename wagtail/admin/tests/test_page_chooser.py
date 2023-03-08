@@ -328,6 +328,8 @@ class TestChooserSearch(WagtailTestUtils, TestCase):
         self.assertContains(response, "foobarbaz")
 
     def test_partial_match(self):
+        # FIXME: SQLite and MySQL FTS backends don't support autocomplete searches
+        # https://github.com/wagtail/wagtail/issues/9903
         response = self.get({"q": "fooba"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
@@ -357,7 +359,7 @@ class TestChooserSearch(WagtailTestUtils, TestCase):
     def test_with_page_type(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
-            title="foo",
+            title="foobarbaz again",
             location="the moon",
             audience="public",
             cost="free",
@@ -366,7 +368,7 @@ class TestChooserSearch(WagtailTestUtils, TestCase):
         self.root_page.add_child(instance=event_page)
 
         # Send request
-        response = self.get({"q": "foo", "page_type": "tests.simplepage"})
+        response = self.get({"q": "foobarbaz", "page_type": "tests.simplepage"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertEqual(response.context["page_type_string"], "tests.simplepage")
@@ -390,7 +392,7 @@ class TestChooserSearch(WagtailTestUtils, TestCase):
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
-            title="foo",
+            title="foobarbaz again",
             location="the moon",
             audience="public",
             cost="free",
@@ -400,7 +402,7 @@ class TestChooserSearch(WagtailTestUtils, TestCase):
 
         # Send request
         response = self.get(
-            {"q": "foo", "page_type": "tests.simplepage,tests.eventpage"}
+            {"q": "foobarbaz", "page_type": "tests.simplepage,tests.eventpage"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
