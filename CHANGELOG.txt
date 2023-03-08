@@ -13,6 +13,7 @@ Changelog
  * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
  * Fix: Prevent matches from unrelated models from leaking into SQLite FTS searches (Matt Westcott)
+ * Maintenance: Update Algolia DocSearch to use new application and correct versioning setup (Thibaud Colas)
 
 
 4.1.2 (06.02.2023)
