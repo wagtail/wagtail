@@ -114,6 +114,7 @@ Changelog
  * Maintenance: Refactor `SnippetViewSet` to extend `ModelViewSet` (Sage Abdullah)
  * Maintenance: Migrate initDismissibles behaviour to a Stimulus controller `w-disimissible` (Loveth Omokaro)
  * Maintenance: Replace jQuery autosize v3 with Stimulus `w-autosize` controller using autosize npm package v6 (Suyash Srivastava)
+ * Maintenance: Update `ActionController` with a click method (Aadi jindal)
 
 
 4.2.2 (03.04.2023)
