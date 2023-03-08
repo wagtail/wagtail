@@ -94,7 +94,6 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
   }
 
   @supports not selector(:focus-visible) {
-    /* Fallback for browsers without :focus-visible support */
     [type='checkbox']:focus + &__toggle {
       outline: $color-focus-outline solid $switch-outline;
     }
