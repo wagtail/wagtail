@@ -4,6 +4,8 @@
 {% set docsearch_base = 'https://cdn.jsdelivr.net/npm/docsearch.js@' ~ docsearch_version ~ '/dist/cdn/' %}
 
 {% block extrahead %}
+    <meta name="docsearch:version" content="{% if READTHEDOCS and current_version %}{{ current_version }}{% else %}unknown{% endif %}" />
+
     <link rel="stylesheet" href="{{ docsearch_base ~ 'docsearch.min.css' }}"/>
     <link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
     <link rel="stylesheet" href="{{ pathto('_static/css/pagination.css', 1) }}" />
@@ -18,13 +20,14 @@
          * Get version of the currently served docs.
          *
          * PR builds have their version set to the PR ID (for example "6753").
-         * If the docs are built for a PR, use the "latest" search index.
-         * Otherwise, use the search index for the current version.
+         * If the docs are built for a PR or local development, use the "latest" facet filter.
+         * Otherwise, use the facet filter for the current version.
          */
         function getReadTheDocsVersion() {
-            const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest'
-            const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version
-            return version
+            const meta = document.querySelector('meta[name="docsearch:version"]');
+            const rtd_version = meta ? meta.content : 'latest';
+            const version = rtd_version.match(/^(\d+|unknown)$/) ? 'latest' : rtd_version;
+            return version;
         }
 
         function getVersionFacetFilter() {
@@ -54,10 +57,11 @@
         function docSearchReady() {
             /**
              * Configure Algolia DocSearch.
-             * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
+             * See https://github.com/wagtail/wagtail/wiki/Documentation-search for index configuration.
              */
             const search = docsearch({
-                apiKey: '8325c57d16798633e29d211c26c7b6f9',
+                appId: 'XSYGEO7KMJ',
+                apiKey: 'd50a485660ed9280079aada4e09454b2',
                 indexName: 'wagtail',
                 inputSelector: '#searchbox [name="q"]',
                 algoliaOptions: {
