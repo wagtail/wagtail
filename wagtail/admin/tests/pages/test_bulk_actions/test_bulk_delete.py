@@ -145,46 +145,51 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post
-        response = self.client.post(self.url)
+        try:
+            # Post
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the child pages to be deleted are gone
-        for child_page in self.pages_to_be_deleted:
-            self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages to be deleted are gone
+            for child_page in self.pages_to_be_deleted:
+                self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the child pages not to be deleted remain
-        for child_page in self.pages_not_to_be_deleted:
-            self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages not to be deleted remain
+            for child_page in self.pages_not_to_be_deleted:
+                self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the page_unpublished signal was fired for all pages
-        num_descendants = sum(len(i) for i in self.grandchildren_pages.values())
-        self.assertEqual(
-            mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants
-        )
+            # Check that the page_unpublished signal was fired for all pages
+            num_descendants = sum(len(i) for i in self.grandchildren_pages.values())
+            self.assertEqual(
+                mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants
+            )
 
-        i = 0
-        for child_page in self.pages_to_be_deleted:
-            mock_call = mock_handler.mock_calls[i][2]
-            i += 1
-            self.assertEqual(mock_call["sender"], child_page.specific_class)
-            self.assertEqual(mock_call["instance"], child_page)
-            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
-            for grandchildren_page in self.grandchildren_pages.get(child_page, []):
+            i = 0
+            for child_page in self.pages_to_be_deleted:
                 mock_call = mock_handler.mock_calls[i][2]
                 i += 1
-                self.assertEqual(mock_call["sender"], grandchildren_page.specific_class)
-                self.assertEqual(mock_call["instance"], grandchildren_page)
-                self.assertIsInstance(
-                    mock_call["instance"], grandchildren_page.specific_class
-                )
+                self.assertEqual(mock_call["sender"], child_page.specific_class)
+                self.assertEqual(mock_call["instance"], child_page)
+                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+                for grandchildren_page in self.grandchildren_pages.get(child_page, []):
+                    mock_call = mock_handler.mock_calls[i][2]
+                    i += 1
+                    self.assertEqual(
+                        mock_call["sender"], grandchildren_page.specific_class
+                    )
+                    self.assertEqual(mock_call["instance"], grandchildren_page)
+                    self.assertIsInstance(
+                        mock_call["instance"], grandchildren_page.specific_class
+                    )
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_bulk_delete_notlive_post(self):
         # Same as above, but this makes sure the page_unpublished signal is not fired
@@ -198,48 +203,56 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post
-        response = self.client.post(self.url)
+        try:
+            # Post
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the child pages to be deleted are gone
-        for child_page in self.pages_to_be_deleted:
-            self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages to be deleted are gone
+            for child_page in self.pages_to_be_deleted:
+                self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the child pages not to be deleted remain
-        for child_page in self.pages_not_to_be_deleted:
-            self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages not to be deleted remain
+            for child_page in self.pages_not_to_be_deleted:
+                self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the page_unpublished signal was not fired
-        num_descendants = sum(len(v) for v in self.grandchildren_pages.values())
-        self.assertEqual(
-            mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants - 1
-        )
+            # Check that the page_unpublished signal was not fired
+            num_descendants = sum(len(v) for v in self.grandchildren_pages.values())
+            self.assertEqual(
+                mock_handler.call_count,
+                len(self.pages_to_be_deleted) + num_descendants - 1,
+            )
 
-        # check that only signals for other pages are fired
-        i = 0
-        for child_page in self.pages_to_be_deleted:
-            if child_page.id != page_to_be_unpublished.id:
-                mock_call = mock_handler.mock_calls[i][2]
-                i += 1
-                self.assertEqual(mock_call["sender"], child_page.specific_class)
-                self.assertEqual(mock_call["instance"], child_page)
-                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
-            for grandchildren_page in self.grandchildren_pages.get(child_page, []):
-                mock_call = mock_handler.mock_calls[i][2]
-                i += 1
-                self.assertEqual(mock_call["sender"], grandchildren_page.specific_class)
-                self.assertEqual(mock_call["instance"], grandchildren_page)
-                self.assertIsInstance(
-                    mock_call["instance"], grandchildren_page.specific_class
-                )
+            # check that only signals for other pages are fired
+            i = 0
+            for child_page in self.pages_to_be_deleted:
+                if child_page.id != page_to_be_unpublished.id:
+                    mock_call = mock_handler.mock_calls[i][2]
+                    i += 1
+                    self.assertEqual(mock_call["sender"], child_page.specific_class)
+                    self.assertEqual(mock_call["instance"], child_page)
+                    self.assertIsInstance(
+                        mock_call["instance"], child_page.specific_class
+                    )
+                for grandchildren_page in self.grandchildren_pages.get(child_page, []):
+                    mock_call = mock_handler.mock_calls[i][2]
+                    i += 1
+                    self.assertEqual(
+                        mock_call["sender"], grandchildren_page.specific_class
+                    )
+                    self.assertEqual(mock_call["instance"], grandchildren_page)
+                    self.assertIsInstance(
+                        mock_call["instance"], grandchildren_page.specific_class
+                    )
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
@@ -260,49 +273,54 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         pre_delete.connect(pre_delete_handler)
         post_delete.connect(post_delete_handler)
 
-        # Post
-        response = self.client.post(self.url)
+        try:
+            # Post
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), msg="treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
 
-        # Check that the child pages to be deleted are gone
-        for child_page in self.pages_to_be_deleted:
-            self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages to be deleted are gone
+            for child_page in self.pages_to_be_deleted:
+                self.assertFalse(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the child pages not to be deleted remain
-        for child_page in self.pages_not_to_be_deleted:
-            self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
+            # Check that the child pages not to be deleted remain
+            for child_page in self.pages_not_to_be_deleted:
+                self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
 
-        # Check that the subpages are also gone
-        for grandchild_pages in self.grandchildren_pages.values():
-            for grandchild_page in grandchild_pages:
-                self.assertFalse(
-                    SimplePage.objects.filter(id=grandchild_page.id).exists()
-                )
+            # Check that the subpages are also gone
+            for grandchild_pages in self.grandchildren_pages.values():
+                for grandchild_page in grandchild_pages:
+                    self.assertFalse(
+                        SimplePage.objects.filter(id=grandchild_page.id).exists()
+                    )
 
-        # Check that the signals were fired for all child and grandchild pages
-        for child_page, grandchild_pages in self.grandchildren_pages.items():
-            self.assertIn((SimplePage, child_page.id), unpublish_signals_received)
-            self.assertIn((SimplePage, child_page.id), pre_delete_signals_received)
-            self.assertIn((SimplePage, child_page.id), post_delete_signals_received)
-            for grandchild_page in grandchild_pages:
-                self.assertIn(
-                    (SimplePage, grandchild_page.id), unpublish_signals_received
-                )
-                self.assertIn(
-                    (SimplePage, grandchild_page.id), pre_delete_signals_received
-                )
-                self.assertIn(
-                    (SimplePage, grandchild_page.id), post_delete_signals_received
-                )
+            # Check that the signals were fired for all child and grandchild pages
+            for child_page, grandchild_pages in self.grandchildren_pages.items():
+                self.assertIn((SimplePage, child_page.id), unpublish_signals_received)
+                self.assertIn((SimplePage, child_page.id), pre_delete_signals_received)
+                self.assertIn((SimplePage, child_page.id), post_delete_signals_received)
+                for grandchild_page in grandchild_pages:
+                    self.assertIn(
+                        (SimplePage, grandchild_page.id), unpublish_signals_received
+                    )
+                    self.assertIn(
+                        (SimplePage, grandchild_page.id), pre_delete_signals_received
+                    )
+                    self.assertIn(
+                        (SimplePage, grandchild_page.id), post_delete_signals_received
+                    )
 
-        self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.status_code, 302)
+        finally:
+            page_unpublished.disconnect(page_unpublished_handler)
+            pre_delete.disconnect(pre_delete_handler)
+            post_delete.disconnect(post_delete_handler)
 
     def test_before_delete_page_hook(self):
         def hook_func(request, action_type, pages, action_class_instance):

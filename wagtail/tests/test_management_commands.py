@@ -187,42 +187,45 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
 
         page_published.connect(page_published_handler)
 
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            has_unpublished_changes=True,
-            go_live_at=timezone.now() - timedelta(days=1),
-        )
-        self.root_page.add_child(instance=page)
+        try:
+            page = SimplePage(
+                title="Hello world!",
+                slug="hello-world",
+                content="hello",
+                live=False,
+                has_unpublished_changes=True,
+                go_live_at=timezone.now() - timedelta(days=1),
+            )
+            self.root_page.add_child(instance=page)
 
-        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+            page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertFalse(p.live)
-        self.assertTrue(
-            Revision.page_revisions.filter(object_id=p.id)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            p = Page.objects.get(slug="hello-world")
+            self.assertFalse(p.live)
+            self.assertTrue(
+                Revision.page_revisions.filter(object_id=p.id)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        management.call_command("publish_scheduled_pages")
+            management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertTrue(p.live)
-        self.assertTrue(p.first_published_at)
-        self.assertFalse(p.has_unpublished_changes)
-        self.assertFalse(
-            Revision.page_revisions.filter(object_id=p.id)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            p = Page.objects.get(slug="hello-world")
+            self.assertTrue(p.live)
+            self.assertTrue(p.first_published_at)
+            self.assertFalse(p.has_unpublished_changes)
+            self.assertFalse(
+                Revision.page_revisions.filter(object_id=p.id)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+            # Check that the page_published signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_page[0], page)
+            self.assertEqual(signal_page[0], signal_page[0].specific)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_go_live_page_created_by_editor_will_be_published(self):
         # Connect a mock signal handler to page_published signal
@@ -238,44 +241,47 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
 
         page_published.connect(page_published_handler)
 
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            has_unpublished_changes=True,
-            go_live_at=timezone.now() - timedelta(days=1),
-        )
-        self.root_page.add_child(instance=page)
+        try:
+            page = SimplePage(
+                title="Hello world!",
+                slug="hello-world",
+                content="hello",
+                live=False,
+                has_unpublished_changes=True,
+                go_live_at=timezone.now() - timedelta(days=1),
+            )
+            self.root_page.add_child(instance=page)
 
-        page.save_revision(
-            user=editor, approved_go_live_at=timezone.now() - timedelta(days=1)
-        )
+            page.save_revision(
+                user=editor, approved_go_live_at=timezone.now() - timedelta(days=1)
+            )
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertFalse(p.live)
-        self.assertTrue(
-            Revision.page_revisions.filter(object_id=p.id)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            p = Page.objects.get(slug="hello-world")
+            self.assertFalse(p.live)
+            self.assertTrue(
+                Revision.page_revisions.filter(object_id=p.id)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        management.call_command("publish_scheduled_pages")
+            management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertTrue(p.live)
-        self.assertTrue(p.first_published_at)
-        self.assertFalse(p.has_unpublished_changes)
-        self.assertFalse(
-            Revision.page_revisions.filter(object_id=p.id)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            p = Page.objects.get(slug="hello-world")
+            self.assertTrue(p.live)
+            self.assertTrue(p.first_published_at)
+            self.assertFalse(p.has_unpublished_changes)
+            self.assertFalse(
+                Revision.page_revisions.filter(object_id=p.id)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+            # Check that the page_published signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_page[0], page)
+            self.assertEqual(signal_page[0], signal_page[0].specific)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_go_live_when_newer_revision_exists(self):
         page = SimplePage(
@@ -341,30 +347,33 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
 
         page_unpublished.connect(page_unpublished_handler)
 
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=True,
-            has_unpublished_changes=False,
-            expire_at=timezone.now() - timedelta(days=1),
-        )
-        self.root_page.add_child(instance=page)
+        try:
+            page = SimplePage(
+                title="Hello world!",
+                slug="hello-world",
+                content="hello",
+                live=True,
+                has_unpublished_changes=False,
+                expire_at=timezone.now() - timedelta(days=1),
+            )
+            self.root_page.add_child(instance=page)
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertTrue(p.live)
+            p = Page.objects.get(slug="hello-world")
+            self.assertTrue(p.live)
 
-        management.call_command("publish_scheduled_pages")
+            management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug="hello-world")
-        self.assertFalse(p.live)
-        self.assertTrue(p.has_unpublished_changes)
-        self.assertTrue(p.expired)
+            p = Page.objects.get(slug="hello-world")
+            self.assertFalse(p.live)
+            self.assertTrue(p.has_unpublished_changes)
+            self.assertTrue(p.expired)
 
-        # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+            # Check that the page_published signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_page[0], page)
+            self.assertEqual(signal_page[0], signal_page[0].specific)
+        finally:
+            page_unpublished.disconnect(page_unpublished_handler)
 
     def test_future_expired_page_will_not_be_unpublished(self):
         page = SimplePage(
@@ -432,35 +441,38 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
 
         published.connect(published_handler)
 
-        go_live_at = timezone.now() - timedelta(days=1)
-        self.snippet.has_unpublished_changes = True
-        self.snippet.go_live_at = go_live_at
+        try:
+            go_live_at = timezone.now() - timedelta(days=1)
+            self.snippet.has_unpublished_changes = True
+            self.snippet.go_live_at = go_live_at
 
-        self.snippet.save_revision(approved_go_live_at=go_live_at)
+            self.snippet.save_revision(approved_go_live_at=go_live_at)
 
-        self.snippet.refresh_from_db()
-        self.assertFalse(self.snippet.live)
-        self.assertTrue(
-            Revision.objects.for_instance(self.snippet)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            self.snippet.refresh_from_db()
+            self.assertFalse(self.snippet.live)
+            self.assertTrue(
+                Revision.objects.for_instance(self.snippet)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        management.call_command("publish_scheduled")
+            management.call_command("publish_scheduled")
 
-        self.snippet.refresh_from_db()
-        self.assertTrue(self.snippet.live)
-        self.assertTrue(self.snippet.first_published_at)
-        self.assertFalse(self.snippet.has_unpublished_changes)
-        self.assertFalse(
-            Revision.objects.for_instance(self.snippet)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            self.snippet.refresh_from_db()
+            self.assertTrue(self.snippet.live)
+            self.assertTrue(self.snippet.first_published_at)
+            self.assertFalse(self.snippet.has_unpublished_changes)
+            self.assertFalse(
+                Revision.objects.for_instance(self.snippet)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        # Check that the published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_obj[0], self.snippet)
+            # Check that the published signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_obj[0], self.snippet)
+        finally:
+            published.disconnect(published_handler)
 
     def test_go_live_created_by_editor_will_be_published(self):
         # Connect a mock signal handler to published signal
@@ -476,35 +488,38 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
 
         published.connect(published_handler)
 
-        go_live_at = timezone.now() - timedelta(days=1)
-        self.snippet.has_unpublished_changes = True
-        self.snippet.go_live_at = go_live_at
+        try:
+            go_live_at = timezone.now() - timedelta(days=1)
+            self.snippet.has_unpublished_changes = True
+            self.snippet.go_live_at = go_live_at
 
-        self.snippet.save_revision(user=editor, approved_go_live_at=go_live_at)
+            self.snippet.save_revision(user=editor, approved_go_live_at=go_live_at)
 
-        self.snippet.refresh_from_db()
-        self.assertFalse(self.snippet.live)
-        self.assertTrue(
-            Revision.objects.for_instance(self.snippet)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            self.snippet.refresh_from_db()
+            self.assertFalse(self.snippet.live)
+            self.assertTrue(
+                Revision.objects.for_instance(self.snippet)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        management.call_command("publish_scheduled")
+            management.call_command("publish_scheduled")
 
-        self.snippet.refresh_from_db()
-        self.assertTrue(self.snippet.live)
-        self.assertTrue(self.snippet.first_published_at)
-        self.assertFalse(self.snippet.has_unpublished_changes)
-        self.assertFalse(
-            Revision.objects.for_instance(self.snippet)
-            .exclude(approved_go_live_at__isnull=True)
-            .exists()
-        )
+            self.snippet.refresh_from_db()
+            self.assertTrue(self.snippet.live)
+            self.assertTrue(self.snippet.first_published_at)
+            self.assertFalse(self.snippet.has_unpublished_changes)
+            self.assertFalse(
+                Revision.objects.for_instance(self.snippet)
+                .exclude(approved_go_live_at__isnull=True)
+                .exists()
+            )
 
-        # Check that the published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_obj[0], self.snippet)
+            # Check that the published signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_obj[0], self.snippet)
+        finally:
+            published.disconnect(published_handler)
 
     def test_go_live_when_newer_revision_exists(self):
         go_live_at = timezone.now() - timedelta(days=1)
@@ -559,22 +574,25 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
 
         unpublished.connect(unpublished_handler)
 
-        self.snippet.expire_at = timezone.now() - timedelta(days=1)
-        self.snippet.save_revision().publish()
+        try:
+            self.snippet.expire_at = timezone.now() - timedelta(days=1)
+            self.snippet.save_revision().publish()
 
-        self.snippet.refresh_from_db()
-        self.assertTrue(self.snippet.live)
+            self.snippet.refresh_from_db()
+            self.assertTrue(self.snippet.live)
 
-        management.call_command("publish_scheduled")
+            management.call_command("publish_scheduled")
 
-        self.snippet.refresh_from_db()
-        self.assertFalse(self.snippet.live)
-        self.assertTrue(self.snippet.has_unpublished_changes)
-        self.assertTrue(self.snippet.expired)
+            self.snippet.refresh_from_db()
+            self.assertFalse(self.snippet.live)
+            self.assertTrue(self.snippet.has_unpublished_changes)
+            self.assertTrue(self.snippet.expired)
 
-        # Check that the unpublished signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_obj[0], self.snippet)
+            # Check that the unpublished signal was fired
+            self.assertTrue(signal_fired[0])
+            self.assertEqual(signal_obj[0], self.snippet)
+        finally:
+            unpublished.disconnect(unpublished_handler)
 
     def test_future_expired_will_not_be_unpublished(self):
         self.snippet.expire_at = timezone.now() + timedelta(days=1)

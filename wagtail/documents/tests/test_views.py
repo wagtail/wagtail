@@ -139,11 +139,14 @@ class TestServeView(TestCase):
         mock_handler = mock.MagicMock()
         models.document_served.connect(mock_handler)
 
-        self.get()
+        try:
+            self.get()
 
-        self.assertEqual(mock_handler.call_count, 1)
-        self.assertEqual(mock_handler.mock_calls[0][2]["sender"], models.Document)
-        self.assertEqual(mock_handler.mock_calls[0][2]["instance"], self.document)
+            self.assertEqual(mock_handler.call_count, 1)
+            self.assertEqual(mock_handler.mock_calls[0][2]["sender"], models.Document)
+            self.assertEqual(mock_handler.mock_calls[0][2]["instance"], self.document)
+        finally:
+            models.document_served.disconnect(mock_handler)
 
     def test_with_nonexistent_document(self):
         response = self.client.get(
