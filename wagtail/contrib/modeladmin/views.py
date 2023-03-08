@@ -316,6 +316,10 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
     # template tag - see https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
     sortable_by = None
 
+    # add_facets is required by the django.contrib.admin.filters.ListFilter.choices method
+    # as of Django 5.0 - see https://github.com/django/django/pull/16495
+    add_facets = False
+
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         # Only continue if logged in user has list permission
