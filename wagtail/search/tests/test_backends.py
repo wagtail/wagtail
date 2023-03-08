@@ -98,6 +98,13 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(MATCH_NONE, models.Book)
         self.assertFalse(list(results))
 
+    def test_search_does_not_return_results_from_wrong_model(self):
+        # https://github.com/wagtail/wagtail/issues/10188 - if a term matches some other
+        # model to the one being searched, this match should not leak into the results
+        # (e.g. returning the object with the same ID)
+        results = self.backend.search("thrones", models.Author)
+        self.assertSetEqual(set(results), set())
+
     def test_ranking(self):
         # Note: also tests the "or" operator
         results = list(
