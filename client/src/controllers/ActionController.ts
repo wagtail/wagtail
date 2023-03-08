@@ -2,13 +2,23 @@ import { Controller } from '@hotwired/stimulus';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
- * Adds the ability for an element to activate a form submission
- * where the form is created dynamically in the DOM and then submitted.
+ * Adds the ability for an element to activate a discrete action
+ * such as clicking the button dynamically from some other event or
+ * triggering a form submission where the form is created dynamically
+ * in the DOM and then submitted.
  *
- * @example
+ * @example - triggering a click
+ * <button
+ *  type="button"
+ *  data-controller="w-action"
+ *  data-action="some-event#click"
+ * >
+ *  Go
+ * </button>
+ *
+ * @example - triggering a dynamic POST submission
  * <button
  *  type="submit"
- *  class="button no"
  *  data-controller="w-action"
  *  data-action="w-action#post"
  *  data-w-action-url-value='url/to/post/to'
@@ -26,6 +36,10 @@ export class ActionController extends Controller<
 
   declare continueValue: boolean;
   declare urlValue: string;
+
+  click() {
+    this.element.click();
+  }
 
   post(event: Event) {
     event.preventDefault();
