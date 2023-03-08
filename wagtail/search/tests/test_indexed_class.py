@@ -6,7 +6,11 @@ from django.test import TestCase
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.test.search import models
-from wagtail.test.testapp.models import EventPage, SingleEventPage
+from wagtail.test.testapp.models import (
+    TaggedChildPage,
+    TaggedGrandchildPage,
+    TaggedPage,
+)
 
 
 @contextmanager
@@ -116,13 +120,16 @@ class TestSearchFields(TestCase):
     def test_checking_core_page_fields_are_indexed(self):
         """Run checks to ensure that when core page fields are missing we get a warning"""
 
-        # first confirm that errors show as EventPage (in test models) has no Page.search_fields
+        # first confirm that errors show as TaggedPage (in test models) has no Page.search_fields
         errors = [
             error for error in checks.run_checks() if error.id == "wagtailsearch.W001"
         ]
 
         # should only ever get this warning on the sub-classes of the page model
-        self.assertEqual([EventPage, SingleEventPage], [error.obj for error in errors])
+        self.assertEqual(
+            [TaggedPage, TaggedChildPage, TaggedGrandchildPage],
+            [error.obj for error in errors],
+        )
 
         for error in errors:
             self.assertEqual(
@@ -136,7 +143,7 @@ class TestSearchFields(TestCase):
 
         # second check that we get no errors when setting up the models correctly
         with patch_search_fields(
-            EventPage, Page.search_fields + EventPage.search_fields
+            TaggedPage, Page.search_fields + TaggedPage.search_fields
         ):
             errors = [
                 error
@@ -146,7 +153,7 @@ class TestSearchFields(TestCase):
             self.assertEqual([], errors)
 
         # third check that we get no errors when disabling all model search
-        with patch_search_fields(EventPage, []):
+        with patch_search_fields(TaggedPage, []):
             errors = [
                 error
                 for error in checks.run_checks()
