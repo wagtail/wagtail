@@ -197,6 +197,9 @@ class MatchExpression(Expression):
         ]  # Build the full MATCH search query. It will be a parameter to the template, so no SQL injections are possible here.
         return (self.template, params)
 
+    def __repr__(self):
+        return "<MatchExpression: %r = %r>" % (self.columns, self.query)
+
 
 class AndNot(SearchQuery):
     """
