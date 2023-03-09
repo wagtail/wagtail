@@ -91,7 +91,6 @@ def _register_snippet_immediately(model, viewset=None):
         # Do not create duplicate registrations of the same model
         return
 
-    from wagtail.snippets.views.chooser import SnippetChooserViewSet
     from wagtail.snippets.views.snippets import SnippetViewSet
 
     model.get_usage = lambda obj: ReferenceIndex.get_references_to(
@@ -112,14 +111,7 @@ def _register_snippet_immediately(model, viewset=None):
         url_prefix=model.get_admin_base_path(),
     )
 
-    chooser_viewset = SnippetChooserViewSet(
-        f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}",
-        model=model,
-        url_prefix=f"snippets/choose/{model._meta.app_label}/{model._meta.model_name}",
-    )
-
     viewsets.register(admin_viewset)
-    viewsets.register(chooser_viewset)
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)

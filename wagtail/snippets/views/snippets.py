@@ -32,6 +32,7 @@ from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCrea
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.reports.base import ReportView
+from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -49,6 +50,7 @@ from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetSidePanels
+from wagtail.snippets.views.chooser import SnippetChooserViewSet
 
 
 # == Helper functions ==
@@ -754,6 +756,8 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
     workflow_history_detail_view_class = WorkflowHistoryDetailView
 
+    chooser_viewset_class = SnippetChooserViewSet
+
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
@@ -761,6 +765,9 @@ class SnippetViewSet(ViewSet):
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
         self.workflow_enabled = issubclass(self.model, WorkflowMixin)
         self.locking_enabled = issubclass(self.model, LockableMixin)
+
+        self.app_label = self.model._meta.app_label
+        self.model_name = self.model._meta.model_name
 
         if not self.list_display:
             self.list_display = self.index_view_class.list_display.copy()
@@ -1017,24 +1024,32 @@ class SnippetViewSet(ViewSet):
     def redirect_to_edit_view(self):
         return partial(
             redirect_to_edit,
-            app_label=self.model._meta.app_label,
-            model_name=self.model._meta.model_name,
+            app_label=self.app_label,
+            model_name=self.model_name,
         )
 
     @property
     def redirect_to_delete_view(self):
         return partial(
             redirect_to_delete,
-            app_label=self.model._meta.app_label,
-            model_name=self.model._meta.model_name,
+            app_label=self.app_label,
+            model_name=self.model_name,
         )
 
     @property
     def redirect_to_usage_view(self):
         return partial(
             redirect_to_usage,
-            app_label=self.model._meta.app_label,
-            model_name=self.model._meta.model_name,
+            app_label=self.app_label,
+            model_name=self.model_name,
+        )
+
+    @property
+    def chooser_viewset(self):
+        return self.chooser_viewset_class(
+            f"wagtailsnippetchoosers_{self.app_label}_{self.model_name}",
+            model=self.model,
+            url_prefix=f"snippets/choose/{self.app_label}/{self.model_name}",
         )
 
     def get_urlpatterns(self):
@@ -1157,3 +1172,5 @@ class SnippetViewSet(ViewSet):
             "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
         )
         register_admin_url_finder(self.model, url_finder_class)
+
+        viewsets.register(self.chooser_viewset)
