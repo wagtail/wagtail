@@ -114,6 +114,15 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             response.context["documents"].paginator.num_pages,
         )
 
+    def test_pagination_q(self):
+        self.make_docs()
+
+        response = self.get({"q": "Test"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+        self.assertContains(response, "There are 50 matches")
+
     def test_ordering(self):
         orderings = ["title", "-created_at"]
         for ordering in orderings:
