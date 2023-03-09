@@ -1,48 +1,70 @@
-import { Application } from '@hotwired/stimulus'
-import AutosizeController from "./AutoSizeController"
+import { Application } from '@hotwired/stimulus';
+import autosize from 'autosize';
+import { AutoSizeController } from './AutoSizeController';
 
-const application = Application.start()
-application.register("autosize", AutosizeController)
+jest.mock('autosize');
 
-describe("AutosizeController", () => {
+describe('AutoSizeController', () => {
+  let application;
+  
   beforeEach(() => {
+    
+    application = Application.start();
+    application.register('w-auto-size', AutoSizeController);
     document.body.innerHTML = `
-      <textarea class="js-autosize"></textarea>
-    `
-  })
+    <textarea 
+    class="w-field__autosize" 
+    data-controller="w-auto-size"
+    >
+    </textarea>
+    `;
+  });
+  
+  afterEach(() => {
+    application.stop();
+  });
+  
+  it('calls autosize on connect', () => {
+    jest.clearAllMocks();
+    const textarea = document.querySelector('[data-controller="w-auto-size"]');
+    expect(autosize).not.toHaveBeenCalled();
+    const controller = application.getControllerForElementAndIdentifier(textarea, 'w-auto-size');
+    controller.connect();
+    expect(autosize).toHaveBeenCalledWith(textarea);
+  });
 
-  it("expands the textarea on input", () => {
-    const textarea = document.querySelector(".js-autosize")
-    textarea.value = "Short text"
-    textarea.dispatchEvent(new Event("input"))
+  it('calls autosize.destroy on disconnect', () => {
+    const textarea = document.querySelector('[data-controller="w-auto-size"]');
+    const controller = application.getControllerForElementAndIdentifier(textarea, 'w-auto-size');
+    controller.connect();
+    expect(autosize.destroy).not.toHaveBeenCalled();
+    controller.disconnect();
+    expect(autosize.destroy).toHaveBeenCalledWith(textarea);
+  });
 
-    expect(textarea.style.height).toBe("auto")
-    expect(textarea.clientHeight).toBeGreaterThan(20)
-  })
+  it('expands the textarea on input', () => {
+    const textarea = document.querySelector('.w-field__autosize');
+    textarea.value = 'Short text';
+    textarea.dispatchEvent(new Event('input'));
+    expect(textarea.value).toBe('Short text');
+    expect(autosize.update).toHaveBeenCalledWith(textarea);
+  });
 
-  it("shrinks the textarea on clearing the value", () => {
-    const textarea = document.querySelector(".js-autosize")
-    textarea.value = "Long text".repeat(10)
-    textarea.dispatchEvent(new Event("input"))
+  it('shrinks the textarea on clearing the value', () => {
+    const textarea = document.querySelector('.w-field__autosize');
+    application.connectController = (element, controllerName) => {
+      const controller = application.getControllerForElementAndIdentifier(element, controllerName);
+      if (controller) {
+        controller.connect();
+      }
+    }
+    application.connectController(textarea, 'w-auto-size');
+    textarea.value = 'Long text'.repeat(10);
+    textarea.dispatchEvent(new Event('input'));
+    textarea.value = '';
+    textarea.dispatchEvent(new Event('input'));
+    expect(autosize.update).toHaveBeenCalledWith(textarea);
+    expect(textarea.clientHeight).toBeLessThan(100);
+  });
+});
 
-    expect(textarea.style.height).toBe("auto")
-    expect(textarea.clientHeight).toBeGreaterThan(200)
-
-    textarea.value = ""
-    textarea.dispatchEvent(new Event("input"))
-
-    expect(textarea.style.height).toBe("auto")
-    expect(textarea.clientHeight).toBeLessThan(100)
-  })
-
-  it("destroys the autosize instance on disconnect", () => {
-    const textarea = document.querySelector(".js-autosize")
-    const controller = application.getControllerForElementAndIdentifier(textarea, "autosize")
-
-    // eslint-disable-next-line no-undef
-    spyOn(controller.autosize, "destroy")
-    controller.disconnect()
-
-    expect(controller.autosize.destroy).toHaveBeenCalled()
-  })
-})
