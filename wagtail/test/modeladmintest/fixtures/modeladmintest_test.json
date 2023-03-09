@@ -67,7 +67,7 @@
     "pk": 4,
     "model": "modeladmintest.book",
     "fields": {
-      "title": "The Chronicles of Narnia",
+      "title": "The Chronicles of the Lord of Narnia",
       "author_id": 3
     }
   },
