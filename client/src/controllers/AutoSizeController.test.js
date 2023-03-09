@@ -6,9 +6,8 @@ jest.mock('autosize');
 
 describe('AutoSizeController', () => {
   let application;
-  
+
   beforeEach(() => {
-    
     application = Application.start();
     application.register('w-auto-size', AutoSizeController);
     document.body.innerHTML = `
@@ -19,23 +18,29 @@ describe('AutoSizeController', () => {
     </textarea>
     `;
   });
-  
+
   afterEach(() => {
     application.stop();
   });
-  
+
   it('calls autosize on connect', () => {
     jest.clearAllMocks();
     const textarea = document.querySelector('[data-controller="w-auto-size"]');
     expect(autosize).not.toHaveBeenCalled();
-    const controller = application.getControllerForElementAndIdentifier(textarea, 'w-auto-size');
+    const controller = application.getControllerForElementAndIdentifier(
+      textarea,
+      'w-auto-size',
+    );
     controller.connect();
     expect(autosize).toHaveBeenCalledWith(textarea);
   });
 
   it('calls autosize.destroy on disconnect', () => {
     const textarea = document.querySelector('[data-controller="w-auto-size"]');
-    const controller = application.getControllerForElementAndIdentifier(textarea, 'w-auto-size');
+    const controller = application.getControllerForElementAndIdentifier(
+      textarea,
+      'w-auto-size',
+    );
     controller.connect();
     expect(autosize.destroy).not.toHaveBeenCalled();
     controller.disconnect();
@@ -53,11 +58,14 @@ describe('AutoSizeController', () => {
   it('shrinks the textarea on clearing the value', () => {
     const textarea = document.querySelector('.w-field__autosize');
     application.connectController = (element, controllerName) => {
-      const controller = application.getControllerForElementAndIdentifier(element, controllerName);
+      const controller = application.getControllerForElementAndIdentifier(
+        element,
+        controllerName,
+      );
       if (controller) {
         controller.connect();
       }
-    }
+    };
     application.connectController(textarea, 'w-auto-size');
     textarea.value = 'Long text'.repeat(10);
     textarea.dispatchEvent(new Event('input'));
@@ -67,4 +75,3 @@ describe('AutoSizeController', () => {
     expect(textarea.clientHeight).toBeLessThan(100);
   });
 });
-

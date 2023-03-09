@@ -5,7 +5,6 @@ from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminAutoHeightTextInput(widgets.Textarea):
-
     def __init__(self, attrs=None):
         # Use more appropriate rows default, given autoheight will alter this anyway
         default_attrs = {
