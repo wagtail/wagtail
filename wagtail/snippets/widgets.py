@@ -13,7 +13,6 @@ from wagtail.telepath import register
 
 class AdminSnippetChooser(BaseChooser):
     display_title_key = "string"
-    icon = "snippet"
     classname = "snippet-chooser"
     js_constructor = "SnippetChooser"
 
