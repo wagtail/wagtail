@@ -2,7 +2,7 @@
 {% if documents %}
     {% if is_searching %}
         <h2 role="alert">
-            {% blocktrans trimmed count counter=documents|length %}
+            {% blocktrans trimmed count counter=documents.paginator.count %}
                 There is {{ counter }} match
             {% plural %}
                 There are {{ counter }} matches
