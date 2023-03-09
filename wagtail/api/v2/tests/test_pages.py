@@ -1163,7 +1163,9 @@ class TestPageListingSearch(WagtailTestUtils, TestCase):
 
     def test_search_operator_and(self):
         response = self.get_response(
-            type="demosite.BlogEntryPage", search="blog again", search_operator="and"
+            type="demosite.BlogEntryPage",
+            search="blog elephants",
+            search_operator="and",
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1173,7 +1175,7 @@ class TestPageListingSearch(WagtailTestUtils, TestCase):
 
     def test_search_operator_or(self):
         response = self.get_response(
-            type="demosite.BlogEntryPage", search="blog again", search_operator="or"
+            type="demosite.BlogEntryPage", search="blog elephants", search_operator="or"
         )
         content = json.loads(response.content.decode("UTF-8"))
 
