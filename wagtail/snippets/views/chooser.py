@@ -1,3 +1,4 @@
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import LiveStatusTagColumn
@@ -11,6 +12,7 @@ from wagtail.admin.views.generic.chooser import (
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import DraftStateMixin
+from wagtail.snippets.widgets import AdminSnippetChooser
 
 
 class BaseSnippetChooseView(BaseChooseView):
@@ -64,8 +66,11 @@ class SnippetChosenMultipleView(ChosenMultipleView):
 
 
 class SnippetChooserViewSet(ChooserViewSet):
-    register_widget = False  # registering the snippet chooser widget for a given model is done in register_snippet
     choose_view_class = ChooseView
     choose_results_view_class = ChooseResultsView
     chosen_view_class = SnippetChosenView
     chosen_multiple_view_class = SnippetChosenMultipleView
+
+    @cached_property
+    def widget_class(self):
+        return AdminSnippetChooser(model=self.model)
