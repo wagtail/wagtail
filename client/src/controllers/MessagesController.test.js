@@ -210,5 +210,25 @@ describe('MessagesController', () => {
 
       expect(item.lastElementChild.textContent).toEqual(text);
     });
+
+    it('should not allow HTML to be added unescaped to any content', () => {
+      document.dispatchEvent(
+        new CustomEvent('w-messages:add', {
+          detail: {
+            clear: true,
+            text: '<script>window.alert("Secure?");</script>',
+            type: 'error',
+          },
+        }),
+      );
+
+      const items = document.querySelectorAll('li');
+      expect(items).toHaveLength(1);
+
+      // should escape any text that is passed through
+      expect(items[0].outerHTML).toEqual(
+        '<li class="error"><strong>&lt;script&gt;window.alert("Secure?");&lt;/script&gt;</strong></li>',
+      );
+    });
   });
 });
