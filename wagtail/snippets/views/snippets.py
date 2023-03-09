@@ -1054,6 +1054,12 @@ class SnippetViewSet(ViewSet):
             url_prefix=f"snippets/choose/{self.app_label}/{self.model_name}",
         )
 
+    @property
+    def url_finder_class(self):
+        return type(
+            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+        )
+
     def get_urlpatterns(self):
         urlpatterns = super().get_urlpatterns() + [
             path("", self.index_view, name="list"),
@@ -1168,6 +1174,9 @@ class SnippetViewSet(ViewSet):
 
         return urlpatterns + legacy_redirects
 
+    def register_admin_url_finder(self):
+        register_admin_url_finder(self.model, self.url_finder_class)
+
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
             return check_panels_in_model(self.model, "snippets")
@@ -1176,11 +1185,6 @@ class SnippetViewSet(ViewSet):
 
     def on_register(self):
         super().on_register()
-        url_finder_class = type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
-        )
-        register_admin_url_finder(self.model, url_finder_class)
-
         viewsets.register(self.chooser_viewset)
-
+        self.register_admin_url_finder()
         self.register_model_check()
