@@ -78,6 +78,18 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "a cute kitten")
         self.assertNotContains(response, "a cute puppy")
 
+        global_search_response = self.get({"q": "cut"})
+        chooser_search_response = self.client.get(
+            reverse("wagtailimages_chooser:choose") + "?q=cut"
+        )
+        # test partial match
+        self.assertEqual(len(global_search_response.context["images"].object_list), 2)
+        # check that the search results are the same as the chooser
+        self.assertEqual(
+            global_search_response.context["images"].object_list,
+            chooser_search_response.context["results"].object_list,
+        )
+
     def test_collection_query_search(self):
         root_collection = Collection.get_first_root_node()
         child_collection = [
