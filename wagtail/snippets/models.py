@@ -4,12 +4,10 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.core import checks
 from django.db import DEFAULT_DB_ALIAS
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
-from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.viewsets import viewsets
 from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
 
@@ -111,11 +109,6 @@ def _register_snippet_immediately(model, viewset=None):
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
-
-    @checks.register("panels")
-    def modeladmin_model_check(app_configs, **kwargs):
-        errors = check_panels_in_model(model, "snippets")
-        return errors
 
 
 def get_snippet_usage_url(self):
