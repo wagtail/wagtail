@@ -52,6 +52,8 @@ class BaseChooser(widgets.Input):
             self.show_edit_link = kwargs.pop("show_edit_link")
         if "show_clear_link" in kwargs:
             self.show_clear_link = kwargs.pop("show_clear_link")
+        if "icon" in kwargs:
+            self.icon = kwargs.pop("icon")
         super().__init__(**kwargs)
 
     @cached_property
