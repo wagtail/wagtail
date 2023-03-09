@@ -6,16 +6,12 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.db import DEFAULT_DB_ALIAS
-from django.db.models import ForeignKey
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.viewsets import viewsets
 from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
-
-from .widgets import AdminSnippetChooser
 
 SNIPPET_MODELS = []
 
@@ -120,11 +116,6 @@ def _register_snippet_immediately(model, viewset=None):
     def modeladmin_model_check(app_configs, **kwargs):
         errors = check_panels_in_model(model, "snippets")
         return errors
-
-    # Set up admin model forms to use AdminSnippetChooser for any ForeignKey to this model
-    register_form_field_override(
-        ForeignKey, to=model, override={"widget": AdminSnippetChooser(model=model)}
-    )
 
 
 def get_snippet_usage_url(self):
