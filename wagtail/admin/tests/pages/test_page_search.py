@@ -1,4 +1,7 @@
+from io import StringIO
+
 from django.contrib.auth.models import Permission
+from django.core import management
 from django.test import TestCase
 from django.urls import reverse
 
@@ -9,6 +12,15 @@ from wagtail.test.utils.timestamps import local_datetime
 
 
 class TestPageSearch(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
     def setUp(self):
         self.user = self.login()
 
@@ -66,7 +78,7 @@ class TestPageSearch(WagtailTestUtils, TestCase):
             self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
 
     def test_root_can_appear_in_search_results(self):
-        response = self.get({"q": "roo"})
+        response = self.get({"q": "root"})
         self.assertEqual(response.status_code, 200)
         # 'pages' list in the response should contain root
         results = response.context["pages"]
