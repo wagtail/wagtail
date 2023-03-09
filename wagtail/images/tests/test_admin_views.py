@@ -78,6 +78,13 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "a cute kitten")
         self.assertNotContains(response, "a cute puppy")
 
+    def test_search_partial_match(self):
+        response = self.get({"q": "kit"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "kit")
+        self.assertContains(response, "a cute kitten")
+        self.assertNotContains(response, "a cute puppy")
+
     def test_collection_query_search(self):
         root_collection = Collection.get_first_root_node()
         child_collection = [
