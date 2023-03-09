@@ -283,8 +283,8 @@
     "pk": 18,
     "model": "wagtailcore.page",
     "fields": {
-      "title": "Blog post again",
-      "draft_title": "Blog post again",
+      "title": "Blog post about elephants",
+      "draft_title": "Blog post about elephants",
       "numchild": 0,
       "show_in_menus": false,
       "live": true,
