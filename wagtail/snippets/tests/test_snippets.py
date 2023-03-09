@@ -306,7 +306,7 @@ class TestModelOrdering(WagtailTestUtils, TestCase):
             reverse("wagtailsnippetchoosers_tests_advertwithtabbedinterface:choose")
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "aaaadvert")
+        self.assertEqual(response.context["results"][0].text, "aaaadvert")
 
 
 class TestListViewOrdering(WagtailTestUtils, TestCase):
@@ -4334,7 +4334,7 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
             Advert.objects.create(pk=i, text="advert %d" % i)
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "advert 1")
+        self.assertEqual(response.context["results"][0].text, "advert 1")
 
     def test_simple_pagination(self):
 
@@ -4381,15 +4381,15 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
         self.assertIn('name="locale"', response_html)
 
         # Check both snippets are shown
-        self.assertEqual(len(response.context["items"]), 2)
-        self.assertEqual(response.context["items"][0].text, "English snippet")
-        self.assertEqual(response.context["items"][1].text, "French snippet")
+        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(response.context["results"][0].text, "English snippet")
+        self.assertEqual(response.context["results"][1].text, "French snippet")
 
         # Now test with a locale selected
         response = self.get({"locale": "en"})
 
-        self.assertEqual(len(response.context["items"]), 1)
-        self.assertEqual(response.context["items"][0].text, "English snippet")
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0].text, "English snippet")
 
 
 class TestSnippetChooseResults(WagtailTestUtils, TestCase):
@@ -4480,7 +4480,7 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
         # All snippets should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["results"].object_list)
         self.assertIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -4493,7 +4493,7 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
         response = self.get({"q": "Hello"})
 
         # Just snippets with "Hello" should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["results"].object_list)
         self.assertIn(self.snippet_a, items)
         self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -4502,7 +4502,7 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
         response = self.get({"q": "World"})
 
         # Just snippets with "World" should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["results"].object_list)
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -4511,7 +4511,7 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
         response = self.get({"q": "hello wo"})
 
         # should perform partial matching and return "Hello World"
-        items = list(response.context["items"].object_list)
+        items = list(response.context["results"].object_list)
         self.assertNotIn(self.snippet_a, items)
         self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -5174,7 +5174,7 @@ class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             AdvertWithCustomPrimaryKey.objects.create(pk=i, text="advert %d" % i)
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "advert 1")
+        self.assertEqual(response.context["results"][0].text, "advert 1")
 
 
 class TestSnippetChosenWithCustomPrimaryKey(WagtailTestUtils, TestCase):
