@@ -447,11 +447,18 @@ class TestEditLockedSnippet(BaseLockingTestCase):
                     f"Only you can make changes while the {self.model_name} is locked",
                 )
 
-                # Should show unlock buttons, one in the message and one in the side panel
+                # Should show unlock toggle in the side panel
+                self.assertTagInHTML(
+                    f'<input type="checkbox" checked data-action="click->w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">',
+                    html,
+                    count=1,
+                    allow_extra_attrs=True,
+                )
+                # Should show unlock button in the message
                 self.assertTagInHTML(
                     f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
                     html,
-                    count=2,
+                    count=1,
                     allow_extra_attrs=True,
                 )
 
@@ -497,11 +504,18 @@ class TestEditLockedSnippet(BaseLockingTestCase):
             allow_extra_attrs=True,
         )
 
-        # Should show unlock buttons, one in the message and one in the side panel
+        # Should show unlock toggle in the side panel
+        self.assertTagInHTML(
+            f'<input type="checkbox" checked data-action="click->w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        # Should show unlock button in the message
         self.assertTagInHTML(
             f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
             html,
-            count=2,
+            count=1,
             allow_extra_attrs=True,
         )
 
@@ -552,7 +566,14 @@ class TestEditLockedSnippet(BaseLockingTestCase):
             allow_extra_attrs=True,
         )
 
-        # Should not show unlock buttons
+        # Should not show unlock toggle in the side panel
+        self.assertTagInHTML(
+            f'<input type="checkbox" checked data-action="click->w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+        # Should not show unlock button in the message
         self.assertTagInHTML(
             f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
             html,
@@ -603,7 +624,14 @@ class TestEditLockedSnippet(BaseLockingTestCase):
             allow_extra_attrs=True,
         )
 
-        # Should not show the lock button
+        # Should not show lock toggle in the side panel
+        self.assertTagInHTML(
+            f'<input type="checkbox" data-action="click->w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+        # Should not show lock button in the message
         self.assertTagInHTML(
             f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">Lock</button>',
             html,
@@ -648,9 +676,9 @@ class TestEditLockedSnippet(BaseLockingTestCase):
             allow_extra_attrs=True,
         )
 
-        # Should show the lock button
+        # Should show lock toggle in the side panel
         self.assertTagInHTML(
-            f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">Lock</button>',
+            f'<input type="checkbox" data-action="click->w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">',
             html,
             count=1,
             allow_extra_attrs=True,

@@ -16,7 +16,9 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *  Enable
  * </button>
  */
-export class ActionController extends Controller<HTMLButtonElement> {
+export class ActionController extends Controller<
+  HTMLButtonElement | HTMLInputElement
+> {
   static values = {
     continue: { type: Boolean, default: false },
     url: String,

@@ -89,8 +89,14 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
     opacity: 0.3;
   }
 
-  [type='checkbox']:focus + &__toggle {
+  [type='checkbox']:focus-visible + &__toggle {
     outline: $color-focus-outline solid $switch-outline;
+  }
+
+  @supports not selector(:focus-visible) {
+    [type='checkbox']:focus + &__toggle {
+      outline: $color-focus-outline solid $switch-outline;
+    }
   }
 
   [type='checkbox'] {

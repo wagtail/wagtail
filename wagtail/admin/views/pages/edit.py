@@ -411,10 +411,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                         _("Cancel scheduled publish"),
                     )
 
-                if self.locked_for_user:
-                    messages.error(self.request, lock_message, extra_tags="lock")
-                else:
+                if (
+                    not isinstance(self.lock, ScheduledForPublishLock)
+                    and self.locked_for_user
+                ):
                     messages.warning(self.request, lock_message, extra_tags="lock")
+                else:
+                    messages.info(self.request, lock_message, extra_tags="lock")
 
         self.form = self.form_class(
             instance=self.page,
