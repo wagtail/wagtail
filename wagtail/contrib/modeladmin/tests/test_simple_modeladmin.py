@@ -89,7 +89,8 @@ class TestBookIndexView(WagtailTestUtils, TestCase):
             data_lines[1], "Charlie and the Chocolate Factory,Roald Dahl,1916-09-13\r"
         )
         self.assertEqual(
-            data_lines[2], "The Chronicles of Narnia,Roald Dahl,1898-11-29\r"
+            data_lines[2],
+            "The Chronicles of the Lord of Narnia,Roald Dahl,1898-11-29\r",
         )
         self.assertEqual(data_lines[3], "The Hobbit,J. R. R. Tolkien,1892-01-03\r")
         self.assertEqual(
@@ -117,7 +118,8 @@ class TestBookIndexView(WagtailTestUtils, TestCase):
             ["Charlie and the Chocolate Factory", "Roald Dahl", "1916-09-13"],
         )
         self.assertEqual(
-            cell_array[2], ["The Chronicles of Narnia", "Roald Dahl", "1898-11-29"]
+            cell_array[2],
+            ["The Chronicles of the Lord of Narnia", "Roald Dahl", "1898-11-29"],
         )
         self.assertEqual(
             cell_array[3], ["The Hobbit", "J. R. R. Tolkien", "1892-01-03"]
@@ -179,11 +181,11 @@ class TestBookIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(data_lines[3], "")
 
     def test_search_indexed(self):
-        response = self.get(q="of")
+        response = self.get(q="lord")
 
         self.assertEqual(response.status_code, 200)
 
-        # There are two books where the title contains 'of'
+        # There are two books where the title contains 'lord'
         self.assertEqual(response.context["result_count"], 2)
 
         # The result count content is shown in the header
