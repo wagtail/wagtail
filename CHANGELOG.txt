@@ -35,6 +35,7 @@ Changelog
  * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
  * Fix: When multiple documents are uploaded and then subsequently updated, ensure that existing success messages are cleared correctly (Aman Pandey)
  * Fix: Prevent matches from unrelated models from leaking into SQLite FTS searches (Matt Westcott)
+ * Fix: Prevent duplicate addition of StreamField blocks with the new block picker (Deepam Priyadarshi)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
