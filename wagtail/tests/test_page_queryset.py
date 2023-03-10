@@ -1,6 +1,8 @@
+from io import StringIO
 from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType
+from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase
 
@@ -753,6 +755,15 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
     fixtures = ["test_specific.json"]
 
+    @classmethod
+    def setUpTestData(cls):
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
     def setUp(self):
         self.live_pages = Page.objects.live().specific()
         self.live_pages_with_annotations = (
@@ -860,13 +871,25 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         self.assertEqual(results.first().subscribers_count, 1)
         self.assertEqual(results.last().subscribers_count, 1)
 
-    def test_specific_query_with_search_and_annotation(self):
+    def test_specific_query_with_match_all_search_and_annotation(self):
         # Ensure annotations are reapplied to specific() page queries
 
         results = (
             Page.objects.live().specific().search(MATCH_ALL).annotate_score("_score")
         )
 
+        self.assertGreater(len(results), 0)
+        for result in results:
+            self.assertTrue(hasattr(result, "_score"))
+
+    def test_specific_query_with_real_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = (
+            Page.objects.live().specific().search("event").annotate_score("_score")
+        )
+
+        self.assertGreater(len(results), 0)
         for result in results:
             self.assertTrue(hasattr(result, "_score"))
 
