@@ -146,11 +146,11 @@ class WagtailImageField(ImageField):
         if f is None:
             return None
 
-        # We need to get a file object for Pillow. When we get a path, we need to open
-        # the file first. And we have to read the data into memory to pass to Willow.
+        # Get the file content ready for Willow
         if hasattr(data, "temporary_file_path"):
-            with open(data.temporary_file_path(), "rb") as fh:
-                file = BytesIO(fh.read())
+            # Django's `TemporaryUploadedFile` is enough of a file to satisfy Willow
+            # Willow doesn't support opening images by path https://github.com/wagtail/Willow/issues/108
+            file = data
         else:
             if hasattr(data, "read"):
                 file = BytesIO(data.read())
