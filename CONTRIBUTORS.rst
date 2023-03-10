@@ -699,6 +699,7 @@ Contributors
 * Hans Kelson
 * Sam
 * Deepam Priyadarshi
+* Mng
 
 Translators
 ===========
