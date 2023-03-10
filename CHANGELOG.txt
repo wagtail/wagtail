@@ -50,6 +50,7 @@ Changelog
  * Docs: Improve documentation for InlinePanel (Vallabh Tiwari)
  * Docs: Add contributor guidelines for building Stimulus Controllers (Thibaud Colas, Loveth Omokaro, LB (Ben) Johnston)
  * Docs: Fix typo in "Extending Draftail" documentation (Hans Kelson)
+ * Docs: Clarify `ClusterableModel` requirements for using relations with `RevisionMixin`-enabled models (Sage Abdullah)
  * Maintenance: Removed features deprecated in Wagtail 3.0 and 4.0 (Matt Westcott)
  * Maintenance: Update djhtml (html formatting) library to v 1.5.2 (Loveth Omokaro)
  * Maintenance: Re-enable `strictPropertyInitialization` in tsconfig (Thibaud Colas)
@@ -87,6 +88,7 @@ Changelog
  * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
  * Fix: Prevent matches from unrelated models from leaking into SQLite FTS searches (Matt Westcott)
  * Fix: Prevent duplicate addition of StreamField blocks with the new block picker (Deepam Priyadarshi)
+ * Docs: Clarify `ClusterableModel` requirements for using relations with `RevisionMixin`-enabled models (Sage Abdullah)
  * Maintenance: Update Algolia DocSearch to use new application and correct versioning setup (Thibaud Colas)
 
 
@@ -253,6 +255,7 @@ Changelog
  * Fix: Add missing log information for `wagtail.schedule.cancel` (Stefan Hammer)
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
  * Fix: Prevent matches from unrelated models from leaking into SQLite FTS searches (Matt Westcott)
+ * Docs: Clarify `ClusterableModel` requirements for using relations with `RevisionMixin`-enabled models (Sage Abdullah)
  * Maintenance: Update Algolia DocSearch to use new application and correct versioning setup (Thibaud Colas)
 
 
