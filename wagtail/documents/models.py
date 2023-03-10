@@ -1,4 +1,3 @@
-import hashlib
 import os.path
 import urllib
 from contextlib import contextmanager
@@ -15,6 +14,7 @@ from taggit.managers import TaggableManager
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.file import hash_filelike
 
 
 class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
@@ -122,14 +122,13 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
         return self.file_size
 
-    def _set_file_hash(self, file_contents):
-        self.file_hash = hashlib.sha1(file_contents).hexdigest()
+    def _set_file_hash(self):
+        with self.open_file() as f:
+            self.file_hash = hash_filelike(f)
 
     def get_file_hash(self):
         if self.file_hash == "":
-            with self.open_file() as f:
-                self._set_file_hash(f.read())
-
+            self._set_file_hash()
             self.save(update_fields=["file_hash"])
 
         return self.file_hash
@@ -141,7 +140,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         self.file_size = self.file.size
 
         # Set new document file hash
-        self._set_file_hash(self.file.read())
+        self._set_file_hash()
         self.file.seek(0)
 
     def __str__(self):

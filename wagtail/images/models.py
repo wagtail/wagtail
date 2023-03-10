@@ -38,6 +38,7 @@ from wagtail.images.rect import Rect
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.file import hash_filelike
 
 logger = logging.getLogger("wagtail.images")
 
@@ -225,14 +226,13 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     objects = ImageQuerySet.as_manager()
 
-    def _set_file_hash(self, file_contents):
-        self.file_hash = hashlib.sha1(file_contents).hexdigest()
+    def _set_file_hash(self):
+        with self.open_file() as f:
+            self.file_hash = hash_filelike(f)
 
     def get_file_hash(self):
         if self.file_hash == "":
-            with self.open_file() as f:
-                self._set_file_hash(f.read())
-
+            self._set_file_hash()
             self.save(update_fields=["file_hash"])
 
         return self.file_hash
@@ -244,7 +244,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         self.file_size = self.file.size
 
         # Set new image file hash
-        self._set_file_hash(self.file.read())
+        self._set_file_hash()
         self.file.seek(0)
 
     def get_upload_to(self, filename):
