@@ -1,4 +1,4 @@
-import axe, { AxeResults } from 'axe-core';
+import axe, { AxeResults, NodeResult } from 'axe-core';
 
 import { dialog } from './dialog';
 
@@ -10,6 +10,25 @@ More background can be found in webpack.config.js
 This component implements a roving tab index for keyboard navigation
 Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 */
+
+const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
+  if (!nodeResultA || !nodeResultB) return 0;
+  const nodeA = document.querySelector<HTMLElement>(nodeResultA.target[0]);
+  const nodeB = document.querySelector<HTMLElement>(nodeResultB.target[0]);
+  if (!nodeA || !nodeB) return 0;
+  // Method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+  // eslint-disable-next-line no-bitwise
+  return nodeA.compareDocumentPosition(nodeB) & Node.DOCUMENT_POSITION_PRECEDING
+    ? 1
+    : -1;
+};
+
+export const sortAxeViolations = (violations: AxeResults['violations']) =>
+  violations.sort((violationA, violationB) => {
+    const earliestNodeA = violationA.nodes.sort(sortAxeNodes)[0];
+    const earliestNodeB = violationB.nodes.sort(sortAxeNodes)[0];
+    return sortAxeNodes(earliestNodeA, earliestNodeB);
+  });
 
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
@@ -389,7 +408,8 @@ export class Userbar extends HTMLElement {
       modalBody.innerHTML = '';
 
       if (results.violations.length) {
-        results.violations.forEach((violation, violationIndex) => {
+        const sortedViolations = sortAxeViolations(results.violations);
+        sortedViolations.forEach((violation, violationIndex) => {
           modalBody.appendChild(a11yRowTemplate.content.cloneNode(true));
           const currentA11yRow = modalBody.querySelectorAll(
             '[data-a11y-result-row]',
@@ -437,9 +457,7 @@ export class Userbar extends HTMLElement {
                 document.querySelector<HTMLElement>(selectorName);
               if (!inaccessibleElement) return;
               inaccessibleElement.style.scrollMargin = '6.25rem';
-              inaccessibleElement.scrollIntoView({
-                behavior: 'smooth',
-              });
+              inaccessibleElement.scrollIntoView();
               inaccessibleElement.focus();
             });
           });
