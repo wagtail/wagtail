@@ -282,8 +282,7 @@ class Advert(index.Indexed, models.Model):
 The `RevisionMixin` class was introduced.
 ```
 
-If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
-In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model and override the {attr}`~wagtail.models.RevisionMixin.revisions` property to return the `GenericRelation`. For example, the `Advert` snippet could be made revisable as follows:
+If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin. In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. If you need to customise how the revisions are fetched (e.g. to handle the content type to use for models with multi-table inheritance), you can define a property instead. For example, the `Advert` snippet could be made revisable as follows:
 
 ```python
 # ...
@@ -297,6 +296,7 @@ from wagtail.models import RevisionMixin
 class Advert(RevisionMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
+    # If no custom logic is required, this can be defined as `revisions` directly
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
 
     panels = [
@@ -306,10 +306,11 @@ class Advert(RevisionMixin, models.Model):
 
     @property
     def revisions(self):
+        # Some custom logic here if necessary
         return self._revisions
 ```
 
-If your snippet model defines relations using Django's {class}`~django.db.models.ForeignKey` or {class}`~django.db.models.ManyToManyField`, you need to change the model class to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model` and replace the `ForeignKey` and `ManyToManyField` with `ParentalKey` and `ParentalManyToManyField`, respectively. This is necessary in order to allow the relations to be stored in the revisions. For example:
+If your snippet model defines relations using Django's {class}`~django.db.models.ManyToManyField`, you need to change the model class to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model` and replace the `ManyToManyField` with `ParentalManyToManyField`. Inline models should continue to use `ParentalKey` instead of `ForeignKey`. This is necessary in order to allow the relations to be stored in the revisions. See the [](tutorial_categories) section of the tutorial for more details. For example:
 
 ```python
 from django.db import models
@@ -333,19 +334,26 @@ class ShirtCategory(models.Model):
 @register_snippet
 class Shirt(RevisionMixin, ClusterableModel):
     name = models.CharField(max_length=255)
-    colour = ParentalKey("shirts.ShirtColour")
+    colour = models.ForeignKey("shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True)
     categories = ParentalManyToManyField("shirts.ShirtCategory", blank=True)
-    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="shirt")
+    revisions = GenericRelation("wagtailcore.Revision", related_query_name="shirt")
 
     panels = [
         FieldPanel("name"),
         FieldPanel("colour"),
         FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
+        InlinePanel("images", label="Images"),
     ]
 
-    @property
-    def revisions(self):
-        return self._revisions
+
+class ShirtImage(models.Model):
+    shirt = ParentalKey("shirts.Shirt", related_name="images")
+    image = models.ForeignKey("wagtailimages.Image", on_delete=models.CASCADE, related_name="+")
+    caption = models.CharField(max_length=255, blank=True)
+    panels = [
+        FieldPanel("image"),
+        FieldPanel("caption"),
+    ]
 ```
 
 The `RevisionMixin` includes a `latest_revision` field that needs to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
