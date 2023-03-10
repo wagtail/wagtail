@@ -106,6 +106,7 @@ def _register_snippet_immediately(model, viewset=None):
     )
 
     viewsets.register(admin_viewset)
+    model.snippet_viewset = admin_viewset
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
