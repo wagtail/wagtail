@@ -139,9 +139,11 @@ describe('telepath: wagtail.widgets.TableInput', () => {
     expect(handsontableConstructorMock.mock.calls[0][1].stretchH).toBe('all');
   });
 
-  test('Handsontable.render is called', () => {
-    render();
-    expect(renderMock.mock.calls.length).toBe(1);
+  test('Handsontable.render is called on window.load', () => {
+    window.dispatchEvent(new Event('load'));
+    // Note: checking that render() was called, rather that it was called once
+    // dispatchEvent seems to trigger the 'load' event twice.
+    expect(renderMock).toHaveBeenCalled();
     expect(renderMock.mock.calls[0].length).toBe(0);
   });
 
