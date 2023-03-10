@@ -3,7 +3,7 @@ import json
 import urllib
 
 from django.contrib.auth.models import Group, Permission
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, override_settings
@@ -482,6 +482,44 @@ class TestImageAddView(TestCase, WagtailTestUtils):
                 "file": SimpleUploadedFile(
                     "test.png", get_test_image_file().file.getvalue()
                 ),
+            }
+        )
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+        # Test that the file_size/hash fields were set
+        self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
+
+        # Test that it was placed in the root collection
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(image.collection, root_collection)
+
+    def test_add_temporary_uploaded_file(self):
+        """
+        Test that uploading large files (spooled to the filesystem) work as expected
+        """
+        test_image_file = get_test_image_file()
+        uploaded_file = TemporaryUploadedFile(
+            "test.png", "image/png", test_image_file.size, "utf-8"
+        )
+        uploaded_file.write(test_image_file.file.getvalue())
+        uploaded_file.seek(0)
+
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": uploaded_file,
             }
         )
 
