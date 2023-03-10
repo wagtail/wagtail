@@ -112,6 +112,11 @@ class TestImage(TestCase):
         with self.assertRaises(SourceImageIOError):
             self.image.get_file_size()
 
+    def test_file_hash(self):
+        self.assertEqual(
+            self.image.get_file_hash(), "4dd0211870e130b7e1690d2ec53c499a54a48fef"
+        )
+
 
 class TestImageQuerySet(TestCase):
     def test_search_method(self):

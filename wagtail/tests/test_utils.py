@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*
 import pickle
+from io import BytesIO, StringIO
+from pathlib import Path
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils.text import slugify
 from django.utils.translation import _trans
@@ -23,6 +26,7 @@ from wagtail.coreutils import (
     string_to_ascii,
 )
 from wagtail.models import Page, Site
+from wagtail.utils.file import hash_filelike
 from wagtail.utils.utils import deep_update
 
 
@@ -507,4 +511,59 @@ class TestDeepUpdate(TestCase):
                 },
                 "starship": "enterprise",
             },
+        )
+
+
+class HashFileLikeTestCase(SimpleTestCase):
+    test_file = Path.cwd() / "LICENSE"
+
+    def test_hashes_io(self):
+        self.assertEqual(
+            hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+        )
+        self.assertEqual(
+            hash_filelike(StringIO("test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+        )
+
+    def test_hashes_file(self):
+        with self.test_file.open(mode="r") as f:
+            self.assertEqual(
+                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
+            )
+
+    def test_hashes_file_bytes(self):
+        with self.test_file.open(mode="rb") as f:
+            self.assertEqual(
+                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
+            )
+
+    def test_hashes_django_uploaded_file(self):
+        """
+        Check Django's file shims can be hashed as-is.
+        `SimpleUploadedFile` inherits the base `UploadedFile`, but is easiest to test against
+        """
+        self.assertEqual(
+            hash_filelike(SimpleUploadedFile("example.txt", b"test")),
+            "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
+        )
+
+    def test_hashes_large_file(self):
+        class FakeLargeFile:
+            """
+            A class that pretends to be a huge file (~1.3GB)
+            """
+
+            def __init__(self):
+                self.iterations = 20000
+
+            def read(self, bytes):
+                self.iterations -= 1
+                if not self.iterations:
+                    return b""
+
+                return b"A" * bytes
+
+        self.assertEqual(
+            hash_filelike(FakeLargeFile()),
+            "187cc1db32624dccace20d042f6d631f1a483020",
         )

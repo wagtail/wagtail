@@ -126,6 +126,19 @@ class TestDocumentFilenameProperties(TestCase):
             "application/octet-stream", self.extensionless_document.content_type
         )
 
+    def test_file_hash(self):
+        self.assertEqual(
+            self.document.get_file_hash(), "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85"
+        )
+        self.assertEqual(
+            self.pdf_document.get_file_hash(),
+            "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85",
+        )
+        self.assertEqual(
+            self.extensionless_document.get_file_hash(),
+            "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85",
+        )
+
     def test_content_disposition(self):
         self.assertEqual(
             """attachment; filename=example.doc; filename*=UTF-8''example.doc""",
