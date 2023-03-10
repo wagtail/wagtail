@@ -129,12 +129,6 @@ describe('telepath: wagtail.widgets.TableInput', () => {
     expect(handsontableConstructorMock.mock.calls[0][1].stretchH).toBe('all');
   });
 
-  test('Handsontable.render is called', () => {
-    render();
-    expect(window.Handsontable.prototype.render.mock.calls.length).toBe(1);
-    expect(window.Handsontable.prototype.render.mock.calls[0].length).toBe(0);
-  });
-
   test('translation', () => {
     testStrings = {
       'Row header': 'En-tête de ligne',

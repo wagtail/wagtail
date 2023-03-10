@@ -19,20 +19,17 @@ function initTable(id, tableOptions) {
   let isInitialized = false;
 
   const getWidth = function () {
-    return $('.w-field--table_input').closest('.sequence-member-inner').width();
+    return $('.w-field--table_input').closest('.w-panel').width();
   };
   const getHeight = function () {
     const tableParent = $('#' + id).parent();
-    return (
-      tableParent.find('.htCore').height() +
-      tableParent.find('[data-field]').height() * 2
-    );
+    let htCoreHeight = 0;
+    tableParent.find('.htCore').each(function () {
+      htCoreHeight += $(this).height();
+    });
+    return htCoreHeight + tableParent.find('[data-field]').first().height();
   };
-  const resizeTargets = [
-    '[data-field] > .handsontable',
-    '.wtHider',
-    '.wtHolder',
-  ];
+  const resizeTargets = ['.handsontable', '.wtHider', '.wtHolder'];
   const resizeHeight = function (height) {
     const currTable = $('#' + id);
     $.each(resizeTargets, function () {
@@ -72,7 +69,7 @@ function initTable(id, tableOptions) {
     !tableOptions.hasOwnProperty('width') ||
     !tableOptions.hasOwnProperty('height')
   ) {
-    // Size to parent .sequence-member-inner width if width is not given in tableOptions
+    // Size to parent field width if width is not given in tableOptions
     $(window).on('resize', () => {
       hot.updateSettings({
         width: getWidth(),
@@ -175,15 +172,12 @@ function initTable(id, tableOptions) {
   });
 
   hot = new Handsontable(document.getElementById(containerId), finalOptions);
-  hot.render(); // Call to render removes 'null' literals from empty cells
-
-  // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
-  if ('resize' in $(window)) {
+  window.addEventListener('load', () => {
+    // Render the table. Calling render also removes 'null' literals from empty cells.
+    hot.render();
     resizeHeight(getHeight());
-    $(window).on('load', () => {
-      $(window).trigger('resize');
-    });
-  }
+    resizeWidth(getWidth());
+  });
 }
 window.initTable = initTable;
 
