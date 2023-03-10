@@ -50,6 +50,16 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "Hello document")
         self.assertNotContains(response, "Bonjour document")
 
+    def test_search_partial(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
+        response = self.get({"q": "bonj"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "bonj")
+        self.assertNotContains(response, "Hello document")
+        self.assertContains(response, "Bonjour document")
+
     def test_empty_q(self):
         models.Document.objects.create(title="Hello document")
         models.Document.objects.create(title="Bonjour document")

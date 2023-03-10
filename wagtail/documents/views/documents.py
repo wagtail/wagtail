@@ -20,6 +20,7 @@ from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
+from wagtail.search.backends import get_search_backend
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -64,7 +65,20 @@ class BaseListingView(TemplateView):
             if self.form.is_valid():
                 query_string = self.form.cleaned_data["q"]
                 if query_string:
-                    documents = documents.search(query_string)
+                    search_backend = get_search_backend()
+                    if documents.model.get_autocomplete_search_fields():
+                        try:
+                            documents = search_backend.autocomplete(
+                                query_string, documents
+                            )
+                        except NotImplementedError:
+                            documents = search_backend.search(
+                                query_string, documents, partial_match=True
+                            )
+                    else:
+                        documents = search_backend.search(
+                            query_string, documents, partial_match=True
+                        )
         else:
             self.form = SearchForm(placeholder=_("Search documents"))
 
