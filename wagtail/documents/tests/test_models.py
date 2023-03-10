@@ -42,9 +42,13 @@ class TestDocumentQuerySet(TestCase):
         aaa_document = models.Document.objects.create(title="AAA Test document")
         zzz_document = models.Document.objects.create(title="ZZZ Test document")
 
-        results = models.Document.objects.order_by("title").search("Test")
+        results = models.Document.objects.order_by("title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [aaa_document, zzz_document])
-        results = models.Document.objects.order_by("-title").search("Test")
+        results = models.Document.objects.order_by("-title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [zzz_document, aaa_document])
 
 
