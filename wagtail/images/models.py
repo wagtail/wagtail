@@ -4,7 +4,7 @@ import os.path
 import time
 from collections import OrderedDict
 from contextlib import contextmanager
-from io import BytesIO
+from tempfile import SpooledTemporaryFile
 from typing import Union
 
 import willow
@@ -537,7 +537,10 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         start_time = time.time()
 
         try:
-            generated_image = filter.run(self, BytesIO())
+            generated_image = filter.run(
+                self,
+                SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE),
+            )
 
             logger.debug(
                 "Generated '%s' rendition for image %d in %.1fms",
