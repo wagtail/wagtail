@@ -42,3 +42,6 @@ class TestConvertedValueField(WagtailTestUtils, TestCase):
 
     def test_custom_user_primary_key_is_converted_value_field(self):
         self.assertIsInstance(self.pk_field, ConvertedValueField)
+
+    def test_get_prep_value_returns_integer_for_db_query(self):
+        self.assertIsInstance(self.pk_field.get_prep_value(1234), int)

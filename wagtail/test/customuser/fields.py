@@ -54,6 +54,13 @@ class ConvertedValueField(models.IntegerField):
             value = ConvertedValue(value)
         return value
 
+    def get_prep_value(self, value):
+        if value is None:
+            return None
+        if not isinstance(value, ConvertedValue):
+            value = ConvertedValue(value)
+        return super().get_prep_value(value.db_value)
+
     def from_db_value(self, value, expression, connection):
         if not value:
             return
