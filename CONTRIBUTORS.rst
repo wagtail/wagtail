@@ -698,6 +698,7 @@ Contributors
 * Jatin Kumar
 * Hans Kelson
 * Sam
+* Deepam Priyadarshi
 
 Translators
 ===========

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  useCombobox,
-  UseComboboxStateChange,
-  UseComboboxStateChangeTypes,
-} from 'downshift';
+import { useCombobox, UseComboboxStateChange } from 'downshift';
 
 import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
@@ -104,7 +100,36 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
     selectedItem: null,
 
-    onSelectedItemChange: onSelect,
+    // Call onSelect only on item click and enter key press events
+    onSelectedItemChange: (changes) => {
+      const changeType = changes.type;
+      switch (changeType) {
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+          onSelect(changes);
+          break;
+
+        default:
+          break;
+      }
+    },
+
+    // For not re-setting and not removing focus from combobox when pressing `Alt+Tab`
+    // to switch windows.
+    stateReducer: (state, actionAndChanges) => {
+      const { type, changes } = actionAndChanges;
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputBlur:
+          return {
+            ...changes,
+            isOpen: state.isOpen,
+            highlightedIndex: state.highlightedIndex,
+            inputValue: state.inputValue,
+          };
+        default:
+          return changes;
+      }
+    },
 
     onInputValueChange: (changes) => {
       const { inputValue: val } = changes;
@@ -200,22 +225,10 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                     );
                 }
 
-                const onMouseDown = (e) => {
-                  e.stopPropagation();
-                  onSelect({
-                    selectedItem: item,
-                    type: '__item_click__' as UseComboboxStateChangeTypes.ItemClick,
-                  });
-                };
-
                 return (
-                  // Side-step Downshift event handling and trigger selection on mouse down for clicks,
-                  // so we preserve keyboard focus when used within rich text editors.
-                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                   <div
                     key={item.type}
                     {...getItemProps({ item, index: itemIndex })}
-                    onMouseDown={onMouseDown}
                     className={`w-combobox__option w-combobox__option--col${itemColumn}`}
                   >
                     <div className="w-combobox__option-icon">
