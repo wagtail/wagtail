@@ -686,6 +686,7 @@ Contributors
 * Beniamin Bucur
 * Satvik Vashisht
 * Sam
+* Deepam Priyadarshi
 
 Translators
 ===========
