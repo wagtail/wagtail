@@ -365,8 +365,12 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
-        FullFeaturedSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FullFeaturedSnippet.objects.create(text="From the UK", country_code="UK")
+        FullFeaturedSnippet.objects.create(
+            text="Nasi goreng from Indonesia", country_code="ID"
+        )
+        FullFeaturedSnippet.objects.create(
+            text="Fish and chips from the UK", country_code="UK"
+        )
 
     def test_get_include_filters_form_media(self):
         response = self.get()
@@ -394,8 +398,8 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
@@ -407,8 +411,8 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get({"country_code": ""})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
@@ -433,7 +437,7 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get({"country_code": "ID"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "Nasi goreng from Indonesia")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
@@ -443,7 +447,7 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
 
     def test_filtered_searched_no_results(self):
         self.create_test_snippets()
-        response = self.get({"country_code": "ID", "q": "the"})
+        response = self.get({"country_code": "ID", "q": "chips"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(
             response, "Sorry, no full-featured snippets match your query"
@@ -456,9 +460,9 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
 
     def test_filtered_searched_with_results(self):
         self.create_test_snippets()
-        response = self.get({"country_code": "UK", "q": "the"})
+        response = self.get({"country_code": "UK", "q": "chips"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
