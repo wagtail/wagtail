@@ -14,6 +14,7 @@ Changelog
  * Fix: Fix timezone activation leaking into subsequent requests in `require_admin_access()` (Stefan Hammer)
  * Fix: Fix dialog component's message to have rounded corners at the top side (Sam)
  * Fix: Prevent matches from unrelated models from leaking into SQLite FTS searches (Matt Westcott)
+ * Fix: Prevent duplicate addition of StreamField blocks with the new block picker (Deepam Priyadarshi)
 
 
 4.2 (06.02.2023)
