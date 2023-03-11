@@ -1210,7 +1210,7 @@ def before_snippet_delete(request, instances):
 Add an item to the popup menu of actions on the snippet creation and edit views.
 The callable passed to this hook must return an instance of `wagtail.snippets.action_menu.ActionMenuItem`. `ActionMenuItem` is a subclass of [Component](creating_template_components) and so the rendering of the menu item can be customised through `template_name`, `get_context_data`, `render_html` and `Media`. In addition, the following attributes and methods are available to be overridden:
 
--   `order`- an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an`order` of 0).
+-   `order` - an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
 -   `label` - the displayed text of the menu item
 -   `get_url` - a method which returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
 -   `name` - value of the `name` attribute of the submit button if no URL is specified
