@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.3 (13.03.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
