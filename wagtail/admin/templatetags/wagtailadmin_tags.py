@@ -132,6 +132,12 @@ def fieldtype(bound_field):
 
 
 @register.filter
+def translate(msg_var):
+    result_var = msg_var
+    return _(result_var)
+
+
+@register.filter
 def widgettype(bound_field):
     try:
         return camelcase_to_underscore(bound_field.field.widget.__class__.__name__)
