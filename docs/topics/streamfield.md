@@ -519,6 +519,33 @@ my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever a
 my_page.save()
 ```
 
+If a block extending a StructBlock is to be used inside of the StreamField's value, the value of this block needs to be set using the block's `.to_python` method.
+
+```python
+
+from wagtail import blocks
+
+class UrlWithTextBlock(blocks.StructBlock):
+   url = blocks.URLBlock()
+   text = blocks.TextBlock()
+
+# using this block inside the content
+
+block = UrlWithTextBlock()
+data = {
+    'url': 'https://github.com/wagtail/',
+    'text': 'A very interesting and useful repo'
+}
+value = block.to_python(data)
+# this step is optional, but checks for validation errors
+cleaned_value = block.clean(value)
+
+# append the new block to the stream as a tuple with the defined index for this block type
+my_page.body.append(('url', cleaned_value))
+my_page.save()
+
+```
+
 (streamfield_retrieving_blocks_by_name)=
 
 ## Retrieving blocks by name
