@@ -6,6 +6,7 @@ Changelog
 
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
+ * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
