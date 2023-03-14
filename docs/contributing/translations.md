@@ -66,6 +66,19 @@ _("Page {page_title} with status {status}".format(page_title=page.title, status=
 
 # Do not use f-string
 _(f"Page {page.title} with status {page.status_string}")
+
+# Do not use {%translate%} or {%blocktranslate%}
+{% trans 'page_title' as title %}
+{% trans 'status' as status_string %}
+{%status page.status=status_string page.title=title %}
+
+{%status page.status=_("status") page.title=_("page_title) %}
+
+
+
+
+
+
 ```
 
 ## Additional resources

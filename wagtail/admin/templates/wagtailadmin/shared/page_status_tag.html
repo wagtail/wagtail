@@ -1,14 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 {% if page.live %}
     {% with page_url=page.url %}
-        {% trans "Current page status:" as status_hidden_label %}
-        {% if page_url is not None %}
-            {% trans 'Visit the live page' as status_title %}
-            {% status page.status_string url=page_url title=status_title hidden_label=status_hidden_label classname="primary" attrs='target="_blank" rel="noreferrer"' %}
-        {% else %}
-            {% status page.status_string hidden_label=status_hidden_label classname="primary" %}
-        {% endif %}
+        {% comment %}Translators: Keep trailing comma{% endcomment %}
+        {% status page.status_string url=page_url title=page_url|yesno:_("Visit the live page,") hidden_label=_("Current page status:") classname="primary" attrs=page_url|yesno:"target='_blank' rel='noreferrer'," %}
     {% endwith %}
 {% else %}
-    {% status page.status_string hidden_label=status_hidden_label %}
+    {% status page.status_string hidden_label=_("Current page status:") %}
 {% endif %}
