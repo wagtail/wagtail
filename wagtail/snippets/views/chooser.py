@@ -35,12 +35,10 @@ class BaseSnippetChooseView(BaseChooseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
         context.update(
             {
                 "snippet_type_name": self.model._meta.verbose_name,
-                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
+                "add_url_name": self.model.snippet_viewset.get_url_name("add"),
             }
         )
         return context

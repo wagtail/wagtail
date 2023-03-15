@@ -1,5 +1,3 @@
-from functools import partial
-
 import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
@@ -395,24 +393,6 @@ class UsageView(generic.UsageView):
     permission_required = "change"
 
 
-def redirect_to_edit(request, app_label, model_name, pk):
-    return redirect(
-        f"wagtailsnippets_{app_label}_{model_name}:edit", pk, permanent=True
-    )
-
-
-def redirect_to_delete(request, app_label, model_name, pk):
-    return redirect(
-        f"wagtailsnippets_{app_label}_{model_name}:delete", pk, permanent=True
-    )
-
-
-def redirect_to_usage(request, app_label, model_name, pk):
-    return redirect(
-        f"wagtailsnippets_{app_label}_{model_name}:usage", pk, permanent=True
-    )
-
-
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=_("Action"),
@@ -634,6 +614,14 @@ class SnippetViewSet(ViewSet):
     #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
     list_display = None
 
+    #: The URL namespace to use for the admin views.
+    #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
+    admin_url_namespace = None
+
+    #: The base URL path to use for the admin views.
+    #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
+    base_url_path = None
+
     #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
     index_view_class = IndexView
 
@@ -699,16 +687,22 @@ class SnippetViewSet(ViewSet):
 
     chooser_viewset_class = SnippetChooserViewSet
 
-    def __init__(self, name, **kwargs):
-        super().__init__(name, **kwargs)
+    def __init__(self, model, **kwargs):
+        self.model = model
+        self.app_label = self.model._meta.app_label
+        self.model_name = self.model._meta.model_name
+
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
         self.workflow_enabled = issubclass(self.model, WorkflowMixin)
         self.locking_enabled = issubclass(self.model, LockableMixin)
 
-        self.app_label = self.model._meta.app_label
-        self.model_name = self.model._meta.model_name
+        super().__init__(
+            name=self.get_admin_url_namespace(),
+            url_prefix=self.get_admin_base_path(),
+            **kwargs,
+        )
 
         if not self.list_display:
             self.list_display = self.index_view_class.list_display.copy()
@@ -975,27 +969,24 @@ class SnippetViewSet(ViewSet):
 
     @property
     def redirect_to_edit_view(self):
-        return partial(
-            redirect_to_edit,
-            app_label=self.app_label,
-            model_name=self.model_name,
-        )
+        def redirect_to_edit(request, pk):
+            return redirect(self.get_url_name("edit"), pk, permanent=True)
+
+        return redirect_to_edit
 
     @property
     def redirect_to_delete_view(self):
-        return partial(
-            redirect_to_delete,
-            app_label=self.app_label,
-            model_name=self.model_name,
-        )
+        def redirect_to_delete(request, pk):
+            return redirect(self.get_url_name("delete"), pk, permanent=True)
+
+        return redirect_to_delete
 
     @property
     def redirect_to_usage_view(self):
-        return partial(
-            redirect_to_usage,
-            app_label=self.app_label,
-            model_name=self.model_name,
-        )
+        def redirect_to_usage(request, pk):
+            return redirect(self.get_url_name("usage"), pk, permanent=True)
+
+        return redirect_to_usage
 
     @property
     def chooser_viewset(self):
@@ -1005,6 +996,16 @@ class SnippetViewSet(ViewSet):
             url_prefix=f"snippets/choose/{self.app_label}/{self.model_name}",
             icon=self.icon,
         )
+
+    def get_admin_url_namespace(self):
+        if self.admin_url_namespace:
+            return self.admin_url_namespace
+        return f"wagtailsnippets_{self.app_label}_{self.model_name}"
+
+    def get_admin_base_path(self):
+        if self.base_url_path:
+            return self.base_url_path.strip().strip("/")
+        return f"snippets/{self.app_label}/{self.model_name}"
 
     @property
     def url_finder_class(self):
@@ -1134,8 +1135,21 @@ class SnippetViewSet(ViewSet):
 
         checks.register(snippets_model_check, "panels")
 
+    def register_model_methods(self):
+        @classmethod
+        def get_admin_url_namespace(cls):
+            return self.get_admin_url_namespace()
+
+        @classmethod
+        def get_admin_base_path(cls):
+            return self.get_admin_base_path()
+
+        self.model.get_admin_url_namespace = get_admin_url_namespace
+        self.model.get_admin_base_path = get_admin_base_path
+
     def on_register(self):
         super().on_register()
         viewsets.register(self.chooser_viewset)
         self.register_admin_url_finder()
         self.register_model_check()
+        self.register_model_methods()

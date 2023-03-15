@@ -22,10 +22,7 @@ class TestCustomIcon(WagtailTestUtils, TestCase):
         self.revision_2 = self.object.save_revision()
 
     def get_url(self, url_name, args=()):
-        app_label = self.object._meta.app_label
-        model_name = self.object._meta.model_name
-        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
-        return reverse(view_name, args=args)
+        return reverse(self.object.snippet_viewset.get_url_name(url_name), args=args)
 
     def test_get_views(self):
         pk = quote(self.object.pk)
