@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import get_edit_handler
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Workflow, WorkflowContentType
@@ -150,3 +151,68 @@ class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
         for key in response.context.keys():
             if "icon" in key:
                 self.assertNotIn("snippet", response.context[key])
+
+
+class TestAdminURLs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_default_url_namespace(self):
+        snippet = Advert.objects.create(text="foo")
+        viewset = snippet.snippet_viewset
+        # Accessed via the viewset
+        self.assertEqual(
+            viewset.get_admin_url_namespace(),
+            "wagtailsnippets_tests_advert",
+        )
+        # Accessed via the model
+        self.assertEqual(
+            snippet.get_admin_url_namespace(),
+            "wagtailsnippets_tests_advert",
+        )
+        # Get specific URL name
+        self.assertEqual(
+            viewset.get_url_name("edit"),
+            "wagtailsnippets_tests_advert:edit",
+        )
+
+    def test_default_admin_base_path(self):
+        snippet = Advert.objects.create(text="foo")
+        viewset = snippet.snippet_viewset
+        pk = quote(snippet.pk)
+        expected_url = f"/admin/snippets/tests/advert/edit/{pk}/"
+
+        # Accessed via the viewset
+        self.assertEqual(viewset.get_admin_base_path(), "snippets/tests/advert")
+        # Accessed via the model
+        self.assertEqual(snippet.get_admin_base_path(), "snippets/tests/advert")
+        # Get specific URL
+        self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
+        # Ensure AdminURLFinder returns the correct URL
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(snippet), expected_url)
+
+    def test_custom_url_namespace(self):
+        snippet = FullFeaturedSnippet.objects.create(text="customised")
+        viewset = snippet.snippet_viewset
+        # Accessed via the viewset
+        self.assertEqual(viewset.get_admin_url_namespace(), "some_namespace")
+        # Accessed via the model
+        self.assertEqual(snippet.get_admin_url_namespace(), "some_namespace")
+        # Get specific URL name
+        self.assertEqual(viewset.get_url_name("edit"), "some_namespace:edit")
+
+    def test_custom_admin_base_path(self):
+        snippet = FullFeaturedSnippet.objects.create(text="customised")
+        viewset = snippet.snippet_viewset
+        pk = quote(snippet.pk)
+        expected_url = f"/admin/deep/within/the/admin/edit/{pk}/"
+        # Accessed via the viewset
+        self.assertEqual(viewset.get_admin_base_path(), "deep/within/the/admin")
+        # Accessed via the model
+        self.assertEqual(snippet.get_admin_base_path(), "deep/within/the/admin")
+        # Get specific URL
+        self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
+        # Ensure AdminURLFinder returns the correct URL
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(snippet), expected_url)
