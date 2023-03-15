@@ -232,6 +232,8 @@ register_snippet(FilterableSnippet, viewset=FilterableSnippetViewSet)
 
 class FullFeaturedSnippetViewSet(SnippetViewSet):
     icon = "cog"
+    admin_url_namespace = "some_namespace"
+    base_url_path = "deep/within/the/admin"
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)

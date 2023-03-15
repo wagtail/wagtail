@@ -995,11 +995,16 @@ class SnippetViewSet(ViewSet):
         )
 
     def get_admin_url_namespace(self):
+        """Returns the URL namespace for the admin URLs for this model."""
         if self.admin_url_namespace:
             return self.admin_url_namespace
         return f"wagtailsnippets_{self.app_label}_{self.model_name}"
 
     def get_admin_base_path(self):
+        """
+        Returns the base path for the admin URLs for this model.
+        The returned string must not begin or end with a slash.
+        """
         if self.base_url_path:
             return self.base_url_path.strip().strip("/")
         return f"snippets/{self.app_label}/{self.model_name}"

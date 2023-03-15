@@ -569,6 +569,8 @@ class MemberFilterSet(WagtailFilterSet):
 
 You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.icon` attribute to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
 
+The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.admin_url_namespace` attribute can be set to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.base_url_path` allows you to customise the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`. If you need further customisations, you can also override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_admin_url_namespace` and {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_admin_base_path` methods to override the namespace and base URL path, respectively.
+
 The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.
 
 For example:
@@ -584,6 +586,8 @@ from myapp.models import MemberFilterSet
 class MemberViewSet(SnippetViewSet):
     icon = "user"
     list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
+    admin_url_namespace = "member_views"
+    base_url_path = "internal/member"
     filterset_class = MemberFilterSet
 ```
 
