@@ -1,14 +1,6 @@
-from django.contrib.admin.utils import quote
-from django.urls import reverse
-
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.snippets.models import get_snippet_models
-
-
-def get_edit_url(app_label, model_name, snippet):
-    return reverse(
-        f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quote(snippet.pk)]
-    )
 
 
 class SnippetBulkAction(BulkAction):
@@ -17,9 +9,7 @@ class SnippetBulkAction(BulkAction):
     def object_context(self, snippet):
         return {
             "item": snippet,
-            "edit_url": get_edit_url(
-                self.model._meta.app_label, self.model._meta.model_name, snippet
-            ),
+            "edit_url": AdminURLFinder(self.request.user).get_edit_url(snippet),
         }
 
     def get_context_data(self, **kwargs):

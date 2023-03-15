@@ -668,17 +668,13 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.user = self.login()
 
     def get(self, params={}, model=Advert):
-        app_label = model._meta.app_label
-        model_name = model._meta.model_name
         return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"), params
+            reverse(model.snippet_viewset.get_url_name("add")), params
         )
 
     def post(self, post_data={}, model=Advert):
-        app_label = model._meta.app_label
-        model_name = model._meta.model_name
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"), post_data
+            reverse(model.snippet_viewset.get_url_name("add")), post_data
         )
 
     def test_get_with_limited_permissions(self):
@@ -1298,10 +1294,8 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
 class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
     def get_edit_url(self):
         snippet = self.test_snippet
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
-        return reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args)
+        return reverse(snippet.snippet_viewset.get_url_name("edit"), args=args)
 
     def get(self, params={}):
         return self.client.get(self.get_edit_url(), params)
@@ -3860,12 +3854,9 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         return self.client.get(self.get_url(snippet, "history"), params)
 
     def get_url(self, snippet, url_name, args=None):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
-        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
         if args is None:
             args = [quote(snippet.pk)]
-        return reverse(view_name, args=args)
+        return reverse(snippet.snippet_viewset.get_url_name(url_name), args=args)
 
     def setUp(self):
         self.user = self.login()
@@ -4010,9 +4001,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         return self.client.post(self.revert_url, post_data)
 
     def get_url(self, url_name, args=None):
-        app_label = self.snippet._meta.app_label
-        model_name = self.snippet._meta.model_name
-        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
+        view_name = self.snippet.snippet_viewset.get_url_name(url_name)
         if args is None:
             args = [quote(self.snippet.pk)]
         return reverse(view_name, args=args)
@@ -5004,27 +4993,22 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def get(self, snippet, params={}):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
         return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args), params
+            reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
+            params,
         )
 
     def post(self, snippet, post_data={}):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args),
+            reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
             post_data,
         )
 
     def create(self, snippet, post_data={}, model=Advert):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"),
+            reverse(snippet.snippet_viewset.get_url_name("add")),
             post_data,
         )
 

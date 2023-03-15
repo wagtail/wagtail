@@ -29,10 +29,8 @@ class BaseLockingTestCase(WagtailTestUtils, TestCase):
         return self.model._meta.verbose_name
 
     def get_url(self, name, args=None):
-        app_label = self.snippet._meta.app_label
-        model_name = self.snippet._meta.model_name
         args = args if args is not None else [quote(self.snippet.pk)]
-        return reverse(f"wagtailsnippets_{app_label}_{model_name}:{name}", args=args)
+        return reverse(self.snippet.snippet_viewset.get_url_name(name), args=args)
 
     def lock_snippet(self, user=None):
         self.snippet.locked = True
