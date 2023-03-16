@@ -139,9 +139,8 @@ class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
         self.assertNotIn("icon-snippet", field_html)
 
     def test_chooser_popup(self):
-        response = self.client.get(
-            reverse("wagtailsnippetchoosers_tests_fullfeaturedsnippet:choose")
-        )
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.get(reverse(chooser_viewset.get_url_name("choose")))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["header_icon"], "cog")
         self.assertContains(response, "icon icon-cog", count=1)
@@ -175,12 +174,23 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
             viewset.get_url_name("edit"),
             "wagtailsnippets_tests_advert:edit",
         )
+        # Chooser namespace
+        self.assertEqual(
+            viewset.get_chooser_admin_url_namespace(),
+            "wagtailsnippetchoosers_tests_advert",
+        )
+        # Get specific chooser URL name
+        self.assertEqual(
+            viewset.chooser_viewset.get_url_name("choose"),
+            "wagtailsnippetchoosers_tests_advert:choose",
+        )
 
     def test_default_admin_base_path(self):
         snippet = Advert.objects.create(text="foo")
         viewset = snippet.snippet_viewset
         pk = quote(snippet.pk)
         expected_url = f"/admin/snippets/tests/advert/edit/{pk}/"
+        expected_choose_url = "/admin/snippets/choose/tests/advert/"
 
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "snippets/tests/advert")
@@ -191,6 +201,16 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         # Ensure AdminURLFinder returns the correct URL
         url_finder = AdminURLFinder(self.user)
         self.assertEqual(url_finder.get_edit_url(snippet), expected_url)
+        # Chooser base path
+        self.assertEqual(
+            viewset.get_chooser_admin_base_path(),
+            "snippets/choose/tests/advert",
+        )
+        # Get specific chooser URL
+        self.assertEqual(
+            reverse(viewset.chooser_viewset.get_url_name("choose")),
+            expected_choose_url,
+        )
 
     def test_custom_url_namespace(self):
         snippet = FullFeaturedSnippet.objects.create(text="customised")
@@ -201,12 +221,23 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         self.assertEqual(snippet.get_admin_url_namespace(), "some_namespace")
         # Get specific URL name
         self.assertEqual(viewset.get_url_name("edit"), "some_namespace:edit")
+        # Chooser namespace
+        self.assertEqual(
+            viewset.get_chooser_admin_url_namespace(),
+            "my_chooser_namespace",
+        )
+        # Get specific chooser URL name
+        self.assertEqual(
+            viewset.chooser_viewset.get_url_name("choose"),
+            "my_chooser_namespace:choose",
+        )
 
     def test_custom_admin_base_path(self):
         snippet = FullFeaturedSnippet.objects.create(text="customised")
         viewset = snippet.snippet_viewset
         pk = quote(snippet.pk)
         expected_url = f"/admin/deep/within/the/admin/edit/{pk}/"
+        expected_choose_url = "/admin/choose/wisely/"
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "deep/within/the/admin")
         # Accessed via the model
@@ -216,3 +247,13 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         # Ensure AdminURLFinder returns the correct URL
         url_finder = AdminURLFinder(self.user)
         self.assertEqual(url_finder.get_edit_url(snippet), expected_url)
+        # Chooser base path
+        self.assertEqual(
+            viewset.get_chooser_admin_base_path(),
+            "choose/wisely",
+        )
+        # Get specific chooser URL
+        self.assertEqual(
+            reverse(viewset.chooser_viewset.get_url_name("choose")),
+            expected_choose_url,
+        )
