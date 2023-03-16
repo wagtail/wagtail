@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.module_loading import import_string
 
 from wagtail.admin.viewsets import viewsets
+from wagtail.hooks import search_for_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
 
 SNIPPET_MODELS = []
@@ -25,12 +26,16 @@ DEFERRED_REGISTRATIONS = []
 
 
 def get_snippet_models():
+    # Snippets can be registered in wagtail_hooks.py by calling register_snippet
+    # as a function instead of a decorator. Make sure we search for hooks before
+    # returning the list of snippet models.
+    search_for_hooks()
     return SNIPPET_MODELS
 
 
 @lru_cache(maxsize=None)
 def get_workflow_enabled_models():
-    return [model for model in SNIPPET_MODELS if issubclass(model, WorkflowMixin)]
+    return [model for model in get_snippet_models() if issubclass(model, WorkflowMixin)]
 
 
 def get_editable_models(user):
@@ -38,7 +43,7 @@ def get_editable_models(user):
 
     return [
         model
-        for model in SNIPPET_MODELS
+        for model in get_snippet_models()
         if user.has_perm(get_permission_name("change", model))
     ]
 
@@ -127,7 +132,7 @@ def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
         )
 
     model_cts = ContentType.objects.get_for_models(
-        *SNIPPET_MODELS, for_concrete_models=False
+        *get_snippet_models(), for_concrete_models=False
     )
 
     permissions = []
