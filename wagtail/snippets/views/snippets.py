@@ -622,6 +622,14 @@ class SnippetViewSet(ViewSet):
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
     base_url_path = None
 
+    #: The URL namespace to use for the chooser admin views.
+    #: If left unset, ``wagtailsnippetchoosers_{app_label}_{model_name}`` is used instead.
+    chooser_admin_url_namespace = None
+
+    #: The base URL path to use for the chooser admin views.
+    #: If left unset, ``snippets/choose/{app_label}/{model_name}`` is used instead.
+    chooser_base_url_path = None
+
     #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
     index_view_class = IndexView
 
@@ -991,9 +999,9 @@ class SnippetViewSet(ViewSet):
     @property
     def chooser_viewset(self):
         return self.chooser_viewset_class(
-            f"wagtailsnippetchoosers_{self.app_label}_{self.model_name}",
+            self.get_chooser_admin_url_namespace(),
             model=self.model,
-            url_prefix=f"snippets/choose/{self.app_label}/{self.model_name}",
+            url_prefix=self.get_chooser_admin_base_path(),
             icon=self.icon,
         )
 
@@ -1011,6 +1019,21 @@ class SnippetViewSet(ViewSet):
         if self.base_url_path:
             return self.base_url_path.strip().strip("/")
         return f"snippets/{self.app_label}/{self.model_name}"
+
+    def get_chooser_admin_url_namespace(self):
+        """Returns the URL namespace for the chooser admin URLs for this model."""
+        if self.chooser_admin_url_namespace:
+            return self.chooser_admin_url_namespace
+        return f"wagtailsnippetchoosers_{self.app_label}_{self.model_name}"
+
+    def get_chooser_admin_base_path(self):
+        """
+        Returns the base path for the chooser admin URLs for this model.
+        The returned string must not begin or end with a slash.
+        """
+        if self.chooser_base_url_path:
+            return self.chooser_base_url_path.strip().strip("/")
+        return f"snippets/choose/{self.app_label}/{self.model_name}"
 
     @property
     def url_finder_class(self):
