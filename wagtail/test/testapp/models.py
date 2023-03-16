@@ -1175,6 +1175,21 @@ class VariousOnDeleteModel(models.Model):
         Advert, on_delete=models.DO_NOTHING, null=True, blank=True, related_name="+"
     )
 
+    protected_image = models.ForeignKey(
+        "wagtailimages.Image",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    protected_document = models.ForeignKey(
+        "wagtaildocs.Document",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, null=True, blank=True
     )
