@@ -49,7 +49,15 @@ class ExampleForm(forms.Form):
 
     CHOICES = (
         ("choice1", "choice 1"),
-        ("choice2", "choice 2"),
+        ("choice2", "choice 2 that is longer but pretty normal"),
+        (
+            "choice3",
+            """
+            choice 3 that has a very long label that it cannot possibly fit within the
+            width of the parent container but we're going to test it anyway to see
+            what happens and how it wraps and whether it breaks the layout or not
+            """,
+        ),
     )
 
     text = forms.CharField(required=True, help_text="help text")
@@ -60,8 +68,13 @@ class ExampleForm(forms.Form):
     date = forms.DateField()
     time = forms.TimeField()
     datetime = forms.DateTimeField()
-    select = forms.ChoiceField(choices=CHOICES)
+    select = forms.ChoiceField(choices=CHOICES[:2])
+    long_select = forms.ChoiceField(choices=CHOICES)
     radio_select = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    multiple_select = forms.MultipleChoiceField(choices=CHOICES)
+    multiple_checkbox = forms.MultipleChoiceField(
+        choices=CHOICES, widget=forms.CheckboxSelectMultiple
+    )
     boolean = forms.BooleanField(required=False)
     switch = forms.BooleanField(required=False)
     disabled_switch = forms.BooleanField(required=False)
