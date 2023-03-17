@@ -24,6 +24,8 @@ select {
   min-height: $select-size;
   padding: 0 theme('spacing.5');
   padding-inline-end: $select-size;
+  // Prevent the element from overflowing the container.
+  max-width: 100%;
 
   @media (forced-colors: active) {
     appearance: auto;
