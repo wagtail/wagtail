@@ -147,7 +147,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     index_results_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
-    paginate_by = 20
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
@@ -614,6 +613,9 @@ class SnippetViewSet(ViewSet):
     #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
     list_display = None
 
+    #: The number of items to display per page in the index view. Defaults to 20.
+    list_per_page = 20
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -751,6 +753,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
+            paginate_by=self.list_per_page,
         )
 
     @property
@@ -767,6 +770,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
+            paginate_by=self.list_per_page,
         )
 
     @property
