@@ -237,6 +237,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     chooser_admin_url_namespace = "my_chooser_namespace"
     chooser_base_url_path = "choose/wisely"
     list_per_page = 5
+    chooser_per_page = 15
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)

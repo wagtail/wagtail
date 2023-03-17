@@ -616,6 +616,9 @@ class SnippetViewSet(ViewSet):
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
+    #: The number of items to display in the chooser view. Defaults to 10.
+    chooser_per_page = 10
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -1007,6 +1010,7 @@ class SnippetViewSet(ViewSet):
             model=self.model,
             url_prefix=self.get_chooser_admin_base_path(),
             icon=self.icon,
+            per_page=self.chooser_per_page,
         )
 
     def get_admin_url_namespace(self):

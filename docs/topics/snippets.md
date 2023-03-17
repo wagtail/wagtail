@@ -573,7 +573,7 @@ The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.admin_url_namespace` 
 
 Similar URL customisations are also possible for the snippet chooser views through {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_admin_url_namespace`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_base_url_path`, {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_chooser_admin_url_namespace`, and {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_chooser_admin_base_path`.
 
-The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.
+The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing). You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.
 
 For example:
 

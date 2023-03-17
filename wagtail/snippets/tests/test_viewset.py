@@ -293,3 +293,27 @@ class TestPagination(WagtailTestUtils, TestCase):
         self.assertContains(response, "Page 1 of 7")
         self.assertContains(response, "Next")
         self.assertContains(response, list_url + "?p=2")
+
+    def test_default_chooser_pagination(self):
+        chooser_viewset = Advert.snippet_viewset.chooser_viewset
+        choose_url = reverse(chooser_viewset.get_url_name("choose"))
+        choose_results_url = reverse(chooser_viewset.get_url_name("choose_results"))
+        response = self.client.get(choose_url)
+
+        # Default is 10 per page
+        self.assertEqual(Advert.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 4")
+        self.assertContains(response, "Next")
+        self.assertContains(response, choose_results_url + "?p=2")
+
+    def test_custom_chooser_pagination(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        choose_url = reverse(chooser_viewset.get_url_name("choose"))
+        choose_results_url = reverse(chooser_viewset.get_url_name("choose_results"))
+        response = self.client.get(choose_url)
+
+        # FullFeaturedSnippet is set to display 15 per page
+        self.assertEqual(FullFeaturedSnippet.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 3")
+        self.assertContains(response, "Next")
+        self.assertContains(response, choose_results_url + "?p=2")
