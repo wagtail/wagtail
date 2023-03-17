@@ -1,6 +1,7 @@
 import warnings
 from collections import OrderedDict
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.conf import settings
 from django.contrib.admin import FieldListFilter
@@ -343,7 +344,11 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
         except ValueError:
             self.page_num = 0
 
-        self.params = dict(request.GET.items())
+        if DJANGO_VERSION >= (5, 0):
+            self.params = request.GET.copy()
+        else:
+            self.params = request.GET.dict()
+
         if self.PAGE_VAR in self.params:
             del self.params[self.PAGE_VAR]
         if self.ERROR_FLAG in self.params:
@@ -632,7 +637,16 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             # Finally, we apply the remaining lookup parameters from the query
             # string (i.e. those that haven't already been processed by the
             # filters).
-            qs = qs.filter(**remaining_lookup_params)
+            if DJANGO_VERSION >= (5, 0):
+                from django.contrib.admin.utils import (
+                    build_q_object_from_lookup_parameters,
+                )
+
+                qs = qs.filter(
+                    build_q_object_from_lookup_parameters(remaining_lookup_params)
+                )
+            else:
+                qs = qs.filter(**remaining_lookup_params)
         except (SuspiciousOperation, ImproperlyConfigured):
             # Allow certain types of errors to be re-raised as-is so that the
             # caller can treat them in a special way.
