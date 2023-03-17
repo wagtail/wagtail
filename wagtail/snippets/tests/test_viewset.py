@@ -6,7 +6,7 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import get_edit_handler
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Workflow, WorkflowContentType
+from wagtail.models import Locale, Workflow, WorkflowContentType
 from wagtail.test.testapp.models import Advert, FullFeaturedSnippet, SnippetChooserModel
 from wagtail.test.utils import WagtailTestUtils
 
@@ -257,3 +257,39 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
             reverse(viewset.chooser_viewset.get_url_name("choose")),
             expected_choose_url,
         )
+
+
+class TestPagination(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            FullFeaturedSnippet(text=f"Snippet {i}", locale=default_locale)
+            for i in range(32)
+        ]
+        FullFeaturedSnippet.objects.bulk_create(objects)
+        objects = [Advert(text=f"Snippet {i}") for i in range(32)]
+        Advert.objects.bulk_create(objects)
+
+    def test_default_list_pagination(self):
+        list_url = reverse(Advert.snippet_viewset.get_url_name("list"))
+        response = self.client.get(list_url)
+
+        # Default is 20 per page
+        self.assertEqual(Advert.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, "Next")
+        self.assertContains(response, list_url + "?p=2")
+
+    def test_custom_list_pagination(self):
+        list_url = reverse(FullFeaturedSnippet.snippet_viewset.get_url_name("list"))
+        response = self.client.get(list_url)
+
+        # FullFeaturedSnippet is set to display 5 per page
+        self.assertEqual(FullFeaturedSnippet.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 7")
+        self.assertContains(response, "Next")
+        self.assertContains(response, list_url + "?p=2")
