@@ -11,9 +11,9 @@ describe('InlinePanel', () => {
     <input name="person_cafe_relationship-MIN_NUM_FORMS" value="1" id="id_person_cafe_relationship-MIN_NUM_FORMS" type="hidden" />
     <input name="person_cafe_relationship-MAX_NUM_FORMS" value="5" id="id_person_cafe_relationship-MAX_NUM_FORMS" type="hidden" />
     <div id="id_person_cafe_relationship-FORMS"></div>
-    <script type="text/django-form-template" id="id_person_cafe_relationship-EMPTY_FORM_TEMPLATE">
+    <template id="id_person_cafe_relationship-EMPTY_FORM_TEMPLATE">
         <p id="person_cafe_relationship-__prefix__">form for inline child</p>
-    </script>
+    </template>
     <button type="button" id="id_person_cafe_relationship-ADD">Add item</button>
 </form>`;
   });
