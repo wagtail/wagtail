@@ -64,7 +64,7 @@ const Template = ({ url }) => (
     <h4>
       Disabled buttons <small>(small)</small>
     </h4>
-    <a href={url} className="button button-small disabled">
+    <a href={url} className="button button-small w-status--disabled">
       button link
     </a>
     <button type="button" className="button button-small disabled">
