@@ -14,6 +14,43 @@ export class ExpandingFormset {
       }
     }
 
+    const formtemplate = (
+      emptyFormTemplate = document.getElementById(
+        prefix + '-EMPTY_FORM_TEMPLATE',
+      ),
+      rootElement = document.body,
+    ) => {
+      const formTemplates = Array.from(emptyFormTemplate).map((template) => {
+        const html = document.documentElement;
+        const templateContent = template.content.firstElementChild;
+        const { emptyFormTemplate, theme } = templateContent.dataset;
+        const formRoot =
+          (emptyFormTemplate && rootElement.querySelector(emptyFormTemplate)) ||
+          rootElement;
+        formRoot.appendChild(templateContent);
+        const formtemp = new a11y_dialog__WEBPACK_IMPORTED_MODULE_0__[
+          'default'
+        ](templateContent);
+        if (theme !== 'floating') {
+          // Prevent scrolling when form is open
+          formtemp
+            .on('show', () => {
+              html.style.overflowY = 'hidden';
+            })
+            .on('hide', () => {
+              html.style.overflowY = '';
+            });
+        }
+        // Attach event listeners to the formtemp (element with id), so it's
+        // possible to show/close the dialog somewhere else with no access to the
+        // A11yDialog instance.
+        templateContent.addEventListener('wagtail:show', () => formtemp.show());
+        templateContent.addEventListener('wagtail:hide', () => formtemp.hide());
+        return formtemp;
+      });
+      return formTemplates;
+    };
+
     const emptyFormElement = document.getElementById(
       prefix + '-EMPTY_FORM_TEMPLATE',
     );

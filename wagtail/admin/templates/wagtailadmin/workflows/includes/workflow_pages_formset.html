@@ -39,13 +39,13 @@
     </tbody>
 </table>
 
-<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+<template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
     {% escapescript %}
         <tr id="inline_child_{{ formset.empty_form.prefix }}">
         {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=formset.empty_form only %}
         </tr>
     {% endescapescript %}
-</script>
+</template>
 
 <p class="add">
     <button class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add" type="button">{% trans "Assign to another page" %}</button>
