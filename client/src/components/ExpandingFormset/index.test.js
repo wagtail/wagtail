@@ -2,6 +2,9 @@ import { ExpandingFormset } from './index';
 
 describe('ExpandingFormset', () => {
   it('should add an expanded item if the add button is not disabled', () => {
+    const handleLoadedEvent = jest.fn();
+    document.addEventListener('custom:loaded', handleLoadedEvent);
+
     const prefix = 'id_form_fields';
     document.body.innerHTML = `
     <div id="content">
@@ -22,13 +25,14 @@ describe('ExpandingFormset', () => {
       <button class="button" id="${prefix}-ADD" type="button">
         Add form fields
       </button>
-      <script type="text/django-form-template" id="${prefix}-EMPTY_FORM_TEMPLATE">
+      <template id="${prefix}-EMPTY_FORM_TEMPLATE">
         <li id="inline_child_form_fields-__prefix__" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-__prefix__-label" id="id_form_fields-__prefix__-label">
           <input type="hidden" name="form_fields-__prefix__-id" id="id_form_fields-__prefix__-id">
           <input type="hidden" name="form_fields-__prefix__-DELETE" id="id_form_fields-__prefix__-DELETE">
         </li>
-      </script>
+        <script>document.dispatchEvent(new CustomEvent('custom:loaded', { bubbles: true }));</script>
+      </template>
     </div>`;
 
     const onAdd = jest.fn();
@@ -51,6 +55,9 @@ describe('ExpandingFormset', () => {
     expect(onInit).toHaveBeenNthCalledWith(1, 0); // zero indexed
     expect(onInit).toHaveBeenNthCalledWith(2, 1);
 
+    // confirm inner script is not run
+    expect(handleLoadedEvent).not.toHaveBeenCalled();
+
     // click the 'add' button
     document
       .getElementById(`${prefix}-ADD`)
@@ -64,6 +71,8 @@ describe('ExpandingFormset', () => {
     expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
       3,
     );
+    // confirm inner script has been added to DOM correctly
+    expect(handleLoadedEvent).toHaveBeenCalledTimes(1);
 
     // check template was created into a new form item or malformed
     expect(
@@ -101,13 +110,13 @@ describe('ExpandingFormset', () => {
       <button class="button" id="${prefix}-ADD" type="button" disabled>
         Add form fields (DISABLED)
       </button>
-      <script type="text/django-form-template" id="${prefix}-EMPTY_FORM_TEMPLATE">
+      <template id="${prefix}-EMPTY_FORM_TEMPLATE">
         <li id="inline_child_form_fields-__prefix__" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-__prefix__-label" id="id_form_fields-__prefix__-label">
           <input type="hidden" name="form_fields-__prefix__-id" id="id_form_fields-__prefix__-id">
           <input type="hidden" name="form_fields-__prefix__-DELETE" id="id_form_fields-__prefix__-DELETE">
         </li>
-      </script>
+      </template>
     </div>`;
 
     const onAdd = jest.fn();
@@ -151,7 +160,7 @@ describe('ExpandingFormset', () => {
     const nestedPrefix = 'events';
 
     const nestedTemplate = `
-<script type="text/django-form-template" id="${prefix}-__prefix__-events-EMPTY_FORM_TEMPLATE">
+<template id="${prefix}-__prefix__-events-EMPTY_FORM_TEMPLATE">
   <ul class="controls">
     <li>
       <button type="button" class="button" id="${prefix}-__prefix__-${nestedPrefix}-__prefix__-DELETE-button">
@@ -163,7 +172,7 @@ describe('ExpandingFormset', () => {
     <legend class="w-sr-only">Events</legend>
     <input type="text" name="venues-__prefix__-events-__prefix__-name" id="id_venues-__prefix__-events-__prefix__-name">
   </fieldset>
-<-/script>
+</template>
     `;
 
     document.body.innerHTML = `
@@ -185,14 +194,14 @@ describe('ExpandingFormset', () => {
       <button class="button" id="${prefix}-ADD" type="button">
         Add Venue
       </button>
-      <script type="text/django-form-template" id="${prefix}-EMPTY_FORM_TEMPLATE">
+      <template id="${prefix}-EMPTY_FORM_TEMPLATE">
         <li id="inline_child_form_fields-__prefix__" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-__prefix__-label" id="id_form_fields-__prefix__-label">
           <input type="hidden" name="form_fields-__prefix__-id" id="id_form_fields-__prefix__-id">
           <input type="hidden" name="form_fields-__prefix__-DELETE" id="id_form_fields-__prefix__-DELETE">
         </li>
         ${nestedTemplate}
-      </script>
+      </template>
     </div>`;
 
     const onAdd = jest.fn();
@@ -233,11 +242,14 @@ describe('ExpandingFormset', () => {
     const newTemplate = document.getElementById(
       `${prefix}-2-events-EMPTY_FORM_TEMPLATE`,
     );
-    expect(newTemplate).toBeTruthy();
-    expect(newTemplate.textContent).toContain(
+    expect(newTemplate instanceof HTMLTemplateElement).toBeTruthy();
+
+    const newTemplateHtml = newTemplate.innerHTML;
+
+    expect(newTemplateHtml).toContain(
       'id="id_venues-2-events-__prefix__-DELETE-button"',
     );
-    expect(newTemplate.textContent).toContain(
+    expect(newTemplateHtml).toContain(
       '<input type="text" name="venues-2-events-__prefix__-name" id="id_venues-2-events-__prefix__-name">',
     );
   });

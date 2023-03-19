@@ -10,9 +10,9 @@ exports[`InlinePanel should allow inserting a new form and calling an onAdd func
     <div id="id_person_cafe_relationship-FORMS">
         <p id="person_cafe_relationship-0">form for inline child</p>
     </div>
-    <script type="text/django-form-template" id="id_person_cafe_relationship-EMPTY_FORM_TEMPLATE">
+    <template id="id_person_cafe_relationship-EMPTY_FORM_TEMPLATE">
         <p id="person_cafe_relationship-__prefix__">form for inline child</p>
-    </script>
+    </template>
     <button type="button" id="id_person_cafe_relationship-ADD">Add item</button>
 </form>"
 `;
