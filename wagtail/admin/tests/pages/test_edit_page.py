@@ -444,6 +444,100 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "This publishing schedule will only take effect after you have published",
         )
 
+    def test_edit_post_scheduled_custom_timezone(self):
+        # Set user's timezone to something different from the server timezone
+        UserProfile.objects.update_or_create(
+            user=self.user,
+            defaults={"current_time_zone": "Asia/Jakarta"},
+        )
+
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "go_live_at": "2022-03-20 06:00",
+        }
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        response = self.client.post(edit_url, post_data, follow=True)
+        html = response.content.decode()
+
+        # Should be redirected to the edit page again
+        self.assertRedirects(response, edit_url, 302, 200)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page will still be live
+        self.assertTrue(child_page_new.live)
+
+        # A revision with approved_go_live_at should not exist
+        self.assertFalse(
+            Revision.page_revisions.filter(object_id=child_page_new.id)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # But a revision with go_live_at in their content json *should* exist
+        if settings.USE_TZ:
+            # The saved timestamp should be in UTC
+            self.assertTrue(
+                Revision.page_revisions.filter(
+                    object_id=child_page_new.id,
+                    content__go_live_at="2022-03-19T23:00:00Z",
+                ).exists()
+            )
+        else:
+            # Without TZ support, just use the submitted timestamp as-is
+            self.assertTrue(
+                Revision.page_revisions.filter(
+                    object_id=child_page_new.id,
+                    content__go_live_at="2022-03-20T06:00:00",
+                ).exists()
+            )
+
+        # Should show the draft go_live_at under the "Once published" label
+        # and should be in the user's timezone
+        self.assertContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            '<span class="w-text-primary">Go-live:</span> March 20, 2022, 6 a.m.',
+            html=True,
+            count=1,
+        )
+
+        # Should show the "Edit schedule" button
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the input with the correct value in the user's timezone
+        self.assertTagInHTML(
+            '<input type="text" name="go_live_at" value="2022-03-20 06:00">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        self.assertContains(
+            response,
+            "This publishing schedule will only take effect after you have published",
+        )
+
     def test_schedule_panel_without_publish_permission(self):
         editor = self.create_user("editor", password="password")
         editor.groups.add(Group.objects.get(name="Editors"))
