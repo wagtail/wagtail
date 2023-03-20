@@ -20,7 +20,7 @@
     </p>
 
     <p>
-        {% fragment as status_tag_variable %}{% status workflow_state.get_status_display classname="primary" %}{% endfragment %}
+        {% fragment as status_tag_variable %}{% status workflow_state.get_status_display classname="w-status--primary" %}{% endfragment %}
         {% blocktrans trimmed with status_tag_variable as status %}Status {{ status }}{% endblocktrans %}
     </p>
 
@@ -71,7 +71,7 @@
                                 {% for task_state in task_states %}
                                     <td>
                                         {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
-                                            {% fragment as status_action %}{% status task_state.get_status_display classname="primary" %}{% endfragment %}
+                                            {% fragment as status_action %}{% status task_state.get_status_display classname="w-status--primary" %}{% endfragment %}
                                             {% if task_state.finished_by %}
                                                 {% blocktrans trimmed with action=status_action|safe who=task_state.finished_by|user_display_name at=task_state.finished_at %}
                                                     {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
@@ -82,7 +82,7 @@
                                                 {% endblocktrans %}
                                             {% endif %}
                                         {% else %}
-                                            {% status task_state.get_status_display classname="primary" %}
+                                            {% status task_state.get_status_display classname="w-status--primary" %}
                                         {% endif %}
                                         {% if task_state.specific.get_comment %}
                                             <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
@@ -110,7 +110,7 @@
                                         <b>{% trans "Workflow started" %}</b>
                                     {% elif timeline_item.action == 'workflow_completed' %}
                                         <b>{% trans "Workflow completed" %}</b>
-                                        {% status timeline_item.workflow_state.get_status_display classname="primary" %}
+                                        {% status timeline_item.workflow_state.get_status_display classname="w-status--primary" %}
                                     {% elif timeline_item.action == 'edited' %}
                                         {% trans "Edited" as action %}
                                         {% if revision.user %}
@@ -124,12 +124,12 @@
                                         <b>{{ timeline_item.task_state.task }}</b>
 
                                         {% if timeline_item.task_state.finished_by %}
-                                            {% fragment as status_action %}{% status timeline_item.task_state.get_status_display classname="primary" %}{% endfragment %}
+                                            {% fragment as status_action %}{% status timeline_item.task_state.get_status_display classname="w-status--primary" %}{% endfragment %}
                                             {% blocktrans trimmed with action=status_action|safe who=timeline_item.task_state.finished_by|user_display_name %}
                                                 {{ action }} by <b>{{ who }}</b>
                                             {% endblocktrans %}
                                         {% else %}
-                                            {% status timeline_item.task_state.get_status_display classname="primary" %}
+                                            {% status timeline_item.task_state.get_status_display classname="w-status--primary" %}
                                         {% endif %}
 
                                         {% if timeline_item.task_state.specific.get_comment %}

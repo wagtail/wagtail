@@ -10,7 +10,7 @@ export default {
   argTypes: {
     ...argTypes,
     classname: {
-      options: [null, 'primary', 'status-tag--label'],
+      options: [null, 'w-status--primary', 'w-status--label'],
     },
     url: {
       options: [null, 'https://wagtail.org/'],

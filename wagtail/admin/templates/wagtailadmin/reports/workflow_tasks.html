@@ -44,12 +44,12 @@
                                 {% i18n_enabled as show_locale_labels %}
                                 {% if show_locale_labels and object.locale_id %}
                                     {% locale_label_from_id object.locale_id as locale_label %}
-                                    {% status locale_label classname="status-tag--label" %}
+                                    {% status locale_label classname="w-status--label" %}
                                 {% endif %}
                             {% endwith %}
                         </td>
                         <td>
-                            {% status task_state.get_status_display classname="primary" %}
+                            {% status task_state.get_status_display classname="w-status--primary" %}
                         </td>
                         <td>{{ task_state.started_at }}</td>
                         <td>{{ task_state.finished_at }}</td>

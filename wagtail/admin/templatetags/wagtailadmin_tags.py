@@ -794,7 +794,7 @@ def status(
 
     Usage:
 
-        {% status label="live" url="/test/" title="title" hidden_label="current status:" classname="primary" %}
+        {% status label="live" url="/test/" title="title" hidden_label="current status:" classname="w-status--primary" %}
 
     :param label: the status test, (string)
     :param classname: defaults to 'status-tag' if not provided (string)

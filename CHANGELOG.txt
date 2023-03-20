@@ -93,6 +93,7 @@ Changelog
  * Maintenance: Remove unused snippets delete-multiple view (Sage Abdullah)
  * Maintenance: Improve performance of determining live page URLs across the admin interface using `pageurl` template tag (Satvik Vashisht)
  * Maintenance: Migrate `window.initSlugAutoPopulate` behaviour to a Stimulus Controller `w-sync` (Loveth Omokaro)
+ * Maintenance: Rename `status` classes to `w-status` to align with preferred CSS class naming conventions (Mansi Gundre)
 
 
 4.2.2 (xx.xx.xxxx) - IN DEVELOPMENT

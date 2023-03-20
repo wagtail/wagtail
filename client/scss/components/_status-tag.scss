@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-.status-tag {
+.w-status {
   border-radius: 2px;
   text-align: center;
   display: inline-block;
@@ -15,13 +15,14 @@
   margin: 0 0.5em 0.5em;
   background: $color-white url('#{$images-root}bg-dark-diag.svg');
 
-  &.primary {
+  &.w-status--primary {
     color: $color-grey-2;
     border: 1px solid $color-grey-2;
     background: $color-white;
   }
 
-  &.disabled {
+  &.w-status--disabled,
+  &[disabled] {
     pointer-events: none;
   }
 
@@ -33,18 +34,18 @@
   }
 }
 
-.listing .index .status-tag--label {
+.listing .index .w-status--label {
   border: 1px solid;
 }
 
-button.status-tag:hover,
-a.status-tag:hover,
-a.status-tag.primary:hover {
+button.w-status:hover,
+a.w-status:hover,
+a.w-status.w-status--primary:hover {
   border-color: $color-teal;
   color: $color-teal;
 }
 
-button.status-tag:hover {
+button.w-status:hover {
   border-color: $color-teal-dark;
   background-color: $color-teal-darker;
   color: $color-white;

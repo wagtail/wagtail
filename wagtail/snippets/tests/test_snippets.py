@@ -3964,10 +3964,10 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
 
         # Should not show the "live version" or "current draft" status tags
         self.assertNotContains(
-            response, '<span class="status-tag primary">Live version</span>'
+            response, '<span class="w-status w-status--primary">Live version</span>'
         )
         self.assertNotContains(
-            response, '<span class="status-tag primary">Current draft</span>'
+            response, '<span class="w-status w-status--primary">Current draft</span>'
         )
 
         # The latest revision should have an "Edit" action instead of "Review"
@@ -3997,7 +3997,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # Should show the "live version" status tag for the published revision
         self.assertContains(
             response,
-            '<span class="status-tag primary">Live version</span>',
+            '<span class="w-status w-status--primary">Live version</span>',
             count=1,
             html=True,
         )
@@ -4005,7 +4005,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # Should show the "current draft" status tag for the draft revision
         self.assertContains(
             response,
-            '<span class="status-tag primary">Current draft</span>',
+            '<span class="w-status w-status--primary">Current draft</span>',
             count=1,
             html=True,
         )
@@ -4585,24 +4585,24 @@ class TestSnippetChooseStatus(WagtailTestUtils, TestCase):
         response = self.get("choose")
         html = response.json()["html"]
         self.assertTagInHTML("<th>Status</th>", html)
-        self.assertTagInHTML('<span class="status-tag">draft</span>', html)
-        self.assertTagInHTML('<span class="status-tag primary">live</span>', html)
+        self.assertTagInHTML('<span class="w-status">draft</span>', html)
         self.assertTagInHTML(
-            '<span class="status-tag primary">live + draft</span>', html
+            '<span class="w-status w-status--primary">live</span>', html
+        )
+        self.assertTagInHTML(
+            '<span class="w-status w-status--primary">live + draft</span>', html
         )
 
     def test_choose_results_view_shows_status_column(self):
         response = self.get("choose_results")
         self.assertContains(response, "<th>Status</th>", html=True)
+        self.assertContains(response, '<span class="w-status">draft</span>', html=True)
         self.assertContains(
-            response, '<span class="status-tag">draft</span>', html=True
-        )
-        self.assertContains(
-            response, '<span class="status-tag primary">live</span>', html=True
+            response, '<span class="w-status w-status--primary">live</span>', html=True
         )
         self.assertContains(
             response,
-            '<span class="status-tag primary">live + draft</span>',
+            '<span class="w-status w-status--primary">live + draft</span>',
             html=True,
         )
 
