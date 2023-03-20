@@ -5,8 +5,8 @@
         {% with revision=instance.revision latest_revision=object.get_latest_revision previous_revision=instance.revision.get_previous %}
             <span>{{ value }}</span>
             {% if draftstate_enabled %}
-                {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}{% trans 'Live version' as status_label %}{% status status_label classname="primary" %}
-                {% elif instance.content_changed and revision == latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="primary" %}{% endif %}
+                {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}{% trans 'Live version' as status_label %}{% status status_label classname="w-status--primary" %}
+                {% elif instance.content_changed and revision == latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
             {% endif %}
             <ul class="actions">
                 {% if preview_enabled and object.is_previewable %}

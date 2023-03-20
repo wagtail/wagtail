@@ -117,7 +117,7 @@ ul.listing {
         display: inline-block;
       }
 
-      .status-tag--label {
+      .w-status--label {
         border: 1px solid;
       }
     }
@@ -141,7 +141,7 @@ ul.listing {
         color: $color-white;
       }
 
-      .status-tag {
+      .w-status {
         border-color: $color-white;
       }
     }
@@ -162,7 +162,7 @@ ul.listing {
         cursor: not-allowed;
       }
 
-      .status-tag {
+      .w-status {
         border-color: inherit;
       }
     }
@@ -245,7 +245,7 @@ ul.listing {
       margin-inline-end: 2.5em;
     }
 
-    .status-tag {
+    .w-status {
       margin: 0;
     }
   }
@@ -387,7 +387,7 @@ ul.listing {
     opacity: 0.7;
   }
 
-  .status-tag {
+  .w-status {
     margin: 0;
     margin-inline: 0;
   }

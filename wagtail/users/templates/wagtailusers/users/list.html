@@ -48,7 +48,7 @@
                 <td class="status" valign="top">
                     {% if user.is_active %}
                         {% trans "Active" as status_label %}
-                        {% status status_label classname="primary" %}
+                        {% status status_label classname="w-status--primary" %}
                     {% else %}
                         {% trans "Inactive" as status_label %}
                         {% status status_label %}

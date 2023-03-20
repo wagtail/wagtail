@@ -24,7 +24,7 @@
                 <tr>
                     <td>
                         {% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id as status_url %}
-                        {% status workflow_state.get_status_display url=status_url classname="primary" %}
+                        {% status workflow_state.get_status_display url=status_url classname="w-status--primary" %}
                     </td>
                     <td class="title">
                         <h2>

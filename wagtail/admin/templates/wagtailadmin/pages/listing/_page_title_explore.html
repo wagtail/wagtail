@@ -16,7 +16,7 @@
     {% endif %}
 
     {% if show_locale_labels %}
-        {% status page.locale.get_display_name classname="status-tag--label" %}
+        {% status page.locale.get_display_name classname="w-status--label" %}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}

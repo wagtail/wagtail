@@ -703,6 +703,7 @@ Contributors
 * George Sakkis
 * Mehul Aggarwal
 * Babitha Kumari
+* Mansi Gundre
 
 Translators
 ===========

@@ -36,7 +36,7 @@
                         {{ redirect.link }}
                     {% endif %}
                 </td>
-                <td class="type">{% status redirect.get_is_permanent_display classname=primary|yesno:"primary," %}</td>
+                <td class="type">{% status redirect.get_is_permanent_display classname=primary|yesno:"w-status--primary," %}</td>
             </tr>
         {% endfor %}
     </tbody>

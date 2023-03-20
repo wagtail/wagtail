@@ -136,7 +136,7 @@ class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "No workflows have been created.")
         self.assertContains(response, "test_workflow")
         self.assertContains(
-            response, '<span class="status-tag">Disabled</span>', html=True
+            response, '<span class="w-status">Disabled</span>', html=True
         )
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
@@ -758,7 +758,7 @@ class TestTaskIndexView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "No tasks have been created.")
         self.assertContains(response, "test_task")
         self.assertContains(
-            response, '<span class="status-tag">Disabled</span>', html=True
+            response, '<span class="w-status">Disabled</span>', html=True
         )
 
         # The listing should not contain task if show_disabled query parameter is 'False'
