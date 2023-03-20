@@ -382,6 +382,7 @@ The first argument must match the value of the `related_name` attribute of the `
 For a brief description of parameters taken by `InlinePanel`, see {ref}`inline_panels`.
 
 ## Re-using inline models across multiple page types
+
 In the above example, related links are defined as a child object on the `BlogPage` page type. Often, the same kind of inline child object will appear on several page types, and in these cases, it's undesirable to repeat the entire model definition. This can be avoided by refactoring the common fields into an abstract model:
 
 ```python
@@ -423,7 +424,6 @@ class RelatedLink(Orderable):
 ```
 
 This will then make `related_links` available as a relation across all page types, although it will still only be editable on page types that include the `InlinePanel` in their panel definitions - for other page types, the set of related links will remain empty.
-
 
 ## Working with pages
 
