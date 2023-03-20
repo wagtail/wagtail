@@ -272,11 +272,14 @@ For example:
 
 ```python
 >>> from wagtail.search.utils import parse_query_string
->>> filters, query = parse_query_string('my query string "this is a phrase" this-is-a:filter', operator='and')
+>>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter', operator='and')
+
+# Alternatively..
+# filters, query = parse_query_string("my query string 'this is a phrase' this_is_a:filter", operator='and')
 
 >>> filters
 {
-    'this-is-a': 'filter',
+    'this_is_a': 'filter',
 }
 
 >>> query

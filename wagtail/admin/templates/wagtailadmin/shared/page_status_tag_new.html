@@ -7,6 +7,7 @@
     - `classes` - String of extra css classes to pass to this component
 {% endcomment %}
 
+{% comment %} Unable to use pageurl template tag here due to issues in unit tests where request is not yet available - see #10157 {% endcomment %}
 {% if page.live and page.url is not None %}
     {% test_page_is_public page as is_public %}
 

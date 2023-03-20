@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.views.home import RecentEditsPanel
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -121,7 +122,8 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.bob = self.create_superuser(username="bob", password="password")
-
+        self.dummy_request = get_dummy_request()
+        self.dummy_request.user = self.bob
         # make a bunch of page edits (all to EventPages, so that calls to specific() don't add
         # an unpredictable number of queries)
         pages_to_edit = Page.objects.filter(id__in=[4, 5, 6, 9, 12, 13]).specific()
@@ -135,7 +137,7 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
             # Instantiating/getting context of RecentEditsPanel should not generate N+1 queries -
             # i.e. any number less than 6 would be reasonable here
             panel = RecentEditsPanel()
-            parent_context = {"request": self.client}
+            parent_context = {"request": self.dummy_request}
             panel.get_context_data(parent_context)
 
         # check that the panel is still actually returning results

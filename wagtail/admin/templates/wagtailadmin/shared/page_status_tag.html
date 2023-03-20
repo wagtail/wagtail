@@ -1,14 +1,13 @@
+{% load wagtailcore_tags %}
 {% load i18n wagtailadmin_tags %}
+{% trans "Current page status:" as status_hidden_label %}
 {% if page.live %}
-    {% with page_url=page.url %}
-        {% trans "Current page status:" as status_hidden_label %}
-        {% if page_url is not None %}
-            {% trans 'Visit the live page' as status_title %}
-            {% status page.status_string url=page_url title=status_title hidden_label=status_hidden_label classname="primary" attrs='target="_blank" rel="noreferrer"' %}
-        {% else %}
-            {% status page.status_string hidden_label=status_hidden_label classname="primary" %}
-        {% endif %}
-    {% endwith %}
+    {% pageurl page as page_url %}
+    {% if page_url is not None %}
+        {% status page.status_string url=page_url title=_("Visit the live page") hidden_label=status_hidden_label classname="primary" attrs='target="_blank" rel="noreferrer"' %}
+    {% else %}
+        {% status page.status_string hidden_label=status_hidden_label classname="primary" %}
+    {% endif %}
 {% else %}
     {% status page.status_string hidden_label=status_hidden_label %}
 {% endif %}
