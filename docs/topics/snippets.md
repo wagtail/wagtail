@@ -573,7 +573,9 @@ The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.admin_url_namespace` 
 
 Similar URL customisations are also possible for the snippet chooser views through {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_admin_url_namespace`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_base_url_path`, {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_chooser_admin_url_namespace`, and {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_chooser_admin_base_path`.
 
-The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing). You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.
+The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing).
+
+You can add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups. If you would like to customise it further, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
 For example:
 
@@ -592,6 +594,10 @@ class MemberViewSet(SnippetViewSet):
     admin_url_namespace = "member_views"
     base_url_path = "internal/member"
     filterset_class = MemberFilterSet
+    # alternatively, you can use the following instead of filterset_class
+    # list_filter = ["shirt_size"]
+    # or
+    # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
 ```
 
 Then, pass the viewset to the `register_snippet` call.

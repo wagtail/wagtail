@@ -1010,9 +1010,6 @@ class DraftStateModel(DraftStateMixin, LockableMixin, RevisionMixin, models.Mode
         return self.text
 
 
-register_snippet(DraftStateModel)
-
-
 class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Model):
     custom_id = models.CharField(max_length=255, primary_key=True)
     text = models.TextField()
@@ -1105,9 +1102,6 @@ class ModeratedModel(WorkflowMixin, DraftStateMixin, RevisionMixin, models.Model
 
     def __str__(self):
         return self.text
-
-
-register_snippet(ModeratedModel)
 
 
 # Snippet with all mixins enabled
