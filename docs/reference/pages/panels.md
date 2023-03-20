@@ -125,7 +125,6 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
 Note that you can use `classname="collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
 
-
 (multiple_chooser_panel)=
 
 ### MultipleChooserPanel
@@ -344,4 +343,3 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 ### Hiding Fields
 
 Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable).
-
