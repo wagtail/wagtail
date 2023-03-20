@@ -608,6 +608,12 @@ class SnippetViewSet(ViewSet):
     #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
     list_display = None
 
+    #: A list or tuple, where each item is the name of model fields of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``, ``IntegerField`` or ``ForeignKey``.
+    #: Alternatively, it can also be a dictionary that maps a field name to a list of lookup expressions.
+    #: This will be passed as django-filter's ``FilterSet.Meta.fields`` attribute. See `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_ for more details.
+    #: If ``filterset_class`` is set, this attribute will be ignored.
+    list_filter = None
+
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
@@ -751,6 +757,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
+            list_filter=self.list_filter,
             paginate_by=self.list_per_page,
         )
 
@@ -768,6 +775,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
+            list_filter=self.list_filter,
             paginate_by=self.list_per_page,
         )
 
