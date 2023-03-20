@@ -77,17 +77,18 @@
                                     {% for task_state in task_states %}
                                         <td>
                                             {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
+                                                {% fragment as status_action %}{% status task_state.get_status_display classname="w-status--primary" %}{% endfragment %}
                                                 {% if task_state.finished_by %}
-                                                    {% blocktrans trimmed with action='<div class="w-status w-status--primary">'|add:task_state.get_status_display|add:'</div>'|safe who=task_state.finished_by|user_display_name at=task_state.finished_at %}
+                                                    {% blocktrans trimmed with action=status_action|safe who=task_state.finished_by|user_display_name at=task_state.finished_at %}
                                                         {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
                                                     {% endblocktrans %}
                                                 {% else %}
-                                                    {% blocktrans trimmed with action='<div class="w-status w-status--primary">'|add:task_state.get_status_display|add:'</div>'|safe at=task_state.finished_at %}
+                                                    {% blocktrans trimmed with action=status_action|safe at=task_state.finished_at %}
                                                         {{ action }} at <b>{{ at }}</b>
                                                     {% endblocktrans %}
                                                 {% endif %}
                                             {% else %}
-                                                <div class="w-status w-status--primary">{{ task_state.get_status_display }}</div>
+                                                {% status task_state.get_status_display classname="w-status--primary" %}
                                             {% endif %}
                                             {% if task_state.specific.get_comment %}
                                                 <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
@@ -115,7 +116,7 @@
                                             <b>{% trans "Workflow started" %}</b>
                                         {% elif timeline_item.action == 'workflow_completed' %}
                                             <b>{% trans "Workflow completed" %}</b>
-                                            <div class="w-status w-status--primary">{{ timeline_item.workflow_state.get_status_display }}</div>
+                                            {% status timeline_item.workflow_state.get_status_display classname="w-status--primary" %}
                                         {% elif timeline_item.action == 'edited' %}
                                             {% trans "Edited" as action %}
                                             {% if revision.user %}
@@ -129,11 +130,12 @@
                                             <b>{{ timeline_item.task_state.task }}</b>
 
                                             {% if timeline_item.task_state.finished_by %}
-                                                {% blocktrans trimmed with action='<div class="w-status w-status--primary">'|add:timeline_item.task_state.get_status_display|add:'</div>'|safe who=timeline_item.task_state.finished_by|user_display_name %}
+                                                {% fragment as status_action %}{% status timeline_item.task_state.get_status_display classname="w-status--primary" %}{% endfragment %}
+                                                {% blocktrans trimmed with action=status_action|safe who=timeline_item.task_state.finished_by|user_display_name %}
                                                     {{ action }} by <b>{{ who }}</b>
                                                 {% endblocktrans %}
                                             {% else %}
-                                                <div class="w-status w-status--primary">{{ timeline_item.task_state.get_status_display }}</div>
+                                                {% status timeline_item.task_state.get_status_display classname="w-status--primary" %}
                                             {% endif %}
 
                                             {% if timeline_item.task_state.specific.get_comment %}
