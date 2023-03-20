@@ -19,6 +19,7 @@ from django.views.generic.list import BaseListView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
@@ -88,10 +89,12 @@ class IndexView(
     filterset_class = None
     table_class = Table
     list_display = ["__str__", UpdatedAtColumn()]
+    list_filter = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.columns = self.get_columns()
+        self.filterset_class = self.get_filterset_class()
         self.setup_search()
 
     def setup_search(self):
@@ -131,6 +134,23 @@ class IndexView(
         return SearchForm(
             placeholder=_("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
+        )
+
+    def get_filterset_class(self):
+        if self.filterset_class:
+            return self.filterset_class
+
+        if not self.list_filter or not self.model:
+            return None
+
+        class Meta:
+            model = self.model
+            fields = self.list_filter
+
+        return type(
+            f"{self.model.__name__}FilterSet",
+            (WagtailFilterSet,),
+            {"Meta": Meta},
         )
 
     def _annotate_queryset_updated_at(self, queryset):
