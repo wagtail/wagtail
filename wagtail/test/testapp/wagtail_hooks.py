@@ -15,7 +15,11 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtail.test.testapp.models import FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    DraftStateModel,
+    FullFeaturedSnippet,
+    ModeratedModel,
+)
 
 from .forms import FavouriteColourForm
 
@@ -245,4 +249,17 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
 
 
+class DraftStateModelViewSet(SnippetViewSet):
+    list_filter = ["text", "first_published_at"]
+
+
+class ModeratedModelViewSet(SnippetViewSet):
+    list_filter = {
+        "text": ["exact", "contains"],
+        "first_published_at": ["exact", "lt", "gt"],
+    }
+
+
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
+register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
+register_snippet(ModeratedModel, viewset=ModeratedModelViewSet)

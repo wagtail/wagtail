@@ -2,6 +2,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.timezone import now
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import get_edit_handler
@@ -11,7 +12,13 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, Workflow, WorkflowContentType
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.widgets import AdminSnippetChooser
-from wagtail.test.testapp.models import Advert, FullFeaturedSnippet, SnippetChooserModel
+from wagtail.test.testapp.models import (
+    Advert,
+    DraftStateModel,
+    FullFeaturedSnippet,
+    ModeratedModel,
+    SnippetChooserModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -345,7 +352,7 @@ class TestPagination(WagtailTestUtils, TestCase):
         self.assertContains(response, choose_results_url + "?p=2")
 
 
-class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
+class TestFilterSetClass(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -456,6 +463,148 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         self.assertContains(
             response,
             '<label for="id_country_code_3"><input type="radio" name="country_code" value="UK" id="id_country_code_3" checked>United Kingdom</label>',
+            html=True,
+        )
+
+
+class TestListFilterWithList(WagtailTestUtils, TestCase):
+    model = DraftStateModel
+
+    def setUp(self):
+        self.login()
+        self.date = now()
+        self.date_str = self.date.isoformat()
+
+    def get_url(self, url_name, args=()):
+        return reverse(self.model.snippet_viewset.get_url_name(url_name), args=args)
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def create_test_snippets(self):
+        self.model.objects.create(text="The first created object")
+        self.model.objects.create(
+            text="A second one after that",
+            first_published_at=self.date,
+        )
+
+    def test_get_include_filters_form_media(self):
+        response = self.get()
+        html = response.content.decode()
+        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
+
+        # The script file for the date time chooser should be included
+        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
+
+    def test_unfiltered_no_results(self):
+        response = self.get()
+        add_url = self.get_url("add")
+        self.assertContains(
+            response,
+            f'No {self.model._meta.verbose_name_plural} have been created. Why not <a href="{add_url}">add one</a>',
+        )
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="first_published_at" autocomplete="off" id="id_first_published_at">',
+            html=True,
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+
+    def test_unfiltered_with_results(self):
+        self.create_test_snippets()
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "The first created object")
+        self.assertContains(response, "A second one after that")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="first_published_at" autocomplete="off" id="id_first_published_at">',
+            html=True,
+        )
+
+    def test_empty_filter_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"first_published_at": ""})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "The first created object")
+        self.assertContains(response, "A second one after that")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="first_published_at" value="" autocomplete="off" id="id_first_published_at">',
+            html=True,
+        )
+
+    def test_filtered_no_results(self):
+        self.create_test_snippets()
+        response = self.get({"first_published_at": "1970-01-01"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(
+            response,
+            f"Sorry, no {self.model._meta.verbose_name_plural} match your query",
+        )
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="first_published_at" value="1970-01-01" autocomplete="off" id="id_first_published_at">',
+            html=True,
+        )
+
+    def test_filtered_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"first_published_at": self.date_str})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "A second one after that")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<input type="text" name="first_published_at" value="{self.date_str}" autocomplete="off" id="id_first_published_at">',
+            html=True,
+        )
+
+
+class TestListFilterWithDict(TestListFilterWithList):
+    model = ModeratedModel
+
+    def test_filtered_contains_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"text__contains": "second one"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "A second one after that")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_text__contains" id="id_text__contains-label">Text contains</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="text__contains" value="second one" id="id_text__contains">',
             html=True,
         )
 
