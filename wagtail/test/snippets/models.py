@@ -2,7 +2,6 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
@@ -62,37 +61,6 @@ class SearchableSnippet(index.Indexed, models.Model):
 
     def __str__(self):
         return self.text
-
-
-class FilterableSnippet(index.Indexed, models.Model):
-    class CountryCode(models.TextChoices):
-        INDONESIA = "ID"
-        PHILIPPINES = "PH"
-        UNITED_KINGDOM = "UK"
-
-    text = models.CharField(max_length=255)
-    country_code = models.CharField(max_length=2, choices=CountryCode.choices)
-    some_date = models.DateField(auto_now=True)
-
-    search_fields = [
-        index.SearchField("text"),
-        index.FilterField("country_code"),
-    ]
-
-    def __str__(self):
-        return self.text
-
-    def get_foo_country_code(self):
-        return f"Foo {self.country_code}"
-
-    get_foo_country_code.admin_order_field = "country_code"
-    get_foo_country_code.short_description = "Custom foo column"
-
-
-class FilterableSnippetFilterSet(WagtailFilterSet):
-    class Meta:
-        model = FilterableSnippet
-        fields = ["country_code", "some_date"]
 
 
 @register_snippet

@@ -1120,15 +1120,39 @@ class FullFeaturedSnippet(
     LockableMixin,
     RevisionMixin,
     TranslatableMixin,
+    index.Indexed,
     models.Model,
 ):
+    class CountryCode(models.TextChoices):
+        INDONESIA = "ID"
+        PHILIPPINES = "PH"
+        UNITED_KINGDOM = "UK"
+
     text = models.TextField()
+    country_code = models.CharField(
+        max_length=2,
+        choices=CountryCode.choices,
+        default=CountryCode.UNITED_KINGDOM,
+        blank=True,
+    )
+    some_date = models.DateField(auto_now=True)
+
+    search_fields = [
+        index.SearchField("text"),
+        index.FilterField("country_code"),
+    ]
 
     def __str__(self):
         return self.text
 
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
+
+    def get_foo_country_code(self):
+        return f"Foo {self.country_code}"
+
+    get_foo_country_code.admin_order_field = "country_code"
+    get_foo_country_code.short_description = "Custom foo column"
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "full-featured snippet"
