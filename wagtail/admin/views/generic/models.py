@@ -327,6 +327,7 @@ class IndexView(
             base_url=index_url,
             ordering=self.get_ordering(),
         )
+        context["media"] = table.media
 
         context["can_add"] = (
             self.permission_policy is None
@@ -341,9 +342,9 @@ class IndexView(
             context["is_filtering"] = any(
                 self.request.GET.get(f) for f in set(self.filters.get_fields())
             )
+            context["media"] += self.filters.form.media
 
         context["table"] = table
-        context["media"] = table.media
         context["index_url"] = index_url
         context["is_paginated"] = bool(self.paginate_by)
         context["is_searchable"] = self.is_searchable

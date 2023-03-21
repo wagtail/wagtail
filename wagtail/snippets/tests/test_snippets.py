@@ -24,6 +24,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page, ReferenceIndex, Revision
 from wagtail.signals import published, unpublished
@@ -514,6 +515,14 @@ class TestSnippetListViewWithFilterSet(TestCase, WagtailTestUtils):
     def create_test_snippets(self):
         FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
         FilterableSnippet.objects.create(text="From the UK", country_code="UK")
+
+    def test_get_include_filters_form_media(self):
+        response = self.get()
+        html = response.content.decode()
+        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
+
+        # The script file for the date time chooser should be included
+        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
 
     def test_unfiltered_no_results(self):
         response = self.get()
@@ -1050,7 +1059,7 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         self.assertEqual(snippet.go_live_at.date(), go_live_at.date())
         self.assertEqual(snippet.expire_at.date(), expire_at.date())
         self.assertIs(snippet.expired, False)
-        self.assertTrue(snippet.status_string, "draft")
+        self.assertEqual(snippet.status_string, "draft")
 
         # No revisions with approved_go_live_at
         self.assertFalse(
@@ -1129,7 +1138,7 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         # But snippet won't be live
         self.assertFalse(snippet.live)
         self.assertFalse(snippet.first_published_at)
-        self.assertTrue(snippet.status_string, "scheduled")
+        self.assertEqual(snippet.status_string, "scheduled")
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
@@ -2064,7 +2073,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # because the changes are not visible as a live object yet
         self.assertTrue(
             self.test_snippet.has_unpublished_changes,
-            "An object scheduled for future publishing should have has_unpublished_changes=True",
+            msg="An object scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertEqual(self.test_snippet.status_string, "scheduled")
@@ -2220,7 +2229,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # because the changes are not visible as a live object yet
         self.assertTrue(
             self.test_snippet.has_unpublished_changes,
-            "An object scheduled for future publishing should have has_unpublished_changes=True",
+            msg="An object scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertNotEqual(

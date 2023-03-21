@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/index.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
@@ -13,6 +13,7 @@
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'SNIPPET';
     </script>
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {{ block.super }}
 {% endblock %}
 
 {% block content %}

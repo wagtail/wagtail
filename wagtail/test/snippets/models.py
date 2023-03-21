@@ -71,6 +71,7 @@ class FilterableSnippet(index.Indexed, models.Model):
 
     text = models.CharField(max_length=255)
     country_code = models.CharField(max_length=2, choices=CountryCode.choices)
+    some_date = models.DateField(auto_now=True)
 
     search_fields = [
         index.SearchField("text"),
@@ -90,7 +91,7 @@ class FilterableSnippet(index.Indexed, models.Model):
 class FilterableSnippetFilterSet(WagtailFilterSet):
     class Meta:
         model = FilterableSnippet
-        fields = ["country_code"]
+        fields = ["country_code", "some_date"]
 
 
 @register_snippet
