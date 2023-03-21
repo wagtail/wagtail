@@ -8,8 +8,8 @@
         </div>
         <div class="col6">
             {% include "wagtailadmin/shared/usage_summary.html" %}
-            {{ view.confirmation_message }}
             {% if not is_protected %}
+                <p>{{ view.confirmation_message }}</p>
                 <form action="{{ view.get_delete_url }}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" value="{{ view.get_success_url }}" name="next">

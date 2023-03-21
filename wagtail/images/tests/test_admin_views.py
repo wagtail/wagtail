@@ -1227,6 +1227,7 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
             response,
             "One or more references to this image prevent it from being deleted.",
         )
+        self.assertNotContains(response, "Are you sure you want to delete this image?")
         self.assertNotContains(response, "Yes, delete")
         self.assertNotContains(response, "No, don't delete")
         self.assertNotContains(
