@@ -4,17 +4,17 @@ from django.utils.safestring import mark_safe
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtail.test.snippets.models import FilterableSnippet
-from wagtail.test.snippets.views import FilterableSnippetViewSet
 from wagtail.test.testapp.models import FullFeaturedSnippet
 
 from .forms import FavouriteColourForm
@@ -227,7 +227,10 @@ def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
 
 
-register_snippet(FilterableSnippet, viewset=FilterableSnippetViewSet)
+class FullFeaturedSnippetFilterSet(WagtailFilterSet):
+    class Meta:
+        model = FullFeaturedSnippet
+        fields = ["country_code", "some_date"]
 
 
 class FullFeaturedSnippetViewSet(SnippetViewSet):
@@ -238,6 +241,8 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     chooser_base_url_path = "choose/wisely"
     list_per_page = 5
     chooser_per_page = 15
+    filterset_class = FullFeaturedSnippetFilterSet
+    list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)

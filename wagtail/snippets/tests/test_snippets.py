@@ -24,7 +24,6 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
@@ -44,7 +43,6 @@ from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
-    FilterableSnippet,
     RegisterDecorator,
     RegisterFunction,
     SearchableSnippet,
@@ -516,151 +514,6 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TestCase):
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
-
-
-class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-    def get(self, params={}):
-        return self.client.get(
-            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
-            params,
-        )
-
-    def create_test_snippets(self):
-        FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FilterableSnippet.objects.create(text="From the UK", country_code="UK")
-
-    def test_get_include_filters_form_media(self):
-        response = self.get()
-        html = response.content.decode()
-        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
-
-        # The script file for the date time chooser should be included
-        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
-
-    def test_unfiltered_no_results(self):
-        response = self.get()
-        add_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:add")
-        self.assertContains(
-            response,
-            f'No filterable snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
-        self.assertContains(
-            response,
-            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
-            html=True,
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-
-    def test_unfiltered_with_results(self):
-        self.create_test_snippets()
-        response = self.get()
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
-        self.assertNotContains(response, "There are 2 matches")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
-            html=True,
-        )
-
-    def test_empty_filter_with_results(self):
-        self.create_test_snippets()
-        response = self.get({"country_code": ""})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
-        self.assertNotContains(response, "There are 2 matches")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
-            html=True,
-        )
-
-    def test_filtered_no_results(self):
-        self.create_test_snippets()
-        response = self.get({"country_code": "PH"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "Sorry, no filterable snippets match your query")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_2"><input type="radio" name="country_code" value="PH" id="id_country_code_2" checked>Philippines</label>',
-            html=True,
-        )
-
-    def test_filtered_with_results(self):
-        self.create_test_snippets()
-        response = self.get({"country_code": "ID"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "There is 1 match")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
-            html=True,
-        )
-
-    def test_filtered_searched_no_results(self):
-        self.create_test_snippets()
-        response = self.get({"country_code": "ID", "q": "the"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "Sorry, no filterable snippets match your query")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
-            html=True,
-        )
-
-    def test_filtered_searched_with_results(self):
-        self.create_test_snippets()
-        response = self.get({"country_code": "UK", "q": "the"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From the UK")
-        self.assertContains(response, "There is 1 match")
-        self.assertContains(
-            response,
-            '<label for="id_country_code_3"><input type="radio" name="country_code" value="UK" id="id_country_code_3" checked>United Kingdom</label>',
-            html=True,
-        )
-
-
-class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-    @classmethod
-    def setUpTestData(cls):
-        FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FilterableSnippet.objects.create(text="From the UK", country_code="UK")
-
-    def get(self, params={}):
-        return self.client.get(
-            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
-            params,
-        )
-
-    def test_custom_columns(self):
-        response = self.get()
-        self.assertContains(response, "Text")
-        self.assertContains(response, "Country Code")
-        self.assertContains(response, "Custom Foo Column")
-        self.assertContains(response, "Updated")
-
-        self.assertContains(response, "Foo UK")
-
-        list_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:list")
-        sort_country_code_url = list_url + "?ordering=country_code"
-
-        # One from the country code column, another from the custom foo column
-        self.assertContains(response, sort_country_code_url, count=2)
-
-        html = response.content.decode()
-
-        # The bulk actions column plus 4 columns defined in FilterableSnippetViewSet
-        self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
 
 
 class TestSnippetCreateView(WagtailTestUtils, TestCase):
