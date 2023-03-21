@@ -24,6 +24,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page, ReferenceIndex, Revision
 from wagtail.signals import published, unpublished
@@ -531,6 +532,14 @@ class TestSnippetListViewWithFilterSet(TestCase, WagtailTestUtils):
     def create_test_snippets(self):
         FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
         FilterableSnippet.objects.create(text="From the UK", country_code="UK")
+
+    def test_get_include_filters_form_media(self):
+        response = self.get()
+        html = response.content.decode()
+        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
+
+        # The script file for the date time chooser should be included
+        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
 
     def test_unfiltered_no_results(self):
         response = self.get()
