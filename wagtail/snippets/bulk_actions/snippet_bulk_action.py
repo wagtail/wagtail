@@ -4,7 +4,22 @@ from wagtail.snippets.models import get_snippet_models
 
 
 class SnippetBulkAction(BulkAction):
-    models = get_snippet_models()
+    @classmethod
+    def get_models(cls):
+        # We used to set `models = get_snippet_models()` directly on the class,
+        # but this is problematic because it means that the list of models is
+        # evaluated at import time.
+
+        # Bulk actions are normally registered in wagtail_hooks.py, but snippets
+        # can also be registered in wagtail_hooks.py. Evaluating
+        # get_snippet_models() at import time could result in either a circular
+        # import or an incomplete list of models.
+
+        # Update the models list with the latest registered snippets in case
+        # there is user code that still accesses cls.models instead of calling
+        # this get_models() method.
+        cls.models = get_snippet_models()
+        return cls.models
 
     def object_context(self, snippet):
         return {
