@@ -4,6 +4,7 @@ Changelog
 5.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Object usage information on deleting objects (Sage Abdullah)
  * Custom validation support for StreamField (Matt Westcott)
  * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
  * Update user list column level to `Access level` to be easier to understand (Vallabh Tiwari)
