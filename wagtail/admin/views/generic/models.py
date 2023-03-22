@@ -365,7 +365,7 @@ class IndexView(
         if self.filters:
             context["filters"] = self.filters
             context["is_filtering"] = any(
-                self.request.GET.get(f) for f in set(self.filters.get_fields())
+                self.request.GET.get(f) for f in self.filters.filters
             )
             context["media"] += self.filters.form.media
 
