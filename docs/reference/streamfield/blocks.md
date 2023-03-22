@@ -522,48 +522,44 @@ All block definitions accept the following optional keyword arguments:
 
            class Meta:
                icon='cogs'
-```
 
-(streamfield_top_level_streamblock)=
+    Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
 
-```{eval-rst}
-Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
+    .. code-block:: python
 
-.. code-block:: python
+        class HomePage(Page):
+            carousel = StreamField(
+                CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
+                use_json_field=True
+            )
 
-    class HomePage(Page):
-        carousel = StreamField(
-            CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
-            use_json_field=True
-        )
+    ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
 
-``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
+    :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
+    :param min_num: Minimum number of sub-blocks that the stream must have.
+    :param max_num: Maximum number of sub-blocks that the stream may have.
+    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+    :param collapsed: When true, all sub-blocks are initially collapsed.
+    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
 
-:param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
-:param min_num: Minimum number of sub-blocks that the stream must have.
-:param max_num: Maximum number of sub-blocks that the stream may have.
-:param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
-:param collapsed: When true, all sub-blocks are initially collapsed.
-:param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+    .. code-block:: python
+        :emphasize-lines: 6
 
-.. code-block:: python
-    :emphasize-lines: 6
+        body = StreamField([
+            # ...
+            ('event_promotions', blocks.StreamBlock([
+                ('hashtag', blocks.CharBlock()),
+                ('post_date', blocks.DateBlock()),
+            ], form_classname='event-promotions')),
+        ], use_json_field=True)
 
-    body = StreamField([
-        # ...
-        ('event_promotions', blocks.StreamBlock([
-            ('hashtag', blocks.CharBlock()),
-            ('post_date', blocks.DateBlock()),
-        ], form_classname='event-promotions')),
-    ], use_json_field=True)
+    .. code-block:: python
+        :emphasize-lines: 6
 
-.. code-block:: python
-    :emphasize-lines: 6
+        class EventPromotionsBlock(blocks.StreamBlock):
+            hashtag = blocks.CharBlock()
+            post_date = blocks.DateBlock()
 
-    class EventPromotionsBlock(blocks.StreamBlock):
-        hashtag = blocks.CharBlock()
-        post_date = blocks.DateBlock()
-
-        class Meta:
-            form_classname = 'event-promotions'
+            class Meta:
+                form_classname = 'event-promotions'
 ```
