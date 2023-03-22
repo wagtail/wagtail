@@ -326,7 +326,7 @@ class BoundDraftailWidget {
             new DraftailInsertBlockCommand(this, blockDef, addSibling, split),
         );
         return {
-          label: group || gettext('StreamField blocks'),
+          label: group || gettext('Blocks'),
           type: `streamfield-${group}`,
           items: blockControls,
         };
