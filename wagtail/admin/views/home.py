@@ -370,10 +370,10 @@ def icons():
                 .replace("svg", "symbol")
             )
 
-        _full_sprite_html = render_to_string(
+        _icons_html = render_to_string(
             "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}
         )
-    return _full_sprite_html
+    return _icons_html
 
 
 def sprite(request):
