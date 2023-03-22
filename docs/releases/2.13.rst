@@ -110,7 +110,7 @@ Wagtail 2.13 will be the last Wagtail release to support IE11. Users accessing t
 Updated handling of non-required StreamFields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The rules for determining whether a StreamField is required (i.e. at least one block must be provided) have been simplified and made consistent with other field types. Non-required fields are now indicated by ``blank=True`` on the ``StreamField`` definition; the default is ``blank=False`` (the field is required). In previous versions, to make a field non-required, it was necessary to define :ref:`a top-level StreamBlock<streamfield_top_level_streamblock>` with ``required=False`` (which applied the validation rule) as well as setting ``blank=True`` (which removed the asterisk from the form field). You should review your use of StreamField to check that ``blank=True`` is used on the fields you wish to make optional.
+The rules for determining whether a StreamField is required (i.e. at least one block must be provided) have been simplified and made consistent with other field types. Non-required fields are now indicated by ``blank=True`` on the ``StreamField`` definition; the default is ``blank=False`` (the field is required). In previous versions, to make a field non-required, it was necessary to define :ref:`a top-level StreamBlock<wagtail.blocks.StreamBlock>` with ``required=False`` (which applied the validation rule) as well as setting ``blank=True`` (which removed the asterisk from the form field). You should review your use of StreamField to check that ``blank=True`` is used on the fields you wish to make optional.
 
 
 New client-side implementation for custom StreamField blocks
