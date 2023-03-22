@@ -16,6 +16,7 @@ class Unpublish(UnpublishView):
     index_url_name = "wagtailadmin_explore"
     edit_url_name = "wagtailadmin_pages:edit"
     unpublish_url_name = "wagtailadmin_pages:unpublish"
+    usage_url_name = "wagtailadmin_pages:usage"
     success_message = _("Page '%(page_title)s' unpublished.")
     template_name = "wagtailadmin/pages/confirm_unpublish.html"
 

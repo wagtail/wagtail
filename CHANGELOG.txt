@@ -4,6 +4,7 @@ Changelog
 5.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Object usage information on deleting objects (Sage Abdullah)
  * Custom validation support for StreamField (Matt Westcott)
  * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
  * Update user list column level to `Access level` to be easier to understand (Vallabh Tiwari)
@@ -19,6 +20,8 @@ Changelog
  * Switch lock/unlock side panel toggle to a switch, with more appropriate confirmation message status (Sage Abdullah)
  * Ensure that changed or cleared selection from choosers will dispatch a DOM `change` event (George Sakkis)
  * Add the ability to disable model indexing by setting `search_fields = []` (Daniel Kirkham)
+ * Enhance `wagtail.search.utils.parse_query_string` to allow inner single quotes for key/value parsing (Aman Pandey)
+ * Add helpful properties to `Locale` for more convenient usage within templates (Andy Babic)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
@@ -42,6 +45,10 @@ Changelog
  * Fix: Enable partial search on images and documents index view where available (Mng)
  * Fix: Adopt a no-JavaScript and more accessible solution for option selection in reporting, using HTML only `radio` input fields (Mehul Aggarwal)
  * Fix: Ensure that document search results count shows the correct all matches, not the paginate total (Andy Chosak)
+ * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
+ * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
+ * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
+ * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -65,15 +72,24 @@ Changelog
  * Maintenance: Remove unneeded float styles on 404 page (Fabien Le Frapper)
  * Maintenance: Convert userbar implementation to TypeScript (Albina Starykova)
  * Maintenance: Migrate slug field behaviour to a Stimulus controller and create new `SlugInput` widget (Loveth Omokaro)
- * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston)
+ * Maintenance: Refactor `status` HTML usage to shared template tag (Aman Pandey, LB (Ben) Johnston, Himanshu Garg)
  * Maintenance: Add curlylint and update djhtml, semgrep versions in pre-commit config (Himanshu Garg)
- * Maintenance: Use shared header template for `ModelAdmin` header (Aman Pandey)
+ * Maintenance: Use shared header template for `ModelAdmin` and Snippets type index header (Aman Pandey)
  * Maintenance: Move models and forms for `wagtailsearch.Query` to `wagtail.contrib.search_promotions` (Karl Hobley)
  * Maintenance: Migrate `initErrorDetection` (tabs error counts) to a Stimulus Controller `w-count` (Aman Pandey)
  * Maintenance: Migrate `window.addMessage` behaviour to a global event listener & Stimulus Controller approach with `w-messages` (Aman Pandey)
  * Maintenance: Update Algolia DocSearch to use new application and correct versioning setup (Thibaud Colas)
  * Maintenance: Move snippet choosers and model check registration to `SnippetViewSet.on_register()` (Sage Abdullah)
  * Maintenance: Remove unused snippets delete-multiple view (Sage Abdullah)
+ * Maintenance: Improve performance of determining live page URLs across the admin interface using `pageurl` template tag (Satvik Vashisht)
+
+
+4.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
+ * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
+ * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
 
 
 4.2.1 (13.03.2023)
@@ -242,6 +258,14 @@ Changelog
  * Maintenance: Pull out icon sprite setup function from inline script to its own TypeScript file & add unit tests (Loveth Omokaro)
  * Maintenance: Upgraded Transifex configuration to v3 (Loic Teixeira)
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
+
+
+4.1.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
+ * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
+ * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
 
 
 4.1.3 (13.03.2023)

@@ -7,6 +7,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.html import escape
 from django.utils.http import urlencode
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -18,6 +19,7 @@ from wagtail.test.testapp.models import (
     CustomDocumentWithAuthor,
     EventPage,
     EventPageRelatedLink,
+    VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -748,6 +750,8 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         # Create a document to delete
         self.document = models.Document.objects.create(title="Test document")
 
+        self.delete_url = reverse("wagtaildocs:delete", args=(self.document.id,))
+
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
@@ -757,27 +761,65 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         )
         self.user.save()
 
-        response_get = self.client.get(
-            reverse("wagtaildocs:delete", args=(self.document.id,))
-        )
-        response_post = self.client.post(
-            reverse("wagtaildocs:delete", args=(self.document.id,))
-        )
+        response_get = self.client.get(self.delete_url)
+        response_post = self.client.post(self.delete_url)
 
         self.assertEqual(response_get.status_code, 302)
         self.assertEqual(response_post.status_code, 302)
+        self.assertTrue(
+            get_document_model().objects.filter(id=self.document.id).exists()
+        )
+
+    def test_delete_get_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_document=self.document)
+        response = self.client.get(self.delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertContains(
+            response,
+            reverse("wagtaildocs:document_usage", args=(self.document.id,))
+            + "?describe_on_delete=1",
+        )
+        self.assertContains(
+            response,
+            "One or more references to this document prevent it from being deleted.",
+        )
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, "No, don't delete")
+        self.assertNotContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
+
+    def test_delete_post_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_document=self.document)
+        response = self.client.post(self.delete_url)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertTrue(
+            get_document_model().objects.filter(id=self.document.id).exists()
+        )
 
     def test_simple(self):
-        response = self.client.get(
-            reverse("wagtaildocs:delete", args=(self.document.id,))
-        )
+        response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertNotContains(
+            response,
+            "One or more references to this document prevent it from being deleted.",
+        )
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, "No, don't delete")
+        self.assertContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
 
     def test_delete(self):
         # Submit title change
         response = self.client.post(
-            reverse("wagtaildocs:delete", args=(self.document.id,))
+            reverse("wagtaildocs:delete", args=(self.document.id,)), follow=True
         )
 
         # User should be redirected back to the index
@@ -786,14 +828,20 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
 
+        # Message should be shown
+        self.assertEqual(
+            [m.message.strip() for m in response.context["messages"]],
+            [escape("Document 'Test document' deleted.")],
+        )
+
     def test_usage_link(self):
         response = self.client.get(
             reverse("wagtaildocs:delete", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertContains(response, self.document.usage_url)
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(response, "This document is referenced 0 times")
 
 
 class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
@@ -1857,6 +1905,7 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         event_page_related_link.save()
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         self.assertContains(response, "Christmas")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
@@ -1898,6 +1947,7 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         # User has no permission over the page linked to, so should not see its details
         self.assertNotContains(response, "Christmas")
         self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_document permission but not change_document
@@ -2070,7 +2120,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
             reverse("wagtaildocs:delete", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_get_add_multiple(self):
         response = self.client.get(reverse("wagtaildocs:add_multiple"))

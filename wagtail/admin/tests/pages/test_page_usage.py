@@ -44,6 +44,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         self.assertContains(response, "Hello world!")
 
         self.assertContains(response, "(Private page chooser model)")
+        self.assertContains(response, "<td>Page chooser model</td>", html=True)
 
     def test_has_editable_usage(self):
         form_page = FormPageWithRedirect(
@@ -70,3 +71,4 @@ class TestPageUsage(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:edit", args=(form_page.id,))
         )
         self.assertContains(response, "Thank you redirect page")
+        self.assertContains(response, "<td>Form page with redirect</td>", html=True)

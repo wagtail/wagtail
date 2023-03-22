@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
@@ -250,34 +251,36 @@ def edit(request, document_id):
     )
 
 
-@permission_checker.require("delete")
-def delete(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
+class DeleteView(generic.DeleteView):
+    model = get_document_model()
+    pk_url_kwarg = "document_id"
+    permission_policy = permission_policy
+    permission_required = "delete"
+    header_icon = "doc-full-inverse"
+    usage_url_name = "wagtaildocs:document_usage"
+    delete_url_name = "wagtaildocs:delete"
+    index_url_name = "wagtaildocs:index"
+    page_title = gettext_lazy("Delete document")
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", doc
-    ):
-        raise PermissionDenied
-
-    next_url = get_valid_next_url_from_request(request)
-
-    if request.method == "POST":
-        doc.delete()
-        messages.success(
-            request,
-            _("Document '%(document_title)s' deleted.") % {"document_title": doc.title},
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, permission, self.object
         )
-        return redirect(next_url) if next_url else redirect("wagtaildocs:index")
 
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/confirm_delete.html",
-        {
-            "document": doc,
-            "next": next_url,
-        },
-    )
+    @property
+    def confirmation_message(self):
+        # This message will only appear in the singular, but we specify a plural
+        # so it can share the translation string with confirm_bulk_delete.html
+        return ngettext(
+            "Are you sure you want to delete this document?",
+            "Are you sure you want to delete these documents?",
+            1,
+        )
+
+    def get_success_message(self):
+        return _("Document '%(document_title)s' deleted.") % {
+            "document_title": self.object.title
+        }
 
 
 class UsageView(generic.UsageView):
@@ -285,6 +288,7 @@ class UsageView(generic.UsageView):
     pk_url_kwarg = "document_id"
     permission_policy = permission_policy
     permission_required = "change"
+    header_icon = "doc-full-inverse"
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(

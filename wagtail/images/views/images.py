@@ -11,6 +11,7 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
@@ -349,33 +350,37 @@ def preview(request, image_id, filter_spec):
         )
 
 
-@permission_checker.require("delete")
-def delete(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
+class DeleteView(generic.DeleteView):
+    model = get_image_model()
+    pk_url_kwarg = "image_id"
+    permission_policy = permission_policy
+    permission_required = "delete"
+    header_icon = "image"
+    template_name = "wagtailimages/images/confirm_delete.html"
+    usage_url_name = "wagtailimages:image_usage"
+    delete_url_name = "wagtailimages:delete"
+    index_url_name = "wagtailimages:index"
+    page_title = gettext_lazy("Delete image")
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", image
-    ):
-        raise PermissionDenied
-
-    next_url = get_valid_next_url_from_request(request)
-
-    if request.method == "POST":
-        image.delete()
-        messages.success(
-            request,
-            _("Image '%(image_title)s' deleted.") % {"image_title": image.title},
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, permission, self.object
         )
-        return redirect(next_url) if next_url else redirect("wagtailimages:index")
 
-    return TemplateResponse(
-        request,
-        "wagtailimages/images/confirm_delete.html",
-        {
-            "image": image,
-            "next": next_url,
-        },
-    )
+    @property
+    def confirmation_message(self):
+        # This message will only appear in the singular, but we specify a plural
+        # so it can share the translation string with confirm_bulk_delete.html
+        return ngettext(
+            "Are you sure you want to delete this image?",
+            "Are you sure you want to delete these images?",
+            1,
+        )
+
+    def get_success_message(self):
+        return _("Image '%(image_title)s' deleted.") % {
+            "image_title": self.object.title
+        }
 
 
 @permission_checker.require("add")
@@ -419,6 +424,7 @@ class UsageView(generic.UsageView):
     pk_url_kwarg = "image_id"
     permission_policy = permission_policy
     permission_required = "change"
+    header_icon = "image"
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(

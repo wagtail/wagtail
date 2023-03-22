@@ -316,7 +316,7 @@ class TestConfirmWorkflowCancellation(BaseWorkflowsTestCase):
         response = self.client.get(self.get_url("confirm_workflow_cancellation"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/shared/confirm_workflow_cancellation.html"
+            response, "wagtailadmin/generic/confirm_workflow_cancellation.html"
         )
         self.assertContains(
             response,
@@ -332,7 +332,7 @@ class TestConfirmWorkflowCancellation(BaseWorkflowsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateNotUsed(
             response,
-            "wagtailadmin/shared/confirm_workflow_cancellation.html",
+            "wagtailadmin/generic/confirm_workflow_cancellation.html",
         )
         self.assertJSONEqual(
             response.content.decode(),

@@ -1,7 +1,7 @@
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db import models, transaction
 from django.db.models.functions import Cast
 from django.forms import Form
@@ -25,7 +25,7 @@ from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin
+from wagtail.models import DraftStateMixin, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -632,18 +632,39 @@ class DeleteView(
     model = None
     index_url_name = None
     delete_url_name = None
+    usage_url_name = None
     template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
     permission_required = "delete"
     success_message = None
+    page_title = gettext_lazy("Delete")
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = self.get_object()
+        # Get this here instead of the template so that we do not iterate through
+        # the usage and potentially trigger a database query for each item
+        self.usage_url = self.get_usage_url()
+        self.usage = self.get_usage()
 
     def get_object(self, queryset=None):
-        if "pk" not in self.kwargs:
-            self.kwargs["pk"] = self.args[0]
-        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
+        # If the object has already been loaded, return it to avoid another query
+        if getattr(self, "object", None):
+            return self.object
+        if self.pk_url_kwarg not in self.kwargs:
+            self.kwargs[self.pk_url_kwarg] = self.args[0]
+        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
         return super().get_object(queryset)
 
+    def get_usage(self):
+        if not self.usage_url:
+            return None
+        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
+
     def get_success_url(self):
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
         if not self.index_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide an "
@@ -662,6 +683,20 @@ class DeleteView(
             )
         return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
+    def get_usage_url(self):
+        # Usage URL is optional, allow it to be unset
+        if self.usage_url_name:
+            return (
+                reverse(self.usage_url_name, args=(quote(self.object.pk),))
+                + "?describe_on_delete=1"
+            )
+
+    @property
+    def confirmation_message(self):
+        return _("Are you sure you want to delete this %(model_name)s?") % {
+            "model_name": self.object._meta.verbose_name
+        }
+
     def get_success_message(self):
         if self.success_message is None:
             return None
@@ -673,6 +708,8 @@ class DeleteView(
             self.object.delete()
 
     def form_valid(self, form):
+        if self.usage and self.usage.is_protected:
+            raise PermissionDenied
         success_url = self.get_success_url()
         self.delete_action()
         messages.success(self.request, self.get_success_message())
@@ -680,6 +717,16 @@ class DeleteView(
         if hook_response is not None:
             return hook_response
         return HttpResponseRedirect(success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["model_opts"] = self.object._meta
+        context["next"] = self.get_success_url()
+        if self.usage_url:
+            context["usage_url"] = self.usage_url
+            context["usage_count"] = self.usage.count()
+            context["is_protected"] = self.usage.is_protected
+        return context
 
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
@@ -787,8 +834,9 @@ class UnpublishView(HookResponseMixin, TemplateView):
     index_url_name = None
     edit_url_name = None
     unpublish_url_name = None
+    usage_url_name = None
     success_message = _("'%(object)s' unpublished.")
-    template_name = "wagtailadmin/shared/confirm_unpublish.html"
+    template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -803,6 +851,9 @@ class UnpublishView(HookResponseMixin, TemplateView):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
         return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_usage(self):
+        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
     def get_objects_to_unpublish(self):
         # Hook to allow child classes to have more objects to unpublish (e.g. page descendants)
@@ -841,6 +892,11 @@ class UnpublishView(HookResponseMixin, TemplateView):
             )
         return reverse(self.unpublish_url_name, args=(quote(self.object.pk),))
 
+    def get_usage_url(self):
+        # Usage URL is optional, allow it to be unset
+        if self.usage_url_name:
+            return reverse(self.usage_url_name, args=(quote(self.object.pk),))
+
     def unpublish(self):
         hook_response = self.run_hook("before_unpublish", self.request, self.object)
         if hook_response is not None:
@@ -868,11 +924,15 @@ class UnpublishView(HookResponseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["model_opts"] = self.model._meta
+        context["model_opts"] = self.object._meta
         context["object"] = self.object
         context["object_display_title"] = self.get_object_display_title()
         context["unpublish_url"] = self.get_unpublish_url()
         context["next_url"] = self.get_next_url()
+        context["usage_url"] = self.get_usage_url()
+        if context["usage_url"]:
+            usage = self.get_usage()
+            context["usage_count"] = usage.count()
         return context
 
 

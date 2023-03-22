@@ -25,7 +25,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
-from wagtail.models import Locale, ModelLogEntry, Page, ReferenceIndex, Revision
+from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
@@ -59,12 +59,12 @@ from wagtail.test.testapp.models import (
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
-    GenericSnippetPage,
     MultiPreviewModesModel,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
+    VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
@@ -3361,7 +3361,7 @@ class TestSnippetUnpublish(WagtailTestUtils, TestCase):
 
         # Check that the user received an unpublish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/confirm_unpublish.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_unpublish.html")
 
     def test_unpublish_view_invalid_pk(self):
         """
@@ -3570,23 +3570,51 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:delete",
-                args=[quote(self.test_snippet.pk)],
-            )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
         )
+        response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, delete_url)
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_delete_get_with_i18n_enabled(self):
-        response = self.client.get(
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, delete_url)
+
+    def test_delete_get_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(
+            text="Undeletable", on_delete_protect=self.test_snippet
+        )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This advert is referenced 1 time.")
+        self.assertContains(
+            response,
+            "One or more references to this advert prevent it from being deleted.",
+        )
+        self.assertContains(
+            response,
             reverse(
-                "wagtailsnippets_tests_advert:delete",
+                "wagtailsnippets_tests_advert:usage",
                 args=[quote(self.test_snippet.pk)],
             )
+            + "?describe_on_delete=1",
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, delete_url)
 
     def test_delete_post_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -3619,6 +3647,23 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
+    def test_delete_post_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(
+            text="Undeletable", on_delete_protect=self.test_snippet
+        )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.post(delete_url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the snippet is still here
+        self.assertTrue(Advert.objects.filter(pk=self.test_snippet.pk).exists())
+
     def test_usage_link(self):
         output = StringIO()
         management.call_command("rebuild_references_index", stdout=output)
@@ -3630,11 +3675,11 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertContains(response, "This advert is referenced 2 times")
+        self.assertContains(
+            response, self.test_snippet.usage_url() + "?describe_on_delete=1"
         )
-        self.assertContains(response, "Used 2 times")
-        self.assertContains(response, self.test_snippet.usage_url())
 
     def test_before_delete_snippet_hook_get(self):
         advert = Advert.objects.create(
@@ -3795,133 +3840,6 @@ class TestSnippetOrdering(TestCase):
         self.assertLess(
             SNIPPET_MODELS.index(AlphaSnippet), SNIPPET_MODELS.index(ZuluSnippet)
         )
-
-
-class TestUsageCount(TestCase):
-    fixtures = ["test.json"]
-
-    @classmethod
-    def setUpTestData(cls):
-        super().setUpTestData()
-        output = StringIO()
-        management.call_command("rebuild_references_index", stdout=output)
-
-    def test_snippet_usage_count(self):
-        advert = Advert.objects.get(pk=1)
-        self.assertEqual(advert.get_usage().count(), 2)
-
-
-class TestUsedBy(TestCase):
-    fixtures = ["test.json"]
-
-    @classmethod
-    def setUpTestData(cls):
-        super().setUpTestData()
-        output = StringIO()
-        management.call_command("rebuild_references_index", stdout=output)
-
-    def test_snippet_used_by(self):
-        advert = Advert.objects.get(pk=1)
-
-        self.assertIsInstance(advert.get_usage()[0], tuple)
-        self.assertIsInstance(advert.get_usage()[0][0], Page)
-        self.assertIsInstance(advert.get_usage()[0][1], list)
-        self.assertIsInstance(advert.get_usage()[0][1][0], ReferenceIndex)
-
-
-class TestSnippetUsageView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        self.user = self.login()
-
-    def test_use_latest_draft_as_title(self):
-        snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
-        snippet.save_revision().publish()
-        snippet.text = "Draft-enabled Bar, In Draft"
-        snippet.save_revision()
-
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_draftstatemodel:usage",
-                args=[quote(snippet.pk)],
-            )
-        )
-
-        # Should use the latest draft title in the header subtitle
-        self.assertContains(
-            response,
-            '<span class="w-header__subtitle">Draft-enabled Bar, In Draft</span>',
-        )
-
-    def test_usage(self):
-        # resave so that usage count gets updated
-        page = Page.objects.get(pk=2)
-        page.save()
-
-        gfk_page = GenericSnippetPage(
-            title="Generic snippet page",
-            snippet_content_object=Advert.objects.get(pk=1),
-        )
-        page.add_child(instance=gfk_page)
-
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:usage",
-                args=["1"],
-            )
-        )
-        self.assertContains(response, "Welcome to the Wagtail test site!")
-        self.assertContains(response, "Generic snippet page")
-        self.assertContains(response, "Snippet content object")
-
-    def test_usage_without_edit_permission_on_snippet(self):
-        # Create a user with basic admin backend access
-        user = self.create_user(
-            username="basicadmin", email="basicadmin@example.com", password="password"
-        )
-        admin_permission = Permission.objects.get(
-            content_type__app_label="wagtailadmin", codename="access_admin"
-        )
-        user.user_permissions.add(admin_permission)
-        self.login(username="basicadmin", password="password")
-
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:usage",
-                args=["1"],
-            )
-        )
-        self.assertEqual(response.status_code, 302)
-
-    def test_usage_without_edit_permission_on_page(self):
-        # resave so that usage count gets updated
-        page = Page.objects.get(pk=2)
-        page.save()
-
-        # Create a user with edit access to snippets but not pages
-        user = self.create_user(
-            username="basicadmin", email="basicadmin@example.com", password="password"
-        )
-        admin_permission = Permission.objects.get(
-            content_type__app_label="wagtailadmin", codename="access_admin"
-        )
-        advert_permission = Permission.objects.get(
-            content_type__app_label="tests", codename="change_advert"
-        )
-        user.user_permissions.add(admin_permission)
-        user.user_permissions.add(advert_permission)
-        self.login(username="basicadmin", password="password")
-
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:usage",
-                args=["1"],
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "Welcome to the Wagtail test site!")
-        self.assertContains(response, "(Private page)")
 
 
 class TestSnippetHistory(WagtailTestUtils, TestCase):
@@ -4888,9 +4806,7 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
 
 class TestSnippetEditHandlers(WagtailTestUtils, TestCase):
@@ -5148,9 +5064,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_usage_link(self):
         response = self.client.get(
@@ -5160,11 +5074,14 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/confirm_delete.html"
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertContains(
+            response,
+            "This standard snippet with custom primary key is referenced 0 times",
         )
-        self.assertContains(response, "Used 0 times")
-        self.assertContains(response, self.snippet_a.usage_url())
+        self.assertContains(
+            response, self.snippet_a.usage_url() + "?describe_on_delete=1"
+        )
 
     def test_redirect_to_edit(self):
         response = self.client.get(

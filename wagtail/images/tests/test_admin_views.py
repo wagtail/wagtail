@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.encoding import force_str
-from django.utils.html import escapejs
+from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
 
@@ -23,7 +23,12 @@ from wagtail.models import (
     Page,
     get_root_collection_id,
 )
-from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor, EventPage
+from wagtail.test.testapp.models import (
+    CustomImage,
+    CustomImageWithAuthor,
+    EventPage,
+    VariousOnDeleteModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
@@ -1147,31 +1152,40 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
-        return self.client.get(
-            reverse("wagtailimages:delete", args=(self.image.id,)), params
-        )
+        self.delete_url = reverse("wagtailimages:delete", args=(self.image.id,))
 
-    def post(self, post_data={}):
-        return self.client.post(
-            reverse("wagtailimages:delete", args=(self.image.id,)), post_data
-        )
+    def get(self, params={}):
+        return self.client.get(self.delete_url, params)
+
+    def post(self, post_data={}, **kwargs):
+        return self.client.post(self.delete_url, post_data, **kwargs)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertNotContains(
+            response,
+            "One or more references to this image prevent it from being deleted.",
+        )
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, "No, don't delete")
+        self.assertContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
 
     def test_usage_link(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(response, "This image is referenced 0 times")
         expected_url = "/admin/images/usage/%d/" % self.image.id
         self.assertContains(response, expected_url)
 
     def test_delete(self):
-        response = self.post()
+        response = self.post(follow=True)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailimages:index"))
@@ -1179,6 +1193,12 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
         self.assertEqual(images.count(), 0)
+
+        # Message should be shown
+        self.assertEqual(
+            [m.message.strip() for m in response.context["messages"]],
+            [escape("Image 'Test image' deleted.")],
+        )
 
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -1191,6 +1211,35 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
 
         response = self.post()
         self.assertEqual(response.status_code, 302)
+
+    def test_delete_get_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertContains(
+            response,
+            reverse("wagtailimages:image_usage", args=(self.image.id,))
+            + "?describe_on_delete=1",
+        )
+        self.assertContains(
+            response,
+            "One or more references to this image prevent it from being deleted.",
+        )
+        self.assertNotContains(response, "Are you sure you want to delete this image?")
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, "No, don't delete")
+        self.assertNotContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
+
+    def test_delete_post_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        response = self.post()
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertTrue(Image.objects.filter(id=self.image.id).exists())
 
 
 class TestUsage(WagtailTestUtils, TestCase):
@@ -1221,6 +1270,7 @@ class TestUsage(WagtailTestUtils, TestCase):
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
         self.assertContains(response, "Christmas")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(
@@ -1282,6 +1332,7 @@ class TestUsage(WagtailTestUtils, TestCase):
         # User has no permission over the page linked to, so should not see its details
         self.assertNotContains(response, "Christmas")
         self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_image permission but not change_image

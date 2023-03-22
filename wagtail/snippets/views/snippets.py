@@ -368,13 +368,8 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 class DeleteView(generic.DeleteView):
     view_name = "delete"
     page_title = gettext_lazy("Delete")
-    template_name = "wagtailsnippets/snippets/confirm_delete.html"
     permission_required = "delete"
     header_icon = "snippet"
-
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.object = self.get_object()
 
     def run_before_hook(self):
         return self.run_hook("before_delete_snippet", self.request, [self.object])
@@ -803,6 +798,7 @@ class SnippetViewSet(ViewSet):
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             delete_url_name=self.get_url_name("delete"),
+            usage_url_name=self.get_url_name("usage"),
         )
 
     @property
@@ -882,6 +878,7 @@ class SnippetViewSet(ViewSet):
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             unpublish_url_name=self.get_url_name("unpublish"),
+            usage_url_name=self.get_url_name("usage"),
         )
 
     @property

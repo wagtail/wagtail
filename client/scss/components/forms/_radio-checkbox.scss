@@ -16,6 +16,8 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
   width: $size;
   cursor: pointer;
   margin-inline-end: $radio-checkbox-label-gap;
+  // Prevent the checkbox or radio button from shrinking when the label is long.
+  flex-shrink: 0;
 
   &::before {
     content: '';

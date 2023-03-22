@@ -29,8 +29,8 @@ class LinkBlock(StructBlock):
 
 In the above example, an exception of type `ValidationError` is raised, which causes the error to be attached and rendered against the StructBlock as a whole. For more control over where the error appears, the exception class `wagtail.blocks.StructBlockValidationError` can be raised instead. The constructor for this class accepts the following arguments:
 
-* `non_block_errors` - a list of error messages or `ValidationError` instances to be raised against the StructBlock as a whole
-* `block_errors` - a dict of `ValidationError` instances to be displayed against specific child blocks of the StructBlock, where the key is the child block's name
+-   `non_block_errors` - a list of error messages or `ValidationError` instances to be raised against the StructBlock as a whole
+-   `block_errors` - a dict of `ValidationError` instances to be displayed against specific child blocks of the StructBlock, where the key is the child block's name
 
 The following example demonstrates raising a validation error attached to the 'description' block within the StructBlock:
 

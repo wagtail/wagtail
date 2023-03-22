@@ -7,7 +7,7 @@ urlpatterns = [
     path("", images.IndexView.as_view(), name="index"),
     path("results/", images.ListingResultsView.as_view(), name="listing_results"),
     path("<int:image_id>/", images.edit, name="edit"),
-    path("<int:image_id>/delete/", images.delete, name="delete"),
+    path("<int:image_id>/delete/", images.DeleteView.as_view(), name="delete"),
     path("<int:image_id>/generate_url/", images.url_generator, name="url_generator"),
     path(
         "<int:image_id>/generate_url/<str:filter_spec>/",
