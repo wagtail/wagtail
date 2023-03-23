@@ -11,9 +11,9 @@ export const wagtailPreviewPlugin: AxePlugin = {
   id: 'wagtailPreview',
   run(id, action, options, callback) {
     // Outside the preview frame, we need to send the command to the preview iframe.
-    const preview = document.querySelector<HTMLIFrameElement>(
-      '[data-preview-iframe]',
-    );
+    const preview = document.getElementById(
+      'w-preview-iframe',
+    ) as HTMLIFrameElement;
 
     if (preview) {
       // @ts-expect-error Not declared in the official Axe Utils API.
