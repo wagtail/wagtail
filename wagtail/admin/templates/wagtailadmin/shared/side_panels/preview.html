@@ -2,7 +2,11 @@
 
 {% wagtail_config as settings %}
 
-<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
+<div
+    class="preview-panel preview-panel--mobile"
+    data-controller="w-preview"
+    data-action="{{ preview_url }}"
+>
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button preview-panel__size-button--mobile">
             {% icon name="mobile-alt" %}
@@ -54,7 +58,14 @@
         </div>
 
         <div class="preview-panel__wrapper">
-            <iframe id="preview-iframe" loading="lazy" title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">
+            <iframe
+                id="preview-iframe"
+                loading="lazy"
+                title="{% trans 'Preview' %}"
+                class="preview-panel__iframe"
+                data-preview-iframe
+                aria-describedby="preview-panel-error-banner"
+            >
                 <div>
                      {# Add placeholder element to support styling content when iframe has loaded #}
                 </div>
