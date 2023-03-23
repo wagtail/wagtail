@@ -1,6 +1,7 @@
 import axe from 'axe-core';
 
 import { Controller } from '@hotwired/stimulus';
+import type { ContextObject } from 'axe-core';
 import {
   getAxeConfiguration,
   getA11yReport,
@@ -28,31 +29,47 @@ const runContentChecks = async () => {
   });
 };
 
-const runAccessibilityChecks = async (onClickSelector) => {
-  const a11yRowTemplate = document.querySelector('#w-a11y-result-row-template');
-  const checksPanel = document.querySelector('[data-checks-panel]');
+const runAccessibilityChecks = async (
+  onClickSelector: (selectorName: string, event: MouseEvent) => void,
+) => {
+  const a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
+    '#w-a11y-result-row-template',
+  );
+  const checksPanel = document.querySelector<HTMLElement>(
+    '[data-checks-panel]',
+  );
   const config = getAxeConfiguration(document.body);
-  const toggleCounter = document.querySelector(
+  const toggleCounter = document.querySelector<HTMLElement>(
     '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
   );
-  const panelCounter = document.querySelector(
+  const panelCounter = document.querySelector<HTMLElement>(
     '[data-side-panel="checks"] [data-a11y-result-count]',
   );
 
-  if (!a11yRowTemplate || !config || !toggleCounter || !panelCounter) {
+  if (
+    !checksPanel ||
+    !a11yRowTemplate ||
+    !config ||
+    !toggleCounter ||
+    !panelCounter
+  ) {
     return;
   }
 
   // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
   config.context = {
     include: {
-      fromFrames: ['#preview-iframe'].concat(config.context.include),
+      fromFrames: ['#preview-iframe'].concat(
+        (config.context as ContextObject).include as string[],
+      ),
     },
-  };
-  if (config.context.exclude?.length > 0) {
+  } as ContextObject;
+  if ((config.context.exclude as string[])?.length > 0) {
     config.context.exclude = {
-      fromFrames: ['#preview-iframe'].concat(config.context.exclude),
-    };
+      fromFrames: ['#preview-iframe'].concat(
+        config.context.exclude as string[],
+      ),
+    } as ContextObject['exclude'];
   }
 
   const { results, a11yErrorsNumber } = await getA11yReport(config);
@@ -95,10 +112,14 @@ export class PreviewController extends Controller<HTMLElement> {
     // Preview size handling
     //
 
-    const sizeInputs = previewPanel.querySelectorAll('[data-device-width]');
-    const defaultSizeInput = previewPanel.querySelector('[data-default-size]');
+    const sizeInputs = previewPanel.querySelectorAll<HTMLInputElement>(
+      '[data-device-width]',
+    );
+    const defaultSizeInput = previewPanel.querySelector<HTMLInputElement>(
+      '[data-default-size]',
+    ) as HTMLInputElement;
 
-    const setPreviewWidth = (width) => {
+    const setPreviewWidth = (width?: string) => {
       const isUnavailable = previewPanel.classList.contains(
         'preview-panel--unavailable',
       );
@@ -109,12 +130,16 @@ export class PreviewController extends Controller<HTMLElement> {
         deviceWidth = defaultSizeInput.dataset.deviceWidth;
       }
 
-      previewPanel.style.setProperty('--preview-device-width', deviceWidth);
+      previewPanel.style.setProperty(
+        '--preview-device-width',
+        deviceWidth as string,
+      );
     };
 
-    const togglePreviewSize = (event) => {
-      const device = event.target.value;
-      const deviceWidth = event.target.dataset.deviceWidth;
+    const togglePreviewSize = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const device = target.value;
+      const deviceWidth = target.dataset.deviceWidth;
 
       setPreviewWidth(deviceWidth);
       try {
@@ -139,7 +164,7 @@ export class PreviewController extends Controller<HTMLElement> {
     const resizeObserver = new ResizeObserver((entries) =>
       previewPanel.style.setProperty(
         '--preview-panel-width',
-        entries[0].contentRect.width,
+        entries[0].contentRect.width.toString(),
       ),
     );
     resizeObserver.observe(previewPanel);
@@ -153,16 +178,26 @@ export class PreviewController extends Controller<HTMLElement> {
     // to the preview page, we send the form after each change
     // and save it inside the user session.
 
-    const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
-    const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
-    const loadingSpinner = previewPanel.querySelector('[data-preview-spinner]');
-    const form = document.querySelector('[data-edit-form]');
-    const previewUrl = previewPanel.dataset.action;
-    const previewModeSelect = document.querySelector(
+    const newTabButton = previewPanel.querySelector<HTMLAnchorElement>(
+      '[data-preview-new-tab]',
+    ) as HTMLAnchorElement;
+    const refreshButton = previewPanel.querySelector<HTMLButtonElement>(
+      '[data-refresh-preview]',
+    );
+    const loadingSpinner = previewPanel.querySelector<HTMLDivElement>(
+      '[data-preview-spinner]',
+    ) as HTMLDivElement;
+    const form = document.querySelector<HTMLFormElement>(
+      '[data-edit-form]',
+    ) as HTMLFormElement;
+    const previewUrl = previewPanel.dataset.action as string;
+    const previewModeSelect = document.querySelector<HTMLSelectElement>(
       '[data-preview-mode-select]',
     );
-    let iframe = previewPanel.querySelector('[data-preview-iframe]');
-    let spinnerTimeout;
+    let iframe = previewPanel.querySelector<HTMLIFrameElement>(
+      '[data-preview-iframe]',
+    ) as HTMLIFrameElement;
+    let spinnerTimeout: ReturnType<typeof setTimeout>;
     let hasPendingUpdate = false;
     let cleared = false;
 
@@ -183,9 +218,9 @@ export class PreviewController extends Controller<HTMLElement> {
         url.searchParams.set('mode', previewModeSelect.value);
       }
       url.searchParams.set('in_preview_panel', 'true');
-      newIframe.style.width = 0;
-      newIframe.style.height = 0;
-      newIframe.style.opacity = 0;
+      newIframe.style.width = '0';
+      newIframe.style.height = '0';
+      newIframe.style.opacity = '0';
       newIframe.style.position = 'absolute';
       newIframe.src = url.toString();
 
@@ -197,13 +232,13 @@ export class PreviewController extends Controller<HTMLElement> {
         // except src as that will cause the iframe to be reloaded
         Array.from(iframe.attributes).forEach((key) => {
           if (key.nodeName === 'src') return;
-          newIframe.setAttribute(key.nodeName, key.nodeValue);
+          newIframe.setAttribute(key.nodeName, key.nodeValue as string);
         });
 
         // Restore scroll position
-        newIframe.contentWindow.scroll(
-          iframe.contentWindow.scrollX,
-          iframe.contentWindow.scrollY,
+        newIframe.contentWindow?.scroll(
+          iframe.contentWindow?.scrollX as number,
+          iframe.contentWindow?.scrollY as number,
         );
 
         // Remove the old iframe and swap it with the new one
@@ -211,7 +246,7 @@ export class PreviewController extends Controller<HTMLElement> {
         iframe = newIframe;
 
         // Make the new iframe visible
-        newIframe.style = null;
+        newIframe.removeAttribute('style');
 
         // Ready for another update
         finishUpdate();
@@ -293,9 +328,9 @@ export class PreviewController extends Controller<HTMLElement> {
         window.alert(gettext('Error while sending preview data.'));
       });
 
-    const handlePreviewInNewTab = (event) => {
+    const handlePreviewInNewTab = (event: MouseEvent) => {
       event.preventDefault();
-      const previewWindow = window.open('', previewUrl);
+      const previewWindow = window.open('', previewUrl) as Window;
       previewWindow.focus();
 
       handlePreview().then((success) => {
@@ -319,10 +354,13 @@ export class PreviewController extends Controller<HTMLElement> {
       // Start with an empty payload so that when checkAndUpdatePreview is called
       // for the first time when the panel is opened, it will always update the preview
       let oldPayload = '';
-      let updateInterval;
+      let updateInterval: ReturnType<typeof setInterval>;
 
       const hasChanges = () => {
-        const newPayload = new URLSearchParams(new FormData(form)).toString();
+        // https://github.com/microsoft/TypeScript/issues/30584
+        const newPayload = new URLSearchParams(
+          new FormData(form) as unknown as Record<string, string>,
+        ).toString();
         const changed = oldPayload !== newPayload;
 
         oldPayload = newPayload;
@@ -385,8 +423,8 @@ export class PreviewController extends Controller<HTMLElement> {
     // Preview mode handling
     //
 
-    const handlePreviewModeChange = (event) => {
-      const mode = event.target.value;
+    const handlePreviewModeChange = (event: Event) => {
+      const mode = (event.target as HTMLSelectElement).value;
       const url = new URL(previewUrl, window.location.href);
       url.searchParams.set('mode', mode);
       url.searchParams.delete('in_preview_panel');
@@ -401,14 +439,14 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     // Remember last selected device size
-    let lastDevice = null;
+    let lastDevice: string | null = null;
     try {
       lastDevice = localStorage.getItem('wagtail:preview-panel-device');
     } catch (e) {
       // Initialise with the default device if the last one cannot be restored.
     }
     const lastDeviceInput =
-      previewPanel.querySelector(
+      previewPanel.querySelector<HTMLInputElement>(
         `[data-device-width][value="${lastDevice}"]`,
       ) || defaultSizeInput;
     lastDeviceInput.click();
