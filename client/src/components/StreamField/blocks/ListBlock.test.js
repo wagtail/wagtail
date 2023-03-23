@@ -113,7 +113,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
@@ -333,7 +333,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       icon: 'placeholder',
       classname: null,
       helpText: 'use <strong>a few</strong> of these',
-      helpIcon: '<div class="icon-help">?</div>',
+      helpIcon: '<svg></svg>',
       maxNum: 3,
       strings: {
         MOVE_UP: 'Move up',
@@ -479,7 +479,7 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
           icon: 'placeholder',
           classname: null,
           helpText: 'use <strong>plenty</strong> of these',
-          helpIcon: '<div class="icon-help">?</div>',
+          helpIcon: '<svg></svg>',
           maxNum: null,
           minNum: null,
           blockCounts: {},
@@ -498,7 +498,7 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
@@ -563,7 +563,7 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
@@ -584,7 +584,7 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>plenty</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         maxNum: null,
         minNum: null,
         blockCounts: {},

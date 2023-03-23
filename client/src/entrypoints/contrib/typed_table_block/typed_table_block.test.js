@@ -99,7 +99,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>plenty</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         strings: {
           ADD_COLUMN: 'Add column',
           ADD_ROW: 'Add row',
@@ -273,7 +273,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
                 icon: 'placeholder',
                 classname: null,
                 helpText: 'use <strong>plenty</strong> of these',
-                helpIcon: '<div class="icon-help">?</div>',
+                helpIcon: '<svg></svg>',
                 strings: {
                   ADD_COLUMN: 'Add column',
                   ADD_ROW: 'Add row',
@@ -295,7 +295,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>plenty</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         maxNum: null,
         minNum: null,
         blockCounts: {},

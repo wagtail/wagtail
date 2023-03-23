@@ -93,7 +93,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
         icon: 'title',
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
       },
     );
 
@@ -394,7 +394,7 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         icon: 'title',
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
       },
     );
 
@@ -408,7 +408,7 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>plenty</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         maxNum: null,
         minNum: null,
         blockCounts: {},
