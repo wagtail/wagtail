@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.widgets import AdminDateInput
+from wagtail.admin.widgets.workflows import AdminTaskChooser
 
 
 class ValidatedPageForm(WagtailAdminPageForm):
@@ -34,9 +35,16 @@ class FormClassAdditionalFieldPageForm(WagtailAdminPageForm):
 
 class AdminStarDateInput(AdminDateInput):
     # Media definitions defined as `class Media:` should be merged into
-    # the media of the parent class
+    # the media of the parent class (if applicable)
     class Media:
         js = ["vendor/star_date.js"]
+
+
+class AdminStarTaskChooser(AdminTaskChooser):
+    # Media definitions defined as `class Media:` should be merged into
+    # the media of the parent class
+    class Media:
+        js = ["vendor/star_tasks.js"]
 
 
 class FavouriteColourForm(forms.ModelForm):

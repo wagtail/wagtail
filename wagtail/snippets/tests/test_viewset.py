@@ -10,13 +10,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
+from django.utils.html import escape
 from django.utils.timezone import now
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
@@ -382,14 +382,6 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
             text="Fish and chips from the UK", country_code="UK"
         )
 
-    def test_get_include_filters_form_media(self):
-        response = self.get()
-        html = response.content.decode()
-        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
-
-        # The script file for the date time chooser should be included
-        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
-
     def test_unfiltered_no_results(self):
         response = self.get()
         add_url = self.get_url("add")
@@ -522,14 +514,6 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             first_published_at=self.date,
         )
 
-    def test_get_include_filters_form_media(self):
-        response = self.get()
-        html = response.content.decode()
-        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
-
-        # The script file for the date time chooser should be included
-        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
-
     def test_unfiltered_no_results(self):
         response = self.get()
         add_url = self.get_url("add")
@@ -542,9 +526,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
             html=True,
         )
+        options = escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}')
         self.assertContains(
             response,
-            '<input type="text" name="first_published_at" autocomplete="off" id="id_first_published_at">',
+            f'<input type="text" name="first_published_at" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_first_published_at" data-w-date-options-value="{options}">',
             html=True,
         )
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
@@ -561,9 +546,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
             html=True,
         )
+        options = escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}')
         self.assertContains(
             response,
-            '<input type="text" name="first_published_at" autocomplete="off" id="id_first_published_at">',
+            f'<input type="text" name="first_published_at" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_first_published_at" data-w-date-options-value="{options}">',
             html=True,
         )
 
@@ -579,9 +565,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
             html=True,
         )
+        options = escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}')
         self.assertContains(
             response,
-            '<input type="text" name="first_published_at" value="" autocomplete="off" id="id_first_published_at">',
+            f'<input type="text" name="first_published_at" value="" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_first_published_at" data-w-date-options-value="{options}">',
             html=True,
         )
 
@@ -598,9 +585,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
             html=True,
         )
+        options = escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}')
         self.assertContains(
             response,
-            '<input type="text" name="first_published_at" value="1970-01-01" autocomplete="off" id="id_first_published_at">',
+            f'<input type="text" name="first_published_at" value="1970-01-01" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_first_published_at" data-w-date-options-value="{options}">',
             html=True,
         )
 
@@ -615,9 +603,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<label class="w-field__label" for="id_first_published_at" id="id_first_published_at-label">First published at</label>',
             html=True,
         )
+        options = escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}')
         self.assertContains(
             response,
-            f'<input type="text" name="first_published_at" value="{self.date_str}" autocomplete="off" id="id_first_published_at">',
+            f'<input type="text" name="first_published_at" value="{self.date_str}" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_first_published_at" data-w-date-options-value="{options}">',
             html=True,
         )
 

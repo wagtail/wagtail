@@ -10,7 +10,7 @@ from django.utils.html import escape
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
 from wagtail.models import Page
-from wagtail.test.testapp.forms import AdminStarDateInput
+from wagtail.test.testapp.forms import AdminStarDateInput, AdminStarTaskChooser
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 
 
@@ -177,213 +177,151 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertEqual(widget.get_instance(self.child_page.id), self.child_page)
 
 
+class TestAdminTaskChooser(TestCase):
+    def test_media_inheritance(self):
+        """
+        Widgets inheriting from AdminTaskChooser should have their media definitions merged
+        with AdminTaskChooser's
+        """
+        widget = AdminStarTaskChooser()
+        media_html = str(widget.media)
+        self.assertIn("wagtailadmin/js/task-chooser.js", media_html)
+        self.assertIn("vendor/star_tasks.js", media_html)
+
+
 class TestAdminDateInput(TestCase):
-    def test_adapt(self):
-        widget = widgets.AdminDateInput()
-
-        js_args = widgets.AdminDateInputAdapter().js_args(widget)
-
-        self.assertEqual(js_args[0], {"dayOfWeekStart": 0, "format": "Y-m-d"})
-
-    def test_adapt_with_custom_format(self):
-        widget = widgets.AdminDateInput(format="%d.%m.%Y")
-
-        js_args = widgets.AdminDateInputAdapter().js_args(widget)
-
-        self.assertEqual(js_args[0], {"dayOfWeekStart": 0, "format": "d.m.Y"})
-
-    def test_render_js_init(self):
+    def test_render_data_attrs(self):
         widget = widgets.AdminDateInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertInHTML(
-            '<input type="text" name="test" autocomplete="off" id="test-id" />', html
+            '<input type="text" name="test" autocomplete="off" '
+            + 'data-controller="w-date" data-w-date-mode-value="date" id="test-id" data-w-date-options-value="%s">'
+            % escape('{"dayOfWeekStart": 0, "format": "Y-m-d"}'),
+            html,
         )
 
-        # we should see the JS initialiser code:
-        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
-        # except that we can't predict the order of the config options
-        self.assertIn('initDateChooser("test\\u002Did", {', html)
-        self.assertIn('"dayOfWeekStart": 0', html)
-        self.assertIn('"format": "Y-m-d"', html)
-
-    def test_render_js_init_with_format(self):
+    def test_render_data_attrs_with_format(self):
         widget = widgets.AdminDateInput(format="%d.%m.%Y.")
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "d.m.Y."',
+            escape('"format": "d.m.Y."'),
             html,
         )
 
     @override_settings(WAGTAIL_DATE_FORMAT="%d.%m.%Y.")
-    def test_render_js_init_with_format_from_settings(self):
+    def test_render_data_attrs_with_format_from_settings(self):
         widget = widgets.AdminDateInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "d.m.Y."',
+            escape('"format": "d.m.Y."'),
             html,
         )
 
-    def test_media_inheritance(self):
+    def test_media_usage(self):
         """
-        Widgets inheriting from AdminDateInput should have their media definitions merged
-        with AdminDateInput's
+        Widgets inheriting from AdminDateInput should correctly use any media definitions
         """
         widget = AdminStarDateInput()
         media_html = str(widget.media)
-        self.assertIn("wagtailadmin/js/date-time-chooser.js", media_html)
         self.assertIn("vendor/star_date.js", media_html)
 
 
 class TestAdminTimeInput(TestCase):
-    def test_adapt(self):
-        widget = widgets.AdminTimeInput()
-
-        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
-
-        self.assertEqual(js_args[0], {"format": "H:i", "formatTime": "H:i"})
-
-    def test_adapt_with_custom_format(self):
-        widget = widgets.AdminTimeInput(format="%H:%M:%S")
-
-        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
-
-        self.assertEqual(js_args[0], {"format": "H:i:s", "formatTime": "H:i:s"})
-
-    def test_render_js_init(self):
+    def test_render_data_attrs(self):
         widget = widgets.AdminTimeInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertInHTML(
-            '<input type="text" name="test" autocomplete="off" id="test-id" />', html
+            '<input type="text" name="test" autocomplete="off" '
+            + 'data-controller="w-date" data-w-date-mode-value="time" id="test-id" data-w-date-options-value="%s">'
+            % escape('{"format": "H:i", "formatTime": "H:i"}'),
+            html,
         )
 
-        # we should see the JS initialiser code:
-        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
-        # except that we can't predict the order of the config options
-        self.assertIn('initTimeChooser("test\\u002Did", {', html)
-        self.assertIn('"format": "H:i"', html)
-
-    def test_render_js_init_with_format(self):
+    def test_render_data_attrs_init_with_format(self):
         widget = widgets.AdminTimeInput(format="%H:%M:%S")
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "H:i:s"',
+            escape('"format": "H:i:s"'),
             html,
         )
 
     @override_settings(WAGTAIL_TIME_FORMAT="%H:%M:%S")
-    def test_render_js_init_with_format_from_settings(self):
+    def test_render_data_attrs_with_format_from_settings(self):
         widget = widgets.AdminTimeInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "H:i:s"',
+            escape('"format": "H:i:s"'),
             html,
         )
 
 
 class TestAdminDateTimeInput(TestCase):
-    def test_adapt(self):
-        widget = widgets.AdminDateTimeInput()
-
-        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
-
-        self.assertEqual(
-            js_args[0],
-            {
-                "dayOfWeekStart": 0,
-                "format": "Y-m-d H:i",
-                "formatTime": "H:i",
-                "parentID": "body",
-            },
-        )
-
-    def test_adapt_with_custom_format(self):
-        widget = widgets.AdminDateTimeInput(
-            format="%d.%m.%Y. %H:%M", time_format="%H:%M %p"
-        )
-
-        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
-
-        self.assertEqual(
-            js_args[0],
-            {
-                "dayOfWeekStart": 0,
-                "format": "d.m.Y. H:i",
-                "formatTime": "H:i A",
-                "parentID": "body",
-            },
-        )
-
-    def test_adapt_with_custom_parent_selector(self):
-        widget = widgets.AdminDateTimeInput(
-            js_overlay_parent_selector="#test-parent-id"
-        )
-
-        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
-
-        self.assertEqual(
-            js_args[0],
-            {
-                "dayOfWeekStart": 0,
-                "format": "Y-m-d H:i",
-                "formatTime": "H:i",
-                "parentID": "#test-parent-id",
-            },
-        )
-
-    def test_render_js_init(self):
+    def test_render_data_attrs(self):
         widget = widgets.AdminDateTimeInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertInHTML(
-            '<input type="text" name="test" autocomplete="off" id="test-id" />', html
+            '<input type="text" name="test" autocomplete="off" '
+            + 'data-controller="w-date" data-w-date-mode-value="datetime" id="test-id" data-w-date-options-value="%s">'
+            % escape(
+                '{"dayOfWeekStart": 0, "format": "Y-m-d H:i", "formatTime": "H:i", "parentID": "body"}'
+            ),
+            html,
         )
 
-        # we should see the JS initialiser code:
-        # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
-        # except that we can't predict the order of the config options
-        self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
-        self.assertIn('"dayOfWeekStart": 0', html)
-        self.assertIn('"format": "Y-m-d H:i"', html)
-        self.assertIn('"formatTime": "H:i"', html)
-        self.assertIn('"parentID": "body"', html)
+    def test_render_data_attrs_with_custom_parent_selector(self):
+        widget = widgets.AdminDateTimeInput(
+            js_overlay_parent_selector="#test-parent-id"
+        )
 
-    def test_render_js_init_with_format(self):
+        html = widget.render("test", None, attrs={"id": "test-id"})
+
+        self.assertInHTML(
+            '<input type="text" name="test" autocomplete="off" '
+            + 'data-controller="w-date" data-w-date-mode-value="datetime" id="test-id" data-w-date-options-value="%s">'
+            % escape(
+                '{"dayOfWeekStart": 0, "format": "Y-m-d H:i", "formatTime": "H:i", "parentID": "#test-parent-id"}'
+            ),
+            html,
+        )
+
+    def test_render_data_attrs_with_custom_format(self):
         widget = widgets.AdminDateTimeInput(
             format="%d.%m.%Y. %H:%M", time_format="%H:%M %p"
         )
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "d.m.Y. H:i"',
+            escape('"format": "d.m.Y. H:i"'),
             html,
         )
         self.assertIn(
-            '"formatTime": "H:i A"',
+            escape('"formatTime": "H:i A"'),
             html,
         )
 
     @override_settings(
         WAGTAIL_DATETIME_FORMAT="%d.%m.%Y. %H:%M", WAGTAIL_TIME_FORMAT="%H:%M %p"
     )
-    def test_render_js_init_with_format_from_settings(self):
+    def test_render_data_attrs_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
         self.assertIn(
-            '"format": "d.m.Y. H:i"',
+            escape('"format": "d.m.Y. H:i"'),
             html,
         )
         self.assertIn(
-            '"formatTime": "H:i A"',
+            escape('"formatTime": "H:i A"'),
             html,
         )
 

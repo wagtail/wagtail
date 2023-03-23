@@ -36,7 +36,6 @@ module.exports = function exports(env, argv) {
       'chooser-widget-telepath',
       'comments',
       'core',
-      'date-time-chooser',
       'draftail',
       'expanding-formset',
       'filtered-select',

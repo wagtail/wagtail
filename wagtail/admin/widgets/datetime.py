@@ -1,14 +1,10 @@
 import json
 
-from django import forms
 from django.conf import settings
 from django.forms import widgets
 from django.utils.formats import get_format
 
 from wagtail.admin.datetimepicker import to_datetimepicker_format
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d"
 DEFAULT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
@@ -16,10 +12,12 @@ DEFAULT_TIME_FORMAT = "%H:%M"
 
 
 class AdminDateInput(widgets.DateInput):
-    template_name = "wagtailadmin/widgets/date_input.html"
-
     def __init__(self, attrs=None, format=None):
-        default_attrs = {"autocomplete": "off"}
+        default_attrs = {
+            "autocomplete": "off",
+            "data-controller": "w-date",
+            "data-w-date-mode-value": "date",
+        }
         fmt = format
         if attrs:
             default_attrs.update(attrs)
@@ -37,36 +35,20 @@ class AdminDateInput(widgets.DateInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        context["widget"]["config_json"] = json.dumps(self.get_config())
+        context["widget"]["attrs"]["data-w-date-options-value"] = json.dumps(
+            self.get_config()
+        )
 
         return context
 
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/date-time-chooser.js"),
-            ]
-        )
-
-
-class AdminDateInputAdapter(WidgetAdapter):
-    js_constructor = "wagtail.widgets.AdminDateInput"
-
-    def js_args(self, widget):
-        return [
-            widget.get_config(),
-        ]
-
-
-register(AdminDateInputAdapter(), AdminDateInput)
-
 
 class AdminTimeInput(widgets.TimeInput):
-    template_name = "wagtailadmin/widgets/time_input.html"
-
     def __init__(self, attrs=None, format=None):
-        default_attrs = {"autocomplete": "off"}
+        default_attrs = {
+            "autocomplete": "off",
+            "data-controller": "w-date",
+            "data-w-date-mode-value": "time",
+        }
         if attrs:
             default_attrs.update(attrs)
         fmt = format
@@ -76,37 +58,22 @@ class AdminTimeInput(widgets.TimeInput):
         super().__init__(attrs=default_attrs, format=fmt)
 
     def get_config(self):
-        return {"format": self.js_format, "formatTime": self.js_format}
+        return {
+            "format": self.js_format,
+            "formatTime": self.js_format,
+        }
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context["widget"]["config_json"] = json.dumps(self.get_config())
-        return context
 
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/date-time-chooser.js"),
-            ]
+        context["widget"]["attrs"]["data-w-date-options-value"] = json.dumps(
+            self.get_config()
         )
 
-
-class AdminTimeInputAdapter(WidgetAdapter):
-    js_constructor = "wagtail.widgets.AdminTimeInput"
-
-    def js_args(self, widget):
-        return [
-            widget.get_config(),
-        ]
-
-
-register(AdminTimeInputAdapter(), AdminTimeInput)
+        return context
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
-    template_name = "wagtailadmin/widgets/datetime_input.html"
-
     def __init__(
         self,
         attrs=None,
@@ -114,7 +81,11 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         time_format=None,
         js_overlay_parent_selector="body",
     ):
-        default_attrs = {"autocomplete": "off"}
+        default_attrs = {
+            "autocomplete": "off",
+            "data-controller": "w-date",
+            "data-w-date-mode-value": "datetime",
+        }
         fmt = format
         if attrs:
             default_attrs.update(attrs)
@@ -140,26 +111,8 @@ class AdminDateTimeInput(widgets.DateTimeInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        context["widget"]["config_json"] = json.dumps(self.get_config())
-
-        return context
-
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/date-time-chooser.js"),
-            ]
+        context["widget"]["attrs"]["data-w-date-options-value"] = json.dumps(
+            self.get_config()
         )
 
-
-class AdminDateTimeInputAdapter(WidgetAdapter):
-    js_constructor = "wagtail.widgets.AdminDateTimeInput"
-
-    def js_args(self, widget):
-        return [
-            widget.get_config(),
-        ]
-
-
-register(AdminDateTimeInputAdapter(), AdminDateTimeInput)
+        return context

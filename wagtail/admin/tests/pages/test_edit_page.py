@@ -2800,10 +2800,10 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
             html=True,
         )
 
-        # date field should use AdminDatePicker
+        # date field should use AdminDatePicker (with data attributes)
         self.assertContains(
             response,
-            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="off" id="id_speakers-0-awards-0-date_awarded">""",
+            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="off" data-controller="w-date" data-w-date-mode-value="date" id="id_speakers-0-awards-0-date_awarded" data-w-date-options-value="{&quot;dayOfWeekStart&quot;: 0, &quot;format&quot;: &quot;Y-m-d&quot;}">""",
             count=1,
             html=True,
         )
