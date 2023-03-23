@@ -5,8 +5,11 @@ from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import get_edit_handler
+from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, Workflow, WorkflowContentType
+from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import Advert, FullFeaturedSnippet, SnippetChooserModel
 from wagtail.test.utils import WagtailTestUtils
 
@@ -81,6 +84,28 @@ class TestCustomIcon(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["header_icon"], "list-ul")
         self.assertContains(response, "icon icon-list-ul")
         self.assertContains(response, "icon icon-cog")
+
+
+class TestSnippetChooserBlockWithIcon(TestCase):
+    def test_adapt(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet)
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_snippetchooserblock")
+        self.assertIsInstance(js_args[1], AdminSnippetChooser)
+        self.assertEqual(js_args[1].model, FullFeaturedSnippet)
+        # It should use the icon defined in the FullFeaturedSnippetViewSet
+        self.assertEqual(js_args[2]["icon"], "cog")
+
+    def test_deconstruct(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet, required=False)
+        path, args, kwargs = block.deconstruct()
+        self.assertEqual(path, "wagtail.snippets.blocks.SnippetChooserBlock")
+        self.assertEqual(args, (FullFeaturedSnippet,))
+        # It should not add any extra kwargs for the icon
+        self.assertEqual(kwargs, {"required": False})
 
 
 class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
