@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailadmin_tags wagtailimages_tags %}
 {% load i18n %}
 {% block content %}
 
@@ -44,8 +44,9 @@
                         {% endblock fields %}
 
                         <li>
-                            <a href="#tab-roles" data-tab-trigger class="button lowpriority icon icon-arrow-right-after">
+                            <a href="#tab-roles" data-tab-trigger class="button">
                                 {% trans "Roles" %}
+                                {% icon name="arrow-right" classname="default" %}
                             </a>
                         </li>
                     </ul>
