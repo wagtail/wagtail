@@ -4,7 +4,7 @@
 {% block titletag %}{% blocktrans trimmed with title=subtitle %}Page history for {{ subtitle }}{% endblocktrans %}{% endblock %}
 
 {% block actions %}
-    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor icon icon-edit">{% trans "Edit this page" %}</a>
+    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor button--icon">{% icon name="edit" wrapped=1 %}{% trans "Edit this page" %}</a>
 {% endblock %}
 
 {% block results %}

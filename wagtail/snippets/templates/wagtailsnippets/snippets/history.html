@@ -5,7 +5,7 @@
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
 {% block actions %}
-    <a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button bicolor icon icon-edit">{% trans "Edit this snippet" %}</a>
+    <a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button bicolor button--icon">{% icon name="edit" wrapped=1 %}{% trans "Edit this snippet" %}</a>
 {% endblock %}
 
 {% block content %}
