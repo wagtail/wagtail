@@ -208,12 +208,9 @@ class UnpublishMenuItem(ActionMenuItem):
         return False
 
     def get_url(self, context):
-        app_label = context["model"]._meta.app_label
-        model_name = context["model"]._meta.model_name
-        return reverse(
-            f"wagtailsnippets_{app_label}_{model_name}:unpublish",
-            args=[quote(context["instance"].pk)],
-        )
+        instance = context["instance"]
+        url_name = instance.snippet_viewset.get_url_name("unpublish")
+        return reverse(url_name, args=[quote(instance.pk)])
 
 
 class DeleteMenuItem(ActionMenuItem):
@@ -232,12 +229,9 @@ class DeleteMenuItem(ActionMenuItem):
         )
 
     def get_url(self, context):
-        app_label = context["model"]._meta.app_label
-        model_name = context["model"]._meta.model_name
-        return reverse(
-            f"wagtailsnippets_{app_label}_{model_name}:delete",
-            args=[quote(context["instance"].pk)],
-        )
+        instance = context["instance"]
+        url_name = instance.snippet_viewset.get_url_name("delete")
+        return reverse(url_name, args=[quote(instance.pk)])
 
 
 class SaveMenuItem(ActionMenuItem):

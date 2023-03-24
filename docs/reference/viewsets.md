@@ -79,7 +79,13 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
+   .. autoattribute:: icon
    .. autoattribute:: list_display
+   .. autoattribute:: list_per_page
+   .. autoattribute:: admin_url_namespace
+   .. autoattribute:: base_url_path
+   .. autoattribute:: chooser_admin_url_namespace
+   .. autoattribute:: chooser_base_url_path
    .. autoattribute:: filterset_class
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
@@ -96,4 +102,8 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: preview_on_edit_view_class
    .. autoattribute:: lock_view_class
    .. autoattribute:: unlock_view_class
+   .. automethod:: get_admin_url_namespace
+   .. automethod:: get_admin_base_path
+   .. automethod:: get_chooser_admin_url_namespace
+   .. automethod:: get_chooser_admin_base_path
 ```

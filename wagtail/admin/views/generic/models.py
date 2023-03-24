@@ -332,6 +332,7 @@ class IndexView(
 
         index_url = self.get_index_url()
         table = self.get_table(context["object_list"], base_url=index_url)
+        context["media"] = table.media
 
         context["can_add"] = (
             self.permission_policy is None
@@ -346,9 +347,9 @@ class IndexView(
             context["is_filtering"] = any(
                 self.request.GET.get(f) for f in set(self.filters.get_fields())
             )
+            context["media"] += self.filters.form.media
 
         context["table"] = table
-        context["media"] = table.media
         context["index_url"] = index_url
         context["is_paginated"] = bool(self.paginate_by)
         context["is_searchable"] = self.is_searchable
@@ -829,7 +830,7 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         return context
 
 
-class UnpublishView(HookResponseMixin, TemplateView):
+class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     model = None
     index_url_name = None
     edit_url_name = None
@@ -936,7 +937,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
         return context
 
 
-class RevisionsUnscheduleView(TemplateView):
+class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
     model = None
     edit_url_name = None
     history_url_name = None

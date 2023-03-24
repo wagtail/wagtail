@@ -12,8 +12,10 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.test.snippets.models import FilterableSnippet
 from wagtail.test.snippets.views import FilterableSnippetViewSet
+from wagtail.test.testapp.models import FullFeaturedSnippet
 
 from .forms import FavouriteColourForm
 
@@ -226,3 +228,16 @@ def add_broken_links_summary_item(request, items):
 
 
 register_snippet(FilterableSnippet, viewset=FilterableSnippetViewSet)
+
+
+class FullFeaturedSnippetViewSet(SnippetViewSet):
+    icon = "cog"
+    admin_url_namespace = "some_namespace"
+    base_url_path = "deep/within/the/admin"
+    chooser_admin_url_namespace = "my_chooser_namespace"
+    chooser_base_url_path = "choose/wisely"
+    list_per_page = 5
+    chooser_per_page = 15
+
+
+register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)

@@ -8,7 +8,7 @@
     </div>
 
     {% trans "New" as new_str %}
-    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" merged=1 only %}
+    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon=header_icon merged=1 only %}
 
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
         {% csrf_token %}

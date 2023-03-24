@@ -143,6 +143,7 @@ class RevisionsUnschedule(RevisionsUnscheduleView):
     edit_url_name = "wagtailadmin_pages:edit"
     history_url_name = "wagtailadmin_pages:history"
     revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
+    header_icon = "doc-empty-inverse"
 
     def setup(self, request, page_id, revision_id, *args, **kwargs):
         # Rename path kwargs from pk to page_id

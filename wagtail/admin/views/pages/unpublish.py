@@ -19,6 +19,7 @@ class Unpublish(UnpublishView):
     usage_url_name = "wagtailadmin_pages:usage"
     success_message = _("Page '%(page_title)s' unpublished.")
     template_name = "wagtailadmin/pages/confirm_unpublish.html"
+    header_icon = "doc-empty-inverse"
 
     def setup(self, request, page_id, *args, **kwargs):
         # Rename path kwargs from pk to page_id

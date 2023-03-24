@@ -333,7 +333,7 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
 
     def get_snippet_url(self, view, snippet):
         return reverse(
-            f"wagtailsnippets_{self.app_label}_{self.model_name}:{view}",
+            snippet.snippet_viewset.get_url_name(view),
             args=(quote(snippet.pk),),
         )
 

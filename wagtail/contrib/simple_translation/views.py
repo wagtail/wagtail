@@ -144,8 +144,6 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         return object
 
     def get_success_url(self, translated_snippet=None):
-        app_label = self.kwargs["app_label"]
-        model_name = self.kwargs["model_name"]
         pk = self.kwargs["pk"]
 
         if translated_snippet:
@@ -153,10 +151,7 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
             # the newly translated snippet's edit view.
             pk = translated_snippet.pk
 
-        return reverse(
-            f"wagtailsnippets_{app_label}_{model_name}:edit",
-            args=[pk],
-        )
+        return reverse(self.object.snippet_viewset.get_url_name("edit"), args=[pk])
 
     def get_success_message(self, locales):
         return _("Successfully created %(locales)s for %(model_name)s '%(object)s'") % {

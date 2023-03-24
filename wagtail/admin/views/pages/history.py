@@ -57,6 +57,7 @@ class PageWorkflowHistoryViewMixin:
 
 
 class WorkflowHistoryView(PageWorkflowHistoryViewMixin, history.WorkflowHistoryView):
+    header_icon = "doc-empty-inverse"
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
     workflow_history_detail_url_name = "wagtailadmin_pages:workflow_history_detail"
 
@@ -64,6 +65,7 @@ class WorkflowHistoryView(PageWorkflowHistoryViewMixin, history.WorkflowHistoryV
 class WorkflowHistoryDetailView(
     PageWorkflowHistoryViewMixin, history.WorkflowHistoryDetailView
 ):
+    object_icon = "doc-empty-inverse"
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 

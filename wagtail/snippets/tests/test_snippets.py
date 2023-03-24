@@ -24,6 +24,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
@@ -111,6 +112,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -530,6 +532,14 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
         FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
         FilterableSnippet.objects.create(text="From the UK", country_code="UK")
 
+    def test_get_include_filters_form_media(self):
+        response = self.get()
+        html = response.content.decode()
+        datetime_js = versioned_static("wagtailadmin/js/date-time-chooser.js")
+
+        # The script file for the date time chooser should be included
+        self.assertTagInHTML(f'<script src="{datetime_js}"></script>', html)
+
     def test_unfiltered_no_results(self):
         response = self.get()
         add_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:add")
@@ -658,17 +668,13 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.user = self.login()
 
     def get(self, params={}, model=Advert):
-        app_label = model._meta.app_label
-        model_name = model._meta.model_name
         return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"), params
+            reverse(model.snippet_viewset.get_url_name("add")), params
         )
 
     def post(self, post_data={}, model=Advert):
-        app_label = model._meta.app_label
-        model_name = model._meta.model_name
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"), post_data
+            reverse(model.snippet_viewset.get_url_name("add")), post_data
         )
 
     def test_get_with_limited_permissions(self):
@@ -1288,10 +1294,8 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
 class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
     def get_edit_url(self):
         snippet = self.test_snippet
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
-        return reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args)
+        return reverse(snippet.snippet_viewset.get_url_name("edit"), args=args)
 
     def get(self, params={}):
         return self.client.get(self.get_edit_url(), params)
@@ -3783,6 +3787,7 @@ class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
+        self.assertIn("icon icon-snippet icon", field_html)
 
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
@@ -3849,12 +3854,9 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         return self.client.get(self.get_url(snippet, "history"), params)
 
     def get_url(self, snippet, url_name, args=None):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
-        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
         if args is None:
             args = [quote(snippet.pk)]
-        return reverse(view_name, args=args)
+        return reverse(snippet.snippet_viewset.get_url_name(url_name), args=args)
 
     def setUp(self):
         self.user = self.login()
@@ -3999,9 +4001,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         return self.client.post(self.revert_url, post_data)
 
     def get_url(self, url_name, args=None):
-        app_label = self.snippet._meta.app_label
-        model_name = self.snippet._meta.model_name
-        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
+        view_name = self.snippet.snippet_viewset.get_url_name(url_name)
         if args is None:
             args = [quote(self.snippet.pk)]
         return reverse(view_name, args=args)
@@ -4683,6 +4683,7 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_edit(self):
         response = self.client.get(
@@ -4746,6 +4747,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_delete(self):
         response = self.client.get(
@@ -4807,6 +4809,7 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
 
 class TestSnippetEditHandlers(WagtailTestUtils, TestCase):
@@ -4990,27 +4993,22 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def get(self, snippet, params={}):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
         return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args), params
+            reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
+            params,
         )
 
     def post(self, snippet, post_data={}):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args),
+            reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
             post_data,
         )
 
     def create(self, snippet, post_data={}, model=Advert):
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
         return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:add"),
+            reverse(snippet.snippet_viewset.get_url_name("add")),
             post_data,
         )
 
@@ -5276,6 +5274,8 @@ class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
+        self.assertEqual(response.context["icon"], "snippet")
 
     def test_ordering(self):
         """

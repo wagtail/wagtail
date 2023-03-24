@@ -13,7 +13,6 @@ from wagtail.telepath import register
 
 class AdminSnippetChooser(BaseChooser):
     display_title_key = "string"
-    icon = "snippet"
     classname = "snippet-chooser"
     js_constructor = "SnippetChooser"
 
@@ -29,7 +28,7 @@ class AdminSnippetChooser(BaseChooser):
     def get_chooser_modal_url(self):
         try:
             return reverse(
-                f"wagtailsnippetchoosers_{self.model._meta.app_label}_{self.model._meta.model_name}:choose"
+                self.model.snippet_viewset.chooser_viewset.get_url_name("choose")
             )
         except NoReverseMatch:
             # This most likely failed because the model is not registered as a snippet.

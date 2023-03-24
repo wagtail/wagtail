@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/index.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
@@ -13,6 +13,7 @@
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'SNIPPET';
     </script>
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -20,7 +21,7 @@
     {% fragment as extra_actions_locale %}{% if locale %}{% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}{% endif %}{% endfragment %}
     {% fragment as action_url_add_snippet %}{% if can_add_snippet %}{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}{% endif %}{% endfragment %}
     {% fragment as action_text_snippet %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}{% endfragment %}
-    {% include 'wagtailadmin/shared/header.html' with breadcrumb=breadcrumb title=model_opts.verbose_name_plural|capfirst icon="snippet" search_url=search_url  extra_actions=extra_actions_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet %}
+    {% include 'wagtailadmin/shared/header.html' with breadcrumb=breadcrumb title=model_opts.verbose_name_plural|capfirst icon=header_icon search_url=search_url  extra_actions=extra_actions_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet %}
 
     <div class="nice-padding{% if filters %} filterable{% endif %}">
         <div id="snippet-results" class="snippets">

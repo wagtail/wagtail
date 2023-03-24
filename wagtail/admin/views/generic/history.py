@@ -3,13 +3,14 @@ from datetime import timedelta
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 
-from wagtail.admin.views.generic.base import BaseObjectMixin
+from wagtail.admin.views.generic.base import BaseObjectMixin, WagtailAdminTemplateMixin
 from wagtail.models import Revision, TaskState, WorkflowState
 
 
-class WorkflowHistoryView(BaseObjectMixin, TemplateView):
+class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/shared/workflow_history/index.html"
     page_kwarg = "p"
     workflow_history_url_name = None
@@ -37,10 +38,15 @@ class WorkflowHistoryView(BaseObjectMixin, TemplateView):
         return context
 
 
-class WorkflowHistoryDetailView(BaseObjectMixin, TemplateView):
+class WorkflowHistoryDetailView(
+    BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView
+):
     template_name = "wagtailadmin/shared/workflow_history/detail.html"
     workflow_state_url_kwarg = "workflow_state_id"
     workflow_history_url_name = None
+    page_title = gettext_lazy("Workflow progress")
+    header_icon = "list-ul"
+    object_icon = "doc-empty-inverse"
 
     @cached_property
     def workflow_state(self):
@@ -156,6 +162,7 @@ class WorkflowHistoryDetailView(BaseObjectMixin, TemplateView):
         context.update(
             {
                 "object": self.object,
+                "object_icon": self.object_icon,
                 "workflow_state": self.workflow_state,
                 "tasks": self.tasks,
                 "task_states_by_revision": self.task_states_by_revision,
