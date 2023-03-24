@@ -639,9 +639,9 @@
 
             {% for source, icons in all_icons %}
                 {% if source == "wagtailadmin/icons" %}
+                    {# Bespoke copy script with good line breaks to review icon update diffs in git. #}
                     <!-- Copy this section to update the `icons.md` documentation (wagtail_icons.html file). -->
-                    {# Copy the markup with good line breaks to review icon update diffs in git. #}
-                    <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t>/g, '\n<t>')) -->
+                    <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t')) -->
                 {% endif %}
                 <div class="w-mb-10" data-icons-table="{{ source }}">
                     <!-- Auto-generated with Wagtail’s styleguide. -->
@@ -659,7 +659,7 @@
                                 <tr>
                                     {# Renders the icon’s SVG within a SVG element, #}
                                     {# so we fully control the rendering without changing the icon’s markup. #}
-                                    {# Icons are loaded with render_to_string in Python, so need |safe. #}
+                                    {# Icons are loaded with render_to_string, so need |safe. #}
                                     <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
                                     <td><code>{{ item.id }}</code></td>
                                     <td><code>{{ item.file_path }}</code></td>

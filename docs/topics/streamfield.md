@@ -201,7 +201,7 @@ class PersonBlock(blocks.StructBlock):
         icon = 'user'
 ```
 
-For a list of the recognised icon identifiers, see the [](styleguide).
+For a list of icons available out of the box, see our [icons overview](icons). Project-specific icons are also displayed in the [styleguide](styleguide).
 
 ### ListBlock
 

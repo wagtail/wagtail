@@ -14,14 +14,6 @@ Elements that use icons are:
 
 This document describes how to choose, add and customise icons.
 
-## Available icons and their names
-
-An icon name corresponds with the value of `id` in the SVG file: `<svg id="<name>"`.
-
-Icons are SVG files in the [Wagtail admin template folder](https://github.com/wagtail/wagtail/tree/main/wagtail/admin/templates/wagtailadmin/icons).
-
-Alternatively, enable the [styleguide](styleguide) to view the available icons and their names.
-
 ## Add a custom icon
 
 Draw or download an icon and save it in a template folder:
@@ -80,3 +72,18 @@ Place your app before any Wagtail apps in `INSTALLED_APPS`.
 
 Wagtail icons live in `wagtail/admin/templates/wagtailadmin/icons/`.
 Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
+
+## Available icons
+
+Enable the [styleguide](styleguide) to view the available icons and their names for any given project.
+
+Here are all available icons out of the box:
+
+<details open>
+
+<summary>Toggle icons table</summary>
+
+```{include} ../_static/wagtail_icons_table.txt
+```
+
+</details>
