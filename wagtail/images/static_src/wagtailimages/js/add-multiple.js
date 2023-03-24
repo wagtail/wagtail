@@ -38,7 +38,7 @@ $(function () {
           });
 
           data.context.find('.preview .thumb').each(function (index, elm) {
-            $(elm).addClass('hasthumb');
+            $(elm).find('.icon').remove();
             $(elm).append(data.files[index].preview);
           });
         })
