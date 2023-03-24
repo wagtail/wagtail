@@ -39,10 +39,6 @@
 }
 
 .c-dropdown__togle--icon {
-  &:before {
-    display: none; // TODO: remove when iconfont styles are removed
-  }
-
   .icon {
     @include svg-icon(1em, middle);
   }
