@@ -26,9 +26,12 @@
                     {% if show_ordering_column %}
                         <td class="ord">
                             {% if orderable and ordering == "ord" %}
-                                <div class="handle icon icon-grip text-replace" tabindex="0" aria-live="polite" data-order-handle>
-                                    {% trans 'Drag' %}
-                                    <span data-order-label>Item {{ forloop.counter }} of {{ pages|length }}</span>
+                                <div class="handle" tabindex="0" aria-live="polite" data-order-handle>
+                                    {% icon name="grip" classname="default" %}
+                                    <span class="w-sr-only">
+                                        {% trans 'Drag' %}
+                                        <span data-order-label>Item {{ forloop.counter }} of {{ pages|length }}</span>
+                                    </span>
                                 </div>
                             {% endif %}
                         </td>
