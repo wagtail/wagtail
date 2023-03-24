@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 class ButtonHelper:
 
     default_button_classnames = ["button"]
-    add_button_classnames = ["bicolor", "icon", "icon-plus"]
+    add_button_classnames = ["bicolor", "button--icon"]
     inspect_button_classnames = ["button-secondary"]
     edit_button_classnames = ["button-secondary"]
     delete_button_classnames = ["no"]
@@ -40,6 +40,7 @@ class ButtonHelper:
         return {
             "url": self.url_helper.create_url,
             "label": _("Add %(object)s") % {"object": self.verbose_name},
+            "icon": "plus",
             "classname": cn,
             "title": _("Add a new %(object)s") % {"object": self.verbose_name},
         }
