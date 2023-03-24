@@ -13,7 +13,7 @@
             <tr>
                 <th><input type="checkbox" id="select-all" /></th>
                 {% for heading in data_headings %}
-                    <th id="{{ heading.name }}" class="{% if heading.order %}ordered {{ heading.order }}{% endif %}">
+                    <th id="{{ heading.name }}" class="{% if heading.order %}ordered icon {% if heading.order == 'ascending' %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}{% endif %}">
                         {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
                     </th>
                 {% endfor %}
