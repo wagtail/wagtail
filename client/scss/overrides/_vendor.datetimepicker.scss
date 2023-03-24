@@ -70,12 +70,17 @@
     text-align: center;
 
     &:before {
-      font-size: 1.5em;
-      font-family: $font-wagtail-icons;
+      content: '';
+      display: inline-block;
       width: 1em;
-      line-height: 1.3em;
+      height: 1em;
       text-align: center;
       margin: 0;
+      background-color: currentColor;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &:hover {
@@ -87,7 +92,7 @@
     float: left;
 
     &:before {
-      content: map.get($icons, 'arrow-left'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-left.svg');
     }
   }
 
@@ -96,7 +101,7 @@
     margin-inline-start: 5px;
 
     &:before {
-      content: map.get($icons, 'home'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/home.svg');
     }
   }
 
@@ -104,7 +109,7 @@
     float: right;
 
     &:before {
-      content: map.get($icons, 'arrow-right'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-right.svg');
     }
   }
 
@@ -123,18 +128,14 @@
       text-align: center;
       width: 100%;
       padding: 0;
-
-      &:before {
-        width: 100%;
-      }
     }
 
     .xdsoft_prev:before {
-      content: map.get($icons, 'arrow-up'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-up.svg');
     }
 
     .xdsoft_next:before {
-      content: map.get($icons, 'arrow-down'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-down.svg');
     }
 
     .xdsoft_time_box {
