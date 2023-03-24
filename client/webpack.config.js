@@ -114,16 +114,6 @@ module.exports = function exports(env, argv) {
     'panels',
     'streamfield.scss',
   );
-  sassEntry[getOutputPath('contrib/styleguide', 'css', 'styleguide')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'styleguide',
-      'static_src',
-      'wagtailstyleguide',
-      'scss',
-      'styleguide.scss',
-    );
   sassEntry[
     getOutputPath('contrib/typed_table_block', 'css', 'typed_table_block')
   ] = path.resolve(
