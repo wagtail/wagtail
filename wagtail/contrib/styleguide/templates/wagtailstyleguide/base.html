@@ -4,8 +4,6 @@
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% versioned_static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
-
     {{ example_form.media.css }}
 {% endblock %}
 
@@ -13,32 +11,15 @@
 {% block bodyclass %}styleguide{% endblock %}
 
 {% block content %}
+    <div class="w-sticky w-top-0 w-z-header">
+        <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
+    </div>
+
     {% trans "Styleguide" as title_trans %}
     {% include "wagtailadmin/shared/header.html" with title=title_trans icon='image' %}
 
     <div class="nice-padding">
-        <h2>Contents</h2>
-        <nav>
-            <ul class="w-pl-0">
-                <li><a href="#typography">Typography</a></li>
-                <li><a href="#help">Help text</a></li>
-                <li><a href="#listings">Listings</a></li>
-                <li><a href="#pagination">Pagination</a></li>
-                <li><a href="#buttons">Buttons</a></li>
-                <li><a href="#dropdowns">Dropdown buttons</a></li>
-                <li><a href="#dialog">Dialogs</a></li>
-                <li><a href="#header">Header</a></li>
-                <li><a href="#forms">Forms</a></li>
-                <li><a href="#editor">Page editor</a></li>
-                <li><a href="#tabs">Tabs</a></li>
-                <li><a href="#progress">Progress indicators</a></li>
-                <li><a href="#misc">Misc formatters</a></li>
-                <li><a href="#icons">Icons</a></li>
-            </ul>
-        </nav>
-
-        <section id="typography">
-            <h2>Typography</h2>
+        {% panel id="typography" heading="Typography" %}
             <h1>This is an h1</h1>
             <h2>This is an h2</h2>
             <h3>This is an h3</h3>
@@ -60,10 +41,9 @@
 
             <code>This is an example of code</code>
 
-        </section>
+        {% endpanel %}
 
-        <section id="help">
-            <h2>Help text</h2>
+        {% panel id="help" heading="Help text" %}
 
             <p>
                 Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
@@ -82,10 +62,9 @@
                 A critical message would probably be rare, in cases where a particularly brittle or <a href="#help">dangerously destructive action</a> could be performed and needs to be warned about.
             {% endhelp_block %}
 
-        </section>
+        {% endpanel %}
 
-        <section id="listings">
-            <h2>Listings</h2>
+        {% panel id="listings" heading="Listings" %}
 
             <h3><code>table</code> listing</h3>
             <table class="listing">
@@ -193,15 +172,13 @@
                     </tr>
                 </tbody>
             </table>
-        </section>
+        {% endpanel %}
 
-        <section id="pagination">
-            <h2>Pagination</h2>
+        {% panel id="pagination" heading="Pagination" %}
             {% paginate example_page %}
-        </section>
+        {% endpanel %}
 
-        <section id="buttons">
-            <h2>Buttons</h2>
+        {% panel id="buttons" heading="Buttons" %}
             <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons across browsers.</p>
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor.</p>
 
@@ -343,10 +320,9 @@
             <button class="button button--icon text-replace" type="button">{% icon name="tick" %}A proper button</button>
             <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
             <a href="#" class="button button--icon bicolor disabled">{% icon name="tick" wrapped=1 %}button link</a>
-        </section>
+        {% endpanel %}
 
-        <section id="dropdowns">
-            <h2>Dropdown buttons</h2>
+        {% panel id="dropdowns" heading="Dropdown buttons" %}
 
             <div class="row">
                 <div class="col3">
@@ -493,10 +469,9 @@
             </header>
 
 
-        </section>
+        {% endpanel %}
 
-        <section id="dialog">
-            <h2>Dialogs</h2>
+        {% panel id="dialog" heading="Dialogs" %}
 
             <div class="w-flex w-gap-4">
                 <div>
@@ -542,19 +517,17 @@
                     {% enddialog %}
                 </div>
             </div>
-        </section>
+        {% endpanel %}
 
-        <section id="header">
-            <h2>Header</h2>
+        {% panel id="header" heading="Header" %}
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
             {% url "wagtailstyleguide" as add_link %}
             {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
-        </section>
+        {% endpanel %}
 
-        <section id="forms">
-            <h2>Forms</h2>
+        {% panel id="forms" heading="Forms" %}
 
             <form>
                 <ul class="fields">
@@ -568,14 +541,10 @@
                     <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-        </section>
+        {% endpanel %}
 
-        <section id="editor">
-            <h2>Page editor</h2>
-        </section>
-
-        <section id="tabs">
-            <h2>Tabs</h2>
+        {% panel id="editor" heading="Page editor" %}
+            <h3>Tabs</h3>
 
             <div class="w-tabs" data-tabs>
                 <div role="tablist" class="w-tabs__list">
@@ -592,11 +561,9 @@
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
                 </div>
             </div>
-        </section>
+        {% endpanel %}
 
-        <section id="progress">
-            <h2>Progress indicators</h2>
-
+        {% panel id="progress" heading="Progress indicators" %}
             <div id="progress-example" class="progress active">
                 <div class="bar">60%</div>
             </div>
@@ -606,10 +573,9 @@
             <div id="progress-example2" class="progress active">
                 <div class="bar" style="width: 50%;">50%</div>
             </div>
-        </section>
+        {% endpanel %}
 
-        <section id="misc">
-            <h2>Misc formatters</h2>
+        {% panel id="misc" heading="Misc formatters" %}
             <h3>Avatar icons</h3>
 
             <p>{% avatar %} Avatar normal</p>
@@ -632,10 +598,9 @@
             <h3>Image transparency</h3>
             <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
             <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail"/>
-        </section>
+        {% endpanel %}
 
-        <section id="icons" class="icons">
-            <h2>Icons</h2>
+        {% panel id="icons" heading="Icons" %}
 
             {% for source, icons in all_icons %}
                 {% if source == "wagtailadmin/icons" %}
@@ -669,7 +634,7 @@
                     </table>
                 </div>
             {% endfor %}
-        </section>
+        {% endpanel %}
     </div>
 
 {% endblock %}
