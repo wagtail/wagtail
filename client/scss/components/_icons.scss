@@ -137,12 +137,15 @@ use[href='#icon-spinner'] {
 // stylelint-disable-next-line no-duplicate-selectors
 .icon {
   &.initial {
-    @include svg-icon(1em);
-    vertical-align: initial;
+    @include svg-icon(1em, $position: initial);
   }
 
   &.default {
     @include svg-icon(1.5em);
+  }
+
+  &.middle {
+    @include svg-icon(1.5em, $position: middle);
   }
 
   &--flipped {

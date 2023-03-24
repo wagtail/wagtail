@@ -74,13 +74,10 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Administrator (or user with add_site permission) should see the
-        # sites link with the icon-site icon
+        # sites link with its icon
         self.assertContains(
             response,
-            (
-                """<a href="/admin/sites/" class="icon icon-site" """
-                """title="Sites menu"></a>"""
-            ),
+            '<a href="/admin/sites/" title="Sites menu"><svg',
         )
 
     def test_ordering(self):
