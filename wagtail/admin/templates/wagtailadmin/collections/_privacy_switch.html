@@ -13,10 +13,12 @@
         {% trans "Privacy" %}
         <button type="button" data-a11y-dialog-show="set-privacy" class="button button-small button-secondary">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
-            <span class="label-public icon icon-view" aria-label="{% trans 'Set collection privacy. Current status: Public' %}">
+            <span class="label-public" aria-label="{% trans 'Set collection privacy. Current status: Public' %}">
+                {% icon name="view" classname="default" %}
                 {% trans "Public" %}
             </span>
-            <span class="label-private icon icon-no-view" aria-label="{% trans 'Set collection privacy. Current status: Private' %}">
+            <span class="label-private" aria-label="{% trans 'Set collection privacy. Current status: Private' %}">
+                {% icon name="no-view" classname="default" %}
                 {% trans "Private" %}
             </span>
         </button>
