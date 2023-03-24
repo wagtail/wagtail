@@ -41,9 +41,14 @@
   }
 }
 
-@each $icon, $content in $icons-after {
-  .icon-#{$icon}:after {
-    content: string.quote(#{$content});
+@each $icon in $icons-after {
+  .icon-#{$icon}-after::after {
+    content: '';
+    mask-image: url('#{$images-root}icons/#{$icon}.svg');
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-color: currentColor;
   }
 }
 

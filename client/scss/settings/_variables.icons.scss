@@ -82,8 +82,4 @@ $icons: (
   'warning': '\e042',
 );
 
-$icons-after: (
-  'arrow-down-after': map.get($icons, 'arrow-down'),
-  'arrow-right-after': map.get($icons, 'arrow-right'),
-  'arrow-up-after': map.get($icons, 'arrow-up'),
-);
+$icons-after: ('arrow-down', 'arrow-right', 'arrow-up');
