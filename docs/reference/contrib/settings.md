@@ -127,7 +127,7 @@ class SiteSpecificSocialMediaSettings(BaseSiteSetting):
         verbose_name = "Site-specific social media settings"
 ```
 
-For a list of all available icons, please see the [styleguide](styleguide).
+Wagtail’s default icon set can be seen in our [icons overview](icons). All icons available in a given project are displayed in the [styleguide](styleguide).
 
 ## Using the settings
 
