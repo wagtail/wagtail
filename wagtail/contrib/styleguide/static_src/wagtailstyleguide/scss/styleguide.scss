@@ -15,33 +15,6 @@ section {
   }
 }
 
-.icons {
-  :before,
-  :after {
-    font-size: 2em;
-  }
-
-  .icon {
-    @include svg-icon(1.5em);
-  }
-
-  ul {
-    column-count: 3;
-  }
-
-  li {
-    margin-bottom: 1em;
-  }
-
-  .spinner {
-    position: relative;
-  }
-
-  // .spinner .icon-spinner:after {
-  //     position: absolute;
-  // }
-}
-
 .timepicker {
   height: 150px;
 }

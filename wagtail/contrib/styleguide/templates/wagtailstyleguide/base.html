@@ -635,114 +635,40 @@
         </section>
 
         <section id="icons" class="icons">
-            <h2>SVG Icons</h2>
+            <h2>Icons</h2>
 
-            <style>
-                .spinning {
-                    animation-name: spin-wag;
-                    animation-duration: 500ms;
-                    animation-iteration-count: infinite;
-                    animation-timing-function: linear;
-                }
-            </style>
-
-            <ul class="w-list-none">
-                <li>{% icon 'wagtail-icon' %} wagtail</li>
-                <li>{% icon 'wagtail-inverse' %} wagtail-inverse</li>
-                <li>{% icon 'cogs' %} cogs</li>
-                <li>{% icon 'doc-empty-inverse' %} doc-empty-inverse</li>
-                <li>{% icon 'doc-empty' %} doc-empty</li>
-                <li>{% icon 'edit' %} edit</li>
-                <li>{% icon 'arrow-up' %} arrow-up</li>
-                <li>{% icon 'arrow-down' %} arrow-down</li>
-                <li>{% icon 'search' %} search</li>
-                <li>{% icon 'cross' %} cross</li>
-                <li>{% icon 'folder-open-1' %} folder-open-1</li>
-                <li>{% icon 'folder-inverse' %} folder-inverse</li>
-                <li>{% icon 'mail' %} mail</li>
-                <li>{% icon 'arrows-up-down' %} arrows-up-down</li>
-                <li>{% icon 'lock' %} lock (locked)</li>
-                <li>{% icon 'lock-open' %} lock-open (unlocked)</li>
-                <li>{% icon 'arrow-right' %} arrow-right</li>
-                <li>{% icon 'doc-full' %} doc-full / file-text-alt</li>
-                <li>{% icon 'image' %} image / picture</li>
-                <li>{% icon 'doc-full-inverse' %} doc-full-inverse</li>
-                <li>{% icon 'draft' %} draft</li>
-                <li>{% icon 'folder' %} folder</li>
-                <li>{% icon 'plus' %} plus</li>
-                <li>{% icon 'tag' %} tag</li>
-                <li>{% icon 'folder-open-inverse' %} folder-open-inverse</li>
-                <li>{% icon 'clipboard-list' %} clipboard-list</li>
-                <li>{% icon 'tasks' %} tasks</li>
-                <li>{% icon 'cog' %} cog</li>
-                <li>{% icon 'tick' %} tick</li>
-                <li>{% icon 'user' %} user</li>
-                <li>{% icon 'arrow-left' %} arrow-left</li>
-                <li>{% icon 'tick-inverse' %} tick-inverse</li>
-                <li>{% icon 'plus-inverse' %} plus-inverse</li>
-                <li>{% icon 'snippet' %} snippet</li>
-                <li>{% icon 'bold' %} bold</li>
-                <li>{% icon 'italic' %} italic</li>
-                <li>{% icon 'undo' %} undo</li>
-                <li>{% icon 'history' %} history</li>
-                <li>{% icon 'repeat' %} repeat</li>
-                <li>{% icon 'list-ol' %} list-ol</li>
-                <li>{% icon 'list-ul' %} list-ul</li>
-                <li>{% icon 'link' %} link</li>
-                <li>{% icon 'link-external' %} link-external</li>
-                <li>{% icon 'superscript' %} superscript</li>
-                <li>{% icon 'subscript' %} subscript</li>
-                <li>{% icon 'strikethrough' %} strikethrough</li>
-                <li>{% icon 'radio-full' %} radio-full</li>
-                <li>{% icon 'radio-empty' %} radio-empty</li>
-                <li>{% icon 'arrow-up-big' %} arrow-up-big</li>
-                <li>{% icon 'arrow-down-big' %} arrow-down-big</li>
-                <li>{% icon 'group' %} group</li>
-                <li>{% icon 'media' %} media</li>
-                <li>{% icon 'horizontalrule' %} horizontalrule</li>
-                <li>{% icon 'password' %} password</li>
-                <li>{% icon 'download' %} download</li>
-                <li>{% icon 'duplicate' %} duplicate</li>
-                <li>{% icon 'download-alt' %} download-alt</li>
-                <li>{% icon 'upload' %} upload</li>
-                <li>{% icon 'order' %} order</li>
-                <li>{% icon 'grip' %} grip</li>
-                <li>{% icon 'home' %} home</li>
-                <li>{% icon 'order-down' %} order-down</li>
-                <li>{% icon 'order-up' %} order-up</li>
-                <li>{% icon 'bin' %} bin</li>
-
-                <li>{% icon 'spinner' 'icon spinning' %} spinner</li>
-
-                <li>{% icon 'pick' %} pick</li>
-                <li>{% icon 'redirect' %} redirect</li>
-                <li>{% icon 'view' %} view</li>
-                <li>{% icon 'no-view' %} no-view</li>
-                <li>{% icon 'collapse-up' %} collapse-up</li>
-                <li>{% icon 'collapse-down' %} collapse-down</li>
-                <li>{% icon 'comment' %} comment</li>
-                <li>{% icon 'help' %} help</li>
-                <li>{% icon 'warning' %} warning</li>
-                <li>{% icon 'error' %} error</li>
-                <li>{% icon 'success' %} success</li>
-                <li>{% icon 'date' %} date</li>
-                <li>{% icon 'time' %} time</li>
-                <li>{% icon 'form' %} form</li>
-                <li>{% icon 'site' %} site</li>
-                <li>{% icon 'placeholder' %} placeholder</li>
-                <li>{% icon 'pilcrow' %} pilcrow</li>
-                <li>{% icon 'title' %} title</li>
-                <li>{% icon 'code' %} code</li>
-                <li>{% icon 'openquote' %} openquote</li>
-                <li>{% icon 'chain-broken' %} chain-broken</li>
-                <li>{% icon 'table' %} table</li>
-                <li>{% icon 'login' %} login</li>
-                <li>{% icon 'logout' %} logout</li>
-
-                <li>{% icon 'thumbtack' %} thumbtack</li>
-                <li>{% icon 'resubmit' %} resubmit</li>
-                <li>{% icon 'uni52' %} uni52</li>
-            </ul>
+            {% for source, icons in all_icons %}
+                {% if source == "wagtailadmin/icons" %}
+                    <!-- Copy this section to update the `icons.md` documentation (wagtail_icons.html file). -->
+                    {# Copy the markup with good line breaks to review icon update diffs in git. #}
+                    <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t>/g, '\n<t>')) -->
+                {% endif %}
+                <div class="w-mb-10" data-icons-table="{{ source }}">
+                    <!-- Auto-generated with Wagtail’s styleguide. -->
+                    <table class="w-w-full">
+                        <caption><code>register_icons</code> entries from <code>{{ source }}</code></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Visual</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">File path</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in icons %}
+                                <tr>
+                                    {# Renders the icon’s SVG within a SVG element, #}
+                                    {# so we fully control the rendering without changing the icon’s markup. #}
+                                    {# Icons are loaded with render_to_string in Python, so need |safe. #}
+                                    <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
+                                    <td><code>{{ item.id }}</code></td>
+                                    <td><code>{{ item.file_path }}</code></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
         </section>
     </div>
 

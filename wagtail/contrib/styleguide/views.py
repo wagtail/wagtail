@@ -1,8 +1,15 @@
+import itertools
+import os
+import re
+from collections import defaultdict
+
 from django import forms
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
@@ -84,6 +91,9 @@ class ExampleForm(forms.Form):
     snippet_chooser = forms.BooleanField(required=True)
 
 
+icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")
+
+
 def index(request):
 
     form = SearchForm(placeholder=_("Search something"))
@@ -109,10 +119,28 @@ def index(request):
     paginator = Paginator(list(range(100)), 10)
     page = paginator.page(2)
 
+    icon_hooks = hooks.get_hooks("register_icons")
+    registered_icons = itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
+    all_icons = defaultdict(list)
+    for icon_path in registered_icons:
+        source, filename = os.path.split(icon_path)
+        icon = render_to_string(icon_path)
+        id_match = icon_id_pattern.search(icon)
+
+        all_icons[source].append(
+            {
+                "source": source,
+                "file_path": icon_path,
+                "id": id_match.group(1) if id_match else None,
+                "icon": icon,
+            }
+        )
+
     return TemplateResponse(
         request,
         "wagtailstyleguide/base.html",
         {
+            "all_icons": all_icons.items(),
             "search_form": form,
             "example_form": example_form,
             "example_page": page,
