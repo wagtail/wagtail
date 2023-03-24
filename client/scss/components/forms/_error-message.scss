@@ -11,11 +11,13 @@
     forced-color-adjust: none;
   }
 
-  // UI-Redesign: to be added via js and styled here
-  // TODO Forms
   &::before {
-    font-family: $font-wagtail-icons;
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
     vertical-align: -10%;
-    content: map.get($icons, 'warning');
+    mask-image: url('#{$images-root}icons/warning.svg');
+    background-color: currentColor;
   }
 }
