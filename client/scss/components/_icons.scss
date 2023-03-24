@@ -35,6 +35,8 @@
 // Icon factory methods
 // =============================================================================
 
+// RemovedInWagtail60Warning
+// Font icons unused in Wagtail core, kept for backwards compatibility with third-party customisations.
 @each $icon, $content in $icons {
   .icon-#{$icon}:before {
     content: string.quote(#{$content});

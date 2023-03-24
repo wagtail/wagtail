@@ -1,4 +1,7 @@
 @use 'sass:map';
+
+// RemovedInWagtail60Warning
+// Font icons unused in Wagtail core, kept for backwards compatibility with third-party customisations.
 $icons: (
   'arrow-down-big': '\e030',
   'arrow-down': '\e01a',
