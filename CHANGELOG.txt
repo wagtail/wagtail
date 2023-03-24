@@ -94,6 +94,8 @@ Changelog
  * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
  * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
  * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
+ * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
+ * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
 
 
 4.2.1 (13.03.2023)
@@ -270,6 +272,8 @@ Changelog
  * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
  * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
  * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
+ * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
+ * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
 
 
 4.1.3 (13.03.2023)
