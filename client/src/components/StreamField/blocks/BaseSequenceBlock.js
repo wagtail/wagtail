@@ -143,7 +143,7 @@ export class BaseSequenceChild extends EventEmitter {
           ? `data-contentpath="${h(this.id)}"`
           : 'data-contentpath-disabled'
       }>
-        <input type="hidden"  name="${this.prefix}-deleted" value="">
+        <input type="hidden" name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${h(
       this.type || '',
