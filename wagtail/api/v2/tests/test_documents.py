@@ -1,7 +1,7 @@
 import json
 from unittest import mock
 
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
@@ -359,7 +359,15 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
-    # SEARCH
+
+class TestDocumentListingSearch(TransactionTestCase):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v2:documents:listing"), params)
+
+    def get_document_id_list(self, content):
+        return [document["id"] for document in content["items"]]
 
     def test_search_for_james_joyce(self):
         response = self.get_response(search="james")

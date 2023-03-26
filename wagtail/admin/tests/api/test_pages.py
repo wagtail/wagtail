@@ -4,12 +4,17 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail import hooks
-from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
+from wagtail.api.v2.tests.test_pages import (
+    TestPageDetail,
+    TestPageListing,
+    TestPageListingSearch,
+)
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import (
@@ -650,8 +655,8 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 set(page.keys()), {"id", "meta", "title", "admin_display_title"}
             )
 
-        self.assertTrue(blog_page_seen, "No blog pages were found in the items")
-        self.assertTrue(event_page_seen, "No event pages were found in the items")
+        self.assertTrue(blog_page_seen, msg="No blog pages were found in the items")
+        self.assertTrue(event_page_seen, msg="No event pages were found in the items")
 
     # Not applicable to the admin API
     test_site_filter_same_hostname_returns_error = None
@@ -1100,7 +1105,20 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         )
 
 
-class TestAdminPageDetailWithStreamField(AdminAPITestCase):
+class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailadmin_api:pages:listing"), params)
+
+    def get_page_id_list(self, content):
+        return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
+
+
+class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1143,7 +1161,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
         self.assertEqual(content["body"][0]["value"], 1)
 
 
-class TestCustomAdminDisplayTitle(AdminAPITestCase):
+class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1174,7 +1192,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         )
 
 
-class TestCopyPageAction(AdminAPITestCase):
+class TestCopyPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1389,7 +1407,7 @@ class TestCopyPageAction(AdminAPITestCase):
         )
 
 
-class TestConvertAliasPageAction(AdminAPITestCase):
+class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1462,7 +1480,7 @@ class TestConvertAliasPageAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class TestDeletePageAction(AdminAPITestCase):
+class TestDeletePageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1500,7 +1518,7 @@ class TestDeletePageAction(AdminAPITestCase):
         self.assertTrue(Page.objects.filter(id=4).exists())
 
 
-class TestPublishPageAction(AdminAPITestCase):
+class TestPublishPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1563,7 +1581,7 @@ class TestPublishPageAction(AdminAPITestCase):
         )
 
 
-class TestUnpublishPageAction(AdminAPITestCase):
+class TestUnpublishPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1635,7 +1653,7 @@ class TestUnpublishPageAction(AdminAPITestCase):
         )
 
 
-class TestMovePageAction(AdminAPITestCase):
+class TestMovePageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1674,7 +1692,7 @@ class TestMovePageAction(AdminAPITestCase):
         self.assertEqual(content, {"destination_page_id": ["This field is required."]})
 
 
-class TestCopyForTranslationAction(AdminAPITestCase):
+class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1758,7 +1776,7 @@ class TestCopyForTranslationAction(AdminAPITestCase):
         self.assertEqual(content, {"message": "No Locale matches the given query."})
 
 
-class TestCreatePageAliasAction(AdminAPITestCase):
+class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1870,7 +1888,7 @@ class TestCreatePageAliasAction(AdminAPITestCase):
         )
 
 
-class TestRevertToPageRevisionAction(AdminAPITestCase):
+class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
