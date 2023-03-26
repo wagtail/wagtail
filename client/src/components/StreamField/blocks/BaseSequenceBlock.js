@@ -143,7 +143,7 @@ export class BaseSequenceChild extends EventEmitter {
           ? `data-contentpath="${h(this.id)}"`
           : 'data-contentpath-disabled'
       }>
-        <input type="hidden"  name="${this.prefix}-deleted" value="">
+        <input type="hidden" name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${h(
       this.type || '',
@@ -153,12 +153,12 @@ export class BaseSequenceChild extends EventEmitter {
     )}">
         <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" w-panel data-controller="w-panel">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" w-panel-anchor>
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-w-panel-toggle data-action="click->w-panel#toggle" aria-controls="${contentId}" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-w-panel-toggle aria-controls="${contentId}" aria-expanded="true">
               <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
                 <use href="#icon-${blockTypeIcon}"></use>
               </svg>
@@ -186,7 +186,7 @@ export class BaseSequenceChild extends EventEmitter {
               </div>
             </div>
           </div>
-          <div id="toggle-target {{ content_id }}" class="w-panel__content hidden" data-w-panel-target="item">
+          <div id="${contentId}" class="w-panel__content">
             <div data-streamfield-block></div>
           </div>
         </section>

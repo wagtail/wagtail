@@ -33,11 +33,10 @@ describe('RevealController', () => {
     application.register('reveal', RevealController);
   });
   describe('#toggle', () => {
-    it('should reveal the target', function () {
+    it('should reveal the target', () => {
       var button = document.querySelector('[data-w-panel-toggle]');
       var hidden = document.querySelector('[data-w-panel-target]');
       expect(hidden.className).toContain('hidden');
-      console.log('Button: ', button);
       button.click();
       expect(hidden.className).not.toContain('hidden');
       button.click();

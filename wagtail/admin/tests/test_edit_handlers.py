@@ -632,7 +632,7 @@ class TestObjectList(TestCase):
         result = object_list.render_html()
 
         # result should contain ObjectList furniture
-        self.assertIn('<div class="w-panel__header">', result)
+        self.assertIn('<div class="w-panel__header" >', result)
 
         # result should contain labels for children
         self.assertIn(
