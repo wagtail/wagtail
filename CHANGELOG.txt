@@ -57,6 +57,7 @@ Changelog
  * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
  * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
  * Fix: Fix server-side caching of the icons sprite (Thibaud Colas)
+ * Fix: Avoid showing scrollbars in the block picker unless necessary (Babitha Kumari)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -102,6 +103,7 @@ Changelog
  * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
  * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
  * Fix: Fix server-side caching of the icons sprite (Thibaud Colas)
+ * Fix: Avoid showing scrollbars in the block picker unless necessary (Babitha Kumari)
 
 
 4.2.1 (13.03.2023)
@@ -281,6 +283,7 @@ Changelog
  * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
  * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
  * Fix: Fix server-side caching of the icons sprite (Thibaud Colas)
+ * Fix: Avoid showing scrollbars in the block picker unless necessary (Babitha Kumari)
 
 
 4.1.3 (13.03.2023)
