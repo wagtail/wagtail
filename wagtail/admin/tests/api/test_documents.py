@@ -2,7 +2,11 @@ import json
 
 from django.urls import reverse
 
-from wagtail.api.v2.tests.test_documents import TestDocumentDetail, TestDocumentListing
+from wagtail.api.v2.tests.test_documents import (
+    TestDocumentDetail,
+    TestDocumentListing,
+    TestDocumentListingSearch,
+)
 from wagtail.documents.models import Document
 
 from .utils import AdminAPITestCase
@@ -78,6 +82,16 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
                 set(document["meta"].keys()),
                 {"type", "detail_url", "download_url", "tags"},
             )
+
+
+class TestAdminDocumentListingSearch(AdminAPITestCase, TestDocumentListingSearch):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailadmin_api:documents:listing"), params)
+
+    def get_document_id_list(self, content):
+        return [document["id"] for document in content["items"]]
 
 
 class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
