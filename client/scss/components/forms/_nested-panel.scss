@@ -75,3 +75,7 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     display: none;
   }
 }
+
+.hidden {
+  display: none;
+}

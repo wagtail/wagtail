@@ -128,7 +128,7 @@ export class BaseSequenceChild extends EventEmitter {
 
     const animate = opts && opts.animate;
     const focus = opts && opts.focus;
-    const open = opts && opts.open;
+    const collapsed = opts && opts.collapsed;
     this.strings = (opts && opts.strings) || {};
 
     const panelId = `block-${id}-section`;
@@ -151,24 +151,24 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-id" value="${h(
       this.id || '',
     )}">
-        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" w-data-panel>
+        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" w-panel data-controller="w-panel">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" w-data-panel-anchor>
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" w-data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-w-panel-toggle data-action="click->w-panel#toggle" aria-controls="${contentId}" aria-expanded="true">
               <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
                 <use href="#icon-${blockTypeIcon}"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" w-data-panel-heading>
-              <span w-data-panel-heading-text class="c-sf-block__title"></span>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
+              <span data-panel-heading-text class="c-sf-block__title"></span>
               <span class="c-sf-block__type">${blockTypeLabel}</span>
               ${
                 blockDef.meta.required
-                  ? '<span class="w-required-mark" w-data-panel-required>*</span>'
+                  ? '<span class="w-required-mark" data-panel-required>*</span>'
                   : ''
               }
             </h2>
@@ -178,7 +178,7 @@ export class BaseSequenceChild extends EventEmitter {
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" w-data-panel-controls>
+            <div class="w-panel__controls" data-panel-controls>
               <div class="w-panel__controls-cue">
                 <svg class="icon icon-dots-horizontal w-panel__icon" aria-hidden="true">
                   <use href="#icon-dots-horizontal"></use>
@@ -186,7 +186,7 @@ export class BaseSequenceChild extends EventEmitter {
               </div>
             </div>
           </div>
-          <div id="${contentId}" class="w-panel__content">
+          <div id="toggle-target {{ content_id }}" class="w-panel__content hidden" data-w-panel-target="item">
             <div data-streamfield-block></div>
           </div>
         </section>
@@ -196,9 +196,9 @@ export class BaseSequenceChild extends EventEmitter {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-    this.actionsContainerElement = dom.find('[w-data-panel-controls]').get(0);
-    this.titleElement = dom.find('[w-data-panel-heading-text]');
-    this.toggleElement = this.element.querySelector('[w-data-panel-toggle]');
+    this.actionsContainerElement = dom.find('[data-panel-controls]').get(0);
+    this.titleElement = dom.find('[data-panel-heading-text]');
+    this.toggleElement = this.element.querySelector('[data-panel-toggle]');
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
@@ -232,10 +232,10 @@ export class BaseSequenceChild extends EventEmitter {
       capabilities,
     );
 
-    initCollapsiblePanel(this.element.querySelector('[w-data-panel-toggle]'));
+    initCollapsiblePanel(this.element.querySelector('[data-panel-toggle]'));
 
-    if (open) {
-      this.open();
+    if (collapsed) {
+      this.collapse();
     }
 
     this.toggleElement.addEventListener('wagtail:panel-toggle', () => {
@@ -368,8 +368,8 @@ export class BaseSequenceChild extends EventEmitter {
     return null;
   }
 
-  open() {
-    toggleCollapsiblePanel(this.toggleElement, true);
+  collapse() {
+    toggleCollapsiblePanel(this.toggleElement, false);
   }
 
   getDuplicatedState() {
@@ -475,7 +475,7 @@ export class BaseSequenceBlock {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
     const focus = opts && opts.focus;
-    const open = opts && opts.open;
+    const collapsed = opts && opts.collapsed;
     this.blockCounter += 1;
 
     /*
@@ -510,7 +510,7 @@ export class BaseSequenceBlock {
       {
         animate,
         focus,
-        open,
+        collapsed,
         strings: this.blockDef.meta.strings,
       },
     );

@@ -5,6 +5,7 @@ import { ActionController } from './ActionController';
 import { CountController } from './CountController';
 import { MessagesController } from './MessagesController';
 import { ProgressController } from './ProgressController';
+import { RevealController } from './RevealController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
@@ -19,6 +20,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: CountController, identifier: 'w-count' },
   { controllerConstructor: MessagesController, identifier: 'w-messages' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
+  { controllerConstructor: RevealController, identifier: 'w-panel'},
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
