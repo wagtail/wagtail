@@ -20,7 +20,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: CountController, identifier: 'w-count' },
   { controllerConstructor: MessagesController, identifier: 'w-messages' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
-  { controllerConstructor: RevealController, identifier: 'w-panel'},
+  { controllerConstructor: RevealController, identifier: 'w-panel' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },

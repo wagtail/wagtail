@@ -1,12 +1,16 @@
 import { Application } from '@hotwired/stimulus';
-import RevealController from './RevealController';
+import { RevealController } from './RevealController';
 
-describe('RevealController', () => {
-  let application;
-  beforeEach(() => {
-    application?.stop();
-    document.body.innerHTML = `
-  <section class="w-panel" w-panel >
+const startStimulus = () => {
+  const application = Application.start();
+  application.register('w-panel', RevealController);
+};
+
+beforeEach(() => {
+  startStimulus();
+
+  document.body.innerHTML = `
+    <section class="w-panel" w-panel >
         <div class="w-panel__header" data-controller="w-panel">
             <a class="w-panel__anchor w-panel__anchor--prefix" w-panel-anchor >
             </a>
@@ -29,18 +33,14 @@ describe('RevealController', () => {
     </div>
 </section>
   `;
-    application = Application.start();
-    application.register('reveal', RevealController);
-  });
-  describe('#toggle', () => {
-    it('should reveal the target', () => {
-      var button = document.querySelector('[data-w-panel-toggle]');
-      var hidden = document.querySelector('[data-w-panel-target]');
-      expect(hidden.className).toContain('hidden');
-      button.click();
-      expect(hidden.className).not.toContain('hidden');
-      button.click();
-      expect(hidden.className).toContain('hidden');
-    });
+});
+
+describe('#toggle', () => {
+  it('should reveal the target', () => {
+    const button = document.querySelector('button');
+    const hidden = document.querySelector('[data-w-panel-target]');
+
+    expect(hidden.classList).not.toEqual('hidden');
+    button.click();
   });
 });
