@@ -4,7 +4,7 @@ from urllib.parse import quote
 
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.html import escape
@@ -39,36 +39,6 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
         self.assertContains(response, "Add a document")
-        self.assertContains(response, "Hello document")
-        self.assertContains(response, "Bonjour document")
-
-    def test_search(self):
-        models.Document.objects.create(title="Hello document")
-        models.Document.objects.create(title="Bonjour document")
-
-        response = self.get({"q": "Hello"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
-        self.assertContains(response, "Hello document")
-        self.assertNotContains(response, "Bonjour document")
-
-    def test_search_partial(self):
-        models.Document.objects.create(title="Hello document")
-        models.Document.objects.create(title="Bonjour document")
-
-        response = self.get({"q": "bonj"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "bonj")
-        self.assertNotContains(response, "Hello document")
-        self.assertContains(response, "Bonjour document")
-
-    def test_empty_q(self):
-        models.Document.objects.create(title="Hello document")
-        models.Document.objects.create(title="Bonjour document")
-
-        response = self.get({"q": ""})
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "This field is required.")
         self.assertContains(response, "Hello document")
         self.assertContains(response, "Bonjour document")
 
@@ -115,15 +85,6 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             response.context["documents"].number,
             response.context["documents"].paginator.num_pages,
         )
-
-    def test_pagination_q(self):
-        self.make_docs()
-
-        response = self.get({"q": "Test"})
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
-        self.assertContains(response, "There are 50 matches")
 
     def test_ordering(self):
         orderings = ["title", "-created_at"]
@@ -204,8 +165,62 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         )
 
 
-class TestDocumentListingResultsView(WagtailTestUtils, TestCase):
+class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
+        Collection.add_root(name="Root")
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtaildocs:index"), params)
+
+    def make_docs(self):
+        for i in range(50):
+            document = models.Document(title="Test " + str(i))
+            document.save()
+
+    def test_search(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
+        response = self.get({"q": "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertContains(response, "Hello document")
+        self.assertNotContains(response, "Bonjour document")
+
+    def test_search_partial(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
+        response = self.get({"q": "bonj"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "bonj")
+        self.assertNotContains(response, "Hello document")
+        self.assertContains(response, "Bonjour document")
+
+    def test_empty_q(self):
+        models.Document.objects.create(title="Hello document")
+        models.Document.objects.create(title="Bonjour document")
+
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Hello document")
+        self.assertContains(response, "Bonjour document")
+
+    def test_pagination_q(self):
+        self.make_docs()
+
+        response = self.get({"q": "Test"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+        self.assertContains(response, "There are 50 matches")
+
+
+class TestDocumentListingResultsView(WagtailTestUtils, TransactionTestCase):
+    def setUp(self):
+        Collection.add_root(name="Root")
         self.login()
 
     def get(self, params={}):
@@ -1646,6 +1661,30 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], document)
 
+    def test_index_without_collections(self):
+        self.make_docs()
+
+        response = self.client.get(reverse("wagtaildocs:index"))
+        self.assertNotContains(response, "<th>Collection</th>")
+        self.assertNotContains(response, "<td>Root</td>")
+
+    def test_index_with_collection(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        self.make_docs()
+
+        response = self.client.get(reverse("wagtaildocs:index"))
+        self.assertContains(response, "<th>Collection</th>")
+        self.assertContains(response, "<td>Root</td>")
+
+
+class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        self.user = self.login()
+
     def test_construct_queryset_hook_search(self):
         document = models.Document.objects.create(
             title="Test document shown",
@@ -1668,23 +1707,6 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
             )
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], document)
-
-    def test_index_without_collections(self):
-        self.make_docs()
-
-        response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertNotContains(response, "<th>Collection</th>")
-        self.assertNotContains(response, "<td>Root</td>")
-
-    def test_index_with_collection(self):
-        root_collection = Collection.get_first_root_node()
-        root_collection.add_child(name="Evil plans")
-
-        self.make_docs()
-
-        response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertContains(response, "<th>Collection</th>")
-        self.assertContains(response, "<td>Root</td>")
 
 
 class TestDocumentChooserChosenView(WagtailTestUtils, TestCase):
