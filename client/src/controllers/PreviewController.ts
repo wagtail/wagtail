@@ -105,6 +105,65 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly iframeTarget: HTMLIFrameElement;
   declare readonly iframeTargets: HTMLIFrameElement[];
 
+  /**
+   * The default size input element.
+   * This is the size input element with the `data-default-size` data attribute.
+   * If no input element has this attribute, the first size input element will be used.
+   */
+  get defaultSizeInput(): HTMLInputElement {
+    return (
+      this.sizeTargets.find((input) => 'defaultSize' in input.dataset) ||
+      this.sizeTargets[0]
+    );
+  }
+
+  /**
+   * Sets the simulated device width of the preview iframe.
+   * @param width The width of the preview device. If falsy, the default size will be used.
+   */
+  setPreviewWidth(width?: string) {
+    const isUnavailable = this.element.classList.contains(
+      'preview-panel--unavailable',
+    );
+
+    let deviceWidth = width;
+    // Reset to default size if width is falsy or preview is unavailable
+    if (!width || isUnavailable) {
+      deviceWidth = this.defaultSizeInput.dataset.deviceWidth;
+    }
+
+    this.element.style.setProperty(
+      '--preview-device-width',
+      deviceWidth as string,
+    );
+  }
+
+  /**
+   * Toggles the preview size based on the selected input.
+   * The selected device name (`input[value]`) is stored in localStorage.
+   * @param event `InputEvent` from the size input
+   */
+  togglePreviewSize(event: InputEvent) {
+    const target = event.target as HTMLInputElement;
+    const device = target.value;
+    const deviceWidth = target.dataset.deviceWidth;
+
+    this.setPreviewWidth(deviceWidth);
+    try {
+      localStorage.setItem('wagtail:preview-panel-device', device);
+    } catch (e) {
+      // Skip saving the device if localStorage fails.
+    }
+
+    // Ensure only one device class is applied
+    this.sizeTargets.forEach((input) => {
+      this.element.classList.toggle(
+        `preview-panel--${input.value}`,
+        input.value === device,
+      );
+    });
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -113,52 +172,6 @@ export class PreviewController extends Controller<HTMLElement> {
     //
     // Preview size handling
     //
-
-    const defaultSizeInput =
-      this.sizeTargets.find((input) => 'defaultSize' in input.dataset) ||
-      this.sizeTargets[0];
-
-    const setPreviewWidth = (width?: string) => {
-      const isUnavailable = this.element.classList.contains(
-        'preview-panel--unavailable',
-      );
-
-      let deviceWidth = width;
-      // Reset to default size if width is falsy or preview is unavailable
-      if (!width || isUnavailable) {
-        deviceWidth = defaultSizeInput.dataset.deviceWidth;
-      }
-
-      this.element.style.setProperty(
-        '--preview-device-width',
-        deviceWidth as string,
-      );
-    };
-
-    const togglePreviewSize = (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const device = target.value;
-      const deviceWidth = target.dataset.deviceWidth;
-
-      setPreviewWidth(deviceWidth);
-      try {
-        localStorage.setItem('wagtail:preview-panel-device', device);
-      } catch (e) {
-        // Skip saving the device if localStorage fails.
-      }
-
-      // Ensure only one device class is applied
-      this.sizeTargets.forEach((input) => {
-        this.element.classList.toggle(
-          `preview-panel--${input.value}`,
-          input.value === device,
-        );
-      });
-    };
-
-    this.sizeTargets.forEach((input) =>
-      input.addEventListener('change', togglePreviewSize),
-    );
 
     const resizeObserver = new ResizeObserver((entries) =>
       this.element.style.setProperty(
@@ -286,7 +299,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
           if (!data.is_available) {
             // Ensure the 'Preview not available' message is not scaled down
-            setPreviewWidth();
+            this.setPreviewWidth();
           }
 
           if (data.is_valid) {
@@ -444,7 +457,7 @@ export class PreviewController extends Controller<HTMLElement> {
     }
     const lastDeviceInput =
       this.sizeTargets.find((input) => input.value === lastDevice) ||
-      defaultSizeInput;
+      this.defaultSizeInput;
     lastDeviceInput.click();
   }
 }
