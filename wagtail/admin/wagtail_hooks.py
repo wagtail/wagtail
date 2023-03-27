@@ -120,7 +120,13 @@ class SettingsMenuItem(SubmenuMenuItem):
 
 @hooks.register("register_admin_menu_item")
 def register_settings_menu():
-    return SettingsMenuItem(_("Settings"), settings_menu, icon_name="cogs", order=10000)
+    return SettingsMenuItem(
+        _("Settings"),
+        settings_menu,
+        name="settings",
+        icon_name="cogs",
+        order=10000,
+    )
 
 
 @hooks.register("register_permissions")
@@ -969,7 +975,13 @@ def register_aging_pages_report_menu_item():
 
 @hooks.register("register_admin_menu_item")
 def register_reports_menu():
-    return SubmenuMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
+    return SubmenuMenuItem(
+        _("Reports"),
+        reports_menu,
+        name="reports",
+        icon_name="site",
+        order=9000,
+    )
 
 
 @hooks.register("register_help_menu_item")
@@ -1002,9 +1014,9 @@ def register_help_menu():
     return DismissibleSubmenuMenuItem(
         _("Help"),
         help_menu,
+        name="help",
         icon_name="help",
         order=11000,
-        name="help",
     )
 
 

@@ -39,7 +39,11 @@ class SnippetsMenuItem(MenuItem):
 @hooks.register("register_admin_menu_item")
 def register_snippets_menu_item():
     return SnippetsMenuItem(
-        _("Snippets"), reverse("wagtailsnippets:index"), icon_name="snippet", order=500
+        _("Snippets"),
+        reverse("wagtailsnippets:index"),
+        name="snippets",
+        icon_name="snippet",
+        order=500,
     )
 
 

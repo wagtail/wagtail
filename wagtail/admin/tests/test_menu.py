@@ -1,5 +1,6 @@
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
+from django.utils import translation
 
 from wagtail import hooks
 from wagtail.admin.menu import (
@@ -9,6 +10,7 @@ from wagtail.admin.menu import (
     Menu,
     MenuItem,
     SubmenuMenuItem,
+    admin_menu,
 )
 from wagtail.admin.ui import sidebar
 from wagtail.test.utils import WagtailTestUtils
@@ -315,3 +317,33 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
                 sidebar.LinkMenuItem("pages", "Pages", "/pages/"),
             ],
         )
+
+    def test_menu_items_have_names(self):
+        # Delete the registered_menu_items cache
+        try:
+            del admin_menu.registered_menu_items
+        # The cache may not be created yet if the test is run in isolation
+        except AttributeError:
+            pass
+
+        # Generate the menu items using a different language
+        with translation.override("fr"):
+            names = {item.name for item in admin_menu.registered_menu_items}
+
+        # Default menu items
+        expected = {
+            "explorer",
+            "images",
+            "documents",
+            "snippets",
+            "forms",
+            "reports",
+            "settings",
+            "help",
+        }
+
+        # If some of the above items do not have a name, they will be
+        # automatically generated from the label, which is translatable.
+        # We want the name to be consistent across languages, so this test will
+        # fail if the label is translated.
+        self.assertFalse(expected - names)
