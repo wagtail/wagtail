@@ -234,6 +234,16 @@ class BrowseView(View):
         except (ValueError, LookupError):
             raise Http404
 
+        # Determine header icon
+        page_icon_set = set([
+            getattr(page_class, "admin_icon", "doc-empty-inverse")
+            for page_class in self.desired_classes
+        ])
+        if len(page_icon_set) == 1:
+            header_icon = page_icon_set.pop()
+        else:
+            header_icon = "doc-empty-inverse"
+
         # Find parent page
         if parent_page_id:
             self.parent_page = get_object_or_404(Page, id=parent_page_id)
@@ -382,6 +392,7 @@ class BrowseView(View):
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,
+                "header_icon": header_icon,
             },
         )
 

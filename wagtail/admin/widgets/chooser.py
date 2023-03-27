@@ -216,7 +216,6 @@ class AdminPageChooser(BaseChooser):
     link_to_chosen_text = _("Edit this page")
     display_title_key = "display_title"
     chooser_modal_url_name = "wagtailadmin_choose_page"
-    icon = "doc-empty-inverse"
     classname = "page-chooser"
     js_constructor = "PageChooser"
 
@@ -243,6 +242,16 @@ class AdminPageChooser(BaseChooser):
                     )
         else:
             cleaned_target_models = [Page]
+
+        # Determine widget icons
+        page_icon_set = set([
+            getattr(page_class, "admin_icon", "doc-empty-inverse")
+            for page_class in cleaned_target_models
+        ])
+        if len(page_icon_set) == 1:
+            self.icon = page_icon_set.pop()
+        else:
+            self.icon = "doc-empty-inverse"
 
         if len(cleaned_target_models) == 1 and cleaned_target_models[0] is not Page:
             model_name = cleaned_target_models[0]._meta.verbose_name.title()
@@ -279,7 +288,9 @@ class AdminPageChooser(BaseChooser):
     def get_instance(self, value):
         instance = super().get_instance(value)
         if instance:
-            return instance.specific
+            specific = instance.specific
+            self.icon = getattr(specific, "admin_icon", self.icon)
+            return specific
 
     def get_display_title(self, instance):
         return instance.get_admin_display_title()
