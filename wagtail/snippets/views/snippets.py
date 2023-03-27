@@ -188,9 +188,9 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     def get_template_names(self):
         if self.results_only:
-            return ["wagtailsnippets/snippets/results.html"]
+            return ["wagtailsnippets/snippets/index_results.html"]
         else:
-            return ["wagtailsnippets/snippets/type_index.html"]
+            return ["wagtailsnippets/snippets/index.html"]
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
