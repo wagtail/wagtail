@@ -191,9 +191,9 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     def get_template_names(self):
         if self.results_only:
-            return ["wagtailsnippets/snippets/index_results.html"]
+            return self.viewset.get_index_results_template()
         else:
-            return ["wagtailsnippets/snippets/index.html"]
+            return self.viewset.get_index_template()
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -201,7 +201,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
-    template_name = "wagtailsnippets/snippets/create.html"
     error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
@@ -286,6 +285,9 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
         return context
 
+    def get_template_names(self):
+        return self.viewset.get_create_template()
+
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     viewset = None
@@ -294,7 +296,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     preview_url_name = None
     revisions_compare_url_name = None
     permission_required = "change"
-    template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
@@ -366,6 +367,9 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
         return context
 
+    def get_template_names(self):
+        return self.viewset.get_edit_template()
+
 
 class DeleteView(generic.DeleteView):
     viewset = None
@@ -386,12 +390,17 @@ class DeleteView(generic.DeleteView):
             "object": self.object,
         }
 
+    def get_template_names(self):
+        return self.viewset.get_delete_template()
+
 
 class UsageView(generic.UsageView):
     viewset = None
     view_name = "usage"
-    template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
+
+    def get_template_names(self):
+        return self.viewset.get_templates("usage")
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
@@ -442,7 +451,6 @@ class HistoryView(ReportView):
     revisions_compare_url_name = None
     revisions_unschedule_url_name = None
     any_permission_required = ["add", "change", "delete"]
-    template_name = "wagtailsnippets/snippets/history.html"
     title = gettext_lazy("Snippet history")
     header_icon = "history"
     is_searchable = False
@@ -488,6 +496,9 @@ class HistoryView(ReportView):
         return log_registry.get_logs_for_instance(self.object).select_related(
             "revision", "user", "user__wagtail_userprofile"
         )
+
+    def get_template_names(self):
+        return self.viewset.get_history_template()
 
 
 class PreviewOnCreateView(PreviewOnCreate):
@@ -726,6 +737,24 @@ class SnippetViewSet(ViewSet):
 
     #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
+
+    #: The template to use for the index view.
+    index_template_name = ""
+
+    #: The template to use for the results in the index view.
+    index_results_template_name = ""
+
+    #: The template to use for the create view.
+    create_template_name = ""
+
+    #: The template to use for the edit view.
+    edit_template_name = ""
+
+    #: The template to use for the delete view.
+    delete_template_name = ""
+
+    #: The template to use for the history view.
+    history_template_name = ""
 
     def __init__(self, model, **kwargs):
         self.model = model
@@ -1074,6 +1103,36 @@ class SnippetViewSet(ViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
+
+    def get_templates(self, action="index"):
+        """
+        Utility function that provides a list of templates to try for a given
+        view, when the template isn't overridden by one of the template
+        attributes on the class.
+        """
+        return [
+            f"wagtailsnippets/snippets/{self.app_label}/{self.model_name}/{action}.html",
+            f"wagtailsnippets/snippets/{self.app_label}/{action}.html",
+            f"wagtailsnippets/snippets/{action}.html",
+        ]
+
+    def get_index_template(self):
+        return self.index_template_name or self.get_templates("index")
+
+    def get_index_results_template(self):
+        return self.index_results_template_name or self.get_templates("index_results")
+
+    def get_create_template(self):
+        return self.create_template_name or self.get_templates("create")
+
+    def get_edit_template(self):
+        return self.edit_template_name or self.get_templates("edit")
+
+    def get_delete_template(self):
+        return self.delete_template_name or self.get_templates("delete")
+
+    def get_history_template(self):
+        return self.history_template_name or self.get_templates("history")
 
     def get_admin_url_namespace(self):
         """Returns the URL namespace for the admin URLs for this model."""
