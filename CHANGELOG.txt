@@ -28,6 +28,7 @@ Changelog
  * Re-label "StreamField blocks" option in block picker to "Blocks" (Thibaud Colas)
  * Re-implement styleguide icons list as an auto-generated sequence of tables (Thibaud Colas)
  * Switch styleguide navigation to use panel components and minimap (Thibaud Colas)
+ * Explicitly specify `MenuItem.name` for Snippets, Reports, and Settings menu items (Sage Abdullah)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
