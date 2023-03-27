@@ -102,11 +102,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly refreshTarget: HTMLButtonElement;
   declare readonly hasModeTarget: boolean;
   declare readonly modeTarget: HTMLSelectElement;
-
-  set iframeTarget(_: HTMLIFrameElement) {
-    // The refresh works by hotswapping the iframe element with a new one,
-    // so we need to allow the target to be set multiple times.
-  }
+  declare readonly iframeTarget: HTMLIFrameElement;
+  declare readonly iframeTargets: HTMLIFrameElement[];
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -238,9 +235,13 @@ export class PreviewController extends Controller<HTMLElement> {
           this.iframeTarget.contentWindow?.scrollY as number,
         );
 
-        // Remove the old iframe and swap it with the new one
+        // Remove the old iframe
+        // This will disconnect the old iframe target, but it's fine because
+        // the new iframe has been connected when we copy the attributes over,
+        // thus subsequent references to this.iframeTarget will be the new iframe.
+        // To verify, you can add console.log(this.iframeTargets) before and after
+        // the following line and see that the array contains two and then one iframe.
         this.iframeTarget.remove();
-        this.iframeTarget = newIframe;
 
         // Make the new iframe visible
         newIframe.removeAttribute('style');
