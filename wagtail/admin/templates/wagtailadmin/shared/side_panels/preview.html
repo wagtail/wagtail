@@ -24,7 +24,7 @@
         <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-w-preview-target="newTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
-    <div class="preview-panel__spinner w-hidden" data-preview-spinner>
+    <div class="preview-panel__spinner w-hidden" data-w-preview-target="spinner">
         {% icon name="spinner" classname="default" %}
         <span class="w-sr-only">{% trans 'Loading'%}</span>
     </div>
