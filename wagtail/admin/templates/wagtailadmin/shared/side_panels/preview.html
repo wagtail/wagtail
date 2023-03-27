@@ -21,7 +21,7 @@
             <input type="radio" name="preview-size" value="desktop" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
         </label>
 
-        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-w-preview-target="newTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
     <div class="preview-panel__spinner w-hidden" data-preview-spinner>

@@ -78,9 +78,10 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size'];
+  static targets = ['size', 'newTab'];
 
   declare readonly sizeTargets: HTMLInputElement[];
+  declare readonly newTabTarget: HTMLAnchorElement;
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -164,9 +165,6 @@ export class PreviewController extends Controller<HTMLElement> {
     // to the preview page, we send the form after each change
     // and save it inside the user session.
 
-    const newTabButton = previewPanel.querySelector<HTMLAnchorElement>(
-      '[data-preview-new-tab]',
-    ) as HTMLAnchorElement;
     const refreshButton = previewPanel.querySelector<HTMLButtonElement>(
       '[data-refresh-preview]',
     );
@@ -240,7 +238,7 @@ export class PreviewController extends Controller<HTMLElement> {
         // Remove the load event listener so it doesn't fire when switching modes
         newIframe.removeEventListener('load', handleLoad);
 
-        const onClickSelector = () => newTabButton.click();
+        const onClickSelector = () => this.newTabTarget.click();
         runAccessibilityChecks(onClickSelector);
       };
 
@@ -319,7 +317,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
       handlePreview().then((success) => {
         if (success) {
-          const url = new URL(newTabButton.href);
+          const url = new URL(this.newTabTarget.href);
           previewWindow.document.location = url.toString();
         } else {
           window.focus();
@@ -328,7 +326,7 @@ export class PreviewController extends Controller<HTMLElement> {
       });
     };
 
-    newTabButton.addEventListener('click', handlePreviewInNewTab);
+    this.newTabTarget.addEventListener('click', handlePreviewInNewTab);
 
     if (refreshButton) {
       refreshButton.addEventListener('click', handlePreview);
@@ -412,7 +410,7 @@ export class PreviewController extends Controller<HTMLElement> {
       const url = new URL(previewUrl, window.location.href);
       url.searchParams.set('mode', mode);
       url.searchParams.delete('in_preview_panel');
-      newTabButton.href = url.toString();
+      this.newTabTarget.href = url.toString();
 
       // Make sure data is updated
       handlePreview();
