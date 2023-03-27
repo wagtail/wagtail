@@ -10,15 +10,15 @@
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button preview-panel__size-button--mobile">
             {% icon name="mobile-alt" %}
-            <input type="radio" name="preview-size" value="mobile" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
+            <input type="radio" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
         </label>
         <label class="preview-panel__size-button preview-panel__size-button--tablet">
             {% icon name="tablet-alt" %}
-            <input type="radio" name="preview-size" value="tablet" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
+            <input type="radio" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
         </label>
         <label class="preview-panel__size-button preview-panel__size-button--desktop">
             {% icon name="desktop" %}
-            <input type="radio" name="preview-size" value="desktop" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
+            <input type="radio" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
         </label>
 
         <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-w-preview-target="newTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
