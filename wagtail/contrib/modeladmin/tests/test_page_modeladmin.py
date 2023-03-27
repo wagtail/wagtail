@@ -286,6 +286,21 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
 
+    def test_page_title_html_escaping(self):
+        homepage = Page.objects.get(url_path="/home/")
+        business_index = BusinessIndex(
+            title="Title with <script>alert('XSS')</script>",
+        )
+        homepage.add_child(instance=business_index)
+
+        response = self.client.get("/admin/tests/businesschild/choose_parent/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Title with <script>alert('XSS')</script>")
+        self.assertContains(
+            response, "Title with &lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;"
+        )
+
 
 class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
     fixtures = ["test_specific.json"]

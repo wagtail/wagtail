@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.models import Page
@@ -12,7 +11,7 @@ class PageChoiceField(forms.ModelChoiceField):
             obj.get_ancestors(inclusive=True).exclude(depth=1).specific(defer=True)
         ):
             bits.append(ancestor.get_admin_display_title())
-        return mark_safe('<span class="icon icon-arrow-right"></span>'.join(bits))
+        return " | ".join(bits)
 
 
 class ParentChooserForm(forms.Form):
