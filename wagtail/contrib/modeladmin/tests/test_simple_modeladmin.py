@@ -13,6 +13,8 @@ from openpyxl import load_workbook
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
+from wagtail.documents.models import Document
+from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, ModelLogEntry, Page
@@ -590,6 +592,20 @@ class TestInspectView(TestCase, WagtailTestUtils):
         """
         response = self.get_for_book(1)
         self.assertContains(response, "J. R. R. Tolkien", 1)
+
+    def test_book_extract_document_html_escaping(self):
+        doc = Document.objects.create(
+            title="Title with <script>alert('XSS')</script>",
+            file=get_test_document_file(),
+        )
+        book = Book.objects.get(title="The Lord of the Rings")
+        book.extract_document = doc
+        book.save()
+        response = self.get_for_book(1)
+        self.assertNotContains(response, "Title with <script>alert('XSS')</script>")
+        self.assertContains(
+            response, "Title with &lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;"
+        )
 
     def test_non_existent(self):
         response = self.get_for_book(100)

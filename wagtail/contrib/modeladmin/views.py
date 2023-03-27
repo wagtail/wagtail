@@ -29,8 +29,8 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.http import urlencode
-from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -1132,14 +1132,12 @@ class InspectView(InstanceSpecificView):
         """Render a link to a document"""
         document = getattr(self.instance, field_name)
         if document:
-            return mark_safe(
-                '<a href="%s">%s <span class="meta">(%s, %s)</span></a>'
-                % (
-                    document.url,
-                    document.title,
-                    document.file_extension.upper(),
-                    filesizeformat(document.file.size),
-                )
+            return format_html(
+                '<a href="{}">{} <span class="meta">({}, {})</span></a>',
+                document.url,
+                document.title,
+                document.file_extension.upper(),
+                filesizeformat(document.file.size),
             )
         return self.model_admin.get_empty_value_display(field_name)
 
