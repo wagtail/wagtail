@@ -2,7 +2,7 @@ from io import StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.urls import reverse
 
 from wagtail.models import Page
@@ -11,17 +11,17 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestPageSearch(WagtailTestUtils, TestCase):
-    @classmethod
-    def setUpTestData(cls):
+class TestPageSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        super().setUp()
         management.call_command(
             "update_index",
             backend_name="default",
             stdout=StringIO(),
             chunk_size=50,
         )
-
-    def setUp(self):
         self.user = self.login()
 
     def get(self, params=None, **extra):

@@ -1,0 +1,54 @@
+[
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 0,
+      "name": "Root"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Root",
+      "draft_title": "Root",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 1,
+      "content_type": ["wagtailcore", "page"],
+      "path": "0001",
+      "url_path": "/",
+      "slug": "root"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to the Wagtail test site!",
+      "draft_title": "Welcome to the Wagtail test site!",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010001",
+      "url_path": "/home/",
+      "slug": "home",
+      "first_published_at": "2014-01-01T12:00:00.000Z",
+      "last_published_at": "2014-02-01T12:00:00.000Z"
+    }
+  }
+]
