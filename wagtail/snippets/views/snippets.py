@@ -530,15 +530,33 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
             "model_name": self.model._meta.verbose_name
         }
 
+    def get_template_names(self):
+        return self.viewset.get_templates(
+            "revisions_compare",
+            fallback=self.template_name,
+        )
+
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
     viewset = None
     permission_required = "publish"
 
+    def get_template_names(self):
+        return self.viewset.get_templates(
+            "unpublish",
+            fallback=self.template_name,
+        )
+
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
     viewset = None
     permission_required = "publish"
+
+    def get_template_names(self):
+        return self.viewset.get_templates(
+            "revisions_unschedule",
+            fallback=self.template_name,
+        )
 
 
 class LockView(PermissionCheckedMixin, lock.LockView):
@@ -610,12 +628,24 @@ class WorkflowHistoryView(PermissionCheckedMixin, history.WorkflowHistoryView):
     viewset = None
     permission_required = "change"
 
+    def get_template_names(self):
+        return self.viewset.get_templates(
+            "workflow_history/index",
+            fallback=self.template_name,
+        )
+
 
 class WorkflowHistoryDetailView(
     PermissionCheckedMixin, history.WorkflowHistoryDetailView
 ):
     viewset = None
     permission_required = "change"
+
+    def get_template_names(self):
+        return self.viewset.get_templates(
+            "workflow_history/detail",
+            fallback=self.template_name,
+        )
 
 
 class SnippetViewSet(ViewSet):
@@ -1104,17 +1134,20 @@ class SnippetViewSet(ViewSet):
             per_page=self.chooser_per_page,
         )
 
-    def get_templates(self, action="index"):
+    def get_templates(self, action="index", fallback=""):
         """
         Utility function that provides a list of templates to try for a given
         view, when the template isn't overridden by one of the template
         attributes on the class.
         """
-        return [
+        templates = [
             f"wagtailsnippets/snippets/{self.app_label}/{self.model_name}/{action}.html",
             f"wagtailsnippets/snippets/{self.app_label}/{action}.html",
             f"wagtailsnippets/snippets/{action}.html",
         ]
+        if fallback:
+            templates.append(fallback)
+        return templates
 
     def get_index_template(self):
         return self.index_template_name or self.get_templates("index")
