@@ -672,3 +672,57 @@ class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
 
         # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+
+
+class TestCustomTemplates(WagtailTestUtils, TestCase):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Some snippet")
+
+    def get_url(self, view_name, args=()):
+        return reverse(self.model.snippet_viewset.get_url_name(view_name), args=args)
+
+    def test_template_lookups(self):
+        pk = quote(self.object.pk)
+        cases = {
+            "with app label and model name": (
+                "add",
+                [],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/create.html",
+            ),
+            "with app label": (
+                "edit",
+                [pk],
+                "wagtailsnippets/snippets/tests/edit.html",
+            ),
+            "without app label and model name": (
+                "delete",
+                [pk],
+                "wagtailsnippets/snippets/delete.html",
+            ),
+            "override a view that uses a generic template": (
+                "unpublish",
+                [pk],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/unpublish.html",
+            ),
+            "override with index_template_name": (
+                "list",
+                [],
+                "tests/fullfeaturedsnippet_index.html",
+            ),
+            "override with get_history_template": (
+                "history",
+                [pk],
+                "tests/snippet_history.html",
+            ),
+        }
+        for case, (view_name, args, template_name) in cases.items():
+            with self.subTest(case=case):
+                response = self.client.get(self.get_url(view_name, args=args))
+                self.assertTemplateUsed(response, template_name)
+                self.assertContains(response, "<p>An added paragraph</p>", html=True)

@@ -1158,21 +1158,51 @@ class SnippetViewSet(ViewSet):
         return templates
 
     def get_index_template(self):
+        """
+        Returns a template to be used when rendering ``index_view``. If a
+        template is specified by the ``index_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.index_template_name or self.get_templates("index")
 
     def get_index_results_template(self):
+        """
+        Returns a template to be used when rendering ``index_results_view``. If a
+        template is specified by the ``index_results_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.index_results_template_name or self.get_templates("index_results")
 
     def get_create_template(self):
+        """
+        Returns a template to be used when rendering ``create_view``. If a
+        template is specified by the ``create_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.create_template_name or self.get_templates("create")
 
     def get_edit_template(self):
+        """
+        Returns a template to be used when rendering ``edit_view``. If a
+        template is specified by the ``edit_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.edit_template_name or self.get_templates("edit")
 
     def get_delete_template(self):
+        """
+        Returns a template to be used when rendering ``delete_view``. If a
+        template is specified by the ``delete_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.delete_template_name or self.get_templates("delete")
 
     def get_history_template(self):
+        """
+        Returns a template to be used when rendering ``history_view``. If a
+        template is specified by the ``history_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
         return self.history_template_name or self.get_templates("history")
 
     def get_admin_url_namespace(self):
