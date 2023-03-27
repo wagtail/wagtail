@@ -577,7 +577,24 @@ The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribu
 
 You can add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups. If you would like to customise it further, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
-For example:
+For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
+
+1. `templates/wagtailsnippets/snippets/{app_label}/{model_name}/`
+2. `templates/wagtailsnippets/snippets/{app_label}/`
+3. `templates/wagtailsnippets/snippets/`
+
+So, to override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, if you wanted to do this for a `Shirt` model in a `shirts` app, you could add your custom template as `shirts/templates/wagtailsnippets/snippets/shirts/shirt/index.html`.
+
+For some common views, Wagtail also allows you to override the template used by either specifying the `{view_name}_template_name` attribute or overriding the `get_{view_name}_template()` method on the viewset. The following is a list of customisation points for the views:
+
+- `IndexView`: `index.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_template()`
+  - For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_results_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_results_template()`.
+- `CreateView`: `create.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.create_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_create_template()`
+- `EditView`: `edit.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.edit_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_template()`
+- `DeleteView`: `delete.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.delete_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_delete_template()`
+- `HistoryView`: `history.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.history_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_history_template()`
+
+An example of a custom `SnippetViewSet` subclass:
 
 ```python
 # views.py
@@ -600,7 +617,7 @@ class MemberViewSet(SnippetViewSet):
     # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
 ```
 
-Then, pass the viewset to the `register_snippet` call.
+The viewset can be passed to the `register_snippet` call:
 
 ```python
 # wagtail_hooks.py

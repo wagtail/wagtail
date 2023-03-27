@@ -247,6 +247,10 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
+    index_template_name = "tests/fullfeaturedsnippet_index.html"
+
+    def get_history_template(self):
+        return "tests/snippet_history.html"
 
 
 class DraftStateModelViewSet(SnippetViewSet):
