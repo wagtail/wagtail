@@ -93,6 +93,10 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
+  static targets = ['size'];
+
+  declare readonly sizeTargets: HTMLInputElement[];
+
   connect() {
     const previewSidePanel = document.querySelector(
       '[data-side-panel="preview"]',
@@ -112,12 +116,9 @@ export class PreviewController extends Controller<HTMLElement> {
     // Preview size handling
     //
 
-    const sizeInputs = previewPanel.querySelectorAll<HTMLInputElement>(
-      '[data-device-width]',
-    );
-    const defaultSizeInput = previewPanel.querySelector<HTMLInputElement>(
-      '[data-default-size]',
-    ) as HTMLInputElement;
+    const defaultSizeInput =
+      this.sizeTargets.find((input) => 'defaultSize' in input.dataset) ||
+      this.sizeTargets[0];
 
     const setPreviewWidth = (width?: string) => {
       const isUnavailable = previewPanel.classList.contains(
@@ -149,7 +150,7 @@ export class PreviewController extends Controller<HTMLElement> {
       }
 
       // Ensure only one device class is applied
-      sizeInputs.forEach((input) => {
+      this.sizeTargets.forEach((input) => {
         previewPanel.classList.toggle(
           `preview-panel--${input.value}`,
           input.value === device,
@@ -157,7 +158,7 @@ export class PreviewController extends Controller<HTMLElement> {
       });
     };
 
-    sizeInputs.forEach((input) =>
+    this.sizeTargets.forEach((input) =>
       input.addEventListener('change', togglePreviewSize),
     );
 
@@ -446,9 +447,8 @@ export class PreviewController extends Controller<HTMLElement> {
       // Initialise with the default device if the last one cannot be restored.
     }
     const lastDeviceInput =
-      previewPanel.querySelector<HTMLInputElement>(
-        `[data-device-width][value="${lastDevice}"]`,
-      ) || defaultSizeInput;
+      this.sizeTargets.find((input) => input.value === lastDevice) ||
+      defaultSizeInput;
     lastDeviceInput.click();
   }
 }
