@@ -26,9 +26,11 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
-from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
-from wagtail.admin.views.generic.preview import PreviewRevision
+from wagtail.admin.views.generic.preview import (
+    PreviewOnCreate,
+    PreviewOnEdit,
+    PreviewRevision,
+)
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.base import ViewSet
@@ -143,6 +145,7 @@ class SnippetTitleColumn(TitleColumn):
 
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
+    viewset = None
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -194,6 +197,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
+    viewset = None
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
@@ -284,6 +288,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
+    viewset = None
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
@@ -363,6 +368,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
 
 class DeleteView(generic.DeleteView):
+    viewset = None
     view_name = "delete"
     page_title = gettext_lazy("Delete")
     permission_required = "delete"
@@ -382,6 +388,7 @@ class DeleteView(generic.DeleteView):
 
 
 class UsageView(generic.UsageView):
+    viewset = None
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
@@ -426,6 +433,7 @@ class ActionColumn(Column):
 
 
 class HistoryView(ReportView):
+    viewset = None
     view_name = "history"
     index_url_name = None
     edit_url_name = None
@@ -482,11 +490,21 @@ class HistoryView(ReportView):
         )
 
 
+class PreviewOnCreateView(PreviewOnCreate):
+    viewset = None
+
+
+class PreviewOnEditView(PreviewOnEdit):
+    viewset = None
+
+
 class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
+    viewset = None
     permission_required = "change"
 
 
 class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
+    viewset = None
     permission_required = "change"
 
     @property
@@ -503,14 +521,17 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
 
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
+    viewset = None
     permission_required = "publish"
 
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
+    viewset = None
     permission_required = "publish"
 
 
 class LockView(PermissionCheckedMixin, lock.LockView):
+    viewset = None
     permission_required = "lock"
 
     def user_has_permission(self, permission):
@@ -530,6 +551,7 @@ class LockView(PermissionCheckedMixin, lock.LockView):
 
 
 class UnlockView(PermissionCheckedMixin, lock.UnlockView):
+    viewset = None
     permission_required = "unlock"
 
     def user_has_permission(self, permission):
@@ -553,32 +575,35 @@ class UnlockView(PermissionCheckedMixin, lock.UnlockView):
 
 
 class WorkflowActionView(workflow.WorkflowAction):
-    pass
+    viewset = None
 
 
 class CollectWorkflowActionDataView(workflow.CollectWorkflowActionData):
-    pass
+    viewset = None
 
 
 class ConfirmWorkflowCancellationView(workflow.ConfirmWorkflowCancellation):
-    pass
+    viewset = None
 
 
 class WorkflowStatusView(PermissionCheckedMixin, workflow.WorkflowStatus):
+    viewset = None
     permission_required = "change"
 
 
 class WorkflowPreviewView(workflow.PreviewRevisionForTask):
-    pass
+    viewset = None
 
 
 class WorkflowHistoryView(PermissionCheckedMixin, history.WorkflowHistoryView):
+    viewset = None
     permission_required = "change"
 
 
 class WorkflowHistoryDetailView(
     PermissionCheckedMixin, history.WorkflowHistoryDetailView
 ):
+    viewset = None
     permission_required = "change"
 
 
@@ -748,6 +773,7 @@ class SnippetViewSet(ViewSet):
     @property
     def index_view(self):
         return self.index_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             filterset_class=self.filterset_class,
@@ -765,6 +791,7 @@ class SnippetViewSet(ViewSet):
     @property
     def index_results_view(self):
         return self.index_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             filterset_class=self.filterset_class,
@@ -783,6 +810,7 @@ class SnippetViewSet(ViewSet):
     @property
     def add_view(self):
         return self.add_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -796,6 +824,7 @@ class SnippetViewSet(ViewSet):
     def edit_view(self):
         # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -817,6 +846,7 @@ class SnippetViewSet(ViewSet):
     @property
     def delete_view(self):
         return self.delete_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -828,6 +858,7 @@ class SnippetViewSet(ViewSet):
     @property
     def usage_view(self):
         return self.usage_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -838,6 +869,7 @@ class SnippetViewSet(ViewSet):
     @property
     def history_view(self):
         return self.history_view_class.as_view(
+            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -851,6 +883,7 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_view(self):
         return self.revisions_view_class.as_view(
+            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
         )
@@ -858,6 +891,7 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -880,6 +914,7 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -890,6 +925,7 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_unschedule_view(self):
         return self.revisions_unschedule_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -901,6 +937,7 @@ class SnippetViewSet(ViewSet):
     @property
     def unpublish_view(self):
         return self.unpublish_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -912,15 +949,22 @@ class SnippetViewSet(ViewSet):
 
     @property
     def preview_on_add_view(self):
-        return self.preview_on_add_view_class.as_view(model=self.model)
+        return self.preview_on_add_view_class.as_view(
+            viewset=self,
+            model=self.model,
+        )
 
     @property
     def preview_on_edit_view(self):
-        return self.preview_on_edit_view_class.as_view(model=self.model)
+        return self.preview_on_edit_view_class.as_view(
+            viewset=self,
+            model=self.model,
+        )
 
     @property
     def lock_view(self):
         return self.lock_view_class.as_view(
+            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             success_url_name=self.get_url_name("edit"),
@@ -929,6 +973,7 @@ class SnippetViewSet(ViewSet):
     @property
     def unlock_view(self):
         return self.unlock_view_class.as_view(
+            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             success_url_name=self.get_url_name("edit"),
@@ -937,6 +982,7 @@ class SnippetViewSet(ViewSet):
     @property
     def workflow_action_view(self):
         return self.workflow_action_view_class.as_view(
+            viewset=self,
             model=self.model,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("workflow_action"),
@@ -945,6 +991,7 @@ class SnippetViewSet(ViewSet):
     @property
     def collect_workflow_action_data_view(self):
         return self.collect_workflow_action_data_view_class.as_view(
+            viewset=self,
             model=self.model,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("collect_workflow_action_data"),
@@ -952,11 +999,15 @@ class SnippetViewSet(ViewSet):
 
     @property
     def confirm_workflow_cancellation_view(self):
-        return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
+        return self.confirm_workflow_cancellation_view_class.as_view(
+            viewset=self,
+            model=self.model,
+        )
 
     @property
     def workflow_status_view(self):
         return self.workflow_status_view_class.as_view(
+            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -965,11 +1016,15 @@ class SnippetViewSet(ViewSet):
 
     @property
     def workflow_preview_view(self):
-        return self.workflow_preview_view_class.as_view(model=self.model)
+        return self.workflow_preview_view_class.as_view(
+            viewset=self,
+            model=self.model,
+        )
 
     @property
     def workflow_history_view(self):
         return self.workflow_history_view_class.as_view(
+            viewset=self,
             model=self.model,
             header_icon=self.icon,
             permission_policy=self.permission_policy,
@@ -982,6 +1037,7 @@ class SnippetViewSet(ViewSet):
     @property
     def workflow_history_detail_view(self):
         return self.workflow_history_detail_view_class.as_view(
+            viewset=self,
             model=self.model,
             object_icon=self.icon,
             permission_policy=self.permission_policy,
