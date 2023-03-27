@@ -93,7 +93,7 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size', 'newTab', 'spinner', 'refresh', 'mode'];
+  static targets = ['size', 'newTab', 'spinner', 'refresh', 'mode', 'iframe'];
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
@@ -102,6 +102,11 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly refreshTarget: HTMLButtonElement;
   declare readonly hasModeTarget: boolean;
   declare readonly modeTarget: HTMLSelectElement;
+
+  set iframeTarget(_: HTMLIFrameElement) {
+    // The refresh works by hotswapping the iframe element with a new one,
+    // so we need to allow the target to be set multiple times.
+  }
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -189,9 +194,6 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-edit-form]',
     ) as HTMLFormElement;
     const previewUrl = previewPanel.dataset.action as string;
-    let iframe = previewPanel.querySelector<HTMLIFrameElement>(
-      '[data-preview-iframe]',
-    ) as HTMLIFrameElement;
     let spinnerTimeout: ReturnType<typeof setTimeout>;
     let hasPendingUpdate = false;
     let cleared = false;
@@ -220,25 +222,25 @@ export class PreviewController extends Controller<HTMLElement> {
       newIframe.src = url.toString();
 
       // Put it in the DOM so it loads the page
-      iframe.insertAdjacentElement('afterend', newIframe);
+      this.iframeTarget.insertAdjacentElement('afterend', newIframe);
 
       const handleLoad = () => {
         // Copy all attributes from the old iframe to the new one,
         // except src as that will cause the iframe to be reloaded
-        Array.from(iframe.attributes).forEach((key) => {
+        Array.from(this.iframeTarget.attributes).forEach((key) => {
           if (key.nodeName === 'src') return;
           newIframe.setAttribute(key.nodeName, key.nodeValue as string);
         });
 
         // Restore scroll position
         newIframe.contentWindow?.scroll(
-          iframe.contentWindow?.scrollX as number,
-          iframe.contentWindow?.scrollY as number,
+          this.iframeTarget.contentWindow?.scrollX as number,
+          this.iframeTarget.contentWindow?.scrollY as number,
         );
 
         // Remove the old iframe and swap it with the new one
-        iframe.remove();
-        iframe = newIframe;
+        this.iframeTarget.remove();
+        this.iframeTarget = newIframe;
 
         // Make the new iframe visible
         newIframe.removeAttribute('style');
