@@ -36,6 +36,9 @@ class Book(models.Model, index.Indexed):
     cover_image = models.ForeignKey(
         "wagtailimages.Image", on_delete=models.SET_NULL, null=True, blank=True
     )
+    extract_document = models.ForeignKey(
+        "wagtaildocs.Document", on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     search_fields = [
         index.SearchField("title"),
