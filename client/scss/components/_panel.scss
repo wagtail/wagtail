@@ -19,7 +19,7 @@ $header-gap: theme('spacing.1');
 .w-panel__header {
   display: flex;
   align-items: center;
-  margin-bottom: theme('spacing.3');
+  margin-bottom: theme('spacing.[0.5]');
   margin-inline-start: -1 * $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
