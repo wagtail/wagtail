@@ -121,7 +121,7 @@ $zindex-modal-background: 500;
     .w-header__title {
       color: inherit;
       font-weight: 700;
-      font-size: 1.125rem;
+      font-size: theme('fontSize.19');
       line-height: 130%;
     }
   }

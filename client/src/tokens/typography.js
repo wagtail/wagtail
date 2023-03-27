@@ -76,6 +76,7 @@ const fontSize = {
   15: '0.9375rem',
   16: '1rem',
   18: '1.125rem',
+  19: '1.1875rem',
   22: '1.375rem',
   24: '1.5rem',
   26: '1.625rem',
@@ -148,7 +149,7 @@ const typeScale = {
     lineHeight: 'lineHeight.tight',
   },
   'w-label-2': {
-    fontSize: 'fontSize.15',
+    fontSize: 'fontSize.14',
     fontWeight: 'fontWeight.semibold',
     color: 'colors.primary.DEFAULT',
     lineHeight: 'lineHeight.tight',
@@ -160,7 +161,7 @@ const typeScale = {
     lineHeight: 'lineHeight.tight',
   },
   'w-body-text-large': {
-    fontSize: 'fontSize.18',
+    fontSize: 'fontSize.19',
     fontWeight: 'fontWeight.normal',
     lineHeight: 'lineHeight.normal',
   },
