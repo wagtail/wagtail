@@ -93,11 +93,13 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size', 'newTab', 'spinner'];
+  static targets = ['size', 'newTab', 'spinner', 'refresh'];
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
   declare readonly spinnerTarget: HTMLDivElement;
+  declare readonly hasRefreshTarget: boolean;
+  declare readonly refreshTarget: HTMLButtonElement;
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -181,9 +183,6 @@ export class PreviewController extends Controller<HTMLElement> {
     // to the preview page, we send the form after each change
     // and save it inside the user session.
 
-    const refreshButton = previewPanel.querySelector<HTMLButtonElement>(
-      '[data-refresh-preview]',
-    );
     const form = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
@@ -343,8 +342,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.newTabTarget.addEventListener('click', handlePreviewInNewTab);
 
-    if (refreshButton) {
-      refreshButton.addEventListener('click', handlePreview);
+    if (this.hasRefreshTarget) {
+      this.refreshTarget.addEventListener('click', handlePreview);
     }
 
     if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
