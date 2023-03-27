@@ -103,6 +103,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: preview_on_edit_view_class
    .. autoattribute:: lock_view_class
    .. autoattribute:: unlock_view_class
+   .. autoattribute:: chooser_viewset_class
    .. automethod:: get_admin_url_namespace
    .. automethod:: get_admin_base_path
    .. automethod:: get_chooser_admin_url_namespace

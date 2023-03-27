@@ -699,6 +699,7 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
     workflow_history_detail_view_class = WorkflowHistoryDetailView
 
+    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
 
     def __init__(self, model, **kwargs):
