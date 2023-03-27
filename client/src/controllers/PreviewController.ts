@@ -78,10 +78,11 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size', 'newTab'];
+  static targets = ['size', 'newTab', 'spinner'];
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
+  declare readonly spinnerTarget: HTMLDivElement;
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -168,9 +169,6 @@ export class PreviewController extends Controller<HTMLElement> {
     const refreshButton = previewPanel.querySelector<HTMLButtonElement>(
       '[data-refresh-preview]',
     );
-    const loadingSpinner = previewPanel.querySelector<HTMLDivElement>(
-      '[data-preview-spinner]',
-    ) as HTMLDivElement;
     const form = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
@@ -187,7 +185,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const finishUpdate = () => {
       clearTimeout(spinnerTimeout);
-      loadingSpinner.classList.add('w-hidden');
+      this.spinnerTarget.classList.add('w-hidden');
       hasPendingUpdate = false;
     };
 
@@ -259,7 +257,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
       hasPendingUpdate = true;
       spinnerTimeout = setTimeout(
-        () => loadingSpinner.classList.remove('w-hidden'),
+        () => this.spinnerTarget.classList.remove('w-hidden'),
         2000,
       );
 
