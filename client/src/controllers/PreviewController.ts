@@ -106,19 +106,9 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly iframeTargets: HTMLIFrameElement[];
 
   connect() {
-    const previewSidePanel = document.querySelector(
-      '[data-side-panel="preview"]',
-    );
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
     );
-
-    // Preview side panel is not shown if the object does not have any preview modes
-    if (!previewSidePanel) return;
-
-    // The previewSidePanel is a generic container for side panels,
-    // the content of the preview panel itself is in a child element
-    const previewPanel = this.element;
 
     //
     // Preview size handling
@@ -129,7 +119,7 @@ export class PreviewController extends Controller<HTMLElement> {
       this.sizeTargets[0];
 
     const setPreviewWidth = (width?: string) => {
-      const isUnavailable = previewPanel.classList.contains(
+      const isUnavailable = this.element.classList.contains(
         'preview-panel--unavailable',
       );
 
@@ -139,7 +129,7 @@ export class PreviewController extends Controller<HTMLElement> {
         deviceWidth = defaultSizeInput.dataset.deviceWidth;
       }
 
-      previewPanel.style.setProperty(
+      this.element.style.setProperty(
         '--preview-device-width',
         deviceWidth as string,
       );
@@ -159,7 +149,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
       // Ensure only one device class is applied
       this.sizeTargets.forEach((input) => {
-        previewPanel.classList.toggle(
+        this.element.classList.toggle(
           `preview-panel--${input.value}`,
           input.value === device,
         );
@@ -171,12 +161,12 @@ export class PreviewController extends Controller<HTMLElement> {
     );
 
     const resizeObserver = new ResizeObserver((entries) =>
-      previewPanel.style.setProperty(
+      this.element.style.setProperty(
         '--preview-panel-width',
         entries[0].contentRect.width.toString(),
       ),
     );
-    resizeObserver.observe(previewPanel);
+    resizeObserver.observe(this.element);
 
     //
     // Preview data handling
@@ -190,7 +180,7 @@ export class PreviewController extends Controller<HTMLElement> {
     const form = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
-    const previewUrl = previewPanel.dataset.action as string;
+    const previewUrl = this.element.dataset.action as string;
     let spinnerTimeout: ReturnType<typeof setTimeout>;
     let hasPendingUpdate = false;
     let cleared = false;
@@ -285,11 +275,11 @@ export class PreviewController extends Controller<HTMLElement> {
       })
         .then((response) => response.json())
         .then((data) => {
-          previewPanel.classList.toggle(
+          this.element.classList.toggle(
             'preview-panel--has-errors',
             !data.is_valid,
           );
-          previewPanel.classList.toggle(
+          this.element.classList.toggle(
             'preview-panel--unavailable',
             !data.is_available,
           );
@@ -348,6 +338,14 @@ export class PreviewController extends Controller<HTMLElement> {
       this.refreshTarget.addEventListener('click', handlePreview);
     }
 
+    // This controller is encapsulated as a child of the side panel element,
+    // so we need to listen to the show/hide events on the parent element
+    // (the one with [data-side-panel]).
+    // If we had support for data-controller attribute on the side panels,
+    // we could remove the intermediary element and make the [data-side-panel]
+    // element to also act as the controller.
+    const sidePanelContainer = this.element.parentElement as HTMLDivElement;
+
     if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
       // Start with an empty payload so that when checkAndUpdatePreview is called
       // for the first time when the panel is opened, it will always update the preview
@@ -378,7 +376,7 @@ export class PreviewController extends Controller<HTMLElement> {
         debouncedSetPreviewData();
       };
 
-      previewSidePanel.addEventListener('show', () => {
+      sidePanelContainer.addEventListener('show', () => {
         // Immediately update the preview when the panel is opened
         checkAndUpdatePreview();
 
@@ -400,7 +398,8 @@ export class PreviewController extends Controller<HTMLElement> {
         );
       });
 
-      previewSidePanel.addEventListener('hide', () => {
+      // Clear the interval when the panel is hidden
+      sidePanelContainer.addEventListener('hide', () => {
         clearInterval(updateInterval);
       });
       checksSidePanel?.addEventListener('hide', () => {
@@ -409,7 +408,7 @@ export class PreviewController extends Controller<HTMLElement> {
     } else {
       // Even if the preview is not updated automatically, we still need to
       // initialise the preview data when the panel is shown
-      previewSidePanel.addEventListener('show', () => {
+      sidePanelContainer.addEventListener('show', () => {
         setPreviewData();
       });
       checksSidePanel?.addEventListener('show', () => {
