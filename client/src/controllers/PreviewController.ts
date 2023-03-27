@@ -78,13 +78,15 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size', 'newTab', 'spinner', 'refresh'];
+  static targets = ['size', 'newTab', 'spinner', 'refresh', 'mode'];
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
   declare readonly spinnerTarget: HTMLDivElement;
   declare readonly hasRefreshTarget: boolean;
   declare readonly refreshTarget: HTMLButtonElement;
+  declare readonly hasModeTarget: boolean;
+  declare readonly modeTarget: HTMLSelectElement;
 
   connect() {
     const previewSidePanel = document.querySelector(
@@ -172,9 +174,6 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-edit-form]',
     ) as HTMLFormElement;
     const previewUrl = previewPanel.dataset.action as string;
-    const previewModeSelect = document.querySelector<HTMLSelectElement>(
-      '[data-preview-mode-select]',
-    );
     let iframe = previewPanel.querySelector<HTMLIFrameElement>(
       '[data-preview-iframe]',
     ) as HTMLIFrameElement;
@@ -195,8 +194,8 @@ export class PreviewController extends Controller<HTMLElement> {
       // Create a new invisible iframe element
       const newIframe = document.createElement('iframe');
       const url = new URL(previewUrl, window.location.href);
-      if (previewModeSelect) {
-        url.searchParams.set('mode', previewModeSelect.value);
+      if (this.hasModeTarget) {
+        url.searchParams.set('mode', this.modeTarget.value);
       }
       url.searchParams.set('in_preview_panel', 'true');
       newIframe.style.width = '0';
@@ -413,8 +412,8 @@ export class PreviewController extends Controller<HTMLElement> {
       handlePreview();
     };
 
-    if (previewModeSelect) {
-      previewModeSelect.addEventListener('change', handlePreviewModeChange);
+    if (this.hasModeTarget) {
+      this.modeTarget.addEventListener('change', handlePreviewModeChange);
     }
 
     // Remember last selected device size
