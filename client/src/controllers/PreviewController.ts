@@ -152,15 +152,11 @@ export class PreviewController extends Controller<HTMLElement> {
     });
   }
 
-  connect() {
-    const checksSidePanel = document.querySelector(
-      '[data-side-panel="checks"]',
-    );
-
-    //
-    // Preview size handling
-    //
-
+  /**
+   * Observes the preview panel size and set the `--preview-panel-width` CSS variable.
+   * This is used to maintain the simulated device width as the side panel is resized.
+   */
+  observePanelSize() {
     const resizeObserver = new ResizeObserver((entries) =>
       this.element.style.setProperty(
         '--preview-panel-width',
@@ -168,6 +164,14 @@ export class PreviewController extends Controller<HTMLElement> {
       ),
     );
     resizeObserver.observe(this.element);
+  }
+
+  connect() {
+    const checksSidePanel = document.querySelector(
+      '[data-side-panel="checks"]',
+    );
+
+    this.observePanelSize();
 
     //
     // Preview data handling
