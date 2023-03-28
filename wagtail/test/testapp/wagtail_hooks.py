@@ -252,6 +252,9 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     def get_history_template(self):
         return "tests/snippet_history.html"
 
+    def get_queryset(self, request):
+        return self.model._default_manager.all().exclude(text__contains="[HIDDEN]")
+
 
 class DraftStateModelViewSet(SnippetViewSet):
     list_filter = ["text", "first_published_at"]
