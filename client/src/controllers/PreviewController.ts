@@ -97,6 +97,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   static values = {
     url: String,
+    isUpdating: Boolean,
   };
 
   declare readonly sizeTargets: HTMLInputElement[];
@@ -109,6 +110,7 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly iframeTarget: HTMLIFrameElement;
   declare readonly iframeTargets: HTMLIFrameElement[];
   declare readonly urlValue: string;
+  declare isUpdatingValue: boolean;
 
   /**
    * The default size input element.
@@ -204,13 +206,12 @@ export class PreviewController extends Controller<HTMLElement> {
     ) as HTMLFormElement;
 
     let spinnerTimeout: ReturnType<typeof setTimeout>;
-    let hasPendingUpdate = false;
     let cleared = false;
 
     const finishUpdate = () => {
       clearTimeout(spinnerTimeout);
       this.spinnerTarget.classList.add('w-hidden');
-      hasPendingUpdate = false;
+      this.isUpdatingValue = false;
     };
 
     const reloadIframe = () => {
@@ -283,9 +284,9 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const setPreviewData = () => {
       // Bail out if there is already a pending update
-      if (hasPendingUpdate) return Promise.resolve();
+      if (this.isUpdatingValue) return Promise.resolve();
 
-      hasPendingUpdate = true;
+      this.isUpdatingValue = true;
       spinnerTimeout = setTimeout(
         () => this.spinnerTarget.classList.remove('w-hidden'),
         2000,
@@ -394,7 +395,7 @@ export class PreviewController extends Controller<HTMLElement> {
       const checkAndUpdatePreview = () => {
         // Do not check for preview update if an update request is still pending
         // and don't send a new request if the form hasn't changed
-        if (hasPendingUpdate || !hasChanges()) return;
+        if (this.isUpdatingValue || !hasChanges()) return;
         debouncedSetPreviewData();
       };
 
