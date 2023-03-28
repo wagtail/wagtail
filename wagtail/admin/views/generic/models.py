@@ -178,12 +178,7 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def get_queryset(self):
-        # Instead of calling super().get_queryset(), we copy the initial logic
-        # from Django's MultipleObjectMixin, because we need to annotate the
-        # updated_at before using it for ordering.
-        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
-
+    def get_base_queryset(self):
         if self.queryset is not None:
             queryset = self.queryset
             if isinstance(queryset, models.QuerySet):
@@ -196,6 +191,15 @@ class IndexView(
                 "%(cls)s.model, %(cls)s.queryset, or override "
                 "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
             )
+        return queryset
+
+    def get_queryset(self):
+        # Instead of calling super().get_queryset(), we copy the initial logic
+        # from Django's MultipleObjectMixin into get_base_queryset(), because
+        # we need to annotate the updated_at before using it for ordering.
+        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
+
+        queryset = self.get_base_queryset()
 
         self.filters, queryset = self.filter_queryset(queryset)
 
