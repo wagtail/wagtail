@@ -33,7 +33,7 @@ $spacing-sm: theme('spacing.5');
 
 .w-combobox__menu {
   max-height: min(480px, 70vh);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .w-combobox__optgroup {

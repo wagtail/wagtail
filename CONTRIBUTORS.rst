@@ -687,6 +687,7 @@ Contributors
 * Satvik Vashisht
 * Sam
 * Deepam Priyadarshi
+* Babitha Kumari
 
 Translators
 ===========
