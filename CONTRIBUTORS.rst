@@ -702,6 +702,7 @@ Contributors
 * Mng
 * George Sakkis
 * Mehul Aggarwal
+* Babitha Kumari
 
 Translators
 ===========
