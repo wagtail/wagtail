@@ -452,6 +452,14 @@ export class PreviewController extends Controller<HTMLElement> {
       this.modeTarget.addEventListener('change', handlePreviewModeChange);
     }
 
+    this.restoreLastSavedPreferences();
+  }
+
+  /**
+   * Restores the last saved preferences.
+   * Currently, only the last selected device size is restored.
+   */
+  restoreLastSavedPreferences() {
     // Remember last selected device size
     let lastDevice: string | null = null;
     try {
