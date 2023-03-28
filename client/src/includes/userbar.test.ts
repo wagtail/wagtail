@@ -12,7 +12,7 @@ const mockDocument = `
 const mockViolations = {
   da: { id: 'axe-1', nodes: [{ target: ['#d'] }, { target: ['#a'] }] },
   db: { id: 'axe-2', nodes: [{ target: ['#d'] }, { target: ['#b'] }] },
-  c: { id: 'axe-3', nodes: [{ target: ['#c'] }] },
+  third: { id: 'axe-3', nodes: [{ target: ['#c'] }] },
 };
 
 describe('sortAxeViolations', () => {
@@ -32,26 +32,26 @@ describe('sortAxeViolations', () => {
     const violations = [
       mockViolations.da,
       mockViolations.db,
-      mockViolations.c,
+      mockViolations.third,
     ] as AxeResults['violations'];
     expect(sortAxeViolations(violations)).toEqual([
       mockViolations.da,
       mockViolations.db,
-      mockViolations.c,
+      mockViolations.third,
     ]);
   });
 
   it('changes the order to match the DOM', () => {
     document.body.innerHTML = mockDocument;
     const violations = [
-      mockViolations.c,
+      mockViolations.third,
       mockViolations.db,
       mockViolations.da,
     ] as AxeResults['violations'];
     expect(sortAxeViolations(violations)).toEqual([
       mockViolations.da,
       mockViolations.db,
-      mockViolations.c,
+      mockViolations.third,
     ]);
   });
 });
