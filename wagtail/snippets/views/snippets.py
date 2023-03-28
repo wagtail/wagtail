@@ -163,6 +163,12 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     results_only = False
     table_class = InlineActionsTable
 
+    def get_base_queryset(self):
+        base_queryset = self.viewset.get_queryset(self.request)
+        if base_queryset is None:
+            return super().get_base_queryset()
+        return base_queryset
+
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
         # Use SnippetTitleColumn class to use custom template
         # so that buttons from snippet_listing_buttons hook can be rendered
@@ -1086,6 +1092,14 @@ class SnippetViewSet(ViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
+
+    def get_queryset(self, request):
+        """
+        Returns a QuerySet of all model instances to be shown on the index view.
+        If ``None`` is returned, the logic in ``index_view.get_base_queryset()``
+        will be used instead.
+        """
+        return None
 
     def get_templates(self, action="index", fallback=""):
         """
