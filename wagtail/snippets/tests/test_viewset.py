@@ -706,3 +706,23 @@ class TestCustomTemplates(BaseSnippetViewSetTests):
                 response = self.client.get(self.get_url(view_name, args=args))
                 self.assertTemplateUsed(response, template_name)
                 self.assertContains(response, "<p>An added paragraph</p>", html=True)
+
+
+class TestCustomQuerySet(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            cls.model(text="FooSnippet", country_code="ID", locale=default_locale),
+            cls.model(text="BarSnippet", country_code="UK", locale=default_locale),
+            cls.model(text="[HIDDEN]Snippet", country_code="ID", locale=default_locale),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view(self):
+        response = self.client.get(self.get_url("list"), {"country_code": "ID"})
+        self.assertContains(response, "FooSnippet")
+        self.assertNotContains(response, "BarSnippet")
+        self.assertNotContains(response, "[HIDDEN]Snippet")

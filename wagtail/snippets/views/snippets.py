@@ -1096,8 +1096,8 @@ class SnippetViewSet(ViewSet):
     def get_queryset(self, request):
         """
         Returns a QuerySet of all model instances to be shown on the index view.
-        If ``None`` is returned, the logic in ``index_view.get_base_queryset()``
-        will be used instead.
+        If ``None`` is returned (the default), the logic in
+        ``index_view.get_base_queryset()`` will be used instead.
         """
         return None
 
