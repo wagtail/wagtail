@@ -83,6 +83,10 @@ const runAccessibilityChecks = async (
 export class PreviewController extends Controller<HTMLElement> {
   static targets = ['size', 'newTab', 'spinner', 'refresh', 'mode', 'iframe'];
 
+  static values = {
+    url: String,
+  };
+
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
   declare readonly spinnerTarget: HTMLDivElement;
@@ -92,6 +96,7 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly modeTarget: HTMLSelectElement;
   declare readonly iframeTarget: HTMLIFrameElement;
   declare readonly iframeTargets: HTMLIFrameElement[];
+  declare readonly urlValue: string;
 
   /**
    * The default size input element.
@@ -185,7 +190,7 @@ export class PreviewController extends Controller<HTMLElement> {
     const form = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
-    const previewUrl = this.element.dataset.action as string;
+
     let spinnerTimeout: ReturnType<typeof setTimeout>;
     let hasPendingUpdate = false;
     let cleared = false;
@@ -202,7 +207,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
       // Create a new invisible iframe element
       const newIframe = document.createElement('iframe');
-      const url = new URL(previewUrl, window.location.href);
+      const url = new URL(this.urlValue, window.location.href);
       if (this.hasModeTarget) {
         url.searchParams.set('mode', this.modeTarget.value);
       }
@@ -255,7 +260,7 @@ export class PreviewController extends Controller<HTMLElement> {
     };
 
     const clearPreviewData = () =>
-      fetch(previewUrl, {
+      fetch(this.urlValue, {
         headers: {
           [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
         },
@@ -272,7 +277,7 @@ export class PreviewController extends Controller<HTMLElement> {
         2000,
       );
 
-      return fetch(previewUrl, {
+      return fetch(this.urlValue, {
         method: 'POST',
         body: new FormData(form),
       })
@@ -321,7 +326,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const handlePreviewInNewTab = (event: MouseEvent) => {
       event.preventDefault();
-      const previewWindow = window.open('', previewUrl) as Window;
+      const previewWindow = window.open('', this.urlValue) as Window;
       previewWindow.focus();
 
       handlePreview().then((success) => {
@@ -425,7 +430,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const handlePreviewModeChange = (event: Event) => {
       const mode = (event.target as HTMLSelectElement).value;
-      const url = new URL(previewUrl, window.location.href);
+      const url = new URL(this.urlValue, window.location.href);
       url.searchParams.set('mode', mode);
       url.searchParams.delete('in_preview_panel');
       this.newTabTarget.href = url.toString();
