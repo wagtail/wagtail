@@ -22,19 +22,26 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestCustomIcon(WagtailTestUtils, TestCase):
+class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
+    model = None
+
     def setUp(self):
         self.user = self.login()
-        self.object = FullFeaturedSnippet.objects.create(
-            text="test snippet with custom icon"
-        )
+
+    def get_url(self, url_name, args=()):
+        return reverse(self.model.snippet_viewset.get_url_name(url_name), args=args)
+
+
+class TestCustomIcon(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.object = self.model.objects.create(text="test snippet with custom icon")
         self.revision_1 = self.object.save_revision()
         self.revision_1.publish()
         self.object.text = "test snippet with custom icon (updated)"
         self.revision_2 = self.object.save_revision()
-
-    def get_url(self, url_name, args=()):
-        return reverse(self.object.snippet_viewset.get_url_name(url_name), args=args)
 
     def test_get_views(self):
         pk = quote(self.object.pk)
@@ -116,9 +123,9 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         self.assertEqual(kwargs, {"required": False})
 
 
-class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
+class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
     def setUp(self):
-        self.user = self.login()
+        super().setUp()
         self.request = get_dummy_request()
         self.request.user = self.user
         self.text = "Test full-featured snippet with icon text"
@@ -185,10 +192,7 @@ class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
                 self.assertNotIn("snippet", response.context[key])
 
 
-class TestAdminURLs(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
+class TestAdminURLs(BaseSnippetViewSetTests):
     def test_default_url_namespace(self):
         snippet = Advert.objects.create(text="foo")
         viewset = snippet.snippet_viewset
@@ -292,10 +296,7 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         )
 
 
-class TestPagination(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
+class TestPagination(BaseSnippetViewSetTests):
     @classmethod
     def setUpTestData(cls):
         default_locale = Locale.get_default()
@@ -352,14 +353,8 @@ class TestPagination(WagtailTestUtils, TestCase):
         self.assertContains(response, choose_results_url + "?p=2")
 
 
-class TestFilterSetClass(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-    def get_url(self, url_name, args=()):
-        return reverse(
-            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
-        )
+class TestFilterSetClass(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
@@ -467,16 +462,13 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         )
 
 
-class TestListFilterWithList(WagtailTestUtils, TestCase):
+class TestListFilterWithList(BaseSnippetViewSetTests):
     model = DraftStateModel
 
     def setUp(self):
-        self.login()
+        super().setUp()
         self.date = now()
         self.date_str = self.date.isoformat()
-
-    def get_url(self, url_name, args=()):
-        return reverse(self.model.snippet_viewset.get_url_name(url_name), args=args)
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
@@ -609,19 +601,13 @@ class TestListFilterWithDict(TestListFilterWithList):
         )
 
 
-class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
 
     @classmethod
     def setUpTestData(cls):
-        FullFeaturedSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FullFeaturedSnippet.objects.create(text="From the UK", country_code="UK")
-
-    def get_url(self, url_name, args=()):
-        return reverse(
-            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
-        )
+        cls.model.objects.create(text="From Indonesia", country_code="ID")
+        cls.model.objects.create(text="From the UK", country_code="UK")
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
@@ -647,18 +633,12 @@ class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
 
 
-class TestCustomTemplates(WagtailTestUtils, TestCase):
+class TestCustomTemplates(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
-
-    def setUp(self):
-        self.user = self.login()
 
     @classmethod
     def setUpTestData(cls):
         cls.object = cls.model.objects.create(text="Some snippet")
-
-    def get_url(self, view_name, args=()):
-        return reverse(self.model.snippet_viewset.get_url_name(view_name), args=args)
 
     def test_template_lookups(self):
         pk = quote(self.object.pk)
