@@ -10,6 +10,7 @@ Changelog
  * Fix: Ensure TableBlock initialisation correctly runs after load and its width is aligned with the parent panel (Dan Braghis)
  * Fix: Ensure that the JavaScript media files are loaded by default in Snippet index listings for date fields (Sage Abdullah)
  * Fix: Fix server-side caching of the icons sprite (Thibaud Colas)
+ * Fix: Always show Add buttons, guide lines, Move up/down, Duplicate, Delete; in StreamField and Inline Panel (Thibaud Colas)
 
 
 4.1.3 (13.03.2023)
