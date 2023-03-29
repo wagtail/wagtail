@@ -203,6 +203,71 @@ export class PreviewController extends Controller<HTMLElement> {
     this.isUpdatingValue = false;
   }
 
+  /**
+   * Reloads the preview iframe.
+   *
+   * Instead of reloading the iframe with `iframe.contentWindow.location.reload()`
+   * or updating the `src` attribute, this works by creating a new iframe that
+   * replaces the old one once the new one has been loaded. This prevents the
+   * iframe from flashing when reloading.
+   */
+  reloadIframe() {
+    // Create a new invisible iframe element
+    const newIframe = document.createElement('iframe');
+    const url = new URL(this.urlValue, window.location.href);
+    if (this.hasModeTarget) {
+      url.searchParams.set('mode', this.modeTarget.value);
+    }
+    url.searchParams.set('in_preview_panel', 'true');
+    newIframe.style.width = '0';
+    newIframe.style.height = '0';
+    newIframe.style.opacity = '0';
+    newIframe.style.position = 'absolute';
+    newIframe.src = url.toString();
+
+    // Put it in the DOM so it loads the page
+    this.iframeTarget.insertAdjacentElement('afterend', newIframe);
+
+    const handleLoad = () => {
+      // Copy all attributes from the old iframe to the new one,
+      // except src as that will cause the iframe to be reloaded
+      Array.from(this.iframeTarget.attributes).forEach((key) => {
+        if (key.nodeName === 'src') return;
+        newIframe.setAttribute(key.nodeName, key.nodeValue as string);
+      });
+
+      // Restore scroll position
+      newIframe.contentWindow?.scroll(
+        this.iframeTarget.contentWindow?.scrollX as number,
+        this.iframeTarget.contentWindow?.scrollY as number,
+      );
+
+      // Remove the old iframe
+      // This will disconnect the old iframe target, but it's fine because
+      // the new iframe has been connected when we copy the attributes over,
+      // thus subsequent references to this.iframeTarget will be the new iframe.
+      // To verify, you can add console.log(this.iframeTargets) before and after
+      // the following line and see that the array contains two and then one iframe.
+      this.iframeTarget.remove();
+
+      // Make the new iframe visible
+      newIframe.removeAttribute('style');
+
+      // Ready for another update
+      this.finishUpdate();
+
+      // Remove the load event listener so it doesn't fire when switching modes
+      newIframe.removeEventListener('load', handleLoad);
+
+      runContentChecks();
+
+      const onClickSelector = () => this.newTabTarget.click();
+      runAccessibilityChecks(onClickSelector);
+    };
+
+    newIframe.addEventListener('load', handleLoad);
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -224,66 +289,6 @@ export class PreviewController extends Controller<HTMLElement> {
     ) as HTMLFormElement;
 
     let cleared = false;
-
-    const reloadIframe = () => {
-      // Instead of reloading the iframe, we're replacing it with a new iframe to
-      // prevent flashing
-
-      // Create a new invisible iframe element
-      const newIframe = document.createElement('iframe');
-      const url = new URL(this.urlValue, window.location.href);
-      if (this.hasModeTarget) {
-        url.searchParams.set('mode', this.modeTarget.value);
-      }
-      url.searchParams.set('in_preview_panel', 'true');
-      newIframe.style.width = '0';
-      newIframe.style.height = '0';
-      newIframe.style.opacity = '0';
-      newIframe.style.position = 'absolute';
-      newIframe.src = url.toString();
-
-      // Put it in the DOM so it loads the page
-      this.iframeTarget.insertAdjacentElement('afterend', newIframe);
-
-      const handleLoad = () => {
-        // Copy all attributes from the old iframe to the new one,
-        // except src as that will cause the iframe to be reloaded
-        Array.from(this.iframeTarget.attributes).forEach((key) => {
-          if (key.nodeName === 'src') return;
-          newIframe.setAttribute(key.nodeName, key.nodeValue as string);
-        });
-
-        // Restore scroll position
-        newIframe.contentWindow?.scroll(
-          this.iframeTarget.contentWindow?.scrollX as number,
-          this.iframeTarget.contentWindow?.scrollY as number,
-        );
-
-        // Remove the old iframe
-        // This will disconnect the old iframe target, but it's fine because
-        // the new iframe has been connected when we copy the attributes over,
-        // thus subsequent references to this.iframeTarget will be the new iframe.
-        // To verify, you can add console.log(this.iframeTargets) before and after
-        // the following line and see that the array contains two and then one iframe.
-        this.iframeTarget.remove();
-
-        // Make the new iframe visible
-        newIframe.removeAttribute('style');
-
-        // Ready for another update
-        this.finishUpdate();
-
-        // Remove the load event listener so it doesn't fire when switching modes
-        newIframe.removeEventListener('load', handleLoad);
-
-        runContentChecks();
-
-        const onClickSelector = () => this.newTabTarget.click();
-        runAccessibilityChecks(onClickSelector);
-      };
-
-      newIframe.addEventListener('load', handleLoad);
-    };
 
     const clearPreviewData = () =>
       fetch(this.urlValue, {
@@ -324,11 +329,11 @@ export class PreviewController extends Controller<HTMLElement> {
           }
 
           if (data.is_valid) {
-            reloadIframe();
+            this.reloadIframe();
           } else if (!cleared) {
             clearPreviewData();
             cleared = true;
-            reloadIframe();
+            this.reloadIframe();
           } else {
             // Finish the process when the data is invalid to prepare for the next update
             // and avoid elements like the loading spinner to be shown indefinitely
