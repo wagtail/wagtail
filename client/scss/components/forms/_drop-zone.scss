@@ -14,4 +14,9 @@
   &.hovered {
     border-color: $color-teal;
   }
+
+  // override global field padding as fields are centre aligned in upload box
+  .w-field__input {
+    padding-inline-end: 0;
+  }
 }
