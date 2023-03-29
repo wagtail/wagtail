@@ -117,6 +117,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
+  cleared = false;
 
   /**
    * The default size input element.
@@ -268,6 +269,76 @@ export class PreviewController extends Controller<HTMLElement> {
     newIframe.addEventListener('load', handleLoad);
   }
 
+  /**
+   * Clears the preview data from the session.
+   * @returns `Response` from the fetch `DELETE` request
+   */
+  async clearPreviewData() {
+    return fetch(this.urlValue, {
+      headers: {
+        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
+      },
+      method: 'DELETE',
+    });
+  }
+
+  /**
+   * Updates the preview data in the session. If the data is valid, the preview
+   * iframe will be reloaded. If the data is invalid, the preview panel will
+   * display an error message.
+   * @returns whether the data is valid
+   */
+  async setPreviewData() {
+    // Bail out if there is already a pending update
+    if (this.isUpdatingValue) return Promise.resolve();
+
+    this.isUpdatingValue = true;
+    this.spinnerTimeout = setTimeout(
+      () => this.spinnerTarget.classList.remove('w-hidden'),
+      2000,
+    );
+
+    try {
+      const response = await fetch(this.urlValue, {
+        method: 'POST',
+        body: new FormData(this.editForm),
+      });
+      const data = await response.json();
+
+      this.element.classList.toggle(
+        'preview-panel--has-errors',
+        !data.is_valid,
+      );
+      this.element.classList.toggle(
+        'preview-panel--unavailable',
+        !data.is_available,
+      );
+
+      if (!data.is_available) {
+        // Ensure the 'Preview not available' message is not scaled down
+        this.setPreviewWidth();
+      }
+
+      if (data.is_valid) {
+        this.reloadIframe();
+      } else if (!this.cleared) {
+        this.clearPreviewData();
+        this.cleared = true;
+        this.reloadIframe();
+      } else {
+        // Finish the process when the data is invalid to prepare for the next update
+        // and avoid elements like the loading spinner to be shown indefinitely
+        this.finishUpdate();
+      }
+
+      return data.is_valid as boolean;
+    } catch (error) {
+      this.finishUpdate();
+      // Re-throw error so it can be handled by handlePreview
+      throw error;
+    }
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -288,69 +359,8 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-edit-form]',
     ) as HTMLFormElement;
 
-    let cleared = false;
-
-    const clearPreviewData = () =>
-      fetch(this.urlValue, {
-        headers: {
-          [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
-        },
-        method: 'DELETE',
-      });
-
-    const setPreviewData = () => {
-      // Bail out if there is already a pending update
-      if (this.isUpdatingValue) return Promise.resolve();
-
-      this.isUpdatingValue = true;
-      this.spinnerTimeout = setTimeout(
-        () => this.spinnerTarget.classList.remove('w-hidden'),
-        2000,
-      );
-
-      return fetch(this.urlValue, {
-        method: 'POST',
-        body: new FormData(this.editForm),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.element.classList.toggle(
-            'preview-panel--has-errors',
-            !data.is_valid,
-          );
-          this.element.classList.toggle(
-            'preview-panel--unavailable',
-            !data.is_available,
-          );
-
-          if (!data.is_available) {
-            // Ensure the 'Preview not available' message is not scaled down
-            this.setPreviewWidth();
-          }
-
-          if (data.is_valid) {
-            this.reloadIframe();
-          } else if (!cleared) {
-            clearPreviewData();
-            cleared = true;
-            this.reloadIframe();
-          } else {
-            // Finish the process when the data is invalid to prepare for the next update
-            // and avoid elements like the loading spinner to be shown indefinitely
-            this.finishUpdate();
-          }
-
-          return data.is_valid;
-        })
-        .catch((error) => {
-          this.finishUpdate();
-          // Re-throw error so it can be handled by handlePreview
-          throw error;
-        });
-    };
-
     const handlePreview = () =>
-      setPreviewData().catch(() => {
+      this.setPreviewData().catch(() => {
         // eslint-disable-next-line no-alert
         window.alert(gettext('Error while sending preview data.'));
       });
@@ -404,7 +414,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
       // Call setPreviewData only if no changes have been made within the interval
       const debouncedSetPreviewData = debounce(
-        setPreviewData,
+        this.setPreviewData.bind(this),
         WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
       );
 
@@ -448,10 +458,10 @@ export class PreviewController extends Controller<HTMLElement> {
       // Even if the preview is not updated automatically, we still need to
       // initialise the preview data when the panel is shown
       sidePanelContainer.addEventListener('show', () => {
-        setPreviewData();
+        this.setPreviewData();
       });
       checksSidePanel?.addEventListener('show', () => {
-        setPreviewData();
+        this.setPreviewData();
       });
     }
 
