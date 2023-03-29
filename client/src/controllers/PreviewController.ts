@@ -176,6 +176,18 @@ export class PreviewController extends Controller<HTMLElement> {
     resizeObserver.observe(this.element);
   }
 
+  /**
+   * Resets the preview panel state to be ready for the next update.
+   */
+  finishUpdate() {
+    if (this.spinnerTimeout) {
+      clearTimeout(this.spinnerTimeout);
+      this.spinnerTimeout = null;
+    }
+    this.spinnerTarget.classList.add('w-hidden');
+    this.isUpdatingValue = false;
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -197,15 +209,6 @@ export class PreviewController extends Controller<HTMLElement> {
     ) as HTMLFormElement;
 
     let cleared = false;
-
-    const finishUpdate = () => {
-      if (this.spinnerTimeout) {
-        clearTimeout(this.spinnerTimeout);
-        this.spinnerTimeout = null;
-      }
-      this.spinnerTarget.classList.add('w-hidden');
-      this.isUpdatingValue = false;
-    };
 
     const reloadIframe = () => {
       // Instead of reloading the iframe, we're replacing it with a new iframe to
@@ -253,7 +256,7 @@ export class PreviewController extends Controller<HTMLElement> {
         newIframe.removeAttribute('style');
 
         // Ready for another update
-        finishUpdate();
+        this.finishUpdate();
 
         // Remove the load event listener so it doesn't fire when switching modes
         newIframe.removeEventListener('load', handleLoad);
@@ -312,13 +315,13 @@ export class PreviewController extends Controller<HTMLElement> {
           } else {
             // Finish the process when the data is invalid to prepare for the next update
             // and avoid elements like the loading spinner to be shown indefinitely
-            finishUpdate();
+            this.finishUpdate();
           }
 
           return data.is_valid;
         })
         .catch((error) => {
-          finishUpdate();
+          this.finishUpdate();
           // Re-throw error so it can be handled by handlePreview
           throw error;
         });
