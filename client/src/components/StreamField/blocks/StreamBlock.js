@@ -77,7 +77,7 @@ class StreamBlockMenu extends BaseInsertionControl {
 
     const dom = $(`
       <div>
-        <button type="button" title="${comboBoxTriggerLabel}" class="c-sf-add-button c-sf-add-button--visible">
+        <button type="button" title="${comboBoxTriggerLabel}" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div>
@@ -142,7 +142,6 @@ class StreamBlockMenu extends BaseInsertionControl {
     if (this.onRequestInsert) {
       this.onRequestInsert(this.index, { type: change.selectedItem.type });
     }
-    this.addButton.removeClass('c-sf-add-button--always-visible');
     this.close();
   }
 
@@ -155,10 +154,6 @@ class StreamBlockMenu extends BaseInsertionControl {
     } else {
       this.addButton.attr('disabled', 'true');
     }
-  }
-
-  reveal() {
-    this.addButton.addClass('c-sf-add-button--always-visible');
   }
 
   open() {
@@ -394,10 +389,6 @@ export class StreamBlock extends BaseSequenceBlock {
 
   setState(values) {
     super.setState(values);
-    if (values.length === 0) {
-      /* for an empty list, begin with the toggle revealed */
-      this.inserters[0].reveal();
-    }
   }
 
   setError(error) {
