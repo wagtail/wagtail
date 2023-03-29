@@ -114,6 +114,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: history_template_name
    .. automethod:: get_queryset
    .. automethod:: get_ordering
+   .. automethod:: get_list_display
+   .. automethod:: get_list_filter
+   .. automethod:: get_filterset_class
    .. automethod:: get_index_template
    .. automethod:: get_index_results_template
    .. automethod:: get_create_template

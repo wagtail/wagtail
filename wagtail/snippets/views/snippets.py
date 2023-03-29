@@ -177,6 +177,20 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.default_ordering = self.default_ordering(self.request)
         return super().get_default_ordering()
 
+    def get_list_display(self):
+        # Allow the list_display to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.list_display):
+            self.list_display = self.list_display(self.request)
+        return super().get_list_display()
+
+    def get_list_filter(self):
+        # Allow the list_filter to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.list_filter):
+            self.list_filter = self.list_filter(self.request)
+        return super().get_list_filter()
+
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
         # Use SnippetTitleColumn class to use custom template
         # so that buttons from snippet_listing_buttons hook can be rendered
@@ -775,11 +789,6 @@ class SnippetViewSet(ViewSet):
             **kwargs,
         )
 
-        if not self.list_display:
-            self.list_display = self.index_view_class.list_display.copy()
-            if self.draftstate_enabled:
-                self.list_display += [LiveStatusTagColumn()]
-
     @property
     def revisions_revert_view_class(self):
         """
@@ -808,15 +817,15 @@ class SnippetViewSet(ViewSet):
             queryset=self.get_queryset,
             template_name=self.get_index_template(),
             header_icon=self.icon,
-            filterset_class=self.filterset_class,
+            filterset_class=self.get_filterset_class(),
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
-            list_filter=self.list_filter,
+            list_display=self.get_list_display,
+            list_filter=self.get_list_filter,
             paginate_by=self.list_per_page,
             default_ordering=self.get_ordering,
         )
@@ -828,7 +837,7 @@ class SnippetViewSet(ViewSet):
             queryset=self.get_queryset,
             template_name=self.get_index_results_template(),
             header_icon=self.icon,
-            filterset_class=self.filterset_class,
+            filterset_class=self.get_filterset_class(),
             permission_policy=self.permission_policy,
             results_only=True,
             index_url_name=self.get_url_name("list"),
@@ -836,8 +845,8 @@ class SnippetViewSet(ViewSet):
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
-            list_filter=self.list_filter,
+            list_display=self.get_list_display,
+            list_filter=self.get_list_filter,
             paginate_by=self.list_per_page,
             default_ordering=self.get_ordering,
         )
@@ -1107,6 +1116,40 @@ class SnippetViewSet(ViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
+
+    def get_list_display(self, request):
+        """
+        Return a sequence containing the fields/method output to be displayed
+        in the list view.
+
+        For more details, see
+        :attr:`~wagtail.snippets.views.snippets.SnippetViewSet.list_display`.
+        """
+        if not self.list_display and self.index_view_class.list_display:
+            self.list_display = self.index_view_class.list_display.copy()
+            if self.draftstate_enabled:
+                self.list_display += [LiveStatusTagColumn()]
+        return self.list_display
+
+    def get_list_filter(self, request):
+        """
+        Returns a sequence containing the fields to be displayed as filters in
+        the right sidebar in the list view.
+
+        For more details, see
+        :attr:`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter`.
+        """
+        return self.list_filter
+
+    def get_filterset_class(self):
+        """
+        Returns a django-filter FilterSet class to be used for filtering the
+        list view.
+
+        For more details, see
+        :attr:`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class`.
+        """
+        return self.filterset_class
 
     def get_queryset(self, request):
         """

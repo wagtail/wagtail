@@ -137,16 +137,23 @@ class IndexView(
             % {"model_name": self.model._meta.verbose_name_plural}
         )
 
+    def get_list_display(self):
+        return self.list_display
+
+    def get_list_filter(self):
+        return self.list_filter
+
     def get_filterset_class(self):
         if self.filterset_class:
             return self.filterset_class
 
-        if not self.list_filter or not self.model:
+        list_filter = self.get_list_filter()
+        if not list_filter or not self.model:
             return None
 
         class Meta:
             model = self.model
-            fields = self.list_filter
+            fields = list_filter
 
         return type(
             f"{self.model.__name__}FilterSet",
@@ -296,7 +303,7 @@ class IndexView(
             return self.columns
         except AttributeError:
             columns = []
-            for i, field in enumerate(self.list_display):
+            for i, field in enumerate(self.get_list_display()):
                 if isinstance(field, Column):
                     column = field
                 elif i == 0:

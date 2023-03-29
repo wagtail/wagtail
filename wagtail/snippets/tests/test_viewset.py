@@ -601,7 +601,7 @@ class TestListFilterWithDict(TestListFilterWithList):
         )
 
 
-class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
+class TestListDisplay(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
     @classmethod
@@ -630,6 +630,40 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         html = response.content.decode()
 
         # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
+        self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+
+
+class TestGetListDisplay(BaseSnippetViewSetTests):
+    model = DraftStateModel
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.model.objects.create(text="First one to be created")
+        cls.model.objects.create(text="And a second one")
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def test_custom_columns(self):
+        response = self.get()
+        # Headers
+        self.assertContains(response, "Draft State Model")
+        self.assertContains(response, "Updated")
+        self.assertContains(response, "Status")
+        self.assertContains(response, "Last Published At")
+
+        # Object rows
+        self.assertContains(response, "First one to be created")
+        self.assertContains(response, "And a second one")
+
+        list_url = self.get_url("list")
+        for sort_key in ("_updated_at", "live", "last_published_at"):
+            sort_url = list_url + f"?ordering={sort_key}"
+            self.assertContains(response, sort_url, count=1)
+
+        html = response.content.decode()
+
+        # The bulk actions column plus 4 columns defined in DraftStateModelViewSet
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
 
 
