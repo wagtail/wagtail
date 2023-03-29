@@ -274,6 +274,9 @@ Changelog
  * Maintenance: Pull out icon sprite setup function from inline script to its own TypeScript file & add unit tests (Loveth Omokaro)
  * Maintenance: Upgraded Transifex configuration to v3 (Loic Teixeira)
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
+ * Maintenance: Remove unused `icon-help` and `help-inverse` code (Thibaud Colas)
+ * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, and user creation form controls to SVG icons (Thibaud Colas)
+ * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
 
 
 4.1.4 (xx.xx.xxxx) - IN DEVELOPMENT
