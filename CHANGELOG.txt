@@ -40,6 +40,7 @@ Changelog
  * Allow overriding the base queryset to be used in snippet `IndexView` (Sage Abdullah)
  * Revise alignment and spacing of form fields and sections (Thibaud Colas)
  * Update Wagtail’s type scale so StreamField block labels and field labels are the same size (Thibaud Colas)
+ * Allow customising the `search_fields` and search backend via SnippetViewSet (Sage Abdullah)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
