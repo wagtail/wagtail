@@ -12,8 +12,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
 // Styles for the top-level panel, and any panel within.
 .w-panel--nested {
-  @include guide-line-active();
-
   .w-panel__divider {
     @include guide-line-horizontal();
     // Slightly nicer text alignment.
