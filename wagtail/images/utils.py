@@ -126,6 +126,6 @@ def to_svg_safe_spec(filter_specs):
     safe_specs = [
         x
         for x in filter_specs
-        if any(map(lambda prefix: x.startswith(prefix), svg_preserving_specs))
+        if any(x.startswith(prefix) for prefix in svg_preserving_specs)
     ]
     return "|".join(safe_specs)
