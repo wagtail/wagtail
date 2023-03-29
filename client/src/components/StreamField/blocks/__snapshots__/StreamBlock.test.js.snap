@@ -8,7 +8,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"3\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -75,7 +75,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -142,7 +142,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -209,7 +209,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -227,7 +227,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -294,7 +294,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -361,7 +361,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -379,7 +379,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -446,7 +446,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -513,7 +513,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -531,7 +531,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -598,7 +598,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -665,7 +665,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -683,7 +683,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -750,7 +750,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible c-sf-add-button--close\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--close\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"\\" aria-hidden=\\"false\\">
@@ -827,7 +827,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -845,7 +845,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
         </div><div class=\\"\\"><p class=\\"help-block help-critical\\">At least three blocks are required</p>
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -912,7 +912,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -979,7 +979,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -997,7 +997,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         </div><div class=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible c-sf-add-button--close\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--close\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"\\" aria-hidden=\\"false\\">
@@ -1041,13 +1041,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
               </svg>
             </a>
             <div class=\\"w-panel__divider\\"></div>
-            <div class=\\"w-panel__controls\\" data-panel-controls=\\"\\">
-              <div class=\\"w-panel__controls-cue\\">
-                <svg class=\\"icon icon-dots-horizontal w-panel__icon\\" aria-hidden=\\"true\\">
-                  <use href=\\"#icon-dots-horizontal\\"></use>
-                </svg>
-              </div>
-            <button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move up\\" disabled=\\"disabled\\">
+            <div class=\\"w-panel__controls\\" data-panel-controls=\\"\\"><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
         </svg>
@@ -1080,7 +1074,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
@@ -1114,13 +1108,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
               </svg>
             </a>
             <div class=\\"w-panel__divider\\"></div>
-            <div class=\\"w-panel__controls\\" data-panel-controls=\\"\\">
-              <div class=\\"w-panel__controls-cue\\">
-                <svg class=\\"icon icon-dots-horizontal w-panel__icon\\" aria-hidden=\\"true\\">
-                  <use href=\\"#icon-dots-horizontal\\"></use>
-                </svg>
-              </div>
-            <button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move up\\">
+            <div class=\\"w-panel__controls\\" data-panel-controls=\\"\\"><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
         </svg>
@@ -1153,7 +1141,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
           </div>
         </section>
       </div><div>
-        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button\\">
           <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">

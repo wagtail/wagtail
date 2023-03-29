@@ -9,8 +9,6 @@
   background-color: $color-white;
   padding: 0;
   cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
   border: 1px solid currentColor;
   border-radius: theme('borderRadius.full');
   margin-inline-start: theme('spacing.[0.5]');
@@ -25,19 +23,6 @@
     transform: rotate(45deg);
   }
 
-  &--visible {
-    opacity: 1;
-    pointer-events: unset;
-
-    @media (hover: hover) {
-      opacity: 0;
-
-      .w-panel--nested:is(:hover, :focus-within) & {
-        opacity: 1;
-      }
-    }
-  }
-
   &:hover,
   &:focus-visible {
     color: $color-white;
@@ -46,18 +31,9 @@
 
   &[disabled] {
     opacity: 0.2;
-    pointer-events: none;
 
     @media (forced-colors: active) {
       color: GrayText;
-    }
-
-    @media (hover: hover) {
-      opacity: 0;
-
-      .w-panel--nested:is(:hover, :focus-within) & {
-        opacity: 0.2;
-      }
     }
   }
 }

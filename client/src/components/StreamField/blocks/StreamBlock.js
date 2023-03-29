@@ -74,7 +74,7 @@ class StreamBlockMenu extends BaseInsertionControl {
         <button data-streamblock-menu-open type="button" title="${h(
           opts.strings.ADD,
         )}"
-            class="c-sf-add-button c-sf-add-button--visible">
+            class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
         <div data-streamblock-menu-outer>
