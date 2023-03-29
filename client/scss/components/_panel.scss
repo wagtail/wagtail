@@ -47,8 +47,7 @@ $header-gap: theme('spacing.1');
 
 .w-panel__anchor,
 .w-panel__toggle,
-.w-panel__controls .button.button--icon,
-.w-panel__controls-cue {
+.w-panel__controls .button.button--icon {
   @include show-focus-outline-inside();
   display: inline-grid;
   justify-content: center;
@@ -147,33 +146,6 @@ $header-gap: theme('spacing.1');
   @include media-breakpoint-up(sm) {
     margin: calc(-1 * theme('spacing.4'));
     margin-inline-start: 0;
-  }
-
-  // The cue is meant to be displayed on top of a real button.
-  > .w-panel__controls-cue {
-    position: absolute;
-    visibility: hidden;
-  }
-
-  @media (hover: hover) {
-    // Hiding with opacity only, so the elements can still be focused.
-    > * {
-      opacity: 0;
-    }
-
-    > .w-panel__controls-cue {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .w-panel__header:is(:hover, :focus-within) & > * {
-      opacity: 1;
-
-      // The cue should be fully hidden, not just transparent.
-      &.w-panel__controls-cue {
-        visibility: hidden;
-      }
-    }
   }
 }
 
