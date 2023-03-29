@@ -112,6 +112,12 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly urlValue: string;
   declare isUpdatingValue: boolean;
 
+  // Instance variables with initial values set in connect()
+  declare editForm: HTMLFormElement;
+
+  // Instance variables with initial values set here
+  spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
+
   /**
    * The default size input element.
    * This is the size input element with the `data-default-size` data attribute.
@@ -201,15 +207,17 @@ export class PreviewController extends Controller<HTMLElement> {
     // to the preview page, we send the form after each change
     // and save it inside the user session.
 
-    const form = document.querySelector<HTMLFormElement>(
+    this.editForm = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
 
-    let spinnerTimeout: ReturnType<typeof setTimeout>;
     let cleared = false;
 
     const finishUpdate = () => {
-      clearTimeout(spinnerTimeout);
+      if (this.spinnerTimeout) {
+        clearTimeout(this.spinnerTimeout);
+        this.spinnerTimeout = null;
+      }
       this.spinnerTarget.classList.add('w-hidden');
       this.isUpdatingValue = false;
     };
@@ -287,14 +295,14 @@ export class PreviewController extends Controller<HTMLElement> {
       if (this.isUpdatingValue) return Promise.resolve();
 
       this.isUpdatingValue = true;
-      spinnerTimeout = setTimeout(
+      this.spinnerTimeout = setTimeout(
         () => this.spinnerTarget.classList.remove('w-hidden'),
         2000,
       );
 
       return fetch(this.urlValue, {
         method: 'POST',
-        body: new FormData(form),
+        body: new FormData(this.editForm),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -378,7 +386,7 @@ export class PreviewController extends Controller<HTMLElement> {
       const hasChanges = () => {
         // https://github.com/microsoft/TypeScript/issues/30584
         const newPayload = new URLSearchParams(
-          new FormData(form) as unknown as Record<string, string>,
+          new FormData(this.editForm) as unknown as Record<string, string>,
         ).toString();
         const changed = oldPayload !== newPayload;
 
