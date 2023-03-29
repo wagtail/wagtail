@@ -745,3 +745,71 @@ class TestCustomOrdering(BaseSnippetViewSetTests):
                 "DDDDDDDDDD",
             ],
         )
+
+
+class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
+    model = DraftStateModel
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.first = cls.model.objects.create(
+            text="Wagtail is a Django-based CMS",
+        )
+        cls.second = cls.model.objects.create(
+            text="Django is a Python-based web framework",
+        )
+        cls.third = cls.model.objects.create(
+            text="Python is a programming-bas, uh, language",
+        )
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_empty_q(self):
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_is_searchable(self):
+        self.assertTrue(self.get().context["is_searchable"])
+
+    def test_search_one(self):
+        response = self.get({"q": "Django"})
+
+        # Only objects with "Django" should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second],
+        )
+
+    def test_search_the(self):
+        response = self.get({"q": "Python"})
+
+        # Only objects with "Python" should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.second, self.third],
+        )
