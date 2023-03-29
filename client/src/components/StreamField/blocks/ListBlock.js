@@ -60,12 +60,9 @@ class InsertPosition extends BaseInsertionControl {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-
+    const title = h(opts.strings.ADD);
     const button = $(`
-      <button type="button" title="${h(
-        opts.strings.ADD,
-      )}" data-streamfield-list-add
-          class="c-sf-add-button c-sf-add-button--visible">
+      <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>
     `);
