@@ -464,6 +464,23 @@ export class PreviewController extends Controller<HTMLElement> {
     });
   }
 
+  /**
+   * Sets the preview mode in the iframe and new tab URLs,
+   * then updates the preview.
+   * @param event Event from the `<select>` element
+   */
+  setPreviewMode(event: Event) {
+    const mode = (event.target as HTMLSelectElement).value;
+    const url = new URL(this.urlValue, window.location.href);
+
+    // Update the new tab link
+    url.searchParams.set('mode', mode);
+    this.newTabTarget.href = url.toString();
+
+    // Make sure data is updated and an alert is displayed if an error occurs
+    this.setPreviewDataWithAlert();
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -494,25 +511,6 @@ export class PreviewController extends Controller<HTMLElement> {
       checksSidePanel?.addEventListener('show', () => {
         this.setPreviewData();
       });
-    }
-
-    //
-    // Preview mode handling
-    //
-
-    const handlePreviewModeChange = (event: Event) => {
-      const mode = (event.target as HTMLSelectElement).value;
-      const url = new URL(this.urlValue, window.location.href);
-      url.searchParams.set('mode', mode);
-      url.searchParams.delete('in_preview_panel');
-      this.newTabTarget.href = url.toString();
-
-      // Make sure data is updated
-      this.setPreviewDataWithAlert();
-    };
-
-    if (this.hasModeTarget) {
-      this.modeTarget.addEventListener('change', handlePreviewModeChange);
     }
 
     this.restoreLastSavedPreferences();
