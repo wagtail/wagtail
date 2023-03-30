@@ -78,7 +78,7 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static targets = ['size', 'newTab', 'spinner', 'refresh', 'mode', 'iframe'];
+  static targets = ['size', 'newTab', 'spinner', 'mode', 'iframe'];
 
   static values = {
     url: String,
@@ -88,8 +88,6 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
   declare readonly spinnerTarget: HTMLDivElement;
-  declare readonly hasRefreshTarget: boolean;
-  declare readonly refreshTarget: HTMLButtonElement;
   declare readonly hasModeTarget: boolean;
   declare readonly modeTarget: HTMLSelectElement;
   declare readonly iframeTarget: HTMLIFrameElement;
@@ -317,8 +315,31 @@ export class PreviewController extends Controller<HTMLElement> {
       return data.is_valid as boolean;
     } catch (error) {
       this.finishUpdate();
-      // Re-throw error so it can be handled by handlePreview
+      // Re-throw error so it can be handled by setPreviewDataWithAlert
       throw error;
+    }
+  }
+
+  /**
+   * Like `setPreviewData`, but also displays an alert if an error occurred while
+   * updating the preview data. Note that this will not display an alert if the
+   * update request was successful, but the data is invalid.
+   *
+   * This is useful when the preview data is updated in response to a user
+   * interaction, such as:
+   * - clicking the "open in new tab" link
+   * - clicking the "Refresh" button (if auto update is disabled)
+   * - changing the preview mode.
+   * @returns whether the data is valid
+   */
+  async setPreviewDataWithAlert() {
+    try {
+      return await this.setPreviewData();
+    } catch {
+      // eslint-disable-next-line no-alert
+      window.alert(gettext('Error while sending preview data.'));
+      // we don't know if the data is valid or not as the request failed
+      return undefined;
     }
   }
 
@@ -342,18 +363,12 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-edit-form]',
     ) as HTMLFormElement;
 
-    const handlePreview = () =>
-      this.setPreviewData().catch(() => {
-        // eslint-disable-next-line no-alert
-        window.alert(gettext('Error while sending preview data.'));
-      });
-
     const handlePreviewInNewTab = (event: MouseEvent) => {
       event.preventDefault();
       const previewWindow = window.open('', this.urlValue) as Window;
       previewWindow.focus();
 
-      handlePreview().then((success) => {
+      this.setPreviewDataWithAlert().then((success) => {
         if (success) {
           const url = new URL(this.newTabTarget.href);
           previewWindow.document.location = url.toString();
@@ -365,10 +380,6 @@ export class PreviewController extends Controller<HTMLElement> {
     };
 
     this.newTabTarget.addEventListener('click', handlePreviewInNewTab);
-
-    if (this.hasRefreshTarget) {
-      this.refreshTarget.addEventListener('click', handlePreview);
-    }
 
     // This controller is encapsulated as a child of the side panel element,
     // so we need to listen to the show/hide events on the parent element
@@ -460,7 +471,7 @@ export class PreviewController extends Controller<HTMLElement> {
       this.newTabTarget.href = url.toString();
 
       // Make sure data is updated
-      handlePreview();
+      this.setPreviewDataWithAlert();
     };
 
     if (this.hasModeTarget) {
