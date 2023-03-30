@@ -10,7 +10,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
@@ -31,7 +30,7 @@ from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditVi
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.viewsets.base import ViewSet
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -582,7 +581,7 @@ class WorkflowHistoryDetailView(
     permission_required = "change"
 
 
-class SnippetViewSet(ViewSet):
+class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
     """
@@ -1167,9 +1166,6 @@ class SnippetViewSet(ViewSet):
 
         return urlpatterns + legacy_redirects
 
-    def register_admin_url_finder(self):
-        register_admin_url_finder(self.model, self.url_finder_class)
-
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
             return check_panels_in_model(self.model, "snippets")
@@ -1191,6 +1187,5 @@ class SnippetViewSet(ViewSet):
     def on_register(self):
         super().on_register()
         viewsets.register(self.chooser_viewset)
-        self.register_admin_url_finder()
         self.register_model_check()
         self.register_model_methods()
