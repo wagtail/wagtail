@@ -8,7 +8,7 @@ $chevron-top-offset: math.div($select-size - $chevron-height, 2);
 $chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
 
 @mixin select-arrow() {
-  background-image: url('#{$images-root}icons/chevron-down.svg');
+  background-image: url('#{$images-root}icons/arrow-down.svg');
   background-repeat: no-repeat;
   background-size: $chevron-width;
   background-position-x: calc(100% - $chevron-inline-end-offset);

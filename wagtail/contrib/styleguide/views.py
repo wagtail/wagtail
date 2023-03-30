@@ -92,6 +92,7 @@ class ExampleForm(forms.Form):
 
 
 icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")
+icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
 
 
 def index(request):
@@ -123,15 +124,18 @@ def index(request):
     registered_icons = itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
     all_icons = defaultdict(list)
     for icon_path in registered_icons:
-        source, filename = os.path.split(icon_path)
+        folder, filename = os.path.split(icon_path)
         icon = render_to_string(icon_path)
         id_match = icon_id_pattern.search(icon)
+        name = id_match.group(1) if id_match else None
+        source_match = icon_comment_pattern.search(icon)
 
-        all_icons[source].append(
+        all_icons[folder].append(
             {
-                "source": source,
+                "folder": folder,
                 "file_path": icon_path,
-                "id": id_match.group(1) if id_match else None,
+                "name": name,
+                "source": source_match.group(1) if source_match else None,
                 "icon": icon,
             }
         )

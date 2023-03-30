@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="icon-login" viewBox="0 0 512 512">
-    <!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
-    <path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
-</svg>
+<svg id="icon-login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! right-to-bracket (solid): Font Awesome Pro 6.4.0 --><path d="m10.75 7.469-4.5-4.25c-.219-.219-.531-.25-.813-.156A.75.75 0 0 0 5 3.75V6H1c-.563 0-1 .469-1 1v2c0 .563.438 1 1 1h4v2.25c0 .313.156.594.438.719.28.094.593.062.812-.156l4.5-4.25a.755.755 0 0 0 0-1.094ZM13 1h-2c-.563 0-1 .469-1 1 0 .563.438 1 1 1h2c.531 0 1 .469 1 1v8c0 .563-.469 1-1 1h-2c-.563 0-1 .469-1 1 0 .563.438 1 1 1h2c1.656 0 3-1.313 3-3V4a3 3 0 0 0-3-3Z"/></svg>

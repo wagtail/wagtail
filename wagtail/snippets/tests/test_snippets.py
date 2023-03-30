@@ -702,7 +702,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -720,7 +720,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -740,7 +740,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -760,7 +760,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
         self.assertNotContains(response, "<em>'Save'</em>")
@@ -1347,7 +1347,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -1365,7 +1365,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 

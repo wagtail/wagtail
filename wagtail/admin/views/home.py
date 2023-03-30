@@ -1,4 +1,5 @@
 import itertools
+import re
 from typing import Any, Mapping, Union
 
 from django.conf import settings
@@ -352,6 +353,7 @@ def default(request):
     raise Http404
 
 
+icon_comment_pattern = re.compile(r"<!--.*?-->")
 _icons_html = None
 
 
@@ -364,11 +366,13 @@ def icons():
         )
         combined_icon_markup = ""
         for icon in all_icons:
-            combined_icon_markup += (
+            symbol = (
                 render_to_string(icon)
                 .replace('xmlns="http://www.w3.org/2000/svg"', "")
                 .replace("svg", "symbol")
             )
+            symbol = icon_comment_pattern.sub("", symbol)
+            combined_icon_markup += symbol
 
         _icons_html = render_to_string(
             "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}

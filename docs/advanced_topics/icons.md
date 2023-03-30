@@ -22,9 +22,9 @@ Draw or download an icon and save it in a template folder:
 # app/templates/app_name/toucan.svg
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" id="icon-toucan">
-  <!-- This work is licensed under a CC0 license. https://creativecommons.org/publicdomain/zero/1.0/ -->
-  <path fill="currentColor" d="M321 662v1a41 41 0 1 1-83-2V470c0-129 71-221 222-221 122 0 153-42 153-93 0-34-18-60-53-72v-4c147 23 203 146 203 257 0 107-80 247-277 247v79a41 41 0 1 1-82-1v46a41 41 0 0 1-83 0v-46Z"/>
-  <path fill="currentColor" d="M555 136a23 23 0 1 0-46 0 23 23 0 0 0 46 0Zm-69-57H175c-60 0-137 36-137 145l9-8 367 6 72 18V79Z"/>
+  <!--! CC0 license. https://creativecommons.org/publicdomain/zero/1.0/ -->
+  <path d="M321 662v1a41 41 0 1 1-83-2V470c0-129 71-221 222-221 122 0 153-42 153-93 0-34-18-60-53-72v-4c147 23 203 146 203 257 0 107-80 247-277 247v79a41 41 0 1 1-82-1v46a41 41 0 0 1-83 0v-46Z"/>
+  <path d="M555 136a23 23 0 1 0-46 0 23 23 0 0 0 46 0Zm-69-57H175c-60 0-137 36-137 145l9-8 367 6 72 18V79Z"/>
 </svg>
 ```
 
@@ -33,9 +33,9 @@ The `svg` tag should:
 -   Set the `id="icon-<name>"` attribute, icons are referenced by this name
 -   Set the `xmlns="http://www.w3.org/2000/svg"` attribute
 -   Set the `viewBox="..."` attribute
--   Include license information, if applicable.
+-   Include license / source information in a `<!--! -->` HTML comment, if applicable.
 
-Set `<path fill="currentColor"` to give the icon the current color.
+Set `fill="currentColor"` or remove `fill` attributes so the icon color changes according to usage.
 
 Add the icon with the `register_icons` hook.
 
@@ -44,6 +44,8 @@ Add the icon with the `register_icons` hook.
 def register_icons(icons):
     return icons + ['app_name/toucan.svg']
 ```
+
+The majority of Wagtail’s default icons are drawn on a 16x16 viewBox, sourced from the [FontAwesome v6 free icons set](https://fontawesome.com/v6/search?m=free).
 
 ## Icon template tag
 

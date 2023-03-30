@@ -17,6 +17,6 @@
     {% endif %}
     <input type="checkbox" {% if checked %}checked{% endif %} data-controller="w-action" data-action="click->w-action#post" data-w-action-url-value="{{ data_url }}">
     <span class="switch__toggle">
-        {% icon name="tick" classname="switch__tick" %}
+        {% icon name="check" classname="switch__icon" %}
     </span>
 </label>

@@ -490,11 +490,11 @@ class IconTagTest(TestCase):
     def test_basic(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% icon "wagtail" %}
+            {% icon name="cogs" %}
         """
 
         expected = """
-            <svg aria-hidden="true" class="icon icon-wagtail icon"><use href="#icon-wagtail"></svg>
+            <svg aria-hidden="true" class="icon icon-cogs icon"><use href="#icon-cogs"></svg>
         """
 
         self.assertHTMLEqual(expected, Template(template).render(Context()))
@@ -514,7 +514,7 @@ class IconTagTest(TestCase):
     def test_with_classes_keyword(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% icon "warning" classname="myclass" %}
+            {% icon name="warning" classname="myclass" %}
         """
 
         expected = """
@@ -526,7 +526,7 @@ class IconTagTest(TestCase):
     def test_with_classes_obsolete_keyword(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% icon "doc-empty" class_name="myclass" %}
+            {% icon name="doc-empty" class_name="myclass" %}
         """
 
         expected = """
@@ -540,6 +540,43 @@ class IconTagTest(TestCase):
                 "please adopt the new usage instead. Replace "
                 '`{% icon ... class_name="myclass" %}` with '
                 '`{% icon ... classname="myclass" %}`'
+            ),
+        ):
+            self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+    def test_with_deprecated_icon(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% icon name="reset" %}
+        """
+
+        expected = """
+            <svg aria-hidden="true" class="icon icon-reset icon"><use href="#icon-reset"></svg>
+        """
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            ("Icon `reset` is deprecated and will be removed in a future release."),
+        ):
+            self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+    def test_with_renamed_icon(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% icon name="download-alt" %}
+        """
+
+        expected = """
+            <svg aria-hidden="true" class="icon icon-download icon"><use href="#icon-download"></svg>
+        """
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            (
+                "Icon `download-alt` has been renamed to `download`, "
+                "please adopt the new usage instead. Replace "
+                '`{% icon name="download-alt" ... %}` with '
+                '`{% icon name="download" ... %}'
             ),
         ):
             self.assertHTMLEqual(expected, Template(template).render(Context()))
