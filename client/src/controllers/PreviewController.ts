@@ -360,20 +360,25 @@ export class PreviewController extends Controller<HTMLElement> {
     }
   }
 
-  openPreviewInNewTab(event: MouseEvent) {
+  /**
+   * Like `setPreviewDataWithAlert`, but also opens the preview in a new tab.
+   * If an existing tab for the preview is already open, it will be focused and
+   * reloaded.
+   * @param event The click event
+   * @returns whether the data is valid
+   */
+  async openPreviewInNewTab(event: MouseEvent) {
     event.preventDefault();
-    const previewWindow = window.open('', this.urlValue) as Window;
-    previewWindow.focus();
+    const link = event.currentTarget as HTMLAnchorElement;
 
-    this.setPreviewDataWithAlert().then((success) => {
-      if (success) {
-        const url = new URL(this.newTabTarget.href);
-        previewWindow.document.location = url.toString();
-      } else {
-        window.focus();
-        previewWindow.close();
-      }
-    });
+    const valid = await this.setPreviewDataWithAlert();
+
+    // Use the base URL value (without any params) as the target (identifier)
+    // for the window, so that if the user switches between preview modes,
+    // the same window will be reused.
+    window.open(new URL(link.href).toString(), this.urlValue) as Window;
+
+    return valid;
   }
 
   connect() {
