@@ -96,6 +96,7 @@ Changelog
  * Maintenance: Improve performance of determining live page URLs across the admin interface using `pageurl` template tag (Satvik Vashisht)
  * Maintenance: Migrate `window.initSlugAutoPopulate` behaviour to a Stimulus Controller `w-sync` (Loveth Omokaro)
  * Maintenance: Rename `status` classes to `w-status` to align with preferred CSS class naming conventions (Mansi Gundre)
+ * Maintenance: Include wagtail-factories in `wagtail.test.utils` to avoid cross-dependency issues (Matt Westcott)
 
 
 4.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
