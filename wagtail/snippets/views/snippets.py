@@ -97,7 +97,7 @@ class ModelIndexView(generic.IndexView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_list_url(self, type):
-        return reverse(type["model"].get_admin_url_namespace() + ":list")
+        return reverse(type["model"].snippet_viewset.get_url_name("list"))
 
     def get_queryset(self):
         return None
@@ -1172,20 +1172,7 @@ class SnippetViewSet(ModelViewSet):
 
         checks.register(snippets_model_check, "panels")
 
-    def register_model_methods(self):
-        @classmethod
-        def get_admin_url_namespace(cls):
-            return self.get_admin_url_namespace()
-
-        @classmethod
-        def get_admin_base_path(cls):
-            return self.get_admin_base_path()
-
-        self.model.get_admin_url_namespace = get_admin_url_namespace
-        self.model.get_admin_base_path = get_admin_base_path
-
     def on_register(self):
         super().on_register()
         viewsets.register(self.chooser_viewset)
         self.register_model_check()
-        self.register_model_methods()

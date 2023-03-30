@@ -147,7 +147,7 @@ class WorkflowMenuItem(ActionMenuItem):
 
     def get_url(self, parent_context):
         instance = parent_context["instance"]
-        url_name = instance.get_admin_url_namespace() + ":collect_workflow_action_data"
+        url_name = instance.snippet_viewset.get_url_name("collect_workflow_action_data")
         return reverse(
             url_name,
             args=(

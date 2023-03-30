@@ -1136,7 +1136,7 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
 
     def get_url(self, view, args=None):
         return reverse(
-            f"{self.object.get_admin_url_namespace()}:{view}",
+            self.model.snippet_viewset.get_url_name(view),
             args=(quote(self.object.pk),) if args is None else args,
         )
 
