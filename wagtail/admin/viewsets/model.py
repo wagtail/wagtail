@@ -87,8 +87,8 @@ class ModelViewSet(ViewSet):
         """
         Returns the form class to use for the create / edit forms.
         """
-        fields = getattr(self, "form_fields", None)
-        exclude = getattr(self, "exclude_form_fields", None)
+        fields = self.get_form_fields()
+        exclude = self.get_exclude_form_fields()
 
         if fields is None and exclude is None:
             raise ImproperlyConfigured(
@@ -102,6 +102,18 @@ class ModelViewSet(ViewSet):
             fields=fields,
             exclude=exclude,
         )
+
+    def get_form_fields(self):
+        """
+        Returns a list or tuple of field names to be included in the create / edit forms.
+        """
+        return getattr(self, "form_fields", None)
+
+    def get_exclude_form_fields(self):
+        """
+        Returns a list or tuple of field names to be excluded from the create / edit forms.
+        """
+        return getattr(self, "exclude_form_fields", None)
 
     @property
     def url_finder_class(self):
