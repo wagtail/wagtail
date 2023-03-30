@@ -11,8 +11,13 @@ jobs:
       - restore_cache:
           key: pipenv-v1-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
+      # Install without testing dependencies, first to ensure that wagtail is already installed
+      # before pipenv tries to resolve the wagtail-factories dependency on wagtail; otherwise
+      # it will end up fetching the latest wagtail release package and try to resolve further
+      # dependencies based on that
       - run: |
           if [[ ! -e ".venv" ]]; then
+              pipenv install -e .
               pipenv install -e .[testing,docs]
           fi
       - save_cache:
