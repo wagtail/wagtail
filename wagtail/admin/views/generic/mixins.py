@@ -129,12 +129,14 @@ class LocaleMixin:
 
 
 class PanelMixin:
+    panel = None
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.panel = self.get_panel()
 
     def get_panel(self):
-        return None
+        return self.panel
 
     def get_bound_panel(self, form):
         if not self.panel:
@@ -144,7 +146,8 @@ class PanelMixin:
         )
 
     def get_form_class(self):
-        if not self.panel:
+        # The form_class takes precedence if specified
+        if self.form_class or not self.panel:
             return super().get_form_class()
         return self.panel.get_form_class()
 

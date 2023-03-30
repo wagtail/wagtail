@@ -12,7 +12,8 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.panels import get_edit_handler
+from wagtail.admin.panels.group import ObjectList
+from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -214,9 +215,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
 
-    def get_panel(self):
-        return get_edit_handler(self.model)
-
     def get_add_url(self):
         url = reverse(self.add_url_name)
         if self.locale:
@@ -305,9 +303,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
-
-    def get_panel(self):
-        return get_edit_handler(self.model)
 
     def get_history_url(self):
         return reverse(self.history_url_name, args=[quote(self.object.pk)])
@@ -773,6 +768,9 @@ class SnippetViewSet(ModelViewSet):
             if self.draftstate_enabled:
                 self.list_display += [LiveStatusTagColumn()]
 
+        # This edit handler has been bound to the model and is used for the views.
+        self._edit_handler = self.get_edit_handler()
+
     @property
     def revisions_revert_view_class(self):
         """
@@ -845,6 +843,8 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_create_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
+            panel=self._edit_handler,
+            form_class=self.get_form_class(),
             index_url_name=self.get_url_name("list"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
@@ -859,6 +859,8 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
+            panel=self._edit_handler,
+            form_class=self.get_form_class(),
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
@@ -927,6 +929,8 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
+            panel=self._edit_handler,
+            form_class=self.get_form_class(),
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
@@ -1323,6 +1327,34 @@ class SnippetViewSet(ModelViewSet):
         ]
 
         return urlpatterns + legacy_redirects
+
+    def get_edit_handler(self):
+        """
+        Returns the appropriate edit handler for this ``SnippetViewSet`` class.
+        It can be defined either on the model itself or on the ``SnippetViewSet``,
+        as the ``edit_handler`` or ``panels`` properties. Falls back to
+        extracting panel / edit handler definitions from the model class.
+        """
+        if hasattr(self, "edit_handler"):
+            edit_handler = self.edit_handler
+        elif hasattr(self, "panels"):
+            panels = self.panels
+            edit_handler = ObjectList(panels)
+        elif hasattr(self.model, "edit_handler"):
+            edit_handler = self.model.edit_handler
+        elif hasattr(self.model, "panels"):
+            panels = self.model.panels
+            edit_handler = ObjectList(panels)
+        else:
+            exclude = self.get_exclude_form_fields()
+            panels = extract_panel_definitions_from_model_class(
+                self.model, exclude=exclude
+            )
+            edit_handler = ObjectList(panels)
+        return edit_handler.bind_to_model(self.model)
+
+    def get_form_class(self, for_update=False):
+        return self._edit_handler.get_form_class()
 
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
