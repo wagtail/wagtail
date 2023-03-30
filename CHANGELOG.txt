@@ -110,6 +110,7 @@ Changelog
  * Fix: Fix server-side caching of the icons sprite (Thibaud Colas)
  * Fix: Avoid showing scrollbars in the block picker unless necessary (Babitha Kumari)
  * Fix: Always show Add buttons, guide lines, Move up/down, Duplicate, Delete; in StreamField and Inline Panel (Thibaud Colas)
+ * Docs: Fix module path for `MultipleChooserPanel` in panel reference docs
 
 
 4.2.1 (13.03.2023)
