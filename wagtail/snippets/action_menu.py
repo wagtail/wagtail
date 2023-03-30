@@ -196,7 +196,7 @@ class CancelWorkflowMenuItem(ActionMenuItem):
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
-    icon_name = "download-alt"
+    icon_name = "download"
     classname = "action-secondary"
 
     def is_shown(self, context):
@@ -237,7 +237,7 @@ class DeleteMenuItem(ActionMenuItem):
 class SaveMenuItem(ActionMenuItem):
     name = "action-save"
     label = _("Save")
-    icon_name = "download-alt"
+    icon_name = "download"
     template_name = "wagtailsnippets/snippets/action_menu/save.html"
 
 

@@ -346,8 +346,8 @@ const Template = ({ url }) => (
     </a>
     <a href={url} className="button button--icon bicolor disabled">
       <span className="icon-wrapper">
-        <svg className="icon icon-tick icon" aria-hidden="true">
-          <use href="#icon-tick" />
+        <svg className="icon icon-check icon" aria-hidden="true">
+          <use href="#icon-check" />
         </svg>
       </span>
       button link

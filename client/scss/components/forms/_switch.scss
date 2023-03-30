@@ -17,7 +17,7 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
   width: unset;
   float: unset;
 
-  &__tick {
+  &__icon {
     width: 12px;
     height: $switch-height;
     position: absolute;

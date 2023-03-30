@@ -54,6 +54,6 @@ input[type='checkbox'] {
   vertical-align: bottom;
 
   &:checked::before {
-    mask-image: url('#{$images-root}icons/tick.svg');
+    mask-image: url('#{$images-root}icons/check.svg');
   }
 }
