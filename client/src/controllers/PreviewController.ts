@@ -360,6 +360,22 @@ export class PreviewController extends Controller<HTMLElement> {
     }
   }
 
+  openPreviewInNewTab(event: MouseEvent) {
+    event.preventDefault();
+    const previewWindow = window.open('', this.urlValue) as Window;
+    previewWindow.focus();
+
+    this.setPreviewDataWithAlert().then((success) => {
+      if (success) {
+        const url = new URL(this.newTabTarget.href);
+        previewWindow.document.location = url.toString();
+      } else {
+        window.focus();
+        previewWindow.close();
+      }
+    });
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
@@ -379,24 +395,6 @@ export class PreviewController extends Controller<HTMLElement> {
     this.editForm = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
     ) as HTMLFormElement;
-
-    const handlePreviewInNewTab = (event: MouseEvent) => {
-      event.preventDefault();
-      const previewWindow = window.open('', this.urlValue) as Window;
-      previewWindow.focus();
-
-      this.setPreviewDataWithAlert().then((success) => {
-        if (success) {
-          const url = new URL(this.newTabTarget.href);
-          previewWindow.document.location = url.toString();
-        } else {
-          window.focus();
-          previewWindow.close();
-        }
-      });
-    };
-
-    this.newTabTarget.addEventListener('click', handlePreviewInNewTab);
 
     // This controller is encapsulated as a child of the side panel element,
     // so we need to listen to the show/hide events on the parent element
