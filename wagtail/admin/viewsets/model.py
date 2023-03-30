@@ -103,6 +103,20 @@ class ModelViewSet(ViewSet):
             exclude=exclude,
         )
 
+    @property
+    def url_finder_class(self):
+        return type(
+            "_ModelAdminURLFinder",
+            (ModelAdminURLFinder,),
+            {
+                "permission_policy": self.permission_policy,
+                "edit_url_name": self.get_url_name("edit"),
+            },
+        )
+
+    def register_admin_url_finder(self):
+        register_admin_url_finder(self.model, self.url_finder_class)
+
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path("", self.index_view, name="index"),
@@ -113,12 +127,4 @@ class ModelViewSet(ViewSet):
 
     def on_register(self):
         super().on_register()
-        url_finder_class = type(
-            "_ModelAdminURLFinder",
-            (ModelAdminURLFinder,),
-            {
-                "permission_policy": self.permission_policy,
-                "edit_url_name": self.get_url_name("edit"),
-            },
-        )
-        register_admin_url_finder(self.model, url_finder_class)
+        self.register_admin_url_finder()
