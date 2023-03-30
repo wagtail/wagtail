@@ -3,11 +3,7 @@ from itertools import zip_longest
 from factory import SubFactory
 from factory.builder import StepBuilder
 
-try:
-    from wagtail import blocks
-except ImportError:
-    # Wagtail<3.0
-    from wagtail.core import blocks
+from wagtail import blocks
 
 
 class StreamFieldFactoryException(Exception):

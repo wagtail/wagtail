@@ -4,18 +4,11 @@ import factory
 from django.utils.text import slugify
 from factory import errors, utils
 from factory.declarations import ParameteredAttribute
-
-from wagtail.images import get_image_model
-
-try:
-    from wagtail.models import Collection, Page, Site
-except ImportError:
-    # Wagtail<3.0
-    from wagtail.core.models import Collection, Page, Site
-
 from factory.django import DjangoModelFactory
 
 from wagtail.documents import get_document_model
+from wagtail.images import get_image_model
+from wagtail.models import Collection, Page, Site
 
 __all__ = [
     "CollectionFactory",

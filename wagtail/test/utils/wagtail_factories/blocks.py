@@ -3,14 +3,9 @@ from collections import defaultdict
 import factory
 from factory.declarations import ParameteredAttribute
 
-from wagtail import VERSION as wagtail_version
+from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
-
-if wagtail_version >= (3, 0):
-    from wagtail import blocks
-else:
-    from wagtail.core import blocks
 
 from .builder import (
     ListBlockStepBuilder,
@@ -138,11 +133,8 @@ class ListBlockFactory(factory.SubFactory):
             for _, params in sorted(result.items())
         ]
 
-        if wagtail_version >= (2, 16):
-            list_block_def = blocks.list_block.ListBlock(subfactory._meta.model())
-            return blocks.list_block.ListValue(list_block_def, values)
-        else:
-            return values
+        list_block_def = blocks.list_block.ListBlock(subfactory._meta.model())
+        return blocks.list_block.ListValue(list_block_def, values)
 
 
 class StructBlockFactory(factory.Factory):
