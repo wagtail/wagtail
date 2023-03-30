@@ -704,6 +704,7 @@ Contributors
 * Mehul Aggarwal
 * Babitha Kumari
 * Mansi Gundre
+* Hanoon
 
 Translators
 ===========
