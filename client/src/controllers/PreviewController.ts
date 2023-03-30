@@ -385,21 +385,91 @@ export class PreviewController extends Controller<HTMLElement> {
     return valid;
   }
 
+  /**
+   * Initialises the auto update mechanism. This works by comparing the current
+   * form data with the previous form data at a set interval. If the form data
+   * has changed, the preview will be updated. The interval is only active when
+   * the side panel is shown.
+   */
+  initAutoUpdate() {
+    // Start with an empty payload so that when checkAndUpdatePreview is called
+    // for the first time when the panel is opened, it will always update the preview
+    let oldPayload = '';
+    let updateInterval: ReturnType<typeof setInterval>;
+
+    const hasChanges = () => {
+      // https://github.com/microsoft/TypeScript/issues/30584
+      const newPayload = new URLSearchParams(
+        new FormData(this.editForm) as unknown as Record<string, string>,
+      ).toString();
+      const changed = oldPayload !== newPayload;
+
+      oldPayload = newPayload;
+      return changed;
+    };
+
+    // Call setPreviewData only if no changes have been made within the interval
+    const debouncedSetPreviewData = debounce(
+      this.setPreviewData.bind(this),
+      WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+    );
+
+    const checkAndUpdatePreview = () => {
+      // Do not check for preview update if an update request is still pending
+      // and don't send a new request if the form hasn't changed
+      if (this.isUpdatingValue || !hasChanges()) return;
+      debouncedSetPreviewData();
+    };
+
+    // This controller is encapsulated as a child of the side panel element,
+    // so we need to listen to the show/hide events on the parent element
+    // (the one with [data-side-panel]).
+    // If we had support for data-controller attribute on the side panels,
+    // we could remove the intermediary element and make the [data-side-panel]
+    // element to also act as the controller.
+    const sidePanelContainer = this.element.parentElement as HTMLDivElement;
+
+    const checksSidePanel = document.querySelector(
+      '[data-side-panel="checks"]',
+    );
+
+    sidePanelContainer.addEventListener('show', () => {
+      // Immediately update the preview when the panel is opened
+      checkAndUpdatePreview();
+
+      // Only set the interval while the panel is shown
+      // This interval performs the checks for changes but not necessarily the
+      // update itself
+      updateInterval = setInterval(
+        checkAndUpdatePreview,
+        this.autoUpdateIntervalValue,
+      );
+    });
+
+    // Use the same processing as the preview panel.
+    checksSidePanel?.addEventListener('show', () => {
+      checkAndUpdatePreview();
+      updateInterval = setInterval(
+        checkAndUpdatePreview,
+        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+      );
+    });
+
+    // Clear the interval when the panel is hidden
+    sidePanelContainer.addEventListener('hide', () => {
+      clearInterval(updateInterval);
+    });
+    checksSidePanel?.addEventListener('hide', () => {
+      clearInterval(updateInterval);
+    });
+  }
+
   connect() {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
     );
 
     this.observePanelSize();
-
-    //
-    // Preview data handling
-    //
-    // In order to make the preview truly reliable, the preview page needs
-    // to be perfectly independent from the edit page,
-    // from the browser perspective. To pass data from the edit page
-    // to the preview page, we send the form after each change
-    // and save it inside the user session.
 
     this.editForm = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
@@ -414,64 +484,7 @@ export class PreviewController extends Controller<HTMLElement> {
     const sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
     if (this.autoUpdateValue) {
-      // Start with an empty payload so that when checkAndUpdatePreview is called
-      // for the first time when the panel is opened, it will always update the preview
-      let oldPayload = '';
-      let updateInterval: ReturnType<typeof setInterval>;
-
-      const hasChanges = () => {
-        // https://github.com/microsoft/TypeScript/issues/30584
-        const newPayload = new URLSearchParams(
-          new FormData(this.editForm) as unknown as Record<string, string>,
-        ).toString();
-        const changed = oldPayload !== newPayload;
-
-        oldPayload = newPayload;
-        return changed;
-      };
-
-      // Call setPreviewData only if no changes have been made within the interval
-      const debouncedSetPreviewData = debounce(
-        this.setPreviewData.bind(this),
-        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-      );
-
-      const checkAndUpdatePreview = () => {
-        // Do not check for preview update if an update request is still pending
-        // and don't send a new request if the form hasn't changed
-        if (this.isUpdatingValue || !hasChanges()) return;
-        debouncedSetPreviewData();
-      };
-
-      sidePanelContainer.addEventListener('show', () => {
-        // Immediately update the preview when the panel is opened
-        checkAndUpdatePreview();
-
-        // Only set the interval while the panel is shown
-        // This interval performs the checks for changes but not necessarily the
-        // update itself
-        updateInterval = setInterval(
-          checkAndUpdatePreview,
-          this.autoUpdateIntervalValue,
-        );
-      });
-
-      // Use the same processing as the preview panel.
-      checksSidePanel?.addEventListener('show', () => {
-        checkAndUpdatePreview();
-        updateInterval = setInterval(
-          checkAndUpdatePreview,
-          WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-        );
-      });
-
-      // Clear the interval when the panel is hidden
-      sidePanelContainer.addEventListener('hide', () => {
-        clearInterval(updateInterval);
-      });
-      checksSidePanel?.addEventListener('hide', () => {
-        clearInterval(updateInterval);
-      });
+      this.initAutoUpdate();
     } else {
       // Even if the preview is not updated automatically, we still need to
       // initialise the preview data when the panel is shown
