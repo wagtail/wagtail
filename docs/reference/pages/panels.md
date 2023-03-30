@@ -394,6 +394,9 @@ The `MultipleChooserPanel` panel type was added.
 ```
 
 ```{eval-rst}
+.. module:: wagtail.admin.panels
+   :noindex:
+
 .. class:: MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 ```
 
