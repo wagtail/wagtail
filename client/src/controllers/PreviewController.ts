@@ -97,6 +97,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   static values = {
     url: String,
+    autoUpdate: Boolean,
+    autoUpdateInterval: Number,
     isUpdating: Boolean,
   };
 
@@ -108,6 +110,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly iframeTarget: HTMLIFrameElement;
   declare readonly iframeTargets: HTMLIFrameElement[];
   declare readonly urlValue: string;
+  declare readonly autoUpdateValue: boolean;
+  declare readonly autoUpdateIntervalValue: number;
   declare isUpdatingValue: boolean;
 
   // Instance variables with initial values set in connect()
@@ -409,7 +413,7 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     const sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
-    if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
+    if (this.autoUpdateValue) {
       // Start with an empty payload so that when checkAndUpdatePreview is called
       // for the first time when the panel is opened, it will always update the preview
       let oldPayload = '';
@@ -448,7 +452,7 @@ export class PreviewController extends Controller<HTMLElement> {
         // update itself
         updateInterval = setInterval(
           checkAndUpdatePreview,
-          WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+          this.autoUpdateIntervalValue,
         );
       });
 
