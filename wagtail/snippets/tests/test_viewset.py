@@ -201,11 +201,6 @@ class TestAdminURLs(BaseSnippetViewSetTests):
             viewset.get_admin_url_namespace(),
             "wagtailsnippets_tests_advert",
         )
-        # Accessed via the model
-        self.assertEqual(
-            snippet.get_admin_url_namespace(),
-            "wagtailsnippets_tests_advert",
-        )
         # Get specific URL name
         self.assertEqual(
             viewset.get_url_name("edit"),
@@ -231,8 +226,6 @@ class TestAdminURLs(BaseSnippetViewSetTests):
 
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "snippets/tests/advert")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_base_path(), "snippets/tests/advert")
         # Get specific URL
         self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
         # Ensure AdminURLFinder returns the correct URL
@@ -254,8 +247,6 @@ class TestAdminURLs(BaseSnippetViewSetTests):
         viewset = snippet.snippet_viewset
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_url_namespace(), "some_namespace")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_url_namespace(), "some_namespace")
         # Get specific URL name
         self.assertEqual(viewset.get_url_name("edit"), "some_namespace:edit")
         # Chooser namespace
@@ -277,8 +268,6 @@ class TestAdminURLs(BaseSnippetViewSetTests):
         expected_choose_url = "/admin/choose/wisely/"
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "deep/within/the/admin")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_base_path(), "deep/within/the/admin")
         # Get specific URL
         self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
         # Ensure AdminURLFinder returns the correct URL

@@ -202,7 +202,7 @@ def admin_url_name(obj, action):
     """
     if isinstance(obj, Page):
         return f"wagtailadmin_pages:{action}"
-    return obj.get_admin_url_namespace() + f":{action}"
+    return obj.snippet_viewset.get_url_name(action)
 
 
 @register.simple_tag
