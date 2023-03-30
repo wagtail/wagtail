@@ -68,8 +68,8 @@ testing_extras = [
     "djhtml==1.5.2",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
-    # For streamfield migration toolkit
-    "wagtail-factories @ git+https://github.com/gasman/wagtail-factories.git@remove-wagtail-upper-bound#egg=wagtail-factories",
+    # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
+    "factory-boy>=3.2",
 ]
 
 # Documentation dependencies

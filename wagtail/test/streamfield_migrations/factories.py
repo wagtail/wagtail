@@ -1,6 +1,7 @@
 import factory
-import wagtail_factories
 from factory.django import DjangoModelFactory
+
+from wagtail.test.utils import wagtail_factories
 
 from . import models
 
