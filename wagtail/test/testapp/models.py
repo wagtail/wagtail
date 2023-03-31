@@ -984,13 +984,7 @@ register_snippet(RevisableModel)
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
 
-    panels = [
-        FieldPanel("text"),
-        FieldPanel("secret_text", permission="superuser"),
-    ]
-
-
-register_snippet(RevisableChildModel)
+    # The edit_handler is defined on the viewset
 
 
 class RevisableGrandChildModel(RevisableChildModel):
@@ -1001,10 +995,7 @@ class RevisableGrandChildModel(RevisableChildModel):
 class DraftStateModel(DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
     text = models.TextField()
 
-    panels = [
-        FieldPanel("text"),
-        PublishingPanel(),
-    ]
+    # The panels are defined on the viewset
 
     def __str__(self):
         return self.text
