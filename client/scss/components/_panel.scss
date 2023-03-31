@@ -129,7 +129,7 @@ $header-gap: theme('spacing.1');
   height: $header-icon-size;
 
   // Only rotate the default caret icon, not custom ones.
-  [aria-expanded='false'] &.icon-arrow-down-big {
+  [aria-expanded='false'] &.icon-placeholder {
     transform: rotate(-90deg);
   }
 

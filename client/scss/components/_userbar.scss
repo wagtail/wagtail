@@ -203,7 +203,7 @@ $positions: (
     }
 
     &-icon {
-      @include svg-icon(1.1em, middle);
+      @include svg-icon(1em, middle);
       margin-inline-end: 0.5em;
       fill: currentColor;
       opacity: 0.4;
