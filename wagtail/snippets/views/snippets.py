@@ -951,6 +951,7 @@ class SnippetViewSet(ModelViewSet):
     def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
             model=self.model,
+            edit_handler=self._edit_handler,
             template_name=self.get_templates(
                 "revisions_compare",
                 fallback=self.revisions_compare_view_class.template_name,
@@ -993,11 +994,17 @@ class SnippetViewSet(ModelViewSet):
 
     @property
     def preview_on_add_view(self):
-        return self.preview_on_add_view_class.as_view(model=self.model)
+        return self.preview_on_add_view_class.as_view(
+            model=self.model,
+            form_class=self.get_form_class(),
+        )
 
     @property
     def preview_on_edit_view(self):
-        return self.preview_on_edit_view_class.as_view(model=self.model)
+        return self.preview_on_edit_view_class.as_view(
+            model=self.model,
+            form_class=self.get_form_class(),
+        )
 
     @property
     def lock_view(self):
