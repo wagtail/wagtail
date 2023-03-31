@@ -5,7 +5,7 @@ exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-header\\">Row header</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">Display the first row as a header.</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
@@ -16,7 +16,7 @@ exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-header\\">Column header</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">Display the first column as a header.</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
@@ -27,7 +27,7 @@ exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-caption\\">Table caption</label>
         <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-col-caption-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-col-caption-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">A heading that identifies the overall topic of the table, and is useful for screen reader users</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
@@ -45,7 +45,7 @@ exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-header\\">En-tête de ligne</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">Affichez la première ligne sous forme d'en-tête.</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
@@ -56,7 +56,7 @@ exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-header\\">En-tête de colonne</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">Affichez la première colonne sous forme d'en-tête.</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
@@ -67,7 +67,7 @@ exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
         <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-caption\\">Légende du tableau</label>
         <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
-          <div id=\\"the-id-handsontable-col-caption-helptext\\" data-field-help=\\"\\">
+          <div class=\\"w-field__help\\" id=\\"the-id-handsontable-col-caption-helptext\\" data-field-help=\\"\\">
             <div class=\\"help\\">Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d'écran</div>
           </div>
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">

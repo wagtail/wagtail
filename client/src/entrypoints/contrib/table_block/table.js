@@ -191,7 +191,7 @@ class TableInput {
       <div className="w-field__wrapper" data-field-wrapper>
         <label class="w-field__label" for="${id}-handsontable-header">${this.strings['Row header']}</label>
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
-          <div id="${id}-handsontable-header-helptext" data-field-help>
+          <div class="w-field__help" id="${id}-handsontable-header-helptext" data-field-help>
             <div class="help">${this.strings['Display the first row as a header.']}</div>
           </div>
           <div className="w-field__input" data-field-input>
@@ -202,7 +202,7 @@ class TableInput {
       <div className="w-field__wrapper" data-field-wrapper>
         <label class="w-field__label" for="${id}-handsontable-col-header">${this.strings['Column header']}</label>
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
-          <div id="${id}-handsontable-col-header-helptext" data-field-help>
+          <div class="w-field__help" id="${id}-handsontable-col-header-helptext" data-field-help>
             <div class="help">${this.strings['Display the first column as a header.']}</div>
           </div>
           <div className="w-field__input" data-field-input>
@@ -213,7 +213,7 @@ class TableInput {
       <div className="w-field__wrapper" data-field-wrapper>
         <label class="w-field__label" for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
         <div class="w-field w-field--char_field w-field--text_input" data-field>
-          <div id="${id}-handsontable-col-caption-helptext" data-field-help>
+          <div class="w-field__help" id="${id}-handsontable-col-caption-helptext" data-field-help>
             <div class="help">${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']}</div>
           </div>
           <div className="w-field__input" data-field-input>
