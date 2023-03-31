@@ -19,15 +19,8 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
     --nesting-indent: #{$nested-field-indent};
   }
 
-  .w-panel__divider {
-    @include guide-line-horizontal();
-    // Slightly nicer text alignment.
-    margin-top: 1px;
-  }
-
   .w-panel__content {
     @include guide-line-vertical();
-    // @include guide-line-vertical-stop();
     // Center the vertical line.
     margin-inline-start: calc(-1 * var(--nesting-indent));
     padding-inline-start: var(--nesting-indent);
@@ -86,6 +79,12 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
         calc(var(--w-direction-factor) * theme('spacing.1'))
       );
     }
+  }
+
+  .w-panel__divider {
+    @include guide-line-horizontal();
+    // Slightly nicer text alignment.
+    margin-top: 1px;
   }
 
   .w-panel__heading--label {
