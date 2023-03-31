@@ -23,6 +23,15 @@
     }
   }
 
+  .w-field {
+    display: grid;
+  }
+
+  // Force the help text after the field as the field also visually acts as page heading.
+  .w-field__help {
+    order: 2;
+  }
+
   input,
   textarea,
   .Draftail-Editor .public-DraftEditor-content {
