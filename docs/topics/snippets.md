@@ -32,7 +32,7 @@ class Advert(models.Model):
         return self.text
 ```
 
-The `Advert` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for `Page`-derived models, with fields assigned in the `panels` (or `edit_handler`) property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
+The `Advert` model uses the basic Django model class and defines two properties: `url` and `text`. The editing interface is very close to that provided for `Page`-derived models, with fields assigned in the `panels` (or `edit_handler`) property. Unless configured further, snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
 
 `@register_snippet` tells Wagtail to treat the model as a snippet. The `panels` list defines the fields to show on the snippet editing page. It's also important to provide a string representation of the class through `def __str__(self):` so that the snippet objects make sense when listed in the Wagtail admin.
 
@@ -580,6 +580,8 @@ To customise the base queryset for the listing view, you could override the {met
 
 You can add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups. If you would like to customise it further, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
+Instead of defining the `panels` or `edit_handler` on the model class, they can also be defined on the `SnippetViewSet` class. If you would like to do more customisations of the panels, you can also override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_handler` method.
+
 For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
 
 1. `templates/wagtailsnippets/snippets/{app_label}/{model_name}/`
@@ -600,7 +602,7 @@ For some common views, Wagtail also allows you to override the template used by 
 An example of a custom `SnippetViewSet` subclass:
 
 ```python
-# views.py
+from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.snippets.views.snippets import SnippetViewSet
 
@@ -618,6 +620,11 @@ class MemberViewSet(SnippetViewSet):
     # list_filter = ["shirt_size"]
     # or
     # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
+
+    edit_handler = TabbedInterface([
+        ObjectList([FieldPanel("name")], heading="Details"),
+        ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
+    ])
 ```
 
 The viewset can be passed to the `register_snippet` call:
