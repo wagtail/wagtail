@@ -124,3 +124,12 @@ class TestPasswordResetView(TestCase):
         self.assertContains(
             response, '<input type="text" name="captcha" required id="id_captcha">'
         )
+
+
+class TestJsi18nView(TestCase):
+    def test_jsi18n_does_not_require_login(self):
+        response = self.client.get(reverse("wagtailadmin_javascript_catalog"))
+        self.assertEqual(response.status_code, 200)
+        # get content type header without the "charset" suffix
+        content_type = response["content-type"].split(";")[0]
+        self.assertEqual(content_type, "text/javascript")

@@ -94,11 +94,6 @@ urlpatterns = [
     path("account/", account.account, name="wagtailadmin_account"),
     path("logout/", account.LogoutView.as_view(), name="wagtailadmin_logout"),
     path(
-        "jsi18n/",
-        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
-        name="wagtailadmin_javascript_catalog",
-    ),
-    path(
         "dismissibles/",
         dismissibles.DismissiblesView.as_view(),
         name="wagtailadmin_dismissibles",
@@ -147,6 +142,12 @@ urlpatterns += [
     ),
     # Password reset
     path("password_reset/", include(wagtailadmin_password_reset_urls)),
+    # JS translation catalog
+    path(
+        "jsi18n/",
+        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
+        name="wagtailadmin_javascript_catalog",
+    ),
 ]
 
 
