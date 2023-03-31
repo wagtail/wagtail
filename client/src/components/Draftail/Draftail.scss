@@ -151,14 +151,14 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-BlockToolbar__trigger {
+  $icon-size: theme('spacing.4');
   color: theme('colors.secondary.DEFAULT');
-  width: theme('spacing.4');
-  height: theme('spacing.4');
-  margin-inline-end: 1px;
+  width: $icon-size;
+  height: $icon-size;
+  margin-inline-end: calc($nested-field-indent-sm - $icon-size / 2 - 2px);
 
   @include media-breakpoint-up(sm) {
-    width: theme('spacing.5');
-    height: theme('spacing.5');
+    margin-inline-end: calc($nested-field-indent - $icon-size / 2 - 2px);
   }
 
   // Increase the hoverable area of the trigger button
