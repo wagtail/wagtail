@@ -6,6 +6,12 @@ from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.panels import (
+    FieldPanel,
+    ObjectList,
+    PublishingPanel,
+    TabbedInterface,
+)
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -19,6 +25,7 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
+    RevisableChildModel,
 )
 
 from .forms import FavouriteColourForm
@@ -260,10 +267,29 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         return self.model._default_manager.all().exclude(text__contains="[HIDDEN]")
 
 
+class RevisableChildModelViewSet(SnippetViewSet):
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("text")], heading="Main"),
+            ObjectList(
+                [FieldPanel("secret_text", permission="superuser")],
+                heading="Other",
+                help_text="Other panels help text",
+            ),
+        ],
+        help_text="Top-level help text",
+    )
+
+
 class DraftStateModelViewSet(SnippetViewSet):
     list_filter = ["text", "first_published_at"]
     search_fields = ["text"]
     search_backend_name = None
+
+    panels = [
+        FieldPanel("text"),
+        PublishingPanel(),
+    ]
 
 
 class ModeratedModelViewSet(SnippetViewSet):
@@ -274,5 +300,6 @@ class ModeratedModelViewSet(SnippetViewSet):
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
+register_snippet(RevisableChildModel, viewset=RevisableChildModelViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModel, viewset=ModeratedModelViewSet)
