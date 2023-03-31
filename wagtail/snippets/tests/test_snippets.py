@@ -13,7 +13,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest, HttpResponse
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import make_aware, now
@@ -451,7 +451,7 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         self.assertContains(response, list_url + "?ordering=live")
 
 
-class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TestCase):
+class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 
@@ -4460,7 +4460,7 @@ class TestSnippetChooseStatus(WagtailTestUtils, TestCase):
         )
 
 
-class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
+class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 

@@ -1,6 +1,6 @@
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
@@ -443,6 +443,29 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
             response,
             '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
             html=True,
+        )
+
+
+class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get_url(self, url_name, args=()):
+        return reverse(
+            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
+        )
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def create_test_snippets(self):
+        FullFeaturedSnippet.objects.create(
+            text="Nasi goreng from Indonesia", country_code="ID"
+        )
+        FullFeaturedSnippet.objects.create(
+            text="Fish and chips from the UK", country_code="UK"
         )
 
     def test_filtered_searched_no_results(self):
