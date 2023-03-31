@@ -18,7 +18,7 @@
     color: theme('colors.critical.200');
     display: inline-block;
     margin: 0;
-    margin-bottom: theme('spacing.[2.5]');
+    margin-top: theme('spacing.[0.5]');
   }
 }
 
@@ -48,19 +48,28 @@
   // This is primarily helpful to add margins between fields, but fields can often
   // be wrapped into groups (for example a row), so it’s safer to add a margin regardless
   // of what the next element is.
-  margin-bottom: theme('spacing.5');
+  margin-bottom: $form-field-spacing;
 
-  // Inside of listing tables we don't need the bottom margin because the table row will handle it.
+  // Inside of listing tables we don't need margins because the table row will handle them.
   table.listing td & {
     margin-bottom: 0;
+
+    .w-field__input {
+      margin-top: 0;
+    }
   }
 }
 
 .w-field__input {
   position: relative;
-  padding-top: theme('spacing.[2.5]');
+  margin-top: theme('spacing.[2.5]');
   // This padding gives room for widgets such as comments beside of inputs
   padding-inline-end: calc($comment-button-size + $comment-button-space);
+
+  .w-field__input {
+    // No need for extra padding for nested field inputs.
+    padding-inline-end: 0;
+  }
 }
 
 .w-field__icon {
