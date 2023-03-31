@@ -1,10 +1,14 @@
 $header-icon-size: theme('spacing.4');
 $header-button-size-mobile: $mobile-nice-padding;
-$header-button-size: theme('spacing.8');
-$header-gap: theme('spacing.1');
+$header-button-size: theme('spacing.6');
 
 .w-panel {
+  --header-gap: 0;
   margin-bottom: theme('spacing.10');
+
+  @include media-breakpoint-up(sm) {
+    --header-gap: theme('spacing.4');
+  }
 
   .content-locked &__content {
     cursor: not-allowed;
@@ -23,12 +27,9 @@ $header-gap: theme('spacing.1');
   margin-inline-start: -1 * $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
-    gap: $header-gap;
-    margin-inline-start: calc(-1 * 1 * ($header-button-size + $header-gap));
-  }
-
-  @include media-breakpoint-up(md) {
-    margin-inline-start: calc(-1 * 2 * ($header-button-size + $header-gap));
+    margin-inline-start: calc(
+      -1 * ((2 * $header-button-size) + var(--header-gap))
+    );
   }
 }
 
@@ -36,10 +37,11 @@ $header-gap: theme('spacing.1');
   @apply w-h3;
   display: inline-block;
   margin: 0;
+  margin-inline-start: var(--header-gap);
+  padding-inline-end: theme('spacing.2');
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
-  padding-inline-end: theme('spacing.2');
 
   label {
     cursor: pointer;
@@ -105,7 +107,7 @@ $header-gap: theme('spacing.1');
 
 // The suffix anchor is intended for small viewports only.
 .w-panel__anchor--suffix {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(sm) {
     display: none;
   }
 }
@@ -114,7 +116,7 @@ $header-gap: theme('spacing.1');
 .w-panel__anchor--prefix {
   display: none;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(sm) {
     display: inline-grid;
   }
 }
