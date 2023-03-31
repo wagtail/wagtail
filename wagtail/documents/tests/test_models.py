@@ -18,7 +18,9 @@ from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestDocumentQuerySet(TestCase):
+class TestDocumentQuerySet(TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def test_search_method(self):
         # Make a test document
         document = models.Document.objects.create(title="Test document")
@@ -176,17 +178,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     """
 
-    def setUp(self):
-        # Required to create root collection because the TransactionTestCase
-        # does not make initial data loaded in migrations available and
-        # serialized_rollback=True causes other problems in the test suite.
-        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path="0001",
-            depth=1,
-            numchild=0,
-        )
+    fixtures = ["test_empty.json"]
 
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
