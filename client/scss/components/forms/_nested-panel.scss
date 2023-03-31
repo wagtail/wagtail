@@ -1,7 +1,8 @@
-$header-icon-size-sm: theme('spacing.5');
-$header-button-size-sm: theme('spacing.8');
-$header-gap: theme('spacing.1');
-$panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
+$header-icon-size: theme('spacing.4');
+$header-button-size-sm: theme('spacing.6');
+$icon-center-offset: 2px;
+$panel-bottom-margin: $form-field-spacing;
+$guide-line-bottom-margin: calc($form-field-spacing / 3);
 
 /**
  * Panel styles shared between StreamField and InlinePanel,
@@ -12,6 +13,12 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
 // Styles for the top-level panel, and any panel within.
 .w-panel--nested {
+  --nesting-indent: #{$nested-field-indent-sm};
+
+  @include media-breakpoint-up(sm) {
+    --nesting-indent: #{$nested-field-indent};
+  }
+
   .w-panel__divider {
     @include guide-line-horizontal();
     // Slightly nicer text alignment.
@@ -20,13 +27,17 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
   .w-panel__content {
     @include guide-line-vertical();
+    // @include guide-line-vertical-stop();
     // Center the vertical line.
-    margin-inline-start: calc(-1 * theme('spacing.3'));
-    padding-inline-start: theme('spacing.3');
+    margin-inline-start: calc(-1 * var(--nesting-indent));
+    padding-inline-start: var(--nesting-indent);
+    margin-bottom: $guide-line-bottom-margin;
 
     @include media-breakpoint-up(sm) {
-      margin-inline-start: calc(-1 * $panel-x-offset);
-      padding-inline-start: $panel-x-offset;
+      // Extra pixels for better alignment with center of icon.
+      margin-inline-start: calc(
+        -1 * var(--nesting-indent) + $icon-center-offset
+      );
     }
   }
 
@@ -34,21 +45,40 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     // Mask the overlap with the parent panel’s guide line.
     background-color: $color-white;
   }
+
+  .w-field__wrapper {
+    // Reduced field spacing for nested panels.
+    // Using both padding and margin so the field guide line extends below.
+    padding-bottom: calc($form-field-spacing / 2);
+    margin-bottom: $guide-line-bottom-margin;
+  }
+}
+
+// Styles for nested panels at the top level only.
+.w-panel--nested:not(.w-panel .w-panel) {
+  > .w-panel__content {
+    @include guide-line-vertical-stop();
+  }
 }
 
 // Styles for nested panels excluding the top level.
 .w-panel--nested .w-panel {
   @include guide-line-nested();
-  // Indentation for nested panels.
-  margin-inline-start: theme('spacing.7');
-  margin-bottom: theme('spacing.6');
+  margin-inline-start: var(--nesting-indent);
+  margin-bottom: 0;
+
+  .w-panel__content {
+    margin-inline-start: calc(
+      -1 * (var(--nesting-indent) + $icon-center-offset - var(--header-gap) / 2)
+    );
+  }
 
   // Tighter spacing for nested panel headers so their icons align
   // with parent panels’ guiding line.
   .w-panel__header {
     gap: 0;
     transform: translateX(
-      calc(var(--w-direction-factor) * -1 * theme('spacing.5'))
+      calc(var(--w-direction-factor) * -1 * var(--nesting-indent))
     );
 
     @include media-breakpoint-up(sm) {
