@@ -13,7 +13,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest, HttpResponse
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import make_aware, now
@@ -453,7 +453,7 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         self.assertContains(response, list_url + "?ordering=live")
 
 
-class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TestCase):
+class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 
@@ -605,6 +605,25 @@ class TestSnippetListViewWithFilterSet(WagtailTestUtils, TestCase):
             response,
             '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
             html=True,
+        )
+
+
+class TestSnippetListViewWithFilterSetSearch(WagtailTestUtils, TransactionTestCase):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
+            params,
+        )
+
+    def create_test_snippets(self):
+        FilterableSnippet.objects.create(
+            text="Nasi goreng from Indonesia", country_code="ID"
+        )
+        FilterableSnippet.objects.create(
+            text="Fish and chips from the UK", country_code="UK"
         )
 
     def test_filtered_searched_no_results(self):
@@ -4611,7 +4630,7 @@ class TestSnippetChooseStatus(WagtailTestUtils, TestCase):
         )
 
 
-class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TestCase):
+class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 
