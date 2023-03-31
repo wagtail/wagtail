@@ -3,7 +3,7 @@
 
 $select-size: $text-input-height;
 $chevron-width: 1rem;
-$chevron-height: 0.5rem;
+$chevron-height: 1rem;
 $chevron-top-offset: math.div($select-size - $chevron-height, 2);
 $chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
 

@@ -13,7 +13,7 @@ describe('CollapseAll', () => {
     );
     expect(wrapper.text()).toBe('<Icon />Collapse all');
     expect(wrapper.find('button').prop('aria-expanded')).toBe(true);
-    expect(wrapper.find('Icon').prop('name')).toBe('arrow-up-big');
+    expect(wrapper.find('Icon').prop('name')).toBe('collapse-up');
   });
 
   it('renders with expanded set to false', () => {
@@ -22,6 +22,6 @@ describe('CollapseAll', () => {
     );
     expect(wrapper.text()).toBe('<Icon />Expand all');
     expect(wrapper.find('button').prop('aria-expanded')).toBe(false);
-    expect(wrapper.find('Icon').prop('name')).toBe('arrow-down-big');
+    expect(wrapper.find('Icon').prop('name')).toBe('collapse-down');
   });
 });

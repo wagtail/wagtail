@@ -22,10 +22,6 @@
     padding: theme('spacing.1');
   }
 
-  .icon-arrow-down-big {
-    transform: rotate(-90deg);
-  }
-
   // Minimap items have a lot of different states denoted with their text color, border color, and background.
   // The order of the following declaration blocks is essential so the correct states take priority.
   :where(.w-minimap--expanded) & {

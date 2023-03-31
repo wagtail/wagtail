@@ -41,7 +41,7 @@
 
   &.button--icon {
     .icon {
-      @include svg-icon(1.5em);
+      @include svg-icon();
     }
   }
 
@@ -140,7 +140,7 @@
       }
 
       .icon {
-        @include svg-icon(1.5em);
+        @include svg-icon();
       }
     }
 
@@ -267,6 +267,7 @@
       display: inline-block;
       opacity: 0.8;
       padding: 0;
+      margin-inline-end: 0.5em;
     }
 
     .button-longrunning__icon {
