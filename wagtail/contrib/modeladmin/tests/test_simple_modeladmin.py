@@ -5,7 +5,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
@@ -182,19 +182,6 @@ class TestBookIndexView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(data_lines[3], "")
 
-    def test_search_indexed(self):
-        response = self.get(q="lord")
-
-        self.assertEqual(response.status_code, 200)
-
-        # There are two books where the title contains 'lord'
-        self.assertEqual(response.context["result_count"], 2)
-
-        # The result count content is shown in the header
-        self.assertContains(
-            response, '<span class="result-count">2 out of 4</span>', html=True
-        )
-
     def test_search_form_present(self):
         # Test the backend search handler allows the search form to render
         response = self.get()
@@ -235,6 +222,37 @@ class TestBookIndexView(WagtailTestUtils, TestCase):
 
         # There are four books in the test data
         self.assertEqual(response.context["result_count"], 4)
+
+
+class TestBookIndexViewSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+        img = Image.objects.create(
+            title="LOTR cover",
+            file=get_test_image_file(),
+        )
+        book = Book.objects.get(title="The Lord of the Rings")
+        book.cover_image = img
+        book.save()
+
+    def get(self, **params):
+        return self.client.get("/admin/modeladmintest/book/", params)
+
+    def test_search_indexed(self):
+        response = self.get(q="lord")
+
+        self.assertEqual(response.status_code, 200)
+
+        # There are two books where the title contains 'lord'
+        self.assertEqual(response.context["result_count"], 2)
+
+        # The result count content is shown in the header
+        self.assertContains(
+            response, '<span class="result-count">2 out of 4</span>', html=True
+        )
 
 
 class TestAuthorIndexView(WagtailTestUtils, TestCase):
