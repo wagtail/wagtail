@@ -23,7 +23,7 @@ export class FieldBlock {
           <div class="w-field__errors" id="${prefix}-errors" data-field-errors>
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden><use href="#icon-warning"></use></svg>
           </div>
-          <div id="${prefix}-helptext" data-field-help></div>
+          <div class="w-field__help" id="${prefix}-helptext" data-field-help></div>
           <div class="w-field__input" data-field-input>
             <div data-streamfield-widget></div>
           </div>

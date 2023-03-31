@@ -6,7 +6,7 @@ exports[`telepath: wagtail.blocks.FieldBlock catches widget render errors it ren
           <div class=\\"w-field__errors\\" id=\\"the-prefix-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
           <p class=\\"error-message\\"><span>This widget failed to render, please check the console for details</span></p></div>
-          <div id=\\"the-prefix-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <div data-streamfield-widget=\\"\\"></div>
           </div>
@@ -20,7 +20,7 @@ exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
           </div>
@@ -34,7 +34,7 @@ exports[`telepath: wagtail.blocks.FieldBlock setError() renders errors 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
           <p class=\\"error-message\\"><span>Field must not contain the letter E</span><span>Field must contain a story about kittens</span></p></div>
-          <div id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
           </div>
@@ -48,7 +48,7 @@ exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders co
           <div class=\\"w-field__errors\\" id=\\"the-prefix-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-helptext\\" data-field-help=\\"\\"><p class=\\"help\\">drink <em>more</em> water</p></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
           <button type=\\"button\\" aria-label=\\"Add Comment\\" data-comment-add=\\"\\" class=\\"w-field__comment-button w-field__comment-button--add u-hidden\\"><svg class=\\"icon icon-comment-add \\" aria-hidden=\\"true\\"><use href=\\"#icon-comment-add\\"></use></svg><svg class=\\"icon icon-comment-add-reversed \\" aria-hidden=\\"true\\"><use href=\\"#icon-comment-add-reversed\\"></use></svg></button></div>
