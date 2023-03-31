@@ -49,7 +49,7 @@
             {% endif %}
         </div>
 
-        <div {% if help_text_id %}id="{{ help_text_id }}"{% endif %} data-field-help>
+        <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% endif %} data-field-help>
             {% firstof help_text field.help_text as help_text_value %}
             {% if help_text_value %}
                 <div class="help">{{ help_text_value }}</div>
