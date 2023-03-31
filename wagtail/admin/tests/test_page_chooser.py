@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -307,7 +307,9 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["pagination_page"].number, 5)
 
 
-class TestChooserSearch(WagtailTestUtils, TestCase):
+class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
