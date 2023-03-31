@@ -33,7 +33,7 @@
   }
 
   &.button-small {
-    padding: 0 0.8em;
+    padding: 0 theme('spacing.3');
     height: 2em;
     font-size: calc(theme('fontSize.14') * 0.87);
     line-height: calc(2em - 2px); // account for border

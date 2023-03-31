@@ -1,21 +1,25 @@
+$icon-size: theme('spacing.4');
+
 .c-sf-add-button {
   display: grid;
   align-items: center;
   justify-content: center;
-  width: theme('spacing.5');
-  height: theme('spacing.5');
+  width: theme('spacing.6');
+  height: theme('spacing.6');
   appearance: none;
   color: $color-teal;
   background-color: $color-white;
   padding: 0;
   cursor: pointer;
-  border: 1px solid currentColor;
-  border-radius: theme('borderRadius.full');
-  margin-inline-start: -1px;
+  // Align with guide lines, which are already offset by a half icon size.
+  margin-inline-start: calc(-1 * (1px + $icon-size / 4));
 
   .icon {
-    width: theme('spacing.3');
-    height: theme('spacing.3');
+    width: $icon-size;
+    height: $icon-size;
+    padding: theme('spacing.[0.5]');
+    border: 1px solid currentColor;
+    border-radius: theme('borderRadius.full');
     transition: transform 0.3s ease;
   }
 
@@ -25,8 +29,10 @@
 
   &:hover,
   &:focus-visible {
-    color: $color-white;
-    background-color: $color-teal;
+    .icon {
+      color: $color-white;
+      background-color: $color-teal;
+    }
   }
 
   &[disabled] {
