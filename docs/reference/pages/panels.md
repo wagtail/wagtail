@@ -19,7 +19,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 ### FieldPanel
 
 ```{eval-rst}
-.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
+.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None, read_only=False)
 
     This is the panel used for basic Django field types.
 
@@ -52,6 +52,15 @@ Here are some Wagtail-specific types that you might include as fields in your mo
     .. attribute:: FieldPanel.permission (optional)
 
         Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
+
+    .. attribute:: FieldPanel.read_only (optional)
+
+        Allows you to prevent a model field value from being set or updated by editors.
+
+        For most field types, the field value will be rendered in the form for editors to see (along with field's label and help text), but no form inputs will be displayed, and the form will ignore attempts to change the value in POST data (e.g. by injecting a hidden input into the form HTML before submitting).
+
+        By default, field values from ``StreamField`` or ``RichTextField`` are redacted to prevent rendering of potentially insecure HTML mid-form. You can change this behaviour for custom panel types by overriding ``Panel.format_value_for_display()``.
+
 ```
 
 ### MultiFieldPanel
