@@ -706,6 +706,7 @@ Contributors
 * Mansi Gundre
 * Hanoon
 * Steve Steinwand
+* Swojak-A
 
 Translators
 ===========
