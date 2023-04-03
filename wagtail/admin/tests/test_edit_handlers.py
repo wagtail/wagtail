@@ -1,5 +1,6 @@
 from datetime import date, datetime, timezone
 from functools import wraps
+from typing import Any, List, Mapping, Optional
 from unittest import mock
 
 from django import forms
@@ -23,6 +24,7 @@ from wagtail.admin.panels import (
     MultipleChooserPanel,
     ObjectList,
     PageChooserPanel,
+    Panel,
     PublishingPanel,
     TabbedInterface,
     extract_panel_definitions_from_model_class,
@@ -37,6 +39,7 @@ from wagtail.admin.widgets import (
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
+from wagtail.images import get_image_model
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
@@ -658,27 +661,88 @@ class TestObjectList(TestCase):
         self.assertNotIn("signup_link", result)
 
 
+class TestFormatValueForDisplay(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.panel = Panel()
+        self.event = EventPage(
+            title="Abergavenny sheepdog trials",
+            date_from=date(2014, 7, 20),
+            date_to=date(2014, 7, 21),
+            audience="public",
+        )
+
+    def test_charfield_return_value(self):
+        result = self.panel.format_value_for_display(self.event.title)
+        self.assertIs(result, self.event.title)
+
+    def test_datefield_return_value(self):
+        result = self.panel.format_value_for_display(self.event.date_from)
+        self.assertIs(result, self.event.date_from)
+
+    def test_queryset_return_value(self):
+        result = self.panel.format_value_for_display(Page.objects.all())
+        self.assertEqual(result, "Root, Welcome to your new Wagtail site!")
+
+
 class TestFieldPanel(TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/")
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
-        self.EventPageForm = get_form_for_model(
-            EventPage,
-            form_class=WagtailAdminPageForm,
-            fields=["title", "slug", "date_from", "date_to"],
-            formsets=[],
-        )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
             date_from=date(2014, 7, 20),
             date_to=date(2014, 7, 21),
+            audience="public",
         )
 
         self.end_date_panel = FieldPanel(
             "date_to", classname="full-width"
         ).bind_to_model(EventPage)
+
+        self.read_only_end_date_panel = FieldPanel(
+            "date_to", read_only=True
+        ).bind_to_model(EventPage)
+
+        self.read_only_audience_panel = FieldPanel(
+            "audience", read_only=True
+        ).bind_to_model(EventPage)
+
+        self.read_only_image_panel = FieldPanel(
+            "feed_image", read_only=True
+        ).bind_to_model(EventPage)
+
+        self.pontypridd_event_data = {
+            "title": "Pontypridd sheepdog trials",
+            "date_from": "2014-06-01",
+            "date_to": "2014-06-02",
+        }
+
+    def _get_form(
+        self,
+        data: Optional[Mapping[str, Any]] = None,
+        fields: Optional[List[str]] = None,
+    ) -> WagtailAdminPageForm:
+        cls = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=fields if fields is not None else ["title", "slug", "date_to"],
+            formsets=[],
+        )
+        return cls(data=data, instance=self.event)
+
+    def _get_bound_panel(
+        self, panel: FieldPanel, form: WagtailAdminPageForm = None
+    ) -> FieldPanel.BoundPanel:
+        if not panel.model:
+            panel = panel.bind_to_model(EventPage)
+        return panel.get_bound_panel(
+            form=form or self._get_form(),
+            request=self.request,
+            instance=self.event,
+        )
 
     def test_non_model_field(self):
         # defining a FieldPanel for a field which isn't part of a model is OK,
@@ -689,90 +753,138 @@ class TestFieldPanel(TestCase):
         with self.assertRaises(FieldDoesNotExist):
             field_panel.db_field
 
+    def test_get_form_options_includes_non_read_only_fields(self):
+        panel = self.end_date_panel
+        result = panel.get_form_options()
+        self.assertIn("fields", result)
+        self.assertEqual(result["fields"], ["date_to"])
+
+    def test_get_form_options_does_not_include_read_only_fields(self):
+        panel = self.read_only_end_date_panel
+        result = panel.get_form_options()
+        self.assertNotIn("fields", result)
+
+    def test_boundpanel_is_shown(self):
+        form = self._get_form(fields=["body", "title"])
+        for field_name, make_read_only, expected_value in (
+            ("title", True, True),
+            ("body", True, True),
+        ):
+            panel = FieldPanel(field_name, read_only=make_read_only)
+            bound_panel = self._get_bound_panel(panel, form=form)
+            with self.subTest(f"{field_name}, read_only={make_read_only}"):
+                self.assertIs(bound_panel.is_shown(), expected_value)
+
     def test_override_heading(self):
         # unless heading is specified in keyword arguments, an edit handler with bound form should take its
         # heading from the bound field label
-        bound_panel = self.end_date_panel.get_bound_panel(
-            form=self.EventPageForm(), request=self.request, instance=self.event
-        )
+        bound_panel = self._get_bound_panel(self.end_date_panel)
         self.assertEqual(bound_panel.heading, bound_panel.bound_field.label)
 
         # if heading is explicitly provided to constructor, that heading should be taken in
         # preference to the field's label
-        end_date_panel_with_overridden_heading = FieldPanel(
-            "date_to", classname="full-width", heading="New heading"
-        ).bind_to_model(EventPage)
-        end_date_panel_with_overridden_heading = (
-            end_date_panel_with_overridden_heading.get_bound_panel(
-                request=self.request, form=self.EventPageForm(), instance=self.event
-            )
+        bound_panel = self._get_bound_panel(
+            FieldPanel("date_to", classname="full-width", heading="New heading")
         )
-        self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
-        self.assertEqual(
-            end_date_panel_with_overridden_heading.bound_field.label, "New heading"
-        )
+        self.assertEqual(bound_panel.heading, "New heading")
+        self.assertEqual(bound_panel.bound_field.label, "New heading")
 
     def test_render_html(self):
-        form = self.EventPageForm(
-            {
-                "title": "Pontypridd sheepdog trials",
-                "date_from": "2014-07-20",
-                "date_to": "2014-07-22",
-            },
-            instance=self.event,
+        for data, expected_input_value in (
+            (None, str(self.event.date_to)),
+            (self.pontypridd_event_data, self.pontypridd_event_data["date_to"]),
+        ):
+            form = self._get_form(data=data, fields=["title", "slug", "date_to"])
+            form.is_valid()
+            bound_panel = self._get_bound_panel(self.end_date_panel, form=form)
+            result = bound_panel.render_html()
+            with self.subTest(f"form data = {data}"):
+                # An <input> should be rendered
+                self.assertIn("<input", result)
+
+                # The input should have the expected value
+                self.assertIn(f'value="{expected_input_value}"', result)
+
+                # help text should rendered
+                self.assertIn("Not required if event is on a single day", result)
+
+                # there should be no errors on this field
+                self.assertNotIn("error-message", result)
+
+    def test_render_html_when_read_only(self):
+        # NOTE: Tests with and without providing POST data to the form to
+        # prove that posted values have no impact on the output for
+        # read-only panels.
+        expected_value_output = self.event.date_to.strftime("%B %-d, %Y")
+
+        for panel, data in (
+            (self.read_only_end_date_panel, None),
+            (
+                self.read_only_end_date_panel,
+                self.pontypridd_event_data,
+            ),
+        ):
+            form = self._get_form(data=data, fields=["title", "slug"])
+            form.is_valid()
+            bound_panel = self._get_bound_panel(panel, form=form)
+            with self.subTest(f"form data = {data}"):
+                result = bound_panel.render_html()
+
+                # No <input> should be rendered
+                self.assertNotIn("<input", result)
+
+                # Though, we should still see a representation of the value
+                self.assertIn(expected_value_output, result)
+
+                # Help text should still be rendered, too
+                self.assertIn("Not required if event is on a single day", result)
+
+    def test_format_value_for_display_with_choicefield(self):
+        result = self.read_only_audience_panel.format_value_for_display(
+            self.event.audience
         )
+        self.assertEqual(result, "Public")
 
-        form.is_valid()
-
-        field_panel = self.end_date_panel.get_bound_panel(
-            instance=self.event,
-            form=form,
-            request=self.request,
-        )
-        result = field_panel.render_html()
-
-        self.assertIn("Not required if event is on a single day", result)
-
-        # check that the populated form field is included
-        self.assertIn('value="2014-07-22"', result)
-
-        # there should be no errors on this field
-        self.assertNotIn("error-message", result)
+    def test_format_value_for_display_with_modelchoicefield(self):
+        """
+        `ForeignKey.formfield()` returns a `ModelChoiceField`, which returns a
+        `ModelChoiceIterator` instance when it's `choices` property is
+        accessed. This test is to show that `format_value_for_display()` avoids
+        evaluating `ModelChoiceIterator` instances, and the database query
+        that would trigger.
+        """
+        value = get_image_model()(title="Title")
+        expected_result = str(value)
+        with self.assertNumQueries(0):
+            self.assertEqual(
+                self.read_only_image_panel.format_value_for_display(value),
+                expected_result,
+            )
 
     def test_required_fields(self):
         result = self.end_date_panel.get_form_options()["fields"]
         self.assertEqual(result, ["date_to"])
 
     def test_error_message_is_rendered(self):
-        form = self.EventPageForm(
-            {
+        form = self._get_form(
+            data={
                 "title": "Pontypridd sheepdog trials",
                 "date_from": "2014-07-20",
                 "date_to": "2014-07-33",
             },
-            instance=self.event,
         )
-
         form.is_valid()
 
-        field_panel = self.end_date_panel.get_bound_panel(
-            instance=self.event,
-            form=form,
-            request=self.request,
-        )
-        result = field_panel.render_html()
+        bound_panel = self._get_bound_panel(self.end_date_panel, form)
+
+        result = bound_panel.render_html()
 
         self.assertIn("Enter a valid date.", result)
 
     def test_repr(self):
-        form = self.EventPageForm()
-        field_panel = self.end_date_panel.get_bound_panel(
-            form=form,
-            instance=self.event,
-            request=self.request,
-        )
+        bound_panel = self._get_bound_panel(self.end_date_panel)
 
-        field_panel_repr = repr(field_panel)
+        field_panel_repr = repr(bound_panel)
 
         self.assertIn(
             "model=<class 'wagtail.test.testapp.models.EventPage'>", field_panel_repr
