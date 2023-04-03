@@ -95,6 +95,7 @@ class IndexView(
         super().setup(request, *args, **kwargs)
         self.columns = self.get_columns()
         self.filterset_class = self.get_filterset_class()
+        self.default_ordering = self.get_default_ordering()
         self.setup_search()
 
     def setup_search(self):
@@ -208,16 +209,8 @@ class IndexView(
 
         queryset = self._annotate_queryset_updated_at(queryset)
 
-        ordering = self.get_ordering()
+        ordering = self._get_ordering()
         if ordering:
-            # Explicitly handle null values for the updated at column to ensure consistency
-            # across database backends and match the behaviour in page explorer
-            if ordering == "_updated_at":
-                ordering = models.F("_updated_at").asc(nulls_first=True)
-            elif ordering == "-_updated_at":
-                ordering = models.F("_updated_at").desc(nulls_last=True)
-            if not isinstance(ordering, (list, tuple)):
-                ordering = (ordering,)
             queryset = queryset.order_by(*ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
@@ -326,18 +319,51 @@ class IndexView(
         if self.add_url_name:
             return reverse(self.add_url_name)
 
+    def get_default_ordering(self):
+        return self.default_ordering
+
     def get_valid_orderings(self):
-        orderings = []
+        orderings = set()
+        # Gather valid orderings from the Column instances
         for col in self.columns:
             if col.sort_key:
-                orderings.append(col.sort_key)
-                orderings.append("-%s" % col.sort_key)
+                orderings |= {col.sort_key, f"-{col.sort_key}"}
+
+        # Combine with any explicitly defined orderings
+        if self.default_ordering:
+            if isinstance(self.default_ordering, str):
+                orderings.add(self.default_ordering)
+            else:
+                orderings |= set(self.default_ordering)
         return orderings
 
     def get_ordering(self):
-        ordering = self.request.GET.get("ordering", self.default_ordering)
+        ordering = self.request.GET.get("ordering")
         if ordering not in self.get_valid_orderings():
             ordering = self.default_ordering
+        return ordering
+
+    def _get_ordering(self):
+        ordering = self.get_ordering()
+        if not ordering:
+            return ()
+
+        # Normalise to a tuple
+        if not isinstance(ordering, (list, tuple)):
+            ordering = (ordering,)
+
+        # Explicitly handle null values for the updated at column to ensure consistency
+        # across database backends and match the behaviour in page explorer
+        updated_at_asc = models.F("_updated_at").asc(nulls_first=True)
+        updated_at_desc = models.F("_updated_at").desc(nulls_last=True)
+        ordering = (
+            updated_at_asc
+            if order == "_updated_at"
+            else updated_at_desc
+            if order == "-_updated_at"
+            else order
+            for order in ordering
+        )
         return ordering
 
     def get_table(self, object_list, **kwargs):

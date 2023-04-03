@@ -170,6 +170,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.queryset = self.queryset(self.request)
         return super().get_base_queryset()
 
+    def get_default_ordering(self):
+        # Allow the default_ordering to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.default_ordering):
+            self.default_ordering = self.default_ordering(self.request)
+        return super().get_default_ordering()
+
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
         # Use SnippetTitleColumn class to use custom template
         # so that buttons from snippet_listing_buttons hook can be rendered
@@ -645,6 +652,9 @@ class SnippetViewSet(ViewSet):
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
+    #: The default ordering to use for the index view. Can be a string or a list/tuple in the same format as Django's :attr:`~django.db.models.Options.ordering`.
+    ordering = None
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -808,6 +818,7 @@ class SnippetViewSet(ViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.get_ordering,
         )
 
     @property
@@ -828,6 +839,7 @@ class SnippetViewSet(ViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.get_ordering,
         )
 
     @property
@@ -1103,6 +1115,13 @@ class SnippetViewSet(ViewSet):
         ``index_view.get_base_queryset()`` will be used instead.
         """
         return None
+
+    def get_ordering(self, request):
+        """
+        Returns a string, list, or tuple defining the default ordering of the index view.
+        Must follow the same format as Django's :attr:`~django.db.models.Options.ordering`.
+        """
+        return self.ordering
 
     def get_templates(self, action="index", fallback=""):
         """

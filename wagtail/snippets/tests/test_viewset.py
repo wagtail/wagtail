@@ -699,3 +699,63 @@ class TestCustomQuerySet(BaseSnippetViewSetTests):
         self.assertContains(response, "FooSnippet")
         self.assertNotContains(response, "BarSnippet")
         self.assertNotContains(response, "[HIDDEN]Snippet")
+
+
+class TestCustomOrdering(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            cls.model(text="CCCCCCCCCC", locale=default_locale),
+            cls.model(text="AAAAAAAAAA", locale=default_locale),
+            cls.model(text="DDDDDDDDDD", locale=default_locale),
+            cls.model(text="BBBBBBBBBB", locale=default_locale),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view_order(self):
+        response = self.client.get(self.get_url("list"))
+        # Should sort by text in descending order as specified in SnippetViewSet.ordering
+        # (not the default ordering of the model)
+        self.assertFalse(self.model._meta.ordering)
+        self.assertEqual(
+            [obj.text for obj in response.context["page_obj"]],
+            [
+                "AAAAAAAAAA",
+                "BBBBBBBBBB",
+                "CCCCCCCCCC",
+                "DDDDDDDDDD",
+            ],
+        )
+
+
+class TestCustomOrderingMethod(BaseSnippetViewSetTests):
+    model = ModeratedModel
+
+    @classmethod
+    def setUpTestData(cls):
+        objects = [
+            cls.model(text="CCCCCCCCCC"),
+            cls.model(text="AAAAAAAAAA"),
+            cls.model(text="DDDDDDDDDD"),
+            cls.model(text="BBBBBBBBBB"),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view_order(self):
+        response = self.client.get(self.get_url("list"))
+        # Should sort by text in descending order as specified in SnippetViewSet.get_ordering
+        # (not the default ordering of the model)
+        self.assertFalse(self.model._meta.ordering)
+        self.assertFalse(self.model.snippet_viewset.ordering)
+        self.assertEqual(
+            [obj.text for obj in response.context["page_obj"]],
+            [
+                "DDDDDDDDDD",
+                "CCCCCCCCCC",
+                "BBBBBBBBBB",
+                "AAAAAAAAAA",
+            ],
+        )

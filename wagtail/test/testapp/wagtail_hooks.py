@@ -248,6 +248,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
+    ordering = ["text", "-_updated_at", "-pk"]
 
     def get_history_template(self):
         return "tests/snippet_history.html"
@@ -265,6 +266,9 @@ class ModeratedModelViewSet(SnippetViewSet):
         "text": ["exact", "contains"],
         "first_published_at": ["exact", "lt", "gt"],
     }
+
+    def get_ordering(self, request):
+        return ["-text", "-_updated_at"]
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
