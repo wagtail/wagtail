@@ -27,7 +27,7 @@ Changelog
  * Add helpful properties to `Locale` for more convenient usage within templates (Andy Babic)
  * Allow customising icons for snippets via `SnippetViewSet.icon` (Daniel Kirkham, Sage Abdullah)
  * Allow customising the base URL and URL namespace for snippet views (Sage Abdullah)
- * Allow customising the number of items per page for snippet listing views (Sage Abdullah)
+ * Allow customising the default ordering and number of items per page for snippet listing views (Sage Abdullah)
  * Re-label "StreamField blocks" option in block picker to "Blocks" (Thibaud Colas)
  * Re-implement styleguide icons list as an auto-generated sequence of tables (Thibaud Colas)
  * Switch styleguide navigation to use panel components and minimap (Thibaud Colas)

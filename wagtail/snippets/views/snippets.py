@@ -644,6 +644,9 @@ class SnippetViewSet(ModelViewSet):
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
+    #: The default ordering to use for the index view. Can be a string or a list/tuple in the same format as Django's :attr:`~django.db.models.Options.ordering`.
+    ordering = None
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -807,6 +810,7 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.ordering,
         )
 
     @property
@@ -827,6 +831,7 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.ordering,
         )
 
     @property
