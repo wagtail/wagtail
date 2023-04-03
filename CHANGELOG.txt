@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.2.2 (03.04.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2023-28836 - Stored XSS attack via ModelAdmin views (Thibaud Colas)
