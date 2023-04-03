@@ -4,6 +4,7 @@ Changelog
 5.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 4.2
  * Object usage information on deleting objects (Sage Abdullah)
  * Support for SVG images (Joshua Munn)
  * Custom validation support for StreamField (Matt Westcott)
