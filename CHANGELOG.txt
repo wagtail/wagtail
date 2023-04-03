@@ -189,6 +189,7 @@ Changelog
 4.1.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2023-28836 - Stored XSS attack via ModelAdmin views (Thibaud Colas)
  * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
  * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
  * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
