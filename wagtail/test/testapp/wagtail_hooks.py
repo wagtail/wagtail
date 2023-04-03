@@ -248,6 +248,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
+    ordering = ["text", "-_updated_at", "-pk"]
 
     def get_history_template(self):
         return "tests/snippet_history.html"
