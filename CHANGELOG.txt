@@ -6,6 +6,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2023-28836 - Stored XSS attack via ModelAdmin views (Thibaud Colas)
+ * Fix: CVE-2023-28837 - Denial-of-service via memory exhaustion when uploading large files (Jake Howard)
  * Fix: Fix radio and checkbox elements shrinking when using a long label (Sage Abdullah)
  * Fix: Fix select elements expanding beyond their container when using a long option label (Sage Abdullah)
  * Fix: Fix timezone handling of `TemplateResponse`s for users with a custom timezone (Stefan Hammer, Sage Abdullah)
