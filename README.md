@@ -83,7 +83,7 @@ Wagtail supports:
 
 -   Django 3.2.x, 4.1.x and 4.2.x
 -   Python 3.7, 3.8, 3.9, 3.10 and 3.11
--   PostgreSQL, MySQL and SQLite (with JSON1) as database backends
+-   PostgreSQL, MySQL, and SQLite (with JSON1) as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
 
@@ -93,13 +93,13 @@ Wagtail supports:
 
 There is an active community of Wagtail users and developers responding to questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail). When posting questions, please read Stack Overflow's advice on [how to ask questions](https://stackoverflow.com/help/how-to-ask) and remember to tag your question "wagtail".
 
-For topics and discussions that do not fit Stack Overflow's question and answer format we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack). Please respect the time and effort of volunteers by not asking the same question in multiple places.
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack). Please respect the time and effort of volunteers by not asking the same question in multiple places.
 
 [![Join slack community](.github/join-slack-community.png)](https://github.com/wagtail/wagtail/wiki/Slack)
 
 Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
-We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
+We maintain a curated list of third-party packages, articles, and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
 ### 🧑‍💼 Commercial Support
 
@@ -107,13 +107,13 @@ Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help impl
 
 ### 🔐 Security
 
-We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.org](mailto:security@wagtail.org) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.org](mailto:security@wagtail.org) so we can work together to find and patch the issue. We appreciate responsible disclosure of any security-related issues, so please contact us first before creating a Github issue.
 
-If you want to send an encrypted email (optional), the public key ID for security@wagtail.org is 0xbed227b4daf93ff9, and this public key is available from most commonly-used keyservers.
+If you want to send an encrypted email (optional), the public key ID for security@wagtail.org is 0xbed227b4daf93ff9, and this public key is available from the most commonly-used keyservers.
 
 ### 🕒 Release schedule
 
-Feature releases of Wagtail are released every three months. Selected releases are designated as Long Term Support (LTS) releases, and will receive maintenance updates for an extended period to address any security and data-loss related issues. For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
+Feature releases of Wagtail are released every three months. Selected releases are designated as Long Term Support (LTS) releases, and will receive maintenance updates for an extended period to address any security and data-loss-related issues. For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
 
 #### 🕛 Nightly releases
 
@@ -121,7 +121,7 @@ To try out the latest features before a release, we also create builds from `mai
 
 ### 🙋🏽 Contributing
 
-If you're a Python or Django developer, fork the repo and get stuck in! We have several developer focused channels on the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack).
+If you're a Python or Django developer, fork the repo and get stuck in! We have several developer-focused channels on the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack).
 
 You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
