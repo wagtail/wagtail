@@ -2,6 +2,7 @@ import functools
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import ForeignKey
+from django.forms.models import ModelChoiceIterator
 from django.template.loader import get_template
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -95,6 +96,30 @@ class FieldPanel(Panel):
     @property
     def clean_name(self):
         return self.field_name
+
+    def format_value_for_display(self, value):
+        """
+        Overrides ``Panel.format_value_for_display()`` to add additional treatment
+        for choice fields.
+        """
+
+        # NOTE: We look for formfield.choices over db_field.choices here,
+        # as more field types can benefit that way.
+        choices = getattr(self.db_field.formfield(), "choices", None)
+        if not isinstance(choices, ModelChoiceIterator) and choices:
+            labels = dict(choices)
+            display_values = [
+                labels.get(v, v)  # Use raw value if no match found
+                for v in (
+                    # Account for single AND multiple choice fields
+                    tuple(value)
+                    if isinstance(value, (list, tuple))
+                    else (value,)
+                )
+            ]
+            return ", ".join(display_values)
+
+        return super().format_value_for_display(value)
 
     def __repr__(self):
         return "<%s '%s' with model=%s>" % (
