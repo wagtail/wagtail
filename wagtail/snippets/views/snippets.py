@@ -73,7 +73,6 @@ def get_snippet_model_from_url_params(app_name, model_name):
 
 
 class ModelIndexView(generic.IndexView):
-    template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
@@ -138,6 +137,15 @@ class ModelIndexView(generic.IndexView):
             )
 
         return super().get_context_data(object_list=snippet_types)
+
+    def get_template_names(self):
+        # We use the generic index template instead of model_index.html,
+        # but we look for it anyway so users can customise this view's template
+        # without having to override the entire view or the generic template.
+        return [
+            "wagtailsnippets/snippets/model_index.html",
+            self.template_name,
+        ]
 
 
 class SnippetTitleColumn(TitleColumn):
