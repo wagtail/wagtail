@@ -291,7 +291,7 @@ Changelog
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
 
 
-4.1.4 (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.4 (03.04.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2023-28836 - Stored XSS attack via ModelAdmin views (Thibaud Colas)
