@@ -93,6 +93,8 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
+  static classes = ['unavailable', 'hasErrors'];
+
   static targets = ['size', 'newTab', 'spinner', 'mode', 'iframe'];
 
   static values = {
@@ -101,6 +103,9 @@ export class PreviewController extends Controller<HTMLElement> {
     autoUpdateInterval: Number,
     isUpdating: Boolean,
   };
+
+  declare readonly unavailableClass: string;
+  declare readonly hasErrorsClass: string;
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
@@ -139,7 +144,7 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   setPreviewWidth(width?: string) {
     const isUnavailable = this.element.classList.contains(
-      'preview-panel--unavailable',
+      this.unavailableClass,
     );
 
     let deviceWidth = width;
@@ -307,14 +312,8 @@ export class PreviewController extends Controller<HTMLElement> {
       });
       const data = await response.json();
 
-      this.element.classList.toggle(
-        'preview-panel--has-errors',
-        !data.is_valid,
-      );
-      this.element.classList.toggle(
-        'preview-panel--unavailable',
-        !data.is_available,
-      );
+      this.element.classList.toggle(this.hasErrorsClass, !data.is_valid);
+      this.element.classList.toggle(this.unavailableClass, !data.is_available);
 
       if (!data.is_available) {
         // Ensure the 'Preview not available' message is not scaled down
