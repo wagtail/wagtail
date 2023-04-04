@@ -1,3 +1,5 @@
+(images_title_generation_on_upload)=
+
 # Title generation on upload
 
 When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
