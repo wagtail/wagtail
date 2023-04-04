@@ -164,10 +164,11 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     table_class = InlineActionsTable
 
     def get_base_queryset(self):
-        base_queryset = self.viewset.get_queryset(self.request)
-        if base_queryset is None:
-            return super().get_base_queryset()
-        return base_queryset
+        # Allow the queryset to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.queryset):
+            self.queryset = self.queryset(self.request)
+        return super().get_base_queryset()
 
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
         # Use SnippetTitleColumn class to use custom template
@@ -794,6 +795,7 @@ class SnippetViewSet(ViewSet):
     def index_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            queryset=self.get_queryset,
             template_name=self.get_index_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
@@ -812,6 +814,7 @@ class SnippetViewSet(ViewSet):
     def index_results_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            queryset=self.get_queryset,
             template_name=self.get_index_results_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
