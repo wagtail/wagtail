@@ -756,6 +756,7 @@ class DeleteView(
 
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
+    edit_handler = None
     edit_url_name = None
     history_url_name = None
     edit_label = gettext_lazy("Edit")
@@ -774,6 +775,8 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_edit_handler(self):
+        if self.edit_handler:
+            return self.edit_handler
         return get_edit_handler(self.model)
 
     def get_page_subtitle(self):
