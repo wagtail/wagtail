@@ -849,7 +849,7 @@ Changelog
  * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
  * Fix: Only show locale filter in choosers when i18n is enabled in settings (Matt Westcott)
  * Fix: Ensure that the live preview panel correctly clears the cache when a new page is created (Sage Abdullah)
- * Fix: Ensure that there is a larger hoverable area for add block (+) within the Drafttail editor (Steven Steinwand)
+ * Fix: Ensure that there is a larger hoverable area for add block (+) within the Draftail editor (Steven Steinwand)
  * Fix: Resolve multiple header styling issues for modal, alignment on small devices, outside click handling target on medium devices, close button target size and hover styles (Paarth Agarwal)
  * Fix: Fix issue where comments could not be added in StreamField that were already already saved (Jacob Topp-Mugglestone)
  * Fix: Remove outdated reference to Image.LoaderError (Matt Westcott)

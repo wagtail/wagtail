@@ -231,9 +231,9 @@ To add extra buttons to the password reset form, override the `submit_buttons` b
 {% endblock %}
 ```
 
-(extending_clientside_components)=
+(extending_client_side_react)=
 
-## Extending client-side components
+## Extending client-side React components
 
 Some of Wagtail’s admin interface is written as client-side JavaScript with [React](https://reactjs.org/).
 In order to customise or extend those components, you may need to use React too, as well as other related libraries.
