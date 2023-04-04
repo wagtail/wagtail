@@ -3,30 +3,31 @@
 {% wagtail_config as settings %}
 
 <div
-    class="preview-panel preview-panel--mobile"
+    class="preview-panel"
     data-controller="w-preview"
     data-w-preview-unavailable-class="preview-panel--unavailable"
     data-w-preview-has-errors-class="preview-panel--has-errors"
+    data-w-preview-selected-size-class="preview-panel__size-button--selected"
     data-w-preview-url-value="{{ preview_url }}"
     data-w-preview-auto-update-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW|yesno:'true,false' }}"
     data-w-preview-auto-update-interval-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL }}"
     data-w-preview-is-updating-value="false"
 >
     <div class="preview-panel__sizes">
-        <label class="preview-panel__size-button preview-panel__size-button--mobile">
+        <label class="preview-panel__size-button">
             {% icon name="mobile-alt" %}
             <input type="radio" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
         </label>
-        <label class="preview-panel__size-button preview-panel__size-button--tablet">
+        <label class="preview-panel__size-button">
             {% icon name="tablet-alt" %}
             <input type="radio" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
         </label>
-        <label class="preview-panel__size-button preview-panel__size-button--desktop">
+        <label class="preview-panel__size-button">
             {% icon name="desktop" %}
             <input type="radio" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
         </label>
 
-        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
     <div class="preview-panel__spinner w-hidden" data-w-preview-target="spinner">
