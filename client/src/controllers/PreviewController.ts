@@ -78,7 +78,7 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static classes = ['unavailable', 'hasErrors'];
+  static classes = ['unavailable', 'hasErrors', 'selectedSize'];
 
   static targets = ['size', 'newTab', 'spinner', 'mode', 'iframe'];
 
@@ -91,6 +91,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   declare readonly unavailableClass: string;
   declare readonly hasErrorsClass: string;
+  declare readonly selectedSizeClass: string;
 
   declare readonly sizeTargets: HTMLInputElement[];
   declare readonly newTabTarget: HTMLAnchorElement;
@@ -161,11 +162,11 @@ export class PreviewController extends Controller<HTMLElement> {
       // Skip saving the device if localStorage fails.
     }
 
-    // Ensure only one device class is applied
+    // Ensure only one selected class is applied
     this.sizeTargets.forEach((input) => {
-      this.element.classList.toggle(
-        `preview-panel--${input.value}`,
-        input.value === device,
+      // The <input> is invisible and we're using a <label> parent to style it.
+      input.labels?.forEach((label) =>
+        label.classList.toggle(this.selectedSizeClass, input.value === device),
       );
     });
   }
