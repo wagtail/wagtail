@@ -232,48 +232,6 @@ To add extra buttons to the password reset form, override the `submit_buttons` b
 {% endblock %}
 ```
 
-(extending_client_side_react)=
+## Extending client-side JavaScript
 
-## Extending client-side React components
-
-Some of Wagtail’s admin interface is written as client-side JavaScript with [React](https://reactjs.org/).
-In order to customise or extend those components, you may need to use React too, as well as other related libraries.
-To make this easier, Wagtail exposes its React-related dependencies as global variables within the admin. Here are the available packages:
-
-```javascript
-// 'focus-trap-react'
-window.FocusTrapReact;
-// 'react'
-window.React;
-// 'react-dom'
-window.ReactDOM;
-// 'react-transition-group/CSSTransitionGroup'
-window.CSSTransitionGroup;
-```
-
-Wagtail also exposes some of its own React components. You can reuse:
-
-```javascript
-window.wagtail.components.Icon;
-window.wagtail.components.Portal;
-```
-
-Pages containing rich text editors also have access to:
-
-```javascript
-// 'draft-js'
-window.DraftJS;
-// 'draftail'
-window.Draftail;
-
-// Wagtail’s Draftail-related APIs and components.
-window.draftail;
-window.draftail.DraftUtils;
-window.draftail.ModalWorkflowSource;
-window.draftail.ImageModalWorkflowSource;
-window.draftail.EmbedModalWorkflowSource;
-window.draftail.LinkModalWorkflowSource;
-window.draftail.DocumentModalWorkflowSource;
-window.draftail.Tooltip;
-window.draftail.TooltipEntity;
-```
+Wagtail provides multiple ways to [extend client-side JavaScript](extending_client_side).
