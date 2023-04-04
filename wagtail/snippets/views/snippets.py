@@ -153,7 +153,7 @@ class SnippetTitleColumn(TitleColumn):
 
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
-    viewset = None
+    results_template_name = None
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -199,16 +199,15 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     def get_template_names(self):
         if self.results_only:
-            return self.viewset.get_index_results_template()
-        else:
-            return self.viewset.get_index_template()
+            return self.results_template_name
+        return super().get_template_names()
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
-    viewset = None
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
+    template_name = "wagtailsnippets/snippets/create.html"
     error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
@@ -293,17 +292,14 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
         return context
 
-    def get_template_names(self):
-        return self.viewset.get_create_template()
-
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
-    viewset = None
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
     revisions_compare_url_name = None
     permission_required = "change"
+    template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
@@ -375,12 +371,8 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
         return context
 
-    def get_template_names(self):
-        return self.viewset.get_edit_template()
-
 
 class DeleteView(generic.DeleteView):
-    viewset = None
     view_name = "delete"
     page_title = gettext_lazy("Delete")
     permission_required = "delete"
@@ -398,17 +390,11 @@ class DeleteView(generic.DeleteView):
             "object": self.object,
         }
 
-    def get_template_names(self):
-        return self.viewset.get_delete_template()
-
 
 class UsageView(generic.UsageView):
-    viewset = None
     view_name = "usage"
+    template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
-
-    def get_template_names(self):
-        return self.viewset.get_templates("usage")
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
@@ -450,7 +436,6 @@ class ActionColumn(Column):
 
 
 class HistoryView(ReportView):
-    viewset = None
     view_name = "history"
     index_url_name = None
     edit_url_name = None
@@ -459,6 +444,7 @@ class HistoryView(ReportView):
     revisions_compare_url_name = None
     revisions_unschedule_url_name = None
     any_permission_required = ["add", "change", "delete"]
+    template_name = "wagtailsnippets/snippets/history.html"
     title = gettext_lazy("Snippet history")
     header_icon = "history"
     is_searchable = False
@@ -505,25 +491,20 @@ class HistoryView(ReportView):
             "revision", "user", "user__wagtail_userprofile"
         )
 
-    def get_template_names(self):
-        return self.viewset.get_history_template()
-
 
 class PreviewOnCreateView(PreviewOnCreate):
-    viewset = None
+    pass
 
 
 class PreviewOnEditView(PreviewOnEdit):
-    viewset = None
+    pass
 
 
 class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
-    viewset = None
     permission_required = "change"
 
 
 class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
-    viewset = None
     permission_required = "change"
 
     @property
@@ -538,37 +519,16 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
             "model_name": self.model._meta.verbose_name
         }
 
-    def get_template_names(self):
-        return self.viewset.get_templates(
-            "revisions_compare",
-            fallback=self.template_name,
-        )
-
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
-    viewset = None
     permission_required = "publish"
-
-    def get_template_names(self):
-        return self.viewset.get_templates(
-            "unpublish",
-            fallback=self.template_name,
-        )
 
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
-    viewset = None
     permission_required = "publish"
-
-    def get_template_names(self):
-        return self.viewset.get_templates(
-            "revisions_unschedule",
-            fallback=self.template_name,
-        )
 
 
 class LockView(PermissionCheckedMixin, lock.LockView):
-    viewset = None
     permission_required = "lock"
 
     def user_has_permission(self, permission):
@@ -588,7 +548,6 @@ class LockView(PermissionCheckedMixin, lock.LockView):
 
 
 class UnlockView(PermissionCheckedMixin, lock.UnlockView):
-    viewset = None
     permission_required = "unlock"
 
     def user_has_permission(self, permission):
@@ -612,48 +571,33 @@ class UnlockView(PermissionCheckedMixin, lock.UnlockView):
 
 
 class WorkflowActionView(workflow.WorkflowAction):
-    viewset = None
+    pass
 
 
 class CollectWorkflowActionDataView(workflow.CollectWorkflowActionData):
-    viewset = None
+    pass
 
 
 class ConfirmWorkflowCancellationView(workflow.ConfirmWorkflowCancellation):
-    viewset = None
+    pass
 
 
 class WorkflowStatusView(PermissionCheckedMixin, workflow.WorkflowStatus):
-    viewset = None
     permission_required = "change"
 
 
 class WorkflowPreviewView(workflow.PreviewRevisionForTask):
-    viewset = None
+    pass
 
 
 class WorkflowHistoryView(PermissionCheckedMixin, history.WorkflowHistoryView):
-    viewset = None
     permission_required = "change"
-
-    def get_template_names(self):
-        return self.viewset.get_templates(
-            "workflow_history/index",
-            fallback=self.template_name,
-        )
 
 
 class WorkflowHistoryDetailView(
     PermissionCheckedMixin, history.WorkflowHistoryDetailView
 ):
-    viewset = None
     permission_required = "change"
-
-    def get_template_names(self):
-        return self.viewset.get_templates(
-            "workflow_history/detail",
-            fallback=self.template_name,
-        )
 
 
 class SnippetViewSet(ViewSet):
@@ -840,8 +784,8 @@ class SnippetViewSet(ViewSet):
     @property
     def index_view(self):
         return self.index_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_index_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
@@ -858,8 +802,8 @@ class SnippetViewSet(ViewSet):
     @property
     def index_results_view(self):
         return self.index_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_index_results_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
@@ -877,8 +821,8 @@ class SnippetViewSet(ViewSet):
     @property
     def add_view(self):
         return self.add_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_create_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -891,8 +835,8 @@ class SnippetViewSet(ViewSet):
     def edit_view(self):
         # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -913,8 +857,8 @@ class SnippetViewSet(ViewSet):
     @property
     def delete_view(self):
         return self.delete_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_delete_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -925,8 +869,10 @@ class SnippetViewSet(ViewSet):
     @property
     def usage_view(self):
         return self.usage_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "usage", fallback=self.usage_view_class.template_name
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -936,8 +882,8 @@ class SnippetViewSet(ViewSet):
     @property
     def history_view(self):
         return self.history_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_history_template(),
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -950,7 +896,6 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_view(self):
         return self.revisions_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
         )
@@ -958,8 +903,8 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -981,8 +926,11 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "revisions_compare",
+                fallback=self.revisions_compare_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
@@ -992,8 +940,11 @@ class SnippetViewSet(ViewSet):
     @property
     def revisions_unschedule_view(self):
         return self.revisions_unschedule_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "revisions_unschedule",
+                fallback=self.revisions_unschedule_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
@@ -1004,8 +955,10 @@ class SnippetViewSet(ViewSet):
     @property
     def unpublish_view(self):
         return self.unpublish_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "unpublish", fallback=self.unpublish_view_class.template_name
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -1016,22 +969,15 @@ class SnippetViewSet(ViewSet):
 
     @property
     def preview_on_add_view(self):
-        return self.preview_on_add_view_class.as_view(
-            viewset=self,
-            model=self.model,
-        )
+        return self.preview_on_add_view_class.as_view(model=self.model)
 
     @property
     def preview_on_edit_view(self):
-        return self.preview_on_edit_view_class.as_view(
-            viewset=self,
-            model=self.model,
-        )
+        return self.preview_on_edit_view_class.as_view(model=self.model)
 
     @property
     def lock_view(self):
         return self.lock_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             success_url_name=self.get_url_name("edit"),
@@ -1040,7 +986,6 @@ class SnippetViewSet(ViewSet):
     @property
     def unlock_view(self):
         return self.unlock_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             success_url_name=self.get_url_name("edit"),
@@ -1049,7 +994,6 @@ class SnippetViewSet(ViewSet):
     @property
     def workflow_action_view(self):
         return self.workflow_action_view_class.as_view(
-            viewset=self,
             model=self.model,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("workflow_action"),
@@ -1058,7 +1002,6 @@ class SnippetViewSet(ViewSet):
     @property
     def collect_workflow_action_data_view(self):
         return self.collect_workflow_action_data_view_class.as_view(
-            viewset=self,
             model=self.model,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("collect_workflow_action_data"),
@@ -1066,15 +1009,11 @@ class SnippetViewSet(ViewSet):
 
     @property
     def confirm_workflow_cancellation_view(self):
-        return self.confirm_workflow_cancellation_view_class.as_view(
-            viewset=self,
-            model=self.model,
-        )
+        return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
 
     @property
     def workflow_status_view(self):
         return self.workflow_status_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -1083,16 +1022,16 @@ class SnippetViewSet(ViewSet):
 
     @property
     def workflow_preview_view(self):
-        return self.workflow_preview_view_class.as_view(
-            viewset=self,
-            model=self.model,
-        )
+        return self.workflow_preview_view_class.as_view(model=self.model)
 
     @property
     def workflow_history_view(self):
         return self.workflow_history_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "workflow_history/index",
+                fallback=self.workflow_history_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -1104,8 +1043,11 @@ class SnippetViewSet(ViewSet):
     @property
     def workflow_history_detail_view(self):
         return self.workflow_history_detail_view_class.as_view(
-            viewset=self,
             model=self.model,
+            template_name=self.get_templates(
+                "workflow_history/detail",
+                fallback=self.workflow_history_detail_view_class.template_name,
+            ),
             object_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
