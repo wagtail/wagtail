@@ -5,6 +5,8 @@
 <div
     class="preview-panel preview-panel--mobile"
     data-controller="w-preview"
+    data-w-preview-unavailable-class="preview-panel--unavailable"
+    data-w-preview-has-errors-class="preview-panel--has-errors"
     data-w-preview-url-value="{{ preview_url }}"
     data-w-preview-auto-update-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW|yesno:'true,false' }}"
     data-w-preview-auto-update-interval-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL }}"
