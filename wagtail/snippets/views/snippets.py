@@ -720,6 +720,9 @@ class SnippetViewSet(ViewSet):
     #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
 
+    #: The prefix of template names to look for when rendering the admin views.
+    template_prefix = "wagtailsnippets/snippets/"
+
     #: The template to use for the index view.
     index_template_name = ""
 
@@ -1091,9 +1094,9 @@ class SnippetViewSet(ViewSet):
         attributes on the class.
         """
         templates = [
-            f"wagtailsnippets/snippets/{self.app_label}/{self.model_name}/{action}.html",
-            f"wagtailsnippets/snippets/{self.app_label}/{action}.html",
-            f"wagtailsnippets/snippets/{action}.html",
+            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
+            f"{self.template_prefix}{self.app_label}/{action}.html",
+            f"{self.template_prefix}{action}.html",
         ]
         if fallback:
             templates.append(fallback)
