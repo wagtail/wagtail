@@ -37,6 +37,14 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         context["header_icon"] = self.get_header_icon()
         return context
 
+    def get_template_names(self):
+        # Instead of always wrapping self.template_name in a list like
+        # TemplateResponseMixin does, only do so if it's not already a list/tuple.
+        # This allows us to use a list of template names in self.template_name.
+        if isinstance(self.template_name, (list, tuple)):
+            return self.template_name
+        return super().get_template_names()
+
 
 class BaseObjectMixin:
     """Mixin for views that make use of a model instance."""
