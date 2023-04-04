@@ -583,7 +583,7 @@ For all views that are used for a snippet model, Wagtail looks for templates in 
 2. `templates/wagtailsnippets/snippets/{app_label}/`
 3. `templates/wagtailsnippets/snippets/`
 
-So, to override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, if you wanted to do this for a `Shirt` model in a `shirts` app, you could add your custom template as `shirts/templates/wagtailsnippets/snippets/shirts/shirt/index.html`.
+So, to override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, if you wanted to do this for a `Shirt` model in a `shirts` app, you could add your custom template as `shirts/templates/wagtailsnippets/snippets/shirts/shirt/index.html`. You could change the `wagtailsnippets/snippets/` prefix for the templates by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.template_prefix` attribute.
 
 For some common views, Wagtail also allows you to override the template used by either specifying the `{view_name}_template_name` attribute or overriding the `get_{view_name}_template()` method on the viewset. The following is a list of customisation points for the views:
 
