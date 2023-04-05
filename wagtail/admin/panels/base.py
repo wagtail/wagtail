@@ -47,11 +47,18 @@ def get_form_for_model(
 
 class Panel:
     """
-    Defines part (or all) of the edit form interface for pages and other models within the Wagtail
-    admin. Each model has an associated panel definition, consisting of a nested structure of Panel
-    objects - this provides methods for obtaining a ModelForm subclass, with the field list and
-    other parameters collated from all panels in the structure. It then handles rendering that form
-    as HTML.
+    Defines part (or all) of the edit form interface for pages and other models
+    within the Wagtail admin. Each model has an associated top-level panel definition
+    (also known as an edit handler), consisting of a nested structure of ``Panel`` objects.
+    This provides methods for obtaining a :class:`~django.forms.ModelForm` subclass,
+    with the field list and other parameters collated from all panels in the structure.
+    It then handles rendering that form as HTML.
+
+    :param heading: The heading text to display for the panel.
+    :param classname: A CSS class name to add to the panel's HTML ``<section>`` element.
+    :param help_text: Help text to display within the panel.
+    :param base_form_class: The base form class to use for the panel. Defaults to the model's ``base_form_class``, before falling back to :class:`~wagtail.admin.forms.WagtailAdminModelForm`. This is only relevant for the top-level panel.
+    :param icon: The name of the icon to display next to the panel heading.
     """
 
     def __init__(
