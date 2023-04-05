@@ -19,7 +19,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 ### FieldPanel
 
 ```{eval-rst}
-.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
+.. class:: FieldPanel(field_name, classname=None, widget=None, icon=None, heading='', disable_comments=False, permission=None)
 
     This is the panel used for basic Django field types.
 
@@ -27,7 +27,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
         This is the name of the class property used in your model definition.
 
-    .. attribute:: FieldPanel.classname
+    .. attribute:: FieldPanel.classname (optional)
 
         This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity.
 
@@ -36,6 +36,10 @@ Here are some Wagtail-specific types that you might include as fields in your mo
     .. attribute:: FieldPanel.widget (optional)
 
         This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
+
+    .. attribute:: FieldPanel.icon (optional)
+
+        This allows you to override the icon for the panel. If unset, Wagtail uses a set of default icons for common model field types. For a list of icons available out of the box, see :ref:`available_icons`. Project-specific icons are also displayed in the :ref:`styleguide`.
 
     .. attribute:: FieldPanel.heading (optional)
 
