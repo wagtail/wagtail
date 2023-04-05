@@ -96,7 +96,7 @@ class FieldPanel(Panel):
             "TimeField": "time",
             "DateTimeField": "date",
             "URLField": "site",
-            "ClusterTaggableManager": "tag",
+            "TaggableManager": "tag",
             "EmailField": "mail",
             "TextField": "pilcrow",
             "FloatField": "plus-inverse",
@@ -157,9 +157,17 @@ class FieldPanel(Panel):
             """
             Display a different icon depending on the field's type.
             """
-            field_type = self.panel.db_field.__class__.__name__
+            # If the panel has an icon, use that
+            if self.panel.icon:
+                return self.panel.icon
 
-            return self.panel.icon or self.default_field_icons.get(field_type, None)
+            # Otherwise, find a default icon based on the field's class or superclasses
+            for field_class in type(self.panel.db_field).mro():
+                field_name = field_class.__name__
+                if field_name in self.default_field_icons:
+                    return self.default_field_icons[field_name]
+
+            return None
 
         def id_for_label(self):
             return self.bound_field.id_for_label
