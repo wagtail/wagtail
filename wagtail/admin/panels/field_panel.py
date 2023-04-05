@@ -155,7 +155,7 @@ class FieldPanel(Panel):
                 "RegexField": "code",
                 "BooleanField": "tick-inverse",
             }
-            field_type = self.bound_field.field.__class__.__name__
+            field_type = self.panel.db_field.__class__.__name__
 
             return self.panel.icon or field_icons.get(field_type, None)
 
