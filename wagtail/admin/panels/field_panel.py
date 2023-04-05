@@ -143,19 +143,17 @@ class FieldPanel(Panel):
             Display a different icon depending on the field's type.
             """
             field_icons = {
-                # Icons previously-defined as StreamField block icons.
-                # Commented out until they can be reviewed for appropriateness in this new context.
-                # "DateField": "date",
-                # "TimeField": "time",
-                # "DateTimeField": "date",
-                # "URLField": "site",
-                # "ClusterTaggableManager": "tag",
-                # "EmailField": "mail",
-                # "TextField": "pilcrow",
-                # "FloatField": "plus-inverse",
-                # "DecimalField": "plus-inverse",
-                # "RegexField": "code",
-                # "BooleanField": "tick-inverse",
+                "DateField": "date",
+                "TimeField": "time",
+                "DateTimeField": "date",
+                "URLField": "site",
+                "ClusterTaggableManager": "tag",
+                "EmailField": "mail",
+                "TextField": "pilcrow",
+                "FloatField": "plus-inverse",
+                "DecimalField": "plus-inverse",
+                "RegexField": "code",
+                "BooleanField": "tick-inverse",
             }
             field_type = self.bound_field.field.__class__.__name__
 
