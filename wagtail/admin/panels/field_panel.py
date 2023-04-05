@@ -99,10 +99,15 @@ class FieldPanel(Panel):
             "TaggableManager": "tag",
             "EmailField": "mail",
             "TextField": "pilcrow",
+            "RichTextField": "doc-full",
             "FloatField": "plus-inverse",
             "DecimalField": "plus-inverse",
-            "RegexField": "code",
+            "IntegerField": "plus-inverse",
             "BooleanField": "tick-inverse",
+            # Django has no model form field for this, so it won't be used
+            # unless a custom field with this name is used, or we also
+            # look through the form fields to get the default icon.
+            "RegexField": "code",
         }
 
         def __init__(self, **kwargs):
