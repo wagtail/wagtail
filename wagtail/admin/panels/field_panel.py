@@ -89,6 +89,21 @@ class FieldPanel(Panel):
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/field_panel.html"
+        # Default icons for common model field types,
+        # based on the corresponding FieldBlock's icon.
+        default_field_icons = {
+            "DateField": "date",
+            "TimeField": "time",
+            "DateTimeField": "date",
+            "URLField": "site",
+            "ClusterTaggableManager": "tag",
+            "EmailField": "mail",
+            "TextField": "pilcrow",
+            "FloatField": "plus-inverse",
+            "DecimalField": "plus-inverse",
+            "RegexField": "code",
+            "BooleanField": "tick-inverse",
+        }
 
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
@@ -142,22 +157,9 @@ class FieldPanel(Panel):
             """
             Display a different icon depending on the field's type.
             """
-            field_icons = {
-                "DateField": "date",
-                "TimeField": "time",
-                "DateTimeField": "date",
-                "URLField": "site",
-                "ClusterTaggableManager": "tag",
-                "EmailField": "mail",
-                "TextField": "pilcrow",
-                "FloatField": "plus-inverse",
-                "DecimalField": "plus-inverse",
-                "RegexField": "code",
-                "BooleanField": "tick-inverse",
-            }
             field_type = self.panel.db_field.__class__.__name__
 
-            return self.panel.icon or field_icons.get(field_type, None)
+            return self.panel.icon or self.default_field_icons.get(field_type, None)
 
         def id_for_label(self):
             return self.bound_field.id_for_label
