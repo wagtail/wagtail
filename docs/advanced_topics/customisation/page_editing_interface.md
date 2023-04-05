@@ -109,20 +109,20 @@ register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail
 
 To begin, import the `Format` class, `register_image_format` function, and optionally `unregister_image_format` function. To register a new `Format`, call the `register_image_format` with the `Format` object as the argument. The `Format` class takes the following constructor arguments:
 
-**`name`**  
+**`name`**
 The unique key used to identify the format. To unregister this format, call `unregister_image_format` with this string as the only argument.
 
-**`label`**  
+**`label`**
 The label used in the chooser form when inserting the image into the `RichTextField`.
 
-**`classnames`**  
+**`classnames`**
 The string to assign to the `class` attribute of the generated `<img>` tag.
 
 ```{note}
 Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a `classnames` value of `left` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
 ```
 
-**`filter_spec`**  
+**`filter_spec`**
 The string specification to create the image rendition. For more, see [](image_tag).
 
 To unregister, call `unregister_image_format` with the string of the `name` of the `Format` as the only argument.
@@ -142,7 +142,7 @@ Unregistering ``Format`` objects will cause errors viewing or editing pages that
 
 Wagtail automatically generates forms using the panels configured on the model.
 By default, this form subclasses [WagtailAdminModelForm](wagtail.admin.forms.WagtailAdminModelForm),
-or [WagtailAdminPageForm](wagtail.admin.forms.WagtailAdminPageForm). for pages.
+or [WagtailAdminPageForm](wagtail.admin.forms.WagtailAdminPageForm) for pages.
 A custom base form class can be configured by setting the `base_form_class` attribute on any model.
 Custom forms for snippets must subclass [WagtailAdminModelForm](wagtail.admin.forms.WagtailAdminModelForm),
 and custom forms for pages must subclass [WagtailAdminPageForm](wagtail.admin.forms.WagtailAdminPageForm).
