@@ -1,9 +1,11 @@
 import functools
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.db.models import ForeignKey
 from django.utils.functional import cached_property
 
 from wagtail.admin import compare
+from wagtail.admin.forms.models import registry as model_field_registry
 from wagtail.blocks import BlockField
 
 from .base import Panel
@@ -166,8 +168,18 @@ class FieldPanel(Panel):
             if self.panel.icon:
                 return self.panel.icon
 
+            db_field_type = type(self.panel.db_field)
+
+            # ForeignKey fields can have a custom icon defined in the form field's widget
+            # (e.g. page, image, and document choosers). If there's an overridden widget
+            # with an icon attribute, use that.
+            if issubclass(db_field_type, ForeignKey):
+                overrides = model_field_registry.get(self.panel.db_field)
+                widget = overrides.get("widget", None)
+                return getattr(widget, "icon", None)
+
             # Otherwise, find a default icon based on the field's class or superclasses
-            for field_class in type(self.panel.db_field).mro():
+            for field_class in db_field_type.mro():
                 field_name = field_class.__name__
                 if field_name in self.default_field_icons:
                     return self.default_field_icons[field_name]
