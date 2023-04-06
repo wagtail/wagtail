@@ -97,19 +97,18 @@ class FieldPanel(Panel):
             "DateField": "date",
             "TimeField": "time",
             "DateTimeField": "date",
-            "URLField": "site",
+            "URLField": "link-external",
             "TaggableManager": "tag",
             "EmailField": "mail",
             "TextField": "pilcrow",
-            "RichTextField": "doc-full",
-            "FloatField": "plus-inverse",
-            "DecimalField": "plus-inverse",
-            "IntegerField": "plus-inverse",
+            "RichTextField": "pilcrow",
+            "FloatField": "decimal",
+            "DecimalField": "decimal",
             "BooleanField": "tick-inverse",
             # Django has no model form field for this, so it won't be used
             # unless a custom field with this name is used, or we also
             # look through the form fields to get the default icon.
-            "RegexField": "code",
+            "RegexField": "regex",
         }
 
         def __init__(self, **kwargs):
