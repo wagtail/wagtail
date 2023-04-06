@@ -54,8 +54,11 @@ class Panel:
     with the field list and other parameters collated from all panels in the structure.
     It then handles rendering that form as HTML.
 
+    The following parameters can be used to customise how the panel is displayed.
+    For more details, see :ref:`customising_panels`.
+
     :param heading: The heading text to display for the panel.
-    :param classname: A CSS class name to add to the panel's HTML ``<section>`` element.
+    :param classname: A CSS class name to add to the panel's HTML element.
     :param help_text: Help text to display within the panel.
     :param base_form_class: The base form class to use for the panel. Defaults to the model's ``base_form_class``, before falling back to :class:`~wagtail.admin.forms.WagtailAdminModelForm`. This is only relevant for the top-level panel.
     :param icon: The name of the icon to display next to the panel heading.
