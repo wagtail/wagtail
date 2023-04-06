@@ -4,10 +4,10 @@
 
 ## Built-in Fields and Choosers
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into
-[`FieldPanel`](wagtail.admin.panels.FieldPanel) when defining your panels. Wagtail will take care of the rest.
+Wagtail's panel mechanism automatically recognises Django model fields and provides them with an appropriate widget for input. You can use it by defining the field in your Django model as normal and passing the field name into
+[`FieldPanel`](wagtail.admin.panels.FieldPanel) (or a suitable panel type) when defining your panels.
 
-Here are some Wagtail-specific types that you might include as fields in your models.
+Here are some built-in panel types that you can use in your panel definitions. These are all subclasses of the base [`Panel`](wagtail.admin.panels.Panel) class, and unless otherwise noted, they accept all of `Panel`'s parameters in addition to their own.
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
@@ -15,39 +15,20 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 ```
 
 (field_panel)=
-
 ### FieldPanel
 
 ```{eval-rst}
-.. class:: FieldPanel(field_name, classname=None, widget=None, icon=None, heading='', disable_comments=False, permission=None)
+.. autoclass:: FieldPanel
 
-    This is the panel used for basic Django field types.
+    This is the panel to use for basic Django model field types. It provides a default icon and heading based on the model field definition, but they can be customised by passing additional arguments to the constructor. For more details, see :ref:`customising_panels`.
 
     .. attribute:: FieldPanel.field_name
 
         This is the name of the class property used in your model definition.
 
-    .. attribute:: FieldPanel.classname (optional)
-
-        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity.
-
-        The CSS class ``title`` can be used to give the field a larger text size, suitable for representing page titles and section headings.
-
     .. attribute:: FieldPanel.widget (optional)
 
         This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
-
-    .. attribute:: FieldPanel.icon (optional)
-
-        This allows you to override the icon for the panel. If unset, Wagtail uses a set of default icons for common model field types. For a list of icons available out of the box, see :ref:`available_icons`. Project-specific icons are also displayed in the :ref:`styleguide`.
-
-    .. attribute:: FieldPanel.heading (optional)
-
-        This allows you to override the heading for the panel, which will otherwise be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
-
-    .. attribute:: FieldPanel.help_text (optional)
-
-        Help text to be displayed against the field. This takes precedence over any help text set on the model field.
 
     .. attribute:: FieldPanel.disable_comments (optional)
 
@@ -61,35 +42,26 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 ### MultiFieldPanel
 
 ```{eval-rst}
-.. class:: MultiFieldPanel(children, heading="", classname=None)
+.. class:: MultiFieldPanel(children=(), *args, permission=None, **kwargs)
 
-    This panel condenses several :class:`~wagtail.admin.panels.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.admin.panels.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string. To save space, you can :ref:`collapse the panel by default <collapsible>`.
 
     .. attribute:: MultiFieldPanel.children
 
         A ``list`` or ``tuple`` of child panels
 
-    .. attribute:: MultiFieldPanel.heading (optional)
-
-        A heading for the fields
-
-    .. attribute:: MultiFieldPanel.help_text (optional)
-
-        Help text to be displayed against the panel.
-
     .. attribute:: MultiFieldPanel.permission (optional)
 
-        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to ``FieldPanel.permission``.
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to :attr:`FieldPanel.permission`.
 ```
 
 (inline_panels)=
-
 ### InlinePanel
 
 ```{eval-rst}
-.. class:: InlinePanel(relation_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
+.. class:: InlinePanel(relation_name, panels=None, label='', min_num=None, max_num=None, **kwargs)
 
-    This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_models`.
+    This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_models`. To save space, you can :ref:`collapse the panel by default <collapsible>`.
 
     .. attribute:: InlinePanel.relation_name
 
@@ -99,21 +71,9 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
         The list of panels that will make up the child object's form. If not specified here, the `panels` definition on the child model will be used.
 
-    .. attribute:: InlinePanel.classname (optional)
-
-        A class to apply to the InlinePanel as a whole.
-
-    .. attribute:: InlinePanel.heading
-
-        A heading for the panel in the Wagtail editor.
-
     .. attribute:: InlinePanel.label
 
         Text for the add button and heading for child panels. Used as the heading when ``heading`` is not present.
-
-    .. attribute:: InlinePanel.help_text (optional)
-
-        Help text to be displayed in the Wagtail editor.
 
     .. attribute:: InlinePanel.min_num (optional)
 
@@ -125,21 +85,14 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
 ```
 
-#### Collapsing InlinePanels to save space
-
-Note that you can use `classname="collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
-
 (multiple_chooser_panel)=
-
 ### MultipleChooserPanel
 
 ```{versionadded} 4.2
 The `MultipleChooserPanel` panel type was added.
 ```
 
-```{eval-rst}
-.. class:: MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
-```
+````{class} MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, label='', min_num=None, max_num=None, **kwargs)
 
 This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
 
@@ -169,14 +122,16 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
         )
 ```
 
+````
+
 ### FieldRowPanel
 
 ```{eval-rst}
-.. class:: FieldRowPanel(children, classname=None, permission=None)
+.. class:: FieldRowPanel(children=(), *args, permission=None, **kwargs)
 
     This panel creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below.
 
-    Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
+    Use of ``FieldRowPanel`` particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
     By default, the panel is divided into equal-width columns, but this can be overridden by adding ``col*`` class names to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel to define how many columns they span out of the total number of columns. When grid items add up to 12 columns, the class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
 
@@ -184,23 +139,15 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
         A ``list`` or ``tuple`` of child panels to display on the row
 
-    .. attribute:: FieldRowPanel.classname (optional)
-
-        A class to apply to the FieldRowPanel as a whole
-
-    .. attribute:: FieldRowPanel.help_text (optional)
-
-        Help text to be displayed against the panel.
-
     .. attribute:: FieldRowPanel.permission (optional)
 
-        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to ``FieldPanel.permission``.
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to :attr:`FieldPanel.permission`.
 ```
 
 ### HelpPanel
 
 ```{eval-rst}
-.. class:: HelpPanel(content='', template='wagtailadmin/panels/help_panel.html', heading='', classname='')
+.. autoclass:: HelpPanel
 
     .. attribute:: HelpPanel.content
 
@@ -209,22 +156,14 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
     .. attribute:: HelpPanel.template
 
         Path to a template rendering the full panel HTML.
-
-    .. attribute:: HelpPanel.heading
-
-        A heading for the help content.
-
-    .. attribute:: HelpPanel.classname
-
-        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
 ```
 
 ### PageChooserPanel
 
 ```{eval-rst}
-.. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
+.. autoclass:: PageChooserPanel
 
-    You can explicitly link :class:`~wagtail.models.Page`-derived models together using the :class:`~wagtail.models.Page` model and ``PageChooserPanel``.
+    While ``FieldPanel`` also supports ``ForeignKey`` to :class:`~wagtail.models.Page` models, you can explicitly use ``PageChooserPanel`` to allow ``Page``-specific customisations.
 
     .. code-block:: python
 
@@ -251,7 +190,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 
-    Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
+    Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a ``PageChooserPanel`` to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 ```
 
 ### FormSubmissionsPanel
@@ -259,7 +198,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 ```{eval-rst}
 .. module:: wagtail.contrib.forms.panels
 
-.. class:: FormSubmissionsPanel
+.. class:: FormSubmissionsPanel(**kwargs)
 
     This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.contrib.forms.models.AbstractForm` model.
     It includes the number of total submissions for the given form and also a link to the listing of submissions.
@@ -275,20 +214,29 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
             ]
 ```
 
-## Field Customisation
+(customising_panels)=
+## Panel customisation
 
-By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
+By adding extra parameters to your panel/field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
 (See [Django model field reference](django:ref/models/fields)).
 
-### Titles
+(customising_panel_icons)=
+### Icons
 
-Use `classname="title"` to make Page's built-in title field stand out with more vertical padding.
+Use the `icon` argument to the panel constructor to override the icon to be displayed next to the panel's heading. For a list of available icons, see [](available_icons).
+
+### Heading
+
+Use the `heading` argument to the panel constructor to set the panel's heading. This will be used for the input's label and displayed on the content minimap. If left unset for `FieldPanel`s, it will be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
+
+### CSS classes
+
+Use the `classname` argument to the panel constructor to add CSS classes to the panel. The class will be applied to the HTML `<section>` element of the panel. This can be used to add extra styling to the panel or to control its behaviour.
+
+The `title` class can be used to make the input stand out with a bigger font size and weight.
 
 (collapsible)=
-
-### Collapsible
-
-Using `classname="collapsed"` will load the editor page with the panel collapsed under its heading.
+The `collapsed` class will load the editor page with the panel collapsed under its heading.
 
 ```python
     content_panels = [
@@ -299,16 +247,20 @@ Using `classname="collapsed"` will load the editor page with the panel collapsed
                 FieldPanel('publisher'),
             ],
             heading="Collection of Book Fields",
-            classname="collapsed"
+            classname="collapsed",
         ),
     ]
 ```
 
-### Placeholder Text
+### Help text
 
-By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](django:ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
+Use the `help_text` argument to the panel constructor to customise the help text to be displayed above the input. If unset for `FieldPanel`s, it will be set automatically using the form field's `help_text` (taken in turn from a model field's `help_text`).
 
-For example, to customise placeholders for a Book model exposed via ModelAdmin:
+### Placeholder text
+
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the ``FieldPanel`` a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](django:ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
+
+For example, to customise placeholders for a ``Book`` snippet model:
 
 ```python
 # models.py
@@ -340,10 +292,10 @@ class Book(models.Model):
     ]
 ```
 
-### Required Fields
+### Required fields
 
 To make input or chooser selection mandatory for a field, add [`blank=False`](django.db.models.Field.blank) to its model definition.
 
-### Hiding Fields
+### Hiding fields
 
-Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable).
+Without a top-level panel definition, a ``FieldPanel`` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
