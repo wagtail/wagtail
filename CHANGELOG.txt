@@ -111,6 +111,7 @@ Changelog
  * Maintenance: Fix search tests to correctly reflect behaviour of search backends other than the fallback backend (Matt Westcott)
  * Maintenance: Migrate select all checkbox in simple translation's submit translation page to Stimulus controller `w-bulk`, remove inline script usage (Hanoon)
  * Maintenance: Refactor `SnippetViewSet` to extend `ModelViewSet` (Sage Abdullah)
+ * Maintenance: Migrate initDismissibles behaviour to a Stimulus controller `w-disimissible` (Loveth Omokaro)
 
 
 4.2.2 (03.04.2023)

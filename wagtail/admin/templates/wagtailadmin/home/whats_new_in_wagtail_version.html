@@ -1,8 +1,14 @@
 {% load i18n wagtailadmin_tags wagtailcore_tags %}
 
-<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{{ dismissible_id }}">
+<section
+    class="w-whats-new w-dismissible"
+    aria-labelledby="whats-new-heading"
+    data-controller="w-dismissible"
+    data-w-dismissible-dismissed-class="w-dismissible--dismissed"
+    data-w-dismissible-id-value="{{ dismissible_id }}"
+>
     <div class="w-whats-new__banner">
-        <button class="w-whats-new__dismiss" type="button" data-wagtail-dismissible-toggle>
+        <button class="w-whats-new__dismiss" type="button" data-action="w-dismissible#toggle">
             {% icon name="circle-xmark" %}
             <span class="w-sr-only">{% trans "Close" %}</span>
         </button>
