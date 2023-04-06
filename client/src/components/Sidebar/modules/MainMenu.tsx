@@ -8,7 +8,7 @@ import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 import { ModuleDefinition } from '../Sidebar';
-import { updateDismissibles } from '../../../includes/initDismissibles';
+import { updateDismissibles } from '../../../controllers/DismissibleController';
 
 export function renderMenu(
   path: string,
@@ -36,9 +36,9 @@ export function renderMenu(
 export function isDismissed(item: MenuItemDefinition, state: MenuState) {
   return (
     // Non-dismissibles are considered as dismissed
-    !item.attrs['data-wagtail-dismissible-id'] ||
+    !item.attrs['data-w-dismissible-id-value'] ||
     // Dismissed on the server
-    'data-wagtail-dismissed' in item.attrs ||
+    'data-w-dismissible-dismissed-value' in item.attrs ||
     // Dismissed on the client
     state.dismissibles[item.name]
   );
@@ -76,7 +76,7 @@ function walkDismissibleMenuItems(
   action: (item: MenuItemDefinition) => void,
 ) {
   menuItems.forEach((menuItem) => {
-    const id = menuItem.attrs['data-wagtail-dismissible-id'];
+    const id = menuItem.attrs['data-w-dismissible-id-value'];
     if (id) {
       action(menuItem);
     }
@@ -95,7 +95,7 @@ function computeDismissibleState(
 
   // Recursively update all dismissible items
   walkDismissibleMenuItems([item], (menuItem) => {
-    update[menuItem.attrs['data-wagtail-dismissible-id']] = value;
+    update[menuItem.attrs['data-w-dismissible-id-value']] = value;
   });
 
   // Send the update to the server
@@ -132,8 +132,8 @@ function getInitialDismissibleState(menuItems: MenuItemDefinition[]) {
   const result: Record<string, boolean> = {};
 
   walkDismissibleMenuItems(menuItems, (menuItem) => {
-    result[menuItem.attrs['data-wagtail-dismissible-id']] =
-      'data-wagtail-dismissed' in menuItem.attrs;
+    result[menuItem.attrs['data-w-dismissible-id-value']] =
+      'data-w-dismissible-dismissed-value' in menuItem.attrs;
   });
 
   return result;

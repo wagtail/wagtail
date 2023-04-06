@@ -1,4 +1,8 @@
-import { initDismissibles, updateDismissibles } from './initDismissibles';
+import { Application } from '@hotwired/stimulus';
+import {
+  DismissibleController,
+  updateDismissibles,
+} from './DismissibleController';
 
 jest.mock('../config/wagtailConfig.js', () => ({
   WAGTAIL_CONFIG: {
@@ -8,50 +12,62 @@ jest.mock('../config/wagtailConfig.js', () => ({
   },
 }));
 
-describe('initDismissibles', () => {
-  it('should not error if there are no dismissibles', () => {
-    document.body.innerHTML = '<div>CONTENT</div>';
+describe('DismissibleController', () => {
+  let application;
+  const data = { whats_new_in_wagtail_version_4: true };
 
-    initDismissibles();
+  beforeEach(() => {
+    application?.stop();
 
-    expect(document.body.innerHTML).toContain('CONTENT');
+    document.body.innerHTML = `
+    <section
+      id="main-content"
+      data-controller="w-dismissible"
+      data-w-dismissible-dismissed-class="w-dismissible--dismissed"
+      data-w-dismissible-id-value="whats_new_in_wagtail_version_4"
+      data-w-dismissible-target="content"
+    >
+      <button type="button" data-action="w-dismissible#toggle">X</button>
+    </section>
+    `;
+
+    application = Application.start();
+    application.register('w-dismissible', DismissibleController);
   });
 
-  describe('should initialise dismissibles', () => {
-    it('for data-wagtail-dismissible-id and data-wagtail-dismissible-toggle attribute in parent and child', () => {
-      document.body.innerHTML = `
-      <article>
-        <div data-wagtail-dismissible-id='test-id-1'>
-          <div data-wagtail-dismissible-toggle></div>
-        </div>
-        <div data-wagtail-dismissible-id='test-id-2'>
-          <div data-wagtail-dismissible-toggle></div>
-        </div>
-        <div data-wagtail-dismissible-id='test-id-3 data-wagtail-dismissible-toggle></div>
-      </article>`;
+  it("should add a 'dismissed' class and attribute when the dismiss button is clicked", () => {
+    const button = document.querySelector('button');
+    const mainContent = document.querySelector('#main-content');
 
-      initDismissibles();
+    expect(mainContent.classList).toHaveLength(0);
+    expect(
+      mainContent.getAttribute('data-w-dismissible-dismissed-value'),
+    ).toBeFalsy();
+    expect(mainContent.classList).not.toContain('w-dismissible--dismissed');
 
-      // check the classes are initially empty
-      expect(
-        document.querySelector('[data-wagtail-dismissible-id]').classList,
-      ).toHaveLength(0);
+    button.click();
 
-      // click all buttons
-      document
-        .querySelectorAll('[data-wagtail-dismissible-toggle]')
-        .forEach((item) => {
-          item.click();
-        });
+    expect(mainContent.classList).toContain('w-dismissible--dismissed');
+    expect(mainContent.getAttribute('data-w-dismissible-dismissed-value')).toBe(
+      'true',
+    );
+  });
 
-      // check the classes are updated and data attribute removed
-      expect(
-        [...document.querySelectorAll('[data-wagtail-dismissible-id]')].every(
-          (item) =>
-            item.classList.contains('w-dismissible--dismissed') &&
-            item.getAttribute('data-wagtail-dismissed') === '',
-        ),
-      ).toBe(true);
+  it('should update the dismissible ids when the dismiss button is clicked', async () => {
+    expect.assertions(1);
+
+    const button = document.querySelector('button');
+
+    button.click();
+
+    await expect(global.fetch).toHaveBeenCalledWith('/admin/dismissibles/', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': 'test-token',
+      },
+      body: JSON.stringify(data),
+      mode: 'same-origin',
     });
   });
 });
