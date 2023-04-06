@@ -167,18 +167,24 @@ class FieldPanel(Panel):
             if self.panel.icon:
                 return self.panel.icon
 
-            db_field_type = type(self.panel.db_field)
+            # Try to use the model field first, then the form field
+            try:
+                field = self.panel.db_field
+            except FieldDoesNotExist:
+                field = self.bound_field.field
+
+            field_type = type(field)
 
             # ForeignKey fields can have a custom icon defined in the form field's widget
             # (e.g. page, image, and document choosers). If there's an overridden widget
             # with an icon attribute, use that.
-            if issubclass(db_field_type, ForeignKey):
-                overrides = model_field_registry.get(self.panel.db_field)
+            if issubclass(field_type, ForeignKey):
+                overrides = model_field_registry.get(field) or {}
                 widget = overrides.get("widget", None)
                 return getattr(widget, "icon", None)
 
             # Otherwise, find a default icon based on the field's class or superclasses
-            for field_class in db_field_type.mro():
+            for field_class in field_type.mro():
                 field_name = field_class.__name__
                 if field_name in self.default_field_icons:
                     return self.default_field_icons[field_name]
