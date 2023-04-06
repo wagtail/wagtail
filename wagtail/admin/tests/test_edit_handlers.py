@@ -20,6 +20,7 @@ from wagtail.admin.panels import (
     FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
+    MultipleChooserPanel,
     ObjectList,
     PageChooserPanel,
     PublishingPanel,
@@ -33,12 +34,16 @@ from wagtail.admin.widgets import (
     AdminDateInput,
     AdminPageChooser,
 )
+from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     EventPage,
     EventPageChooserModel,
     EventPageSpeaker,
+    FormPageWithRedirect,
     PageChooserModel,
     RestaurantPage,
     RestaurantTag,
@@ -1767,3 +1772,159 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
         self.assertContains(response, 'chooserFieldName: "image"')
+
+
+class TestPanelIcons(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def test_default_fieldpanel_icon(self):
+        cases = [
+            # Django model field with default icon
+            (FieldPanel("signup_link"), "link-external", "link-external", 1),
+            # Django model field with no default icon
+            (FieldPanel("audience"), None, "arrow-down-big", 1),
+            # Wagtail model field with default icon
+            (FieldPanel("body"), "pilcrow", "pilcrow", 1),
+            # Django ForeignKey with icon taken from the widget override
+            (FieldPanel("feed_image"), "image", "image", 2),
+        ]
+        edit_handler = ObjectList([panel for panel, *_ in cases])
+        edit_handler = edit_handler.bind_to_model(EventPage)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request, form=form_class()
+        )
+        html = bound_edit_handler.render_form_content()
+
+        for i, (_, expected_icon, rendered_default, default_count) in enumerate(cases):
+            bound_panel = bound_edit_handler.children[i]
+            panel = bound_panel.panel
+            field_type = type(panel.db_field).__name__
+            with self.subTest(field_type=field_type, field_name=panel.field_name):
+                self.assertEqual(bound_panel.icon, expected_icon)
+                self.assertEqual(html.count(f"#icon-{rendered_default}"), default_count)
+
+    def test_override_fieldpanel_icon(self):
+        cases = [
+            # Django model field with default icon
+            (FieldPanel("signup_link", icon="cog"), "cog", "link-external", 0),
+            # Django model field with no default icon
+            (FieldPanel("audience", icon="check"), "check", "arrow-down-big", 0),
+            # Wagtail model field with default icon
+            (FieldPanel("body", icon="cut"), "cut", "pilcrow", 0),
+            # Django ForeignKey with icon taken from the widget override
+            # Note: the image icon is still used in the chooser placeholder
+            (FieldPanel("feed_image", icon="snippet"), "snippet", "image", 1),
+        ]
+        edit_handler = ObjectList([panel for panel, *_ in cases])
+        edit_handler = edit_handler.bind_to_model(EventPage)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request, form=form_class()
+        )
+        html = bound_edit_handler.render_form_content()
+
+        for i, (_, expected_icon, rendered_default, default_count) in enumerate(cases):
+            bound_panel = bound_edit_handler.children[i]
+            panel = bound_panel.panel
+            field_type = type(panel.db_field).__name__
+            with self.subTest(field_type=field_type, field_name=panel.field_name):
+                self.assertEqual(bound_panel.icon, expected_icon)
+                self.assertIn(f"#icon-{expected_icon}", html)
+                self.assertEqual(html.count(f"#icon-{rendered_default}"), default_count)
+
+    def test_override_panelgroup_icon(self):
+        cases = [
+            (
+                MultiFieldPanel(
+                    (FieldPanel("date_from"), FieldPanel("date_to")),
+                    heading="Dateys",
+                    icon="calendar-alt",
+                ),
+                "calendar-alt",
+            ),
+            (
+                FieldRowPanel(
+                    (FieldPanel("time_from"), FieldPanel("time_to")),
+                    heading="Timeys",
+                    icon="history",
+                ),
+                "history",
+            ),
+        ]
+        edit_handler = ObjectList([panel for panel, *_ in cases])
+        edit_handler = edit_handler.bind_to_model(EventPage)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request, form=form_class()
+        )
+        html = bound_edit_handler.render_form_content()
+
+        for i, (panel, expected_icon) in enumerate(cases):
+            bound_panel = bound_edit_handler.children[i]
+            with self.subTest(panel_type=type(panel)):
+                self.assertEqual(bound_panel.icon, expected_icon)
+                self.assertIn(f"#icon-{expected_icon}", html)
+
+    def test_override_inlinepanel_icon(self):
+        cases = [
+            (
+                InlinePanel("carousel_items", label="Carousey", icon="cogs"),
+                "cogs",
+            ),
+            (
+                MultipleChooserPanel(
+                    "related_links",
+                    label="Linky",
+                    chooser_field_name="link_page",
+                    icon="pick",
+                ),
+                "pick",
+            ),
+        ]
+        edit_handler = ObjectList([panel for panel, *_ in cases])
+        edit_handler = edit_handler.bind_to_model(EventPage)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request, form=form_class()
+        )
+        html = bound_edit_handler.render_form_content()
+
+        for i, (panel, expected_icon) in enumerate(cases):
+            bound_panel = bound_edit_handler.children[i]
+            with self.subTest(panel_type=type(panel)):
+                self.assertEqual(bound_panel.icon, expected_icon)
+                self.assertIn(f"#icon-{expected_icon}", html)
+
+    def test_override_misc_panel_icon(self):
+        # Set up FormPageWithRedirect with a FormSubmission
+        root_page = Page.objects.get(id=2)
+        form_page = FormPageWithRedirect(
+            title="Contact us",
+            slug="contact-us",
+            to_address="to@email.com",
+            from_address="from@email.com",
+            subject="The subject",
+        )
+        form_page = root_page.add_child(instance=form_page)
+        FormSubmission.objects.create(form_data={}, page=form_page)
+
+        cases = [
+            (PageChooserPanel("thank_you_redirect_page", icon="reset"), "reset"),
+            (FormSubmissionsPanel(icon="thumbtack"), "thumbtack"),
+        ]
+        edit_handler = ObjectList([panel for panel, *_ in cases])
+        edit_handler = edit_handler.bind_to_model(FormPageWithRedirect)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request, form=form_class(), instance=form_page
+        )
+        html = bound_edit_handler.render_form_content()
+        for i, (panel, expected_icon) in enumerate(cases):
+            bound_panel = bound_edit_handler.children[i]
+            with self.subTest(panel_type=type(panel)):
+                self.assertEqual(bound_panel.icon, expected_icon)
+                self.assertIn(f"#icon-{expected_icon}", html)
