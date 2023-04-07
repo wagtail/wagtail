@@ -67,6 +67,8 @@ class Panel:
     :param icon: The name of the icon to display next to the panel heading.
     """
 
+    BASE_ATTRS = {}
+
     def __init__(
         self,
         heading="",
@@ -74,6 +76,7 @@ class Panel:
         help_text="",
         base_form_class=None,
         icon="",
+        attrs=None,
     ):
         self.heading = heading
         self.classname = classname
@@ -81,6 +84,10 @@ class Panel:
         self.base_form_class = base_form_class
         self.icon = icon
         self.model = None
+        self.attrs = self.BASE_ATTRS.copy()
+
+        if attrs is not None:
+            self.attrs.update(attrs)
 
     def clone(self):
         """
@@ -95,6 +102,7 @@ class Panel:
         """
         return {
             "icon": self.icon,
+            "attrs": self.attrs,
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,
@@ -246,6 +254,10 @@ class Panel:
             return self.panel.classes()
 
         @property
+        def attrs(self):
+            return self.panel.attrs
+
+        @property
         def icon(self):
             return self.panel.icon
 
@@ -273,6 +285,7 @@ class Panel:
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["self"] = self
+            context["attrs"] = self.attrs
             return context
 
         def get_comparison(self):

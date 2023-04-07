@@ -428,7 +428,8 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                     permission="tests.other_custom_see_panel_setting",
                     heading="Other Custom Setting",
                 ),
-            ]
+            ],
+            attrs={"data-controller": "my-tabbed-interface"},
         ).bind_to_model(EventPage)
 
     def test_get_form_class(self):
@@ -470,6 +471,9 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
 
         # result should contain rendered content from descendants
         self.assertIn("Abergavenny sheepdog trials</textarea>", result)
+
+        # result should contain the data-controller attribute as defined by attrs
+        self.assertIn('data-controller="my-tabbed-interface"', result)
 
         # this result should not include fields that are not covered by the panel definition
         self.assertNotIn("signup_link", result)
@@ -619,6 +623,7 @@ class TestObjectList(TestCase):
             ],
             heading="Event details",
             classname="shiny",
+            attrs={"data-controller": "my-object-list"},
         ).bind_to_model(EventPage)
 
     def test_get_form_class(self):
@@ -646,6 +651,9 @@ class TestObjectList(TestCase):
 
         # result should contain ObjectList furniture
         self.assertIn('<div class="w-panel__header">', result)
+
+        # result should contain the specified attrs
+        self.assertIn('data-controller="my-object-list"', result)
 
         # result should contain labels for children
         self.assertIn(
@@ -809,6 +817,9 @@ class TestFieldPanel(TestCase):
 
                 # The input should have the expected value
                 self.assertIn(f'value="{expected_input_value}"', result)
+
+                # check that data-field-wrapper is added by default via attrs.
+                self.assertIn("data-field-wrapper", result)
 
                 # help text should rendered
                 self.assertIn("Not required if event is on a single day", result)
@@ -1206,7 +1217,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         speaker_object_list = ObjectList(
             [
                 InlinePanel(
-                    "speakers", label="Speakers", classname="classname-for-speakers"
+                    "speakers",
+                    label="Speakers",
+                    classname="classname-for-speakers",
+                    attrs={"data-controller": "test"},
                 )
             ]
         ).bind_to_model(EventPage)
@@ -1267,6 +1281,12 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
         # rendered panel must include the JS initializer
         self.assertIn("var panel = new InlinePanel({", result)
+
+        # rendered panel must have data-contentpath-disabled attribute by default
+        self.assertIn("data-contentpath-disabled", result)
+
+        # check that attr option renders the data-controller attribute
+        self.assertIn('data-controller="test"', result)
 
     def test_render_with_panel_overrides(self):
         """
