@@ -61,6 +61,7 @@ class Panel:
         help_text="",
         base_form_class=None,
         icon="",
+        attrs=None,
     ):
         self.heading = heading
         self.classname = classname
@@ -68,6 +69,7 @@ class Panel:
         self.base_form_class = base_form_class
         self.icon = icon
         self.model = None
+        self.attrs = attrs
 
     def clone(self):
         """
@@ -82,6 +84,7 @@ class Panel:
         """
         return {
             "icon": self.icon,
+            "attrs": self.attrs,
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,

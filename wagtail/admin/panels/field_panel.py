@@ -11,10 +11,14 @@ from .base import Panel
 
 class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
+    BASE_ATTRS = { "data-field-wrapper":True }
 
     def __init__(
-        self, field_name, widget=None, disable_comments=None, permission=None, **kwargs
+        self, field_name, widget=None, disable_comments=None, permission=None, attrs=None, **kwargs
     ):
+        self.attrs = self.BASE_ATTRS
+        if attrs is not None:
+            self.attrs.update(attrs)
         super().__init__(**kwargs)
         self.field_name = field_name
         self.widget = widget
