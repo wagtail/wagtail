@@ -842,7 +842,7 @@ from wagtail import hooks
 class UserbarPuppyLinkItem:
     def render(self, request):
         return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
-            + 'target="_parent" role="menuitem" class="action icon icon-wagtail">Puppies!</a></li>'
+            + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')
 def add_puppy_link_item(request, items):
