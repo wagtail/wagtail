@@ -8,19 +8,14 @@ repos:
       - id: black
         language_version: python3
         args: ['--target-version', 'py37']
-  - repo: https://github.com/timothycrosley/isort
-    # isort config is in setup.cfg
-    rev: 5.6.4
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: 'v0.0.261'
     hooks:
-      - id: isort
-  - repo: https://github.com/pycqa/flake8
-    # flake8 config is in setup.cfg
-    rev: 3.8.4
-    hooks:
-      - id: flake8
-        additional_dependencies:
-          - flake8-comprehensions
-          - flake8-assertive
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.5.1
     hooks:

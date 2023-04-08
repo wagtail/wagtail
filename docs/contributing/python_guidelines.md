@@ -10,7 +10,7 @@ run by `pre-commit` if that is configured.
     a text editor with [EditorConfig](https://editorconfig.org/) support to avoid indentation and
     whitespace issues. Python and HTML files use 4 spaces for indentation.
 
-In addition, import lines should be sorted according to [isort](https://pycqa.github.io/isort/) 5.6.4 rules.
+In addition, import lines should be sorted according to [isort](https://pycqa.github.io/isort/) rules.
 If you have installed Wagtail's testing dependencies (`pip install -e '.[testing]'`), you can check your code by
 running `make lint`. You can also just check python related linting by running `make lint-server`.
 

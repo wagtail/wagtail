@@ -3,8 +3,8 @@
 help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "develop - install development dependencies"
-	@echo "lint - check style with black, flake8, sort python with isort, indent html, and lint frontend css/js"
-	@echo "format - enforce a consistent code style across the codebase, sort python files with isort and fix frontend css/js"
+	@echo "lint - check style with black, ruff, sort python with ruff, indent html, and lint frontend css/js"
+	@echo "format - enforce a consistent code style across the codebase, sort python files with ruff and fix frontend css/js"
 	@echo "test - run tests"
 	@echo "coverage - check code coverage"
 
@@ -19,8 +19,7 @@ develop: clean-pyc
 
 lint-server:
 	black --target-version py37 --check --diff .
-	flake8
-	isort --check-only --diff .
+	ruff check .
 	semgrep --config .semgrep.yml --error .
 	curlylint --parse-only wagtail
 	git ls-files '*.html' | xargs djhtml --check
@@ -37,7 +36,7 @@ lint: lint-server lint-client lint-docs
 
 format-server:
 	black --target-version py37 .
-	isort .
+	ruff check . --fix
 	git ls-files '*.html' | xargs djhtml -i
 
 format-client:
