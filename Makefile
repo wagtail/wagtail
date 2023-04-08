@@ -20,6 +20,7 @@ develop: clean-pyc
 lint-server:
 	black --target-version py37 --check --diff .
 	flake8
+	ruff check .
 	isort --check-only --diff .
 	semgrep --config .semgrep.yml --error .
 	curlylint --parse-only wagtail

@@ -10,7 +10,7 @@ repos:
         args: ['--target-version', 'py37']
   - repo: https://github.com/timothycrosley/isort
     # isort config is in setup.cfg
-    rev: 5.6.4
+    rev: 5.12.0
     hooks:
       - id: isort
   - repo: https://github.com/pycqa/flake8
@@ -21,6 +21,11 @@ repos:
         additional_dependencies:
           - flake8-comprehensions
           - flake8-assertive
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # ruff config is in ruff.toml
+    rev: 'v0.0.261'
+    hooks:
+      - id: ruff
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.5.1
     hooks:
