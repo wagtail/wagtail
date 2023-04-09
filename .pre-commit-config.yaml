@@ -10,7 +10,7 @@ repos:
         args: ['--target-version', 'py37']
   - repo: https://github.com/timothycrosley/isort
     # isort config is in setup.cfg
-    rev: 5.12.0
+    rev: 5.6.4
     hooks:
       - id: isort
   - repo: https://github.com/pycqa/flake8
