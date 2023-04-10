@@ -261,3 +261,22 @@ Filling in the `path` / `numchild` / `depth` fields is necessary in order for tr
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
 The [Treebeard docs](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) might help in understanding how this works.
+
+## PagePermissionTester
+
+**_class_ wagtail.tests.utils.permissions.PagePermissionTester** 
+A simple usecase is shown below:
+```python
+from wagtail.core.models import Page
+from wagtail.tests.utils.permissions import PagePermissionTester
+from django.contrib.auth.models import User
+
+# user and page objects
+user = User.objects.get(username='myuser')
+page = Page.objects.get(id=1)
+
+# PagePermissionTester object
+tester = PagePermissionTester(user, page)
+```
+There are numerous useful methods provided by the `PagePermissionTester` that can used to test the privileges of a user.
+These methods can be found at `/wagtail/models/__init__.py`
