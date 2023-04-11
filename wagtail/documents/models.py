@@ -166,7 +166,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         return reverse("wagtaildocs_serve", args=[self.id, self.filename])
 
     def get_usage(self):
-        return ReferenceIndex.get_references_to(self).group_by_source_object()
+        return ReferenceIndex.get_grouped_references_to(self)
 
     @property
     def usage_url(self):
