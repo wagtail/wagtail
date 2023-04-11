@@ -3570,7 +3570,12 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertContains(response, "This advert is referenced 2 times")
         self.assertContains(
-            response, self.test_snippet.usage_url() + "?describe_on_delete=1"
+            response,
+            reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=[quote(self.test_snippet.pk)],
+            )
+            + "?describe_on_delete=1",
         )
 
     def test_before_delete_snippet_hook_get(self):
@@ -4966,7 +4971,12 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             "This standard snippet with custom primary key is referenced 0 times",
         )
         self.assertContains(
-            response, self.snippet_a.usage_url() + "?describe_on_delete=1"
+            response,
+            reverse(
+                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
+                args=[quote(self.snippet_a.pk)],
+            )
+            + "?describe_on_delete=1",
         )
 
     def test_redirect_to_edit(self):

@@ -27,7 +27,7 @@ class TestUsageCount(TestCase):
 
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(pk=1)
-        self.assertEqual(advert.get_usage().count(), 2)
+        self.assertEqual(ReferenceIndex.get_grouped_references_to(advert).count(), 2)
 
 
 class TestUsedBy(TestCase):
@@ -41,11 +41,12 @@ class TestUsedBy(TestCase):
 
     def test_snippet_used_by(self):
         advert = Advert.objects.get(pk=1)
+        usage = ReferenceIndex.get_grouped_references_to(advert)
 
-        self.assertIsInstance(advert.get_usage()[0], tuple)
-        self.assertIsInstance(advert.get_usage()[0][0], Page)
-        self.assertIsInstance(advert.get_usage()[0][1], list)
-        self.assertIsInstance(advert.get_usage()[0][1][0], ReferenceIndex)
+        self.assertIsInstance(usage[0], tuple)
+        self.assertIsInstance(usage[0][0], Page)
+        self.assertIsInstance(usage[0][1], list)
+        self.assertIsInstance(usage[0][1][0], ReferenceIndex)
 
 
 class TestSnippetUsageView(WagtailTestUtils, TestCase):
@@ -194,7 +195,7 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         )
         Page.objects.get(pk=1).add_child(instance=gfk_page)
 
-        self.assertEqual(advert.get_usage().count(), 1)
+        self.assertEqual(ReferenceIndex.get_grouped_references_to(advert).count(), 1)
 
         response = self.client.get(
             reverse("wagtailsnippets_tests_advert:usage", args=["1"])

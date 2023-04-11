@@ -10,7 +10,7 @@ from django.utils.module_loading import import_string
 
 from wagtail.admin.viewsets import viewsets
 from wagtail.hooks import search_for_hooks
-from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
+from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 
 SNIPPET_MODELS = []
 
@@ -90,11 +90,6 @@ def _register_snippet_immediately(model, viewset=None):
 
     from wagtail.snippets.views.snippets import SnippetViewSet
 
-    model.get_usage = lambda obj: ReferenceIndex.get_references_to(
-        obj
-    ).group_by_source_object()
-    model.usage_url = get_snippet_usage_url
-
     if viewset is None:
         viewset = SnippetViewSet
     elif isinstance(viewset, str):
@@ -106,10 +101,6 @@ def _register_snippet_immediately(model, viewset=None):
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
-
-
-def get_snippet_usage_url(self):
-    return reverse(self.snippet_viewset.get_url_name("usage"), args=[quote(self.pk)])
 
 
 def register_deferred_snippets():
