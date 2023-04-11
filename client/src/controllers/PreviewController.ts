@@ -208,7 +208,7 @@ export class PreviewController extends Controller<HTMLElement> {
       clearTimeout(this.spinnerTimeout);
       this.spinnerTimeout = null;
     }
-    this.spinnerTarget.classList.add('w-hidden');
+    this.spinnerTarget.hidden = true;
     this.isUpdatingValue = false;
   }
 
@@ -301,10 +301,9 @@ export class PreviewController extends Controller<HTMLElement> {
     if (this.isUpdatingValue) return Promise.resolve();
 
     this.isUpdatingValue = true;
-    this.spinnerTimeout = setTimeout(
-      () => this.spinnerTarget.classList.remove('w-hidden'),
-      2000,
-    );
+    this.spinnerTimeout = setTimeout(() => {
+      this.spinnerTarget.hidden = false;
+    }, 2000);
 
     try {
       const response = await fetch(this.urlValue, {
