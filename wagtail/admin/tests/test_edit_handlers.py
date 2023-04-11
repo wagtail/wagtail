@@ -853,12 +853,11 @@ class TestFieldPanel(TestCase):
         evaluating `ModelChoiceIterator` instances, and the database query
         that would trigger.
         """
-        value = get_image_model()(title="Title")
-        expected_result = str(value)
+        image = get_image_model()(title="Title")
         with self.assertNumQueries(0):
             self.assertEqual(
-                self.read_only_image_panel.format_value_for_display(value),
-                expected_result,
+                self.read_only_image_panel.format_value_for_display(image),
+                image,
             )
 
     def test_required_fields(self):
