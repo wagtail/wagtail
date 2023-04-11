@@ -125,6 +125,7 @@ export class PreviewController extends Controller<HTMLElement> {
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
   cleared = false;
   updatePromise: Promise<boolean> | null = null;
+  formPayload = '';
 
   /**
    * The default size input element.
@@ -392,38 +393,37 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
+   * Checks whether the form data has changed since the last call to this method.
+   * @returns whether the form data has changed
+   */
+  hasChanges() {
+    // https://github.com/microsoft/TypeScript/issues/30584
+    const newPayload = new URLSearchParams(
+      new FormData(this.editForm) as unknown as Record<string, string>,
+    ).toString();
+    const changed = this.formPayload !== newPayload;
+
+    this.formPayload = newPayload;
+    return changed;
+  }
+
+  /**
    * Initialises the auto update mechanism. This works by comparing the current
    * form data with the previous form data at a set interval. If the form data
    * has changed, the preview will be updated. The interval is only active when
    * the side panel is shown.
    */
   initAutoUpdate() {
-    // Start with an empty payload so that when checkAndUpdatePreview is called
-    // for the first time when the panel is opened, it will always update the preview
-    let oldPayload = '';
     let updateInterval: ReturnType<typeof setInterval>;
-
-    const hasChanges = () => {
-      // https://github.com/microsoft/TypeScript/issues/30584
-      const newPayload = new URLSearchParams(
-        new FormData(this.editForm) as unknown as Record<string, string>,
-      ).toString();
-      const changed = oldPayload !== newPayload;
-
-      oldPayload = newPayload;
-      return changed;
-    };
-
     // Call setPreviewData only if no changes have been made within the interval
     const debouncedSetPreviewData = debounce(
       this.setPreviewData.bind(this),
       WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
     );
-
     const checkAndUpdatePreview = () => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
-      if (this.updatePromise || !hasChanges()) return;
+      if (this.updatePromise || !this.hasChanges()) return;
       debouncedSetPreviewData();
     };
 
