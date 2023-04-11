@@ -101,7 +101,6 @@ export class PreviewController extends Controller<HTMLElement> {
     url: String,
     autoUpdate: Boolean,
     autoUpdateInterval: Number,
-    isUpdating: Boolean,
   };
 
   declare readonly unavailableClass: string;
@@ -118,7 +117,6 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly urlValue: string;
   declare readonly autoUpdateValue: boolean;
   declare readonly autoUpdateIntervalValue: number;
-  declare isUpdatingValue: boolean;
 
   // Instance variables with initial values set in connect()
   declare editForm: HTMLFormElement;
@@ -126,6 +124,7 @@ export class PreviewController extends Controller<HTMLElement> {
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
   cleared = false;
+  updatePromise: Promise<boolean> | null = null;
 
   /**
    * The default size input element.
@@ -209,7 +208,7 @@ export class PreviewController extends Controller<HTMLElement> {
       this.spinnerTimeout = null;
     }
     this.spinnerTarget.hidden = true;
-    this.isUpdatingValue = false;
+    this.updatePromise = null;
   }
 
   /**
@@ -298,46 +297,54 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   async setPreviewData() {
     // Bail out if there is already a pending update
-    if (this.isUpdatingValue) return Promise.resolve();
+    if (this.updatePromise) return this.updatePromise;
 
-    this.isUpdatingValue = true;
-    this.spinnerTimeout = setTimeout(() => {
-      this.spinnerTarget.hidden = false;
-    }, 2000);
+    // Store the promise so that subsequent calls to setPreviewData will
+    // return the same promise as long as it hasn't finished yet
+    this.updatePromise = (async () => {
+      this.spinnerTimeout = setTimeout(() => {
+        this.spinnerTarget.hidden = false;
+      }, 2000);
 
-    try {
-      const response = await fetch(this.urlValue, {
-        method: 'POST',
-        body: new FormData(this.editForm),
-      });
-      const data = await response.json();
+      try {
+        const response = await fetch(this.urlValue, {
+          method: 'POST',
+          body: new FormData(this.editForm),
+        });
+        const data = await response.json();
 
-      this.element.classList.toggle(this.hasErrorsClass, !data.is_valid);
-      this.element.classList.toggle(this.unavailableClass, !data.is_available);
+        this.element.classList.toggle(this.hasErrorsClass, !data.is_valid);
+        this.element.classList.toggle(
+          this.unavailableClass,
+          !data.is_available,
+        );
 
-      if (!data.is_available) {
-        // Ensure the 'Preview not available' message is not scaled down
-        this.setPreviewWidth();
-      }
+        if (!data.is_available) {
+          // Ensure the 'Preview not available' message is not scaled down
+          this.setPreviewWidth();
+        }
 
-      if (data.is_valid) {
-        this.reloadIframe();
-      } else if (!this.cleared) {
-        this.clearPreviewData();
-        this.cleared = true;
-        this.reloadIframe();
-      } else {
-        // Finish the process when the data is invalid to prepare for the next update
-        // and avoid elements like the loading spinner to be shown indefinitely
+        if (data.is_valid) {
+          this.reloadIframe();
+        } else if (!this.cleared) {
+          this.clearPreviewData();
+          this.cleared = true;
+          this.reloadIframe();
+        } else {
+          // Finish the process when the data is invalid to prepare for the next update
+          // and avoid elements like the loading spinner to be shown indefinitely
+          this.finishUpdate();
+        }
+
+        return data.is_valid as boolean;
+      } catch (error) {
         this.finishUpdate();
+        // Re-throw error so it can be handled by setPreviewDataWithAlert
+        throw error;
       }
+    })();
 
-      return data.is_valid as boolean;
-    } catch (error) {
-      this.finishUpdate();
-      // Re-throw error so it can be handled by setPreviewDataWithAlert
-      throw error;
-    }
+    return this.updatePromise;
   }
 
   /**
@@ -416,7 +423,7 @@ export class PreviewController extends Controller<HTMLElement> {
     const checkAndUpdatePreview = () => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
-      if (this.isUpdatingValue || !hasChanges()) return;
+      if (this.updatePromise || !hasChanges()) return;
       debouncedSetPreviewData();
     };
 
