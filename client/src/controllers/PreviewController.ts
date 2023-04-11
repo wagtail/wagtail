@@ -349,6 +349,18 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
+   * Like `setPreviewData`, but only updates the preview if there is no pending
+   * update and the form has not changed.
+   * @returns whether the data is valid
+   */
+  async checkAndUpdatePreview() {
+    // Small performance optimisation: the hasChanges() method will not be called
+    // if there is a pending update due to the || operator short-circuiting
+    if (this.updatePromise || !this.hasChanges()) return undefined;
+    return this.setPreviewData();
+  }
+
+  /**
    * Like `setPreviewData`, but also displays an alert if an error occurred while
    * updating the preview data. Note that this will not display an alert if the
    * update request was successful, but the data is invalid.
@@ -415,17 +427,6 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   initAutoUpdate() {
     let updateInterval: ReturnType<typeof setInterval>;
-    // Call setPreviewData only if no changes have been made within the interval
-    const debouncedSetPreviewData = debounce(
-      this.setPreviewData.bind(this),
-      WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-    );
-    const checkAndUpdatePreview = () => {
-      // Do not check for preview update if an update request is still pending
-      // and don't send a new request if the form hasn't changed
-      if (this.updatePromise || !this.hasChanges()) return;
-      debouncedSetPreviewData();
-    };
 
     // This controller is encapsulated as a child of the side panel element,
     // so we need to listen to the show/hide events on the parent element
@@ -439,24 +440,30 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel="checks"]',
     );
 
+    // Apply debounce to the setPreviewData method
+    this.setPreviewData = debounce(
+      this.setPreviewData.bind(this),
+      this.autoUpdateIntervalValue,
+    );
+
     sidePanelContainer.addEventListener('show', () => {
       // Immediately update the preview when the panel is opened
-      checkAndUpdatePreview();
+      this.checkAndUpdatePreview();
 
       // Only set the interval while the panel is shown
       // This interval performs the checks for changes but not necessarily the
       // update itself
       updateInterval = setInterval(
-        checkAndUpdatePreview,
+        this.checkAndUpdatePreview.bind(this),
         this.autoUpdateIntervalValue,
       );
     });
 
     // Use the same processing as the preview panel.
     checksSidePanel?.addEventListener('show', () => {
-      checkAndUpdatePreview();
+      this.checkAndUpdatePreview();
       updateInterval = setInterval(
-        checkAndUpdatePreview,
+        this.checkAndUpdatePreview.bind(this),
         WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
       );
     });
