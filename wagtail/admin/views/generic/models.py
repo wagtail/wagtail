@@ -680,7 +680,7 @@ class DeleteView(
     def get_usage(self):
         if not self.usage_url:
             return None
-        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
+        return ReferenceIndex.get_grouped_references_to(self.object)
 
     def get_success_url(self):
         next_url = get_valid_next_url_from_request(self.request)
@@ -874,7 +874,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_usage(self):
-        return ReferenceIndex.get_references_to(self.object).group_by_source_object()
+        return ReferenceIndex.get_grouped_references_to(self.object)
 
     def get_objects_to_unpublish(self):
         # Hook to allow child classes to have more objects to unpublish (e.g. page descendants)
