@@ -105,10 +105,6 @@ class FieldPanel(Panel):
             "FloatField": "decimal",
             "DecimalField": "decimal",
             "BooleanField": "tick-inverse",
-            # Django has no model form field for this, so it won't be used
-            # unless a custom field with this name is used, or we also
-            # look through the form fields to get the default icon.
-            "RegexField": "regex",
         }
 
         def __init__(self, **kwargs):
@@ -163,14 +159,19 @@ class FieldPanel(Panel):
             """
             Display a different icon depending on the field's type.
             """
-            # If the panel has an icon, use that
+            # If the panel has an icon, use that.
             if self.panel.icon:
                 return self.panel.icon
 
-            # Try to use the model field first, then the form field
+            # Try to use the model field first, then the form field because it's
+            # possible to use FieldPanel without a model field by using a custom
+            # form class.
             try:
                 field = self.panel.db_field
             except FieldDoesNotExist:
+                # The defined default icons are for model fields, but most of them
+                # have a corresponding form field with the same name, so we just
+                # hope the name matches.
                 field = self.bound_field.field
 
             field_type = type(field)
@@ -183,7 +184,7 @@ class FieldPanel(Panel):
                 widget = overrides.get("widget", None)
                 return getattr(widget, "icon", None)
 
-            # Otherwise, find a default icon based on the field's class or superclasses
+            # Otherwise, find a default icon based on the field's class or superclasses.
             for field_class in field_type.mro():
                 field_name = field_class.__name__
                 if field_name in self.default_field_icons:
