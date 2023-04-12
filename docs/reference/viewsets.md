@@ -80,6 +80,11 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
    .. autoattribute:: icon
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: add_to_settings_menu
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
    .. autoattribute:: list_display
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
@@ -114,6 +119,11 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_template_name
    .. autoattribute:: delete_template_name
    .. autoattribute:: history_template_name
+   .. automethod:: get_menu_label
+   .. automethod:: get_menu_name
+   .. automethod:: get_menu_icon
+   .. automethod:: get_menu_order
+   .. automethod:: get_menu_item
    .. automethod:: get_queryset
    .. automethod:: get_edit_handler
    .. automethod:: get_form_class
