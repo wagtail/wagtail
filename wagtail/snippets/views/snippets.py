@@ -1371,5 +1371,8 @@ class SnippetViewSet(ModelViewSet):
 
     def on_register(self):
         super().on_register()
+        # For convenience, attach viewset to the model class to allow accessing
+        # the configuration of a given model.
+        self.model.snippet_viewset = self
         viewsets.register(self.chooser_viewset)
         self.register_model_check()
