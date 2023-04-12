@@ -256,6 +256,11 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
     ordering = ["text", "-_updated_at", "-pk"]
+    add_to_admin_menu = True
+    menu_label = "Full-Featured MenuItem"  #
+    menu_name = "fullfeatured"
+    # Ensure that the menu item is placed last
+    menu_order = 999999
 
     # TODO: When specific search fields are supported in SQLite FTS (see #10217),
     # specify search_fields or get_search_fields here
@@ -285,6 +290,9 @@ class DraftStateModelViewSet(SnippetViewSet):
     list_filter = ["text", "first_published_at"]
     search_fields = ["text"]
     search_backend_name = None
+    add_to_settings_menu = True
+    # Ensure that the menu item is placed first
+    menu_order = -999999
 
     panels = [
         FieldPanel("text"),

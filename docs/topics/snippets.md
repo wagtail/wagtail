@@ -643,3 +643,27 @@ register_snippet(Member, viewset=MemberViewSet)
 The `viewset` parameter of `register_snippet` also accepts a dotted module path to the subclass, e.g. `"myapp.views.MemberViewSet"`.
 
 Various additional attributes are available to customise the viewset - see {class}`~wagtail.snippets.views.snippets.SnippetViewSet`.
+
+## Customising the menu item
+
+```{versionadded} 5.0
+The ability to have a separate menu item was added.
+```
+
+By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. You can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the Settings menu, you can set {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_settings_menu` to `True`. The menu item will use the icon specified on the `SnippetViewSet` and it will link to the index view for the snippet model.
+
+Unless specified, the menu item will be named after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_label`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_icon`, and {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item` method.
+
+An example of a custom `SnippetViewSet` subclass with `add_to_admin_menu` set to `True`:
+
+```python
+from wagtail.snippets.views.snippets import SnippetViewSet
+
+
+class AdvertViewSet(SnippetViewSet):
+    icon = "crosshairs"
+    menu_label = "Advertisements"
+    menu_name = "adverts"
+    menu_order = 300
+    add_to_admin_menu = True
+```

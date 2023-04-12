@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
@@ -822,3 +823,28 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             list(response.context["object_list"]),
             [self.second, self.third],
         )
+
+
+class TestMenuItemRegistration(BaseSnippetViewSetTests):
+    def setUp(self):
+        super().setUp()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def test_add_to_admin_menu(self):
+        self.model = FullFeaturedSnippet
+        menu_items = admin_menu.render_component(self.request)
+        item = menu_items[-1]
+        self.assertEqual(item.name, "fullfeatured")
+        self.assertEqual(item.label, "Full-Featured MenuItem")
+        self.assertEqual(item.icon_name, "cog")
+        self.assertEqual(item.url, self.get_url("list"))
+
+    def test_add_to_settings_menu(self):
+        self.model = DraftStateModel
+        menu_items = settings_menu.render_component(self.request)
+        item = menu_items[0]
+        self.assertEqual(item.name, "draft-state-models")
+        self.assertEqual(item.label, "Draft State Models")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, self.get_url("list"))
