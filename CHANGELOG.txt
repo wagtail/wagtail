@@ -101,6 +101,7 @@ Changelog
  * Maintenance: Migrate `window.initSlugAutoPopulate` behaviour to a Stimulus Controller `w-sync` (Loveth Omokaro)
  * Maintenance: Rename `status` classes to `w-status` to align with preferred CSS class naming conventions (Mansi Gundre)
  * Maintenance: Include wagtail-factories in `wagtail.test.utils` to avoid cross-dependency issues (Matt Westcott)
+ * Maintenance: Fix search tests to correctly reflect behaviour of search backends other than the fallback backend (Matt Westcott)
 
 
 4.2.2 (03.04.2023)
