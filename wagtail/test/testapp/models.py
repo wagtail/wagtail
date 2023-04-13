@@ -978,9 +978,6 @@ class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
 
 
-register_snippet(RevisableModel)
-
-
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
 
