@@ -667,3 +667,36 @@ class AdvertViewSet(SnippetViewSet):
     menu_order = 300
     add_to_admin_menu = True
 ```
+
+Multiple snippet models can also be grouped under a single menu item using a {attr}`~wagtail.snippets.views.snippets.SnippetViewSetGroup`. You can do this by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.model` attribute on the `SnippetViewSet` classes and then registering the `SnippetViewSetGroup` subclass instead of each individual model or viewset:
+
+```python
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+
+
+class AdvertViewSet(SnippetViewSet):
+    model = Advert
+    icon = "crosshairs"
+    menu_label = "Advertisements"
+    menu_name = "adverts"
+
+
+class ProductViewSet(SnippetViewSet):
+    model = Product
+    icon = "desktop"
+    menu_label = "Products"
+    menu_name = "banners"
+
+
+class MarketingViewSetGroup(SnippetViewSetGroup):
+    items = (AdvertViewSet, ProductViewSet)
+    icon = "folder-inverse"
+    menu_label = "Marketing"
+    menu_name = "marketing"
+
+
+# When using a SnippetViewSetGroup class to group several SnippetViewSet classes together,
+# only register the SnippetViewSetGroup class. You do not need to register each snippet
+# model or viewset separately.
+register_snippet(MarketingViewSetGroup)
+```

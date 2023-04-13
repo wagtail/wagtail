@@ -139,3 +139,21 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_chooser_admin_url_namespace
    .. automethod:: get_chooser_admin_base_path
 ```
+
+## SnippetViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.snippets.views.snippets.SnippetViewSetGroup
+
+   .. autoattribute:: items
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_icon
+   .. autoattribute:: menu_order
+   .. automethod:: get_menu_label
+   .. automethod:: get_menu_name
+   .. automethod:: get_menu_icon
+   .. automethod:: get_menu_order
+   .. automethod:: get_menu_item
+```

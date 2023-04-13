@@ -20,12 +20,13 @@ from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
     RevisableChildModel,
+    RevisableModel,
 )
 
 from .forms import FavouriteColourForm
@@ -272,7 +273,13 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         return self.model._default_manager.all().exclude(text__contains="[HIDDEN]")
 
 
+class RevisableModelViewSet(SnippetViewSet):
+    model = RevisableModel
+
+
 class RevisableChildModelViewSet(SnippetViewSet):
+    model = RevisableChildModel
+
     edit_handler = TabbedInterface(
         [
             ObjectList([FieldPanel("text")], heading="Main"),
@@ -284,6 +291,12 @@ class RevisableChildModelViewSet(SnippetViewSet):
         ],
         help_text="Top-level help text",
     )
+
+
+class RevisableViewSetGroup(SnippetViewSetGroup):
+    items = (RevisableModelViewSet, RevisableChildModelViewSet)
+    menu_label = "Revisables"
+    menu_icon = "tasks"
 
 
 class DraftStateModelViewSet(SnippetViewSet):
@@ -310,6 +323,6 @@ class ModeratedModelViewSet(SnippetViewSet):
 
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
-register_snippet(RevisableChildModel, viewset=RevisableChildModelViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModelViewSet)
+register_snippet(RevisableViewSetGroup)

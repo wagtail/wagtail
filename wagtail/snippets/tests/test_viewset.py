@@ -23,6 +23,8 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
+    RevisableChildModel,
+    RevisableModel,
     SnippetChooserModel,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -865,8 +867,31 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.assertEqual(item.icon_name, "snippet")
         self.assertEqual(item.url, self.get_url("list"))
 
+    def test_group_registration(self):
+        menu_items = admin_menu.render_component(self.request)
+        revisables = [item for item in menu_items if item.name == "revisables"]
+        self.assertEqual(len(revisables), 1)
+
+        group_item = revisables[0]
+        self.assertEqual(group_item.label, "Revisables")
+        self.assertEqual(group_item.icon_name, "tasks")
+        self.assertEqual(len(group_item.menu_items), 2)
+
+        self.model = RevisableModel
+        revisable_item = group_item.menu_items[0]
+        self.assertEqual(revisable_item.name, "revisable-models")
+        self.assertEqual(revisable_item.label, "Revisable Models")
+        self.assertEqual(revisable_item.icon_name, "snippet")
+        self.assertEqual(revisable_item.url, self.get_url("list"))
+
+        self.model = RevisableChildModel
+        revisable_child_item = group_item.menu_items[1]
+        self.assertEqual(revisable_child_item.name, "revisable-child-models")
+        self.assertEqual(revisable_child_item.label, "Revisable Child Models")
+        self.assertEqual(revisable_child_item.icon_name, "snippet")
+        self.assertEqual(revisable_child_item.url, self.get_url("list"))
+
     def test_limited_permissions(self):
-        self.model = FullFeaturedSnippet
         self.user.is_superuser = False
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -877,8 +902,12 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
 
         menu_items = admin_menu.render_component(self.request)
 
-        # The menu item should not be present
-        item = [item for item in menu_items if item.name == "fullfeatured"]
+        # The menu items should not be present
+        item = [
+            item
+            for item in menu_items
+            if item.name in {"fullfeatured", "revisables", "draft-state-models"}
+        ]
         self.assertEqual(len(item), 0)
 
     def test_basic_permissions(self):
