@@ -2,6 +2,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
@@ -32,8 +33,15 @@ def register_admin_urls():
 
 
 class SnippetsMenuItem(MenuItem):
+    @cached_property
+    def _all_have_menu_items(self):
+        return all(
+            model.snippet_viewset.get_menu_item_is_registered()
+            for model in get_snippet_models()
+        )
+
     def is_shown(self, request):
-        return user_can_edit_snippets(request.user)
+        return not self._all_have_menu_items and user_can_edit_snippets(request.user)
 
 
 @hooks.register("register_admin_menu_item")
