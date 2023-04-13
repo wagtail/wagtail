@@ -791,6 +791,10 @@ class SnippetViewSet(ModelViewSet):
         self.workflow_enabled = issubclass(self.model, WorkflowMixin)
         self.locking_enabled = issubclass(self.model, LockableMixin)
 
+        self.menu_item_is_registered = (
+            self.add_to_admin_menu or self.add_to_settings_menu
+        )
+
         super().__init__(
             name=self.get_admin_url_namespace(),
             url_prefix=self.get_admin_base_path(),
@@ -1198,6 +1202,9 @@ class SnippetViewSet(ModelViewSet):
             order=order or self.get_menu_order(),
         )
 
+    def get_menu_item_is_registered(self):
+        return self.menu_item_is_registered
+
     def get_queryset(self, request):
         """
         Returns a QuerySet of all model instances to be shown on the index view.
@@ -1504,7 +1511,9 @@ class SnippetViewSetGroup:
         When initialising, instantiate the classes within 'items', and assign
         the instances to a ``viewsets`` attribute.
         """
-        self.viewsets = [viewset_class() for viewset_class in self.items]
+        self.viewsets = [
+            viewset_class(menu_item_is_registered=True) for viewset_class in self.items
+        ]
 
     def get_app_label_from_subitems(self):
         for instance in self.viewsets:

@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
@@ -936,3 +938,24 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
                 self.assertEqual(item.url, self.get_url("list"))
 
                 self.user.user_permissions.remove(permission)
+
+    def test_snippets_menu_item_hidden_when_all_snippets_have_menu_item(self):
+        menu_items = admin_menu.menu_items_for_request(self.request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 1)
+        item = snippets[0]
+        self.assertEqual(item.name, "snippets")
+        self.assertEqual(item.label, "Snippets")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, reverse("wagtailsnippets:index"))
+
+        # Clear cached property
+        del item._all_have_menu_items
+
+        with mock.patch(
+            "wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item_is_registered"
+        ) as mock_registered:
+            mock_registered.return_value = True
+            menu_items = admin_menu.render_component(self.request)
+            snippets = [item for item in menu_items if item.name == "snippets"]
+            self.assertEqual(len(snippets), 0)

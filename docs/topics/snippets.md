@@ -700,3 +700,5 @@ class MarketingViewSetGroup(SnippetViewSetGroup):
 # model or viewset separately.
 register_snippet(MarketingViewSetGroup)
 ```
+
+If all snippet models have their own menu items, the "Snippets" menu item will not be shown.
