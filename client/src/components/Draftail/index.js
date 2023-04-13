@@ -41,6 +41,7 @@ export { default as EmbedBlock } from './blocks/EmbedBlock';
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON =
   'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
+const HR_ICON = <Icon name="minus" />;
 const ADD_ICON = <Icon name="plus" />;
 
 const pinButton = {
@@ -149,6 +150,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
+          icon: HR_ICON,
         }
       : false;
 
