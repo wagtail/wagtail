@@ -1158,11 +1158,24 @@ class SnippetViewSet(ModelViewSet):
         # By default, put it at the last item before Reports, whose order is 9000.
         return self.menu_order or 8999
 
+    @property
+    def menu_item_class(self):
+        def is_shown(_self, request):
+            return self.permission_policy.user_has_any_permission(
+                request.user, ("add", "change", "delete")
+            )
+
+        return type(
+            f"{self.model.__name__}MenuItem",
+            (MenuItem,),
+            {"is_shown": is_shown},
+        )
+
     def get_menu_item(self):
         """
         Returns a ``MenuItem`` instance to be registered with the Wagtail admin.
         """
-        return MenuItem(
+        return self.menu_item_class(
             label=self.get_menu_label(),
             url=reverse(self.get_url_name("index")),
             name=self.get_menu_name(),

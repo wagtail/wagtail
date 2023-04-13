@@ -1,4 +1,6 @@
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_permission_codename
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
@@ -848,3 +850,46 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.assertEqual(item.label, "Draft State Models")
         self.assertEqual(item.icon_name, "snippet")
         self.assertEqual(item.url, self.get_url("list"))
+
+    def test_limited_permissions(self):
+        self.model = FullFeaturedSnippet
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        menu_items = admin_menu.render_component(self.request)
+
+        # The menu item should not be present
+        item = [item for item in menu_items if item.name == "fullfeatured"]
+        self.assertEqual(len(item), 0)
+
+    def test_basic_permissions(self):
+        self.model = DraftStateModel
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        for action in ("add", "change", "delete"):
+            with self.subTest(action=action):
+                permission = Permission.objects.get(
+                    content_type__app_label=self.model._meta.app_label,
+                    codename=get_permission_codename(action, self.model._meta),
+                )
+                self.user.user_permissions.add(permission)
+
+                menu_items = settings_menu.render_component(self.request)
+                item = menu_items[0]
+                self.assertEqual(item.name, "draft-state-models")
+                self.assertEqual(item.label, "Draft State Models")
+                self.assertEqual(item.icon_name, "snippet")
+                self.assertEqual(item.url, self.get_url("list"))
+
+                self.user.user_permissions.remove(permission)
