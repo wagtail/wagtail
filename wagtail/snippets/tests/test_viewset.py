@@ -862,8 +862,8 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.model = DraftStateModel
         menu_items = settings_menu.render_component(self.request)
         item = menu_items[0]
-        self.assertEqual(item.name, "draft-state-models")
-        self.assertEqual(item.label, "Draft State Models")
+        self.assertEqual(item.name, "publishables")
+        self.assertEqual(item.label, "Publishables")
         self.assertEqual(item.icon_name, "snippet")
         self.assertEqual(item.url, self.get_url("list"))
 
@@ -906,7 +906,7 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         item = [
             item
             for item in menu_items
-            if item.name in {"fullfeatured", "revisables", "draft-state-models"}
+            if item.name in {"fullfeatured", "revisables", "publishables"}
         ]
         self.assertEqual(len(item), 0)
 
@@ -930,8 +930,8 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
 
                 menu_items = settings_menu.render_component(self.request)
                 item = menu_items[0]
-                self.assertEqual(item.name, "draft-state-models")
-                self.assertEqual(item.label, "Draft State Models")
+                self.assertEqual(item.name, "publishables")
+                self.assertEqual(item.label, "Publishables")
                 self.assertEqual(item.icon_name, "snippet")
                 self.assertEqual(item.url, self.get_url("list"))
 
