@@ -84,34 +84,45 @@ def _register_snippet_immediately(registerable, viewset=None):
     # Register the viewset and formfield for this snippet model,
     # skipping the check for whether models are loaded
 
-    from wagtail.snippets.views.snippets import SnippetViewSet
+    from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
     if isinstance(registerable, str):
         registerable = import_string(registerable)
     if isinstance(viewset, str):
         viewset = import_string(viewset)
 
+    if issubclass(registerable, SnippetViewSetGroup):
+        # register_snippet(CustomViewSetGroup) or
+        # @register_snippet on class CustomViewSetGroup
+        viewset_group = registerable()
+        for admin_viewset in viewset_group.viewsets:
+            register_snippet_viewset(admin_viewset)
+        viewset_group.on_register()
+        return
+
     if issubclass(registerable, SnippetViewSet):
         # register_snippet(CustomViewSet) or
         # @register_snippet on class CustomViewSet
         # Note: the viewset class must define a `model` attribute
-        viewset = registerable
-        admin_viewset = viewset()
-        model = admin_viewset.model
+        admin_viewset = registerable()
     else:
         # register_snippet(SnippetModel, viewset=CustomViewSet) or
         # register_snippet(SnippetModel) or
         # @register_snippet on class SnippetModel
         if viewset is None:
             viewset = SnippetViewSet
-        model = registerable
-        admin_viewset = viewset(model)
+        admin_viewset = viewset(model=registerable)
 
+    register_snippet_viewset(admin_viewset)
+
+
+def register_snippet_viewset(viewset):
+    model = viewset.model
     if model in SNIPPET_MODELS:
         # Do not create duplicate registrations of the same model
         return
 
-    viewsets.register(admin_viewset)
+    viewsets.register(viewset)
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)

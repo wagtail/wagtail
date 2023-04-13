@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.menu import MenuItem
+from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import (
@@ -623,6 +623,8 @@ class SnippetViewSet(ModelViewSet):
     menu_name = None
 
     #: An integer determining the order of the menu item, 0 being the first place.
+    #: If the viewset is registered within a :class:`SnippetViewSetGroup`,
+    #: this is ignored and the menu item order is determined by the order of :attr:`~SnippetViewSetGroup.items`.
     menu_order = None
 
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
@@ -1181,16 +1183,19 @@ class SnippetViewSet(ModelViewSet):
             {"is_shown": is_shown},
         )
 
-    def get_menu_item(self):
+    def get_menu_item(self, order=None):
         """
         Returns a ``MenuItem`` instance to be registered with the Wagtail admin.
+
+        The ``order`` parameter allows the method to be called from the outside (e.g.
+        :class:`SnippetViewSetGroup`) to create a sub menu item with the correct order.
         """
         return self.menu_item_class(
             label=self.get_menu_label(),
             url=reverse(self.get_url_name("index")),
             name=self.get_menu_name(),
             icon_name=self.get_menu_icon(),
-            order=self.get_menu_order(),
+            order=order or self.get_menu_order(),
         )
 
     def get_queryset(self, request):
@@ -1460,4 +1465,94 @@ class SnippetViewSet(ModelViewSet):
         self.model.snippet_viewset = self
         viewsets.register(self.chooser_viewset)
         self.register_model_check()
+        self.register_menu_item()
+
+
+class SnippetViewSetGroup:
+    """
+    A container for grouping together multiple SnippetViewSet instances. Creates
+    a menu item with a submenu for accessing the listing pages of those instances.
+    """
+
+    #: A list or tuple of :class:`SnippetViewSet` classes to be grouped together
+    items = ()
+
+    #: Register a custom menu item for the group in the admin's main menu.
+    add_to_admin_menu = True
+
+    # Undocumented for now, but it is technically possible to register the group's
+    # menu item in the Settings menu instead of the main menu.
+    add_to_settings_menu = False
+
+    #: The icon used for the menu item that appears in Wagtail's sidebar.
+    menu_icon = None
+
+    #: The displayed label used for the menu item.
+    #: If unset, the title-cased version of the first model's :attr:`~django.db.models.Options.app_label` will be used.
+    menu_label = None
+
+    #: The ``name`` argument passed to the ``MenuItem`` constructor, becoming the ``name`` attribute value for that instance.
+    #: This can be useful when manipulating the menu items in a custom menu hook, e.g. :ref:`construct_main_menu`.
+    #: If unset, a slugified version of the label is used.
+    menu_name = None
+
+    #: An integer determining the order of the menu item, 0 being the first place.
+    menu_order = None
+
+    def __init__(self):
+        """
+        When initialising, instantiate the classes within 'items', and assign
+        the instances to a ``viewsets`` attribute.
+        """
+        self.viewsets = [viewset_class() for viewset_class in self.items]
+
+    def get_app_label_from_subitems(self):
+        for instance in self.viewsets:
+            return instance.app_label.title()
+        return ""
+
+    def get_menu_label(self):
+        """Returns the label text to be used for the menu item."""
+        return self.menu_label or self.get_app_label_from_subitems()
+
+    def get_menu_name(self):
+        """Returns the name to be used for the menu item."""
+        return self.menu_name
+
+    def get_menu_icon(self):
+        """Returns the icon to be used for the menu item."""
+        return self.menu_icon or "folder-open-inverse"
+
+    def get_menu_order(self):
+        """Returns the ordering number to be applied to the menu item."""
+        return self.menu_order or 8999
+
+    def get_submenu_items(self):
+        menu_items = []
+        item_order = 1
+        for viewset in self.viewsets:
+            menu_items.append(viewset.get_menu_item(order=item_order))
+            item_order += 1
+        return menu_items
+
+    def get_menu_item(self):
+        """Returns a ``MenuItem`` instance to be registered with the Wagtail admin."""
+        if not self.viewsets:
+            return None
+        submenu = Menu(items=self.get_submenu_items())
+        return SubmenuMenuItem(
+            label=self.get_menu_label(),
+            menu=submenu,
+            name=self.get_menu_name(),
+            icon_name=self.get_menu_icon(),
+            order=self.get_menu_order(),
+        )
+
+    def register_menu_item(self):
+        if self.add_to_settings_menu:
+            hooks.register("register_settings_menu_item", self.get_menu_item)
+        elif self.add_to_admin_menu:
+            hooks.register("register_admin_menu_item", self.get_menu_item)
+
+    def on_register(self):
         self.register_menu_item()
