@@ -301,6 +301,8 @@ class DraftStateModelViewSet(SnippetViewSet):
 
 
 class ModeratedModelViewSet(SnippetViewSet):
+    model = ModeratedModel
+
     list_filter = {
         "text": ["exact", "contains"],
         "first_published_at": ["exact", "lt", "gt"],
@@ -310,4 +312,4 @@ class ModeratedModelViewSet(SnippetViewSet):
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(RevisableChildModel, viewset=RevisableChildModelViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
-register_snippet(ModeratedModel, viewset=ModeratedModelViewSet)
+register_snippet(ModeratedModelViewSet)
