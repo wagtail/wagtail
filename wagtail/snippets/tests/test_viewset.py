@@ -2,6 +2,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import now
@@ -14,6 +15,8 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, Workflow, WorkflowContentType
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
@@ -23,6 +26,17 @@ from wagtail.test.testapp.models import (
     SnippetChooserModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+
+
+class TestIncorrectRegistration(TestCase):
+    def test_no_model_set_or_passed(self):
+        # The base SnippetViewSet class has no `model` attribute set,
+        # so using it directly should raise an error
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "SnippetViewSet must be passed a model or define a model attribute.",
+        ):
+            register_snippet(SnippetViewSet)
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
