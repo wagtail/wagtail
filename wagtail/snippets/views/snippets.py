@@ -2,7 +2,7 @@ import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
 from django.core import checks
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
@@ -600,6 +600,9 @@ class SnippetViewSet(ModelViewSet):
     A viewset that instantiates the admin views for snippets.
     """
 
+    #: The model class to be registered as a snippet with this viewset.
+    model = None
+
     #: The icon to use across the admin for this snippet type.
     icon = "snippet"
 
@@ -767,8 +770,15 @@ class SnippetViewSet(ModelViewSet):
     #: The template to use for the history view.
     history_template_name = ""
 
-    def __init__(self, model, **kwargs):
-        self.model = model
+    def __init__(self, model=None, **kwargs):
+        # Allow model to be defined on the class, or passed in via the constructor
+        self.model = model or self.model
+
+        if self.model is None:
+            raise ImproperlyConfigured(
+                "SnippetViewSet must be passed a model or define a model attribute."
+            )
+
         self.model_opts = self.model._meta
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
