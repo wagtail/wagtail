@@ -304,6 +304,9 @@ class DraftStateModelViewSet(SnippetViewSet):
     search_fields = ["text"]
     search_backend_name = None
     add_to_settings_menu = True
+    # Don't use "Draft" as the menu label,
+    # as it may cause incorrect assertion counts in tests
+    menu_label = "Publishables"
     # Ensure that the menu item is placed first
     menu_order = -999999
 
