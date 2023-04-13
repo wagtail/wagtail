@@ -2,6 +2,7 @@ import { Application } from '@hotwired/stimulus';
 import { CloneController } from './CloneController';
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 describe('CloneController', () => {
   let application;
@@ -94,11 +95,13 @@ describe('CloneController', () => {
       application?.stop();
       document.body.innerHTML = `
     <div
-      class="messages"
+      class="messages w-hidden"
       data-controller="w-clone"
-      data-action="w-clone:add@document->w-clone#add"
+      data-action="w-clone:add@document->w-clone#add w-clone:clear@document->w-clone#clear"
       data-w-clone-added-class="new"
+      data-w-clone-hide-class="w-hidden"
       data-w-clone-show-class="appear"
+      data-w-clone-show-delay-value="500"
     >
       <ul data-w-clone-target="container"></ul>
       <template data-w-clone-target="template" data-type="success">
@@ -118,13 +121,13 @@ describe('CloneController', () => {
 
     it('should not add any classes when connected by default', () => {
       expect(document.querySelector('.messages').classList.toString()).toEqual(
-        'messages',
+        'messages w-hidden',
       );
 
       expect(document.querySelectorAll('li')).toHaveLength(0);
     });
 
-    it('should allow for a message to be added via the add method', () => {
+    it('should allow for a message to be added via the add method', async () => {
       const text = 'first message text';
 
       document.dispatchEvent(
@@ -143,7 +146,7 @@ describe('CloneController', () => {
       expect(item.lastElementChild.textContent).toEqual(text);
 
       // it should add a shown class to the message after the timeout
-      jest.runAllTimers();
+      await jest.runAllTimersAsync();
 
       expect(document.querySelector('.messages').classList.toString()).toEqual(
         'messages new appear',
@@ -229,6 +232,76 @@ describe('CloneController', () => {
       expect(items[0].outerHTML).toEqual(
         '<li class="error"><strong>&lt;script&gt;window.alert("Secure?");&lt;/script&gt;</strong></li>',
       );
+    });
+
+    it('should allow the clear method to be called with an action, also updating classes', async () => {
+      const startingClasses = 'messages w-hidden';
+      const element = document.querySelector('.messages');
+      const clearEventHandler = jest.fn();
+      element.addEventListener('w-clone:cleared', clearEventHandler, {
+        once: true,
+      });
+
+      // change delay to be zero (updates immediately)
+      element.setAttribute('data-w-clone-show-delay-value', '0');
+      // reset classes
+      element.className = startingClasses;
+      expect(element.classList.toString()).toEqual('messages w-hidden');
+
+      document.dispatchEvent(new CustomEvent('w-clone:add'));
+      document.dispatchEvent(new CustomEvent('w-clone:add'));
+
+      expect(document.querySelectorAll('li')).toHaveLength(3);
+      expect(element.classList.toString()).toEqual('messages new appear');
+
+      document.dispatchEvent(new CustomEvent('w-clone:clear'));
+
+      await jest.runAllTimersAsync();
+
+      expect(document.querySelectorAll('li')).toHaveLength(0);
+      expect(element.classList.toString()).toEqual(startingClasses);
+      expect(clearEventHandler).toHaveBeenCalledTimes(1);
+    });
+
+    it('should allow the clear method to be called with a delay', async () => {
+      const startingClasses = 'messages w-hidden';
+      const element = document.querySelector('.messages');
+      const clearEventHandler = jest.fn();
+      element.addEventListener('w-clone:cleared', clearEventHandler, {
+        once: true,
+      });
+
+      // set up clear delay
+      element.setAttribute('data-w-clone-clear-delay-value', '1024');
+      // change delay to be zero (updates immediately)
+      element.setAttribute('data-w-clone-show-delay-value', '0');
+      // reset classes
+      element.className = startingClasses;
+      expect(element.classList.toString()).toEqual('messages w-hidden');
+
+      document.dispatchEvent(new CustomEvent('w-clone:add'));
+      document.dispatchEvent(new CustomEvent('w-clone:add'));
+
+      expect(document.querySelectorAll('li')).toHaveLength(2);
+      expect(element.classList.toString()).toEqual('messages new appear');
+
+      document.dispatchEvent(new CustomEvent('w-clone:clear'));
+
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1024);
+
+      expect(document.querySelectorAll('li')).toHaveLength(2);
+
+      await Promise.resolve(jest.advanceTimersByTime(1000));
+
+      document.dispatchEvent(new CustomEvent('w-clone:clear')); // ensure duplicate calls work correctly
+
+      expect(document.querySelectorAll('li')).toHaveLength(2);
+
+      await Promise.resolve(jest.advanceTimersByTime(25));
+
+      expect(document.querySelectorAll('li')).toHaveLength(0);
+      expect(element.classList.toString()).toEqual(startingClasses);
+      expect(clearEventHandler).toHaveBeenCalledTimes(1);
     });
   });
 });
