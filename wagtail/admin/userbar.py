@@ -93,10 +93,17 @@ class AccessibilityItem(BaseItem):
 
     def get_axe_options(self, request):
         # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
-        return {
+        options = {
             "runOnly": self.get_axe_run_only(request),
             "rules": self.get_axe_rules(request),
         }
+        # If the runOnly option is omitted, Axe will run all rules except those
+        # with the "experimental" flag or that are disabled in the rules option.
+        # The runOnly has to be omitted (instead of set to an empty list or null)
+        # for this to work, so we remove it if it's falsy.
+        if not options["runOnly"]:
+            options.pop("runOnly")
+        return options
 
     def get_axe_configuration(self, request):
         return {
