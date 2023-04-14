@@ -32,13 +32,16 @@ class AccessibilityItem(BaseItem):
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
-    #: The CSS selector(s) to test specific parts of the page.
+    #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
-    axe_include = "body"
+    axe_include = ["body"]
 
-    #: The CSS selector(s) to exclude specific parts of the page from testing.
+    #: A list of CSS selector(s) to exclude specific parts of the page from testing.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#exclude-elements-from-test>`__.
-    axe_exclude = {"fromShadowDOM": ["wagtail-userbar"]}
+    axe_exclude = []
+
+    # Make sure that the userbar is not tested.
+    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -87,12 +90,12 @@ class AccessibilityItem(BaseItem):
     }
 
     def get_axe_include(self, request):
-        """Returns the CSS selector(s) to test specific parts of the page."""
+        """Returns a list of CSS selector(s) to test specific parts of the page."""
         return self.axe_include
 
     def get_axe_exclude(self, request):
-        """Returns the CSS selector(s) to exclude specific parts of the page from testing."""
-        return self.axe_exclude
+        """Returns a list of CSS selector(s) to exclude specific parts of the page from testing."""
+        return self.axe_exclude + self._axe_default_exclude
 
     def get_axe_run_only(self, request):
         """Returns a list of axe-core tags or a list of axe-core rule IDs (not a mix of both)."""
