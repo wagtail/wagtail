@@ -231,20 +231,20 @@ Returns the Site object corresponding to the current request.
 
 (wagtailuserbar_tag)=
 
-## Wagtail User Bar
+## Wagtail user bar
 
 This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
-We recommend putting the tag near the top of the `<body>` element to allow keyboard users to reach it. You should consider putting the tag after any [skip links](https://webaim.org/techniques/skipnav/)` but before the navigation and main content of your page.
+We recommend putting the tag near the top of the `<body>` element to allow keyboard users to reach it. You should consider putting the tag after any [skip links](https://webaim.org/techniques/skipnav/) but before the navigation and main content of your page.
 
 ```html+django
 {% load wagtailuserbar %}
 ...
 <body>
     <a id="#content">Skip to content</a>
-    {% wagtailuserbar %} {# This is a good place for the userbar #}
+    {% wagtailuserbar %} {# This is a good place for the user bar #}
     <nav>
     ...
     </nav>
@@ -254,7 +254,7 @@ We recommend putting the tag near the top of the `<body>` element to allow keybo
 </body>
 ```
 
-By default, the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
+By default, the user bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the user bar in each corner of the screen:
 
 ```html+django
 ...
@@ -265,13 +265,15 @@ By default, the User Bar appears in the bottom right of the browser window, inse
 ...
 ```
 
-The userbar can be positioned where it works best with your design. Alternatively, you can position it with a CSS rule in your own CSS files, for example:
+The user bar can be positioned where it works best with your design. Alternatively, you can position it with a CSS rule in your own CSS files, for example:
 
 ```css
 wagtail-userbar::part(userbar) {
     bottom: 30px;
 }
 ```
+
+To customise the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
 ## Varying output between preview and live
 

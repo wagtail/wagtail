@@ -27,11 +27,22 @@ class AdminItem(BaseItem):
 
 
 class AccessibilityItem(BaseItem):
+    """A userbar item that runs the accessibility checker."""
+
+    #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
+    #: The CSS selector(s) to test specific parts of the page.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
     axe_include = "body"
+
+    #: The CSS selector(s) to exclude specific parts of the page from testing.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#exclude-elements-from-test>`__.
     axe_exclude = {"fromShadowDOM": ["wagtail-userbar"]}
 
+    #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
+    #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
+    #: (not a mix of both).
     axe_run_only = [
         "button-name",
         "empty-heading",
@@ -43,9 +54,15 @@ class AccessibilityItem(BaseItem):
         "p-as-heading",
     ]
 
+    #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
+    #: commonly in the format of ``{"enabled": True/False}``. This can be used in
+    #: conjunction with :attr:`axe_run_only` to enable or disable specific rules.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
-    # Wagtail-specific translatable custom error messages.
+    #: A dictionary that maps axe-core rule IDs to custom translatable strings
+    #: to use as the error messages. If an enabled rule does not exist in this
+    #: dictionary, Axe's error message for the rule will be used as fallback.
     axe_messages = {
         "button-name": _(
             "Button text is empty. Use meaningful text for screen reader users."
@@ -70,29 +87,43 @@ class AccessibilityItem(BaseItem):
     }
 
     def get_axe_include(self, request):
+        """Returns the CSS selector(s) to test specific parts of the page."""
         return self.axe_include
 
     def get_axe_exclude(self, request):
+        """Returns the CSS selector(s) to exclude specific parts of the page from testing."""
         return self.axe_exclude
 
     def get_axe_run_only(self, request):
+        """Returns a list of axe-core tags or a list of axe-core rule IDs (not a mix of both)."""
         return self.axe_run_only
 
     def get_axe_rules(self, request):
+        """Returns a dictionary that maps axe-core rule IDs to a dictionary of rule options."""
         return self.axe_rules
 
     def get_axe_messages(self, request):
+        """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
         return self.axe_messages
 
     def get_axe_context(self, request):
-        # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
+        """
+        Returns the `context object <https://github.com/dequelabs/axe-core/blob/develop/doc/context.md>`_
+        to be passed as the
+        `context parameter <https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#context-parameter>`_
+        for ``axe.run``.
+        """
         return {
             "include": self.get_axe_include(request),
             "exclude": self.get_axe_exclude(request),
         }
 
     def get_axe_options(self, request):
-        # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
+        """
+        Returns the options object to be passed as the
+        `options parameter <https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter>`_
+        for ``axe.run``.
+        """
         options = {
             "runOnly": self.get_axe_run_only(request),
             "rules": self.get_axe_rules(request),
