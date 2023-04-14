@@ -69,46 +69,46 @@ class AccessibilityItem(BaseItem):
         "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
     }
 
-    def get_axe_include(self):
+    def get_axe_include(self, request):
         return self.axe_include
 
-    def get_axe_exclude(self):
+    def get_axe_exclude(self, request):
         return self.axe_exclude
 
-    def get_axe_run_only(self):
+    def get_axe_run_only(self, request):
         return self.axe_run_only
 
-    def get_axe_rules(self):
+    def get_axe_rules(self, request):
         return self.axe_rules
 
-    def get_axe_messages(self):
+    def get_axe_messages(self, request):
         return self.axe_messages
 
-    def get_axe_context(self):
+    def get_axe_context(self, request):
         # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
         return {
-            "include": self.get_axe_include(),
-            "exclude": self.get_axe_exclude(),
+            "include": self.get_axe_include(request),
+            "exclude": self.get_axe_exclude(request),
         }
 
-    def get_axe_options(self):
+    def get_axe_options(self, request):
         # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
         return {
-            "runOnly": self.get_axe_run_only(),
-            "rules": self.get_axe_rules(),
+            "runOnly": self.get_axe_run_only(request),
+            "rules": self.get_axe_rules(request),
         }
 
-    def get_axe_configuration(self):
+    def get_axe_configuration(self, request):
         return {
-            "context": self.get_axe_context(),
-            "options": self.get_axe_options(),
-            "messages": self.get_axe_messages(),
+            "context": self.get_axe_context(request),
+            "options": self.get_axe_options(request),
+            "messages": self.get_axe_messages(request),
         }
 
     def get_context_data(self, request):
         return {
             **super().get_context_data(request),
-            "axe_configuration": self.get_axe_configuration(),
+            "axe_configuration": self.get_axe_configuration(request),
         }
 
     def render(self, request):
