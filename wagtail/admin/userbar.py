@@ -29,56 +29,77 @@ class AdminItem(BaseItem):
 class AccessibilityItem(BaseItem):
     template = "wagtailadmin/userbar/item_accessibility.html"
 
+    axe_include = "body"
+    axe_exclude = {"fromShadowDOM": ["wagtail-userbar"]}
+
+    axe_rules = [
+        "button-name",
+        "empty-heading",
+        "empty-table-header",
+        "frame-title",
+        "heading-order",
+        "input-button-name",
+        "link-name",
+        "p-as-heading",
+    ]
+
+    # Wagtail-specific translatable custom error messages.
+    axe_messages = {
+        "button-name": _(
+            "Button text is empty. Use meaningful text for screen reader users."
+        ),
+        "empty-heading": _(
+            "Empty heading found. Use meaningful text for screen reader users."
+        ),
+        "empty-table-header": _(
+            "Table header text is empty. Use meaningful text for screen reader users."
+        ),
+        "frame-title": _(
+            "Empty frame title found. Use a meaningful title for screen reader users."
+        ),
+        "heading-order": _("Incorrect heading hierarchy. Avoid skipping levels."),
+        "input-button-name": _(
+            "Input button text is empty. Use meaningful text for screen reader users."
+        ),
+        "link-name": _(
+            "Link text is empty. Use meaningful text for screen reader users."
+        ),
+        "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
+    }
+
+    def get_axe_include(self):
+        return self.axe_include
+
+    def get_axe_exclude(self):
+        return self.axe_exclude
+
+    def get_axe_rules(self):
+        return self.axe_rules
+
+    def get_axe_messages(self):
+        return self.axe_messages
+
+    def get_axe_context(self):
+        # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
+        return {
+            "include": self.get_axe_include(),
+            "exclude": self.get_axe_exclude(),
+        }
+
+    def get_axe_options(self):
+        # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
+        return {
+            "runOnly": {
+                "type": "rule",
+                "values": self.get_axe_rules(),
+            }
+        }
+
     def get_axe_configuration(self):
         return {
-            # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
-            "context": {
-                "include": "body",
-                "exclude": {"fromShadowDOM": ["wagtail-userbar"]},
-            },
-            # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
-            "options": {
-                "runOnly": {
-                    "type": "rule",
-                    "values": [
-                        "button-name",
-                        "empty-heading",
-                        "empty-table-header",
-                        "frame-title",
-                        "heading-order",
-                        "input-button-name",
-                        "link-name",
-                        "p-as-heading",
-                    ],
-                }
-            },
-            # Wagtail-specific translatable custom error messages.
-            "messages": {
-                "button-name": _(
-                    "Button text is empty. Use meaningful text for screen reader users."
-                ),
-                "empty-heading": _(
-                    "Empty heading found. Use meaningful text for screen reader users."
-                ),
-                "empty-table-header": _(
-                    "Table header text is empty. Use meaningful text for screen reader users."
-                ),
-                "frame-title": _(
-                    "Empty frame title found. Use a meaningful title for screen reader users."
-                ),
-                "heading-order": _(
-                    "Incorrect heading hierarchy. Avoid skipping levels."
-                ),
-                "input-button-name": _(
-                    "Input button text is empty. Use meaningful text for screen reader users."
-                ),
-                "link-name": _(
-                    "Link text is empty. Use meaningful text for screen reader users."
-                ),
-                "p-as-heading": _(
-                    "Misusing paragraphs as headings. Use proper heading tags."
-                ),
-            },
+            "context": self.get_axe_context(),
+            "options": self.get_axe_options(),
+            "messages": self.get_axe_messages(),
         }
 
     def get_context_data(self, request):
@@ -88,7 +109,6 @@ class AccessibilityItem(BaseItem):
         }
 
     def render(self, request):
-
         # Don't render if user doesn't have permission to access the admin area
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
