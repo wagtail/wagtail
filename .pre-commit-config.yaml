@@ -10,7 +10,7 @@ repos:
         args: ['--target-version', 'py37']
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    # Ruff version.
+    # ruff config is in ruff.toml
     rev: 'v0.0.261'
     hooks:
       - id: ruff
