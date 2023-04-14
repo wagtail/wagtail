@@ -5,9 +5,12 @@ from django.utils.translation import gettext_lazy as _
 class BaseItem:
     template = "wagtailadmin/userbar/item_base.html"
 
+    def get_context_data(self, request):
+        return {"self": self, "request": request}
+
     def render(self, request):
         return render_to_string(
-            self.template, {"self": self, "request": request}, request=request
+            self.template, self.get_context_data(request), request=request
         )
 
 
@@ -78,21 +81,19 @@ class AccessibilityItem(BaseItem):
             },
         }
 
+    def get_context_data(self, request):
+        return {
+            **super().get_context_data(request),
+            "axe_configuration": self.get_axe_configuration(),
+        }
+
     def render(self, request):
 
         # Don't render if user doesn't have permission to access the admin area
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
-        return render_to_string(
-            self.template,
-            {
-                "self": self,
-                "request": request,
-                "axe_configuration": self.get_axe_configuration(),
-            },
-            request=request,
-        )
+        return super().render(request)
 
 
 class AddPageItem(BaseItem):
