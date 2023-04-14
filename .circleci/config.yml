@@ -19,8 +19,7 @@ jobs:
           key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
             - .venv
-      - run: pipenv run flake8
-      - run: pipenv run isort --check-only --diff .
+      - run: pipenv run ruff check .
       - run: pipenv run black --target-version py37 --check --diff .
       - run: pipenv run semgrep --config .semgrep.yml --error .
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
