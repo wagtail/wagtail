@@ -32,7 +32,7 @@ class AccessibilityItem(BaseItem):
     axe_include = "body"
     axe_exclude = {"fromShadowDOM": ["wagtail-userbar"]}
 
-    axe_rules = [
+    axe_run_only = [
         "button-name",
         "empty-heading",
         "empty-table-header",
@@ -42,6 +42,8 @@ class AccessibilityItem(BaseItem):
         "link-name",
         "p-as-heading",
     ]
+
+    axe_rules = {}
 
     # Wagtail-specific translatable custom error messages.
     axe_messages = {
@@ -73,6 +75,9 @@ class AccessibilityItem(BaseItem):
     def get_axe_exclude(self):
         return self.axe_exclude
 
+    def get_axe_run_only(self):
+        return self.axe_run_only
+
     def get_axe_rules(self):
         return self.axe_rules
 
@@ -89,10 +94,8 @@ class AccessibilityItem(BaseItem):
     def get_axe_options(self):
         # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
         return {
-            "runOnly": {
-                "type": "rule",
-                "values": self.get_axe_rules(),
-            }
+            "runOnly": self.get_axe_run_only(),
+            "rules": self.get_axe_rules(),
         }
 
     def get_axe_configuration(self):
