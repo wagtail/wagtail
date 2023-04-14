@@ -1,4 +1,9 @@
-import axe, { AxeResults, NodeResult } from 'axe-core';
+import axe, {
+  AxeResults,
+  ElementContext,
+  NodeResult,
+  RunOptions,
+} from 'axe-core';
 
 import { dialog } from './dialog';
 
@@ -10,6 +15,16 @@ More background can be found in webpack.config.js
 This component implements a roving tab index for keyboard navigation
 Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 */
+
+/**
+ * Wagtail's Axe configuration object. This should reflect what's returned by
+ * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
+ */
+interface WagtailAxeConfiguration {
+  context: ElementContext;
+  options: RunOptions;
+  messages: Record<string, string>;
+}
 
 const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
   if (!nodeResultA || !nodeResultB) return 0;
@@ -312,7 +327,7 @@ export class Userbar extends HTMLElement {
   See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
   */
 
-  getAxeConfiguration() {
+  getAxeConfiguration(): WagtailAxeConfiguration | null {
     const script = this.shadowRoot?.querySelector<HTMLScriptElement>(
       '#accessibility-axe-configuration',
     );
