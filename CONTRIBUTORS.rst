@@ -705,6 +705,7 @@ Contributors
 * Babitha Kumari
 * Mansi Gundre
 * Hanoon
+* Steve Steinwand
 
 Translators
 ===========
