@@ -235,10 +235,10 @@ class BrowseView(View):
             raise Http404
 
         # Determine header icon
-        page_icon_set = set([
+        page_icon_set = {
             getattr(page_class, "admin_icon", "doc-empty-inverse")
             for page_class in self.desired_classes
-        ])
+        }
         if len(page_icon_set) == 1:
             header_icon = page_icon_set.pop()
         else:

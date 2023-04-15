@@ -244,10 +244,10 @@ class AdminPageChooser(BaseChooser):
             cleaned_target_models = [Page]
 
         # Determine widget icons
-        page_icon_set = set([
+        page_icon_set = {
             getattr(page_class, "admin_icon", "doc-empty-inverse")
             for page_class in cleaned_target_models
-        ])
+        }
         if len(page_icon_set) == 1:
             self.icon = page_icon_set.pop()
         else:
