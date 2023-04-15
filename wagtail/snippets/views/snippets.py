@@ -152,14 +152,11 @@ class SnippetTitleColumn(TitleColumn):
 
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
-    results_template_name = None
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
-    # If true, returns just the 'results' include, for use in AJAX responses from search
-    results_only = False
     table_class = InlineActionsTable
 
     def get_base_queryset(self):
@@ -202,11 +199,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             ]
 
         return context
-
-    def get_template_names(self):
-        if self.results_only:
-            return self.results_template_name
-        return super().get_template_names()
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -833,7 +825,6 @@ class SnippetViewSet(ModelViewSet):
             header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
-            results_only=True,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
