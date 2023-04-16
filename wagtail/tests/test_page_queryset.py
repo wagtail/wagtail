@@ -1,8 +1,10 @@
+from io import StringIO
 from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType
+from django.core import management
 from django.db.models import Count, Q
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 
 from wagtail.models import Locale, Page, PageViewRestriction, Site
 from wagtail.search.query import MATCH_ALL
@@ -621,7 +623,7 @@ class TestPageQueryInSite(TestCase):
         self.assertNotIn(self.about_us_page, site_2_pages)
 
 
-class TestPageQuerySetSearch(TestCase):
+class TestPageQuerySetSearch(TransactionTestCase):
     fixtures = ["test.json"]
 
     def test_search(self):
@@ -860,37 +862,6 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         self.assertEqual(results.first().subscribers_count, 1)
         self.assertEqual(results.last().subscribers_count, 1)
 
-    def test_specific_query_with_search_and_annotation(self):
-        # Ensure annotations are reapplied to specific() page queries
-
-        results = (
-            Page.objects.live().specific().search(MATCH_ALL).annotate_score("_score")
-        )
-
-        for result in results:
-            self.assertTrue(hasattr(result, "_score"))
-
-    def test_specific_query_with_search(self):
-        # 1276 - The database search backend didn't return results with the
-        # specific type when searching a specific queryset.
-
-        pages = list(
-            Page.objects.specific()
-            .live()
-            .in_menu()
-            .search(MATCH_ALL, backend="wagtail.search.backends.database")
-        )
-
-        # Check that each page is in the queryset with the correct type.
-        # We don't care about order here
-        self.assertEqual(len(pages), 4)
-        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
-        self.assertIn(
-            Page.objects.get(url_path="/home/events/christmas/").specific, pages
-        )
-        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
-        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
-
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
         # is missing, by keeping them as basic Page instances.
@@ -1073,6 +1044,66 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         with self.assertNumQueries(5):
             result_2 = list(queryset.all().iterator(chunk_size=3))
             self.assertEqual(result_2, benchmark_result)
+
+
+class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_specific.json"]
+
+    def setUp(self):
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
+        self.live_pages = Page.objects.live().specific()
+        self.live_pages_with_annotations = (
+            Page.objects.live().specific().annotate(count=Count("pk"))
+        )
+
+    def test_specific_query_with_match_all_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = (
+            Page.objects.live().specific().search(MATCH_ALL).annotate_score("_score")
+        )
+
+        self.assertGreater(len(results), 0)
+        for result in results:
+            self.assertTrue(hasattr(result, "_score"))
+
+    def test_specific_query_with_real_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = (
+            Page.objects.live().specific().search("event").annotate_score("_score")
+        )
+
+        self.assertGreater(len(results), 0)
+        for result in results:
+            self.assertTrue(hasattr(result, "_score"))
+
+    def test_specific_query_with_search(self):
+        # 1276 - The database search backend didn't return results with the
+        # specific type when searching a specific queryset.
+
+        pages = list(
+            Page.objects.specific()
+            .live()
+            .in_menu()
+            .search(MATCH_ALL, backend="wagtail.search.backends.database")
+        )
+
+        # Check that each page is in the queryset with the correct type.
+        # We don't care about order here
+        self.assertEqual(len(pages), 4)
+        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
+        self.assertIn(
+            Page.objects.get(url_path="/home/events/christmas/").specific, pages
+        )
+        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
+        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
 
 
 class TestFirstCommonAncestor(TestCase):

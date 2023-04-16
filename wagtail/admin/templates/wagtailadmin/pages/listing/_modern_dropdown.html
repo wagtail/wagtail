@@ -3,7 +3,7 @@
 <div {{ self.attrs }} class="{{ classes|join:' ' }}" data-button-with-dropdown>
     <button class="{{ button_classes|join:' ' }}" data-button-with-dropdown-toggle data-hover-tooltip-content="{{ title }}" data-tippy-offset="[0, -2]">
         <span class="{% if hide_title %}w-sr-only{% endif %}">{{ title }}</span>
-        {% if icon_name %}{% icon name=icon_name classname='w-w-5 w-h-5' %}{% endif %}
+        {% if icon_name %}{% icon name=icon_name classname='w-w-4 w-h-4' %}{% endif %}
     </button>
 
     <div data-button-with-dropdown-content class="w-hidden w-p-0">

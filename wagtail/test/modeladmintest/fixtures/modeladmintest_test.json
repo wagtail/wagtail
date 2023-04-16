@@ -1,5 +1,22 @@
 [
   {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 0,
+      "name": "Root"
+    }
+  },
+  {
     "pk": 1,
     "model": "modeladmintest.author",
     "fields": {
@@ -67,7 +84,7 @@
     "pk": 4,
     "model": "modeladmintest.book",
     "fields": {
-      "title": "The Chronicles of Narnia",
+      "title": "The Chronicles of the Lord of Narnia",
       "author_id": 3
     }
   },

@@ -1,6 +1,23 @@
 [
   {
     "pk": 1,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 0,
+      "name": "Root"
+    }
+  },
+  {
+    "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
       "title": "Root",
@@ -16,6 +33,7 @@
       "owner": null,
       "path": "0001",
       "url_path": "/",
+      "locale": 1,
       "slug": "root"
     }
   },
@@ -36,6 +54,7 @@
       "owner": null,
       "path": "00010002",
       "url_path": "/home-page/",
+      "locale": 1,
       "slug": "home-page"
     }
   },
@@ -56,6 +75,7 @@
       "owner": null,
       "path": "000100020001",
       "url_path": "/home-page/events-index/",
+      "locale": 1,
       "slug": "events-index"
     }
   },
@@ -76,6 +96,7 @@
       "owner": null,
       "path": "000100020002",
       "url_path": "/home-page/blog-index/",
+      "locale": 1,
       "slug": "blog-index"
     }
   },
@@ -96,6 +117,7 @@
       "owner": null,
       "path": "000100020003",
       "url_path": "/home-page/standard-index/",
+      "locale": 1,
       "slug": "standard-index"
     }
   },
@@ -116,6 +138,7 @@
       "owner": null,
       "path": "0001000200010001",
       "url_path": "/home-page/events-index/event-1/",
+      "locale": 1,
       "slug": "event-1"
     }
   },
@@ -136,6 +159,7 @@
       "owner": null,
       "path": "0001000200010002",
       "url_path": "/home-page/events-index/event-2/",
+      "locale": 1,
       "slug": "event-2"
     }
   },
@@ -156,6 +180,7 @@
       "owner": null,
       "path": "0001000200030001",
       "url_path": "/home-page/standard-index/standard-page-1/",
+      "locale": 1,
       "slug": "standard-page-1"
     }
   },
@@ -176,6 +201,7 @@
       "owner": null,
       "path": "000100020005",
       "url_path": "/home-page/contact-page/",
+      "locale": 1,
       "slug": "contact-page"
     }
   },
@@ -196,6 +222,7 @@
       "owner": null,
       "path": "0001000200040001",
       "url_path": "/home-page/people/james-joyce/",
+      "locale": 1,
       "slug": "james-joyce"
     }
   },
@@ -216,6 +243,7 @@
       "owner": null,
       "path": "0001000200040002",
       "url_path": "/home-page/people/david-mitchell/",
+      "locale": 1,
       "slug": "david-mitchell"
     }
   },
@@ -236,6 +264,7 @@
       "owner": null,
       "path": "0001000200030002",
       "url_path": "/home-page/standard-index/standard-page-2/",
+      "locale": 1,
       "slug": "standard-page-2"
     }
   },
@@ -256,6 +285,7 @@
       "owner": null,
       "path": "0001000200020001",
       "url_path": "/home-page/blog-index/blog-post/",
+      "locale": 1,
       "slug": "blog-post"
     }
   },
@@ -276,6 +306,7 @@
       "owner": null,
       "path": "0001000200030007",
       "url_path": "/home-page/standard-index/photo-credits/",
+      "locale": 1,
       "slug": "photo-credits"
     }
   },
@@ -283,8 +314,8 @@
     "pk": 18,
     "model": "wagtailcore.page",
     "fields": {
-      "title": "Blog post again",
-      "draft_title": "Blog post again",
+      "title": "Blog post about elephants",
+      "draft_title": "Blog post about elephants",
       "numchild": 0,
       "show_in_menus": false,
       "live": true,
@@ -296,6 +327,7 @@
       "owner": null,
       "path": "0001000200020002",
       "url_path": "/home-page/blog-index/blog-post-again/",
+      "locale": 1,
       "slug": "blog-post-again"
     }
   },
@@ -316,6 +348,7 @@
       "owner": null,
       "path": "0001000200020003",
       "url_path": "/home-page/blog-index/another-blog-post/",
+      "locale": 1,
       "slug": "another-blog-post"
     }
   },
@@ -336,6 +369,7 @@
       "owner": null,
       "path": "000100020004",
       "url_path": "/home-page/people/",
+      "locale": 1,
       "slug": "people"
     }
   },
@@ -356,6 +390,7 @@
       "owner": null,
       "path": "0001000200030008",
       "url_path": "/home-page/standard-index/a-deeper-menu-level/",
+      "locale": 1,
       "slug": "a-deeper-menu-level"
     }
   },
@@ -376,6 +411,7 @@
       "owner": null,
       "path": "00010002000300080001",
       "url_path": "/home-page/standard-index/a-deeper-menu-level/a-grandchild-page/",
+      "locale": 1,
       "slug": "a-grandchild-page"
     }
   },
@@ -396,6 +432,7 @@
       "owner": null,
       "path": "00010002000300080002",
       "url_path": "/home-page/standard-index/a-deeper-menu-level/another-grandchild-page/",
+      "locale": 1,
       "slug": "another-grandchild-page"
     }
   },
@@ -416,6 +453,7 @@
       "owner": null,
       "path": "00010003",
       "url_path": "/home-page-multi-site/",
+      "locale": 1,
       "slug": "home-page-page-multi-site"
     }
   },
@@ -436,6 +474,7 @@
       "owner": null,
       "path": "000100030001",
       "url_path": "/home-page-multi-site/events-index-multi-site/",
+      "locale": 1,
       "slug": "events-index-multi-site"
     }
   },
@@ -468,6 +507,7 @@
       "height": 427,
       "width": 640,
       "file": "original_images/wagtail_by_markyharky.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -480,6 +520,7 @@
       "height": 392,
       "width": 500,
       "file": "original_images/James_Joyce_in_1915.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -492,6 +533,7 @@
       "height": 282,
       "width": 360,
       "file": "original_images/David_Mitchell_by_Kubik.JPG",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -504,6 +546,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/wagtail_by_joe_buckingham.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -516,6 +559,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/wagtail_by_fs-phil.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -528,6 +572,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/white_wagtail_by_Koshyk.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -540,6 +585,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/pied_wagtail_by_Marie_Hale.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -552,6 +598,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/wagtail_at_Borovoye_Kazakhstan_by_Ken_and_Nyetta.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -564,6 +611,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/wagtail_sproing_by_Jim_Bendon.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -576,6 +624,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/hopalong_wagtail_by_Ruth_Flickr.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -588,6 +637,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/wagtail_collects_insects_by_Maggi_94.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -600,6 +650,7 @@
       "height": 397,
       "width": 640,
       "file": "original_images/grey_wagtail_by_lip_kee.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1054,6 +1105,7 @@
       "title": "Wagtail by mark Harkin",
       "created_at": "2014-02-06T10:14:47.173Z",
       "file": "original_images/wagtail_by_markyharky.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1064,6 +1116,7 @@
       "title": "James Joyce",
       "created_at": "2014-02-06T10:37:10.518Z",
       "file": "original_images/James_Joyce_in_1915.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1074,6 +1127,7 @@
       "title": "David Mitchell",
       "created_at": "2014-02-06T10:42:46.536Z",
       "file": "original_images/David_Mitchell_by_Kubik.JPG",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1084,6 +1138,7 @@
       "title": "Wagtail by joe Buckingham",
       "created_at": "2014-02-06T10:49:29.579Z",
       "file": "original_images/wagtail_by_joe_buckingham.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1094,6 +1149,7 @@
       "title": "Wagtail by fs-phil",
       "created_at": "2014-02-06T10:54:29.963Z",
       "file": "original_images/wagtail_by_fs-phil.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1104,6 +1160,7 @@
       "title": "White wagtail by Koshy Koshy",
       "created_at": "2014-02-06T10:57:05.536Z",
       "file": "original_images/white_wagtail_by_Koshyk.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1114,6 +1171,7 @@
       "title": "Pied wagtail by Marie Hale",
       "created_at": "2014-02-06T11:05:12.370Z",
       "file": "original_images/pied_wagtail_by_Marie_Hale.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1124,6 +1182,7 @@
       "title": "Wagtail at Borovoye, Kazakhstan by Ken and Nyetta",
       "created_at": "2014-02-06T11:08:09.355Z",
       "file": "original_images/wagtail_at_Borovoye_Kazakhstan_by_Ken_and_Nyetta.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1134,6 +1193,7 @@
       "title": "Wagtail sproing by Jim Bendon",
       "created_at": "2014-02-06T11:10:01.185Z",
       "file": "original_images/wagtail_sproing_by_Jim_Bendon.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1144,6 +1204,7 @@
       "title": "Hopalong wagtail by Ruth Flickr",
       "created_at": "2014-02-06T11:15:32.454Z",
       "file": "original_images/hopalong_wagtail_by_Ruth_Flickr.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1154,6 +1215,7 @@
       "title": "Wagtail collects insects by Margrit",
       "created_at": "2014-02-06T11:21:13.596Z",
       "file": "original_images/wagtail_collects_insects_by_Maggi_94.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   },
@@ -1164,6 +1226,7 @@
       "title": "Grey wagtail by Lip Kee",
       "created_at": "2014-02-06T11:23:36.409Z",
       "file": "original_images/grey_wagtail_by_lip_kee.jpg",
+      "collection": 1,
       "uploaded_by_user": null
     }
   }

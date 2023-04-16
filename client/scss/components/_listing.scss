@@ -286,18 +286,22 @@ ul.listing {
   .children a {
     color: $color-teal;
     display: block;
+    text-align: center;
 
-    &:before {
-      font-size: 3rem;
+    .icon {
+      width: 3rem;
+      height: 3rem;
     }
   }
 
   .no-children a {
     color: $color-grey-3;
     display: block;
+    text-align: center;
 
-    &:before {
-      font-size: 1.5rem;
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     &:hover,
@@ -310,44 +314,33 @@ ul.listing {
     }
   }
 
-  &.small .children a:before {
-    font-size: 30px;
+  &.small .children a .icon {
+    width: 30px;
+    height: 30px;
   }
 
   th.ord {
     text-align: center;
 
     .icon {
-      width: 15px;
-      height: 18px;
+      width: 1rem;
+      height: 1rem;
       vertical-align: middle;
-
-      &::before {
-        margin-inline-end: 2px;
-      }
+      margin-inline-end: 2px;
     }
 
     &--active a,
     a:hover {
       color: $color-teal;
     }
-
-    &--active .icon {
-      opacity: 1;
-    }
   }
 
   .handle {
     cursor: move;
     width: 20px;
+    color: $color-grey-3;
 
-    &:before {
-      font-size: 20px;
-      color: $color-grey-3;
-      width: 1em;
-    }
-
-    &:hover:before {
+    &:hover {
       color: $color-text-base;
     }
   }
@@ -625,7 +618,7 @@ table.listing {
     tr:hover .children {
       background-color: $color-teal;
 
-      a:before {
+      .icon {
         color: $color-white;
       }
     }

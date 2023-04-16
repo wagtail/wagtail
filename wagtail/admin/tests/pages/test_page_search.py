@@ -1,16 +1,27 @@
+from io import StringIO
+
 from django.contrib.auth.models import Permission
-from django.test import TestCase
+from django.core import management
+from django.test import TransactionTestCase
 from django.urls import reverse
 
 from wagtail.models import Page
-from wagtail.search.index import SearchField
 from wagtail.test.testapp.models import SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestPageSearch(WagtailTestUtils, TestCase):
+class TestPageSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def setUp(self):
+        super().setUp()
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
         self.user = self.login()
 
     def get(self, params=None, **extra):
@@ -36,8 +47,8 @@ class TestPageSearch(WagtailTestUtils, TestCase):
         # Create a page
         root_page.add_child(
             instance=SimplePage(
-                title="Hi there!",
-                slug="hello-world",
+                title="Greetings!",
+                slug="hello",
                 content="good morning",
                 live=True,
                 has_unpublished_changes=False,
@@ -47,19 +58,10 @@ class TestPageSearch(WagtailTestUtils, TestCase):
         # Confirm the slug is not being searched
         response = self.get({"q": "hello"})
         self.assertNotContains(response, "There is one matching page")
-        search_fields = Page.search_fields
 
-        # Add slug to the search_fields
-        Page.search_fields = Page.search_fields + [
-            SearchField("slug", partial_match=True)
-        ]
-
-        # Confirm the slug is being searched
-        response = self.get({"q": "hello"})
+        # Confirm the title is being searched
+        response = self.get({"q": "greetings"})
         self.assertContains(response, "There is one matching page")
-
-        # Reset the search fields
-        Page.search_fields = search_fields
 
     def test_ajax(self):
         response = self.get({"q": "Hello"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
@@ -76,7 +78,7 @@ class TestPageSearch(WagtailTestUtils, TestCase):
             self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
 
     def test_root_can_appear_in_search_results(self):
-        response = self.get({"q": "roo"})
+        response = self.get({"q": "root"})
         self.assertEqual(response.status_code, 200)
         # 'pages' list in the response should contain root
         results = response.context["pages"]

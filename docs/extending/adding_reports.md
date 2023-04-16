@@ -167,7 +167,7 @@ from .views import UnpublishedChangesReportView
 
 @hooks.register('register_reports_menu_item')
 def register_unpublished_changes_report_menu_item():
-    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
+    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
 
 @hooks.register('register_admin_urls')
 def register_unpublished_changes_report_url():
@@ -230,7 +230,7 @@ from .views import UnpublishedChangesReportView
 
 @hooks.register('register_reports_menu_item')
 def register_unpublished_changes_report_menu_item():
-    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
+    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
 
 @hooks.register('register_admin_urls')
 def register_unpublished_changes_report_url():

@@ -1,6 +1,6 @@
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
@@ -22,19 +22,26 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestCustomIcon(WagtailTestUtils, TestCase):
+class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
+    model = None
+
     def setUp(self):
         self.user = self.login()
-        self.object = FullFeaturedSnippet.objects.create(
-            text="test snippet with custom icon"
-        )
+
+    def get_url(self, url_name, args=()):
+        return reverse(self.model.snippet_viewset.get_url_name(url_name), args=args)
+
+
+class TestCustomIcon(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.object = self.model.objects.create(text="test snippet with custom icon")
         self.revision_1 = self.object.save_revision()
         self.revision_1.publish()
         self.object.text = "test snippet with custom icon (updated)"
         self.revision_2 = self.object.save_revision()
-
-    def get_url(self, url_name, args=()):
-        return reverse(self.object.snippet_viewset.get_url_name(url_name), args=args)
 
     def test_get_views(self):
         pk = quote(self.object.pk)
@@ -116,9 +123,9 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         self.assertEqual(kwargs, {"required": False})
 
 
-class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
+class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
     def setUp(self):
-        self.user = self.login()
+        super().setUp()
         self.request = get_dummy_request()
         self.request.user = self.user
         self.text = "Test full-featured snippet with icon text"
@@ -185,21 +192,13 @@ class TestSnippetChooserPanelWithIcon(WagtailTestUtils, TestCase):
                 self.assertNotIn("snippet", response.context[key])
 
 
-class TestAdminURLs(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
+class TestAdminURLs(BaseSnippetViewSetTests):
     def test_default_url_namespace(self):
         snippet = Advert.objects.create(text="foo")
         viewset = snippet.snippet_viewset
         # Accessed via the viewset
         self.assertEqual(
             viewset.get_admin_url_namespace(),
-            "wagtailsnippets_tests_advert",
-        )
-        # Accessed via the model
-        self.assertEqual(
-            snippet.get_admin_url_namespace(),
             "wagtailsnippets_tests_advert",
         )
         # Get specific URL name
@@ -227,8 +226,6 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
 
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "snippets/tests/advert")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_base_path(), "snippets/tests/advert")
         # Get specific URL
         self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
         # Ensure AdminURLFinder returns the correct URL
@@ -250,8 +247,6 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         viewset = snippet.snippet_viewset
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_url_namespace(), "some_namespace")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_url_namespace(), "some_namespace")
         # Get specific URL name
         self.assertEqual(viewset.get_url_name("edit"), "some_namespace:edit")
         # Chooser namespace
@@ -273,8 +268,6 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         expected_choose_url = "/admin/choose/wisely/"
         # Accessed via the viewset
         self.assertEqual(viewset.get_admin_base_path(), "deep/within/the/admin")
-        # Accessed via the model
-        self.assertEqual(snippet.get_admin_base_path(), "deep/within/the/admin")
         # Get specific URL
         self.assertEqual(reverse(viewset.get_url_name("edit"), args=[pk]), expected_url)
         # Ensure AdminURLFinder returns the correct URL
@@ -292,10 +285,7 @@ class TestAdminURLs(WagtailTestUtils, TestCase):
         )
 
 
-class TestPagination(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
+class TestPagination(BaseSnippetViewSetTests):
     @classmethod
     def setUpTestData(cls):
         default_locale = Locale.get_default()
@@ -352,21 +342,19 @@ class TestPagination(WagtailTestUtils, TestCase):
         self.assertContains(response, choose_results_url + "?p=2")
 
 
-class TestFilterSetClass(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-    def get_url(self, url_name, args=()):
-        return reverse(
-            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
-        )
+class TestFilterSetClass(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
-        FullFeaturedSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FullFeaturedSnippet.objects.create(text="From the UK", country_code="UK")
+        FullFeaturedSnippet.objects.create(
+            text="Nasi goreng from Indonesia", country_code="ID"
+        )
+        FullFeaturedSnippet.objects.create(
+            text="Fish and chips from the UK", country_code="UK"
+        )
 
     def test_get_include_filters_form_media(self):
         response = self.get()
@@ -394,8 +382,8 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
@@ -407,8 +395,8 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get({"country_code": ""})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
         self.assertContains(
             response,
@@ -433,7 +421,7 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         self.create_test_snippets()
         response = self.get({"country_code": "ID"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "Nasi goreng from Indonesia")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
@@ -441,9 +429,32 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
             html=True,
         )
 
+
+class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get_url(self, url_name, args=()):
+        return reverse(
+            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
+        )
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def create_test_snippets(self):
+        FullFeaturedSnippet.objects.create(
+            text="Nasi goreng from Indonesia", country_code="ID"
+        )
+        FullFeaturedSnippet.objects.create(
+            text="Fish and chips from the UK", country_code="UK"
+        )
+
     def test_filtered_searched_no_results(self):
         self.create_test_snippets()
-        response = self.get({"country_code": "ID", "q": "the"})
+        response = self.get({"country_code": "ID", "q": "chips"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(
             response, "Sorry, no full-featured snippets match your query"
@@ -456,9 +467,9 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
 
     def test_filtered_searched_with_results(self):
         self.create_test_snippets()
-        response = self.get({"country_code": "UK", "q": "the"})
+        response = self.get({"country_code": "UK", "q": "chips"})
         self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "From the UK")
+        self.assertContains(response, "Fish and chips from the UK")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
             response,
@@ -467,16 +478,13 @@ class TestFilterSetClass(WagtailTestUtils, TestCase):
         )
 
 
-class TestListFilterWithList(WagtailTestUtils, TestCase):
+class TestListFilterWithList(BaseSnippetViewSetTests):
     model = DraftStateModel
 
     def setUp(self):
-        self.login()
+        super().setUp()
         self.date = now()
         self.date_str = self.date.isoformat()
-
-    def get_url(self, url_name, args=()):
-        return reverse(self.model.snippet_viewset.get_url_name(url_name), args=args)
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
@@ -609,19 +617,13 @@ class TestListFilterWithDict(TestListFilterWithList):
         )
 
 
-class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
 
     @classmethod
     def setUpTestData(cls):
-        FullFeaturedSnippet.objects.create(text="From Indonesia", country_code="ID")
-        FullFeaturedSnippet.objects.create(text="From the UK", country_code="UK")
-
-    def get_url(self, url_name, args=()):
-        return reverse(
-            FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
-        )
+        cls.model.objects.create(text="From Indonesia", country_code="ID")
+        cls.model.objects.create(text="From the UK", country_code="UK")
 
     def get(self, params={}):
         return self.client.get(self.get_url("list"), params)
@@ -645,3 +647,71 @@ class TestListViewWithCustomColumns(WagtailTestUtils, TestCase):
 
         # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+
+
+class TestCustomTemplates(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Some snippet")
+
+    def test_template_lookups(self):
+        pk = quote(self.object.pk)
+        cases = {
+            "with app label and model name": (
+                "add",
+                [],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/create.html",
+            ),
+            "with app label": (
+                "edit",
+                [pk],
+                "wagtailsnippets/snippets/tests/edit.html",
+            ),
+            "without app label and model name": (
+                "delete",
+                [pk],
+                "wagtailsnippets/snippets/delete.html",
+            ),
+            "override a view that uses a generic template": (
+                "unpublish",
+                [pk],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/unpublish.html",
+            ),
+            "override with index_template_name": (
+                "list",
+                [],
+                "tests/fullfeaturedsnippet_index.html",
+            ),
+            "override with get_history_template": (
+                "history",
+                [pk],
+                "tests/snippet_history.html",
+            ),
+        }
+        for case, (view_name, args, template_name) in cases.items():
+            with self.subTest(case=case):
+                response = self.client.get(self.get_url(view_name, args=args))
+                self.assertTemplateUsed(response, template_name)
+                self.assertContains(response, "<p>An added paragraph</p>", html=True)
+
+
+class TestCustomQuerySet(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            cls.model(text="FooSnippet", country_code="ID", locale=default_locale),
+            cls.model(text="BarSnippet", country_code="UK", locale=default_locale),
+            cls.model(text="[HIDDEN]Snippet", country_code="ID", locale=default_locale),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view(self):
+        response = self.client.get(self.get_url("list"), {"country_code": "ID"})
+        self.assertContains(response, "FooSnippet")
+        self.assertNotContains(response, "BarSnippet")
+        self.assertNotContains(response, "[HIDDEN]Snippet")

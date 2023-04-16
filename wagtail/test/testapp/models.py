@@ -372,7 +372,7 @@ class EventPage(Page):
     )
     categories = ParentalManyToManyField(EventCategory, blank=True)
 
-    search_fields = [
+    search_fields = Page.search_fields + [
         index.SearchField("get_audience_display"),
         index.SearchField("location"),
         index.SearchField("body"),
@@ -1133,6 +1133,7 @@ class FullFeaturedSnippet(
 
     search_fields = [
         index.SearchField("text"),
+        index.FilterField("text"),
         index.FilterField("country_code"),
     ]
 
@@ -1320,6 +1321,11 @@ class TaggedPage(Page):
     content_panels = [
         FieldPanel("title", classname="title"),
         FieldPanel("tags"),
+    ]
+
+    # Page.search_fields intentionally omitted to test warning
+    search_fields = [
+        index.SearchField("tags"),
     ]
 
 

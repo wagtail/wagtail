@@ -1,10 +1,12 @@
 import collections
 import json
+from io import StringIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
+from django.core import management
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from rest_framework.test import APIClient
@@ -219,22 +221,6 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(len(content["items"]), 1)
         self.assertEqual(content["items"][0]["id"], french_homepage.id)
 
-    @override_settings(WAGTAIL_I18N_ENABLED=True)
-    def test_locale_filter_with_search(self):
-        french = Locale.objects.create(language_code="fr")
-        homepage = self.get_homepage()
-        french_homepage = homepage.copy_for_translation(french)
-        french_homepage.get_latest_revision().publish()
-        events_index = Page.objects.get(url_path="/home-page/events-index/")
-        french_events_index = events_index.copy_for_translation(french)
-        french_events_index.get_latest_revision().publish()
-
-        response = self.get_response(locale="fr", search="events")
-        content = json.loads(response.content.decode("UTF-8"))
-
-        self.assertEqual(len(content["items"]), 1)
-        self.assertEqual(content["items"][0]["id"], french_events_index.id)
-
     # TRANSLATION OF FILTER
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -249,21 +235,6 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
         self.assertEqual(len(content["items"]), 1)
         self.assertEqual(content["items"][0]["id"], french_homepage.id)
-
-    @override_settings(WAGTAIL_I18N_ENABLED=True)
-    def test_translation_of_filter_with_search(self):
-        french = Locale.objects.create(language_code="fr")
-        homepage = self.get_homepage()
-        french_homepage = homepage.copy_for_translation(french)
-        french_homepage.get_latest_revision().publish()
-
-        response = self.get_response(translation_of=homepage.id, search="home")
-        content = json.loads(response.content.decode("UTF-8"))
-        self.assertEqual(len(content["items"]), 1)
-        self.assertEqual(content["items"][0]["id"], french_homepage.id)
-        response = self.get_response(translation_of=homepage.id, search="gnome")
-        content = json.loads(response.content.decode("UTF-8"))
-        self.assertEqual(len(content["items"]), 0)
 
     # FIELDS
 
@@ -1047,7 +1018,66 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
-    # SEARCH
+    # REGRESSION TESTS
+
+    def test_issue_3967(self):
+        # The API crashed whenever the listing view was called without a site configured
+        Site.objects.all().delete()
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
+
+
+class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["demosite.json"]
+
+    def setUp(self):
+        super().setUp()
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
+
+    def get_page_id_list(self, content):
+        return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+        events_index = Page.objects.get(url_path="/home-page/events-index/")
+        french_events_index = events_index.copy_for_translation(french)
+        french_events_index.get_latest_revision().publish()
+
+        response = self.get_response(locale="fr", search="events")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["items"][0]["id"], french_events_index.id)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id, search="home")
+        content = json.loads(response.content.decode("UTF-8"))
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["items"][0]["id"], french_homepage.id)
+        response = self.get_response(translation_of=homepage.id, search="gnome")
+        content = json.loads(response.content.decode("UTF-8"))
+        self.assertEqual(len(content["items"]), 0)
 
     def test_search_for_blog(self):
         response = self.get_response(search="blog")
@@ -1133,7 +1163,9 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
     def test_search_operator_and(self):
         response = self.get_response(
-            type="demosite.BlogEntryPage", search="blog again", search_operator="and"
+            type="demosite.BlogEntryPage",
+            search="blog elephants",
+            search_operator="and",
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1143,7 +1175,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
     def test_search_operator_or(self):
         response = self.get_response(
-            type="demosite.BlogEntryPage", search="blog again", search_operator="or"
+            type="demosite.BlogEntryPage", search="blog elephants", search_operator="or"
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1157,14 +1189,6 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-type"], "application/json")
         self.assertEqual(content["meta"]["total_count"], 0)
-
-    # REGRESSION TESTS
-
-    def test_issue_3967(self):
-        # The API crashed whenever the listing view was called without a site configured
-        Site.objects.all().delete()
-        response = self.get_response()
-        self.assertEqual(response.status_code, 200)
 
 
 class TestPageDetail(TestCase):

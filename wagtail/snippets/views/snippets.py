@@ -10,7 +10,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
@@ -26,12 +25,14 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
-from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
-from wagtail.admin.views.generic.preview import PreviewRevision
+from wagtail.admin.views.generic.preview import (
+    PreviewOnCreate,
+    PreviewOnEdit,
+    PreviewRevision,
+)
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.viewsets.base import ViewSet
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -71,7 +72,6 @@ def get_snippet_model_from_url_params(app_name, model_name):
 
 
 class ModelIndexView(generic.IndexView):
-    template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
@@ -98,7 +98,7 @@ class ModelIndexView(generic.IndexView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_list_url(self, type):
-        return reverse(type["model"].get_admin_url_namespace() + ":list")
+        return reverse(type["model"].snippet_viewset.get_url_name("list"))
 
     def get_queryset(self):
         return None
@@ -137,12 +137,22 @@ class ModelIndexView(generic.IndexView):
 
         return super().get_context_data(object_list=snippet_types)
 
+    def get_template_names(self):
+        # We use the generic index template instead of model_index.html,
+        # but we look for it anyway so users can customise this view's template
+        # without having to override the entire view or the generic template.
+        return [
+            "wagtailsnippets/snippets/model_index.html",
+            self.template_name,
+        ]
+
 
 class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
+    results_template_name = None
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -151,6 +161,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
     table_class = InlineActionsTable
+
+    def get_base_queryset(self):
+        # Allow the queryset to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.queryset):
+            self.queryset = self.queryset(self.request)
+        return super().get_base_queryset()
 
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
         # Use SnippetTitleColumn class to use custom template
@@ -188,9 +205,8 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     def get_template_names(self):
         if self.results_only:
-            return ["wagtailsnippets/snippets/results.html"]
-        else:
-            return ["wagtailsnippets/snippets/type_index.html"]
+            return self.results_template_name
+        return super().get_template_names()
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -482,6 +498,14 @@ class HistoryView(ReportView):
         )
 
 
+class PreviewOnCreateView(PreviewOnCreate):
+    pass
+
+
+class PreviewOnEditView(PreviewOnEdit):
+    pass
+
+
 class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
     permission_required = "change"
 
@@ -582,7 +606,7 @@ class WorkflowHistoryDetailView(
     permission_required = "change"
 
 
-class SnippetViewSet(ViewSet):
+class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
     """
@@ -699,7 +723,29 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
     workflow_history_detail_view_class = WorkflowHistoryDetailView
 
+    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
+
+    #: The prefix of template names to look for when rendering the admin views.
+    template_prefix = "wagtailsnippets/snippets/"
+
+    #: The template to use for the index view.
+    index_template_name = ""
+
+    #: The template to use for the results in the index view.
+    index_results_template_name = ""
+
+    #: The template to use for the create view.
+    create_template_name = ""
+
+    #: The template to use for the edit view.
+    edit_template_name = ""
+
+    #: The template to use for the delete view.
+    delete_template_name = ""
+
+    #: The template to use for the history view.
+    history_template_name = ""
 
     def __init__(self, model, **kwargs):
         self.model = model
@@ -748,6 +794,8 @@ class SnippetViewSet(ViewSet):
     def index_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            queryset=self.get_queryset,
+            template_name=self.get_index_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
@@ -765,6 +813,8 @@ class SnippetViewSet(ViewSet):
     def index_results_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            queryset=self.get_queryset,
+            template_name=self.get_index_results_template(),
             header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
@@ -783,6 +833,7 @@ class SnippetViewSet(ViewSet):
     def add_view(self):
         return self.add_view_class.as_view(
             model=self.model,
+            template_name=self.get_create_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -796,6 +847,7 @@ class SnippetViewSet(ViewSet):
         # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
             model=self.model,
+            template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -817,6 +869,7 @@ class SnippetViewSet(ViewSet):
     def delete_view(self):
         return self.delete_view_class.as_view(
             model=self.model,
+            template_name=self.get_delete_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -828,6 +881,9 @@ class SnippetViewSet(ViewSet):
     def usage_view(self):
         return self.usage_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "usage", fallback=self.usage_view_class.template_name
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -838,6 +894,7 @@ class SnippetViewSet(ViewSet):
     def history_view(self):
         return self.history_view_class.as_view(
             model=self.model,
+            template_name=self.get_history_template(),
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -858,6 +915,7 @@ class SnippetViewSet(ViewSet):
     def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
             model=self.model,
+            template_name=self.get_edit_template(),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -880,6 +938,10 @@ class SnippetViewSet(ViewSet):
     def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "revisions_compare",
+                fallback=self.revisions_compare_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
@@ -890,6 +952,10 @@ class SnippetViewSet(ViewSet):
     def revisions_unschedule_view(self):
         return self.revisions_unschedule_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "revisions_unschedule",
+                fallback=self.revisions_unschedule_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
@@ -901,6 +967,9 @@ class SnippetViewSet(ViewSet):
     def unpublish_view(self):
         return self.unpublish_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "unpublish", fallback=self.unpublish_view_class.template_name
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -970,6 +1039,10 @@ class SnippetViewSet(ViewSet):
     def workflow_history_view(self):
         return self.workflow_history_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "workflow_history/index",
+                fallback=self.workflow_history_view_class.template_name,
+            ),
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -982,6 +1055,10 @@ class SnippetViewSet(ViewSet):
     def workflow_history_detail_view(self):
         return self.workflow_history_detail_view_class.as_view(
             model=self.model,
+            template_name=self.get_templates(
+                "workflow_history/detail",
+                fallback=self.workflow_history_detail_view_class.template_name,
+            ),
             object_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -1017,6 +1094,77 @@ class SnippetViewSet(ViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
+
+    def get_queryset(self, request):
+        """
+        Returns a QuerySet of all model instances to be shown on the index view.
+        If ``None`` is returned (the default), the logic in
+        ``index_view.get_base_queryset()`` will be used instead.
+        """
+        return None
+
+    def get_templates(self, action="index", fallback=""):
+        """
+        Utility function that provides a list of templates to try for a given
+        view, when the template isn't overridden by one of the template
+        attributes on the class.
+        """
+        templates = [
+            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
+            f"{self.template_prefix}{self.app_label}/{action}.html",
+            f"{self.template_prefix}{action}.html",
+        ]
+        if fallback:
+            templates.append(fallback)
+        return templates
+
+    def get_index_template(self):
+        """
+        Returns a template to be used when rendering ``index_view``. If a
+        template is specified by the ``index_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.index_template_name or self.get_templates("index")
+
+    def get_index_results_template(self):
+        """
+        Returns a template to be used when rendering ``index_results_view``. If a
+        template is specified by the ``index_results_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.index_results_template_name or self.get_templates("index_results")
+
+    def get_create_template(self):
+        """
+        Returns a template to be used when rendering ``create_view``. If a
+        template is specified by the ``create_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.create_template_name or self.get_templates("create")
+
+    def get_edit_template(self):
+        """
+        Returns a template to be used when rendering ``edit_view``. If a
+        template is specified by the ``edit_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.edit_template_name or self.get_templates("edit")
+
+    def get_delete_template(self):
+        """
+        Returns a template to be used when rendering ``delete_view``. If a
+        template is specified by the ``delete_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.delete_template_name or self.get_templates("delete")
+
+    def get_history_template(self):
+        """
+        Returns a template to be used when rendering ``history_view``. If a
+        template is specified by the ``history_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.history_template_name or self.get_templates("history")
 
     def get_admin_url_namespace(self):
         """Returns the URL namespace for the admin URLs for this model."""
@@ -1167,30 +1315,13 @@ class SnippetViewSet(ViewSet):
 
         return urlpatterns + legacy_redirects
 
-    def register_admin_url_finder(self):
-        register_admin_url_finder(self.model, self.url_finder_class)
-
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
             return check_panels_in_model(self.model, "snippets")
 
         checks.register(snippets_model_check, "panels")
 
-    def register_model_methods(self):
-        @classmethod
-        def get_admin_url_namespace(cls):
-            return self.get_admin_url_namespace()
-
-        @classmethod
-        def get_admin_base_path(cls):
-            return self.get_admin_base_path()
-
-        self.model.get_admin_url_namespace = get_admin_url_namespace
-        self.model.get_admin_base_path = get_admin_base_path
-
     def on_register(self):
         super().on_register()
         viewsets.register(self.chooser_viewset)
-        self.register_admin_url_finder()
         self.register_model_check()
-        self.register_model_methods()

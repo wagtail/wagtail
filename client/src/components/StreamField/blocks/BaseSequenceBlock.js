@@ -90,7 +90,7 @@ class MoveDownButton extends ActionButton {
 class DuplicateButton extends ActionButton {
   enableEvent = 'enableDuplication';
   disableEvent = 'disableDuplication';
-  icon = 'duplicate';
+  icon = 'copy';
   labelIdentifier = 'DUPLICATE';
 
   onClick() {

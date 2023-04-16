@@ -7,7 +7,7 @@ from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
@@ -118,7 +118,9 @@ class TestImage(TestCase):
         )
 
 
-class TestImageQuerySet(TestCase):
+class TestImageQuerySet(TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def test_search_method(self):
         # Create an image for running tests on
         image = Image.objects.create(
@@ -157,9 +159,13 @@ class TestImageQuerySet(TestCase):
             file=get_test_image_file(),
         )
 
-        results = Image.objects.order_by("title").search("Test")
+        results = Image.objects.order_by("title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [aaa_image, zzz_image])
-        results = Image.objects.order_by("-title").search("Test")
+        results = Image.objects.order_by("-title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [zzz_image, aaa_image])
 
     def test_search_indexing_prefetches_tags(self):
