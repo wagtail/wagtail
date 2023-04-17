@@ -12,7 +12,7 @@ from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.menu import Menu
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.models import Page, TranslatableMixin
+from wagtail.models import Page, ReferenceIndex, TranslatableMixin
 
 from .helpers import (
     AdminURLHelper,
@@ -82,7 +82,12 @@ class WagtailRegisterable:
 
         self.register_admin_url_finders()
 
+        self.register_indexing()
+
     def register_admin_url_finders(self):
+        pass
+
+    def register_indexing(self):
         pass
 
     def will_modify_explorer_page_queryset(self):
@@ -669,6 +674,9 @@ class ModelAdmin(WagtailRegisterable):
             )
             register_admin_url_finder(self.model, finder_class)
 
+    def register_indexing(self):
+        ReferenceIndex.register_model(self.model)
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -775,6 +783,10 @@ class ModelAdminGroup(WagtailRegisterable):
     def register_admin_url_finders(self):
         for instance in self.modeladmin_instances:
             instance.register_admin_url_finders()
+
+    def register_indexing(self):
+        for instance in self.modeladmin_instances:
+            instance.register_indexing()
 
 
 def modeladmin_register(modeladmin_class):
