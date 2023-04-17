@@ -247,7 +247,9 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
             'foo:test1 hello world foo:test2 foo:"test3" foo2:test4'
         )
 
-        self.assertDictEqual(filters, {"foo": ["test1", "test2", "test3"], "foo2": "test4"})
+        self.assertDictEqual(
+            filters, {"foo": ["test1", "test2", "test3"], "foo2": "test4"}
+        )
         self.assertEqual(query, "hello world")
 
 
