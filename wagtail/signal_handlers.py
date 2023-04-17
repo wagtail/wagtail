@@ -86,7 +86,7 @@ def update_reference_index_on_save(instance, **kwargs):
             # parent is null, so there is no valid object to record references against
             return
 
-    if ReferenceIndex.model_is_indexable(type(instance)):
+    if ReferenceIndex.is_indexed(type(instance)):
         with transaction.atomic():
             ReferenceIndex.create_or_update_for_object(instance)
 
@@ -100,13 +100,15 @@ def remove_reference_index_on_delete(instance, **kwargs):
 
 
 def connect_reference_index_signal_handlers(**kwargs):
-    post_save.connect(update_reference_index_on_save)
-    post_delete.connect(remove_reference_index_on_delete)
+    for model in ReferenceIndex.get_tracked_models():
+        post_save.connect(update_reference_index_on_save, sender=model)
+        post_delete.connect(remove_reference_index_on_delete, sender=model)
 
 
 def disconnect_reference_index_signal_handlers(**kwargs):
-    post_save.disconnect(update_reference_index_on_save)
-    post_delete.disconnect(remove_reference_index_on_delete)
+    for model in ReferenceIndex.get_tracked_models():
+        post_save.disconnect(update_reference_index_on_save, sender=model)
+        post_delete.disconnect(remove_reference_index_on_delete, sender=model)
 
 
 def register_signal_handlers():
