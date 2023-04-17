@@ -87,9 +87,20 @@ def separate_filters_from_query(query_string):
     filters = {}
     for match_object in re.finditer(filters_regexp, query_string):
         key, value = match_object.groups()
-        filters[key] = (
-            value.strip('"') if value.strip('"') is not value else value.strip("'")
-        )
+        if filters.get(key) is None:
+            filters[key] = (
+                value.strip('"') if value.strip('"') is not value else value.strip("'")
+            )
+
+        elif not isinstance(filters.get(key), list):
+            filters[key] = [filters[key]]
+            filters[key].append(
+                value.strip('"') if value.strip('"') is not value else value.strip("'")
+            )
+        else:
+            filters[key].append(
+                value.strip('"') if value.strip('"') is not value else value.strip("'")
+            )
 
     query_string = re.sub(filters_regexp, "", query_string).strip()
 
