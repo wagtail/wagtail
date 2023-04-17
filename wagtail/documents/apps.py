@@ -12,3 +12,8 @@ class WagtailDocsAppConfig(AppConfig):
         from wagtail.documents.signal_handlers import register_signal_handlers
 
         register_signal_handlers()
+
+        from wagtail.documents import get_document_model
+        from wagtail.models.reference_index import ReferenceIndex
+
+        ReferenceIndex.register_model(get_document_model())
