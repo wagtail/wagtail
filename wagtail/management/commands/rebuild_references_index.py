@@ -39,7 +39,7 @@ class Command(BaseCommand):
             ReferenceIndex.objects.all().delete()
 
             for model in apps.get_models():
-                if not ReferenceIndex.model_is_indexable(model):
+                if not ReferenceIndex.is_indexed(model):
                     continue
 
                 self.write(str(model))
