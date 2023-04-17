@@ -14,6 +14,7 @@ Changelog
  * Implement new simplified userbar designs (Albina Starykova)
  * Add more Axe rules to the accessibility checker (Albina Starykova)
  * Sort accessibility checker results by position on the page (Albina Starykova)
+ * Highlight elements with errors in accessibility checker (Albina Starykova)
  * Add usage view for pages (Sage Abdullah)
  * Copy page form now updates the slug field dynamically with a slugified value on blur (Loveth Omokaro)
  * Ensure selected collection is kept when navigating from documents or images listings to add multiple views & upon upload (Aman Pandey, Bojan Mihelac)
