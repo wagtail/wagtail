@@ -155,6 +155,10 @@ class ReferenceIndex(models.Model):
 
     wagtail_reference_index_ignore = True
 
+    # Store the models that are being tracked (via the post_save signal) and
+    # which are being indexed
+    _indexed_models = {}
+
     class Meta:
         unique_together = [
             (
@@ -203,7 +207,7 @@ class ReferenceIndex(models.Model):
 
         # Don't check any models that have a parental key, references from these will be collected from the parent
         if not allow_child_models and any(
-            [isinstance(field, ParentalKey) for field in model._meta.get_fields()]
+            isinstance(field, ParentalKey) for field in model._meta.get_fields()
         ):
             return False
 
@@ -234,6 +238,34 @@ class ReferenceIndex(models.Model):
                     return True
 
         return False
+
+    @classmethod
+    def register_model(cls, model):
+        """
+        Registers the model for indexing.
+
+        If there are child relationships (via a ParentalKey), those
+        saves and deletes on those models also need to be tracked
+        """
+        if cls.model_is_indexable(model):
+            cls._indexed_models[model] = True
+
+            for child_relation in get_all_child_relations(model):
+                if cls.model_is_indexable(
+                    child_relation.related_model,
+                    allow_child_models=True,
+                ):
+                    cls._indexed_models[
+                        child_relation.related_model
+                    ] = cls._indexed_models.get(child_relation.related_model, False)
+
+    @classmethod
+    def is_indexed(cls, model):
+        return cls._indexed_models.get(model, False)
+
+    @classmethod
+    def get_tracked_models(cls):
+        return cls._indexed_models.keys()
 
     @classmethod
     def _extract_references_from_object(cls, object):
