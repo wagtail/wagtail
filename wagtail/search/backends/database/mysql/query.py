@@ -62,7 +62,7 @@ class Lexeme(LexemeCombinable, Value):
         template = "%s"
 
         if self.prefix:
-            param = "*{}".format(param)
+            param = "{}*".format(param)
         if self.invert:
             param = "(-{})".format(param)
         else:
