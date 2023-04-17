@@ -247,6 +247,7 @@ class Panel:
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["self"] = self
+            context["attrs"] = self.panel.attrs
             return context
 
         def get_comparison(self):

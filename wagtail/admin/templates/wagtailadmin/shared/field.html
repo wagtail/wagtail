@@ -57,7 +57,7 @@
         </div>
 
         {# Separate container for the widget with prefix icon and suffix comment button #}
-        <div class="w-field__input" data-field-input data-controller="test">
+        <div class="w-field__input" data-field-input {% for name, value in attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
             {% if icon %}
                 {% icon name=icon classname="w-field__icon" %}
             {% endif %}
