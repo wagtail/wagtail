@@ -242,6 +242,14 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
         self.assertDictEqual(filters, {"author": "foo bar", "bar": "two beers"})
         self.assertEqual(query, "hello world")
 
+    def test_return_list_of_multiple_instances_for_same_filter_key(self):
+        filters, query = separate_filters_from_query(
+            'foo:test1 hello world foo:test2 foo:"test3" foo2:test4'
+        )
+
+        self.assertDictEqual(filters, {"foo": ["test1", "test2", "test3"], "foo2": "test4"})
+        self.assertEqual(query, "hello world")
+
 
 class TestParseQueryString(SimpleTestCase):
     def test_simple_query(self):
