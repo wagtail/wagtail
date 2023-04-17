@@ -501,8 +501,8 @@ export class Userbar extends HTMLElement {
                     ? `${rect.left + window.scrollX - 2.5}px`
                     : `${rect.left + window.scrollX}px`
                 };
-                width: ${rect.width < 5 ? '5px' : `${rect.width}px`};
-                height: ${rect.height < 5 ? '5px' : `${rect.height}px`};
+                width: ${Math.max(rect.width, 5)}px;
+                height: ${Math.max(rect.height, 5)}px;
                 position: absolute;
                 z-index: 129;
                 outline: 1px solid #CD4444;
@@ -511,7 +511,8 @@ export class Userbar extends HTMLElement {
               };
 
               styleA11yOutline();
-              window.onresize = styleA11yOutline;
+
+              window.addEventListener('resize', styleA11yOutline);
 
               inaccessibleElement.style.scrollMargin = '6.25rem';
               inaccessibleElement.scrollIntoView();
