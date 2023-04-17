@@ -482,7 +482,7 @@ class ReferenceIndex(models.Model):
     @classmethod
     def get_references_to(cls, object):
         """
-        Returns all inboud references for the given object.
+        Returns all inbound references for the given object.
 
         Args:
             object (Model): The model instance to fetch ReferenceIndex records for
@@ -494,6 +494,20 @@ class ReferenceIndex(models.Model):
             to_content_type_id=cls._get_base_content_type(object),
             to_object_id=object.pk,
         )
+
+    @classmethod
+    def get_grouped_references_to(cls, object):
+        """
+        Returns all inbound references for the given object, grouped by the object
+        they are found on.
+
+        Args:
+            object (Model): The model instance to fetch ReferenceIndex records for
+
+        Returns:
+            A ReferenceGroups object
+        """
+        return cls.get_references_to(object).group_by_source_object()
 
     @property
     def _content_type(self):

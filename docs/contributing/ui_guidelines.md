@@ -102,7 +102,7 @@ When adding or updating an icon,
 
 1. Run it through [SVGO](https://jakearchibald.github.io/svgomg/) with appropriate compression settings.
 2. Manually remove any unnecessary attributes.
-3. Manually add its `id` attribute with a prefix of `icon-` and the icon name matching the file name.
-4. Keep the icon as named from its source if possible, and leave the licensing information in the SVG file if there is any.
+3. Manually add its `id` attribute with a prefix of `icon-` and the icon name matching the file name. Keep the icon as named from its source if possible.
+4. Add or preserve licensing information as a HTML comment starting with an exclamation mark: `<!--! Icon license -->`. For Font Awesome, we want: `<!--! [icon name] ([icon style]): Font Awesome [version] -->`. For example, `<!--! triangle-exclamation (solid): Font Awesome Pro 6.4.0 -->`.
 5. Add the icon to Wagtail’s own implementation of the `register_icons` hook, in alphabetical order.
 6. Go to the styleguide and copy the Wagtail icons table according to instructions in the template, pasting the result in `wagtail_icons_table.txt`.

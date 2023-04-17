@@ -33,7 +33,7 @@
   }
 
   &.button-small {
-    padding: 0 0.8em;
+    padding: 0 theme('spacing.3');
     height: 2em;
     font-size: calc(theme('fontSize.14') * 0.87);
     line-height: calc(2em - 2px); // account for border
@@ -41,7 +41,7 @@
 
   &.button--icon {
     .icon {
-      @include svg-icon(1.5em);
+      @include svg-icon();
     }
   }
 
@@ -140,7 +140,7 @@
       }
 
       .icon {
-        @include svg-icon(1.5em);
+        @include svg-icon();
       }
     }
 
@@ -267,6 +267,7 @@
       display: inline-block;
       opacity: 0.8;
       padding: 0;
+      margin-inline-end: 0.5em;
     }
 
     .button-longrunning__icon {

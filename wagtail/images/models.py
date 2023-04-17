@@ -311,7 +311,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return full_path
 
     def get_usage(self):
-        return ReferenceIndex.get_references_to(self).group_by_source_object()
+        return ReferenceIndex.get_grouped_references_to(self)
 
     @property
     def usage_url(self):

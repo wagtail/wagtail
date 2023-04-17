@@ -109,7 +109,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
         self.assertEqual(response.context["header_icon"], "snippet")
 
     def get_with_limited_permissions(self):
@@ -140,9 +140,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         for page in pages:
             response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(
-                response, "wagtailsnippets/snippets/type_index.html"
-            )
+            self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
@@ -469,7 +467,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # All snippets should be in items
         items = list(response.context["page_obj"].object_list)
@@ -483,7 +481,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
     def test_empty_q(self):
         response = self.get({"q": ""})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # All snippets should be in items
         items = list(response.context["page_obj"].object_list)
@@ -704,7 +702,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -722,7 +720,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -742,7 +740,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -762,7 +760,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
         self.assertNotContains(response, "<em>'Save'</em>")
@@ -1349,7 +1347,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
             name = "test"
-            icon_name = "undo"
+            icon_name = "check"
             classname = "action-secondary"
 
             def is_shown(self, context):
@@ -1367,7 +1365,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true"><use href="#icon-undo"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -3570,7 +3568,12 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertContains(response, "This advert is referenced 2 times")
         self.assertContains(
-            response, self.test_snippet.usage_url() + "?describe_on_delete=1"
+            response,
+            reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=[quote(self.test_snippet.pk)],
+            )
+            + "?describe_on_delete=1",
         )
 
     def test_before_delete_snippet_hook_get(self):
@@ -4562,7 +4565,7 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
     def test_get_index(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # user should get an "Add advert" button
         self.assertContains(response, "Add advert")
@@ -4616,7 +4619,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
     def test_get_index(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # user should not get an "Add advert" button
         self.assertNotContains(response, "Add advert")
@@ -4668,7 +4671,7 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
     def test_get_index(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # user should not get an "Add advert" button
         self.assertNotContains(response, "Add advert")
@@ -4861,7 +4864,7 @@ class TestSnippetListViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
         # All snippets should be in items
         items = list(response.context["page_obj"].object_list)
@@ -4966,7 +4969,12 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             "This standard snippet with custom primary key is referenced 0 times",
         )
         self.assertContains(
-            response, self.snippet_a.usage_url() + "?describe_on_delete=1"
+            response,
+            reverse(
+                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
+                args=[quote(self.snippet_a.pk)],
+            )
+            + "?describe_on_delete=1",
         )
 
     def test_redirect_to_edit(self):

@@ -103,6 +103,21 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: preview_on_edit_view_class
    .. autoattribute:: lock_view_class
    .. autoattribute:: unlock_view_class
+   .. autoattribute:: chooser_viewset_class
+   .. autoattribute:: template_prefix
+   .. autoattribute:: index_template_name
+   .. autoattribute:: index_results_template_name
+   .. autoattribute:: create_template_name
+   .. autoattribute:: edit_template_name
+   .. autoattribute:: delete_template_name
+   .. autoattribute:: history_template_name
+   .. automethod:: get_queryset
+   .. automethod:: get_index_template
+   .. automethod:: get_index_results_template
+   .. automethod:: get_create_template
+   .. automethod:: get_edit_template
+   .. automethod:: get_delete_template
+   .. automethod:: get_history_template
    .. automethod:: get_admin_url_namespace
    .. automethod:: get_admin_base_path
    .. automethod:: get_chooser_admin_url_namespace

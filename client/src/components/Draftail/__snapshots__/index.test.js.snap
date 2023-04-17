@@ -20,6 +20,9 @@ Object {
   "editorState": null,
   "enableHorizontalRule": Object {
     "description": "Horizontal line",
+    "icon": <Icon
+      name="minus"
+    />,
   },
   "enableLineBreak": Object {
     "description": "Line break",

@@ -317,9 +317,9 @@
 
             <h3>Mixtures</h3>
 
-            <button class="button button--icon text-replace" type="button">{% icon name="tick" %}A proper button</button>
+            <button class="button button--icon text-replace" type="button">{% icon name="check" %}A proper button</button>
             <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
-            <a href="#" class="button button--icon bicolor disabled">{% icon name="tick" wrapped=1 %}button link</a>
+            <a href="#" class="button button--icon bicolor disabled">{% icon name="check" wrapped=1 %}button link</a>
         {% endpanel %}
 
         {% panel id="dropdowns" heading="Dropdown buttons" %}
@@ -602,20 +602,21 @@
 
         {% panel id="icons" heading="Icons" %}
 
-            {% for source, icons in all_icons %}
-                {% if source == "wagtailadmin/icons" %}
+            {% for folder, icons in all_icons %}
+                {% if folder == "wagtailadmin/icons" %}
                     {# Bespoke copy script with good line breaks to review icon update diffs in git. #}
                     <!-- Copy this section to update the `icons.md` documentation (wagtail_icons.html file). -->
                     <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t')) -->
                 {% endif %}
-                <div class="w-mb-10" data-icons-table="{{ source }}">
+                <div class="w-mb-10" data-icons-table="{{ folder }}">
                     <!-- Auto-generated with Wagtail’s styleguide. -->
                     <table class="w-w-full">
-                        <caption><code>register_icons</code> entries from <code>{{ source }}</code></caption>
+                        <caption><code>register_icons</code> entries from <code>{{ folder }}</code></caption>
                         <thead>
                             <tr>
                                 <th scope="col">Visual</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Source</th>
                                 <th scope="col">File path</th>
                             </tr>
                         </thead>
@@ -626,7 +627,8 @@
                                     {# so we fully control the rendering without changing the icon’s markup. #}
                                     {# Icons are loaded with render_to_string, so need |safe. #}
                                     <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
-                                    <td><code>{{ item.id }}</code></td>
+                                    <td><code>{{ item.name }}</code></td>
+                                    <td>{{ item.source }}</td>
                                     <td><code>{{ item.file_path }}</code></td>
                                 </tr>
                             {% endfor %}

@@ -118,7 +118,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                 onClick={toggleMenu}
                 aria-expanded={menuOpen}
               >
-                <Icon name="ellipsis-v" />
+                <Icon name="dots-horizontal" />
               </summary>
 
               <div

@@ -27,7 +27,7 @@ const CollapseAll: React.FunctionComponent<CollapseAllProps> = ({
       floating ? 'w-minimap__collapse-all--floating' : ''
     } ${insideMinimap ? 'w-minimap__collapse-all--inside' : ''}`}
   >
-    <Icon name={expanded ? 'arrow-up-big' : 'arrow-down-big'} />
+    <Icon name={expanded ? 'collapse-up' : 'collapse-down'} />
     {expanded ? gettext('Collapse all') : gettext('Expand all')}
   </button>
 );

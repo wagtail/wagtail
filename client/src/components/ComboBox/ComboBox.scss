@@ -113,7 +113,8 @@ $spacing-sm: theme('spacing.5');
   .icon-h4,
   .icon-h5,
   .icon-h6 {
-    width: theme('spacing.6');
+    width: theme('spacing.5');
+    height: theme('spacing.5');
   }
 
   // Explicitly override the selected color for SVG support.

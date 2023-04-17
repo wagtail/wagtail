@@ -323,22 +323,15 @@ ul.listing {
     text-align: center;
 
     .icon {
-      width: 15px;
-      height: 18px;
+      width: 1rem;
+      height: 1rem;
       vertical-align: middle;
-
-      &::before {
-        margin-inline-end: 2px;
-      }
+      margin-inline-end: 2px;
     }
 
     &--active a,
     a:hover {
       color: $color-teal;
-    }
-
-    &--active .icon {
-      opacity: 1;
     }
   }
 

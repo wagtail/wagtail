@@ -1,7 +1,7 @@
 $draftail-editor-text: $color-input-text;
 $draftail-placeholder-text: theme('colors.grey.400');
 // w-body-text-large
-$draftail-editor-font-size: theme('fontSize.18');
+$draftail-editor-font-size: theme('fontSize.19');
 $draftail-editor-line-height: theme('lineHeight.normal');
 
 $draftail-editor-chrome: theme('colors.primary.DEFAULT');
@@ -94,24 +94,6 @@ $draftail-editor-font-family: $font-sans;
   width: 100%;
 }
 
-.Draftail-ToolbarButton,
-.Draftail-ComboBox__option {
-  .icon {
-    width: $draftail-toolbar-icon-size;
-    height: $draftail-toolbar-icon-size;
-    vertical-align: middle;
-  }
-
-  .icon-h1,
-  .icon-h2,
-  .icon-h3,
-  .icon-h4,
-  .icon-h5,
-  .icon-h6 {
-    width: 1.5 * $draftail-toolbar-icon-size;
-  }
-}
-
 .Draftail-Toolbar {
   border-width: 0;
   // Remove once we drop support for Safari 14.
@@ -169,14 +151,14 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-BlockToolbar__trigger {
+  $icon-size: theme('spacing.4');
   color: theme('colors.secondary.DEFAULT');
-  width: theme('spacing.4');
-  height: theme('spacing.4');
-  margin-inline-end: 1px;
+  width: $icon-size;
+  height: $icon-size;
+  margin-inline-end: calc($nested-field-indent-sm - $icon-size / 2 - 2px);
 
   @include media-breakpoint-up(sm) {
-    width: theme('spacing.5');
-    height: theme('spacing.5');
+    margin-inline-end: calc($nested-field-indent - $icon-size / 2 - 2px);
   }
 
   // Increase the hoverable area of the trigger button
@@ -218,52 +200,6 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.Draftail-ComboBox [role='combobox'] {
-  padding: theme('spacing.4');
-}
-
-.Draftail-ComboBox [aria-autocomplete='list'] {
-  border-radius: theme('borderRadius.DEFAULT');
-  border: 1px solid $color-input-border;
-}
-
-.Draftail-ComboBox__menu {
-  padding: theme('spacing.4');
-}
-
-.Draftail-ComboBox__optgroup-label {
-  @apply w-label-3;
-  background-color: theme('colors.grey.50');
-}
-
-.Draftail-ComboBox__option,
-.Draftail-ComboBox__status {
-  color: theme('colors.primary.DEFAULT');
-  padding: theme('spacing.3') 0;
-  border-width: 1px;
-}
-
-.Draftail-ComboBox__status {
-  padding-inline-start: theme('spacing.3');
-}
-
-.Draftail-ComboBox__option[aria-selected='true'] {
-  color: theme('colors.secondary.DEFAULT');
-  border-radius: theme('borderRadius.sm');
-  background: transparent;
-  cursor: pointer;
-}
-
-.Draftail-ComboBox__option-icon {
-  color: inherit;
-  margin: 0 theme('spacing.3');
-}
-
-.Draftail-ComboBox__option-text {
-  @apply w-label-3;
-  color: inherit;
-}
-
 .Draftail-ToolbarGroup::before {
   display: none;
 }
@@ -286,6 +222,22 @@ $draftail-editor-font-family: $font-sans;
   &:active {
     border: 1px solid $color-grey-3;
   }
+
+  .icon {
+    width: $draftail-toolbar-icon-size;
+    height: $draftail-toolbar-icon-size;
+    vertical-align: middle;
+  }
+
+  .icon-h1,
+  .icon-h2,
+  .icon-h3,
+  .icon-h4,
+  .icon-h5,
+  .icon-h6 {
+    width: 1.25 * $draftail-toolbar-icon-size;
+    height: 1.25 * $draftail-toolbar-icon-size;
+  }
 }
 
 .Draftail-ToolbarButton--pin {
@@ -306,10 +258,6 @@ $draftail-editor-font-family: $font-sans;
     .Draftail-Editor:hover & {
       border-color: $color-input-hover-border;
     }
-  }
-
-  .icon {
-    transform: rotate(30deg);
   }
 }
 

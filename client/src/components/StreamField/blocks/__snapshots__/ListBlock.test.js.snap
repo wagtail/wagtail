@@ -47,8 +47,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -62,7 +62,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -109,8 +109,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -124,7 +124,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -171,8 +171,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -186,7 +186,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
           </div>
@@ -247,8 +247,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -262,7 +262,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -309,8 +309,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -324,7 +324,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -385,8 +385,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -400,7 +400,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -447,8 +447,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -462,7 +462,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -523,8 +523,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -538,7 +538,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -585,8 +585,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -600,7 +600,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
           </div>
@@ -647,8 +647,8 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -662,7 +662,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -723,8 +723,8 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -738,7 +738,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -785,8 +785,8 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -800,7 +800,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -861,8 +861,8 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -876,7 +876,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -923,8 +923,8 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -938,7 +938,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -999,8 +999,8 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -1014,7 +1014,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -1061,8 +1061,8 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -1076,7 +1076,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
           <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>
@@ -1137,8 +1137,8 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -1152,7 +1152,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
           </div>
@@ -1199,8 +1199,8 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           <use href=\\"#icon-arrow-down\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
-        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
-          <use href=\\"#icon-duplicate\\"></use>
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
         </svg>
       </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
         <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
@@ -1214,7 +1214,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
           </div>

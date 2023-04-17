@@ -14,13 +14,27 @@ class CheckboxSelectMultipleWithDisabledOptions(forms.CheckboxSelectMultiple):
         option = super().create_option(*args, **kwargs)
         if option["value"] in self.disabled_values:
             option["attrs"]["disabled"] = True
+        else:
+            # Only set target/action if not disabled to ignore change on disabled items
+            option["attrs"]["data-action"] = "w-bulk#toggle"
+            option["attrs"]["data-w-bulk-target"] = "item"
         return option
 
 
 class SubmitTranslationForm(forms.Form):
     # Note: We don't actually use select_all in Python, it is just the
     # easiest way to add the widget to the form. It's controlled in JS.
-    select_all = forms.BooleanField(label=gettext_lazy("Select all"), required=False)
+    select_all = forms.BooleanField(
+        label=gettext_lazy("Select all"),
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                "data-action": "w-bulk#toggleAll",
+                "data-w-bulk-target": "all",
+            },
+        ),
+    )
+
     locales = forms.ModelMultipleChoiceField(
         label=gettext_lazy("Locales"),
         queryset=Locale.objects.none(),

@@ -704,6 +704,8 @@ Contributors
 * Mehul Aggarwal
 * Babitha Kumari
 * Mansi Gundre
+* Hanoon
+* Steve Steinwand
 
 Translators
 ===========

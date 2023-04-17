@@ -29,10 +29,13 @@ class TestWhatsNewInWagtailVersionPanel(WagtailTestUtils, TestCase):
 
     def test_render_html_user_initial(self):
         result = self.panel.render_html(self.get_parent_context())
-        self.assertIn(
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-            result,
-        )
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertIn(data_attr, result)
         self.assertIn("Things in Wagtail 4 have changed!", result)
 
     @override_settings(WAGTAIL_ENABLE_WHATS_NEW_BANNER=False)
@@ -44,10 +47,13 @@ class TestWhatsNewInWagtailVersionPanel(WagtailTestUtils, TestCase):
         self.profile.delete()
         self.user.refresh_from_db()
         result = self.panel.render_html(self.get_parent_context())
-        self.assertIn(
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-            result,
-        )
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertIn(data_attr, result)
         self.assertIn("Things in Wagtail 4 have changed!", result)
 
     def test_render_html_user_dismissed(self):
@@ -70,29 +76,41 @@ class TestWhatsNewOnDashboard(WagtailTestUtils, TestCase):
 
     def test_get_enabled_initial(self):
         response = self.get()
-        self.assertContains(
-            response,
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-        )
+        html_content = response.content.decode("utf-8")
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertIn(data_attr, html_content)
         self.assertContains(response, "Things in Wagtail 4 have changed!")
 
     @override_settings(WAGTAIL_ENABLE_WHATS_NEW_BANNER=False)
     def test_get_disabled_initial(self):
         response = self.get()
-        self.assertNotContains(
-            response,
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-        )
+        html_content = response.content.decode("utf-8")
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertNotIn(data_attr, html_content)
         self.assertNotContains(response, "Things in Wagtail 4 have changed!")
 
     def test_render_html_user_no_profile(self):
         self.profile.delete()
         self.user.refresh_from_db()
         response = self.get()
-        self.assertContains(
-            response,
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-        )
+        html_content = response.content.decode("utf-8")
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertIn(data_attr, html_content)
         self.assertContains(response, "Things in Wagtail 4 have changed!")
 
     def test_get_enabled_dismissed(self):
@@ -100,8 +118,12 @@ class TestWhatsNewOnDashboard(WagtailTestUtils, TestCase):
         self.profile.save(update_fields=["dismissibles"])
 
         response = self.get()
-        self.assertNotContains(
-            response,
-            f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
-        )
+        html_content = response.content.decode("utf-8")
+        expected_data_attrs = [
+            'data-controller="w-dismissible"',
+            'data-w-dismissible-dismissed-class="w-dismissible--dismissed"',
+            f'data-w-dismissible-id-value="{self.dismissible_id}"',
+        ]
+        for data_attr in expected_data_attrs:
+            self.assertNotIn(data_attr, html_content)
         self.assertNotContains(response, "Things in Wagtail 4 have changed!")

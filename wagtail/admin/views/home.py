@@ -1,4 +1,5 @@
 import itertools
+import re
 from typing import Any, Mapping, Union
 
 from django.conf import settings
@@ -183,14 +184,17 @@ class WorkflowObjectsToModeratePanel(Component):
             actions = state.task.specific.get_actions(obj, request.user)
             workflow_tasks = state.workflow_state.all_tasks_with_status()
 
-            url_name_prefix = "wagtailadmin_pages"
-            if not isinstance(obj, Page):
-                url_name_prefix = obj.get_admin_url_namespace()
+            workflow_action_url_name = "wagtailadmin_pages:workflow_action"
+            workflow_preview_url_name = "wagtailadmin_pages:workflow_preview"
 
-            workflow_action_url_name = f"{url_name_prefix}:workflow_action"
-            workflow_preview_url_name = None
-            if getattr(obj, "is_previewable", False):
-                workflow_preview_url_name = f"{url_name_prefix}:workflow_preview"
+            # Snippets can also have workflows
+            if not isinstance(obj, Page):
+                viewset = obj.snippet_viewset
+                workflow_action_url_name = viewset.get_url_name("workflow_action")
+                workflow_preview_url_name = viewset.get_url_name("workflow_preview")
+
+            if not getattr(obj, "is_previewable", False):
+                workflow_preview_url_name = None
 
             context["states"].append(
                 {
@@ -352,6 +356,7 @@ def default(request):
     raise Http404
 
 
+icon_comment_pattern = re.compile(r"<!--.*?-->")
 _icons_html = None
 
 
@@ -364,11 +369,13 @@ def icons():
         )
         combined_icon_markup = ""
         for icon in all_icons:
-            combined_icon_markup += (
+            symbol = (
                 render_to_string(icon)
                 .replace('xmlns="http://www.w3.org/2000/svg"', "")
                 .replace("svg", "symbol")
             )
+            symbol = icon_comment_pattern.sub("", symbol)
+            combined_icon_markup += symbol
 
         _icons_html = render_to_string(
             "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}

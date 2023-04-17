@@ -153,8 +153,13 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
         self.assertEqual(
             rendered[0].attrs,
             # Should not be dismissed
-            {"data-wagtail-dismissible-id": "dismissible-submenu-menu-item"},
+            {
+                "data-controller": "w-dismissible",
+                "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                "data-w-dismissible-id-value": "dismissible-submenu-menu-item",
+            },
         )
+
         self.assertListEqual(
             rendered[0].menu_items,
             [
@@ -163,7 +168,11 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
                     "Pages",
                     "/pages/",
                     # Should not be dismissed
-                    attrs={"data-wagtail-dismissible-id": "dismissible-menu-item"},
+                    attrs={
+                        "data-controller": "w-dismissible",
+                        "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                        "data-w-dismissible-id-value": "dismissible-menu-item",
+                    },
                 ),
             ],
         )
@@ -211,9 +220,11 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
         self.assertEqual(
             rendered[0].attrs,
             {
-                "data-wagtail-dismissible-id": "dismissible-submenu-menu-item",
+                "data-controller": "w-dismissible",
+                "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                "data-w-dismissible-id-value": "dismissible-submenu-menu-item",
                 # Should be dismissed
-                "data-wagtail-dismissed": "",
+                "data-w-dismissible-dismissed-value": "true",
             },
         )
         self.assertListEqual(
@@ -225,8 +236,10 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
                     "/pages/",
                     # Should be dismissed
                     attrs={
-                        "data-wagtail-dismissible-id": "dismissible-menu-item",
-                        "data-wagtail-dismissed": "",
+                        "data-controller": "w-dismissible",
+                        "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                        "data-w-dismissible-id-value": "dismissible-menu-item",
+                        "data-w-dismissible-dismissed-value": "true",
                     },
                 ),
             ],
@@ -271,7 +284,11 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
         self.assertEqual(rendered[0].label, "My dismissible submenu")
         self.assertEqual(
             rendered[0].attrs,
-            {"data-wagtail-dismissible-id": "dismissible-submenu-menu-item"},
+            {
+                "data-controller": "w-dismissible",
+                "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                "data-w-dismissible-id-value": "dismissible-submenu-menu-item",
+            },
         )
         self.assertListEqual(
             rendered[0].menu_items,
@@ -280,7 +297,11 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
                     "dismissible-menu-item",
                     "Pages",
                     "/pages/",
-                    attrs={"data-wagtail-dismissible-id": "dismissible-menu-item"},
+                    attrs={
+                        "data-controller": "w-dismissible",
+                        "data-w-dismissible-dismissed-class": "w-dismissible--dismissed",
+                        "data-w-dismissible-id-value": "dismissible-menu-item",
+                    },
                 ),
             ],
         )

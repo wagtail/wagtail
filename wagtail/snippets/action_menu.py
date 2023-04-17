@@ -147,7 +147,7 @@ class WorkflowMenuItem(ActionMenuItem):
 
     def get_url(self, parent_context):
         instance = parent_context["instance"]
-        url_name = instance.get_admin_url_namespace() + ":collect_workflow_action_data"
+        url_name = instance.snippet_viewset.get_url_name("collect_workflow_action_data")
         return reverse(
             url_name,
             args=(
@@ -196,7 +196,7 @@ class CancelWorkflowMenuItem(ActionMenuItem):
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
-    icon_name = "download-alt"
+    icon_name = "download"
     classname = "action-secondary"
 
     def is_shown(self, context):
@@ -237,7 +237,7 @@ class DeleteMenuItem(ActionMenuItem):
 class SaveMenuItem(ActionMenuItem):
     name = "action-save"
     label = _("Save")
-    icon_name = "download-alt"
+    icon_name = "download"
     template_name = "wagtailsnippets/snippets/action_menu/save.html"
 
 
