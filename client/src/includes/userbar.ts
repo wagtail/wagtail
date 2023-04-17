@@ -520,6 +520,8 @@ export class Userbar extends HTMLElement {
 
               accessibilityResultsBox.addEventListener('hide', () => {
                 currentA11yOutline.style.cssText = '';
+
+                window.removeEventListener('resize', styleA11yOutline);
               });
             });
           });
