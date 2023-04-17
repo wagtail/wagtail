@@ -43,14 +43,7 @@ export default function initSidePanel() {
     if (panelName && !selectedPanel) return;
 
     // Open / close side panel
-
-    // HACK: For now, the comments will show without the side-panel opening.
-    // They will later be updated so that they render inside the side panel.
-    // We couldn't implement this for Wagtail 3.0 as the existing field styling
-    // renders the "Add comment" button on the right hand side, and this gets
-    // covered up by the side panel.
-
-    if (panelName === '' || panelName === 'comments') {
+    if (panelName === '') {
       sidePanelWrapper.classList.remove('form-side--open');
       sidePanelWrapper.removeAttribute('aria-labelledby');
     } else {
@@ -128,6 +121,14 @@ export default function initSidePanel() {
       setPanel(panelName);
     }
   };
+
+  // Open the side panel if the 'open' custom event is triggered on the side panel
+  // This is allows panels to be opened with JavaScript without hacking the toggle
+  document.querySelectorAll('[data-side-panel]').forEach((panel) => {
+    panel.addEventListener('open', () => {
+      setPanel(panel.dataset.sidePanel);
+    });
+  });
 
   document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
     toggle.addEventListener('click', () => {

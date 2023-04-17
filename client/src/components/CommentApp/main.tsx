@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 
@@ -21,7 +21,6 @@ import {
   selectComments,
   selectCommentsForContentPathFactory,
   selectCommentFactory,
-  selectEnabled,
   selectFocused,
   selectIsDirty,
   selectCommentCount,
@@ -70,17 +69,59 @@ const getAuthor = (
   };
 };
 
-function renderCommentsUi(
-  store: Store,
-  layout: LayoutController,
-  comments: Comment[],
-): React.ReactElement {
+interface CommentListingProps {
+  store: Store;
+  layout: LayoutController;
+  comments: Comment[];
+}
+
+function CommentListing({
+  store,
+  layout,
+  comments,
+}: CommentListingProps): React.ReactElement {
   const state = store.getState();
-  const { commentsEnabled, user, currentTab } = state.settings;
+  const { user, currentTab } = state.settings;
   const { focusedComment, forceFocus } = state.comments;
+  const commentsListRef = React.useRef<HTMLOListElement | null>(null);
+  // Update the position of the comments listing as the window scrolls to keep the comments in line with the content
+  const updateScroll = useCallback(
+    (e: Event) => {
+      if (!commentsListRef.current) {
+        return;
+      }
+
+      if (
+        e.type === 'scroll' &&
+        !document.querySelector('.form-side--comments')
+      ) {
+        return;
+      }
+
+      const scrollContainer = document.querySelector('.content');
+      const top = scrollContainer?.getBoundingClientRect().top;
+      commentsListRef.current.style.top = `${top}px`;
+    },
+    [commentsListRef],
+  );
   let commentsToRender = comments;
 
-  if (!commentsEnabled || !user) {
+  React.useEffect(() => {
+    const root = document.querySelector('#main');
+    const commentSidePanel = document.querySelector(
+      '[data-side-panel="comments"]',
+    );
+
+    root?.addEventListener('scroll', updateScroll);
+    commentSidePanel?.addEventListener('show', updateScroll);
+
+    return () => {
+      root?.removeEventListener('scroll', updateScroll);
+      commentSidePanel?.removeEventListener('show', updateScroll);
+    };
+  }, []);
+
+  if (!user) {
     commentsToRender = [];
   }
   // Hide all resolved/deleted comments
@@ -99,7 +140,11 @@ function renderCommentsUi(
       isVisible={layout.getCommentVisible(currentTab, comment.localId)}
     />
   ));
-  return <ol className="comments-list">{commentsRendered}</ol>;
+  return (
+    <ol ref={commentsListRef} className="comments-list">
+      {commentsRendered}
+    </ol>
+  );
   /* eslint-enable react/no-danger */
 }
 
@@ -115,13 +160,13 @@ export class CommentApp {
 
   selectors = {
     selectComments,
-    selectEnabled,
     selectFocused,
     selectIsDirty,
     selectCommentCount,
   };
 
   actions = commentActionFunctions;
+  activationHandlers: (() => void)[] = [];
 
   constructor() {
     this.store = createStore(reducer, {
@@ -189,12 +234,12 @@ export class CommentApp {
     return commentId;
   }
 
-  setVisible(visible: boolean) {
-    this.store.dispatch(
-      updateGlobalSettings({
-        commentsEnabled: visible,
-      }),
-    );
+  activate() {
+    this.activationHandlers.forEach((handler) => handler());
+  }
+
+  onActivate(handler: () => void) {
+    this.activationHandlers.push(handler);
   }
 
   invalidateContentPath(contentPath: string) {
@@ -255,7 +300,11 @@ export class CommentApp {
       }
 
       ReactDOM.render(
-        renderCommentsUi(this.store, this.layout, commentList),
+        <CommentListing
+          store={this.store}
+          layout={this.layout}
+          comments={commentList}
+        />,
         element,
         () => {
           // Render again if layout has changed (eg, a comment was added, deleted or resized)
@@ -263,7 +312,11 @@ export class CommentApp {
           this.layout.refreshDesiredPositions(state.settings.currentTab);
           if (this.layout.refreshLayout()) {
             ReactDOM.render(
-              renderCommentsUi(this.store, this.layout, commentList),
+              <CommentListing
+                store={this.store}
+                layout={this.layout}
+                comments={commentList}
+              />,
               element,
             );
           }
