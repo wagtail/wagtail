@@ -1,9 +1,12 @@
+import json
+
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import AnonymousUser
 from django.template import Context, Template
 from django.test import TestCase
-from django.test.client import RequestFactory
 from django.urls import reverse
 
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex
 from wagtail.test.utils import WagtailTestUtils
@@ -25,7 +28,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         revision_id=None,
         is_editing=False,
     ):
-        request = RequestFactory().get("/")
+        request = get_dummy_request()
         request.user = user or AnonymousUser()
         request.is_preview = is_preview
         request.is_editing = is_editing
@@ -178,24 +181,43 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # Make sure nothing was rendered
         self.assertEqual(content, "")
 
-    def test_userbar_accessibility_configuration(self):
+
+class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def get_script(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        content = template.render(
-            Context(
-                {
-                    PAGE_TEMPLATE_VAR: self.homepage,
-                    "request": self.dummy_request(self.user),
-                }
-            )
-        )
+        content = template.render(Context({"request": self.request}))
+        soup = BeautifulSoup(content, "html.parser")
 
         # Should include the configuration as a JSON script with the specific id
-        self.assertIn(
-            '<script id="accessibility-axe-configuration" type="application/json">',
-            content,
+        return soup.find("script", id="accessibility-axe-configuration")
+
+    def get_config(self):
+        return json.loads(self.get_script().string)
+
+    def test_config_json(self):
+        script = self.get_script()
+        # The configuration should be a valid non-empty JSON script
+        self.assertIsNotNone(script)
+        self.assertEqual(script.attrs["type"], "application/json")
+        config_string = script.string.strip()
+        self.assertGreater(len(config_string), 0)
+        config = json.loads(config_string)
+        self.assertIsInstance(config, dict)
+        self.assertGreater(len(config.keys()), 0)
+
+    def test_messages(self):
+        # Should include the Wagtail's error messages
+        config = self.get_config()
+        self.assertIsInstance(config.get("messages"), dict)
+        self.assertEqual(
+            config["messages"]["empty-heading"],
+            "Empty heading found. Use meaningful text for screen reader users.",
         )
-        # Should include the custom error message
-        self.assertIn("Empty heading found", content)
 
 
 class TestUserbarFrontend(WagtailTestUtils, TestCase):
