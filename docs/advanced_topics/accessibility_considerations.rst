@@ -60,14 +60,14 @@ If your website relies on embeds that have are missing titles, make sure to eith
 Available heading levels
 ------------------------
 
-Wagtail makes it very easy for developers to control which heading levels should be available for any given content, via :ref:`rich text features <rich_text_features>` or custom StreamField blocks.
-In both cases, take the time to restrict what heading levels are available so the pages’ document outline is more likely to be logical and sequential. Consider using the following restrictions:
+When working with Wagtail, it's crucial to consider the available heading levels for any given content. Fortunately, developers can easily control the heading levels using :ref:`rich text features <rich_text_features>` or custom StreamField blocks. 
+To ensure a logical and sequential document outline, it's important to restrict the heading levels available. Consider the following recommendations:
 
-- Disallow ``h1`` in rich text. There should only be one ``h1`` tag per page, which generally maps to the page’s ``title``.
-- Limit heading levels to ``h2`` for the main content of a page. Add ``h3`` only if deemed necessary. Avoid other levels as a general rule.
-- For content that is displayed in a specific section of the page, limit heading levels to those directly below the section’s main heading.
+- Avoid using ``h1`` in rich text, as there should only be one ``h1`` tag per page, which typically represents the page's title.
+- Limit the main content of a page to ``h2`` headings and use ``h3`` only when necessary. It's generally best to avoid other heading levels.
+- For content displayed in a specific section of a page, restrict heading levels to those directly below the section's main heading.
 
-If managing headings via StreamField, make sure to apply the same restrictions there.
+If managing headings via StreamField, apply the same restrictions to ensure consistency throughout the content.
 
 Bold and italic formatting in rich text
 ---------------------------------------
@@ -94,8 +94,9 @@ Here are common gotchas to be aware of to make the site’s templates as accessi
 Alt text in templates
 ---------------------
 
-See the :ref:`content modelling <content_modeling>` section above. Additionally, make sure to :ref:`customise images’ alt text <image_tag_alt>`, either setting it to the relevant field, or to an empty string for decorative images, or images where the alt text would be a repeat of other content.
-Even when your images have alt text coming directly from the image model, you still need to decide whether there should be alt text for the particular context the image is used in. For example, avoid alt text in listings where the alt text just repeats the listing items’ title.
+See the :ref:`content modelling <content_modeling>` section above. As you work on your templates in Wagtail, don't forget about the importance of :ref:`customizing your images' alt text <image_tag_alt>`. This means setting the alt text to the relevant field, or leaving it empty for decorative images or those where the alt text would simply repeat other content. 
+Even if your images already have alt text from the image model, you should still consider whether the alt text is appropriate for the specific context in which the image is being used. For instance, avoid using alt text in listings where it would just repeat the title of each item in the listing. 
+By taking the time to customize your alt text appropriately, you can ensure that your content is accessible and provides a seamless user experience for all visitors.
 
 Empty heading tags
 ------------------
