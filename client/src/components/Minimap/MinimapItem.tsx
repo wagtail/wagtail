@@ -51,6 +51,8 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
       aria-current={intersects}
       // Prevent interacting with the links when they are only partially shown.
       tabIndex={expanded ? undefined : -1}
+      // Use the toggle button as description when collapsed.
+      aria-describedby={expanded ? undefined : 'w-minimap-toggle'}
     >
       {hasError ? (
         <div className="w-minimap-item__errors" aria-label={errorsLabel}>
