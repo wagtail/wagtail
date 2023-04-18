@@ -83,9 +83,16 @@
         @include focus-outline;
       }
     }
+  }
 
-    .icon {
-      @apply w-w-4 w-h-4;
+  &__resize-grip-icon {
+    width: 0.3125rem;
+    height: 1.375rem;
+    border-inline-start: 1px solid theme('colors.grey.150');
+    border-inline-end: 1px solid theme('colors.grey.150');
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
     }
   }
 
