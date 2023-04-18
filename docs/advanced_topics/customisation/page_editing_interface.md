@@ -109,13 +109,13 @@ register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail
 
 To begin, import the `Format` class, `register_image_format` function, and optionally `unregister_image_format` function. To register a new `Format`, call the `register_image_format` with the `Format` object as the argument. The `Format` class takes the following constructor arguments:
 
-**`name`**
+**`name`**\
 The unique key used to identify the format. To unregister this format, call `unregister_image_format` with this string as the only argument.
 
-**`label`**
+**`label`**\
 The label used in the chooser form when inserting the image into the `RichTextField`.
 
-**`classnames`**
+**`classnames`**\
 The string to assign to the `class` attribute of the generated `<img>` tag.
 
 ```{note}
