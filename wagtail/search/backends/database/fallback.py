@@ -153,6 +153,13 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         )
 
 
+class DatabaseAutocompleteQueryCompiler(DatabaseSearchQueryCompiler):
+    # The fallback backend doesn't handle word boundaries, so standard searches are
+    # essentially equivalent to autocomplete queries anyhow. However, to provide a
+    # consistent API with other backends, we provide both endpoints.
+    pass
+
+
 class DatabaseSearchResults(BaseSearchResults):
     iterator_chunk_size = 2000
 
@@ -216,6 +223,7 @@ class DatabaseSearchResults(BaseSearchResults):
 
 class DatabaseSearchBackend(BaseSearchBackend):
     query_compiler_class = DatabaseSearchQueryCompiler
+    autocomplete_query_compiler_class = DatabaseSearchQueryCompiler
     results_class = DatabaseSearchResults
 
     def reset_index(self):
