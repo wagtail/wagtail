@@ -9,17 +9,11 @@ class WagtailAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
-        from wagtail.documents.models import AbstractDocument
-        from wagtail.images.models import AbstractImage
         from wagtail.models import AbstractPage
         from wagtail.models.reference_index import ReferenceIndex
 
         for model in apps.get_models():
-            if (
-                issubclass(model, AbstractPage)
-                or issubclass(model, AbstractImage)
-                or issubclass(model, AbstractDocument)
-            ):
+            if issubclass(model, AbstractPage):
                 ReferenceIndex.register_model(model)
 
         from wagtail.signal_handlers import register_signal_handlers
