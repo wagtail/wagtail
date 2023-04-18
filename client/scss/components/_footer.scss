@@ -4,6 +4,8 @@
   $border-curvature: 3px;
   @include transition(bottom 0.5s ease 1s);
   @include row();
+  margin-inline-start: $mobile-nice-padding;
+  margin-inline-end: $mobile-nice-padding;
   z-index: 20;
 
   ul {
