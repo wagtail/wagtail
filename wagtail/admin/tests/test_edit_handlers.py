@@ -1785,7 +1785,7 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
             # Django model field with default icon
             (FieldPanel("signup_link"), "link-external", "link-external", 1),
             # Django model field with no default icon
-            (FieldPanel("audience"), None, "arrow-down-big", 1),
+            (FieldPanel("audience"), None, "placeholder", 1),
             # Wagtail model field with default icon
             (FieldPanel("body"), "pilcrow", "pilcrow", 1),
             # Django ForeignKey with icon taken from the widget override
@@ -1812,7 +1812,7 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
             # Django model field with default icon
             (FieldPanel("signup_link", icon="cog"), "cog", "link-external", 0),
             # Django model field with no default icon
-            (FieldPanel("audience", icon="check"), "check", "arrow-down-big", 0),
+            (FieldPanel("audience", icon="check"), "check", "placeholder", 0),
             # Wagtail model field with default icon
             (FieldPanel("body", icon="cut"), "cut", "pilcrow", 0),
             # Django ForeignKey with icon taken from the widget override
