@@ -851,8 +851,6 @@ class TestElasticsearch5Mapping(TestCase):
                         "type": "text",
                         "boost": 2.0,
                         "include_in_all": True,
-                        "analyzer": "edgengram_analyzer",
-                        "search_analyzer": "standard",
                     },
                     "title_edgengrams": {
                         "type": "text",
@@ -921,7 +919,6 @@ class TestElasticsearch5Mapping(TestCase):
             "_partials": [
                 "J. R. R. Tolkien",
                 "The Fellowship of the Ring",
-                "The Fellowship of the Ring",
             ],
             "title": "The Fellowship of the Ring",
             "title_edgengrams": "The Fellowship of the Ring",
@@ -976,6 +973,10 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     "searchtests_novel__setting": {
                         "type": "text",
                         "include_in_all": True,
+                    },
+                    "searchtests_novel__setting_edgengrams": {
+                        "type": "text",
+                        "include_in_all": False,
                         "analyzer": "edgengram_analyzer",
                         "search_analyzer": "standard",
                     },
@@ -1020,8 +1021,6 @@ class TestElasticsearch5MappingInheritance(TestCase):
                         "type": "text",
                         "boost": 2.0,
                         "include_in_all": True,
-                        "analyzer": "edgengram_analyzer",
-                        "search_analyzer": "standard",
                     },
                     "title_edgengrams": {
                         "type": "text",
@@ -1094,6 +1093,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
         expected_result = {
             # New
             "searchtests_novel__setting": "Middle Earth",
+            "searchtests_novel__setting_edgengrams": "Middle Earth",
             "searchtests_novel__protagonist": {
                 "name": "Frodo Baggins",
                 "novel_id_filter": 4,
@@ -1109,7 +1109,6 @@ class TestElasticsearch5MappingInheritance(TestCase):
             "_partials": [
                 "J. R. R. Tolkien",
                 "Middle Earth",
-                "The Fellowship of the Ring",
                 "The Fellowship of the Ring",
             ],
             # Inherited

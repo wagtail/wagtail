@@ -899,8 +899,6 @@ class TestElasticsearch6Mapping(TestCase):
                         "type": "text",
                         "boost": 2.0,
                         "copy_to": "_all_text",
-                        "analyzer": "edgengram_analyzer",
-                        "search_analyzer": "standard",
                     },
                     "title_edgengrams": {
                         "type": "text",
@@ -955,7 +953,6 @@ class TestElasticsearch6Mapping(TestCase):
             "_edgengrams": [
                 "J. R. R. Tolkien",
                 "The Fellowship of the Ring",
-                "The Fellowship of the Ring",
             ],
             "title": "The Fellowship of the Ring",
             "title_edgengrams": "The Fellowship of the Ring",
@@ -1008,6 +1005,9 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     "searchtests_novel__setting": {
                         "type": "text",
                         "copy_to": "_all_text",
+                    },
+                    "searchtests_novel__setting_edgengrams": {
+                        "type": "text",
                         "analyzer": "edgengram_analyzer",
                         "search_analyzer": "standard",
                     },
@@ -1046,8 +1046,6 @@ class TestElasticsearch6MappingInheritance(TestCase):
                         "type": "text",
                         "boost": 2.0,
                         "copy_to": "_all_text",
-                        "analyzer": "edgengram_analyzer",
-                        "search_analyzer": "standard",
                     },
                     "title_edgengrams": {
                         "type": "text",
@@ -1106,6 +1104,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
         expected_result = {
             # New
             "searchtests_novel__setting": "Middle Earth",
+            "searchtests_novel__setting_edgengrams": "Middle Earth",
             "searchtests_novel__protagonist": {
                 "name": "Frodo Baggins",
                 "novel_id_filter": 4,
@@ -1121,7 +1120,6 @@ class TestElasticsearch6MappingInheritance(TestCase):
             "_edgengrams": [
                 "J. R. R. Tolkien",
                 "Middle Earth",
-                "The Fellowship of the Ring",
                 "The Fellowship of the Ring",
             ],
             # Inherited
