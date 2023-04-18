@@ -91,7 +91,6 @@ These are used for performing full-text searches on your models, usually for tex
 
 #### Options
 
--   **partial_match** (`boolean`) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default, so a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
 -   **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
 
     ```{note}
@@ -107,17 +106,21 @@ These are used for performing full-text searches on your models, usually for tex
 
 -   **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
 
-(wagtailsearch_index_filterfield)=
+```{versionchanged} 5.0
+The `partial_match` option has been deprecated. To index a field for partial matching, use `AutocompleteField` instead.
+```
 
 ### `index.AutocompleteField`
 
 These are used for autocomplete queries that match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
 
-This takes the exact same options as `index.SearchField` (with the exception of `partial_match`, which has no effect).
+This takes the same options as `index.SearchField`.
 
 ```{note}
 `index.AutocompleteField` should only be used on fields that are displayed in the search results. This allows users to see any words that were partial-matched.
 ```
+
+(wagtailsearch_index_filterfield)=
 
 ### `index.FilterField`
 
@@ -236,7 +239,8 @@ class Book(index.Indexed, models.Model):
     published_date = models.DateTimeField()
 
     search_fields = [
-        index.SearchField('title', partial_match=True, boost=10),
+        index.SearchField('title', boost=10),
+        index.AutocompleteField('title', boost=10),
         index.SearchField('get_genre_display'),
 
         index.FilterField('genre'),

@@ -107,17 +107,7 @@ class BaseListingView(TemplateView):
                 query_string = self.form.cleaned_data["q"]
                 if query_string:
                     search_backend = get_search_backend()
-                    if images.model.get_autocomplete_search_fields():
-                        try:
-                            images = search_backend.autocomplete(query_string, images)
-                        except NotImplementedError:
-                            images = search_backend.search(
-                                query_string, images, partial_match=True
-                            )
-                    else:
-                        images = search_backend.search(
-                            query_string, images, partial_match=True
-                        )
+                    images = search_backend.autocomplete(query_string, images)
         else:
             self.form = SearchForm(placeholder=_("Search images"))
 

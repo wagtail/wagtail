@@ -330,8 +330,6 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "foobarbaz")
 
     def test_partial_match(self):
-        # FIXME: SQLite and MySQL FTS backends don't support autocomplete searches
-        # https://github.com/wagtail/wagtail/issues/9903
         response = self.get({"q": "fooba"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")

@@ -1158,7 +1158,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     alias_of.wagtail_reference_index_ignore = True
 
     search_fields = [
-        index.SearchField("title", partial_match=True, boost=2),
+        index.SearchField("title", boost=2),
         index.AutocompleteField("title"),
         index.FilterField("title"),
         index.FilterField("id"),

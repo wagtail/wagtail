@@ -41,14 +41,14 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         )
 
     def test_disabled_partial_search(self):
-        results = self.backend.search("Java", models.Book, partial_match=False)
+        results = self.backend.search("Java", models.Book)
 
         self.assertUnsortedListEqual([r.title for r in results], [])
 
     def test_disabled_partial_search_with_whole_term(self):
         # Making sure that there isn't a different reason why the above test
         # returned no results
-        results = self.backend.search("JavaScript", models.Book, partial_match=False)
+        results = self.backend.search("JavaScript", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],

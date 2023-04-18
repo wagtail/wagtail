@@ -51,7 +51,7 @@ class TestSearchFields(TestCase):
     def test_basic(self):
         cls = self.make_dummy_type(
             [
-                index.SearchField("test", boost=100, partial_match=False),
+                index.SearchField("test", boost=100),
                 index.FilterField("filter_test"),
             ]
         )
@@ -72,8 +72,8 @@ class TestSearchFields(TestCase):
         # as intended.
         cls = self.make_dummy_type(
             [
-                index.SearchField("test", boost=100, partial_match=False),
-                index.SearchField("test", partial_match=True),
+                index.SearchField("test", boost=100),
+                index.SearchField("test"),
             ]
         )
 
@@ -87,14 +87,11 @@ class TestSearchFields(TestCase):
         # Boost should be reset to the default if it's not specified by the override
         self.assertIsNone(field.boost)
 
-        # Check that the partial match was overridden
-        self.assertTrue(field.partial_match)
-
     def test_different_field_types_dont_override(self):
         # A search and filter field with the same name should be able to coexist
         cls = self.make_dummy_type(
             [
-                index.SearchField("test", boost=100, partial_match=False),
+                index.SearchField("test", boost=100),
                 index.FilterField("test"),
             ]
         )

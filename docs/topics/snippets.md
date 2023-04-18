@@ -266,7 +266,8 @@ class Advert(index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.SearchField('text', partial_match=True),
+        index.SearchField('text'),
+        index.AutocompleteField('text'),
     ]
 ```
 
