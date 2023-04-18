@@ -63,6 +63,10 @@
     }
   }
 
+  &:has(.form-side__resize-grip:is(:hover, :focus-within)) {
+    @apply w-border-grey-150;
+  }
+
   &__resize-grip-container {
     @apply w-absolute w-place-items-center w-hidden md:w-flex w-z-10 w-left-0;
     top: 50%;
@@ -70,7 +74,7 @@
   }
 
   &__resize-grip {
-    @apply w-text-primary hover:w-text-primary-200 w-border w-border-transparent w-rounded w-bg-white w-p-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
+    @apply w-text-grey-150 hover:w-text-grey-200 w-border w-border-transparent w-rounded w-bg-white w-p-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
 
     .form-side--open & {
       @apply w-flex;
@@ -91,8 +95,8 @@
   &__resize-grip-icon {
     width: 0.3125rem;
     height: 1.375rem;
-    border-inline-start: 1px solid theme('colors.grey.150');
-    border-inline-end: 1px solid theme('colors.grey.150');
+    border-inline-start: 1px solid currentColor;
+    border-inline-end: 1px solid currentColor;
 
     @media (forced-colors: active) {
       background-color: ButtonText;
