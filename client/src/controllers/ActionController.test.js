@@ -137,9 +137,39 @@ describe('ActionController', () => {
       select.dispatchEvent(
         new CustomEvent('change', { detail: { url: '/its/in/the/detail/' } }),
       );
+
       expect(window.location.assign).toHaveBeenCalledWith(
         '/check/out/the/param/',
       );
+    });
+
+    it('should allow redirection blocking via the event detail', () => {
+      const select = document.querySelector('select');
+
+      expect(window.location.href).toEqual('http://localhost/');
+      expect(window.location.assign).not.toHaveBeenCalled();
+
+      // setting to a non-null/undefined value should allow blocking
+      select.dispatchEvent(new CustomEvent('change', { detail: { url: '' } }));
+      select.dispatchEvent(
+        new CustomEvent('change', { detail: { url: false } }),
+      );
+
+      expect(window.location.assign).not.toHaveBeenCalled();
+    });
+
+    it('should allow redirection blocking via the Stimulus param approach', () => {
+      const select = document.querySelector('select');
+
+      expect(window.location.href).toEqual('http://localhost/');
+      expect(window.location.assign).not.toHaveBeenCalled();
+
+      // setting to a non-null/undefined value should allow blocking
+      select.dataset.wActionUrlParam = '';
+
+      select.dispatchEvent(new CustomEvent('change'));
+
+      expect(window.location.assign).not.toHaveBeenCalled();
     });
   });
 });

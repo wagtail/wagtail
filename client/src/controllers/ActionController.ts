@@ -87,7 +87,7 @@ export class ActionController extends Controller<
   redirect(
     event: CustomEvent<{ url?: string }> & { params?: { url?: string } },
   ) {
-    const url = event?.params?.url || event?.detail?.url || this.element.value;
+    const url = event?.params?.url ?? event?.detail?.url ?? this.element.value;
     if (!url) return;
     window.location.assign(url);
   }
