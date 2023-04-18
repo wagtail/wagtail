@@ -1,5 +1,9 @@
 {% load wagtailadmin_tags i18n %}
 
+{% if not in_explorer %}
+    {# Rendering for the minimap is done with React. #}
+    <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
+{% endif %}
 <aside class="form-side form-side--initial" aria-label="{% trans 'Side panels' %}" data-form-side{% if in_explorer %} data-form-side-explorer{% endif %}>
     <button type="button" class="form-side__close-button" data-form-side-close-button aria-label="{% trans 'Toggle side panel' %}">
         {% icon name="expand-right" %}
@@ -28,7 +32,3 @@
         </div>
     {% endfor %}
 </aside>
-{% if not in_explorer %}
-    {# Rendering for the minimap is done with React. #}
-    <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
-{% endif %}

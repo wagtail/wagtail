@@ -91,3 +91,12 @@
     margin-inline-end: calc($badge-size - theme('spacing.px'));
   }
 }
+
+.w-minimap-item__icon,
+.w-minimap-item__label {
+  opacity: 0;
+
+  :where(.w-minimap--expanded) & {
+    opacity: 1;
+  }
+}

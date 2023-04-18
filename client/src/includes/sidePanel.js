@@ -155,7 +155,10 @@ export default function initSidePanel() {
       newWidth,
     ).replace('%(num)s', newWidth);
 
-    sidePanelWrapper.style.width = `${newWidth}px`;
+    sidePanelWrapper.parentElement.style.setProperty(
+      '--side-panel-width',
+      `${newWidth}px`,
+    );
     const inputPercentage = ((newWidth - minWidth) / range) * 100;
     widthInput.value = getDirectedPercentage(inputPercentage);
     widthInput.setAttribute('aria-valuetext', valueText);
