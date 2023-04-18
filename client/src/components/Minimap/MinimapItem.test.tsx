@@ -7,7 +7,7 @@ const mockItem = {
   toggle: document.createElement('button'),
   panel: document.createElement('div'),
   href: '',
-  label: 'text with more than 26 characters',
+  label: 'text with more than 22 characters',
   icon: '',
   required: true,
   errorCount: 1,
@@ -49,7 +49,7 @@ describe('MinimapItem', () => {
 
   it('truncates long label texts', () => {
     const wrapper = shallow(<MinimapItem {...mockProps} />);
-    expect(wrapper.text()).toBe('1<Icon />text with more than 26 cha…*');
+    expect(wrapper.text()).toBe('1<Icon />text with more than 22…*');
   });
 
   it('does not truncate short label texts', () => {

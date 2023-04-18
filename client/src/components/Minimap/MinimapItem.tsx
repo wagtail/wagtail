@@ -40,7 +40,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
     '%(num)s errors',
     errorCount,
   ).replace('%(num)s', `${errorCount}`);
-  const text = label.length > 26 ? `${label.substring(0, 26)}…` : label;
+  const text = label.length > 22 ? `${label.substring(0, 22)}…` : label;
   return (
     <a
       href={href}
