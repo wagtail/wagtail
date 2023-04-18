@@ -31,6 +31,10 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
     );
   }
 
+  .side-panel-open & {
+    inset-inline-end: var(--side-panel-width, 0);
+  }
+
   &--expanded {
     transform: translateX(0);
     // Take up the whole height so overlap with the page looks better.
@@ -52,17 +56,13 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   background-color: theme('colors.white.DEFAULT');
   color: theme('colors.primary.DEFAULT');
   transform: rotate(180deg);
+  // Expand is available for keyboard users only.
+  opacity: 0;
+  pointer-events: none;
 
   @include media-breakpoint-up(sm) {
     margin-top: theme('spacing.9');
     padding: theme('spacing.[1.5]');
-
-    // On devices supporting hover, this is available for keyboard users only.
-    // Mouse users open the minimap by hovering.
-    @media (hover: hover) {
-      opacity: 0;
-      pointer-events: none;
-    }
 
     *:focus {
       opacity: 1;
@@ -90,7 +90,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   :where(.w-minimap--expanded) & {
     opacity: 1;
     pointer-events: auto;
-    margin-top: theme('spacing.[0.5]');
+    margin-top: theme('spacing.3');
     margin-inline-start: theme('spacing.3');
     padding: theme('spacing.3');
     transform: rotate(0deg);

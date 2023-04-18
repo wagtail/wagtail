@@ -33,5 +33,9 @@
     inset-inline-end: 0;
     margin-top: theme('spacing.3');
     margin-inline-end: theme('spacing.3');
+
+    .side-panel-open & {
+      inset-inline-end: var(--side-panel-width, 0);
+    }
   }
 }
