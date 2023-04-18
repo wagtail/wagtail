@@ -54,6 +54,8 @@ class Panel:
     as HTML.
     """
 
+    BASE_ATTRS = {}
+
     def __init__(
         self,
         heading="",
@@ -61,7 +63,7 @@ class Panel:
         help_text="",
         base_form_class=None,
         icon="",
-        attrs=None,
+        attrs={},
     ):
         self.heading = heading
         self.classname = classname
@@ -69,7 +71,7 @@ class Panel:
         self.base_form_class = base_form_class
         self.icon = icon
         self.model = None
-        self.attrs = attrs
+        self.attrs = self.BASE_ATTRS.update(attrs) if attrs else self.BASE_ATTRS
 
     def clone(self):
         """
@@ -220,6 +222,10 @@ class Panel:
             return self.panel.classes()
 
         @property
+        def attrs(self):
+            return self.panel.attrs
+
+        @property
         def icon(self):
             return self.panel.icon
 
@@ -247,7 +253,7 @@ class Panel:
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["self"] = self
-            context["attrs"] = self.panel.attrs
+            context["attrs"] = self.attrs
             return context
 
         def get_comparison(self):

@@ -24,7 +24,7 @@
 {% firstof id_for_label field.id_for_label as label_for %}
 {% fragment as label_id %}{{ label_for }}-label{% endfragment %}
 
-<div class="w-field__wrapper {{ classname }}" data-field-wrapper>
+<div class="w-field__wrapper {{ classname }}" {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
 
     {# Render custom label attributes if provided, or the bound field’s label attributes otherwise. #}
     {% if show_label|default_if_none:True %}
@@ -57,7 +57,7 @@
         </div>
 
         {# Separate container for the widget with prefix icon and suffix comment button #}
-        <div class="w-field__input" data-field-input {% for name, value in attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
+        <div class="w-field__input" data-field-input>
             {% if icon %}
                 {% icon name=icon classname="w-field__icon" %}
             {% endif %}
@@ -80,4 +80,4 @@
             {% endif %}
         </div>
     </div>
-</div>
+</>
