@@ -8,6 +8,7 @@ import React, {
 
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
+import { toggleCollapsiblePanel } from '../../includes/panels';
 import Icon from '../Icon/Icon';
 
 import CollapseAll from './CollapseAll';
@@ -127,11 +128,13 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   const listRef = useRef<HTMLOListElement>(null);
 
   const onClickToggle = () => toggleMinimap(!expanded);
-  const onClickLink = (e: React.MouseEvent) => {
+  const onClickLink = (link: MinimapMenuItem, e: React.MouseEvent) => {
     // Prevent navigating if the link is only partially shown.
     if (!expanded) {
       e.preventDefault();
     }
+
+    toggleCollapsiblePanel(link.toggle, true);
     toggleMinimap(true);
   };
 
