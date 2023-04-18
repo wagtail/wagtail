@@ -862,6 +862,8 @@ class TestElasticsearch7SearchResults(TestCase):
 class TestElasticsearch7Mapping(TestCase):
     fixtures = ["search"]
 
+    maxDiff = None
+
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -898,8 +900,6 @@ class TestElasticsearch7Mapping(TestCase):
                     "type": "text",
                     "boost": 2.0,
                     "copy_to": "_all_text",
-                    "analyzer": "edgengram_analyzer",
-                    "search_analyzer": "standard",
                 },
                 "title_edgengrams": {
                     "type": "text",
@@ -953,7 +953,6 @@ class TestElasticsearch7Mapping(TestCase):
             "_edgengrams": [
                 "J. R. R. Tolkien",
                 "The Fellowship of the Ring",
-                "The Fellowship of the Ring",
             ],
             "title": "The Fellowship of the Ring",
             "title_edgengrams": "The Fellowship of the Ring",
@@ -977,6 +976,7 @@ class TestElasticsearch7Mapping(TestCase):
 
 class TestElasticsearch7MappingInheritance(TestCase):
     fixtures = ["search"]
+    maxDiff = None
 
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -1005,6 +1005,9 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "searchtests_novel__setting": {
                     "type": "text",
                     "copy_to": "_all_text",
+                },
+                "searchtests_novel__setting_edgengrams": {
+                    "type": "text",
                     "analyzer": "edgengram_analyzer",
                     "search_analyzer": "standard",
                 },
@@ -1035,8 +1038,6 @@ class TestElasticsearch7MappingInheritance(TestCase):
                     "type": "text",
                     "boost": 2.0,
                     "copy_to": "_all_text",
-                    "analyzer": "edgengram_analyzer",
-                    "search_analyzer": "standard",
                 },
                 "title_edgengrams": {
                     "type": "text",
@@ -1094,6 +1095,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
         expected_result = {
             # New
             "searchtests_novel__setting": "Middle Earth",
+            "searchtests_novel__setting_edgengrams": "Middle Earth",
             "searchtests_novel__protagonist": {
                 "name": "Frodo Baggins",
                 "novel_id_filter": 4,
@@ -1109,7 +1111,6 @@ class TestElasticsearch7MappingInheritance(TestCase):
             "_edgengrams": [
                 "J. R. R. Tolkien",
                 "Middle Earth",
-                "The Fellowship of the Ring",
                 "The Fellowship of the Ring",
             ],
             # Inherited
