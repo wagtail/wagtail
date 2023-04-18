@@ -249,6 +249,9 @@ class BackendTests(WagtailTestUtils):
     def test_autocomplete_uses_autocompletefield(self):
         # Autocomplete should only require an AutocompleteField, not a SearchField with
         # partial_match=True
+        # TODO: given that partial_match=True has no effect as of Wagtail 5, also test that
+        # AutocompleteField is actually being respected, and it's not just relying on the
+        # presence of a SearchField (with or without partial_match)
         results = self.backend.autocomplete("Georg", models.Author)
         self.assertUnsortedListEqual(
             [r.name for r in results],

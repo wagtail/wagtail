@@ -652,7 +652,6 @@ class TestElasticsearch7SearchQuery(TestCase):
         query_compiler = self.query_compiler_class(
             models.Book.objects.all(),
             Fuzzy("Hello world"),
-            partial_match=False,
         )
 
         # Check it
@@ -667,7 +666,6 @@ class TestElasticsearch7SearchQuery(TestCase):
             models.Book.objects.all(),
             Fuzzy("Hello world"),
             fields=["title"],
-            partial_match=False,
         )
 
         # Check it
@@ -682,7 +680,6 @@ class TestElasticsearch7SearchQuery(TestCase):
             models.Book.objects.all(),
             Fuzzy("Hello world"),
             fields=["title", "body"],
-            partial_match=False,
         )
 
         # Check it

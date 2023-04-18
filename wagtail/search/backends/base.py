@@ -42,7 +42,7 @@ class BaseSearchQueryCompiler:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=True,
+        partial_match=None,  # RemovedInWagtail60Warning
     ):
         self.queryset = queryset
         if query is None:
@@ -56,7 +56,7 @@ class BaseSearchQueryCompiler:
         self.query = query
         self.fields = fields
         self.order_by_relevance = order_by_relevance
-        self.partial_match = partial_match
+        self.partial_match = partial_match  # RemovedInWagtail60Warning
 
     def _get_filterable_field(self, field_attname):
         # Get field
@@ -427,7 +427,7 @@ class BaseSearchBackend:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=True,
+        partial_match=None,  # RemovedInWagtail60Warning
     ):
         return self._search(
             self.query_compiler_class,
@@ -436,7 +436,7 @@ class BaseSearchBackend:
             fields=fields,
             operator=operator,
             order_by_relevance=order_by_relevance,
-            partial_match=partial_match,
+            partial_match=partial_match,  # RemovedInWagtail60Warning
         )
 
     def autocomplete(
