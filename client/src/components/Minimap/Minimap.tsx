@@ -214,6 +214,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       <div className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}>
         <div className="w-minimap__header">
           <button
+            id="w-minimap-toggle"
             type="button"
             aria-expanded={expanded}
             onClick={onClickToggle}
