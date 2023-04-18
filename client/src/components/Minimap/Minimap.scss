@@ -1,9 +1,8 @@
 // If unset, default to the "mobile" height of the slim header.
 $minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
-$minimap-width: 300px;
+$minimap-width: 260px;
 $minimap-collapsed-width-mobile: 20px;
 $minimap-collapsed-width: 30px;
-$minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
 
 @import './CollapseAll';
@@ -24,10 +23,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 
   @include media-breakpoint-up(sm) {
     transform: translateX(
-      calc(
-        var(--w-direction-factor) *
-          (100% - $minimap-collapsed-width - $minimap-overflow)
-      )
+      calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width))
     );
   }
 
@@ -101,7 +97,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
-    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }
@@ -109,7 +104,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 .w-minimap__list {
   margin: 0;
   padding: 0;
-  padding-inline-start: $minimap-overflow;
   overflow-y: auto;
   overflow-x: hidden;
   list-style-type: none;
@@ -123,7 +117,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
-    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }
