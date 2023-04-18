@@ -19,7 +19,7 @@ interface MinimapItemProps {
   item: MinimapMenuItem;
   intersects: boolean;
   expanded: boolean;
-  onClick: (e: React.MouseEvent) => void;
+  onClick: (item: MinimapMenuItem, e: React.MouseEvent) => void;
 }
 
 const requiredMark = <span className="w-required-mark">*</span>;
@@ -47,7 +47,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
       className={`w-minimap-item w-minimap-item--${level} ${
         intersects ? 'w-minimap-item--active' : ''
       } ${hasError ? 'w-minimap-item--error' : ''}`}
-      onClick={onClick}
+      onClick={onClick.bind(null, item)}
       aria-current={intersects}
       // Prevent interacting with the links when they are only partially shown.
       tabIndex={expanded ? undefined : -1}
