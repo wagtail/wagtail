@@ -77,6 +77,7 @@ Changelog
  * Fix: Always show Add buttons, guide lines, Move up/down, Duplicate, Delete; in StreamField and Inline Panel (Thibaud Colas)
  * Fix: Make admin JS i18n endpoint accessible to non-authenticated users (Matt Westcott)
  * Fix: Fix incorrect API serialisation for document `download_url` when `WAGTAILDOCS_SERVE_METHOD` is `direct` (Swojak-A)
+ * Fix: Fix template configuration of snippets index results view (fidoriel, Sage Abdullah)
  * Autosize text area field will now correctly resize when switching between comments toggle states (Suyash Srivastava)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)

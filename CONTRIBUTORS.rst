@@ -707,6 +707,7 @@ Contributors
 * Hanoon
 * Steve Steinwand
 * Swojak-A
+* fidoriel
 
 Translators
 ===========

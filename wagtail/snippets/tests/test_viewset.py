@@ -684,6 +684,13 @@ class TestCustomTemplates(BaseSnippetViewSetTests):
                 [],
                 "tests/fullfeaturedsnippet_index.html",
             ),
+            "override index results template with namespaced template": (
+                # This is technically the same as the first case, but this ensures that
+                # the index results view can be overridden separately from the index view
+                "list_results",
+                [],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/index_results.html",
+            ),
             "override with get_history_template": (
                 "history",
                 [pk],
@@ -762,8 +769,8 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             text="Python is a programming-bas, uh, language",
         )
 
-    def get(self, params={}):
-        return self.client.get(self.get_url("list"), params)
+    def get(self, params={}, url_name="list"):
+        return self.client.get(self.get_url(url_name), params)
 
     def test_simple(self):
         response = self.get()
@@ -796,20 +803,22 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
     def test_is_searchable(self):
         self.assertTrue(self.get().context["is_searchable"])
 
-    def test_search_one(self):
+    def test_search_index_view(self):
         response = self.get({"q": "Django"})
 
         # Only objects with "Django" should be in items
+        self.assertEqual(response.status_code, 200)
         self.assertCountEqual(
             list(response.context["page_obj"].object_list),
             [self.first, self.second],
         )
 
-    def test_search_the(self):
-        response = self.get({"q": "Python"})
+    def test_search_index_results_view(self):
+        response = self.get({"q": "Python"}, url_name="list_results")
 
         # Only objects with "Python" should be in items
+        self.assertEqual(response.status_code, 200)
         self.assertCountEqual(
-            list(response.context["page_obj"].object_list),
+            list(response.context["object_list"]),
             [self.second, self.third],
         )
