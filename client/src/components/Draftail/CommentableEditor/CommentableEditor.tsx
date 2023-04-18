@@ -335,6 +335,9 @@ function getCommentControl(
           </>
         }
         onClick={() => {
+          // Open the comments side panel
+          commentApp.activate();
+
           onChange(
             addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
           );
@@ -467,7 +470,6 @@ function getCommentDecorator(commentApp: CommentApp) {
       return null;
     }
 
-    const enabled = useSelector(commentApp.selectors.selectEnabled);
     const blockKey: BlockKey = children[0].props.block.getKey();
     const start: number = children[0].props.start;
 
@@ -489,10 +491,6 @@ function getCommentDecorator(commentApp: CommentApp) {
       }
       return undefined; // eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
-
-    if (!enabled) {
-      return children;
-    }
 
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
@@ -668,7 +666,6 @@ function CommentableEditor({
     [commentApp],
   );
   const comments = useSelector(commentsSelector, shallowEqual);
-  const enabled = useSelector(commentApp.selectors.selectEnabled);
   const focusedId = useSelector(commentApp.selectors.selectFocused);
 
   const ids = useMemo(
@@ -688,7 +685,6 @@ function CommentableEditor({
 
   const previousFocused = usePrevious(focusedId);
   const previousIds = usePrevious(ids);
-  const previousEnabled = usePrevious(enabled);
   useEffect(() => {
     // Only trigger a focus-related rerender if the current focused comment is inside the field, or the previous one was
     const validFocusChange =
@@ -700,7 +696,6 @@ function CommentableEditor({
 
     if (
       !validFocusChange &&
-      previousEnabled === enabled &&
       (previousIds === ids ||
         (previousIds.length === ids.length &&
           previousIds.every((value, index) => value === ids[index])))
@@ -731,7 +726,7 @@ function CommentableEditor({
       ),
     );
     setUniqueStyleId((id) => (id + 1) % 200);
-  }, [focusedId, enabled, inlineStyles, ids, editorState]);
+  }, [focusedId, inlineStyles, ids, editorState]);
 
   useEffect(() => {
     // if there are any comments without annotations, we need to add them to the EditorState
@@ -806,9 +801,7 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={
-        enabled ? controls.concat([{ inline: CommentControl }]) : controls
-      }
+      controls={controls.concat([{ inline: CommentControl }])}
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={plugins.concat([
         {
@@ -840,7 +833,10 @@ function CommentableEditor({
             handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
           },
           handleKeyCommand: (command: string, state: EditorState) => {
-            if (enabled && command === 'comment') {
+            if (command === 'comment') {
+              // Open the comments side panel
+              commentApp.activate();
+
               const selection = state.getSelection();
               const content = state.getCurrentContent();
               if (selection.isCollapsed()) {
@@ -869,9 +865,6 @@ function CommentableEditor({
             return 'not-handled';
           },
           customStyleFn: (styleSet: DraftInlineStyle) => {
-            if (!enabled) {
-              return undefined;
-            }
             // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
             // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
             // this casting should be removed

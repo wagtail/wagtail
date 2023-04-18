@@ -644,6 +644,18 @@ class SnippetViewSet(ModelViewSet):
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
+    #: The default ordering to use for the index view. Can be a string or a list/tuple in the same format as Django's :attr:`~django.db.models.Options.ordering`.
+    ordering = None
+
+    #: The fields to use for the search in the index view.
+    #: If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
+    #: the ``search_fields`` attribute of the model will be used instead.
+    search_fields = None
+
+    #: The name of the Wagtail search backend to use for the search in the index view.
+    #: If set to a falsy value, the search will fall back to use Django's QuerySet API.
+    search_backend_name = "default"
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -807,6 +819,9 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.ordering,
+            search_fields=self.search_fields,
+            search_backend_name=self.search_backend_name,
         )
 
     @property
@@ -827,6 +842,9 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             paginate_by=self.list_per_page,
+            default_ordering=self.ordering,
+            search_fields=self.search_fields,
+            search_backend_name=self.search_backend_name,
         )
 
     @property

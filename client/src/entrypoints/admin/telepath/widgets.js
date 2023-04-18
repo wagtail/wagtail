@@ -128,24 +128,6 @@ class Select extends Widget {
 }
 window.telepath.register('wagtail.widgets.Select', Select);
 
-class AdminAutoHeightTextInput extends Widget {
-  render(placeholder, name, id, initialState, parentCapabilities) {
-    const boundWidget = super.render(
-      placeholder,
-      name,
-      id,
-      initialState,
-      parentCapabilities,
-    );
-    window.autosize($('#' + id));
-    return boundWidget;
-  }
-}
-window.telepath.register(
-  'wagtail.widgets.AdminAutoHeightTextInput',
-  AdminAutoHeightTextInput,
-);
-
 class DraftailInsertBlockCommand {
   /* Definition for a command in the Draftail context menu that inserts a block.
    * Constructor args:

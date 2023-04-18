@@ -1,43 +1,23 @@
 .comment {
   @include box;
 
-  width: calc(100vw - 40px);
-  max-width: calc(100vw - 19%);
+  width: 300px;
   display: block;
   transition: top 0.5s ease 0s, inset-inline-end 0.5s ease 0s,
     height 0.5s ease 0s;
   pointer-events: auto;
   padding-bottom: 0;
-  inset-inline-end: -2000px;
-  background-color: theme('colors.white.DEFAULT');
-
-  @include media-breakpoint-up(sm) {
-    width: calc(100vw - 40px);
-    max-width: 400px;
-    inset-inline-start: initial;
-  }
-
-  @include media-breakpoint-up(md) {
-    max-width: 200px;
-    inset-inline-end: 0;
-  }
-
-  @include media-breakpoint-up(lg) {
-    max-width: 275px;
-  }
+  inset-inline-end: 0;
 
   &--focused {
-    inset-inline-end: 35px;
-
-    @include media-breakpoint-up(md) {
-      inset-inline-end: 50px;
-    }
+    inset-inline-end: 30px;
   }
 
   &__text {
     color: $color-box-text;
-    font-size: 13px;
-    line-height: 19px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -53,11 +33,11 @@
 
   &--mode-creating form {
     border-top: 0;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &--mode-editing form {
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &--mode-deleting &__text {
@@ -76,13 +56,13 @@
 
   &__actions,
   &__reply-actions {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   &__actions &__button,
   &__reply-actions &__button {
     margin-inline-end: 10px;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &__confirm-delete &__button {

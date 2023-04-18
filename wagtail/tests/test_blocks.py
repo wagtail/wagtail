@@ -584,7 +584,7 @@ class TestRichTextBlock(TestCase):
             js_args[2],
             {
                 "classname": "w-field w-field--char_field w-field--custom_rich_text_area",
-                "icon": "doc-full",
+                "icon": "pilcrow",
                 "label": "Test richtextblock",
                 "required": True,
                 "showAddCommentButton": True,
@@ -607,7 +607,7 @@ class TestRichTextBlock(TestCase):
             {
                 "label": "Test richtextblock",
                 "required": True,
-                "icon": "doc-full",
+                "icon": "pilcrow",
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -4380,7 +4380,7 @@ class TestPageChooserBlock(TestCase):
             {
                 "label": "Test pagechooserblock",
                 "required": True,
-                "icon": "redirect",
+                "icon": "doc-empty-inverse",
                 "helpText": "pick a page, any page",
                 "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
                 "showAddCommentButton": True,

@@ -5,7 +5,6 @@
 {% block titletag %}{% blocktrans trimmed with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    <div id="comments"></div>
 
     <div class="w-sticky w-top-0 w-z-header">
         {% include 'wagtailadmin/shared/headers/page_create_header.html' %}

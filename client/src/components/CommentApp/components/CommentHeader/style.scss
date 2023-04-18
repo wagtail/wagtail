@@ -16,8 +16,10 @@
     ); // Leave room for actions to the right and avatar to the left
     margin: 0;
     margin-inline-start: 45px;
-    font-size: 11px;
-    line-height: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    color: theme('colors.primary.DEFAULT');
   }
 
   &__date {

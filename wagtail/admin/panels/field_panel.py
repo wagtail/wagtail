@@ -1,9 +1,11 @@
 import functools
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.db.models import ForeignKey
 from django.utils.functional import cached_property
 
 from wagtail.admin import compare
+from wagtail.admin.forms.models import registry as model_field_registry
 from wagtail.blocks import BlockField
 
 from .base import Panel
@@ -89,6 +91,21 @@ class FieldPanel(Panel):
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/field_panel.html"
+        # Default icons for common model field types,
+        # based on the corresponding FieldBlock's icon.
+        default_field_icons = {
+            "DateField": "date",
+            "TimeField": "time",
+            "DateTimeField": "date",
+            "URLField": "link-external",
+            "TaggableManager": "tag",
+            "EmailField": "mail",
+            "TextField": "pilcrow",
+            "RichTextField": "pilcrow",
+            "FloatField": "decimal",
+            "DecimalField": "decimal",
+            "BooleanField": "tick-inverse",
+        }
 
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
@@ -142,24 +159,38 @@ class FieldPanel(Panel):
             """
             Display a different icon depending on the field's type.
             """
-            field_icons = {
-                # Icons previously-defined as StreamField block icons.
-                # Commented out until they can be reviewed for appropriateness in this new context.
-                # "DateField": "date",
-                # "TimeField": "time",
-                # "DateTimeField": "date",
-                # "URLField": "site",
-                # "ClusterTaggableManager": "tag",
-                # "EmailField": "mail",
-                # "TextField": "pilcrow",
-                # "FloatField": "plus-inverse",
-                # "DecimalField": "plus-inverse",
-                # "RegexField": "code",
-                # "BooleanField": "tick-inverse",
-            }
-            field_type = self.bound_field.field.__class__.__name__
+            # If the panel has an icon, use that.
+            if self.panel.icon:
+                return self.panel.icon
 
-            return self.panel.icon or field_icons.get(field_type, None)
+            # Try to use the model field first, then the form field because it's
+            # possible to use FieldPanel without a model field by using a custom
+            # form class.
+            try:
+                field = self.panel.db_field
+            except FieldDoesNotExist:
+                # The defined default icons are for model fields, but most of them
+                # have a corresponding form field with the same name, so we just
+                # hope the name matches.
+                field = self.bound_field.field
+
+            field_type = type(field)
+
+            # ForeignKey fields can have a custom icon defined in the form field's widget
+            # (e.g. page, image, and document choosers). If there's an overridden widget
+            # with an icon attribute, use that.
+            if issubclass(field_type, ForeignKey):
+                overrides = model_field_registry.get(field) or {}
+                widget = overrides.get("widget", None)
+                return getattr(widget, "icon", None)
+
+            # Otherwise, find a default icon based on the field's class or superclasses.
+            for field_class in field_type.mro():
+                field_name = field_class.__name__
+                if field_name in self.default_field_icons:
+                    return self.default_field_icons[field_name]
+
+            return None
 
         def id_for_label(self):
             return self.bound_field.id_for_label

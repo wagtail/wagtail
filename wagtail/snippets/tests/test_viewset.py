@@ -715,3 +715,101 @@ class TestCustomQuerySet(BaseSnippetViewSetTests):
         self.assertContains(response, "FooSnippet")
         self.assertNotContains(response, "BarSnippet")
         self.assertNotContains(response, "[HIDDEN]Snippet")
+
+
+class TestCustomOrdering(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            cls.model(text="CCCCCCCCCC", locale=default_locale),
+            cls.model(text="AAAAAAAAAA", locale=default_locale),
+            cls.model(text="DDDDDDDDDD", locale=default_locale),
+            cls.model(text="BBBBBBBBBB", locale=default_locale),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view_order(self):
+        response = self.client.get(self.get_url("list"))
+        # Should sort by text in descending order as specified in SnippetViewSet.ordering
+        # (not the default ordering of the model)
+        self.assertFalse(self.model._meta.ordering)
+        self.assertEqual(
+            [obj.text for obj in response.context["page_obj"]],
+            [
+                "AAAAAAAAAA",
+                "BBBBBBBBBB",
+                "CCCCCCCCCC",
+                "DDDDDDDDDD",
+            ],
+        )
+
+
+class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
+    model = DraftStateModel
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.first = cls.model.objects.create(
+            text="Wagtail is a Django-based CMS",
+        )
+        cls.second = cls.model.objects.create(
+            text="Django is a Python-based web framework",
+        )
+        cls.third = cls.model.objects.create(
+            text="Python is a programming-bas, uh, language",
+        )
+
+    def get(self, params={}):
+        return self.client.get(self.get_url("list"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_empty_q(self):
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_is_searchable(self):
+        self.assertTrue(self.get().context["is_searchable"])
+
+    def test_search_one(self):
+        response = self.get({"q": "Django"})
+
+        # Only objects with "Django" should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second],
+        )
+
+    def test_search_the(self):
+        response = self.get({"q": "Python"})
+
+        # Only objects with "Python" should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.second, self.third],
+        )

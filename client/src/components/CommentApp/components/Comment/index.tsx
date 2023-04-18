@@ -411,7 +411,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           {gettext('Are you sure?')}
           <button
             type="button"
-            className="comment__button"
+            className="comment__button button button-small"
             onClick={onClickCancel}
           >
             {gettext('Cancel')}

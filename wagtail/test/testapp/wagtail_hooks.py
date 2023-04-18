@@ -248,6 +248,10 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
+    ordering = ["text", "-_updated_at", "-pk"]
+
+    # TODO: When specific search fields are supported in SQLite FTS (see #10217),
+    # specify search_fields or get_search_fields here
 
     def get_history_template(self):
         return "tests/snippet_history.html"
@@ -258,6 +262,8 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
 
 class DraftStateModelViewSet(SnippetViewSet):
     list_filter = ["text", "first_published_at"]
+    search_fields = ["text"]
+    search_backend_name = None
 
 
 class ModeratedModelViewSet(SnippetViewSet):
