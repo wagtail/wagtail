@@ -155,8 +155,10 @@ class ReferenceIndex(models.Model):
 
     wagtail_reference_index_ignore = True
 
-    # Store the models that are being tracked (via the post_save signal) and
-    # which are being indexed
+    # Store the models that are being tracked and indexed.
+    # If a model is present as a key, the model is tracked by receiving the corresponding
+    # model save and delete signals. If the value is True, then it is indexed.
+    # (False indicates the model has a ParentalKey relation with an indexed model.)
     _indexed_models = {}
 
     class Meta:
@@ -244,7 +246,7 @@ class ReferenceIndex(models.Model):
         """
         Registers the model for indexing.
 
-        If there are child relationships (via a ParentalKey), those
+        If there are child relationships (via a ParentalKey), the
         saves and deletes on those models also need to be tracked
         """
         if cls.model_is_indexable(model):
