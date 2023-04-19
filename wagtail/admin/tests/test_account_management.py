@@ -230,6 +230,7 @@ class TestAccountSectionUtilsMixin:
             "notifications-updated_comments_notifications": "true",
             "locale-preferred_language": "es",
             "locale-current_time_zone": "Europe/London",
+            "theme-theme": "dark",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
@@ -257,6 +258,7 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, "name_email")
         self.assertPanelActive(response, "notifications")
         self.assertPanelActive(response, "locale")
+        self.assertPanelActive(response, "theme")
         self.assertPanelActive(response, "password")
 
         # These fields may hide themselves
@@ -544,6 +546,21 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
     ):
         response = self.client.get(reverse("wagtailadmin_account"))
         self.assertPanelNotActive(response, "locale")
+
+    def test_change_theme_post(self):
+        response = self.post_form(
+            {
+                "theme-theme": "light",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+
+        self.assertEqual(profile.theme, "light")
 
     def test_sensitive_post_parameters(self):
         request = RequestFactory().post("wagtailadmin_account", data={})
