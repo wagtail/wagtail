@@ -25,7 +25,7 @@ The reference index does not require any further configuration. However there ar
 
 ### Registering a Model for Indexing
 
-A model can be registered for reference indexing by adding code to the model's `app.py`:
+A model can be registered for reference indexing by adding code to `apps.py` in the app where the model is defined:
 
 ```python
 from django.apps import AppConfig
