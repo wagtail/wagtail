@@ -33,7 +33,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             )
 
     def test_partial_search(self):
-        results = self.backend.search("Java", models.Book)
+        results = self.backend.autocomplete("Java", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -57,7 +57,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     def test_child_partial_search(self):
         # Note: Expands to "Westeros". Which is in a field on Novel.setting
-        results = self.backend.search("Wes", models.Book)
+        results = self.backend.autocomplete("Wes", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -73,7 +73,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         index.add_item(book)
         index.refresh()
 
-        results = self.backend.search("Hello", models.Book)
+        results = self.backend.autocomplete("Hello", models.Book)
 
         self.assertUnsortedListEqual([r.title for r in results], ["Ĥéllø"])
 
@@ -223,14 +223,3 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_prefix_multiple_words(self):
         super().test_prefix_multiple_words()
-
-    # Elasticsearch always does prefix matching on `partial_match` fields,
-    # even when we don’t use `Prefix`.
-    @unittest.expectedFailure
-    def test_incomplete_plain_text(self):
-        super().test_incomplete_plain_text()
-
-    # Elasticsearch does not support 'fields' arguments on autocomplete queries
-    @unittest.expectedFailure
-    def test_autocomplete_with_fields_arg(self):
-        super().test_autocomplete_with_fields_arg()
