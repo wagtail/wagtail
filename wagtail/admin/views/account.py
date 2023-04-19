@@ -21,6 +21,7 @@ from wagtail.admin.forms.account import (
     LocalePreferencesForm,
     NameEmailForm,
     NotificationPreferencesForm,
+    ThemePreferencesForm,
 )
 from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
 from wagtail.admin.localization import (
@@ -184,6 +185,14 @@ class LocaleSettingsPanel(BaseSettingsPanel):
         )
 
 
+class ThemeSettingsPanel(BaseSettingsPanel):
+    name = "theme"
+    title = gettext_lazy("Theme preferences")
+    order = 450
+    form_class = ThemePreferencesForm
+    form_object = "profile"
+
+
 class ChangePasswordPanel(BaseSettingsPanel):
     name = "password"
     title = gettext_lazy("Password")
@@ -228,6 +237,7 @@ def account(request):
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
         LocaleSettingsPanel(request, user, profile),
+        ThemeSettingsPanel(request, user, profile),
         ChangePasswordPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks("register_account_settings_panel"):

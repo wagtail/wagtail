@@ -72,6 +72,18 @@ class UserProfile(models.Model):
 
     dismissibles = models.JSONField(default=dict, blank=True)
 
+    class AdminThemes(models.TextChoices):
+        SYSTEM = "system", _("System default")
+        LIGHT = "light", _("Light")
+        DARK = "dark", _("Dark")
+
+    theme = models.CharField(
+        verbose_name=_("admin theme"),
+        choices=AdminThemes.choices,
+        default=AdminThemes.SYSTEM,
+        max_length=40,
+    )
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]
