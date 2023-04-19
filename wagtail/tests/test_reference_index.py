@@ -238,7 +238,7 @@ class TestCreateOrUpdateForObject(TestCase):
             verbosity=0,
             stdout=stdout,
         )
-        self.assertFalse(stdout.read())
+        self.assertFalse(stdout.getvalue())
 
 
 class TestDescribeOnDelete(TestCase):
