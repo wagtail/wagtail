@@ -504,8 +504,8 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 
-    def test_search_world(self):
-        response = self.get({"q": "World"})
+    def test_search_world_autocomplete(self):
+        response = self.get({"q": "wor"})
 
         # Just snippets with "World" should be in items
         items = list(response.context["page_obj"].object_list)
