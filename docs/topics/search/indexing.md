@@ -110,6 +110,8 @@ These are used for performing full-text searches on your models, usually for tex
 The `partial_match` option has been deprecated. To index a field for partial matching, use `AutocompleteField` instead.
 ```
 
+(wagtailsearch_index_autocompletefield)=
+
 ### `index.AutocompleteField`
 
 These are used for autocomplete queries that match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
