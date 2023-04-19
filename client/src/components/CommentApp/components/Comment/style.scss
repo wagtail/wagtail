@@ -23,7 +23,7 @@
     padding-bottom: 10px;
 
     &--mode-deleting {
-      color: $color-grey-1;
+      color: theme('colors.text-context');
     }
   }
 
@@ -41,7 +41,7 @@
   }
 
   &--mode-deleting &__text {
-    color: $color-grey-3;
+    color: theme('colors.text-placeholder');
   }
 
   &__replies {
@@ -89,7 +89,7 @@
   }
 
   &__error {
-    color: $color-white;
+    color: theme('colors.white.DEFAULT');
     background-color: theme('colors.critical.200');
     border-radius: 3px;
     padding: 5px;
@@ -102,9 +102,9 @@
       height: 26px;
       float: right;
       margin-inline-start: 5px;
-      color: $color-white;
+      color: theme('colors.white.DEFAULT');
       background-color: theme('colors.critical.200');
-      border-color: $color-white;
+      border-color: theme('colors.white.DEFAULT');
       padding: 2px;
       padding-inline-start: 10px;
       padding-inline-end: 10px;

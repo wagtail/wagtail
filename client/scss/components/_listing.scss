@@ -5,7 +5,7 @@ ul.listing {
 
 .listing {
   margin-bottom: 2em;
-  color: $color-text-base;
+  color: theme('colors.text-context');
   font-size: 0.95em;
 
   ul {
@@ -15,7 +15,7 @@ ul.listing {
 
   > li {
     padding: 1em 0;
-    border-bottom: 1px dashed $color-input-border;
+    border-bottom: 1px dashed theme('colors.border-field-default');
   }
 
   h3 {
@@ -39,8 +39,8 @@ ul.listing {
 
   thead {
     font-size: 1.1em;
-    color: $color-text-base;
-    border-bottom: 1px solid $color-grey-4;
+    color: theme('colors.text-context');
+    border-bottom: 1px solid theme('colors.border-furniture');
 
     th {
       font-size: 0.9em;
@@ -79,26 +79,26 @@ ul.listing {
   }
 
   .table-headers {
-    border-bottom: 1px solid $color-grey-4;
+    border-bottom: 1px solid theme('colors.border-furniture');
   }
 
   tbody {
-    border-bottom: 1px dashed $color-input-border;
+    border-bottom: 1px dashed theme('colors.border-field-default');
 
     tr {
-      border-top: 1px dashed $color-input-border;
+      border-top: 1px dashed theme('colors.border-field-default');
 
       &:first-child {
-        border-top: 1px dashed $color-input-border;
+        border-top: 1px dashed theme('colors.border-field-default');
       }
 
       &:hover {
-        background-color: theme('colors.grey.50');
+        background-color: theme('colors.white-10');
       }
     }
 
     tr.selected {
-      background-color: theme('colors.secondary.100');
+      background-color: theme('colors.text-highlight');
     }
   }
 
@@ -109,7 +109,7 @@ ul.listing {
   &.chooser {
     tbody .parent-page {
       font-size: 1.15em;
-      background-color: $color-grey-4;
+      background-color: theme('colors.border-furniture');
     }
 
     tbody .parent-page .title {
@@ -128,21 +128,21 @@ ul.listing {
     }
 
     tbody tr:hover {
-      background-color: $color-teal;
-      color: $color-white;
+      background-color: theme('colors.surface-button-hover');
+      color: theme('colors.surface-page');
 
       .title a,
       .title a:hover,
       .title label {
-        color: $color-white;
+        color: theme('colors.surface-page');
       }
 
       .parent a {
-        color: $color-white;
+        color: theme('colors.surface-page');
       }
 
       .w-status {
-        border-color: $color-white;
+        border-color: theme('colors.surface-page');
       }
     }
 
@@ -210,7 +210,7 @@ ul.listing {
 
         // stylelint-disable max-nesting-depth
         &:hover {
-          color: $color-link;
+          color: theme('colors.text-link-default');
         }
       }
     }
@@ -274,7 +274,7 @@ ul.listing {
     padding: 0;
 
     &:hover {
-      background-color: $color-grey-5;
+      background-color: theme('colors.white-10');
     }
 
     a {
@@ -284,7 +284,7 @@ ul.listing {
   }
 
   .children a {
-    color: $color-teal;
+    color: theme('colors.text-button-outline-default');
     display: block;
     text-align: center;
 
@@ -295,7 +295,7 @@ ul.listing {
   }
 
   .no-children a {
-    color: $color-grey-3;
+    color: theme('colors.text-button-outline-default');
     display: block;
     text-align: center;
 
@@ -306,7 +306,7 @@ ul.listing {
 
     &:hover,
     &:focus {
-      color: $color-teal;
+      color: theme('colors.text-button-outline-default');
     }
 
     &:focus {
@@ -331,22 +331,22 @@ ul.listing {
 
     &--active a,
     a:hover {
-      color: $color-teal;
+      color: theme('colors.text-button-outline-default');
     }
   }
 
   .handle {
     cursor: move;
     width: 20px;
-    color: $color-grey-3;
+    color: theme('colors.icon-secondary');
 
     &:hover {
-      color: $color-text-base;
+      color: theme('colors.icon-secondary-hover');
     }
   }
 
   .ui-sortable-helper {
-    border: 1px dashed $color-input-border;
+    border: 1px dashed theme('colors.border-field-default');
     border-width: 1px 0;
 
     td {
@@ -374,7 +374,7 @@ ul.listing {
 
   &.images img {
     @include transition(border-color 0.2s ease);
-    border: 3px solid $color-white;
+    border: 3px solid theme('colors.surface-page');
   }
 }
 
@@ -388,7 +388,7 @@ ul.listing {
 
 // stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
-  border-top: 1px dashed $color-input-border;
+  border-top: 1px dashed theme('colors.border-field-default');
   margin-bottom: 2em;
 }
 
@@ -460,14 +460,14 @@ table.listing {
 
 .listing.full-width + .pagination {
   margin-top: 3em;
-  border-top: 1px dashed theme('colors.grey.100');
+  border-top: 1px dashed theme('colors.border-furniture');
   padding: 2em 50px 0;
 }
 
 // listing filters
 .listing-filter {
   @include clearfix();
-  background-color: $color-grey-5;
+  background-color: theme('colors.surface-header');
   border-width: 1px 0;
   margin: 3em 0;
 }
@@ -477,7 +477,7 @@ table.listing {
   font-size: 0.95em;
   padding: 1em;
   margin: 0 1em 0 0;
-  background-color: $color-grey-4;
+  background-color: theme('colors.border-furniture');
 }
 
 .filter-options {
@@ -550,7 +550,7 @@ table.listing {
 
         &:hover {
           img {
-            border-color: $color-teal;
+            border-color: theme('colors.border-button-outline-default');
           }
         }
       }
@@ -603,15 +603,15 @@ table.listing {
     }
 
     tr:hover .children {
-      background-color: $color-teal;
+      background-color: theme('colors.text-button-outline-default');
 
       .icon {
-        color: $color-white;
+        color: theme('colors.surface-page');
       }
     }
 
     td.children:hover {
-      background-color: $color-teal-darker;
+      background-color: theme('colors.text-button-outline-default');
     }
 
     table .no-results-message {
@@ -676,6 +676,6 @@ td.ord {
 
 table.listing {
   th.ordered {
-    color: $color-teal;
+    color: theme('colors.text-link-default');
   }
 }

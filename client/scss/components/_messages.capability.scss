@@ -1,14 +1,14 @@
 .capabilitymessage {
   display: block;
   background-color: theme('colors.critical.200');
-  color: $color-white;
+  color: theme('colors.white.DEFAULT');
   padding: 1em 2em;
   margin: 0;
   position: relative;
   text-align: center;
 
   a {
-    color: $color-white;
+    color: theme('colors.white.DEFAULT');
     text-decoration: underline;
   }
 }

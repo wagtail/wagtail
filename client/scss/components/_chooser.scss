@@ -30,8 +30,8 @@
 
   &:hover,
   &:focus {
-    color: $color-button-hover;
-    background-color: $color-white;
+    color: theme('colors.surface-button-hover');
+    background-color: theme('colors.surface-page');
   }
 }
 
@@ -49,8 +49,8 @@
   height: 60px;
   // Prevent this item from getting smaller if the title is long.
   flex-shrink: 0;
-  background-color: theme('colors.grey.150');
-  color: $color-white;
+  background-color: theme('colors.border-button-small-outline-default');
+  color: theme('colors.text-button');
   border-radius: theme('borderRadius.sm');
 
   @media (forced-colors: active) {
@@ -74,7 +74,7 @@
 
   .button {
     // Subdued border as there can be a lot of chooser action buttons on a page.
-    border-color: theme('colors.grey.150');
+    border-color: theme('colors.border-button-small-outline-default');
   }
 
   // Hiding for devices capable of hover states only,

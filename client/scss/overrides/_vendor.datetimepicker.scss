@@ -2,8 +2,8 @@
 
 .xdsoft_datetimepicker {
   box-shadow: 0 5px 10px -5px theme('colors.black-35');
-  background: $color-white;
-  border: 1px solid $color-input-border;
+  background: theme('colors.surface-field');
+  border: 1px solid theme('colors.border-field-default');
   padding: 8px;
   padding-inline-start: 0;
   padding-top: 2px;
@@ -66,7 +66,7 @@
     position: relative;
     white-space: nowrap;
     width: 2em;
-    color: $color-teal;
+    color: theme('colors.text-button-outline-default');
     text-align: center;
 
     &:before {
@@ -84,7 +84,7 @@
     }
 
     &:hover {
-      color: $color-teal-darker;
+      color: theme('colors.surface-button-hover');
     }
   }
 
@@ -140,14 +140,14 @@
 
     .xdsoft_time_box {
       position: relative;
-      border: 1px solid $color-grey-4;
+      border: 1px solid theme('colors.border-furniture');
       height: 170px;
       overflow: hidden;
 
       > div > div {
-        background: $color-grey-5;
-        border-top: 1px solid $color-grey-4;
-        color: $color-grey-1;
+        background: theme('colors.surface-header');
+        border-top: 1px solid theme('colors.border-furniture');
+        color: theme('colors.border-furniture');
         font-size: 1em;
         text-align: center;
         border-collapse: collapse;
@@ -175,7 +175,7 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: bold;
-    background-color: $color-white;
+    background-color: theme('colors.surface-page');
     float: left;
     width: 182px;
     text-align: center;
@@ -186,13 +186,13 @@
     }
 
     > .xdsoft_select {
-      border: 1px solid $color-grey-4;
+      border: 1px solid theme('colors.border-furniture');
       position: absolute;
       inset-inline-end: 0;
       top: 30px;
       z-index: 101;
       display: none;
-      background: $color-white;
+      background: theme('colors.surface-field');
       max-height: 160px;
       overflow-y: hidden;
 
@@ -205,7 +205,7 @@
       }
 
       > div > .xdsoft_option:hover {
-        background: theme('colors.secondary.75');
+        background: theme('colors.text-highlight');
 
         // stylelint-disable-next-line max-nesting-depth
         @media (forced-colors: active) {
@@ -242,8 +242,8 @@
     td,
     th {
       width: 14.285%;
-      border: 1px solid $color-grey-4;
-      color: $color-grey-1;
+      border: 1px solid theme('colors.border-furniture');
+      color: theme('colors.text-context');
       font-size: 12px;
       text-align: end;
       padding: 5px 7px;
@@ -253,11 +253,11 @@
     }
 
     td {
-      background-color: $color-white;
+      background-color: theme('colors.surface-page');
     }
 
     th {
-      background: $color-grey-5;
+      background: theme('colors.surface-header');
       font-weight: 700;
       font-size: 0.85em;
       text-align: center;
@@ -268,7 +268,7 @@
   .xdsoft_calendar td.xdsoft_default,
   .xdsoft_calendar td.xdsoft_current,
   .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
-    background: theme('colors.secondary.75');
+    background: theme('colors.text-highlight');
     font-weight: 700;
 
     @media (forced-colors: active) {
@@ -280,7 +280,7 @@
   .xdsoft_calendar td.xdsoft_disabled,
   .xdsoft_time_box > div > div.xdsoft_disabled {
     opacity: 0.5;
-    background: $color-grey-3;
+    background: theme('colors.border-furniture');
 
     @media (forced-colors: active) {
       opacity: 1;
@@ -299,8 +299,8 @@
 
   .xdsoft_calendar td:hover,
   .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
-    color: $color-white;
-    background: $color-teal;
+    color: theme('colors.text-button');
+    background: theme('colors.surface-button-default');
   }
 
   .xdsoft_calendar td.xdsoft_today {
@@ -340,7 +340,7 @@
 
   > .xdsoft_scroller {
     // stylelint-disable-next-line declaration-no-important
-    background: $color-grey-3 !important;
+    background: theme('colors.border-furniture') !important;
     height: 20px;
     border-radius: 3px;
   }

@@ -578,7 +578,7 @@ def page_header_buttons(context, page, page_perms):
             "w-p-0",
             "w-w-12",
             "w-h-full",
-            "w-text-primary",
+            "w-text-text-label",
             "w-bg-transparent",
             "hover:w-scale-110",
             "w-transition",

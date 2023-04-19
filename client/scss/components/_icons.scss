@@ -15,11 +15,11 @@
 }
 
 .icon.teal {
-  color: $color-teal-darker;
+  color: theme('colors.text-button-outline-default');
 }
 
 .icon.white {
-  color: $color-white;
+  color: theme('colors.surface-page');
 }
 
 .icon:before,

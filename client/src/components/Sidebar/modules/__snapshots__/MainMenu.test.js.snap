@@ -24,8 +24,8 @@ exports[`Menu should render with the minimum required props 1`] = `
         className="
             w-px-5
             sidebar-footer__account
-            w-bg-primary
-            w-text-white
+            w-bg-surface-menus
+            w-text-text-label-menus-default
             w-flex
             w-items-center
             w-relative
@@ -34,8 +34,8 @@ exports[`Menu should render with the minimum required props 1`] = `
             w-border-0
             w-overflow-hidden
             w-py-3
-            hover:w-bg-primary-200
-            focus:w-bg-primary-200
+            hover:w-bg-surface-menu-item-active
+            focus:w-bg-surface-menu-item-active
             w-transition"
         onClick={[Function]}
         title="Edit your account"
@@ -58,7 +58,7 @@ exports[`Menu should render with the minimum required props 1`] = `
             className="sidebar-footer__account-label w-label-3"
           />
           <Icon
-            className="w-w-4 w-h-4 w-text-white"
+            className="w-w-4 w-h-4 w-text-text-label-menus-default"
             name="arrow-up"
           />
         </div>

@@ -21,7 +21,7 @@
     border: 0;
     background: transparent;
     text-align: start;
-    color: $color-menu-text;
+    color: theme('colors.text-label-menus-default');
     padding: 13px 15px 13px 20px;
     font-weight: 400;
     overflow: visible;
@@ -32,7 +32,7 @@
     // making the text semi-transparent
     &:hover,
     &:focus {
-      color: $color-white;
+      color: theme('colors.text-label-menus-active');
       text-shadow: -1px -1px 0 theme('colors.black-35');
     }
 
@@ -67,11 +67,11 @@
   }
 
   &--active {
-    @apply w-bg-primary-200;
+    @apply w-bg-surface-menu-item-active;
     text-shadow: -1px -1px 0 theme('colors.black-35');
 
     > a {
-      color: $color-white;
+      color: theme('colors.text-label-menus-active');
     }
   }
 

@@ -23,8 +23,8 @@
 
   &__container {
     border-radius: $border-curvature $border-curvature 0 0;
-    background: theme('colors.primary.DEFAULT');
-    color: $color-white;
+    background: theme('colors.surface-menus');
+    color: theme('colors.text-label-menus-default');
     margin-top: 0;
     margin-inline-end: 0;
     transition: transform 1s;
@@ -100,7 +100,7 @@
       color: inherit;
 
       &:hover {
-        color: $color-link;
+        color: theme('colors.text-link-default');
       }
     }
   }
@@ -186,41 +186,5 @@ footer .actions {
   .button {
     font-weight: 600;
     white-space: initial;
-  }
-}
-
-footer .preview {
-  button,
-  .button {
-    padding: 0 1em;
-
-    @include media-breakpoint-down(xs) {
-      width: 100%;
-      margin-top: 2px;
-      margin-bottom: 2px;
-      height: 3em;
-    }
-
-    background-color: $color-grey-2;
-    border-color: $color-grey-2;
-  }
-
-  .dropdown {
-    input[type='button'],
-    input[type='submit'],
-    button,
-    .button {
-      background-color: $color-grey-2;
-      border-color: $color-grey-2;
-    }
-
-    ul,
-    .dropdown-toggle {
-      background-color: $color-grey-2;
-    }
-
-    &.open > .button + .dropdown-toggle {
-      background-color: $color-grey-2;
-    }
   }
 }

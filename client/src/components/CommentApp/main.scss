@@ -1,17 +1,17 @@
 @import '../../../scss/settings/variables';
 
-$color-comment-separator: theme('colors.grey.200');
+$color-comment-separator: theme('colors.border-furniture');
 
-$color-box-background: $color-white;
-$color-box-background-focused: theme('colors.grey.50');
-$color-box-border: theme('colors.grey.150');
-$color-box-border-focused: theme('colors.grey.200');
-$color-box-text: $color-black;
+$color-box-background: theme('colors.surface-page');
+$color-box-background-focused: theme('colors.surface-page');
+$color-box-border: theme('colors.border-field-default');
+$color-box-border-focused: theme('colors.border-field-hover');
+$color-box-text: theme('colors.text-context');
 $box-border-radius: 5px;
 $box-padding: 20px;
 
 @mixin focus-outline {
-  outline: $color-focus-outline solid 3px;
+  outline: theme('colors.focus') solid 3px;
 }
 
 @mixin box {
@@ -31,13 +31,13 @@ $box-padding: 20px;
     margin: 0;
     padding: 12px;
     width: 100%;
-    background-color: $color-white;
-    border: 1px solid $color-input-border;
+    background-color: theme('colors.surface-field');
+    border: 1px solid theme('colors.border-field-default');
     border-radius: 5px;
     color: $color-box-text;
 
     &::placeholder {
-      color: theme('colors.grey.400');
+      color: theme('colors.text-placeholder');
       opacity: 1;
     }
   }
@@ -83,9 +83,9 @@ $box-padding: 20px;
 
 @mixin button {
   background-color: inherit;
-  border: 1px solid $color-grey-3;
+  border: 1px solid theme('colors.border-button-small-outline-default');
   border-radius: 3px;
-  color: $color-teal;
+  color: theme('colors.surface-button-default');
   cursor: pointer;
   font-weight: 700;
   height: 30px;
@@ -93,13 +93,13 @@ $box-padding: 20px;
   padding-inline-end: 10px;
 
   &--primary {
-    color: $color-white;
-    border: 1px solid $color-teal;
-    background-color: $color-teal;
+    color: theme('colors.text-button');
+    border: 1px solid theme('colors.surface-button-default');
+    background-color: theme('colors.surface-button-default');
   }
 
   &--red {
-    color: $color-white;
+    color: theme('colors.text-button');
     border: 1px solid theme('colors.critical.200');
     background-color: theme('colors.critical.200');
   }

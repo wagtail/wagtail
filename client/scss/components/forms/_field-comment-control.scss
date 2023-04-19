@@ -3,7 +3,7 @@
 
   @include transition(opacity 0.2s ease);
   position: absolute;
-  color: $color-teal;
+  color: theme('colors.text-button-outline-default');
   background: none;
   border: 0;
   padding: 0;

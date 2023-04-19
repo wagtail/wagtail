@@ -19,11 +19,11 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 130%;
-    color: theme('colors.primary.DEFAULT');
+    color: theme('colors.text-label');
   }
 
   &__date {
-    color: theme('colors.grey.400');
+    color: theme('colors.text-meta');
   }
 
   &__actions {
@@ -79,14 +79,14 @@
     &--more {
       > button,
       > details > summary {
-        color: theme('colors.grey.400');
+        color: theme('colors.text-meta');
       }
     }
   }
 
   &__more-actions {
-    background-color: $color-grey-1;
-    color: $color-grey-5;
+    background-color: theme('colors.surface-menus');
+    color: theme('colors.text-label-menus-default');
     position: absolute;
     z-index: 1000;
     list-style: none;
@@ -96,7 +96,7 @@
     &:before {
       content: '';
       border: 6px solid transparent;
-      border-bottom-color: $color-grey-1;
+      border-bottom-color: theme('colors.surface-menus');
       display: block;
       position: absolute;
       bottom: 100%;
@@ -107,7 +107,7 @@
       display: block;
       background: none;
       border: 0;
-      color: $color-white;
+      color: theme('colors.text-label-menus-default');
       padding: 5px 10px;
       font-size: 13px;
       width: 100px;

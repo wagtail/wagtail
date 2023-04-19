@@ -1,13 +1,13 @@
-$draftail-editor-text: $color-input-text;
-$draftail-placeholder-text: theme('colors.grey.400');
+$draftail-editor-text: theme('colors.text-context');
+$draftail-placeholder-text: theme('colors.text-placeholder');
 // w-body-text-large
 $draftail-editor-font-size: theme('fontSize.19');
 $draftail-editor-line-height: theme('lineHeight.normal');
 
-$draftail-editor-chrome: theme('colors.primary.DEFAULT');
-$draftail-editor-chrome-text: $color-white;
+$draftail-editor-chrome: theme('colors.surface-menus');
+$draftail-editor-chrome-text: theme('colors.text-button');
 // This needs to remain a Sass value due to a limitation in Draftail.
-// $draftail-editor-chrome-active: $color-white;
+// $draftail-editor-chrome-active: theme('colors.surface-page');
 $draftail-editor-chrome-active: #fff;
 $draftail-editor-chrome-accent: transparent;
 
@@ -15,7 +15,7 @@ $draftail-base-spacing: 0.375rem;
 $draftail-editor-radius: 0;
 $draftail-editor-border: 0;
 $draftail-editor-padding: theme('spacing.[2.5]') theme('spacing.5');
-$draftail-editor-background: $color-white;
+$draftail-editor-background: theme('colors.surface-field');
 $draftail-block-spacing: theme('spacing.[2.5]');
 $draftail-toolbar-radius: theme('borderRadius.DEFAULT');
 $draftail-toolbar-icon-size: 1em;
@@ -83,7 +83,7 @@ $draftail-editor-font-family: $font-sans;
   --draftail-offset-inline-start: 0px;
 
   &--focus {
-    outline: $focus-outline-width solid $color-focus-outline;
+    outline: $focus-outline-width solid theme('colors.focus');
   }
 }
 
@@ -152,7 +152,7 @@ $draftail-editor-font-family: $font-sans;
 
 .Draftail-BlockToolbar__trigger {
   $icon-size: theme('spacing.4');
-  color: theme('colors.secondary.DEFAULT');
+  color: theme('colors.text-button-outline-default');
   width: $icon-size;
   height: $icon-size;
   margin-inline-end: calc($nested-field-indent-sm - $icon-size / 2 - 2px);
@@ -185,8 +185,8 @@ $draftail-editor-font-family: $font-sans;
 
   &:hover,
   &:focus-visible {
-    color: $color-white;
-    background-color: $color-teal;
+    color: theme('colors.surface-page');
+    background-color: theme('colors.text-button-outline-default');
   }
 
   .icon {
@@ -220,7 +220,7 @@ $draftail-editor-font-family: $font-sans;
 
   &:hover,
   &:active {
-    border: 1px solid $color-grey-3;
+    border: 1px solid theme('colors.border-button-small-outline-default');
   }
 
   .icon {
@@ -243,27 +243,27 @@ $draftail-editor-font-family: $font-sans;
 .Draftail-ToolbarButton--pin {
   min-width: theme('spacing.6');
   height: theme('spacing.6');
-  border: 1px solid theme('colors.primary.DEFAULT');
+  border: 1px solid theme('colors.surface-tooltip');
 
   &:hover {
-    border-color: theme('colors.primary.DEFAULT');
+    border-color: theme('colors.surface-tooltip');
   }
 
   .Draftail-Toolbar & {
-    border-color: $color-input-border;
-    background-color: theme('colors.grey.50');
+    border-color: theme('colors.border-field-default');
+    background-color: theme('colors.surface-page');
     border-top-width: 0;
     border-inline-end-width: 0;
 
     .Draftail-Editor:hover & {
-      border-color: $color-input-hover-border;
+      border-color: theme('colors.border-field-hover');
     }
   }
 }
 
 .Draftail-block--blockquote {
-  border-inline-start: 0.25em solid $color-grey-3;
-  color: $color-grey-2;
+  border-inline-start: 0.25em solid theme('colors.border-field-default');
+  color: theme('colors.text-meta');
   margin: 1em 0;
   padding: 1em 2em;
 }

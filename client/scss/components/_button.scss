@@ -14,10 +14,10 @@
   line-height: calc(2.25em - 2px); // account for border
   vertical-align: middle;
   display: inline-block;
-  background-color: $color-button;
-  border: 1px solid $color-button;
+  background-color: theme('colors.surface-button-default');
+  border: 1px solid theme('colors.surface-button-default');
   outline-offset: $focus-outline-width;
-  color: $color-white;
+  color: theme('colors.text-button');
   text-decoration: none;
   white-space: nowrap;
   position: relative;
@@ -46,43 +46,43 @@
   }
 
   &.button-secondary {
-    color: $color-button;
+    color: theme('colors.text-button-outline-default');
     background-color: transparent;
 
     &:hover {
-      background-color: theme('colors.secondary.50');
+      background-color: theme('colors.text-button');
       border-color: currentColor;
-      color: $color-button;
+      color: theme('colors.surface-button-default');
     }
   }
 
   &.warning {
-    background-color: $color-button-warning;
-    border-color: $color-button-warning;
+    background-color: theme('colors.surface-alert-warning');
+    border-color: theme('colors.surface-alert-warning');
 
     &.button-secondary {
-      border-color: $color-button-warning;
-      color: $color-button-warning;
+      border-color: theme('colors.surface-alert-warning');
+      color: theme('colors.surface-alert-warning');
       background-color: transparent;
     }
 
     &:hover {
-      color: $color-white;
+      color: theme('colors.text-button');
       border-color: transparent;
-      background-color: $color-button-warning;
+      background-color: theme('colors.surface-alert-warning');
     }
   }
 
   // no/serious is not compatible with the button-secondary class
   &.no,
   &.serious {
-    background-color: $color-white;
-    border: 1px solid $color-button-no;
-    color: $color-button-no;
+    background-color: theme('colors.surface-page');
+    border: 1px solid theme('colors.surface-alert-danger');
+    color: theme('colors.surface-alert-danger');
 
     &:hover {
-      color: $color-button-no;
-      border-color: $color-button-no;
+      color: theme('colors.surface-alert-danger');
+      border-color: theme('colors.surface-alert-danger');
       background-color: theme('colors.critical.50');
     }
   }
@@ -152,19 +152,19 @@
 
     &.button-secondary {
       .icon-wrapper {
-        border-inline-end: 1px solid $color-button;
+        border-inline-end: 1px solid theme('colors.surface-button-default');
         background-color: transparent;
       }
 
       &:hover {
-        background-color: theme('colors.secondary.50');
+        background-color: theme('colors.text-button');
       }
 
       &:disabled,
       &[disabled],
       &.disabled {
         .icon-wrapper {
-          border-color: $color-grey-4;
+          border-color: theme('colors.surface-button-inactive');
         }
       }
     }
@@ -186,7 +186,7 @@
         padding-inline-start: 2.2em;
 
         .icon-wrapper {
-          border: 1px solid $color-button;
+          border: 1px solid theme('colors.surface-button-default');
           border-radius: 50%;
           height: fit-content;
           width: fit-content;
@@ -196,8 +196,8 @@
           background-color: transparent;
 
           .icon-wrapper {
-            background-color: $color-button;
-            color: $color-white;
+            background-color: theme('colors.surface-button-default');
+            color: theme('colors.text-button');
           }
         }
 
@@ -277,8 +277,8 @@
 
   // Base hover state
   &:hover {
-    background-color: $color-button-hover;
-    color: $color-white;
+    background-color: theme('colors.surface-button-hover');
+    color: theme('colors.text-button');
     border-color: transparent;
   }
 
@@ -286,20 +286,20 @@
   &:disabled,
   &[disabled],
   &.disabled {
-    background-color: $color-grey-3;
-    border-color: $color-grey-3;
-    color: $color-white;
+    background-color: theme('colors.surface-button-inactive');
+    border-color: theme('colors.surface-button-inactive');
+    color: theme('colors.text-button');
     cursor: default;
     pointer-events: none;
 
     &:hover {
-      background-color: $color-grey-3;
-      border-color: $color-grey-3;
-      color: $color-white;
+      background-color: theme('colors.surface-button-inactive');
+      border-color: theme('colors.surface-button-inactive');
+      color: theme('colors.text-button');
       cursor: default;
     }
 
-    @media (forced-colors: $media-forced-colours) {
+    @media (forced-colors: active) {
       color: GrayText;
       border-color: GrayText;
       border-style: dashed;
@@ -309,9 +309,9 @@
   &.button-secondary:disabled,
   &.button-secondary[disabled],
   &.button-secondary.disabled {
-    background-color: $color-white;
-    border-color: $color-grey-4;
-    color: $color-grey-3;
+    background-color: theme('colors.surface-page');
+    border-color: theme('colors.surface-button-inactive');
+    color: theme('colors.text-placeholder');
   }
 
   // Buttons which are only an icon
@@ -330,7 +330,7 @@
 
     &.button--icon {
       background-color: transparent;
-      color: $color-grey-2;
+      color: theme('colors.icon-secondary');
       border-color: transparent;
       font-size: 0;
       text-align: center;
@@ -338,7 +338,7 @@
       width: inherit;
 
       &:hover {
-        color: $color-grey-1;
+        color: theme('colors.icon-secondary-hover');
       }
 
       .icon {
@@ -404,7 +404,7 @@
 
   // Ensure visual consistency between button and a elements in WHCM
 
-  @media (forced-colors: $media-forced-colours) {
+  @media (forced-colors: active) {
     &:not(:disabled):not(.disabled):not([disabled]) {
       color: ButtonText;
       border-color: ButtonText;

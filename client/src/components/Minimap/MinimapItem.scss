@@ -25,12 +25,12 @@
   // Minimap items have a lot of different states denoted with their text color, border color, and background.
   // The order of the following declaration blocks is essential so the correct states take priority.
   :where(.w-minimap--expanded) & {
-    border-color: theme('colors.grey.100');
+    border-color: theme('colors.border-furniture');
     padding-inline-start: theme('spacing.8');
   }
 
   &--active {
-    border-color: theme('colors.primary.DEFAULT');
+    border-color: theme('colors.icon-primary');
 
     @media (forced-colors: active) {
       border-inline-start-width: 3px;
@@ -38,9 +38,9 @@
   }
 
   &:hover {
-    color: theme('colors.secondary.DEFAULT');
-    border-color: theme('colors.secondary.100');
-    background-color: theme('colors.secondary.50');
+    color: theme('colors.text-button-outline-default');
+    border-color: theme('colors.border-button-outline-default');
+    background-color: theme('colors.surface-button-outline-hover');
   }
 
   &--error {
@@ -51,14 +51,14 @@
     font-weight: theme('fontWeight.bold');
 
     .w-minimap-item__placeholder {
-      color: theme('colors.primary.DEFAULT');
+      color: theme('colors.icon-primary');
     }
   }
 }
 
 .w-minimap-item__placeholder {
   flex-shrink: 0;
-  color: theme('colors.grey.200');
+  color: theme('colors.icon-secondary');
 
   :where(.w-minimap--expanded) & {
     display: none;
@@ -81,8 +81,8 @@
   font-weight: theme('fontWeight.bold');
   border-radius: theme('borderRadius.full');
   background-color: theme('colors.critical.200');
-  border: $border-width solid theme('colors.grey.50');
-  color: theme('colors.white.DEFAULT');
+  border: $border-width solid theme('colors.surface-page');
+  color: theme('colors.surface-page');
 
   :where(.w-minimap--expanded) & {
     margin-inline-start: calc(-1 * (theme('spacing.8') + $badge-size / 2));

@@ -34,13 +34,13 @@
   height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
   float: left;
   position: relative;
-  border-bottom: 1px solid $color-grey-3;
+  border-bottom: 1px solid theme('colors.border-furniture');
 }
 
 .content {
   @include row();
-  background: $color-white;
-  border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+  background: theme('colors.surface-page');
+  border-top: 0 solid transparent; // this top border provides space for the floating logo to toggle the menu
   min-height: 100%;
   position: relative; // yuk. necessary for positions for jquery ui widgets
 

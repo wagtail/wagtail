@@ -7,7 +7,7 @@ $menu-footer-height: 50px;
 @import 'PageExplorerItem';
 
 .c-page-explorer {
-  @apply w-bg-primary-200;
+  @apply w-bg-surface-menu-item-active;
   max-width: 485px;
   width: 100vw;
   height: 100vh;
@@ -40,7 +40,7 @@ $menu-footer-height: 50px;
 $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
-  @apply w-bg-primary-200 w-text-white-80 w-border-b w-border-primary;
+  @apply w-bg-surface-menu-item-active w-text-text-label-menus-default w-border-b w-border-surface-menu-item-active;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -54,7 +54,7 @@ $explorer-header-horizontal-padding: 10px;
 }
 
 .c-page-explorer__header__title {
-  @apply hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
+  @apply hover:w-bg-surface-menus hover:w-text-text-label-menus-active focus:w-bg-surface-menus focus:w-text-text-label-menus-active;
   color: inherit;
 }
 
@@ -66,13 +66,13 @@ $explorer-header-horizontal-padding: 10px;
   white-space: nowrap;
 
   .icon {
-    @apply w-text-white-80;
+    @apply w-text-text-label-menus-default;
     margin-inline-end: 0.25rem;
     font-size: 1rem;
   }
 
   .icon--explorer-header {
-    @apply w-text-white-80 w-mr-2;
+    @apply w-text-text-label-menus-default w-mr-2;
     width: 1.25em;
     height: 1.25em;
     margin-inline-end: 0.25rem;
@@ -85,7 +85,7 @@ $explorer-header-horizontal-padding: 10px;
 }
 
 .c-page-explorer__header__select {
-  @apply w-text-white w-bg-primary;
+  @apply w-text-text-label-menus-default w-bg-surface-menus;
   $margin: 10px;
   margin-inline-end: $margin;
 
@@ -110,7 +110,7 @@ $explorer-header-horizontal-padding: 10px;
 
   // Add select arrow back on browsers where native ui has been removed
   &-icon {
-    @apply w-text-primary;
+    @apply w-text-icon-primary;
     position: absolute;
     inset-inline-end: 1rem;
     top: 0.85rem;
@@ -126,7 +126,7 @@ $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__placeholder {
   padding: 1em;
-  color: $color-white;
+  color: theme('colors.text-label-menus-default');
 
   @include media-breakpoint-up(sm) {
     padding: 1em 1.75em;
@@ -137,16 +137,16 @@ $explorer-header-horizontal-padding: 10px;
   display: block;
   padding: 1em;
   background: theme('colors.black-35');
-  color: $color-white;
+  color: theme('colors.text-label-menus-default');
 
   &:focus {
-    color: theme('colors.white-80');
+    color: theme('colors.text-label-menus-active');
     background: $c-page-explorer-bg-active;
   }
 
   // Overrides for default link hover.
   &:hover {
-    color: $color-white;
+    color: theme('colors.text-label-menus-active');
   }
 
   @include hover {

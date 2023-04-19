@@ -5,7 +5,7 @@
   padding: 1em;
   margin: 1em 0;
   clear: both;
-  color: $color-text-base;
+  color: theme('colors.grey.600');
 
   p {
     margin-top: 0;
@@ -16,12 +16,13 @@
   }
 
   a {
-    color: theme('colors.secondary.400');
+    color: theme('colors.secondary.DEFAULT');
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
 
     &:hover {
+      color: theme('colors.secondary.400');
       text-decoration: none;
     }
   }

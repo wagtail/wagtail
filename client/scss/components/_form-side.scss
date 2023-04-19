@@ -22,13 +22,13 @@
       w-transform
       w-translate-x-full
       rtl:-w-translate-x-full
-      w-bg-white
+      w-bg-surface-page
       w-box-border
       w-transition-all
       motion-reduce:w-transition-none
       w-duration-300
       w-border-l
-      w-border-grey-100
+      w-border-border-furniture
       w-min-w-full
       md:w-min-w-[22.875rem]
       w-max-w-full
@@ -56,7 +56,7 @@
   }
 
   &__close-button {
-    @apply w-text-primary w-absolute w-left-3 w-top-3 hover:w-text-primary-200 w-bg-white w-p-3 w-transition;
+    @apply w-text-icon-primary w-absolute w-left-3 w-top-3 hover:w-text-icon-primary-hover w-bg-surface-page w-p-3 w-transition;
 
     .icon {
       @apply w-w-4 w-h-4;
@@ -64,7 +64,7 @@
   }
 
   &:has(.form-side__resize-grip:is(:hover, :focus-within)) {
-    @apply w-border-grey-150;
+    @apply w-text-icon-secondary-hover;
   }
 
   &__resize-grip-container {
@@ -74,7 +74,7 @@
   }
 
   &__resize-grip {
-    @apply w-text-grey-150 hover:w-text-grey-200 w-border w-border-transparent w-rounded w-bg-white w-p-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
+    @apply w-text-icon-secondary hover:w-text-icon-secondary-hover w-border w-border-transparent w-rounded w-bg-surface-page w-p-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
 
     .form-side--open & {
       @apply w-flex;

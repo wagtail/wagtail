@@ -115,7 +115,7 @@ const listStyleType = {
 
 const headingBaseStyles = {
   fontWeight: 'fontWeight.bold',
-  color: 'colors.primary.DEFAULT',
+  color: 'colors.text-label',
   lineHeight: 'lineHeight.tight',
 };
 
@@ -127,7 +127,7 @@ const typeScale = {
   'w-h1': {
     fontSize: 'fontSize.30',
     fontWeight: 'fontWeight.extrabold',
-    color: 'colors.primary.DEFAULT',
+    color: 'colors.text-label',
     lineHeight: 'lineHeight.tight',
   },
   'w-h2': {
@@ -145,19 +145,19 @@ const typeScale = {
   'w-label-1': {
     fontSize: 'fontSize.16',
     fontWeight: 'fontWeight.bold',
-    color: 'colors.primary.DEFAULT',
+    color: 'colors.text-label',
     lineHeight: 'lineHeight.tight',
   },
   'w-label-2': {
     fontSize: 'fontSize.14',
     fontWeight: 'fontWeight.semibold',
-    color: 'colors.primary.DEFAULT',
+    color: 'colors.text-label',
     lineHeight: 'lineHeight.tight',
   },
   'w-label-3': {
     fontSize: 'fontSize.14',
     fontWeight: 'fontWeight.medium',
-    color: 'colors.primary.DEFAULT',
+    color: 'colors.text-label',
     lineHeight: 'lineHeight.tight',
   },
   'w-body-text-large': {
@@ -173,7 +173,7 @@ const typeScale = {
   'w-help-text': {
     fontSize: 'fontSize.14',
     fontWeight: 'fontWeight.normal',
-    color: 'colors.grey.400',
+    color: 'colors.text-meta',
     lineHeight: 'lineHeight.tight',
   },
 };

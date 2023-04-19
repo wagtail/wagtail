@@ -24,7 +24,7 @@
 
   th {
     position: relative;
-    border: 2px solid $color-grey-2;
+    border: 2px solid theme('colors.border-field-default');
 
     button.prepend-column,
     button.append-column {
@@ -47,7 +47,7 @@
 
   td {
     position: relative;
-    border-inline-start: 1px solid $color-grey-2;
+    border-inline-start: 1px solid theme('colors.border-field-default');
   }
 
   th:first-child,
@@ -59,7 +59,7 @@
   tbody tr,
   tfoot tr {
     position: relative;
-    border-top: 1px dotted $color-grey-2;
+    border-top: 1px dotted theme('colors.border-field-default');
 
     button.prepend-row {
       inset-inline-start: -2rem;
@@ -83,7 +83,7 @@
     inset-inline-start: -0.9rem;
     z-index: 100;
     min-width: 10rem;
-    background-color: $color-white;
+    background-color: theme('colors.surface-page');
 
     button {
       width: 100%;

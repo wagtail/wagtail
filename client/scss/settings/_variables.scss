@@ -40,51 +40,6 @@ $breakpoints: (
   // 1440px
 );
 
-// colours
-$color-teal: theme('colors.secondary.DEFAULT');
-$color-teal-darker: theme('colors.secondary.400');
-$color-teal-dark: theme('colors.secondary.600');
-
-$color-white: theme('colors.white.DEFAULT');
-$color-black: theme('colors.black.DEFAULT');
-
-// darker to lighter
-$color-grey-1: theme('colors.grey.600');
-$color-grey-2: theme('colors.grey.400');
-$color-grey-3: theme('colors.grey.200');
-$color-grey-4: theme('colors.grey.100');
-$color-grey-5: theme('colors.grey.50');
-
-$color-menu-text: theme('colors.white-80');
-
-$color-text-base: theme('colors.grey.600');
-
-$color-input-text: $color-text-base;
-$color-input-bg: theme('colors.white.DEFAULT');
-$color-input-border: theme('colors.grey.150');
-$color-input-disabled-text: theme('colors.grey.400');
-$color-input-disabled-bg: theme('colors.grey.50');
-$color-input-disabled-border: theme('colors.grey.100');
-$color-input-hover-border: theme('colors.grey.200');
-$color-input-error-border: theme('colors.critical.200');
-
-$color-button: $color-teal;
-$color-button-hover: $color-teal-darker;
-$color-button-no: theme('colors.critical.200');
-$color-button-warning: theme('colors.warning.100');
-
-$color-link: $color-teal-darker;
-$color-link-hover: $color-teal-dark;
-
-// The focus outline color is defined without reusing a named color variable
-// because it shouldn’t be reused for anything else in the UI.
-$color-focus-outline: #009072;
-
-// System Colors
-$media-forced-colours: active;
-$system-color-link-text: LinkText;
-$system-color-button-text: ButtonText;
-
 // Fonts
 // Our fonts are based off of a list of system fallbacks to ensure
 // that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.

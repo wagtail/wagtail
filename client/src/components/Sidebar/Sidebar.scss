@@ -4,7 +4,7 @@
   position: absolute;
   top: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;
-  color: $color-white;
+  color: theme('colors.text-label-menus-default');
   width: $sidebar-toggle-size;
   height: $sidebar-toggle-size;
   background: transparent;
@@ -35,11 +35,11 @@
 
 .sidebar,
 .sidebar-loading {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-sidebar w-transition-sidebar;
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-surface-menus w-z-sidebar w-transition-sidebar;
   width: $menu-width;
   inset-inline-start: 0;
 
-  @media (forced-colors: $media-forced-colours) {
+  @media (forced-colors: active) {
     border-inline-end: 1px solid transparent;
   }
 
@@ -67,7 +67,7 @@
 
   &__inner {
     // On medium, make it possible for the nav links to scroll.
-    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
+    @apply w-h-full w-bg-surface-menus w-flex w-flex-col w-flex-nowrap;
   }
 
   &__collapse-toggle {
@@ -92,12 +92,12 @@
   display: none; // Nav toggle is for mobile only
 
   &--mobile {
-    @apply w-bg-primary w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-primary-200;
+    @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;
     display: grid;
   }
 
   &--open {
-    @apply w-fixed hover:w-bg-primary-200 hover:w-text-white;
+    @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
   }
 }
 

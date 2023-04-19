@@ -40,7 +40,7 @@
   }
 
   &__sizes {
-    @apply w-border-grey-100 w-border-b;
+    @apply w-border-border-furniture w-border-b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@
   }
 
   &__size-button {
-    @apply w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary;
+    @apply w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label;
 
     width: 2rem;
     height: 2rem;
@@ -108,7 +108,7 @@
   &--mobile &__size-button--mobile,
   &--tablet &__size-button--tablet,
   &--desktop &__size-button--desktop {
-    @apply w-bg-primary w-text-white w-transform-none w-border w-border-transparent;
+    @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
   }
 
   &__controls {
@@ -121,14 +121,14 @@
     // but always show it if there are multiple preview modes
     .preview-panel--has-errors &:not(&--multiple),
     &--multiple {
-      @apply w-border-grey-100 w-border-t;
+      @apply w-border-border-furniture w-border-t;
       padding-top: 1rem;
       margin-top: 1rem;
     }
   }
 
   &__error-banner {
-    @apply w-text-grey-600 w-duration-1000 w-ease-in-out w-translate-y-20;
+    @apply w-text-text-context w-duration-1000 w-ease-in-out w-translate-y-20;
     transition-property: max-height, transform, visibility;
     visibility: hidden;
     max-height: 0;
@@ -166,7 +166,7 @@
     justify-content: center;
     gap: 1rem;
     margin-bottom: 0;
-    background-color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.surface-page');
 
     .w-field__label {
       margin-bottom: 0;

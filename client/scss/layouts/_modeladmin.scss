@@ -28,7 +28,7 @@
     }
 
     thead th.sorted a {
-      color: $color-teal;
+      color: theme('colors.text-link-default');
     }
 
     tbody {
@@ -54,12 +54,12 @@
     padding: 0 15px;
 
     h2 {
-      background-color: $color-grey-5;
+      background-color: theme('colors.surface-header');
       font-size: 13px;
       line-height: 31px;
       margin-top: 0;
       padding-inline-start: 8px;
-      border-bottom: 1px solid $color-grey-4;
+      border-bottom: 1px solid theme('colors.border-furniture');
     }
 
     h3 {
@@ -88,9 +88,9 @@
       font-weight: normal;
       vertical-align: middle;
       display: block;
-      background-color: $color-white;
-      border: 1px solid $color-teal;
-      color: $color-teal;
+      background-color: theme('colors.surface-page');
+      border: 1px solid theme('colors.text-button-outline-default');
+      color: theme('colors.text-button-outline-default');
       text-decoration: none;
       position: relative;
       overflow: hidden;
@@ -99,18 +99,18 @@
       -moz-appearance: none;
 
       &:hover {
-        background-color: $color-teal-dark;
-        border-color: $color-teal-dark;
-        color: $color-white;
+        background-color: theme('colors.text-button-outline-default');
+        border-color: theme('colors.text-button-outline-default');
+        color: theme('colors.surface-page');
       }
     }
 
     li.selected a {
       // stylelint-disable-next-line declaration-no-important
-      color: $color-white !important;
+      color: theme('colors.surface-page') !important;
       // stylelint-disable-next-line declaration-no-important
-      border-color: $color-teal !important;
-      background-color: $color-teal;
+      border-color: theme('colors.text-link-default') !important;
+      background-color: theme('colors.text-link-default');
     }
   }
 
@@ -131,7 +131,7 @@
 
   .pagination {
     margin-top: 3em;
-    border-top: 1px dashed theme('colors.grey.100');
+    border-top: 1px dashed theme('colors.border-furniture');
     padding: 2em 1em 0;
 
     ul {
