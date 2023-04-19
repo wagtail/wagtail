@@ -13,7 +13,7 @@ By default, the index will store references between objects managed within the W
 - models registered as Snippets
 - models registered with ModelAdmin
 
-```{note}
+```{versionchanged} 5.0
 When introduced in Wagtail 4.1, the Reference Index recorded references in all application models by default. Wagtail 5.0 reduced the scope of the default models to those specifically linked with Wagtail.
 ```
 
