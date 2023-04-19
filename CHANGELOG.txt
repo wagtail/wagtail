@@ -49,6 +49,7 @@ Changelog
  * The minimap and "Collapse all" button now appear next to side panels rather than underneath, so they can be used at any time (Thibaud Colas)
  * Allow `panels` / `edit_handler` to be specified via `SnippetViewSet` (Sage Abdullah)
  * Introduce dark mode support for the Wagtail admin interface, with a toggle in account preferences (Thibaud Colas)
+ * Allow snippets to be registered into arbitrary admin menu items (Sage Abdullah)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)
