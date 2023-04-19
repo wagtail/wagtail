@@ -228,7 +228,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
                 w-flex
                 w-justify-center
                 w-items-center
-                hover:w-bg-primary-200
+                hover:w-bg-surface-menu-item-active
                 hover:text-white
                 hover:opacity-100`}
             >

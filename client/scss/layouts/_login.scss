@@ -13,7 +13,7 @@
   }
 
   // support older browsers that do not support radial gradient 'at' usage
-  background: theme('colors.primary.DEFAULT');
+  background: theme('colors.surface-menus');
   /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
   background: var(
     --w-login-fullscreen-background,
@@ -24,7 +24,7 @@
 .login {
   @include login-fullscreen-background;
 
-  color: theme('colors.primary.DEFAULT');
+  color: theme('colors.text-label');
 
   .wrapper {
     align-items: center;
@@ -56,7 +56,7 @@
     height: auto;
     float: none;
     padding: theme('spacing.10') theme('spacing.12');
-    background: theme('colors.white.DEFAULT');
+    background: theme('colors.surface-page');
     box-shadow: theme('boxShadow.md');
     border-radius: theme('borderRadius.md');
     margin-bottom: 15vh; // should appear slightly above centre
@@ -127,7 +127,7 @@
     width: theme('spacing.8');
   }
 
-  @media (forced-colors: $media-forced-colours) and (prefers-color-scheme: dark) {
+  @media (forced-colors: active) and (prefers-color-scheme: dark) {
     .login-logo-img {
       filter: invert(100%);
     }

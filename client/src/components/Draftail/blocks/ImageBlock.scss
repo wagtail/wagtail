@@ -9,7 +9,7 @@
   @include wagtail-label-overrides;
   display: block;
   margin-bottom: $button-spacing * 2;
-  color: $color-white;
+  color: theme('colors.surface-page');
   cursor: pointer;
 }
 
@@ -21,11 +21,11 @@
 .ImageBlock__field__input {
   @include wagtail-input-overrides;
   font-size: 1rem;
-  background-color: $color-white;
-  color: $color-text-base;
+  background-color: theme('colors.surface-field');
+  color: theme('colors.text-context');
 
   &[readonly] {
-    color: $color-grey-3;
+    color: theme('colors.border-field-inactive');
   }
 }
 

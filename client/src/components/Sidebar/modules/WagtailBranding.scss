@@ -96,7 +96,7 @@ $logo-size: 110px;
   transition: padding $menu-transition-duration ease;
 
   &:hover {
-    color: $color-white;
+    color: theme('colors.text-label-menus-active');
   }
 
   @at-root .sidebar--slim #{&} {

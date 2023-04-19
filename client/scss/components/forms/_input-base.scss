@@ -5,19 +5,19 @@
 @mixin input-base() {
   appearance: none;
   border-radius: theme('borderRadius.DEFAULT');
-  color: $color-input-text;
-  background-color: $color-input-bg;
-  border: 1px solid $color-input-border;
+  color: theme('colors.text-context');
+  background-color: theme('colors.surface-field');
+  border: 1px solid theme('colors.border-field-default');
 
   &:hover {
-    border-color: $color-input-hover-border;
+    border-color: theme('colors.border-field-hover');
   }
 
   &[disabled],
   &[disabled]:hover {
-    color: $color-input-disabled-text;
-    background-color: $color-input-disabled-bg;
-    border-color: $color-input-disabled-border;
+    color: theme('colors.text-placeholder');
+    background-color: theme('colors.surface-field-inactive');
+    border-color: theme('colors.border-field-inactive');
     cursor: not-allowed;
   }
 
@@ -27,10 +27,10 @@
   .w-field--error > .w-field__input > * > &,
   // Ideally, individual widgets should show they are in error state with aria-invalid.
   &[aria-invalid='true'] {
-    border-color: $color-input-error-border;
+    border-color: theme('colors.critical.200');
   }
 
   &::placeholder {
-    color: $color-input-disabled-text;
+    color: theme('colors.text-placeholder');
   }
 }

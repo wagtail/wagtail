@@ -32,7 +32,7 @@
     {% page_permissions page as page_perms %}
     {% if page.id and page_perms.can_set_view_restrictions %}
         {% trans 'Change privacy' as set_privacy_title %}
-        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id='set-privacy' text=set_privacy_title %}
+        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id='set-privacy' text=set_privacy_title %}
     {% else %}
         {# Empty actions block because of lack of permissions #}
     {% endif %}

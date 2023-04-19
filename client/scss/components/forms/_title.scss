@@ -6,7 +6,7 @@
   textarea,
   .Draftail-Editor .public-DraftEditor-content {
     @apply w-h2;
-    color: $color-input-text;
+    color: theme('colors.text-context');
   }
 }
 
@@ -36,7 +36,7 @@
   textarea,
   .Draftail-Editor .public-DraftEditor-content {
     @apply w-h1;
-    color: $color-input-text;
+    color: theme('colors.text-context');
     // Slightly out-dented so the field’s is horizontally aligned.
     padding-inline-start: theme('spacing[1.5]');
     margin-inline-start: calc(-1 * theme('spacing[1.5]'));

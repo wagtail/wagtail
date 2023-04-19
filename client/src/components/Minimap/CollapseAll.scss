@@ -5,12 +5,12 @@
   text-align: end;
   align-items: center;
   justify-content: space-between;
-  border-color: theme('colors.grey.150');
+  border-color: theme('colors.border-button-small-outline-default');
   z-index: calc($minimap-z-index + 1);
 
   &.button-secondary {
     // Important for overlap with "Comment notifications" switch.
-    background-color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.surface-page');
   }
 
   @include media-breakpoint-up(sm) {

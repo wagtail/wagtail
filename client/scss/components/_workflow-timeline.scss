@@ -29,10 +29,10 @@
     }
 
     &--pending {
-      color: theme('colors.grey.400');
+      color: theme('colors.text-meta');
 
       .icon {
-        color: theme('colors.grey.200');
+        opacity: theme('opacity.80');
       }
     }
   }
@@ -40,7 +40,7 @@
   &__icon {
     position: relative;
     flex-shrink: 0;
-    background: theme('colors.white.DEFAULT');
+    background: theme('colors.surface-page');
     @media (forced-colors: active) {
       background: Canvas;
     }
@@ -57,7 +57,7 @@
     top: theme('spacing.4');
     inset-inline-start: theme('spacing.[2.5]');
     border-inline-start: theme('borderWidth.DEFAULT') dashed
-      theme('colors.grey.200');
+      theme('colors.text-meta');
   }
 
   &__footer {
@@ -69,11 +69,11 @@
   &__footer-link {
     @include transition(color 0.15s ease);
     font-size: theme('fontSize.14');
-    color: theme('colors.secondary.DEFAULT');
+    color: theme('colors.text-link-default');
     text-decoration: none;
 
     &:hover {
-      color: theme('colors.secondary.600');
+      color: theme('colors.text-link-hover');
     }
   }
 }

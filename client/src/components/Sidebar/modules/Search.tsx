@@ -63,10 +63,10 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           w-outline-offset-inside
           w-border-0
           w-rounded-none
-          w-text-white-80
+          w-text-text-label-menus-default
           w-z-10
-          hover:w-text-white
-          focus:w-text-white
+          hover:w-text-text-label-menus-active
+          focus:w-text-text-label-menus-active
           hover:w-bg-transparent`}
             type="submit"
             aria-label={gettext('Search')}
@@ -107,10 +107,10 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
             !w-bg-transparent
             !w-border-0
             !w-rounded-none
-            !w-text-white-80
+            !w-text-text-label-menus-default
             !w-outline-offset-inside
             !w-leading-none
-            placeholder:!w-text-white-80`}
+            placeholder:!w-text-text-label-menus-default`}
           type="text"
           id="menu-search-q"
           name="q"

@@ -1,5 +1,5 @@
 .preview-error {
-  @apply w-bg-white;
+  @apply w-bg-surface-page;
   position: absolute;
   inset-inline-start: 0;
   width: 100%;
@@ -13,7 +13,7 @@
   }
 
   &__title {
-    @apply w-h4 w-text-grey-600;
+    @apply w-h4 w-text-text-context;
   }
 
   &__details {

@@ -297,8 +297,8 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             className={`
             ${slim ? 'w-px-4' : 'w-px-5'}
             sidebar-footer__account
-            w-bg-primary
-            w-text-white
+            w-bg-surface-menus
+            w-text-text-label-menus-default
             w-flex
             w-items-center
             w-relative
@@ -307,8 +307,8 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             w-border-0
             w-overflow-hidden
             w-py-3
-            hover:w-bg-primary-200
-            focus:w-bg-primary-200
+            hover:w-bg-surface-menu-item-active
+            focus:w-bg-surface-menu-item-active
             w-transition`}
             title={gettext('Edit your account')}
             onClick={onClickAccountSettings}
@@ -330,7 +330,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
                 {user.name}
               </div>
               <Icon
-                className="w-w-4 w-h-4 w-text-white"
+                className="w-w-4 w-h-4 w-text-text-label-menus-default"
                 name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
               />
             </div>

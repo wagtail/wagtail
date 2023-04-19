@@ -314,9 +314,9 @@ window.comments = (() => {
 
     const commentCounter = document.createElement('div');
     commentCounter.className =
-      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-bg-secondary-100 w-text-white w-border w-border-white w-rounded-[1rem]';
+      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-bg-surface-button-default w-text-text-button w-border w-border-surface-page w-rounded-[1rem]';
     commentToggle.className =
-      'w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary expanded:w-text-primary';
+      'w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label expanded:w-text-text-label';
     commentToggle.appendChild(commentCounter);
 
     const updateCommentCount = () => {

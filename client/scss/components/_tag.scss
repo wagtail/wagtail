@@ -2,16 +2,16 @@
 // free tagging tags from taggit
 .tag {
   border-radius: 2px;
-  background-color: $color-teal;
+  background-color: theme('colors.surface-button-default');
   padding: 0.2em 0.5em;
-  color: $color-white;
+  color: theme('colors.text-button');
   line-height: 2em;
   white-space: nowrap;
 
   &:before {
     content: '';
     display: inline-block;
-    background: $color-white;
+    background: theme('colors.text-button');
     padding-inline-end: 0.5rem;
     width: 16px;
     height: 16px;
@@ -26,8 +26,8 @@
 }
 
 a.tag:hover {
-  background-color: $color-teal-darker;
-  color: $color-white;
+  background-color: theme('colors.surface-button-hover');
+  color: theme('colors.text-button');
 }
 
 .taglist {
@@ -43,7 +43,7 @@ a.tag:hover {
     }
 
     font-weight: 700;
-    color: $color-grey-1;
+    color: theme('colors.text-context');
     font-size: 1.1em;
     display: block;
     padding: 0 0 0.8em;

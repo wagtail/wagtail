@@ -5,8 +5,8 @@ $spacing-sm: theme('spacing.5');
 
 .w-combobox {
   width: min(400px, 80vw);
-  background: $color-white;
-  color: $color-input-text;
+  background: theme('colors.surface-page');
+  color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
   font-size: theme('fontSize.18');
   box-shadow: theme('boxShadow.md');
@@ -98,7 +98,7 @@ $spacing-sm: theme('spacing.5');
 }
 
 .w-combobox__option-icon {
-  color: theme('colors.grey.200');
+  color: theme('colors.icon-secondary');
   height: theme('spacing.4');
 
   .icon {

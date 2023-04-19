@@ -5,8 +5,8 @@
 
 .workflow-progress-table {
   width: 100%;
-  border-top: 1px solid $color-grey-3;
-  border-bottom: 1px solid $color-grey-3;
+  border-top: 1px solid theme('colors.border-field-default');
+  border-bottom: 1px solid theme('colors.border-field-default');
   font-size: 0.8em;
 
   td,
@@ -21,18 +21,18 @@
   &__left-column {
     font-size: 1.2em;
     font-weight: bold;
-    color: $color-text-base;
+    color: theme('colors.text-context');
   }
 
   &--tasks {
-    background-color: $color-grey-5;
+    background-color: theme('colors.surface-header');
 
     .workflow-progress-table__left-column {
-      background-color: $color-grey-4;
+      background-color: theme('colors.border-furniture');
     }
   }
 
   &--timeline tr {
-    border-bottom: 1px solid $color-grey-3;
+    border-bottom: 1px solid theme('colors.border-field-default');
   }
 }

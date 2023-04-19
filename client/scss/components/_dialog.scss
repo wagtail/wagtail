@@ -18,8 +18,8 @@
     inset-inline-end: 0;
     bottom: 0;
     top: 0;
-    opacity: theme('opacity.40');
-    background: theme('colors.black.DEFAULT');
+    opacity: theme('opacity.80');
+    background: theme('colors.black-50');
   }
 
   &__box {
@@ -28,7 +28,7 @@
     margin: auto;
     max-width: theme('maxWidth.2xl');
     z-index: theme('zIndex.dialog');
-    background: theme('colors.white.DEFAULT');
+    background: theme('colors.surface-page');
     box-shadow: theme('boxShadow.DEFAULT');
     border-radius: theme('borderRadius.md');
     animation: theme('animation.fade-in');
@@ -36,7 +36,7 @@
     @include media-breakpoint-up(sm) {
       width: 600px;
     }
-    @media (forced-colors: $media-forced-colours) {
+    @media (forced-colors: active) {
       border: 5px solid currentColor;
     }
   }
@@ -57,7 +57,7 @@
   &__close-icon {
     width: theme('spacing.4');
     height: theme('spacing.4');
-    color: theme('colors.grey.600');
+    color: theme('colors.text-context');
   }
 
   &__content {
@@ -82,7 +82,7 @@
     display: none;
     width: theme('spacing.5');
     height: theme('spacing.5');
-    color: theme('colors.primary.DEFAULT');
+    color: theme('colors.icon-primary');
     top: theme('spacing.[0.5]');
     transform: translateY(theme('spacing.2'));
     inset-inline-start: calc(0 - theme('spacing.10'));
@@ -109,7 +109,7 @@
     border-start-start-radius: theme('borderRadius.md');
     border-start-end-radius: theme('borderRadius.md');
 
-    @media (forced-colors: $media-forced-colours) {
+    @media (forced-colors: active) {
       border-bottom: 1px solid currentColor;
     }
 

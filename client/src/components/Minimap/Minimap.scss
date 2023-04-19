@@ -41,7 +41,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 
   > * {
     // Set the background on the contents of the minimap only to reduce overlapping area with fields and comments.
-    background-color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.surface-page');
   }
 }
 
@@ -49,8 +49,8 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
   display: inline-flex;
   padding: theme('spacing.[0.5]');
-  background-color: theme('colors.white.DEFAULT');
-  color: theme('colors.primary.DEFAULT');
+  background-color: theme('colors.surface-page');
+  color: theme('colors.icon-primary');
   transform: rotate(180deg);
   // Expand is available for keyboard users only.
   opacity: 0;
@@ -97,7 +97,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
-    border-inline-start: 1px solid theme('colors.grey.100');
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
 
@@ -117,6 +117,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
-    border-inline-start: 1px solid theme('colors.grey.100');
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }

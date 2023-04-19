@@ -25,24 +25,23 @@
 //  Default dropdown theme
 // =============================================================================
 .t-default .u-btn-current {
-  border-color: $color-grey-4;
-  color: $color-teal;
+  border-color: theme('colors.border-button-small-outline-default');
+  color: theme('colors.text-button-outline-default');
 }
 
 .t-default .u-btn-current:hover {
-  background: $color-teal;
-  color: $color-white;
-  border-color: $color-teal;
+  background: theme('colors.text-button');
+  border-color: theme('colors.border-button-outline-default');
 }
 
 .t-inverted .u-btn-current {
-  background-color: $color-teal-darker;
+  background-color: theme('colors.text-button-outline-default');
   border-color: theme('colors.black-35');
-  color: $color-white;
+  color: theme('colors.text-button');
 }
 
 .t-inverted .u-btn-current:hover {
-  background-color: $color-teal-dark;
+  background-color: theme('colors.surface-button-hover');
   border-color: theme('colors.black-35');
 }
 
@@ -50,19 +49,19 @@
 // Dark theme
 // =============================================================================
 .t-dark .u-link {
-  color: $color-white;
+  color: theme('colors.text-label-menus-default');
 }
 
 .t-dark .u-link:hover {
-  color: $color-white;
+  color: theme('colors.text-label-menus-active');
 }
 
 .t-dark .u-background {
-  background: $color-grey-1;
+  background: theme('colors.surface-tooltip');
 }
 
 .t-dark .u-arrow:before {
-  background-color: $color-grey-1;
+  background-color: theme('colors.surface-tooltip');
 
   @media (forced-colors: active) {
     background-color: ButtonText;

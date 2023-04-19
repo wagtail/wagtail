@@ -3,7 +3,7 @@
  * StreamField and InlinePanel.
  */
 
-$guide-line-default-color: theme('colors.grey.150');
+$guide-line-default-color: theme('colors.border-dashed-block');
 $stroke-width: 1px;
 
 @mixin guide-line-vertical() {
@@ -60,7 +60,7 @@ $stroke-width: 1px;
 // More visible guide line for nested panels in the currently-active DOM tree.
 @mixin guide-line-nested() {
   &:is(:hover, :focus-within) {
-    --guide-line-color: theme('colors.primary.DEFAULT');
+    --guide-line-color: theme('colors.icon-primary');
 
     @media (forced-colors: active) {
       --guide-line-color: Highlight;

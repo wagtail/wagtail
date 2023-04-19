@@ -4,15 +4,15 @@
   }
 
   &__list {
-    @apply w-flex w-pr-0 w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
+    @apply w-flex w-pr-0 w-my-[3px] w-space-x-6 w-border-b w-border-border-furniture w-w-fit;
   }
 
   &__tab {
     @apply w-label-3
     w-box-border
     w-inline-flex
-    w-text-grey-400
-    hover:w-text-primary
+    w-text-text-meta
+    hover:w-text-text-label
     w-whitespace-nowrap
     w-py-4
     w-font-medium
@@ -20,7 +20,7 @@
     after:w-block
     after:w-w-0
     after:w-h-[2px]
-    after:w-bg-primary
+    after:w-bg-icon-primary
     after:w-absolute
     after:w-left-0
     after:-w-bottom-px
@@ -32,7 +32,7 @@
     motion-reduce:after:w-transition-none;
 
     &[aria-selected='true'] {
-      @apply after:w-w-full w-text-primary after:forced-colors:w-w-full;
+      @apply after:w-w-full w-text-text-label after:forced-colors:w-w-full;
     }
   }
 
@@ -49,7 +49,7 @@
     w-bg-critical-200
     w-text-white
     w-border
-    w-border-grey-50
+    w-border-surface-page
     w-rounded-[1rem];
   }
 

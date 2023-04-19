@@ -30,6 +30,8 @@ html {
   height: 100%;
   // Set the whole admin to border-box by default.
   box-sizing: border-box;
+  // Display viewport overscroll areas in a theme-appropriate color.
+  background-color: theme('colors.surface-page');
 }
 
 body {
@@ -52,7 +54,7 @@ body {
 }
 
 hr {
-  border: 1px solid $color-grey-4;
+  border: 1px solid theme('colors.border-furniture');
   border-width: 1px 0 0;
   margin: 1.5em 0;
 }

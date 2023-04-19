@@ -7,8 +7,8 @@ $icon-size: theme('spacing.4');
   width: theme('spacing.6');
   height: theme('spacing.6');
   appearance: none;
-  color: $color-teal;
-  background-color: $color-white;
+  color: theme('colors.text-button-outline-default');
+  background-color: theme('colors.surface-page');
   padding: 0;
   cursor: pointer;
   // Align with guide lines, which are already offset by a half icon size.
@@ -30,8 +30,8 @@ $icon-size: theme('spacing.4');
   &:hover,
   &:focus-visible {
     .icon {
-      color: $color-white;
-      background-color: $color-teal;
+      color: theme('colors.surface-page');
+      background-color: theme('colors.text-button-outline-default');
     }
   }
 

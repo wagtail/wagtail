@@ -1,7 +1,7 @@
 .progress {
   border-radius: 1.2em;
-  background-color: $color-teal-darker;
-  border: 1px solid $color-teal;
+  background-color: theme('colors.surface-button-hover');
+  border: 1px solid theme('colors.surface-button-default');
   opacity: 0;
 
   &.active {
@@ -15,9 +15,9 @@
     overflow: hidden;
     text-align: end;
     line-height: 1.2em;
-    color: $color-white;
+    color: theme('colors.text-button');
     font-size: 0.85em;
-    background-color: $color-teal;
+    background-color: theme('colors.surface-button-default');
     height: 1.2em;
     padding-inline-end: 1em;
 

@@ -4,9 +4,9 @@
   inset-inline-start: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $color-teal-darker;
+  background-color: theme('colors.secondary.400');
   font-family: $font-sans;
-  color: $color-white;
+  color: theme('colors.white.DEFAULT');
 }
 
 .page404__logo {
@@ -14,8 +14,8 @@
   height: 500px;
 
   // Media for Windows High Contrast mode
-  @media (forced-colors: $media-forced-colours) {
-    background-color: $system-color-link-text;
+  @media (forced-colors: active) {
+    background-color: LinkText;
   }
 }
 
@@ -44,12 +44,12 @@ a.button.page404__button {
   line-height: 2em;
   height: 2.5em;
   padding: 0 0.5em;
-  background-color: $color-teal-darker;
-  border: 4px solid $color-teal;
+  background-color: theme('colors.secondary.400');
+  border: 4px solid theme('colors.secondary.DEFAULT');
   color: inherit;
 
   &:hover {
-    background-color: $color-teal;
+    background-color: theme('colors.secondary.DEFAULT');
   }
 }
 

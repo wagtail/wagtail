@@ -77,7 +77,7 @@
   $offset: calc($text-input-height / 2 - $size / 2);
   width: $size;
   height: $size;
-  color: theme('colors.primary.DEFAULT');
+  color: theme('colors.icon-primary');
   position: absolute;
   // Top padding of text input and half of text size.
   top: $offset;

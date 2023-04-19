@@ -54,7 +54,7 @@ $zindex-modal-background: 500;
   border-radius: 3px;
   width: 98.7%;
   position: relative;
-  background-color: $color-white;
+  background-color: theme('colors.surface-page');
   margin-top: 2em;
   padding-bottom: 3em;
   display: inline-block;
@@ -70,7 +70,7 @@ $zindex-modal-background: 500;
   bottom: 0;
   inset-inline-start: 0;
   z-index: ($zindex-modal-background - 10);
-  background-color: $color-black;
+  background-color: theme('colors.black-50');
 
   // Fade for backdrop
   &.fade {
@@ -78,7 +78,7 @@ $zindex-modal-background: 500;
   }
 
   &.in {
-    opacity: 0.5;
+    opacity: 1;
   }
 }
 
@@ -93,12 +93,12 @@ $zindex-modal-background: 500;
   inset-inline-end: theme('spacing.3');
   width: theme('spacing.8');
   height: theme('spacing.8');
-  color: theme('colors.white.DEFAULT');
+  color: theme('colors.surface-page');
   z-index: 1;
 
   &:hover {
-    background-color: theme('colors.black.DEFAULT');
-    color: theme('colors.grey.50');
+    background-color: theme('colors.surface-menu-item-active');
+    color: theme('colors.text-label-menus-active');
   }
 }
 
@@ -108,8 +108,8 @@ $zindex-modal-background: 500;
   padding-bottom: 2em;
 
   .w-header {
-    color: theme('colors.white.DEFAULT');
-    background-color: theme('colors.primary.DEFAULT');
+    color: theme('colors.text-label-menus-default');
+    background-color: theme('colors.surface-menus');
 
     > .row {
       // reset inline padding added to w-header for sidebar offset

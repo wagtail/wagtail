@@ -32,10 +32,10 @@
 .tooltip-inner {
   max-width: 200px;
   padding: 3px 8px;
-  color: $color-white;
+  color: theme('colors.text-button');
   text-align: center;
   text-decoration: none;
-  background-color: $color-black;
+  background-color: theme('colors.surface-tooltip');
   border-radius: 4px;
 }
 
@@ -51,21 +51,21 @@
   bottom: 0;
   inset-inline-start: 50%;
   margin-inline-start: -5px;
-  border-top-color: $color-black;
+  border-top-color: theme('colors.surface-tooltip');
   border-width: 5px 5px 0;
 }
 
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   inset-inline-start: 5px;
-  border-top-color: $color-black;
+  border-top-color: theme('colors.surface-tooltip');
   border-width: 5px 5px 0;
 }
 
 .tooltip.top-right .tooltip-arrow {
   inset-inline-end: 5px;
   bottom: 0;
-  border-top-color: $color-black;
+  border-top-color: theme('colors.surface-tooltip');
   border-width: 5px 5px 0;
 }
 
@@ -73,7 +73,7 @@
   top: 50%;
   inset-inline-start: 0;
   margin-top: -5px;
-  border-inline-end-color: $color-black;
+  border-inline-end-color: theme('colors.surface-tooltip');
   border-width: 5px 5px 5px 0;
 }
 
@@ -81,7 +81,7 @@
   top: 50%;
   inset-inline-end: 0;
   margin-top: -5px;
-  border-inline-start-color: $color-black;
+  border-inline-start-color: theme('colors.surface-tooltip');
   border-width: 5px 0 5px 5px;
 }
 
@@ -89,20 +89,20 @@
   top: 0;
   inset-inline-start: 50%;
   margin-inline-start: -5px;
-  border-bottom-color: $color-black;
+  border-bottom-color: theme('colors.surface-tooltip');
   border-width: 0 5px 5px;
 }
 
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   inset-inline-start: 5px;
-  border-bottom-color: $color-black;
+  border-bottom-color: theme('colors.surface-tooltip');
   border-width: 0 5px 5px;
 }
 
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   inset-inline-end: 5px;
-  border-bottom-color: $color-black;
+  border-bottom-color: theme('colors.surface-tooltip');
   border-width: 0 5px 5px;
 }

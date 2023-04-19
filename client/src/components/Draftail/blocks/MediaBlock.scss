@@ -31,7 +31,7 @@
     min-width: 256px;
     min-height: 50px;
     object-fit: contain;
-    background-color: $color-grey-1;
+    background-color: theme('colors.text-context');
   }
 
   &__img {
@@ -51,6 +51,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $color-white;
+    color: theme('colors.surface-page');
   }
 }

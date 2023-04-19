@@ -36,7 +36,7 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
 
   .w-panel__anchor {
     // Mask the overlap with the parent panel’s guide line.
-    background-color: $color-white;
+    background-color: theme('colors.surface-page');
   }
 
   .w-field__wrapper {

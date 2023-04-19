@@ -79,7 +79,7 @@ $tooltip-color-no: theme('colors.critical.100');
 
     &,
     &:hover {
-      color: $color-white;
+      color: theme('colors.text-button');
     }
   }
 
@@ -89,7 +89,7 @@ $tooltip-color-no: theme('colors.critical.100');
       border-color: currentColor;
 
       &:hover {
-        color: $color-button-no;
+        color: theme('colors.surface-alert-danger');
       }
     }
   }

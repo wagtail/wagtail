@@ -9,7 +9,7 @@
     attr - custom attributes for the button
 {% endcomment %}
 {% if text %}
-    <button type="button" class="{{ classname }} w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition" {% if data_url %}data-controller="w-action" data-action="w-action#post" data-w-action-url-value="{{ data_url }}" {% endif %}{% if has_toggle %}data-button-with-dropdown-toggle {% endif %}{{ attr }}>
+    <button type="button" class="{{ classname }} w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition" {% if data_url %}data-controller="w-action" data-action="w-action#post" data-w-action-url-value="{{ data_url }}" {% endif %}{% if has_toggle %}data-button-with-dropdown-toggle {% endif %}{{ attr }}>
         {{ text }}
         {% if has_toggle %}
             {% icon name='arrow-down' classname='w-w-4 w-h-4 w-transition motion-reduce:w-transition-none' %}
