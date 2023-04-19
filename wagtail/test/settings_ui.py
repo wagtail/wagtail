@@ -18,7 +18,12 @@ PATTERN_LIBRARY = {
     # Groups of templates for the pattern library navigation. The keys
     # are the group titles and the values are lists of template name prefixes that will
     # be searched to populate the groups.
-    "SECTIONS": (("components", ["wagtailadmin/shared", "wagtailadmin/panels"]),),
+    "SECTIONS": (
+        (
+            "components",
+            ["wagtailadmin/shared", "wagtailadmin/panels", "wagtailadmin/home"],
+        ),
+    ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".html",
     "PATTERN_BASE_TEMPLATE_NAME": "",
