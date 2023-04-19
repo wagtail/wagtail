@@ -99,16 +99,24 @@ def remove_reference_index_on_delete(instance, **kwargs):
         ReferenceIndex.remove_for_object(instance)
 
 
+def connect_reference_index_signal_handlers_for_model(model):
+    post_save.connect(update_reference_index_on_save, sender=model)
+    post_delete.connect(remove_reference_index_on_delete, sender=model)
+
+
 def connect_reference_index_signal_handlers(**kwargs):
     for model in ReferenceIndex.tracked_models:
-        post_save.connect(update_reference_index_on_save, sender=model)
-        post_delete.connect(remove_reference_index_on_delete, sender=model)
+        connect_reference_index_signal_handlers_for_model(model)
+
+
+def disconnect_reference_index_signal_handlers_for_model(model):
+    post_save.disconnect(update_reference_index_on_save, sender=model)
+    post_delete.disconnect(remove_reference_index_on_delete, sender=model)
 
 
 def disconnect_reference_index_signal_handlers(**kwargs):
     for model in ReferenceIndex.tracked_models:
-        post_save.disconnect(update_reference_index_on_save, sender=model)
-        post_delete.disconnect(remove_reference_index_on_delete, sender=model)
+        disconnect_reference_index_signal_handlers_for_model(model)
 
 
 def register_signal_handlers():
@@ -123,6 +131,11 @@ def register_signal_handlers():
 
     # Reference index signal handlers
     connect_reference_index_signal_handlers()
+
+    # Set the flag to show that the initially-registered set of signal handlers has
+    # been connected. Beyond this point, any calls to ReferenceIndex.register_model
+    # must connect the signal individually.
+    ReferenceIndex.initial_signals_connected = True
 
     # Disconnect reference index signals while migrations are running
     # (we don't want to log references in migrations as the ReferenceIndex model might not exist)

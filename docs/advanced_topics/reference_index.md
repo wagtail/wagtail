@@ -17,8 +17,6 @@ By default, the index will store references between objects managed within the W
 When introduced in Wagtail 4.1, the Reference Index recorded references in all application models by default. Wagtail 5.0 reduced the scope of the default models to those specifically linked with Wagtail.
 ```
 
-Apps with models that are indexed need to listed in `INSTALLED_APPS` before the `wagtail` app.
-
 The reference index does not require any further configuration. However there are circumstances where it may be necessary to add or remove models from the index.
 
 (registering_a_model_for_indexing)=
