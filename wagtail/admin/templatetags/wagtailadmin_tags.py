@@ -720,6 +720,19 @@ def avatar_url(user, size=50, gravatar_only=False):
     return versioned_static_func("wagtailadmin/images/default-user-avatar.png")
 
 
+@register.simple_tag(takes_context=True)
+def admin_theme_name(context):
+    """
+    Retrieves the theme name for the current user.
+    """
+    user = context["request"].user
+    return (
+        user.wagtail_userprofile.theme
+        if hasattr(user, "wagtail_userprofile")
+        else "system"
+    )
+
+
 @register.simple_tag
 def js_translation_strings():
     return mark_safe(json.dumps(get_js_translation_strings()))
