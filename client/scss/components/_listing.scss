@@ -359,19 +359,6 @@ ul.listing {
     }
   }
 
-  .dropzone {
-    height: 80px;
-    background-color: $color-grey-1;
-
-    &:hover {
-      background-color: $color-grey-1;
-    }
-
-    td {
-      padding: 0;
-    }
-  }
-
   table .no-results-message {
     padding-inline-start: 20px;
   }
