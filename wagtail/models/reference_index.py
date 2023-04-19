@@ -250,6 +250,9 @@ class ReferenceIndex(models.Model):
         """
         Registers the model for indexing.
         """
+        if model in cls.indexed_models:
+            return
+
         if cls.model_is_indexable(model):
             cls.indexed_models.add(model)
             cls._register_as_tracked_model(model)
@@ -260,7 +263,16 @@ class ReferenceIndex(models.Model):
         Add the model and all of its ParentalKey-linked children to the set of
         models to be tracked by signal handlers.
         """
+        if model in cls.tracked_models:
+            return
+
+        from wagtail.signal_handlers import (
+            connect_reference_index_signal_handlers_for_model,
+        )
+
         cls.tracked_models.add(model)
+        connect_reference_index_signal_handlers_for_model(model)
+
         for child_relation in get_all_child_relations(model):
             if cls.model_is_indexable(
                 child_relation.related_model,
