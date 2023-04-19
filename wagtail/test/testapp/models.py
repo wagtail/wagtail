@@ -1280,7 +1280,7 @@ class BusinessSubIndex(Page):
     # BusinessNowherePage is 'incorrectly' added here as a possible child.
     # The rules on BusinessNowherePage prevent it from being a child here though.
     subpage_types = ["tests.BusinessChild", "tests.BusinessNowherePage"]
-    parent_page_types = ["tests.BusinessIndex", "tests.BusinessChild"]
+    parent_page_types = ["tests.BusinessIndex"]
 
 
 class BusinessChild(Page):

@@ -118,7 +118,10 @@ class BaseChooser(widgets.Input):
         elif isinstance(value, self.model_class):
             return value
         else:  # assume instance ID
-            return self.model_class.objects.get(pk=value)
+            try:
+                return self.model_class.objects.get(pk=value)
+            except self.model_class.DoesNotExist:
+                return None
 
     def get_display_title(self, instance):
         """
