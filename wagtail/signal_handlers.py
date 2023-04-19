@@ -100,13 +100,13 @@ def remove_reference_index_on_delete(instance, **kwargs):
 
 
 def connect_reference_index_signal_handlers(**kwargs):
-    for model in ReferenceIndex.get_tracked_models():
+    for model in ReferenceIndex.tracked_models:
         post_save.connect(update_reference_index_on_save, sender=model)
         post_delete.connect(remove_reference_index_on_delete, sender=model)
 
 
 def disconnect_reference_index_signal_handlers(**kwargs):
-    for model in ReferenceIndex.get_tracked_models():
+    for model in ReferenceIndex.tracked_models:
         post_save.disconnect(update_reference_index_on_save, sender=model)
         post_delete.disconnect(remove_reference_index_on_delete, sender=model)
 
