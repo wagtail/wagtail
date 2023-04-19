@@ -1,5 +1,6 @@
 import React from 'react';
 import colors, { Hues, Shade } from './colors';
+import colorThemes, { Token, ThemeCategory } from './colorThemes';
 import { generateColorVariables } from './colorVariables';
 
 const description = `
@@ -82,6 +83,50 @@ export const ColorPalette = () => (
         <Palette color={color} hues={hues} />
       </div>
     ))}
+  </>
+);
+
+const TokenSwatch = ({ name, token }: { name: string; token: Token }) => (
+  <div className="w-shadow w-border w-border-border-furniture w-rounded w-w-36 w-p-2.5">
+    <div
+      className={`w-w-12 w-h-10 w-rounded ${token.bgUtility}${
+        token.value.includes('white') || token.value.includes('grey-600')
+          ? ' w-border w-border-border-furniture'
+          : ''
+      }`}
+    />
+    <h4 className="w-label-3">{name}</h4>
+    <p className="w-help-text">
+      {token.value.replace('var(--w-color-', '').replace(')', '')}
+    </p>
+  </div>
+);
+
+const CategorySwatches = ({ category }: { category: ThemeCategory }) => (
+  <div key={category.label}>
+    <h3 className="w-h3">{category.label}</h3>
+    <div className="w-grid w-grid-flow-col w-gap-2.5">
+      {Object.entries(category.tokens).map(([name, token]) => (
+        <TokenSwatch key={token} name={name} token={token} />
+      ))}
+    </div>
+  </div>
+);
+
+export const ColorThemes = () => (
+  <>
+    <section className="w-bg-surface-page w-pt-6 w-mt-6 -w-mx-4 w-px-4">
+      <h2 className="w-h2">Light</h2>
+      {colorThemes.light.map((category: ThemeCategory) => (
+        <CategorySwatches key={category.label} category={category} />
+      ))}
+    </section>
+    <section className="w-bg-surface-page w-pt-6 w-mt-6 -w-mx-4 w-px-4 w-theme-dark">
+      <h2 className="w-h2">Dark</h2>
+      {colorThemes.dark.map((category: ThemeCategory) => (
+        <CategorySwatches key={category.label} category={category} />
+      ))}
+    </section>
   </>
 );
 

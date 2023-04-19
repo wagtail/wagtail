@@ -85,6 +85,19 @@ const generateColorVariables = (colors) => {
   return colorVariables;
 };
 
+const generateThemeColorVariables = (themeCategories) => {
+  const colorVariables = {};
+
+  themeCategories.forEach((category) => {
+    Object.values(category.tokens).forEach((token) => {
+      colorVariables[token.cssVariable] = token.value;
+    });
+  });
+
+  return colorVariables;
+};
+
 module.exports = {
   generateColorVariables,
+  generateThemeColorVariables,
 };
