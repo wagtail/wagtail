@@ -182,9 +182,6 @@ class Elasticsearch5Mapping:
                 if field.boost:
                     mapping["boost"] = field.boost
 
-                if field.partial_match:
-                    mapping.update(self.edgengram_analyzer_config)
-
                 mapping["include_in_all"] = True
 
             if isinstance(field, AutocompleteField):
@@ -254,9 +251,7 @@ class Elasticsearch5Mapping:
             doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if (isinstance(field, SearchField) and field.partial_match) or isinstance(
-                field, AutocompleteField
-            ):
+            if isinstance(field, AutocompleteField):
                 edgengrams.append(value)
 
         return doc, edgengrams
@@ -299,9 +294,7 @@ class Elasticsearch5Mapping:
             doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if (isinstance(field, SearchField) and field.partial_match) or isinstance(
-                field, AutocompleteField
-            ):
+            if isinstance(field, AutocompleteField):
                 edgengrams.append(value)
 
         # Add partials to document
@@ -446,12 +439,7 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             return {"multi_match": match_query}
 
     def _compile_fuzzy_query(self, query, fields):
-        if self.partial_match:
-            raise NotImplementedError(
-                "Fuzzy search is not supported with partial matches. Pass "
-                "partial_match=False into the search method."
-            )
-        elif len(fields) > 1:
+        if len(fields) > 1:
             raise NotImplementedError(
                 "Fuzzy search on multiple fields is not supported by the "
                 "Elasticsearch search backend."
@@ -532,8 +520,6 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     def get_inner_query(self):
         if self.remapped_fields:
             fields = self.remapped_fields
-        elif self.partial_match:
-            fields = [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
         else:
             fields = [self.mapping.all_field_name]
 
@@ -667,7 +653,7 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
 
 
 class Elasticsearch5AutocompleteQueryCompiler(
-    Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl
+    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch5SearchQueryCompiler
 ):
     pass
 
