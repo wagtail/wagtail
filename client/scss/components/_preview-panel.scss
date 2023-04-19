@@ -161,15 +161,11 @@
   }
 
   &__modes {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
     margin-bottom: 0;
     background-color: theme('colors.surface-page');
 
-    .w-field__label {
-      margin-bottom: 0;
+    .w-field__input {
+      padding-inline-end: 0;
     }
   }
 
