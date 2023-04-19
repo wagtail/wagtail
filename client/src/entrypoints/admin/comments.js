@@ -144,17 +144,13 @@ window.comments = (() => {
   }
 
   class FieldLevelCommentWidget {
-    constructor({ fieldNode, commentAdditionNode, annotationTemplateNode }) {
+    constructor({ fieldNode, commentAdditionNode }) {
       this.fieldNode = fieldNode;
       this.contentpath = getContentPath(fieldNode);
       if (!commentAdditionNode) {
         throw new MissingElementError(commentAdditionNode);
       }
       this.commentAdditionNode = commentAdditionNode;
-      if (!annotationTemplateNode) {
-        throw new MissingElementError(annotationTemplateNode);
-      }
-      this.annotationTemplateNode = annotationTemplateNode;
     }
 
     register() {
@@ -221,7 +217,9 @@ window.comments = (() => {
     }
 
     getAnnotationForComment() {
-      const annotationNode = this.annotationTemplateNode.cloneNode(true);
+      const annotationNode = document
+        .querySelector('#comment-icon')
+        .cloneNode(true);
       annotationNode.id = '';
       annotationNode.setAttribute(
         'aria-label',
@@ -248,7 +246,6 @@ window.comments = (() => {
     const widget = new FieldLevelCommentWidget({
       fieldNode: buttonElement.closest('[data-contentpath]'),
       commentAdditionNode: buttonElement,
-      annotationTemplateNode: document.querySelector('#comment-icon'),
     });
     widget.register();
   }
