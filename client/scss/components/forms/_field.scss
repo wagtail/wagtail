@@ -63,13 +63,6 @@
 .w-field__input {
   position: relative;
   margin-top: theme('spacing.[2.5]');
-  // This padding gives room for widgets such as comments beside of inputs
-  padding-inline-end: calc($comment-button-size + $comment-button-space);
-
-  .w-field__input {
-    // No need for extra padding for nested field inputs.
-    padding-inline-end: 0;
-  }
 }
 
 .w-field__icon {

@@ -1,3 +1,8 @@
+// Comments
+$icon-size: theme('spacing.4');
+$button-padding: theme('spacing.2');
+$button-space: theme('spacing.1');
+
 .w-field__comment-button {
   $root: &;
 
@@ -6,24 +11,21 @@
   color: theme('colors.text-button-outline-default');
   background: none;
   border: 0;
-  padding: 0;
-  inset-inline-end: 0;
+  padding: theme('spacing.4') $button-padding;
+  inset-inline-end: calc(-1 * ($icon-size + $button-padding * 2));
   top: 50%;
   transform: translateY(-50%);
-  margin-inline-start: theme('spacing.[2.5]');
-  visibility: hidden;
   opacity: 0;
 
   .icon {
-    width: $comment-button-size;
-    height: $comment-button-size;
+    width: $icon-size;
+    height: $icon-size;
     color: inherit;
   }
 
   // For devices without hover support, always show when comments are enabled.
   @media (hover: none) {
     .tab-content--comments-enabled & {
-      visibility: visible;
       opacity: 1;
     }
   }
@@ -35,7 +37,6 @@
     &:hover,
     &:focus,
     &.w-field__comment-button--focused {
-      visibility: visible;
       opacity: 1;
     }
   }
@@ -45,7 +46,7 @@
   .w-field--checkbox_select_multiple &,
   .w-field--admin_tag_widget & {
     transform: translateY(0);
-    top: 0.3125rem;
+    top: 0;
   }
 
   .w-field--date_field &,
@@ -53,7 +54,7 @@
   .w-field--time_field & {
     position: relative;
     transform: translateY(0);
-    top: 0.3125rem;
+    top: 0;
   }
 }
 

@@ -60,10 +60,6 @@ $mobile-nav-indent: 50px;
 $sidebar-toggle-spacing: 12px;
 $sidebar-toggle-size: 35px;
 
-// Comments
-$comment-button-size: theme('spacing.5');
-$comment-button-space: theme('spacing.3');
-
 // transitions
 // Please keep in sync with SIDEBAR_TRANSITION_DURATION variable in `client/src/components/Sidebar/Sidebar.tsx`
 $menu-transition-duration: 150ms;
