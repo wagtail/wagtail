@@ -78,7 +78,6 @@ export class FieldBlock {
       addCommentButtonElement.classList.add(
         'w-field__comment-button',
         'w-field__comment-button--add',
-        'u-hidden',
       );
 
       ReactDOM.render(
