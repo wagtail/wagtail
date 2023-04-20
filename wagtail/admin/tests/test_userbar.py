@@ -1,9 +1,14 @@
-from django.contrib.auth.models import AnonymousUser
+import json
+
+from bs4 import BeautifulSoup
+from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase
-from django.test.client import RequestFactory
 from django.urls import reverse
 
+from wagtail import hooks
+from wagtail.admin.userbar import AccessibilityItem
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex
 from wagtail.test.utils import WagtailTestUtils
@@ -25,7 +30,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         revision_id=None,
         is_editing=False,
     ):
-        request = RequestFactory().get("/")
+        request = get_dummy_request()
         request.user = user or AnonymousUser()
         request.is_preview = is_preview
         request.is_editing = is_editing
@@ -178,24 +183,181 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # Make sure nothing was rendered
         self.assertEqual(content, "")
 
-    def test_userbar_accessibility_configuration(self):
+
+class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def get_script(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        content = template.render(
-            Context(
-                {
-                    PAGE_TEMPLATE_VAR: self.homepage,
-                    "request": self.dummy_request(self.user),
-                }
-            )
-        )
+        content = template.render(Context({"request": self.request}))
+        soup = BeautifulSoup(content, "html.parser")
 
         # Should include the configuration as a JSON script with the specific id
-        self.assertIn(
-            '<script id="accessibility-axe-configuration" type="application/json">',
-            content,
+        return soup.find("script", id="accessibility-axe-configuration")
+
+    def get_config(self):
+        return json.loads(self.get_script().string)
+
+    def get_hook(self, item_class):
+        def customise_accessibility_checker(request, items):
+            items[:] = [
+                item_class() if isinstance(item, AccessibilityItem) else item
+                for item in items
+            ]
+
+        return customise_accessibility_checker
+
+    def test_config_json(self):
+        script = self.get_script()
+        # The configuration should be a valid non-empty JSON script
+        self.assertIsNotNone(script)
+        self.assertEqual(script.attrs["type"], "application/json")
+        config_string = script.string.strip()
+        self.assertGreater(len(config_string), 0)
+        config = json.loads(config_string)
+        self.assertIsInstance(config, dict)
+        self.assertGreater(len(config.keys()), 0)
+
+    def test_messages(self):
+        # Should include Wagtail's error messages
+        config = self.get_config()
+        self.assertIsInstance(config.get("messages"), dict)
+        self.assertEqual(
+            config["messages"]["empty-heading"],
+            "Empty heading found. Use meaningful text for screen reader users.",
         )
-        # Should include the custom error message
-        self.assertIn("Empty heading found", content)
+
+    def test_custom_message(self):
+        class CustomMessageAccessibilityItem(AccessibilityItem):
+            # Override via class attribute
+            axe_messages = {
+                "empty-heading": "Headings should not be empty!",
+            }
+
+            # Override via method
+            def get_axe_messages(self, request):
+                return {
+                    **super().get_axe_messages(request),
+                    "color-contrast-enhanced": "Increase colour contrast!",
+                }
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomMessageAccessibilityItem),
+        ):
+            config = self.get_config()
+            self.assertEqual(
+                config["messages"],
+                {
+                    "empty-heading": "Headings should not be empty!",
+                    "color-contrast-enhanced": "Increase colour contrast!",
+                },
+            )
+
+    def test_unset_run_only(self):
+        class UnsetRunOnlyAccessibilityItem(AccessibilityItem):
+            # Example config that unsets the runOnly property so that all
+            # non-experimental rules are run, but the experimental
+            # focus-order-semantics rule is explicitly enabled
+            axe_run_only = None
+            axe_rules = {"focus-order-semantics": {"enabled": True}}
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(UnsetRunOnlyAccessibilityItem),
+        ):
+            config = self.get_config()
+            self.assertEqual(
+                config["options"],
+                # Should not include the runOnly property, but should include
+                # the focus-order-semantics rule
+                {"rules": {"focus-order-semantics": {"enabled": True}}},
+            )
+
+    def test_custom_context(self):
+        class CustomContextAccessibilityItem(AccessibilityItem):
+            axe_include = ["article", "section"]
+            axe_exclude = [".sr-only"]
+
+            def get_axe_exclude(self, request):
+                return [*super().get_axe_exclude(request), "[data-please-ignore]"]
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomContextAccessibilityItem),
+        ):
+            config = self.get_config()
+            self.assertEqual(
+                config["context"],
+                {
+                    # Override via class attribute
+                    "include": ["article", "section"],
+                    "exclude": [
+                        # Override via class attribute
+                        ".sr-only",
+                        # Should include the default exclude selectors
+                        {"fromShadowDOM": ["wagtail-userbar"]},
+                        # Override via method
+                        "[data-please-ignore]",
+                    ],
+                },
+            )
+
+    def test_custom_run_only_and_rules_per_request(self):
+        class CustomRunOnlyAccessibilityItem(AccessibilityItem):
+            # Enable all rules within these tags
+            axe_run_only = [
+                "wcag2a",
+                "wcag2aa",
+                "wcag2aaa",
+                "wcag21a",
+                "wcag21aa",
+                "wcag22aa",
+                "best-practice",
+            ]
+            # Turn off the color-contrast-enhanced rule
+            axe_rules = {
+                "color-contrast-enhanced": {"enabled": False},
+            }
+
+            def get_axe_rules(self, request):
+                # Do not turn off any rules for superusers
+                if request.user.is_superuser:
+                    return {}
+                return super().get_axe_rules(request)
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomRunOnlyAccessibilityItem),
+        ):
+            config = self.get_config()
+            self.assertEqual(
+                config["options"],
+                {
+                    "runOnly": CustomRunOnlyAccessibilityItem.axe_run_only,
+                    "rules": {},
+                },
+            )
+
+            self.user.is_superuser = False
+            self.user.user_permissions.add(
+                Permission.objects.get(
+                    content_type__app_label="wagtailadmin", codename="access_admin"
+                )
+            )
+            self.user.save()
+
+            config = self.get_config()
+            self.assertEqual(
+                config["options"],
+                {
+                    "runOnly": CustomRunOnlyAccessibilityItem.axe_run_only,
+                    "rules": CustomRunOnlyAccessibilityItem.axe_rules,
+                },
+            )
 
 
 class TestUserbarFrontend(WagtailTestUtils, TestCase):

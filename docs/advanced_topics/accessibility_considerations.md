@@ -143,6 +143,72 @@ By default, the checker includes the following rules to find common accessibilit
 -   `link-name`: `<a>` link elements must always have a text label.
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
 
+To customise how the checker is run (e.g. the rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
+
+The following is the reference documentation for the `AccessibilityItem` class:
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.userbar.AccessibilityItem
+
+    .. autoattribute:: axe_include
+    .. autoattribute:: axe_exclude
+    .. autoattribute:: axe_run_only
+       :no-value:
+    .. autoattribute:: axe_rules
+    .. autoattribute:: axe_messages
+       :no-value:
+
+    The above attributes can also be overridden via the following methods to allow per-request customisation.
+    When overriding these methods, be mindful of the mutability of the class attributes above.
+    To avoid unexpected behaviour, you should always return a new object instead of modifying the attributes
+    directly in the methods.
+
+    .. method:: get_axe_include(request)
+    .. method:: get_axe_exclude(request)
+    .. method:: get_axe_run_only(request)
+    .. method:: get_axe_rules(request)
+    .. method:: get_axe_messages(request)
+
+    For more advanced customisation, you can also override the following methods:
+
+    .. automethod:: get_axe_context
+    .. automethod:: get_axe_options
+```
+
+Here is an example of a custom `AccessibilityItem` subclass that enables more rules:
+
+```python
+from wagtail.admin.userbar import AccessibilityItem
+
+
+class CustomAccessibilityItem(AccessibilityItem):
+    # Run all rules with these tags
+    axe_run_only = [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "best-practice",
+    ]
+    # Except for the color-contrast-enhanced rule
+    axe_rules = {
+        "color-contrast-enhanced": {"enabled": False},
+    }
+
+    def get_axe_rules(self, request):
+        # Do not disable any rules if the user is a superuser
+        if request.user.is_superuser:
+            return {}
+        return self.axe_rules
+
+
+@hooks.register('construct_wagtail_userbar')
+def replace_userbar_accessibility_item(request, items):
+    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+```
+
 ### wagtail-accessibility
 
 [wagtail-accessibility](https://github.com/neon-jungle/wagtail-accessibility) is a third-party package which adds [tota11y](https://khan.github.io/tota11y/) to Wagtail previews.

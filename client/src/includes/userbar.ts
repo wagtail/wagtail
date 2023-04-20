@@ -1,4 +1,4 @@
-import axe, { AxeResults, NodeResult } from 'axe-core';
+import axe, { ElementContext, NodeResult, Result, RunOptions } from 'axe-core';
 
 import { dialog } from './dialog';
 
@@ -10,6 +10,16 @@ More background can be found in webpack.config.js
 This component implements a roving tab index for keyboard navigation
 Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 */
+
+/**
+ * Wagtail's Axe configuration object. This should reflect what's returned by
+ * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
+ */
+interface WagtailAxeConfiguration {
+  context: ElementContext;
+  options: RunOptions;
+  messages: Record<string, string>;
+}
 
 const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
   if (!nodeResultA || !nodeResultB) return 0;
@@ -23,7 +33,7 @@ const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
     : -1;
 };
 
-export const sortAxeViolations = (violations: AxeResults['violations']) =>
+export const sortAxeViolations = (violations: Result[]) =>
   violations.sort((violationA, violationB) => {
     const earliestNodeA = violationA.nodes.sort(sortAxeNodes)[0];
     const earliestNodeB = violationB.nodes.sort(sortAxeNodes)[0];
@@ -51,7 +61,7 @@ export class Userbar extends HTMLElement {
     const trigger = userbar?.querySelector<HTMLElement>(
       '[data-wagtail-userbar-trigger]',
     );
-    const list = userbar?.querySelector('[role=menu]');
+    const list = userbar?.querySelector<HTMLUListElement>('[role=menu]');
 
     if (!userbar || !trigger || !list) {
       return;
@@ -74,7 +84,7 @@ export class Userbar extends HTMLElement {
     button:not([disabled]),
     input:not([disabled])`;
 
-    const showUserbar = (shouldFocus) => {
+    const showUserbar = (shouldFocus: boolean) => {
       userbar.classList.add(isActiveClass);
       trigger.setAttribute('aria-expanded', 'true');
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -115,8 +125,8 @@ export class Userbar extends HTMLElement {
       userbar.removeEventListener('keydown', handleUserbarItemsKeyDown, false);
     };
 
-    const toggleUserbar = (e2) => {
-      e2.stopPropagation();
+    const toggleUserbar = (event: MouseEvent) => {
+      event.stopPropagation();
       if (userbar.classList.contains(isActiveClass)) {
         hideUserbar();
       } else {
@@ -137,7 +147,7 @@ export class Userbar extends HTMLElement {
     };
 
     // Focus element using a roving tab index
-    const focusElement = (el) => {
+    const focusElement = (el: HTMLElement) => {
       resetItemsTabIndex();
       // eslint-disable-next-line no-param-reassign
       el.tabIndex = 0;
@@ -154,13 +164,15 @@ export class Userbar extends HTMLElement {
 
     const setFocusToFirstItem = () => {
       if (listItems.length > 0) {
-        focusElement(listItems[0].firstElementChild);
+        focusElement(listItems[0].firstElementChild as HTMLElement);
       }
     };
 
     const setFocusToLastItem = () => {
       if (listItems.length > 0) {
-        focusElement(listItems[listItems.length - 1].firstElementChild);
+        focusElement(
+          listItems[listItems.length - 1].firstElementChild as HTMLElement,
+        );
       }
     };
 
@@ -169,7 +181,7 @@ export class Userbar extends HTMLElement {
         // Check which item is currently focused
         if (element.firstElementChild === shadowRoot.activeElement) {
           if (idx + 1 < listItems.length) {
-            focusElement(listItems[idx + 1].firstElementChild);
+            focusElement(listItems[idx + 1].firstElementChild as HTMLElement);
           } else {
             // Loop around
             setFocusToFirstItem();
@@ -183,7 +195,7 @@ export class Userbar extends HTMLElement {
         // Check which item is currently focused
         if (element.firstElementChild === shadowRoot.activeElement) {
           if (idx > 0) {
-            focusElement(listItems[idx - 1].firstElementChild);
+            focusElement(listItems[idx - 1].firstElementChild as HTMLElement);
           } else {
             setFocusToLastItem();
           }
@@ -199,7 +211,7 @@ export class Userbar extends HTMLElement {
     - Shifting focus using the arrow / home / end keys.
     - Closing the menu when 'Escape' is pressed.
     */
-    const handleUserbarItemsKeyDown = (event) => {
+    const handleUserbarItemsKeyDown = (event: KeyboardEvent) => {
       // Only handle keyboard input if the userbar is open
       if (trigger.getAttribute('aria-expanded') === 'true') {
         if (event.key === 'Escape') {
@@ -235,11 +247,11 @@ export class Userbar extends HTMLElement {
       return true;
     };
 
-    const handleFocusChange = (event) => {
+    const handleFocusChange = (event: FocusEvent) => {
       // Is the focus is still in the menu? If so, don't to anything
       if (
-        event.relatedTarget == null ||
-        (event.relatedTarget && event.relatedTarget.closest('.w-userbar-nav'))
+        !event.relatedTarget ||
+        (event.relatedTarget as HTMLElement).closest('.w-userbar-nav')
       ) {
         return;
       }
@@ -252,7 +264,7 @@ export class Userbar extends HTMLElement {
     This handler is responsible for opening the userbar with the arrow keys
     if it's focused and not open yet. It should always be listening.
     */
-    const handleTriggerKeyDown = (event) => {
+    const handleTriggerKeyDown = (event: KeyboardEvent) => {
       // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
       if (
         trigger === document.activeElement &&
@@ -281,8 +293,8 @@ export class Userbar extends HTMLElement {
       }
     };
 
-    const sandboxClick = (e2) => {
-      e2.stopPropagation();
+    const sandboxClick = (event: MouseEvent) => {
+      event.stopPropagation();
     };
 
     const clickOutside = () => {
@@ -312,7 +324,7 @@ export class Userbar extends HTMLElement {
   See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
   */
 
-  getAxeConfiguration() {
+  getAxeConfiguration(): WagtailAxeConfiguration | null {
     const script = this.shadowRoot?.querySelector<HTMLScriptElement>(
       '#accessibility-axe-configuration',
     );
@@ -343,10 +355,7 @@ export class Userbar extends HTMLElement {
     if (!this.shadowRoot || !accessibilityTrigger || !config) return;
 
     // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
-    const results = (await axe.run(
-      config.context,
-      config.options,
-    )) as unknown as AxeResults;
+    const results = await axe.run(config.context, config.options);
 
     const a11yErrorsNumber = results.violations.reduce(
       (sum, violation) => sum + violation.nodes.length,
@@ -360,9 +369,10 @@ export class Userbar extends HTMLElement {
       this.trigger.appendChild(a11yErrorBadge);
     }
 
-    const dialogTemplates = this.shadowRoot.querySelectorAll(
-      '[data-wagtail-dialog]',
-    );
+    const dialogTemplates =
+      this.shadowRoot.querySelectorAll<HTMLTemplateElement>(
+        '[data-wagtail-dialog]',
+      );
     const dialogs = dialog(
       dialogTemplates,
       this.shadowRoot as unknown as HTMLElement,
@@ -373,10 +383,11 @@ export class Userbar extends HTMLElement {
     // Disable TS linter check for legacy code in 3rd party `A11yDialog` element
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const modalBody = modal.$el.querySelector('[data-dialog-body]');
-    const accessibilityResultsBox = this.shadowRoot.querySelector(
-      '#accessibility-results',
-    );
+    const modalBody = modal.$el.querySelector(
+      '[data-dialog-body]',
+    ) as HTMLDivElement;
+    const accessibilityResultsBox =
+      this.shadowRoot.querySelector<HTMLDivElement>('#accessibility-results');
     const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
       '#w-a11y-result-row-template',
     );
@@ -398,7 +409,7 @@ export class Userbar extends HTMLElement {
       return;
     }
 
-    const innerErrorBadges = this.shadowRoot.querySelectorAll(
+    const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
       '[data-a11y-result-count]',
     );
     innerErrorBadges.forEach((badge) => {
@@ -420,33 +431,35 @@ export class Userbar extends HTMLElement {
         const sortedViolations = sortAxeViolations(results.violations);
         sortedViolations.forEach((violation, violationIndex) => {
           modalBody.appendChild(a11yRowTemplate.content.cloneNode(true));
-          const currentA11yRow = modalBody.querySelectorAll(
+          const currentA11yRow = modalBody.querySelectorAll<HTMLDivElement>(
             '[data-a11y-result-row]',
           )[violationIndex];
 
           const a11yErrorName = currentA11yRow.querySelector(
             '[data-a11y-result-name]',
-          );
+          ) as HTMLSpanElement;
           a11yErrorName.id = `w-a11y-result__name-${violationIndex}`;
-          // Display custom error messages for rules supported by Wagtail out of the box, fallback to default error message from Axe
+          // Display custom error messages supplied by Wagtail if available,
+          // fallback to default error message from Axe
           a11yErrorName.textContent =
             config.messages[violation.id] || violation.help;
           const a11yErrorCount = currentA11yRow.querySelector(
             '[data-a11y-result-count]',
-          );
-          a11yErrorCount.textContent = violation.nodes.length;
+          ) as HTMLSpanElement;
+          a11yErrorCount.textContent = `${violation.nodes.length}`;
 
           const a11yErrorContainer = currentA11yRow.querySelector(
             '[data-a11y-result-container]',
-          );
+          ) as HTMLDivElement;
 
           violation.nodes.forEach((node, nodeIndex) => {
             a11yErrorContainer.appendChild(
               a11ySelectorTemplate.content.cloneNode(true),
             );
-            const currentA11ySelector = a11yErrorContainer.querySelectorAll(
-              '[data-a11y-result-selector]',
-            )[nodeIndex];
+            const currentA11ySelector =
+              a11yErrorContainer.querySelectorAll<HTMLButtonElement>(
+                '[data-a11y-result-selector]',
+              )[nodeIndex];
 
             currentA11ySelector.setAttribute(
               'aria-describedby',
@@ -454,7 +467,7 @@ export class Userbar extends HTMLElement {
             );
             const currentA11ySelectorText = currentA11ySelector.querySelector(
               '[data-a11y-result-selector-text]',
-            );
+            ) as HTMLSpanElement;
             const selectorName = node.target[0];
             // Remove unnecessary details before displaying selectors to the user
             currentA11ySelectorText.textContent = selectorName.replace(
