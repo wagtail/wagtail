@@ -65,7 +65,7 @@ $button-space: theme('spacing.1');
   }
 
   &:not(:hover) {
-    .icon-comment-add {
+    .icon-comment-add-reversed {
       display: block;
     }
   }
@@ -73,7 +73,7 @@ $button-space: theme('spacing.1');
   &:hover {
     cursor: pointer;
 
-    .icon-comment-add-reversed {
+    .icon-comment-add {
       display: block;
     }
   }
