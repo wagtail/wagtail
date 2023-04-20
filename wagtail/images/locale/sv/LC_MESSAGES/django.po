@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2022
+# Martin Sandström <martin@marteinn.se>, 2020-2023
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
@@ -15,8 +15,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2021\n"
-"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2023\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,14 @@ msgstr "Format som stöds: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr "Bildformatet stöds inte. Format som stöds: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Inte en giltig .%(extension)s bild. Denna filändelse matchar inte "
+"filformatet (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -165,6 +173,12 @@ msgstr "bild"
 msgid "images"
 msgstr "bilder"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Lägg till taggar på 1 bild"
+msgstr[1] "Lägg till taggar på %(counter)s bilder"
+
 msgid "Add tags to images"
 msgstr "Lägg till taggar på bilder"
 
@@ -183,6 +197,12 @@ msgstr "Ja, lägg till"
 
 msgid "No, don't add"
 msgstr "Nej, lägg inte till"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Lägg till 1 bild till ny samling"
+msgstr[1] "Lägg till %(counter)sbilder till ny samling"
 
 msgid "Add images to collection"
 msgstr "Lägg till bilder i samling"
@@ -235,11 +255,24 @@ msgstr "Nej, radera inte"
 msgid "Popular tags"
 msgstr "Populära taggar"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Uppladdning lyckades. Din nya bild verkar dock vara en dubblett av denna "
+"befintliga bild. Du kan radera den om den inte krävs."
+
 msgid "Existing"
 msgstr "Existerande"
 
 msgid "New"
 msgstr "Ny"
+
+msgid "Use new image"
+msgstr "Använd ny bild"
+
+msgid "Use existing and delete new"
+msgstr "Använd existerande och radera ny"
 
 msgid "Latest images"
 msgstr "Senaste bilder"
@@ -247,6 +280,12 @@ msgstr "Senaste bilder"
 #, python-format
 msgid "Select %(title)s"
 msgstr "Välj %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Du har inte laddat upp några bilder i denna samling"
+
+msgid "You haven't uploaded any images."
+msgstr "Du har inte laddat upp några bilder."
 
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
@@ -260,6 +299,20 @@ msgstr "Välj ett format"
 
 msgid "Insert image"
 msgstr "Lägg in bild"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> bild <span class=\"visuallyhidden\">skapades i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> bilder <span class=\"visuallyhidden\">skapades i "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Byt bildfil:"
@@ -276,12 +329,21 @@ msgstr "Spara"
 msgid "Delete image"
 msgstr "Radera bild"
 
+msgid "Keep new image"
+msgstr "Behåll ny bild"
+
+msgid "Delete new image"
+msgstr "Radera ny bild"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Redigerar bild %(title)s"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Image focal point"
+msgstr "Bildens brännpunkt"
 
 msgid "URL Generator"
 msgstr "URL-Generator"
@@ -320,8 +382,17 @@ msgstr "Användning"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Entries per page"
+msgstr "Poster per sida"
+
 msgid "Popular Tags:"
 msgstr "Populära Taggar:"
+
+msgid "Clear"
+msgstr "Rensa"
 
 msgid "Select all images in listing"
 msgstr "Välj alla bilder i listan"
@@ -411,6 +482,13 @@ msgstr ""
 "titel, om nödvändigt. Du kan också ta bort bilden helt och hållet om "
 "uppladdningen inte var nödvändig."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Uppladdning lyckades. Din nya bild verkar dock vara en dubblett av denna "
+"befintliga bild. Du kan radera den om den inte krävs."
+
 msgid "Sorry, upload failed."
 msgstr "Ledsen, uppladdningen misslyckades."
 
@@ -486,6 +564,24 @@ msgstr "Välj en annan bild"
 
 msgid "Edit this image"
 msgstr "Redigera denna bild"
+
+msgid "Newest"
+msgstr "Senaste"
+
+msgid "Oldest"
+msgstr "Äldsta"
+
+msgid "Title: (A -> Z)"
+msgstr "Titel: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titel: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Filstorlek: (låg till hög)"
+
+msgid "File size: (high to low)"
+msgstr "Filstorlek: (hög till låg)"
 
 msgid "Search images"
 msgstr "Sök bilder"

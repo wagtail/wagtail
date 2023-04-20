@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Japanese (https://www.transifex.com/torchbox/teams/8009/ja/)\n"
+"Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"

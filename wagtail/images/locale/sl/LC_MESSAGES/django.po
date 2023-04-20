@@ -16,7 +16,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -208,6 +208,13 @@ msgstr[2] ""
 msgstr[3] ""
 "Ali ste prepričani, da želite dodati naslednje slike v izbrano zbirko?"
 
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "Nimate dovoljenja za dodajanje te slike v zbirko"
+msgstr[1] "Nimate dovoljenja za dodajanje teh slik v zbirko"
+msgstr[2] "Nimate dovoljenja za dodajanje teh slik v zbirko"
+msgstr[3] "Nimate dovoljenja za dodajanje teh slik v zbirko"
+
 #, python-format
 msgid "Delete 1 image"
 msgid_plural "Delete %(counter)s images"
@@ -271,6 +278,10 @@ msgstr "Uporabi obstoječe in izbriši novo"
 
 msgid "Latest images"
 msgstr "Zadnje slike"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Izberite %(title)s"
 
 msgid "You haven't uploaded any images in this collection."
 msgstr "V to zbirko niste naložili nobene slike."
@@ -366,6 +377,14 @@ msgstr "Počisti"
 
 msgid "Select all images in listing"
 msgstr "Izberite vse slike na seznamu"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
 
 msgid "Select image"
 msgstr "Izberi sliko"

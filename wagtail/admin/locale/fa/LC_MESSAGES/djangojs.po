@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Amir Mahmoodi, 2023\n"
-"Language-Team: Persian (https://www.transifex.com/torchbox/teams/8009/fa/)\n"
+"Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"

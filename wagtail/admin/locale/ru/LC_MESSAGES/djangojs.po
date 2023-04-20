@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
+"Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "

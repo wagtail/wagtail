@@ -11,11 +11,12 @@
 # Fan Hei <weijiacc@gmail.com>, 2020
 # Favo Yang <favoyang@gmail.com>, 2021-2022
 # First Last <abc+github@mynook.info>, 2019
-# Ford Guo <agile.guo@gmail.com>, 2020,2022
+# Ford Guo <agile.guo@gmail.com>, 2020,2022-2023
 # Fred Zeng <979738295@qq.com>, 2016
 # Yin Guanhao <sopium@mysterious.site>, 2020
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
+# Monty NG, 2023
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
@@ -29,8 +30,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Monty NG, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -234,6 +235,13 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
 
 #, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "标题链接 '%(page_slug)s' 已经被父页面使用"
+
+msgid "Select a new parent for this page."
+msgstr "为此页选择一个新的父页面"
+
+#, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "标签长度 %(value_too_long)s 超过 %(max_tag_length)d 个字符"
 
@@ -255,6 +263,11 @@ msgstr "此页面已经被分配给工作流'%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "你不能将此工作流多次分配给同一个页面."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr "片段 '%(content_type)s' 已经被分配给工作流'%(workflow_name)s' ."
 
 msgid "Give your workflow a name"
 msgstr "请给你的工作流一个名称"
@@ -320,6 +333,20 @@ msgstr "已选择本屏幕的所有%(objects)s 个用户"
 
 msgid "All users in listing selected"
 msgstr "已选择列表中的所有用户"
+
+msgid "1 snippet selected"
+msgstr "已选择1 个片段"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "已选择%(objects)s 个片段"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "已选择本屏幕的所有 %(objects)s 个片段"
+
+msgid "All snippets in listing selected"
+msgstr "已选择列表中的所有片段"
 
 msgid "1 item selected"
 msgstr "已选择1个条目"
@@ -470,6 +497,9 @@ msgstr "选择"
 msgid "Choose a page"
 msgstr "选择一个页面"
 
+msgid "Confirm selection"
+msgstr "确认选择"
+
 msgid "Convert to internal link"
 msgstr "转换为内部链接"
 
@@ -489,6 +519,10 @@ msgid "Add a phone link"
 msgstr "添加一个电话链接"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "选择 %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "查看'%(title)s'的子页面"
 
@@ -506,6 +540,9 @@ msgstr "你可以在这里修改此隐私设置："
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Change privacy"
+msgstr "变更隐私设置"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -540,11 +577,17 @@ msgid ""
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
+msgid "No items have been created."
+msgstr "没有创建任何项目"
+
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Preview not available"
+msgstr "预览不可用"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -624,6 +667,15 @@ msgstr "日期"
 
 msgid "Site summary"
 msgstr "网站摘要"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Wagtail 可以升级. 你的版本: <strong>%(current_version)s</strong>. 新版本: "
+"<strong data-w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Task started"
 msgstr "任务已启动"
@@ -711,6 +763,10 @@ msgid ""
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”获得批准。"
 
 #, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "你可以在此处编辑 %(model_name)s :"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "页面“%(title)s”已在“%(task)s”中批准。"
 
@@ -734,6 +790,12 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr "页面“%(title)s”已提交到审核阶段“%(task)s”审批。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr "此 \"%(title)s\" 页面已经被提交到审核阶段的 \"%(task)s\"进行审批"
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -853,6 +915,9 @@ msgstr "创建一个页面，在"
 
 msgid "Choose which type of page you'd like to create."
 msgstr "选择创建的页面类型"
+
+msgid "Sorry, you cannot create a page at this location."
+msgstr "抱歉, 你不能在当前位置创建页面."
 
 #, python-format
 msgid "Pages using %(page_type)s"
@@ -1204,6 +1269,12 @@ msgstr "上移"
 msgid "Move down"
 msgstr "下移"
 
+msgid "Set publishing schedule"
+msgstr "设置发布计划"
+
+msgid "Save schedule"
+msgstr "保存计划"
+
 msgid "Comment notifications"
 msgstr "评论通知"
 
@@ -1253,6 +1324,9 @@ msgstr "按任务"
 msgid "Workflow"
 msgstr "工作流"
 
+msgid "Page/Snippet"
+msgstr "页面/片段"
+
 msgid "Requested by"
 msgstr "请求人"
 
@@ -1288,6 +1362,13 @@ msgstr "取消发布%(title)s"
 msgid "Yes, unpublish it"
 msgstr "是，取消发布"
 
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "发布 %(model_name)s"
+
+msgid "Close dialog"
+msgstr "关闭对话框"
+
 msgid "Add comment"
 msgstr "添加评论"
 
@@ -1316,6 +1397,9 @@ msgstr "私有. 查看已发布页"
 msgid "Visible to all"
 msgstr "任何人可看"
 
+msgid "Toggle section"
+msgstr "部件开关"
+
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
@@ -1335,11 +1419,41 @@ msgstr "否，不取消发布计划"
 msgid "Other searches"
 msgstr "其它搜索"
 
+msgid "Side panels"
+msgstr "边栏"
+
 msgid "Toggle side panel"
 msgstr "边栏面板开关"
 
+msgid "Side panel width"
+msgstr "边栏宽度"
+
+msgid "Page Locale: "
+msgstr "页面语言:"
+
+msgid "Locale: "
+msgstr "语言区域:"
+
+msgid "No other translations"
+msgstr "没有其他翻译"
+
+msgid "Switch locales"
+msgstr "切换语言"
+
+msgid "Page locking: "
+msgstr "页面锁定:"
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr "你不能编辑此页面，请解锁后进行编辑。"
+
+msgid "You cannot edit this page."
+msgstr "你不能编辑此页面"
+
 msgid "Unlocked"
 msgstr "已解锁"
+
+msgid "Anyone can edit this page."
+msgstr "所有人都能编辑此页面"
 
 msgid "Lock"
 msgstr "锁定"
@@ -1356,11 +1470,53 @@ msgstr "私有设置也会应用到此页面的所有子页面。"
 msgid "Page status: "
 msgstr "页面状态: "
 
+msgid "Status: "
+msgstr "状态："
+
+msgid "Expiry:"
+msgstr "到期时间："
+
+msgid "Edit schedule"
+msgstr "编辑计划"
+
+msgid "In Moderation"
+msgstr "审核中"
+
 msgid "View details"
 msgstr "查看详情"
 
 msgid "View history"
 msgstr "查看历史"
+
+msgid "No publishing schedule set"
+msgstr "没有设置发布计划"
+
+msgid "Set schedule"
+msgstr "设置计划"
+
+msgid "Preview in mobile size"
+msgstr "手机预览"
+
+msgid "Preview in tablet size"
+msgstr "平板预览"
+
+msgid "Preview in desktop size"
+msgstr "桌面预览"
+
+msgid "Preview in new tab"
+msgstr "新标签页预览"
+
+msgid "Loading"
+msgstr "加载中"
+
+msgid "Preview is out of date"
+msgstr "预览已过期"
+
+msgid "Preview mode"
+msgstr "预览模式"
+
+msgid "First published "
+msgstr "首次发布"
 
 msgid "Workflow progress"
 msgstr "工作流进展"
@@ -1416,6 +1572,12 @@ msgstr "跳到主要内容"
 
 msgid "View Wagtail quick actions"
 msgstr "查看Wagtail快捷动作"
+
+msgid "Warnings"
+msgstr "警告"
+
+msgid "Issues found"
+msgstr "发现的问题"
 
 msgid "Add a child page"
 msgstr "添加子页面"
@@ -1610,6 +1772,9 @@ msgstr "查看更多的批量动作"
 msgid "0 minutes"
 msgstr "0 分钟"
 
+msgid "just now"
+msgstr "刚刚"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s 之前"
@@ -1653,6 +1818,9 @@ msgstr "您的帐号设置已经修改成功。"
 msgid "You have been successfully logged out."
 msgstr "注销成功"
 
+msgid "Select"
+msgstr "选择"
+
 msgid "Collections"
 msgstr "集合"
 
@@ -1691,6 +1859,10 @@ msgstr "%(model_name)s '%(object)s' 已更新。"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 已创建。"
 
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "搜索 %(model_name)s"
+
 msgid "Editing"
 msgstr "正在编辑"
 
@@ -1699,6 +1871,10 @@ msgstr "最早的"
 
 msgid "Latest"
 msgstr "最近的"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' 未发布."
 
 msgid "Dashboard"
 msgstr "控制面板"
@@ -1973,6 +2149,15 @@ msgstr "等待我的审核"
 msgid "Workflows"
 msgstr "工作流"
 
+msgid "Page/Snippet ID"
+msgstr "页面/片段 ID"
+
+msgid "Page/Snippet Type"
+msgstr "页面/片段 类型"
+
+msgid "Page/Snippet Title"
+msgstr "页面/片段 标题"
+
 msgid "Workflow tasks"
 msgstr "工作流任务"
 
@@ -2045,6 +2230,9 @@ msgstr "任务 '%(object)s' 已禁用。"
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "任务 '%(task_name)s' 已启用。"
+
+msgid "Choose another"
+msgstr "选择另一个"
 
 msgid "Pages"
 msgstr "页面"
@@ -2135,6 +2323,16 @@ msgstr "代码"
 
 msgid "Reports"
 msgstr "报告"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Wagtail %(version)s 的新功能"
+
+msgid "Editor Guide"
+msgstr "编辑指南"
+
+msgid "Help"
+msgstr "帮助"
 
 msgid "Yes"
 msgstr "是"

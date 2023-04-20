@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Estonian (https://www.transifex.com/torchbox/teams/8009/et/)\n"
+"Language-Team: Estonian (https://app.transifex.com/torchbox/teams/8009/et/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

@@ -36,6 +36,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ("ru", "Russian"),
     ("sv", "Swedish"),
     ("sk-sk", "Slovak"),
+    ("sl", "Slovenian"),
     ("th", "Thai"),
     ("tr", "Turkish"),
     ("uk", "Ukrainian"),

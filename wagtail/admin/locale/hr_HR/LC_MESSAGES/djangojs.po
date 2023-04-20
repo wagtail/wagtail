@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
+"Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: hr_HR\n"

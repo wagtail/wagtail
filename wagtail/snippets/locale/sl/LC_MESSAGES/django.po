@@ -16,7 +16,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,6 +72,14 @@ msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' izbrisan."
 
 #, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s izbrisan."
+msgstr[1] "%(count)d %(model_name)s izbrisana."
+msgstr[2] "%(count)d %(model_name)s izbrisani."
+msgstr[3] "%(count)d %(model_name)s izbrisani."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Izbriši %(snippet_type_name)s"
 
@@ -95,11 +103,33 @@ msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr ""
 "Ali ste prepričani, da želite izbrisati %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nimate pravice za izbris %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Nimate pravice za izbris %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Žal, noben delec ne ustreza \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Ustvarili niste nobenega %(snippet_type_name)s delca. Zakaj nebi <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">ustvarili enega sedaj</a>?"
 
 msgid "Usage"
 msgstr "Uporaba"
@@ -138,6 +168,10 @@ msgstr "Nov"
 msgid "Actions"
 msgstr "Dejanja"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Urejam %(snippet_type_name)s - %(object)s"
+
 msgid "Toggle breadcrumbs"
 msgstr "Preklop navigacijske sledi"
 
@@ -151,11 +185,31 @@ msgstr "Delci"
 msgid "New: %(model_name)s"
 msgstr "Nov: %(model_name)s"
 
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Urejam %(snippet_type)s %(title)s"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Zgodovina delca za %(subtitle)s"
+
 msgid "Edit this snippet"
 msgstr "Uredite ta delček"
 
 msgid "No log entries found."
 msgstr "Najden ni bil noben vnos v dnevnik."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Žal, noben %(snippet_type_name_plural)s ne ustreza vaši poizvedbi"
 
 #, python-format
 msgid ""
@@ -196,6 +250,9 @@ msgstr "Delci %(snippet_type_name_plural)s"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Dodaj %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Izberite vse delce na seznamu"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -248,6 +305,10 @@ msgstr "Zgodovina odrezka"
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr "Uredi ta %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Zgodovina %(model_name)s"
 
 #, python-format
 msgid "Edit '%(title)s'"

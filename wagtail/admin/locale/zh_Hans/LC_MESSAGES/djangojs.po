@@ -8,13 +8,13 @@
 # Ed <724195301@qq.com>, 2022
 # Favo Yang <favoyang@gmail.com>, 2022
 # Yin Guanhao <sopium@mysterious.site>, 2022
-# Ford Guo <agile.guo@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Ford Guo <agile.guo@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/torchbox/"
 "teams/8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: zh_CN\n"
@@ -35,8 +35,14 @@ msgstr "无效链接"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Character count:"
+msgstr "字符数:"
+
 msgid "Close"
 msgstr "关闭"
+
+msgid "Collapse all"
+msgstr "全部收起"
 
 msgid "Comment"
 msgstr "评论"
@@ -53,6 +59,9 @@ msgstr "删除"
 msgid "Delete error"
 msgstr "删除错误"
 
+msgid "Deleting"
+msgstr "删除中"
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -61,6 +70,15 @@ msgstr "编辑 '%(title)s'"
 
 msgid "Edit your account"
 msgstr "编辑账户"
+
+msgid "Enter your comments..."
+msgstr "输入你的注释"
+
+msgid "Enter your reply..."
+msgstr "输入你的答复"
+
+msgid "Expand all"
+msgstr "全部展开"
 
 msgid "Focus comment"
 msgstr "聚焦评论"
@@ -94,6 +112,9 @@ msgstr "页面管理"
 
 msgid "Pages"
 msgstr "页面"
+
+msgid "Pin toolbar"
+msgstr "固定工具栏"
 
 msgid "Reload saved content"
 msgstr "重新加载已保存内容"
@@ -136,6 +157,9 @@ msgstr "正在保存……"
 msgid "Search"
 msgstr "搜索"
 
+msgid "Search options…"
+msgstr "搜索项…"
+
 msgid "See all"
 msgstr "查看全部"
 
@@ -163,6 +187,9 @@ msgstr "切换侧边栏"
 
 msgid "Unfocus comment"
 msgstr "取消聚焦评论"
+
+msgid "Unpin toolbar"
+msgstr "取消固定工具栏"
 
 msgid "View child pages of '%(title)s'"
 msgstr "查看 '%(title)s' 的子页面"

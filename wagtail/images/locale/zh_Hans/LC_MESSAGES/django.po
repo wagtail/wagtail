@@ -9,6 +9,7 @@
 # Favo Yang <favoyang@gmail.com>, 2022
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2023
 # Yin Guanhao <sopium@mysterious.site>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
@@ -20,8 +21,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>, 2020-2021\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -164,6 +165,11 @@ msgstr "图片"
 msgid "images"
 msgstr "图片"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "添加标签到 %(counter)s 个图片"
+
 msgid "Add tags to images"
 msgstr "给图片添加标签"
 
@@ -230,8 +236,25 @@ msgstr "已存在"
 msgid "New"
 msgstr "新建"
 
+msgid "Use new image"
+msgstr "使用新图片"
+
+msgid "Use existing and delete new"
+msgstr "使用已存在并删除新的"
+
 msgid "Latest images"
 msgstr "最新图片"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "选择 %(title)s"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"为什么不 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>立"
+"刻上传一个</a>呢?"
 
 msgid "Choose a format"
 msgstr "选择格式"
@@ -253,6 +276,12 @@ msgstr "保存"
 
 msgid "Delete image"
 msgstr "删除图片"
+
+msgid "Keep new image"
+msgstr "保留新图片"
+
+msgid "Delete new image"
+msgstr "删除新图片"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -301,6 +330,11 @@ msgstr "热门标签"
 
 msgid "Select all images in listing"
 msgstr "选择列表中的所有图片"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "总共有 %(counter)s 条匹配"
 
 msgid "Select image"
 msgstr "选择图片"
@@ -351,6 +385,9 @@ msgstr "使用情况"
 
 msgid "Title"
 msgstr "标题"
+
+msgid "Field"
+msgstr "字段"
 
 msgid "Add multiple images"
 msgstr "添加多个图片"
@@ -445,6 +482,15 @@ msgstr "选择另一个图片"
 
 msgid "Edit this image"
 msgstr "编辑此图片"
+
+msgid "Newest"
+msgstr "最新"
+
+msgid "Title: (A -> Z)"
+msgstr "标题: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "标题: (Z -> A)"
 
 msgid "Search images"
 msgstr "搜索图片"

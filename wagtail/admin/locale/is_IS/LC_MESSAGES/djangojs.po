@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
-"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: is_IS\n"
