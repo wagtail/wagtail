@@ -94,4 +94,14 @@
   .control-cell ul.add-column-menu {
     top: 0;
   }
+
+  .w-field--commentable {
+    // Add enough space for the comment button.
+    padding-inline-end: theme('spacing.8');
+  }
+
+  .w-field--draftail_rich_text_area {
+    // Add enough space for the block picker.
+    padding-inline-start: theme('spacing.9');
+  }
 }
