@@ -53,6 +53,7 @@ $box-padding: 20px;
 
   &__notice {
     background-color: theme('colors.warning.50');
+    color: theme('colors.grey.600');
     position: absolute;
     inset-inline-start: -$box-padding;
     bottom: 0;
