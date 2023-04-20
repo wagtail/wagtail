@@ -93,7 +93,11 @@ jobs:
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
             postgres: 'postgres:12'
-            install_extras: 'pip uninstall -y django-modelcluster ; pip install git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster'
+            install_extras: |
+              pip uninstall -y django-modelcluster django-taggit
+              pip install \
+                git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster \
+                git+https://github.com/laymonage/django-taggit.git@django-5.0#egg=django-taggit
 
     services:
       postgres:
