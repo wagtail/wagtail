@@ -19,6 +19,7 @@
       w-right-0
       w-top-full
       w-h-[calc(100vh-100%)]
+      w-invisible
       w-transform
       w-translate-x-full
       rtl:-w-translate-x-full
@@ -44,7 +45,7 @@
   }
 
   &--open {
-    @apply w-translate-x-0 rtl:w-translate-x-0;
+    @apply w-translate-x-0 rtl:w-translate-x-0 w-visible;
   }
 
   &--initial {
