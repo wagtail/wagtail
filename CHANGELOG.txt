@@ -90,6 +90,7 @@ Changelog
  * Fix: When i18n is not enabled, avoid making a Locale query on every page view (Dan Braghis)
  * Fix: Fix initialisation of commenting widgets within StreamField (Thibaud Colas)
  * Fix: Fix various regressions in the commenting UI (Thibaud Colas)
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
