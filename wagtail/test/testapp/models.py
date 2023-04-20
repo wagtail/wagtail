@@ -44,7 +44,7 @@ from wagtail.blocks import (
     StreamBlock,
     StructBlock,
 )
-from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.contrib.forms.forms import FormBuilder, WagtailAdminFormPageForm
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES,
     AbstractEmailForm,
@@ -715,17 +715,36 @@ class FormPageWithRedirect(AbstractEmailForm):
 # FormPage with a custom FormSubmission
 
 
+class FormPageWithCustomSubmissionForm(WagtailAdminFormPageForm):
+    """
+    Used to validate that admin forms can validate the page's submissions via
+    extending the form class.
+    """
+
+    def clean(self):
+        cleaned_data = super().clean()
+        from_address = cleaned_data.get("from_address")
+        if from_address and "example.com" in from_address:
+            raise ValidationError("Email cannot be from example.com")
+
+        return cleaned_data
+
+
 class FormPageWithCustomSubmission(AbstractEmailForm):
     """
-    This Form page:
-        * Have custom submission model
-        * Have custom related_name (see `FormFieldWithCustomSubmission.page`)
-        * Saves reference to a user
-        * Doesn't render html form, if submission for current user is present
+    A ``FormPage`` with a custom FormSubmission and other extensive customizations:
+
+    * A custom submission model
+    * A custom related_name (see `FormFieldWithCustomSubmission.page`)
+    * Saves reference to a user
+    * Doesn't render html form, if submission for current user is present
+    * A custom clean method that does not allow the ``from_address`` to be set to anything including example.com
     """
 
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
+
+    base_form_class = FormPageWithCustomSubmissionForm
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
