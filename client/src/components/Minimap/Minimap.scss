@@ -3,6 +3,7 @@ $minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
 $minimap-width: 260px;
 $minimap-collapsed-width-mobile: 20px;
 $minimap-collapsed-width: 30px;
+$minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
 
 @import './CollapseAll';
@@ -97,6 +98,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
@@ -108,6 +110,10 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   overflow-x: hidden;
   list-style-type: none;
 
+  :where(.w-minimap--expanded) & {
+    padding-inline-start: $minimap-overflow;
+  }
+
   > li {
     display: flex;
   }
@@ -117,6 +123,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
