@@ -173,11 +173,12 @@ class SelectDateForm(django.forms.Form):
 
 class WagtailAdminFormPageForm(WagtailAdminPageForm):
     def clean(self):
-        super().clean()
+        cleaned_data = super().clean()
+        related_name = "form_fields"
 
         # Check for duplicate form fields by comparing their internal clean_names
         if "form_fields" in self.formsets:
-            forms = self.formsets["form_fields"].forms
+            forms = self.formsets[related_name].forms
             for form in forms:
                 form.is_valid()
 
@@ -193,7 +194,7 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             if duplicate_clean_name:
                 duplicate_form_field = next(
                     f
-                    for f in self.formsets["form_fields"].forms
+                    for f in self.formsets[related_name].forms
                     if f.instance.get_field_clean_name() == duplicate_clean_name
                 )
                 duplicate_form_field.add_error(
@@ -205,3 +206,5 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                         % {"label_name": duplicate_form_field.instance.label}
                     ),
                 )
+
+        return cleaned_data

@@ -2085,6 +2085,35 @@ class TestFormPageCreate(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:edit", args=(page.id,))
         )
 
+    def test_form_page_creation_error_with_custom_clean_method(self):
+        """
+        CustomFormPageSubmission uses a custom `base_form_class` with a clean method
+        that will raise a ValidationError if the from email contains 'example.com'.
+        """
+
+        post_data = {
+            "title": "Drink selection",
+            "slug": "drink-selection",
+            "from_address": "bad@example.com",
+        }
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpagewithcustomsubmission", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response, "The page could not be created due to validation errors"
+        )
+        self.assertContains(
+            response, "<li>Email cannot be from example.com</li>", count=1
+        )
+
 
 class TestFormPageEdit(WagtailTestUtils, TestCase):
     def setUp(self):
