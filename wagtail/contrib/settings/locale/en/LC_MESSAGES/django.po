@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:27
+#: forms.py:26
 msgid "default"
 msgstr ""
 
-#: models.py:148
+#: models.py:144
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr ""
@@ -40,11 +40,11 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsettings/edit.html:31
+#: templates/wagtailsettings/edit.html:36
 msgid "Saving…"
 msgstr ""
 
-#: templates/wagtailsettings/edit.html:31
+#: templates/wagtailsettings/edit.html:39
 msgid "Save"
 msgstr ""
 
@@ -57,11 +57,11 @@ msgstr ""
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 
-#: views.py:115 views.py:162
+#: views.py:114 views.py:161
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr ""
 
-#: views.py:124 views.py:171
+#: views.py:123 views.py:170
 msgid "The setting could not be saved due to errors."
 msgstr ""

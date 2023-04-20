@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,39 +22,43 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:12
-#: templates/wagtailstyleguide/base.html:16 wagtail_hooks.py:20
+#: templates/wagtailstyleguide/base.html:10
+#: templates/wagtailstyleguide/base.html:18 wagtail_hooks.py:20
 msgid "Styleguide"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:524
+#: templates/wagtailstyleguide/base.html:15
+msgid "Minimap"
+msgstr ""
+
+#: templates/wagtailstyleguide/base.html:529
 msgid "Save"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:524
+#: templates/wagtailstyleguide/base.html:529
 msgid "Delete image"
 msgstr ""
 
-#: views.py:76
+#: views.py:100
 msgid "Search something"
 msgstr ""
 
-#: views.py:82
+#: views.py:106
 msgid "Success message"
 msgstr ""
 
-#: views.py:83 views.py:88 views.py:93
+#: views.py:107 views.py:112 views.py:117
 msgid "View live"
 msgstr ""
 
-#: views.py:83 views.py:88 views.py:93
+#: views.py:107 views.py:112 views.py:117
 msgid "Edit"
 msgstr ""
 
-#: views.py:87
+#: views.py:111
 msgid "Warning message"
 msgstr ""
 
-#: views.py:92
+#: views.py:116
 msgid "Error message"
 msgstr ""

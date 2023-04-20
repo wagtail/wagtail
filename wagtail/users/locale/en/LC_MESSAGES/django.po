@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,11 +136,27 @@ msgstr ""
 msgid "profile picture"
 msgstr ""
 
-#: models.py:89
+#: models.py:76
+msgid "System default"
+msgstr ""
+
+#: models.py:77
+msgid "Light"
+msgstr ""
+
+#: models.py:78
+msgid "Dark"
+msgstr ""
+
+#: models.py:81
+msgid "admin theme"
+msgstr ""
+
+#: models.py:101
 msgid "user profile"
 msgstr ""
 
-#: models.py:90
+#: models.py:102
 msgid "user profiles"
 msgstr ""
 
@@ -362,7 +378,7 @@ msgid "Are you sure you want to delete this user?"
 msgstr ""
 
 #: templates/wagtailusers/users/create.html:6
-#: templates/wagtailusers/users/create.html:63 views/users.py:150
+#: templates/wagtailusers/users/create.html:64 views/users.py:150
 msgid "Add user"
 msgstr ""
 
@@ -396,7 +412,7 @@ msgid "Username"
 msgstr ""
 
 #: templates/wagtailusers/users/list.html:28
-msgid "Level"
+msgid "Access level"
 msgstr ""
 
 #: templates/wagtailusers/users/list.html:29
@@ -411,12 +427,12 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:48
+#: templates/wagtailusers/users/list.html:50
 #: views/bulk_actions/set_active_state.py:11
 msgid "Active"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:48
+#: templates/wagtailusers/users/list.html:53
 #: views/bulk_actions/set_active_state.py:11
 msgid "Inactive"
 msgstr ""
