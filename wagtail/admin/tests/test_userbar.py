@@ -222,7 +222,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         self.assertGreater(len(config.keys()), 0)
 
     def test_messages(self):
-        # Should include the Wagtail's error messages
+        # Should include Wagtail's error messages
         config = self.get_config()
         self.assertIsInstance(config.get("messages"), dict)
         self.assertEqual(
@@ -261,9 +261,9 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         class UnsetRunOnlyAccessibilityItem(AccessibilityItem):
             # Example config that unsets the runOnly property so that all
             # non-experimental rules are run, but the experimental
-            # color-contrast-enhanced rule is explicitly enabled
+            # focus-order-semantics rule is explicitly enabled
             axe_run_only = None
-            axe_rules = {"color-contrast-enhanced": {"enabled": True}}
+            axe_rules = {"focus-order-semantics": {"enabled": True}}
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
@@ -273,8 +273,8 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             self.assertEqual(
                 config["options"],
                 # Should not include the runOnly property, but should include
-                # the color-contrast-enhanced rule
-                {"rules": {"color-contrast-enhanced": {"enabled": True}}},
+                # the focus-order-semantics rule
+                {"rules": {"focus-order-semantics": {"enabled": True}}},
             )
 
     def test_custom_context(self):

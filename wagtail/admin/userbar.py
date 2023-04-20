@@ -46,6 +46,7 @@ class AccessibilityItem(BaseItem):
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
     #: (not a mix of both).
+    #: Setting this to a falsy value (e.g. ``None``) will omit the ``runOnly`` option and make Axe run with all non-experimental rules enabled.
     axe_run_only = [
         "button-name",
         "empty-heading",
