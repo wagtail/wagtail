@@ -174,7 +174,7 @@ function initTable(id, tableOptions) {
     // Render the table. Calling render also removes 'null' literals from empty cells.
     hot.render();
     resizeHeight(getHeight());
-    resizeWidth(getWidth());
+    window.dispatchEvent(new Event('resize'));
   });
 }
 window.initTable = initTable;
