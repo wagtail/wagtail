@@ -60,6 +60,7 @@ If you are developing packages for Wagtail, you can add the following [PyPI](htt
 -   [`Framework :: Wagtail :: 2`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+2)
 -   [`Framework :: Wagtail :: 3`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+3)
 -   [`Framework :: Wagtail :: 4`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+4)
+-   [`Framework :: Wagtail :: 5`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+5)
 
 You can also find a curated list of awesome packages, articles, and other cool resources from the Wagtail community at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
