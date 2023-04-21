@@ -399,10 +399,6 @@ You can publish revisions programmatically by calling {meth}`instance.publish(re
 
 If you use the scheduled publishing feature, make sure that you run the [`publish_scheduled`](publish_scheduled) management command periodically. For more details, see [](scheduled_publishing).
 
-```{versionadded} 4.2
-For models that extend `DraftStateMixin`, `publish` permissions are automatically created.
-```
-
 Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 ```{warning}
@@ -412,10 +408,6 @@ Wagtail does not yet have a mechanism to prevent editors from including unpublis
 (wagtailsnippets_locking_snippets)=
 
 ## Locking snippets
-
-```{versionadded} 4.2
-The `LockableMixin` class was introduced.
-```
 
 If a snippet model inherits from {class}`~wagtail.models.LockableMixin`, Wagtail will automatically add the ability to lock instances of the model. When editing, Wagtail will show the locking information in the "Status" side panel, and a button to lock/unlock the instance if the user has the permission to do so.
 
@@ -452,10 +444,6 @@ Locking and unlocking a snippet instance requires `lock` and `unlock` permission
 (wagtailsnippets_enabling_workflows)=
 
 ## Enabling workflows for snippets
-
-```{versionadded} 4.2
-The `WorkflowMixin` class was introduced.
-```
 
 If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
 

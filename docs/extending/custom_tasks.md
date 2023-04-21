@@ -143,10 +143,6 @@ def locked_for_user(self, obj, user):
     return user != self.user
 ```
 
-```{versionchanged} 4.2
-This method was previously named ``page_locked_for_user``, using ``page_locked_for_user`` will be removed in a future release. Along with the other similar methods, the ``obj`` parameter was previously named ``page``.
-```
-
 `Task.get_actions(obj, user)`:
 
 This returns a list of `(action_name, action_verbose_name, action_requires_additional_data_from_modal)` tuples, corresponding to the actions available for the task in the edit view menu.

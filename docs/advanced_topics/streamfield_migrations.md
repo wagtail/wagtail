@@ -210,10 +210,6 @@ class Migration(migrations.Migration):
 
 ## StreamField data migrations
 
-```{versionadded} 4.2
-The `wagtail.blocks.migrations` modules were added.
-```
-
 Wagtail provides a set of utilities for creating data migrations on StreamField data. These are exposed through the modules:
 
 -   `wagtail.blocks.migrations.migrate_operation`

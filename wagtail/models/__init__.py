@@ -3680,9 +3680,6 @@ class Task(models.Model):
         """
         Returns True if the object should be locked to a given user's edits.
         This can be used to prevent editing by non-reviewers.
-
-        .. versionchanged:: 4.2
-          This method has been renamed from ``page_locked_for_user`` to ``locked_for_user``.
         """
         if hasattr(self, "page_locked_for_user"):
             warnings.warn(
