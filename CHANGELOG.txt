@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
+
+
 5.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
