@@ -88,10 +88,6 @@ Here are some built-in panel types that you can use in your panel definitions. T
 (multiple_chooser_panel)=
 ### MultipleChooserPanel
 
-```{versionadded} 4.2
-The `MultipleChooserPanel` panel type was added.
-```
-
 ````{class} MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, label='', min_num=None, max_num=None, **kwargs)
 
 This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
