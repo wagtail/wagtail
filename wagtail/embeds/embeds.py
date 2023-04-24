@@ -1,8 +1,9 @@
 from datetime import datetime
+from hashlib import md5
 
 from django.utils.timezone import now
 
-from wagtail.coreutils import accepts_kwarg, safe_md5
+from wagtail.coreutils import accepts_kwarg
 
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
@@ -65,7 +66,8 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
 
 
 def get_embed_hash(url, max_width=None, max_height=None):
-    h = safe_md5(url.encode("utf-8"), usedforsecurity=False)
+    h = md5()
+    h.update(url.encode("utf-8"))
     if max_width is not None:
         h.update(b"\n")
         h.update(str(max_width).encode("utf-8"))
