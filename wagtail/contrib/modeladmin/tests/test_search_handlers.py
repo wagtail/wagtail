@@ -20,7 +20,6 @@ class FakeSearchBackend:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=True,
     ):
         return {
             "query": query,
@@ -28,7 +27,6 @@ class FakeSearchBackend:
             "fields": fields,
             "operator": operator,
             "order_by_relevance": order_by_relevance,
-            "partial_match": partial_match,
         }
 
 
@@ -110,7 +108,6 @@ class TestSearchBackendHandler(TestCase):
                 "fields": None,
                 "operator": None,
                 "order_by_relevance": True,
-                "partial_match": True,
             },
         )
 
@@ -134,7 +131,6 @@ class TestSearchBackendHandler(TestCase):
                 "fields": search_fields,
                 "operator": None,
                 "order_by_relevance": True,
-                "partial_match": True,
             },
         )
 
@@ -157,7 +153,6 @@ class TestSearchBackendHandler(TestCase):
                 "fields": None,
                 "operator": None,
                 "order_by_relevance": False,
-                "partial_match": True,
             },
         )
 

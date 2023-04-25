@@ -5,11 +5,6 @@
     margin-bottom: theme('spacing.2');
   }
 
-  .w-field__input {
-    // Remove unnecessary padding so that the fields fit within the dialog
-    padding-inline-end: 0;
-  }
-
   .w-field--date_time_field input {
     width: 100%;
   }

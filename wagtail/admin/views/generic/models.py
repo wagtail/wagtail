@@ -83,8 +83,10 @@ class IndexView(
     page_kwarg = "p"
     default_ordering = None
     search_fields = None
+    search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
+    use_autocomplete = False
     filters = None
     filterset_class = None
     table_class = Table
@@ -258,8 +260,12 @@ class IndexView(
         if not self.search_query:
             return queryset
 
-        if class_is_indexed(queryset.model):
-            search_backend = get_search_backend()
+        if class_is_indexed(queryset.model) and self.search_backend_name:
+            search_backend = get_search_backend(self.search_backend_name)
+            if self.use_autocomplete:
+                return search_backend.autocomplete(
+                    self.search_query, queryset, fields=self.search_fields
+                )
             return search_backend.search(
                 self.search_query, queryset, fields=self.search_fields
             )
@@ -755,6 +761,7 @@ class DeleteView(
 
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
+    edit_handler = None
     edit_url_name = None
     history_url_name = None
     edit_label = gettext_lazy("Edit")
@@ -773,6 +780,8 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_edit_handler(self):
+        if self.edit_handler:
+            return self.edit_handler
         return get_edit_handler(self.model)
 
     def get_page_subtitle(self):

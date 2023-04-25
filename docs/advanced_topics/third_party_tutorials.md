@@ -6,6 +6,8 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Build a Website Without Any Coding with Traleor (& Wagtail) in Just 10 Minutes (video)](https://www.youtube.com/watch?v=IQY0dzo2Wzg) (19 March 2023)
+-   [Getting Started with Wagtail: A Beginner’s Installation Guide (Windows)](https://medium.com/@dencomac/getting-started-with-wagtail-a-beginners-installation-guide-a5671da1eccc) (9 March 2023)
 -   [Introduction to Stimulus in Wagtail for contributors (video)](https://youtu.be/5WS7B8R0x0U) (28 February 2023)
 -   [How to pick a good Wagtail package](https://wagtail.org/blog/pick-out-packages/) (1 February 2023)
 -   [Dockerized Wagtail 4 + NuxtJS 3 + Graphene 3 + Vuetify 3 (with template)](https://dev.to/ordigital/dockerized-wagtail-4-nuxtjs-3-graphene-3-vuetify-3-1n8m) (26 January 2023)

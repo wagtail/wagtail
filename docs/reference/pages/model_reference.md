@@ -603,11 +603,7 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 ## `LockableMixin`
 
 `LockableMixin` is an abstract model that can be added to any non-page Django model to allow its instances to be locked.
-Pages already include this mixin, so there is no need to add it.
-
-```{versionadded} 4.2
-The model is added to allow snippets to be locked. See [](wagtailsnippets_locking_snippets) for more details.
-```
+Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_locking_snippets) for more details.
 
 ### Database fields
 
@@ -647,11 +643,7 @@ The model is added to allow snippets to be locked. See [](wagtailsnippets_lockin
 ## `WorkflowMixin`
 
 `WorkflowMixin` is a mixin class that can be added to any non-page Django model to allow its instances to be submitted to workflows.
-This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.models.DraftStateMixin` to be applied. Pages already include this mixin, so there is no need to add it.
-
-```{versionadded} 4.2
-The model is added to allow snippets to be submitted for moderation. See [](wagtailsnippets_enabling_workflows) for more details.
-```
+This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.models.DraftStateMixin` to be applied. Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_enabling_workflows) for more details.
 
 ### Methods and properties
 
@@ -908,10 +900,6 @@ Workflow states represent the status of a started workflow on an object.
 
         The object on which the workflow has been started. For page workflows, the object is an instance of the base ``Page`` model.
 
-        .. versionchanged:: 4.2
-
-           This field has been changed from a ``ForeignKey`` to ``Page`` into a :class:`~django.contrib.contenttypes.fields.GenericForeignKey` to any Django model instance.
-
     .. attribute:: content_type
 
         (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
@@ -1081,10 +1069,6 @@ Task states store state information about the progress of a task on a particular
         (foreign key to :class:`~wagtail.models.Revision`)
 
         The revision this task state was created on.
-
-        .. versionchanged:: 4.2
-
-           This field has been renamed from ``page_revision`` to ``revision``.
 
     .. attribute:: task
 

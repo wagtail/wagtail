@@ -29,7 +29,7 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
   }
 
   &:checked::before {
-    background: $color-teal;
+    background: theme('colors.border-button-outline-default');
 
     @media (forced-colors: active) {
       background: Highlight;

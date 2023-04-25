@@ -7,6 +7,7 @@
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2023
 # Yin Guanhao <sopium@mysterious.site>, 2020
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
@@ -20,8 +21,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,6 +75,11 @@ msgstr "文档"
 msgid "documents"
 msgstr "文档"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "添加标签到 %(counter)s 个文档"
+
 msgid "Add tags to documents"
 msgstr "给文档添加标签"
 
@@ -106,6 +112,11 @@ msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "您没有将这些文档添加到集合的权限"
 
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "删除 %(counter)s 个文档"
+
 msgid "Delete documents"
 msgstr "删除文档"
 
@@ -136,6 +147,13 @@ msgstr "你还没有上传任何文档到这个集合。"
 
 msgid "You haven't uploaded any documents."
 msgstr "你还没有上传任何文档。"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"为什么不 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>立"
+"刻上传一个</a>呢?"
 
 msgid "Change document:"
 msgstr "修改文档："
@@ -197,6 +215,11 @@ msgid "Select document"
 msgstr "选择文档"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "总共有 %(counter)s 条匹配"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
@@ -222,6 +245,9 @@ msgstr "%(title)s的使用情况"
 
 msgid "Usage of"
 msgstr "使用情况"
+
+msgid "Field"
+msgstr "字段"
 
 msgid "Add multiple documents"
 msgstr "添加多个文档"

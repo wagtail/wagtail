@@ -73,7 +73,7 @@
             {% endblock %}
 
             {% if show_add_comment_button %}
-                <button class="w-field__comment-button w-field__comment-button--add u-hidden" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_for %}aria-describedby="{{ label_id }}"{% endif %}>
+                <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_for %}aria-describedby="{{ label_id }}"{% endif %}>
                     {% icon name="comment-add" %}
                     {% icon name="comment-add-reversed" %}
                 </button>

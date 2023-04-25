@@ -316,6 +316,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "AND"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
+    FTS_TABLE_FIELDS = ["title", "body"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -516,7 +517,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             )  # We add the subsequent vectors to the combined vector.
 
         # Build the FTS match expression.
-        expr = MatchExpression(self.fields or ["title", "body"], search_query)
+        expr = MatchExpression(self.fields or self.FTS_TABLE_FIELDS, search_query)
         # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
         objs = (
             SQLiteFTSIndexEntry.objects.filter(expr)
@@ -589,6 +590,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 class SQLiteAutocompleteQueryCompiler(SQLiteSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
     TARGET_SEARCH_FIELD_TYPE = AutocompleteField
+    FTS_TABLE_FIELDS = ["autocomplete"]
 
     def get_config(self, backend):
         return backend.autocomplete_config
@@ -596,11 +598,8 @@ class SQLiteAutocompleteQueryCompiler(SQLiteSearchQueryCompiler):
     def get_search_fields_for_model(self):
         return self.queryset.model.get_autocomplete_search_fields()
 
-    def get_index_vectors(self, search_query):
+    def get_index_vectors(self):
         return [(F("index_entries__autocomplete"), 1.0)]
-
-    def get_fields_vectors(self, search_query):
-        raise NotImplementedError()
 
 
 class SQLiteSearchResults(BaseSearchResults):
@@ -656,10 +655,7 @@ class SQLiteSearchResults(BaseSearchResults):
 
 class SQLiteSearchBackend(BaseSearchBackend):
     query_compiler_class = SQLiteSearchQueryCompiler
-
-    # FIXME: the implementation of SQLiteAutocompleteQueryCompiler is incomplete -
-    # leave this undefined so that we get a clean NotImplementedError from BaseSearchBackend
-    # autocomplete_query_compiler_class = SQLiteAutocompleteQueryCompiler
+    autocomplete_query_compiler_class = SQLiteAutocompleteQueryCompiler
 
     results_class = SQLiteSearchResults
     rebuilder_class = SQLiteSearchRebuilder
@@ -668,7 +664,10 @@ class SQLiteSearchBackend(BaseSearchBackend):
     def __init__(self, params):
         super().__init__(params)
         self.index_name = params.get("INDEX", "default")
-        self.config = params.get("SEARCH_CONFIG")
+
+        # SQLite backend currently has no config options
+        self.config = None
+        self.autocomplete_config = None
 
         if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class

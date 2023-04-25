@@ -39,6 +39,15 @@ const colors = {
       usage: 'Body copy, user content',
       contrastText: 'white',
     },
+    500: {
+      hex: '#333333',
+      hsl: 'hsl(0 0% 20%)',
+      bgUtility: 'w-bg-grey-500',
+      textUtility: 'w-text-grey-500',
+      cssVariable: '--w-color-grey-500',
+      usage: 'Panels, dividers in dark mode',
+      contrastText: 'white',
+    },
     400: {
       hex: '#5C5C5C',
       hsl: 'hsl(0 0% 36.1%)',
@@ -224,7 +233,7 @@ const colors = {
       contrastText: 'primary',
     },
     50: {
-      hex: '#FAECD5',
+      hex: '#FFF5D8',
       hsl: 'hsl(37.3 78.7% 90.8%)',
       bgUtility: 'w-bg-warning-50',
       textUtility: 'w-text-warning-50',

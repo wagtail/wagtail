@@ -136,6 +136,14 @@ You can prevent logs to the console by providing `--verbosity 0` as an argument:
 python manage.py rebuild_references_index --verbosity 0
 ```
 
+## show_references_index
+
+```sh
+./manage.py show_references_index
+```
+
+Displays a summary of the contents of the references index. This shows the number of objects indexed against each model type, and can be useful to identify which models are being indexed without rebuilding the index itself.
+
 ## search_garbage_collect
 
 ```sh

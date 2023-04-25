@@ -19,7 +19,7 @@
 
 @include media-breakpoint-up(sm) {
   .divider-before {
-    border-inline-start: 1px solid $color-grey-4;
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
 

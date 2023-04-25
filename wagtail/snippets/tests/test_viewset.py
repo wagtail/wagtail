@@ -1,25 +1,46 @@
+from unittest import mock
+
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_permission_codename
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, Workflow, WorkflowContentType
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
+    RevisableChildModel,
+    RevisableModel,
     SnippetChooserModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+
+
+class TestIncorrectRegistration(TestCase):
+    def test_no_model_set_or_passed(self):
+        # The base SnippetViewSet class has no `model` attribute set,
+        # so using it directly should raise an error
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "SnippetViewSet must be passed a model or define a model attribute.",
+        ):
+            register_snippet(SnippetViewSet)
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
@@ -684,6 +705,13 @@ class TestCustomTemplates(BaseSnippetViewSetTests):
                 [],
                 "tests/fullfeaturedsnippet_index.html",
             ),
+            "override index results template with namespaced template": (
+                # This is technically the same as the first case, but this ensures that
+                # the index results view can be overridden separately from the index view
+                "list_results",
+                [],
+                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/index_results.html",
+            ),
             "override with get_history_template": (
                 "history",
                 [pk],
@@ -715,3 +743,219 @@ class TestCustomQuerySet(BaseSnippetViewSetTests):
         self.assertContains(response, "FooSnippet")
         self.assertNotContains(response, "BarSnippet")
         self.assertNotContains(response, "[HIDDEN]Snippet")
+
+
+class TestCustomOrdering(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        default_locale = Locale.get_default()
+        objects = [
+            cls.model(text="CCCCCCCCCC", locale=default_locale),
+            cls.model(text="AAAAAAAAAA", locale=default_locale),
+            cls.model(text="DDDDDDDDDD", locale=default_locale),
+            cls.model(text="BBBBBBBBBB", locale=default_locale),
+        ]
+        cls.model.objects.bulk_create(objects)
+
+    def test_index_view_order(self):
+        response = self.client.get(self.get_url("list"))
+        # Should sort by text in descending order as specified in SnippetViewSet.ordering
+        # (not the default ordering of the model)
+        self.assertFalse(self.model._meta.ordering)
+        self.assertEqual(
+            [obj.text for obj in response.context["page_obj"]],
+            [
+                "AAAAAAAAAA",
+                "BBBBBBBBBB",
+                "CCCCCCCCCC",
+                "DDDDDDDDDD",
+            ],
+        )
+
+
+class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
+    model = DraftStateModel
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.first = cls.model.objects.create(
+            text="Wagtail is a Django-based CMS",
+        )
+        cls.second = cls.model.objects.create(
+            text="Django is a Python-based web framework",
+        )
+        cls.third = cls.model.objects.create(
+            text="Python is a programming-bas, uh, language",
+        )
+
+    def get(self, params={}, url_name="list"):
+        return self.client.get(self.get_url(url_name), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_empty_q(self):
+        response = self.get({"q": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+
+        # All objects should be in items
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second, self.third],
+        )
+
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+
+    def test_is_searchable(self):
+        self.assertTrue(self.get().context["is_searchable"])
+
+    def test_search_index_view(self):
+        response = self.get({"q": "Django"})
+
+        # Only objects with "Django" should be in items
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            list(response.context["page_obj"].object_list),
+            [self.first, self.second],
+        )
+
+    def test_search_index_results_view(self):
+        response = self.get({"q": "Python"}, url_name="list_results")
+
+        # Only objects with "Python" should be in items
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            list(response.context["object_list"]),
+            [self.second, self.third],
+        )
+
+
+class TestMenuItemRegistration(BaseSnippetViewSetTests):
+    def setUp(self):
+        super().setUp()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def test_add_to_admin_menu(self):
+        self.model = FullFeaturedSnippet
+        menu_items = admin_menu.render_component(self.request)
+        item = menu_items[-1]
+        self.assertEqual(item.name, "fullfeatured")
+        self.assertEqual(item.label, "Full-Featured MenuItem")
+        self.assertEqual(item.icon_name, "cog")
+        self.assertEqual(item.url, self.get_url("list"))
+
+    def test_add_to_settings_menu(self):
+        self.model = DraftStateModel
+        menu_items = settings_menu.render_component(self.request)
+        item = menu_items[0]
+        self.assertEqual(item.name, "publishables")
+        self.assertEqual(item.label, "Publishables")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, self.get_url("list"))
+
+    def test_group_registration(self):
+        menu_items = admin_menu.render_component(self.request)
+        revisables = [item for item in menu_items if item.name == "revisables"]
+        self.assertEqual(len(revisables), 1)
+
+        group_item = revisables[0]
+        self.assertEqual(group_item.label, "Revisables")
+        self.assertEqual(group_item.icon_name, "tasks")
+        self.assertEqual(len(group_item.menu_items), 2)
+
+        self.model = RevisableModel
+        revisable_item = group_item.menu_items[0]
+        self.assertEqual(revisable_item.name, "revisable-models")
+        self.assertEqual(revisable_item.label, "Revisable Models")
+        self.assertEqual(revisable_item.icon_name, "snippet")
+        self.assertEqual(revisable_item.url, self.get_url("list"))
+
+        self.model = RevisableChildModel
+        revisable_child_item = group_item.menu_items[1]
+        self.assertEqual(revisable_child_item.name, "revisable-child-models")
+        self.assertEqual(revisable_child_item.label, "Revisable Child Models")
+        self.assertEqual(revisable_child_item.icon_name, "snippet")
+        self.assertEqual(revisable_child_item.url, self.get_url("list"))
+
+    def test_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        menu_items = admin_menu.render_component(self.request)
+
+        # The menu items should not be present
+        item = [
+            item
+            for item in menu_items
+            if item.name in {"fullfeatured", "revisables", "publishables"}
+        ]
+        self.assertEqual(len(item), 0)
+
+    def test_basic_permissions(self):
+        self.model = DraftStateModel
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        for action in ("add", "change", "delete"):
+            with self.subTest(action=action):
+                permission = Permission.objects.get(
+                    content_type__app_label=self.model._meta.app_label,
+                    codename=get_permission_codename(action, self.model._meta),
+                )
+                self.user.user_permissions.add(permission)
+
+                menu_items = settings_menu.render_component(self.request)
+                item = menu_items[0]
+                self.assertEqual(item.name, "publishables")
+                self.assertEqual(item.label, "Publishables")
+                self.assertEqual(item.icon_name, "snippet")
+                self.assertEqual(item.url, self.get_url("list"))
+
+                self.user.user_permissions.remove(permission)
+
+    def test_snippets_menu_item_hidden_when_all_snippets_have_menu_item(self):
+        menu_items = admin_menu.menu_items_for_request(self.request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 1)
+        item = snippets[0]
+        self.assertEqual(item.name, "snippets")
+        self.assertEqual(item.label, "Snippets")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, reverse("wagtailsnippets:index"))
+
+        # Clear cached property
+        del item._all_have_menu_items
+
+        with mock.patch(
+            "wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item_is_registered"
+        ) as mock_registered:
+            mock_registered.return_value = True
+            menu_items = admin_menu.render_component(self.request)
+            snippets = [item for item in menu_items if item.name == "snippets"]
+            self.assertEqual(len(snippets), 0)

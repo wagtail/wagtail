@@ -58,7 +58,7 @@
       }
 
       .button:not(:hover) {
-        color: $color-teal;
+        color: theme('colors.surface-button-default');
       }
 
       .c-dropdown__menu {
@@ -88,7 +88,7 @@
     }
 
     .bulk-actions-buttons {
-      border-inline-start: 1px solid $color-grey-2;
+      border-inline-start: 1px solid theme('colors.icon-secondary');
       padding-inline-start: 1.5em;
 
       .bulk-action-btn {
@@ -103,7 +103,7 @@
     }
 
     .num-objects-in-listing {
-      color: theme('colors.secondary.100');
+      color: theme('colors.text-link-default');
       background-color: transparent;
       border: 0;
       font-family: $font-sans;
@@ -111,7 +111,7 @@
     }
 
     .button:not(:hover) {
-      background-color: $color-white;
+      background-color: theme('colors.surface-page');
     }
   }
 }

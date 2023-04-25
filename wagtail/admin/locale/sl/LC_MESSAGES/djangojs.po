@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Andrej Marsetič, 2023\n"
-"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
+"Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sl\n"

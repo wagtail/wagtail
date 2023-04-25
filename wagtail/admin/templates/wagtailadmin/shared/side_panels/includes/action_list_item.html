@@ -3,7 +3,7 @@
 
     {% block content %}
         <section class="w-flex w-space-x-3" aria-labelledby="status-sidebar-{{ title|cautious_slugify }}">
-            {% icon name=icon_name classname='w-w-4 w-h-4 w-text-primary w-flex-shrink-0 w-mt-0.5' %}
+            {% icon name=icon_name classname='w-w-4 w-h-4 w-text-text-label w-flex-shrink-0 w-mt-0.5' %}
 
             <div class="w-flex w-flex-1 w-items-start w-justify-between">
                 <div class="w-flex w-flex-col w-flex-1 w-pr-5">
@@ -17,7 +17,7 @@
                 </div>
                 {% block action %}
                     {% if not hide_action %}
-                        <a class="w-text-14 w-text-secondary hover:w-text-secondary-600 w-no-underline w-transition"
+                        <a class="w-text-14 w-text-text-link-default hover:w-text-text-link-hover w-no-underline w-transition"
                             href="{{ action_url }}"
                             aria-describedby="status-sidebar-{{ title|cautious_slugify }}"
                         >

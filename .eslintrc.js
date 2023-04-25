@@ -151,7 +151,6 @@ module.exports = {
         'docs/_static/**',
         'wagtail/contrib/modeladmin/static_src/wagtailmodeladmin/js/prepopulate.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
-        'wagtail/contrib/settings/static_src/wagtailsettings/js/site-switcher.js',
         'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',
         'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',

@@ -2,9 +2,9 @@
 
 # Snippets
 
-Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are Django models which do not inherit the {class}`~wagtail.models.Page` class and are thus not organised into the Wagtail tree. However, they can still be made editable by assigning panels and identifying the model as a snippet with the `register_snippet` class decorator.
+Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are Django models which do not inherit the {class}`~wagtail.models.Page` class and are thus not organised into the Wagtail tree. However, they can still be made editable by assigning panels and identifying the model as a snippet with the `register_snippet` class decorator or function.
 
-Snippets lack many of the features of pages, such as being orderable in the Wagtail admin or having a defined URL. Decide carefully if the content type you would want to build into a snippet might be more suited to a page.
+By default, snippets lack many of the features of pages, such as being orderable in the Wagtail admin or having a defined URL. Decide carefully if the content type you would want to build into a snippet might be more suited to a page.
 
 ## Snippet models
 
@@ -32,7 +32,7 @@ class Advert(models.Model):
         return self.text
 ```
 
-The `Advert` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for `Page`-derived models, with fields assigned in the `panels` property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
+The `Advert` model uses the basic Django model class and defines two properties: `url` and `text`. The editing interface is very close to that provided for `Page`-derived models, with fields assigned in the `panels` (or `edit_handler`) property. Unless configured further, snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
 
 `@register_snippet` tells Wagtail to treat the model as a snippet. The `panels` list defines the fields to show on the snippet editing page. It's also important to provide a string representation of the class through `def __str__(self):` so that the snippet objects make sense when listed in the Wagtail admin.
 
@@ -40,7 +40,7 @@ The `Advert` model uses the basic Django model class and defines two properties:
 
 The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for [custom template tags](django:howto/custom-template-tags) will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
 
-First, add a new python file to a `templatetags` folder within your app - for example, `myproject/demo/templatetags/demo_tags.py`. We'll need to load some Django modules and our app's models, and ready the `register` decorator:
+First, add a new Python file to a `templatetags` folder within your app - for example, `myproject/demo/templatetags/demo_tags.py`. We'll need to load some Django modules and our app's models, and ready the `register` decorator:
 
 ```python
 from django import template
@@ -266,7 +266,8 @@ class Advert(index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.SearchField('text', partial_match=True),
+        index.SearchField('text'),
+        index.AutocompleteField('text'),
     ]
 ```
 
@@ -398,10 +399,6 @@ You can publish revisions programmatically by calling {meth}`instance.publish(re
 
 If you use the scheduled publishing feature, make sure that you run the [`publish_scheduled`](publish_scheduled) management command periodically. For more details, see [](scheduled_publishing).
 
-```{versionadded} 4.2
-For models that extend `DraftStateMixin`, `publish` permissions are automatically created.
-```
-
 Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 ```{warning}
@@ -411,10 +408,6 @@ Wagtail does not yet have a mechanism to prevent editors from including unpublis
 (wagtailsnippets_locking_snippets)=
 
 ## Locking snippets
-
-```{versionadded} 4.2
-The `LockableMixin` class was introduced.
-```
 
 If a snippet model inherits from {class}`~wagtail.models.LockableMixin`, Wagtail will automatically add the ability to lock instances of the model. When editing, Wagtail will show the locking information in the "Status" side panel, and a button to lock/unlock the instance if the user has the permission to do so.
 
@@ -451,10 +444,6 @@ Locking and unlocking a snippet instance requires `lock` and `unlock` permission
 (wagtailsnippets_enabling_workflows)=
 
 ## Enabling workflows for snippets
-
-```{versionadded} 4.2
-The `WorkflowMixin` class was introduced.
-```
 
 If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
 
@@ -575,9 +564,11 @@ Similar URL customisations are also possible for the snippet chooser views throu
 
 The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing).
 
-To customise the base queryset for the listing view, you could override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_queryset` method.
+To customise the base queryset for the listing view, you could override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_queryset` method. Additionally, the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
 
 You can add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups. If you would like to customise it further, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
+
+Instead of defining the `panels` or `edit_handler` on the model class, they can also be defined on the `SnippetViewSet` class. If you would like to do more customisations of the panels, you can also override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_handler` method.
 
 For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
 
@@ -599,7 +590,7 @@ For some common views, Wagtail also allows you to override the template used by 
 An example of a custom `SnippetViewSet` subclass:
 
 ```python
-# views.py
+from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.snippets.views.snippets import SnippetViewSet
 
@@ -617,6 +608,11 @@ class MemberViewSet(SnippetViewSet):
     # list_filter = ["shirt_size"]
     # or
     # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
+
+    edit_handler = TabbedInterface([
+        ObjectList([FieldPanel("name")], heading="Details"),
+        ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
+    ])
 ```
 
 The viewset can be passed to the `register_snippet` call:
@@ -635,3 +631,62 @@ register_snippet(Member, viewset=MemberViewSet)
 The `viewset` parameter of `register_snippet` also accepts a dotted module path to the subclass, e.g. `"myapp.views.MemberViewSet"`.
 
 Various additional attributes are available to customise the viewset - see {class}`~wagtail.snippets.views.snippets.SnippetViewSet`.
+
+## Customising the menu item
+
+```{versionadded} 5.0
+The ability to have a separate menu item was added.
+```
+
+By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. You can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the Settings menu, you can set {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_settings_menu` to `True`. The menu item will use the icon specified on the `SnippetViewSet` and it will link to the index view for the snippet model.
+
+Unless specified, the menu item will be named after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_label`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_icon`, and {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item` method.
+
+An example of a custom `SnippetViewSet` subclass with `add_to_admin_menu` set to `True`:
+
+```python
+from wagtail.snippets.views.snippets import SnippetViewSet
+
+
+class AdvertViewSet(SnippetViewSet):
+    icon = "crosshairs"
+    menu_label = "Advertisements"
+    menu_name = "adverts"
+    menu_order = 300
+    add_to_admin_menu = True
+```
+
+Multiple snippet models can also be grouped under a single menu item using a {attr}`~wagtail.snippets.views.snippets.SnippetViewSetGroup`. You can do this by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.model` attribute on the `SnippetViewSet` classes and then registering the `SnippetViewSetGroup` subclass instead of each individual model or viewset:
+
+```python
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+
+
+class AdvertViewSet(SnippetViewSet):
+    model = Advert
+    icon = "crosshairs"
+    menu_label = "Advertisements"
+    menu_name = "adverts"
+
+
+class ProductViewSet(SnippetViewSet):
+    model = Product
+    icon = "desktop"
+    menu_label = "Products"
+    menu_name = "banners"
+
+
+class MarketingViewSetGroup(SnippetViewSetGroup):
+    items = (AdvertViewSet, ProductViewSet)
+    icon = "folder-inverse"
+    menu_label = "Marketing"
+    menu_name = "marketing"
+
+
+# When using a SnippetViewSetGroup class to group several SnippetViewSet classes together,
+# only register the SnippetViewSetGroup class. You do not need to register each snippet
+# model or viewset separately.
+register_snippet(MarketingViewSetGroup)
+```
+
+If all snippet models have their own menu items, the "Snippets" menu item will not be shown.

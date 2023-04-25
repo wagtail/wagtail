@@ -34,7 +34,7 @@
 </script>
 
 {# Align with guiding line of the preceding child panel. #}
-<div class="w-mb-4 -w-ml-0.5">
+<div class="w-mb-4 -w-ml-4">
     {% block add_button %}
         <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
             {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}

@@ -10,7 +10,7 @@ from django.utils.module_loading import import_string
 
 from wagtail.admin.viewsets import viewsets
 from wagtail.hooks import search_for_hooks
-from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
+from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
 
 SNIPPET_MODELS = []
 
@@ -69,38 +69,65 @@ class SnippetAdminURLFinder:
             )
 
 
-def register_snippet(model, viewset=None):
+def register_snippet(registerable, viewset=None):
     if DEFER_REGISTRATION:
         # Models may not have been fully loaded yet, so defer registration until they are -
         # add it to the list of registrations to be processed by register_deferred_snippets
-        DEFERRED_REGISTRATIONS.append((model, viewset))
+        DEFERRED_REGISTRATIONS.append((registerable, viewset))
     else:
-        _register_snippet_immediately(model, viewset)
+        _register_snippet_immediately(registerable, viewset)
 
-    return model
+    return registerable
 
 
-def _register_snippet_immediately(model, viewset=None):
+def _register_snippet_immediately(registerable, viewset=None):
     # Register the viewset and formfield for this snippet model,
     # skipping the check for whether models are loaded
 
+    from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+
+    if isinstance(registerable, str):
+        registerable = import_string(registerable)
+    if isinstance(viewset, str):
+        viewset = import_string(viewset)
+
+    if issubclass(registerable, SnippetViewSetGroup):
+        # register_snippet(CustomViewSetGroup) or
+        # @register_snippet on class CustomViewSetGroup
+        viewset_group = registerable()
+        for admin_viewset in viewset_group.viewsets:
+            register_snippet_viewset(admin_viewset)
+        viewset_group.on_register()
+        return
+
+    if issubclass(registerable, SnippetViewSet):
+        # register_snippet(CustomViewSet) or
+        # @register_snippet on class CustomViewSet
+        # Note: the viewset class must define a `model` attribute
+        admin_viewset = registerable()
+    else:
+        # register_snippet(SnippetModel, viewset=CustomViewSet) or
+        # register_snippet(SnippetModel) or
+        # @register_snippet on class SnippetModel
+        if viewset is None:
+            viewset = SnippetViewSet
+        admin_viewset = viewset(model=registerable)
+
+    register_snippet_viewset(admin_viewset)
+
+
+def register_snippet_viewset(viewset):
+    model = viewset.model
     if model in SNIPPET_MODELS:
         # Do not create duplicate registrations of the same model
         return
 
-    from wagtail.snippets.views.snippets import SnippetViewSet
-
-    if viewset is None:
-        viewset = SnippetViewSet
-    elif isinstance(viewset, str):
-        viewset = import_string(viewset)
-
-    admin_viewset = viewset(model)
-    viewsets.register(admin_viewset)
-    model.snippet_viewset = admin_viewset
+    viewsets.register(viewset)
 
     SNIPPET_MODELS.append(model)
     SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
+
+    ReferenceIndex.register_model(model)
 
 
 def register_deferred_snippets():
@@ -110,8 +137,8 @@ def register_deferred_snippets():
     """
     global DEFER_REGISTRATION
     DEFER_REGISTRATION = False
-    for model, viewset in DEFERRED_REGISTRATIONS:
-        _register_snippet_immediately(model, viewset)
+    for registerable, viewset in DEFERRED_REGISTRATIONS:
+        _register_snippet_immediately(registerable, viewset)
 
 
 def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):

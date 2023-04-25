@@ -5,9 +5,12 @@ from django.utils.translation import gettext_lazy as _
 class BaseItem:
     template = "wagtailadmin/userbar/item_base.html"
 
+    def get_context_data(self, request):
+        return {"self": self, "request": request}
+
     def render(self, request):
         return render_to_string(
-            self.template, {"self": self, "request": request}, request=request
+            self.template, self.get_context_data(request), request=request
         )
 
 
@@ -24,75 +27,138 @@ class AdminItem(BaseItem):
 
 
 class AccessibilityItem(BaseItem):
+    """A userbar item that runs the accessibility checker."""
+
+    #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
-    def get_axe_configuration(self):
+    #: A list of CSS selector(s) to test specific parts of the page.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
+    axe_include = ["body"]
+
+    #: A list of CSS selector(s) to exclude specific parts of the page from testing.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#exclude-elements-from-test>`__.
+    axe_exclude = []
+
+    # Make sure that the userbar is not tested.
+    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
+
+    #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
+    #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
+    #: (not a mix of both).
+    #: Setting this to a falsy value (e.g. ``None``) will omit the ``runOnly`` option and make Axe run with all non-experimental rules enabled.
+    axe_run_only = [
+        "button-name",
+        "empty-heading",
+        "empty-table-header",
+        "frame-title",
+        "heading-order",
+        "input-button-name",
+        "link-name",
+        "p-as-heading",
+    ]
+
+    #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
+    #: commonly in the format of ``{"enabled": True/False}``. This can be used in
+    #: conjunction with :attr:`axe_run_only` to enable or disable specific rules.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
+    axe_rules = {}
+
+    #: A dictionary that maps axe-core rule IDs to custom translatable strings
+    #: to use as the error messages. If an enabled rule does not exist in this
+    #: dictionary, Axe's error message for the rule will be used as fallback.
+    axe_messages = {
+        "button-name": _(
+            "Button text is empty. Use meaningful text for screen reader users."
+        ),
+        "empty-heading": _(
+            "Empty heading found. Use meaningful text for screen reader users."
+        ),
+        "empty-table-header": _(
+            "Table header text is empty. Use meaningful text for screen reader users."
+        ),
+        "frame-title": _(
+            "Empty frame title found. Use a meaningful title for screen reader users."
+        ),
+        "heading-order": _("Incorrect heading hierarchy. Avoid skipping levels."),
+        "input-button-name": _(
+            "Input button text is empty. Use meaningful text for screen reader users."
+        ),
+        "link-name": _(
+            "Link text is empty. Use meaningful text for screen reader users."
+        ),
+        "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
+    }
+
+    def get_axe_include(self, request):
+        """Returns a list of CSS selector(s) to test specific parts of the page."""
+        return self.axe_include
+
+    def get_axe_exclude(self, request):
+        """Returns a list of CSS selector(s) to exclude specific parts of the page from testing."""
+        return self.axe_exclude + self._axe_default_exclude
+
+    def get_axe_run_only(self, request):
+        """Returns a list of axe-core tags or a list of axe-core rule IDs (not a mix of both)."""
+        return self.axe_run_only
+
+    def get_axe_rules(self, request):
+        """Returns a dictionary that maps axe-core rule IDs to a dictionary of rule options."""
+        return self.axe_rules
+
+    def get_axe_messages(self, request):
+        """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
+        return self.axe_messages
+
+    def get_axe_context(self, request):
+        """
+        Returns the `context object <https://github.com/dequelabs/axe-core/blob/develop/doc/context.md>`_
+        to be passed as the
+        `context parameter <https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#context-parameter>`_
+        for ``axe.run``.
+        """
         return {
-            # See https://github.com/dequelabs/axe-core/blob/develop/doc/context.md.
-            "context": {
-                "include": "body",
-                "exclude": {"fromShadowDOM": ["wagtail-userbar"]},
-            },
-            # See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter.
-            "options": {
-                "runOnly": {
-                    "type": "rule",
-                    "values": [
-                        "button-name",
-                        "empty-heading",
-                        "empty-table-header",
-                        "frame-title",
-                        "heading-order",
-                        "input-button-name",
-                        "link-name",
-                        "p-as-heading",
-                    ],
-                }
-            },
-            # Wagtail-specific translatable custom error messages.
-            "messages": {
-                "button-name": _(
-                    "Button text is empty. Use meaningful text for screen reader users."
-                ),
-                "empty-heading": _(
-                    "Empty heading found. Use meaningful text for screen reader users."
-                ),
-                "empty-table-header": _(
-                    "Table header text is empty. Use meaningful text for screen reader users."
-                ),
-                "frame-title": _(
-                    "Empty frame title found. Use a meaningful title for screen reader users."
-                ),
-                "heading-order": _(
-                    "Incorrect heading hierarchy. Avoid skipping levels."
-                ),
-                "input-button-name": _(
-                    "Input button text is empty. Use meaningful text for screen reader users."
-                ),
-                "link-name": _(
-                    "Link text is empty. Use meaningful text for screen reader users."
-                ),
-                "p-as-heading": _(
-                    "Misusing paragraphs as headings. Use proper heading tags."
-                ),
-            },
+            "include": self.get_axe_include(request),
+            "exclude": self.get_axe_exclude(request),
+        }
+
+    def get_axe_options(self, request):
+        """
+        Returns the options object to be passed as the
+        `options parameter <https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter>`_
+        for ``axe.run``.
+        """
+        options = {
+            "runOnly": self.get_axe_run_only(request),
+            "rules": self.get_axe_rules(request),
+        }
+        # If the runOnly option is omitted, Axe will run all rules except those
+        # with the "experimental" flag or that are disabled in the rules option.
+        # The runOnly has to be omitted (instead of set to an empty list or null)
+        # for this to work, so we remove it if it's falsy.
+        if not options["runOnly"]:
+            options.pop("runOnly")
+        return options
+
+    def get_axe_configuration(self, request):
+        return {
+            "context": self.get_axe_context(request),
+            "options": self.get_axe_options(request),
+            "messages": self.get_axe_messages(request),
+        }
+
+    def get_context_data(self, request):
+        return {
+            **super().get_context_data(request),
+            "axe_configuration": self.get_axe_configuration(request),
         }
 
     def render(self, request):
-
         # Don't render if user doesn't have permission to access the admin area
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
-        return render_to_string(
-            self.template,
-            {
-                "self": self,
-                "request": request,
-                "axe_configuration": self.get_axe_configuration(),
-            },
-            request=request,
-        )
+        return super().render(request)
 
 
 class AddPageItem(BaseItem):

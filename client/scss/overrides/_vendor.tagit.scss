@@ -30,7 +30,7 @@
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-  background-color: $color-white;
+  background-color: theme('colors.surface-page');
 }
 
 .ui-state-hover,
@@ -42,18 +42,18 @@
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-  background-color: theme('colors.secondary.100');
+  background-color: theme('colors.surface-button-default');
 }
 
 .ui-widget-header {
-  background-color: theme('colors.secondary.100');
-  border-color: theme('colors.grey.100');
+  background-color: theme('colors.surface-button-default');
+  border-color: theme('colors.border-furniture');
 }
 
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-  background-color: theme('colors.grey.50');
+  background-color: theme('colors.surface-header');
 }
 
 .ui-menu .ui-menu-item .ui-menu-item-wrapper {
@@ -71,7 +71,7 @@
     display: block;
     width: 16px;
     height: 16px;
-    background: $color-grey-3;
+    background: theme('colors.icon-secondary');
     mask-image: url('#{$images-root}icons/cross.svg');
     mask-repeat: no-repeat;
   }
@@ -81,7 +81,7 @@
   }
 }
 
-@media (forced-colors: $media-forced-colours) {
+@media (forced-colors: active) {
   .ui-state-hover,
   .ui-widget-content .ui-state-hover,
   .ui-widget-header .ui-state-hover,
@@ -91,6 +91,6 @@
   .ui-state-active,
   .ui-widget-content .ui-state-active,
   .ui-widget-header .ui-state-active {
-    background-color: $system-color-button-text;
+    background-color: ButtonText;
   }
 }

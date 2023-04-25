@@ -155,6 +155,16 @@ class ReferenceIndex(models.Model):
 
     wagtail_reference_index_ignore = True
 
+    # The set of models that should have signals attached to watch for outbound references.
+    # This includes those registered with `register_model`, as well as their child models
+    # linked by a ParentalKey.
+    tracked_models = set()
+
+    # Ths set of models that can appear as the 'from' object in the reference index.
+    # This only includes those registered with `register_model`, and NOT child models linked
+    # by ParentalKey (object references on those are recorded under the parent).
+    indexed_models = set()
+
     class Meta:
         unique_together = [
             (
@@ -203,7 +213,7 @@ class ReferenceIndex(models.Model):
 
         # Don't check any models that have a parental key, references from these will be collected from the parent
         if not allow_child_models and any(
-            [isinstance(field, ParentalKey) for field in model._meta.get_fields()]
+            isinstance(field, ParentalKey) for field in model._meta.get_fields()
         ):
             return False
 
@@ -234,6 +244,45 @@ class ReferenceIndex(models.Model):
                     return True
 
         return False
+
+    @classmethod
+    def register_model(cls, model):
+        """
+        Registers the model for indexing.
+        """
+        if model in cls.indexed_models:
+            return
+
+        if cls.model_is_indexable(model):
+            cls.indexed_models.add(model)
+            cls._register_as_tracked_model(model)
+
+    @classmethod
+    def _register_as_tracked_model(cls, model):
+        """
+        Add the model and all of its ParentalKey-linked children to the set of
+        models to be tracked by signal handlers.
+        """
+        if model in cls.tracked_models:
+            return
+
+        from wagtail.signal_handlers import (
+            connect_reference_index_signal_handlers_for_model,
+        )
+
+        cls.tracked_models.add(model)
+        connect_reference_index_signal_handlers_for_model(model)
+
+        for child_relation in get_all_child_relations(model):
+            if cls.model_is_indexable(
+                child_relation.related_model,
+                allow_child_models=True,
+            ):
+                cls._register_as_tracked_model(child_relation.related_model)
+
+    @classmethod
+    def is_indexed(cls, model):
+        return model in cls.indexed_models
 
     @classmethod
     def _extract_references_from_object(cls, object):

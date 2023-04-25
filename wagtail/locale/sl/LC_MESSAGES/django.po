@@ -18,7 +18,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,11 +88,49 @@ msgid "Comment"
 msgstr "Komentar"
 
 #, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>Stran '{page_title}' ste zaklenili</b> <b>vi</b> dne <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
+
+#, python-brace-format
+msgid ""
+"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>Stran '{page_title}' je zaklenil</b> uporabnik <b>{user}</b> dne "
+"<b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>Page '{page_title}' is locked</b>."
 msgstr "<b>Stran '{page_title}' je zaklenjena</b>."
 
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' je zaklenjen</b>."
+
 msgid "This page is currently awaiting moderation."
 msgstr "Ta stran trenutno čaka na moderiranje."
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "%(model_name)s trenutno čaka moderiranje"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Samo ocenjevalci te naloge lahko urejajo stran."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
+
+#, python-brace-format
+msgid ""
+"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+msgstr ""
+"Stran '{page_title}' je zaklenjena in je načrtovana za objavo dne {datetime}"
 
 msgid "latest revision"
 msgstr "zadnja revizija"
@@ -206,6 +244,14 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
 
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Ta ključ '%(page_slug)s' je že v uporabi znotraj nadrejene strani na "
+"'%(parent_url_path)s'"
+
 msgid "page"
 msgstr "stran"
 
@@ -314,14 +360,35 @@ msgstr "ime"
 msgid "active"
 msgstr "aktiven"
 
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivne naloge je mogoče dodajati delovnim procesom. Deaktiviranje ne "
+"odstrani opravila iz obstoječih delovnih procesov."
+
 msgid "tasks"
 msgstr "naloge"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktivne potek dela je mogoče dodati na strani/izrezke. Če deaktivirate potek "
+"dela, ga ne odstranite z obstoječih strani/delčkov."
 
 msgid "workflows"
 msgstr "delovni potek"
 
 msgid "groups"
 msgstr "skupine"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Te skupine uporabnikov bodo moderirale ali odobrile strani/delce v tem "
+"koraku skozi proces dela"
 
 msgid "Request changes"
 msgstr "Zahtevajte spremembe"
@@ -800,6 +867,9 @@ msgstr "Potek dela: začetek"
 
 msgid "Workflow started"
 msgstr "Potek dela se je začel"
+
+msgid "Workflow: approve task"
+msgstr "Delovni proces: odobri opravilo"
 
 msgid "Workflow task approved"
 msgstr "Naloga poteka dela odobrena"

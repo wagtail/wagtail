@@ -44,17 +44,19 @@ class MenuItem(metaclass=MediaDefiningClass):
 class DismissibleMenuItemMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.attrs["data-wagtail-dismissible-id"] = self.name
+        self.attrs["data-controller"] = "w-dismissible"
+        self.attrs["data-w-dismissible-dismissed-class"] = "w-dismissible--dismissed"
+        self.attrs["data-w-dismissible-id-value"] = self.name
 
     def render_component(self, request):
         profile = getattr(request.user, "wagtail_userprofile", None)
 
         # Menu item instances are cached, so make sure the existence of the
-        # data-wagtail-dismissed attribute is correct for the user
+        # data-w-dismissible-dismissed-value attribute is correct for the user
         if profile and profile.dismissibles.get(self.name):
-            self.attrs["data-wagtail-dismissed"] = ""
+            self.attrs["data-w-dismissible-dismissed-value"] = "true"
         else:
-            self.attrs.pop("data-wagtail-dismissed", None)
+            self.attrs.pop("data-w-dismissible-dismissed-value", None)
 
         return super().render_component(request)
 

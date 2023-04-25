@@ -240,6 +240,9 @@ class TranslatableMixin(models.Model):
         Note: This will return translations that are in draft. If you want to exclude
         these, use the ``.localized`` attribute.
         """
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            return self
+
         try:
             locale = Locale.get_active()
         except (LookupError, Locale.DoesNotExist):

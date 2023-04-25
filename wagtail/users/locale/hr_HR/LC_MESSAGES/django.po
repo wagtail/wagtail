@@ -4,7 +4,7 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020
-# Dino Aljević <dino8890@protonmail.com>, 2020-2022
+# Dino Aljević <dino8890@protonmail.com>, 2020-2023
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
@@ -13,8 +13,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail korisnici"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obavezno. Slova, brojevi i @/./+/-/_ znakovi."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Vrijednost smije sadržavati samo slova, brojeve i znakove @/./+/-/_."
@@ -250,6 +253,9 @@ msgstr "Zaključavanje"
 msgid "Unlock"
 msgstr "Otključavanje"
 
+msgid "Custom permissions"
+msgstr "Posebne dozvole"
+
 msgid "Other permissions"
 msgstr "Ostale dozvole"
 
@@ -412,6 +418,10 @@ msgstr "Nije moguće sačuvati grupu zbog grešaka."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' je izbrisana."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Korisnik '%(object)s' stvoren."
 
 #, python-format
 msgid "User '%(object)s' updated."

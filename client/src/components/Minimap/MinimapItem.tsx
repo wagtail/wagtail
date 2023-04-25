@@ -19,7 +19,7 @@ interface MinimapItemProps {
   item: MinimapMenuItem;
   intersects: boolean;
   expanded: boolean;
-  onClick: (e: React.MouseEvent) => void;
+  onClick: (item: MinimapMenuItem, e: React.MouseEvent) => void;
 }
 
 const requiredMark = <span className="w-required-mark">*</span>;
@@ -40,17 +40,19 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
     '%(num)s errors',
     errorCount,
   ).replace('%(num)s', `${errorCount}`);
-  const text = label.length > 26 ? `${label.substring(0, 26)}…` : label;
+  const text = label.length > 22 ? `${label.substring(0, 22)}…` : label;
   return (
     <a
       href={href}
       className={`w-minimap-item w-minimap-item--${level} ${
         intersects ? 'w-minimap-item--active' : ''
       } ${hasError ? 'w-minimap-item--error' : ''}`}
-      onClick={onClick}
+      onClick={onClick.bind(null, item)}
       aria-current={intersects}
       // Prevent interacting with the links when they are only partially shown.
       tabIndex={expanded ? undefined : -1}
+      // Use the toggle button as description when collapsed.
+      aria-describedby={expanded ? undefined : 'w-minimap-toggle'}
     >
       {hasError ? (
         <div className="w-minimap-item__errors" aria-label={errorsLabel}>

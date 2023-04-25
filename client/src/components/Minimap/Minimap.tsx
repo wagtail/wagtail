@@ -1,7 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+} from 'react';
 
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
+import { toggleCollapsiblePanel } from '../../includes/panels';
 import Icon from '../Icon/Icon';
 
 import CollapseAll from './CollapseAll';
@@ -70,6 +77,16 @@ const updateScrollPosition = (list: HTMLOListElement) => {
   list.scrollTop = newScroll;
 };
 
+const getInitialMinimapExpanded = () => {
+  let saved = 'false';
+  try {
+    saved = localStorage.getItem('wagtail:minimap-expanded') || saved;
+  } catch {
+    // Use the default if localStorage isn’t available.
+  }
+  return saved === 'true';
+};
+
 /**
  * Minimap sidebar menu, with one internal link per section of the page.
  * The minimap has a lot of advanced behavior:
@@ -85,9 +102,23 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   onUpdate,
   toggleAllPanels,
 }) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-  // Keep track of whether we should keep the minimap expanded (should auto-close on mouseout if not interacted with).
-  const [keepExpanded, setKeepExpanded] = useState<boolean>(false);
+  const initialExpanded = useMemo(() => getInitialMinimapExpanded(), []);
+  const [expanded, setExpanded] = useState<boolean>(initialExpanded);
+  const toggleMinimap = useCallback(
+    (newExpanded = !expanded) => {
+      setExpanded(newExpanded);
+      document.body.classList.toggle('minimap-open', newExpanded);
+      try {
+        localStorage.setItem(
+          'wagtail:minimap-expanded',
+          newExpanded ? 'true' : 'false',
+        );
+      } catch {
+        // Skip saving the preference if localStorage isn’t available.
+      }
+    },
+    [expanded, setExpanded],
+  );
   // Collapse all yes/no state.
   const [panelsExpanded, setPanelsExpanded] = useState<boolean>(true);
   const [intersections, setIntersections] = useState<LinkIntersections>({});
@@ -96,43 +127,20 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   const updateLinks = useRef<CallableFunction | null>(null);
   const listRef = useRef<HTMLOListElement>(null);
 
-  // Keep track of all the different ways the minimap can be opened and closed.
-  const onMouseOver = () => {
-    if (window.matchMedia('(hover: hover)').matches) {
-      // Opening with hover should not keep the menu expanded.
-      setExpanded(true);
-    }
-  };
-  const onMouseOut = () => {
-    if (window.matchMedia('(hover: hover)').matches) {
-      if (!keepExpanded) {
-        setExpanded(false);
-        setKeepExpanded(false);
-      }
-    }
-  };
-  const onClickToggle = () => {
-    setExpanded(!expanded);
-    setKeepExpanded(!expanded);
-  };
-  const onClickLink = (e: React.MouseEvent) => {
+  const onClickToggle = () => toggleMinimap(!expanded);
+  const onClickLink = (link: MinimapMenuItem, e: React.MouseEvent) => {
     // Prevent navigating if the link is only partially shown.
     if (!expanded) {
       e.preventDefault();
     }
-    setExpanded(true);
-    setKeepExpanded(true);
+
+    toggleCollapsiblePanel(link.toggle, true);
+    toggleMinimap(true);
   };
 
   useEffect(() => {
-    const onClickOutside = (e: MouseEvent) => {
-      if (container.contains(e.target as HTMLElement)) {
-        return;
-      }
-      setExpanded(false);
-      setKeepExpanded(false);
-    };
-    document.addEventListener('click', onClickOutside, true);
+    // Sync the body class with the initial expanded state.
+    toggleMinimap(initialExpanded);
   }, []);
 
   /**
@@ -203,15 +211,10 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
         floating
         insideMinimap={expanded}
       />
-      {/* Keyboard support is implemented with the toggle button. */}
-      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-      <div
-        className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-      >
+      <div className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}>
         <div className="w-minimap__header">
           <button
+            id="w-minimap-toggle"
             type="button"
             aria-expanded={expanded}
             onClick={onClickToggle}

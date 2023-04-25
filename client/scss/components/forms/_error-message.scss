@@ -7,7 +7,7 @@
   font-weight: bold;
   color: theme('colors.critical.200');
 
-  @media (forced-colors: $media-forced-colours) {
+  @media (forced-colors: active) {
     forced-color-adjust: none;
   }
 

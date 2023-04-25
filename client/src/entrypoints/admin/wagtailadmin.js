@@ -1,4 +1,4 @@
-import { Icon, Portal, initDismissibles } from '../..';
+import { Icon, Portal } from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initModernDropdown();
   initTabs();
-  initDismissibles();
   dialog();
   initCollapsibleBreadcrumbs();
   initSidePanel();

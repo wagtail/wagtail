@@ -5,7 +5,6 @@ import { update } from './utils';
 
 export interface SettingsState {
   user: Author | null;
-  commentsEnabled: boolean;
   currentTab: string | null;
 }
 
@@ -14,7 +13,6 @@ export type SettingsStateUpdate = Partial<SettingsState>;
 // Reducer with initial state
 export const INITIAL_STATE: SettingsState = {
   user: null,
-  commentsEnabled: false,
   currentTab: null,
 };
 

@@ -26,7 +26,7 @@
     cursor: pointer;
 
     button {
-      background-color: $color-teal-darker;
+      background-color: theme('colors.surface-button-hover');
     }
   }
 }
@@ -94,7 +94,7 @@
     width: 1em;
     font-size: 10em;
     line-height: 1.4em;
-    color: theme('colors.grey.100');
+    color: theme('colors.icon-secondary');
   }
 
   canvas,

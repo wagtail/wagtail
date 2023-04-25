@@ -134,3 +134,9 @@ class AvatarPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ["avatar"]
+
+
+class ThemePreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["theme"]

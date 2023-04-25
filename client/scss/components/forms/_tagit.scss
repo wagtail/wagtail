@@ -6,18 +6,18 @@
   }
 }
 
-@media (forced-colors: $media-forced-colours) {
+@media (forced-colors: active) {
   .tagit {
     .tag {
       border: 1px solid;
 
       &::before {
-        background: $system-color-button-text;
+        background: ButtonText;
       }
     }
   }
 
   .tagit-close .ui-icon.ui-icon-close:before {
-    background: $system-color-button-text;
+    background: ButtonText;
   }
 }

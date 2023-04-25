@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Tetum (Tetun) (https://www.transifex.com/torchbox/teams/8009/"
+"Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
 "tet/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tet\n"

@@ -125,6 +125,7 @@ These are classes for components.
 @import 'components/forms/field';
 @import 'components/forms/field-row';
 @import 'components/forms/field-comment-control';
+@import 'components/forms/field-textoutput';
 @import 'components/forms/form-width';
 @import 'components/forms/nested-panel';
 @import 'components/tabs';
@@ -174,6 +175,7 @@ These are classes that provide overrides.
 
 // VENDOR: overrides of vendor styles.
 @import 'overrides/vendor.datetimepicker';
+@import 'overrides/vendor.handsontable';
 @import 'overrides/vendor.tagit';
 @import 'overrides/vendor.tippy';
 

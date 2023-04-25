@@ -31,9 +31,11 @@
 
   &.indicator--is-inverse {
     .icon {
-      border-color: $color-white; // ensure border is available for high contrast mode
-      background-color: $color-grey-1;
-      color: $color-white;
+      border-color: theme(
+        'colors.surface-page'
+      ); // ensure border is available for high contrast mode
+      background-color: theme('colors.text-context');
+      color: theme('colors.surface-page');
     }
   }
 }

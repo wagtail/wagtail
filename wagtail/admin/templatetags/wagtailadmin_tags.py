@@ -578,7 +578,7 @@ def page_header_buttons(context, page, page_perms):
             "w-p-0",
             "w-w-12",
             "w-h-full",
-            "w-text-primary",
+            "w-text-text-label",
             "w-bg-transparent",
             "hover:w-scale-110",
             "w-transition",
@@ -718,6 +718,19 @@ def avatar_url(user, size=50, gravatar_only=False):
             return gravatar_url
 
     return versioned_static_func("wagtailadmin/images/default-user-avatar.png")
+
+
+@register.simple_tag(takes_context=True)
+def admin_theme_name(context):
+    """
+    Retrieves the theme name for the current user.
+    """
+    user = context["request"].user
+    return (
+        user.wagtail_userprofile.theme
+        if hasattr(user, "wagtail_userprofile")
+        else "system"
+    )
 
 
 @register.simple_tag

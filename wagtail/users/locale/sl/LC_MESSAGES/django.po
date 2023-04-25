@@ -14,7 +14,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail uporabniki"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Zahtevano. Samo črke, številke in @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Vrednost lahko vsebuje samo črke, številke in znake @/./+/-/_."
@@ -119,6 +122,14 @@ msgstr "uporabniški profil"
 msgid "user profiles"
 msgstr "uporabniški profili"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Dodelite vlogo 1 uporabniku"
+msgstr[1] "Dodelite vlogo %(counter)s uporabnikoma"
+msgstr[2] "Dodelite vlogo %(counter)s uporabnikom"
+msgstr[3] "Dodelite vlogo %(counter)s uporabnikom"
+
 msgid "Assign role"
 msgstr "Dodeli vlogo"
 
@@ -137,6 +148,14 @@ msgstr "Da, dodeli"
 
 msgid "No, don't assign"
 msgstr "Ne, ne dodeli"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Izbriši 1 uporabnika"
+msgstr[1] "Izbriši %(counter)s uporabnika"
+msgstr[2] "Izbriši %(counter)s uporabnike"
+msgstr[3] "Izbriši %(counter)s uporabnike"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -157,6 +176,14 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Spremenite aktivno stanje za 1 uporabnika"
+msgstr[1] "Spremenite aktivno stanje za %(counter)s uporabnika"
+msgstr[2] "Spremenite aktivno stanje za %(counter)s uporabnike"
+msgstr[3] "Spremenite aktivno stanje za %(counter)s uporabnike"
+
 msgid "Set active state"
 msgstr "Nastavite aktivno stanje"
 
@@ -175,6 +202,20 @@ msgstr "Ne, ne spreminjaj stanja"
 
 msgid "Delete group"
 msgstr "Izbriši skupino"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Skupina '%(group_name)s' ima <strong>%(group_user_count)s</strong> člana."
+msgstr[1] ""
+"Skupina '%(group_name)s' ima <strong>%(group_user_count)s</strong> člana."
+msgstr[2] ""
+"Skupina '%(group_name)s' ima <strong>%(group_user_count)s</strong> člane."
+msgstr[3] ""
+"Skupina '%(group_name)s' ima <strong>%(group_user_count)s</strong> člane."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -292,8 +333,24 @@ msgid "Inactive"
 msgstr "Neaktiven"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Skupina %(group_name)s nima določenih uporabnikov. Zakaj jih ne bi <a "
+"href=\"%(wagtailusers_add_url)s\">dodali nekaj</a>?"
 
 #, python-format
 msgid ""
@@ -313,8 +370,32 @@ msgstr "Dodeli vlogo izbranim uporabnikom"
 msgid "Delete selected users"
 msgstr "Izbriši izbrane uporabnike"
 
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d uporabnik je bil izbrisan"
+msgstr[1] "%(num_parent_objects)d uporabnika sta bili izbrisana"
+msgstr[2] "%(num_parent_objects)d uporabniki so bili izbrisani"
+msgstr[3] "%(num_parent_objects)d uporabniki so bili izbrisani"
+
 msgid "Change the active state for selected users"
 msgstr "Spremenite aktivno stanje za izbrane uporabnike"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d uporabniki je bil označen kot aktiven"
+msgstr[1] "%(num_parent_objects)d uporabnika sta bila označena kot aktivna"
+msgstr[2] "%(num_parent_objects)d uporabniki so bili označeni kot aktivni"
+msgstr[3] "%(num_parent_objects)d uporabniki so bili označeni kot aktivni"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d uporabniki je bil označen kot neaktiven"
+msgstr[1] "%(num_parent_objects)d uporabnika sta bila označena kot neaktivna"
+msgstr[2] "%(num_parent_objects)d uporabniki so bili označeni kot neaktivni"
+msgstr[3] "%(num_parent_objects)d uporabniki so bili označeni kot neaktivni"
 
 msgid "Groups"
 msgstr "Skupine"
@@ -339,6 +420,10 @@ msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' izbrisana."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Uporabnik '%(object)s' ustvarjen."
 
 #, python-format
 msgid "User '%(object)s' updated."

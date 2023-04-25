@@ -27,6 +27,8 @@ def get_base_url(request=None):
 
 
 def get_full_url(request, path):
+    if path.startswith(("http://", "https://")):
+        return path
     base_url = get_base_url(request) or ""
     return base_url + path
 

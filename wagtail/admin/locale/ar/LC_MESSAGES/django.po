@@ -13,6 +13,7 @@
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
+# Waseem Kntar, 2023
 # Younes Oumakhou, 2022
 # Younes Oumakhou, 2022
 msgid ""
@@ -21,8 +22,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Younes Oumakhou, 2022\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Waseem Kntar, 2023\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,7 +105,7 @@ msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
 
 msgid "URL"
-msgstr "URL"
+msgstr "الرابط"
 
 msgid "Search term"
 msgstr "مصطلح البحث"
@@ -602,7 +603,7 @@ msgstr[4] "ليست لديك الصلاحية التي تخول لك حذف هذ
 msgstr[5] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
 
 msgid "No, don't delete"
-msgstr "لا, لا تذف"
+msgstr "لا, لا تحذف"
 
 msgid "Move"
 msgstr "انقل"
@@ -900,7 +901,7 @@ msgid "Password"
 msgstr "كلمة السر"
 
 msgid "You have been successfully logged out."
-msgstr "لقد تم تسجيل بنجاح."
+msgstr "لقد تم تسجيل الخروج بنجاح."
 
 msgid "Collections"
 msgstr "مجموعات"

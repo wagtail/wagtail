@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2023\n"
-"Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
+"Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

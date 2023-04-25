@@ -5,7 +5,7 @@ $color-deletion-light: #ffebeb;
 
 .comparison {
   &__child-object {
-    border-top: 1px dashed $color-grey-4;
+    border-top: 1px dashed theme('colors.border-furniture');
     padding: 1em;
 
     dd {

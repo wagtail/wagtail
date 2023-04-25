@@ -223,7 +223,7 @@ class FloatBlock(FieldBlock):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        icon = "plus-inverse"
+        icon = "decimal"
 
 
 class DecimalBlock(FieldBlock):
@@ -257,7 +257,7 @@ class DecimalBlock(FieldBlock):
             return Decimal(value)
 
     class Meta:
-        icon = "plus-inverse"
+        icon = "decimal"
 
 
 class RegexBlock(FieldBlock):
@@ -285,7 +285,7 @@ class RegexBlock(FieldBlock):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        icon = "code"
+        icon = "regex"
 
 
 class URLBlock(FieldBlock):
@@ -308,7 +308,7 @@ class URLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     class Meta:
-        icon = "site"
+        icon = "link-external"
 
 
 class BooleanBlock(FieldBlock):
@@ -464,7 +464,7 @@ class IntegerBlock(FieldBlock):
         super().__init__(**kwargs)
 
     class Meta:
-        icon = "plus-inverse"
+        icon = "placeholder"
 
 
 class BaseChoiceBlock(FieldBlock):
@@ -710,7 +710,7 @@ class RichTextBlock(FieldBlock):
         yield from extract_references_from_rich_text(force_str(value.source))
 
     class Meta:
-        icon = "doc-full"
+        icon = "pilcrow"
 
 
 class RawHTMLBlock(FieldBlock):
@@ -926,7 +926,7 @@ class PageChooserBlock(ChooserBlock):
         return name, args, kwargs
 
     class Meta:
-        icon = "redirect"
+        icon = "doc-empty-inverse"
 
 
 # Ensure that the blocks defined here get deconstructed as wagtailcore.blocks.FooBlock

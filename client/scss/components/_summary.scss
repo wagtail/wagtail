@@ -6,7 +6,7 @@
     calc(theme('fontSize.30') * 3)
   );
 
-  color: theme('colors.secondary.DEFAULT');
+  color: theme('colors.text-link-default');
   margin-bottom: theme('spacing.8');
   padding-top: theme('spacing.8');
 
@@ -59,10 +59,10 @@
 }
 
 // Media for Windows High Contrast Mode
-@media (forced-colors: $media-forced-colours) {
+@media (forced-colors: active) {
   .w-summary {
     .icon {
-      color: $system-color-link-text;
+      color: LinkText;
       opacity: 1;
     }
   }

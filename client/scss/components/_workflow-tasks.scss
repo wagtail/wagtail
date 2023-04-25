@@ -6,10 +6,10 @@
 
   &__task {
     display: inline-block;
-    background-color: theme('colors.secondary.50');
-    border: 2px solid theme('colors.secondary.100');
+    background-color: theme('colors.surface-page');
+    border: 2px solid theme('colors.border-button-outline-default');
     border-radius: 5px;
-    color: $color-teal;
+    color: theme('colors.text-link-default');
     min-width: $task-width;
     height: $task-height;
     margin: 7px;

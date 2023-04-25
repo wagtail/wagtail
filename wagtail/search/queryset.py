@@ -8,7 +8,7 @@ class SearchableQuerySetMixin:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=True,
+        partial_match=None,  # RemovedInWagtail60Warning
         backend="default",
     ):
         """
@@ -21,7 +21,7 @@ class SearchableQuerySetMixin:
             fields=fields,
             operator=operator,
             order_by_relevance=order_by_relevance,
-            partial_match=partial_match,
+            partial_match=partial_match,  # RemovedInWagtail60Warning
         )
 
     def autocomplete(

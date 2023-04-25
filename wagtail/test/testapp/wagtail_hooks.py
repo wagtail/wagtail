@@ -6,6 +6,12 @@ from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.panels import (
+    FieldPanel,
+    ObjectList,
+    PublishingPanel,
+    TabbedInterface,
+)
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -14,11 +20,13 @@ from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
+    RevisableChildModel,
+    RevisableModel,
 )
 
 from .forms import FavouriteColourForm
@@ -248,6 +256,15 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
+    ordering = ["text", "-_updated_at", "-pk"]
+    add_to_admin_menu = True
+    menu_label = "Full-Featured MenuItem"  #
+    menu_name = "fullfeatured"
+    # Ensure that the menu item is placed last
+    menu_order = 999999
+
+    # TODO: When specific search fields are supported in SQLite FTS (see #10217),
+    # specify search_fields or get_search_fields here
 
     def get_history_template(self):
         return "tests/snippet_history.html"
@@ -256,11 +273,52 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         return self.model._default_manager.all().exclude(text__contains="[HIDDEN]")
 
 
+class RevisableModelViewSet(SnippetViewSet):
+    model = RevisableModel
+
+
+class RevisableChildModelViewSet(SnippetViewSet):
+    model = RevisableChildModel
+
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("text")], heading="Main"),
+            ObjectList(
+                [FieldPanel("secret_text", permission="superuser")],
+                heading="Other",
+                help_text="Other panels help text",
+            ),
+        ],
+        help_text="Top-level help text",
+    )
+
+
+class RevisableViewSetGroup(SnippetViewSetGroup):
+    items = (RevisableModelViewSet, RevisableChildModelViewSet)
+    menu_label = "Revisables"
+    menu_icon = "tasks"
+
+
 class DraftStateModelViewSet(SnippetViewSet):
     list_filter = ["text", "first_published_at"]
+    search_fields = ["text"]
+    search_backend_name = None
+    add_to_settings_menu = True
+    # Don't use "Draft" as the menu label,
+    # as it may cause incorrect assertion counts in tests
+    menu_label = "Publishables"
+    # Ensure that the menu item is placed first
+    menu_order = -999999
+
+    panels = [
+        FieldPanel("text"),
+        PublishingPanel(),
+    ]
 
 
 class ModeratedModelViewSet(SnippetViewSet):
+    model = ModeratedModel
+
     list_filter = {
         "text": ["exact", "contains"],
         "first_published_at": ["exact", "lt", "gt"],
@@ -269,4 +327,5 @@ class ModeratedModelViewSet(SnippetViewSet):
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
-register_snippet(ModeratedModel, viewset=ModeratedModelViewSet)
+register_snippet(ModeratedModelViewSet)
+register_snippet(RevisableViewSetGroup)

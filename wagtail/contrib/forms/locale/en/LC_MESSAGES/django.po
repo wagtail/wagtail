@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Wagtail forms"
 msgstr ""
 
-#: forms.py:167
+#: forms.py:166
 msgid "Date from"
 msgstr ""
 
-#: forms.py:171
+#: forms.py:170
 msgid "Date to"
 msgstr ""
 
-#: forms.py:204
+#: forms.py:203
 #, python-format
 msgid ""
 "There is another field with the label %(label_name)s, please change one of "
@@ -257,7 +257,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: templates/wagtailforms/submissions_index.html:116
+#: templates/wagtailforms/submissions_index.html:122
 msgid "Apply filters"
 msgstr ""
 

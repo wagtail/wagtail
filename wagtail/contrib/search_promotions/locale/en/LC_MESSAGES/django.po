@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,33 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr ""
 
-#: forms.py:39
+#: forms.py:11
+msgid "Search term(s)/phrase"
+msgstr ""
+
+#: forms.py:13
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+
+#: forms.py:50
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: models.py:12
+#: models.py:89 models.py:90
+msgid "Query Daily Hits"
+msgstr ""
+
+#: models.py:98
 msgid "page"
 msgstr ""
 
-#: models.py:15
+#: models.py:101
 msgid "description"
 msgstr ""
 
-#: models.py:31
+#: models.py:117
 msgid "search promotion"
 msgstr ""
 
@@ -113,7 +127,7 @@ msgstr ""
 msgid "Promoted search results"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:22
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:14
 msgid "Add recommended page"
 msgstr ""
 
@@ -182,32 +196,32 @@ msgid ""
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:75
+#: views.py:74
 msgid "Search promoted results"
 msgstr ""
 
-#: views.py:140
+#: views.py:139
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views.py:144 views.py:204
+#: views.py:143 views.py:203
 msgid "Edit"
 msgstr ""
 
-#: views.py:162
+#: views.py:161
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:200
+#: views.py:199
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views.py:220
+#: views.py:219
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:252
+#: views.py:249
 msgid "Editor's picks deleted."
 msgstr ""

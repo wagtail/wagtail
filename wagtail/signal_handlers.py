@@ -86,7 +86,7 @@ def update_reference_index_on_save(instance, **kwargs):
             # parent is null, so there is no valid object to record references against
             return
 
-    if ReferenceIndex.model_is_indexable(type(instance)):
+    if ReferenceIndex.is_indexed(type(instance)):
         with transaction.atomic():
             ReferenceIndex.create_or_update_for_object(instance)
 
@@ -99,14 +99,24 @@ def remove_reference_index_on_delete(instance, **kwargs):
         ReferenceIndex.remove_for_object(instance)
 
 
+def connect_reference_index_signal_handlers_for_model(model):
+    post_save.connect(update_reference_index_on_save, sender=model)
+    post_delete.connect(remove_reference_index_on_delete, sender=model)
+
+
 def connect_reference_index_signal_handlers(**kwargs):
-    post_save.connect(update_reference_index_on_save)
-    post_delete.connect(remove_reference_index_on_delete)
+    for model in ReferenceIndex.tracked_models:
+        connect_reference_index_signal_handlers_for_model(model)
+
+
+def disconnect_reference_index_signal_handlers_for_model(model):
+    post_save.disconnect(update_reference_index_on_save, sender=model)
+    post_delete.disconnect(remove_reference_index_on_delete, sender=model)
 
 
 def disconnect_reference_index_signal_handlers(**kwargs):
-    post_save.disconnect(update_reference_index_on_save)
-    post_delete.disconnect(remove_reference_index_on_delete)
+    for model in ReferenceIndex.tracked_models:
+        disconnect_reference_index_signal_handlers_for_model(model)
 
 
 def register_signal_handlers():
@@ -118,9 +128,6 @@ def register_signal_handlers():
 
     post_save.connect(reset_locales_display_names_cache, sender=Locale)
     post_delete.connect(reset_locales_display_names_cache, sender=Locale)
-
-    # Reference index signal handlers
-    connect_reference_index_signal_handlers()
 
     # Disconnect reference index signals while migrations are running
     # (we don't want to log references in migrations as the ReferenceIndex model might not exist)

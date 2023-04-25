@@ -66,7 +66,6 @@ class WagtailBackendSearchHandler(BaseSearchHandler):
         search_term,
         preserve_order=False,
         operator=None,
-        partial_match=True,
         backend=None,
         **kwargs,
     ):
@@ -79,6 +78,5 @@ class WagtailBackendSearchHandler(BaseSearchHandler):
             queryset,
             fields=self.search_fields or None,
             operator=operator,
-            partial_match=partial_match,
             order_by_relevance=not preserve_order,
         )

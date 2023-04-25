@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
-"Language-Team: Galician (https://www.transifex.com/torchbox/teams/8009/gl/)\n"
+"Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -178,7 +178,7 @@ msgid "Saving..."
 msgstr "Gardando..."
 
 msgid "Search"
-msgstr "Porcurar"
+msgstr "Procurar"
 
 msgid "Search options…"
 msgstr "Opcións de búsqueda…"
