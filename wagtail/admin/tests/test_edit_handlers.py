@@ -732,7 +732,7 @@ class TestFieldPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # check that data-field-wrapper is added by default via attrs.
-        self.assertIn('data-field-wrapper', result)
+        self.assertIn("data-field-wrapper", result)
 
         # check that attr option renders the data-controller attribute
         self.assertIn('data-controller="test"', result)
