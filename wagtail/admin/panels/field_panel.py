@@ -17,7 +17,7 @@ from .base import Panel
 class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
     BASE_ATTRS = {"data-field-wrapper": True}
-
+    read_only_output_template_name = "wagtailadmin/panels/read_only_output.html"
 
     def __init__(
         self,

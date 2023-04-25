@@ -805,6 +805,12 @@ class TestFieldPanel(TestCase):
                 # The input should have the expected value
                 self.assertIn(f'value="{expected_input_value}"', result)
 
+                # check that data-field-wrapper is added by default via attrs.
+                self.assertIn("data-field-wrapper", result)
+
+                # check that attr option renders the data-controller attribute
+                self.assertIn('data-controller="test"', result)
+
                 # help text should rendered
                 self.assertIn("Not required if event is on a single day", result)
 
@@ -845,30 +851,6 @@ class TestFieldPanel(TestCase):
         )
         self.assertEqual(result, "Public")
 
-<<<<<<< HEAD
-        form.is_valid()
-
-        field_panel = self.end_date_panel.get_bound_panel(
-            instance=self.event,
-            form=form,
-            request=self.request,
-        )
-        result = field_panel.render_html()
-
-        self.assertIn("Not required if event is on a single day", result)
-
-        # check that the populated form field is included
-        self.assertIn('value="2014-07-22"', result)
-
-        # check that data-field-wrapper is added by default via attrs.
-        self.assertIn("data-field-wrapper", result)
-
-        # check that attr option renders the data-controller attribute
-        self.assertIn('data-controller="test"', result)
-
-        # there should be no errors on this field
-        self.assertNotIn("error-message", result)
-=======
     def test_format_value_for_display_with_modelchoicefield(self):
         """
         `ForeignKey.formfield()` returns a `ModelChoiceField`, which returns a
@@ -883,7 +865,6 @@ class TestFieldPanel(TestCase):
                 self.read_only_image_panel.format_value_for_display(image),
                 image,
             )
->>>>>>> b946b3d66d67e8cd7179c188078c6ed735c46b9c
 
     def test_required_fields(self):
         result = self.end_date_panel.get_form_options()["fields"]
