@@ -275,24 +275,24 @@ For example:
 
 ```python
 >>> from wagtail.search.utils import parse_query_string
->>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter key:test1 key:test2', operator='and')
+>>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter key:value1 key:value2', operator='and')
 
 # Alternatively..
 # filters, query = parse_query_string("my query string 'this is a phrase' this_is_a:filter key:test1 key:test2", operator='and')
 
 >>> filters
-<QueryDict: {'this_is_a': ['filter'], 'key': ['test1', 'test2']}>>
+<QueryDict: {'this_is_a': ['filter'], 'key': ['value1', 'value2']}>>
 
 # Get a list of values associated to a particular key using getlist method
 >>> filters.getlist('key')
-['test1', 'test2']
+['value1', 'value2']
 
 # Get a dict representation using dict method
-# NOTE:dict() will not return a list of values for a particular key it rather returns the last associated value
+# NOTE: dict method will not return a list of values for a particular key it rather returns the last associated value
 >>> filters.dict()
 {
     'this_is_a': 'filter',
-    'key': 'test2'
+    'key': 'value2'
 }
 
 >>> query
