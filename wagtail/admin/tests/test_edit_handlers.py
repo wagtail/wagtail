@@ -672,7 +672,7 @@ class TestFieldPanel(TestCase):
         )
 
         self.end_date_panel = FieldPanel(
-            "date_to", classname="full-width"
+            "date_to", classname="full-width", attrs={"data-controller": "test"}
         ).bind_to_model(EventPage)
 
     def test_non_model_field(self):
@@ -730,6 +730,12 @@ class TestFieldPanel(TestCase):
 
         # check that the populated form field is included
         self.assertIn('value="2014-07-22"', result)
+
+        # check that data-field-wrapper is added by default via attrs.
+        self.assertIn('data-field-wrapper', result)
+
+        # check that attr option renders the data-controller attribute
+        self.assertIn('data-controller="test"', result)
 
         # there should be no errors on this field
         self.assertNotIn("error-message", result)

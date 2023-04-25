@@ -71,7 +71,10 @@ class Panel:
         self.base_form_class = base_form_class
         self.icon = icon
         self.model = None
-        self.attrs = self.BASE_ATTRS.update(attrs) if attrs else self.BASE_ATTRS
+        self.attrs = self.BASE_ATTRS.copy()
+
+        if attrs:
+            self.attrs.update(attrs)
 
     def clone(self):
         """
