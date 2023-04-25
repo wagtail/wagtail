@@ -923,6 +923,7 @@ class TestFieldRowPanel(TestCase):
                 FieldPanel("date_to", classname="coltwo"),
             ],
             help_text="Confirmed event dates only",
+            attrs={"data-controller": "test"}
         ).bind_to_model(EventPage)
 
     def test_render_html(self):
@@ -958,6 +959,9 @@ class TestFieldRowPanel(TestCase):
 
         # check that the populated form field is included
         self.assertIn('value="2014-07-22"', result)
+
+        # check that attr option renders the data-controller attribute
+        self.assertIn('data-controller="test"', result)
 
         # there should be no errors on this field
         self.assertNotIn("error-message", result)
@@ -1207,7 +1211,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         speaker_object_list = ObjectList(
             [
                 InlinePanel(
-                    "speakers", label="Speakers", classname="classname-for-speakers"
+                    "speakers", label="Speakers", classname="classname-for-speakers", attrs={"data-controller": "test"}
                 )
             ]
         ).bind_to_model(EventPage)
@@ -1268,6 +1272,12 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
         # rendered panel must include the JS initializer
         self.assertIn("var panel = new InlinePanel({", result)
+
+        # rendered panel must have data-contentpath-disabled attribute by default
+        self.assertIn("data-contentpath-disabled", result)
+
+        # check that attr option renders the data-controller attribute
+        self.assertIn('data-controller="test"', result)
 
     def test_render_with_panel_overrides(self):
         """

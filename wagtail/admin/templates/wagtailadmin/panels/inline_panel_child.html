@@ -2,7 +2,7 @@
 
 {% fragment as id %}inline_child_{{ child.form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div data-inline-panel-child id="{{ id }}" data-contentpath-disabled>
+<div data-inline-panel-child id="{{ id }}" {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
     {% fragment as header_controls %}
         {% if can_order %}
             <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
