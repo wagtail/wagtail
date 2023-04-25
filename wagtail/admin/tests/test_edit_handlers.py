@@ -923,7 +923,7 @@ class TestFieldRowPanel(TestCase):
                 FieldPanel("date_to", classname="coltwo"),
             ],
             help_text="Confirmed event dates only",
-            attrs={"data-controller": "test"}
+            attrs={"data-controller": "test"},
         ).bind_to_model(EventPage)
 
     def test_render_html(self):
@@ -1211,7 +1211,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         speaker_object_list = ObjectList(
             [
                 InlinePanel(
-                    "speakers", label="Speakers", classname="classname-for-speakers", attrs={"data-controller": "test"}
+                    "speakers",
+                    label="Speakers",
+                    classname="classname-for-speakers",
+                    attrs={"data-controller": "test"},
                 )
             ]
         ).bind_to_model(EventPage)
