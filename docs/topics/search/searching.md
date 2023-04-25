@@ -288,7 +288,7 @@ For example:
 ['value1', 'value2']
 
 # Get a dict representation using dict method
-# NOTE: dict method will not return a list of values for a particular key it rather returns the last associated value
+# NOTE: dict method will not return a list of values for a particular key it rather returns the most recent associated value
 >>> filters.dict()
 {
     'this_is_a': 'filter',
