@@ -1,7 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.safestring import mark_safe
 
-from wagtail.admin.compare import text_from_html
 from wagtail.admin.forms.models import (
     WagtailAdminDraftStateFormMixin,
     WagtailAdminModelForm,
@@ -11,6 +10,7 @@ from wagtail.blocks import StreamValue
 from wagtail.coreutils import safe_snake_case
 from wagtail.models import DraftStateMixin
 from wagtail.rich_text import RichText
+from wagtail.utils.text import text_from_html
 
 
 def get_form_for_model(
