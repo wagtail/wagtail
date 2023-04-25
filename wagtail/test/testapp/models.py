@@ -978,19 +978,10 @@ class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
 
 
-register_snippet(RevisableModel)
-
-
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
 
-    panels = [
-        FieldPanel("text"),
-        FieldPanel("secret_text", permission="superuser"),
-    ]
-
-
-register_snippet(RevisableChildModel)
+    # The edit_handler is defined on the viewset
 
 
 class RevisableGrandChildModel(RevisableChildModel):
@@ -1001,10 +992,7 @@ class RevisableGrandChildModel(RevisableChildModel):
 class DraftStateModel(DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
     text = models.TextField()
 
-    panels = [
-        FieldPanel("text"),
-        PublishingPanel(),
-    ]
+    # The panels are defined on the viewset
 
     def __str__(self):
         return self.text
@@ -1292,7 +1280,7 @@ class BusinessSubIndex(Page):
     # BusinessNowherePage is 'incorrectly' added here as a possible child.
     # The rules on BusinessNowherePage prevent it from being a child here though.
     subpage_types = ["tests.BusinessChild", "tests.BusinessNowherePage"]
-    parent_page_types = ["tests.BusinessIndex", "tests.BusinessChild"]
+    parent_page_types = ["tests.BusinessIndex"]
 
 
 class BusinessChild(Page):

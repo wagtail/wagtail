@@ -29,7 +29,7 @@
 
   ul {
     @include unlist();
-    background-color: $color-teal;
+    background-color: theme('colors.surface-button-default');
     position: absolute;
     overflow: hidden;
     top: 100%;
@@ -46,12 +46,12 @@
 
       a:focus,
       button:focus {
-        border: 3px solid $color-focus-outline;
+        border: 3px solid theme('colors.focus');
       }
     }
 
     // Media for Windows High Contrast
-    @media (forced-colors: $media-forced-colours) {
+    @media (forced-colors: active) {
       li {
         border-width: 1px;
       }
@@ -62,16 +62,14 @@
 
       li a,
       li button {
-        border-color: $color-white;
-        color: $color-white;
+        border-color: theme('colors.text-button');
+        color: theme('colors.text-button');
       }
 
       li a:focus,
       li button:focus {
-        background-color: $color-black;
-        forced-color-adjust: none;
         border: 4px solid currentColor;
-        color: $color-white;
+        color: theme('colors.text-button');
       }
     }
 
@@ -80,12 +78,12 @@
       position: relative;
       text-decoration: none;
       display: block;
-      color: $color-white;
+      color: theme('colors.text-button');
       padding: 1em;
       font-weight: normal;
 
       &:hover {
-        background-color: $color-teal-darker;
+        background-color: theme('colors.surface-button-hover');
       }
 
       &.icon {
@@ -153,8 +151,8 @@
   }
 
   .dropdown-toggle {
-    color: $color-white;
-    background-color: $color-teal;
+    color: theme('colors.text-button');
+    background-color: theme('colors.surface-button-default');
     line-height: 2.8em;
     cursor: pointer;
     height: 100%;
@@ -175,7 +173,7 @@
     }
 
     &:hover {
-      background-color: $color-teal-darker;
+      background-color: theme('colors.surface-button-hover');
     }
 
     svg.icon {
@@ -185,25 +183,21 @@
   }
 
   .bicolor + .dropdown-toggle {
-    background-color: $color-teal-darker;
-
-    &:hover {
-      background-color: $color-teal-dark;
-    }
+    background-color: theme('colors.surface-button-hover');
   }
 
   &.open .dropdown-toggle {
-    background-color: $color-teal-darker;
+    background-color: theme('colors.surface-button-hover');
   }
 
   .bicolor:hover {
-    background-color: $color-teal-dark;
+    background-color: theme('colors.surface-button-hover');
   }
 
   // Styles for dropdowns which are also buttons e.g page editor
   &.dropdown-button {
     // Media for Windows High Contrast
-    @media (forced-colors: $media-forced-colours) {
+    @media (forced-colors: active) {
       button {
         border-color: ActiveText;
       }
@@ -220,7 +214,7 @@
     .dropdown-toggle {
       border-radius: 0 3px 3px 0;
       // Media for Windows High Contrast
-      @media (forced-colors: $media-forced-colours) {
+      @media (forced-colors: active) {
         background: transparent;
         border: 1px solid ActiveText;
       }
@@ -228,7 +222,7 @@
 
     .dropdown-toggle:hover {
       // Media for Windows High Contrast
-      @media (forced-colors: $media-forced-colours) {
+      @media (forced-colors: active) {
         background-color: transparent;
         border: 1px solid Highlight;
       }
@@ -244,32 +238,6 @@
 
       .dropdown-toggle {
         border-radius: 0 3px 0 0;
-      }
-    }
-  }
-
-  &.dropdown-button--white {
-    ul {
-      background-color: $color-grey-3;
-    }
-
-    li a,
-    li .button {
-      background-color: $color-white;
-      color: $color-button;
-      outline-offset: $focus-outline-width;
-      border: 0;
-
-      &:hover {
-        background-color: $color-grey-4;
-      }
-
-      &.no {
-        color: $color-button-no;
-      }
-
-      &.warning {
-        color: $color-button-warning;
       }
     }
   }
@@ -292,17 +260,17 @@
 
 .dropdown.white {
   ul {
-    background-color: $color-white;
+    background-color: theme('colors.surface-page');
 
     li {
       border-top: 1px solid theme('colors.black-10');
     }
 
     a {
-      color: $color-grey-2;
+      color: theme('colors.text-meta');
 
       &:hover {
-        background-color: $color-grey-3;
+        background-color: theme('colors.text-context');
       }
     }
   }
@@ -310,11 +278,11 @@
 
 .dropdown.warning {
   ul {
-    background-color: $color-button-warning;
+    background-color: theme('colors.surface-alert-warning');
   }
 
   .dropdown-toggle {
-    background-color: $color-button-warning;
+    background-color: theme('colors.surface-alert-warning');
   }
 }
 

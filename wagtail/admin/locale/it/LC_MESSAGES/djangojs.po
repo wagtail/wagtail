@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
-"Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
+"Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "

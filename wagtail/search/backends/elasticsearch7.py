@@ -85,7 +85,7 @@ class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
 
 
 class Elasticsearch7AutocompleteQueryCompiler(
-    Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl
+    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
 ):
     pass
 

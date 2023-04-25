@@ -15,7 +15,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,6 +210,14 @@ msgid "Select document"
 msgstr "Izberite dokument"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
@@ -287,6 +295,14 @@ msgstr "Oznaka"
 msgid "Add tags to the selected documents"
 msgstr "Dodajte oznake izbranim dokumentom"
 
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Dodane so bile nove oznake %(num_parent_objects)d k dokumentu"
+msgstr[1] "Dodane so bile nove oznake %(num_parent_objects)d k dokumentoma"
+msgstr[2] "Dodane so bile nove oznake %(num_parent_objects)d k dokumentom"
+msgstr[3] "Dodane so bile nove oznake %(num_parent_objects)d k dokumentom"
+
 msgid "Add to collection"
 msgstr "Dodaj v zbirko"
 
@@ -298,6 +314,14 @@ msgstr "Izbriši"
 
 msgid "Delete selected documents"
 msgstr "Izbriši izbrane dokumente"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokument je bil izbrisan"
+msgstr[1] "%(num_parent_objects)d  dokumenta sta bila izbrisana"
+msgstr[2] "%(num_parent_objects)d dokumentov je bilo izbrisanih"
+msgstr[3] "%(num_parent_objects)d dokumentov je bilo izbrisanih"
 
 msgid "Choose a document"
 msgstr "Izberite dokument"

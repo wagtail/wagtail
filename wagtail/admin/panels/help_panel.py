@@ -2,6 +2,12 @@ from .base import Panel
 
 
 class HelpPanel(Panel):
+    """
+    A panel to display helpful information to the user.
+
+    This panel does not support the ``help_text`` parameter.
+    """
+
     def __init__(
         self,
         content="",

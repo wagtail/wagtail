@@ -16,6 +16,7 @@ from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 class PreviewOnEdit(View):
     model = None
+    form_class = None
     http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
     session_key_prefix = "wagtail-preview-"
@@ -53,8 +54,13 @@ class PreviewOnEdit(View):
             obj = obj.get_latest_revision_as_object()
         return obj
 
+    def get_form_class(self):
+        if self.form_class:
+            return self.form_class
+        return get_edit_handler(self.model).get_form_class()
+
     def get_form(self, query_dict):
-        form_class = get_edit_handler(self.model).get_form_class()
+        form_class = self.get_form_class()
 
         if not query_dict:
             # Query dict is empty, return null form

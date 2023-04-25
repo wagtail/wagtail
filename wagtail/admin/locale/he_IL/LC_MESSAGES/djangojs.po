@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2022\n"
-"Language-Team: Hebrew (Israel) (https://www.transifex.com/torchbox/"
+"Language-Team: Hebrew (Israel) (https://app.transifex.com/torchbox/"
 "teams/8009/he_IL/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: he_IL\n"

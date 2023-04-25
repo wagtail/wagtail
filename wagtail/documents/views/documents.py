@@ -67,19 +67,7 @@ class BaseListingView(TemplateView):
                 query_string = self.form.cleaned_data["q"]
                 if query_string:
                     search_backend = get_search_backend()
-                    if documents.model.get_autocomplete_search_fields():
-                        try:
-                            documents = search_backend.autocomplete(
-                                query_string, documents
-                            )
-                        except NotImplementedError:
-                            documents = search_backend.search(
-                                query_string, documents, partial_match=True
-                            )
-                    else:
-                        documents = search_backend.search(
-                            query_string, documents, partial_match=True
-                        )
+                    documents = search_backend.autocomplete(query_string, documents)
         else:
             self.form = SearchForm(placeholder=_("Search documents"))
 

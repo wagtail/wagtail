@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Indonesian (Indonesia) (https://www.transifex.com/torchbox/"
+"Language-Team: Indonesian (Indonesia) (https://app.transifex.com/torchbox/"
 "teams/8009/id_ID/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: id_ID\n"

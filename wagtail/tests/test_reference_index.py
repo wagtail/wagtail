@@ -238,7 +238,16 @@ class TestCreateOrUpdateForObject(TestCase):
             verbosity=0,
             stdout=stdout,
         )
-        self.assertFalse(stdout.read())
+        self.assertFalse(stdout.getvalue())
+
+    def test_show_references_index(self):
+        stdout = StringIO()
+        management.call_command(
+            "show_references_index",
+            stdout=stdout,
+        )
+        self.assertIn(" 3  wagtail.images.models.Image", stdout.getvalue())
+        self.assertIn(" 4  wagtail.test.testapp.models.EventPage", stdout.getvalue())
 
 
 class TestDescribeOnDelete(TestCase):

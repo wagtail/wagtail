@@ -1,6 +1,5 @@
 import difflib
 
-from bs4 import BeautifulSoup
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.encoding import force_str
@@ -13,11 +12,7 @@ from taggit.managers import TaggableManager
 from wagtail import blocks
 from wagtail.fields import RichTextField, StreamField
 from wagtail.utils.registry import ModelFieldRegistry
-
-
-def text_from_html(val):
-    # Return the unescaped text content of an HTML string
-    return BeautifulSoup(force_str(val), "html5lib").getText()
+from wagtail.utils.text import text_from_html
 
 
 comparison_class_registry = ModelFieldRegistry()

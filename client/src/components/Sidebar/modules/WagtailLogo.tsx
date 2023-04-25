@@ -18,7 +18,7 @@ const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
          sidebar-wagtail-branding__icon
          !w-overflow-visible
          w-group
-         w-text-primary
+         w-text-surface-menus
          w-z-10
          w-absolute
          w-transition-all

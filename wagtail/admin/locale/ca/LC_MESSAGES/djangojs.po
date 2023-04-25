@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
-"Language-Team: Catalan (https://www.transifex.com/torchbox/teams/8009/ca/)\n"
+"Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

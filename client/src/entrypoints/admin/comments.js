@@ -56,18 +56,15 @@ window.comments = (() => {
      * @param {number} localId - the localId of the comment to subscribe to
      */
     subscribeToUpdates(localId) {
-      const { selectFocused, selectEnabled } = commentApp.selectors;
+      const { selectFocused } = commentApp.selectors;
       const selectComment = commentApp.utils.selectCommentFactory(localId);
       const store = commentApp.store;
       const initialState = store.getState();
       let focused = selectFocused(initialState) === localId;
-      let shown = selectEnabled(initialState);
       if (focused) {
         this.onFocus();
       }
-      if (shown) {
-        this.show();
-      }
+      this.show();
       this.unsubscribe = store.subscribe(() => {
         const state = store.getState();
         const comment = selectComment(state);
@@ -82,14 +79,6 @@ window.comments = (() => {
             this.onFocus();
           }
           focused = nowFocused;
-        }
-        if (shown !== selectEnabled(state)) {
-          if (shown) {
-            this.hide();
-          } else {
-            this.show();
-          }
-          shown = selectEnabled(state);
         }
       });
       this.setOnClickHandler(localId);
@@ -125,6 +114,9 @@ window.comments = (() => {
 
     setOnClickHandler(localId) {
       this.node.addEventListener('click', () => {
+        // Open the comments side panel
+        commentApp.activate();
+
         commentApp.store.dispatch(
           commentApp.actions.setFocusedComment(localId, {
             updatePinnedComment: true,
@@ -152,18 +144,13 @@ window.comments = (() => {
   }
 
   class FieldLevelCommentWidget {
-    constructor({ fieldNode, commentAdditionNode, annotationTemplateNode }) {
+    constructor({ fieldNode, commentAdditionNode }) {
       this.fieldNode = fieldNode;
       this.contentpath = getContentPath(fieldNode);
       if (!commentAdditionNode) {
         throw new MissingElementError(commentAdditionNode);
       }
       this.commentAdditionNode = commentAdditionNode;
-      if (!annotationTemplateNode) {
-        throw new MissingElementError(annotationTemplateNode);
-      }
-      this.annotationTemplateNode = annotationTemplateNode;
-      this.updateVisibility(false);
     }
 
     register() {
@@ -171,19 +158,14 @@ window.comments = (() => {
         // The widget has no valid contentpath, skip subscriptions
         return undefined;
       }
-      const { selectEnabled } = commentApp.selectors;
       const initialState = commentApp.store.getState();
-      let currentlyEnabled = selectEnabled(initialState);
       const selectCommentsForContentPath =
         commentApp.utils.selectCommentsForContentPathFactory(this.contentpath);
       let currentComments = selectCommentsForContentPath(initialState);
-      this.updateVisibility(currentComments.length === 0 && currentlyEnabled);
       const unsubscribeWidget = commentApp.store.subscribe(() => {
         const state = commentApp.store.getState();
         const newComments = selectCommentsForContentPath(state);
-        const newEnabled = selectEnabled(state);
         const commentsChanged = currentComments !== newComments;
-        const enabledChanged = currentlyEnabled !== newEnabled;
         if (commentsChanged) {
           // Add annotations for any new comments
           currentComments = newComments;
@@ -194,14 +176,6 @@ window.comments = (() => {
               commentApp.updateAnnotation(annotation, comment.localId);
               annotation.subscribeToUpdates(comment.localId);
             });
-        }
-        if (enabledChanged || commentsChanged) {
-          // If comments have been enabled or disabled, or the comments have changed
-          // check whether to show the widget (if comments are enabled and there are no existing comments)
-          currentlyEnabled = newEnabled;
-          this.updateVisibility(
-            currentComments.length === 0 && currentlyEnabled,
-          );
         }
       });
       initialState.comments.comments.forEach((comment) => {
@@ -218,11 +192,14 @@ window.comments = (() => {
         annotation.subscribeToUpdates(localId);
       };
       this.commentAdditionNode.addEventListener('click', () => {
+        // Open the comments side panel
+        commentApp.activate();
+
         // Make the widget button clickable to add a comment
         addComment();
       });
       this.fieldNode.addEventListener('keyup', (e) => {
-        if (currentlyEnabled && isCommentShortcut(e)) {
+        if (isCommentShortcut(e)) {
           if (currentComments.length === 0) {
             addComment();
           } else {
@@ -239,21 +216,10 @@ window.comments = (() => {
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
 
-    updateVisibility(newShown) {
-      if (newShown === this.shown) {
-        return;
-      }
-      this.shown = newShown;
-
-      if (!this.shown) {
-        this.commentAdditionNode.classList.add('u-hidden');
-      } else {
-        this.commentAdditionNode.classList.remove('u-hidden');
-      }
-    }
-
     getAnnotationForComment() {
-      const annotationNode = this.annotationTemplateNode.cloneNode(true);
+      const annotationNode = document
+        .querySelector('#comment-icon')
+        .cloneNode(true);
       annotationNode.id = '';
       annotationNode.setAttribute(
         'aria-label',
@@ -276,38 +242,12 @@ window.comments = (() => {
     }
   }
 
-  function onNextEnable(fn) {
-    // Run a function once, when comments are enabled
-    const { selectEnabled } = commentApp.selectors;
-    const getEnabled = () => selectEnabled(commentApp.store.getState());
-    let enabled = getEnabled();
-    if (enabled) {
-      // If we're starting off enabled, run the function immediately
-      fn();
-      return;
-    }
-    const unsubscribe = commentApp.store.subscribe(() => {
-      // Otherwise, subscribe to updates and run the function when comments change to enabled
-      const newEnabled = getEnabled();
-      if (newEnabled && !enabled) {
-        enabled = newEnabled;
-        unsubscribe();
-        fn();
-      }
-    });
-  }
-
   function initAddCommentButton(buttonElement) {
-    const initWidget = () => {
-      const widget = new FieldLevelCommentWidget({
-        fieldNode: buttonElement.closest('[data-contentpath]'),
-        commentAdditionNode: buttonElement,
-        annotationTemplateNode: document.querySelector('#comment-icon'),
-      });
-      widget.register();
-    };
-    // Our template node may not exist yet - let's hold off until comments are loaded and enabled
-    onNextEnable(initWidget);
+    const widget = new FieldLevelCommentWidget({
+      fieldNode: buttonElement.closest('[data-contentpath]'),
+      commentAdditionNode: buttonElement,
+    });
+    widget.register();
   }
 
   function initCommentsInterface(formElement) {
@@ -348,42 +288,21 @@ window.comments = (() => {
       });
     }
 
-    // Show/hide comments when the side panel is opened/closed
-    const commentsSidePanel = document.querySelector(
-      '[data-side-panel="comments"]',
-    );
+    // Show comments app
     const commentNotifications = formElement.querySelector(
       '[data-comment-notifications]',
     );
+    commentNotifications.hidden = false;
     const tabContentElement = formElement.querySelector('.tab-content');
+    tabContentElement.classList.add('tab-content--comments-enabled');
 
-    const updateCommentVisibility = (visible) => {
-      // Show/hide comments
-      commentApp.setVisible(visible);
-
-      // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
-      if (visible) {
-        tabContentElement.classList.add('tab-content--comments-enabled');
-        if (commentNotifications) {
-          commentNotifications.hidden = false;
-        }
-      } else {
-        tabContentElement.classList.remove('tab-content--comments-enabled');
-        if (commentNotifications) {
-          commentNotifications.hidden = true;
-        }
-      }
-    };
-
-    if (commentsSidePanel) {
-      commentsSidePanel.addEventListener('show', () => {
-        updateCommentVisibility(true);
-      });
-
-      commentsSidePanel.addEventListener('hide', () => {
-        updateCommentVisibility(false);
-      });
-    }
+    // Open the comments panel whenever the comment app is activated by a user clicking on an "Add comment" widget on the form.
+    const commentSidePanel = document.querySelector(
+      '[data-side-panel="comments"]',
+    );
+    commentApp.onActivate(() => {
+      commentSidePanel.dispatchEvent(new Event('open'));
+    });
 
     // Keep number of comments up to date with comment app
     const commentToggle = document.querySelector(
@@ -392,9 +311,9 @@ window.comments = (() => {
 
     const commentCounter = document.createElement('div');
     commentCounter.className =
-      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-bg-secondary-100 w-text-white w-border w-border-white w-rounded-[1rem]';
+      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-bg-surface-button-default w-text-text-button w-border w-border-surface-page w-rounded-[1rem]';
     commentToggle.className =
-      'w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary expanded:w-text-primary';
+      'w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label expanded:w-text-text-label';
     commentToggle.appendChild(commentCounter);
 
     const updateCommentCount = () => {

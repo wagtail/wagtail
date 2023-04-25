@@ -14,7 +14,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2023\n"
-"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1191,7 +1191,7 @@ msgstr[0] "No teniu permisos per esborrar aquesta pàgina"
 msgstr[1] "No teniu permisos per esborrar aquestes pàgines"
 
 msgid "No, don't delete"
-msgstr "No, no esborrar"
+msgstr "No esborrar"
 
 #, python-format
 msgid "Move 1 page"

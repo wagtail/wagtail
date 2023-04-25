@@ -3,7 +3,7 @@ body {
   font-family: $font-sans;
   font-size: 85%;
   line-height: 1.5em;
-  color: $color-text-base;
+  color: theme('colors.text-context');
 }
 
 h1,
@@ -14,7 +14,7 @@ h5,
 h6 {
   font-weight: normal;
   line-height: theme('lineHeight.tight');
-  color: theme('colors.primary.DEFAULT');
+  color: theme('colors.text-label');
 }
 
 h1 {
@@ -32,17 +32,18 @@ p {
 }
 
 a {
-  color: $color-link;
+  color: theme('colors.text-link-default');
   text-decoration: none;
 
   &:hover {
-    color: $color-link-hover;
+    color: theme('colors.text-link-hover');
   }
 }
 
 code {
   box-shadow: inset 0 0 4px 0 theme('colors.black-20');
-  background-color: $color-white;
+  background-color: theme('colors.surface-page');
+  color: theme('colors.text-context');
   font-family: $font-mono;
   padding: 2px 5px;
 }
@@ -50,8 +51,9 @@ code {
 kbd {
   border-radius: 3px;
   font-family: $font-sans;
-  border: 1px solid $color-grey-2;
+  border: 1px solid currentColor;
   border-color: theme('colors.black-20');
+  color: theme('colors.text-meta');
   padding: 0.3em 0.5em;
 }
 
@@ -71,7 +73,7 @@ dl {
 }
 
 dt {
-  color: $color-grey-2;
+  color: theme('colors.text-meta');
   font-size: 0.9em;
 }
 

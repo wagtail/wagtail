@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/torchbox/teams/8009/ar/)\n"
+"Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "

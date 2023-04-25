@@ -4,16 +4,40 @@
 # Philip Andersen <renegadevi@codeofmagi.net>, 2022
 # Thomas Kunambi <kunambi@gmail.com>, 2022
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
-# Martin Sandström <martin@marteinn.se>, 2022
 # Loic Teixeira, 2022
+# Martin Sandström <martin@marteinn.se>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] "(%(errorCount)s fel)"
+msgstr[1] "(%(errorCount)s fel)"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nya objekt i denna meny"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nytt objekt i denna meny)"
+
+msgid "(New)"
+msgstr "(Ny)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s fel"
+msgstr[1] "%(num)s fel"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixlar"
 
 msgid "Add a comment"
 msgstr "Lägg till kommentar"
@@ -30,8 +54,14 @@ msgstr "Bruten länk"
 msgid "Cancel"
 msgstr "Avbryt"
 
+msgid "Character count:"
+msgstr "Antal tecken:"
+
 msgid "Close"
 msgstr "Stäng"
+
+msgid "Collapse all"
+msgstr "Expandera alla"
 
 msgid "Comment"
 msgstr "Kommentar"
@@ -60,11 +90,26 @@ msgstr "Redigera '%(title)s'"
 msgid "Edit your account"
 msgstr "Redigera ditt konto"
 
+msgid "Enter your comments..."
+msgstr "Skriva dina kommentarer..."
+
+msgid "Enter your reply..."
+msgstr "Skriv ditt svar..."
+
+msgid "Error while sending preview data."
+msgstr "Fel vid skickande av förhandsgranskningdata"
+
+msgid "Expand all"
+msgstr "Kollapsa alla"
+
 msgid "Focus comment"
 msgstr "Fokusera kommentar"
 
 msgid "Horizontal line"
 msgstr "Horisontell linje"
+
+msgid "Insert a block"
+msgstr "Lägg till ett block"
 
 msgid "Line break"
 msgstr "Linjebrytning"
@@ -160,6 +205,9 @@ msgstr ""
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
 
+msgid "Toggle side panel"
+msgstr "Växla sidopanel"
+
 msgid "Toggle sidebar"
 msgstr "Växla sidorad"
 
@@ -168,3 +216,6 @@ msgstr "Avfokusera kommentar"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Visa undersidor av '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Skriv något eller tryck på ‘/’ för att lägga till ett block"

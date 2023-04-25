@@ -35,3 +35,7 @@ class WagtailImagesAppConfig(AppConfig):
         register_comparison_class(
             ForeignKey, to=Image, comparison_class=ImageFieldComparison
         )
+
+        from wagtail.models.reference_index import ReferenceIndex
+
+        ReferenceIndex.register_model(get_image_model())

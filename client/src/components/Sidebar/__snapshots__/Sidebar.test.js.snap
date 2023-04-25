@@ -33,7 +33,7 @@ exports[`Sidebar should render with the minimum required props 1`] = `
                 w-flex
                 w-justify-center
                 w-items-center
-                hover:w-bg-primary-200
+                hover:w-bg-surface-menu-item-active
                 hover:text-white
                 hover:opacity-100"
           onClick={[Function]}

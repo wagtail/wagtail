@@ -12,15 +12,16 @@ from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 
 
 class TestAdminPageChooserWidget(TestCase):
-    def setUp(self):
-        self.root_page = Page.objects.get(id=2)
+    @classmethod
+    def setUpTestData(cls):
+        cls.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage(
+        cls.child_page = SimplePage(
             title="foobarbaz",
             content="hello",
         )
-        self.root_page.add_child(instance=self.child_page)
+        cls.root_page.add_child(instance=cls.child_page)
 
     def test_not_hidden(self):
         widget = widgets.AdminPageChooser()
@@ -163,6 +164,14 @@ class TestAdminPageChooserWidget(TestCase):
             % self.root_page.id,
             html,
         )
+
+    def test_get_instance(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage])
+        self.assertIsNone(widget.get_instance(None))
+        self.assertIsNone(widget.get_instance(self.root_page.id))
+        self.assertIsNone(widget.get_instance(self.child_page.id + 100))
+        self.assertEqual(widget.get_instance(self.child_page), self.child_page)
+        self.assertEqual(widget.get_instance(self.child_page.id), self.child_page)
 
 
 class TestAdminDateInput(TestCase):

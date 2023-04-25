@@ -27,7 +27,7 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 -   Fill in your Username, Email and Password
 -   Agree to the terms and conditions
 -   Click on free trial or join an existing organisation
--   Join [Wagtail](https://www.transifex.com/torchbox/wagtail/dashboard/) and see the list of languages on the dashboard
+-   Join [Wagtail](https://app.transifex.com/torchbox/wagtail/dashboard/) and see the list of languages on the dashboard
 -   Request access to become a member of the language team you want to work with on Slack (mention your Transifex username)
 -   A view resources button appears when you hover over the ready to use part on the right side of the page
 -   Click on the button to get access to the resources available

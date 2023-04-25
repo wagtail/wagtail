@@ -79,11 +79,20 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
+   .. autoattribute:: model
    .. autoattribute:: icon
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: add_to_settings_menu
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
    .. autoattribute:: list_display
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
+   .. autoattribute:: search_fields
+   .. autoattribute:: search_backend_name
    .. autoattribute:: list_per_page
+   .. autoattribute:: ordering
    .. autoattribute:: admin_url_namespace
    .. autoattribute:: base_url_path
    .. autoattribute:: chooser_admin_url_namespace
@@ -111,7 +120,14 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_template_name
    .. autoattribute:: delete_template_name
    .. autoattribute:: history_template_name
+   .. automethod:: get_menu_label
+   .. automethod:: get_menu_name
+   .. automethod:: get_menu_icon
+   .. automethod:: get_menu_order
+   .. automethod:: get_menu_item
    .. automethod:: get_queryset
+   .. automethod:: get_edit_handler
+   .. automethod:: get_form_class
    .. automethod:: get_index_template
    .. automethod:: get_index_results_template
    .. automethod:: get_create_template
@@ -122,4 +138,22 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_admin_base_path
    .. automethod:: get_chooser_admin_url_namespace
    .. automethod:: get_chooser_admin_base_path
+```
+
+## SnippetViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.snippets.views.snippets.SnippetViewSetGroup
+
+   .. autoattribute:: items
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_icon
+   .. autoattribute:: menu_order
+   .. automethod:: get_menu_label
+   .. automethod:: get_menu_name
+   .. automethod:: get_menu_icon
+   .. automethod:: get_menu_order
+   .. automethod:: get_menu_item
 ```

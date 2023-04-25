@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
-"Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
+"Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"

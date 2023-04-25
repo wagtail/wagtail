@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Thai (https://www.transifex.com/torchbox/teams/8009/th/)\n"
+"Language-Team: Thai (https://app.transifex.com/torchbox/teams/8009/th/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"

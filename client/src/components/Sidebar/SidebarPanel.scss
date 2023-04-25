@@ -13,14 +13,13 @@
   z-index: 400;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   @include media-breakpoint-up(sm) {
     z-index: var(--z-index);
     width: var(--width);
   }
 
-  @media (forced-colors: $media-forced-colours) {
+  @media (forced-colors: active) {
     border-inline-start: 1px solid transparent;
     border-inline-end: 1px solid transparent;
   }

@@ -4,7 +4,11 @@ const vanillaRTL = require('tailwindcss-vanilla-rtl');
  * Design Tokens
  */
 const colors = require('./src/tokens/colors');
-const { generateColorVariables } = require('./src/tokens/colorVariables');
+const {
+  generateColorVariables,
+  generateThemeColorVariables,
+} = require('./src/tokens/colorVariables');
+const colorThemes = require('./src/tokens/colorThemes');
 const {
   fontFamily,
   fontSize,
@@ -43,6 +47,14 @@ const themeColors = Object.fromEntries(
   }),
 );
 
+const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
+  Object.entries(category.tokens).forEach(([name, token]) => {
+    // eslint-disable-next-line no-param-reassign
+    colorTokens[name] = `var(${token.cssVariable})`;
+  });
+  return colorTokens;
+}, {});
+
 /**
  * Root Tailwind config, reusable for other projects.
  */
@@ -54,14 +66,17 @@ module.exports = {
     },
     colors: {
       ...themeColors,
-      // Fades of white and black are not customisable.
-      'white-15': 'rgba(255, 255, 255, 0.15)',
-      'white-50': 'rgba(255, 255, 255, 0.50)',
-      'white-80': 'rgba(255, 255, 255, 0.80)',
-      'black-10': 'rgba(0, 0, 0, 0.10)',
-      'black-20': 'rgba(0, 0, 0, 0.20)',
-      'black-35': 'rgba(0, 0, 0, 0.35)',
-      'black-50': 'rgba(0, 0, 0, 0.50)',
+      ...lightThemeColors,
+      'white-10': 'var(--w-color-white-10)',
+      'white-15': 'var(--w-color-white-15)',
+      'white-50': 'var(--w-color-white-50)',
+      'white-80': 'var(--w-color-white-80)',
+      'black-5': 'var(--w-color-black-5)',
+      'black-10': 'var(--w-color-black-10)',
+      'black-20': 'var(--w-color-black-20)',
+      'black-25': 'var(--w-color-black-25)',
+      'black-35': 'var(--w-color-black-35)',
+      'black-50': 'var(--w-color-black-50)',
       // Color keywords.
       'inherit': 'inherit',
       'current': 'currentColor',
@@ -150,8 +165,25 @@ module.exports = {
         ':root, :host': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
+          '--w-color-white-10': 'rgba(255, 255, 255, 0.10)',
+          '--w-color-white-15': 'rgba(255, 255, 255, 0.15)',
+          '--w-color-white-50': 'rgba(255, 255, 255, 0.50)',
+          '--w-color-white-80': 'rgba(255, 255, 255, 0.80)',
+          '--w-color-black-5': 'rgba(0, 0, 0, 0.05)',
+          '--w-color-black-10': 'rgba(0, 0, 0, 0.10)',
+          '--w-color-black-20': 'rgba(0, 0, 0, 0.20)',
+          '--w-color-black-25': 'rgba(0, 0, 0, 0.25)',
+          '--w-color-black-35': 'rgba(0, 0, 0, 0.35)',
+          '--w-color-black-50': 'rgba(0, 0, 0, 0.50)',
           ...generateColorVariables(colors),
+          ...generateThemeColorVariables(colorThemes.light),
         },
+        '.w-theme-system': {
+          '@media (prefers-color-scheme: dark)': generateThemeColorVariables(
+            colorThemes.dark,
+          ),
+        },
+        '.w-theme-dark': generateThemeColorVariables(colorThemes.dark),
       });
     }),
     /** Support for aria-expanded=true variant */

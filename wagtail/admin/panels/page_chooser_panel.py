@@ -4,14 +4,14 @@ from .field_panel import FieldPanel
 
 
 class PageChooserPanel(FieldPanel):
-    def __init__(self, field_name, page_type=None, can_choose_root=False):
-        super().__init__(field_name=field_name)
-
+    def __init__(self, field_name, page_type=None, can_choose_root=False, **kwargs):
+        super().__init__(field_name=field_name, **kwargs)
         self.page_type = page_type
         self.can_choose_root = can_choose_root
 
     def clone_kwargs(self):
         return {
+            **super().clone_kwargs(),
             "field_name": self.field_name,
             "page_type": self.page_type,
             "can_choose_root": self.can_choose_root,

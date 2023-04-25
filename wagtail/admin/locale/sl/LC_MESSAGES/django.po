@@ -20,7 +20,7 @@ msgstr ""
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -246,6 +246,10 @@ msgstr "Ključ '%(page_slug)s'  je že v uporabi na nadrejeni strani"
 msgid "Select a new parent for this page."
 msgstr "Izberite novega starša za to stran."
 
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Značka(e) %(value_too_long)s so preko %(max_tag_length)dznakov "
+
 msgid "Visibility"
 msgstr "Vidnost"
 
@@ -332,6 +336,14 @@ msgstr "Izbrani so vsi uporabniki na seznamu"
 
 msgid "1 snippet selected"
 msgstr "Izbran je 1 delček"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s delec izbran"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Vsi %(objects)s delci na tem zaslonu so izbrani"
 
 msgid "All snippets in listing selected"
 msgstr "Izbrani so vsi delčki na seznamu"
@@ -492,6 +504,9 @@ msgstr "Izberite"
 msgid "Choose a page"
 msgstr "Izberite stran"
 
+msgid "Confirm selection"
+msgstr "Potrdite izbiro"
+
 msgid "Convert to internal link"
 msgstr "Pretvori v interno povezavo"
 
@@ -507,6 +522,15 @@ msgstr ""
 "notranjo stranjo %(page)s, ki ima URL <a target=\"_blank\" "
 "rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Če to pretvorite v notranjo povezavo do %(page)s, bi sprememba URL-ja "
+"osnovne strani to povezavo samodejno posodobilo. Želite uveljaviti spremembe?"
+
 msgid "Use external link"
 msgstr "Uporabite zunanjo povezavo"
 
@@ -521,6 +545,10 @@ msgstr "Dodaj zunanjo povezavo"
 
 msgid "Add a phone link"
 msgstr "Dodaj telefonsko povezavo"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Izberite %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -579,11 +607,28 @@ msgstr ""
 "Dodana ni še nobena zbirka. Zakaj je ne bi <a "
 "href=\"%(add_collection_url)s\">dodali</a>?"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Žal ni zadetkov za \"<em>%(search_query)s</em>\""
+
+msgid "No items have been created."
+msgstr "Ustvarjen ni bil noben element."
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
 msgid "Update"
 msgstr "Posodbi"
+
+msgid "Preview not available"
+msgstr "Predogled ni na voljo"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Predogleda ni mogoče prikazati zaradi napak pri preverjanju. <br /> Kliknite "
+"Shrani, da označite ustrezna polja."
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -670,6 +715,10 @@ msgstr "Zavrni"
 msgid "Preview"
 msgstr "Predogled"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "avtor %(name)s"
+
 msgid "Your most recent edits"
 msgstr "Zadnja urejanja vsebine"
 
@@ -681,6 +730,22 @@ msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Povzetek spletnega mesta"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Na voljo je nadgradnja za Wagtail. Vaša različica: "
+"<strong>%(current_version)s</strong>. Nova različica: <strong data-w-upgrade-"
+"target=\"latestVersion\"></strong>."
+
+msgid "Read the release notes."
+msgstr "Preberite opombe ob izdaji."
+
+msgid "Your pages and snippets in a workflow"
+msgstr "Vaše strani in delci v procesu dela"
 
 msgid "Task started"
 msgstr "Naloga se je začela"
@@ -786,9 +851,17 @@ msgstr ""
 "Ta stran \"%(title)s\" je bilo odobreno v moderatorki fazi \"%(task)s\"."
 
 #, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Model %(model_name)s lahko uredite tu:"
+
+#, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "Stran \"%(title)s\" je bila zavrnjena v fazi moderiranja \"%(task)s\"."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Predogled %(model_name)s lahko izvedete tu:"
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -868,6 +941,9 @@ msgstr "Ustvari stran v"
 msgid "Choose which type of page you'd like to create."
 msgstr "Izberite kateri tip strani želite ustvariti."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Žal ne morete ustvariti strani na tej lokaciji."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Strani tipa %(page_type)s"
@@ -882,6 +958,14 @@ msgstr[3] "Izbriši %(counter)s strani"
 
 msgid "Are you sure you want to delete these pages?"
 msgstr "Ali ste prepričani, da želite izbrisati te strani?"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "S tem boste izbrisali tudi eno podstran."
+msgstr[1] "S tem boste izbrisali tudi %(counter)s podstrani."
+msgstr[2] "S tem boste izbrisali tudi %(counter)s podstrani."
+msgstr[3] "S tem boste izbrisali tudi %(counter)s podstrani."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -965,6 +1049,14 @@ msgstr[3] "Prekliči objavo %(counter)s strani"
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Ali ste prepričani, da želite preklicati objavo teh strani?"
 
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Ta stran ima 1 podstran"
+msgstr[1] "Ta stran ima %(counter)s podstrani"
+msgstr[2] "Ta stran ima %(counter)s podstrani"
+msgstr[3] "Ta stran ima %(counter)s podstrani"
+
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
 msgstr[0] "Nimate dovoljenja za preklic objave te strani"
@@ -977,6 +1069,10 @@ msgstr "Da, prekliči objavo"
 
 msgid "No, don't unpublish"
 msgstr "Ne, ne prekliči objave"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Pretvori vzdevek %(title)s"
 
 msgid "Convert alias"
 msgstr "Pretvori vzdevek"
@@ -999,6 +1095,14 @@ msgstr "Izbriši %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Ali ste prepričani, da želite stran izbrisati?"
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "To dejanje bo izbrisalo skupno <b>%(total_pages)s</b> strani."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Prosimo vpišite <b>%(wagtail_site_name)s</b> za potrditev."
 
 msgid "Yes, delete it"
 msgstr "Da, izbriši ga"
@@ -1134,6 +1238,14 @@ msgstr "Raziskovalec: %(title)s"
 msgid "Select all pages in listing"
 msgstr "Izberite vse strani na seznamu"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Pritisnite enter, da izberete element, uporabite puščici gor in dol, da "
+"premaknete element, pritisnite enter, da dokončate premik, ali escape, da "
+"prekličete trenutni premik."
+
 msgid "Select page"
 msgstr "Izberi stran"
 
@@ -1188,6 +1300,9 @@ msgstr "Na tej lokaciji še ni bila dodana nobena stran."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Zakaj je ne bi <a href=\"%(add_page_url)s\">dodali</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "To stran ste zaklenili za nadaljnje urejanje"
 
 msgid "This page is locked to further editing"
 msgstr "Stran je zaklenjena, urejanje ni mogoče"
@@ -1249,6 +1364,14 @@ msgstr "Primerjaj s trenutno različico"
 msgid "Cancel scheduled publish"
 msgstr "Prekliči načrtovano objavo"
 
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Obstaja 1 ujemajoča stran"
+msgstr[1] "Obstajata %(counter)s ujemajoči se strani"
+msgstr[2] "Obstaja %(counter)s ujemajočih se strani"
+msgstr[3] "Obstaja %(counter)s ujemajočih se strani"
+
 msgid "Page types"
 msgstr "Vrsta strani"
 
@@ -1280,6 +1403,15 @@ msgstr "Izberite, kdaj naj bo ta stran objavljena in/ali poteče"
 
 msgid "This publishing schedule will only take effect after you have published"
 msgstr "Ta razpored objavljanja bo začel veljati šele po objavi"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Vsakdo z dovoljenji za urejanje lahko načrtuje objavo"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr "Toda le tisti z dovoljenji za objavo jih lahko aktivirajo."
+
+msgid "Save schedule"
+msgstr "Shrani urnik"
 
 msgid "Comment notifications"
 msgstr "Obvestila o komentarjih"
@@ -1338,6 +1470,9 @@ msgstr "Po nalogi"
 msgid "Workflow"
 msgstr "Potek dela"
 
+msgid "Page/Snippet"
+msgstr "Stran/Delec"
+
 msgid "Requested by"
 msgstr "Zahtevano od"
 
@@ -1370,8 +1505,23 @@ msgstr "Koren"
 msgid "Unpublish %(title)s"
 msgstr "Umakni '%(title)s' iz objave"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Ali ste prepričani, da želite preklicati objavo %(model_name)s?"
+
 msgid "Yes, unpublish it"
 msgstr "Da, umakni jo"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Objavi %(model_name)s"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
+
+msgid "Close dialog"
+msgstr "Zapri pogovorno okno"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"
@@ -1405,6 +1555,9 @@ msgstr "Zasebno. Obiščite stran v živo"
 msgid "Visible to all"
 msgstr "Vidno vsem"
 
+msgid "Toggle section"
+msgstr "Preklop razdelka"
+
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Odstrani planirano revizijo %(revision.id)s za %(title)s"
@@ -1424,14 +1577,27 @@ msgstr "Ne, načrtuj"
 msgid "Other searches"
 msgstr "Ostala iskanja"
 
+msgid "Side panels"
+msgstr "Stranske plošče"
+
 msgid "Toggle side panel"
 msgstr "Preklopi stransko ploščo"
 
 msgid "Side panel width"
 msgstr "Širina stranske vrstice"
 
+msgid "Minimap"
+msgstr "Minimap"
+
 msgid "Page Locale: "
 msgstr "Jezik strani:"
+
+msgid "Locale: "
+msgstr "Jezik: "
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Na voljo v %(translations_total)s jezikih"
 
 msgid "No other translations"
 msgstr "Ni drugih prevodov"
@@ -1442,12 +1608,38 @@ msgstr "Preklopite jezik"
 msgid "Page locking: "
 msgstr "Zaklepanje strani:"
 
+msgid "Locking: "
+msgstr "Zaklepanje: "
+
+msgid ""
+"You can edit this page, but others may not. Unlock it to allow others to "
+"edit."
+msgstr ""
+"To stran lahko urejate, druge pa ne. Odklenite stran, da drugim omogočite "
+"urejanje."
+
+msgid "You can edit this page, but others may not."
+msgstr "To stran lahko urejate, druge pa ne."
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr "Te strani ne morete urejati. Za urejanje odklenite stran"
+
+msgid "You cannot edit this page."
+msgstr "Te strani ne morete urejati."
+
+#, python-format
+msgid "You cannot edit this %(model_name)s."
+msgstr "Tega %(model_name)s ne morete urejati."
+
 msgid "Unlocked"
 msgstr "Odklenjeno"
 
 msgid "Anyone can edit this page. Lock it to prevent others from editing."
 msgstr ""
 "Vsakdo lahko ureja to stran. Zaklenite ga, da drugim preprečite urejanje."
+
+msgid "Anyone can edit this page."
+msgstr "Vsakdo lahko ureja to stran."
 
 msgid "Lock"
 msgstr "Zakleni"
@@ -1470,6 +1662,15 @@ msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
 msgid "Page status: "
 msgstr "Stanje strani:"
 
+msgid "Status: "
+msgstr "Stanje: "
+
+msgid "Expiry:"
+msgstr "Potek: "
+
+msgid "Edit schedule"
+msgstr "Uredite urnik"
+
 msgid "In Moderation"
 msgstr "V moderiranju"
 
@@ -1483,8 +1684,17 @@ msgstr "avtor %(user)s"
 msgid "View history"
 msgstr "Ogled zgodovine"
 
+msgid "Go-live:"
+msgstr "Objava v živo:"
+
+msgid "Once published:"
+msgstr "Ko je objavljeno: "
+
 msgid "No publishing schedule set"
 msgstr "Razpored objave ni nastavljen"
+
+msgid "Set schedule"
+msgstr "Nastavite urnik"
 
 msgid "Preview in mobile size"
 msgstr "Predogled v mobilni velikosti"
@@ -1515,7 +1725,7 @@ msgid "Preview mode"
 msgstr "Način predogleda"
 
 msgid "First published "
-msgstr "Prvič objavljeno"
+msgstr "Prvič objavljeno "
 
 msgid "Workflow progress"
 msgstr "Napredek poteka dela"
@@ -1595,6 +1805,15 @@ msgstr "Preskoči na glavno vsebino"
 msgid "View Wagtail quick actions"
 msgstr "Oglejte si hitra dejanja Wagtail"
 
+msgid "Warnings"
+msgstr "Opozorila"
+
+msgid "Issues found"
+msgstr "Najdene težave"
+
+msgid "Accessibility"
+msgstr "Dostopnost"
+
 msgid "Add a child page"
 msgstr "Dodaj podrejeno stran"
 
@@ -1633,6 +1852,14 @@ msgstr ""
 "stran, bodo tudi njene podrejene strani uporabljale ta potek dela. Oglejte "
 "si <a href=\"%(workflow_pages_url)s\">seznam strani</a>, na katere se nanaša "
 "vaš potek dela"
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr ""
+"Ta delovni proces je onemogočen, zato ga ni mogoče dodeliti nobeni strani."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"Ta potek dela je onemogočen, zato ga ni mogoče dodeliti nobenemu izrezku."
 
 msgid "Used on the following active workflows"
 msgstr "Uporablja se v naslednjih aktivnih potekih dela"
@@ -1699,6 +1926,10 @@ msgstr "Vrsta naloge"
 msgid "Used on"
 msgstr "Uporabljen na"
 
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Žal se nobena naloga ne ujema z \"<em>%(query_string)s</em>\""
+
 msgid "You haven't created any tasks."
 msgstr "Niste ustvarili nobene naloge."
 
@@ -1707,6 +1938,13 @@ msgstr "Skrij onemogočena opravila"
 
 msgid "Show disabled tasks"
 msgstr "Pokaži onemogočena opravila"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Ustvarjena ni bila nobena naloga. Zakaj nebi <a "
+"href=\"%(add_url)s\">ustvarili nove </a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -1766,11 +2004,27 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s nazaj"
 
 #, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "ob %(time)s avtor %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "ob %(time)s"
+
+#, python-format
 msgid "just now by %(user_display_name)s"
 msgstr "ravnokar od %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Odjava"
+
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Zahtevane spremembe %(finished_at)s"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "Poslano na %(task_name)s %(started_at)s"
 
 msgid "Toggle status"
 msgstr "Preklopi stanje"
@@ -1783,6 +2037,15 @@ msgstr "Preklopi komentarje"
 
 msgid "Toggle preview"
 msgstr "Preklopi predogled"
+
+msgid "Empty heading found. Use meaningful text in headings."
+msgstr "Najden prazen naslov. V naslovih uporabite smiselno besedilo."
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "Napačna hierarhija naslovov. Izogibajte se preskakovanju ravni."
+
+msgid "Misusing paragraphs as headings. Use proper heading tags."
+msgstr "Zloraba odstavkov kot naslovov. Uporabite ustrezne oznake naslovov."
 
 msgid "Profile"
 msgstr "Profil"
@@ -1807,6 +2070,9 @@ msgstr "Vaše nastavitve računa so bile uspešno spremenjene!"
 
 msgid "You have been successfully logged out."
 msgstr "Uspešno ste bili odjavljeni."
+
+msgid "Select"
+msgstr "Izberite"
 
 msgid "Collections"
 msgstr "Zbirke"
@@ -1839,12 +2105,24 @@ msgid "Are you sure you want to delete this collection?"
 msgstr "Ali ste prepričani, da želite izbrisati to zbirko?"
 
 #, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' je sedaj odklenjen."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' posodobljen."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' ustvarjen."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ustvarjen in objavjen."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Išči %(model_name)s"
 
 msgid "Editing"
 msgstr "Urejanje"
@@ -1876,6 +2154,10 @@ msgstr "Izbriši izbrane strani"
 msgid "1 page has been deleted"
 msgstr "1 stran je bila izbrisana"
 
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d strani je bilo izbrisanih"
+
 msgid "Select a new parent page"
 msgstr "Izberite novo nadrejeno stran"
 
@@ -1905,6 +2187,10 @@ msgstr "Prekliči objavo izbranih strani"
 
 msgid "1 page has been unpublished"
 msgstr "1 stran je bila preklicana"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d strani je bilo neobjavljenih"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -1953,6 +2239,14 @@ msgstr "Stran trenutno čaka na potrditev"
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Stran '%(page_title)s' je posodobljena."
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Stran '%(page_title)s' je objavljena, ta različica je bila načrtovana za "
+"objavo."
 
 #, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
@@ -2049,6 +2343,15 @@ msgstr "Čaka na moj pregled"
 msgid "Workflows"
 msgstr "Poteki dela"
 
+msgid "Page/Snippet ID"
+msgstr "ID strani/delca"
+
+msgid "Page/Snippet Type"
+msgstr "Vrsta strani/delca"
+
+msgid "Page/Snippet Title"
+msgstr "Naslov strani/delca"
+
 msgid "Workflow tasks"
 msgstr "Naloge poteka dela"
 
@@ -2117,6 +2420,9 @@ msgstr "Naloga '%(object)s' onemogočena."
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Naloga '%(task_name)s' omogočena."
+
+msgid "Choose another"
+msgstr "Izberite drugega"
 
 msgid "Pages"
 msgstr "Strani"

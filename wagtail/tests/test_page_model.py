@@ -3496,6 +3496,7 @@ class TestDefaultLocale(TestCase):
         self.assertEqual(page.locale, fr_locale)
 
 
+@override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocalized(TestCase):
     fixtures = ["test.json"]
 
@@ -3519,6 +3520,13 @@ class TestLocalized(TestCase):
             self.assertEqual(
                 self.event_page.localized_draft, self.fr_event_page.page_ptr
             )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_localized_different_language_with_wagtail_i18n_enabled_false(self):
+        """Should return the same page if WAGTAIL_I18N_ENABLED is False"""
+        with translation.override("fr"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
 
     def test_localized_different_language_unpublished(self):
         # We shouldn't autolocalize if the translation is unpublished

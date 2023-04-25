@@ -1,9 +1,8 @@
 // If unset, default to the "mobile" height of the slim header.
 $minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
-$minimap-width: 300px;
+$minimap-width: 260px;
 $minimap-collapsed-width-mobile: 20px;
 $minimap-collapsed-width: 30px;
-$minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
 
 @import './CollapseAll';
@@ -24,11 +23,12 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 
   @include media-breakpoint-up(sm) {
     transform: translateX(
-      calc(
-        var(--w-direction-factor) *
-          (100% - $minimap-collapsed-width - $minimap-overflow)
-      )
+      calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width))
     );
+  }
+
+  .side-panel-open & {
+    inset-inline-end: var(--side-panel-width, 0);
   }
 
   &--expanded {
@@ -41,7 +41,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 
   > * {
     // Set the background on the contents of the minimap only to reduce overlapping area with fields and comments.
-    background-color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.surface-page');
   }
 }
 
@@ -49,20 +49,16 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
   display: inline-flex;
   padding: theme('spacing.[0.5]');
-  background-color: theme('colors.white.DEFAULT');
-  color: theme('colors.primary.DEFAULT');
+  background-color: theme('colors.surface-page');
+  color: theme('colors.icon-primary');
   transform: rotate(180deg);
+  // Expand is available for keyboard users only.
+  opacity: 0;
+  pointer-events: none;
 
   @include media-breakpoint-up(sm) {
     margin-top: theme('spacing.9');
     padding: theme('spacing.[1.5]');
-
-    // On devices supporting hover, this is available for keyboard users only.
-    // Mouse users open the minimap by hovering.
-    @media (hover: hover) {
-      opacity: 0;
-      pointer-events: none;
-    }
 
     *:focus {
       opacity: 1;
@@ -90,7 +86,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   :where(.w-minimap--expanded) & {
     opacity: 1;
     pointer-events: auto;
-    margin-top: theme('spacing.[0.5]');
+    margin-top: theme('spacing.3');
     margin-inline-start: theme('spacing.3');
     padding: theme('spacing.3');
     transform: rotate(0deg);
@@ -101,15 +97,13 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
-    margin-inline-start: $minimap-overflow;
-    border-inline-start: 1px solid theme('colors.grey.100');
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
 
 .w-minimap__list {
   margin: 0;
   padding: 0;
-  padding-inline-start: $minimap-overflow;
   overflow-y: auto;
   overflow-x: hidden;
   list-style-type: none;
@@ -123,7 +117,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
-    margin-inline-start: $minimap-overflow;
-    border-inline-start: 1px solid theme('colors.grey.100');
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }

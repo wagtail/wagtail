@@ -12,7 +12,7 @@
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Franklin Kingma <franklin@statix.net>, 2015
-# Harmen <sigmo@sigmo.nl>, 2022
+# Harmen <sigmo@sigmo.nl>, 2022-2023
 # Huib Keemink <huib@creativedutchmen.com>, 2015
 # mahulst, 2014
 # mahulst, 2014
@@ -34,9 +34,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, "
-"2015-2016,2020,2022-2023\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Harmen <sigmo@sigmo.nl>, 2022-2023\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -535,6 +534,9 @@ msgstr[0] ""
 msgstr[1] ""
 "Alleen pagina's van het type %(type)s mogen hier gekozen worden. Andere "
 "paginatypes zullen niet in de zoekresultaten voorkomen."
+
+msgid "Confirm selection"
+msgstr "Selectie bevestigen"
 
 msgid "Convert to internal link"
 msgstr "Converteer naar interne link"
@@ -2069,6 +2071,9 @@ msgstr "Ga naar de inhoud"
 
 msgid "View Wagtail quick actions"
 msgstr "Bekijk Wagtail snel acties"
+
+msgid "Warnings"
+msgstr "Waarschuwingen"
 
 msgid "Accessibility"
 msgstr "Toegankelijkheid"

@@ -23,7 +23,7 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
     position: absolute;
     top: 50%;
     transform: translate(calc(var(--w-direction-factor) * 5px), -50%);
-    color: $color-white;
+    color: theme('colors.text-button');
 
     @media (forced-colors: active) {
       color: SelectedItemText;
@@ -45,8 +45,8 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
       height: $switch-height + $switch-border * 2;
       width: $switch-width + $switch-border * 2;
       border-radius: $switch-border-radius;
-      background: theme('colors.grey.400');
-      border: $switch-border solid theme('colors.grey.400');
+      background: theme('colors.icon-secondary');
+      border: $switch-border solid theme('colors.icon-secondary');
     }
 
     &::after {
@@ -58,15 +58,15 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
       );
       height: $switch-height;
       width: $switch-height;
-      border: $switch-border solid $color-white;
+      border: $switch-border solid theme('colors.text-button');
       border-radius: theme('borderRadius.full');
-      background-color: $color-white;
+      background-color: theme('colors.surface-page');
     }
   }
 
   [type='checkbox']:checked + &__toggle::before {
-    background: $color-teal;
-    border-color: $color-teal;
+    background: theme('colors.text-button-outline-default');
+    border-color: theme('colors.text-button-outline-default');
 
     @media (forced-colors: active) {
       background: SelectedItem;
@@ -90,12 +90,12 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
   }
 
   [type='checkbox']:focus-visible + &__toggle {
-    outline: $color-focus-outline solid $switch-outline;
+    outline: theme('colors.focus') solid $switch-outline;
   }
 
   @supports not selector(:focus-visible) {
     [type='checkbox']:focus + &__toggle {
-      outline: $color-focus-outline solid $switch-outline;
+      outline: theme('colors.focus') solid $switch-outline;
     }
   }
 

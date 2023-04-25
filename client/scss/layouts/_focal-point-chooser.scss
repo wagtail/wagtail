@@ -4,9 +4,9 @@
 
   .current-focal-point-indicator {
     @include transition(opacity 0.2s ease);
-    box-shadow: 1px 1px 10px 0 $color-black;
+    box-shadow: 1px 1px 10px 0 theme('colors.black-50');
     position: absolute;
-    border: 3px solid $color-teal;
+    border: 3px solid theme('colors.border-button-outline-default');
     opacity: 0.7;
 
     &.hidden {

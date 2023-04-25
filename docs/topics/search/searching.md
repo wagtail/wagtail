@@ -30,8 +30,11 @@ All other methods of `PageQuerySet` can be used with `search()`. For example:
 The `search()` method will convert your `QuerySet` into an instance of one of Wagtail's `SearchResults` classes (depending on backend). This means that you must perform filtering before calling `search()`.
 ```
 
-Before the `autocomplete()` method was introduced, the search method also did partial matching. This behaviour is deprecated and you should either switch to the new `autocomplete()` method or pass `partial_match=False` into the search method to opt-in to the new behaviour.
-The partial matching in `search()` will be completely removed in a future release.
+The standard behaviour of the `search` method is to only return matches for complete words; for example, a search for "hel" will not return results containing the word "hello". The exception to this is the fallback database search backend, used when the database does not have full-text search extensions available, and no alternative backend has been specified. This performs basic substring matching, and will return results containing the search term ignoring all word boundaries.
+
+```{versionchanged} 5.0
+The Elasticsearch backend now defaults to matching on complete words. Previously, this backend performed partial matching by default, and it was necessary to pass the keyword argument `partial_match=False` to disable this. To perform searches with partial matching behaviour, you should instead use the `autocomplete` method (see below) in conjunction with `AutocompleteField`. Any occurrences of `partial_match=False` in your code can now be removed.
+```
 
 ### Autocomplete searches
 

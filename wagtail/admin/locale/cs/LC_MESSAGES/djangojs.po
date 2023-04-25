@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Czech (https://www.transifex.com/torchbox/teams/8009/cs/)\n"
+"Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "

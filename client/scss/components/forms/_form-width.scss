@@ -3,9 +3,16 @@
 }
 
 @include media-breakpoint-up(md) {
-  .side-panel-open {
+  .side-panel-open,
+  .minimap-open {
     .tab-content {
       width: theme('width.[2/3]');
+    }
+  }
+
+  .side-panel-open.minimap-open {
+    .tab-content {
+      width: theme('width.[3/5]');
     }
   }
 }

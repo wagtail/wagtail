@@ -44,7 +44,7 @@
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                     {% for field in search_form %}
-                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0" sr_only_label=True icon="search" %}
+                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
                     {% endfor %}
                     {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
                     <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>

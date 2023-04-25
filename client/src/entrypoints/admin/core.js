@@ -186,19 +186,6 @@ $(() => {
   // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
   $('body').addClass('ready');
 
-  /* Functions that need to run/rerun when active tabs are changed */
-  function resizeTextAreas() {
-    // eslint-disable-next-line func-names
-    $('textarea[data-autosize-on]').each(function () {
-      // eslint-disable-next-line no-undef
-      autosize.update($(this).get());
-    });
-  }
-
-  // Resize textareas on page load and when tab changed
-  $(document).ready(resizeTextAreas);
-  document.addEventListener('wagtail:tab-changed', resizeTextAreas);
-
   // eslint-disable-next-line func-names
   $('.dropdown').each(function () {
     const $dropdown = $(this);

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2022\n"
-"Language-Team: Burmese (https://www.transifex.com/torchbox/teams/8009/my/)\n"
+"Language-Team: Burmese (https://app.transifex.com/torchbox/teams/8009/my/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: my\n"
 "Plural-Forms: nplurals=1; plural=0;\n"

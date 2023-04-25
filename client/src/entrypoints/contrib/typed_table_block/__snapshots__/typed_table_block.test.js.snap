@@ -27,7 +27,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-0\\" id=\\"mytable-cell-0-0\\">Block A widget</p>
           </div>
@@ -37,7 +37,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-1\\" id=\\"mytable-cell-0-1\\">Block B widget</p>
           </div>
@@ -51,7 +51,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
           </div>
@@ -61,7 +61,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-1\\" id=\\"mytable-cell-1-1\\">Block B widget</p>
           </div>
@@ -117,7 +117,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-0\\" id=\\"mytable-cell-0-0\\">Block A widget</p>
           </div>
@@ -127,7 +127,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
           <p class=\\"error-message\\"><span>This is not enough cheese</span></p></div>
-          <div id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-1\\" id=\\"mytable-cell-0-1\\">Block B widget</p>
           </div>
@@ -141,7 +141,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
           </div>
@@ -151,7 +151,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-1\\" id=\\"mytable-cell-1-1\\">Block B widget</p>
           </div>
@@ -207,7 +207,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-0\\" id=\\"mytable-cell-0-0\\">Block A widget</p>
           </div>
@@ -217,7 +217,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-0-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-0-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-0-1\\" id=\\"mytable-cell-0-1\\">Block B widget</p>
           </div>
@@ -231,7 +231,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-0-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-0-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
           </div>
@@ -241,7 +241,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
           <div class=\\"w-field__errors\\" id=\\"mytable-cell-1-1-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"mytable-cell-1-1-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"mytable-cell-1-1\\" id=\\"mytable-cell-1-1\\">Block B widget</p>
           </div>

@@ -26,7 +26,7 @@
 }
 
 .sidebar-sub-menu-panel {
-  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen w-transition-sidebar;
+  @apply w-flex w-flex-col w-bg-surface-menu-item-active w-h-screen w-transition-sidebar;
   width: $menu-width;
 
   > h2,
@@ -36,7 +36,7 @@
 
   > h2 {
     // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
-    @apply w-min-h-[180px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar;
+    @apply w-min-h-[180px] w-px-4 w-box-border w-text-center w-text-text-label-menus-default w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar;
 
     &:before {
       font-size: 4em;
@@ -70,7 +70,7 @@
     margin: 0;
     padding: 0.9em 1.7em;
     text-align: center;
-    color: $color-menu-text;
+    color: theme('colors.text-label-menus-default');
   }
 
   &--visible {

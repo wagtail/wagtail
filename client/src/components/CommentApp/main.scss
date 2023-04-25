@@ -1,45 +1,43 @@
 @import '../../../scss/settings/variables';
 
-$color-comment-separator: theme('colors.grey.100');
+$color-comment-separator: theme('colors.border-furniture');
 
-$color-box-background: $color-white;
-$color-box-border: $color-grey-3;
-$color-box-border-focused: $color-grey-2;
-$color-box-text: $color-black;
-$color-textarea-background: theme('colors.grey.50');
-$color-textarea-border: $color-input-border;
-$color-textarea-placeholder-text: $color-grey-2;
+$color-box-background: theme('colors.surface-page');
+$color-box-background-focused: theme('colors.surface-page');
+$color-box-border: theme('colors.border-field-default');
+$color-box-border-focused: theme('colors.border-field-hover');
+$color-box-text: theme('colors.text-context');
 $box-border-radius: 5px;
-$box-padding: 10px;
+$box-padding: 20px;
 
 @mixin focus-outline {
-  outline: $color-focus-outline solid 3px;
+  outline: theme('colors.focus') solid 3px;
 }
 
 @mixin box {
   background-color: $color-box-background;
-  border: 1px solid $color-box-border;
   padding: $box-padding;
-  font-size: 11px;
   border-radius: $box-border-radius;
   color: $color-box-text;
+  border: 1px solid $color-box-border;
 
   &--focused {
+    background-color: $color-box-background-focused;
+    border: 1px solid $color-box-border-focused;
     box-shadow: 3px 2px 3px -1px theme('colors.black-10');
   }
 
   textarea {
-    font-family: $font-sans;
     margin: 0;
-    padding: 10px;
+    padding: 12px;
     width: 100%;
-    background-color: $color-textarea-background;
-    border: 1px solid $color-textarea-border;
+    background-color: theme('colors.surface-field');
+    border: 1px solid theme('colors.border-field-default');
     border-radius: 5px;
     color: $color-box-text;
 
     &::placeholder {
-      color: $color-textarea-placeholder-text;
+      color: theme('colors.text-placeholder');
       opacity: 1;
     }
   }
@@ -55,6 +53,7 @@ $box-padding: 10px;
 
   &__notice {
     background-color: theme('colors.warning.50');
+    color: theme('colors.grey.600');
     position: absolute;
     inset-inline-start: -$box-padding;
     bottom: 0;
@@ -85,25 +84,23 @@ $box-padding: 10px;
 
 @mixin button {
   background-color: inherit;
-  border: 1px solid $color-grey-3;
+  border: 1px solid theme('colors.border-button-small-outline-default');
   border-radius: 3px;
-  color: $color-teal;
+  color: theme('colors.surface-button-default');
   cursor: pointer;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: bold;
-  height: 25px;
-  padding-inline-start: 5px;
-  padding-inline-end: 5px;
+  font-weight: 700;
+  height: 30px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
 
   &--primary {
-    color: $color-white;
-    border: 1px solid $color-teal;
-    background-color: $color-teal;
+    color: theme('colors.text-button');
+    border: 1px solid theme('colors.surface-button-default');
+    background-color: theme('colors.surface-button-default');
   }
 
   &--red {
-    color: $color-white;
+    color: theme('colors.text-button');
     border: 1px solid theme('colors.critical.200');
     background-color: theme('colors.critical.200');
   }
@@ -119,13 +116,10 @@ $box-padding: 10px;
 }
 
 .comments-list {
-  width: 400px;
   position: absolute;
-  top: 30px;
-  inset-inline-end: 35px;
-  z-index: 95;
-  font-family: $font-sans;
-  pointer-events: none;
+  top: 20px;
+  inset-inline-end: 20px;
+  z-index: calc(theme('zIndex.header') + 5);
 }
 
 // stylelint-disable no-invalid-position-at-import-rule

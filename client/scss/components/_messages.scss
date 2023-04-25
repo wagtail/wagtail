@@ -3,7 +3,7 @@
 // For inline help text, see typography.scss
 .messages {
   position: relative;
-  background-color: $color-grey-1;
+  background-color: theme('colors.surface-page');
 
   .buttons {
     margin-inline-start: 1em;
@@ -19,7 +19,7 @@
   > ul > li {
     // @include nice-padding;
     padding: 1.6em 3em 1.6em 1.6em;
-    color: $color-white;
+    color: theme('colors.text-button');
     border-bottom: 1px solid transparent;
   }
 
@@ -43,33 +43,32 @@
 
     &:hover {
       background-color: transparent;
-      color: $color-white;
+      color: theme('colors.text-button');
     }
   }
 
   .error {
     background-color: theme('colors.critical.200');
+    color: theme('colors.white.DEFAULT');
 
     .button:hover {
-      color: $color-grey-1;
+      color: theme('colors.white.DEFAULT');
     }
   }
 
   .warning {
-    color: $color-grey-1;
     background-color: theme('colors.warning.100');
+    color: theme('colors.grey.600');
   }
 
   .info {
     background-color: theme('colors.info.100');
+    color: theme('colors.white.DEFAULT');
   }
 
   .success {
     background-color: theme('colors.positive.100');
-
-    .button:hover {
-      background-color: $color-teal-dark;
-    }
+    color: theme('colors.white.DEFAULT');
   }
 
   .errorlist {

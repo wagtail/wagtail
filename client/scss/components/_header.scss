@@ -2,12 +2,12 @@
 @use 'sass:color';
 
 .w-header {
-  @apply w-text-primary;
+  @apply w-text-text-label;
   margin-bottom: theme('spacing.8');
 
   h1,
   h2 {
-    @apply w-text-primary;
+    @apply w-text-text-label;
     margin: 0;
   }
 

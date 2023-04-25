@@ -11,6 +11,7 @@
     align-items: center;
     border-radius: theme('borderRadius.md');
     padding: theme('spacing.6');
+    color: theme('colors.grey.600');
     background-color: theme('colors.warning.50');
     border: 5px solid transparent;
   }
@@ -47,6 +48,10 @@
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+
+    &:hover {
+      color: theme('colors.secondary.600');
+    }
   }
 
   &__dismiss {
@@ -59,8 +64,8 @@
       border-radius: theme('borderRadius.full');
       width: theme('spacing.6');
       height: theme('spacing.6');
-      background-color: theme('colors.white.DEFAULT');
-      color: theme('colors.primary.DEFAULT');
+      background-color: theme('colors.surface-page');
+      color: theme('colors.icon-primary');
 
       @media (forced-colors: active) {
         background-color: Canvas;

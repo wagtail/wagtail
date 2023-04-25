@@ -286,6 +286,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
+    FTS_TABLE_FIELDS = ["title", "body"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -451,7 +452,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 
         search_query = self.build_search_query(query)
         match_expression = MatchExpression(
-            search_query, columns=["title", "body"], output_field=BooleanField()
+            search_query, columns=self.FTS_TABLE_FIELDS, output_field=BooleanField()
         )  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
 
         # In Django 4.0 the above match expression would produce this SQL WHERE clause:
@@ -530,6 +531,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 class MySQLAutocompleteQueryCompiler(MySQLSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
     TARGET_SEARCH_FIELD_TYPE = AutocompleteField
+    FTS_TABLE_FIELDS = ["autocomplete"]
 
     def get_config(self, backend):
         return backend.autocomplete_config
@@ -633,10 +635,7 @@ class MySQLSearchAtomicRebuilder(MySQLSearchRebuilder):
 
 class MySQLSearchBackend(BaseSearchBackend):
     query_compiler_class = MySQLSearchQueryCompiler
-
-    # FIXME: the implementation of MySQLAutocompleteQueryCompiler is incomplete -
-    # leave this undefined so that we get a clean NotImplementedError from BaseSearchBackend
-    # autocomplete_query_compiler_class = MySQLAutocompleteQueryCompiler
+    autocomplete_query_compiler_class = MySQLAutocompleteQueryCompiler
 
     results_class = MySQLSearchResults
     rebuilder_class = MySQLSearchRebuilder
@@ -645,7 +644,10 @@ class MySQLSearchBackend(BaseSearchBackend):
     def __init__(self, params):
         super().__init__(params)
         self.index_name = params.get("INDEX", "default")
-        self.config = params.get("SEARCH_CONFIG")
+
+        # MySQL backend currently has no config options
+        self.config = None
+        self.autocomplete_config = None
 
         if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class

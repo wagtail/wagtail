@@ -31,7 +31,7 @@
       mask-image: url('#{$images-root}icons/spinner.svg');
       mask-repeat: no-repeat;
       z-index: 2;
-      background: $color-teal;
+      background: theme('colors.surface-button-default');
     }
   }
 }

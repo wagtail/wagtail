@@ -32,7 +32,7 @@
 }
 
 .sidebar-footer {
-  @apply w-bg-primary w-mt-auto;
+  @apply w-bg-surface-menus w-mt-auto;
   transition: width $menu-transition-duration ease !important; // Override body.ready
 
   > ul,
@@ -80,7 +80,7 @@
     }
 
     &-label {
-      @apply w-text-white w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
+      @apply w-text-text-label-menus-default w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
     }
   }
 

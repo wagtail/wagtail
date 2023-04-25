@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 10:53+0100\n"
+"POT-Creation-Date: 2023-01-20 13:09+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,6 +191,14 @@ msgstr "Uredi preusmeritev"
 
 msgid "No redirects found."
 msgstr "Preusmeritve niso bile najdene."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

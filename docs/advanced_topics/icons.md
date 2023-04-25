@@ -75,6 +75,7 @@ Place your app before any Wagtail apps in `INSTALLED_APPS`.
 Wagtail icons live in `wagtail/admin/templates/wagtailadmin/icons/`.
 Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
 
+(available_icons)=
 ## Available icons
 
 Enable the [styleguide](styleguide) to view the available icons and their names for any given project.

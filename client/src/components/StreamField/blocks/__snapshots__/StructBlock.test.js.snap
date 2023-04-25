@@ -15,7 +15,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-heading_text-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
           </div>
@@ -28,7 +28,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           <div class=\\"w-field__errors\\" id=\\"the-prefix-size-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
           </div>
@@ -52,7 +52,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           <div class=\\"w-field__errors\\" id=\\"the-prefix-heading_text-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
           </div>
@@ -65,7 +65,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           <div class=\\"w-field__errors\\" id=\\"the-prefix-size-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
           <p class=\\"error-message\\"><span>This is too big</span></p></div>
-          <div id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
           </div>
@@ -89,7 +89,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           <div class=\\"w-field__errors\\" id=\\"the-prefix-heading_text-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
           </div>
@@ -102,7 +102,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           <div class=\\"w-field__errors\\" id=\\"the-prefix-size-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
           </div>
@@ -119,7 +119,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
           <div class=\\"w-field__errors\\" id=\\"the-prefix-heading_text-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-heading_text-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
           </div>
@@ -131,7 +131,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
           <div class=\\"w-field__errors\\" id=\\"the-prefix-size-errors\\" data-field-errors=\\"\\">
             <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
-          <div id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-size-helptext\\" data-field-help=\\"\\"></div>
           <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
           </div>

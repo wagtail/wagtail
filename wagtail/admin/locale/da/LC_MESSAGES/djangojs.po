@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Danish (https://www.transifex.com/torchbox/teams/8009/da/)\n"
+"Language-Team: Danish (https://app.transifex.com/torchbox/teams/8009/da/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
