@@ -3,8 +3,9 @@
 
 {% block add_button %}
     <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-OPEN_MODAL">
-        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
-    </button>
+        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{label.capitalize() }}{% endblocktrans %}
+    </button> 
+
 {% endblock %}
 
 {% block js_init %}
