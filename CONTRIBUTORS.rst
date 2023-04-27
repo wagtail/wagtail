@@ -708,6 +708,7 @@ Contributors
 * Steve Steinwand
 * Swojak-A
 * fidoriel
+* Ramon Wenger
 
 Translators
 ===========

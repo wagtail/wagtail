@@ -6,8 +6,11 @@ from wagtail.admin.forms.models import (
     WagtailAdminModelForm,
 )
 from wagtail.admin.ui.components import Component
+from wagtail.blocks import StreamValue
 from wagtail.coreutils import safe_snake_case
 from wagtail.models import DraftStateMixin
+from wagtail.rich_text import RichText
+from wagtail.utils.text import text_from_html
 
 
 def get_form_for_model(
@@ -194,6 +197,22 @@ class Panel:
         making use of this and requiring uniqueness should validate and modify the return value as needed.
         """
         return safe_snake_case(self.heading)
+
+    def format_value_for_display(self, value):
+        """
+        Hook to allow formatting of raw field values (and other attribute values) for human-readable
+        display. For example, if rendering a ``RichTextField`` value, you might extract text from the HTML
+        to generate a safer display value.
+        """
+        # Improve representation of many-to-many values
+        if callable(getattr(value, "all", "")):
+            return ", ".join(str(obj) for obj in value.all()) or "None"
+
+        # Avoid rendering potentially unsafe HTML mid-form
+        if isinstance(value, (RichText, StreamValue)):
+            return text_from_html(value)
+
+        return value
 
     class BoundPanel(Component):
         """
