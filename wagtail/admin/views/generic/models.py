@@ -1,4 +1,4 @@
-from django import VERSION as DJANGO_VERSION
+_from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
@@ -137,6 +137,64 @@ class IndexView(
             placeholder=_("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
+# define a list of available languages
+    LANGUAGES=[
+        ('en', "English"),
+        ('es',"Español"),
+    ]
+    # define the defult languages
+    LANGUAGES_CODE='en'
+    #define position of the lang. switch
+    LANGUAGES_SWITCHER_POSITION='top'
+    # define translation for the lang swicher pos.
+    LANGUAGES_SWITCHER_POSITION_TRANSLATION={
+        'top':{
+            'en':'top',
+            'fr':'Haut',
+            'es':'Arriba',
+
+        },
+        'bottom':{
+            'en':'Bottom',
+            'fr':'Bas',
+            'es':'Abajo'
+        },
+    }
+    #define a funnciton to get the language switcher HTML
+    def get_language_switcher_html():
+        current_language=translation.get_language()
+        switcher_html='<ul>'
+        for language in LANGUAGES:
+            switcher_html+='<li>'
+            if language[0]==current_language:
+
+                switcher_html+=f'<strong>{language[1]}</strong>'
+            else:
+                switcher_html+=f'<a href="?lang={language[0]}">{language[1]}</a>'
+            switcher_html+='</li>'
+        switcher_html+='</ul>'
+        return switcher_html
+    # define a middleware to handle lang, switching
+class LanguageMiddleware:
+    def __init__(self , get_response) -> None:
+        self.get.response=get_response
+    def __call__(self, request) :
+        language=request.GET.get('lang', LANGUAGE_CODE)
+        translation.activate(language)
+        request.LANGUAGE_CODE=translation.get_language()
+        response=self.get_response(request)
+        return response
+#define a context processor to add the language switcher to the template context
+def language_switcher(request):
+    language_switcher_position=LANGUAGE_SWITCHER_POSITION_TRANSLATION.get(
+        LANGUAGE_SWITCHER_POSITION,{}
+    ) .get(translation.get.language(),'')
+    return {
+       ' language_switcher_html':get_language_switcher_html(),
+       'language_switcher_position':language_switcher_position,
+
+    }       
+
 
     def get_filterset_class(self):
         if self.filterset_class:
