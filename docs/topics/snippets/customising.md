@@ -2,19 +2,15 @@
 
 # Customising snippets
 
+Additional customisations for each snippet model can be achieved through a custom {class}`~wagtail.snippets.views.snippets.SnippetViewSet` class. This allows you to customise the listing view (e.g. adding custom columns, filters), create a custom menu item, and more.
+
+Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
+
 (wagtailsnippets_custom_admin_views)=
 
 ## Customising snippets admin views
 
-You can customise the admin views for snippets by specifying a custom subclass of {class}`~wagtail.snippets.views.snippets.SnippetViewSet` to `register_snippet`.
-
-This can be done by removing the `@register_snippet` decorator on your model class and calling `register_snippet` (as a function, not a decorator) in your `wagtail_hooks.py` file instead as follows:
-
-```
-register_snippet(MyModel, viewset=MyModelViewSet)
-```
-
-For example, with the following `Member` model and a `MemberFilterSet` class:
+For demonstration, consider the following `Member` model and a `MemberFilterSet` class:
 
 ```python
 # models.py
@@ -45,6 +41,38 @@ class MemberFilterSet(WagtailFilterSet):
         fields = ["shirt_size"]
 ```
 
+And the following is the snippet's corresponding `SnippetViewSet` subclass:
+
+```python
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.ui.tables import UpdatedAtColumn
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
+
+from myapp.models import Member, MemberFilterSet
+
+
+class MemberViewSet(SnippetViewSet):
+    model = Member
+    icon = "user"
+    list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
+    list_per_page = 50
+    admin_url_namespace = "member_views"
+    base_url_path = "internal/member"
+    filterset_class = MemberFilterSet
+    # alternatively, you can use the following instead of filterset_class
+    # list_filter = ["shirt_size"]
+    # or
+    # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
+
+    edit_handler = TabbedInterface([
+        ObjectList([FieldPanel("name")], heading="Details"),
+        ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
+    ])
+
+register_snippet(MemberViewSet)
+```
+
 You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.icon` attribute to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
 
 The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.admin_url_namespace` attribute can be set to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.base_url_path` allows you to customise the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`. If you need further customisations, you can also override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_admin_url_namespace` and {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_admin_base_path` methods to override the namespace and base URL path, respectively.
@@ -73,49 +101,6 @@ For some common views, Wagtail also allows you to override the template used by 
 - `EditView`: `edit.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.edit_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_template()`
 - `DeleteView`: `delete.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.delete_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_delete_template()`
 - `HistoryView`: `history.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.history_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_history_template()`
-
-An example of a custom `SnippetViewSet` subclass:
-
-```python
-from wagtail.admin.panels import FieldPanel
-from wagtail.admin.ui.tables import UpdatedAtColumn
-from wagtail.snippets.views.snippets import SnippetViewSet
-
-from myapp.models import MemberFilterSet
-
-
-class MemberViewSet(SnippetViewSet):
-    icon = "user"
-    list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
-    list_per_page = 50
-    admin_url_namespace = "member_views"
-    base_url_path = "internal/member"
-    filterset_class = MemberFilterSet
-    # alternatively, you can use the following instead of filterset_class
-    # list_filter = ["shirt_size"]
-    # or
-    # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
-
-    edit_handler = TabbedInterface([
-        ObjectList([FieldPanel("name")], heading="Details"),
-        ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
-    ])
-```
-
-The viewset can be passed to the `register_snippet` call:
-
-```python
-# wagtail_hooks.py
-from wagtail.snippets.models import register_snippet
-
-from myapp.models import Member
-from myapp.views import MemberViewSet
-
-
-register_snippet(Member, viewset=MemberViewSet)
-```
-
-The `viewset` parameter of `register_snippet` also accepts a dotted module path to the subclass, e.g. `"myapp.views.MemberViewSet"`.
 
 ## Customising the menu item
 
