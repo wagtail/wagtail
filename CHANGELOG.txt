@@ -346,7 +346,6 @@ Changelog
 4.1.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * Fix: Fix side panel stuck in resize state when pointer is released outside the grip (Sage Abdullah)
 
 
 4.1.4 (03.04.2023)
