@@ -10,12 +10,10 @@ If a snippet model inherits from {class}`~wagtail.models.PreviewableMixin`, Wagt
 
 ```python
 # ...
-
 from wagtail.models import PreviewableMixin
-
 # ...
 
-@register_snippet
+
 class Advert(PreviewableMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -51,12 +49,10 @@ Similar to pages, you can define multiple preview modes by overriding the {attr}
 
 ```python
 # ...
-
 from wagtail.models import PreviewableMixin
-
 # ...
 
-@register_snippet
+
 class Advert(PreviewableMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -92,12 +88,10 @@ If a snippet model inherits from {class}`wagtail.search.index.Indexed`, as descr
 
 ```python
 # ...
-
 from wagtail.search import index
-
 # ...
 
-@register_snippet
+
 class Advert(index.Indexed, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -121,13 +115,11 @@ If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail
 
 ```python
 # ...
-
 from django.contrib.contenttypes.fields import GenericRelation
 from wagtail.models import RevisionMixin
-
 # ...
 
-@register_snippet
+
 class Advert(RevisionMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -148,10 +140,12 @@ class Advert(RevisionMixin, models.Model):
 If your snippet model defines relations using Django's {class}`~django.db.models.ManyToManyField`, you need to change the model class to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model` and replace the `ManyToManyField` with `ParentalManyToManyField`. Inline models should continue to use `ParentalKey` instead of `ForeignKey`. This is necessary in order to allow the relations to be stored in the revisions. See the [](tutorial_categories) section of the tutorial for more details. For example:
 
 ```python
+# ...
 from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from wagtail.models import RevisionMixin
+# ...
 
 
 class ShirtColour(models.Model):
@@ -166,7 +160,6 @@ class ShirtCategory(models.Model):
     panels = [FieldPanel("name")]
 
 
-@register_snippet
 class Shirt(RevisionMixin, ClusterableModel):
     name = models.CharField(max_length=255)
     colour = models.ForeignKey("shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True)
@@ -211,14 +204,12 @@ For example, the `Advert` snippet could save draft changes and publishing schedu
 
 ```python
 # ...
-
 from django.contrib.contenttypes.fields import GenericRelation
 from wagtail.admin.panels import PublishingPanel
 from wagtail.models import DraftStateMixin, RevisionMixin
-
 # ...
 
-@register_snippet
+
 class Advert(DraftStateMixin, RevisionMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -261,12 +252,10 @@ For example, instances of the `Advert` snippet could be locked by defining it as
 
 ```python
 # ...
-
 from wagtail.models import LockableMixin
-
 # ...
 
-@register_snippet
+
 class Advert(LockableMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -295,12 +284,10 @@ For example, workflows (with locking) can be enabled for the `Advert` snippet by
 
 ```python
 # ...
-
 from wagtail.models import DraftStateMixin, LockableMixin, RevisionMixin, WorkflowMixin
-
 # ...
 
-@register_snippet
+
 class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -334,15 +321,18 @@ The admin dashboard and workflow reports will also show you snippets (alongside 
 Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
 
 ```python
+# ...
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
+# ...
+
 
 class AdvertTag(TaggedItemBase):
     content_object = ParentalKey('demo.Advert', on_delete=models.CASCADE, related_name='tagged_items')
 
-@register_snippet
+
 class Advert(ClusterableModel):
     # ...
     tags = TaggableManager(through=AdvertTag, blank=True)
