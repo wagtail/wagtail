@@ -2,6 +2,8 @@
 
 # Optional features
 
+By default, snippets lack many of the features of pages, such as previews, revisions, and workflows. These features can individually be added to each snippet model by inheriting from the appropriate mixin classes.
+
 (wagtailsnippets_making_snippets_previewable)=
 
 ## Making snippets previewable
