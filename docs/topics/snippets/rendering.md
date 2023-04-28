@@ -2,6 +2,8 @@
 
 # Rendering snippets
 
+As Django models, snippets can be rendered in Django templates using a custom template tag. Alternatively, they can also be included as part of a Wagtail page's rendering process.
+
 ## Including snippets in template tags
 
 The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for [custom template tags](django:howto/custom-template-tags) will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
