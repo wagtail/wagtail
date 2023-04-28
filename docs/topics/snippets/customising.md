@@ -57,8 +57,6 @@ To customise the base queryset for the listing view, you could override the {met
 
 You can add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups. If you would like to customise it further, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
-Instead of defining the `panels` or `edit_handler` on the model class, they can also be defined on the `SnippetViewSet` class. If you would like to do more customisations of the panels, you can also override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_handler` method.
-
 For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
 
 1. `templates/wagtailsnippets/snippets/{app_label}/{model_name}/`

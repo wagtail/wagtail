@@ -818,6 +818,8 @@ class BlogCategory(models.Model):
 
 ```{note}
 Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+
+Also note that the snippet is registered using `register_snippet` as a decorator for convenience. Later on, you might want to use it as a function in your `wagtail_hooks.py` as explained in [](wagtailsnippets_registering).
 ```
 
 Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
