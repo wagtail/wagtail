@@ -21,6 +21,7 @@ If you'd like to get a quick feel for Wagtail, try spinning up a `temporary deve
   * :doc:`topics/writing_templates`
   * :doc:`topics/images`
   * :doc:`topics/search/index`
+  * :doc:`topics/snippets/index`
   * :doc:`advanced_topics/third_party_tutorials`
 
 
