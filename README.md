@@ -127,6 +127,7 @@ You might like to start by reviewing the [contributing guidelines](https://docs.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://explore.transifex.com/torchbox/wagtail/).
 
+[![Top Contributors Widget](https://open-source-assets.middlewarehq.com/svgs/wagtail-wagtail-contributor-metrics-dark-widget.svg)](https://www.middlewarehq.com/)
 ### 🔓 License
 
 [BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE) - Free to use and modify for any purpose, including both open and closed-source code.
