@@ -129,7 +129,6 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 [![Top Contributors Widget](https://open-source-assets.middlewarehq.com/svgs/RocketChat-EmbeddedChat-contributor-metrics-dark-widget.svg?metrics=true)](https://www.middlewarehq.com/)
 
-
 ### 🔓 License
 
 [BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE) - Free to use and modify for any purpose, including both open and closed-source code.
