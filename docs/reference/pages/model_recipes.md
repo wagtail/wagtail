@@ -248,30 +248,32 @@ class BlogTag(TagBase):
 
 Here we have registered `BlogTag` as a snippet, to provide an interface for administrators (and other users with the appropriate permissions) to manage the allowed set of tags. With the `free_tagging = False` option set, editors can no longer enter arbitrary text into the tag field, and must instead select existing tags from the autocomplete dropdown.
 
-### Managing tags with Wagtail's `ModelAdmin`
+### Managing tags as snippets
 
-In order to manage all the tags used in a project, you can a use the `ModelAdmin` to add the `Tag` model to the Wagtail admin. This will allow you to have a tag admin interface within the main menu in which you can add, edit or delete your tags.
+In order to manage all the tags used in a project, you can register the `Tag` model as a snippet to be managed via the Wagtail admin. This will allow you to have a tag admin interface within the main menu in which you can add, edit or delete your tags.
 
 Tags that are removed from a content don't get deleted from the `Tag` model and will still be shown in typeahead tag completion. So having a tag interface is a great way to completely get rid of tags you don't need.
 
 To add the tag interface, add the following block of code to a `wagtail_hooks.py` file within any your project’s apps:
 
 ```python
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.admin.panels import FieldPanel
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from taggit.models import Tag
 
 
-class TagsModelAdmin(ModelAdmin):
-    Tag.panels = [FieldPanel("name")]  # only show the name field
+class TagsSnippetViewSet(SnippetViewSet):
+    panels = [FieldPanel("name")]  # only show the name field
     model = Tag
+    icon = "tag"  # change as required
+    add_to_admin_menu = True
     menu_label = "Tags"
-    menu_icon = "tag"  # change as required
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
     list_display = ["name", "slug"]
     search_fields = ("name",)
 
-modeladmin_register(TagsModelAdmin)
+register_snippet(TagsSnippetViewSet)
 ```
 
 A `Tag` model has a `name` and `slug` required fields. If you decide to add a tag, it is recommended to only display the `name` field panel as the slug field is autofilled when the `name` field is filled and you don't need to enter the same name in both the fields.
