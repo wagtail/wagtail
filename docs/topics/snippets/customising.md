@@ -69,6 +69,8 @@ class MemberViewSet(SnippetViewSet):
 register_snippet(MemberViewSet)
 ```
 
+(wagtailsnippets_icon)=
+
 ## Icon
 
 You can define an {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.icon` attribute on the `SnippetViewSet` to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
