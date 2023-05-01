@@ -10,6 +10,7 @@ Elements that use icons are:
 -   [Client-side components](extending_clientside_components)
 -   [Rich text editor toolbar buttons](extending_the_draftail_editor)
 -   [ModelAdmin menu](modeladmin_menu_icon)
+-   [Snippets](wagtailsnippets_icon)
 -   [StreamField blocks](custom_streamfield_blocks)
 
 This document describes how to choose, add and customise icons.
