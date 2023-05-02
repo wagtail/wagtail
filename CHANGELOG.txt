@@ -154,6 +154,12 @@ Changelog
  * Maintenance: Refactor admin color palette to semantic, theme-agnostic design tokens (Thibaud Colas)
 
 
+4.2.3 (02.05.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
+
+
 4.2.2 (03.04.2023)
 ~~~~~~~~~~~~~~~~~~
 
