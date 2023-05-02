@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2022-2023\n"
@@ -123,9 +123,6 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">búa til eitt núna</a>?"
 
-msgid "Usage"
-msgstr "Notkun"
-
 msgid "Last updated"
 msgstr "Síðast uppfært"
 
@@ -181,6 +178,9 @@ msgstr "Nýtt: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Breyti %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Notkun"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Saga snifsis fyrir %(subtitle)s"
@@ -190,6 +190,17 @@ msgstr "Breyta þessu snifsi"
 
 msgid "No log entries found."
 msgstr "Engar atburðaskráningar fundust."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snifsi %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Nýtt %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Velja öll snifsi í lista"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -234,30 +245,6 @@ msgstr "Bera saman við núverandi útgáfu"
 msgid "Cancel scheduled publish"
 msgstr "Hætta við tímasetta birtingu"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snifsi %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Nýtt %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Velja öll snifsi í lista"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Notkun á %(title)s"
-
-msgid "Usage of"
-msgstr "Notkun á"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "Field"
-msgstr "Reitur"
-
 msgid "Choose"
 msgstr "Velja"
 
@@ -272,14 +259,6 @@ msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villupr�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Einka %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Breyta þessu %(object)s"
 
 msgid "Action"
 msgstr "Aðgerð"
@@ -316,3 +295,7 @@ msgstr "Veldu %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Velja aðra %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Breyta þessu %(object)s"

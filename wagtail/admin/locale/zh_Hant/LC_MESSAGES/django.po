@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -486,6 +486,22 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "確認刪除"
 
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消發佈%(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "是，取消發佈"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消發佈"
+
+msgid "Cancel"
+msgstr "取消"
+
 msgid "Update"
 msgstr "更新"
 
@@ -805,9 +821,6 @@ msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "您沒有刪除這些頁面的權限"
 
-msgid "No, don't delete"
-msgstr "否，不刪除"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -837,9 +850,6 @@ msgstr "取消發佈"
 
 msgid "Yes, unpublish"
 msgstr "確認取消發佈"
-
-msgid "No, don't unpublish"
-msgstr "否，不取消發佈"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -907,9 +917,6 @@ msgstr "發佈此頁面將取消目前工作流程"
 
 msgid "Would you still like to publish this page?"
 msgstr "確定仍要發佈此頁面？"
-
-msgid "Cancel"
-msgstr "取消"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1114,13 +1121,6 @@ msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
 msgid "Root"
 msgstr "根"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消發佈%(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "是，取消發佈"
-
 msgid "Close dialog"
 msgstr "關閉對話框"
 
@@ -1133,11 +1133,11 @@ msgstr "過濾"
 msgid "Apply filters"
 msgstr "套用過濾"
 
-msgid "Visit the live page"
-msgstr "查看線上頁面"
-
 msgid "Current page status:"
 msgstr "目前頁面狀態："
+
+msgid "Visit the live page"
+msgstr "查看線上頁面"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1167,23 +1167,22 @@ msgstr "語系："
 msgid "Switch locales"
 msgstr "切換語系"
 
-msgid "Page locking: "
-msgstr "頁面鎖定："
-
-msgid "You cannot edit this page."
-msgstr "無法編輯此頁面"
-
 msgid "Unlocked"
 msgstr "已解鎖"
-
-msgid "Anyone can edit this page."
-msgstr "所有人皆可編輯此頁面"
 
 msgid "Lock"
 msgstr "鎖定"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "隱蔽設置也會套用至所有子頁面。"
+
+msgid "Usage"
+msgstr "使用情況"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
 
 msgid "Page status: "
 msgstr "頁面狀態："
@@ -1212,18 +1211,11 @@ msgstr "預覧模式"
 msgid "First published "
 msgstr "首次發佈"
 
-msgid "Workflow progress"
-msgstr "工作流程進度"
-
 msgid "Edit / Review"
 msgstr "編輯 / 審核"
 
 msgid "Workflow history"
 msgstr "工作流程歷史"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "狀態 <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "時間軸"
@@ -1429,6 +1421,9 @@ msgstr "集合 '%(object)s' 已刪除"
 msgid "Are you sure you want to delete this collection?"
 msgstr "確定刪除此集合？"
 
+msgid "Workflow progress"
+msgstr "工作流程進度"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' 已更新。"
@@ -1445,6 +1440,13 @@ msgstr "最早的"
 
 msgid "Latest"
 msgstr "最近的"
+
+msgid "Usage of"
+msgstr "使用情況"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "編輯此 %(object)s"
 
 msgid "Dashboard"
 msgstr "控制面板"

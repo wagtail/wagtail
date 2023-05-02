@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -98,9 +98,6 @@ msgstr "Так, видалити"
 msgid "No, don't delete"
 msgstr "Ні, не видаляти"
 
-msgid "Usage"
-msgstr "Використання"
-
 msgid "Last updated"
 msgstr "Востаннє оновлено"
 
@@ -138,8 +135,19 @@ msgstr "Ланцюжок навігації"
 msgid "Snippets"
 msgstr "Уривки"
 
+msgid "Usage"
+msgstr "Використання"
+
 msgid "No log entries found."
 msgstr "Записи в журналі не знайдені. "
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Уривки %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Додати %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -173,24 +181,6 @@ msgstr "Порівняти з поточною версією"
 msgid "Cancel scheduled publish"
 msgstr "Скасувати заплановану публікацію"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Уривки %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Додати %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Використання %(title)s"
-
-msgid "Usage of"
-msgstr "Використання"
-
-msgid "Title"
-msgstr "Заголовок"
-
 msgid "Choose"
 msgstr "Вибрати"
 
@@ -202,10 +192,6 @@ msgstr "Цей уривок не може бути створено через �
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Цей уривок не може бути збережено через помилки."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Редагувати %(object)s"
 
 msgid "Action"
 msgstr "Дія"
@@ -234,3 +220,7 @@ msgstr "Вибрати %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Виберіть %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2021,2023\n"
@@ -72,6 +72,9 @@ msgstr "Wagtail routablepage"
 msgid "Wagtail sitemaps"
 msgstr "Wagtail sitemaps"
 
+msgid "Unknown content type"
+msgstr "Óþekkt efnistegund"
+
 msgid "Password"
 msgstr "Lylkilorð"
 
@@ -81,56 +84,47 @@ msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aft
 msgid "Comment"
 msgstr "Athugasemd"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Síðu '{page_title}' var læst</b> af <b>þér</b> þann <b>{datetime}</b>."
+msgid "Locked"
+msgstr "Læst"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Ekki er hægt að framkvæma breytingar á meðan %(model_name)s er læst"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
 msgstr "<b>'{title}' var læst</b> af <b>þér</b> þann <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Síðu '{page_title}' er læst</b> af <b>þér</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' er læst</b> af <b>þér</b>."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Síðu '{page_title}' var læst</b> af <b>{user}</b> þann <b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
 msgstr "<b>'{title}' var læst</b> af <b>{user}</b> þann <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Síða '{page_title}' er læst</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' er læst</b>."
 
-msgid "This page is currently awaiting moderation."
-msgstr "Þessi síða bíður yfirferðar."
+msgid "Locked by you"
+msgstr "Læst af þér"
+
+msgid "Locked by another user"
+msgstr "Læst af öðrum notanda"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Aðeins þú getur framkvæmt breytingar á meðan %(model_name)s er læst"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Aðeins %(user)s getur framkvæmt breytingar á meðan %(model_name)s er læst"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "%(model_name)s bíður yfirferðar."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Þessi síða bíður eftir <b>'{task_name}'</b> í vinnuflæðinu "
-"<b>'{workflow_name}'</b> ."
 
 #, python-brace-format
 msgid ""
@@ -140,20 +134,28 @@ msgstr ""
 "Snifsið {model_name} bíður eftir <b>'{task_name}'</b> í vinnuflæðinu "
 "<b>'{workflow_name}'</b> ."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Aðeins þeir sem geta farið yfir þetta skref geta breytt síðunni."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr ""
 "Aðeins þeir sem geta farið yfir þetta skref geta breytt  %(model_name)s."
 
-#, python-brace-format
+msgid "Unlocked"
+msgstr "Aflæst"
+
+msgid "Locked by workflow"
+msgstr "Læst af vinnuflæði"
+
+#, python-format
 msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
 msgstr ""
-"Síða '{page_title}' er læst og hefur verið stillt á að fara í loftið "
-"{datetime}"
+"Aðilar í yfirferð geta breytt þessu %(model_name)s - læstu því til að varna "
+"því að aðrir getið framkvæmt breytingar."
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Aðeins aðilar í yfirferð geta breytt og samþykkt %(model_name)s"
 
 #, python-brace-format
 msgid ""
@@ -162,6 +164,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' er læst og hefur verið stillt á að fara í loftið "
 "{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Læst af tímastillingu"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Er læst og fer í loftið á stilltum tíma"
 
 msgid "latest revision"
 msgstr "nýjasta útgáfa"
@@ -573,6 +581,30 @@ msgstr "safnheimild hóps"
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
 
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s verður líka eytt"
+
+msgid "prevents deletion"
+msgstr "varnar eyðingu"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "verður stillt á sjálfgefið gildi%(model_name)s"
+
+msgid "will do nothing"
+msgstr "gerir ekkert"
+
+msgid "may prevent deletion"
+msgstr "gæti varnað eyðingu"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "verður stillt á %(model_name)s sem ákveðið er af kerfinu"
+
+msgid "will unset the reference"
+msgstr "mun fjarlægja vísunina"
+
 msgid "hostname"
 msgstr "slóð"
 
@@ -705,12 +737,6 @@ msgstr "Taka tímasett uppkast úr loftinu"
 
 msgid "Unpublished scheduled draft"
 msgstr "Tók tímasett uppkast úr loftinu"
-
-msgid "Locked"
-msgstr "Læst"
-
-msgid "Unlocked"
-msgstr "Aflæst"
 
 msgid "Reject"
 msgstr "Hafna"

@@ -6,16 +6,16 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2021-2022
+# Storm Heg <storm@stormbase.digital>, 2021-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgid "Cancel workflow "
 msgstr "Workflow annuleren"
 
 msgid "Unpublish"
-msgstr "Depubliceren"
+msgstr "Publicatie intrekken"
 
 msgid "Delete"
 msgstr "Verwijder"
@@ -54,7 +54,7 @@ msgid "Save"
 msgstr "Opslaan"
 
 msgid "Locked"
-msgstr "Geblokkeerd"
+msgstr "Vergrendeld"
 
 #, python-format
 msgid "%(label)s and Publish"
@@ -71,6 +71,12 @@ msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' verwijderd."
 
 #, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d%(model_name)s verwijderd."
+msgstr[1] "%(count)d%(model_name)s verwijderd."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Verwijder%(snippet_type_name)s"
 
@@ -85,17 +91,15 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
+msgstr "Weet je zeker dat je deze %(snippet_type_name)s wilt verwijderen?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
-msgstr ""
-"Weet u zeker dat u deze %(count)s%(snippet_type_name)s wilt verwijderen?"
+msgstr "%(count)s%(snippet_type_name)s worden verwijderd. Weet je het zeker?"
 
 #, python-format
 msgid "You don't have permission to delete this %(snippet_type_name)s"
-msgstr ""
-"Je hebt niet de juiste rechten om een %(snippet_type_name)s te verwijderen"
+msgstr "Je hebt niet de juiste rechten om %(snippet_type_name)s te verwijderen"
 
 #, python-format
 msgid "You don't have permission to delete these %(snippet_plural_name)s"
@@ -122,10 +126,7 @@ msgid ""
 msgstr ""
 "Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noopener noreferrer\">Voeg er nu eentje toe!</a>"
-
-msgid "Usage"
-msgstr "Gebruik"
+"rel=\"noreferrer\">Voeg er nu een toe</a>"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -182,6 +183,9 @@ msgstr "Nieuw: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Wijzigen: %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Gebruik"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Snippet geschiedenis voor %(subtitle)s"
@@ -191,6 +195,17 @@ msgstr "Bewerk snippet"
 
 msgid "No log entries found."
 msgstr "Geen logboekvermeldingen gevonden."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippets %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Voeg %(snippet_type_name)s toe"
+
+msgid "Select all snippets in listing"
+msgstr "Selecteer alle snippets in lijst"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -208,7 +223,7 @@ msgid ""
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 "Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a "
-"href=\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
+"href=\"%(wagtailsnippets_create_url)s\">voeg je er niet een toe</a>?"
 
 msgid "Live version"
 msgstr "Live versie"
@@ -232,31 +247,7 @@ msgid "Compare with current version"
 msgstr "Vergelijk met huidige versie"
 
 msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippets %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Voeg %(snippet_type_name)s toe"
-
-msgid "Select all snippets in listing"
-msgstr "Selecteer alle snippets in lijst"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Gebruik van %(title)s"
-
-msgid "Usage of"
-msgstr "Gebruik van"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Field"
-msgstr "Veld"
+msgstr "Annuleer geplande publicatie"
 
 msgid "Choose"
 msgstr "Kies"
@@ -272,14 +263,6 @@ msgstr "De snippet kon niet worden aangemaakt door fouten."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privé %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Wijzig %(object)s"
 
 msgid "Action"
 msgstr "Actie"
@@ -316,3 +299,7 @@ msgstr "Kies %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Kies een andere %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Wijzig %(object)s"

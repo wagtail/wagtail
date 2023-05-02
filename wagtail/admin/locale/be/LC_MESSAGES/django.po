@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -383,6 +383,19 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
 
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Адмяніць публікацыю %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Так, апублікаваць"
+
+msgid "No, don't unpublish"
+msgstr "Не, не публікаваць"
+
 msgid "Update"
 msgstr "Аднаўленне"
 
@@ -554,14 +567,8 @@ msgstr "Выберыце, які тып старонкі вы хочаце ст�
 msgid "Pages using %(page_type)s"
 msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Не, не выдаляць"
-
 msgid "Move"
 msgstr "Рухайцеся"
-
-msgid "No, don't unpublish"
-msgstr "Не, не публікаваць"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -756,21 +763,14 @@ msgstr "Шлях па сайту"
 msgid "Root"
 msgstr "Галоўная"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Адмяніць публікацыю %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Так, апублікаваць"
-
 msgid "Filter"
 msgstr "Фільтр"
 
-msgid "Visit the live page"
-msgstr "Наведаць старонку"
-
 msgid "Current page status:"
 msgstr "Бягучы статус старонкі:"
+
+msgid "Visit the live page"
+msgstr "Наведаць старонку"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -800,6 +800,17 @@ msgstr "Заблакаваць"
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
+
+msgid "Usage"
+msgstr "Выкарыстанне"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
+msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
+msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
+msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"
@@ -886,6 +897,13 @@ msgstr "Ранні"
 
 msgid "Latest"
 msgstr "Апошні"
+
+msgid "Usage of"
+msgstr "Выкарыстанне"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Рэдактаваць гэта %(object)s"
 
 msgid "Dashboard"
 msgstr "Панэль кіравання"

@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Alexey Sveshnikov, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -474,11 +474,11 @@ msgstr "Восстановление пароля"
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
 
-msgid "Upload a profile picture:"
-msgstr "Изображение профиля:"
-
 msgid "Reset to default"
 msgstr "Восстановление значений по умолчанию"
+
+msgid "Upload a profile picture:"
+msgstr "Изображение профиля:"
 
 msgid "Sidebar"
 msgstr "Боковая панель"
@@ -646,6 +646,26 @@ msgstr "Элементов не было создано"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Отменить публикацию %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Вы уверены, что хотите отменить публикацию %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Да, отменить публикацию"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить опубликованным"
+
+msgid "Cancel"
+msgstr "Отмена"
 
 msgid "Update"
 msgstr "Обновить"
@@ -1040,9 +1060,6 @@ msgstr[1] "У вас недостаточно прав для удаления �
 msgstr[2] "У вас недостаточно прав для удаления этих страниц"
 msgstr[3] "У вас недостаточно прав для удаления этих страниц"
 
-msgid "No, don't delete"
-msgstr "Нет, не удалять"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1152,9 +1169,6 @@ msgstr[3] "У вас недостаточно прав для снятия с п
 
 msgid "Yes, unpublish"
 msgstr "Да, отменить публикацию"
-
-msgid "No, don't unpublish"
-msgstr "Нет, оставить опубликованным"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1278,9 +1292,6 @@ msgstr "Публикация этой страницы отменит текущ
 
 msgid "Would you still like to publish this page?"
 msgstr "Вы все равно хотите опубликовать страницу?"
-
-msgid "Cancel"
-msgstr "Отмена"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1605,17 +1616,6 @@ msgstr "Путь по сайту"
 msgid "Root"
 msgstr "Главная"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Отменить публикацию %(title)s"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Вы уверены, что хотите отменить публикацию %(model_name)s?"
-
-msgid "Yes, unpublish it"
-msgstr "Да, отменить публикацию"
-
 msgid "Close dialog"
 msgstr "Закрыть"
 
@@ -1628,11 +1628,11 @@ msgstr "Фильтр"
 msgid "Apply filters"
 msgstr "Применить фильтры"
 
-msgid "Visit the live page"
-msgstr "Посетить страницу"
-
 msgid "Current page status:"
 msgstr "Текущий статус страницы:"
+
+msgid "Visit the live page"
+msgstr "Посетить страницу"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Видно для всех. Посетите опубликованную страницу"
@@ -1665,6 +1665,9 @@ msgstr "Нет, не отменять публикацию по расписан
 msgid "Other searches"
 msgstr "Другие поиски"
 
+msgid "Minimap"
+msgstr "Миникарта"
+
 msgid "Side panels"
 msgstr "Боковые панели"
 
@@ -1673,9 +1676,6 @@ msgstr "Переключить боковую панель"
 
 msgid "Side panel width"
 msgstr "Ширина боковой панели"
-
-msgid "Minimap"
-msgstr "Миникарта"
 
 msgid "Page Locale: "
 msgstr "Язык страницы:"
@@ -1693,37 +1693,8 @@ msgstr "Нет других переводов"
 msgid "Switch locales"
 msgstr "Сменить язык"
 
-msgid "Page locking: "
-msgstr "Блокировка страницы:"
-
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Вы можете редактировать эту страницу, а другие нет. Разблокируйте, чтобы "
-"другие могли редактировать."
-
-msgid "You can edit this page, but others may not."
-msgstr "Вы можете редактировать эту страницу, а другие нет."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr ""
-"Вы не можете редактировать эту страницу. Разблокируйте, чтобы получить "
-"возможность вносить изменения."
-
-msgid "You cannot edit this page."
-msgstr "Вы не можете редактировать эту страницу."
-
 msgid "Unlocked"
 msgstr "Разблокировано"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Эту страницу может редактировать любой желающий. Заблокируйте, чтобы другие "
-"не могли вносить изменения."
-
-msgid "Anyone can edit this page."
-msgstr "Эту страницу может редактировать любой желающий."
 
 msgid "Lock"
 msgstr "Заблокировать"
@@ -1742,6 +1713,17 @@ msgstr "Выберите, кто может просматривать живу�
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Изменения приватности также накладываются и на дочерние страницы."
+
+msgid "Usage"
+msgstr "Использование"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использован %(usage_count)s раз."
+msgstr[1] "Использован %(usage_count)s раз."
+msgstr[2] "Использован %(usage_count)s раз."
+msgstr[3] "Использован %(usage_count)s раз."
 
 msgid "Page status: "
 msgstr "Статус страницы:"
@@ -1804,9 +1786,6 @@ msgstr "Режим предпросмотра"
 msgid "First published "
 msgstr "Впервые опубликовано "
 
-msgid "Workflow progress"
-msgstr "Прогресс рабочего процесса"
-
 msgid "Edit / Review"
 msgstr "Редактировать / Проверить"
 
@@ -1820,10 +1799,6 @@ msgstr "Запрошен <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Начало: <b>%(started_at)s</b>."
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Статус: <span class=\"status-tag primary\">%(status)s</span>."
 
 msgid "Timeline"
 msgstr "Хронология"
@@ -2199,6 +2174,9 @@ msgstr "Коллекция '%(object)s' удалена."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Вы уверены что хотите удалить эту коллекцию?"
 
+msgid "Workflow progress"
+msgstr "Прогресс рабочего процесса"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' обновлена"
@@ -2274,6 +2252,16 @@ msgstr "Версия %(revision_id)s объекта \"%(object)s\" не запл
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "версия %(revision_id)s объекта \"%(object)s\""
+
+msgid "Usage of"
+msgstr "Использование"
+
+msgid "Field"
+msgstr "Поле"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Править %(object)s"
 
 msgid "Dashboard"
 msgstr "Панель управления"

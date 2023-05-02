@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -187,13 +187,6 @@ msgid "Upload"
 msgstr "Feltöltés"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Törlés: %(title)s"
-
-msgid "Delete document"
-msgstr "Dokumentum törlése"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Szerkesztés: %(title)s"
 
@@ -202,6 +195,9 @@ msgstr "Szerkesztés"
 
 msgid "Save"
 msgstr "Mentés"
+
+msgid "Delete document"
+msgstr "Dokumentum törlése"
 
 msgid "Filesize"
 msgstr "Fájlméret"
@@ -255,13 +251,6 @@ msgid ""
 msgstr ""
 "Még nem töltött fel dokumentumot. Nem szeretne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">feltölteni egyet</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s használata"
-
-msgid "Usage of"
-msgstr "Használat"
 
 #, python-format
 msgid ""
@@ -390,14 +379,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' dokumentum törölve."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privát %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s szerkesztése"
 
 msgid "Document"
 msgstr "Dokumentum"

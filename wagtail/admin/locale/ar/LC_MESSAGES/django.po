@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Waseem Kntar, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -426,6 +426,19 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+msgid "No, don't delete"
+msgstr "لا, لا تحذف"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "الغ نشر %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "نعك ألغ نشره"
+
+msgid "No, don't unpublish"
+msgstr "لا ,ألغ النشر"
+
 msgid "Update"
 msgstr "حدث"
 
@@ -602,9 +615,6 @@ msgstr[3] "ليست لديك الصلاحية التي تخول لك حذف هذ
 msgstr[4] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
 msgstr[5] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
 
-msgid "No, don't delete"
-msgstr "لا, لا تحذف"
-
 msgid "Move"
 msgstr "انقل"
 
@@ -634,9 +644,6 @@ msgstr[2] "ليست لديك الصلاحية التي تخول لك إلغاء 
 msgstr[3] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
 msgstr[4] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
 msgstr[5] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
-
-msgid "No, don't unpublish"
-msgstr "لا ,ألغ النشر"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -828,13 +835,6 @@ msgstr "صفحة %(page_num)s من %(total_pages)s"
 msgid "Root"
 msgstr "الجذر"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "الغ نشر %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "نعك ألغ نشره"
-
 msgid "Filter"
 msgstr "فلتر"
 
@@ -865,6 +865,19 @@ msgstr "قفل"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
+
+msgid "Usage"
+msgstr "استعمال"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "تم استخدامه %(usage_count)sمرة"
+msgstr[1] "تم استخدامه %(usage_count)s مرة"
+msgstr[2] "تم استخدامه %(usage_count)s مرة"
+msgstr[3] "تم استخدامه %(usage_count)s مرة"
+msgstr[4] "تم استخدامه %(usage_count)s مرة"
+msgstr[5] "تم استخدامه %(usage_count)s مرة"
 
 msgid "Add a child page"
 msgstr "إضافة صفحة فرعية"
@@ -949,6 +962,13 @@ msgstr "السابقة"
 
 msgid "Latest"
 msgstr "اللاحقة"
+
+msgid "Usage of"
+msgstr "استعمال"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "تحرير هذا %(object)s"
 
 msgid "Dashboard"
 msgstr "لوحة التحكم"

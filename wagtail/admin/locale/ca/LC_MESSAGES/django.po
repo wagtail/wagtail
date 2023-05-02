@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -447,11 +447,11 @@ msgstr "Contrasenya reiniciada"
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
 
-msgid "Upload a profile picture:"
-msgstr "Pujar una imatge de perfil:"
-
 msgid "Reset to default"
 msgstr "Reinicialitzar als valors per defecte"
+
+msgid "Upload a profile picture:"
+msgstr "Pujar una imatge de perfil:"
 
 msgid "Sidebar"
 msgstr "Barra lateral"
@@ -630,6 +630,55 @@ msgstr "No s'ha creat cap element."
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
+
+msgid "No, don't delete"
+msgstr "No esborrar"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Anul·lar la publicació de %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Segur que voleu anul·lar la publicació d'aquest/a %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Anul·lar la publicació"
+
+msgid "No, don't unpublish"
+msgstr "No anul·lar la publicació"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publicar %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Aquest/a %(model_name)s va ser marcat com que necessita canvis el "
+"<strong>%(task)s</strong> a <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Aquest/a %(model_name)s està actualment a <strong>%(task)s</strong> a "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr ""
+"Publicar aquest/a %(model_name)s cancel·larà el fluxe de treball actual."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Encara voleu publicar aquest/a %(model_name)s?"
+
+msgid "Cancel"
+msgstr "Cancel·lar"
 
 msgid "Update"
 msgstr "Actualitzar"
@@ -1190,9 +1239,6 @@ msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "No teniu permisos per esborrar aquesta pàgina"
 msgstr[1] "No teniu permisos per esborrar aquestes pàgines"
 
-msgid "No, don't delete"
-msgstr "No esborrar"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1284,9 +1330,6 @@ msgstr[1] "No teniu permisos per anul·lar la publicació d'aquestes pàgines"
 
 msgid "Yes, unpublish"
 msgstr "Anul·lar la publicació"
-
-msgid "No, don't unpublish"
-msgstr "No anul·lar la publicació"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1533,9 +1576,6 @@ msgstr "Publicar aquesta pàgines cancel·larà el fluxe de treball actual."
 
 msgid "Would you still like to publish this page?"
 msgstr "Seguiu volent publicar aquesta pàgina?"
-
-msgid "Cancel"
-msgstr "Cancel·lar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1873,46 +1913,6 @@ msgstr "Ruta de navegació"
 msgid "Root"
 msgstr "Arrel"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Anul·lar la publicació de %(title)s"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Segur que voleu anul·lar la publicació d'aquest/a %(model_name)s?"
-
-msgid "Yes, unpublish it"
-msgstr "Anul·lar la publicació"
-
-#, python-format
-msgid "Publish %(model_name)s"
-msgstr "Publicar %(model_name)s"
-
-#, python-format
-msgid ""
-"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>."
-msgstr ""
-"Aquest/a %(model_name)s va ser marcat com que necessita canvis el "
-"<strong>%(task)s</strong> a <strong>%(workflow)s</strong>."
-
-#, python-format
-msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
-msgstr ""
-"Aquest/a %(model_name)s està actualment a <strong>%(task)s</strong> a "
-"<strong>%(workflow)s</strong>."
-
-#, python-format
-msgid "Publishing this %(model_name)s will cancel the current workflow."
-msgstr ""
-"Publicar aquest/a %(model_name)s cancel·larà el fluxe de treball actual."
-
-#, python-format
-msgid "Would you still like to publish this %(model_name)s?"
-msgstr "Encara voleu publicar aquest/a %(model_name)s?"
-
 msgid "Close dialog"
 msgstr "Tancar el diàleg"
 
@@ -1933,11 +1933,11 @@ msgstr "Nou: %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Editant%(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Visitar la pàgina En viu"
-
 msgid "Current page status:"
 msgstr "Estat de la pàgina actual:"
+
+msgid "Visit the live page"
+msgstr "Visitar la pàgina En viu"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Visible per a tothom. Visitar la pàgina En viu"
@@ -1970,6 +1970,9 @@ msgstr "No, no desprogramar"
 msgid "Other searches"
 msgstr "Altres cerques"
 
+msgid "Minimap"
+msgstr "Minimapa"
+
 msgid "Side panels"
 msgstr "Panells laterals"
 
@@ -1978,9 +1981,6 @@ msgstr "Communtar panell lateral"
 
 msgid "Side panel width"
 msgstr "Ample del panell lateral"
-
-msgid "Minimap"
-msgstr "Minimapa"
 
 msgid "Page Locale: "
 msgstr "Localització de la pàgina:"
@@ -1998,70 +1998,11 @@ msgstr "No hi ha altres traduccions"
 msgid "Switch locales"
 msgstr "Commutar localitzacions"
 
-msgid "Page locking: "
-msgstr "Bloqueig de pàgina:"
-
 msgid "Locking: "
 msgstr "Bloqueig:"
 
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Podeu editar aquesta pàgina, però pot ser que d'altres no. Desbloquegeu-la "
-"per permetre a altres editar-la."
-
-#, python-format
-msgid ""
-"You can edit this %(model_name)s, but others may not. Unlock it to allow "
-"others to edit."
-msgstr ""
-"Podeu editar aquest/a %(model_name)s, però pot ser que d'altres no. "
-"Desbloqueu-lo/la per permetre a altres editar-lo/la."
-
-msgid "You can edit this page, but others may not."
-msgstr "Podeu editar aquesta pàgina, però altres potser no."
-
-#, python-format
-msgid "You can edit this %(model_name)s, but others may not."
-msgstr "Podeu editar aquest/a %(model_name)s, però altres potser no."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "No podeu editar aquesta pàgina. Abans cal desbloquejar-la."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s. Unlock it to edit."
-msgstr ""
-"No podeu editar aquest/a %(model_name)s. Desbloquegeu-lo/la per editar-lo/la."
-
-msgid "You cannot edit this page."
-msgstr "No podeu editar aquesta pàgina."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s."
-msgstr "No podeu editar aquest/a %(model_name)s."
-
 msgid "Unlocked"
 msgstr "Desbloquejat"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Qualsevol pot editar aquesta pàgina. Bloquegeu-la per evitar que altres la "
-"pugin editar."
-
-#, python-format
-msgid ""
-"Anyone can edit this %(model_name)s. Lock it to prevent others from editing."
-msgstr ""
-"Qualsevol pot editar aquest/a %(model_name)s. Bloqueja'l/-la per evitar que "
-"altres l'editin."
-
-msgid "Anyone can edit this page."
-msgstr "Qualsevol pot editar aquesta pàgina."
-
-#, python-format
-msgid "Anyone can edit this %(model_name)s."
-msgstr "Qualsevol pot editar aquest/a %(model_name)s."
 
 msgid "Lock"
 msgstr "Bloqueja"
@@ -2082,6 +2023,15 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
 "d'aquesta pàgina."
+
+msgid "Usage"
+msgstr "Ús"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilitzat %(usage_count)s vegada"
+msgstr[1] "Utilitzat %(usage_count)s vegades"
 
 msgid "Page status: "
 msgstr "Estat de la pàgina:"
@@ -2151,9 +2101,6 @@ msgstr "Mode de previsualització"
 msgid "First published "
 msgstr "Primera publicació"
 
-msgid "Workflow progress"
-msgstr "Progrés dels fluxe de treball"
-
 msgid "Edit / Review"
 msgstr "Editar / Revisar"
 
@@ -2167,10 +2114,6 @@ msgstr "Demanat per <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Iniciat el <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Estat <span class=\"status-tag primary\"> %(status)s</span>"
 
 msgid "Timeline"
 msgstr "Línia de temps"
@@ -2233,14 +2176,14 @@ msgstr "Saltar al contingut principal"
 msgid "View Wagtail quick actions"
 msgstr "Veure accions ràpides de Wagtail"
 
-msgid "Warnings"
-msgstr "Advertències"
-
 msgid "Issues found"
 msgstr "Incidències trobades"
 
 msgid "Accessibility"
 msgstr "Accessibilitat"
+
+msgid "Warnings"
+msgstr "Advertències"
 
 msgid "Add a child page"
 msgstr "Afegir una pàgina filla"
@@ -2528,10 +2471,6 @@ msgstr "Mostrar/ocultar comentaris"
 msgid "Toggle preview"
 msgstr "Mostrar/ocultar previsualització"
 
-msgid "Empty heading found. Use meaningful text in headings."
-msgstr ""
-"S'ha trobat una capçalera buïda. Feu servir text amb sentit a les capçaleres."
-
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Jerarqui de capçalera incorrecta. Eviteu saltar-vos nivells."
 
@@ -2596,6 +2535,9 @@ msgstr "Col·lecció '%(object)s' eliminada."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Segur que voleu eliminar aquesta col·lecció?"
+
+msgid "Workflow progress"
+msgstr "Progrés dels fluxe de treball"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -2708,6 +2650,20 @@ msgstr ""
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revisió %(revision_id)s de \"%(object)s\""
+
+msgid "Usage of"
+msgstr "Utilització de"
+
+msgid "Field"
+msgstr "Camp"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Privat %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar aquest %(object)s"
 
 #, python-format
 msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."

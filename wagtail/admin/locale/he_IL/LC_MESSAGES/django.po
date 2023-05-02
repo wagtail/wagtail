@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -291,6 +291,13 @@ msgstr "שם"
 msgid "Yes, delete"
 msgstr "כן, מחק"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "הסתר את %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "כן, בטל את הפרסום"
+
 msgid "Update"
 msgstr "עדכן"
 
@@ -538,13 +545,6 @@ msgstr "ערוך פריט זה"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "הסתר את %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "כן, בטל את הפרסום"
-
 msgid "Filter"
 msgstr "מסנן"
 
@@ -574,6 +574,13 @@ msgstr "סיסמא"
 
 msgid "Editing"
 msgstr "עריכה"
+
+msgid "Usage of"
+msgstr "שימוש ב:"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "ערוך את %(object)s זה"
 
 msgid "Dashboard"
 msgstr "לוח מחוונים"

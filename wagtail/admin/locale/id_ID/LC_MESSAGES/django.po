@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -366,6 +366,16 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Tarik publikasi %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ya, tarik publikasi"
+
+msgid "No, don't unpublish"
+msgstr "Tidak, jangan tarik publikasi"
+
 msgid "Update"
 msgstr "Perbarui"
 
@@ -539,9 +549,6 @@ msgstr "Halaman yang menggunakan %(page_type)s"
 
 msgid "Move"
 msgstr "Pindahkan"
-
-msgid "No, don't unpublish"
-msgstr "Tidak, jangan tarik publikasi"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -722,13 +729,6 @@ msgstr "Halaman %(page_num)s dari %(total_pages)s."
 msgid "Root"
 msgstr "Dasar"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tarik publikasi %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Ya, tarik publikasi"
-
 msgid "Filter"
 msgstr "Saring"
 
@@ -760,6 +760,14 @@ msgstr "Kunci"
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Perubahan privasi juga berlaku untuk semua keturunan dari halaman induk ini."
+
+msgid "Usage"
+msgstr "Pemakaian"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
 
 msgid "Add a child page"
 msgstr "Tambah turunan halaman"
@@ -830,6 +838,13 @@ msgstr "Paling awal"
 
 msgid "Latest"
 msgstr "Paling akhir"
+
+msgid "Usage of"
+msgstr "Penggunaan dari"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Ubah %(object)s ini"
 
 msgid "Dashboard"
 msgstr "Dasbor"

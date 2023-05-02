@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -269,9 +269,6 @@ msgstr "Dewiswch yr holl ddefnyddwyr wrth restru"
 
 msgid "Username"
 msgstr "Enw defnyddiwr"
-
-msgid "Level"
-msgstr "Lefel"
 
 msgid "Status"
 msgstr "Statws"

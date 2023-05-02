@@ -11,11 +11,11 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
 # Loic Teixeira, 2022
-# Влад <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
@@ -54,6 +54,9 @@ msgstr "Текст подсказки"
 
 msgid "Are you sure?"
 msgstr "Вы уверены?"
+
+msgid "Blocks"
+msgstr "Блоки"
 
 msgid "Broken link"
 msgstr "Битая ссылка"

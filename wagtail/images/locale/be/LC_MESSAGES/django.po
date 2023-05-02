@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -65,11 +65,11 @@ msgstr "Новы"
 msgid "Save"
 msgstr "Захаваць"
 
-msgid "Delete image"
-msgstr "Выдаліць выяву"
-
 msgid "Editing"
 msgstr "Рэдагаванне"
+
+msgid "Delete image"
+msgstr "Выдаліць выяву"
 
 msgid "Filesize"
 msgstr "Памер файла"
@@ -85,16 +85,6 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Папярэдні прагляд"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Выкарыстоўванне %(title)s"
-
-msgid "Usage of"
-msgstr "Выкарыстанне"
-
-msgid "Title"
-msgstr "Загаловак"
 
 msgid "Or choose from your computer"
 msgstr "Або абярыце на вашым кампутары"
@@ -116,7 +106,3 @@ msgstr "Запампаваць"
 
 msgid "Uploading…"
 msgstr "Запампоўваецца..."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Рэдактаваць гэта %(object)s"

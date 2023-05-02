@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,19 +97,11 @@ msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
 msgid "Comment"
 msgstr "Comentario"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Página '{page_title}' está bloqueada</b> por <b>usted</b>."
+msgid "Locked"
+msgstr "Bloqueado"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Página '{page_title}' se encuentra bloqueada</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Esta página está actualmente esperando moderación."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Solo los revisores de esta tarea pueden editar la página."
+msgid "Unlocked"
+msgstr "Desbloqueado"
 
 msgid "latest revision"
 msgstr "última revisión"
@@ -622,12 +614,6 @@ msgstr "Despublicar borrador programado"
 
 msgid "Unpublished scheduled draft"
 msgstr "Borrador programado sin publicar"
-
-msgid "Locked"
-msgstr "Bloqueado"
-
-msgid "Unlocked"
-msgstr "Desbloqueado"
 
 msgid "Reject"
 msgstr "Rechazar"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -175,15 +175,15 @@ msgstr "Tambah gambar"
 msgid "Save"
 msgstr "Simpan"
 
-msgid "Delete image"
-msgstr "Hapus gambar"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Mengubah gambar %(title)s"
 
 msgid "Editing"
 msgstr "Mengubah"
+
+msgid "Delete image"
+msgstr "Hapus gambar"
 
 msgid "URL Generator"
 msgstr "Generator URL"
@@ -245,16 +245,6 @@ msgid ""
 msgstr ""
 "Perhatikan bahwa hasil gambar yang lebih besar dari layar akan tampak lebih "
 "kecil ketika ditinjau disini, sehingga sesuai dengan layar."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Penggunaan dari %(title)s"
-
-msgid "Usage of"
-msgstr "Penggunaan dari"
-
-msgid "Title"
-msgstr "Judul"
 
 msgid "Add multiple images"
 msgstr "Tambah beberapa gambar"
@@ -340,10 +330,6 @@ msgstr "Gambar '%(image_title)s' ditambahkan."
 
 msgid "The image could not be created due to errors."
 msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Ubah %(object)s ini"
 
 msgid "Image"
 msgstr "Gambar"

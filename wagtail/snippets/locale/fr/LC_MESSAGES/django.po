@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -135,9 +135,6 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">en créer un maintenant</a> ?"
 
-msgid "Usage"
-msgstr "Utilisation"
-
 msgid "Last updated"
 msgstr "Dernière mise à jour"
 
@@ -193,6 +190,9 @@ msgstr "Nouvel(le) : %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Modification de %(snippet_type)s « %(title)s »"
 
+msgid "Usage"
+msgstr "Utilisation"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Historique du fragment pour « %(subtitle)s »"
@@ -202,6 +202,17 @@ msgstr "Modifier ce fragment"
 
 msgid "No log entries found."
 msgstr "Aucune entrée de journal trouvée."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragments %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Ajouter un %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Sélectionner tous les fragments dans la liste"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -247,30 +258,6 @@ msgstr "Comparer avec la version actuelle"
 msgid "Cancel scheduled publish"
 msgstr "Annuler la publication programmée"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragments %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Ajouter un %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Sélectionner tous les fragments dans la liste"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilisation de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilisation de"
-
-msgid "Title"
-msgstr "Titre"
-
-msgid "Field"
-msgstr "Champ"
-
 msgid "Choose"
 msgstr "Choisir"
 
@@ -285,14 +272,6 @@ msgstr "Le fragment ne peut être créé du fait d'erreurs."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Le fragment ne peut être enregistré du fait d'erreurs."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s Privé(e))"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Modifier ce/cette %(object)s"
 
 msgid "Action"
 msgstr "Action"
@@ -329,3 +308,7 @@ msgstr "Choisir %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Choisir un autre %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifier ce/cette %(object)s"

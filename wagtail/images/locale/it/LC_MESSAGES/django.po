@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Immagini Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -296,15 +293,15 @@ msgstr "Aggiungi immagine"
 msgid "Save"
 msgstr "Salva"
 
-msgid "Delete image"
-msgstr "Elimina immagine"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Modifica immagine %(title)s"
 
 msgid "Editing"
 msgstr "Modifica"
+
+msgid "Delete image"
+msgstr "Elimina immagine"
 
 msgid "Image focal point"
 msgstr "Punto focale immagine"
@@ -401,16 +398,6 @@ msgid ""
 msgstr ""
 "Le immagini generate più grandi dello schermo appariranno più piccole in "
 "anteprima in modo da adattarsi allo schermo."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uso di %(title)s"
-
-msgid "Usage of"
-msgstr "Utilizzo di"
-
-msgid "Title"
-msgstr "Titolo"
 
 msgid "Add multiple images"
 msgstr "Aggiungi immagini multiple"
@@ -546,10 +533,6 @@ msgstr "Immagine '%(image_title)s' aggiunta."
 
 msgid "The image could not be created due to errors."
 msgstr "L'immagine non può essere creata a causa di errori."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Modifica questo %(object)s"
 
 msgid "Image"
 msgstr "Immagine"

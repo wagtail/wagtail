@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -401,11 +401,11 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
-msgid "Upload a profile picture:"
-msgstr "Nahrát profilový obrázek:"
-
 msgid "Reset to default"
 msgstr "Zpět na původní hodnoty"
+
+msgid "Upload a profile picture:"
+msgstr "Nahrát profilový obrázek:"
 
 msgid "Go back"
 msgstr "Zpět"
@@ -516,6 +516,22 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Zrušit publikaci %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ano, zrušit publikaci"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nerušit publikaci"
+
+msgid "Cancel"
+msgstr "Storno"
 
 msgid "Update"
 msgstr "Uložit"
@@ -840,9 +856,6 @@ msgstr "Zvolit typ stránky, který chcete vytvořit."
 msgid "Pages using %(page_type)s"
 msgstr "Stránky typu %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Ne, nemazat"
-
 msgid "Move"
 msgstr "Přesunout"
 
@@ -860,9 +873,6 @@ msgstr "Ne, nepublikovat"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Opravdu chcete zrušit publikaci těchto stránek?"
-
-msgid "No, don't unpublish"
-msgstr "Ne, nerušit publikaci"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -933,9 +943,6 @@ msgstr "Zveřejnění této stránky přeruší aktuální postup."
 
 msgid "Would you still like to publish this page?"
 msgstr "Opravdu chcete zveřejnit tuto stránku?"
-
-msgid "Cancel"
-msgstr "Storno"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1156,13 +1163,6 @@ msgstr "Drobečková navigace"
 msgid "Root"
 msgstr "Počátek"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Zrušit publikaci %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Ano, zrušit publikaci"
-
 msgid "Add comment"
 msgstr "Přidat komentář"
 
@@ -1172,11 +1172,11 @@ msgstr "Filtr"
 msgid "Apply filters"
 msgstr "Použít filtry"
 
-msgid "Visit the live page"
-msgstr "Navštívit publikovanou stránku"
-
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
+
+msgid "Visit the live page"
+msgstr "Navštívit publikovanou stránku"
 
 msgid "Toggle section"
 msgstr "Přepnout výběr"
@@ -1215,11 +1215,19 @@ msgstr "Uzamknout"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
 
+msgid "Usage"
+msgstr "Použití"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s -krát"
+msgstr[1] "Použito %(usage_count)s -krát"
+msgstr[2] "Použito %(usage_count)s -krát"
+msgstr[3] "Použito %(usage_count)s -krát"
+
 msgid "View history"
 msgstr "Zobrazit historii"
-
-msgid "Workflow progress"
-msgstr "Průběh postupu"
 
 msgid "Edit / Review"
 msgstr "Editovat / Revidovat"
@@ -1234,10 +1242,6 @@ msgstr "Požadováno (kým) <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Zahájeno v <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Stav <span class=\"status-tag primary\"> %(status)s</span>"
 
 msgid "Timeline"
 msgstr "Časová osa"
@@ -1525,6 +1529,9 @@ msgstr "Kolekce '%(object)s' byla smazána."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Opravdu chcete smazat tuto kolekci?"
 
+msgid "Workflow progress"
+msgstr "Průběh postupu"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' aktualizováno."
@@ -1541,6 +1548,13 @@ msgstr "Nejstarší"
 
 msgid "Latest"
 msgstr "Nejnovější"
+
+msgid "Usage of"
+msgstr "Použití"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"
 
 msgid "Dashboard"
 msgstr "Dashboard"

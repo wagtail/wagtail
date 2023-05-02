@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -102,9 +102,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">새로 생성</a>하는 것은 어떤가요?"
 
-msgid "Usage"
-msgstr "사용"
-
 msgid "Last updated"
 msgstr "마지막으로 업로드된"
 
@@ -145,8 +142,19 @@ msgstr "브레드크럼"
 msgid "Snippets"
 msgstr "스니펫"
 
+msgid "Usage"
+msgstr "사용"
+
 msgid "No log entries found."
 msgstr "기록 입장이 확인되지 않음"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s 스니펫"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s 추가"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -185,24 +193,6 @@ msgstr "현재 버전과 비교합니다."
 msgid "Cancel scheduled publish"
 msgstr "예약 게시 취소"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s 스니펫"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s 추가"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s 의 사용"
-
-msgid "Usage of"
-msgstr "의 사용"
-
-msgid "Title"
-msgstr "제목"
-
 msgid "Choose"
 msgstr "선택"
 
@@ -214,10 +204,6 @@ msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "이 %(object)s 수정하기"
 
 msgid "Action"
 msgstr "행동"
@@ -246,3 +232,7 @@ msgstr "%(object)s 선택"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "다른 %(object)s 선택"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "이 %(object)s 수정하기"

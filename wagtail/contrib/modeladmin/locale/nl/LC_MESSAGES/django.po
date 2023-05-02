@@ -4,15 +4,15 @@
 #
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2021
+# Storm Heg <storm@stormbase.digital>, 2021,2023
 # Thijs Kramer <thijskramer@gmail.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021,2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
-"%(plural)s kunnen op meerdere plaatsen in uw site worden toegevoegd. Wat "
+"%(plural)s kunnen op meerdere plaatsen in je website worden toegevoegd. Wat "
 "moet de bovenliggende pagina van de nieuwe pagina worden?"
 
 msgid "Continue"
@@ -137,7 +137,7 @@ msgstr "%(result_count)s van de %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
-msgstr "Sorry, er zijn geen %(name)s die aan uw zoekparameters voldoen."
+msgstr "Sorry, er zijn geen %(name)s die aan je zoekparameters voldoen."
 
 msgid "Search for"
 msgstr "Zoek naar"
@@ -163,8 +163,8 @@ msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
-"Er zijn nog geen %(name)s aangemaakt. Voordat u %(name)s kunt toevoegen moet "
-"één van de volgende aangemaakt zijn:"
+"Er zijn nog geen %(name)s aangemaakt. Voordat je %(name)s kunt toevoegen "
+"moet één van de volgende aangemaakt zijn:"
 
 #, python-format
 msgid "No %(name)s have been created yet."

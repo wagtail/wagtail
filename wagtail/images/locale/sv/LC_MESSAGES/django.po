@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,9 +26,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail bilder"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -326,9 +323,6 @@ msgstr "Lägg till bild"
 msgid "Save"
 msgstr "Spara"
 
-msgid "Delete image"
-msgstr "Radera bild"
-
 msgid "Keep new image"
 msgstr "Behåll ny bild"
 
@@ -341,6 +335,9 @@ msgstr "Redigerar bild %(title)s"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Delete image"
+msgstr "Radera bild"
 
 msgid "Image focal point"
 msgstr "Bildens brännpunkt"
@@ -444,19 +441,6 @@ msgid ""
 msgstr ""
 "Notera att de genererade bilder som är större än skärmen kommer visas mindre "
 "när de förhandsgranskas här, så att de får plats på skärmen."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Användning av %(title)s"
-
-msgid "Usage of"
-msgstr "Användning av"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Field"
-msgstr "Fält"
 
 msgid "Add multiple images"
 msgstr "Lägg till flera bilder"
@@ -613,14 +597,6 @@ msgstr "Bild '%(image_title)s' lades till."
 
 msgid "The image could not be created due to errors."
 msgstr "Bilden kunde inte skapas p.g.a. fel."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privat %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Redigera %(object)s"
 
 msgid "Image"
 msgstr "Bild"

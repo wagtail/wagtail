@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -40,6 +40,12 @@ msgstr "שדה חובה"
 
 msgid "Password"
 msgstr "סיסמא"
+
+msgid "Locked"
+msgstr "נעול"
+
+msgid "Unlocked"
+msgstr "בלתי נעול"
 
 msgid "live"
 msgstr "לייב"
@@ -101,12 +107,6 @@ msgstr "ערוך"
 
 msgid "Unpublish"
 msgstr "ביטול פרסום"
-
-msgid "Locked"
-msgstr "נעול"
-
-msgid "Unlocked"
-msgstr "בלתי נעול"
 
 msgid "Reject"
 msgstr "דחו"

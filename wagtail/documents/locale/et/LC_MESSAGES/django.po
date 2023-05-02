@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,13 +100,6 @@ msgid "Upload"
 msgstr "Laadi üles"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Kustuta %(title)s"
-
-msgid "Delete document"
-msgstr "Kustuta dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s muutmine"
 
@@ -115,6 +108,9 @@ msgstr "Redigeerimine"
 
 msgid "Save"
 msgstr "Salvesta"
+
+msgid "Delete document"
+msgstr "Kustuta dokument"
 
 msgid "Filesize"
 msgstr "Faili suurus"
@@ -156,13 +152,6 @@ msgid ""
 msgstr ""
 "Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a "
 "href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kasutamine"
-
-msgid "Usage of"
-msgstr "Kasutamine"
 
 msgid "Add multiple documents"
 msgstr "Lisage mitu dokumenti"
@@ -233,10 +222,6 @@ msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' on kustutatud."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muutke seda %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

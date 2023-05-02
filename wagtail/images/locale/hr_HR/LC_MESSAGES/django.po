@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -215,15 +212,15 @@ msgstr "Dodaj sliku"
 msgid "Save"
 msgstr "Spremi"
 
-msgid "Delete image"
-msgstr "Izbriši sliku"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Uređivanje slike %(title)s"
 
 msgid "Editing"
 msgstr "Uređivanje"
+
+msgid "Delete image"
+msgstr "Izbriši sliku"
 
 msgid "URL Generator"
 msgstr "URL Generator"
@@ -303,19 +300,6 @@ msgid ""
 msgstr ""
 "Generirane slike veće od zaslona će ovdje biti prikazane u manjim "
 "dimenzijama kako bi stale na zaslon."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Upotreba %(title)s"
-
-msgid "Usage of"
-msgstr "Upotreba"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "Field"
-msgstr "Polje"
 
 msgid "Add multiple images"
 msgstr "Dodaj više slika"
@@ -399,10 +383,6 @@ msgstr "Slika '%(image_title)s' je dodana."
 
 msgid "The image could not be created due to errors."
 msgstr "Nije moguće stvoriti sliku zbog grešaka."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Uredi ovaj %(object)s"
 
 msgid "Image"
 msgstr "Slika"

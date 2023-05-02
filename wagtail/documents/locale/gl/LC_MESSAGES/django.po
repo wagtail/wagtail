@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -184,13 +184,6 @@ msgid "Upload"
 msgstr "Subir"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Eliminar %(title)s"
-
-msgid "Delete document"
-msgstr "Eliminar documento"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Editando %(title)s"
 
@@ -199,6 +192,9 @@ msgstr "Editando"
 
 msgid "Save"
 msgstr "Gardar"
+
+msgid "Delete document"
+msgstr "Eliminar documento"
 
 msgid "Filesize"
 msgstr "Tamaño do arquivo"
@@ -252,16 +248,6 @@ msgid ""
 msgstr ""
 "Non subiches documentos. ¿Por qué non <a "
 "href=\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uso de %(title)s"
-
-msgid "Usage of"
-msgstr "Uso de"
-
-msgid "Field"
-msgstr "Campo"
 
 #, python-format
 msgid ""
@@ -388,14 +374,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminado."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s privado)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editar este %(object)s"
 
 msgid "Document"
 msgstr "Documento"

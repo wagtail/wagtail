@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -188,15 +188,15 @@ msgstr "画像を追加"
 msgid "Save"
 msgstr "保存"
 
-msgid "Delete image"
-msgstr "画像を削除"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)sの画像を編集"
 
 msgid "Editing"
 msgstr "編集"
+
+msgid "Delete image"
+msgstr "画像を削除"
 
 msgid "URL Generator"
 msgstr "URLを生成"
@@ -271,16 +271,6 @@ msgid ""
 msgstr ""
 "スクリーンの大きさよりも大きく生成された画像はプレビューの際はスクリーンに合"
 "わせて小さく表示されます。"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)sを使用"
-
-msgid "Usage of"
-msgstr "使用"
-
-msgid "Title"
-msgstr "タイトル"
 
 msgid "Add multiple images"
 msgstr "複数の画像を追加"
@@ -372,10 +362,6 @@ msgstr "画像 '%(image_title)s' が追加されました。 "
 
 msgid "The image could not be created due to errors."
 msgstr "この画像はエラーにより生成できませんでした。 "
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)sを編集"
 
 msgid "Image"
 msgstr "画像"

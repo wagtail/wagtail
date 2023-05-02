@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -124,9 +124,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">stvorite jedan</a>?"
 
-msgid "Usage"
-msgstr "Upotreba"
-
 msgid "Last updated"
 msgstr "Zadnji put ažurirano"
 
@@ -161,8 +158,19 @@ msgstr "Postupci"
 msgid "Snippets"
 msgstr "Izresci"
 
+msgid "Usage"
+msgstr "Upotreba"
+
 msgid "No log entries found."
 msgstr "Nema pronađenih zapisa."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Izresci %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Dodaj %(snippet_type_name)s"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -200,27 +208,6 @@ msgstr "Usporedi sa prijašnjom verzijom"
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Izresci %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Dodaj %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Upotreba %(title)s"
-
-msgid "Usage of"
-msgstr "Upotreba"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "Field"
-msgstr "Polje"
-
 msgid "Choose"
 msgstr "Odaberi"
 
@@ -232,10 +219,6 @@ msgstr "Nije moguće stvoriti izrezak zbog grešaka."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nije moguće sačuvati izrezak zbog grešaka."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Uredi ovaj %(object)s"
 
 msgid "Action"
 msgstr "Radnja"
@@ -264,3 +247,7 @@ msgstr "Odaberi %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Odaberi drugi %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Uredi ovaj %(object)s"

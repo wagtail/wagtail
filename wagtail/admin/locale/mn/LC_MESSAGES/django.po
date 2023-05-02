@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -363,11 +363,11 @@ msgstr "Нууц үг сэргээх"
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
 
-msgid "Upload a profile picture:"
-msgstr "Профайл зураг оруулах:"
-
 msgid "Reset to default"
 msgstr "Дахин өгөгдмөл болгох"
+
+msgid "Upload a profile picture:"
+msgstr "Профайл зураг оруулах:"
 
 msgid "Sidebar"
 msgstr "Сайдбар"
@@ -446,6 +446,19 @@ msgstr "Нэр"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s нийтлэхийг болиулах"
+
+msgid "Yes, unpublish it"
+msgstr "Тийм, Нийтлэхгүй болго"
+
+msgid "No, don't unpublish"
+msgstr "Үгүй"
 
 msgid "Update"
 msgstr "Шинэчлэх"
@@ -674,9 +687,6 @@ msgstr "Уучлаарай, энэ хэсэгт та хуудас үүсгэх �
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s-г ашиглаж буй хуудсууд"
 
-msgid "No, don't delete"
-msgstr "Үгүй, устгахгүй"
-
 msgid "Move"
 msgstr "Зөөх"
 
@@ -697,9 +707,6 @@ msgstr "Үгүй, нийтлэхгүй"
 
 msgid "Yes, unpublish"
 msgstr "Тийм, нийтлэхгүй"
-
-msgid "No, don't unpublish"
-msgstr "Үгүй"
 
 msgid "Yes, convert it"
 msgstr "Тийм, хөрвүүлэх"
@@ -882,13 +889,6 @@ msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 msgid "Root"
 msgstr "Үндэс"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s нийтлэхийг болиулах"
-
-msgid "Yes, unpublish it"
-msgstr "Тийм, Нийтлэхгүй болго"
-
 msgid "Filter"
 msgstr "Шүүлтүүр"
 
@@ -912,6 +912,15 @@ msgstr "Түгжигдээгүй"
 
 msgid "Lock"
 msgstr "Түгжих"
+
+msgid "Usage"
+msgstr "Хэрэглээ"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
+msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
@@ -987,6 +996,13 @@ msgstr "Хамгийн эхний"
 
 msgid "Latest"
 msgstr "Хамгийн сүүлийн"
+
+msgid "Usage of"
+msgstr "Хэрэглээ"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s-г засах"
 
 msgid "Dashboard"
 msgstr "Хянах самбар"

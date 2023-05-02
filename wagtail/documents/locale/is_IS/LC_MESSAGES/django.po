@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -180,13 +180,6 @@ msgid "Upload"
 msgstr "Hlaða upp"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Eyða %(title)s"
-
-msgid "Delete document"
-msgstr "Eyða skrá"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Breyti %(title)s"
 
@@ -195,6 +188,9 @@ msgstr "Er að breyta"
 
 msgid "Save"
 msgstr "Vista"
+
+msgid "Delete document"
+msgstr "Eyða skrá"
 
 msgid "Filesize"
 msgstr "Skráarstærð"
@@ -248,16 +244,6 @@ msgid ""
 msgstr ""
 "Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a "
 "href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Notkun á %(title)s"
-
-msgid "Usage of"
-msgstr "Notkun á"
-
-msgid "Field"
-msgstr "Reitur"
 
 #, python-format
 msgid ""
@@ -381,14 +367,6 @@ msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Skrá '%(document_title)s' hefur verið eytt."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Einka %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Breyta þessu %(object)s"
 
 msgid "Document"
 msgstr "Skrá"

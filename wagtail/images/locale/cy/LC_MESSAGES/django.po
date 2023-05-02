@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Delweddau Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -281,15 +278,15 @@ msgstr "Ychwanegu llun"
 msgid "Save"
 msgstr "Cadw"
 
-msgid "Delete image"
-msgstr "Dileu delwedd"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Golygu llun %(title)s"
 
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Delete image"
+msgstr "Dileu delwedd"
 
 msgid "URL Generator"
 msgstr "Cynhyrchydd URL"
@@ -376,16 +373,6 @@ msgid ""
 msgstr ""
 "Sylwch y bydd lluniau a gynhyrchir yn fwy na'r sgrin yn ymddangos yn llai "
 "pan gânt eu rhagolwg yma, felly maen nhw'n ffitio'r sgrin."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Defnydd %(title)s"
-
-msgid "Usage of"
-msgstr "Defnydd o"
-
-msgid "Title"
-msgstr "Teitl"
 
 msgid "Add multiple images"
 msgstr "Ychwanegu lluniau lluosog"
@@ -520,10 +507,6 @@ msgstr "Llun '%(image_title)s' wedi'i ychwanegu."
 
 msgid "The image could not be created due to errors."
 msgstr "Ni fu modd creu'r llun oherwydd gwallau."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Golygu %(object)s"
 
 msgid "Image"
 msgstr "Llun"

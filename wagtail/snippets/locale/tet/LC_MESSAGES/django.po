@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -70,9 +70,6 @@ msgstr "Sim hammos"
 msgid "No, don't delete"
 msgstr "Lae, labele hamoos"
 
-msgid "Usage"
-msgstr "Uza"
-
 msgid "Publishing…"
 msgstr "Publika hela..."
 
@@ -101,6 +98,17 @@ msgstr "Hatudu dalan korta"
 msgid "Snippets"
 msgstr "Snippet sira"
 
+msgid "Usage"
+msgstr "Uza"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippet sira %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Hatama %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -124,24 +132,6 @@ msgstr "Hadia"
 msgid "Cancel scheduled publish"
 msgstr "Kansela orariu publiku"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippet sira %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Hatama %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s uza iha nee"
-
-msgid "Usage of"
-msgstr "uza iha nee"
-
-msgid "Title"
-msgstr "Titlu"
-
 msgid "Choose"
 msgstr "Hili"
 
@@ -153,10 +143,6 @@ msgstr "Snippet labele kria tanba erru."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snippet labele rai tanba erru."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "hadia iha %(object)s"
 
 msgid "Date"
 msgstr "Data"
@@ -172,3 +158,7 @@ msgstr "Hili %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Hili seluk %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "hadia iha %(object)s"

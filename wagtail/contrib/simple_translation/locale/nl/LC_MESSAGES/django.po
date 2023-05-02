@@ -5,15 +5,16 @@
 #
 # Translators:
 # Loic Teixeira, 2022
+# Storm Heg <storm@stormbase.digital>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +33,13 @@ msgstr "Taalregio's"
 
 msgid "All child pages will be created."
 msgstr "Alle onderliggende pagina's zullen worden aangemaakt."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Neem onderliggende boomstructuur mee (%(descendant_count)s pagina)"
+msgstr[1] ""
+"Neem onderliggende boomstructuur mee (%(descendant_count)s pagina's)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""

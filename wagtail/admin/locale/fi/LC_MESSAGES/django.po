@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -408,11 +408,11 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
-msgid "Upload a profile picture:"
-msgstr "Lähetä profiilikuva:"
-
 msgid "Reset to default"
 msgstr "Palauta oletusarvoon"
+
+msgid "Upload a profile picture:"
+msgstr "Lähetä profiilikuva:"
 
 msgid "Sidebar"
 msgstr "Sivupalkki"
@@ -555,6 +555,26 @@ msgstr "Kohteita ei ole luotu."
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
+
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Piilota %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Kyllä, piilota"
+
+msgid "No, don't unpublish"
+msgstr "Ei, älä piilota"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Julkaise %(model_name)s"
+
+msgid "Cancel"
+msgstr "Peruuta"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -863,9 +883,6 @@ msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Oikeutesi eivät riitä tämän sivun poistamiseen"
 msgstr[1] "Oikeutesi eivät riitä näiden sivujen poistamiseen"
 
-msgid "No, don't delete"
-msgstr "Ei, älä poista"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -926,9 +943,6 @@ msgstr[1] "Tällä sivulla on %(counter)s alisivua"
 
 msgid "Yes, unpublish"
 msgstr "Kyllä, piilota julkaisu"
-
-msgid "No, don't unpublish"
-msgstr "Ei, älä piilota"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1015,9 +1029,6 @@ msgstr "Tämän sivun julkaisu peruuttaa nykyisen työnkulun."
 
 msgid "Would you still like to publish this page?"
 msgstr "Haluatko silti julkaista tämän sivun?"
-
-msgid "Cancel"
-msgstr "Peruuta"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1287,17 +1298,6 @@ msgstr "Linkkipolku"
 msgid "Root"
 msgstr "Juuri"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Piilota %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Kyllä, piilota"
-
-#, python-format
-msgid "Publish %(model_name)s"
-msgstr "Julkaise %(model_name)s"
-
 msgid "Add comment"
 msgstr "Lisää kommentti"
 
@@ -1315,11 +1315,11 @@ msgstr "Uusi: %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Muokataan %(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Vieraile sivulla"
-
 msgid "Current page status:"
 msgstr "Sivun tila nyt:"
+
+msgid "Visit the live page"
+msgstr "Vieraile sivulla"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Näkyvissä kaikille. Käy livesivulla"
@@ -1349,6 +1349,9 @@ msgstr "Ei, älä poista ajastusta"
 msgid "Other searches"
 msgstr "Muut haut"
 
+msgid "Minimap"
+msgstr "Pienoiskartta"
+
 msgid "Side panels"
 msgstr "Sivupaneelit"
 
@@ -1357,9 +1360,6 @@ msgstr "Sivupaneeli päälle/pois"
 
 msgid "Side panel width"
 msgstr "Sivupaneelin leveys"
-
-msgid "Minimap"
-msgstr "Pienoiskartta"
 
 msgid "Page Locale: "
 msgstr "Sivun maa-asetus:"
@@ -1377,35 +1377,8 @@ msgstr "Ei muita käännöksiä"
 msgid "Switch locales"
 msgstr "Vaihda maa-asetustoja"
 
-msgid "Page locking: "
-msgstr "Sivun lukitus:"
-
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Voi muokata tätä sivua, mutta muut eivät voi. Avaa sivun lukitus, jotta muut "
-"voivat muokata sivua."
-
-msgid "You can edit this page, but others may not."
-msgstr "Voit muokata tätä sivua, mutta muut eivät voi."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "Et voi muokata tätä sivua. Avaa sivun lukitus muokataksesi sitä."
-
-msgid "You cannot edit this page."
-msgstr "Et voi muokata tätä sivua."
-
 msgid "Unlocked"
 msgstr "Ei lukittu"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Kuka tahansa voi muokata tätä sivua. Lukitse sivu estääksesi muita "
-"muokkaamasta sivua."
-
-msgid "Anyone can edit this page."
-msgstr "Kuka tahansa voi muokata tätä sivua."
 
 msgid "Lock"
 msgstr "Lukitse"
@@ -1423,6 +1396,15 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
 "alasivuihin."
+
+msgid "Usage"
+msgstr "Käyttö"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Page status: "
 msgstr "Sivun tila:"
@@ -1481,9 +1463,6 @@ msgstr "Esikatselutila"
 msgid "First published "
 msgstr "Ensin julkaistu"
 
-msgid "Workflow progress"
-msgstr "Työnkulun edistyminen"
-
 msgid "Edit / Review"
 msgstr "Muokkaa / tarkasta"
 
@@ -1497,10 +1476,6 @@ msgstr "Pyytänyt <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Aloitettu <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Tila <span class=\"status-tag primary\"> %(status)s</span>"
 
 msgid "Timeline"
 msgstr "Aikajana"
@@ -1544,14 +1519,14 @@ msgstr "Siirry pääsisältöön"
 msgid "View Wagtail quick actions"
 msgstr "Näytä Wagtailin pikatoiminnot"
 
-msgid "Warnings"
-msgstr "Varoitukset"
-
 msgid "Issues found"
 msgstr "Ongelmia löytynyt"
 
 msgid "Accessibility"
 msgstr "Saavutettavuus"
+
+msgid "Warnings"
+msgstr "Varoitukset"
 
 msgid "Add a child page"
 msgstr "Lisää alasivu"
@@ -1739,9 +1714,6 @@ msgstr "Kirjaudu ulos"
 msgid "Comments"
 msgstr "Kommentit"
 
-msgid "Empty heading found. Use meaningful text in headings."
-msgstr "Löytyi tyhjä otsikko. Käytä tarkoituksellista tekstiä otsikoissa."
-
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Virheellinen otsikkohierarkia. Vältä tasojen ohittamista."
 
@@ -1802,6 +1774,9 @@ msgstr "Kokoelma '%(object)s' poistettu."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
+msgid "Workflow progress"
+msgstr "Työnkulun edistyminen"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "Mallin %(model_name)s '%(object)s' päivitetty."
@@ -1830,6 +1805,20 @@ msgstr "Aikaisin"
 
 msgid "Latest"
 msgstr "Viimeisin"
+
+msgid "Usage of"
+msgstr "Käyttö"
+
+msgid "Field"
+msgstr "Kenttä"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Yksityinen %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muokkaa %(object)s-kohdetta"
 
 msgid "Dashboard"
 msgstr "Kojelauta"

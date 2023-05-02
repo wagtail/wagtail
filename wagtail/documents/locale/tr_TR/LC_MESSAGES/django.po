@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -102,13 +102,6 @@ msgid "Upload"
 msgstr "Yükle"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "%(title)s sil"
-
-msgid "Delete document"
-msgstr "Belge sil"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s düzenleniyor"
 
@@ -117,6 +110,9 @@ msgstr "Düzenleniyor"
 
 msgid "Save"
 msgstr "Kaydet"
+
+msgid "Delete document"
+msgstr "Belge sil"
 
 msgid "Filesize"
 msgstr "Dosya boyutu"
@@ -155,13 +151,6 @@ msgid ""
 msgstr ""
 "Hiç belge yüklemediniz. Neden <a "
 "href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kullanımı"
-
-msgid "Usage of"
-msgstr "kullanımı"
 
 msgid "Add multiple documents"
 msgstr "Birden fazla belge akle"
@@ -234,10 +223,6 @@ msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' belgesi silindi."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s düzenle"
 
 msgid "Document"
 msgstr "Belge"

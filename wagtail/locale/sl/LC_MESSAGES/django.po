@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -87,50 +87,27 @@ msgstr "Geslo, ki ste ga vnesli, ni pravilno. Prosim poskusite ponovno."
 msgid "Comment"
 msgstr "Komentar"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Stran '{page_title}' ste zaklenili</b> <b>vi</b> dne <b>{datetime}</b>."
+msgid "Locked"
+msgstr "Zaklenjeno"
 
 #, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
 
 #, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Stran '{page_title}' je zaklenil</b> uporabnik <b>{user}</b> dne "
-"<b>{datetime}</b>."
-
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Stran '{page_title}' je zaklenjena</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' je zaklenjen</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Ta stran trenutno čaka na moderiranje."
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "%(model_name)s trenutno čaka moderiranje"
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Samo ocenjevalci te naloge lahko urejajo stran."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
 
-#, python-brace-format
-msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-msgstr ""
-"Stran '{page_title}' je zaklenjena in je načrtovana za objavo dne {datetime}"
+msgid "Unlocked"
+msgstr "Odklenjeno"
 
 msgid "latest revision"
 msgstr "zadnja revizija"
@@ -652,12 +629,6 @@ msgstr "Prekliči objavo načrtovanega osnutka"
 
 msgid "Unpublished scheduled draft"
 msgstr "Neobjavljeni načrtovani osnutek"
-
-msgid "Locked"
-msgstr "Zaklenjeno"
-
-msgid "Unlocked"
-msgstr "Odklenjeno"
 
 msgid "Reject"
 msgstr "Zavrni"

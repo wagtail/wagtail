@@ -15,11 +15,6 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s fel)"
-msgstr[1] "(%(errorCount)s fel)"
-
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nya objekt i denna meny"
 

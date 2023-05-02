@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -206,9 +206,6 @@ msgstr "أضف مستخدم"
 
 msgid "Username"
 msgstr "إسم المستخدم"
-
-msgid "Level"
-msgstr "مستوى"
 
 msgid "Status"
 msgstr "الحالة"

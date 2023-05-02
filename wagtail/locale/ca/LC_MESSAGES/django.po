@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -81,12 +81,8 @@ msgstr "La contrasenya que heu introduït és incorrecta. Torneu-ho a provar."
 msgid "Comment"
 msgstr "Commentari"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>La pàgina '{page_title}' va ser bloquejada</b> per <b>vós</b> el "
-"<b>{datetime}</b>."
+msgid "Locked"
+msgstr "Bloquejada"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -94,19 +90,8 @@ msgstr ""
 "<b>'{title}' va ser bloquejada</b> per <b>vós</b> el <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>La pàgina '{page_title}' està bloquejada</b> per <b>vós</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' està bloquejada</b> per <b>vós</b>."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>La pàgina '{page_title}' va ser bloquejada</b> per <b>{user}</b> el "
-"<b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
@@ -114,27 +99,12 @@ msgstr ""
 "<b>'{title}' va ser bloquejada</b> per <b>{user}</b> el <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>La pàgina '{page_title}' està bloquejada</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' està bloquejada</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Aquesta pàgina està en espera de moderació."
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Aquest/a %(model_name)s està en espera de moderació."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Aquesta pàgines està esperant <b>'{task_name}'</b> al fluxe de treball "
-"<b>'{workflow_name}'</b>."
 
 #, python-brace-format
 msgid ""
@@ -144,19 +114,12 @@ msgstr ""
 "Aquest {model_name} està esperant <b>'{task_name}'</b> al fluxe de treball "
 "<b>'{workflow_name}'</b>."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Només els revisors d'aquesta tasca poden editar la pàgina."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Només els revisar d'aquesta tasca poden editar el/la %(model_name)s."
 
-#, python-brace-format
-msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-msgstr ""
-"La pàgina '{page_title}' està bloquejada i ha estat programada per anar a En "
-"viu el {datetime}"
+msgid "Unlocked"
+msgstr "Desbloquejat"
 
 #, python-brace-format
 msgid ""
@@ -714,12 +677,6 @@ msgstr "Anul·lar publicació d'esborrany programat"
 
 msgid "Unpublished scheduled draft"
 msgstr "S'ha anul·lat la publicació de l'esborrany programat"
-
-msgid "Locked"
-msgstr "Bloquejada"
-
-msgid "Unlocked"
-msgstr "Desbloquejat"
 
 msgid "Reject"
 msgstr "Rebutjar"

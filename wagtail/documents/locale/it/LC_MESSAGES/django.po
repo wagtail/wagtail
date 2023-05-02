@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -190,13 +190,6 @@ msgid "Upload"
 msgstr "Carica"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Elimina %(title)s"
-
-msgid "Delete document"
-msgstr "Elimina documento"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Modifica %(title)s"
 
@@ -205,6 +198,9 @@ msgstr "Modifica"
 
 msgid "Save"
 msgstr "Salva"
+
+msgid "Delete document"
+msgstr "Elimina documento"
 
 msgid "Filesize"
 msgstr "Dimensione file"
@@ -260,13 +256,6 @@ msgid ""
 msgstr ""
 "Non hai caricato alcun documento. Perché non <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uso di %(title)s"
-
-msgid "Usage of"
-msgstr "Uso di"
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"
@@ -382,10 +371,6 @@ msgstr "File non trovato. Prova a cambiare l'origine o elimina il documento."
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminato."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Modifica questo %(object)s"
 
 msgid "Document"
 msgstr "Documento"

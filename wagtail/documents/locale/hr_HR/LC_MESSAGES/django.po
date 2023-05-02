@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -106,13 +106,6 @@ msgid "Upload"
 msgstr "Prijenos"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Izbriši %(title)s"
-
-msgid "Delete document"
-msgstr "Izbriši dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Uređivanje %(title)s"
 
@@ -121,6 +114,9 @@ msgstr "Uređivanje"
 
 msgid "Save"
 msgstr "Spremi"
+
+msgid "Delete document"
+msgstr "Izbriši dokument"
 
 msgid "Filesize"
 msgstr "Veličina datoteke"
@@ -164,16 +160,6 @@ msgid ""
 msgstr ""
 "Nemate dokumenata. Zašto ne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Upotreba %(title)s"
-
-msgid "Usage of"
-msgstr "Upotreba"
-
-msgid "Field"
-msgstr "Polje"
 
 msgid "Add multiple documents"
 msgstr "Dodaj više dokumenata"
@@ -247,10 +233,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' je izbrisan."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Uredi ovaj %(object)s"
 
 msgid "Document"
 msgstr "Dokument"
