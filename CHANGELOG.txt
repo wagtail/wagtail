@@ -1,7 +1,6 @@
 Changelog
 =========
 
-
 4.2.2 (03.04.2023)
 ~~~~~~~~~~~~~~~~~~
 
@@ -185,6 +184,12 @@ Changelog
  * Maintenance: Pull out icon sprite setup function from inline script to its own TypeScript file & add unit tests (Loveth Omokaro)
  * Maintenance: Upgraded Transifex configuration to v3 (Loic Teixeira)
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
+
+
+4.1.5 (02.05.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
 
 
 4.1.4 (03.04.2023)
