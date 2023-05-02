@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -171,13 +171,6 @@ msgid "Upload"
 msgstr "Carregar"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Apagar %(title)s"
-
-msgid "Delete document"
-msgstr "Apagar documento"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "A alterar %(title)s"
 
@@ -186,6 +179,9 @@ msgstr "A alterar"
 
 msgid "Save"
 msgstr "Gravar"
+
+msgid "Delete document"
+msgstr "Apagar documento"
 
 msgid "Filesize"
 msgstr "Tamanho do ficheiro"
@@ -233,13 +229,6 @@ msgid ""
 msgstr ""
 "Ainda não carregou nenhum documento. Que tal <a "
 "href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilização de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilização de"
 
 msgid "Add multiple documents"
 msgstr "Adicionar múltiplos documentos"
@@ -354,10 +343,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' apagado."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Alterar este %(object)s"
 
 msgid "Document"
 msgstr "Documento"

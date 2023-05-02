@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -89,19 +89,11 @@ msgstr "密码错误，请重新输入"
 msgid "Comment"
 msgstr "评论"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>页面 '{page_title}'</b> 已被<b>你</b>锁定。"
+msgid "Locked"
+msgstr "已锁定"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>页面 '{page_title}' 已被锁定</b>。"
-
-msgid "This page is currently awaiting moderation."
-msgstr "此页面当前在等待审核。"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "只有此任务的审阅者才能编辑页面。"
+msgid "Unlocked"
+msgstr "已解锁"
 
 msgid "latest revision"
 msgstr "最新版本"
@@ -597,12 +589,6 @@ msgstr "取消发布已计划的草稿"
 
 msgid "Unpublished scheduled draft"
 msgstr "已取消发布已计划的草稿"
-
-msgid "Locked"
-msgstr "已锁定"
-
-msgid "Unlocked"
-msgstr "已解锁"
 
 msgid "Reject"
 msgstr "拒绝"

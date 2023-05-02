@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -69,11 +69,11 @@ msgstr "密碼錯誤，請重新輸入"
 msgid "Comment"
 msgstr "評論"
 
-msgid "This page is currently awaiting moderation."
-msgstr "此頁面目前等待審核中"
+msgid "Locked"
+msgstr "已鎖定"
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "儘此作業之審核者可編輯此頁面"
+msgid "Unlocked"
+msgstr "已解鎖"
 
 msgid "latest revision"
 msgstr "最新版本"
@@ -520,12 +520,6 @@ msgstr "取消發佈預定的草稿"
 
 msgid "Unpublished scheduled draft"
 msgstr "已取消發佈預定的草稿"
-
-msgid "Locked"
-msgstr "已鎖定"
-
-msgid "Unlocked"
-msgstr "已解鎖"
 
 msgid "Reject"
 msgstr "駁回"

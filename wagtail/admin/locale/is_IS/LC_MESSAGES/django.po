@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2023\n"
@@ -452,11 +452,14 @@ msgstr "Endursetja lykilorð"
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
 
-msgid "Upload a profile picture:"
-msgstr "Hlaða upp prófílmynd:"
-
 msgid "Reset to default"
 msgstr "Endursetja sjálfgefnar stillingar"
+
+msgid "Default avatar"
+msgstr "Sjálfvalin smámynd"
+
+msgid "Upload a profile picture:"
+msgstr "Hlaða upp prófílmynd:"
 
 msgid "Sidebar"
 msgstr "Hliðarstika"
@@ -632,6 +635,54 @@ msgstr "Ekkert var búið til"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
+
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Taka %(title)s úr loftinu"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
+
+msgid "Yes, unpublish it"
+msgstr "Já, taka úr loftinu"
+
+msgid "No, don't unpublish"
+msgstr "Nei, ekki taka úr loftinu"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Setja %(model_name)s í birtingu"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Beðið var um breytingar á %(model_name)s í skrefi <strong>%(task)s</strong> "
+"í <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"%(model_name)s er núna í skrefi <strong>%(task)s</strong> í "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Að setja %(model_name)s í loftið mun stöðva núverandi vinnuflæði."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Viltu samt setja %(model_name)s í loftið?"
+
+msgid "Cancel"
+msgstr "Hætta við"
 
 msgid "Update"
 msgstr "Uppfæra"
@@ -1182,9 +1233,6 @@ msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Þú ert ekki með réttindi til að eyða þessari síðu"
 msgstr[1] "Þú ert ekki með réttindi til að eyða þessum síðum"
 
-msgid "No, don't delete"
-msgstr "Nei, ekki eyða"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1276,9 +1324,6 @@ msgstr[1] "Þú ert ekki með réttindi til að taka þessar síður úr loftinu
 
 msgid "Yes, unpublish"
 msgstr "Já, taka úr loftinu"
-
-msgid "No, don't unpublish"
-msgstr "Nei, ekki taka úr loftinu"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1520,9 +1565,6 @@ msgstr "Að setja þessa síðu í birtingu mun stöðva núverandi vinnuflæði
 
 msgid "Would you still like to publish this page?"
 msgstr "Viltu samt setja þessa síðu í birtingu?"
-
-msgid "Cancel"
-msgstr "Hætta við"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1861,45 +1903,6 @@ msgstr "Brauðmolar"
 msgid "Root"
 msgstr "Rót"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Taka %(title)s úr loftinu"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
-
-msgid "Yes, unpublish it"
-msgstr "Já, taka úr loftinu"
-
-#, python-format
-msgid "Publish %(model_name)s"
-msgstr "Setja %(model_name)s í birtingu"
-
-#, python-format
-msgid ""
-"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>."
-msgstr ""
-"Beðið var um breytingar á %(model_name)s í skrefi <strong>%(task)s</strong> "
-"í <strong>%(workflow)s</strong>."
-
-#, python-format
-msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
-msgstr ""
-"%(model_name)s er núna í skrefi <strong>%(task)s</strong> í "
-"<strong>%(workflow)s</strong>."
-
-#, python-format
-msgid "Publishing this %(model_name)s will cancel the current workflow."
-msgstr "Að setja %(model_name)s í loftið mun stöðva núverandi vinnuflæði."
-
-#, python-format
-msgid "Would you still like to publish this %(model_name)s?"
-msgstr "Viltu samt setja %(model_name)s í loftið?"
-
 msgid "Close dialog"
 msgstr "Loka glugga"
 
@@ -1920,11 +1923,11 @@ msgstr "Nýtt: %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Breyti %(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Skoða birta útgáfu síðunnar"
-
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
+
+msgid "Visit the live page"
+msgstr "Skoða birta útgáfu síðunnar"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Sýnilegt öllum. Skoða birta síðu"
@@ -1957,6 +1960,9 @@ msgstr "Nei, ekki hætta við"
 msgid "Other searches"
 msgstr "Aðrar leitir"
 
+msgid "Minimap"
+msgstr "Yfirlit"
+
 msgid "Side panels"
 msgstr "Hliðarvalmyndir"
 
@@ -1965,9 +1971,6 @@ msgstr "Sýna/fela hliðarstiku"
 
 msgid "Side panel width"
 msgstr "Breidd hliðarvalmyndar"
-
-msgid "Minimap"
-msgstr "Yfirlit"
 
 msgid "Page Locale: "
 msgstr "Þýðing síðu:"
@@ -1985,69 +1988,22 @@ msgstr "Engar aðrar þýðingar"
 msgid "Switch locales"
 msgstr "Skipta um þýðingu"
 
-msgid "Page locking: "
-msgstr "Læsing síðu:"
-
 msgid "Locking: "
 msgstr "Læsi:"
-
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Þú getur breytt þessari síðu, en ekki endilega aðrir notendur. Aflæstu henni "
-"til að leyfa öðrum að breyta."
-
-#, python-format
-msgid ""
-"You can edit this %(model_name)s, but others may not. Unlock it to allow "
-"others to edit."
-msgstr ""
-"Þú getur breytt %(model_name)s, en ekki endilega aðrir notendur. Aflæstu því "
-"til að leyfa öðrum að breyta."
-
-msgid "You can edit this page, but others may not."
-msgstr "Þú getur breytt þessari síðu, en ekki endilega aðrir notendur."
-
-#, python-format
-msgid "You can edit this %(model_name)s, but others may not."
-msgstr "Þú getur breytt %(model_name)s, en aðrir ekki."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "Þú getur ekki breytt þessari síðu. Aflæstu henni til að breyta."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s. Unlock it to edit."
-msgstr "Þú getur ekki breytt %(model_name)s. Aflæstu því til að breyta."
-
-msgid "You cannot edit this page."
-msgstr "Þú getur ekki breytt þessari síðu."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s."
-msgstr "Þú getur ekki breytt %(model_name)s. "
 
 msgid "Unlocked"
 msgstr "Aflæst"
 
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Allir geta breytt þessari síðu. Læstu henni til að koma í veg fyrir að aðrir "
-"notendur geti breytt henni."
-
 #, python-format
 msgid ""
-"Anyone can edit this %(model_name)s. Lock it to prevent others from editing."
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
 msgstr ""
-"Allir geta breytt %(model_name)s. Læstu því til að koma í veg fyrir að aðrir "
-"notendur geti breytt því."
-
-msgid "Anyone can edit this page."
-msgstr "Allir geta breytt þessari síðu."
+"Hver sem er getur breytt %(model_name)s – læstu því til að varna öðrum að "
+"gera breytingar "
 
 #, python-format
-msgid "Anyone can edit this %(model_name)s."
-msgstr "Allir geta breytt %(model_name)s."
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Hver sem er getur breytt %(model_name)s"
 
 msgid "Lock"
 msgstr "Læsa"
@@ -2066,6 +2022,15 @@ msgstr "Veldu hver getur séð birta útgáfu þessarar síðu"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
+
+msgid "Usage"
+msgstr "Notkun"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
 
 msgid "Page status: "
 msgstr "Staða síðu:"
@@ -2135,8 +2100,17 @@ msgstr "Forskoðun"
 msgid "First published "
 msgstr "Fyrst sett í loftið"
 
-msgid "Workflow progress"
-msgstr "Staða vinnuflæðis"
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Þetta %(model_name)s er vísað í %(usage_count)s sinni."
+msgstr[1] "Þetta %(model_name)ser vísað í %(usage_count)s sinnum."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Ein eða fleiri vísanir í þetta %(model_name)s varna því að hægt sé að eyða."
 
 msgid "Edit / Review"
 msgstr "Breyta / yfirfara"
@@ -2153,8 +2127,8 @@ msgid "Started at <b>%(started_at)s</b>"
 msgstr "Hófst <b>%(started_at)s</b>"
 
 #, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Staða <span class=\"status-tag primary\"> %(status)s</span>"
+msgid "Status %(status)s"
+msgstr "Staða %(status)s"
 
 msgid "Timeline"
 msgstr "Tímalína"
@@ -2217,14 +2191,14 @@ msgstr "Hoppa yfir í aðal efni"
 msgid "View Wagtail quick actions"
 msgstr "Skoða flýtivalmynd Wagtail"
 
-msgid "Warnings"
-msgstr "Viðvaranir"
-
 msgid "Issues found"
 msgstr "Atriði fundust"
 
 msgid "Accessibility"
 msgstr "Aðgengi"
+
+msgid "Warnings"
+msgstr "Viðvaranir"
 
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
@@ -2309,6 +2283,9 @@ msgstr "Sýna óvirk vinnuflæði"
 
 msgid "Used by"
 msgstr "Notað af"
+
+msgid "Disabled"
+msgstr "Óvirkt"
 
 #, python-format
 msgid "1 page"
@@ -2501,6 +2478,12 @@ msgstr "%(status_display)s %(task_name)s %(started_at)s"
 msgid "Toggle status"
 msgstr "Sýna/fela stöðu"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Vísað í %(count)s sinni"
+msgstr[1] "Vísað í %(count)s sinnum"
+
 msgid "Comments"
 msgstr "Athugasemdir"
 
@@ -2510,11 +2493,30 @@ msgstr "Sýna/fela athugasemdir"
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
 
-msgid "Empty heading found. Use meaningful text in headings."
-msgstr "Tóm fyrirsögn fannst. Notið lýsandi texta í fyrirsagnir."
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr "Tóm fyrirsögn fannst. Notið lýsandi texta fyrir notendur skjálesara."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr "Tómur haus á töflu. Notið lýsandi texta fyrir notendur skjálesara."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Tómur titill ramma fannst. Notið lýsandi texta fyrir notendur skjálesara."
 
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Röng stærðarröð fyrirsagna. Varist að sleppa stærðum."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr "Tómur texti á krækju. Notið lýsandi texta fyrir notendur skjálesara."
 
 msgid "Misusing paragraphs as headings. Use proper heading tags."
 msgstr "Málsgrein notuð sem fyrirsögn. Notið rétt tög fyrir fyrirsagnir."
@@ -2533,6 +2535,9 @@ msgstr "Prófílmynd"
 
 msgid "Locale"
 msgstr "Þýðing"
+
+msgid "Theme preferences"
+msgstr "Þemastillingar"
 
 msgid "Password"
 msgstr "Lykilorð"
@@ -2575,6 +2580,9 @@ msgstr "Safni '%(object)s' eytt."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ertu viss um að þú viljir eyða þessu safni?"
+
+msgid "Workflow progress"
+msgstr "Staða vinnuflæðis"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -2672,6 +2680,10 @@ msgstr "Leita að  %(model_name)s"
 msgid "Editing"
 msgstr "Breyti"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Ertu viss um að þú viljir eyða þessu %(model_name)s?"
+
 msgid "Earliest"
 msgstr "Fyrsta"
 
@@ -2689,6 +2701,23 @@ msgstr "Útgáfa %(revision_id)s af \"%(object)s\" tekin úr tímastillingu."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "útgáfa %(revision_id)s af \"%(object)s\""
+
+msgid "Usage of"
+msgstr "Notkun á"
+
+msgid "If you confirm deletion"
+msgstr "Ef þú staðfestir eyðingu"
+
+msgid "Field"
+msgstr "Reitur"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Einka %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Breyta þessu %(object)s"
 
 #, python-format
 msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."

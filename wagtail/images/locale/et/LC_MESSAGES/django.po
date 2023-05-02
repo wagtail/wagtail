@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail pildid"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -191,15 +188,15 @@ msgstr "Lisa pilt"
 msgid "Save"
 msgstr "Salvesta"
 
-msgid "Delete image"
-msgstr "Kustuta pilt"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s redigeerimine"
 
 msgid "Editing"
 msgstr "Redigeerimine"
+
+msgid "Delete image"
+msgstr "Kustuta pilt"
 
 msgid "URL Generator"
 msgstr "URL-i generaator"
@@ -279,16 +276,6 @@ msgid ""
 msgstr ""
 "Pange tähele, et ekraanist suuremana loodud pildid tunduvad siin eelvaates "
 "väiksemad, nii et need sobivad ekraanile."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kasutamine"
-
-msgid "Usage of"
-msgstr "Kasutamine"
-
-msgid "Title"
-msgstr "Pealkiri"
 
 msgid "Add multiple images"
 msgstr "Lisage mitu pilti"
@@ -372,10 +359,6 @@ msgstr "Pilt '%(image_title)s' on lisatud."
 
 msgid "The image could not be created due to errors."
 msgstr "Pilti ei saanud vigade tõttu luua."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muutke seda %(object)s"
 
 msgid "Image"
 msgstr "Pilt"

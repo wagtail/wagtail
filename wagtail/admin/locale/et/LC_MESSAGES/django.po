@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -395,6 +395,22 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Tühista %(title)s avaldamine"
+
+msgid "Yes, unpublish it"
+msgstr "Jah, tühista selle avaldamine"
+
+msgid "No, don't unpublish"
+msgstr "Ei, ärge avaldamist tühistage"
+
+msgid "Cancel"
+msgstr "Tühista"
+
 msgid "Update"
 msgstr "Uuenda"
 
@@ -659,14 +675,8 @@ msgstr "Valige, millist tüüpi lehte soovite luua."
 msgid "Pages using %(page_type)s"
 msgstr "Lehed, mis kasutavad %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Ei, ära kustuta"
-
 msgid "Move"
 msgstr "Liiguta"
-
-msgid "No, don't unpublish"
-msgstr "Ei, ärge avaldamist tühistage"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -721,9 +731,6 @@ msgstr "Selle lehe avaldamine tühistab praeguse töövoo."
 
 msgid "Would you still like to publish this page?"
 msgstr "Kas soovite ikkagi selle lehe avaldada?"
-
-msgid "Cancel"
-msgstr "Tühista"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -932,24 +939,17 @@ msgstr "Riivsai"
 msgid "Root"
 msgstr "Juur"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tühista %(title)s avaldamine"
-
-msgid "Yes, unpublish it"
-msgstr "Jah, tühista selle avaldamine"
-
 msgid "Filter"
 msgstr "Filtreeri"
 
 msgid "Apply filters"
 msgstr "Rakenda filtrid"
 
-msgid "Visit the live page"
-msgstr "Külastage reaalajas lehte"
-
 msgid "Current page status:"
 msgstr "Lehe praegune olek:"
+
+msgid "Visit the live page"
+msgstr "Külastage reaalajas lehte"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -979,8 +979,14 @@ msgstr "Lukusta"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Privaatsuse muudatused kehtivad ka kõigile selle lehe lastele."
 
-msgid "Workflow progress"
-msgstr "Töövoo edenemine"
+msgid "Usage"
+msgstr "Kasutus"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
 
 msgid "Edit / Review"
 msgstr "Redigeerimine / ülevaade"
@@ -995,10 +1001,6 @@ msgstr "Taotleb <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Algas <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Staatus <span class=\"status-tag primary\"> %(status)s</span>"
 
 msgid "Timeline"
 msgstr "Ajaskaala"
@@ -1264,6 +1266,9 @@ msgstr "Kogu '%(object)s' on kustutatud."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
 
+msgid "Workflow progress"
+msgstr "Töövoo edenemine"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' on värskendatud."
@@ -1280,6 +1285,13 @@ msgstr "Varaseim"
 
 msgid "Latest"
 msgstr "Uusim"
+
+msgid "Usage of"
+msgstr "Kasutamine"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muutke seda %(object)s"
 
 msgid "Dashboard"
 msgstr "Armatuurlaud"

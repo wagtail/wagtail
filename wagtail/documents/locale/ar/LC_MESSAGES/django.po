@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -117,13 +117,6 @@ msgid "Upload"
 msgstr "انقل إلى الحاسوب"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "حذف %(title)s"
-
-msgid "Delete document"
-msgstr "احذف وثيقة"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "يتم التحرير %(title)s"
 
@@ -132,6 +125,9 @@ msgstr "تحرير"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Delete document"
+msgstr "احذف وثيقة"
 
 msgid "Filesize"
 msgstr "حجم الملف"
@@ -173,13 +169,6 @@ msgid ""
 msgstr ""
 "لم تحمِّل أي مستندات. لماذا لا <a "
 "href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "استعمال %(title)s"
-
-msgid "Usage of"
-msgstr "استعمال"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"
@@ -250,10 +239,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "حذف '%(document_title)s' مستند"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "تحرير هذا %(object)s"
 
 msgid "Document"
 msgstr "مستند"

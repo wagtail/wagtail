@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -60,13 +60,11 @@ msgstr "Passord"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Passordet du har skrevet inn er feil. Prøv igjen."
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "Siden '{page_title}' er låst</b> av <b>deg</b>."
+msgid "Locked"
+msgstr "Låst"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Siden '{page_title}' er låst</b>."
+msgid "Unlocked"
+msgstr "Ulåst"
 
 msgid "live"
 msgstr "publisert"
@@ -350,12 +348,6 @@ msgstr "Redigert"
 
 msgid "Unpublish"
 msgstr "Avpublisér"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Reject"
 msgstr "Avslå"

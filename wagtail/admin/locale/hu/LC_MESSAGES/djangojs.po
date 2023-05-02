@@ -1,12 +1,12 @@
 #
 # Translators:
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2022
-# Istvan Farkas <istvan.farkas@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2023\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
 "hu/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,9 @@ msgstr "Alt szöveg"
 
 msgid "Are you sure?"
 msgstr "Biztos benne?"
+
+msgid "Blocks"
+msgstr "Blokkok"
 
 msgid "Broken link"
 msgstr "Törött link"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -188,9 +188,6 @@ msgstr "Pridať používateľa"
 
 msgid "Username"
 msgstr "Používateľské meno"
-
-msgid "Level"
-msgstr "Úroveň"
 
 msgid "Status"
 msgstr "Postavenie"

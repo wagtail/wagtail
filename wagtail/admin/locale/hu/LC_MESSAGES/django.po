@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -449,11 +449,14 @@ msgstr "Jelszó módosítása"
 msgid "Reset your password"
 msgstr "Módosítsa jelszavát"
 
-msgid "Upload a profile picture:"
-msgstr "Profilkép feltöltése:"
-
 msgid "Reset to default"
 msgstr "Visszaállítás alapértelmezettre"
+
+msgid "Default avatar"
+msgstr "Alapértelmezett avatár"
+
+msgid "Upload a profile picture:"
+msgstr "Profilkép feltöltése:"
 
 msgid "Sidebar"
 msgstr "Oldalsáv"
@@ -631,6 +634,26 @@ msgstr "Nem jött létre új elem."
 
 msgid "Yes, delete"
 msgstr "Törlés megerősítése"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s visszavonása"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Biztosan visszavonja a(z) %(model_name)s tartalmat? "
+
+msgid "Yes, unpublish it"
+msgstr "Igen, visszavonom"
+
+msgid "No, don't unpublish"
+msgstr "Nem, mégsem vonom vissza"
+
+msgid "Cancel"
+msgstr "Mégsem"
 
 msgid "Update"
 msgstr "Frissítés"
@@ -1078,9 +1101,6 @@ msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Nincs jogosultsági törölni ezt az oldalt"
 msgstr[1] "Nincs jogosultsága törölni ezeket az oldalakat"
 
-msgid "No, don't delete"
-msgstr "Nem, ne töröljük"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1175,9 +1195,6 @@ msgstr[1] "Nincs jogosultsága visszavonni ezeket az oldalakat"
 
 msgid "Yes, unpublish"
 msgstr "Igen, visszavonom"
-
-msgid "No, don't unpublish"
-msgstr "Nem, mégsem vonom vissza"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1418,9 +1435,6 @@ msgstr "Az oldal közzététele felfüggeszti a jelenlegi munkafolyamatot."
 
 msgid "Would you still like to publish this page?"
 msgstr "Biztosan közzéteszi ezt az oldalt?"
-
-msgid "Cancel"
-msgstr "Mégsem"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1755,17 +1769,6 @@ msgstr "Navigációs sáv"
 msgid "Root"
 msgstr "Gyökér"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s visszavonása"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Biztosan visszavonja a(z) %(model_name)s tartalmat? "
-
-msgid "Yes, unpublish it"
-msgstr "Igen, visszavonom"
-
 msgid "Close dialog"
 msgstr "Ablak bezárása"
 
@@ -1782,11 +1785,11 @@ msgstr "Szűrés"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "%(title)s%(page_type)s szerkesztése"
 
-msgid "Visit the live page"
-msgstr "Élő oldal megtekintése"
-
 msgid "Current page status:"
 msgstr "Oldal jelenlegi státusza:"
+
+msgid "Visit the live page"
+msgstr "Élő oldal megtekintése"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Mindenkinek látható. Élő oldal megtekintése"
@@ -1819,14 +1822,14 @@ msgstr "Nem, mégsem vonom vissza"
 msgid "Other searches"
 msgstr "További keresések"
 
+msgid "Minimap"
+msgstr "Minitérkép"
+
 msgid "Side panels"
 msgstr "Oldalpanelek"
 
 msgid "Toggle side panel"
 msgstr "Oldalsáv kapcsolása"
-
-msgid "Minimap"
-msgstr "Minitérkép"
 
 msgid "Page Locale: "
 msgstr "Oldal nyelve: "
@@ -1844,35 +1847,8 @@ msgstr "Nincs további fordítás"
 msgid "Switch locales"
 msgstr "Nyelv megváltoztatása"
 
-msgid "Page locking: "
-msgstr "Oldal zárolása: "
-
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Ön szerkesztheti ezt az oldalt, de mások nem. Feloldás után mások is "
-"szerkeszthetik."
-
-msgid "You can edit this page, but others may not."
-msgstr "Ön szerkesztheti ezt az oldalt, de mások nem."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "Nem szerkesztheti ezt az oldalt. Szerkesztéshez fel kell oldani."
-
-msgid "You cannot edit this page."
-msgstr "Nem szerkesztheti ezt az oldalt."
-
 msgid "Unlocked"
 msgstr "Megnyitott"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Bárki szerkesztheti ezt az oldalt. Lezárással meg lehet előzni, hogy mások "
-"módosítsák."
-
-msgid "Anyone can edit this page."
-msgstr "Bárki szerkesztheti ezt az oldalt"
 
 msgid "Lock"
 msgstr "Zárol"
@@ -1893,6 +1869,15 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
 "is."
+
+msgid "Usage"
+msgstr "Használat"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s helyen használva"
+msgstr[1] "%(usage_count)s helyen használva"
 
 msgid "Page status: "
 msgstr "Oldal státusza: "
@@ -1961,9 +1946,6 @@ msgstr "Előnézet mód"
 msgid "First published "
 msgstr "Első közzététel"
 
-msgid "Workflow progress"
-msgstr "Munkafolyamat állapot"
-
 msgid "Edit / Review"
 msgstr "Szerkesztés / ellenőrzés"
 
@@ -1977,10 +1959,6 @@ msgstr "Kérelmezte: <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Indítás ideje: <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Státusz: <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Idővonal"
@@ -2367,6 +2345,9 @@ msgstr "Gyűjtemény törölve: '%(object)s'."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Biztosan törli a gyűjteményt?"
 
+msgid "Workflow progress"
+msgstr "Munkafolyamat állapot"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s'%(object)s' frissítve."
@@ -2452,6 +2433,17 @@ msgstr "'%(object)s' %(revision_id)s verziójának időzítése visszavonva."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "\"%(object)s\" %(revision_id)s verziója"
+
+msgid "Usage of"
+msgstr "Használat"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Privát %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"
 
 msgid "Dashboard"
 msgstr "Műszerfal"

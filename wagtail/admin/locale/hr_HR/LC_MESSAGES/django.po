@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -463,6 +463,22 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odjavi %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Da, odjavi"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nemoj odjaviti"
+
+msgid "Cancel"
+msgstr "Odustani"
+
 msgid "Update"
 msgstr "Ažuriraj"
 
@@ -738,14 +754,8 @@ msgstr "Odaberite koju vrstu stranice želite stvoriti."
 msgid "Pages using %(page_type)s"
 msgstr "Stranice koje koriste %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Ne, nemoj izbrisati"
-
 msgid "Move"
 msgstr "Premjesti"
-
-msgid "No, don't unpublish"
-msgstr "Ne, nemoj odjaviti"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -813,9 +823,6 @@ msgstr "Objavljivanje stranice će otkazati trenutni tijek rada."
 
 msgid "Would you still like to publish this page?"
 msgstr "Želite li i dalje objaviti ovu stranicu?"
-
-msgid "Cancel"
-msgstr "Odustani"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1019,13 +1026,6 @@ msgstr "Stranica %(page_num)s od %(total_pages)s."
 msgid "Root"
 msgstr "Korijen"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odjavi %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Da, odjavi"
-
 msgid "Add comment"
 msgstr "Dodaj komentar"
 
@@ -1035,11 +1035,11 @@ msgstr "Filter"
 msgid "Apply filters"
 msgstr "Primjeni filtere"
 
-msgid "Visit the live page"
-msgstr "Posjetite stranicu uživo"
-
 msgid "Current page status:"
 msgstr "Trenutni status stranice"
+
+msgid "Visit the live page"
+msgstr "Posjetite stranicu uživo"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1070,8 +1070,15 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Postavke privatnosti će se također primijeniti na sve podređene stranice."
 
-msgid "Workflow progress"
-msgstr "Napredak tijeka rada"
+msgid "Usage"
+msgstr "Upotreba"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Korišten %(usage_count)s put"
+msgstr[1] "Korišteno %(usage_count)s puta"
+msgstr[2] "Korišteno %(usage_count)s puta"
 
 msgid "Edit / Review"
 msgstr "Uredi / Pregledaj"
@@ -1086,10 +1093,6 @@ msgstr "Zatražio korisnik <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Započeto u <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Status <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Vremenska crta"
@@ -1343,6 +1346,9 @@ msgstr "Zbirka '%(object)s' je izbrisana."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 
+msgid "Workflow progress"
+msgstr "Napredak tijeka rada"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' je ažuriran."
@@ -1359,6 +1365,16 @@ msgstr "Najranije"
 
 msgid "Latest"
 msgstr "Najnovije"
+
+msgid "Usage of"
+msgstr "Upotreba"
+
+msgid "Field"
+msgstr "Polje"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Uredi ovaj %(object)s"
 
 msgid "Dashboard"
 msgstr "Kontrolna ploča"

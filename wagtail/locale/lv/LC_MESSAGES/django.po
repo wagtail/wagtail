@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,19 +74,11 @@ msgstr ""
 msgid "Comment"
 msgstr "Komentārs"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Jūs</b> esat <b>slēguši lapu '{page_title}'</b>."
+msgid "Locked"
+msgstr "Slēgts"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Lapa '{page_title}' ir bloķēta</b>"
-
-msgid "This page is currently awaiting moderation."
-msgstr "Šī lapa šobrīd gaida pārbaudi."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Tikai apskatitāji var rediģēt šo lapu. "
+msgid "Unlocked"
+msgstr "Atslēgts"
 
 msgid "latest revision"
 msgstr "pēdējā revīzija"
@@ -261,12 +253,6 @@ msgstr "Labots"
 
 msgid "Unpublish"
 msgstr "Atsaukt publicēšanu"
-
-msgid "Locked"
-msgstr "Slēgts"
-
-msgid "Unlocked"
-msgstr "Atslēgts"
 
 msgid "Reject"
 msgstr "Noraidīt"

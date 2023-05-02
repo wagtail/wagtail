@@ -5,15 +5,16 @@
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
 # Meteor0id, 2018
+# Storm Heg <storm@stormbase.digital>, 2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +51,7 @@ msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Er lijkt een probleem met uw embedly API key te zijn. Controleer uw "
+"Er lijkt een probleem met je embedly API key te zijn. Controleer je "
 "instellingen. "
 
 msgid ""

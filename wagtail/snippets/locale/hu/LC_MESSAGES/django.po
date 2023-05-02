@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -116,9 +116,6 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
-msgid "Usage"
-msgstr "Használat"
-
 msgid "Last updated"
 msgstr "Utolsó frissítés"
 
@@ -170,6 +167,9 @@ msgstr "Elemek"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "%(title)s %(snippet_type)s szerkesztése"
 
+msgid "Usage"
+msgstr "Használat"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "%(subtitle)s elem törénete"
@@ -179,6 +179,17 @@ msgstr "Elem szerkesztése"
 
 msgid "No log entries found."
 msgstr "Nincs naplóbejegyzés."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s "
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s hozzáadása"
+
+msgid "Select all snippets in listing"
+msgstr "Összes elem kiválasztása a listában"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -224,27 +235,6 @@ msgstr "Összehasonlítás a jelenlegi verzióval"
 msgid "Cancel scheduled publish"
 msgstr "Időzített közzététel visszavonása"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s "
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s hozzáadása"
-
-msgid "Select all snippets in listing"
-msgstr "Összes elem kiválasztása a listában"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "A %(title)s használata"
-
-msgid "Usage of"
-msgstr "Használat"
-
-msgid "Title"
-msgstr "Cím"
-
 msgid "Choose"
 msgstr "Kiválasztás"
 
@@ -259,14 +249,6 @@ msgstr "Hiba történt az elem létrehozása közben."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Hiba történt az elem frissítése közben."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privát %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s szerkesztése"
 
 msgid "Action"
 msgstr "Akció"
@@ -303,3 +285,7 @@ msgstr "%(object)s kiválasztása"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Másik %(object)s kiválasztása"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"

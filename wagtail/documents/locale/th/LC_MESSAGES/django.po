@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,13 +95,6 @@ msgid "Upload"
 msgstr "อัพโหลด"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "ลบ %(title)s"
-
-msgid "Delete document"
-msgstr "ลบทิ้งเอกสาร"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "กำลังแก้ไข %(title)s"
 
@@ -110,6 +103,9 @@ msgstr "กำลังแก้ไข"
 
 msgid "Save"
 msgstr "เซฟ,เก็บรักษา"
+
+msgid "Delete document"
+msgstr "ลบทิ้งเอกสาร"
 
 msgid "Filesize"
 msgstr "ขนาดของไฟล์,ขนาดของแฟ้ม"
@@ -148,13 +144,6 @@ msgid ""
 msgstr ""
 "คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย ทำไมคุณไม่ <a "
 "href=\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "การใช้ของ %(title)s"
-
-msgid "Usage of"
-msgstr "การใช้ของ"
 
 msgid "Add multiple documents"
 msgstr "เพิ่มเติมเอกสารแบบไม่จำกัด"
@@ -224,10 +213,6 @@ msgstr "ไม่พบไฟล์นี้ กรุณาเปลี่ย�
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "เอกสาร '%(document_title)s' ถูกลบเรียบร้อยแล้ว"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Document"
 msgstr "เอกสาร"

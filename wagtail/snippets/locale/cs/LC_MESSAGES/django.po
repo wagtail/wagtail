@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -96,9 +96,6 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nerušit."
 
-msgid "Usage"
-msgstr "Použití"
-
 msgid "History"
 msgstr "Historie"
 
@@ -133,8 +130,19 @@ msgstr "Navigace stránek"
 msgid "Snippets"
 msgstr "Úryvky"
 
+msgid "Usage"
+msgstr "Použití"
+
 msgid "No log entries found."
 msgstr "Nenalezeny žádné záznamy v logu."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Úryvky %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Přidat %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -168,24 +176,6 @@ msgstr "Porovnat s aktuální verzí"
 msgid "Cancel scheduled publish"
 msgstr "Zrušit naplánované publikování"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Úryvky %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Přidat %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použití %(title)s"
-
-msgid "Usage of"
-msgstr "Použití"
-
-msgid "Title"
-msgstr "Název"
-
 msgid "Choose"
 msgstr "Zvolit"
 
@@ -197,10 +187,6 @@ msgstr "Úryvek nemohl být vytvořen kvůli chybám."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Úryvek nemohl být uložen kvůli chybám."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Edituj %(object)s"
 
 msgid "Action"
 msgstr "Akce"
@@ -226,3 +212,7 @@ msgstr "Zvol %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Zvol další %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"

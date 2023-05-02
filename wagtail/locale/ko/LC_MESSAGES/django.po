@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,19 +63,11 @@ msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 �
 msgid "Comment"
 msgstr "댓글"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>'{page_title}' 페이지의 잠금</b>이 <b>당신</b>에 의해 적용됨."
+msgid "Locked"
+msgstr "잠겨 있는"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>'{page_title}' 페이지가 잠김</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "오직 이 작업의 후기만이 페이지 수정 가능"
+msgid "Unlocked"
+msgstr "잠금 풀림"
 
 msgid "live"
 msgstr "라이브"
@@ -370,12 +362,6 @@ msgstr "출시된"
 
 msgid "Unpublish"
 msgstr "게시 해제"
-
-msgid "Locked"
-msgstr "잠겨 있는"
-
-msgid "Unlocked"
-msgstr "잠금 풀림"
 
 msgid "Reject"
 msgstr "거절"

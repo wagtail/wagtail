@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Sergey Mazanov <mvver@outlook.com>, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -227,13 +227,6 @@ msgid "Upload"
 msgstr "Загрузка"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Удалить %(title)s"
-
-msgid "Delete document"
-msgstr "Удалить документ"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Редактирование %(title)s"
 
@@ -242,6 +235,9 @@ msgstr "Редактирование"
 
 msgid "Save"
 msgstr "Сохранить"
+
+msgid "Delete document"
+msgstr "Удалить документ"
 
 msgid "Filesize"
 msgstr "Размер файла"
@@ -298,16 +294,6 @@ msgid ""
 msgstr ""
 "Вы еще не загрузили ни одного документа. Почему бы не <a "
 "href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Использование %(title)s"
-
-msgid "Usage of"
-msgstr "Использование"
-
-msgid "Field"
-msgstr "Поле"
 
 #, python-format
 msgid ""
@@ -446,10 +432,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Документ '%(document_title)s' удален."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Править %(object)s"
 
 msgid "Document"
 msgstr "Документ"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -189,13 +189,6 @@ msgid "Upload"
 msgstr "Lähetä"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Poista %(title)s"
-
-msgid "Delete document"
-msgstr "Poista dokumentti"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Muokataan %(title)s"
 
@@ -204,6 +197,9 @@ msgstr "Muokataan"
 
 msgid "Save"
 msgstr "Tallenna"
+
+msgid "Delete document"
+msgstr "Poista dokumentti"
 
 msgid "Filesize"
 msgstr "Tiedostokoko"
@@ -259,16 +255,6 @@ msgid ""
 msgstr ""
 "Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a "
 "href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Kohteen %(title)s käyttö"
-
-msgid "Usage of"
-msgstr "Käyttö"
-
-msgid "Field"
-msgstr "Kenttä"
 
 #, python-format
 msgid ""
@@ -394,14 +380,6 @@ msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentti '%(document_title)s' poistettu."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Yksityinen %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muokkaa %(object)s-kohdetta"
 
 msgid "Document"
 msgstr "Dokumentti"

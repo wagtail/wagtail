@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -81,13 +81,6 @@ msgid "Upload"
 msgstr "Nahrať"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Zmazať %(title)s"
-
-msgid "Delete document"
-msgstr "Zmazať dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Úprava %(title)s"
 
@@ -96,6 +89,9 @@ msgstr "Upraviť obrázok"
 
 msgid "Save"
 msgstr "Uložiť"
+
+msgid "Delete document"
+msgstr "Zmazať dokument"
 
 msgid "Filesize"
 msgstr "Veľkosť súboru"
@@ -133,13 +129,6 @@ msgid ""
 msgstr ""
 "Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a "
 "href=\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použitie %(title)s"
-
-msgid "Usage of"
-msgstr "Použitie"
 
 msgid "Add multiple documents"
 msgstr "Pridať viaceré dokumenty"
@@ -205,10 +194,6 @@ msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokumen
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' bol zmazaný."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Upraviť toto %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

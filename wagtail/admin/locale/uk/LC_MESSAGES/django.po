@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Zoriana Zaiats, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -435,11 +435,11 @@ msgstr "Скидання паролю"
 msgid "Reset your password"
 msgstr "Скинути Ваш пароль"
 
-msgid "Upload a profile picture:"
-msgstr "Завантажити зображення для профілю:"
-
 msgid "Reset to default"
 msgstr "Скинути значення за умовчанням "
+
+msgid "Upload a profile picture:"
+msgstr "Завантажити зображення для профілю:"
 
 msgid "Go back"
 msgstr "Повернутися назад"
@@ -556,6 +556,22 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Зняти з публікації %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Так, зняти з публікації"
+
+msgid "No, don't unpublish"
+msgstr "Ні, не знімати з публікації"
+
+msgid "Cancel"
+msgstr "Скасувати"
 
 msgid "Update"
 msgstr "Оновити"
@@ -893,9 +909,6 @@ msgstr[1] "Вам не дозволено видаляти ці сторінки
 msgstr[2] "Вам не дозволено видаляти ці сторінки"
 msgstr[3] "Вам не дозволено видаляти ці сторінки"
 
-msgid "No, don't delete"
-msgstr "Ні, не видаляти"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -965,9 +978,6 @@ msgstr[3] "Вам не дозволено знімати з публікації
 
 msgid "Yes, unpublish"
 msgstr "Так, зняти з публікації"
-
-msgid "No, don't unpublish"
-msgstr "Ні, не знімати з публікації"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1042,9 +1052,6 @@ msgstr "Публікація цієї сторінки скасує поточн
 
 msgid "Would you still like to publish this page?"
 msgstr "Ви все одно хочете опублікувати сторінку?"
-
-msgid "Cancel"
-msgstr "Скасувати"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1277,13 +1284,6 @@ msgstr "Ланцюжок навігації"
 msgid "Root"
 msgstr "Корінь"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Зняти з публікації %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Так, зняти з публікації"
-
 msgid "Add comment"
 msgstr "Додати коментар"
 
@@ -1293,11 +1293,11 @@ msgstr "Фільтр"
 msgid "Apply filters"
 msgstr "Застосувати фільтри"
 
-msgid "Visit the live page"
-msgstr "Відвідати сторінку"
-
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
+
+msgid "Visit the live page"
+msgstr "Відвідати сторінку"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1329,8 +1329,16 @@ msgstr ""
 "Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
 "сторінки."
 
-msgid "Workflow progress"
-msgstr "Прогрес робочого процесу"
+msgid "Usage"
+msgstr "Використання"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Використано %(usage_count)s раз"
+msgstr[1] "Використано %(usage_count)s рази"
+msgstr[2] "Використано %(usage_count)s разів"
+msgstr[3] "Використано %(usage_count)s разів"
 
 msgid "Edit / Review"
 msgstr "Редагувати / Перевірити"
@@ -1345,10 +1353,6 @@ msgstr "За вимогою <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Розпочато о <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Статус <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Хронологія"
@@ -1645,6 +1649,9 @@ msgstr "Колекцію '%(object)s' видалено."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ви впевнені, що хочете видалили цю колекцію?"
 
+msgid "Workflow progress"
+msgstr "Прогрес робочого процесу"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' оновлено."
@@ -1661,6 +1668,13 @@ msgstr "Найбільш раннє"
 
 msgid "Latest"
 msgstr "Останнє"
+
+msgid "Usage of"
+msgstr "Використання"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"
 
 msgid "Dashboard"
 msgstr "Панель"

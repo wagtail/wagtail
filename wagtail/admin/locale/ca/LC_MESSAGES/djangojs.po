@@ -12,11 +12,6 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s error)"
-msgstr[1] "(%(errorCount)s errors)"
-
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s elements nous en aquest menú)"
 
@@ -197,9 +192,6 @@ msgstr "Mostra l'últim contingut"
 
 msgid "Split block"
 msgstr "Dividir el bloc"
-
-msgid "StreamField blocks"
-msgstr "Blocs d'StreamField"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

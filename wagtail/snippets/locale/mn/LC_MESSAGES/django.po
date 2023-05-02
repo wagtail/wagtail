@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -89,9 +89,6 @@ msgstr "Тийм, устга"
 msgid "No, don't delete"
 msgstr "Үгүй, устгахгүй"
 
-msgid "Usage"
-msgstr "Хэрэглээ"
-
 msgid "Last updated"
 msgstr "Шинэчлэгдсэн"
 
@@ -123,6 +120,17 @@ msgstr "Шинэ"
 msgid "Snippets"
 msgstr "Хэсэг"
 
+msgid "Usage"
+msgstr "Хэрэглээ"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s хэсгүүд"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr " %(snippet_type_name)sнэмэх"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -146,24 +154,6 @@ msgstr "Засах"
 msgid "Cancel scheduled publish"
 msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s хэсгүүд"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr " %(snippet_type_name)sнэмэх"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s-н хэрэглээ"
-
-msgid "Usage of"
-msgstr "Хэрэглээ"
-
-msgid "Title"
-msgstr "Гарчиг"
-
 msgid "Choose"
 msgstr "Сонгох"
 
@@ -175,10 +165,6 @@ msgstr "Хэсэг дээрх алдаанаас болж хадгалагдса
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s-г засах"
 
 msgid "Action"
 msgstr "Үйлдэл"
@@ -197,3 +183,7 @@ msgstr "%(object)s сонгох"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Өөр %(object)s сонгох"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s-г засах"

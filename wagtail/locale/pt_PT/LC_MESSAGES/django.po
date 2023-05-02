@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -79,19 +79,11 @@ msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
 msgid "Comment"
 msgstr "Comentar"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Página {page_title} está bloqueada</b> por <b>si</b>."
+msgid "Locked"
+msgstr "Bloqueado"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>A página '{page_title}'  está bloqueada</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Esta página está à espera de moderação"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Apenas revisores desta tarefa podem alterar esta página."
+msgid "Unlocked"
+msgstr "Desbloqueada"
 
 msgid "live"
 msgstr "publicada"
@@ -594,12 +586,6 @@ msgstr "Despublicar rascunho agendado"
 
 msgid "Unpublished scheduled draft"
 msgstr "Rascunho agendado despublicado"
-
-msgid "Locked"
-msgstr "Bloqueado"
-
-msgid "Unlocked"
-msgstr "Desbloqueada"
 
 msgid "Reject"
 msgstr "Rejeitar"

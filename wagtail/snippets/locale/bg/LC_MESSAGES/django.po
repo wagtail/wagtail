@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -55,6 +55,14 @@ msgid "Snippets"
 msgstr "Откъси от код"
 
 #, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Откъси от код %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Добави %(snippet_type_name)s"
+
+#, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
@@ -67,17 +75,6 @@ msgstr "Преглед"
 
 msgid "Edit"
 msgstr "Редакция"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Откъси от код %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Добави %(snippet_type_name)s"
-
-msgid "Title"
-msgstr "Заглавие"
 
 msgid "Choose"
 msgstr "Избери"

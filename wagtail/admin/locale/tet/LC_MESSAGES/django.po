@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -355,6 +355,19 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Sin, hamoos"
 
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "La publika %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Sin, subar"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
+
 msgid "Update"
 msgstr "Troka"
 
@@ -514,14 +527,8 @@ msgstr "Hili tipu pajina ita boot hakarek kria."
 msgid "Pages using %(page_type)s"
 msgstr "Pajina uza%(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Lae, Labele hamoos"
-
 msgid "Move"
 msgstr "Muda"
-
-msgid "No, don't unpublish"
-msgstr "Lae, la subar"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -697,21 +704,14 @@ msgstr "Hatudu dalan korta"
 msgid "Root"
 msgstr "Abut"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "La publika %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Sin, subar"
-
 msgid "Filter"
 msgstr "Filtru"
 
-msgid "Visit the live page"
-msgstr "Vizita pajina publiku"
-
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
+
+msgid "Visit the live page"
+msgstr "Vizita pajina publiku"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -740,6 +740,14 @@ msgstr "Xavi"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
+
+msgid "Usage"
+msgstr "Uza"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
 
 msgid "Add a child page"
 msgstr "Hatama pajina oan"
@@ -809,6 +817,13 @@ msgstr "Hadia hela"
 
 msgid "Latest"
 msgstr " Mak tardi liu"
+
+msgid "Usage of"
+msgstr "uza iha nee"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "hadia iha %(object)s"
 
 msgid "Dashboard"
 msgstr "Painel kontrolu"

@@ -13,11 +13,6 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s virhe)"
-msgstr[1] "(%(errorCount)s virhettä)"
-
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s uutta kohdetta tässä valikossa)"
 
@@ -45,6 +40,9 @@ msgstr "Vaihtoehtoinen teksti"
 
 msgid "Are you sure?"
 msgstr "Oletko varma?"
+
+msgid "Blocks"
+msgstr "Lohkot"
 
 msgid "Broken link"
 msgstr "Särkynyt linkki"
@@ -194,9 +192,6 @@ msgstr "Näytä viimeisin sisältö"
 
 msgid "Split block"
 msgstr "Jaa lohko"
-
-msgid "StreamField blocks"
-msgstr "StreamField-lohkot"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

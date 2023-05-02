@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,6 +101,9 @@ msgstr "Wagtail Routable-Page"
 msgid "Wagtail sitemaps"
 msgstr "Wagtail Sitemaps"
 
+msgid "Unknown content type"
+msgstr "Unbekannter Inhaltstyp"
+
 msgid "Password"
 msgstr "Passwort"
 
@@ -110,31 +113,22 @@ msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 msgid "Comment"
 msgstr "Kommentar"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgid "Locked"
+msgstr "Gesperrt"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
 msgstr ""
-"<b>Die Seite '{page_title}'</b> wurde von <b>Ihnen</b> am <b>{datetime}</b> "
-"gesperrt."
+"Niemand kann Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
 msgstr "<b>'{title}'</b> wurde von <b>Ihnen</b> am <b>{datetime}</b> gesperrt."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Die Seite '{page_title}'</b> ist von <b>Ihnen</b> gesperrt."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}'</b> ist von <b>Ihnen</b> gesperrt."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Die Seite '{page_title}'</b> wurde von <b>{user}</b> am <b>{datetime}</b> "
-"gesperrt."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
@@ -142,27 +136,30 @@ msgstr ""
 "<b>'{title}'</b> wurde von <b>{user}</b> am <b>{datetime}</b> gesperrt."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Die Seite '{page_title}' ist gesperrt</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' ist gesperrt</b>."
 
-msgid "This page is currently awaiting moderation."
-msgstr "Diese Seite wartet derzeit auf Moderation."
+msgid "Locked by you"
+msgstr "Von Ihnen gesperrt"
+
+msgid "Locked by another user"
+msgstr "Von einem anderen Benutzer gesperrt"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Nur Sie können Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Nur %(user)s kann Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Dieses %(model_name)s-Objekt wartet derzeit auf Moderation."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Diese Seite erwartet <b>'{task_name}'</b> in dem Workflow "
-"<b>'{workflow_name}'</b>."
 
 #, python-brace-format
 msgid ""
@@ -172,21 +169,30 @@ msgstr ""
 "Dieses {model_name}-Objekt erwartet <b>'{task_name}'</b> in dem Workflow "
 "<b>'{workflow_name}'</b>."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Nur Gutachter für diese Aufgabe können die Seite bearbeiten."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr ""
 "Nur Gutachter für diese Aufgabe können dieses %(model_name)s-Objekt "
 "bearbeiten."
 
-#, python-brace-format
+msgid "Unlocked"
+msgstr "Entsperrt"
+
+msgid "Locked by workflow"
+msgstr "Durch Workflow gesperrt"
+
+#, python-format
 msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
 msgstr ""
-"Seite '{page_title}' ist gesperrt und wurde zur Veröffentlichung am "
-"{datetime} eingeplant"
+"Gutachter können dieses %(model_name)s-Objekt bearbeiten – sperren Sie es, "
+"um zu verhindern, dass andere Gutachter es bearbeiten"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr ""
+"Nur Gutachter können das %(model_name)s-Objekt bearbeiten und genehmigen"
 
 #, python-brace-format
 msgid ""
@@ -195,6 +201,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' ist gesperrt und wurde zur Veröffentlichung am "
 "{datetime} eingeplant"
+
+msgid "Locked by schedule"
+msgstr "Durch Zeitplan gesperrt"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Derzeit gesperrt und wird zum geplanten Datum live gehen"
 
 msgid "latest revision"
 msgstr "Neuste Revision"
@@ -614,6 +626,30 @@ msgstr "Gruppen Sammlungs-Berechtigung"
 msgid "group collection permissions"
 msgstr "Gruppen-Sammlungs-Berechtigungen"
 
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "das %(model_name)s-Objekt wird ebenfalls gelöscht"
+
+msgid "prevents deletion"
+msgstr "verhindert das Löschen"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "wird auf das Standard-%(model_name)s-Objekt gesetzt"
+
+msgid "will do nothing"
+msgstr "wird nichts tun"
+
+msgid "may prevent deletion"
+msgstr "kann das Löschen verhindern"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "wird auf ein vom System vorgegebenes %(model_name)s-Objekt gesetzt"
+
+msgid "will unset the reference"
+msgstr "setzt die Referenz zurück"
+
 msgid "hostname"
 msgstr "Hostname"
 
@@ -748,12 +784,6 @@ msgstr "Geplanten Entwurf zurücknehmen"
 
 msgid "Unpublished scheduled draft"
 msgstr "Geplanten Entwurf zurückgenommen"
-
-msgid "Locked"
-msgstr "Gesperrt"
-
-msgid "Unlocked"
-msgstr "Entsperrt"
 
 msgid "Reject"
 msgstr "Ablehnen"

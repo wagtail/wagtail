@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Zoriana Zaiats, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,19 +90,11 @@ msgstr "Пароль. який ви ввели, не є коректним. Бу
 msgid "Comment"
 msgstr "Коментар"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Сторінка '{page_title}' заблокована </b> <b>вами</b>."
+msgid "Locked"
+msgstr "Заблоковано"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Сторінка '{page_title}' заблокована</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Ця сторінка очікує на модерацію."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Лише рецензенти цього завдання можуть редагувати сторінку. "
+msgid "Unlocked"
+msgstr "Розблоковано"
 
 msgid "latest revision"
 msgstr "остання ревізія"
@@ -617,12 +609,6 @@ msgstr "Зняти з публікації заплановану чернетк
 
 msgid "Unpublished scheduled draft"
 msgstr "Знято з публікації заплановану чернетку"
-
-msgid "Locked"
-msgstr "Заблоковано"
-
-msgid "Unlocked"
-msgstr "Розблоковано"
 
 msgid "Reject"
 msgstr "Відхилити"

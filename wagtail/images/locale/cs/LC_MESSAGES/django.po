@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,9 +28,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail obrázky"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -213,15 +210,15 @@ msgstr "Přidat obrázek"
 msgid "Save"
 msgstr "Uložit"
 
-msgid "Delete image"
-msgstr "Smazat obrázek"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Úprava obrázku %(title)s"
 
 msgid "Editing"
 msgstr "Úprava"
+
+msgid "Delete image"
+msgstr "Smazat obrázek"
 
 msgid "URL Generator"
 msgstr "Generátor URL"
@@ -301,16 +298,6 @@ msgid ""
 msgstr ""
 "Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu "
 "zmenšeny tak, aby se na obrazovku vešly."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použití %(title)s"
-
-msgid "Usage of"
-msgstr "Použití"
-
-msgid "Title"
-msgstr "Název"
 
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
@@ -402,10 +389,6 @@ msgstr "Obrázek '%(image_title)s' byl přidán."
 
 msgid "The image could not be created due to errors."
 msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Edituj %(object)s"
 
 msgid "Image"
 msgstr "Obrázek"

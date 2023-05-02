@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,9 +21,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Whakaahua-a-Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -182,15 +179,15 @@ msgstr "Tāpiri whakaahua"
 msgid "Save"
 msgstr "Puritia"
 
-msgid "Delete image"
-msgstr "Muku whakaahua"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "E whakarerekē ana a whakahua %(title)s"
 
 msgid "Editing"
 msgstr "Whakarerekē"
+
+msgid "Delete image"
+msgstr "Muku whakaahua"
 
 msgid "Filesize"
 msgstr "Kōnae korahi"
@@ -209,16 +206,6 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Titiro"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Te whakamahi ō %(title)s"
-
-msgid "Usage of"
-msgstr "Te whakamahi ō "
-
-msgid "Title"
-msgstr "Taitara"
 
 msgid "Or choose from your computer"
 msgstr "Kōhiti nō tō rorohiko rānei"
@@ -261,7 +248,3 @@ msgstr "Whakahua '%(image_title)s' kua tāpiri."
 
 msgid "The image could not be created due to errors."
 msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Whakarerekē i tēnei %(object)s"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -70,6 +70,12 @@ msgstr "入力されたパスワードは正しくありませんでした。再
 
 msgid "Comment"
 msgstr "コメント"
+
+msgid "Locked"
+msgstr "ロックあり"
+
+msgid "Unlocked"
+msgstr "ロックなし"
 
 msgid "live"
 msgstr "公開"
@@ -445,12 +451,6 @@ msgstr "編集"
 
 msgid "Unpublish"
 msgstr "非公開"
-
-msgid "Locked"
-msgstr "ロックあり"
-
-msgid "Unlocked"
-msgstr "ロックなし"
 
 msgid "Reject"
 msgstr "拒否"

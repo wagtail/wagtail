@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -184,13 +184,6 @@ msgid "Upload"
 msgstr "Ladda upp"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Radera %(title)s"
-
-msgid "Delete document"
-msgstr "Ta bort dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Redigerar %(title)s"
 
@@ -199,6 +192,9 @@ msgstr "Redigerar"
 
 msgid "Save"
 msgstr "Spara"
+
+msgid "Delete document"
+msgstr "Ta bort dokument"
 
 msgid "Filesize"
 msgstr "Filstorlek"
@@ -252,16 +248,6 @@ msgid ""
 msgstr ""
 "Du har inte laddat upp några dokument. Varför inte <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Användning av %(title)s"
-
-msgid "Usage of"
-msgstr "Användning av"
-
-msgid "Field"
-msgstr "Fält"
 
 #, python-format
 msgid ""
@@ -387,14 +373,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' borttaget."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privat %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Redigera %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -96,13 +96,6 @@ msgid "Upload"
 msgstr "Unggah"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Hapus %(title)s"
-
-msgid "Delete document"
-msgstr "Hapus dokumen"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Sedang mengubah %(title)s"
 
@@ -111,6 +104,9 @@ msgstr "Mengubah"
 
 msgid "Save"
 msgstr "Simpan"
+
+msgid "Delete document"
+msgstr "Hapus dokumen"
 
 msgid "Filesize"
 msgstr "Ukuran file"
@@ -149,13 +145,6 @@ msgid ""
 msgstr ""
 "Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a "
 "href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Penggunaan dari %(title)s"
-
-msgid "Usage of"
-msgstr "Penggunaan dari"
 
 msgid "Add multiple documents"
 msgstr "Tambah beberapa dokumen"
@@ -218,10 +207,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumen '%(document_title)s' dihapus."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Ubah %(object)s ini"
 
 msgid "Document"
 msgstr "Dokumen"

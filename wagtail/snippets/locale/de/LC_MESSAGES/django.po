@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -156,9 +156,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ein neues erstellen</a>?"
 
-msgid "Usage"
-msgstr "Benutzung"
-
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert:"
 
@@ -214,6 +211,9 @@ msgstr "Neu: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Bearbeite %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Benutzung"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Schnipsel-Historie für %(subtitle)s"
@@ -223,6 +223,17 @@ msgstr "Dieses Schnipsel bearbeiten"
 
 msgid "No log entries found."
 msgstr "Keine Protokoll-Einträge gefunden."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Schnipsel %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s hinzufügen"
+
+msgid "Select all snippets in listing"
+msgstr "Alle Schnipsel in der Aufzählung auswählen"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -266,30 +277,6 @@ msgstr "Mit der aktuellen Version vergleichen"
 msgid "Cancel scheduled publish"
 msgstr "Geplante Veröffentlichung aufheben"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Schnipsel %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s hinzufügen"
-
-msgid "Select all snippets in listing"
-msgstr "Alle Schnipsel in der Aufzählung auswählen"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Benutzung von %(title)s"
-
-msgid "Usage of"
-msgstr "Benutzung von"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Field"
-msgstr "Feld"
-
 msgid "Choose"
 msgstr "Auswählen"
 
@@ -304,14 +291,6 @@ msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s, privat)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s bearbeiten"
 
 msgid "Action"
 msgstr "Aktion"
@@ -348,3 +327,7 @@ msgstr "Auswählen %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Andere/n/s %(object)s auswählen"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s bearbeiten"
