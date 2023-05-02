@@ -15,6 +15,7 @@
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'plus'
+    - `base_actions` - base actions to appear before the main action
     - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
     - `breadcrumb` - Custom breadcrumbs content as a variable, displayed in place of breadcrumb block before the header content
     - `header` - Replaces the header `h1` completely with custom variable content
@@ -58,6 +59,7 @@
             {% block right_column %}
                 {% if action_url %}
                     <div class="actionbutton">
+                        {{ base_actions }}
                         {% with action_icon|default:'plus' as action_icon_name %}
                             <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
                         {% endwith %}
