@@ -343,9 +343,10 @@ Changelog
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
 
 
-4.1.5 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+4.1.5 (02.05.2023)
+~~~~~~~~~~~~~~~~~~
 
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
 
 
 4.1.4 (03.04.2023)
