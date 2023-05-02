@@ -315,7 +315,8 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
         request = self.request
         panels = [
             SiteSummaryPanel(request),
-            WhatsNewInWagtailVersionPanel(),
+            # Disabled until a release warrants the banner.
+            # WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
             PagesForModerationPanel(),
