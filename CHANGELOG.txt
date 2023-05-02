@@ -13,7 +13,7 @@ Changelog
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
-5.0 (xx.xx.xxxx) - IN DEVELOPMENT
+5.0 (02.05.2023)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 4.2
