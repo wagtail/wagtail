@@ -4,7 +4,6 @@ from typing import List, Tuple, Union
 
 from django.apps import apps
 from django.conf import settings
-from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.functions import Lower
@@ -20,6 +19,7 @@ MATCH_HOSTNAME = 3
 
 
 _sites_cache = Local()
+_site_root_paths_cache = Local()
 
 
 SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
@@ -113,11 +113,6 @@ class SiteManager(models.Manager):
         return getattr(_sites_cache, "value", None)
 
 
-SITE_ROOT_PATHS_CACHE_KEY = "wagtail_site_root_paths"
-# Increase the cache version whenever the structure SiteRootPath tuple changes
-SITE_ROOT_PATHS_CACHE_VERSION = 2
-
-
 class Site(models.Model):
     hostname = models.CharField(
         verbose_name=_("hostname"), max_length=255, db_index=True
@@ -191,7 +186,6 @@ class Site(models.Model):
 
         The site will be cached via request._wagtail_site
         """
-
         if request is None:
             return None
 
@@ -244,8 +238,8 @@ class Site(models.Model):
                     }
                 )
 
-    @staticmethod
-    def get_site_root_paths():
+    @classmethod
+    def get_site_root_paths(cls) -> List[SiteRootPath]:
         """
         Return a list of `SiteRootPath` instances, most specific path
         first - used to translate url_paths into actual URLs with hostnames
@@ -257,55 +251,70 @@ class Site(models.Model):
         - `root_path` - The internal URL path of the site's home page (for example '/home/')
         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - `language_code` - The language code of the site (for example 'en')
+
+        NOTE: Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the
+        return value will be cached for the current thread.
         """
-        result = cache.get(
-            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
-        )
+        caching_enabled = getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+        if caching_enabled:
+            cached_result = cls._get_cached_site_root_paths()
+            if cached_result is not None:
+                return deepcopy(cached_result)
 
-        if result is None:
-            result = []
-
-            for site in Site.objects.select_related(
-                "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
-                            SiteRootPath(
-                                site.id,
-                                root_page.url_path,
-                                site.root_url,
-                                root_page.locale.language_code,
-                            )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
-                    result.append(
+        result = []
+        for site in Site.objects.get_all():
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                result.extend(
+                    [
                         SiteRootPath(
                             site.id,
-                            site.root_page.url_path,
+                            root_page.url_path,
                             site.root_url,
-                            site.root_page.locale.language_code,
+                            root_page.locale.language_code,
                         )
+                        for root_page in site.root_page.get_translations(
+                            inclusive=True
+                        ).select_related("locale")
+                    ]
+                )
+            else:
+                result.append(
+                    SiteRootPath(
+                        site.id,
+                        site.root_page.url_path,
+                        site.root_url,
+                        site.root_page.locale.language_code,
                     )
+                )
 
-            cache.set(
-                SITE_ROOT_PATHS_CACHE_KEY,
-                result,
-                3600,
-                version=SITE_ROOT_PATHS_CACHE_VERSION,
-            )
-
-        else:
-            # Convert the cache result to a list of SiteRootPath tuples, as some
-            # cache backends (e.g. Redis) don't support named tuples.
-            result = [SiteRootPath(*result) for result in result]
+        # cache result for the next request
+        if caching_enabled:
+            _site_root_paths_cache.value = result
 
         return result
 
     @staticmethod
-    def clear_site_root_paths_cache():
-        cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+    def _get_cached_site_root_paths() -> Union[List[SiteRootPath], None]:
+        return getattr(_site_root_paths_cache, "value", None)
+
+    @staticmethod
+    def clear_caches():
+        """
+        Convenience method for clearing both the `Site` and `SiteRootPath`
+        threadlocal caches for the current thread.
+
+        NOTE: We do not attempt to clear data for other threads or processes
+        because, if they are already using a copy of the data, it could do more
+        harm than good to change that data mid-request.
+        """
+        _sites_cache.value = None
+        _site_root_paths_cache.value = None
+
+    @staticmethod
+    def refresh_caches():
+        """
+        Convenience method for clearing and repopulating the `Site` and
+        `SiteRootPath` threadlocal caches. Mostly used in tests.
+        """
+        Site.clear_caches()
+        Site.get_site_root_paths()
