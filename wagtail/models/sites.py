@@ -1,4 +1,6 @@
 from collections import namedtuple
+from copy import deepcopy
+from typing import List, Tuple, Union
 
 from django.apps import apps
 from django.conf import settings
@@ -10,10 +12,18 @@ from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
 
+from asgiref.local import Local
+
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
 MATCH_DEFAULT = 2
 MATCH_HOSTNAME = 3
+
+
+_sites_cache = Local()
+
+
+SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
 
 
 def get_site_for_hostname(hostname, port):
@@ -68,8 +78,39 @@ class SiteManager(models.Manager):
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
+    def get_all(self) -> Tuple["Site"]:
+        """
+        Returns a tuple of all `Site` objects, ordered for the generation of `SiteRootPath` lists.
 
-SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
+        Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the return
+        value will be cached for the current thread.
+
+        TODO: Consider what can be done to prevent long-running background processes
+        (e.g. Celery workers) from hanging onto cached values.
+        """
+        caching_enabled = getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+        if caching_enabled:
+            cached = self._get_cached_list()
+            if cached is not None:
+                # Return a copy to prevent pollution of cached values and/or
+                # garbage collection issues due to stray references
+                return deepcopy(cached)
+
+        sites = tuple(
+            self.get_queryset()
+            .select_related("root_page", "root_page__locale")
+            .order_by("-root_page__url_path", "-is_default_site", "hostname")
+        )
+
+        # Reuse this value next time
+        if caching_enabled:
+            _sites_cache.value = deepcopy(sites)
+
+        return sites
+
+    def _get_cached_list(self):
+        return getattr(_sites_cache, "value", None)
+
 
 SITE_ROOT_PATHS_CACHE_KEY = "wagtail_site_root_paths"
 # Increase the cache version whenever the structure SiteRootPath tuple changes
