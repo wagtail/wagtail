@@ -1475,7 +1475,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Note: New translations of existing site roots are considered site roots as well, so we must
         # always check if this page is a site root, even if it's new.
         if self.is_site_root():
-            Site.clear_site_root_paths_cache()
+            Site.clear_caches()
 
         # Log
         if is_new:
