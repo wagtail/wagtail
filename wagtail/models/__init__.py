@@ -1962,11 +1962,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         should override this method in order to have those operations return
         the custom URLs.
 
-        Accepts an optional keyword argument ``request``, which may be used
-        to avoid repeated database / cache lookups. Typically, a page model
-        that overrides ``get_url_parts`` should not need to deal with
-        ``request`` directly, and should just pass it to the original method
-        when calling ``super``.
+        Accepts an optional ``request`` keyword argument that can be used to
+        cache site-derived data on when per-thread caching is disabled.
+        Typically, a page model that overrides ``get_url_parts`` should not
+        need to deal with``request`` directly, and should just pass it to the
+        original method when calling ``super``.
         """
 
         possible_sites = self._get_relevant_site_root_paths(request)
@@ -2047,10 +2047,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         same domain), and the full URL (with domain) if not.
         Return None if the page is not routable.
 
-        Accepts an optional but recommended ``request`` keyword argument that, if provided, will
-        be used to cache site-level URL information (thereby avoiding repeated database / cache
-        lookups) and, via the ``Site.find_for_request()`` function, determine whether a relative
-        or full URL is most appropriate.
+        Accepts an optional ``request`` keyword argument that can be used to cache site-derived
+        data on when per-thread caching is disabled. If `current_site` has not been provided, it
+        will also used to determine whether a relative or full URL is most appropriate.
         """
         # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
         # a relative URL based on ``Site.find_for_request()``. Nonetheless, support it here to avoid
