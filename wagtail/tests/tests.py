@@ -25,14 +25,14 @@ from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
 
 
+@override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        # With the site data caches populated, url methods should require far fewer queries
         super().setUp()
-
-        # Clear caches
-        cache.clear()
+        Site.refresh_caches()
 
     def test_pageurl_tag(self):
         response = self.client.get("/events/")
@@ -101,7 +101,7 @@ class TestPageUrlTags(TestCase):
         )
 
         # no 'request' object in context
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -109,22 +109,6 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(
             template.Context({"page": page, "request": get_dummy_request()})
         )
-        self.assertIn('<a href="/events/">Events</a>', result)
-
-    def test_pageurl_caches(self):
-        page = Page.objects.get(url_path="/home/events/")
-        tpl = template.Template(
-            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>"""
-        )
-
-        request = get_dummy_request()
-
-        with self.assertNumQueries(8):
-            result = tpl.render(template.Context({"page": page, "request": request}))
-        self.assertIn('<a href="/events/">Events</a>', result)
-
-        with self.assertNumQueries(0):
-            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
@@ -137,7 +121,7 @@ class TestPageUrlTags(TestCase):
         # 'request' object in context, but site is None
         request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -201,7 +185,7 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, "/events/")
 
         # 'request' object in context, but no 'site' attribute
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(1):
             result = slugurl(
                 template.Context({"request": get_dummy_request()}), "events"
             )
@@ -220,7 +204,7 @@ class TestPageUrlTags(TestCase):
             """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
         )
         page = Page.objects.get(url_path="/home/events/")
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="http://localhost/events/">Events</a>', result)
 

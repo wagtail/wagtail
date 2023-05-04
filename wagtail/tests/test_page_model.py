@@ -298,30 +298,37 @@ class TestRouting(TestCase):
 
         clear_url_caches()
 
+    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
-        # Basic installation only has one site configured, so page.url will return local URLs
-        self.assertEqual(
-            homepage.get_url_parts(), (default_site.id, "http://localhost", "/")
-        )
-        self.assertEqual(homepage.full_url, "http://localhost/")
-        self.assertEqual(homepage.url, "/")
-        self.assertEqual(homepage.relative_url(default_site), "/")
-        self.assertEqual(homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (default_site.id, "http://localhost", "/events/christmas/"),
-        )
-        self.assertEqual(christmas_page.full_url, "http://localhost/events/christmas/")
-        self.assertEqual(christmas_page.url, "/events/christmas/")
-        self.assertEqual(
-            christmas_page.relative_url(default_site), "/events/christmas/"
-        )
-        self.assertEqual(christmas_page.get_site(), default_site)
+        with self.assertNumQueries(0):
+            # Basic installation only has one site configured, so page.url will return local URLs
+            self.assertEqual(
+                homepage.get_url_parts(), (default_site.id, "http://localhost", "/")
+            )
+            self.assertEqual(homepage.full_url, "http://localhost/")
+            self.assertEqual(homepage.url, "/")
+            self.assertEqual(homepage.relative_url(default_site), "/")
+            self.assertEqual(homepage.get_site(), default_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(),
+                (default_site.id, "http://localhost", "/events/christmas/"),
+            )
+            self.assertEqual(
+                christmas_page.full_url, "http://localhost/events/christmas/"
+            )
+            self.assertEqual(christmas_page.url, "/events/christmas/")
+            self.assertEqual(
+                christmas_page.relative_url(default_site), "/events/christmas/"
+            )
+            self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_page_with_no_url(self):
         root = Page.objects.get(url_path="/")
@@ -339,7 +346,8 @@ class TestRouting(TestCase):
             "testserver",
             "events.example.com",
             "second-events.example.com",
-        ]
+        ],
+        WAGTAIL_PER_THREAD_SITE_CACHING=True,
     )
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path="/home/events/")
@@ -357,72 +365,87 @@ class TestRouting(TestCase):
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
-        # with multiple sites, page.url will return full URLs to ensure that
-        # they work across sites
-        self.assertEqual(
-            homepage.get_url_parts(), (default_site.id, "http://localhost", "/")
-        )
-        self.assertEqual(homepage.full_url, "http://localhost/")
-        self.assertEqual(homepage.url, "http://localhost/")
-        self.assertEqual(homepage.relative_url(default_site), "/")
-        self.assertEqual(homepage.relative_url(events_site), "http://localhost/")
-        self.assertEqual(homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (events_site.id, "http://events.example.com", "/christmas/"),
-        )
-        self.assertEqual(
-            christmas_page.full_url, "http://events.example.com/christmas/"
-        )
-        self.assertEqual(christmas_page.url, "http://events.example.com/christmas/")
-        self.assertEqual(
-            christmas_page.relative_url(default_site),
-            "http://events.example.com/christmas/",
-        )
-        self.assertEqual(christmas_page.relative_url(events_site), "/christmas/")
-        self.assertEqual(christmas_page.get_site(), events_site)
+        with self.assertNumQueries(0):
+            # with multiple sites, page.url will return full URLs to ensure that
+            # they work across sites
+            self.assertEqual(
+                homepage.get_url_parts(), (default_site.id, "http://localhost", "/")
+            )
+            self.assertEqual(homepage.full_url, "http://localhost/")
+            self.assertEqual(homepage.url, "http://localhost/")
+            self.assertEqual(homepage.relative_url(default_site), "/")
+            self.assertEqual(homepage.relative_url(events_site), "http://localhost/")
+            self.assertEqual(homepage.get_site(), default_site)
 
-        request = get_dummy_request(site=events_site)
+            self.assertEqual(
+                christmas_page.get_url_parts(),
+                (events_site.id, "http://events.example.com", "/christmas/"),
+            )
+            self.assertEqual(
+                christmas_page.full_url, "http://events.example.com/christmas/"
+            )
+            self.assertEqual(christmas_page.url, "http://events.example.com/christmas/")
+            self.assertEqual(
+                christmas_page.relative_url(default_site),
+                "http://events.example.com/christmas/",
+            )
+            self.assertEqual(christmas_page.relative_url(events_site), "/christmas/")
+            self.assertEqual(christmas_page.get_site(), events_site)
 
-        self.assertEqual(
-            christmas_page.get_url_parts(request=request),
-            (events_site.id, "http://events.example.com", "/christmas/"),
-        )
+            request = get_dummy_request(site=events_site)
 
-        request2 = get_dummy_request(site=second_events_site)
-        self.assertEqual(
-            christmas_page.get_url_parts(request=request2),
-            (second_events_site.id, "http://second-events.example.com", "/christmas/"),
-        )
+            self.assertEqual(
+                christmas_page.get_url_parts(request=request),
+                (events_site.id, "http://events.example.com", "/christmas/"),
+            )
 
-    @override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
+            request2 = get_dummy_request(site=second_events_site)
+            self.assertEqual(
+                christmas_page.get_url_parts(request=request2),
+                (
+                    second_events_site.id,
+                    "http://second-events.example.com",
+                    "/christmas/",
+                ),
+            )
+
+    @override_settings(
+        ROOT_URLCONF="wagtail.test.non_root_urls", WAGTAIL_PER_THREAD_SITE_CACHING=True
+    )
     def test_urls_with_non_root_urlconf(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
-        # Basic installation only has one site configured, so page.url will return local URLs
-        self.assertEqual(
-            homepage.get_url_parts(), (default_site.id, "http://localhost", "/site/")
-        )
-        self.assertEqual(homepage.full_url, "http://localhost/site/")
-        self.assertEqual(homepage.url, "/site/")
-        self.assertEqual(homepage.relative_url(default_site), "/site/")
-        self.assertEqual(homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (default_site.id, "http://localhost", "/site/events/christmas/"),
-        )
-        self.assertEqual(
-            christmas_page.full_url, "http://localhost/site/events/christmas/"
-        )
-        self.assertEqual(christmas_page.url, "/site/events/christmas/")
-        self.assertEqual(
-            christmas_page.relative_url(default_site), "/site/events/christmas/"
-        )
-        self.assertEqual(christmas_page.get_site(), default_site)
+        with self.assertNumQueries(0):
+            # Basic installation only has one site configured, so page.url will return local URLs
+            self.assertEqual(
+                homepage.get_url_parts(),
+                (default_site.id, "http://localhost", "/site/"),
+            )
+            self.assertEqual(homepage.full_url, "http://localhost/site/")
+            self.assertEqual(homepage.url, "/site/")
+            self.assertEqual(homepage.relative_url(default_site), "/site/")
+            self.assertEqual(homepage.get_site(), default_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(),
+                (default_site.id, "http://localhost", "/site/events/christmas/"),
+            )
+            self.assertEqual(
+                christmas_page.full_url, "http://localhost/site/events/christmas/"
+            )
+            self.assertEqual(christmas_page.url, "/site/events/christmas/")
+            self.assertEqual(
+                christmas_page.relative_url(default_site), "/site/events/christmas/"
+            )
+            self.assertEqual(christmas_page.get_site(), default_site)
 
     @override_settings(ROOT_URLCONF="wagtail.test.headless_urls")
     def test_urls_headless(self):
@@ -469,40 +492,6 @@ class TestRouting(TestCase):
         with self.assertRaises(Http404):
             homepage.route(request, ["events", "tentative-unpublished-event"])
 
-    # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
-    # otherwise) and so cache.get will always return None.
-    @override_settings(
-        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-    )
-    @override_settings(ALLOWED_HOSTS=["dummy"])
-    def test_request_scope_site_root_paths_cache(self):
-        homepage = Page.objects.get(url_path="/home/")
-        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
-
-        # without a request, get_url should only issue 1 SQL query
-        with self.assertNumQueries(1):
-            self.assertEqual(homepage.get_url(), "/")
-        # subsequent calls with the same page should generate no SQL queries
-        with self.assertNumQueries(0):
-            self.assertEqual(homepage.get_url(), "/")
-        # subsequent calls with a different page will still generate 1 SQL query
-        with self.assertNumQueries(1):
-            self.assertEqual(christmas_page.get_url(), "/events/christmas/")
-
-        # with a request, the first call to get_url should issue 1 SQL query
-        request = get_dummy_request()
-        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
-        with self.assertNumQueries(2):
-            self.assertEqual(homepage.get_url(request=request), "/")
-        # subsequent calls should issue no SQL queries
-        with self.assertNumQueries(0):
-            self.assertEqual(homepage.get_url(request=request), "/")
-        # even if called on a different page
-        with self.assertNumQueries(0):
-            self.assertEqual(
-                christmas_page.get_url(request=request), "/events/christmas/"
-            )
-
 
 @override_settings(
     ROOT_URLCONF="wagtail.test.urls_multilang",
@@ -519,45 +508,50 @@ class TestRoutingWithI18N(TestRouting):
     # This inherits from TestRouting so contains all the same test cases
     # Only the test cases that behave differently under internationalisation are overridden here
 
+    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls(self, expected_language_code="en"):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
-        # Basic installation only has one site configured, so page.url will return local URLs
-        # self.assertEqual(
-        #     homepage.get_url_parts(),
-        #     (default_site.id, 'http://localhost', f'/{expected_language_code}/')
-        # )
-        self.assertEqual(
-            homepage.full_url, f"http://localhost/{expected_language_code}/"
-        )
-        self.assertEqual(homepage.url, f"/{expected_language_code}/")
-        self.assertEqual(
-            homepage.relative_url(default_site), f"/{expected_language_code}/"
-        )
-        self.assertEqual(homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (
-                default_site.id,
-                "http://localhost",
+        with self.assertNumQueries(0):
+            # Basic installation only has one site configured, so page.url will return local URLs
+            # self.assertEqual(
+            #     homepage.get_url_parts(),
+            #     (default_site.id, 'http://localhost', f'/{expected_language_code}/')
+            # )
+            self.assertEqual(
+                homepage.full_url, f"http://localhost/{expected_language_code}/"
+            )
+            self.assertEqual(homepage.url, f"/{expected_language_code}/")
+            self.assertEqual(
+                homepage.relative_url(default_site), f"/{expected_language_code}/"
+            )
+            self.assertEqual(homepage.get_site(), default_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(),
+                (
+                    default_site.id,
+                    "http://localhost",
+                    f"/{expected_language_code}/events/christmas/",
+                ),
+            )
+            self.assertEqual(
+                christmas_page.full_url,
+                f"http://localhost/{expected_language_code}/events/christmas/",
+            )
+            self.assertEqual(
+                christmas_page.url, f"/{expected_language_code}/events/christmas/"
+            )
+            self.assertEqual(
+                christmas_page.relative_url(default_site),
                 f"/{expected_language_code}/events/christmas/",
-            ),
-        )
-        self.assertEqual(
-            christmas_page.full_url,
-            f"http://localhost/{expected_language_code}/events/christmas/",
-        )
-        self.assertEqual(
-            christmas_page.url, f"/{expected_language_code}/events/christmas/"
-        )
-        self.assertEqual(
-            christmas_page.relative_url(default_site),
-            f"/{expected_language_code}/events/christmas/",
-        )
-        self.assertEqual(christmas_page.get_site(), default_site)
+            )
+            self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_urls_with_translation_activated(self):
         # This should have no effect as the URL is determined from the page's locale
@@ -596,6 +590,7 @@ class TestRoutingWithI18N(TestRouting):
         with translation.override("se"):
             self.test_urls()
 
+    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls_with_different_language_tree(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -609,25 +604,32 @@ class TestRoutingWithI18N(TestRouting):
         fr_christmas_page.slug = "noel"
         fr_christmas_page.save(update_fields=["slug"])
 
-        # Basic installation only has one site configured, so page.url will return local URLs
-        self.assertEqual(
-            fr_homepage.get_url_parts(), (default_site.id, "http://localhost", "/fr/")
-        )
-        self.assertEqual(fr_homepage.full_url, "http://localhost/fr/")
-        self.assertEqual(fr_homepage.url, "/fr/")
-        self.assertEqual(fr_homepage.relative_url(default_site), "/fr/")
-        self.assertEqual(fr_homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            fr_christmas_page.get_url_parts(),
-            (default_site.id, "http://localhost", "/fr/events/noel/"),
-        )
-        self.assertEqual(fr_christmas_page.full_url, "http://localhost/fr/events/noel/")
-        self.assertEqual(fr_christmas_page.url, "/fr/events/noel/")
-        self.assertEqual(
-            fr_christmas_page.relative_url(default_site), "/fr/events/noel/"
-        )
-        self.assertEqual(fr_christmas_page.get_site(), default_site)
+        with self.assertNumQueries(0):
+            # Basic installation only has one site configured, so page.url will return local URLs
+            self.assertEqual(
+                fr_homepage.get_url_parts(),
+                (default_site.id, "http://localhost", "/fr/"),
+            )
+            self.assertEqual(fr_homepage.full_url, "http://localhost/fr/")
+            self.assertEqual(fr_homepage.url, "/fr/")
+            self.assertEqual(fr_homepage.relative_url(default_site), "/fr/")
+            self.assertEqual(fr_homepage.get_site(), default_site)
+
+            self.assertEqual(
+                fr_christmas_page.get_url_parts(),
+                (default_site.id, "http://localhost", "/fr/events/noel/"),
+            )
+            self.assertEqual(
+                fr_christmas_page.full_url, "http://localhost/fr/events/noel/"
+            )
+            self.assertEqual(fr_christmas_page.url, "/fr/events/noel/")
+            self.assertEqual(
+                fr_christmas_page.relative_url(default_site), "/fr/events/noel/"
+            )
+            self.assertEqual(fr_christmas_page.get_site(), default_site)
 
     @override_settings(
         ALLOWED_HOSTS=[
@@ -635,7 +637,8 @@ class TestRoutingWithI18N(TestRouting):
             "testserver",
             "events.example.com",
             "second-events.example.com",
-        ]
+        ],
+        WAGTAIL_PER_THREAD_SITE_CACHING=True,
     )
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path="/home/events/")
@@ -653,82 +656,54 @@ class TestRoutingWithI18N(TestRouting):
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
-        # with multiple sites, page.url will return full URLs to ensure that
-        # they work across sites
-        self.assertEqual(
-            homepage.get_url_parts(), (default_site.id, "http://localhost", "/en/")
-        )
-        self.assertEqual(homepage.full_url, "http://localhost/en/")
-        self.assertEqual(homepage.url, "http://localhost/en/")
-        self.assertEqual(homepage.relative_url(default_site), "/en/")
-        self.assertEqual(homepage.relative_url(events_site), "http://localhost/en/")
-        self.assertEqual(homepage.get_site(), default_site)
+        # This should make using url and site-related Page methods more efficient
+        Site.refresh_caches()
 
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (events_site.id, "http://events.example.com", "/en/christmas/"),
-        )
-        self.assertEqual(
-            christmas_page.full_url, "http://events.example.com/en/christmas/"
-        )
-        self.assertEqual(christmas_page.url, "http://events.example.com/en/christmas/")
-        self.assertEqual(
-            christmas_page.relative_url(default_site),
-            "http://events.example.com/en/christmas/",
-        )
-        self.assertEqual(christmas_page.relative_url(events_site), "/en/christmas/")
-        self.assertEqual(christmas_page.get_site(), events_site)
-
-        request = get_dummy_request(site=events_site)
-
-        self.assertEqual(
-            christmas_page.get_url_parts(request=request),
-            (events_site.id, "http://events.example.com", "/en/christmas/"),
-        )
-
-        request2 = get_dummy_request(site=second_events_site)
-
-        self.assertEqual(
-            christmas_page.get_url_parts(request=request2),
-            (
-                second_events_site.id,
-                "http://second-events.example.com",
-                "/en/christmas/",
-            ),
-        )
-
-    # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
-    # otherwise) and so cache.get will always return None.
-    @override_settings(
-        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-    )
-    @override_settings(ALLOWED_HOSTS=["dummy"])
-    def test_request_scope_site_root_paths_cache(self):
-        homepage = Page.objects.get(url_path="/home/")
-        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
-
-        # without a request, get_url should only issue 2 SQL queries
-        with self.assertNumQueries(2):
-            self.assertEqual(homepage.get_url(), "/en/")
-        # subsequent calls with the same page should generate no SQL queries
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.get_url(), "/en/")
-        # subsequent calls with a different page will still generate 2 SQL queries
-        with self.assertNumQueries(2):
-            self.assertEqual(christmas_page.get_url(), "/en/events/christmas/")
-
-        # with a request, the first call to get_url should issue 1 SQL query
-        request = get_dummy_request()
-        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
-        with self.assertNumQueries(3):
-            self.assertEqual(homepage.get_url(request=request), "/en/")
-        # subsequent calls should issue no SQL queries
-        with self.assertNumQueries(0):
-            self.assertEqual(homepage.get_url(request=request), "/en/")
-        # even if called on a different page
-        with self.assertNumQueries(0):
+            # with multiple sites, page.url will return full URLs to ensure that
+            # they work across sites
             self.assertEqual(
-                christmas_page.get_url(request=request), "/en/events/christmas/"
+                homepage.get_url_parts(), (default_site.id, "http://localhost", "/en/")
+            )
+            self.assertEqual(homepage.full_url, "http://localhost/en/")
+            self.assertEqual(homepage.url, "http://localhost/en/")
+            self.assertEqual(homepage.relative_url(default_site), "/en/")
+            self.assertEqual(homepage.relative_url(events_site), "http://localhost/en/")
+            self.assertEqual(homepage.get_site(), default_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(),
+                (events_site.id, "http://events.example.com", "/en/christmas/"),
+            )
+            self.assertEqual(
+                christmas_page.full_url, "http://events.example.com/en/christmas/"
+            )
+            self.assertEqual(
+                christmas_page.url, "http://events.example.com/en/christmas/"
+            )
+            self.assertEqual(
+                christmas_page.relative_url(default_site),
+                "http://events.example.com/en/christmas/",
+            )
+            self.assertEqual(christmas_page.relative_url(events_site), "/en/christmas/")
+            self.assertEqual(christmas_page.get_site(), events_site)
+
+            request = get_dummy_request(site=events_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(request=request),
+                (events_site.id, "http://events.example.com", "/en/christmas/"),
+            )
+
+            request2 = get_dummy_request(site=second_events_site)
+
+            self.assertEqual(
+                christmas_page.get_url_parts(request=request2),
+                (
+                    second_events_site.id,
+                    "http://second-events.example.com",
+                    "/en/christmas/",
+                ),
             )
 
 
@@ -739,7 +714,7 @@ class TestServeView(TestCase):
         # Explicitly clear the cache of site root paths. Normally this would be kept
         # in sync by the Site.save logic, but this is bypassed when the database is
         # rolled back between tests using transactions.
-        Site.clear_site_root_paths_cache()
+        Site.clear_caches()
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here
@@ -1386,7 +1361,6 @@ class TestCopyPage(TestCase):
         )
 
     def test_copy_page_with_process_child_object_supplied(self):
-
         # We'll provide this when copying and test that it gets called twice:
         # Once for the single speaker, and another for the single advert_placement
         modify_child = Mock()
