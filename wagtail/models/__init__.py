@@ -1409,6 +1409,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if hasattr(self, "_is_site_root"):
             return self._is_site_root
 
+        if getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True):
+            for site in Site.objects.get_all():
+                if site.root_page.translation_key == self.translation_key:
+                    return True
+            return False
+
         return Site.objects.filter(
             root_page__translation_key=self.translation_key
         ).exists()
