@@ -2104,6 +2104,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         site_id, root_url, page_path = url_parts
 
+        if getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True):
+            for site in Site.objects.get_all():
+                if site.id == site_id:
+                    return site
+            raise Site.DoesNotExist
+
         return Site.objects.get(id=site_id)
 
     @classmethod
