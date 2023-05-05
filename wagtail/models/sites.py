@@ -93,9 +93,7 @@ class SiteManager(models.Manager):
         if caching_enabled:
             cached = self._get_cached_list()
             if cached is not None:
-                # Return a copy to prevent pollution of cached values and/or
-                # garbage collection issues due to stray references
-                return deepcopy(cached)
+                return cached
 
         sites = tuple(
             self.get_queryset()
@@ -103,14 +101,19 @@ class SiteManager(models.Manager):
             .order_by("-root_page__url_path", "-is_default_site", "hostname")
         )
 
-        # Reuse this value next time
         if caching_enabled:
+            # A copy is cached to prevent accidental mutation
             _sites_cache.value = deepcopy(sites)
 
         return sites
 
     def _get_cached_list(self):
-        return getattr(_sites_cache, "value", None)
+        result = getattr(_sites_cache, "value", None)
+        if result is not None:
+            # A copy of the cached value is returned to reduce the risk of
+            # mutation, or creation of references that may prevent garbage
+            # collection when the thread terminates.
+            return deepcopy(result)
 
 
 class Site(models.Model):
@@ -259,7 +262,7 @@ class Site(models.Model):
         if caching_enabled:
             cached_result = cls._get_cached_site_root_paths()
             if cached_result is not None:
-                return deepcopy(cached_result)
+                return cached_result
 
         result = []
         for site in Site.objects.get_all():
@@ -287,15 +290,20 @@ class Site(models.Model):
                     )
                 )
 
-        # cache result for the next request
         if caching_enabled:
-            _site_root_paths_cache.value = result
+            # A copy is cached to prevent accidental mutation
+            _site_root_paths_cache.value = deepcopy(result)
 
         return result
 
     @staticmethod
     def _get_cached_site_root_paths() -> Union[List[SiteRootPath], None]:
-        return getattr(_site_root_paths_cache, "value", None)
+        result = getattr(_site_root_paths_cache, "value", None)
+        if result is not None:
+            # A copy of the cached value is returned to reduce the risk of
+            # mutation, or creation of references that may prevent garbage
+            # collection when the thread terminates.
+            return deepcopy(result)
 
     @staticmethod
     def clear_caches():
