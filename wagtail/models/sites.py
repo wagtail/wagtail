@@ -25,6 +25,10 @@ _site_root_paths_cache = Local()
 SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
 
 
+def per_thread_site_caching_enabled() -> bool:
+    return getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+
+
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
     Site = apps.get_model("wagtailcore.Site")
@@ -89,7 +93,7 @@ class SiteManager(models.Manager):
         TODO: Consider what can be done to prevent long-running background processes
         (e.g. Celery workers) from hanging onto cached values.
         """
-        caching_enabled = getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+        caching_enabled = per_thread_site_caching_enabled()
         if caching_enabled:
             cached = self._get_cached_list()
             if cached is not None:
@@ -258,7 +262,7 @@ class Site(models.Model):
         NOTE: Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the
         return value will be cached for the current thread.
         """
-        caching_enabled = getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+        caching_enabled = per_thread_site_caching_enabled()
         if caching_enabled:
             cached_result = cls._get_cached_site_root_paths()
             if cached_result is not None:
