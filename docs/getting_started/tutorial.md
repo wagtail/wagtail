@@ -128,7 +128,7 @@ The `requirements.txt` file contains all the dependencies needed in order to run
 If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
 ```sh
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command to update the database.
@@ -136,7 +136,7 @@ This command ensures that the tables in your database are matched to the models 
 ### Create an admin user
 
 ```sh
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 
 This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
@@ -144,7 +144,7 @@ This will prompt you to create a new superuser account with full permissions. No
 ### Start the server
 
 ```sh
-python manage.py runserver
+python3 manage.py runserver
 ```
 
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
@@ -262,7 +262,7 @@ if the tags aren't loaded.
 
 We are now ready to create a blog, using the command line to create a new app in your Wagtail project. 
 ```sh
-python manage.py startapp blog
+python3 manage.py startapp blog
 ``` 
 Add the new `blog` app to the application definition by editing `INSTALLED_APPS` in `mysite/settings/base.py`.
 
