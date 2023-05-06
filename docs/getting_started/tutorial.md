@@ -260,10 +260,24 @@ if the tags aren't loaded.
 
 ## A basic blog
 
-We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app in your Wagtail project.
+We are now ready to create a blog, using the command line to create a new app in your Wagtail project. 
+```sh
+python manage.py startapp blog
+``` 
+Add the new `blog` app to the application definition by editing `INSTALLED_APPS` in `mysite/settings/base.py`.
 
-Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
+```python3
+INSTALLED_APPS = [
+    "blog", # <- added blog to be recognized by Wagtail CMS
+    "home",
+    "search",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    ]
+```
 
 ### Blog Index and Posts
 
@@ -283,7 +297,11 @@ class BlogIndexPage(Page):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run: 
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
 Since the model is called `BlogIndexPage`, the default template name
 (unless we override it) will be `blog_index_page.html`. Django will look for a template whose name matches the name of your Page model within the templates directory in your blog app folder. This default behaviour can be overridden if needed.  
@@ -865,8 +883,12 @@ class BlogCategory(models.Model):
 ```{note}
 Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
-
-Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
+Run:
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+Create a few categories through the Snippets area which now appears in the admin menu.
 
 We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.To add categories to the `BlogPage`, modify `models.py` in your blog app folder:
 
