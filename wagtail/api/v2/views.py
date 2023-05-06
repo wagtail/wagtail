@@ -238,7 +238,7 @@ class BaseAPIViewSet(GenericViewSet):
             for field in cls.detail_only_fields:
                 try:
                     all_fields.remove(field)
-                except KeyError:
+                except ValueError:
                     pass
 
         # Get list of configured fields
