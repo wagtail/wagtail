@@ -1,5 +1,6 @@
 import hashlib
 import unittest
+from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -25,6 +26,10 @@ from wagtail.images.models import (
 )
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
+from wagtail.test.dummy_external_storage import (
+    DummyExternalStorage,
+    DummyExternalStorageFile,
+)
 from wagtail.test.testapp.models import (
     CustomRendition,
     EventPage,
@@ -42,6 +47,16 @@ from .utils import (
 
 
 class CustomStorage(Storage):
+    pass
+
+
+class AnotherDummyExternalStorage(DummyExternalStorage):
+    def _open(self, name, mode="rb"):
+        # External storages has their own File type
+        return AnotherDummyExternalStorageFile(open(self.wrapped.path(name), mode))
+
+
+class AnotherDummyExternalStorageFile(DummyExternalStorageFile):
     pass
 
 
@@ -121,6 +136,18 @@ class TestImage(TestCase):
     )
     def test_is_stored_locally_with_external_storage(self):
         self.assertFalse(self.image.is_stored_locally())
+
+    @override_settings(
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+    )
+    def test_reopen_based_on_storage_that_is_dynamically_set(self):
+        self.image.file.close()
+        # Simulate the case is which the storage is set dynamically
+        with mock.patch.object(
+            self.image.file, "storage", AnotherDummyExternalStorage()
+        ):
+            with self.image.open_file() as file:
+                self.assertIsInstance(file, AnotherDummyExternalStorageFile)
 
     def test_get_file_size(self):
         file_size = self.image.get_file_size()

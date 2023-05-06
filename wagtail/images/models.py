@@ -191,7 +191,7 @@ class ImageFileMixin:
                 else:
                     # Some external storage backends don't allow reopening
                     # the file. Get a fresh file instance. #1397
-                    storage = self._meta.get_field("file").storage
+                    storage = self.file.storage
                     image_file = storage.open(self.file.name, "rb")
 
                 close_file = True

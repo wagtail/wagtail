@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.8 (Matt Westcott)
+ * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
