@@ -5,8 +5,6 @@ This tutorial covers setting up a brand new Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
 
-## Install and run Wagtail
-
 ### Install dependencies
 
 Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
@@ -30,6 +28,20 @@ Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib
 The way to do this varies by platform—see Pillow's
 [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
+### Getting Started
+First, we want to get set up with our project by creating a new folder to organize all of the files.
+
+**On GNU/Linux or MacOS** (bash):
+```sh
+mkdir wagtail-first-site
+cd wagtail-first-site/
+```
+
+**On Windows** (cmd):
+```sh
+mkdir wagtail-first-site
+cd wagtail-first-site/
+```
 
 (virtual_environment_creation)=
 
@@ -41,24 +53,24 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-py -m venv mysite\env
-mysite\env\Scripts\activate.bat
+py -m venv venv
+venv\Scripts\activate.bat
 # or:
-mysite\env\Scripts\activate
+venv\Scripts\activate
 ```
 
 **On GNU/Linux or MacOS** (bash):
 
 ```sh
-python -m venv mysite/env
-source mysite/env/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
 ```{note}
 If you're using version control (such as git), `mysite` will be the directory for your project.
-The `env` directory inside of it should be excluded from any version control.
+The `venv` directory inside of it should be excluded from any version control.
 ```
 
 ### Install Wagtail
@@ -77,10 +89,24 @@ the required project settings,
 a "home" app with a blank `HomePage` model and basic templates,
 and a sample "search" app.
 
-Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
-
 ```sh
-wagtail start mysite mysite
+wagtail start mysite
+```
+
+**Generated project structure**
+
+```
+wagtail-first-site
+├── venv/
+├── mysite
+│   ├── home/
+│   ├── mysite/
+│   ├── search/
+│   ├── .dockerignore
+│   ├── db.sqlite3 (after running the database migration, command provided below)
+│   ├── Dockerfile
+│   ├── manage.py
+│   ├── requirements.txt
 ```
 
 ```{note}
@@ -160,16 +186,25 @@ it means that this field is not required and can be empty. You
 can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the
 capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages).
 
-Run:
+Stage and run the database migration for updating the model change:
 
 ```sh
-# Creates the migrations file.
-python manage.py makemigrations
-# Executes the migrations and updates the database with your model changes.
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 ```
 
-You must run the above commands each time you make changes to the model definition.
+Expected output:
+```
+Migrations for 'home':
+  home/migrations/0003_homepage_body.py
+    - Add field body to homepage
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, home, sessions, taggit, wagtailadmin, wagtailcore, wagtaildocs, wagtailembeds, wagtailforms, wagtailimages, wagtailredirects, wagtailsearch, wagtailusers
+Running migrations:
+  Applying home.0003_homepage_body... OK
+```
+
+You **must** run the above commands each time you make changes to the model definition. We will get some practice throughout this tutorial, so do not worry if you are unfamiliar now.
 
 You can now edit the homepage within the Wagtail admin area (on the side bar go to _Pages_ and click the edit button beside _Homepage_) to see the new body field. Enter some text into the body field, and publish the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
 
@@ -190,6 +225,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
+    <p><b>Welcome</b> to our new site!</p>
     {{ page.body|richtext }}
 {% endblock %}
 ```
@@ -211,14 +247,11 @@ In this tutorial, we use the _richtext_ filter to escape and print the contents
 of a `RichTextField`:
 
 ```html+django
+...
 {% load wagtailcore_tags %}
+...
 {{ page.body|richtext }}
-```
-
-Produces:
-
-```html
-<p><b>Welcome</b> to our new site!</p>
+...
 ```
 
 **Note:** You'll need to include `{% load wagtailcore_tags %}` in each
@@ -327,7 +360,11 @@ class BlogPage(Page):
 
 In the model above, we import `index` as this makes the model searchable. You can then list fields that you want to be searchable for the user.
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run: 
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
 Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your newly created `blog_page.html` file:
 
@@ -527,7 +564,11 @@ class BlogPageGalleryImage(Orderable):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run:
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
 There are a few new concepts here, so let's take them one at a time:
 
@@ -682,7 +723,12 @@ class BlogPage(Page):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run: 
+
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
 Note the new `modelcluster` and `taggit` imports, the addition of a new
 `BlogPageTag` model, and the addition of a `tags` field on `BlogPage`.
