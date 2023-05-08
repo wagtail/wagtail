@@ -1,9 +1,29 @@
+**TODO**
+1. Add lazy database migrations
+2. Write prerequisites and purpose of the tutorial
+3. Aim for a US grade 8 reading level
+4. Refine grammer and consistent style
+5. Complex tasks need lists for readability
+
 # Your first Wagtail site
 
 ```{note}
 This tutorial covers setting up a brand new Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
+## Prerequisites
+1. Familiar with Python3
+2. Object oriented programming concepts, primarily inheritance
+3. A willingness to learn something new
+
+## Purpose
+By the end of tutorial, you will achieve the following:
+1. Working through a Wagtail site workflow
+2. Defining models that will be for pages
+3. Creating a blog from scratch
+
+## Intended Audience
+This tutorial was written for a complete beginner to Wagtail. Meaning no experience with Django or content management systems. In general, this was written with accesibility in mind.
 
 ### Install dependencies
 
@@ -40,7 +60,7 @@ cd wagtail-first-site/
 **On Windows** (cmd):
 ```sh
 mkdir wagtail-first-site
-cd wagtail-first-site/
+cd wagtail-first-site\
 ```
 
 (virtual_environment_creation)=
@@ -308,7 +328,12 @@ Since the model is called `BlogIndexPage`, the default template name
 To create a template for the `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
 
 ```{note}
-You may need to create the folders `templates/blog` within your `blog` app folder
+You may need to create the folders `templates/blog` within your `blog` app folder.
+```
+Run from the root project directory:
+```sh
+mkdir blog/templates/blog
+touch blog/tempates/blog/blog_index_page.html
 ```
 
 In your `blog_index_page.html` file enter the following content:
@@ -338,10 +363,20 @@ Most of this should be familiar, but we'll explain `get_children` a bit later.
 Note the `pageurl` tag, which is similar to Django's `url` tag but
 takes a Wagtail Page object as an argument.
 
-In the Wagtail admin, go to Pages, then Home.
-Add a child page to the Home page by clicking on the "Actions" icon and selecting the option "Add child page".
-Choose "Blog index page" from the list of the page types.
-Use "Our Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
+Since we made changes to our model, we need to perform a database migration before the page is recognized by the Wagtail admin panel.
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+
+### Adding a child page to the blog
+1. In the Wagtail admin panel, click on "Pages", then "Home" in the Wagtail side menu.
+2. Add a child page to the Home page by clicking on the "Actions" icon (...) on the top of the page and select the option "Add child page".
+3. Select "Blog index page" from the list of the page types.
+4. Edit the page title to "Our Blog".
+5. Click on the "Promote" tab and edit the page slug to "blog"
+6. Publish the page by selecting the option from the bottom menu.
+
 You should now be able to access the url `http://127.0.0.1:8000/blog` on your site
 (note how the slug from the Promote tab defines the page URL).
 
@@ -405,18 +440,17 @@ Create a new template file at the location `blog/templates/blog/blog_page.html`.
 
 {% endblock %}
 ```
-
-Note the use of Wagtail's built-in `get_parent()` method to obtain the
-URL of the blog this post is a part of.
+Note: In the example template, using Wagtail's built-in `get_parent()` method obtains the
+URL of the parent blog page.
 
 Now create a few blog posts as children of `BlogIndexPage`.
-Be sure to select type "Blog Page" when creating your posts.
+Be sure to select type "Blog page" when creating your posts.
 
 ![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
 !["Create a page in our blog" page type selector, with Blog page button highlighted in red](../_static/images/tutorial/tutorial_4b.png)
 
-Wagtail gives you full control over what kinds of content can be created under
+Wagtail provides full control over what content can be created under
 various parent content types. By default, any page type can be a child of any
 other page type.
 
@@ -424,19 +458,20 @@ other page type.
 
 Publish each blog post when you are done editing.
 
-You should now have the very beginnings of a working blog.
-Access the `/blog` URL and you should see something like this:
+You should now have a basic working blog.
+Access the `/blog` URL and you should all of posts that you created in the previous step:
 
 ![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
 
-Titles should link to post pages, and a link back to the blog's
-homepage should appear in the footer of each post page.
+Each blog entry title should link to the related post page with all of the content, and a return link to the blog
+homepage.
 
 ### Parents and Children
 
 Much of the work you'll be doing in Wagtail revolves around the concept of hierarchical
 "tree" structures consisting of nodes and leaves (see [Theory](../reference/pages/theory)).
-In this case, the `BlogIndexPage` is a "node" and individual `BlogPage` instances
+
+In this example, the `BlogIndexPage` is a "node" and individual `BlogPage` instances
 are the "leaves".
 
 Take another look at the guts of `blog_index_page.html`:
@@ -454,7 +489,23 @@ from its own position in the hierarchy. But why do we have to
 specify `post.specific.intro` rather than `post.intro`?
 This has to do with the way we defined our model:
 
-`class BlogPage(Page):`
+```python
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("intro"),
+        index.SearchField("body"),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("date"),
+        FieldPanel("intro"),
+        FieldPanel("body"),
+    ]
+```
 
 The `get_children()` method gets us a list of instances of the `Page` base class.
 When we want to reference properties of the instances that inherit from the base class,
