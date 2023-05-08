@@ -103,7 +103,7 @@ This is a variant of `InlinePanel` that improves the editing experience when the
 
 `MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
 
-For example, given a child model that provies a gallery of images on `BlogPage`:
+For example, given a child model that provides a gallery of images on `BlogPage`:
 
 ```python
 class BlogPageGalleryImage(Orderable):
