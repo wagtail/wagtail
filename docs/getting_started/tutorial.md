@@ -4,29 +4,42 @@
 3. Aim for a US grade 8 reading level
 4. Refine grammer and consistent style
 5. Complex tasks need lists for readability
+6. Add steps to add categories in the admin panel
 
-# Your first Wagtail site
+# Getting started with Wagtail
 
 ```{note}
-This tutorial covers setting up a brand new Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
 ## Prerequisites
-1. Familiar with Python3
-2. Object oriented programming concepts, primarily inheritance
-3. A willingness to learn something new
+Before starting this tutorial, you should have the following:
+- Basic knowledge of Python programming language
+- Python 3 installed on your computer
+- pip package manager installed on your computer
+- A text editor or Integrated Development Environment (IDE) for Python (optional)
 
-## Purpose
-By the end of tutorial, you will achieve the following:
-1. Working through a Wagtail site workflow
-2. Defining models that will be for pages
-3. Creating a blog from scratch
+## Learning Objectives
+1. Install Wagtail CMS using pip.
+2. Create a new Wagtail CMS project.
+3. Define a new page model with a rich text field for content.
+4. Migrate the database to create the new page model.
+5. Create a new page in the Wagtail CMS admin interface.
+6. Customize the template for the new page using HTML and template tags.
+7. View the new page with the customized template in a web browser.
+
+By the end of this tutorial, the user will have a basic understanding of how to use Wagtail CMS to create and manage a website, including creating new pages and customizing their templates. This knowledge can be applied to more advanced features and use cases for Wagtail CMS.
 
 ## Intended Audience
-This tutorial was written for a complete beginner to Wagtail. Meaning no experience with Django or content management systems. In general, this was written with accesibility in mind.
+This tutorial is intended for someone who is new to CMS and Wagtail, but has a basic knowledge of Python programming language. It is designed to provide a beginner-friendly introduction to the basics of how to install and use Wagtail CMS to create and manage a website.  
 
-### Install dependencies
+The tutorial assumes that the user has a basic understanding of Python programming concepts, such as installing packages with pip and running Python scripts from the command line. No prior experience with Wagtail CMS or any other CMS is required to follow this tutorial.  
 
+The tutorial is aimed at anyone who wants to learn how to use Wagtail CMS, whether for personal or professional use, and is interested in creating and managing a website.
+
+# Wagtail Tutorial
+The estimated time to complete this tutorial is between 30 mins to 1 hour, based on experience and familiarity with CMS concepts. If you need more time, that is perfectly fine, we all learn at different rates.
+
+## Install Wagtail Dependencies
 Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
 
 To check whether you have an appropriate version of Python 3:
@@ -48,7 +61,7 @@ Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib
 The way to do this varies by platform—see Pillow's
 [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
-### Getting Started
+## Making a Wagtail Project
 First, we want to get set up with our project by creating a new folder to organize all of the files.
 
 **On GNU/Linux or MacOS** (bash):
@@ -90,7 +103,7 @@ source venv/bin/activate
 
 ```{note}
 If you're using version control (such as git), `mysite` will be the directory for your project.
-The `venv` directory inside of it should be excluded from any version control.
+The `venv` directory inside of it should be excluded from any version control by adding it to `.gitignore`.
 ```
 
 ### Install Wagtail
@@ -101,7 +114,7 @@ Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 pip install wagtail
 ```
 
-### Generate your site
+### Generate a Wagtail Project Template
 
 Wagtail provides a `start` command similar to `django-admin startproject`.
 Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including
@@ -133,7 +146,7 @@ wagtail-first-site
 Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `base.py` file in the `mysite/settings` directory. Look at this file to see how the `start` command has listed them in there.
 ```
 
-### Install project dependencies
+### Verify Project Dependencies
 
 ```sh
 cd mysite
@@ -143,7 +156,7 @@ pip install -r requirements.txt
 This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
 The `requirements.txt` file contains all the dependencies needed in order to run the project.
 
-### Create the database
+### Create the Database
 
 If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
@@ -153,7 +166,7 @@ python3 manage.py migrate
 
 This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command to update the database.
 
-### Create an admin user
+### Create an Admin User
 
 ```sh
 python3 manage.py createsuperuser
@@ -161,7 +174,7 @@ python3 manage.py createsuperuser
 
 This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
 
-### Start the server
+### Start the Server
 
 ```sh
 python3 manage.py runserver
@@ -179,9 +192,11 @@ You can now access the administrative area at <http://127.0.0.1:8000/admin>
 
 ![Screenshot of Wagtail’s dashboard, with "Welcome to the mysite Wagtail CMS" heading, 1 page, 0 images, 0 documents. Underneath is a "Your most recent edits" section, with the Home page listed](../_static/images/tutorial/tutorial_2.png)
 
-## Extend the HomePage model
+## Creating Content, An Intro to the Wagtail Workflow
+In this section, we will begin with the default home page and make some changes.
+### Your First Wagtail Page
 
-Out of the box, the "home" app defines a blank `HomePage` model in `models.py`, along with a migration that creates a homepage and configures Wagtail to use it.
+By default, the "home" app defines a blank `HomePage` model in `models.py`, along with a migration that creates a homepage and configures Wagtail to use it.
 
 Edit `home/models.py` as follows, to add a `body` field to the model:
 
@@ -256,7 +271,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 
 ![Screenshot of an almost empty page – white background, "Welcome to our new site!" in the top left, and Wagtail logo in circled cyan in the bottom right](../_static/images/tutorial/tutorial_3.png)
 
-### Wagtail template tags
+### Wagtail Template Tags
 
 In addition to Django's [template tags and filters](https://docs.djangoproject.com/en/stable/ref/templates/builtins/),
 Wagtail provides a number of its own [template tags & filters](template_tags_and_filters)
@@ -278,7 +293,7 @@ of a `RichTextField`:
 template that uses Wagtail's tags. Django will throw a `TemplateSyntaxError`
 if the tags aren't loaded.
 
-## A basic blog
+## Back to Basics: Your First Wagtail Blog
 
 We are now ready to create a blog, using the command line to create a new app in your Wagtail project. 
 ```sh
@@ -299,7 +314,7 @@ INSTALLED_APPS = [
     ]
 ```
 
-### Blog Index and Posts
+### Blog: Index and Posts
 
 Let's start with a simple index page for our blog. In `blog/models.py`:
 
@@ -369,7 +384,8 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
-### Adding a child page to the blog
+### Blog: Adding a Child Page
+
 1. In the Wagtail admin panel, click on "Pages", then "Home" in the Wagtail side menu.
 2. Add a child page to the Home page by clicking on the "Actions" icon (...) on the top of the page and select the option "Add child page".
 3. Select "Blog index page" from the list of the page types.
@@ -466,9 +482,9 @@ Access the `/blog` URL and you should all of posts that you created in the previ
 Each blog entry title should link to the related post page with all of the content, and a return link to the blog
 homepage.
 
-### Parents and Children
+### Blog: Parents and Children
 
-Much of the work you'll be doing in Wagtail revolves around the concept of hierarchical
+Much of the work in Wagtail revolves around the concept of hierarchical
 "tree" structures consisting of nodes and leaves (see [Theory](../reference/pages/theory)).
 
 In this example, the `BlogIndexPage` is a "node" and individual `BlogPage` instances
@@ -528,30 +544,16 @@ To tighten up template code like this, we could use Django's `with` tag:
 When you start writing more customised Wagtail code, you'll find a whole set of QuerySet
 modifiers to help you navigate the hierarchy.
 
-```python
-# Given a page object 'somepage':
-MyModel.objects.descendant_of(somepage)
-child_of(page) / not_child_of(somepage)
-ancestor_of(somepage) / not_ancestor_of(somepage)
-parent_of(somepage) / not_parent_of(somepage)
-sibling_of(somepage) / not_sibling_of(somepage)
-# ... and ...
-somepage.get_children()
-somepage.get_ancestors()
-somepage.get_descendants()
-somepage.get_siblings()
-```
-
 For more information, see: [Page QuerySet reference](../reference/pages/queryset_reference)
 
-### Overriding Context
+### Blog: Overriding Context
 
-There are a couple of problems with our blog index view:
+With a keen eye, you may have spotted some problems with our blog index view:
 
 1.  Blogs generally display content in _reverse_ chronological order
 2.  We want to make sure we're only displaying _published_ content.
 
-To accomplish these things, we need to do more than just grab the index
+To accomplish this, we need to do more than just grab the index
 page's children in the template. Instead, we'll want to modify the
 QuerySet in the model definition. Wagtail makes this possible via
 the overridable `get_context()` method. Modify your `BlogIndexPage`
@@ -570,17 +572,33 @@ class BlogIndexPage(Page):
 ```
 
 All we've done here is retrieve the original context, create a custom QuerySet,
-add it to the retrieved context, and return the modified context back to the view.
-You'll also need to modify your `blog_index_page.html` template slightly.
-Change:
+add it to the retrieved context, and return the modified context back to the view.  
 
-`{% for post in page.get_children %}` to `{% for post in blogpages %}`
+You'll also need to modify your `blog_index_page.html` template slightly.  
+
+Replace the content block in blog_index_page.html:  
+```html+django
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in blogpages %}
+    {% with post=post.specific %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        <p>{{ post.intro }}</p>
+        {{ post.body|richtext }}
+    {% endwith %}
+    {% endfor %}
+
+{% endblock %}
+```
 
 Now try unpublishing one of your posts - it should disappear from the blog index
 page. The remaining posts should now be sorted with the most recently published
 posts first.
 
-### Images
+### Blog: Adding Images
 
 Let's add the ability to attach an image gallery to our blog posts. While it's possible to simply insert images into the `body` rich text field, there are several advantages to setting up our gallery images as a new dedicated object type within the database - this way, you have full control of the layout and styling of the images on the template, rather than having to lay them out in a particular way within the rich text field. It also makes it possible for the images to be used elsewhere, independently of the blog text - for example, displaying a thumbnail on the blog index page.
 
@@ -641,19 +659,19 @@ python3 manage.py migrate
 
 There are a few new concepts here, so let's take them one at a time:
 
-Inheriting from `Orderable` adds a `sort_order` field to the model, to keep track of the ordering of images in the gallery.
+1. Inheriting from `Orderable` adds a `sort_order` field to the model, to keep track of the ordering of images in the gallery.
 
-The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specific page. A `ParentalKey` works similarly to a `ForeignKey`, but also defines `BlogPageGalleryImage` as a "child" of the `BlogPage` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
+2. The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specific page. A `ParentalKey` works similarly to a `ForeignKey`, but also defines `BlogPageGalleryImage` as a "child" of the `BlogPage` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
 
-`image` is a `ForeignKey` to Wagtail's built-in `Image` model, where the images themselves are stored. This appears in the page editor as a pop-up interface for choosing an existing image or uploading a new one. This way, we allow an image to exist in multiple galleries - effectively, we've created a many-to-many relationship between pages and images.
+3. `image` is a `ForeignKey` to Wagtail's built-in `Image` model, where the images themselves are stored. This appears in the page editor as a pop-up interface for choosing an existing image or uploading a new one. This way, we allow an image to exist in multiple galleries - effectively, we've created a many-to-many relationship between pages and images.
 
-Specifying `on_delete=models.CASCADE` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.)
+4. Specifying `on_delete=models.CASCADE` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.)
 
-Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
+5. Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
 
 After editing `blog/models.py` you should see a _Gallery images_ field with an option to upload images and provide a caption for it when editing a blog page in your Wagtail admin area.
 
-Adjust your blog page template to include the images:
+Edit `blog_page.html` to include the images section:
 
 ```html+django
 {% extends "base.html" %}
@@ -688,7 +706,7 @@ Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` libr
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
-Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
+Now our uploaded images are database objects, we query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
 
 ```python
 class BlogPage(Page):
@@ -737,7 +755,7 @@ This method is now available from our templates. Update `blog_index_page.html` t
 {% endfor %}
 ```
 
-### Tagging Posts
+### Blog: Tagging Posts
 
 Let's say we want to let editors "tag" their posts, so that readers can, for example,
 view all bicycle-related content together. For this, we'll need to invoke
@@ -901,7 +919,7 @@ something like this:
 
 (tutorial_categories)=
 
-### Categories
+### Blog: Categories
 
 Let's add a category system to our blog. Unlike tags, where a page author can bring a tag into existence simply by using it on a page, our categories will be a fixed list, managed by the site owner through a separate area of the admin interface.
 
@@ -1000,7 +1018,9 @@ Finally, we can update the `blog_page.html` template to display the categories:
 
 !["Second Post" page, with title, date, categories, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
 
-## Where next
+## Congratulations!
+You completed this tutorial. Applaud yourself, and get yourself a cookie. 
+### Where next
 
 -   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
 -   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
