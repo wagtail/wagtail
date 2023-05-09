@@ -58,7 +58,10 @@ class BaseChooser(widgets.Input):
 
     @cached_property
     def model_class(self):
-        return resolve_model_string(self.model)
+        if isinstance(self.model, type):
+            return self.model
+        else:
+            return resolve_model_string(self.model)
 
     def value_from_datadict(self, data, files, name):
         # treat the empty string as None
@@ -129,6 +132,9 @@ class BaseChooser(widgets.Input):
         """
         return str(instance)
 
+    def get_object_id(self, instance):
+        return instance.pk
+
     def get_value_data_from_instance(self, instance):
         """
         Given a model instance, return a value that we can pass to both the server-side template
@@ -136,7 +142,7 @@ class BaseChooser(widgets.Input):
         for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
         """
         return {
-            "id": instance.pk,
+            "id": self.get_object_id(instance),
             "edit_url": AdminURLFinder().get_edit_url(instance),
             self.display_title_key: self.get_display_title(instance),
         }

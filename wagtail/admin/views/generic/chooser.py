@@ -9,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.core.paginator import Paginator
+from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template.loader import render_to_string
@@ -65,7 +66,9 @@ class ModelLookupMixin:
 
     @cached_property
     def model_class(self):
-        if self.model:
+        if isinstance(self.model, type):
+            return self.model
+        elif self.model:
             return resolve_model_string(self.model)
 
 
@@ -190,6 +193,12 @@ class BaseChooseView(
             reverse(self.chosen_multiple_url_name)
         )
 
+    def get_object_id(self, instance):
+        return instance.pk
+
+    def get_display_title(self, instance):
+        return str(instance)
+
     @cached_property
     def is_multiple_choice(self):
         return self.request.GET.get("multiple")
@@ -204,17 +213,19 @@ class BaseChooseView(
             return TitleColumn(
                 "title",
                 label=_("Title"),
-                accessor=str,
+                accessor=self.get_display_title,
                 label_prefix="chooser-modal-select",
             )
         else:
             return TitleColumn(
                 "title",
                 label=_("Title"),
-                accessor=str,
+                accessor=self.get_display_title,
                 get_url=(
                     lambda obj: self.append_preserved_url_parameters(
-                        reverse(self.chosen_url_name, args=(quote(obj.pk),))
+                        reverse(
+                            self.chosen_url_name, args=(quote(self.get_object_id(obj)),)
+                        )
                     )
                 ),
                 link_attrs={"data-chooser-modal-choice": True},
@@ -293,7 +304,7 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif self.model_class:
+        elif issubclass(self.model_class, Model):
             return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
