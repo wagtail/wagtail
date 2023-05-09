@@ -1015,6 +1015,10 @@ class TestLiveRevision(TestCase):
                 new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0)
             )
 
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
+
     def test_copy_method_without_keep_live_will_not_update_live_revision(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
         revision = about_us.save_revision()
@@ -1031,6 +1035,32 @@ class TestLiveRevision(TestCase):
         # has not been published
         self.assertIsNone(new_about_us.first_published_at)
         self.assertIsNone(new_about_us.last_published_at)
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
+
+    def test_copy_method_copies_latest_revision(self):
+        about_us = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # make another revision
+        about_us.content = "We are even better than before"
+        about_us.save_revision()
+        about_us.refresh_from_db()
+
+        self.assertEqual(
+            about_us.get_latest_revision_as_object().content,
+            "We are even better than before",
+        )
+
+        new_about_us = about_us.copy(
+            keep_live=False,
+            update_attrs={"title": "New about us", "slug": "new-about-us"},
+        )
+        new_about_us_draft = new_about_us.get_latest_revision_as_object()
+        self.assertEqual(new_about_us_draft.content, "We are even better than before")
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
 
     @freeze_time("2017-01-01 12:00:00")
     def test_publish_with_future_go_live_does_not_set_live_revision(self):
