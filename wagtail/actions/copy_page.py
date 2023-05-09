@@ -187,6 +187,7 @@ class CopyPageAction:
         # Copy revisions
         if self.copy_revisions:
             for revision in page.revisions.all():
+                use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
                 revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
@@ -230,6 +231,9 @@ class CopyPageAction:
 
                 # Save
                 revision.save()
+                # If this revision was designated the latest revision, update the page copy to point to the copied revision
+                if use_as_latest_revision:
+                    page_copy.latest_revision = revision
 
         # Create a new revision
         # This code serves a few purposes:
@@ -245,11 +249,25 @@ class CopyPageAction:
         latest_revision_as_page_revision = latest_revision.save_revision(
             user=self.user, changed=False, clean=False
         )
+
+        # save_revision should have updated this in the database - update the in-memory copy for consistency
+        page_copy.latest_revision = latest_revision_as_page_revision
+
         if self.keep_live:
             page_copy.live_revision = latest_revision_as_page_revision
             page_copy.last_published_at = latest_revision_as_page_revision.created_at
             page_copy.first_published_at = latest_revision_as_page_revision.created_at
-            page_copy.save(clean=False)
+            # The call to save_revision above will have updated several fields of the page record, including
+            # draft_title and latest_revision. These changes are not reflected in page_copy, so we must only
+            # update the specific fields set above to avoid overwriting them.
+            page_copy.save(
+                clean=False,
+                update_fields=[
+                    "live_revision",
+                    "last_published_at",
+                    "first_published_at",
+                ],
+            )
 
         if page_copy.live:
             page_published.send(
