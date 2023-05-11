@@ -346,3 +346,32 @@ class Advert(ClusterableModel):
 ```
 
 The [documentation on tagging pages](tagging) has more information on how to use tags in views.
+
+(wagtailsnippets_inline_models)=
+
+## Inline models within snippets
+
+Similar to pages, you could nest other models within a snippet.
+
+
+```python
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.models import Orderable
+
+
+class BandMember(Orderable):
+    band = ParentalKey("music.Band", related_name="members", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+
+
+@register_snippet
+class Band(ClusterableModel):
+    name = models.CharField(max_length=255)
+    panels = [
+        FieldPanel("name"),
+        InlinePanel("members")
+    ]
+```
+
+The [documentation on how to use inline models with pages](inline_models) provides more information that is also applicable to snippets.
