@@ -320,7 +320,7 @@ The admin dashboard and workflow reports will also show you snippets (alongside 
 
 ## Tagging snippets
 
-Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
+Adding tags to snippets is very similar to adding tags to pages. The only difference is that if `RevisionMixin` is not applied, then {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
 
 ```python
 # ...
