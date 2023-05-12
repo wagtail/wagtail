@@ -30,7 +30,7 @@ function initTable(id, tableOptions) {
     });
     return htCoreHeight + tableParent.find('[data-field]').first().height();
   };
-  const resizeTargets = ['.handsontable', '.wtHider', '.wtHolder'];
+  const resizeTargets = [`#${containerId}`, '.wtHider', '.wtHolder'];
   const resizeHeight = function (height) {
     const currTable = $('#' + id);
     $.each(resizeTargets, function () {
