@@ -66,7 +66,7 @@ function initTable(id, tableOptions) {
     }
   }
 
-  if (hasOwn(!tableOptions, 'width') || hasOwn(!tableOptions, 'height')) {
+  if (!hasOwn(tableOptions, 'width') || !hasOwn(tableOptions, 'height')) {
     // Size to parent field width if width is not given in tableOptions
     $(window).on('resize', () => {
       hot.updateSettings({
