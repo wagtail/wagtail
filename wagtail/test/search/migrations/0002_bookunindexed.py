@@ -8,7 +8,7 @@ import wagtail.search.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("taggit", "0005_auto_20220424_2025"),
+        ("taggit", "0001_initial"),
         ("searchtests", "0001_initial"),
     ]
 
