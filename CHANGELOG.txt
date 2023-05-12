@@ -20,6 +20,7 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
+ * Fix: Ensure comment buttons always respect `WAGTAILADMIN_COMMENTS_ENABLED` (Thibaud Colas)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 

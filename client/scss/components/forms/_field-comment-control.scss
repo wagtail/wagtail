@@ -15,12 +15,18 @@ $button-space: theme('spacing.1');
   inset-inline-end: calc(-1 * ($icon-size + $button-padding * 2));
   top: 50%;
   transform: translateY(-50%);
+  // Only show the buttons when commenting is enabled.
+  display: none;
   opacity: 0;
 
   .icon {
     width: $icon-size;
     height: $icon-size;
     color: inherit;
+  }
+
+  .tab-content--comments-enabled & {
+    display: block;
   }
 
   // For devices without hover support, always show when comments are enabled.
@@ -32,8 +38,8 @@ $button-space: theme('spacing.1');
 
   // Hide by default, reveal on hover of parent, for devices supporting hover interaction
   @media (hover: hover) {
-    .tab-content--comments-enabled .w-field__input:hover > &,
-    .tab-content--comments-enabled .w-field__input:focus-within > &,
+    .w-field__input:hover > &,
+    .w-field__input:focus-within > &,
     &:hover,
     &:focus,
     &.w-field__comment-button--focused {
