@@ -151,7 +151,7 @@ This document contains reference information for the model classes inside the `w
 In addition to the model fields provided, `Page` has many properties and methods that you may wish to reference, use, or override in creating your own models.
 
 ```{note}
-See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/index.html)'s `node API [https://django-treebeard.readthedocs.io/en/latest/api.html](https://django-treebeard.readthedocs.io/en/latest/api.html). ``Page`` is a subclass of [materialized path tree](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) nodes.
+See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/index.html)'s [node API](https://django-treebeard.readthedocs.io/en/latest/api.html). ``Page`` is a subclass of [materialized path tree](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) nodes.
 ```
 
 ```{eval-rst}
