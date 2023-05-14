@@ -299,7 +299,7 @@ class IndexView(
 
         return column_class(
             field_name,
-            label=label.title(),
+            label={{label.title()|capfirst}},
             sort_key=sort_key,
             **kwargs,
         )
