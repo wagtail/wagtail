@@ -6,6 +6,7 @@ Release notes
 
    upgrading
    5.1
+   5.0.1
    5.0
    4.2.4
    4.2.3
