@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
     {% if self.heading %}
         <legend class="w-sr-only">{{ self.heading }}</legend>
     {% endif %}

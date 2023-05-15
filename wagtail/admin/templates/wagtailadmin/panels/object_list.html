@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags %}
 
-<div class="w-form-width">
+<div class="w-form-width" {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
     {% if self.help_text %}
         {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
     {% endif %}

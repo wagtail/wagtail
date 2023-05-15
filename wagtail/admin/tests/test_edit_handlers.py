@@ -423,7 +423,8 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                     permission="tests.other_custom_see_panel_setting",
                     heading="Other Custom Setting",
                 ),
-            ]
+            ],
+            attrs={'data-controller': 'test'},
         ).bind_to_model(EventPage)
 
     def test_get_form_class(self):
@@ -465,6 +466,9 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
 
         # result should contain rendered content from descendants
         self.assertIn("Abergavenny sheepdog trials</textarea>", result)
+
+        # result should contain the data-controller attribute as defined by attrs
+        self.assertIn('data-controller="test"', result)
 
         # this result should not include fields that are not covered by the panel definition
         self.assertNotIn("signup_link", result)
@@ -614,6 +618,7 @@ class TestObjectList(TestCase):
             ],
             heading="Event details",
             classname="shiny",
+            attrs={"data-controller": "test"},
         ).bind_to_model(EventPage)
 
     def test_get_form_class(self):
@@ -641,6 +646,9 @@ class TestObjectList(TestCase):
 
         # result should contain ObjectList furniture
         self.assertIn('<div class="w-panel__header">', result)
+
+        # result should contain the specified attrs
+        self.assertIn('data-controller="test"', result)
 
         # result should contain labels for children
         self.assertIn(

@@ -13,8 +13,6 @@ from .model_utils import extract_panel_definitions_from_model_class
 
 class InlinePanel(Panel):
 
-    BASE_ATTRS = {"data-contentpath-disabled": True}
-
     def __init__(
         self,
         relation_name,

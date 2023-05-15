@@ -155,6 +155,9 @@ class PanelGroup(Panel):
 
 
 class TabbedInterface(PanelGroup):
+
+    BASE_ATTRS = {"data-tabs": True}
+
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/tabbed_interface.html"
 

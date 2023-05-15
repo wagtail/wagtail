@@ -9,6 +9,9 @@ from .base import Panel
 
 
 class CommentPanel(Panel):
+
+    BASE_ATTRS = {"data-annotation": True}
+
     def get_form_options(self):
         # add the comments formset
         return {
