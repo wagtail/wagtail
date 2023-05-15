@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -73,6 +73,9 @@ msgstr "Páxinas enrutables Wagtail"
 msgid "Wagtail sitemaps"
 msgstr "Mapas de sitio Wagtail"
 
+msgid "Unknown content type"
+msgstr "Tipo de contido descoñecido"
+
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -82,58 +85,46 @@ msgstr "O contrasinal introducido non é correcto. Por favor, téntao de novo."
 msgid "Comment"
 msgstr "Comentario"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>A paxina '{page_title}' foi bloqueada</b> por <b>ti</b> en <b>{datetime}</"
-"b>."
+msgid "Locked"
+msgstr "Bloqueada"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Ninguén pode facer cambios mentras o %(model_name)s esté bloqueado"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
 msgstr "<b>'{title}' foi bloqueado</b> por <b>ti</b> en <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>A páxina '{page_title}' está bloqueada</b> por <b>ti</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title} está bloqueado</b> por <b>ti</b>."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>A paxina '{page_title}' foi bloqueada</b> por <b>{user}</b> en "
-"<b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
 msgstr "<b>'{title}' foi bloqueado</b> por <b>{user}</b> en <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>A páxina '{page_title}' está bloqueada</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' está bloqueado</b>."
 
-msgid "This page is currently awaiting moderation."
-msgstr "Esta páxina está esperando a ser moderada."
+msgid "Locked by you"
+msgstr "Bloqueado por ti"
+
+msgid "Locked by another user"
+msgstr "Bloqueado por outro usuario"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "So ti podes facer cambios mentras o %(model_name)s esté bloqueado"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "So %(user)s pode facer cambios mentras o %(model_name)s esté bloqueado"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Este %(model_name)s está esperando a ser moderado."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Esta páxina está esperando <b>'{task_name}'</b> no fluxo de traballo "
-"<b>'{workflow_name}'</b>."
 
 #, python-brace-format
 msgid ""
@@ -143,19 +134,27 @@ msgstr ""
 "Este {model_name} está esperando <b>'{task_name}'</b> no fluxo de traballo "
 "<b>'{workflow_name}'</b>."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Só os revisores desta tarefa poden editar a páxina."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Só os revisores desta tarefa poden editar o %(model_name)s."
 
-#, python-brace-format
+msgid "Unlocked"
+msgstr "Desbloqueada"
+
+msgid "Locked by workflow"
+msgstr "Bloqueado polo fluxo de traballo"
+
+#, python-format
 msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
 msgstr ""
-"A páxina '{page_title}' está bloqueada e foi adiada a estar en vivo en "
-"{datetime}"
+"Os revisores poden editar este %(model_name)s – bloquéao para impedir que "
+"outros o editen"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "So os revisores poden editar e aprobar o %(model_name)s"
 
 #, python-brace-format
 msgid ""
@@ -164,6 +163,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' está bloqueado e foi adiado a estar en vivo en "
 "{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Bloqueado por adiamento"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Agora mesmo bloqueado e publicarase na data programada"
 
 msgid "latest revision"
 msgstr "Última revisión"
@@ -581,6 +586,30 @@ msgstr "permiso de grupo da colección"
 msgid "group collection permissions"
 msgstr "permisos de grupo da colección"
 
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "o %(model_name)s tamén será borrado"
+
+msgid "prevents deletion"
+msgstr "prevén o borrado"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "axustarase ó %(model_name)s por defecto"
+
+msgid "will do nothing"
+msgstr "non fará nada"
+
+msgid "may prevent deletion"
+msgstr "pode previr o borrado"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "axustarase a un %(model_name)s especificado polo sistema"
+
+msgid "will unset the reference"
+msgstr "anulará a referencia"
+
 msgid "hostname"
 msgstr "Nome do equipo"
 
@@ -713,12 +742,6 @@ msgstr "Despublicar borrador adiado"
 
 msgid "Unpublished scheduled draft"
 msgstr "Borrador adiado non publicado"
-
-msgid "Locked"
-msgstr "Bloqueada"
-
-msgid "Unlocked"
-msgstr "Desbloqueada"
 
 msgid "Reject"
 msgstr "Rexeitar"

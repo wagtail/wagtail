@@ -3,23 +3,18 @@
 # mahulst, 2022
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Loic Teixeira, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2023
+# Storm Heg <storm@stormbase.digital>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s foutmelding)"
-msgstr[1] "(%(errorCount)sfoutmeldingen) "
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nieuwe items in dit menu)"
@@ -48,6 +43,9 @@ msgstr "Alt tekst"
 
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
+
+msgid "Blocks"
+msgstr "Blokken"
 
 msgid "Broken link"
 msgstr "Defecte link"
@@ -139,6 +137,9 @@ msgstr "Paginaverkenner"
 msgid "Pages"
 msgstr "Pagina's"
 
+msgid "Pin toolbar"
+msgstr "Toolbar vastzetten"
+
 msgid "Reload saved content"
 msgstr "Herlaad opgeslagen inhoud"
 
@@ -151,7 +152,7 @@ msgstr "Reageer"
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
-msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
+msgstr "Meld deze fout aan je websitebeheerder, en vermeld het volgende:"
 
 msgid "Resolve"
 msgstr "Markeer als opgelost"
@@ -179,6 +180,9 @@ msgstr "Bezig met opslaan..."
 
 msgid "Search"
 msgstr "Zoeken"
+
+msgid "Search options…"
+msgstr "Zoek opties..."
 
 msgid "See all"
 msgstr "Toon"
@@ -212,6 +216,9 @@ msgstr "Toon/verberg zijbalk"
 
 msgid "Unfocus comment"
 msgstr "Ontfocus opmerking"
+
+msgid "Unpin toolbar"
+msgstr "Toolbar losmaken"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Toon onderliggende pagina's van '%(title)s'"

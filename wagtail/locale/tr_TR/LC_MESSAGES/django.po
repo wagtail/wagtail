@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -66,9 +66,11 @@ msgstr "Parola"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Sayfa '{page_title}' kilitli </b>."
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
 
 msgid "live"
 msgstr "canlı"
@@ -336,12 +338,6 @@ msgstr "Düzenlendi"
 
 msgid "Unpublish"
 msgstr "Yayından Kaldır"
-
-msgid "Locked"
-msgstr "Kilitlendi"
-
-msgid "Unlocked"
-msgstr "Kilitsiz"
 
 msgid "Reject"
 msgstr "Reddet"

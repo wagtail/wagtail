@@ -6,18 +6,19 @@ Changelog
 
  * Add support for read-only FieldPanels (Andy Babic)
  * Mark calls to `md5` as not being used for secure purposes, to avoid flagging on FIPS-mode systems (Sean Kelly)
+ * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
-5.0 (xx.xx.xxxx) - IN DEVELOPMENT
+5.0 (02.05.2023)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 4.2
  * Object usage information on deleting objects (Sage Abdullah)
- * Support for SVG images (Joshua Munn)
+ * Support for SVG images (Joshua Munn, with sponsorship from YouGov)
  * Custom validation support for StreamField (Matt Westcott)
  * Add `WAGTAILIMAGES_EXTENSIONS` setting to restrict image uploads to specific file types (Aman Pandey, Ananjan-R)
  * Update user list column level to `Access level` to be easier to understand (Vallabh Tiwari)
@@ -103,6 +104,8 @@ Changelog
  * Fix: Fix initialisation of commenting widgets within StreamField (Thibaud Colas)
  * Fix: Fix various regressions in the commenting UI (Thibaud Colas)
  * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
+ * Fix: Correctly show the "new item" badge within menu sections previously dismissed (Sage Abdullah)
+ * Fix: Fix side panel stuck in resize state when pointer is released outside the grip (Sage Abdullah)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp, Thibaud Colas)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
@@ -149,6 +152,12 @@ Changelog
  * Maintenance: Migrate the site settings switcher select from jQuery to a refined version of the `w-action` controller usage (Aadi jindal, LB (Ben) Johnston)
  * Maintenance: Always use expanded Sass output so CSS processing is identical in development and production builds (Thibaud Colas)
  * Maintenance: Refactor admin color palette to semantic, theme-agnostic design tokens (Thibaud Colas)
+
+
+4.2.3 (02.05.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
 
 
 4.2.2 (03.04.2023)
@@ -338,6 +347,12 @@ Changelog
  * Maintenance: Remove unused `icon-help` and `help-inverse` code (Thibaud Colas)
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
+
+
+4.1.5 (02.05.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent TableBlock from becoming uneditable after save (Sage Abdullah)
 
 
 4.1.4 (03.04.2023)

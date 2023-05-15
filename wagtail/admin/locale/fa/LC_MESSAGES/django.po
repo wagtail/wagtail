@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022-2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -407,11 +407,11 @@ msgstr "بازنشانی رمزعبور"
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
 
-msgid "Upload a profile picture:"
-msgstr "بارگذاری یک تصویر پروفایل:"
-
 msgid "Reset to default"
 msgstr "بازنشانی به پیشفرض"
+
+msgid "Upload a profile picture:"
+msgstr "بارگذاری یک تصویر پروفایل:"
 
 msgid "Sidebar"
 msgstr "نوار کناری"
@@ -586,6 +586,22 @@ msgstr "هیچ آیتمی ساخته نشده است."
 
 msgid "Yes, delete"
 msgstr "بله حذف شود"
+
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "لغو انتشار %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "بله لغو انتشار شود"
+
+msgid "No, don't unpublish"
+msgstr "نه لغو انتشار نشود"
+
+msgid "Cancel"
+msgstr "لغو"
 
 msgid "Update"
 msgstr "بروزرسانی"
@@ -891,9 +907,6 @@ msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "شما مجور حذف این صفحه را ندارید"
 msgstr[1] "شما مجور حذف این صفحات را ندارید"
 
-msgid "No, don't delete"
-msgstr "نه، حذف نکن"
-
 msgid "Move"
 msgstr "انتقال"
 
@@ -929,9 +942,6 @@ msgstr[1] "شما مجوز از انتشار خارج کردن این صفحات
 
 msgid "Yes, unpublish"
 msgstr "بله، لغو انتشار شود"
-
-msgid "No, don't unpublish"
-msgstr "نه لغو انتشار نشود"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -982,9 +992,6 @@ msgstr "انتشار صفحه"
 
 msgid "Would you still like to publish this page?"
 msgstr "آیا هنوز مایل به انتشار این صفحه هستید؟"
-
-msgid "Cancel"
-msgstr "لغو"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1158,24 +1165,17 @@ msgstr "خرده نان"
 msgid "Root"
 msgstr "ریشه"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "لغو انتشار %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "بله لغو انتشار شود"
-
 msgid "Add comment"
 msgstr "افزودن نظر"
 
 msgid "Filter"
 msgstr "فیلتر"
 
-msgid "Visit the live page"
-msgstr "دیدن صفحه منتشر شده"
-
 msgid "Current page status:"
 msgstr "وضعیت فعلی صفحه"
+
+msgid "Visit the live page"
+msgstr "دیدن صفحه منتشر شده"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1205,6 +1205,12 @@ msgstr "قفل"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تغییرات حریم که به همه صفحه های زیرگروه این صفحه اعمال میشود."
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s دفعه استفاده شده"
+msgstr[1] "%(usage_count)s دفعه استفاده شده"
+
 msgid "Loading"
 msgstr "در حال بارگذاری"
 
@@ -1231,10 +1237,6 @@ msgstr "درخواست شده توسط <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "آغاز شده در <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "وضعیت <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "جدول زمانی"
@@ -1465,6 +1467,13 @@ msgstr "نسخه %(revision_id)s از \"%(object)s\" از زمانبندی خا�
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "نسخه %(revision_id)s از \"%(object)s\""
+
+msgid "Usage of"
+msgstr "استفاده از"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "ویرایش این %(object)s"
 
 msgid "Dashboard"
 msgstr "داشبورد"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -89,9 +89,6 @@ msgstr "是的，刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-msgid "Usage"
-msgstr "使用情況"
-
 msgid "Last updated"
 msgstr "最近更新"
 
@@ -126,8 +123,19 @@ msgstr "動作"
 msgid "Snippets"
 msgstr "片段"
 
+msgid "Usage"
+msgstr "使用情況"
+
 msgid "No log entries found."
 msgstr "沒有發現任何記錄"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "片段 %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "新增 %(snippet_type_name)s"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -166,24 +174,6 @@ msgstr "與目前版本進行比較"
 msgid "Cancel scheduled publish"
 msgstr "取消預定的發佈"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "片段 %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "新增 %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s的使用情況"
-
-msgid "Usage of"
-msgstr "使用情況"
-
-msgid "Title"
-msgstr "標題"
-
 msgid "Choose"
 msgstr "選擇"
 
@@ -195,10 +185,6 @@ msgstr "無法創建片段，出現錯誤。"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "無法保存片段，出現錯誤。"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "編輯此 %(object)s"
 
 msgid "Action"
 msgstr "操作"
@@ -224,3 +210,7 @@ msgstr "選擇 %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "選擇其他 %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "編輯此 %(object)s"

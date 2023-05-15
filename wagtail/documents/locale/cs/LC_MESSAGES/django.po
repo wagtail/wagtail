@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -113,13 +113,6 @@ msgid "Upload"
 msgstr "Nahrát"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Smazat %(title)s"
-
-msgid "Delete document"
-msgstr "Smazat dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Úprava %(title)s"
 
@@ -128,6 +121,9 @@ msgstr "Úprava"
 
 msgid "Save"
 msgstr "Uložit"
+
+msgid "Delete document"
+msgstr "Smazat dokument"
 
 msgid "Filesize"
 msgstr "Velikost souboru"
@@ -170,13 +166,6 @@ msgid ""
 msgstr ""
 "Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
 "href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použití %(title)s"
-
-msgid "Usage of"
-msgstr "Použití"
 
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"
@@ -255,10 +244,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' byl smazán."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Edituj %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

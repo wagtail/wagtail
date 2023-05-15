@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -114,6 +114,18 @@ msgstr "Selecciona a túa zona horaria actual"
 
 msgid "profile picture"
 msgstr "foto do perfil"
+
+msgid "System default"
+msgstr "Valor do sistema"
+
+msgid "Light"
+msgstr "Claro"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+msgid "admin theme"
+msgstr "tema do admin"
 
 msgid "user profile"
 msgstr "perfil de usuario"
@@ -298,8 +310,8 @@ msgstr "Seleccionar tódolos usuarios no listado"
 msgid "Username"
 msgstr "Nome de usuario"
 
-msgid "Level"
-msgstr "Nivel"
+msgid "Access level"
+msgstr "Nivel de acceso"
 
 msgid "Status"
 msgstr "Estado"

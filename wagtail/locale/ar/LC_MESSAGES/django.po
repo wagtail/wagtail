@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,6 +60,12 @@ msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة �
 
 msgid "Comment"
 msgstr "تعليق"
+
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
 
 msgid "live"
 msgstr "حي"
@@ -335,12 +341,6 @@ msgstr "تم نشره"
 
 msgid "Unpublish"
 msgstr "غير منشور"
-
-msgid "Locked"
-msgstr "مغلق"
-
-msgid "Unlocked"
-msgstr "غير مغلق"
 
 msgid "Reject"
 msgstr "مرفوض"

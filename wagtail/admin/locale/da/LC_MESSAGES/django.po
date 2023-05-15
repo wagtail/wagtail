@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -331,6 +331,16 @@ msgstr "Navn"
 msgid "Yes, delete"
 msgstr "Ja, slet"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Afpublicer %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, afpublicer den"
+
+msgid "No, don't unpublish"
+msgstr "Nej, afpublicer den ikke"
+
 msgid "Update"
 msgstr "Opdater"
 
@@ -461,9 +471,6 @@ msgstr "Vælg hvilken type side du gerne vil lave."
 
 msgid "Move"
 msgstr "Flyt"
-
-msgid "No, don't unpublish"
-msgstr "Nej, afpublicer den ikke"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -598,13 +605,6 @@ msgstr "Rediger denne enhed"
 
 msgid "Root"
 msgstr "Rod"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Afpublicer %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Ja, afpublicer den"
 
 msgid "Unlocked"
 msgstr "Ulåst"

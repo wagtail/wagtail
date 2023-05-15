@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -219,13 +219,6 @@ msgid "Upload"
 msgstr "Transférer"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Supprimer %(title)s"
-
-msgid "Delete document"
-msgstr "Supprimer le document"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Modification de %(title)s"
 
@@ -234,6 +227,9 @@ msgstr "Modification"
 
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Delete document"
+msgstr "Supprimer le document"
 
 msgid "Filesize"
 msgstr "Taille du fichier"
@@ -288,16 +284,6 @@ msgid ""
 msgstr ""
 "Vous n'avez pas encore transféré de document. Pourquoi ne pas <a "
 "href=\"%(wagtaildocs_add_document_url)s\">en transférer un maintenant</a> ?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilisation de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilisation de"
-
-msgid "Field"
-msgstr "Champ"
 
 #, python-format
 msgid ""
@@ -444,14 +430,6 @@ msgstr ""
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Document « %(document_title)s » supprimé."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s Privé(e))"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Modifier ce/cette %(object)s"
 
 msgid "Document"
 msgstr "Document"

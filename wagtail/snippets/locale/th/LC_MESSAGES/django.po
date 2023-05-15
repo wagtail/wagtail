@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,9 +63,6 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Usage"
-msgstr "การใช้"
-
 msgid "Publishing…"
 msgstr "กำลังพิมพ์"
 
@@ -87,6 +84,17 @@ msgstr "ใหม่"
 
 msgid "Snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อย"
+
+msgid "Usage"
+msgstr "การใช้"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "เพิ่ม %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -111,24 +119,6 @@ msgstr "แก้ไข"
 msgid "Cancel scheduled publish"
 msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "เพิ่ม %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "การใช้ของ%(title)s"
-
-msgid "Usage of"
-msgstr "การใช้ของ"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
-
 msgid "Choose"
 msgstr "เลือก"
 
@@ -140,10 +130,6 @@ msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่
 
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Date"
 msgstr "วันที่"
@@ -159,3 +145,7 @@ msgstr "เลือก %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "เลือกอันอื่น %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"

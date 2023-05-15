@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -106,9 +106,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ne crei uno adesso</a>?"
 
-msgid "Usage"
-msgstr "Uso"
-
 msgid "Last updated"
 msgstr "Ultima modifica"
 
@@ -149,8 +146,19 @@ msgstr "Breadcrumb"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Usage"
+msgstr "Uso"
+
 msgid "No log entries found."
 msgstr "Nessun log trovato."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippets %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Aggiungi %(snippet_type_name)s"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -191,24 +199,6 @@ msgstr "Compara con la versione attuale"
 msgid "Cancel scheduled publish"
 msgstr "Cancella programma pubblicazione"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippets %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Aggiungi %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uso di %(title)s"
-
-msgid "Usage of"
-msgstr "Uso di"
-
-msgid "Title"
-msgstr "Titolo"
-
 msgid "Choose"
 msgstr "Scegli"
 
@@ -220,10 +210,6 @@ msgstr "Lo snippet non può essere creato a causa di errori."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Lo snippet non può essere salvato a causa di errori."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Modifica questo %(object)s"
 
 msgid "Action"
 msgstr "Azione"
@@ -256,3 +242,7 @@ msgstr "Scegli %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Scegli un' altro %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifica questo %(object)s"

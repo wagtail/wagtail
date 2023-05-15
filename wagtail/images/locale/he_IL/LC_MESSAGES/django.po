@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -96,11 +96,11 @@ msgstr "הוספת תמונה"
 msgid "Save"
 msgstr "שמור"
 
-msgid "Delete image"
-msgstr "מחק תמונה"
-
 msgid "Editing"
 msgstr "עריכה"
+
+msgid "Delete image"
+msgstr "מחק תמונה"
 
 msgid "URL Generator"
 msgstr "מייצר כתובת "
@@ -135,12 +135,6 @@ msgid ""
 msgstr ""
 "שימו לב, תמונות שגודלן גדול מזה של המסך יראו קטנות יותר בתצוגה מקדימה, כדי "
 "שיתאימו למסך"
-
-msgid "Usage of"
-msgstr "שימוש ב:"
-
-msgid "Title"
-msgstr "כותרת"
 
 msgid "Add multiple images"
 msgstr "הוספת מספר תמונות"
@@ -211,7 +205,3 @@ msgstr "תמונה '%(image_title)s' הוספה"
 
 msgid "The image could not be created due to errors."
 msgstr "לא ניתן ליצור את התמונה עקב שגיאות "
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "ערוך את %(object)s זה"

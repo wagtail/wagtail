@@ -37,6 +37,12 @@
       // Transform with the top-right physical corner as the origin since the layout is reversed.
       transform-origin: top right;
     }
+
+    // Prevent the iframe from capturing pointer events when resizing the panel, which
+    // would consume the pointerup event and leaving the panel stuck in a resizing state.
+    .side-panel-resizing & {
+      pointer-events: none;
+    }
   }
 
   &__sizes {

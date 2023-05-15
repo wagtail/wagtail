@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -82,19 +82,11 @@ msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 msgid "Comment"
 msgstr "Comentariu"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Pagina '{page_title}' esta blocată</b> de <b>tine</b>."
+msgid "Locked"
+msgstr "A blocat"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Pagina '{page_title}' este blocată</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Această pagină este în moderare"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Numai revizuitorii acestei sarcini pot să editeze pagina."
+msgid "Unlocked"
+msgstr "A deblochat"
 
 msgid "latest revision"
 msgstr "ultima revizie"
@@ -608,12 +600,6 @@ msgstr "Anularea publicarii ciornei programate"
 
 msgid "Unpublished scheduled draft"
 msgstr "Publicarea ciornei programate a fost anulată"
-
-msgid "Locked"
-msgstr "A blocat"
-
-msgid "Unlocked"
-msgstr "A deblochat"
 
 msgid "Reject"
 msgstr "Respingere"

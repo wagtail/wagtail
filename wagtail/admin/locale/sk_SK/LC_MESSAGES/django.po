@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -315,6 +315,16 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odpublikovať %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Áno, odpublikovať"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
+
 msgid "Update"
 msgstr "Aktualizovať"
 
@@ -468,9 +478,6 @@ msgstr "Stránky používajúce %(page_type)s"
 
 msgid "Move"
 msgstr "Presunúť"
-
-msgid "No, don't unpublish"
-msgstr "Nie, nepublikovať"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -633,13 +640,6 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 msgid "Root"
 msgstr "Koreň"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odpublikovať %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Áno, odpublikovať"
-
 msgid "Filter"
 msgstr "Filter"
 
@@ -724,6 +724,13 @@ msgstr "Najstaršie"
 
 msgid "Latest"
 msgstr "Najnovšie"
+
+msgid "Usage of"
+msgstr "Použitie"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Upraviť toto %(object)s"
 
 msgid "Dashboard"
 msgstr "Nástenka"

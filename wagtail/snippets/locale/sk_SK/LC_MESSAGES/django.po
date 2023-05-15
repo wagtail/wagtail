@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -71,6 +71,14 @@ msgid "Snippets"
 msgstr "Snipety"
 
 #, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snipety %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pridať %(snippet_type_name)s"
+
+#, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
@@ -90,24 +98,6 @@ msgstr "Náhľad"
 msgid "Edit"
 msgstr "Upraviť"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snipety %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Pridať %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použitie %(title)s"
-
-msgid "Usage of"
-msgstr "Použitie"
-
-msgid "Title"
-msgstr "Titulok"
-
 msgid "Choose"
 msgstr "Zvoliť"
 
@@ -119,10 +109,6 @@ msgstr "Snipet nemôže byť vytvorený kvôli chybám."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Upraviť toto %(object)s"
 
 msgid "User"
 msgstr "Používateľ"
@@ -141,3 +127,7 @@ msgstr "Vybrať %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Vybrať iný %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Upraviť toto %(object)s"

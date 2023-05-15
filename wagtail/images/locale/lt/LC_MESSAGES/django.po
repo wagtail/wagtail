@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail paveikslėliai"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -239,15 +236,15 @@ msgstr "Pridėti paveiksliuką"
 msgid "Save"
 msgstr "Išsaugoti"
 
-msgid "Delete image"
-msgstr "Ištrinti paveiksliuką"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Redaguojamas paveiksliukas %(title)s"
 
 msgid "Editing"
 msgstr "Redagavimas"
+
+msgid "Delete image"
+msgstr "Ištrinti paveiksliuką"
 
 msgid "URL Generator"
 msgstr "URL generatorius"
@@ -328,16 +325,6 @@ msgid ""
 msgstr ""
 "Pastaba. Paveiksliukai, sugeneruoti didesni nei ekranas, peržiūrimi čia bus "
 "atvaizduojami mažesni, kad tilptų į ekraną."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s naudojimas"
-
-msgid "Usage of"
-msgstr "Naudojimas"
-
-msgid "Title"
-msgstr "Pavadinimas"
 
 msgid "Add multiple images"
 msgstr "Pridėti daug paveiksliukų"
@@ -433,10 +420,6 @@ msgstr "Paveiksliukas '%(image_title)s' pridėtas."
 
 msgid "The image could not be created due to errors."
 msgstr "Paveiksliukas negalėjo būti sukurtas dėl klaidų."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Redaguoti šį %(object)s"
 
 msgid "Image"
 msgstr "Paveiksliukas"

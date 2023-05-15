@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dan Braghis, 2014-2016,2018-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagini Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -321,9 +318,6 @@ msgstr "Adaugă imagine"
 msgid "Save"
 msgstr "Salvează"
 
-msgid "Delete image"
-msgstr "Șterge imagine"
-
 msgid "Keep new image"
 msgstr "Păstrează imaginea nouă"
 
@@ -336,6 +330,9 @@ msgstr "Editare imagine %(title)s"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Delete image"
+msgstr "Șterge imagine"
 
 msgid "Image focal point"
 msgstr "Punctul focal al imaginii"
@@ -442,19 +439,6 @@ msgstr ""
 "Rețineți că imaginile care sunt generate mai mari decât dimensiunile "
 "ecranului vor apărea mai mici când sunt previzualizate aici pentru a se "
 "încadra."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilizare %(title)s"
-
-msgid "Usage of"
-msgstr "Utilizare"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "Field"
-msgstr "Câmp"
 
 msgid "Add multiple images"
 msgstr "Adaugă mai multe imagini"
@@ -615,14 +599,6 @@ msgstr "Imaginea '%(image_title)s' a fost adăugată."
 
 msgid "The image could not be created due to errors."
 msgstr "Imaginea nu a fost creată din cauza erorilor."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s privat/ă)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editează %(object)s"
 
 msgid "Image"
 msgstr "imagine"

@@ -10,16 +10,16 @@
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Storm Heg <storm@stormbase.digital>, 2021-2022
+# Storm Heg <storm@stormbase.digital>, 2021-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail afbeeldingen"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG en WEBP"
 
 #, python-format
 msgid ""
@@ -51,6 +48,14 @@ msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Geen ondersteund afbeeldingsformaat. ondersteunde formaten: "
 "%(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Geen geldige .%(extension)s afbeelding. Deze extensie hoort niet bij het "
+"bestandsformaat (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -181,15 +186,15 @@ msgstr "Voeg tags toe aan afbeeldingen"
 
 msgid "Are you sure you want to tag the following image?"
 msgid_plural "Are you sure you want to tag the following images?"
-msgstr[0] "Weet u zeker dat u deze afbeelding wilt taggen?"
-msgstr[1] "Weet u zeker dat u deze afbeeldingen wilt taggen?"
+msgstr[0] "Weet je zeker dat je deze afbeelding wilt taggen?"
+msgstr[1] "Weet je zeker dat je deze afbeeldingen wilt taggen?"
 
 msgid "You don't have permission to add tags to this image"
 msgid_plural "You don't have permission to add tags to these images"
 msgstr[0] ""
-"U heeft niet de juiste rechten om tags toe te voegen aan deze afbeelding"
+"Je hebt niet de juiste rechten om tags toe te voegen aan deze afbeelding"
 msgstr[1] ""
-"U heeft niet de juiste rechten om tags toe te voegen aan deze afbeeldingen"
+"Je hebt niet de juiste rechten om tags toe te voegen aan deze afbeeldingen"
 
 msgid "Yes, add"
 msgstr "Ja, voeg toe"
@@ -211,19 +216,19 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
-"Weet u zeker dat u deze afbeelding aan de geselecteerde collectie wilt "
+"Weet je zeker dat je deze afbeelding aan de geselecteerde collectie wilt "
 "toevoegen?"
 msgstr[1] ""
-"Weet u zeker dat u deze afbeeldingen aan de geselecteerde collectie wilt "
+"Weet je zeker dat je deze afbeeldingen aan de geselecteerde collectie wilt "
 "toevoegen?"
 
 msgid "You don't have permission to add this image to a collection"
 msgid_plural "You don't have permission to add these images to a collection"
 msgstr[0] ""
-"U heeft niet de juiste rechten om deze afbeelding aan een collectie toe te "
+"Je hebt niet de juiste rechten om deze afbeelding aan een collectie toe te "
 "voegen"
 msgstr[1] ""
-"U heeft niet de juiste rechten om deze afbeeldingen aan een collectie toe te "
+"Je hebt niet de juiste rechten om deze afbeeldingen aan een collectie toe te "
 "voegen"
 
 #, python-format
@@ -237,8 +242,8 @@ msgstr "Verwijder afbeeldingen"
 
 msgid "Are you sure you want to delete this image?"
 msgid_plural "Are you sure you want to delete these images?"
-msgstr[0] "Weet u zeker dat u deze afbeelding wilt verwijderen?"
-msgstr[1] "Weet u zeker dat u deze afbeeldingen wilt verwijderen?"
+msgstr[0] "Weet je zeker dat je deze afbeelding wilt verwijderen?"
+msgstr[1] "Weet je zeker dat je deze afbeeldingen wilt verwijderen?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -248,8 +253,8 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
-msgstr[0] "U heeft niet de juiste rechten om deze afbeelding te verwijderen"
-msgstr[1] "U heeft niet de juiste rechten om deze afbeeldingen te verwijderen"
+msgstr[0] "Je hebt niet de juiste rechten om deze afbeelding te verwijderen"
+msgstr[1] "Je hebt niet de juiste rechten om deze afbeeldingen te verwijderen"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
@@ -331,9 +336,6 @@ msgstr "Voeg afbeelding toe"
 msgid "Save"
 msgstr "Opslaan"
 
-msgid "Delete image"
-msgstr "Verwijder afbeelding"
-
 msgid "Keep new image"
 msgstr "Bewaar nieuwe afbeelding"
 
@@ -346,6 +348,9 @@ msgstr "Wijzig afbeelding %(title)s"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Delete image"
+msgstr "Verwijder afbeelding"
 
 msgid "Image focal point"
 msgstr "Afbeelding focusgebied"
@@ -431,7 +436,7 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
-"href=\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
 
 msgid "Generating URL"
 msgstr "Bezig met URL genereren"
@@ -449,19 +454,6 @@ msgstr ""
 "Let op afbeeldingen groter dan het scherm worden kleiner vertoond in een "
 "preview zodat deze op het scherm passen."
 
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Gebruik van %(title)s"
-
-msgid "Usage of"
-msgstr "Gebruik van"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Field"
-msgstr "Veld"
-
 msgid "Add multiple images"
 msgstr "Voeg meerdere afbeeldingen toe"
 
@@ -472,7 +464,7 @@ msgid "Drag and drop images into this area to upload immediately."
 msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 
 msgid "Or choose from your computer"
-msgstr "Of kies vanaf uw computer"
+msgstr "Of kies vanaf je computer"
 
 msgid "Add to collection:"
 msgstr "Voeg toe aan collectie:"
@@ -483,7 +475,7 @@ msgid ""
 "required."
 msgstr ""
 "Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
-"U kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
+"Je kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
 "bleek. "
 
 msgid ""
@@ -502,7 +494,7 @@ msgstr "Server error"
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
-msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
+msgstr "Meld deze fout aan je websitebeheerder, en vermeld het volgende:"
 
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."
@@ -616,14 +608,6 @@ msgstr "Afbeelding '%(image_title)s' toegevoegd."
 
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privé %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Wijzig %(object)s"
 
 msgid "Image"
 msgstr "Afbeelding"

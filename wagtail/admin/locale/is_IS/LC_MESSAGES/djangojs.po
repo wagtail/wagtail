@@ -1,22 +1,17 @@
 #
 # Translators:
-# saevarom <saevar@saevar.is>, 2022
 # Loic Teixeira, 2022
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
+# saevarom <saevar@saevar.is>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2023\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
-
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s villa)"
-msgstr[1] "(%(errorCount)s villur)"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nýjir hlutir í þessari valmynd)"
@@ -45,6 +40,9 @@ msgstr "Alt eigindi"
 
 msgid "Are you sure?"
 msgstr "Ertu viss?"
+
+msgid "Blocks"
+msgstr "Blokkir"
 
 msgid "Broken link"
 msgstr "Brotinn hlekkur"
@@ -197,9 +195,6 @@ msgstr "Sýna nýjasta efni"
 
 msgid "Split block"
 msgstr "Skipta í tvennt"
-
-msgid "StreamField blocks"
-msgstr "StreamField blokkir"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

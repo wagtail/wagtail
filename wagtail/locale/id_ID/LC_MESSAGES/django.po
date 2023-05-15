@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -58,6 +58,12 @@ msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
 
 msgid "Comment"
 msgstr "Komentar"
+
+msgid "Locked"
+msgstr "Terkunci"
+
+msgid "Unlocked"
+msgstr "Kunci terbuka"
 
 msgid "live"
 msgstr "aktif"
@@ -337,12 +343,6 @@ msgstr "Telah diubah"
 
 msgid "Unpublish"
 msgstr "Batal Publikasi"
-
-msgid "Locked"
-msgstr "Terkunci"
-
-msgid "Unlocked"
-msgstr "Kunci terbuka"
 
 msgid "Reject"
 msgstr "Tolak"

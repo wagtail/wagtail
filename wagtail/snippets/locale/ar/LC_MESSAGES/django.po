@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,9 +78,6 @@ msgstr "نعم, احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
-msgid "Usage"
-msgstr "استعمال"
-
 msgid "Publishing…"
 msgstr "يتم النشر..."
 
@@ -106,6 +103,17 @@ msgstr "النشاطات"
 msgid "Snippets"
 msgstr "قصاصات"
 
+msgid "Usage"
+msgstr "استعمال"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "قصاصات %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "اضف %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -129,24 +137,6 @@ msgstr "تحرير"
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "قصاصات %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "اضف %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "استعمل من %(title)s"
-
-msgid "Usage of"
-msgstr "استعمال"
-
-msgid "Title"
-msgstr "عنوان"
-
 msgid "Choose"
 msgstr "اختر"
 
@@ -158,10 +148,6 @@ msgstr "لم تنشئ القصااصة بسبب أخطاء"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "تحرير هذا %(object)s"
 
 msgid "User"
 msgstr "مستعمل"
@@ -180,3 +166,7 @@ msgstr "اختر %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "اختر %(object)s اخر"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "تحرير هذا %(object)s"

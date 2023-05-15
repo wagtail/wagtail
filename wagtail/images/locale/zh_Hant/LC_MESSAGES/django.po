@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -180,15 +180,15 @@ msgstr "新增圖片"
 msgid "Save"
 msgstr "儲存"
 
-msgid "Delete image"
-msgstr "刪除圖片"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "編輯圖片%(title)s"
 
 msgid "Editing"
 msgstr "編輯"
+
+msgid "Delete image"
+msgstr "刪除圖片"
 
 msgid "URL Generator"
 msgstr "URL生成器"
@@ -259,16 +259,6 @@ msgid ""
 "previewed here, so they fit the screen."
 msgstr ""
 "備註：生成的圖片大於屏幕時，在預覽時可能顯示會小一些。因為是適應屏幕的。"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s的使用情況"
-
-msgid "Usage of"
-msgstr "使用情況"
-
-msgid "Title"
-msgstr "標題"
 
 msgid "Add multiple images"
 msgstr "新增多個圖片"
@@ -363,10 +353,6 @@ msgstr "圖片'%(image_title)s'已新增"
 
 msgid "The image could not be created due to errors."
 msgstr "無法創建圖片，出現錯誤。"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "編輯此 %(object)s"
 
 msgid "Image"
 msgstr "圖片"

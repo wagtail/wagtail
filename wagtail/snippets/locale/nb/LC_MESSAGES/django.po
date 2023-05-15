@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -72,9 +72,6 @@ msgstr "Ja, slett"
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
-msgid "Usage"
-msgstr "Bruk"
-
 msgid "Publishing…"
 msgstr "Publiserer..."
 
@@ -103,6 +100,17 @@ msgstr "Brødsmuler"
 msgid "Snippets"
 msgstr "Snutter"
 
+msgid "Usage"
+msgstr "Bruk"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snutter %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Legg til %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -126,24 +134,6 @@ msgstr "Rediger"
 msgid "Cancel scheduled publish"
 msgstr "Avbryt planlagt publisering"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snutter %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Legg til %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Bruk av %(title)s"
-
-msgid "Usage of"
-msgstr "Bruk av"
-
-msgid "Title"
-msgstr "Tittel"
-
 msgid "Choose"
 msgstr "Velg"
 
@@ -155,10 +145,6 @@ msgstr "Snutten kunne ikke opprettes grunnet feil."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Endre %(object)s"
 
 msgid "User"
 msgstr "Bruker"
@@ -177,3 +163,7 @@ msgstr "Velg %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Velg en annen %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Endre %(object)s"

@@ -269,20 +269,30 @@ support writing phrase queries by wrapping the phrase with double-quotes. In add
 add filters into the query using the colon syntax (`hello world published:yes`).
 
 These two features can be implemented using the `parse_query_string` utility function. This function takes a query string that a user
-typed and returns a query object and dictionary of filters:
+typed and returns a query object and a [QueryDict](django:django.http.QueryDict) of filters:
 
 For example:
 
 ```python
 >>> from wagtail.search.utils import parse_query_string
->>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter', operator='and')
+>>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter key:value1 key:value2', operator='and')
 
 # Alternatively..
-# filters, query = parse_query_string("my query string 'this is a phrase' this_is_a:filter", operator='and')
+# filters, query = parse_query_string("my query string 'this is a phrase' this_is_a:filter key:test1 key:test2", operator='and')
 
 >>> filters
+<QueryDict: {'this_is_a': ['filter'], 'key': ['value1', 'value2']}>>
+
+# Get a list of values associated to a particular key using getlist method
+>>> filters.getlist('key')
+['value1', 'value2']
+
+# Get a dict representation using dict method
+# NOTE: dict method will reduce multiple values for a particular key to the last assigned value
+>>> filters.dict()
 {
     'this_is_a': 'filter',
+    'key': 'value2'
 }
 
 >>> query

@@ -8,16 +8,16 @@
 # Harmen <sigmo@sigmo.nl>, 2022
 # Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
-# Storm Heg <storm@stormbase.digital>, 2021-2022
+# Storm Heg <storm@stormbase.digital>, 2021-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -77,61 +77,104 @@ msgstr "Wagtail routeerbare pagina"
 msgid "Wagtail sitemaps"
 msgstr "Wagtail sitemaps"
 
+msgid "Unknown content type"
+msgstr "Onbekend content type"
+
 msgid "Password"
 msgstr "Wachtwoord"
 
 msgid "The password you have entered is not correct. Please try again."
-msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
+msgstr "Het wachtwoord dat je hebt ingevuld is niet juist. Probeer opnieuw."
 
 msgid "Comment"
 msgstr "Opmerking"
 
+msgid "Locked"
+msgstr "Vergrendeld"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Niemand kan wijzigingen maken. %(model_name)s is vergrendeld."
+
 #, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' is vergrendeld</b> door <b>jou</b> op<b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' is vergrendeld</b> door <b>jou</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
 msgstr ""
-"De pagina  <b>'{page_title}'</b> is door <b>jou</b> vergrendeld op "
-"<b>{datetime}</b>."
-
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "</b>De pagina '{page_title}' is geblokkeerd door jou."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"De pagina <b>'{page_title}'</b> is door <b>{user}</b> vergrendeld op "
-"<b>{datetime}</b>."
-
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "De pagina '{page_title}' is geblokkeerd."
+"<b>'{title}' is vergrendeld</b> door <b>{user}</b> op <b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' is vergrendeld</b>."
 
-msgid "This page is currently awaiting moderation."
-msgstr "Deze pagina is in afwachting van content goedkeuring."
+msgid "Locked by you"
+msgstr "Vergrendeld door jou"
+
+msgid "Locked by another user"
+msgstr "Vergrendeld door een andere gebruiker"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "%(model_name)s is vergrendeld en alleen jij kunt wijzingen maken"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "%(model_name)s is vergrendeld en alleen %(user)s kan wijzigingen maken"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "%(model_name)s wacht momenteel op goedkeuring."
 
 #, python-brace-format
 msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
 msgstr ""
-"Deze pagina wacht nog op <b>'{task_name}'</b> als onderdeel van de workflow "
-"<b>'{workflow_name}'</b>."
+"{model_name} wacht momenteel op <b>'{task_name}'</b> in de  "
+"<b>'{workflow_name}'</b>workflow ."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Alleen reviewers van deze taak kunnen deze pagina bewerken."
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr ""
+" %(model_name)s kan alleen bewerkt worden door reviewers van deze taak."
+
+msgid "Unlocked"
+msgstr "Ontgrendeld"
+
+msgid "Locked by workflow"
+msgstr "Vergrendeld door workflow"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"%(model_name)s kan gewijzigd worden door reviewers. Vergrendel om te "
+"voorkomen dat reviewers wijzigingen kunnen maken"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "%(model_name)s kan gewijzigd en goedgekeurd worden door reviewers"
 
 #, python-brace-format
 msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
 msgstr ""
-"De pagina '{page_title}' is vergrendeld en zal op {datetime} gepubliceerd "
-"worden."
+"{model_name} '{title}' is vergrendeld en gepland voor publicatie op "
+"{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Vergrendeld vanwege geplande publicatie"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Momenteel vergrendeld en zal gepubliceerd worden op de geplande datum"
 
 msgid "latest revision"
 msgstr "Nieuwste revisie"
@@ -176,13 +219,13 @@ msgid "Default"
 msgstr "Default"
 
 msgid "locked"
-msgstr "geblokkeerd"
+msgstr "vergrendeld"
 
 msgid "locked at"
-msgstr "geblokkeerd op"
+msgstr "vergrendeld op"
 
 msgid "locked by"
-msgstr "geblokkeerd door"
+msgstr "vergrendeld door"
 
 msgid "in moderation"
 msgstr "ter goedkeuring"
@@ -194,7 +237,7 @@ msgid "title"
 msgstr "titel"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "De paginatitel zoals u wilt dat uw bezoekers dit zien"
+msgstr "De paginatitel zoals je wilt dat bezoekers dit zien"
 
 msgid "slug"
 msgstr "slug"
@@ -246,6 +289,14 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
 
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Er is al een andere pagina op dit niveau dat de slug '%(page_slug)s' "
+"gebruikt op '%(parent_url_path)s'"
+
 msgid "page"
 msgstr "pagina"
 
@@ -256,7 +307,7 @@ msgid "object id"
 msgstr "object id"
 
 msgid "submitted for moderation"
-msgstr "voor moderatie ingediend"
+msgstr "ter goedkeuring ingediend"
 
 msgid "created at"
 msgstr "gemaakt op"
@@ -301,13 +352,13 @@ msgid "Lock"
 msgstr "Vergrendelen"
 
 msgid "Lock/unlock pages you've locked"
-msgstr "Blokkeren/deblokkeren van pagina's die je geblokkeerd hebt"
+msgstr "Vergrendel/ontgrendel pagina's die je vergrendeld hebt"
 
 msgid "Unlock"
-msgstr "Deblokkeren"
+msgstr "Ontgrendelen"
 
 msgid "Unlock any page"
-msgstr "Deblokkeer welke pagina ook"
+msgstr "Ontgrendel welke pagina ook"
 
 msgid "group"
 msgstr "groep"
@@ -364,11 +415,26 @@ msgstr ""
 msgid "tasks"
 msgstr "taken"
 
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Actieve workflows kunnen aan pagina's/snippets worden toegevoegd. Een "
+"workflow deactiveren zal deze niet verwijderen van bestaande pagina's/"
+"snippets."
+
 msgid "workflows"
 msgstr "workflows"
 
 msgid "groups"
 msgstr "groepen"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pagina's/snippets in deze stap van de workflow zullen worden beoordeeld of "
+"goedgekeurd door deze groep gebruikers"
 
 msgid "Request changes"
 msgstr "Wijzigingsverzoek"
@@ -409,6 +475,17 @@ msgstr "gevraagd door"
 msgid "current task state"
 msgstr "huidige status taak"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Er mag maar één 'in behandeling' of 'heeft wijziging nodig' workflow-status "
+"zijn per pagina/snippet."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr "Workflow '%(workflow_name)s' op %(model_name)s '%(title)s': %(status)s"
+
 msgid "Not started"
 msgstr "Niet gestart"
 
@@ -435,6 +512,10 @@ msgstr "Afgerond op"
 
 msgid "finished by"
 msgstr "Afgerond door"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Taak '%(task_name)s' op revisie '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Taak-status"
@@ -509,6 +590,30 @@ msgstr "groepsmachtiging binnen collectie"
 
 msgid "group collection permissions"
 msgstr "groepsmachtigingen binnen collectie"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s zal ook worden verwijderd"
+
+msgid "prevents deletion"
+msgstr "voorkomt verwijdering"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "zal ingesteld worden op de standaard %(model_name)s"
+
+msgid "will do nothing"
+msgstr "zal niks doen"
+
+msgid "may prevent deletion"
+msgstr "kan verwijdering voorkomen"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "zal ingesteld worden op een door het systeem bepaalde %(model_name)s"
+
+msgid "will unset the reference"
+msgstr "zal de verwijzing weghalen"
 
 msgid "hostname"
 msgstr "hostname"
@@ -587,20 +692,20 @@ msgstr "Inloggen"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Uw gebruikersnaam en wachtwoord komen niet overeen. Probeer het opnieuw."
+"Je gebruikersnaam en wachtwoord komen niet overeen. Probeer het opnieuw."
 
 msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "
 "with an account that has access."
 msgstr ""
-"Uw account heeft geen rechten op deze pagina. Om verder te gaan, login met "
+"Jouw account heeft geen rechten op deze pagina. Om verder te gaan, login met "
 "een account met de juiste rechten."
 
 msgid "Password required"
 msgstr "Wachtwoord verplicht"
 
 msgid "You need a password to access this page."
-msgstr "U heeft een wachtwoord nodig om deze pagina te kunnen bekijken."
+msgstr "Je hebt een wachtwoord nodig om deze pagina te kunnen bekijken."
 
 msgid "Continue"
 msgstr "Ga verder"
@@ -643,12 +748,6 @@ msgstr "Trek concept met planning terug"
 
 msgid "Unpublished scheduled draft"
 msgstr "Concept met planning teruggetrokken"
-
-msgid "Locked"
-msgstr "Geblokkeerd"
-
-msgid "Unlocked"
-msgstr "Gedeblokkeerd"
 
 msgid "Reject"
 msgstr "Keur af"

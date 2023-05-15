@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -380,6 +380,9 @@ msgstr "Ingoa"
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
 msgid "Update"
 msgstr "Whakahou"
 
@@ -480,9 +483,6 @@ msgstr "Hangaia he whārangi ki "
 msgid "Choose which type of page you'd like to create."
 msgstr "Kōwhiri he whārangi kei te pirangi koe ki te hanga."
 
-msgid "No, don't delete"
-msgstr "Kao, kaua e muku"
-
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Muku %(title)s"
@@ -517,6 +517,15 @@ msgstr "Tātari"
 msgid "Lock"
 msgstr "Raka"
 
+msgid "Usage"
+msgstr "Whakamahi"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)s taima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
 msgid "Page"
 msgstr "Whārangi"
 
@@ -543,6 +552,13 @@ msgstr "%(model_name)s '%(object)s' kua hangaia."
 
 msgid "Editing"
 msgstr "Whakarerekē"
+
+msgid "Usage of"
+msgstr "Te whakamahi ō "
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Whakarerekē i tēnei %(object)s"
 
 msgid "Dashboard"
 msgstr "Papatohu"

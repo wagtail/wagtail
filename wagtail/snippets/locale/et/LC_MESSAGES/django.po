@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,9 +90,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Usage"
-msgstr "Kasutus"
-
 msgid "History"
 msgstr "Ajalugu"
 
@@ -127,8 +124,19 @@ msgstr "Riivsai"
 msgid "Snippets"
 msgstr "Jupid"
 
+msgid "Usage"
+msgstr "Kasutus"
+
 msgid "No log entries found."
 msgstr "Logikirjeid ei leitud."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s jupid."
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Lisa %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -162,24 +170,6 @@ msgstr "Võrdle praeguse versiooniga"
 msgid "Cancel scheduled publish"
 msgstr "Ajastatud avaldamise tühistamine"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s jupid."
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Lisa %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kasutus"
-
-msgid "Usage of"
-msgstr "Kasutus"
-
-msgid "Title"
-msgstr "Pealkiri"
-
 msgid "Choose"
 msgstr "Vali"
 
@@ -191,10 +181,6 @@ msgstr "Seda juppi ei saanud vigade tõttu luua. "
 
 msgid "The snippet could not be saved due to errors."
 msgstr " Seda juppi ei saanud vigade tõttu salvestada."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muutke seda %(object)s"
 
 msgid "Action"
 msgstr "Tegevus"
@@ -216,3 +202,7 @@ msgstr "Vali %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Vali uus %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muutke seda %(object)s"

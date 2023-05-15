@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -54,13 +54,6 @@ msgid "Upload"
 msgstr "העלה"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "מחיקת %(title)s"
-
-msgid "Delete document"
-msgstr "מחיקת מסמך"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "עריכת %(title)s"
 
@@ -69,6 +62,9 @@ msgstr "עריכה"
 
 msgid "Save"
 msgstr "שמור"
+
+msgid "Delete document"
+msgstr "מחיקת מסמך"
 
 msgid "Filesize"
 msgstr "גודל קובץ"
@@ -84,9 +80,6 @@ msgstr "כותרת"
 
 msgid "File"
 msgstr "קובץ"
-
-msgid "Usage of"
-msgstr "שימוש של"
 
 msgid "Or choose from your computer"
 msgstr "או בחרו מהמחשב"
@@ -130,10 +123,6 @@ msgstr "הקובץ לא נמצע. אנא שנו את המקור או מחקו א
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "מסמך '%(document_title)s' נמחק"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "ערוך את %(object)s זה"
 
 msgid "Document"
 msgstr "מסמך"

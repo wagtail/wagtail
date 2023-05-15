@@ -1,3 +1,5 @@
+import unittest
+
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
@@ -63,6 +65,7 @@ class TestWhatsNewInWagtailVersionPanel(WagtailTestUtils, TestCase):
         self.assertEqual(result, "")
 
 
+@unittest.skip("Wagtail 4 banner has been removed.")
 class TestWhatsNewOnDashboard(WagtailTestUtils, TestCase):
     """Test 'What's New In Wagtail' banner rendered by `wagtailadmin_home` view"""
 

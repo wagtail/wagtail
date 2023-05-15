@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,6 +32,12 @@ msgstr "Tilføj"
 
 msgid "This field is required."
 msgstr "Dette felt er påkrævet."
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Unlocked"
+msgstr "Ulåst"
 
 msgid "title"
 msgstr "Titel"
@@ -65,12 +71,6 @@ msgstr "Redigeret"
 
 msgid "Unpublish"
 msgstr "Afpublicer"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Reject"
 msgstr "Afvis"

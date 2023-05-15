@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -98,13 +98,6 @@ msgid "Upload"
 msgstr "Хуулах"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "%(title)s-г устгах"
-
-msgid "Delete document"
-msgstr "Файл устгах"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)sзасч байна"
 
@@ -113,6 +106,9 @@ msgstr "Засч байна"
 
 msgid "Save"
 msgstr "Хадгалах"
+
+msgid "Delete document"
+msgstr "Файл устгах"
 
 msgid "Filesize"
 msgstr "Файлын хэмжээ"
@@ -144,13 +140,6 @@ msgstr ""
 "Та ямар ч файл оруулаагүй байна. <a "
 "href=\"%(wagtaildocs_add_document_url)s\">Шинийг</a> оруулж яагаад болохгүй "
 "гэж?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s-ын хэрэглээ"
-
-msgid "Usage of"
-msgstr "Хэрэглээ"
 
 msgid "Add multiple documents"
 msgstr "Олон файл нэмэх"
@@ -215,10 +204,6 @@ msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл у�
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' файл устлаа."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s-г засах"
 
 msgid "Document"
 msgstr "Файл"

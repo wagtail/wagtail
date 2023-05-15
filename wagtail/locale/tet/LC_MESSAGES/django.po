@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -58,6 +58,12 @@ msgstr "Seña"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Seña ladiak! Favor koko ida tan."
+
+msgid "Locked"
+msgstr "Xavi tiha ona"
+
+msgid "Unlocked"
+msgstr "Loke tiha ona"
 
 msgid "live"
 msgstr "Hela"
@@ -275,12 +281,6 @@ msgstr "Hadia tiha ona"
 
 msgid "Unpublish"
 msgstr "La publika "
-
-msgid "Locked"
-msgstr "Xavi tiha ona"
-
-msgid "Unlocked"
-msgstr "Loke tiha ona"
 
 msgid "Reject"
 msgstr "Rejeita"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: bayside kent, 2022\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,9 +100,6 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-msgid "Usage"
-msgstr "使用法"
-
 msgid "History"
 msgstr "履歴"
 
@@ -137,8 +134,19 @@ msgstr "パンくず"
 msgid "Snippets"
 msgstr "スニペット"
 
+msgid "Usage"
+msgstr "使用法"
+
 msgid "Edit this snippet"
 msgstr "スニペットを編集"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "スニペット%(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)sを追加"
 
 #, python-format
 msgid ""
@@ -166,24 +174,6 @@ msgstr "前の改定と比較する"
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "スニペット%(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)sを追加"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)sを使用"
-
-msgid "Usage of"
-msgstr "使用"
-
-msgid "Title"
-msgstr "タイトル"
-
 msgid "Choose"
 msgstr "選択"
 
@@ -195,10 +185,6 @@ msgstr "このスニペットはエラーにより作成されませんでした
 
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)sを編集"
 
 msgid "Action"
 msgstr "アクション"
@@ -220,3 +206,7 @@ msgstr "%(object)sを選択"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "別の%(object)sを選択"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"

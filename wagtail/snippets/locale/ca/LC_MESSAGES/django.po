@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022-2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -123,9 +123,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">crear-ne un ara</a>?"
 
-msgid "Usage"
-msgstr "Ús"
-
 msgid "Last updated"
 msgstr "Última actualització"
 
@@ -181,6 +178,9 @@ msgstr "Nou: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Editant %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Ús"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Historial de fragment de %(subtitle)s"
@@ -190,6 +190,17 @@ msgstr "Editar aquest fragment"
 
 msgid "No log entries found."
 msgstr "No s'han trobat entrades de registre."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragments %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Afegeix %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Seleccionar tots els fragments de la llista"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -233,30 +244,6 @@ msgstr "Compara amb la versió actual"
 msgid "Cancel scheduled publish"
 msgstr "Cancel·lar la publicació programada"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragments %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Afegeix %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Seleccionar tots els fragments de la llista"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilització de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilització de"
-
-msgid "Title"
-msgstr "Títol"
-
-msgid "Field"
-msgstr "Camp"
-
 msgid "Choose"
 msgstr "Triar"
 
@@ -271,14 +258,6 @@ msgstr "El fragment no s'ha pogut crear degut a errors."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "El fragment no s'ha pogut desar degut a errors."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privat %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editar aquest %(object)s"
 
 msgid "Action"
 msgstr "Acció"
@@ -315,3 +294,7 @@ msgstr "Triar %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Seleccionar un altre %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar aquest %(object)s"

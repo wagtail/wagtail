@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,9 +97,6 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-msgid "Usage"
-msgstr "Käyttö"
-
 msgid "Last updated"
 msgstr "Viimeksi päivitetty"
 
@@ -155,11 +152,22 @@ msgstr "Uusi: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Muokataan %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Käyttö"
+
 msgid "Edit this snippet"
 msgstr "Muokkaa tätä pätkää"
 
 msgid "No log entries found."
 msgstr "Lokimerkintöjä ei löytynyt."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Pätkät %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Lisää %(snippet_type_name)s"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -199,27 +207,6 @@ msgstr "Vertaa nykyiseen versioon"
 msgid "Cancel scheduled publish"
 msgstr "Peruuta ajastettu julkaisu"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Pätkät %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Lisää %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Kohteen %(title)s käyttö"
-
-msgid "Usage of"
-msgstr "Käyttö"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "Field"
-msgstr "Kenttä"
-
 msgid "Choose"
 msgstr "Valitse"
 
@@ -231,14 +218,6 @@ msgstr "Pätkää ei voitu luoda virheiden vuoksi."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Yksityinen %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muokkaa %(object)s-kohdetta"
 
 msgid "Action"
 msgstr "Toiminto"
@@ -267,3 +246,7 @@ msgstr "Valitse %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Valitse toinen %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muokkaa %(object)s-kohdetta"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -118,9 +118,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">incepeți acum</a>?"
 
-msgid "Usage"
-msgstr "Utilizare"
-
 msgid "Last updated"
 msgstr "Ultima actualizare"
 
@@ -176,6 +173,9 @@ msgstr "Nou: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Editare %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Utilizare"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Istoria fragmentului %(subtitle)s"
@@ -185,6 +185,17 @@ msgstr "Editează acest fragment"
 
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragmente %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Adaugă %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Selectează toate fragmentele din listă"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -225,30 +236,6 @@ msgstr "Compară cu versiunea curentă"
 msgid "Cancel scheduled publish"
 msgstr "Anulează publicarea programată"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragmente %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Adaugă %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Selectează toate fragmentele din listă"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilizare %(title)s"
-
-msgid "Usage of"
-msgstr "Utilizare"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "Field"
-msgstr "Câmp"
-
 msgid "Choose"
 msgstr "Alege"
 
@@ -263,14 +250,6 @@ msgstr "Fragmentul nu a fost creat din cauza erorilor."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Fragmentul nu a fost salvat din cauza erorilor."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s privat/ă)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editează %(object)s"
 
 msgid "Action"
 msgstr "Acțiune"
@@ -299,3 +278,7 @@ msgstr "Alege %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Alege alt %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editează %(object)s"

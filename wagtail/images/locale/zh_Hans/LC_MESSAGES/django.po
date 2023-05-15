@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -32,9 +32,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail 图片"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -274,9 +271,6 @@ msgstr "添加图片"
 msgid "Save"
 msgstr "保存"
 
-msgid "Delete image"
-msgstr "删除图片"
-
 msgid "Keep new image"
 msgstr "保留新图片"
 
@@ -289,6 +283,9 @@ msgstr "编辑图片%(title)s"
 
 msgid "Editing"
 msgstr "编辑"
+
+msgid "Delete image"
+msgstr "删除图片"
 
 msgid "URL Generator"
 msgstr "URL生成器"
@@ -375,19 +372,6 @@ msgid ""
 "previewed here, so they fit the screen."
 msgstr ""
 "备注：生成的图片大于屏幕时，在预览时可能显示会小一些。因为是适应屏幕的。"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s的使用情况"
-
-msgid "Usage of"
-msgstr "使用情况"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "Field"
-msgstr "字段"
 
 msgid "Add multiple images"
 msgstr "添加多个图片"
@@ -520,10 +504,6 @@ msgstr "图片'%(image_title)s'已添加"
 
 msgid "The image could not be created due to errors."
 msgstr "无法创建图片，出现错误。"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "编辑这个 %(object)s"
 
 msgid "Image"
 msgstr "图片"

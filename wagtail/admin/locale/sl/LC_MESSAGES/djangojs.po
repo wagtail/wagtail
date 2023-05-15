@@ -15,13 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3);\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s napaka)"
-msgstr[1] "(%(errorCount)s napaki)"
-msgstr[2] "(%(errorCount)s napak)"
-msgstr[3] "(%(errorCount)s napak)"
-
 msgid "(1 new item in this menu)"
 msgstr "(1 nov element v tem meniju)"
 
@@ -50,6 +43,9 @@ msgstr "Nadomestno besedilo"
 
 msgid "Are you sure?"
 msgstr "Ali ste prepričani?"
+
+msgid "Blocks"
+msgstr "Bloki"
 
 msgid "Broken link"
 msgstr "Nepravilna povezava"

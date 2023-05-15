@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,9 +26,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зургууд"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -184,15 +181,15 @@ msgstr "Зураг нэмэх"
 msgid "Save"
 msgstr "Хадгалах"
 
-msgid "Delete image"
-msgstr "Зургийг устгах"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s зургийг засч байна"
 
 msgid "Editing"
 msgstr "Засч байна"
+
+msgid "Delete image"
+msgstr "Зургийг устгах"
 
 msgid "URL Generator"
 msgstr "URL Үүсгэгч"
@@ -242,16 +239,6 @@ msgstr "URL хаяг"
 
 msgid "Preview"
 msgstr "Урдчилж харах"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s-ын хэрэглээ"
-
-msgid "Usage of"
-msgstr "Хэрэглээ"
-
-msgid "Title"
-msgstr "Гарчиг"
 
 msgid "Add multiple images"
 msgstr "Олон зураг нэмэх"
@@ -332,10 +319,6 @@ msgstr "'%(image_title)s' зураг нэмэгдлээ."
 
 msgid "The image could not be created due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s-г засах"
 
 msgid "Image"
 msgstr "Зураг"

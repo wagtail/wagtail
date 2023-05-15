@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -367,6 +367,19 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s yayından kaldır"
+
+msgid "Yes, unpublish it"
+msgstr "Evet, yayından kaldır"
+
+msgid "No, don't unpublish"
+msgstr "Hayır, yayından kaldırma"
+
 msgid "Update"
 msgstr "Güncelle"
 
@@ -537,14 +550,8 @@ msgstr "Hangi sayfa türünü oluşturmak istediğinizi seçin."
 msgid "Pages using %(page_type)s"
 msgstr "Sayfaların kullandığı türler %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Hayır, silme"
-
 msgid "Move"
 msgstr "Taşı"
-
-msgid "No, don't unpublish"
-msgstr "Hayır, yayından kaldırma"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -742,21 +749,14 @@ msgstr "İçerik haritası"
 msgid "Root"
 msgstr "Root (kök)"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
-msgid "Yes, unpublish it"
-msgstr "Evet, yayından kaldır"
-
 msgid "Filter"
 msgstr "Filtrele"
 
-msgid "Visit the live page"
-msgstr "Yayındaki sayfayı gör"
-
 msgid "Current page status:"
 msgstr "Şimdiki sayfa durumu:"
+
+msgid "Visit the live page"
+msgstr "Yayındaki sayfayı gör"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -786,6 +786,15 @@ msgstr "Kilitle"
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
+
+msgid "Usage"
+msgstr "Kullanım"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
@@ -880,6 +889,13 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
+
+msgid "Usage of"
+msgstr "kullanımı"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"
 
 msgid "Dashboard"
 msgstr "Kontrol paneli"

@@ -21,6 +21,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -31,10 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, "
-"2016-2017,2019-2020,2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,18 @@ msgstr "Wählen Sie Ihre aktuelle Zeitzone"
 
 msgid "profile picture"
 msgstr "Profilbild"
+
+msgid "System default"
+msgstr "Systemstandard"
+
+msgid "Light"
+msgstr "Hell"
+
+msgid "Dark"
+msgstr "Dunkel"
+
+msgid "admin theme"
+msgstr "Admin-Theme"
 
 msgid "user profile"
 msgstr "Benutzerprofil"
@@ -329,8 +341,8 @@ msgstr "Alle Benutzer in der Aufzählung auswählen"
 msgid "Username"
 msgstr "Benutzername"
 
-msgid "Level"
-msgstr "Level"
+msgid "Access level"
+msgstr "Zugriffsebene"
 
 msgid "Status"
 msgstr "Status"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,19 +78,11 @@ msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
 msgid "Comment"
 msgstr "Komentář"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Stránku '{page_title}' jste uzamknul</b>."
+msgid "Locked"
+msgstr "Uzamčeno"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Stránka '{page_title}' je uzamčena</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Tato stránka nyní čeká na posouzení."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
+msgid "Unlocked"
+msgstr "Odemčeno"
 
 msgid "live"
 msgstr "publikováno"
@@ -580,12 +572,6 @@ msgstr "Odvolat zveřejnění plánovaného návrhu"
 
 msgid "Unpublished scheduled draft"
 msgstr "Zveřejnění plánovaného návrhu bylo odvoláno"
-
-msgid "Locked"
-msgstr "Uzamčeno"
-
-msgid "Unlocked"
-msgstr "Odemčeno"
 
 msgid "Reject"
 msgstr "Odmítnout"

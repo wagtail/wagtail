@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -89,9 +89,6 @@ msgstr "Так, выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-msgid "Usage"
-msgstr "Выкарыстанне"
-
 msgid "Publishing…"
 msgstr "Апублікаваць..."
 
@@ -120,6 +117,17 @@ msgstr "Шлях па сайту"
 msgid "Snippets"
 msgstr "Фрагменты"
 
+msgid "Usage"
+msgstr "Выкарыстанне"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Фрагменты %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Дадаць %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -143,24 +151,6 @@ msgstr "Рэдактаваць"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Фрагменты %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Дадаць %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Выкарыскоўваць %(title)s"
-
-msgid "Usage of"
-msgstr "Выкарыстоўванне"
-
-msgid "Title"
-msgstr "Назва"
-
 msgid "Choose"
 msgstr "Выбраць"
 
@@ -172,10 +162,6 @@ msgstr "Фрагмент кода не можа быць створана з-з�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент кода не можа быць захавана з-за памылкі."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Рэдактаваць гэта %(object)s"
 
 msgid "Date"
 msgstr "Дата"
@@ -191,3 +177,7 @@ msgstr "Выбраць %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Выбраць іншы %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Рэдактаваць гэта %(object)s"

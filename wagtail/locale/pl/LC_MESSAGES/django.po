@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2021,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,12 +88,8 @@ msgstr "Wprowadzone hasło nie jest prawidłowe. Proszę spróbować ponownie."
 msgid "Comment"
 msgstr "Komentarz"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Strona '{page_title}' została zablokowana</b> przez <b>ciebie</b> dnia "
-"<b>{datetime}</b>."
+msgid "Locked"
+msgstr "Zablokowany"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -102,19 +98,8 @@ msgstr ""
 "</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Strona '{page_title}' jest zablokowana</b> przez <b>ciebie</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' jest zablokowany</b> przez <b>ciebie</b>."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Strona '{page_title}' została zablokowana</b> przez <b>{user}</b> dnia "
-"<b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
@@ -123,27 +108,12 @@ msgstr ""
 "b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Strona '{page_title}' jest zablokowana</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' jest zablokowany</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Ta strona aktualnie oczekuje na moderację."
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Ten %(model_name)s aktualnie oczekuje na moderację."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Strona oczekuje na <b>'{task_name}'</b> w ramach workflow: "
-"<b>'{workflow_name}'</b>."
 
 #, python-brace-format
 msgid ""
@@ -153,19 +123,12 @@ msgstr ""
 "Ten {model_name} oczekuje na <b>'{task_name}'</b> w ramach workflow "
 "<b>'{workflow_name}'</b>."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Tylko weryfikujący to zadanie mogą edytować tą stronę."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Tylko weryfikujący to zadanie mogą edytować %(model_name)s."
 
-#, python-brace-format
-msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-msgstr ""
-"Strona  '{page_title}'  jest zablokowana i została zaplanowana do publikacji "
-"dnia {datetime}"
+msgid "Unlocked"
+msgstr "Odblokowany"
 
 #, python-brace-format
 msgid ""
@@ -721,12 +684,6 @@ msgstr "Odpublikuj zaplanowany szkic"
 
 msgid "Unpublished scheduled draft"
 msgstr "Odpublikowany zaplanowany szkic"
-
-msgid "Locked"
-msgstr "Zablokowany"
-
-msgid "Unlocked"
-msgstr "Odblokowany"
 
 msgid "Reject"
 msgstr "Odrzuć"

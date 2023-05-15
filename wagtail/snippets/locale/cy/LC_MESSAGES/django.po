@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,9 +91,6 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
-msgid "Usage"
-msgstr "Defnydd"
-
 msgid "Last updated"
 msgstr "Diweddarwyd diwethaf"
 
@@ -119,6 +116,17 @@ msgstr "Briwsion Bara"
 msgid "Snippets"
 msgstr "Pytiau"
 
+msgid "Usage"
+msgstr "Defnydd"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Pytiau %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Ychwanegu %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -133,24 +141,6 @@ msgstr "Rhagolwg"
 msgid "Edit"
 msgstr "Golygu"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Pytiau %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Ychwanegu %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Defnydd %(title)s"
-
-msgid "Usage of"
-msgstr "Defnydd o"
-
-msgid "Title"
-msgstr "Teitl"
-
 msgid "Choose"
 msgstr "Dewis"
 
@@ -162,10 +152,6 @@ msgstr "Ni fu modd creu'r pyt oherwydd gwallau."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nid oedd modd cadw'r pyt oherwydd gwallau."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Golygu %(object)s"
 
 msgid "Action"
 msgstr "Gweithred"
@@ -191,3 +177,7 @@ msgstr "Dewis %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Dewis %(object)s arall"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Golygu %(object)s"

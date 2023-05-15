@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -164,15 +164,15 @@ msgstr "Pridať obrázok"
 msgid "Save"
 msgstr "Uložiť"
 
-msgid "Delete image"
-msgstr "Zmazať obrázok"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Úprava obrázka %(title)s"
 
 msgid "Editing"
 msgstr "Upraviť obrázok"
+
+msgid "Delete image"
+msgstr "Zmazať obrázok"
 
 msgid "URL Generator"
 msgstr "URL Generátor"
@@ -232,16 +232,6 @@ msgid ""
 msgstr ""
 "Upozorňujeme, že vygenerované obrázky, ktoré sú väčšie ako obrazovka, sa "
 "zobrazia menšie ako v tomto náhľade tak, že sa pispôsobia obrazovke."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použitie %(title)s"
-
-msgid "Usage of"
-msgstr "Použitie"
-
-msgid "Title"
-msgstr "Titulok"
 
 msgid "Add multiple images"
 msgstr "Pridať viacero obrázkov"
@@ -332,10 +322,6 @@ msgstr "Obrázok '%(image_title)s' bol pridaný."
 
 msgid "The image could not be created due to errors."
 msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Upraviť toto %(object)s"
 
 #, python-format
 msgid "%(count)s image"

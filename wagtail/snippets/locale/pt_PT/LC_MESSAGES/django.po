@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -98,9 +98,6 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
-msgid "Usage"
-msgstr "Utilização"
-
 msgid "Last updated"
 msgstr "Última atualização"
 
@@ -138,8 +135,19 @@ msgstr "Percurso"
 msgid "Snippets"
 msgstr "Trechos"
 
+msgid "Usage"
+msgstr "Utilização"
+
 msgid "No log entries found."
 msgstr "Nenhuma entrada de diário encontrada."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Trechos %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Adicionar %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -173,24 +181,6 @@ msgstr "Comparar com versão atual"
 msgid "Cancel scheduled publish"
 msgstr "Desmarcar publicação"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Trechos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Adicionar %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilização de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilização de"
-
-msgid "Title"
-msgstr "Título"
-
 msgid "Choose"
 msgstr "Escolher"
 
@@ -202,10 +192,6 @@ msgstr "O trecho não pôde ser criado devido a erros."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O trecho não pôde ser gravado devido a erros."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Alterar este %(object)s"
 
 msgid "Action"
 msgstr "Ação"
@@ -230,3 +216,7 @@ msgstr "Apagar '%(title)s'"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Escolher outro/a %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Alterar este %(object)s"

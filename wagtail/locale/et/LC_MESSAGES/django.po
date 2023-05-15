@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,19 +67,11 @@ msgstr "Sisestatud parool pole õige. Palun proovi uuesti."
 msgid "Comment"
 msgstr "Kommentaar"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b> teie </b> on <b> leht '{page_title} lukustatud </b>."
+msgid "Locked"
+msgstr "Lukustatud"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b> Lehekülg '{page_title}' on lukus </b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "See leht ootab praegu modereerimist."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
+msgid "Unlocked"
+msgstr "Lukustamata"
 
 msgid "latest revision"
 msgstr "uusim redaktsioon"
@@ -538,12 +530,6 @@ msgstr "Ajastatud mustandi avaldamise tühistamine"
 
 msgid "Unpublished scheduled draft"
 msgstr "Ajakavandi avaldamata avaldamine"
-
-msgid "Locked"
-msgstr "Lukustatud"
-
-msgid "Unlocked"
-msgstr "Lukustamata"
 
 msgid "Reject"
 msgstr "Keeldu"
