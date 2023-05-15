@@ -67,6 +67,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   let testValue;
   let handsontableConstructorMock;
   let renderMock;
+  let updateSettingsMock;
 
   // Call this to render the table block with the current settings
   const render = () => {
@@ -84,6 +85,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   beforeEach(() => {
     handsontableConstructorMock = jest.fn();
     renderMock = jest.fn();
+    updateSettingsMock = jest.fn();
 
     class HandsontableMock {
       constructor(...args) {
@@ -92,6 +94,10 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
       render() {
         renderMock();
+      }
+
+      updateSettings(opts) {
+        updateSettingsMock(opts);
       }
     }
 
