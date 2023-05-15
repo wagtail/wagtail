@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -196,13 +196,6 @@ msgid "Upload"
 msgstr "Încărcare"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Șterge %(title)s"
-
-msgid "Delete document"
-msgstr "Șterge document"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Editare %(title)s"
 
@@ -211,6 +204,9 @@ msgstr "Editare"
 
 msgid "Save"
 msgstr "Salvează"
+
+msgid "Delete document"
+msgstr "Șterge document"
 
 msgid "Filesize"
 msgstr "Mărime fișier"
@@ -267,16 +263,6 @@ msgid ""
 msgstr ""
 "Nu ați încărcat nici un document. De ce să nu <a "
 "href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilizare %(title)s"
-
-msgid "Usage of"
-msgstr "Utilizare"
-
-msgid "Field"
-msgstr "Câmp"
 
 #, python-format
 msgid ""
@@ -408,14 +394,6 @@ msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documentul '%(document_title)s' a fost șters."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(%(object)s privat/ă)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editează %(object)s"
 
 msgid "Document"
 msgstr "Document"

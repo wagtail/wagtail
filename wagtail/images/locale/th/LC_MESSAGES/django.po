@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -168,15 +168,15 @@ msgstr "เพิ่มรูปภาพ"
 msgid "Save"
 msgstr "เซฟ"
 
-msgid "Delete image"
-msgstr "ลบรูปภาพ"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "รูปภาพกำลังแก้ไข %(title)s"
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
+
+msgid "Delete image"
+msgstr "ลบรูปภาพ"
 
 msgid "URL Generator"
 msgstr "โปรแกรมก่อกำเนิดURL"
@@ -248,16 +248,6 @@ msgid ""
 msgstr ""
 "ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,"
 "มันจะได้อยู่ในหน้าจอ"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "การใช้ของ%(title)s"
-
-msgid "Usage of"
-msgstr "การใช้งานของ"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
 
 msgid "Add multiple images"
 msgstr "แก้ไขหลายรูปภาพ"
@@ -340,10 +330,6 @@ msgstr "รูปภาพ'%(image_title)s' ถูกเพิ่มเรีย
 
 msgid "The image could not be created due to errors."
 msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Image"
 msgstr "รูปภาพ"

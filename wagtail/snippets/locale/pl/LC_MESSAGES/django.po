@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -136,9 +136,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">utworzyć jednego teraz</a>?"
 
-msgid "Usage"
-msgstr "Użycie"
-
 msgid "Last updated"
 msgstr "Ostatnio zaktualizowany"
 
@@ -194,6 +191,9 @@ msgstr "Nowy: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Edycja %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Użycie"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Historia snippetu dla %(subtitle)s"
@@ -203,6 +203,17 @@ msgstr "Edytuj snippet"
 
 msgid "No log entries found."
 msgstr "Brak wpisów w logu."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippety %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Dodaj %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Zaznacz wszystkie snippety na liście"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -250,30 +261,6 @@ msgstr "Porównaj z obecną wersją"
 msgid "Cancel scheduled publish"
 msgstr "Anuluj zaplanowaną publikację"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippety %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Dodaj %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Zaznacz wszystkie snippety na liście"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Użycie %(title)s"
-
-msgid "Usage of"
-msgstr "Użycie"
-
-msgid "Title"
-msgstr "Tytuł"
-
-msgid "Field"
-msgstr "Pole"
-
 msgid "Choose"
 msgstr "Wybierz"
 
@@ -288,14 +275,6 @@ msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Prywatny %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Edytuj ten %(object)s"
 
 msgid "Action"
 msgstr "Akcja"
@@ -332,3 +311,7 @@ msgstr "Wybierz %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Wybierz inny %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edytuj ten %(object)s"

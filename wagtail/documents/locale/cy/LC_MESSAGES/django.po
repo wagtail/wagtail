@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,13 +170,6 @@ msgstr "Defnydd"
 msgid "Title"
 msgstr "Teitl"
 
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Defnydd %(title)s"
-
-msgid "Usage of"
-msgstr "Defnydd o"
-
 msgid "Or choose from your computer"
 msgstr "Neu dewiswch o'ch cyfrifiadur"
 
@@ -200,7 +193,3 @@ msgstr "Dewiswch ddogfen"
 
 msgid "Edit this document"
 msgstr "Golygu'r ddogfen hon"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Golygu %(object)s"

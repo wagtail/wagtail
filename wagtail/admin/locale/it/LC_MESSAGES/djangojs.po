@@ -7,11 +7,11 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
 # gcm, 2022
 # Loic Teixeira, 2022
-# Marco Badan <marco.badan@gmail.com>, 2022
+# Marco Badan <marco.badan@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2023\n"
 "Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
@@ -26,6 +26,9 @@ msgstr "Testo alternativo"
 
 msgid "Are you sure?"
 msgstr "Sei sicuro/a?"
+
+msgid "Blocks"
+msgstr "Blocchi"
 
 msgid "Broken link"
 msgstr "Link non funzionante"

@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,25 +99,11 @@ msgstr "Введённый вами пароль неверный. Попроб�
 msgid "Comment"
 msgstr "Комментарий"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Страница {page_title} заблокирована</b> <b>Вами</b>."
+msgid "Locked"
+msgstr "Заблокировано"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Страница {page_title} заблокирована</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "В настоящее время эта страница ожидает модерации."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Только рецензенты данной задачи могут редактировать страницу."
-
-#, python-brace-format
-msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-msgstr ""
-"Страница '{page_title}' заблокирована и должна быть опубликована {datetime}"
+msgid "Unlocked"
+msgstr "Разблокировано"
 
 msgid "latest revision"
 msgstr "последняя версия"
@@ -630,12 +616,6 @@ msgstr "Отменить публикацию запланированного �
 
 msgid "Unpublished scheduled draft"
 msgstr "Снятый с публикации запланированный черновик"
-
-msgid "Locked"
-msgstr "Заблокировано"
-
-msgid "Unlocked"
-msgstr "Разблокировано"
 
 msgid "Reject"
 msgstr "Отклонить"

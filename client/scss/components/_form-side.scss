@@ -75,7 +75,7 @@
   }
 
   &__resize-grip {
-    @apply w-text-icon-secondary hover:w-text-icon-secondary-hover w-border w-border-transparent w-rounded w-bg-surface-page w-p-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
+    @apply w-text-icon-secondary hover:w-text-icon-secondary-hover w-border w-border-transparent w-rounded w-bg-surface-page w-py-2.5 w-pl-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
 
     .form-side--open & {
       @apply w-flex;

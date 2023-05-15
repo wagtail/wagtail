@@ -9,13 +9,13 @@ describe('CountController', () => {
       application?.stop();
 
       document.body.innerHTML = `
-  <body>
+  <section>
     <div id="element" data-controller="w-count" data-action="recount@document->w-count#count">
       <span id="total" data-w-count-target="total"></span>
       <span id="label" data-w-count-target="label"></span>
     </div>
     <ul id="items"></ul>
-  </body>`;
+  </section>`;
 
       application = Application.start();
       application.register('w-count', CountController);

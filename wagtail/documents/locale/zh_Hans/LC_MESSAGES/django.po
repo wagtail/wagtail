@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -171,13 +171,6 @@ msgid "Upload"
 msgstr "上传"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "删除 %(title)s"
-
-msgid "Delete document"
-msgstr "删除文档"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "编辑%(title)s"
 
@@ -186,6 +179,9 @@ msgstr "编辑"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Delete document"
+msgstr "删除文档"
 
 msgid "Filesize"
 msgstr "文件大小"
@@ -238,16 +234,6 @@ msgid ""
 msgstr ""
 "一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
 "a> ？"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s的使用情况"
-
-msgid "Usage of"
-msgstr "使用情况"
-
-msgid "Field"
-msgstr "字段"
 
 msgid "Add multiple documents"
 msgstr "添加多个文档"
@@ -354,10 +340,6 @@ msgstr "无法找到文件。请修改源或者删除文档。"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "文档'%(document_title)s' 已删除"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "编辑这个 %(object)s"
 
 msgid "Document"
 msgstr "文档"

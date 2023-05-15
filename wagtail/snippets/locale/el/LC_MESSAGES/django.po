@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,9 +99,6 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
-msgid "Usage"
-msgstr "Χρήση"
-
 msgid "Last updated"
 msgstr "Τελευταία αναθεώρηση"
 
@@ -130,6 +127,17 @@ msgstr "Ενέργειες"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Usage"
+msgstr "Χρήση"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippets %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Προσθήκη %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -150,24 +158,6 @@ msgstr "Προεπισκόπηση"
 msgid "Edit"
 msgstr "Επεξεργασία "
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippets %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Προσθήκη %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Χρήση του  %(title)s"
-
-msgid "Usage of"
-msgstr "Χρήση του "
-
-msgid "Title"
-msgstr "Τίτλος"
-
 msgid "Choose"
 msgstr "Επιλογή"
 
@@ -179,10 +169,6 @@ msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Επεξεργαστείτε το %(object)s"
 
 msgid "Action"
 msgstr "Ενέργεια"
@@ -211,3 +197,7 @@ msgstr "Επιλογή %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Επιλογή διαφορετικού %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Επεξεργαστείτε το %(object)s"

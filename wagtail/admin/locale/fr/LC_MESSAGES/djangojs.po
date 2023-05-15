@@ -17,12 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s erreur)"
-msgstr[1] "(%(errorCount)s erreurs)"
-msgstr[2] "(%(errorCount)s erreurs)"
-
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s  nouvel élément dans ce menu)"
 
@@ -52,6 +46,9 @@ msgstr "Texte alternatif"
 
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr(e) ?"
+
+msgid "Blocks"
+msgstr "Blocs"
 
 msgid "Broken link"
 msgstr "Lien mort"
@@ -206,9 +203,6 @@ msgstr "Montrer le dernier contenu"
 
 msgid "Split block"
 msgstr "Scinder le bloc"
-
-msgid "StreamField blocks"
-msgstr "Blocs StreamField"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

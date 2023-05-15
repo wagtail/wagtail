@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtailin kuvat"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -329,9 +326,6 @@ msgstr "Lisää kuva"
 msgid "Save"
 msgstr "Tallenna"
 
-msgid "Delete image"
-msgstr "Poista kuva"
-
 msgid "Keep new image"
 msgstr "Säilytä uusi kuva"
 
@@ -344,6 +338,9 @@ msgstr "Muokataan kuvaa %(title)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Delete image"
+msgstr "Poista kuva"
 
 msgid "Image focal point"
 msgstr "Kuvan kiintopiste"
@@ -448,19 +445,6 @@ msgid ""
 msgstr ""
 "Huomioithan että generoidut kuvat, jotka ovat näyttöä suurempia, näyttävät "
 "pienemmiltä esikatselussa jotta ne mahtuisivat näytölle."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Kohteen %(title)s käyttö"
-
-msgid "Usage of"
-msgstr "Käyttö"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "Field"
-msgstr "Kenttä"
 
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"
@@ -615,14 +599,6 @@ msgstr "Kuva '%(image_title)s' lisätty."
 
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Yksityinen %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Muokkaa %(object)s-kohdetta"
 
 msgid "Image"
 msgstr "Kuva"

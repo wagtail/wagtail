@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2021-2023\n"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail myndir"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -323,9 +320,6 @@ msgstr "Bæta við mynd"
 msgid "Save"
 msgstr "Vista"
 
-msgid "Delete image"
-msgstr "Eyða mynd"
-
 msgid "Keep new image"
 msgstr "Halda nýju myndinni"
 
@@ -338,6 +332,9 @@ msgstr "Breyti mynd %(title)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+msgid "Delete image"
+msgstr "Eyða mynd"
 
 msgid "Image focal point"
 msgstr "Fókuspunktur myndar"
@@ -441,19 +438,6 @@ msgid ""
 msgstr ""
 "Athugið að myndir sem búnar eru til stærri en skjárinn verða minni þegar þær "
 "eru skoðaðar hér til að passa á skjáinn."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s er í notkun"
-
-msgid "Usage of"
-msgstr "Notuð"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "Field"
-msgstr "Reitur"
 
 msgid "Add multiple images"
 msgstr "Bæta við mörgum myndum"
@@ -607,14 +591,6 @@ msgstr "Mynd '%(image_title)s' bætt við."
 
 msgid "The image could not be created due to errors."
 msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Einka %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Breyta þessu %(object)s"
 
 msgid "Image"
 msgstr "Mynd"

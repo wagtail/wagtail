@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -54,6 +54,12 @@ msgstr "Heslo"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Heslo, ktoré ste zadali, nie je správne. Prosím skúste znovu."
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
 
 msgid "live"
 msgstr "live"
@@ -315,12 +321,6 @@ msgstr "Upravené"
 
 msgid "Unpublish"
 msgstr "Odpublikovať"
-
-msgid "Locked"
-msgstr "Zamknuté"
-
-msgid "Unlocked"
-msgstr "Odomknuté"
 
 msgid "Reject"
 msgstr "Odmietnuť"

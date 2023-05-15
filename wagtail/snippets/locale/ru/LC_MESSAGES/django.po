@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -137,9 +137,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">создать сейчас</a>?,"
 
-msgid "Usage"
-msgstr "Использование"
-
 msgid "Last updated"
 msgstr "Последнее обновление"
 
@@ -187,6 +184,9 @@ msgstr "Фрагменты"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Редактирование %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Использование"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "История фрагмента для %(subtitle)s"
@@ -196,6 +196,17 @@ msgstr "Редактировать этот фрагмент"
 
 msgid "No log entries found."
 msgstr "Записи в журнале не найдены."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Фрагменты %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Добавить %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Выбрать все фрагменты из списка"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -237,30 +248,6 @@ msgstr "Сравнить с текущей версией"
 msgid "Cancel scheduled publish"
 msgstr "Отменить запланированную публикацию"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Фрагменты %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Добавить %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Выбрать все фрагменты из списка"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Использование %(title)s"
-
-msgid "Usage of"
-msgstr "Использование"
-
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "Field"
-msgstr "Поле"
-
 msgid "Choose"
 msgstr "Выбрать"
 
@@ -275,10 +262,6 @@ msgstr "Фрагмент не может быть создан из-за оши�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Править %(object)s"
 
 msgid "Action"
 msgstr "Действие"
@@ -315,3 +298,7 @@ msgstr "Выбрать %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Выбрать другой %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Править %(object)s"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,6 +100,14 @@ msgid "Snippets"
 msgstr "قطعه‌ها"
 
 #, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "قطعه های %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "افزودن %(snippet_type_name)s"
+
+#, python-format
 msgid "There is %(counter)s match"
 msgid_plural "There are %(counter)s matches"
 msgstr[0] "%(counter)s مورد همخوانی دارد"
@@ -137,24 +145,6 @@ msgstr "مقایسه با نسخه‌ی فعلی"
 msgid "Cancel scheduled publish"
 msgstr "لغو انتشار زمانبندی شده"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "قطعه های %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "افزودن %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "استفاده از %(title)s"
-
-msgid "Usage of"
-msgstr "استفاده از"
-
-msgid "Title"
-msgstr "عنوان"
-
 msgid "Choose"
 msgstr "انتخاب"
 
@@ -166,10 +156,6 @@ msgstr "به دلیل بروز خطا قطعه ای ساخته نشد."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "ویرایش این %(object)s"
 
 msgid "Date"
 msgstr "تاریخ"
@@ -185,3 +171,7 @@ msgstr "انتخاب %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "یک %(object)s دیگر انتخاب کنید"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "ویرایش این %(object)s"

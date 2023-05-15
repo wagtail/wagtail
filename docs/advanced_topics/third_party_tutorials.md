@@ -13,7 +13,6 @@ the latest Wagtail versions.
 -   [Dockerized Wagtail 4 + NuxtJS 3 + Graphene 3 + Vuetify 3 (with template)](https://dev.to/ordigital/dockerized-wagtail-4-nuxtjs-3-graphene-3-vuetify-3-1n8m) (26 January 2023)
 -   [Wagtail: Extending the Draftail Editor Part 4 - Custom Lists](https://enzedonline.com/en/tech-blog/wagtail-extending-the-draftail-editor-part-4-custom-lists/) (29 December 2022)
 -   [Making Wagtail pages more SEO friendly with Wagtail Metadata](https://enzedonline.com/en/tech-blog/making-wagtail-pages-more-seo-friendly-with-wagtail-metadata/) (24 December 2022)
--   [10 (recommended) Wagtail Best Practices](https://climbtheladder.com/10-wagtail-best-practices/) (23 December 2022)
 -   [Configuring a Dynamic Sitemap on Wagtail](https://enzedonline.com/en/tech-blog/configuring-a-dynamic-sitemap-on-wagtail/) (22 December 2022)
 -   [Deploying Wagtail to Google's Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail) (7 December 2022)
 -   [Tutorial: Build a Wagtail blog in 20 minutes](https://codewithstein.com/django-wagtail-cms-building-a-blog-in-20-minutes/) (5 December 2022)

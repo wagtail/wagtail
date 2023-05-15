@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -60,13 +60,11 @@ msgstr "Пароль"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Уведзены вамі пароль няправільны. Паспрабуйце яшчэ раз."
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Старонка '{page_title}' заблакавана</b><b>Вамі</b>."
+msgid "Locked"
+msgstr "Заблакавана"
 
-#, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Старонка '{page_title}' заблакавана</b>."
+msgid "Unlocked"
+msgstr "Разблакавана"
 
 msgid "live"
 msgstr "апублікавана"
@@ -356,12 +354,6 @@ msgstr "Зменена"
 
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"
-
-msgid "Locked"
-msgstr "Заблакавана"
-
-msgid "Unlocked"
-msgstr "Разблакавана"
 
 msgid "Reject"
 msgstr "Адхіліць"

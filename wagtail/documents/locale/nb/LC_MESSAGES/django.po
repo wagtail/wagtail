@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -100,13 +100,6 @@ msgid "Upload"
 msgstr "Last opp"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Slett %(title)s"
-
-msgid "Delete document"
-msgstr "Slett dokument"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Endrer %(title)s"
 
@@ -115,6 +108,9 @@ msgstr "Endrer"
 
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Delete document"
+msgstr "Slett dokument"
 
 msgid "Filesize"
 msgstr "Filstørrelse"
@@ -156,13 +152,6 @@ msgid ""
 msgstr ""
 "Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a "
 "href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Bruk av %(title)s"
-
-msgid "Usage of"
-msgstr "Bruk av"
 
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
@@ -236,10 +225,6 @@ msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentet \"%(document_title)s\" er slettet."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Endre %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

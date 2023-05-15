@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -81,9 +81,6 @@ msgstr "Apakah anda yakin untuk menghapus %(count)s %(snippet_type_name)s?"
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-msgid "Usage"
-msgstr "Penggunaan"
-
 msgid "Publishing…"
 msgstr "Mempublikasikan..."
 
@@ -105,6 +102,17 @@ msgstr "Baru"
 
 msgid "Snippets"
 msgstr "Potongan"
+
+msgid "Usage"
+msgstr "Penggunaan"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Potongan %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Tambah %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -129,24 +137,6 @@ msgstr "Ubah"
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Potongan %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Tambah %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Penggunaan dari %(title)s"
-
-msgid "Usage of"
-msgstr "Penggunaan dari"
-
-msgid "Title"
-msgstr "Judul"
-
 msgid "Choose"
 msgstr "Pilih"
 
@@ -158,10 +148,6 @@ msgstr "Potongan tidak dapat dibuat karena suatu kesalahan."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Potongan tidak dapat disimpan karena suatu kesalahan."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Ubah %(object)s ini"
 
 msgid "Date"
 msgstr "Tanggal"
@@ -177,3 +163,7 @@ msgstr "Pilih %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Pilih %(object)s lain"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Ubah %(object)s ini"

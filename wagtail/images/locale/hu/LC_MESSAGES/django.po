@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: aaao <aron.santa@gmail.com>, 2019\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Képek"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -316,9 +313,6 @@ msgstr "Kép hozzáadása"
 msgid "Save"
 msgstr "Mentés"
 
-msgid "Delete image"
-msgstr "Kép törlése"
-
 msgid "Keep new image"
 msgstr "Új kép megtartása"
 
@@ -331,6 +325,9 @@ msgstr "%(title)s kép szerkesztése"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Delete image"
+msgstr "Kép törlése"
 
 msgid "Image focal point"
 msgstr "Kép fókuszpontja"
@@ -436,16 +433,6 @@ msgid ""
 msgstr ""
 "Kérjük vegye figyelembe, hogy a képernyőnél nagyobb méretű képek kisebbnek "
 "látszanak az előnézetben, hogy kiférjenek."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s használata"
-
-msgid "Usage of"
-msgstr "Használat"
-
-msgid "Title"
-msgstr "Cím"
 
 msgid "Add multiple images"
 msgstr "Több kép hozzáadása"
@@ -599,14 +586,6 @@ msgstr "'%(image_title)s' kép hozzáadva."
 
 msgid "The image could not be created due to errors."
 msgstr "Hiba történt a kép létrehozása közben."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Privát %(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s szerkesztése"
 
 msgid "Image"
 msgstr "Kép"

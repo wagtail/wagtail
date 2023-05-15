@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -435,11 +435,11 @@ msgstr "Reimposta password"
 msgid "Reset your password"
 msgstr "Reimposta la tua password"
 
-msgid "Upload a profile picture:"
-msgstr "Carica un'immagine profilo:"
-
 msgid "Reset to default"
 msgstr "Riporta alle condizioni originali"
+
+msgid "Upload a profile picture:"
+msgstr "Carica un'immagine profilo:"
 
 msgid "Sidebar"
 msgstr "Barra laterale"
@@ -598,6 +598,22 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "Sì, elimina"
+
+msgid "No, don't delete"
+msgstr "No, non eliminarlo"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Annulla pubblicazione %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Si, annulla la pubblicazione"
+
+msgid "No, don't unpublish"
+msgstr "No, non annullare la pubblicazione"
+
+msgid "Cancel"
+msgstr "Annulla"
 
 msgid "Update"
 msgstr "Aggiorna"
@@ -993,9 +1009,6 @@ msgstr[0] "Non hai i permessi per eliminare questa pagina"
 msgstr[1] "Non hai i permessi per eliminare queste pagine"
 msgstr[2] "Non hai i permessi per eliminare queste pagine"
 
-msgid "No, don't delete"
-msgstr "No, non eliminarlo"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1099,9 +1112,6 @@ msgstr[2] "Non hai i permessi per annullare la pubblicazione di queste pagine"
 msgid "Yes, unpublish"
 msgstr "Sì annulla pubblicazione"
 
-msgid "No, don't unpublish"
-msgstr "No, non annullare la pubblicazione"
-
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Converti alias %(title)s"
@@ -1202,9 +1212,6 @@ msgstr "Pubblicando questa pagina annullerai il flusso di lavoro attuale."
 
 msgid "Would you still like to publish this page?"
 msgstr "Vuoi ancora pubblicare questa pagina?"
-
-msgid "Cancel"
-msgstr "Annulla"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1480,13 +1487,6 @@ msgstr "Breadcrumb"
 msgid "Root"
 msgstr "Radice"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Annulla pubblicazione %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Si, annulla la pubblicazione"
-
 msgid "Add comment"
 msgstr "Aggiungi commento"
 
@@ -1500,11 +1500,11 @@ msgstr "Applica filtri"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Modifica %(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Vai alla pagina sul sito"
-
 msgid "Current page status:"
 msgstr "Stato attuale della pagina:"
+
+msgid "Visit the live page"
+msgstr "Vai alla pagina sul sito"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Visibile a tutti. Visita la pagina live"
@@ -1561,6 +1561,16 @@ msgstr ""
 "Modifiche della privacy applicate anche a tutte le pagine figlio di questa "
 "pagina."
 
+msgid "Usage"
+msgstr "Utilizzo"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+msgstr[2] "Usato %(usage_count)s volte"
+
 msgid "Page status: "
 msgstr "Stato pagina:"
 
@@ -1579,9 +1589,6 @@ msgstr "Modalità anteprima"
 msgid "First published "
 msgstr "Prima pubblicazione"
 
-msgid "Workflow progress"
-msgstr "Andamento flusso di lavoro"
-
 msgid "Edit / Review"
 msgstr "Modifica / Revisiona"
 
@@ -1595,10 +1602,6 @@ msgstr "Richiesto da <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Iniziato il <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Stato <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Sequenza temporale"
@@ -1932,6 +1935,9 @@ msgstr "Raccolta '%(object)s' eliminata."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sei sicuro di voler eliminare questa raccolta?"
 
+msgid "Workflow progress"
+msgstr "Andamento flusso di lavoro"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' aggiornato."
@@ -1948,6 +1954,13 @@ msgstr "Precedenti"
 
 msgid "Latest"
 msgstr "Ultimi"
+
+msgid "Usage of"
+msgstr "Utilizzo di"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifica questo %(object)s"
 
 msgid "Dashboard"
 msgstr "Dashboard"

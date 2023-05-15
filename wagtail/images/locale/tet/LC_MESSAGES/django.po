@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imajen Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -161,11 +158,11 @@ msgstr "foun"
 msgid "Save"
 msgstr "Rai"
 
-msgid "Delete image"
-msgstr "Hamoos imagen"
-
 msgid "Editing"
 msgstr "Hadia hela"
+
+msgid "Delete image"
+msgstr "Hamoos imagen"
 
 msgid "Usage"
 msgstr "Uza"
@@ -186,16 +183,6 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Pré-visualizasaun"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s uza iha nee"
-
-msgid "Usage of"
-msgstr "uza iha nee"
-
-msgid "Title"
-msgstr "Titlu"
 
 msgid "Server Error"
 msgstr "Servidor erru"
@@ -238,10 +225,6 @@ msgstr "Imajen '%(image_title)s' hamoos ona."
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imajen '%(image_title)s' hatama ona"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "hadia iha %(object)s"
 
 msgid "Image"
 msgstr "Imagen"

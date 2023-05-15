@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021\n"
@@ -98,9 +98,6 @@ msgstr "Sim, exclua"
 msgid "No, don't delete"
 msgstr "Não, não apague"
 
-msgid "Usage"
-msgstr "Uso"
-
 msgid "Last updated"
 msgstr "Última atualização"
 
@@ -138,8 +135,19 @@ msgstr "Breadcrumb"
 msgid "Snippets"
 msgstr "Fragmentos"
 
+msgid "Usage"
+msgstr "Uso"
+
 msgid "No log entries found."
 msgstr "Nenhuma entrada de log encontrada."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragmentos %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Adicionar %(snippet_type_name)s"
 
 #, python-format
 msgid ""
@@ -173,24 +181,6 @@ msgstr "Compare com a versão atual"
 msgid "Cancel scheduled publish"
 msgstr "Cancelar publicação agendada"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragmentos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Adicionar %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uso de %(title)s"
-
-msgid "Usage of"
-msgstr "Uso de"
-
-msgid "Title"
-msgstr "Título"
-
 msgid "Choose"
 msgstr "Escolha"
 
@@ -202,10 +192,6 @@ msgstr "O fragmento não pôde ser criado por conter erros."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O snippet não pode ser salvo por conter erros."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Editar este %(object)s"
 
 msgid "Action"
 msgstr "Ação"
@@ -234,3 +220,7 @@ msgstr "Escolher %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Escolha outro %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"

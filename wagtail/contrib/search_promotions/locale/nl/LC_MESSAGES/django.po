@@ -9,16 +9,16 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
 # Meteor0id, 2018
-# Storm Heg <storm@stormbase.digital>, 2022
+# Storm Heg <storm@stormbase.digital>, 2022-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,21 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr "Wagtail zoek promoties"
 
+msgid "Search term(s)/phrase"
+msgstr "Zoekterm(en)/uitdrukking"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
+
+msgid "Query Daily Hits"
+msgstr "Aantal dagelijkse zoekopdrachten"
 
 msgid "page"
 msgstr "pagina"
@@ -56,8 +69,8 @@ msgid ""
 msgstr ""
 "<p>Aanbevolen zoekresultaten zijn een manier om bepaalde pagina's die "
 "normaliter niet hoog in de zoekresultaten zouden komen aan te bevelen. "
-"Bijvoorbeeld het aanbevelen van uw doneerpagina aan een gebruiker die zoekt "
-"op de minder gebruikelijke term \" <em>geven</em>\".</p> "
+"Bijvoorbeeld het aanbevelen van een doneerpagina aan een gebruiker die zoekt "
+"op de minder gebruikelijke term ' <em>geven</em>'.</p> "
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -65,7 +78,7 @@ msgid ""
 "any misspellings/user error. To help, you can choose from search terms that "
 "have been popular with users of your site.</p>"
 msgstr ""
-"<p>Het \"Zoekterm(en)\" veld moet een volledige zoekterm, <em>inclusief</em> "
+"<p>Het 'Zoekterm(en)' veld moet een volledige zoekterm, <em>inclusief</em> "
 "mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
 "resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
 "zoektermen van gebruikers van de website.</p>            "
@@ -83,7 +96,7 @@ msgstr "Verwijder"
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Weet u zeker dat u alle aanbevolen zoekresultaten voor deze zoekterm wilt "
+"Weet je zeker dat je alle aanbevolen zoekresultaten voor deze zoekterm wilt "
 "verwijderen?"
 
 msgid "Yes, delete"
@@ -162,7 +175,7 @@ msgid ""
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 "Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">voegt u er niet een toe</a>?"
+"href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
 
 msgid "Search promoted results"
 msgstr "Zoek gepromote resultaten"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,9 +131,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ustvarili enega sedaj</a>?"
 
-msgid "Usage"
-msgstr "Uporaba"
-
 msgid "Last updated"
 msgstr "Zadnje posodobljeno"
 
@@ -189,6 +186,9 @@ msgstr "Nov: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Urejam %(snippet_type)s %(title)s"
 
+msgid "Usage"
+msgstr "Uporaba"
+
 #, python-format
 msgid "Snippet history for %(subtitle)s"
 msgstr "Zgodovina delca za %(subtitle)s"
@@ -198,6 +198,17 @@ msgstr "Uredite ta delček"
 
 msgid "No log entries found."
 msgstr "Najden ni bil noben vnos v dnevnik."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Delci %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Dodaj %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Izberite vse delce na seznamu"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -243,30 +254,6 @@ msgstr "Primerjaj s trenutno različico"
 msgid "Cancel scheduled publish"
 msgstr "Prekliči načrtovano objavo"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Delci %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Dodaj %(snippet_type_name)s"
-
-msgid "Select all snippets in listing"
-msgstr "Izberite vse delce na seznamu"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Uporabe %(title)s"
-
-msgid "Usage of"
-msgstr "Uporabe"
-
-msgid "Title"
-msgstr "Naziv"
-
-msgid "Field"
-msgstr "Polje"
-
 msgid "Choose"
 msgstr "Izberite"
 
@@ -281,14 +268,6 @@ msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."
-
-#, python-format
-msgid "(Private %(object)s)"
-msgstr "(Zasebno%(object)s)"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Uredi %(object)s"
 
 msgid "Action"
 msgstr "Dejanje"
@@ -325,3 +304,7 @@ msgstr "Izberite %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Izberite drug %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Uredi %(object)s"

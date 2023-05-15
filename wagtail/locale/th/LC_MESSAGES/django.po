@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -55,6 +55,12 @@ msgstr "รหัสผ่าน"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "พาสเวิร์ดที่คุณกรอกไม่ถูกต้อง กรุณาลองอีกครั้ง"
+
+msgid "Locked"
+msgstr "ล็อกเรียบร้อยแล้ว"
+
+msgid "Unlocked"
+msgstr "ปลดล็อก"
 
 msgid "live"
 msgstr "ถ่ายทอดสด"
@@ -312,12 +318,6 @@ msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
 
 msgid "Unpublish"
 msgstr "ยกเลิกประกาศ"
-
-msgid "Locked"
-msgstr "ล็อกเรียบร้อยแล้ว"
-
-msgid "Unlocked"
-msgstr "ปลดล็อก"
 
 msgid "Reject"
 msgstr "ไม่ผ่าน"

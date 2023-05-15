@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2023\n"
@@ -113,6 +113,18 @@ msgstr "Veldu þitt tímabelti"
 
 msgid "profile picture"
 msgstr "prófílmynd"
+
+msgid "System default"
+msgstr "Sjálfgefnar stillingar"
+
+msgid "Light"
+msgstr "Ljóst"
+
+msgid "Dark"
+msgstr "Dökkt"
+
+msgid "admin theme"
+msgstr "Þema stjórnkerfis"
 
 msgid "user profile"
 msgstr "uppsetning notanda"
@@ -299,8 +311,8 @@ msgstr "Velja alla notendur"
 msgid "Username"
 msgstr "Notandanafn"
 
-msgid "Level"
-msgstr "Stig"
+msgid "Access level"
+msgstr "Aðgangur"
 
 msgid "Status"
 msgstr "Staða"

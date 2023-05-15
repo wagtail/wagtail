@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -73,13 +73,6 @@ msgid "Add document"
 msgstr "Hatama dokumentu"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Hamoos %(title)s"
-
-msgid "Delete document"
-msgstr "Hamoos dokumentu"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Hadia hela %(title)s"
 
@@ -89,6 +82,9 @@ msgstr "Hadia hela"
 msgid "Save"
 msgstr "Rai"
 
+msgid "Delete document"
+msgstr "Hamoos dokumentu"
+
 msgid "Usage"
 msgstr "Uza"
 
@@ -97,13 +93,6 @@ msgstr "Dokumentu sira"
 
 msgid "Title"
 msgstr "Titlu"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s uza iha nee"
-
-msgid "Usage of"
-msgstr "uza iha nee"
 
 msgid "Delete"
 msgstr "Hamoos"
@@ -117,10 +106,6 @@ msgstr "Buka documentu"
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dkumentu '%(document_title)s' hatama ona"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "hadia iha %(object)s"
 
 msgid "Document"
 msgstr "Dokumentu"

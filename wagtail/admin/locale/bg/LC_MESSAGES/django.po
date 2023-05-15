@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -124,6 +124,13 @@ msgstr "Име"
 
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Отмени публикуването на %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Да, отмени публикуването"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -295,13 +302,6 @@ msgstr "Надолу"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s от %(total_pages)s."
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Отмени публикуването на %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Да, отмени публикуването"
 
 msgid "New"
 msgstr "Ново"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -445,11 +445,11 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
-msgid "Upload a profile picture:"
-msgstr "Încarca poza profil"
-
 msgid "Reset to default"
 msgstr "Resetează la starea implicită"
+
+msgid "Upload a profile picture:"
+msgstr "Încarca poza profil"
 
 msgid "Sidebar"
 msgstr "Bara laterală"
@@ -624,6 +624,26 @@ msgstr "Nu a fost creat nici un articol."
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
+
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Anulează publicarea %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Da, anulează publicarea"
+
+msgid "No, don't unpublish"
+msgstr "Nu, nu anulează publicarea"
+
+msgid "Cancel"
+msgstr "Anulează"
 
 msgid "Update"
 msgstr "Actualizează"
@@ -1043,9 +1063,6 @@ msgstr[0] "Nu aveți permisiunea de a șterge această pagină"
 msgstr[1] "Nu aveți permisiunea de a șterge aceste pagini"
 msgstr[2] "Nu aveți permisiunea de a șterge aceste pagini"
 
-msgid "No, don't delete"
-msgstr "Nu, nu șterge"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1148,9 +1165,6 @@ msgstr[2] "Nu aveți permisiunea de a anula publicarea acestor pagini"
 
 msgid "Yes, unpublish"
 msgstr "Da, anulează publicarea"
-
-msgid "No, don't unpublish"
-msgstr "Nu, nu anulează publicarea"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1364,9 +1378,6 @@ msgstr "Publicarea paginii va anula fluxul de lucru curent."
 
 msgid "Would you still like to publish this page?"
 msgstr "Doriți să publicați această pagină?"
-
-msgid "Cancel"
-msgstr "Anulează"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1674,17 +1685,6 @@ msgstr "Traseu navigare"
 msgid "Root"
 msgstr "Pagină de bază"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Anulează publicarea %(title)s"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
-
-msgid "Yes, unpublish it"
-msgstr "Da, anulează publicarea"
-
 msgid "Close dialog"
 msgstr "Închide dialog"
 
@@ -1705,11 +1705,11 @@ msgstr "Nou: %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Editare %(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Accesați pagina live"
-
 msgid "Current page status:"
 msgstr "Starea paginii curente:"
+
+msgid "Visit the live page"
+msgstr "Accesați pagina live"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Vizibilă tuturor. Vizitează pagina live"
@@ -1742,6 +1742,9 @@ msgstr "Nu, nu anulează programarea"
 msgid "Other searches"
 msgstr "Alte căutări"
 
+msgid "Minimap"
+msgstr "Minimapă"
+
 msgid "Side panels"
 msgstr "Panouri laterale"
 
@@ -1750,9 +1753,6 @@ msgstr "Comută panou lateral"
 
 msgid "Side panel width"
 msgstr "Lățime panou lateral"
-
-msgid "Minimap"
-msgstr "Minimapă"
 
 msgid "Page Locale: "
 msgstr "Local pagină:"
@@ -1770,35 +1770,8 @@ msgstr "Fără alte traduceri"
 msgid "Switch locales"
 msgstr "Schimă localuri"
 
-msgid "Page locking: "
-msgstr "Blocare pagină:"
-
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Puteți edita această pagină, dar alte persoane nu pot. Deblocați pagina "
-"pentru a permite altora să editeze."
-
-msgid "You can edit this page, but others may not."
-msgstr "Puteți edita această pagină, dar alte persoane nu pot."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "Nu puteți edita această pagină. Deblocați-o pentru a edita."
-
-msgid "You cannot edit this page."
-msgstr "Nu puteți edita această pagină."
-
 msgid "Unlocked"
 msgstr "A deblochat"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Oricine poate să editeze această pagină. Blocați-o pentru a impiedica alte "
-"persoane să editeze. "
-
-msgid "Anyone can edit this page."
-msgstr "Oricine poate să editeze această pagină."
 
 msgid "Lock"
 msgstr "Blochează"
@@ -1819,6 +1792,16 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
 "paginile descendente."
+
+msgid "Usage"
+msgstr "Utilizare"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizare"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
 
 msgid "Page status: "
 msgstr "Stare pagină:"
@@ -1888,9 +1871,6 @@ msgstr "Mod de previzualizare"
 msgid "First published "
 msgstr "Publicat pentru prima dată"
 
-msgid "Workflow progress"
-msgstr "Progresiune flux de lucru"
-
 msgid "Edit / Review"
 msgstr "Editează  / Revizuie"
 
@@ -1904,10 +1884,6 @@ msgstr "Solicitat de către <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Început la <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Stare <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Cronologie"
@@ -2298,6 +2274,9 @@ msgstr "Colecția '%(object)s' a fost ștearsă."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sigur doriți să ștergeți această colecție?"
 
+msgid "Workflow progress"
+msgstr "Progresiune flux de lucru"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' a fost actualizat(ă)."
@@ -2326,6 +2305,20 @@ msgstr "Cea mai veche"
 
 msgid "Latest"
 msgstr "Cea mai recentă"
+
+msgid "Usage of"
+msgstr "Utilizare"
+
+msgid "Field"
+msgstr "Câmp"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(%(object)s privat/ă)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editează %(object)s"
 
 msgid "Dashboard"
 msgstr "Bord"

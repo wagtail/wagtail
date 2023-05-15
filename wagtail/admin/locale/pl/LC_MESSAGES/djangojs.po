@@ -2,13 +2,13 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2022
 # Mateusz <undefined5102@gmail.com>, 2022
-# Krzysztof Jeziorny <github@jeziorny.net>, 2022
 # Miłosz Miśkiewicz, 2022
 # Loic Teixeira, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
@@ -33,6 +33,9 @@ msgstr "Tekst alternatywny"
 
 msgid "Are you sure?"
 msgstr "Czy jesteś pewny?"
+
+msgid "Blocks"
+msgstr "Bloki"
 
 msgid "Broken link"
 msgstr "Zepsuty link"

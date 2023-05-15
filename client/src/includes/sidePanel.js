@@ -182,6 +182,13 @@ export default function initSidePanel() {
     setSidePanelWidth(startWidth + delta * direction);
   };
 
+  const onPointerUp = (e) => {
+    resizeGrip.releasePointerCapture(e.pointerId);
+    resizeGrip.removeEventListener('pointermove', onPointerMove);
+    document.removeEventListener('pointerup', onPointerUp);
+    document.body.classList.remove('side-panel-resizing');
+  };
+
   resizeGrip.addEventListener('pointerdown', (e) => {
     // Ignore right-click, because it opens the context menu and doesn't trigger
     // pointerup when the click is released.
@@ -196,12 +203,11 @@ export default function initSidePanel() {
     document.body.classList.add('side-panel-resizing');
     resizeGrip.setPointerCapture(e.pointerId);
     resizeGrip.addEventListener('pointermove', onPointerMove);
-  });
 
-  resizeGrip.addEventListener('pointerup', (e) => {
-    resizeGrip.removeEventListener('pointermove', onPointerMove);
-    resizeGrip.releasePointerCapture(e.pointerId);
-    document.body.classList.remove('side-panel-resizing');
+    // The pointerup event might not be dispatched on the resizeGrip itself
+    // (e.g. when the pointer is above/below the grip, or beyond the side panel's
+    // minimum/maximum width), so listen for it on the document instead.
+    document.addEventListener('pointerup', onPointerUp);
   });
 
   // Handle resizing with keyboard using a hidden range input.

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -338,11 +338,11 @@ msgstr "パスワードが再設定されました"
 msgid "Reset your password"
 msgstr "パスワードを再設定"
 
-msgid "Upload a profile picture:"
-msgstr "プロフィール画像をアップロード"
-
 msgid "Reset to default"
 msgstr "デフォルトに戻す"
+
+msgid "Upload a profile picture:"
+msgstr "プロフィール画像をアップロード"
 
 msgid "Internal link"
 msgstr "内部リンク"
@@ -441,6 +441,22 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)sを非公開に設定"
+
+msgid "Yes, unpublish it"
+msgstr "はい、非公開に設定します。"
+
+msgid "No, don't unpublish"
+msgstr "いいえ、非公開にしません"
+
+msgid "Cancel"
+msgstr "キャンセル"
 
 msgid "Update"
 msgstr "アップデート"
@@ -663,14 +679,8 @@ msgstr "作成するページのタイプを選択"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)sを使用するページ"
 
-msgid "No, don't delete"
-msgstr "いいえ、削除しません"
-
 msgid "Move"
 msgstr "移動"
-
-msgid "No, don't unpublish"
-msgstr "いいえ、非公開にしません"
 
 msgid "This action cannot be undone."
 msgstr "このアクションは元に戻せません。"
@@ -723,9 +733,6 @@ msgstr "このページを非公開に設定してよろしいですか？"
 
 msgid "Publish page"
 msgstr "公開する"
-
-msgid "Cancel"
-msgstr "キャンセル"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -909,13 +916,6 @@ msgstr "パンくず"
 msgid "Root"
 msgstr "ルート"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)sを非公開に設定"
-
-msgid "Yes, unpublish it"
-msgstr "はい、非公開に設定します。"
-
 msgid "Add comment"
 msgstr "コメントを追加"
 
@@ -925,11 +925,11 @@ msgstr "フィルター"
 msgid "Apply filters"
 msgstr "フィルターを適用"
 
-msgid "Visit the live page"
-msgstr "ライブページを訪れる。"
-
 msgid "Current page status:"
 msgstr "現在のページ状況："
+
+msgid "Visit the live page"
+msgstr "ライブページを訪れる。"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -958,6 +958,14 @@ msgstr "ロックする"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "公開設定の変更はすべての孫ページに反映されます。"
+
+msgid "Usage"
+msgstr "使用法"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
 
 msgid "Workflow history"
 msgstr "ワークフローの履歴"
@@ -1053,6 +1061,13 @@ msgstr "最も早い"
 
 msgid "Latest"
 msgstr "最新"
+
+msgid "Usage of"
+msgstr "使用"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
 
 msgid "Dashboard"
 msgstr "ダッシュボード"

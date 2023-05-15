@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -316,6 +316,16 @@ msgstr ""
 "ใช่,\n"
 "ลบ"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "ยกเลิกการพิมพ์ %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "ใช่,ยกเลิกการพิมพ์"
+
+msgid "No, don't unpublish"
+msgstr "ไม่,ไม่ต้องยกเลิก"
+
 msgid "Update"
 msgstr "ล่าสุด"
 
@@ -476,9 +486,6 @@ msgstr "หน้านี้กำลังถูกใช้ %(page_type)s"
 
 msgid "Move"
 msgstr "เคลื่อนย้าย"
-
-msgid "No, don't unpublish"
-msgstr "ไม่,ไม่ต้องยกเลิก"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -647,13 +654,6 @@ msgstr "หน้า %(page_num)s ของ%(total_pages)s."
 msgid "Root"
 msgstr "ต้นฉบับ"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการพิมพ์ %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "ใช่,ยกเลิกการพิมพ์"
-
 msgid "Filter"
 msgstr "คัดกรอง"
 
@@ -686,6 +686,14 @@ msgstr "ล็อค"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "การเปลี่ยนความเป็นส่วนตัวทั้งหมดสามารถแสดงให้เห็นในหน้าย่อยทุกหน้า"
+
+msgid "Usage"
+msgstr "การใช้"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 
 msgid "Add a child page"
 msgstr "เพิ่มหน้ารองลงมา"
@@ -752,6 +760,13 @@ msgstr "ที่เก่าแก่ที่สุด"
 
 msgid "Latest"
 msgstr "ล่าสุด"
+
+msgid "Usage of"
+msgstr "การใช้ของ"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Dashboard"
 msgstr "แผงควบคุม , หน้าจอที่ควบคุม"

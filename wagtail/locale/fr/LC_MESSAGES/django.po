@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,12 +95,8 @@ msgstr ""
 msgid "Comment"
 msgstr "Commentaire"
 
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Cette page « {page_title} » a été verrouillée</b> par <b>vous</b> le "
-"<b>{datetime}</b>."
+msgid "Locked"
+msgstr "Verrouillé(e)"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -108,19 +104,8 @@ msgstr ""
 "<b>« {title} » a été verrouillé(e)</b> par <b>vous</b> le <b>{datetime}</b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
-msgstr "<b>Cette page « {page_title} » est verrouillée</b> par <b>vous</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>« {title} » est verrouillé(e)</b> par <b>vous</b>."
-
-#, python-brace-format
-msgid ""
-"<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-msgstr ""
-"<b>Cette page « {page_title} » a été verrouillée</b> par <b>{user}</b> le "
-"<b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
@@ -129,27 +114,12 @@ msgstr ""
 "b>."
 
 #, python-brace-format
-msgid "<b>Page '{page_title}' is locked</b>."
-msgstr "<b>Cette page « {page_title} » est verrouillée</b>."
-
-#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>« {title} » est verrouillé(e)</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Cette page est actuellement en attente de modération."
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Ce(tte) %(model_name)s est actuellement en attente de modération."
-
-#, python-brace-format
-msgid ""
-"This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> "
-"workflow."
-msgstr ""
-"Cette page est en attente « <b>{task_name}</b> » dans le workflow "
-"« <b>{workflow_name}</b> »."
 
 #, python-brace-format
 msgid ""
@@ -159,21 +129,14 @@ msgstr ""
 "Ce(tte) {model_name} est en attente « <b>{task_name}</b> » dans le workflow "
 "« <b>{workflow_name}</b> »."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
-
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr ""
 "Seul les modérateurs pour cette tâche peuvent modifier ce(tte) "
 "%(model_name)s."
 
-#, python-brace-format
-msgid ""
-"Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-msgstr ""
-"La page « {page_title} » est verrouillée et a été planifiée pour la "
-"publication le {datetime}"
+msgid "Unlocked"
+msgstr "Déverrouillé(e)"
 
 #, python-brace-format
 msgid ""
@@ -737,12 +700,6 @@ msgstr "Dépublier le brouillon programmé"
 
 msgid "Unpublished scheduled draft"
 msgstr "Le brouillon programmé à été dépublié"
-
-msgid "Locked"
-msgstr "Verrouillé(e)"
-
-msgid "Unlocked"
-msgstr "Déverrouillé(e)"
 
 msgid "Reject"
 msgstr "Rejeter"

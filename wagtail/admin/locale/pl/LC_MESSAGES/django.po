@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -463,11 +463,14 @@ msgstr "Reset hasła"
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
 
-msgid "Upload a profile picture:"
-msgstr "Wgraj zdjęcie profilowe:"
-
 msgid "Reset to default"
 msgstr "Przywróć domyślne"
+
+msgid "Default avatar"
+msgstr "Domyślny awatar"
+
+msgid "Upload a profile picture:"
+msgstr "Wgraj zdjęcie profilowe:"
 
 msgid "Sidebar"
 msgstr "pasek boczny"
@@ -653,6 +656,30 @@ msgstr "Nie utworzono żadnej pozycji."
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
+
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Cofnij publikację %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Czy na pewno chcesz cofnąć publikację %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Tak, cofnij publikację"
+
+msgid "No, don't unpublish"
+msgstr "Anuluj publikację"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publikuj %(model_name)s"
+
+msgid "Cancel"
+msgstr "Anuluj"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -1158,9 +1185,6 @@ msgstr[1] "Nie posiadasz uprawnień do usunięcia tych stron"
 msgstr[2] "Nie posiadasz uprawnień do usunięcia tych stron"
 msgstr[3] "Nie posiadasz uprawnień do usunięcia tych stron"
 
-msgid "No, don't delete"
-msgstr "Nie usuwaj"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1274,9 +1298,6 @@ msgstr[3] "Nie masz uprawnień, żeby odpublikować te strony"
 
 msgid "Yes, unpublish"
 msgstr "Tak, odpublikuj"
-
-msgid "No, don't unpublish"
-msgstr "Anuluj publikację"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1407,9 +1428,6 @@ msgstr "Publikacja tej strony anuluje obecny proces."
 msgid "Would you still like to publish this page?"
 msgstr "Czy w dalszym ciągu chcesz opublikować tą stronę?"
 
-msgid "Cancel"
-msgstr "Anuluj"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Strony wykorzystujące %(page_class_verbose_name)s"
@@ -1507,6 +1525,29 @@ msgstr ""
 
 msgid "Configure a site now."
 msgstr "Skonfiguruj teraz serwis."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Strony utworzone tutaj nie będą dostępne pod jakimkolwiek adresem URL. Aby "
+"dodać strony do istniejącego serwisu, utwórz je jako podstrony strony "
+"głównej."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"Podana lokalizacja nie zawiera żadnego serwisu. Strony utworzone tutaj nie "
+"będą dostępne pod jakimkolwiek adresem URL do momentu przypisania tutaj "
+"serwisu."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"Nie utworzono strony głównej dla tego adresu. Strony utworzone tutaj nie "
+"będą dostępne pod jakimkolwiek adresem URL.                    "
 
 msgid "No pages have been created at this location."
 msgstr "Nie utworzono żadnej strony w tej lokalizacji."
@@ -1720,21 +1761,6 @@ msgstr "Breadcrumb"
 msgid "Root"
 msgstr "Główny"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Cofnij publikację %(title)s"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Czy na pewno chcesz cofnąć publikację %(model_name)s?"
-
-msgid "Yes, unpublish it"
-msgstr "Tak, cofnij publikację"
-
-#, python-format
-msgid "Publish %(model_name)s"
-msgstr "Publikuj %(model_name)s"
-
 msgid "Close dialog"
 msgstr "Zamknij informację"
 
@@ -1755,11 +1781,11 @@ msgstr "Nowy: %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Edytujesz %(page_type)s %(title)s"
 
-msgid "Visit the live page"
-msgstr "Odwiedź stronę \"na żywo\""
-
 msgid "Current page status:"
 msgstr "Aktualny status strony:"
+
+msgid "Visit the live page"
+msgstr "Odwiedź stronę \"na żywo\""
 
 msgid "Visible to all. Visit the live page"
 msgstr "Widoczna dla wszystkich. Odwiedź stronę online"
@@ -1792,6 +1818,9 @@ msgstr "Nie, nie wyłączaj z planu"
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
 
+msgid "Minimap"
+msgstr "Mini strona"
+
 msgid "Side panels"
 msgstr "Boczne panele"
 
@@ -1800,9 +1829,6 @@ msgstr "Rozszerzanie bocznego panelu"
 
 msgid "Side panel width"
 msgstr "Szerokość panelu bocznego"
-
-msgid "Minimap"
-msgstr "Mini strona"
 
 msgid "Page Locale: "
 msgstr "Tłumaczenia strony"
@@ -1820,54 +1846,11 @@ msgstr "Brak innych tłumaczeń"
 msgid "Switch locales"
 msgstr "Zmień języki"
 
-msgid "Page locking: "
-msgstr "Strona blokująca:"
-
 msgid "Locking: "
 msgstr "Blokowanie:"
 
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Możesz edytować tę stronę, ale inni nie mogą. Odblokuj ją, aby umożliwić "
-"innym edycję."
-
-#, python-format
-msgid ""
-"You can edit this %(model_name)s, but others may not. Unlock it to allow "
-"others to edit."
-msgstr ""
-"Ty możesz edytować tę %(model_name)s, ale inni nie. Odblokuj to aby "
-"umożliwić innym edycję."
-
-msgid "You can edit this page, but others may not."
-msgstr "Możesz edytować tę stronę, ale inni nie mogą."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr "Nie możesz edytować tej strony. Odblokuj ją, żeby edytować."
-
-msgid "You cannot edit this page."
-msgstr "Nie możesz edytować tej strony."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s."
-msgstr "Nie możesz edytować tego %(model_name)s."
-
 msgid "Unlocked"
 msgstr "Odblokowany"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Każdy może edytować tą stronę. Zablokuj ją, żeby powstrzymać innych od "
-"edycji."
-
-msgid "Anyone can edit this page."
-msgstr "Każdy może edytować tę stronę."
-
-#, python-format
-msgid "Anyone can edit this %(model_name)s."
-msgstr "Każdy może edytować ten %(model_name)s."
 
 msgid "Lock"
 msgstr "Blokada"
@@ -1888,6 +1871,17 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "<b>Notatka:</b> zmiany prywatności obejmują wszystkie strony podrzędne "
 "należące do tej strony."
+
+msgid "Usage"
+msgstr "Użycie"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Użyto %(usage_count)s raz"
+msgstr[1] "Użyto %(usage_count)s razy"
+msgstr[2] "Użyto %(usage_count)s razy"
+msgstr[3] "Użyto %(usage_count)s razy"
 
 msgid "Page status: "
 msgstr "Status strony:"
@@ -1950,9 +1944,6 @@ msgstr "Tryb podglądu"
 msgid "First published "
 msgstr "Pierwsza publikacja"
 
-msgid "Workflow progress"
-msgstr "Postęp procesu"
-
 msgid "Edit / Review"
 msgstr "Edytuj / Weryfikuj"
 
@@ -1968,8 +1959,8 @@ msgid "Started at <b>%(started_at)s</b>"
 msgstr "Rozpoczęte dnia <b>%(started_at)s</b>"
 
 #, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgid "Status %(status)s"
+msgstr "Status %(status)s"
 
 msgid "Timeline"
 msgstr "Oś czasu"
@@ -2027,14 +2018,14 @@ msgstr "Pomiń do głównej zawartości"
 msgid "View Wagtail quick actions"
 msgstr "Wyświetl szybkie akcje Wagtail"
 
-msgid "Warnings"
-msgstr "Ostrzeżenia"
-
 msgid "Issues found"
 msgstr "Odnalezione problemy"
 
 msgid "Accessibility"
 msgstr "Dostępność"
+
+msgid "Warnings"
+msgstr "Ostrzeżenia"
 
 msgid "Add a child page"
 msgstr "Dodaj stronę podrzędną"
@@ -2121,6 +2112,9 @@ msgstr "Pokaż wyłączone procesy"
 
 msgid "Used by"
 msgstr "Użyte przez"
+
+msgid "Disabled"
+msgstr "Wyłączone"
 
 #, python-format
 msgid "1 page"
@@ -2316,13 +2310,41 @@ msgstr "Przełącz komentarze"
 msgid "Toggle preview"
 msgstr "Przełącz podgląd"
 
-msgid "Empty heading found. Use meaningful text in headings."
+msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr ""
-"Znaleziono pusty nagłówek. Wykorzystuj je do zamieszczenia wartościowych "
-"treści."
+"Tekst przycisku jest pusty. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Wykryto pusty nagłówek. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Wykryto pusty nagłówek tabeli. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Wykryto pusty nagłówek ramki. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
 
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Nieprawidłowa hierarchia nagłówków. Unikaj pomijania poziomiów."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Tekst przycisku jest pusty. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Tekst linku jest pusta. Użyj wartościowych słów dla użytkowników "
+"korzystających z narzędzi wspierających czytanie."
 
 msgid "Misusing paragraphs as headings. Use proper heading tags."
 msgstr ""
@@ -2343,6 +2365,9 @@ msgstr "Obrazek profilowy"
 
 msgid "Locale"
 msgstr "Lokalizacja"
+
+msgid "Theme preferences"
+msgstr "Ustawienia szablonu"
 
 msgid "Password"
 msgstr "Hasło"
@@ -2386,6 +2411,9 @@ msgstr "Kolekcja '%(object)s' usunięta."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 
+msgid "Workflow progress"
+msgstr "Postęp procesu"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' zaktualizowane."
@@ -2418,6 +2446,23 @@ msgstr "Wersja %(revision_id)s \"%(object)s\" odplanowana."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "wersja %(revision_id)s \"%(object)s\""
+
+msgid "Usage of"
+msgstr "Użycie"
+
+msgid "If you confirm deletion"
+msgstr "Jeśli potwierdzisz usunięcie"
+
+msgid "Field"
+msgstr "Pole"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Prywatny %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edytuj ten %(object)s"
 
 msgid "Dashboard"
 msgstr "Kokpit"

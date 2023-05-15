@@ -12,11 +12,6 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "(%(errorCount)s error)"
-msgid_plural "(%(errorCount)s errors)"
-msgstr[0] "(%(errorCount)s erro)"
-msgstr[1] "(%(errorCount)s erros)"
-
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s novos elementos neste menú)"
 
@@ -44,6 +39,9 @@ msgstr "Texto alternativo"
 
 msgid "Are you sure?"
 msgstr "Estás seguro?"
+
+msgid "Blocks"
+msgstr "Bloques"
 
 msgid "Broken link"
 msgstr "Enlace roto"
@@ -197,9 +195,6 @@ msgstr "Amosar último contido"
 
 msgid "Split block"
 msgstr "Partir bloque"
-
-msgid "StreamField blocks"
-msgstr "Bloques StreamField"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

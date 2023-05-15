@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "웨그테일 이미지"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -198,15 +195,15 @@ msgstr "이미지 추가"
 msgid "Save"
 msgstr "저장"
 
-msgid "Delete image"
-msgstr "이미지 삭제"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s 이미지 수정"
 
 msgid "Editing"
 msgstr "수정중"
+
+msgid "Delete image"
+msgstr "이미지 삭제"
 
 msgid "URL Generator"
 msgstr "URL 생성기"
@@ -286,16 +283,6 @@ msgid ""
 msgstr ""
 "여기 프리뷰에서는 화면 사이즈보다 크게 생성된 이미지는 화면 사이즈에 맞게 작"
 "게 보여지게 됩니다."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s 의 사용"
-
-msgid "Usage of"
-msgstr "의 사용"
-
-msgid "Title"
-msgstr "제목"
 
 msgid "Add multiple images"
 msgstr "복수 이미지 추가"
@@ -397,10 +384,6 @@ msgstr "'%(image_title)s' 이미지가 추가 되었습니다."
 
 msgid "The image could not be created due to errors."
 msgstr "에러로 인해 이미지가 생성될 수 없습니다."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "이 %(object)s 수정하기"
 
 msgid "Image"
 msgstr "이미지"

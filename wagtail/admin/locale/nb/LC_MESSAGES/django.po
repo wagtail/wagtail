@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, "
 "2015\n"
@@ -362,6 +362,19 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Avpublisér %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, avpubliser den"
+
+msgid "No, don't unpublish"
+msgstr "Nei, ikke avpubliser"
+
 msgid "Update"
 msgstr "Oppdatér"
 
@@ -532,14 +545,8 @@ msgstr "Velg hvilken sidetype du vil opprette."
 msgid "Pages using %(page_type)s"
 msgstr "Sider som bruker %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Nei, ikke slett"
-
 msgid "Move"
 msgstr "Flytt"
-
-msgid "No, don't unpublish"
-msgstr "Nei, ikke avpubliser"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -737,21 +744,14 @@ msgstr "Brødsmuler"
 msgid "Root"
 msgstr "Rot"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublisér %(title)s"
-
-msgid "Yes, unpublish it"
-msgstr "Ja, avpubliser den"
-
 msgid "Filter"
 msgstr "Filter"
 
-msgid "Visit the live page"
-msgstr "Se den publiserte siden"
-
 msgid "Current page status:"
 msgstr "Nåværende sidestatus:"
+
+msgid "Visit the live page"
+msgstr "Se den publiserte siden"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -782,6 +782,15 @@ msgstr "Lås"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Sidevernsendringer berører også alle undersider av denne siden."
+
+msgid "Usage"
+msgstr "Bruk"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
@@ -876,6 +885,13 @@ msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Siste"
+
+msgid "Usage of"
+msgstr "Bruk av"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Endre %(object)s"
 
 msgid "Dashboard"
 msgstr "Kontrollpanel"

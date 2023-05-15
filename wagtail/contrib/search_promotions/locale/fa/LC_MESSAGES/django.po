@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,8 +22,19 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Search term(s)/phrase"
+msgstr "عبارت(ها)/عناوین جستجو"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr "کل عبارت مورد نظر را وارد کنید. "
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "لطفا دست کم یک پیشنهاد برای این عبارت جستجو تعیین کنید."
+
+msgid "Query Daily Hits"
+msgstr "تعداد جستجوی روزانه"
 
 msgid "page"
 msgstr "صفحه"

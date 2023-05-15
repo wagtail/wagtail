@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -80,12 +80,6 @@ msgstr "תצוגה מקדימה "
 msgid "Edit"
 msgstr "ערוך"
 
-msgid "Usage of"
-msgstr "שימוש ב:"
-
-msgid "Title"
-msgstr "כותרת "
-
 msgid "Choose"
 msgstr "בחרו"
 
@@ -97,10 +91,6 @@ msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "לא ניתן לשמור את הקטע עקב שגיאה"
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "ערוך את %(object)s זה"
 
 msgid "User"
 msgstr "משתמש"
@@ -115,3 +105,7 @@ msgstr "בחר %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "בחר %(object)s נוסף"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "ערוך את %(object)s זה"

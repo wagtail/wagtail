@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -81,9 +81,6 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-msgid "Usage"
-msgstr "Panaudojimas"
-
 msgid "Last updated"
 msgstr "Pask. kartą atnaujinta"
 
@@ -121,6 +118,17 @@ msgstr "Naršymo kelias"
 msgid "Snippets"
 msgstr "Nuokarpos"
 
+msgid "Usage"
+msgstr "Panaudojimas"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Nuokarpos %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pridėti %(snippet_type_name)s"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -153,24 +161,6 @@ msgstr "Palyginti su dabartine versija"
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Nuokarpos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Pridėti %(snippet_type_name)s"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s naudojimas"
-
-msgid "Usage of"
-msgstr "Naudojimas"
-
-msgid "Title"
-msgstr "Pavadinimas"
-
 msgid "Choose"
 msgstr "Pasirinkti"
 
@@ -182,10 +172,6 @@ msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "Redaguoti šį %(object)s"
 
 msgid "Action"
 msgstr "Veiksmas"
@@ -214,3 +200,7 @@ msgstr "Pasirinkti %(object)s"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Pasirinkti kitą %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Redaguoti šį %(object)s"

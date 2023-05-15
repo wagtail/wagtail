@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -86,9 +86,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-msgid "Usage"
-msgstr "Kullanım"
-
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
 
@@ -120,6 +117,17 @@ msgstr "İçerik haritası"
 msgid "Snippets"
 msgstr "Bloklar"
 
+msgid "Usage"
+msgstr "Kullanım"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Kod bloğu %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s ekle"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
@@ -143,24 +151,6 @@ msgstr "Düzenle"
 msgid "Cancel scheduled publish"
 msgstr "Zamanlanmış yayını iptal et"
 
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Kod bloğu %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s ekle"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kullanımı"
-
-msgid "Usage of"
-msgstr "Kullanımı"
-
-msgid "Title"
-msgstr "Başlık"
-
 msgid "Choose"
 msgstr "Seç"
 
@@ -172,10 +162,6 @@ msgstr "Hata nedeniyle kod bloğu oluşturulamadı."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Hata nedeniyle kod bloğu kaydedilemedi."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "%(object)s düzenle"
 
 msgid "Date"
 msgstr "Tarih"
@@ -191,3 +177,7 @@ msgstr "%(object)s seç"
 #, python-format
 msgid "Choose another %(object)s"
 msgstr "Başka %(object)s seç"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"

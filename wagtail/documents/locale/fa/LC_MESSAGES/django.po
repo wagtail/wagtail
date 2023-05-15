@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -116,13 +116,6 @@ msgid "Upload"
 msgstr "آپلود"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "حذف %(title)s"
-
-msgid "Delete document"
-msgstr "حذف سند"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "درحال ویرایش %(title)s"
 
@@ -131,6 +124,9 @@ msgstr "در حال ویرایش"
 
 msgid "Save"
 msgstr "ذخیره"
+
+msgid "Delete document"
+msgstr "حذف سند"
 
 msgid "Filesize"
 msgstr "اندازه فایل"
@@ -172,13 +168,6 @@ msgid ""
 msgstr ""
 "هنوز سندی آپلود نکرده اید. می‌توانید همین الان یکی را <a "
 "href=\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "استفاده از %(title)s"
-
-msgid "Usage of"
-msgstr "استفاد از"
 
 msgid "Add multiple documents"
 msgstr "افزودن چند سند"
@@ -248,10 +237,6 @@ msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر ده�
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "سند '%(document_title)s' حذف شد."
-
-#, python-format
-msgid "Edit this %(object)s"
-msgstr "ویرایش این %(object)s"
 
 #, python-format
 msgid "%(count)s document"

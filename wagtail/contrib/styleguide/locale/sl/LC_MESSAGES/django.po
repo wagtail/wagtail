@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,9 @@ msgstr "Vodnik po slogu Wagtail"
 
 msgid "Styleguide"
 msgstr "Oblikovni vodnik"
+
+msgid "Minimap"
+msgstr "Minimap"
 
 msgid "Save"
 msgstr "Shrani"

@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 13:09+0000\n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -474,11 +474,11 @@ msgstr "Réinitialisation de mot de passe"
 msgid "Reset your password"
 msgstr "Réinitialisez votre mot de passe"
 
-msgid "Upload a profile picture:"
-msgstr "Transférer une photo de profil :"
-
 msgid "Reset to default"
 msgstr "Réinitialiser aux valeurs par défaut"
+
+msgid "Upload a profile picture:"
+msgstr "Transférer une photo de profil :"
 
 msgid "Sidebar"
 msgstr "Barre latérale"
@@ -663,6 +663,54 @@ msgstr "Aucun élément n'a été créé."
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
+
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Dépublier %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir dépublier ce(tte) %(model_name)s ?"
+
+msgid "Yes, unpublish it"
+msgstr "Oui, la dépublier"
+
+msgid "No, don't unpublish"
+msgstr "Non, ne pas dépublier"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publier %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Des modifications ont été demandée pour ce(tte) %(model_name)s dans la tâche "
+"« <strong>%(task)s</strong> » du workflow « <strong>%(workflow)s</strong> »."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Ce(tte) %(model_name)s est actuellement à  <strong>%(task)s</strong> dans "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Publier ce(tte) %(model_name)s annulera le workflow actuel."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
+
+msgid "Cancel"
+msgstr "Annuler"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -1225,9 +1273,6 @@ msgstr[0] "Vous n’avez pas l’autorisation de supprimer cette page"
 msgstr[1] "Vous n’avez pas l’autorisation de supprimer ces pages"
 msgstr[2] "Vous n’avez pas l’autorisation de supprimer ces pages"
 
-msgid "No, don't delete"
-msgstr "Non, ne pas supprimer"
-
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
@@ -1337,9 +1382,6 @@ msgstr[2] "Vous n’avez pas l’autorisation de dépublier ces pages"
 
 msgid "Yes, unpublish"
 msgstr "Oui, dépublier"
-
-msgid "No, don't unpublish"
-msgstr "Non, ne pas dépublier"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1617,9 +1659,6 @@ msgstr "Publier cette page annulera le workflow actuel."
 
 msgid "Would you still like to publish this page?"
 msgstr "Êtes vous sûr(e) de toujours vouloir publier cette page ?"
-
-msgid "Cancel"
-msgstr "Annuler"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1965,45 +2004,6 @@ msgstr "Fil d'Ariane"
 msgid "Root"
 msgstr "Racine"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Dépublier %(title)s"
-
-#, python-format
-msgid "Are you sure you want to unpublish this %(model_name)s?"
-msgstr "Êtes-vous sûr(e) de vouloir dépublier ce(tte) %(model_name)s ?"
-
-msgid "Yes, unpublish it"
-msgstr "Oui, la dépublier"
-
-#, python-format
-msgid "Publish %(model_name)s"
-msgstr "Publier %(model_name)s"
-
-#, python-format
-msgid ""
-"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>."
-msgstr ""
-"Des modifications ont été demandée pour ce(tte) %(model_name)s dans la tâche "
-"« <strong>%(task)s</strong> » du workflow « <strong>%(workflow)s</strong> »."
-
-#, python-format
-msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
-msgstr ""
-"Ce(tte) %(model_name)s est actuellement à  <strong>%(task)s</strong> dans "
-"<strong>%(workflow)s</strong>."
-
-#, python-format
-msgid "Publishing this %(model_name)s will cancel the current workflow."
-msgstr "Publier ce(tte) %(model_name)s annulera le workflow actuel."
-
-#, python-format
-msgid "Would you still like to publish this %(model_name)s?"
-msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
-
 msgid "Close dialog"
 msgstr "Fermer"
 
@@ -2024,11 +2024,11 @@ msgstr "Nouvel(le) : %(model_name)s"
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Modification de %(page_type)s : %(title)s"
 
-msgid "Visit the live page"
-msgstr "Voir la page publiée"
-
 msgid "Current page status:"
 msgstr "Status actuel de la page :"
+
+msgid "Visit the live page"
+msgstr "Voir la page publiée"
 
 msgid "Visible to all. Visit the live page"
 msgstr "Visible par tous. Voir la page publiée"
@@ -2061,6 +2061,9 @@ msgstr "Non, ne pas déprogrammer"
 msgid "Other searches"
 msgstr "Autres recherches"
 
+msgid "Minimap"
+msgstr "Sommaire"
+
 msgid "Side panels"
 msgstr "Panneaux latéraux"
 
@@ -2069,9 +2072,6 @@ msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Side panel width"
 msgstr "Largeur du panneau latéral"
-
-msgid "Minimap"
-msgstr "Sommaire"
 
 msgid "Page Locale: "
 msgstr "Région de la page :"
@@ -2089,79 +2089,11 @@ msgstr "Aucune autre traduction"
 msgid "Switch locales"
 msgstr "Changer les régions"
 
-msgid "Page locking: "
-msgstr "Verrou de page :"
-
 msgid "Locking: "
 msgstr "Verrou :"
 
-msgid ""
-"You can edit this page, but others may not. Unlock it to allow others to "
-"edit."
-msgstr ""
-"Vous pouvez modifier cette page, mais d'autres utilisateurs ne le peuvent "
-"peut-être pas. Déverrouillez là afin de permettre à tous les autres "
-"utilisateurs de la modifier."
-
-#, python-format
-msgid ""
-"You can edit this %(model_name)s, but others may not. Unlock it to allow "
-"others to edit."
-msgstr ""
-"Vous pouvez modifier ce(tte) %(model_name)s, mais d'autres utilisateurs ne "
-"le peuvent peut-être pas. Déverrouillez là afin de permettre à tous les "
-"autres utilisateurs de la modifier."
-
-msgid "You can edit this page, but others may not."
-msgstr ""
-"Vous pouvez modifier cette page, mais d'autres utilisateurs ne le peuvent "
-"peut-être pas."
-
-#, python-format
-msgid "You can edit this %(model_name)s, but others may not."
-msgstr ""
-"Vous pouvez modifier ce(tte) %(model_name)s, mais d'autres utilisateurs ne "
-"le peuvent peut-être pas."
-
-msgid "You cannot edit this page. Unlock it to edit."
-msgstr ""
-"Vous ne pouvez pas modifier cette page. Déverrouillez-la afin de pouvoir la "
-"modifier."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s. Unlock it to edit."
-msgstr ""
-"Vous ne pouvez pas modifier ce(tte) %(model_name)s. Déverrouillez-le/la afin "
-"de pouvoir le/la modifier."
-
-msgid "You cannot edit this page."
-msgstr "Vous ne pouvez pas modifier cette page."
-
-#, python-format
-msgid "You cannot edit this %(model_name)s."
-msgstr "Vous ne pouvez pas modifier ce(tte) %(model_name)s."
-
 msgid "Unlocked"
 msgstr "Déverrouillé(e)"
-
-msgid "Anyone can edit this page. Lock it to prevent others from editing."
-msgstr ""
-"Page modifiable par tous. Verrouillez cette page afin d'empêcher d'autres "
-"utilisateurs de la modifier."
-
-#, python-format
-msgid ""
-"Anyone can edit this %(model_name)s. Lock it to prevent others from editing."
-msgstr ""
-"Ce(tte) %(model_name)s est modifiable par tous. Verrouillez le/la afin "
-"d'empêcher d'autres utilisateurs de le/la modifier."
-
-msgid "Anyone can edit this page."
-msgstr "Page modifiable par tous."
-
-#, python-format
-msgid "Anyone can edit this %(model_name)s."
-msgstr "Ce(tte) %(model_name)s est modifiable par tous."
 
 msgid "Lock"
 msgstr "Verrouiller"
@@ -2182,6 +2114,16 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Les changements de confidentialité s'appliquent également à toutes les sous-"
 "pages de cette page."
+
+msgid "Usage"
+msgstr "Utilisation"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé(e) %(usage_count)s fois"
+msgstr[1] "Utilisé(e) %(usage_count)s fois"
+msgstr[2] "Utilisé(e) %(usage_count)s fois"
 
 msgid "Page status: "
 msgstr "Statut de la page :"
@@ -2251,9 +2193,6 @@ msgstr "Mode prévisualisation"
 msgid "First published "
 msgstr "Première publication"
 
-msgid "Workflow progress"
-msgstr "Avancée du workflow"
-
 msgid "Edit / Review"
 msgstr "Modifier / Vérifier"
 
@@ -2267,10 +2206,6 @@ msgstr "Demandé par <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Commencé à <b>%(started_at)s</b>"
-
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Statut <span class=\"status-tag primary\">%(status)s</span>"
 
 msgid "Timeline"
 msgstr "Timeline"
@@ -2333,14 +2268,14 @@ msgstr "Aller à contenu principal"
 msgid "View Wagtail quick actions"
 msgstr "Voir les actions rapides Wagtail"
 
-msgid "Warnings"
-msgstr "Alertes"
-
 msgid "Issues found"
 msgstr "Problèmes trouvés"
 
 msgid "Accessibility"
 msgstr "Accessibilité"
+
+msgid "Warnings"
+msgstr "Alertes"
 
 msgid "Add a child page"
 msgstr "Ajouter une sous-page"
@@ -2629,11 +2564,6 @@ msgstr "Afficher/masquer les commentaires"
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
 
-msgid "Empty heading found. Use meaningful text in headings."
-msgstr ""
-"Titres vides détectés. Veuillez utiliser du texte significatif dans les "
-"titres."
-
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr ""
 "Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
@@ -2699,6 +2629,9 @@ msgstr "Collection « %(object)s » supprimée."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
+
+msgid "Workflow progress"
+msgstr "Avancée du workflow"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -2813,6 +2746,20 @@ msgstr "Version %(revision_id)s de « %(object)s » déprogrammé(e)."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "version %(revision_id)s de « %(object)s »"
+
+msgid "Usage of"
+msgstr "Utilisation de"
+
+msgid "Field"
+msgstr "Champ"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(%(object)s Privé(e))"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifier ce/cette %(object)s"
 
 #, python-format
 msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
