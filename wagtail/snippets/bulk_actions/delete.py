@@ -1,9 +1,12 @@
+from django.contrib.admin.utils import quote
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.generic import BeforeAfterHookMixin
+from wagtail.models import ReferenceIndex
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.permissions import get_permission_name
 
@@ -60,6 +63,25 @@ class DeleteBulkAction(BeforeAfterHookMixin, SnippetBulkAction):
             pk__in=[snippet.pk for snippet in objects]
         ).delete()
         return len(objects), 0
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add usage information to the context only if there is a single item
+        if len(context["items"]) == 1:
+            item_context = context["items"][0]
+            item = item_context["item"]
+            item_context.update(
+                {
+                    "usage_count": (
+                        ReferenceIndex.get_grouped_references_to(item).count()
+                    ),
+                    "usage_url": reverse(
+                        item.snippet_viewset.get_url_name("usage"),
+                        args=(quote(item.pk),),
+                    ),
+                }
+            )
+        return context
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if num_parent_objects == 1:
