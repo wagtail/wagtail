@@ -644,6 +644,7 @@ Contributors
 * Chisom Okeoma
 * Ivy Jeptoo
 * Satvik Vashisht
+* Christer Jensen
 
 Translators
 ===========

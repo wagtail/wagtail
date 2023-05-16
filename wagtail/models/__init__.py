@@ -349,7 +349,7 @@ class RevisionMixin(models.Model):
         :param submitted_for_moderation: Indicates whether the object was submitted for moderation.
         :param approved_go_live_at: The date and time the revision is approved to go live.
         :param changed: Indicates whether there were any content changes.
-        :param log_action: Flag for logging the action. Pass ``False`` to skip logging. Can be passed an action string.
+        :param log_action: Flag for logging the action. Pass ``True`` to also create a log entry. Can be passed an action string.
             Defaults to ``"wagtail.edit"`` when no ``previous_revision`` param is passed, otherwise ``"wagtail.revert"``.
         :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
         :type previous_revision: Revision
