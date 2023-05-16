@@ -22,6 +22,7 @@ Changelog
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
  * Fix: Ensure comment buttons always respect `WAGTAILADMIN_COMMENTS_ENABLED` (Thibaud Colas)
  * Fix: Fix error when deleting a single snippet through the bulk actions interface (Sage Abdullah)
+ * Fix: Pass the correct `for_update` value for `get_form_class` in `SnippetViewSet` edit views (Sage Abdullah)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 

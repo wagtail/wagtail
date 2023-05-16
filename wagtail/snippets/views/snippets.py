@@ -901,7 +901,7 @@ class SnippetViewSet(ModelViewSet):
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             panel=self._edit_handler,
-            form_class=self.get_form_class(),
+            form_class=self.get_form_class(for_update=True),
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
@@ -971,7 +971,7 @@ class SnippetViewSet(ModelViewSet):
             header_icon=self.icon,
             permission_policy=self.permission_policy,
             panel=self._edit_handler,
-            form_class=self.get_form_class(),
+            form_class=self.get_form_class(for_update=True),
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
@@ -1044,7 +1044,7 @@ class SnippetViewSet(ModelViewSet):
     def preview_on_edit_view(self):
         return self.preview_on_edit_view_class.as_view(
             model=self.model,
-            form_class=self.get_form_class(),
+            form_class=self.get_form_class(for_update=True),
         )
 
     @property
