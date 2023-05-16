@@ -709,6 +709,7 @@ Contributors
 * Swojak-A
 * fidoriel
 * Ramon Wenger
+* Christer Jensen
 
 Translators
 ===========
