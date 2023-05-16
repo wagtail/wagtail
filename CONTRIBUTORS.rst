@@ -688,6 +688,7 @@ Contributors
 * Sam
 * Deepam Priyadarshi
 * Babitha Kumari
+* Christer Jensen
 
 Translators
 ===========
