@@ -959,3 +959,20 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
             menu_items = admin_menu.render_component(self.request)
             snippets = [item for item in menu_items if item.name == "snippets"]
             self.assertEqual(len(snippets), 0)
+
+
+class TestCustomFormClass(BaseSnippetViewSetTests):
+    model = DraftStateModel
+
+    def test_get_form_class(self):
+        add_view = self.client.get(self.get_url("add"))
+        self.assertNotContains(add_view, '<input type="text" name="text"')
+        self.assertContains(add_view, '<textarea name="text"')
+
+        obj = self.model.objects.create(text="Hello World")
+
+        # The get_form_class has been overridden to replace the widget for the
+        # text field with a TextInput, but only for the edit view
+        edit_view = self.client.get(self.get_url("edit", args=(quote(obj.pk),)))
+        self.assertContains(edit_view, '<input type="text" name="text"')
+        self.assertNotContains(edit_view, '<textarea name="text"')
