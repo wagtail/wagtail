@@ -57,16 +57,25 @@ os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
+    "autodoc2",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
 ]
+autodoc2_packages = [
+    {
+        "path": "../wagtail",
+        "auto_mode": False,
+    },
+]
 
-autodoc_type_aliases = {
-    "File": "django.core.files.File",
-}
+autodoc2_docstring_parser_regexes = [
+    # this will render all docstrings as Markdown
+    (r".*", "rst"),
+    # this will render select docstrings as Markdown
+    (r"autodoc2\..*", "myst"),
+]
 
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
@@ -90,6 +99,7 @@ nitpick_ignore = [
 # list the files in `epub_exclude_files`.
 suppress_warnings = [
     "epub.unknown_project_files",
+    "autodoc2.dup_item",
 ]
 
 if not on_rtd:
