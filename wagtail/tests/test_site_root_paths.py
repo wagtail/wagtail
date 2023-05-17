@@ -28,14 +28,14 @@ class TestSiteRootPathsCache(TestCase):
         # Check return value matches expectations
         self.assertEqual(
             value,
-            [
+            (
                 SiteRootPath(
                     site_id=1,
                     root_path="/home/",
                     root_url="http://localhost",
                     language_code="en",
-                )
-            ],
+                ),
+            ),
         )
 
         # Requesting again should return the cached value

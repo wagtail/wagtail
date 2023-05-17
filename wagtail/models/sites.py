@@ -246,9 +246,9 @@ class Site(models.Model):
                 )
 
     @classmethod
-    def get_site_root_paths(cls) -> List[SiteRootPath]:
+    def get_site_root_paths(cls) -> Tuple[SiteRootPath]:
         """
-        Return a list of `SiteRootPath` instances, most specific path
+        Return a tuple of `SiteRootPath` instances, most specific path
         first - used to translate url_paths into actual URLs with hostnames
 
         Each root path is an instance of the `SiteRootPath` named tuple,
@@ -293,6 +293,9 @@ class Site(models.Model):
                         site.root_page.locale.language_code,
                     )
                 )
+
+        # Convert to a tuple for weak reference support
+        result = tuple(result)
 
         if caching_enabled:
             # A copy is cached to prevent accidental mutation
