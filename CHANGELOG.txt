@@ -11,6 +11,7 @@ Changelog
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
+ * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
@@ -19,6 +20,7 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
+ * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
 5.0 (02.05.2023)
@@ -167,6 +169,7 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
+ * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
 4.2.3 (02.05.2023)
@@ -369,6 +372,7 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
+ * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
 4.1.5 (02.05.2023)
