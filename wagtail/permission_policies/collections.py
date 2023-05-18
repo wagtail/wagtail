@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.db.models import Q
+from django.db.models import BooleanField, Q, Exists, ExpressionWrapper, OuterRef
 
 from wagtail.models import Collection, GroupCollectionPermission
 
@@ -18,6 +18,17 @@ class CollectionPermissionLookupMixin:
         ]
         return Permission.objects.filter(
             content_type=self._content_type, codename__in=permission_codenames
+        )
+
+    def _permission_exists_query(self, user, action):
+        return Exists(
+            GroupCollectionPermission.objects.filter(
+                group__user=user,
+                permission__content_type=self._content_type,
+                collection__path__startswith=OuterRef("collection__path"),
+                collection__depth__gte=OuterRef("collection__depth"),
+                permission__codename=self._get_permission_name(action),
+            )
         )
 
     def _check_perm(self, user, actions, collection=None):
@@ -202,6 +213,34 @@ class CollectionPermissionPolicy(
         """
         return self._users_with_perm(actions, collection=instance.collection)
 
+    def annotate_with_permissions(self, queryset, user, actions):
+        known_access = None
+        if not user.is_active or not user.is_authenticated:
+            known_access = False
+        elif user.is_superuser:
+            known_access = True
+
+        # Skip queryset annotation if we already know whether the user has permission
+        if known_access is not None:
+            for instance in queryset:
+                instance.annotated_permissions = {
+                    action: known_access for action in actions
+                }
+            return queryset
+
+        queryset = queryset.annotate(
+            **{
+                f"_w_can_{action}": self._permission_exists_query(user, action)
+                for action in actions
+            }
+        )
+
+        for instance in queryset:
+            instance.annotated_permissions = {
+                action: getattr(instance, f"_w_can_{action}") for action in actions
+            }
+        return queryset
+
 
 class CollectionOwnershipPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
@@ -378,6 +417,56 @@ class CollectionOwnershipPermissionPolicy(
             # action is not recognised, and so non-superusers
             # cannot perform it on any existing collections
             return Collection.objects.none()
+
+    def annotate_with_permissions(self, queryset, user, actions):
+        known_access = None
+        if not user.is_active or not user.is_authenticated:
+            known_access = False
+        elif user.is_superuser:
+            known_access = True
+
+        # Skip queryset annotation if we already know whether the user has permission
+        if known_access is not None:
+            for instance in queryset:
+                instance.annotated_permissions = {
+                    action: known_access for action in actions
+                }
+            return queryset
+
+        action_aliases = {
+            # 'change' permission implies 'delete' permission
+            "delete": "change",
+        }
+
+        for action in set(actions) - action_aliases.keys():
+            if action == "change":
+                queryset = queryset.annotate(
+                    _w_can_change=ExpressionWrapper(
+                        (
+                            # user has 'add' permission and is the owner
+                            (
+                                self._permission_exists_query(user, "add")
+                                & Q(**{self.owner_field_name: user})
+                            )
+                            # OR user has 'change' permission
+                            | self._permission_exists_query(user, "change")
+                        ),
+                        output_field=BooleanField(),
+                    )
+                )
+            else:
+                queryset = queryset.annotate(
+                    **{f"_w_can_{action}": self._permission_exists_query(user, action)}
+                )
+
+        for instance in queryset:
+            instance.annotated_permissions = {
+                action: getattr(
+                    instance, f"_w_can_{action_aliases.get(action, action)}"
+                )
+                for action in actions
+            }
+        return queryset
 
 
 class CollectionMangementPermissionPolicy(
