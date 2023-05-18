@@ -128,6 +128,24 @@ class BasePermissionPolicy:
     def users_with_permission_for_instance(self, action, instance):
         return self.users_with_any_permission_for_instance([action], instance)
 
+    def annotate_with_permissions(self, queryset, user, actions):
+        """
+        Annotate each instance in the given queryset with a annotated_permissions
+        dictionary that maps each action in the given list of actions to a
+        boolean value indicating whether the given user has permission to
+        perform that action.
+
+        Subclasses may override this method to provide a more efficient
+        implementation, e.g. by performing a single database query to
+        determine the permissions for all instances in the queryset.
+        """
+        for instance in queryset:
+            instance.annotated_permissions = {
+                action: self.user_has_permission_for_instance(user, action, instance)
+                for action in actions
+            }
+        return queryset
+
 
 class BlanketPermissionPolicy(BasePermissionPolicy):
     """
