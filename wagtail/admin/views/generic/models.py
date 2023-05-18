@@ -276,6 +276,11 @@ class IndexView(
         }
         return queryset.filter(**filters)
 
+    def annotate_permissions(self, queryset):
+        return self.permission_policy.annotate_with_permissions(
+            queryset, self.request.user, ("change", "delete")
+        )
+
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not self.model:
             return column_class(
@@ -325,6 +330,8 @@ class IndexView(
             return reverse(self.index_url_name)
 
     def get_edit_url(self, instance):
+        if self.permission_policy and not instance.annotated_permissions["change"]:
+            return None
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
@@ -357,6 +364,8 @@ class IndexView(
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
+        if self.permission_policy:
+            queryset = self.annotate_permissions(queryset)
 
         context = super().get_context_data(*args, object_list=queryset, **kwargs)
 
