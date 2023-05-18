@@ -79,6 +79,7 @@ class IndexView(
     edit_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     context_object_name = None
+    annotate_permissions = []
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     default_ordering = None
@@ -276,9 +277,9 @@ class IndexView(
         }
         return queryset.filter(**filters)
 
-    def annotate_permissions(self, queryset):
+    def annotate_queryset_permissions(self, queryset):
         return self.permission_policy.annotate_with_permissions(
-            queryset, self.request.user, ("change", "delete")
+            queryset, self.request.user, self.annotate_permissions
         )
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
@@ -330,7 +331,10 @@ class IndexView(
             return reverse(self.index_url_name)
 
     def get_edit_url(self, instance):
-        if self.permission_policy and not instance.annotated_permissions["change"]:
+        if (
+            "change" in self.annotate_permissions
+            and not instance.annotated_permissions["change"]
+        ):
             return None
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
@@ -364,10 +368,13 @@ class IndexView(
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
-        if self.permission_policy:
-            queryset = self.annotate_permissions(queryset)
 
         context = super().get_context_data(*args, object_list=queryset, **kwargs)
+
+        # Annotate queryset with permissions after pagination in
+        # super().get_context_data
+        if self.annotate_permissions:
+            queryset = self.annotate_queryset_permissions(context["object_list"])
 
         index_url = self.get_index_url()
         table = self.get_table(context["object_list"], base_url=index_url)
