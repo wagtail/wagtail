@@ -9,11 +9,7 @@ from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
 from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import (
-    get_permission_name,
-    user_can_edit_snippet_type,
-    user_can_edit_snippets,
-)
+from wagtail.snippets.permissions import user_can_edit_snippets
 from wagtail.snippets.views import snippets as snippet_views
 from wagtail.snippets.widgets import SnippetListingButton
 
@@ -65,7 +61,7 @@ def register_permissions():
 def register_snippet_listing_buttons(snippet, user, next_url=None):
     model = type(snippet)
 
-    if user_can_edit_snippet_type(user, model):
+    if snippet.annotated_permissions["change"]:
         yield SnippetListingButton(
             _("Edit"),
             reverse(
@@ -76,7 +72,7 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             priority=10,
         )
 
-    if user.has_perm(get_permission_name("delete", model)):
+    if snippet.annotated_permissions["delete"]:
         yield SnippetListingButton(
             _("Delete"),
             reverse(

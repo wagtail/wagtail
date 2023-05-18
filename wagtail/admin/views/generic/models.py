@@ -152,6 +152,11 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
 
         return queryset
 
+    def annotate_permissions(self, queryset):
+        return self.permission_policy.annotate_with_permissions(
+            queryset, self.request.user, ("change", "delete")
+        )
+
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not self.model:
             return column_class(
@@ -197,6 +202,8 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
             return columns
 
     def get_edit_url(self, instance):
+        if self.permission_policy and not instance.annotated_permissions["change"]:
+            return None
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
@@ -213,6 +220,10 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         if context["can_add"]:
             context["add_url"] = self.get_add_url()
             context["add_item_label"] = self.add_item_label
+
+        if self.permission_policy:
+            context["object_list"] = self.annotate_permissions(context["object_list"])
+
         return context
 
 
