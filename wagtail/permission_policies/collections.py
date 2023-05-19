@@ -1,7 +1,16 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.db.models import BooleanField, Q, Exists, ExpressionWrapper, OuterRef
+from django.db.models import (
+    BooleanField,
+    CharField,
+    Exists,
+    ExpressionWrapper,
+    F,
+    OuterRef,
+    PositiveIntegerField,
+    Q,
+)
 
 from wagtail.models import Collection, GroupCollectionPermission
 
@@ -22,12 +31,21 @@ class CollectionPermissionLookupMixin:
 
     def _permission_exists_query(self, user, action):
         return Exists(
-            GroupCollectionPermission.objects.filter(
+            GroupCollectionPermission.objects.annotate(
+                _instance_path=ExpressionWrapper(
+                    OuterRef("collection__path"),
+                    output_field=CharField(),
+                ),
+                _instance_depth=ExpressionWrapper(
+                    OuterRef("collection__depth"),
+                    output_field=PositiveIntegerField(),
+                ),
+            ).filter(
                 group__user=user,
                 permission__content_type=self._content_type,
-                collection__path__startswith=OuterRef("collection__path"),
-                collection__depth__gte=OuterRef("collection__depth"),
-                permission__codename=self._get_permission_name(action),
+                permission__codename=self._get_permission_codename(action),
+                _instance_path__startswith=F("collection__path"),
+                _instance_depth__gte=F("collection__depth"),
             )
         )
 
@@ -229,18 +247,30 @@ class CollectionPermissionPolicy(
                 )
             return queryset
 
+        action_aliases = {
+            # 'change' permission implies 'delete' permission
+            "delete": "change",
+        }
+
+        # Substitute any aliased actions with the actual action that will be checked
+        queried_actions = {action_aliases.get(action, action) for action in actions}
+
         queryset = queryset.annotate(
             **{
                 f"_w_can_{action}": self._permission_exists_query(user, action)
-                for action in actions
+                for action in queried_actions
             }
         )
 
         for instance in queryset:
-            self._update_instance_annotated_permissions(
-                instance,
-                {action: getattr(instance, f"_w_can_{action}") for action in actions},
-            )
+            permissions = {
+                action: bool(
+                    getattr(instance, f"_w_can_{action_aliases.get(action, action)}")
+                )
+                for action in actions
+            }
+
+            self._update_instance_annotated_permissions(instance, permissions)
         return queryset
 
 
@@ -440,21 +470,21 @@ class CollectionOwnershipPermissionPolicy(
             "delete": "change",
         }
 
-        for action in set(actions) - action_aliases.keys():
+        # Substitute any aliased actions with the actual action that will be checked
+        queried_actions = {action_aliases.get(action, action) for action in actions}
+        for action in queried_actions:
             if action == "change":
                 queryset = queryset.annotate(
                     _w_can_change=ExpressionWrapper(
-                        (
-                            # user has 'add' permission and is the owner
-                            (
-                                self._permission_exists_query(user, "add")
-                                & Q(**{self.owner_field_name: user})
-                            )
-                            # OR user has 'change' permission
-                            | self._permission_exists_query(user, "change")
+                        # user has 'change' permission
+                        self._permission_exists_query(user, "change")
+                        # OR user has 'add' permission and is the owner
+                        | (
+                            self._permission_exists_query(user, "add")
+                            & Q(**{self.owner_field_name: user})
                         ),
                         output_field=BooleanField(),
-                    )
+                    ),
                 )
             else:
                 queryset = queryset.annotate(
@@ -462,15 +492,15 @@ class CollectionOwnershipPermissionPolicy(
                 )
 
         for instance in queryset:
-            self._update_instance_annotated_permissions(
-                instance,
-                {
-                    action: getattr(
-                        instance, f"_w_can_{action_aliases.get(action, action)}"
-                    )
-                    for action in actions
-                },
-            )
+            permissions = {
+                action: bool(
+                    getattr(instance, f"_w_can_{action_aliases.get(action, action)}")
+                )
+                for action in actions
+            }
+
+            self._update_instance_annotated_permissions(instance, permissions)
+
         return queryset
 
 
