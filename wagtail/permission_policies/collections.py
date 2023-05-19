@@ -18,6 +18,8 @@ from .base import BaseDjangoAuthPermissionPolicy
 
 
 class CollectionPermissionLookupMixin:
+    permission_action_aliases = {}
+
     def _get_permission_objects_for_actions(self, actions):
         """
         Get a queryset of the Permission objects for the given actions
@@ -188,19 +190,19 @@ class CollectionPermissionLookupMixin:
                 )
             return queryset
 
-        action_aliases = {
-            # 'change' permission implies 'delete' permission
-            "delete": "change",
-        }
-
         # Substitute any aliased actions with the actual action that will be checked
-        queried_actions = {action_aliases.get(action, action) for action in actions}
+        queried_actions = {
+            self.permission_action_aliases.get(action, action) for action in actions
+        }
         queryset = self._annotate_with_permissions(queryset, user, queried_actions)
 
         for instance in queryset:
             permissions = {
                 action: bool(
-                    getattr(instance, f"_w_can_{action_aliases.get(action, action)}")
+                    getattr(
+                        instance,
+                        f"_w_can_{self.permission_action_aliases.get(action, action)}",
+                    )
                 )
                 for action in actions
             }
@@ -218,6 +220,11 @@ class CollectionPermissionPolicy(
     GroupCollectionPermission model, and propagate downwards. These permissions are
     applied to objects according to the standard django.contrib.auth permission model.
     """
+
+    permission_action_aliases = {
+        # 'change' permission implies 'delete' permission
+        "delete": "change",
+    }
 
     def user_has_permission(self, user, action):
         """
@@ -287,6 +294,11 @@ class CollectionOwnershipPermissionPolicy(
     applied to objects according to the 'ownership' permission model
     (see permission_policies.base.OwnershipPermissionPolicy)
     """
+
+    permission_action_aliases = {
+        # 'change' permission implies 'delete' permission
+        "delete": "change",
+    }
 
     def __init__(self, model, auth_model=None, owner_field_name="owner"):
         super().__init__(model, auth_model=auth_model)
@@ -478,6 +490,26 @@ class CollectionOwnershipPermissionPolicy(
 class CollectionMangementPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
 ):
+    def _permission_exists_query(self, user, action):
+        return Exists(
+            GroupCollectionPermission.objects.annotate(
+                _instance_path=ExpressionWrapper(
+                    OuterRef("path"),
+                    output_field=CharField(),
+                ),
+                _instance_depth=ExpressionWrapper(
+                    OuterRef("depth"),
+                    output_field=PositiveIntegerField(),
+                ),
+            ).filter(
+                group__user=user,
+                permission__content_type=self._content_type,
+                permission__codename=self._get_permission_codename(action),
+                _instance_path__startswith=F("collection__path"),
+                _instance_depth__gte=F("collection__depth"),
+            )
+        )
+
     def _descendants_with_perm(self, user, action):
         """
         Return a queryset of collections descended from a collection on which this user has
