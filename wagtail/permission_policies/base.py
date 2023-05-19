@@ -128,6 +128,14 @@ class BasePermissionPolicy:
     def users_with_permission_for_instance(self, action, instance):
         return self.users_with_any_permission_for_instance([action], instance)
 
+    def _update_instance_annotated_permissions(self, instance, update_dict):
+        """
+        Update the instance.annotated_permissions dictionary with the given update_dict.
+        """
+        annotation = getattr(instance, "annotated_permissions", {})
+        annotation.update(update_dict)
+        instance.annotated_permissions = annotation
+
     def annotate_with_permissions(self, queryset, user, actions):
         """
         Annotate each instance in the given queryset with a annotated_permissions
@@ -140,10 +148,15 @@ class BasePermissionPolicy:
         determine the permissions for all instances in the queryset.
         """
         for instance in queryset:
-            instance.annotated_permissions = {
-                action: self.user_has_permission_for_instance(user, action, instance)
-                for action in actions
-            }
+            self._update_instance_annotated_permissions(
+                instance,
+                {
+                    action: self.user_has_permission_for_instance(
+                        user, action, instance
+                    )
+                    for action in actions
+                },
+            )
         return queryset
 
 
