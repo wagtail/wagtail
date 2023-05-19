@@ -223,9 +223,10 @@ class CollectionPermissionPolicy(
         # Skip queryset annotation if we already know whether the user has permission
         if known_access is not None:
             for instance in queryset:
-                instance.annotated_permissions = {
-                    action: known_access for action in actions
-                }
+                self._update_instance_annotated_permissions(
+                    instance,
+                    {action: known_access for action in actions},
+                )
             return queryset
 
         queryset = queryset.annotate(
@@ -236,9 +237,10 @@ class CollectionPermissionPolicy(
         )
 
         for instance in queryset:
-            instance.annotated_permissions = {
-                action: getattr(instance, f"_w_can_{action}") for action in actions
-            }
+            self._update_instance_annotated_permissions(
+                instance,
+                {action: getattr(instance, f"_w_can_{action}") for action in actions},
+            )
         return queryset
 
 
@@ -460,12 +462,15 @@ class CollectionOwnershipPermissionPolicy(
                 )
 
         for instance in queryset:
-            instance.annotated_permissions = {
-                action: getattr(
-                    instance, f"_w_can_{action_aliases.get(action, action)}"
-                )
-                for action in actions
-            }
+            self._update_instance_annotated_permissions(
+                instance,
+                {
+                    action: getattr(
+                        instance, f"_w_can_{action_aliases.get(action, action)}"
+                    )
+                    for action in actions
+                },
+            )
         return queryset
 
 
