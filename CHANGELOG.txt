@@ -375,8 +375,8 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
+ * Fix: Adjust collection field alignment in multi-upload forms (LB (Ben) Johnston)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
-
 
 4.1.5 (02.05.2023)
 ~~~~~~~~~~~~~~~~~~
