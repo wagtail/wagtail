@@ -275,16 +275,20 @@ class InstanceSpecificView(WMABaseView):
         super().__init__(model_admin)
         self.instance_pk = unquote(instance_pk)
         self.pk_quoted = quote(self.instance_pk)
-        filter_kwargs = {self.pk_attname: self.instance_pk}
-        object_qs = model_admin.model._default_manager.get_queryset().filter(
-            **filter_kwargs
-        )
-        self.instance = get_object_or_404(object_qs)
+        self.filter_kwargs = {self.pk_attname: self.instance_pk}
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
             model_admin.model, TranslatableMixin
         ):
             self.locale = self.instance.locale
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.instance = get_object_or_404(
+            self.get_base_queryset(request), **self.filter_kwargs
+        )
+
+        return super(InstanceSpecificView, self).dispatch(request, *args, **kwargs)
 
     def get_page_subtitle(self):
         return self.instance

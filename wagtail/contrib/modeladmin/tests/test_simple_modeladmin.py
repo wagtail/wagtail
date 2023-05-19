@@ -5,6 +5,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
+from django.db.models import Q
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.utils.timezone import make_aware
@@ -572,6 +573,24 @@ class TestInspectView(WagtailTestUtils, TestCase):
     def get_for_book(self, book_id):
         return self.client.get("/admin/modeladmintest/book/inspect/%d/" % book_id)
 
+    def test_base_queryset(self):
+        def exclude_id1(self, request):
+            return Book.objects.filter(~Q(id=1))
+
+        BookModelAdmin.get_queryset = exclude_id1
+
+        response = self.get_for_book(1)
+        self.assertEqual(response.status_code, 404)
+
+    def test_queryset(self):
+        def exclude_id1(self, request):
+            return Book.objects.filter(~Q(id=1))
+
+        BookModelAdmin.inspect_view_class.get_base_queryset = exclude_id1
+
+        response = self.get_for_book(1)
+        self.assertEqual(response.status_code, 404)
+
     def test_author_simple(self):
         response = self.get_for_author(1)
         self.assertEqual(response.status_code, 200)
@@ -667,6 +686,28 @@ class TestEditView(WagtailTestUtils, TestCase):
         return self.client.post(
             "/admin/modeladmintest/book/edit/%d/" % book_id, post_data
         )
+
+    def test_base_queryset(self):
+        def exclude_id1(self, request):
+            return Book.objects.filter(~Q(id=1))
+
+        BookModelAdmin.get_queryset = exclude_id1
+
+        response = self.get(1)
+        self.assertEqual(response.status_code, 404)
+        response = self.post(1, None)
+        self.assertEqual(response.status_code, 404)
+
+    def test_queryset(self):
+        def exclude_id1(self, request):
+            return Book.objects.filter(~Q(id=1))
+
+        BookModelAdmin.edit_view_class.get_base_queryset = exclude_id1
+
+        response = self.get(1)
+        self.assertEqual(response.status_code, 404)
+        response = self.post(1, None)
+        self.assertEqual(response.status_code, 404)
 
     def test_simple(self):
         response = self.get(1)
