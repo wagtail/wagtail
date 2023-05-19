@@ -557,6 +557,80 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             [],
         )
 
+    def test_annotate_with_permissions_with_known_access(self):
+        actions = ("change", "delete", "frobnicate")
+        # For these cases, the permissions are known without adding DB annotations
+        cases = (
+            (self.superuser, {action: True for action in actions}),
+            (self.inactive_superuser, {action: False for action in actions}),
+            (self.inactive_doc_changer, {action: False for action in actions}),
+            (self.anonymous_user, {action: False for action in actions}),
+        )
+        for user, expected_permissions in cases:
+            with self.assertNumQueries(1), self.subTest(user=user):
+                queryset = Document.objects.all().order_by("id")
+                queryset = self.policy.annotate_with_permissions(
+                    queryset, user, actions
+                )
+                for instance in queryset:
+                    self.assertEqual(
+                        instance.annotated_permissions,
+                        expected_permissions,
+                    )
+
+    def test_annotate_with_permissions_with_database_annotations(self):
+        actions = ("change", "delete", "frobnicate")
+        document_ids = (
+            # root document owned by report_changer
+            self.changer_doc.pk,
+            # reports document owned by report_changer
+            self.changer_report.pk,
+            # reports document owned by report_adder
+            self.adder_report.pk,
+            # reports document owned by useless_user
+            self.useless_report.pk,
+            # reports document with no owner
+            self.anonymous_report.pk,
+        )
+
+        with self.assertNumQueries(1), self.subTest(user=self.doc_changer):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.doc_changer, actions
+            )
+            expected = {"change": True, "delete": True, "frobnicate": False}
+            for instance in queryset:
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.report_changer):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.report_changer, actions
+            )
+            for instance in queryset:
+                expected = {"change": True, "delete": True, "frobnicate": False}
+                if instance.pk == self.changer_doc.pk:
+                    expected = {"change": False, "delete": False, "frobnicate": False}
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.report_adder):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.report_adder, actions
+            )
+            expected = {"change": False, "delete": False, "frobnicate": False}
+            for instance in queryset:
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.useless_user):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.useless_user, actions
+            )
+            expected = {"change": False, "delete": False, "frobnicate": False}
+            for instance in queryset:
+                self.assertEqual(instance.annotated_permissions, expected)
+
 
 class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
@@ -1039,6 +1113,86 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             ),
             [],
         )
+
+    def test_annotate_with_permissions_with_known_access(self):
+        actions = ("change", "delete", "frobnicate")
+        # For these cases, the permissions are known without adding DB annotations
+        cases = (
+            (self.superuser, {action: True for action in actions}),
+            (self.inactive_superuser, {action: False for action in actions}),
+            (self.inactive_doc_changer, {action: False for action in actions}),
+            (self.anonymous_user, {action: False for action in actions}),
+        )
+        for user, expected_permissions in cases:
+            with self.assertNumQueries(1), self.subTest(user=user):
+                queryset = Document.objects.all().order_by("id")
+                queryset = self.policy.annotate_with_permissions(
+                    queryset, user, actions
+                )
+                for instance in queryset:
+                    self.assertEqual(
+                        instance.annotated_permissions,
+                        expected_permissions,
+                    )
+
+    def test_annotate_with_permissions_with_database_annotations(self):
+        actions = ("change", "delete", "frobnicate")
+        document_ids = (
+            # root document owned by report_changer
+            self.changer_doc.pk,
+            # reports document owned by report_changer
+            self.changer_report.pk,
+            # reports document owned by report_adder
+            self.adder_report.pk,
+            # reports document owned by useless_user
+            self.useless_report.pk,
+            # reports document with no owner
+            self.anonymous_report.pk,
+        )
+
+        with self.assertNumQueries(1), self.subTest(user=self.doc_changer):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.doc_changer, actions
+            )
+            expected = {"change": True, "delete": True, "frobnicate": False}
+            for instance in queryset:
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.report_changer):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.report_changer, actions
+            )
+            for instance in queryset:
+                expected = {"change": True, "delete": True, "frobnicate": False}
+                # even though changer_report is owned by report_changer, they can't
+                # change or delete it because it's in the root collection and they
+                # don't have add permission on the root collection
+                if instance.pk == self.changer_doc.pk:
+                    expected = {"change": False, "delete": False, "frobnicate": False}
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.report_adder):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.report_adder, actions
+            )
+            for instance in queryset:
+                expected = {"change": False, "delete": False, "frobnicate": False}
+                # adder_report is owned by report_adder, so they can change and delete
+                if instance.pk == self.adder_report.pk:
+                    expected = {"change": True, "delete": True, "frobnicate": False}
+                self.assertEqual(instance.annotated_permissions, expected)
+
+        with self.assertNumQueries(1), self.subTest(user=self.useless_user):
+            queryset = Document.objects.filter(id__in=document_ids).order_by("id")
+            queryset = self.policy.annotate_with_permissions(
+                queryset, self.useless_user, actions
+            )
+            expected = {"change": False, "delete": False, "frobnicate": False}
+            for instance in queryset:
+                self.assertEqual(instance.annotated_permissions, expected)
 
 
 class TestCollectionManagementPermission(
