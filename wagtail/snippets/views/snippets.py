@@ -299,6 +299,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     history_url_name = None
     preview_url_name = None
     revisions_compare_url_name = None
+    usage_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
@@ -311,6 +312,9 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def get_history_url(self):
         return reverse(self.history_url_name, args=[quote(self.object.pk)])
+
+    def get_usage_url(self):
+        return reverse(self.usage_url_name, args=[quote(self.object.pk)])
 
     def _get_action_menu(self):
         return SnippetActionMenu(
@@ -348,6 +352,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "history_url": self.get_history_url(),
+                "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,
                 "media": media,
             }
@@ -909,6 +914,7 @@ class SnippetViewSet(ModelViewSet):
             preview_url_name=self.get_url_name("preview_on_edit"),
             lock_url_name=self.get_url_name("lock"),
             unlock_url_name=self.get_url_name("unlock"),
+            usage_url_name=self.get_url_name("usage"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
@@ -979,6 +985,7 @@ class SnippetViewSet(ModelViewSet):
             preview_url_name=self.get_url_name("preview_on_edit"),
             lock_url_name=self.get_url_name("lock"),
             unlock_url_name=self.get_url_name("unlock"),
+            usage_url_name=self.get_url_name("usage"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
