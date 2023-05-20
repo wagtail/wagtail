@@ -434,9 +434,9 @@ Hooks for customising the editing interface for pages and snippets.
 
 Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as `RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The `register_rich_text_features` hook allows new feature identifiers to be defined - see [](rich_text_features) for details.
 
-(insert_editor_css)=
+(insert_global_admin_css)=
 
-### `insert_editor_css`
+### `insert_global_admin_css`
 
 Add additional CSS files or snippets to the page editor.
 
@@ -446,7 +446,7 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
-@hooks.register('insert_editor_css')
+@hooks.register('insert_global_admin_css')
 def editor_css():
     return format_html(
         '<link rel="stylesheet" href="{}">',

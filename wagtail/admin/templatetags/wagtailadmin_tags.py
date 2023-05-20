@@ -276,7 +276,7 @@ def test_page_is_public(context, page):
 @register.simple_tag
 def hook_output(hook_name):
     """
-    Example: {% hook_output 'insert_editor_css' %}
+    Example: {% hook_output 'insert_global_admin_css' %}
     Whenever we have a hook whose functions take no parameters and return a string, this tag can be used
     to output the concatenation of all of those return values onto the page.
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
