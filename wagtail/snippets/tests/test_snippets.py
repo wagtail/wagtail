@@ -1210,6 +1210,12 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         # History link should be present, one in the header and one in the status side panel
         self.assertContains(response, history_url, count=2)
 
+        usage_url = reverse(
+            "wagtailsnippets_tests_advert:usage", args=[quote(self.test_snippet.pk)]
+        )
+        # Usage link should be present in the status side panel
+        self.assertContains(response, usage_url)
+
         # Live status and last updated info should be shown, with a link to the history page
         self.assertContains(response, "3\xa0weeks ago")
         self.assertTagInHTML(

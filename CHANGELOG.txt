@@ -11,6 +11,7 @@ Changelog
  * Fix: Pass the correct `for_update` value for `get_form_class` in `SnippetViewSet` edit views (Sage Abdullah)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
+ * Fix: Fix missing link to `UsageView` from `EditView` for snippets (Christer Jensen)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 

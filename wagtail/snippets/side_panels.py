@@ -15,6 +15,7 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
         inherit = [
             "view",
             "history_url",
+            "usage_url",
             "workflow_history_url",
             "revisions_compare_url_name",
             "revision_enabled",
