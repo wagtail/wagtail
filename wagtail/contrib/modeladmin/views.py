@@ -277,18 +277,19 @@ class InstanceSpecificView(WMABaseView):
         self.pk_quoted = quote(self.instance_pk)
         self.filter_kwargs = {self.pk_attname: self.instance_pk}
 
+    def get_obj(self, request):
+        return get_object_or_404(self.get_base_queryset(request), **self.filter_kwargs)
+
+    def set_instance(self, request):
+        """
+        Calling this method is the duty of the child classed
+        as calling get_queryset of WMABaseView is done by IndexView
+        """
+        self.instance = self.get_obj(request)
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            model_admin.model, TranslatableMixin
+            self.model_admin.model, TranslatableMixin
         ):
             self.locale = self.instance.locale
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        self.instance = get_object_or_404(
-            self.get_base_queryset(request), **self.filter_kwargs
-        )
-
-        return super(InstanceSpecificView, self).dispatch(request, *args, **kwargs)
 
     def get_page_subtitle(self):
         return self.instance
@@ -841,6 +842,7 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.set_instance(request)
         if self.is_pagemodel:
             return redirect(self.url_helper.get_action_url("edit", self.pk_quoted))
 
@@ -975,6 +977,7 @@ class DeleteView(InstanceSpecificView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.set_instance(request)
         if not self.check_action_permitted(request.user):
             raise PermissionDenied
         if self.is_pagemodel:
@@ -1040,6 +1043,7 @@ class InspectView(InstanceSpecificView):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)
 
     def dispatch(self, request, *args, **kwargs):
+        self.set_instance(request)
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
             self.model_admin.model, TranslatableMixin
         ):
@@ -1195,6 +1199,11 @@ class HistoryView(MultipleObjectMixin, WagtailAdminTemplateMixin, InstanceSpecif
         UserColumn("user", blank_display_name="system"),
         DateColumn("timestamp", label=gettext_lazy("Date")),
     ]
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.set_instance(request)
+        return super(HistoryView, self).dispatch(request, *args, **kwargs)
 
     def get_page_subtitle(self):
         return str(self.instance)
