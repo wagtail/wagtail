@@ -85,7 +85,7 @@ class FilterableSnippet(index.Indexed, models.Model):
         return f"Foo {self.country_code}"
 
     get_foo_country_code.admin_order_field = "country_code"
-    get_foo_country_code.short_description = "Custom foo column"
+    get_foo_country_code.short_description = "custom FOO column"
 
 
 class FilterableSnippetFilterSet(WagtailFilterSet):

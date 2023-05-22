@@ -645,6 +645,7 @@ Contributors
 * Ivy Jeptoo
 * Satvik Vashisht
 * Christer Jensen
+* Virag Jain
 
 Translators
 ===========
