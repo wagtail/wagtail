@@ -572,6 +572,8 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
                 queryset = self.policy.annotate_with_permissions(
                     queryset, user, actions
                 )
+                # no duplicates are returned
+                self.assertEqual(len(queryset), 5)
                 for instance in queryset:
                     self.assertEqual(
                         instance.annotated_permissions,
@@ -598,6 +600,8 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.doc_changer, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             expected = {"change": True, "delete": True, "frobnicate": False}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
@@ -607,6 +611,8 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_changer, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             for instance in queryset:
                 expected = {"change": True, "delete": True, "frobnicate": False}
                 if instance.pk == self.changer_doc.pk:
@@ -618,6 +624,8 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_adder, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             expected = {"change": False, "delete": False, "frobnicate": False}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
@@ -627,6 +635,8 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.useless_user, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             expected = {"change": False, "delete": False, "frobnicate": False}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
@@ -1129,6 +1139,8 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
                 queryset = self.policy.annotate_with_permissions(
                     queryset, user, actions
                 )
+                # no duplicates are returned
+                self.assertEqual(len(queryset), 5)
                 for instance in queryset:
                     self.assertEqual(
                         instance.annotated_permissions,
@@ -1155,6 +1167,8 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.doc_changer, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             expected = {"change": True, "delete": True, "frobnicate": False}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
@@ -1164,6 +1178,8 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_changer, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             for instance in queryset:
                 expected = {"change": True, "delete": True, "frobnicate": False}
                 # even though changer_report is owned by report_changer, they can't
@@ -1178,6 +1194,8 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_adder, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             for instance in queryset:
                 expected = {"change": False, "delete": False, "frobnicate": False}
                 # adder_report is owned by report_adder, so they can change and delete
@@ -1190,6 +1208,8 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.useless_user, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 5)
             expected = {"change": False, "delete": False, "frobnicate": False}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
@@ -1566,6 +1586,8 @@ class TestCollectionManagementPermission(
                 queryset = self.policy.annotate_with_permissions(
                     queryset, user, actions
                 )
+                # no duplicates are returned
+                self.assertEqual(len(queryset), 3)
                 for instance in queryset:
                     self.assertEqual(
                         instance.annotated_permissions,
@@ -1585,6 +1607,8 @@ class TestCollectionManagementPermission(
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_changer, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 3)
             expected = (
                 {"add": False, "change": False, "delete": False, "frobnicate": False},
                 {"add": False, "change": True, "delete": False, "frobnicate": False},
@@ -1599,6 +1623,8 @@ class TestCollectionManagementPermission(
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_adder, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 3)
             expected = (
                 {"add": False, "change": False, "delete": False, "frobnicate": False},
                 {"add": True, "change": False, "delete": False, "frobnicate": False},
@@ -1613,6 +1639,8 @@ class TestCollectionManagementPermission(
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.report_deleter, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 3)
             expected = (
                 {"add": False, "change": False, "delete": False, "frobnicate": False},
                 {"add": False, "change": False, "delete": True, "frobnicate": False},
@@ -1627,6 +1655,8 @@ class TestCollectionManagementPermission(
             queryset = self.policy.annotate_with_permissions(
                 queryset, self.useless_user, actions
             )
+            # no duplicates are returned
+            self.assertEqual(len(queryset), 3)
             expected = {action: False for action in actions}
             for instance in queryset:
                 self.assertEqual(instance.annotated_permissions, expected)
