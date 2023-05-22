@@ -155,7 +155,9 @@ window.comments = (() => {
 
     register() {
       if (!this.contentpath) {
-        // The widget has no valid contentpath, skip subscriptions
+        // The widget has no valid contentpath,
+        // remove the button and skip subscriptions
+        this.commentAdditionNode.remove();
         return undefined;
       }
       const initialState = commentApp.store.getState();
