@@ -4,6 +4,7 @@ Changelog
 5.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
 
 
