@@ -689,6 +689,7 @@ Contributors
 * Deepam Priyadarshi
 * Babitha Kumari
 * Christer Jensen
+* Virag Jain
 
 Translators
 ===========
