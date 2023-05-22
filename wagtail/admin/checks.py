@@ -189,7 +189,10 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 def file_overwrite_check(app_configs, **kwargs):
     from django.conf import settings
 
-    file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
+    try:
+        file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
+    except AttributeError:
+        file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
 
     errors = []
 
