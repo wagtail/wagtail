@@ -282,6 +282,11 @@ class CommentsSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle comments")
     toggle_icon_name = "comment"
 
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["form"] = parent_context.get("form")
+        return context
+
 
 class BasePreviewSidePanel(BaseSidePanel):
     name = "preview"
