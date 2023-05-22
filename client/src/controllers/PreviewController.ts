@@ -98,9 +98,9 @@ export class PreviewController extends Controller<HTMLElement> {
   static targets = ['size', 'newTab', 'spinner', 'mode', 'iframe'];
 
   static values = {
-    url: String,
-    autoUpdate: Boolean,
-    autoUpdateInterval: Number,
+    url: { default: '', type: String },
+    autoUpdate: { default: true, type: Boolean },
+    autoUpdateInterval: { default: 500, type: Number },
   };
 
   declare readonly unavailableClass: string;
@@ -498,6 +498,12 @@ export class PreviewController extends Controller<HTMLElement> {
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
     );
+
+    if (!this.urlValue) {
+      throw new Error(
+        `The preview panel controller requires the data-${this.identifier}-url-value attribute to be set`,
+      );
+    }
 
     this.observePanelSize();
 
