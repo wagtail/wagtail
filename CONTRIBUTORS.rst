@@ -709,6 +709,7 @@ Contributors
 * Swojak-A
 * fidoriel
 * Christer Jensen
+* Virag Jain
 
 Translators
 ===========

@@ -652,8 +652,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
     def test_custom_columns(self):
         response = self.get()
         self.assertContains(response, "Text")
-        self.assertContains(response, "Country Code")
-        self.assertContains(response, "Custom Foo Column")
+        self.assertContains(response, "Country code")
+        self.assertContains(response, "Custom FOO column")
         self.assertContains(response, "Updated")
 
         self.assertContains(response, "Foo UK")
