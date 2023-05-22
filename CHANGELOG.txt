@@ -11,6 +11,7 @@ Changelog
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Fix: Fix missing link to `UsageView` from `EditView` for snippets (Christer Jensen)
+ * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
@@ -29,6 +30,7 @@ Changelog
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Fix: Fix missing link to `UsageView` from `EditView` for snippets (Christer Jensen)
+ * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
@@ -178,8 +180,9 @@ Changelog
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
- * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
  * Fix: Adjust collection field alignment in multi-upload forms (LB (Ben) Johnston)
+ * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
+ * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
 4.2.3 (02.05.2023)
@@ -383,6 +386,7 @@ Changelog
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
  * Fix: Ensure that copying page correctly picks up the latest revision (Matt Westcott)
  * Fix: Adjust collection field alignment in multi-upload forms (LB (Ben) Johnston)
+ * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 4.1.5 (02.05.2023)

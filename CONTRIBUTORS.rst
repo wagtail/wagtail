@@ -710,6 +710,7 @@ Contributors
 * fidoriel
 * Ramon Wenger
 * Christer Jensen
+* Virag Jain
 
 Translators
 ===========

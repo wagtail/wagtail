@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
+from django.utils.text import capfirst
 from django.views.generic import TemplateView
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import BaseCreateView
@@ -299,7 +300,7 @@ class IndexView(
 
         return column_class(
             field_name,
-            label=label.title(),
+            label=capfirst(label),
             sort_key=sort_key,
             **kwargs,
         )
