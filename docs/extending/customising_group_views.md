@@ -106,3 +106,29 @@ INSTALLED_APPS = [
     ...,
 ]
 ```
+
+(customising_group_views_permissions_order)=
+
+## Customising the group editor permissions ordering
+
+The order that object types appear in the group editor's "Object permissions" and "Other permissions" sections can be configured by registering that order in one or more `AppConfig` definitions. The order value is typically an integer between 0 and 999, although this is not enforced.
+
+```python
+from django.apps import AppConfig
+
+
+class MyProjectAdminAppConfig(AppConfig):
+    name = "myproject_admin"
+    verbose_name = "My Project Admin"
+
+    def ready(self):
+        from wagtail.users.permission_order import register
+
+        register("gadgets.SprocketType", order=150)
+        register("gadgets.ChainType", order=151)
+        register("site_settings.Settings", order=160)
+```
+
+A model class can also be passed to `register()`.
+
+Any object types that are not explicitly given an order will be sorted in alphabetical order by `app_label` and `model`, and listed after all of the object types _with_ a configured order.

@@ -4,6 +4,7 @@ import re
 from django import template
 
 from wagtail import hooks
+from wagtail.users.permission_order import CONTENT_TYPE_ORDER
 
 register = template.Library()
 
@@ -38,8 +39,13 @@ def format_permissions(permission_bound_field):
 
     """
     permissions = permission_bound_field.field._queryset
-    # get a distinct list of the content types that these permissions relate to
-    content_type_ids = set(permissions.values_list("content_type_id", flat=True))
+    # get a distinct and ordered list of the content types that these permissions relate to.
+    # relies on Permission model default ordering, dict.fromkeys() retaining that order
+    # from the queryset, and the stability of sorted().
+    content_type_ids = sorted(
+        dict.fromkeys(permissions.values_list("content_type_id", flat=True)),
+        key=lambda ct: CONTENT_TYPE_ORDER.get(ct, float("inf")),
+    )
 
     # iterate over permission_bound_field to build a lookup of individual renderable
     # checkbox objects

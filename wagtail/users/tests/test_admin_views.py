@@ -24,6 +24,7 @@ from wagtail.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
+from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.users.wagtail_hooks import get_group_viewset_cls
@@ -1946,6 +1947,71 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
 
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
+
+    def test_group_edit_loads_with_django_permissions_in_order(self):
+        # ensure objects are ordered as registered, followed by the default ordering
+
+        def object_position(object_perms):
+            # returns the list of objects in the object permsissions
+            # as provided by the format_permissions tag
+
+            def flatten(perm_set):
+                # iterates through perm_set dict, flattens the list if present
+                for v in perm_set.values():
+                    if isinstance(v, list):
+                        for e in v:
+                            yield e
+                    else:
+                        yield v
+
+            return [
+                (
+                    perm.content_type.app_label,
+                    perm.content_type.model,
+                )
+                for perm_set in object_perms
+                for perm in [next(v for v in flatten(perm_set) if "perm" in v)["perm"]]
+            ]
+
+        # Set order on two objects, should appear first and second
+        register_permission_order("snippetstests.fancysnippet", order=100)
+        register_permission_order("snippetstests.standardsnippet", order=110)
+
+        response = self.get()
+        object_positions = object_position(response.context["object_perms"])
+        self.assertEqual(
+            object_positions[0],
+            ("snippetstests", "fancysnippet"),
+            msg="Configured object permission order is incorrect",
+        )
+        self.assertEqual(
+            object_positions[1],
+            ("snippetstests", "standardsnippet"),
+            msg="Configured object permission order is incorrect",
+        )
+
+        # Swap order of the objects
+        register_permission_order("snippetstests.standardsnippet", order=90)
+        response = self.get()
+        object_positions = object_position(response.context["object_perms"])
+
+        self.assertEqual(
+            object_positions[0],
+            ("snippetstests", "standardsnippet"),
+            msg="Configured object permission order is incorrect",
+        )
+        self.assertEqual(
+            object_positions[1],
+            ("snippetstests", "fancysnippet"),
+            msg="Configured object permission order is incorrect",
+        )
+
+        # Test remainder of objects are sorted
+        self.assertEqual(
+            object_positions[2:],
+            sorted(object_positions[2:]),
+            msg="Default object permission order is incorrect",
+        )
 
 
 class TestGroupViewSet(TestCase):
