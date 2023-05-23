@@ -50,7 +50,7 @@
     background-color: transparent;
 
     &:hover {
-      background-color: theme('colors.text-button');
+      background-color: theme('colors.surface-page');
       border-color: currentColor;
       color: theme('colors.surface-button-default');
     }
