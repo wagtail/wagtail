@@ -615,12 +615,6 @@ function handleArrowAtContentEnd(
   );
 }
 
-interface ColorConfigProp {
-  standardHighlight: string;
-  overlappingHighlight: string;
-  focusedHighlight: string;
-}
-
 interface CommentableEditorProps {
   commentApp: CommentApp;
   fieldNode: Element;
@@ -629,7 +623,6 @@ interface CommentableEditorProps {
   onSave: (rawContent: RawDraftContentState | null) => void;
   inlineStyles: InlineStyleControl[];
   editorRef: (editor: ReactNode) => void;
-  colorConfig: ColorConfigProp;
   isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
   plugins?: Record<string, unknown>[];
@@ -644,7 +637,6 @@ function CommentableEditor({
   onSave,
   inlineStyles,
   editorRef,
-  colorConfig: { standardHighlight, overlappingHighlight, focusedHighlight },
   isCommentShortcut,
   plugins = [],
   controls = [],
@@ -877,21 +869,13 @@ function CommentableEditor({
               const commentIds = localCommentStyles.map((style) =>
                 getIdForCommentStyle(style as string),
               ) as unknown as Immutable.OrderedSet<number>;
-              let background = standardHighlight;
-              if (focusedId && commentIds.has(focusedId)) {
-                // Use the focused colour if one of the comments is focused
-                background = focusedHighlight;
-                return {
-                  backgroundColor: background,
-                };
-              }
-              if (numStyles > 1) {
-                // Otherwise if we're in a region with overlapping comments, use a different colour than usual
-                // to indicate that
-                background = overlappingHighlight;
-              }
+              const isFocused = focusedId && commentIds.has(focusedId);
+
               return {
-                backgroundColor: background,
+                backgroundColor: 'var(--w-color-text-highlight)',
+                outline: isFocused
+                  ? '4px solid var(--w-color-text-highlight)'
+                  : null,
               };
             }
             return undefined;

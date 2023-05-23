@@ -122,11 +122,6 @@ describe('CommentableEditor', () => {
           onSave={noop}
           inlineStyles={[]}
           editorRef={noop}
-          colorConfig={{
-            standardHighlight: '#FF0000',
-            overlappingHighlight: '#00FF00',
-            focusedHighlight: '#000000',
-          }}
           isCommentShortcut={() => false}
         />
       </Provider>

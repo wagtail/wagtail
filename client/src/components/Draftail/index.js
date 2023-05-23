@@ -233,15 +233,6 @@ const initEditor = (selector, originalOptions, currentScript) => {
     };
   };
 
-  const styles = getComputedStyle(document.documentElement);
-  const colors = {
-    standardHighlight: styles.getPropertyValue('--w-color-text-highlight'),
-    overlappingHighlight: styles.getPropertyValue(
-      '--w-color-surface-alert-modal-warning',
-    ),
-    focusedHighlight: styles.getPropertyValue('--w-color-text-highlight'),
-  };
-
   let options;
   let setOptions = (newOptions) => {
     Object.assign(originalOptions, newOptions);
@@ -264,7 +255,6 @@ const initEditor = (selector, originalOptions, currentScript) => {
             commentApp={window.comments.commentApp}
             fieldNode={field.parentNode}
             contentPath={contentPath}
-            colorConfig={colors}
             isCommentShortcut={window.comments.isCommentShortcut}
             {...sharedProps}
           />
