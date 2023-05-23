@@ -93,12 +93,12 @@ $zindex-modal-background: 500;
   inset-inline-end: theme('spacing.3');
   width: theme('spacing.8');
   height: theme('spacing.8');
-  color: theme('colors.surface-page');
+  color: theme('colors.text-button');
   z-index: 1;
 
   &:hover {
     background-color: theme('colors.surface-menu-item-active');
-    color: theme('colors.text-label-menus-active');
+    color: theme('colors.text-button');
   }
 }
 
