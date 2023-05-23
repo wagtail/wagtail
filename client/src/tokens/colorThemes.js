@@ -17,7 +17,7 @@
 // The focus outline color is defined without reusing a named color variable
 // because it shouldn’t be reused for anything else in the UI.
 const focusToken = {
-  value: '#009072',
+  value: '#00A885',
   bgUtility: 'w-bg-focus',
   textUtility: 'w-text-focus',
   cssVariable: '--w-color-focus',
