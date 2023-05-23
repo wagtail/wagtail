@@ -129,20 +129,20 @@ ul.listing {
 
     tbody tr:hover {
       background-color: theme('colors.surface-button-hover');
-      color: theme('colors.surface-page');
+      color: theme('colors.text-button');
 
       .title a,
       .title a:hover,
       .title label {
-        color: theme('colors.surface-page');
+        color: theme('colors.text-button');
       }
 
       .parent a {
-        color: theme('colors.surface-page');
+        color: theme('colors.text-button');
       }
 
       .w-status {
-        border-color: theme('colors.surface-page');
+        border-color: theme('colors.text-button');
       }
     }
 
@@ -272,10 +272,6 @@ ul.listing {
   .children,
   .no-children {
     padding: 0;
-
-    &:hover {
-      background-color: theme('colors.white-10');
-    }
 
     a {
       display: block;
