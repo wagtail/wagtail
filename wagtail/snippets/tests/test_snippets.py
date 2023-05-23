@@ -2095,19 +2095,19 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2240,18 +2240,18 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2415,18 +2415,18 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2597,7 +2597,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should still show the active expire_at in the live object
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2605,19 +2605,19 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should also show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2711,25 +2711,25 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # override the existing expire_at when it goes live
         self.assertNotContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
         )
 
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2825,7 +2825,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # unpublished (expired) -> published (scheduled) -> unpublished (expired again)
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2833,18 +2833,18 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2905,13 +2905,13 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         # Should show the go_live_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
 
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
             html=True,
             count=1,
         )
@@ -2972,13 +2972,13 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         # Should show the go_live_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3">Once published:</div>',
+            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
             html=True,
         )
 
         self.assertContains(
             response,
-            f'<span class="w-text-text-label">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
             html=True,
             count=1,
         )

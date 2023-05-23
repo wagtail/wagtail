@@ -42,15 +42,15 @@
                         <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
                             {% icon name='calendar-check' classname='w-w-4 w-h-4 w-text-info-100' %}
                             <div class="w-flex w-flex-1 w-items-start w-justify-between">
-                                <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text">
+                                <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text w-text-grey-400">
                                     <div>
-                                        <span class="w-text-text-label">{% trans 'Expiry:' %}</span>
+                                        <span class="w-text-grey-600">{% trans 'Expiry:' %}</span>
                                         {{ live_expire_at }}
                                     </div>
                                 </div>
                                 {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not lock_context.locked %}
                                     {% trans 'Edit schedule' as edit_schedule_text %}
-                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                                 {% endif %}
                             </div>
                         </div>
@@ -140,26 +140,26 @@
                     {% icon name='calendar' classname='w-w-4 w-h-4 w-text-info-100' %}
                 {% endif %}
                 <div class="w-flex w-flex-1 w-items-start w-justify-between">
-                    <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text">
+                    <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text w-text-grey-400">
                         {% if scheduled_go_live_at %}
-                            <div><span class="w-text-text-label">{% trans 'Go-live:' %}</span> {{ scheduled_go_live_at }}</div>
+                            <div><span class="w-text-grey-600">{% trans 'Go-live:' %}</span> {{ scheduled_go_live_at }}</div>
                         {% endif %}
                         {% if scheduled_expire_at %}
-                            <div><span class="w-text-text-label">{% trans 'Expiry:' %}</span> {{ scheduled_expire_at }}</div>
+                            <div><span class="w-text-grey-600">{% trans 'Expiry:' %}</span> {{ scheduled_expire_at }}</div>
                         {% endif %}
                         {% if draft_go_live_at or draft_expire_at %}
-                            <div class="w-label-3">{% trans 'Once published:' %}</div>
+                            <div class="w-label-3 w-text-grey-600">{% trans 'Once published:' %}</div>
                             {% if draft_go_live_at %}
-                                <div><span class="w-text-text-label">{% trans 'Go-live:' %}</span> {{ draft_go_live_at }}</div>
+                                <div><span class="w-text-grey-600">{% trans 'Go-live:' %}</span> {{ draft_go_live_at }}</div>
                             {% endif %}
                             {% if draft_expire_at %}
-                                <div><span class="w-text-text-label">{% trans 'Expiry:' %}</span> {{ draft_expire_at }}</div>
+                                <div><span class="w-text-grey-600">{% trans 'Expiry:' %}</span> {{ draft_expire_at }}</div>
                             {% endif %}
                         {% endif %}
                     </div>
                     {% if show_schedule_publishing_toggle and not lock_context.locked %}
                         {% trans 'Edit schedule' as edit_schedule_text %}
-                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                     {% endif %}
                 </div>
             </div>
