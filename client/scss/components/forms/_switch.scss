@@ -45,8 +45,8 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
       height: $switch-height + $switch-border * 2;
       width: $switch-width + $switch-border * 2;
       border-radius: $switch-border-radius;
-      background: theme('colors.icon-secondary');
-      border: $switch-border solid theme('colors.icon-secondary');
+      background: theme('colors.text-placeholder');
+      border: $switch-border solid theme('colors.text-placeholder');
     }
 
     &::after {
@@ -58,7 +58,7 @@ $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
       );
       height: $switch-height;
       width: $switch-height;
-      border: $switch-border solid theme('colors.text-button');
+      border: $switch-border solid theme('colors.surface-page');
       border-radius: theme('borderRadius.full');
       background-color: theme('colors.surface-page');
     }
