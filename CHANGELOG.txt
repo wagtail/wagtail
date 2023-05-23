@@ -9,6 +9,7 @@ Changelog
  * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
+ * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
@@ -25,6 +26,7 @@ Changelog
  * Fix: Fix error when deleting a single snippet through the bulk actions interface (Sage Abdullah)
  * Fix: Pass the correct `for_update` value for `get_form_class` in `SnippetViewSet` edit views (Sage Abdullah)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
+ * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
