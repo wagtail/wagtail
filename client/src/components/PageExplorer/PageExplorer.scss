@@ -40,7 +40,7 @@ $menu-footer-height: 50px;
 $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
-  @apply w-bg-surface-menu-item-active w-text-text-label-menus-default w-border-b w-border-surface-menu-item-active;
+  @apply w-bg-surface-menu-item-active w-text-text-label-menus-default w-border-b w-border-surface-menus;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
