@@ -38,15 +38,11 @@ The Elasticsearch backend now defaults to matching on complete words. Previously
 
 ### Autocomplete searches
 
-Wagtail provides a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query.
+Wagtail provides a separate method which performs partial matching on specific autocomplete fields. This is primarily useful for suggesting pages to the user in real-time as they type their query - it is not recommended for ordinary searches, as the autocompletion will tend to add unwanted results beyond the specific term being searched for.
 
 ```python
 >>> EventPage.objects.live().autocomplete("Eve")
 [<EventPage: Event 1>, <EventPage: Event 2>]
-```
-
-```{note}
-This method should only be used for real-time autocomplete and actual search requests should always use the `search()` method.
 ```
 
 (wagtailsearch_images_documents_custom_models)=
