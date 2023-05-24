@@ -16,6 +16,7 @@ Changelog
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
+ * Docs: Reorganise snippets documentation to cover customisations and optional features (Sage Abdullah)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
