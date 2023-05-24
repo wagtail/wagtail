@@ -40,21 +40,22 @@ class PagePermissionPolicy(BasePermissionPolicy):
             permission_type__in=actions,
         ).exists()
 
-    def users_with_any_permission(self, actions):
+    def _base_users_with_permission_query(self, **kwargs):
+        groups = GroupPagePermission.objects.filter(**kwargs).values_list(
+            "group", flat=True
+        )
         return (
             get_user_model()
             ._default_manager.filter(is_active=True)
-            .filter(
-                Q(is_superuser=True)
-                | Exists(
-                    GroupPagePermission.objects.filter(
-                        group__pk__in=OuterRef("groups"),
-                        permission_type__in=actions,
-                    )
-                )
-            )
+            .filter(Q(is_superuser=True) | Q(groups__in=groups))
             .distinct()
         )
+
+    def users_with_permission(self, action):
+        return self._base_users_with_permission_query(permission_type=action)
+
+    def users_with_any_permission(self, actions):
+        return self._base_users_with_permission_query(permission_type__in=actions)
 
     def _base_user_permissions_for_instance_query(self, user, instance=None):
         if instance:
