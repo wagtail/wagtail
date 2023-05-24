@@ -26,6 +26,8 @@ class BasePermissionPolicy:
     fine-grained permission logic).
     """
 
+    perm_cache_name = ""
+
     def __init__(self, model):
         self._model_or_name = model
 
@@ -40,6 +42,32 @@ class BasePermissionPolicy:
         # rather than a model class) is resolved to a model class, for subclasses to perform
         # any necessary validation checks on that model class
         pass
+
+    def get_all_permissions_for_user(self, user):
+        """
+        Return a set of all permissions that the given user has on this model.
+
+        They may be instances of django.contrib.auth.Permission, or custom
+        permission objects defined by the policy, which are not necessarily
+        model instances.
+        """
+        return set()
+
+    def get_cached_permissions_for_user(self, user):
+        """
+        Return a list of all permissions that the given user has on this model,
+        using the cache if available and populating the cache if not.
+
+        This can be useful for the other methods to perform efficient queries
+        against the set of permissions that the user has.
+        """
+        if hasattr(user, self.perm_cache_name):
+            perms = getattr(user, self.perm_cache_name)
+        else:
+            perms = self.get_all_permissions_for_user(user)
+            if self.perm_cache_name:
+                setattr(user, self.perm_cache_name, perms)
+        return perms
 
     # Basic user permission tests. Most policies are expected to override these,
     # since the default implementation is to query the set of permitted users
