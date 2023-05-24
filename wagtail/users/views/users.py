@@ -83,11 +83,12 @@ class Index(IndexView):
     is_searchable = True
     page_title = gettext_lazy("Users")
 
+    model_fields = [f.name for f in User._meta.get_fields()]
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.group = get_object_or_404(Group, id=args[0]) if args else None
         self.group_filter = Q(groups=self.group) if self.group else Q()
-        self.model_fields = [f.name for f in User._meta.get_fields()]
 
     def get_index_results_url(self):
         if self.group:
@@ -99,8 +100,9 @@ class Index(IndexView):
         return ["name", "username"]
 
     def get_queryset(self):
+        model_fields = set(self.model_fields)
         if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, self.model_fields)
+            conditions = get_users_filter_query(self.search_query, model_fields)
             users = User.objects.filter(self.group_filter & conditions)
         else:
             users = User.objects.filter(self.group_filter)
@@ -108,7 +110,10 @@ class Index(IndexView):
         if self.locale:
             users = users.filter(locale=self.locale)
 
-        if "last_name" in self.model_fields and "first_name" in self.model_fields:
+        if "wagtail_userprofile" in model_fields:
+            users = users.select_related("wagtail_userprofile")
+
+        if "last_name" in model_fields and "first_name" in model_fields:
             users = users.order_by("last_name", "first_name")
 
         if self.get_ordering() == "username":

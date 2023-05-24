@@ -246,6 +246,19 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         response = self.get({"ordering": "username"})
         self.assertEqual(response.context_data["ordering"], "username")
 
+    def test_num_queries(self):
+        # Warm up
+        self.get()
+
+        num_queries = 9
+        with self.assertNumQueries(num_queries):
+            self.get()
+
+        # Ensure we don't have any N+1 queries
+        self.create_user("test", "test@example.com", "gu@rd14n")
+        with self.assertNumQueries(num_queries):
+            self.get()
+
 
 class TestUserIndexResultsView(WagtailTestUtils, TestCase):
     def setUp(self):

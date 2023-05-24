@@ -11,7 +11,7 @@ class UserBulkAction(BulkAction):
         listing_objects = self.model.objects.all().values_list("pk", flat=True)
         if "q" in self.request.GET:
             q = self.request.GET.get("q")
-            model_fields = [f.name for f in self.model._meta.get_fields()]
+            model_fields = {f.name for f in self.model._meta.get_fields()}
             conditions = get_users_filter_query(q, model_fields)
 
             listing_objects = listing_objects.filter(conditions)
