@@ -351,7 +351,7 @@ The [documentation on tagging pages](tagging) has more information on how to use
 
 ## Inline models within snippets
 
-Similar to pages, you could nest other models within a snippet.
+Similar to pages, you can nest other models within a snippet.
 
 
 ```python
