@@ -113,10 +113,10 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
-        'header': '100',
-        'sidebar': '110',
-        'sidebar-toggle': '120',
-        'dialog': '130',
+        'header': '9900',
+        'sidebar': '9910',
+        'sidebar-toggle': '9920',
+        'dialog': '9930',
       },
       keyframes: {
         'fade-in': {
