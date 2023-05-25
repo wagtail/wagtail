@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
+"Last-Translator: Loic Teixeira, 2020-2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "Wagtail routable page"
 msgid "Wagtail sitemaps"
 msgstr "Plan des sites Wagtail"
 
+msgid "Unknown content type"
+msgstr "Type de contenu inconnu"
+
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -97,6 +100,12 @@ msgstr "Commentaire"
 
 msgid "Locked"
 msgstr "Verrouillé(e)"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Personne ne peut apporter de modifications tant que %(model_name)s est "
+"verrouillé(e)"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -116,6 +125,24 @@ msgstr ""
 #, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>« {title} » est verrouillé(e)</b>."
+
+msgid "Locked by you"
+msgstr "Verrouillé(e) par vous"
+
+msgid "Locked by another user"
+msgstr "Verrouillé(e) par un autre utilisateur"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Vous seul pouvez apporter des modifications tant que %(model_name)s est "
+"verrouillé(e)"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Seul %(user)s peut apporter des modifications tant que %(model_name)s est "
+"verrouillé(e)"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
@@ -138,6 +165,21 @@ msgstr ""
 msgid "Unlocked"
 msgstr "Déverrouillé(e)"
 
+msgid "Locked by workflow"
+msgstr "Verrouillé(e) par un workflow"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Les modérateurs peuvent modifier ce(tte) %(model_name)s – verrouillez le/la "
+"afin d'empêcher les autres modérateurs de le/la modifier."
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Seuls les modérateurs peuvent modifier et approver %(model_name)s"
+
 #, python-brace-format
 msgid ""
 "{model_name} '{title}' is locked and has been scheduled to go live at "
@@ -145,6 +187,12 @@ msgid ""
 msgstr ""
 " {model_name} « {title} » est verrouillé(e) et a été planifié(e) pour la "
 "publication le {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Verrouillé(e) par programmation"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Actuellement verrouillé(e) et sera publié(e) à la date programmée"
 
 msgid "latest revision"
 msgstr "dernière version"
@@ -563,6 +611,30 @@ msgstr "permission de collection de groupe"
 
 msgid "group collection permissions"
 msgstr "permission de collection de groupe"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s sera également supprimé(e)"
+
+msgid "prevents deletion"
+msgstr "empêche la suppression"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "sera remplacé(e) par la valeur par défaut %(model_name)s"
+
+msgid "will do nothing"
+msgstr "ne fera rien"
+
+msgid "may prevent deletion"
+msgstr "peut empêcher la suppression"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "sera remplacé par un(e) %(model_name)s spécifié(e) par le système"
+
+msgid "will unset the reference"
+msgstr "supprimera la référence"
 
 msgid "hostname"
 msgstr "nom d'hôte"

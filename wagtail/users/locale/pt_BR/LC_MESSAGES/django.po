@@ -6,6 +6,7 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
+# Fabio Santos <f4bio.sa@gmail.com>, 2023
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Iuri L. Machado, 2021
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +126,9 @@ msgstr "Selecione seu fuso horário atual"
 
 msgid "profile picture"
 msgstr "foto do perfil"
+
+msgid "admin theme"
+msgstr "Tema admin"
 
 msgid "user profile"
 msgstr "Perfil de usuário"
@@ -286,11 +290,11 @@ msgstr "Desculpe, nenhum grupo coincide com \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Não há grupos configurados. Por que não  <a "
-"href=\"%(wagtailusers_create_group_url)s\">adicionar alguns</a>?"
+"Não há grupos configurados. Por que não  <a href="
+"\"%(wagtailusers_create_group_url)s\">adicionar alguns</a>?"
 
 msgid "Delete user"
 msgstr "Excluir usuário"
@@ -318,6 +322,9 @@ msgstr "Selecionar todos os usuários da lista"
 
 msgid "Username"
 msgstr "Nome de usuário"
+
+msgid "Access level"
+msgstr "Nível de acesso"
 
 msgid "Status"
 msgstr "Status"
@@ -347,19 +354,19 @@ msgstr "Desculpe, nenhum usuário coincide com \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"O grupo %(group_name)s não tem usuários configurados. Por que não <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"O grupo %(group_name)s não tem usuários configurados. Por que não <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Não há usuários configurados. Por que não <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"Não há usuários configurados. Por que não <a href=\"%(wagtailusers_add_url)s"
+"\">adicionar alguns</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

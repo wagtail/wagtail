@@ -7,7 +7,7 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,12 @@ msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s-pätkä '%(object)s' poistettu."
 
 #, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s poistettu."
+msgstr[1] "%(count)d %(model_name)s poistettu."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Poista %(snippet_type_name)s"
 
@@ -90,6 +96,14 @@ msgstr "Haluatko varmasti poistaa tämän %(snippet_type_name)s -kohteen?"
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Haluatko varmasti poistaa %(count)s %(snippet_type_name)s-pätkää?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Sinulla ei ole oikeutta poistaa tätä %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Sinulla ei ole oikeutta poistaa näitä %(snippet_plural_name)s"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
@@ -177,11 +191,11 @@ msgstr[1] "Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Yhtään %(snippet_type_name_plural)s ei ole luotu. Mikset vaikka <a "
-"href=\"%(wagtailsnippets_create_url)s\">lisäisi yhtä nyt</a>?"
+"Yhtään %(snippet_type_name_plural)s ei ole luotu. Mikset vaikka <a href="
+"\"%(wagtailsnippets_create_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Live version"
 msgstr "Esillä oleva versio"
@@ -230,6 +244,10 @@ msgstr "Pvm"
 
 msgid "Snippet history"
 msgstr "Pätkän historia"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Muokkaa tätä %(model_name)s"
 
 #, python-format
 msgid "Edit '%(title)s'"

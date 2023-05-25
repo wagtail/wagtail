@@ -9,6 +9,7 @@
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Amr Awad <amro.khir@gmail.com>, 2020
 # HossamElDin Mohamed <garo5070@gmail.com>, 2021
+# Mahmoud Marayef, 2023
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -22,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Waseem Kntar, 2023\n"
+"Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +42,16 @@ msgstr "قدّم للمراجعة"
 #, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr "إعادة اﻹدخال إلي %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "ارسال الي %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "اعادة تشغيل مكان العمل"
+
+msgid "Cancel workflow "
+msgstr "الغاء مكان العمل"
 
 msgid "Unpublish"
 msgstr "إلغاء نشر"
@@ -128,11 +139,23 @@ msgstr "لا يوجد لديك العديد من الصلاحيات المسجل
 msgid "Add"
 msgstr "اضف"
 
+msgid "Add collections"
+msgstr "اضف مجموعات"
+
 msgid "Edit"
 msgstr "تحرير"
 
+msgid "Edit collections"
+msgstr "تعديل المجموعات"
+
 msgid "Delete"
 msgstr "احذف"
+
+msgid "Delete collections"
+msgstr "ازالة المجموعات"
+
+msgid "You cannot edit another user's comment."
+msgstr "لا يمكنك نعديل مستخدم اخر تعليق"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل تاريخ / وقت انتهاء الصلاحية"
@@ -417,8 +440,8 @@ msgstr "اسم"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"

@@ -203,19 +203,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a "
-"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a href="
+"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a "
-"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
+"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 msgid "Generating URL"
 msgstr "Generovanie URL"

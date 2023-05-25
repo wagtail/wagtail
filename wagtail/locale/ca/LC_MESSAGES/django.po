@@ -72,6 +72,9 @@ msgstr "Wagtail routablepage"
 msgid "Wagtail sitemaps"
 msgstr "Wagtail sitemaps"
 
+msgid "Unknown content type"
+msgstr "Tipus de contingut desconegut"
+
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -83,6 +86,11 @@ msgstr "Commentari"
 
 msgid "Locked"
 msgstr "Bloquejada"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Ningú pot fer modificacions mentre el/la %(model_name)s està bloquejat/da"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -101,6 +109,23 @@ msgstr ""
 #, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' està bloquejada</b>."
+
+msgid "Locked by you"
+msgstr "Bloquejat/da per tu"
+
+msgid "Locked by another user"
+msgstr "Bloquejat per un altre usuari"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Només tu pots fer modificacions mentre el/la %(model_name)s està bloquejat/da"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Només %(user)s pot fer modificacions mentre el/la %(model_name)s està "
+"bloquejat/da"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
@@ -121,6 +146,21 @@ msgstr "Només els revisar d'aquesta tasca poden editar el/la %(model_name)s."
 msgid "Unlocked"
 msgstr "Desbloquejat"
 
+msgid "Locked by workflow"
+msgstr "Bloquejat/da pel fluxe de treball"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Els revisors poden editar aquest/a %(model_name)s – bloquegeu-lo/la per "
+"evitar que altres revisors pugin editar-lo/la"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Només els revisors poden editar i aprovar el/la %(model_name)s"
+
 #, python-brace-format
 msgid ""
 "{model_name} '{title}' is locked and has been scheduled to go live at "
@@ -128,6 +168,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' està bloquedat/da i ha estat programat/da per anar a "
 "En viu el {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Bloquejat/da per programació de publicació"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Actualment bloquejat i passarà a En viu en la data programada"
 
 msgid "latest revision"
 msgstr "última revisió"
@@ -543,7 +589,31 @@ msgid "group collection permission"
 msgstr "permís de col·lecció de grups"
 
 msgid "group collection permissions"
-msgstr "Permisos de col·leccions de grups"
+msgstr "permisos de col·leccions de grups"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "el/la %(model_name)s serà també esborrat/da"
+
+msgid "prevents deletion"
+msgstr "evita l'esborrat"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "serà establert al %(model_name)s per defecte"
+
+msgid "will do nothing"
+msgstr "no farà res"
+
+msgid "may prevent deletion"
+msgstr "pot evitar l'esborrat"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "serà establert a un/a %(model_name)s especificat/da pel sistema"
+
+msgid "will unset the reference"
+msgstr "anul·larà la referència"
 
 msgid "hostname"
 msgstr "hostname"

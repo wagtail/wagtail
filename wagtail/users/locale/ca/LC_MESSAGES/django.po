@@ -116,6 +116,18 @@ msgstr "Escolliu la vostra zona horària"
 msgid "profile picture"
 msgstr "Imatge de perfil"
 
+msgid "System default"
+msgstr "Valor per defecte"
+
+msgid "Light"
+msgstr "Clar"
+
+msgid "Dark"
+msgstr "Fosc"
+
+msgid "admin theme"
+msgstr "tema de l'administració"
+
 msgid "user profile"
 msgstr "perfil d'usuari"
 
@@ -266,11 +278,11 @@ msgstr "No s'ha trobat cap grup que concordi amb \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"No hi ha cap grup configurat. Per què no n'<a "
-"href=\"%(wagtailusers_create_group_url)s\">afegiu un</a>?"
+"No hi ha cap grup configurat. Per què no n'<a href="
+"\"%(wagtailusers_create_group_url)s\">afegiu un</a>?"
 
 msgid "Delete user"
 msgstr "Eliminar usuari"
@@ -299,6 +311,9 @@ msgstr "Seleccionar tots els usuaris de la llista"
 msgid "Username"
 msgstr "Nom d'usuari"
 
+msgid "Access level"
+msgstr "Nivell d'accés"
+
 msgid "Status"
 msgstr "Estat"
 
@@ -326,19 +341,19 @@ msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"El grup %(group_name)s no té cap usuari configurat. En voleu <a "
-"href=\"%(wagtailusers_add_url)s\">afegir</a>?"
+"El grup %(group_name)s no té cap usuari configurat. En voleu <a href="
+"\"%(wagtailusers_add_url)s\">afegir</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"No hi ha cap usuari configurat. En voleu <a "
-"href=\"%(wagtailusers_add_url)s\">afegir</a>?"
+"No hi ha cap usuari configurat. En voleu <a href=\"%(wagtailusers_add_url)s"
+"\">afegir</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

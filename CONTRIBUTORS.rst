@@ -724,7 +724,7 @@ Translators
 ===========
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
-* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
+* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
 * Armenian: Vachagan
 * Azerbaijani: Mirza Iskandarov
 * Bangla: Mahmud Abdur Rahman
@@ -762,7 +762,7 @@ Translators
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
 * Persian: Mohsen Hassani, Mostafa Heidarian, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Amir Mahmoodi, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Py Zenberg
 * Polish: X Bello, Łukasz Bołdys, Krzysztof Jeziorny, Konrad Lalik, Dominik Lech, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Piotr Moskal, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Vitor Hugo da Silva Lima, Gustavo Simões, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Ed Wurch
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Vitor Hugo da Silva Lima, Gustavo Simões, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, João Luiz Lorencetti, A M, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Fabio Santos, Ed Wurch
 * Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Diogo Gomes, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva
 * Romanian: Dan Braghis, Julian C, Bogdan Mateescu
 * Russian: ajk, Anatoly, Andrey Avdey, Vitaly Chekryzhev, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Sergey Mazanov, Eugene MechanisM, Rustam Mirzaev, Zhdan Parfenov, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Alexey Sveshnikov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov, Vlad

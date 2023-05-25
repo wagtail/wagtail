@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -108,6 +108,9 @@ msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
 
 msgid "Unlocked"
 msgstr "Odklenjeno"
+
+msgid "Locked by workflow"
+msgstr "Zaklenjeni poteki dela"
 
 msgid "latest revision"
 msgstr "zadnja revizija"
@@ -854,6 +857,9 @@ msgstr "Zavrnjeno ob '%(task)s'. Zahtevane so spremembe"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Naloga poteka dela zavrnjena. Potek dela končan"
+
+msgid "Workflow: resume task"
+msgstr "Potek dela: nadaljuj nalogo"
 
 msgid "Workflow: cancel"
 msgstr "Potek dela: prekliči"
