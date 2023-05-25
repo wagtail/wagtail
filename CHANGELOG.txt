@@ -202,7 +202,7 @@ Changelog
  * Maintenance: Replace repeated HTML `avatar` component with a template tag include `{% avatar ... %}` throughout the admin interface (Aman Pandey)
 
 
-4.1.6 (xx.xx.2023) - IN DEVELOPMENT
+4.1.6 (25.05.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
