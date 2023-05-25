@@ -3,7 +3,7 @@ const vanillaRTL = require('tailwindcss-vanilla-rtl');
 /**
  * Design Tokens
  */
-const colors = require('./src/tokens/colors');
+const { staticColors, transparencies } = require('./src/tokens/colors');
 const {
   generateColorVariables,
   generateThemeColorVariables,
@@ -36,7 +36,7 @@ const scrollbarThin = require('./src/plugins/scrollbarThin');
  * themeColors: For converting our design tokens into a format that tailwind accepts
  */
 const themeColors = Object.fromEntries(
-  Object.entries(colors).map(([key, hues]) => {
+  Object.entries(staticColors).map(([key, hues]) => {
     const shades = Object.fromEntries(
       Object.entries(hues).map(([k, shade]) => [
         k,
@@ -165,17 +165,8 @@ module.exports = {
         ':root, :host': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
-          '--w-color-white-10': 'rgba(255, 255, 255, 0.10)',
-          '--w-color-white-15': 'rgba(255, 255, 255, 0.15)',
-          '--w-color-white-50': 'rgba(255, 255, 255, 0.50)',
-          '--w-color-white-80': 'rgba(255, 255, 255, 0.80)',
-          '--w-color-black-5': 'rgba(0, 0, 0, 0.05)',
-          '--w-color-black-10': 'rgba(0, 0, 0, 0.10)',
-          '--w-color-black-20': 'rgba(0, 0, 0, 0.20)',
-          '--w-color-black-25': 'rgba(0, 0, 0, 0.25)',
-          '--w-color-black-35': 'rgba(0, 0, 0, 0.35)',
-          '--w-color-black-50': 'rgba(0, 0, 0, 0.50)',
-          ...generateColorVariables(colors),
+          ...transparencies,
+          ...generateColorVariables(staticColors),
           ...generateThemeColorVariables(colorThemes.light),
         },
         '.w-theme-system': {
