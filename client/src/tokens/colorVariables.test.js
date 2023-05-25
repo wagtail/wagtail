@@ -1,11 +1,15 @@
-const colors = require('./colors');
-const { generateColorVariables } = require('./colorVariables');
+const { staticColors, transparencies } = require('./colors');
+const colorThemes = require('./colorThemes');
+const {
+  generateColorVariables,
+  generateThemeColorVariables,
+} = require('./colorVariables');
 
 describe('generateColorVariables', () => {
   it('generates all variables', () => {
-    const colorVariables = generateColorVariables(colors);
+    const colorVariables = generateColorVariables(staticColors);
     const generatedVariables = Object.keys(colorVariables);
-    Object.values(colors).forEach((hues) => {
+    Object.values(staticColors).forEach((hues) => {
       Object.values(hues).forEach((shade) => {
         expect(generatedVariables).toContain(shade.cssVariable);
       });
@@ -20,7 +24,7 @@ describe('generateColorVariables', () => {
    * - Leave the copied content exactly as-is when pasting, to avoid any Markdown formatting issues.
    */
   it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
-    const colorVariables = generateColorVariables(colors);
+    const colorVariables = generateColorVariables(staticColors);
     expect(colorVariables).toMatchInlineSnapshot(`
       Object {
         "--w-color-black": "hsl(var(--w-color-black-hue) var(--w-color-black-saturation) var(--w-color-black-lightness))",
@@ -127,6 +131,128 @@ describe('generateColorVariables', () => {
         "--w-color-white-hue": "0",
         "--w-color-white-lightness": "100%",
         "--w-color-white-saturation": "0%",
+      }
+    `);
+  });
+});
+
+describe('transparencies', () => {
+  it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
+    expect(transparencies).toMatchInlineSnapshot(`
+      Object {
+        "--w-color-black-10": "rgba(0, 0, 0, 0.10)",
+        "--w-color-black-20": "rgba(0, 0, 0, 0.20)",
+        "--w-color-black-25": "rgba(0, 0, 0, 0.25)",
+        "--w-color-black-35": "rgba(0, 0, 0, 0.35)",
+        "--w-color-black-5": "rgba(0, 0, 0, 0.05)",
+        "--w-color-black-50": "rgba(0, 0, 0, 0.50)",
+        "--w-color-white-10": "rgba(255, 255, 255, 0.10)",
+        "--w-color-white-15": "rgba(255, 255, 255, 0.15)",
+        "--w-color-white-50": "rgba(255, 255, 255, 0.50)",
+        "--w-color-white-80": "rgba(255, 255, 255, 0.80)",
+      }
+    `);
+  });
+});
+
+describe('generateThemeColorVariables', () => {
+  it('uses the same variables in both themes', () => {
+    const light = Object.keys(generateThemeColorVariables(colorThemes.light));
+    const dark = Object.keys(generateThemeColorVariables(colorThemes.dark));
+    expect(light).toEqual(dark);
+  });
+
+  it('uses color variables for all values (except focus)', () => {
+    const values = [
+      ...Object.values(generateThemeColorVariables(colorThemes.light)),
+      ...Object.values(generateThemeColorVariables(colorThemes.dark)),
+    ];
+    expect(values.filter((val) => !val.startsWith('var('))).toEqual([
+      '#00A885',
+      '#00A885',
+    ]);
+  });
+
+  it('light theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+    expect(generateThemeColorVariables(colorThemes.light))
+      .toMatchInlineSnapshot(`
+      Object {
+        "--w-color-border-button-outline-default": "var(--w-color-secondary)",
+        "--w-color-border-button-small-outline-default": "var(--w-color-grey-150)",
+        "--w-color-border-field-default": "var(--w-color-grey-150)",
+        "--w-color-border-field-hover": "var(--w-color-grey-200)",
+        "--w-color-border-field-inactive": "var(--w-color-grey-150)",
+        "--w-color-border-furniture": "var(--w-color-grey-100)",
+        "--w-color-focus": "#00A885",
+        "--w-color-icon-primary": "var(--w-color-primary)",
+        "--w-color-icon-primary-hover": "var(--w-color-primary-200)",
+        "--w-color-icon-secondary": "var(--w-color-grey-400)",
+        "--w-color-icon-secondary-hover": "var(--w-color-primary-200)",
+        "--w-color-surface-button-default": "var(--w-color-secondary)",
+        "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
+        "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
+        "--w-color-surface-button-outline-hover": "var(--w-color-secondary-50)",
+        "--w-color-surface-field": "var(--w-color-white)",
+        "--w-color-surface-field-inactive": "var(--w-color-grey-50)",
+        "--w-color-surface-header": "var(--w-color-grey-50)",
+        "--w-color-surface-menu-item-active": "var(--w-color-primary-200)",
+        "--w-color-surface-menus": "var(--w-color-primary)",
+        "--w-color-surface-page": "var(--w-color-white)",
+        "--w-color-surface-tooltip": "var(--w-color-primary-200)",
+        "--w-color-text-button": "var(--w-color-white)",
+        "--w-color-text-button-outline-default": "var(--w-color-secondary)",
+        "--w-color-text-context": "var(--w-color-grey-600)",
+        "--w-color-text-error": "var(--w-color-critical-200)",
+        "--w-color-text-highlight": "var(--w-color-secondary-75)",
+        "--w-color-text-label": "var(--w-color-primary)",
+        "--w-color-text-label-menus-active": "var(--w-color-white)",
+        "--w-color-text-label-menus-default": "var(--w-color-white-80)",
+        "--w-color-text-link-default": "var(--w-color-secondary)",
+        "--w-color-text-link-hover": "var(--w-color-secondary-400)",
+        "--w-color-text-meta": "var(--w-color-grey-400)",
+        "--w-color-text-placeholder": "var(--w-color-grey-400)",
+      }
+    `);
+  });
+
+  it('dark theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+    expect(generateThemeColorVariables(colorThemes.dark))
+      .toMatchInlineSnapshot(`
+      Object {
+        "--w-color-border-button-outline-default": "var(--w-color-secondary-100)",
+        "--w-color-border-button-small-outline-default": "var(--w-color-grey-400)",
+        "--w-color-border-field-default": "var(--w-color-grey-400)",
+        "--w-color-border-field-hover": "var(--w-color-grey-200)",
+        "--w-color-border-field-inactive": "var(--w-color-grey-500)",
+        "--w-color-border-furniture": "var(--w-color-grey-500)",
+        "--w-color-focus": "#00A885",
+        "--w-color-icon-primary": "var(--w-color-grey-150)",
+        "--w-color-icon-primary-hover": "var(--w-color-grey-50)",
+        "--w-color-icon-secondary": "var(--w-color-grey-150)",
+        "--w-color-icon-secondary-hover": "var(--w-color-grey-50)",
+        "--w-color-surface-button-default": "var(--w-color-secondary)",
+        "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
+        "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
+        "--w-color-surface-button-outline-hover": "var(--w-color-grey-500)",
+        "--w-color-surface-field": "var(--w-color-grey-600)",
+        "--w-color-surface-field-inactive": "var(--w-color-grey-500)",
+        "--w-color-surface-header": "var(--w-color-grey-600)",
+        "--w-color-surface-menu-item-active": "var(--w-color-grey-600)",
+        "--w-color-surface-menus": "var(--w-color-grey-500)",
+        "--w-color-surface-page": "var(--w-color-grey-600)",
+        "--w-color-surface-tooltip": "var(--w-color-grey-500)",
+        "--w-color-text-button": "var(--w-color-white)",
+        "--w-color-text-button-outline-default": "var(--w-color-secondary-100)",
+        "--w-color-text-context": "var(--w-color-grey-50)",
+        "--w-color-text-error": "var(--w-color-critical-100)",
+        "--w-color-text-highlight": "var(--w-color-secondary-400)",
+        "--w-color-text-label": "var(--w-color-grey-150)",
+        "--w-color-text-label-menus-active": "var(--w-color-white)",
+        "--w-color-text-label-menus-default": "var(--w-color-white-80)",
+        "--w-color-text-link-default": "var(--w-color-secondary-100)",
+        "--w-color-text-link-hover": "var(--w-color-secondary-75)",
+        "--w-color-text-meta": "var(--w-color-grey-150)",
+        "--w-color-text-placeholder": "var(--w-color-grey-200)",
       }
     `);
   });

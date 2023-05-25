@@ -1,7 +1,10 @@
-import React from 'react';
-import colors, { Hues, Shade } from './colors';
-import colorThemes, { Token, ThemeCategory } from './colorThemes';
-import { generateColorVariables } from './colorVariables';
+import React, { Fragment } from 'react';
+import { staticColors, Hues, Shade } from './colors';
+import colorThemes, { ThemeCategory } from './colorThemes';
+import {
+  generateColorVariables,
+  generateThemeColorVariables,
+} from './colorVariables';
 
 const description = `
 Wagtail’s typographic styles are made available as separate design tokens, but in most scenarios it’s better to use one of the predefined text styles.
@@ -21,7 +24,7 @@ const getContrastGridLink = () => {
     '?version=1.1.0&es-color-form__tile-size=compact&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18';
   const bg: string[] = [];
   const fg: string[] = [];
-  Object.values(colors).forEach((hues: Hues) => {
+  Object.values(staticColors).forEach((hues: Hues) => {
     Object.values(hues).forEach((shade: Shade) => {
       const color = `${shade.hex}, ${shade.textUtility.replace('w-text-', '')}`;
       bg.push(color);
@@ -77,7 +80,7 @@ export const ColorPalette = () => (
       color palette, with contrasting text chosen for readability of this
       example only.
     </p>
-    {Object.entries(colors).map(([color, hues]) => (
+    {Object.entries(staticColors).map(([color, hues]) => (
       <div key={color}>
         <h2 className="w-sr-only">{color}</h2>
         <Palette color={color} hues={hues} />
@@ -130,17 +133,25 @@ export const ColorThemes = () => (
   </>
 );
 
-const variablesMap = Object.entries(generateColorVariables(colors))
+const rootVariablesMap = [
+  ...Object.entries(generateColorVariables(staticColors)),
+  ...Object.entries(generateThemeColorVariables(colorThemes.light)),
+]
   .map(([cssVar, val]) => `${cssVar}: ${val};`)
   .join('');
-const secondaryHSL = colors.secondary.DEFAULT.hsl.match(
+const darkVariablesMap = Object.entries(
+  generateThemeColorVariables(colorThemes.dark),
+)
+  .map(([cssVar, val]) => `${cssVar}: ${val};`)
+  .join('');
+const secondaryHSL = staticColors.secondary.DEFAULT.hsl.match(
   /\d+(\.\d+)?/g,
 ) as string[];
 // Make sure this contains no empty lines, otherwise Sphinx docs will treat this as paragraphs.
 const liveEditorCustomisations = `:root {
-  --w-color-primary: ${colors.primary.DEFAULT.hex};
+  --w-color-primary: ${staticColors.primary.DEFAULT.hex};
   /* Any valid CSS format is supported. */
-  --w-color-primary-200: ${colors.primary[200].hsl};
+  --w-color-primary-200: ${staticColors.primary[200].hsl};
   /* Set each HSL component separately to change all hues at once. */
   --w-color-secondary-hue: ${secondaryHSL[0]};
   --w-color-secondary-saturation: ${secondaryHSL[1]}%;
@@ -148,13 +159,15 @@ const liveEditorCustomisations = `:root {
 }`;
 // Story using inline styles only so it can be copy-pasted into the Wagtail documentation for color customisations.
 const demoStyles = `
-  :root {${variablesMap}}
+  :root {${rootVariablesMap}}
+  .w-theme-dark {${darkVariablesMap}}
   .wagtail-color-swatch {
     border-collapse: separate;
     border-spacing: 4px;
   }
 
-  .wagtail-color-swatch td:first-child {
+  .wagtail-color-swatch td:first-child,
+  .wagtail-color-swatch .w-theme-dark {
     height: 1.5rem;
     width: 1.5rem;
     border: 1px solid #333;
@@ -190,6 +203,7 @@ const colorCustomisationsDemo = (
         {liveEditorCustomisations}
       </style>
     </pre>
+    <h3>Static colours</h3>
     <table className="wagtail-color-swatch">
       <thead>
         <tr>
@@ -199,7 +213,7 @@ const colorCustomisationsDemo = (
         </tr>
       </thead>
       <tbody>
-        {Object.values(colors).map((hues) =>
+        {Object.values(staticColors).map((hues) =>
           Object.entries(hues)
             //  Show DEFAULT shades first, then in numerical order.
             .sort(([nameA], [nameB]) =>
@@ -216,6 +230,37 @@ const colorCustomisationsDemo = (
             )),
         )}
       </tbody>
+    </table>
+    <h3>Light & dark theme colours</h3>
+    <table className="wagtail-color-swatch">
+      <thead>
+        <tr>
+          <th>Light</th>
+          <th>Dark</th>
+          <th>Variable</th>
+        </tr>
+      </thead>
+      {colorThemes.light.map((category) => (
+        <tbody key={category.label}>
+          <tr>
+            <th scope="rowgroup" colSpan={3}>
+              {category.label}
+            </th>
+          </tr>
+          {Object.values(category.tokens).map((token) => (
+            <tr key={token.cssVariable}>
+              <td style={{ backgroundColor: `var(${token.cssVariable})` }} />
+              <td
+                className="w-theme-dark"
+                style={{ backgroundColor: `var(${token.cssVariable})` }}
+              />
+              <td>
+                <code>{token.cssVariable}</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      ))}
     </table>
   </section>
 );
