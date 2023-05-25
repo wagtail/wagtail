@@ -411,19 +411,19 @@ msgstr "Ho sentim, cap imatge coincideix amb \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No heu pujat cap imatge a aquesta col·lecció. Per què no en <a "
-"href=\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
+"No heu pujat cap imatge a aquesta col·lecció. Per què no en <a href="
+"\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No heu pujat cap imatge. Per què no en <a "
-"href=\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
+"No heu pujat cap imatge. Per què no en <a href="
+"\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
 
 msgid "Generating URL"
 msgstr "Generant URL"

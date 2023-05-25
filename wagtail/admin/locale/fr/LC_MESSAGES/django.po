@@ -477,6 +477,9 @@ msgstr "Réinitialisez votre mot de passe"
 msgid "Reset to default"
 msgstr "Réinitialiser aux valeurs par défaut"
 
+msgid "Default avatar"
+msgstr "Avatar par défaut"
+
 msgid "Upload a profile picture:"
 msgstr "Transférer une photo de profil :"
 
@@ -554,15 +557,14 @@ msgstr "Convertir en un lien interne"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"L'URL <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a> que vous avez saisi semble "
-"correspondre à la page interne « %(page)s » dont l'URL est <a "
-"target=\"_blank\" rel=\"noreferrer\" "
+"L'URL <a target=\"_blank\" rel=\"noreferrer\" href=\"%(submitted_url)s\">"
+"%(submitted_url)s</a> que vous avez saisi semble correspondre à la page "
+"interne « %(page)s » dont l'URL est <a target=\"_blank\" rel=\"noreferrer\" "
 "href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
@@ -648,11 +650,11 @@ msgstr "Nom"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Aucune collection n’a été créée. Pourquoi ne pas <a "
-"href=\"%(add_collection_url)s\">en ajouter une</a> ?"
+"Aucune collection n’a été créée. Pourquoi ne pas <a href="
+"\"%(add_collection_url)s\">en ajouter une</a> ?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -695,8 +697,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
 "Ce(tte) %(model_name)s est actuellement à  <strong>%(task)s</strong> dans "
 "<strong>%(workflow)s</strong>."
@@ -848,9 +850,9 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Une mise à jour de Wagtail est disponible. Votre version : "
-"<strong>%(current_version)s</strong>. Nouvelle version : <strong data-w-"
-"upgrade-target=\"latestVersion\"></strong>."
+"Une mise à jour de Wagtail est disponible. Votre version : <strong>"
+"%(current_version)s</strong>. Nouvelle version : <strong data-w-upgrade-"
+"target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lire les notes de mise à jour."
@@ -876,13 +878,13 @@ msgstr "Il y a du nouveau avec Wagtail %(version)s !"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"Pas de panique, le <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">guide du "
+"Pas de panique, le <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">guide du "
 "rédacteur Wagtail</a> est là pour vous aider et vous faire découvrir ce qui "
 "est nouveau et ce qui a changé."
 
@@ -1095,8 +1097,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow "
-"\"%(workflow)s\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
+"\"."
 msgstr ""
 "%(model_name)s « %(title)s » a été approuvé(e) dans le workflow "
 "« %(workflow)s »."
@@ -1643,16 +1645,16 @@ msgid ""
 "This page was marked as needing changes at <strong>%(task)s</strong> in "
 "<strong>%(workflow)s</strong>."
 msgstr ""
-"Des modifications ont été demandée pour cette page dans la tâche "
-"« <strong>%(task)s</strong> » du workflow « <strong>%(workflow)s</strong> »."
+"Des modifications ont été demandée pour cette page dans la tâche « <strong>"
+"%(task)s</strong> » du workflow « <strong>%(workflow)s</strong> »."
 
 #, python-format
 msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Cette page est actuellement à  <strong>%(task)s</strong> dans "
-"<strong>%(workflow)s</strong>."
+"Cette page est actuellement à  <strong>%(task)s</strong> dans <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Publier cette page annulera le workflow actuel."
@@ -2095,6 +2097,17 @@ msgstr "Verrou :"
 msgid "Unlocked"
 msgstr "Déverrouillé(e)"
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Ce(tte) %(model_name)s est modifiable par tous. Verrouillez le/la afin "
+"d'empêcher d'autres utilisateurs de le/la modifier"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Ce(tte) %(model_name)s est modifiable par tous"
+
 msgid "Lock"
 msgstr "Verrouiller"
 
@@ -2193,6 +2206,20 @@ msgstr "Mode prévisualisation"
 msgid "First published "
 msgstr "Première publication"
 
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+msgstr[1] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+msgstr[2] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
+"supprimé."
+
 msgid "Edit / Review"
 msgstr "Modifier / Vérifier"
 
@@ -2206,6 +2233,10 @@ msgstr "Demandé par <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Commencé à <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Statut %(status)s"
 
 msgid "Timeline"
 msgstr "Timeline"
@@ -2253,9 +2284,9 @@ msgstr "Ce(tte) %(model_name)s n'a pas encore été soumise pour modération"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript est nécessaire pour utiliser Wagtail, mais est actuellement "
 "désactivé.<br />Voici les <a href=\"https://www.enable-javascript.com/\" "
@@ -2320,9 +2351,8 @@ msgstr "Créer"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Les workflows s'appliquent également aux sous-pages. Si vous sélectionnez "
 "une page parente, ses sous-pages utiliseront également ce workflow. Voir <a "
@@ -2358,6 +2388,9 @@ msgstr "Afficher les workflows désactivés"
 
 msgid "Used by"
 msgstr "Utilisé par"
+
+msgid "Disabled"
+msgstr "Désactivé(e)"
 
 #, python-format
 msgid "1 page"
@@ -2395,8 +2428,8 @@ msgstr ""
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Il n'y a pas de workflow d'activé. Pourquoi ne pas <a "
-"href=\"%(add_url)s\">en ajouter un</a> ?"
+"Il n'y a pas de workflow d'activé. Pourquoi ne pas <a href=\"%(add_url)s"
+"\">en ajouter un</a> ?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Choisissez quel type de tâche vous souhaiteriez créer."
@@ -2555,6 +2588,13 @@ msgstr "%(status_display)s %(task_name)s %(started_at)s"
 msgid "Toggle status"
 msgstr "Afficher/masquer le statut"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Référencé(e) %(count)s fois"
+msgstr[1] "Référencé(e) %(count)s fois"
+msgstr[2] "Référencé(e) %(count)s fois"
+
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -2564,10 +2604,43 @@ msgstr "Afficher/masquer les commentaires"
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
 
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du bouton est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du titre est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte de l'en-tête du tableau est vide. Utilisez un texte significatif "
+"pour les utilisateurs de lecteurs d'écran."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Le titre du cadre intégré (frame) est vide. Utilisez un texte significatif "
+"pour les utilisateurs de lecteurs d'écran."
+
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr ""
 "Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
 "titres."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du bouton de saisie est vide. Utilisez un texte significatif pour "
+"les utilisateurs de lecteurs d'écran."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du lien est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
 
 msgid "Misusing paragraphs as headings. Use proper heading tags."
 msgstr ""
@@ -2587,6 +2660,9 @@ msgstr "Photo de profil"
 
 msgid "Locale"
 msgstr "Région"
+
+msgid "Theme preferences"
+msgstr "Préférences de thème"
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -2693,11 +2769,11 @@ msgstr "Le workflow pour %(model_name)s « %(object)s » a été annulé."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
-"Vous passez en revue une version passée de ce(tte) %(model_name)s du "
-"<b>%(created_at)s</b> par %(user)s"
+"Vous passez en revue une version passée de ce(tte) %(model_name)s du <b>"
+"%(created_at)s</b> par %(user)s"
 
 #, python-format
 msgid ""
@@ -2729,6 +2805,10 @@ msgstr "Rechercher %(model_name)s"
 msgid "Editing"
 msgstr "Modification"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce(tte) %(model_name)s ?"
+
 msgid "Earliest"
 msgstr "Première"
 
@@ -2749,6 +2829,9 @@ msgstr "version %(revision_id)s de « %(object)s »"
 
 msgid "Usage of"
 msgstr "Utilisation de"
+
+msgid "If you confirm deletion"
+msgstr "Si vous confirmez la suppression"
 
 msgid "Field"
 msgstr "Champ"

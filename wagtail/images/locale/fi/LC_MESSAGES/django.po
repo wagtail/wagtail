@@ -416,19 +416,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
-"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
-"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Generating URL"
 msgstr "Generoidaan osoitetta"

@@ -296,19 +296,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a "
-"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
+"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a href="
+"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai. Kodėl gi <a "
-"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
+"Nėra įkelti jokie paveiksliukai. Kodėl gi <a href="
+"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 msgid "Generating URL"
 msgstr "Generuojamas URL"

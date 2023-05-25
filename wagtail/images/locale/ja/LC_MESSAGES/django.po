@@ -242,19 +242,19 @@ msgstr "<em>%(query_string)s</em>に一致する画像はありませんでし�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだこのコレクションに画像がアップロードされていません。<a "
-"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだこのコレクションに画像がアップロードされていません。<a href="
+"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだ画像がアップロードされていません。<a "
-"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだ画像がアップロードされていません。<a href="
+"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 msgid "Generating URL"
 msgstr "URLを生成"

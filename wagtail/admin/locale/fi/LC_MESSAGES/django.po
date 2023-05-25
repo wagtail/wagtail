@@ -540,11 +540,11 @@ msgstr "Nimi"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Kokoelmia ei ole luotu. Mikset vaikka <a "
-"href=\"%(add_collection_url)s\">loisi kokoelmaa</a>?"
+"Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
+"\">loisi kokoelmaa</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -768,8 +768,16 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Sivu \"%(page)s\" on lähetetty hyväksyttäväksi"
 
 #, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Voit muokata %(model_name)s täällä:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Sivu \"%(title)s\" on hyväksytty tehtävässä \"%(task)s\"."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Voit esikatsella %(model_name)s täällä:"
 
 msgid "New comments"
 msgstr "Uudet kommentit"
@@ -1377,8 +1385,22 @@ msgstr "Ei muita käännöksiä"
 msgid "Switch locales"
 msgstr "Vaihda maa-asetustoja"
 
+msgid "Locking: "
+msgstr "Lukitus:"
+
 msgid "Unlocked"
 msgstr "Ei lukittu"
+
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Kuka tahansa voi muokata tätä %(model_name)s – lukitse se estääksesi muita "
+"muokkaamasta"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Kuka tahansa voi muokata tätä %(model_name)s"
 
 msgid "Lock"
 msgstr "Lukitse"
@@ -1477,6 +1499,10 @@ msgstr "Pyytänyt <b>%(modified_by)s</b>"
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Aloitettu <b>%(started_at)s</b>"
 
+#, python-format
+msgid "Status %(status)s"
+msgstr "Tila %(status)s"
+
 msgid "Timeline"
 msgstr "Aikajana"
 
@@ -1504,14 +1530,14 @@ msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript vaaditaan Wagtaililin käyttöä varten, mutta se on pois käytöstä."
-"<br /> Tässä <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">ohjeita miten saat JavaScriptin "
-"käyttöön selaimessasi</a>."
+"<br /> Tässä <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">ohjeita miten saat JavaScriptin käyttöön selaimessasi</"
+"a>."
 
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
@@ -1577,6 +1603,9 @@ msgstr "Piilota käytöstä poistetut työnkulut"
 
 msgid "Show disabled workflows"
 msgstr "Näytä käytöstä poistetut työnkulut"
+
+msgid "Disabled"
+msgstr "Pois käytöstä"
 
 #, python-format
 msgid "1 page"
@@ -1732,6 +1761,9 @@ msgstr "Profiilikuva"
 msgid "Locale"
 msgstr "Maa-asetusto"
 
+msgid "Theme preferences"
+msgstr "Teeman asetukset"
+
 msgid "Password"
 msgstr "Salasana"
 
@@ -1778,6 +1810,10 @@ msgid "Workflow progress"
 msgstr "Työnkulun edistyminen"
 
 #, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' on nyt avattu lukituksesta."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "Mallin %(model_name)s '%(object)s' päivitetty."
 
@@ -1800,6 +1836,10 @@ msgstr "Etsi %(model_name)s"
 msgid "Editing"
 msgstr "Muokataan"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Haluatko varmasti poistaa tämän %(model_name)s?"
+
 msgid "Earliest"
 msgstr "Aikaisin"
 
@@ -1808,6 +1848,9 @@ msgstr "Viimeisin"
 
 msgid "Usage of"
 msgstr "Käyttö"
+
+msgid "If you confirm deletion"
+msgstr "Jos vahvistat poistamisen"
 
 msgid "Field"
 msgstr "Kenttä"

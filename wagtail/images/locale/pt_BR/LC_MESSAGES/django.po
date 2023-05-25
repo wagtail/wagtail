@@ -258,6 +258,13 @@ msgstr "Adicionar"
 msgid "Latest images"
 msgstr "Últimas imagens"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Por que não <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>carregar um agora</a>?"
+
 msgid "Choose a format"
 msgstr "Escolha um formato"
 
@@ -329,6 +336,13 @@ msgstr "Tags populares:"
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da lista"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
+
 msgid "Select image"
 msgstr "Selecionar imagem"
 
@@ -342,19 +356,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem nessa coleção. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem nessa coleção. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 msgid "Generating URL"
 msgstr "Gerando URL"

@@ -212,19 +212,19 @@ msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 �
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a "
-"href=\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a href="
+"\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"업로드된 문서가 없습니다. 지금 문서를 <a "
-"href=\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
+"업로드된 문서가 없습니다. 지금 문서를 <a href="
+"\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
 
 #, python-format
 msgid ""

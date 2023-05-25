@@ -162,16 +162,16 @@ msgstr[1] "S'ha trobat %(counter)s coincidències"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"No s'han trobat resultats promocionats que coincideixin amb "
-"\"<em>%(query_string)s</em>\""
+"No s'han trobat resultats promocionats que coincideixin amb \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"No s'ha creat cap resultat promocionat. per què no n'<a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">afegiu un</a>?"
+"No s'ha creat cap resultat promocionat. per què no n'<a href="
+"\"%(wagtailsearchpromotions_add_url)s\">afegiu un</a>?"
 
 msgid "Search promoted results"
 msgstr "Resultats de cerca promocionats"

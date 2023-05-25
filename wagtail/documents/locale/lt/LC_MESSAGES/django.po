@@ -146,19 +146,19 @@ msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkeltas joks dokumentas į šią kolekciją. Kodėl gi <a "
-"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
+"Nėra įkeltas joks dokumentas į šią kolekciją. Kodėl gi <a href="
+"\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkeltas joks dokumentas. Kodėl gi <a "
-"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
+"Nėra įkeltas joks dokumentas. Kodėl gi <a href="
+"\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""

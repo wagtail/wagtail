@@ -73,6 +73,9 @@ msgstr "Wagtailin käyttöliittymän välimuisti"
 msgid "Wagtail sitemaps"
 msgstr "Wagtailin sivukartat"
 
+msgid "Unknown content type"
+msgstr "Tuntematon sisältötyyppi"
+
 msgid "Password"
 msgstr "Salasana"
 
@@ -85,9 +88,41 @@ msgstr "Kommentti"
 msgid "Locked"
 msgstr "Lukittu"
 
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Kukaan ei voi tehdä muutoksia, kun %(model_name)s on lukittu"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' lukittiin</b> <b>sinun</b> toimesta <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' lukittiin</b> <b>sinun</b> toimesta."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' lukittiin</b> käyttäjän <b>{user}</b> toimesta <b>{datetime}</"
+"b>."
+
 #, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' on lukittu</b>."
+
+msgid "Locked by you"
+msgstr "Lukittu sinun toimesta"
+
+msgid "Locked by another user"
+msgstr "Lukittu toisen käyttäjän toimesta"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Vain sinä voit tehdä muutoksia kun %(model_name)s on lukittu"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Vain %(user)s voi tehdä muutoksia kun %(model_name)s on lukittu"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
@@ -95,6 +130,9 @@ msgstr "Tämä %(model_name)s odottaa parhaillaan tarkastusta."
 
 msgid "Unlocked"
 msgstr "Ei lukittu"
+
+msgid "Locked by workflow"
+msgstr "Lukittu työnkulun toimesta"
 
 msgid "live"
 msgstr "julkaistu"
@@ -432,6 +470,15 @@ msgstr "ryhmä/kokoelma-oikeus"
 msgid "group collection permissions"
 msgstr "ryhmän oikeudet kokoelmaan"
 
+msgid "prevents deletion"
+msgstr "estää poistamisen"
+
+msgid "will do nothing"
+msgstr "ei tee mitään"
+
+msgid "may prevent deletion"
+msgstr "saattaa estää poistamisen"
+
 msgid "hostname"
 msgstr "isäntäosoite"
 
@@ -586,6 +633,10 @@ msgstr "Palautettu aiempaan versioon"
 
 msgid "Copy"
 msgstr "Kopioi"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopioitu kohteesta %(title)s"
 
 msgid "Copied"
 msgstr "Kopioitu"

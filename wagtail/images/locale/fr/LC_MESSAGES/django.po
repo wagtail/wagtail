@@ -447,8 +447,8 @@ msgstr "Désolé, aucune image ne correspond à \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Vous n’avez pas encore transféré d’image dans cette collection. Pourquoi ne "
 "pas <a href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</"
@@ -456,11 +456,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a "
-"href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
+"Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a href="
+"\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
 
 msgid "Generating URL"
 msgstr "Génération d'URL"

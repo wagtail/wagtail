@@ -235,19 +235,19 @@ msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non subiches ningún documento nesta colección. ¿Por que non <a "
-"href=\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
+"Non subiches ningún documento nesta colección. ¿Por que non <a href="
+"\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non subiches documentos. ¿Por qué non <a "
-"href=\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
+"Non subiches documentos. ¿Por qué non <a href="
+"\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
 
 #, python-format
 msgid ""

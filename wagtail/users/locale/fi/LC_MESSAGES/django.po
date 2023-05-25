@@ -118,6 +118,18 @@ msgstr "Valitse nykyinen aikavyöhykkeesi"
 msgid "profile picture"
 msgstr "profiilin kuva"
 
+msgid "System default"
+msgstr "Järjestelmän oletus"
+
+msgid "Light"
+msgstr "Vaalea"
+
+msgid "Dark"
+msgstr "Tumma"
+
+msgid "admin theme"
+msgstr "admin-teema"
+
 msgid "user profile"
 msgstr "käyttäjäprofiili"
 
@@ -269,11 +281,11 @@ msgstr "Ei löytynyt ryhmää hakuehdolla \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
 
 msgid "Delete user"
 msgstr "Poista käyttäjä"
@@ -301,6 +313,9 @@ msgstr "Valitse listauksen kaikki käyttäjät"
 
 msgid "Username"
 msgstr "Käyttäjänimi"
+
+msgid "Access level"
+msgstr "Pääsytaso"
 
 msgid "Status"
 msgstr "Tila"
@@ -330,19 +345,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Ryhmään %(group_name)s ei ole asetettu käyttäjiä. Mikset vaikka <a "
-"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+"Ryhmään %(group_name)s ei ole asetettu käyttäjiä. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

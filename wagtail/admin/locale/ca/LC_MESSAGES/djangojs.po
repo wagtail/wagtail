@@ -40,6 +40,9 @@ msgstr "Text alternatiu"
 msgid "Are you sure?"
 msgstr "N'esteu segur?"
 
+msgid "Blocks"
+msgstr "Blocs"
+
 msgid "Broken link"
 msgstr "Enllaç no vàlid"
 

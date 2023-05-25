@@ -409,19 +409,19 @@ msgstr "Því miður passa engar myndir við \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a "
-"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a "
-"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 msgid "Generating URL"
 msgstr "Bý til slóð"

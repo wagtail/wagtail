@@ -108,8 +108,8 @@ msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上"
 "传一份</a>?"

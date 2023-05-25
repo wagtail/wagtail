@@ -345,16 +345,16 @@ msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图片。"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有图片。为何不 <a href=\"%(wagtailimages_add_image_url)s\">上传一"
 "个</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "还没上传图片呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
 

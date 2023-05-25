@@ -261,19 +261,19 @@ msgstr "متاسفانه هیچ تصویری با «<em>%(query_string)s</em>» 
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز به این مجموعه تصویری آپلود نشده. می‌توانید یکی را الان <a "
-"href=\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
+"هنوز به این مجموعه تصویری آپلود نشده. می‌توانید یکی را الان <a href="
+"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز تصویر آپلود نکرده اید. می‌توانید یکی را الان <a "
-"href=\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
+"هنوز تصویر آپلود نکرده اید. می‌توانید یکی را الان <a href="
+"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
 
 msgid "Generating URL"
 msgstr "ایجاد نشانی"

@@ -174,11 +174,11 @@ msgstr "Beklager, ingen grupper samsvarer med \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Det er ingen grupper konfigurert. Hvorfor ikke <a "
-"href=\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
+"Det er ingen grupper konfigurert. Hvorfor ikke <a href="
+"\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
 
 msgid "Delete user"
 msgstr "Slett bruker"

@@ -249,16 +249,16 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen resim yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona resim yüklemediniz. Neden <a "
-"href=\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona resim yüklemediniz. Neden <a href="
+"\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Resim yüklemediniz. Neden <a href=\"%(wagtailimages_add_image_url)s\">şimdi "
 "bir tane yüklemiyorsunuz</a>?"

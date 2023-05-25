@@ -5,6 +5,7 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Fabio Santos <f4bio.sa@gmail.com>, 2023
 # Gladson <gladsonbrito@gmail.com>, 2017
 # Iuri L. Machado, 2021
 # Iuri L. Machado, 2021
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +73,13 @@ msgstr "documento"
 msgid "documents"
 msgstr "documentos"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Adicionar tags para 1 documento "
+msgstr[1] "Adicionar tags para %(counter)s documentos"
+msgstr[2] "Adicionar tags para %(counter)s documentos"
+
 msgid "Add tags to documents"
 msgstr "Adicionar tags aos documentos"
 
@@ -92,6 +100,13 @@ msgstr "Adicionar"
 
 msgid "No, don't add"
 msgstr "Não adicionar"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Adicionar 1 documento a nova coleção"
+msgstr[1] "Adicionar %(counter)s documentos a nova coleção"
+msgstr[2] "Adicionar %(counter)s documentos a nova coleção"
 
 msgid "Add documents to collection"
 msgstr "Adicionar documentos a uma coleção"
@@ -119,6 +134,13 @@ msgstr[1] ""
 "Você não tem permissão para adicionar estes documentos a uma coleção."
 msgstr[2] ""
 "Você não tem permissão para adicionar estes documentos a uma coleção."
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Excluir 1 documento"
+msgstr[1] "Excluir %(counter)s documentos"
+msgstr[2] "Excluir %(counter)s documentos"
 
 msgid "Delete documents"
 msgstr "Excluir documentos"
@@ -151,11 +173,22 @@ msgstr "Não, não apague"
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Você não enviou nenhum documento nesta coleção."
 
 msgid "You haven't uploaded any documents."
 msgstr "Você não enviou nenhum documento."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Por que não <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>carregar um agora</a>?"
 
 msgid "Change document:"
 msgstr "Alterar documento"
@@ -213,25 +246,49 @@ msgid "Select document"
 msgstr "Selecionar documento"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, não há resultados de documentos para \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não adicionou documentos nesta coleção. Por que não <a "
-"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não adicionou documentos nesta coleção. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhum documento. Por que não <a "
-"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não enviou nenhum documento. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Documento <span class=\"visuallyhidden\">criado em "
+"%(site_name)s</span> "
+msgstr[1] ""
+"<span>%(total)s</span> Documentos <span class=\"visuallyhidden\">criados em "
+"%(site_name)s</span> "
+msgstr[2] ""
+"<span>%(total)s</span> Documentos <span class=\"visuallyhidden\">criados em "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Adicionar vários documentos"

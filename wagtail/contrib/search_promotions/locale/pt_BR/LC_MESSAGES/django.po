@@ -131,16 +131,23 @@ msgid "None"
 msgstr "Nenhum"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
+
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum resultado promovido foi criado. Porque não <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+"Nenhum resultado promovido foi criado. Porque não <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
 
 msgid "Search promoted results"
 msgstr "Pesquisar resultados promovidos"
