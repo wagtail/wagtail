@@ -32,6 +32,7 @@ Changelog
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Fix: Fix missing link to `UsageView` from `EditView` for snippets (Christer Jensen)
  * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
+ * Fix: Fix various colour issues in dark mode (Thibaud Colas)
  * Docs: Update documentation for `log_action` parameter on `RevisionMixin.save_revision` (Christer Jensen)
 
 
