@@ -1,0 +1,680 @@
+Afrikaans - af
+-----
+Jaco du Plessis <jaco.jacoduplessis.co.za>
+
+Arabic - ar
+-----
+Ahmad Kiswani <kiswani.ahmad.gmail.com>
+Ahmed Miske Sidi Med <boutien321.gmail.com>
+Amr Awad <amro.khir.gmail.com>
+Bashar Al-Abdulhadi
+HossamElDin Mohamed <garo5070.gmail.com>
+Khaled Arnaout <khaledarnaout.live.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Mohamed Mayla <mohamed.mayla.gmail.com>
+Mohammed Abdul gadir <weekmo.aol.com>
+ROGER MICHAEL ASHLEY ALLEN <rogermaallen.gmail.com>
+Waseem Kntar
+Younes Oumakhou
+abdulaziz alfuhigi <abajall.gmail.com>
+ultraify media <ultraify.gmail.com>
+
+Armenian - hy
+-----
+Vachagan <vache.grg40.gmail.com>
+
+Azerbaijani (Latin, Azerbaijan) - az_AZ
+-----
+Mirza Iskandarov <mirza.iskandarov.gmail.com>
+
+Bangla - bn
+-----
+MA Rahman <ugikot.gmail.com>
+Mahmud Abdur Rahman <clanlord.ikot.gmail.com>
+
+Basque - eu
+-----
+67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>
+
+Belarusian - be
+-----
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Stas Rudakou <stas.garage22.net>
+Tatsiana Tsygan <art.tatsiana.gmail.com>
+
+Bulgarian - bg
+-----
+Karl Hobley <karl.torchbox.com>
+Lyuboslav  Petrov <petrov.lyuboslav.gmail.com>
+
+Burmese - my
+-----
+ime11 <pmh.yourworstnightmare.gmail.com>
+
+Catalan - ca
+-----
+Antoni Aloy <aaloy.apsl.net>
+David Llop
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Roger Pons <rogerpons.gmail.com>
+
+Chinese - zh
+-----
+Adeline Link
+Karl Hobley <karl.torchbox.com>
+Leway Colin <colin4124.gmail.com>
+Orangle Liu <orangleliu.gmail.com>
+hanfeng <appweb.cn.gmail.com>
+lihan <lilihan.it.gmail.com>
+serafeim <serafeim.torchbox.com>
+shengsheng gz <gzshengsheng.139.com>
+
+Chinese (Simplified) - zh_Hans
+-----
+Aosp T
+Daniel Hwang <danielblinkhw.gmail.com>
+Ed <724195301.qq.com>
+Fan Hei <weijiacc.gmail.com>
+Favo Yang <favoyang.gmail.com>
+Feng Wang <wangfeng.w.gmail.com>
+First Last <abc+github.mynook.info>
+Ford Guo <agile.guo.gmail.com>
+Fred Zeng <979738295.qq.com>
+Jian Li <kdlijian.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Monty NG
+Vincent Zhao <zhaopu2008.gmail.com>
+Yin Guanhao <sopium.mysterious.site>
+hanfeng <appweb.cn.gmail.com>
+listeng
+yi huang <yi.codeplayer.gmail.com>
+汇民 王 <whuim.qq.com>
+祝沙军 <zhushajun.gmail.com>
+飘 赵 <275980464.qq.com>
+
+Chinese (Traditional) - zh_Hant
+-----
+Andy Kong <worminfo.gmail.com>
+Brian Xu
+Chih Wang <ihcgno.icloud.com>
+Loic Teixeira
+Ocin Leung
+Yeh Yen-Ke <yyken.outlook.com>
+Yu Hsun Lee <andylee0914.tw.gmail.com>
+
+Croatian (Croatia) - hr_HR
+-----
+Dino Aljević <dino8890.protonmail.com>
+Ivica Dosen <idosen71.gmail.com>
+Loic Teixeira
+Luka Matijević <lumatijev.gmail.com>
+Marko Burazin <marko.burazin1.gmail.com>
+Matt Westcott <matthew.torchbox.com>
+
+Czech - cs
+-----
+Ales Dvorak <mail.alesdvorak.cz>
+Eva Mikesova <eva.mikesova.tul.cz>
+IT Management <hudan.itmanagement.cz>
+Ivan Pomykacz <mist.alastify.cz>
+Jiri Stepanek <stepiiicz.gmail.com>
+Kryštof Pilnáček <krystof.pilnacek.rossum.ai>
+Loic Teixeira
+Marek Turnovec <aesculap.gmail.com>
+Martin Galda <martingalda9.gmail.com>
+Martina Oleksakova <martina.oleksakova.tul.cz>
+Matt Westcott <matthew.torchbox.com>
+Mirek Zvolský <zvolsky.seznam.cz>
+Mořeplavec <stanislav.vasko.gmail.com>
+Tomáš Jeřábek <tomas.tomasjerabek.com>
+Vláďa Macek <macek.sandbox.cz>
+
+Danish - da
+-----
+Asger Sørensen <asger.soerensen.live.com>
+Benjamin Bach <benjaoming.gmail.com>
+Loic Teixeira
+MRostgaard <Mrostgaard.gmail.com>
+Mads Kronborg <madskronborg99.gmail.com>
+
+Dutch - nl
+-----
+Arne Turpyn <info.arneturpyn.com>
+Benjamin Van Renterghem <benjaaa.vr.gmail.com>
+Bram <bram2w.live.nl>
+Brecht Dervaux <info.dervauxbrecht.be>
+Coen van der Kamp <cvanderkamp.gmail.com>
+Franklin Kingma <franklin.statix.net>
+Harmen <sigmo.sigmo.nl>
+Huib Keemink <huib.creativedutchmen.com>
+Kees Hink <keeshink.gmail.com>
+Loic Teixeira
+Maarten Kling <kling.maarten.gmail.com>
+Matt Westcott <matthew.torchbox.com>
+Meteor0id
+Michael van Tellingen <michaelvantellingen.gmail.com>
+Ramon de Jezus <rdejezus.leukeleu.nl>
+Rob Moorman <rob.moori.nl>
+Samuel Leeuwenburg
+Storm Heg <storm.stormbase.digital>
+Thijs Kramer <thijskramer.gmail.com>
+benny_AT_it_digin.com <benny.it-digin.com>
+mahulst
+
+Estonian - et
+-----
+Erlend <debcf78e.opayq.com>
+Loic Teixeira
+Martin <martinpajuste.gmail.com>
+Matt Westcott <matthew.torchbox.com>
+Ragnar Rebase <rrebase.gmail.com>
+
+Finnish - fi
+-----
+Aarni Koskela
+Eetu Häivälä
+Glen Somerville <glen.somerville.gmail.com>
+Jiri Grönroos <jiri.gronroos.iki.fi>
+Juha Yrjölä <juha.yrjola.iki.fi>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Niklas Jerva <niklas.jerva.gmail.com>
+Rauli Laine <rauli.laine.iki.fi>
+Valter Maasalo <vmaasalo.gmail.com>
+
+French - fr
+-----
+Adrien <laadrien.gmail.com>
+André Bouatchidzé <a.anbz.net>
+Antonin ENFRUN <anton.zorgameuh.org>
+Aurélien Debord <contact.aureliendebord.com>
+Axel Haustant
+Benoît Vogel <contact.spicy-informatique.com>
+Bertrand Bordage <bordage.bertrand.gmail.com>
+Dominique PERETTI <dperetti.gmail.com>
+Fabien Le Frapper <contact.fabienlefrapper.me>
+Karl Hobley <karl.torchbox.com>
+Loic Teixeira
+Léo <leo.naeka.fr>
+Matt Westcott <matthew.torchbox.com>
+Renaud Kern <renaud.kern.gmail.com>
+Romain Dorgueil <romain.dorgueil.net>
+Sebastien Andrivet <sebastien.andrivet.com>
+Sophy O <sophy.ouch.erudit.org>
+Timothy Allen <flipper.peregrinesalon.com>
+Tom Dyson <tom.torchbox.com>
+fpoulain <fpoulain.metrodore.fr>
+incognitae <pierre.onoffdesign.com>
+nahuel
+
+Galician - gl
+-----
+Amós Oviedo <amos.oviedo.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+X Bello <xbello.gmail.com>
+
+Georgian - ka
+-----
+André Bouatchidzé <a.anbz.net>
+
+German - de
+-----
+79353a696ad19dc202b261b3067b7640_bec941e
+Benedikt Willi <ben.willi.gmail.com>
+Benjamin Kaspar <bennykaspar.gmail.com>
+Bohreromir
+Daniel Manser <me.danielmanser.com>
+Donald Buczek
+Ettore Atalan <atalanttore.googlemail.com>
+Florian Vogt <flori.vorlif.org>
+Henrik Kröger <hedwig.riseup.net>
+Herbert Poul
+Jannis
+Johannes Spielmann <j.spielmannsolutions.com>
+Krzysztof Jeziorny <github.jeziorny.net>
+Loic Teixeira
+Martin Löhle <martin.loehle.web-forest.de>
+Matt Westcott <matthew.torchbox.com>
+Matthias Martin
+Matti Borchers
+Max Pfeiffer <max.pfeiffer.alp-phone.ch>
+Moritz Pfeiffer <moritz.alp-phone.ch>
+Norman Uekermann <nue.melexis.com>
+Oliver Engel <codeangel.posteo.de>
+Patrick Hebner <hebner.tec.gmail.com>
+Peter Dreuw <archandha.gmx.net>
+Raphael Stolt <raphael.stolt.gmail.com>
+Scriptim <Scriptim.gmx.de>
+Stefan Hammer <stefan.hammerworxx.com>
+Tammo van Lessen <tvanlessen.gmail.com>
+Tibor <tibor.lpld.io>
+Wasilis Mandratzis-Walz
+afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>
+aw.wunderweiss
+benebun <benedikt.breinbauer.gmail.com>
+fd3e232e7013009a14520c2bc2e16691_e19811b
+jnns
+karlsander <karlsander.gmail.com>
+pcraston <patrick.craston.com>
+tobias schmidt <tobias.schmidt82.gmail.com>
+unicode_it <info.unicode-it.de>
+
+Greek - el
+-----
+1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>
+79353a696ad19dc202b261b3067b7640_bec941e
+Dimitri Fekas
+George Giannoulopoulos <vdotoree.yahoo.gr>
+Karl Hobley <karl.torchbox.com>
+Loic Teixeira
+Nick Mavrakis <mavrakis.n.gmail.com>
+Wasilis Mandratzis-Walz
+Yiannis Inglessis <negtheone.gmail.com>
+fekioh
+jim dal <dimitrisdal.gmail.com>
+serafeim <serafeim.torchbox.com>
+
+Haitian - ht
+-----
+Hantz Vius <vhantz.protonmail.com>
+
+Hebrew (Israel) - he_IL
+-----
+2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>
+Adi Ron <adi.bnop.co>
+Gilad Levi <gilad.x.blobim.com>
+Karl Hobley <karl.torchbox.com>
+Men770
+Oleg Sverdlov <oleg.sverdlov.gmail.com>
+lior abazon <abazon.v15.org.il>
+yossi lalum <lyosefh.gmail.com>
+
+Hungarian - hu
+-----
+B N <biczoxd.gmail.com>
+Istvan Farkas <istvan.farkas.gmail.com>
+Kornel Novak Mergulhão <nkornel.gmail.com>
+Laszlo Molnar <lazlowmiller.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Patrik Radics
+aaao <aron.santa.gmail.com>
+
+Icelandic (Iceland) - is_IS
+-----
+Arnar Tumi Þorsteinsson <arnartumi.gmail.com>
+Kjartan Sverrisson <kjartan.wow.is>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+saevarom <saevar.saevar.is>
+
+Indonesian (Indonesia) - id_ID
+-----
+Andry Widya Putra UN <andrywidyaputra.gmail.com>
+Dzikri Hakim <dzikers.gmail.com>
+Loic Teixeira
+M. Febrian Ramadhana <febrian.ramadhana.me>
+Matt Westcott <matthew.torchbox.com>
+Reshi Mahendra <reshimahendra.gmail.com>
+Ronggo Radityo <radityo3000.yahoo.com>
+Sutrisno Efendi <kangfend.gmail.com>
+atmosuwiryo <suwiryo.atmo.gmail.com>
+geek pantura <geekpantura.gmail.com>
+
+Italian - it
+-----
+Alessio Di Stasio <aledista.gmail.com>
+Carlo Miron <carlo.miron.it>
+Claudio Bantaloukas <rockdreamer.gmail.com>
+Edd <edd.baldry.googlemail.com>
+Edd Baldry <edd.baldry.gmail.com>
+Giacomo Ghizzani <giacomo.ghz.gmail.com>
+Guglielmo Celata <guglielmo.celata.gmail.com>
+LB (Ben Johnston) <mail.lb.ee>
+Loic Teixeira
+Marco Badan <marco.badan.gmail.com>
+Marco Lerco <marcolerco.gmail.com>
+Matt Westcott <matthew.torchbox.com>
+Sandro Badalamenti <sandro.mailinator.com>
+Stefano Marchetto <airbatum.gmail.com>
+andrea tagliazucchi <andreatagliazucchi.gmail.com>
+gcm
+giammi <gian-maria.daffre.giammi.org>
+
+Japanese - ja
+-----
+Daigo Shitara <stain.witness.gmail.com>
+Goto Hayato <habita.gh.gmail.com>
+Hiroki Sawano
+Kinoshita Shinji <shinji.kino.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+SHIMIZU Taku <shimizu.taku.gmail.com>
+Safu9 <safu9.dev.gmail.com>
+Sangmin Ahn <gijigae.gmail.com>
+Tetsuya Morimoto <tetsuya.morimoto.gmail.com>
+Tri Minh <minh.nguyentri.95.gmail.com>
+Yudai Kobayashi <yudai.kobayashi.miraidenshi.gmail.com>
+bayside kent
+kojikojikojikoji
+shuhei hirota
+umepon0626 <ryuichi-astrona.ymobile.ne.jp>
+小口英昭 <oguchi.bluff-lab.com>
+山本 卓也 <takuya.miraidenshi.gmail.com>
+溝江 智徳 <tomo.mizoe.gmail.com>
+石田秀 <ishidashu.gmail.com>
+
+Korean - ko
+-----
+Jihan Chung <jihanchung20.gmail.com>
+Kyu Choi
+Kyungil Choi <hanpama.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+
+Latvian - lv
+-----
+Aleksandrs Korņijenko <ubarbariska.gmail.com>
+Loic Teixeira
+Maris Serzans <maris.serzans.gmail.com>
+Reinis Rozenbergs <reinisr.gmail.com>
+
+Lithuanian - lt
+-----
+Loic Teixeira
+Matas Dailyda <matas.dailyda.com>
+Naglis Jonaitis
+
+Mongolian - mn
+-----
+Delgermurun Purevkhuuu <info.delgermurun.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Myagmarjav Enkhbileg <miigaa.lucky.gmail.com>
+Soft Exim
+delgermurun <pdelgermurun.gmail.com>
+visual
+
+Māori - mi
+-----
+Awatea Randall <awatea.octave.nz>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+
+Norwegian Bokmål - nb
+-----
+Eirik Krogstad <eirikkr.gmail.com>
+Loic Teixeira
+Ole Kristian Losvik <ole.losol.no>
+Robin Skahjem-Eriksen <robinds.student.matnat.uio.no>
+Stein Strindhaug <stein.strindhaug.gmail.com>
+
+Persian - fa
+-----
+Amir Mahmoodi
+Ehsan jahanbakhsh <man207ej.gmail.com>
+Hamed NAJAND <hmd.nzhd.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Mehdi <myjahromi.gmail.com>
+Mohammad Hossein Mojtahedi <Mhm5000.gmail.com>
+Mohammad Sharif Shokouhi <m.sh.shokouhi.outlook.com>
+Mohammad reza Jelveh <mrj.eleven.gmail.com>
+Mohsen Hassani <hassani.unicore.ir>
+Mostafa Heidarian <tabvar.gmail.com>
+pyzenberg <pyzenberg.gmail.com>
+
+Polish - pl
+-----
+Bartek Sielicki <sielickib.student.mini.pw.edu.pl>
+Bartosz Wiśniewski <kontakt.pr0gramista.pl>
+Dominik Lech
+Krzysztof Jeziorny <github.jeziorny.net>
+Loic Teixeira
+Mateusz <undefined5102.gmail.com>
+Matt Westcott <matthew.torchbox.com>
+Miłosz Miśkiewicz
+Piotr Moskal <piotrmoskal2011.gmail.com>
+Łukasz Bołdys (Lukasz Boldys)
+Мирон Левицкий <miron200504.gmail.com>
+
+Portuguese (Brazil) - pt_BR
+-----
+Bruno Bertoldi <bruno.bertoldi.gmail.com>
+Claudemiro Alves Feitosa Neto <dimiro1.gmail.com>
+Daniel Carvalho <dnc331.gmail.com>
+Douglas Miranda <douglasmirandasilva.gmail.com>
+Ed Wurch <ewurch.gmail.com>
+Gilson Filho <me.gilsondev.in>
+Gladson <gladsonbrito.gmail.com>
+Guilherme Nabanete <neoheartz.gmail.com>
+Gustavo Simões
+Iuri L. Machado
+Joao Garcia <joaosdgarcia.gmail.com>
+João Luiz Lorencetti <me.dirtycoder.net>
+Loic Teixeira
+Luiz Boaretto <lboaretto.gmail.com>
+Marcio Mazza <marciomazza.gmail.com>
+Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica.protonmail.com>
+Thiago Cangussu <cangussu.thg.gmail.com>
+Thiago Cangussu <cng.thg.gmail.com>
+Vitor Hugo da Silva Lima <silvalimavitorhugo.gmail.com>
+Éder Brito <britoederr.gmail.com>
+
+Portuguese (Portugal) - pt_PT
+-----
+425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>
+Diogo Gomes
+Diogo Ribeiro <pdcribeiro95.gmail.com>
+Diogo Silva <diogo_silva30.hotmail.com>
+Douglas Miranda <douglasmirandasilva.gmail.com>
+Gladson <gladsonbrito.gmail.com>
+Hugo Cachitas
+Jose Lourenco <jose.lourenco.ws>
+Loic Teixeira
+Luís Tiago Favas <traducoes.favas.eu>
+Matt Westcott <matthew.torchbox.com>
+Nuno Matos <tugassoft.gmail.com>
+Rui Martins <rmartins16.gmail.com>
+Thiago Cangussu <cangussu.thg.gmail.com>
+Tiago Henriques <trinosauro.gmail.com>
+
+Romanian - ro
+-----
+Bogdan Mateescu
+Dan Braghis
+Julian C <jcuotpc.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+zerolab
+
+Russian - ru
+-----
+Alexander Penshin <apenshin.gmail.com>
+Alexandr <alexromantsov.gmail.com>
+Alexey Sveshnikov
+Alexey Trofimov <funkindy.gmail.com>
+Anatoly <pandorinpan.gmail.com>
+Andrey <talkerbox.live.com>
+Arseni M <arseni+transifex.mouchinski.com>
+Daniil <fleepd.gmail.com>
+Eugene <eugene.mechanism.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Mikalai Radchuk <radchuk.m.gmail.com>
+Mikhail Sidorov <pevzi23.gmail.com>
+Nikita Tonkoshkur <humapen.gmail.com>
+Rustam Mirzaev <mirus.2x2.pw>
+Sergey Khalymon <sergiykhalimon.gmail.com>
+Sergey Komarov <sjkomarov.gmail.com>
+Sergey Mazanov <mvver.outlook.com>
+Tatsiana Tsygan <art.tatsiana.gmail.com>
+Vassily <zuber.kg.gmail.com>
+Zhdan Parfenov
+ajk
+eb5b5ee62bf6428e621432b9e62de6b8_d17f633
+gsstver <gsstver.gmail.com>
+sergeybe <sergeybe.gmail.com>
+Виктор Виктор <spam.vitek.gmail.com>
+Виталий Чекрыжев
+Влад <integration.into.society.gmail.com>
+Мирон Левицкий <miron200504.gmail.com>
+Михаил Герасимов
+Никита Викторович <hnknta.gmail.com>
+
+Serbian - sr
+-----
+Nikola Kadić <kadicnikola3.gmail.com>
+
+Slovak (Slovakia) - sk_SK
+-----
+Jozef Gáborík <hi.jozo.io>
+Loic Teixeira
+Martin Janšto <mato.jansto.sk>
+Matt Westcott <matthew.torchbox.com>
+Stevo Backor
+dellax <michalnebbia.gmail.com>
+karabellyj <jozefkarabelly.gmail.com>
+
+Slovenian - sl
+-----
+Andrej Marsetič
+Lev Predan Kowarski <predan.kowarski.gmail.com>
+Loic Teixeira
+Matej Stavanja <matej.stavanja.zfm.si>
+Matt Westcott <matthew.torchbox.com>
+Mitja Pagon <mitja.pagon.inueni.com>
+UP
+andrej55 <andrej.marsetic.gmail.com>
+
+Spanish - es
+-----
+67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>
+Amós Oviedo <amos.oviedo.gmail.com>
+Antoni Aloy <aaloy.apsl.net>
+Daniel Chimeno <daniel.chimeno.me>
+Daniel Wohlgemuth <daniel.wohlgemuth.epp.gmail.com>
+Enrique Sánchez-Reboto García
+Florian Merges
+Hector Garcia <torkoff.gmail.com>
+Joaquín T <joaquintita.gmail.com>
+José Luis <alagunajs.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Mauricio Baeza <python.amigos.email>
+Mauricio Baeza <web.mauriciobaeza.org>
+Maylon Pedroso <maylonpedroso.gmail.com>
+Oluwadamilare Ogunbanjo
+Oscar Luciano Espirilla Flores
+X Bello <xbello.gmail.com>
+fonso <fonzzo.gmail.com>
+
+Swedish - sv
+-----
+Alexander Holmbäck <alexander.holmback.creuna.se>
+Andreas Bergström <andreas.bergstrom.gmail.com>
+Andreas Lans <andreas.lans.gmail.com>
+André Karlsson <andre.sess.se>
+Elias Johnstone <eli87as.gmail.com>
+Hannes Lohmander <c.hannes.l.gmail.com>
+Jim Brouzoulis <jim.brouzoulis.chalmers.se>
+Loic Teixeira
+Ludwig Kjellström <ludwig.kjellstrom.amnesty.se>
+Martin Sandström <martin.marteinn.se>
+Matt Westcott <matthew.torchbox.com>
+Oscar Fröberg <oscfr657.gmail.com>
+Philip Andersen <renegadevi.codeofmagi.net>
+Thomas Kunambi <kunambi.gmail.com>
+Tomas Walch <tomas.alternaliv.se>
+
+Tamil - ta
+-----
+Ramakrishnan Sathyanarayanan
+
+Tetum - tet
+-----
+Alessandro <alessandro.catalpa.io>
+Joanico Barros <joanico.catalpa.io>
+Loic Teixeira
+Mariano de Deus <dedeus_mariano.yahoo.com>
+Mario <mario.catalpa.io>
+Matt Westcott <matthew.torchbox.com>
+Onorio de Jesus Afonso <onorio.catalpa.io>
+Peter Coward <peter.catalpa.io>
+
+Thai - th
+-----
+Amawalee Combe <dang.getsalebox.com>
+Jon Combe <jon.naremit.com>
+Loic Teixeira
+Walaksawan Vervoort <nula_wala.yahoo.com>
+
+Turkish - tr
+-----
+Ahmet Sarıcan <asarican.gmail.com>
+Basitlik İyidir
+Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
+Fatih Koç koç <fatihinemaili.gmail.com>
+Halim Turan <halim_turan_61.hotmail.com>
+José Luis <alagunajs.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Py Data Geek <pydatageek.gmail.com>
+Ragıp Ünal <ragip.ragipunal.com>
+Saadettin Yasir AKEL <destek.nixron.com>
+Saadettin Yasir AKEL <yasirakel.gmail.com>
+Umut Bektaş <info.umutbektas.com>
+suayip uzulmez <suayip.541.gmail.com>
+
+Turkish (Turkey) - tr_TR
+-----
+Ahmet Serdar Karadeniz <ahmetserdarkaradeniz.rayinformatics.com>
+Aydın Zafer Cengiz <basitlikiyidir.gmail.com>
+Basitlik İyidir
+Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
+Fatih Koç koç <fatihinemaili.gmail.com>
+Halim Turan <halim_turan_61.hotmail.com>
+José Luis <alagunajs.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Py Data Geek <pydatageek.gmail.com>
+Ragıp Ünal <ragip.ragipunal.com>
+Saadettin Yasir AKEL <destek.nixron.com>
+Saadettin Yasir AKEL <yasirakel.gmail.com>
+Umut Bektaş <info.umutbektas.com>
+lzm dgl <lzmdgl.yandex.com>
+
+Ukrainian - uk
+-----
+Anastasiia La
+Ivan Tyshchenko <iv.tihon.gmail.com>
+Loic Teixeira
+Mykola Zamkovoi <nickzam.gmail.com>
+Sergiy Shkodenko <shkodenkosergiy.gmail.com>
+Viktor Shytiuk <VicHunting.yandex.ua>
+Vladyslav Herasymenko <drimacus182.gmail.com>
+Zoriana Zaiats
+d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>
+Николай Инкогнито <mmmsvit.gmail.com>
+
+Vietnamese - vi
+-----
+Amelia Dao
+Duc Huynh <duchuynhthoai.gmail.com>
+Hồng Quân Nguyễn <ng.hong.quan.gmail.com>
+Loic Teixeira
+Luan Nguyen <lihavim.gmail.com>
+Vu Pham
+
+Welsh - cy
+-----
+Adam Hughes <adamhughes31.gmail.com>
+Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
+Philip Crisp
+

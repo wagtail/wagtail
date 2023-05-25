@@ -63,5 +63,5 @@ for (language_name, locale) in language_names:
     print(("%s - %s" % (language_name, locale)))  # noqa
     print("-----")  # noqa
     for author in sorted(authors_by_locale[locale]):
-        print(author)  # noqa
+        print(author.replace("@", "."))  # noqa
     print("")  # noqa
