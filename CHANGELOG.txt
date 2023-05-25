@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.2.4 (xx.xx.2023) - IN DEVELOPMENT
+4.2.4 (25.05.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
