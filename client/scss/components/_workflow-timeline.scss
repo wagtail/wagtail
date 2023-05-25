@@ -17,7 +17,7 @@
     padding-bottom: theme('spacing.5');
 
     &--rejected {
-      color: theme('colors.critical.200');
+      color: theme('colors.text-error');
     }
 
     &--approved {

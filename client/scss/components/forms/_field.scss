@@ -15,7 +15,7 @@
 .w-field__errors {
   .error-message {
     @apply w-label-2;
-    color: theme('colors.critical.200');
+    color: theme('colors.text-error');
     display: inline-block;
     margin: 0;
     margin-top: theme('spacing.[0.5]');
@@ -29,7 +29,7 @@
   width: 1em;
   height: 1em;
   margin-inline-end: 0.625rem;
-  color: theme('colors.critical.200');
+  color: theme('colors.text-error');
 
   // Avoid displaying the error message icon if we already have an icon.
   + .error-message::before {

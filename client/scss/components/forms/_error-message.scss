@@ -5,7 +5,7 @@
   margin: 0.5em 0 0;
   font-size: 1em;
   font-weight: bold;
-  color: theme('colors.critical.200');
+  color: theme('colors.text-error');
 
   @media (forced-colors: active) {
     forced-color-adjust: none;

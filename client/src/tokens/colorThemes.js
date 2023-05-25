@@ -224,6 +224,12 @@ const light = [
         textUtility: 'w-text-text-highlight',
         cssVariable: '--w-color-text-highlight',
       },
+      'text-error': {
+        value: 'var(--w-color-critical-200)',
+        bgUtility: 'w-bg-text-error',
+        textUtility: 'w-text-text-error',
+        cssVariable: '--w-color-text-error',
+      },
     },
   },
   {
@@ -552,6 +558,12 @@ const dark = [
         bgUtility: 'w-bg-text-highlight',
         textUtility: 'w-text-text-highlight',
         cssVariable: '--w-color-text-highlight',
+      },
+      'text-error': {
+        value: 'var(--w-color-critical-100)',
+        bgUtility: 'w-bg-text-error',
+        textUtility: 'w-text-text-error',
+        cssVariable: '--w-color-text-error',
       },
     },
   },
