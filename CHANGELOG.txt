@@ -20,7 +20,7 @@ Changelog
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
 
 
-5.0.1 (xx.xx.2023) - IN DEVELOPMENT
+5.0.1 (25.05.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Rectify previous fix for TableBlock becoming uneditable after save (Sage Abdullah)
