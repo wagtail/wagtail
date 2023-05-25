@@ -44,7 +44,7 @@
   }
 
   &--error {
-    color: theme('colors.critical.200');
+    color: theme('colors.text-error');
   }
 
   &--h2 {
@@ -82,7 +82,7 @@
   border-radius: theme('borderRadius.full');
   background-color: theme('colors.critical.200');
   border: $border-width solid theme('colors.surface-page');
-  color: theme('colors.surface-page');
+  color: theme('colors.white.DEFAULT');
 
   :where(.w-minimap--expanded) & {
     margin-inline-start: calc(-1 * (theme('spacing.8') + $badge-size / 2));
