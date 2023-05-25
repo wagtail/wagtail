@@ -57,19 +57,19 @@
   }
 
   &.warning {
-    background-color: theme('colors.surface-alert-warning');
-    border-color: theme('colors.surface-alert-warning');
+    background-color: theme('colors.warning.100');
+    border-color: theme('colors.warning.100');
 
     &.button-secondary {
-      border-color: theme('colors.surface-alert-warning');
-      color: theme('colors.surface-alert-warning');
+      border-color: theme('colors.warning.100');
+      color: theme('colors.warning.100');
       background-color: transparent;
     }
 
     &:hover {
       color: theme('colors.text-button');
       border-color: transparent;
-      background-color: theme('colors.surface-alert-warning');
+      background-color: theme('colors.warning.100');
     }
   }
 
@@ -77,12 +77,12 @@
   &.no,
   &.serious {
     background-color: theme('colors.surface-page');
-    border: 1px solid theme('colors.surface-alert-danger');
-    color: theme('colors.surface-alert-danger');
+    border: 1px solid theme('colors.critical.200');
+    color: theme('colors.critical.200');
 
     &:hover {
-      color: theme('colors.surface-alert-danger');
-      border-color: theme('colors.surface-alert-danger');
+      color: theme('colors.critical.200');
+      border-color: theme('colors.critical.200');
       background-color: theme('colors.critical.50');
     }
   }
