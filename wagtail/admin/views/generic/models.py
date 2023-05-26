@@ -16,23 +16,18 @@ from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import BaseCreateView
 from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
 from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
-from django.views.generic.list import BaseListView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
-from wagtail.admin.filters import WagtailFilterSet
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
+from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
-from wagtail.search.backends import get_search_backend
-from wagtail.search.index import class_is_indexed
 
-from .base import WagtailAdminTemplateMixin
+from .base import BaseListingView, WagtailAdminTemplateMixin
 from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
@@ -70,91 +65,16 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(
-    LocaleMixin, PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView
-):
-    model = None
-    index_url_name = None
+class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
     add_url_name = None
     add_item_label = _("Add")
     edit_url_name = None
-    template_name = "wagtailadmin/generic/index.html"
-    context_object_name = None
     any_permission_required = ["add", "change", "delete"]
-    page_kwarg = "p"
-    default_ordering = None
-    search_fields = None
-    search_backend_name = "default"
-    is_searchable = None
-    search_kwarg = "q"
-    use_autocomplete = False
-    filters = None
-    filterset_class = None
-    table_class = Table
     list_display = ["__str__", UpdatedAtColumn()]
-    list_filter = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.columns = self.get_columns()
-        self.filterset_class = self.get_filterset_class()
-        self.setup_search()
-
-    def setup_search(self):
-        self.is_searchable = self.get_is_searchable()
-        self.search_url = self.get_search_url()
-        self.search_form = self.get_search_form()
-        self.is_searching = False
-        self.search_query = None
-
-        if self.search_form and self.search_form.is_valid():
-            self.search_query = self.search_form.cleaned_data[self.search_kwarg]
-            self.is_searching = True
-
-    def get_is_searchable(self):
-        if self.model is None:
-            return False
-        if self.is_searchable is None:
-            return class_is_indexed(self.model) or self.search_fields
-        return self.is_searchable
-
-    def get_search_url(self):
-        if not self.is_searchable:
-            return None
-        return self.index_url_name
-
-    def get_search_form(self):
-        if self.model is None:
-            return None
-
-        if self.is_searchable and self.search_kwarg in self.request.GET:
-            return SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(model_name)s")
-                % {"model_name": self.model._meta.verbose_name_plural},
-            )
-
-        return SearchForm(
-            placeholder=_("Search %(model_name)s")
-            % {"model_name": self.model._meta.verbose_name_plural}
-        )
-
-    def get_filterset_class(self):
-        if self.filterset_class:
-            return self.filterset_class
-
-        if not self.list_filter or not self.model:
-            return None
-
-        class Meta:
-            model = self.model
-            fields = self.list_filter
-
-        return type(
-            f"{self.model.__name__}FilterSet",
-            (WagtailFilterSet,),
-            {"Meta": Meta},
-        )
 
     def _annotate_queryset_updated_at(self, queryset):
         # Annotate the objects' updated_at, use _ prefix to avoid name collision
@@ -232,51 +152,6 @@ class IndexView(
 
         return queryset
 
-    def paginate_queryset(self, queryset, page_size):
-        paginator = self.get_paginator(
-            queryset,
-            page_size,
-            orphans=self.get_paginate_orphans(),
-            allow_empty_first_page=self.get_allow_empty(),
-        )
-
-        page_number = self.request.GET.get(self.page_kwarg)
-        page = paginator.get_page(page_number)
-        return (paginator, page, page.object_list, page.has_other_pages())
-
-    def filter_queryset(self, queryset):
-        # construct filter instance (self.filters) if not created already
-        if self.filterset_class and self.filters is None:
-            self.filters = self.filterset_class(
-                self.request.GET, queryset=queryset, request=self.request
-            )
-            queryset = self.filters.qs
-        elif self.filters:
-            # if filter object was created on a previous filter_queryset call, re-use it
-            queryset = self.filters.filter_queryset(queryset)
-
-        return self.filters, queryset
-
-    def search_queryset(self, queryset):
-        if not self.search_query:
-            return queryset
-
-        if class_is_indexed(queryset.model) and self.search_backend_name:
-            search_backend = get_search_backend(self.search_backend_name)
-            if self.use_autocomplete:
-                return search_backend.autocomplete(
-                    self.search_query, queryset, fields=self.search_fields
-                )
-            return search_backend.search(
-                self.search_query, queryset, fields=self.search_fields
-            )
-
-        filters = {
-            field + "__icontains": self.search_query
-            for field in self.search_fields or []
-        }
-        return queryset.filter(**filters)
-
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not self.model:
             return column_class(
@@ -321,10 +196,6 @@ class IndexView(
 
             return columns
 
-    def get_index_url(self):
-        if self.index_url_name:
-            return reverse(self.index_url_name)
-
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
@@ -333,38 +204,8 @@ class IndexView(
         if self.add_url_name:
             return reverse(self.add_url_name)
 
-    def get_valid_orderings(self):
-        orderings = []
-        for col in self.columns:
-            if col.sort_key:
-                orderings.append(col.sort_key)
-                orderings.append("-%s" % col.sort_key)
-        return orderings
-
-    def get_ordering(self):
-        ordering = self.request.GET.get("ordering", self.default_ordering)
-        if ordering not in self.get_valid_orderings():
-            ordering = self.default_ordering
-        return ordering
-
-    def get_table(self, object_list, **kwargs):
-        return self.table_class(
-            self.columns,
-            object_list,
-            ordering=self.get_ordering(),
-            **kwargs,
-        )
-
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
-        queryset = self.search_queryset(queryset)
-
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
-
-        index_url = self.get_index_url()
-        table = self.get_table(context["object_list"], base_url=index_url)
-        context["media"] = table.media
-
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         context["can_add"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
@@ -372,23 +213,6 @@ class IndexView(
         if context["can_add"]:
             context["add_url"] = self.get_add_url()
             context["add_item_label"] = self.add_item_label
-
-        if self.filters:
-            context["filters"] = self.filters
-            context["is_filtering"] = any(
-                self.request.GET.get(f) for f in self.filters.filters
-            )
-            context["media"] += self.filters.form.media
-
-        context["table"] = table
-        context["index_url"] = index_url
-        context["is_paginated"] = bool(self.paginate_by)
-        context["is_searchable"] = self.is_searchable
-        context["search_url"] = self.get_search_url()
-        context["search_form"] = self.search_form
-        context["is_searching"] = self.is_searching
-        context["query_string"] = self.search_query
-        context["model_opts"] = self.model and self.model._meta
         return context
 
 
