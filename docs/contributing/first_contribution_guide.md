@@ -149,7 +149,7 @@ Finally, before 'claiming' check you can do the following;
 #### Checklist (for a candidate issue)
 
 ```markdown
--   [ ] Confirm that there is not someone actively working on it (e.g. PR or comments in the last ~2 months)
+-   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months)
 -   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail
 -   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented
 ```
@@ -309,11 +309,11 @@ If you have done all of that and think you can give it a go just a comment with 
 0. The fix or feature you are working on
 1. Tests
 2. Linted code (we make use of [pre-commit](https://pre-commit.com/). You can run all formatting with `make format`)
-3. Updated documentation where relevant (e.g. when adding a new feature)
+3. Updated documentation where relevant (such as when adding a new feature)
 
 ### What if I fix multiple issues in the same pull request (PR)
 
-It is best to avoid fixing more than one issue in a single pull request, unless you are a core contributor or there is a clear plan that involves fixing multiple things at once. Even then, it is usually a bad idea as it makes it harder for your pull request to be reviewed and it may never get merged as it's too complex. This is especially true for completely unrelated issues (e.g. a documentation fix for translators and a bug fix for StreamField), it is always best to create two branches and then two separate pull requests.
+It is best to avoid fixing more than one issue in a single pull request, unless you are a core contributor or there is a clear plan that involves fixing multiple things at once. Even then, it is usually a bad idea as it makes it harder for your pull request to be reviewed and it may never get merged as it's too complex. This is especially true for completely unrelated issues such as a documentation fix for translators and a bug fix for StreamField. It is always best to create two branches and then two separate pull requests.
 
 ### When do I need to write unit tests for a pull request (PR)?
 

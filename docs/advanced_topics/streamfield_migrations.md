@@ -226,7 +226,7 @@ If you change the block definition of a StreamField on a model that has existing
 
 A StreamField is stored as a single column of JSON data in the database. Blocks are stored as structures within the JSON, and can be nested. However, as far as Django is concerned when generating schema migrations, everything inside this column is just a string of JSON data. The database schema doesn’t change - regardless of the content/structure of the StreamField - since it is the same field type before and after any change to the StreamField's blocks. Therefore whenever changes are made to StreamFields, any existing data must be changed into the new required structure, typically by defining a data migration. If the data is not migrated, even a simple change like renaming a block can result in old data being lost.
 
-Generally, data migrations are performed manually by making an empty migration file and writing the forward and backward functions for a `RunPython` command. These functions handle the logic for taking the previously saved JSON representation and converting it into the new JSON representation needed. While this is fairly straightforward for simple changes (e.g. renaming a block), this can easily get very complicated when nested blocks, multiple fields, and revisions are involved.
+Generally, data migrations are performed manually by making an empty migration file and writing the forward and backward functions for a `RunPython` command. These functions handle the logic for taking the previously saved JSON representation and converting it into the new JSON representation needed. While this is fairly straightforward for simple changes (such as renaming a block), this can easily get very complicated when nested blocks, multiple fields, and revisions are involved.
 
 To reduce boilerplate, and the potential for errors, `wagtail.blocks.migrations` provides the following:
 
@@ -579,7 +579,7 @@ The value passed to `apply` when the matched block is a ListBlock would look lik
 
 #### Making structural changes
 
-When making changes involving the structure of blocks (eg: changing block type), it may be necessary to operate on the block value of the parent block instead of the block to which the change is made, since only the value of a block is changed by the `apply` operation.
+When making changes involving the structure of blocks (changing the block type for example), it may be necessary to operate on the block value of the parent block instead of the block to which the change is made, since only the value of a block is changed by the `apply` operation.
 
 Take a look at the implementation of `RenameStreamChildrenOperation` for an example.
 

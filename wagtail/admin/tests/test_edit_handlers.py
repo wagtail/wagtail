@@ -1834,7 +1834,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         comment_form = form.formsets["comments"].forms[0]
         self.assertTrue(comment_form.is_valid())
         # Users can change the positions of other users' comments within a field
-        # eg by editing a rich text field
+        # e.g. by editing a rich text field
 
     @freeze_time("2017-01-01 12:00:00")
     def test_comment_resolve(self):
