@@ -2,7 +2,7 @@
 
 Wagtail’s user interface is built with:
 
--   **HTML** using [Django templates](https://docs.djangoproject.com/en/stable/ref/templates/language/)
+-   **HTML** using [Django templates](django:ref/templates/language)
 -   **CSS** using [Sass](https://sass-lang.com/) and [Tailwind](https://tailwindcss.com/)
 -   **JavaScript** with [TypeScript](https://www.typescriptlang.org/)
 -   **SVG** for our icons, minified with [SVGO](https://jakearchibald.github.io/svgomg/)
