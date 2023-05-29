@@ -94,4 +94,4 @@ This optimisation is already handled for you for images in the admin site.
 
 ## Django
 
-Wagtail is built on Django. Many of the [performance tips](https://docs.djangoproject.com/en/stable/topics/performance/) set out by Django are also applicable to Wagtail.
+Wagtail is built on Django. Many of the [performance tips](django:topics/performance) set out by Django are also applicable to Wagtail.

@@ -202,7 +202,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 
 ### Wagtail template tags
 
-In addition to Django's [template tags and filters](https://docs.djangoproject.com/en/stable/ref/templates/builtins/),
+In addition to Django's [template tags and filters](django:ref/templates/builtins),
 Wagtail provides a number of its own [template tags & filters](template_tags_and_filters)
 which can be loaded by including `{% load wagtailcore_tags %}` at the top of
 your template file.
