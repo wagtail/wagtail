@@ -77,6 +77,7 @@ Wagtail icons live in `wagtail/admin/templates/wagtailadmin/icons/`.
 Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
 
 (available_icons)=
+
 ## Available icons
 
 Enable the [styleguide](styleguide) to view the available icons and their names for any given project.
@@ -88,6 +89,7 @@ Here are all available icons out of the box:
 <summary>Toggle icons table</summary>
 
 ```{include} ../_static/wagtail_icons_table.txt
+
 ```
 
 </details>

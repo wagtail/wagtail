@@ -353,7 +353,6 @@ The [documentation on tagging pages](tagging) has more information on how to use
 
 Similar to pages, you can nest other models within a snippet.
 
-
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
