@@ -1,10 +1,10 @@
 # Issue tracking
 
-We welcome bug reports, feature requests and pull requests through Wagtail's [Github issue tracker](https://github.com/wagtail/wagtail/issues).
+We welcome bug reports, feature requests and pull requests through Wagtail's [GitHub issue tracker](https://github.com/wagtail/wagtail/issues).
 
 ## Issues
 
-An issue must always correspond to a specific action with a well-defined completion state: fixing a bug, adding a new feature, updating documentation, or cleaning up code. Open-ended issues where the end result is not immediately clear ("come up with a way of doing translations" or "Add more features to rich text fields.") are better suited to [Github discussions](https://github.com/wagtail/wagtail/discussions), so that there can be feedback on clear way to progress the issue and identify when it has been completed through separate issues created from the discussion.
+An issue must always correspond to a specific action with a well-defined completion state: fixing a bug, adding a new feature, updating documentation, or cleaning up code. Open-ended issues where the end result is not immediately clear ("come up with a way of doing translations" or "Add more features to rich text fields.") are better suited to [GitHub discussions](https://github.com/wagtail/wagtail/discussions), so that there can be feedback on clear way to progress the issue and identify when it has been completed through separate issues created from the discussion.
 
 Do not use issues for support queries or other questions ("How do I do X?" - although "Implement a way of doing X" or "Document how to do X" could well be valid issues). These questions should be asked on [Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail) instead. For discussions that do not fit Stack Overflow's question-and-answer format, see the other [Wagtail community support options](https://github.com/wagtail/wagtail#community-support).
 

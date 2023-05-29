@@ -22,7 +22,7 @@ Please use the **#support** channel for support questions. Support is provided b
 
 ## GitHub discussions
 
-Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
+Our [GitHub discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
 ## Issues
 

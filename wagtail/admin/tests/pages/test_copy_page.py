@@ -222,7 +222,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # Check that the children were copied
         self.assertEqual(page_copy.get_children().count(), 2)
 
-        # Check the the child pages
+        # Check the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug="child-page").first()
         self.assertIsNotNone(child_copy)
@@ -275,7 +275,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # Check that the children were copied
         self.assertEqual(page_copy.get_children().count(), 2)
 
-        # Check the the child pages
+        # Check the child pages
         # The child_copy should be live but the unpublished_child_copy shouldn't
         child_copy = page_copy.get_children().filter(slug="child-page").first()
         self.assertIsNotNone(child_copy)
@@ -506,7 +506,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # Check that the children were copied
         self.assertEqual(page_copy.get_children().count(), 2)
 
-        # Check the the child pages
+        # Check the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug="child-page").first()
         self.assertIsNotNone(child_copy)
@@ -666,7 +666,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # Check that the children were copied
         self.assertEqual(page_copy.get_children().count(), 2)
 
-        # Check the the child pages
+        # Check the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug="child-page").first()
         self.assertIsNotNone(child_copy)

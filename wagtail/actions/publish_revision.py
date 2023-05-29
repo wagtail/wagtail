@@ -98,7 +98,7 @@ class PublishRevisionAction:
             # Instead set the approved_go_live_at of this revision
             revision.approved_go_live_at = object.go_live_at
             revision.save()
-            # And clear the the approved_go_live_at of any other revisions
+            # And clear the approved_go_live_at of any other revisions
             object.revisions.exclude(id=revision.id).update(approved_go_live_at=None)
             # if we are updating a currently live object skip the rest
             if object.live_revision:

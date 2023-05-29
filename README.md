@@ -31,7 +31,7 @@ Wagtail is an open source content management system built on Django, with a stro
 -   Complete control over front-end design and structure
 -   Scales to millions of pages and thousands of editors
 -   Fast out of the box, cache-friendly when you need it
--   Content API for 'headless' sites with de-coupled front-end
+-   Content API for 'headless' sites with decoupled front-end
 -   Runs on a Raspberry Pi or a multi-datacenter cloud platform
 -   StreamField encourages flexible content without compromising structure
 -   Powerful, integrated search, using Elasticsearch or PostgreSQL
@@ -97,7 +97,7 @@ For topics and discussions that do not fit Stack Overflow's question and answer 
 
 [![Join slack community](.github/join-slack-community.png)](https://github.com/wagtail/wagtail/wiki/Slack)
 
-Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
+Our [GitHub discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
@@ -107,7 +107,7 @@ Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help impl
 
 ### 🔐 Security
 
-We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.org](mailto:security@wagtail.org) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.org](mailto:security@wagtail.org) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a GitHub issue.
 
 If you want to send an encrypted email (optional), the public key ID for security@wagtail.org is 0xbed227b4daf93ff9, and this public key is available from most commonly-used keyservers.
 

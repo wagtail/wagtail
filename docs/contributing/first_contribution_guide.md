@@ -170,7 +170,7 @@ If it's just a documentation request, you may refine this comment to explain whe
 
 Before writing any code, take a moment to get your `git` hat on. When you clone the project locally, you will be checked out at the `main` branch. This branch is not suitable for you to make your changes on. It is meant to be the branch that tracks the core development of the project.
 
-Instead, take a moment to create a [new branch](https://www.atlassian.com/git/tutorials/using-branches). You can use the command line or install one of the many great git GUI tools. Don't listen to anyone that says you're not doing it right unless you use the command line. Reduce the things you need to learn today and focus on the `git` command line interface later. If you have a Mac, I recommend [Fork](https://git-fork.com/), otherwise, the [Github GUI](https://desktop.github.com/) is good enough.
+Instead, take a moment to create a [new branch](https://www.atlassian.com/git/tutorials/using-branches). You can use the command line or install one of the many great git GUI tools. Don't listen to anyone that says you're not doing it right unless you use the command line. Reduce the things you need to learn today and focus on the `git` command line interface later. If you have a Mac, I recommend [Fork](https://git-fork.com/), otherwise, the [GitHub GUI](https://desktop.github.com/) is good enough.
 
 This new branch name should have some context as to what you are fixing and if possible the issue number being fixed. For example `git checkout -b 'feature/1234-add-unit-tests-for-inline-panel'`. This branch name uses `/` to represent a folder and also has the issue number `1234`, finally, it uses `lower-kebab-case` with a short description of the issue.
 
@@ -337,7 +337,7 @@ Be sure to always read the issue in full and review all links, sometimes there m
 
 While Gitpod is great for some small scale Pull Requests, it will not be a suitable tool for complex contributions and it's best to take the time to set up a fully functional development environment so you can manage branches and ongoing commits to one branch.
 
-Here are some links for using GitPod with the Wagtail packages:
+Here are some links for using Gitpod with the Wagtail packages:
 
 -   [Bakerydemo Gitpod instructions](https://github.com/wagtail/bakerydemo#setup-with-gitpod)
 -   [Wagtail Gitpod – Wagtail development setup in one click](https://wagtail.org/blog/gitpod/)

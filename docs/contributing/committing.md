@@ -9,8 +9,8 @@ If additional code changes are made after the review, it is OK to commit them
 without further review if they are uncontroversial and small enough that
 there is minimal chance of introducing new bugs.
 
-Most code contributions will be in the form of pull requests from Github.
-Pull requests should not be merged from Github, apart from small documentation fixes,
+Most code contributions will be in the form of pull requests from GitHub.
+Pull requests should not be merged from GitHub, apart from small documentation fixes,
 which can be merged with the 'Squash and merge' option. Instead, the code should
 be checked out by a committer locally, the changes examined and rebased,
 the `CHANGELOG.txt` and release notes updated,
@@ -95,7 +95,7 @@ they should be added to the `CONTRIBUTORS.rst` list.
 Contributors are added in chronological order,
 with new contributors added to the bottom of the list.
 Use their preferred name.
-You can usually find the name of a contributor on their Github profile.
+You can usually find the name of a contributor on their GitHub profile.
 If in doubt, or if their name is not on their profile, ask them how they want to be named.
 
 If the changes to be merged are small enough to be a single commit,

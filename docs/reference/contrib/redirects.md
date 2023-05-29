@@ -79,7 +79,7 @@ Options:
 | **permanent** | If the redirects imported should be **permanent** (True) or not (False). It's True by default. |
 | **from**      | The column index you want to use as redirect from value.                                       |
 | **to**        | The column index you want to use as redirect to value.                                         |
-| **dry_run**   | Lets you run a import without doing any changes.                                               |
+| **dry_run**   | Lets you run an import without doing any changes.                                              |
 | **ask**       | Lets you inspect and approve each redirect before it is created.                               |
 
 ## The `Redirect` class

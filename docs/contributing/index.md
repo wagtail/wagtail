@@ -45,7 +45,7 @@ We welcome contributions to all aspects of Wagtail. If you would like to improve
 
 ### Non-code contributions
 
--   Star the [wagtail](https://github.com/wagtail/wagtail) project on Github
+-   Star the [wagtail](https://github.com/wagtail/wagtail) project on GitHub
 -   Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
 -   Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).
 -   Provide some thoughtful feedback on the [Wagtail discussions](https://github.com/wagtail/wagtail/discussions).

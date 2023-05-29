@@ -282,7 +282,7 @@ For cases where the source image set may contain SVGs, the `ImageRenditionField`
 This is used in two places, when generating absolute URLs to document files and
 invalidating the cache.
 
-Generating URLs to documents will fall back the the current request's hostname
+Generating URLs to documents will fall back the current request's hostname
 if this is not set. Cache invalidation cannot do this, however, so this setting
 must be set when using this module alongside the `wagtailfrontendcache` module.
 
