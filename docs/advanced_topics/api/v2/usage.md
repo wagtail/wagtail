@@ -326,7 +326,7 @@ way down to the site's root page.
 
 For example, when combined with the `type` filter it can be used to
 find the particular `blog.BlogIndexPage` a `blog.BlogPage` belongs
-to. By itself, it can be used to to construct a breadcrumb trail from
+to. By itself, it can be used to construct a breadcrumb trail from
 the current page back to the site's root page.
 
 The `?descendant_of` filter takes the id of a page and filter the list

@@ -46,7 +46,7 @@ All block definitions accept the following optional keyword arguments:
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
-    -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+    -   The group used to categorise this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
 ## Field block types
 

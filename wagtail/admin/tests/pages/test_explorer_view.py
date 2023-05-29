@@ -356,7 +356,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             content_type=missing_page_content_type
         )
 
-        # try to browse the the listing that contains the missing model
+        # try to browse the listing that contains the missing model
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,))
         )

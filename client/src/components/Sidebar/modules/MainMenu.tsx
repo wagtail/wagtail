@@ -165,7 +165,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   // They are created by concatenating the name fields of all the menu/sub-menu items leading to the relevant one.
   // For example, the "Users" item in the "Settings" sub-menu would have the path 'settings.users'
   // - navigationPath references the current sub-menu that the user currently has open
-  // - activePath references the menu item for the the page the user is currently on
+  // - activePath references the menu item for the page the user is currently on
   const [state, dispatch] = React.useReducer(menuReducer, {
     navigationPath: '',
     activePath: '',

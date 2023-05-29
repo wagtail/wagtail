@@ -87,7 +87,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   // Whether or not to display the menu with slim layout.
   const slim = collapsed && !isMobile;
 
-  // 'expandingOrCollapsing' is set to true whilst the the menu is transitioning between slim and expanded layouts
+  // 'expandingOrCollapsing' is set to true whilst the menu is transitioning between slim and expanded layouts
   const [expandingOrCollapsing, setExpandingOrCollapsing] =
     React.useState(false);
 

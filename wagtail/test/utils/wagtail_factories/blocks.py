@@ -59,7 +59,7 @@ class StreamBlockFactory(factory.Factory):
             # We got an old style definition, so aren't aware of a StreamBlock class for the
             # StreamField's child blocks. As nesting of StreamBlocks isn't supported for this
             # kind of declaration, returning the stream data without up-casting it to a
-            # StreamValue is ok here. StreamField handles conversion to a StreamValue, but not
+            # StreamValue is OK here. StreamField handles conversion to a StreamValue, but not
             # recursively.
             return stream_data
         return blocks.StreamValue(block_def, stream_data)

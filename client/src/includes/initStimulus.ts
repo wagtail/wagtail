@@ -60,7 +60,7 @@ class WagtailApplication extends Application {
  * Initialises the Wagtail Stimulus application and dispatches and registers
  * custom event behaviour.
  *
- * Loads the the supplied core controller definitions into the application.
+ * Loads the supplied core controller definitions into the application.
  * Turns on debug mode if in local development (for now).
  */
 export const initStimulus = ({

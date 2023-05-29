@@ -162,7 +162,7 @@ class BaseIndexEntry(models.Model):
 
     # TODO: Add per-object boosting.
     # This field stores the "Title Normalisation Factor"
-    # This factor is multiplied onto the the rank of the title field.
+    # This factor is multiplied onto the rank of the title field.
     # This allows us to apply a boost to results with shorter titles
     # elevating more specific matches to the top.
     title_norm = models.FloatField(default=1.0)

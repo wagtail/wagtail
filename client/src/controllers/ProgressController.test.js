@@ -84,7 +84,7 @@ describe('ProgressController', () => {
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4_000);
   });
 
-  it('should change the the text of the button and sets disabled attribute on click', async () => {
+  it('should change the text of the button and sets disabled attribute on click', async () => {
     const button = document.querySelector('.button-longrunning');
     const label = document.querySelector('#em-el');
     expect(mockSubmit).not.toHaveBeenCalled();

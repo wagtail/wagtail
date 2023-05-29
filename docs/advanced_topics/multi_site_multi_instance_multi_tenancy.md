@@ -20,7 +20,7 @@ Wagtail also comes with [site settings](site_settings). _Site settings_ are 'sin
 
 Model objects can be linked to a site by placing a foreign key field on the model pointing to the site object. A request object can be used to look up the current site. This way, content belonging to a specific site can be served.
 
-User, groups, and permissions can be configured in such a way that content creators can only manage the pages, images, and documents of a specific site. Wagtail can have multiple _site objects_ and multiple _page trees_. Permissions can be linked to a specific page tree or a subsection thereof. Collections are used to categorize images and documents. A collection can be restricted to users who are in a specific group.
+User, groups, and permissions can be configured in such a way that content creators can only manage the pages, images, and documents of a specific site. Wagtail can have multiple _site objects_ and multiple _page trees_. Permissions can be linked to a specific page tree or a subsection thereof. Collections are used to categorise images and documents. A collection can be restricted to users who are in a specific group.
 
 Some projects require content editors to have permissions on specific sites and restrict access to other sites. Splitting _all_ content per site and guaranteeing that no content 'leaks' is difficult to realize in a multi-site project. If you require full separation of content, then multi-instance might be a better fit...
 
