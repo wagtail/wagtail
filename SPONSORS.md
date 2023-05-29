@@ -5,7 +5,7 @@ The following organisations and individuals supported the [Wagtail's First Hatch
 -   [Springload](https://springload.nz/)
 -   [NetFM](https://netfm.org/)
 -   [Ambient Innovation](https://ambient-innovation.com/)
--   [Shenberger Technology](http://shenbergertech.com/)
+-   [Shenberger Technology](https://shenbergertech.com/)
 -   [Type/Code](https://typecode.com/)
 -   [SharperTool](https://sharpertool.com/)
 -   [Overcast Software](https://www.overcast.io/)
@@ -50,6 +50,6 @@ The features below were developed thanks to the sponsorship of these organsation
 
 -   Persistent IDs for ListBlock items - [NHS](https://www.nhs.uk/)
 
--   Page editor redesign - [Google](http://google.com/)
+-   Page editor redesign - [Google](https://google.com/)
 
 -   StreamField rich text block splitter - [The Motley Fool](https://www.fool.com/)
