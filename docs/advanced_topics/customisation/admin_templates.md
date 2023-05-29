@@ -120,10 +120,10 @@ To customise the colours used in the admin user interface, inject a CSS file usi
 
 Colour variables are reused across both the light and dark themes of the admin interface. To change the colours of a specific theme, use:
 
-- `.w-theme-light` for the light theme.
-- `.w-theme-dark` for the dark theme.
-- `@media (prefers-color-scheme: light) { .w-theme-system { […] }}` for the light theme via system settings.
-- `@media (prefers-color-scheme: dark) { .w-theme-system { […] }}` for the dark theme via system settings.
+-   `.w-theme-light` for the light theme.
+-   `.w-theme-dark` for the dark theme.
+-   `@media (prefers-color-scheme: light) { .w-theme-system { […] }}` for the light theme via system settings.
+-   `@media (prefers-color-scheme: dark) { .w-theme-system { […] }}` for the dark theme via system settings.
 
 ## Specifying a site or page in the branding
 

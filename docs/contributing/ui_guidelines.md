@@ -96,7 +96,7 @@ We use inline SVG elements for Wagtail’s icons, for performance and so icons c
 
 ### Adding icons
 
-Icons are SVG files in the [Wagtail admin template folder](https://github.com/wagtail/wagtail/tree/main/wagtail/admin/templates/wagtailadmin/icons). 
+Icons are SVG files in the [Wagtail admin template folder](https://github.com/wagtail/wagtail/tree/main/wagtail/admin/templates/wagtailadmin/icons).
 
 When adding or updating an icon,
 

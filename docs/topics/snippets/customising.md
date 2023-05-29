@@ -105,12 +105,12 @@ So, to override the template used by the `IndexView` for example, you could crea
 
 For some common views, Wagtail also allows you to override the template used by either specifying the `{view_name}_template_name` attribute or overriding the `get_{view_name}_template()` method on the viewset. The following is a list of customisation points for the views:
 
-- `IndexView`: `index.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_template()`
-  - For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_results_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_results_template()`.
-- `CreateView`: `create.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.create_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_create_template()`
-- `EditView`: `edit.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.edit_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_template()`
-- `DeleteView`: `delete.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.delete_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_delete_template()`
-- `HistoryView`: `history.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.history_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_history_template()`
+-   `IndexView`: `index.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_template()`
+    -   For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.index_results_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_index_results_template()`.
+-   `CreateView`: `create.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.create_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_create_template()`
+-   `EditView`: `edit.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.edit_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_template()`
+-   `DeleteView`: `delete.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.delete_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_delete_template()`
+-   `HistoryView`: `history.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.history_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_history_template()`
 
 ## Menu item
 

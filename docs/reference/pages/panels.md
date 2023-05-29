@@ -15,6 +15,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 ```
 
 (field_panel)=
+
 ### FieldPanel
 
 ```{eval-rst}
@@ -65,6 +66,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 ```
 
 (inline_panels)=
+
 ### InlinePanel
 
 ```{eval-rst}
@@ -95,6 +97,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 ```
 
 (multiple_chooser_panel)=
+
 ### MultipleChooserPanel
 
 ````{class} MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, label='', min_num=None, max_num=None, **kwargs)
@@ -220,19 +223,21 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 ```
 
 (customising_panels)=
+
 ## Panel customisation
 
 By adding extra parameters to your panel/field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
 (See [Django model field reference](django:ref/models/fields)).
 
 (customising_panel_icons)=
+
 ### Icons
 
 Use the `icon` argument to the panel constructor to override the icon to be displayed next to the panel's heading. For a list of available icons, see [](available_icons).
 
 ### Heading
 
-Use the `heading` argument to the panel constructor to set the panel's heading. This will be used for the input's label and displayed on the content minimap. If left unset for `FieldPanel`s, it will be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
+Use the `heading` argument to the panel constructor to set the panel's heading. This will be used for the input's label and displayed on the content minimap. If left unset for `FieldPanel`s, it will be set automatically using the form field's label (taken in turn from a model field's `verbose_name`).
 
 ### CSS classes
 
@@ -263,9 +268,9 @@ Use the `help_text` argument to the panel constructor to customise the help text
 
 ### Placeholder text
 
-By default, Wagtail uses the field's label as placeholder text. To change it, pass to the ``FieldPanel`` a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](django:ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the `FieldPanel` a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](django:ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
 
-For example, to customise placeholders for a ``Book`` snippet model:
+For example, to customise placeholders for a `Book` snippet model:
 
 ```python
 # models.py
@@ -303,4 +308,4 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 
 ### Hiding fields
 
-Without a top-level panel definition, a ``FieldPanel`` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
+Without a top-level panel definition, a `FieldPanel` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
