@@ -113,7 +113,7 @@ class Advert(index.Indexed, models.Model):
 
 ## Saving revisions of snippets
 
-If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin. In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. If you need to customise how the revisions are fetched (e.g. to handle the content type to use for models with multi-table inheritance), you can define a property instead. For example, the `Advert` snippet could be made revisable as follows:
+If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin. In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. If you need to customise how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define a property instead. For example, the `Advert` snippet could be made revisable as follows:
 
 ```python
 # ...
@@ -237,7 +237,7 @@ If you use the scheduled publishing feature, make sure that you run the [`publis
 Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 ```{warning}
-Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (e.g. by checking its `live` field). We are planning to improve this in the future.
+Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (for example, by checking its `live` field). We are planning to improve this in the future.
 ```
 
 (wagtailsnippets_locking_snippets)=
