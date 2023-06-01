@@ -711,6 +711,7 @@ Contributors
 * Ramon Wenger
 * Christer Jensen
 * Virag Jain
+* Lukas von Allmen
 
 Translators
 ===========

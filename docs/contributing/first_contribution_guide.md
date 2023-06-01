@@ -14,7 +14,7 @@ This is a long guide - do not worry about following all the steps in one go or d
 Each section has an introduction with an overview and a checklist that can be copied and pasted for you to check through one by one. Get ready to read, there is a lot of reading ahead.
 
 ```{note}
-Avoid 'claiming' any issues before completing Steps 0-7. This helps you not over-promise what you can contribute and helps the community support you when you are actually ready to contribute.
+Avoid 'claiming' any issues before completing Steps 0-6. This helps you not over-promise what you can contribute and helps the community support you when you are actually ready to contribute.
 Do not worry about issues 'running out' - software development is an endless fractal, there is always more to help with.
 ```
 
@@ -85,7 +85,7 @@ Take the time to **read** the issue and links before adding new comments or ques
 - [ ] Give a go at a non-code contribution
 ```
 
-### 5. Setting up your development environment
+### 4. Setting up your development environment
 
 <!--
 Important: This section should not go too deep into development setup. Instead we should solidify the content on the development page.
@@ -132,7 +132,7 @@ How to clone a remote repository and what that actually even means:
 -   See the [GitHub docs explain forking](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
 -   See [Atlassian’s docs on git clone](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone) for more details.
 
-### 6. Finding an issue
+### 5. Finding an issue
 
 Hopefully, at this point, you have a good sense of the purpose of the project and are still keen to contribute.
 
@@ -154,7 +154,7 @@ Finally, before 'claiming' check you can do the following;
 -   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented
 ```
 
-### 7. Contributing a solution
+### 6. Contributing a solution
 
 **Important:** We only use GitHub's issue assignment feature to members of the Wagtail core team. If an issue is not assigned to anyone, feel free to work on it, **no need to ask "please assign me this issue"**.
 
@@ -217,7 +217,7 @@ A pull request that just adds unit tests to some core functionality that does no
 - [ ] Write unit tests
 ```
 
-### 8. Submitting a Pull Request
+### 7. Submitting a Pull Request
 
 A pull request that has the title 'fixes issue' is unhelpful at best, and spammy at worst. Take a few moments to think about how to give your change a title. Communicate (in a few words) the problem solved or feature added or bug fixed. Instead of 'Fixes 10423', use words and write a title 'Fixes documentation dark mode refresh issue'. No one in a project knows that issue `10423` is that one about the documentation dark mode refresh issue.
 
@@ -244,7 +244,7 @@ It is often good to write yourself a checklist for any pull request and fill in 
 -   [ ] Browser and accessibility checks done, or not done. Added to the description.
 ```
 
-#### 8a. Review & fix the CI failures
+#### 7a. Review & fix the CI failures
 
 Once you have created your pull request, there will often be a series of [build/check/CI](https://about.gitlab.com/topics/ci-cd/) steps that run.
 
@@ -258,7 +258,7 @@ The most important thing is to not just ignore CI failures. Read through each er
 GitHub will not run the CI automatically for new contributors in some projects. This is an intentional security feature and a core contributor will need to approve your initial CI run.
 ```
 
-#### 8b. Push to the same branch with fixes and do not open a new pull request
+#### 7b. Push to the same branch with fixes and do not open a new pull request
 
 Finally, after you have fixed the failing linting and tests locally, you will want to push those changes to your remote branch. You do not need to open a new pull request. This creates more noise and confusion. Instead, push your changes up to your branch, and the CI will run automatically on those changes.
 
@@ -266,7 +266,7 @@ You can add a comment if you want to the pull request that you have updated, but
 
 **Avoid opening multiple pull requests for the same fix.** Doing that means all the comments and discussion from the previous pull request will get lost and reviewers will have trouble finding them.
 
-### 9. Next steps
+### 8. Next steps
 
 When you take time to contribute out of your own personal time, or even that from your paid employer, it can be very frustrating when a pull request does not get reviewed. It is best to temper your expectations with this process and remember that many people on the other side of this are also volunteers or have limited time to prioritise.
 
