@@ -69,7 +69,7 @@ export class ProgressController extends Controller<HTMLButtonElement> {
         window.cancelSpinner = () => {
           const attr = `data-${identifier}-loading-value`;
 
-          document.querySelectorAll(`[${attr}="true"]`).forEach((element) => {
+          document.querySelectorAll(`[${attr}~="true"]`).forEach((element) => {
             element.removeAttribute(attr);
           });
         };
