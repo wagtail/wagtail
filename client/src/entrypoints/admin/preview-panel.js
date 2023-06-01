@@ -87,6 +87,7 @@ function initPreview() {
   let iframe = previewPanel.querySelector('[data-preview-iframe]');
   let spinnerTimeout;
   let hasPendingUpdate = false;
+  let cleared = false;
 
   const finishUpdate = () => {
     clearTimeout(spinnerTimeout);
@@ -173,8 +174,10 @@ function initPreview() {
 
         if (data.is_valid) {
           reloadIframe();
-        } else {
-          finishUpdate();
+        } else if (!cleared) {
+          clearPreviewData();
+          cleared = true;
+          reloadIframe();
         }
 
         return data.is_valid;
@@ -255,6 +258,12 @@ function initPreview() {
     previewSidePanel.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
+  } else {
+    // Even if the preview is not updated automatically, we still need to
+    // initialise the preview data when the panel is shown
+    previewSidePanel.addEventListener('show', () => {
+      setPreviewData();
+    });
   }
 
   //
@@ -277,11 +286,6 @@ function initPreview() {
   if (previewModeSelect) {
     previewModeSelect.addEventListener('change', handlePreviewModeChange);
   }
-
-  // Make sure current preview data in session exists and is up-to-date.
-  clearPreviewData()
-    .then(() => setPreviewData())
-    .then(() => reloadIframe());
 
   // Remember last selected device size
   let lastDevice = null;
