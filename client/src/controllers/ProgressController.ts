@@ -3,6 +3,13 @@ import type { Application } from '@hotwired/stimulus';
 
 const DEFAULT_CLASS = 'button-longrunning';
 
+declare global {
+  interface Window {
+    /** support legacy cancelSpinner until RemovedInWagtail60 */
+    cancelSpinner: () => void;
+  }
+}
+
 /**
  * Adds the ability for a button to be clicked and then not allow any further clicks
  * until the duration has elapsed. Will also update the button's label while in progress.
@@ -45,7 +52,9 @@ export class ProgressController extends Controller<HTMLButtonElement> {
 
   /**
    * Ensure we have backwards compatibility with buttons that have
-   * not yet adopted the new data attribute syntax.
+   * not yet adopted the new data attribute syntax. Along with the
+   * global cancelSpinner function to stop all spinners globally.
+   *
    * Will be removed in a future release.
    *
    * @deprecated RemovedInWagtail60
@@ -57,6 +66,14 @@ export class ProgressController extends Controller<HTMLButtonElement> {
     document.addEventListener(
       'DOMContentLoaded',
       () => {
+        window.cancelSpinner = () => {
+          const attr = `data-${identifier}-loading-value`;
+
+          document.querySelectorAll(`[${attr}="true"]`).forEach((element) => {
+            element.removeAttribute(attr);
+          });
+        };
+
         document
           .querySelectorAll(
             `.${DEFAULT_CLASS}:not([${controllerAttribute}~='${identifier}'])`,
