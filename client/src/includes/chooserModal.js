@@ -25,8 +25,13 @@ const validateCreationForm = (form) => {
     }
   });
   if (hasErrors) {
-    // eslint-disable-next-line no-undef
-    setTimeout(cancelSpinner, 500);
+    setTimeout(() => {
+      // clear any loading state on progress buttons
+      const attr = 'data-w-progress-loading-value';
+      form.querySelectorAll(`[${attr}~="true"]`).forEach((element) => {
+        element.removeAttribute(attr);
+      });
+    }, 500);
   }
   return !hasErrors;
 };
