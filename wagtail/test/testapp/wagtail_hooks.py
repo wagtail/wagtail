@@ -34,7 +34,7 @@ from .forms import FavouriteColourForm
 
 
 # Register one hook using decorators...
-@hooks.register("insert_editor_css")
+@hooks.register("insert_global_admin_css")
 def editor_css():
     return """<link rel="stylesheet" href="/path/to/my/custom.css">"""
 

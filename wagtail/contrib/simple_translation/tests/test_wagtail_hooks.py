@@ -14,6 +14,7 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class Utils(WagtailTestUtils, TestCase):
@@ -558,3 +559,23 @@ class TestDeletingTranslatedPages(Utils):
         self.assertNotIn(self.en_blog_post, en_root.get_descendants().specific())
         # The alias should no longer be in the translated tree root (fr HomePage)
         self.assertNotIn(self.fr_blog_post, fr_root.get_descendants().specific())
+
+
+class TestWagtailHooks(Utils):
+    def css_hook(self):
+        return '<link rel="stylesheet" href="/some/custom.css">'
+
+    def test_with_deprecated_hook(self):
+        self.login()
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "The `insert_editor_css` hook is deprecated - use `insert_global_admin_css` instead.",
+        ):
+            with hooks.register_temporarily("insert_editor_css", self.css_hook):
+                response = self.client.get(reverse("wagtailadmin_home"))
+
+                self.assertIn(
+                    '<link rel="stylesheet" href="/some/custom.css">',
+                    response.content.decode("utf-8"),
+                )
