@@ -454,6 +454,12 @@ def editor_css():
     )
 ```
 
+```{note}
+The `insert_editor_css` hook is deprecated and will be removed in a future release. We recommend using [](insert_global_admin_css) instead.
+```
+
+
+
 (insert_global_admin_css)=
 
 ### `insert_global_admin_css`

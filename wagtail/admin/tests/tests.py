@@ -13,12 +13,14 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from taggit.models import Tag
 
+from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestHome(WagtailTestUtils, TestCase):
@@ -156,6 +158,20 @@ class TestEditorHooks(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')
+
+    def test_deprecated_editor_css_hook(self):
+        def css_hook():
+            return '<link rel="stylesheet" href="/some/custom.css">'
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "The `insert_editor_css` hook is deprecated - use `insert_global_admin_css` instead.",
+        ):
+            with hooks.register_temporarily("insert_editor_css", css_hook):
+                response = self.client.get(reverse("wagtailadmin_home"))
+                self.assertContains(
+                    response, '<link rel="stylesheet" href="/some/custom.css">'
+                )
 
 
 class TestSendMail(TestCase):

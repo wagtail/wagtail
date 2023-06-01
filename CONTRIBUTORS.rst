@@ -712,6 +712,7 @@ Contributors
 * Christer Jensen
 * Virag Jain
 * Lukas von Allmen
+* Ester Beltrami
 
 Translators
 ===========
