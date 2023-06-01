@@ -17,5 +17,9 @@ def register_admin_urls():
 @hooks.register("register_settings_menu_item")
 def register_styleguide_menu_item():
     return MenuItem(
-        _("Styleguide"), reverse("wagtailstyleguide"), icon_name="image", order=1000
+        _("Styleguide"),
+        reverse("wagtailstyleguide"),
+        name="styleguide",
+        icon_name="image",
+        order=1000,
     )

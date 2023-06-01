@@ -33,6 +33,7 @@ def register_redirects_menu_item():
     return RedirectsMenuItem(
         _("Redirects"),
         reverse("wagtailredirects:index"),
+        name="redirects",
         icon_name="redirect",
         order=800,
     )

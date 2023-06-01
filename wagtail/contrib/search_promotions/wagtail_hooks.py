@@ -35,6 +35,7 @@ def register_search_picks_menu_item():
     return SearchPicksMenuItem(
         _("Promoted search results"),
         reverse("wagtailsearchpromotions:index"),
+        name="promoted-search-results",
         icon_name="pick",
         order=900,
     )

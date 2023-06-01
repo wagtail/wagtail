@@ -172,6 +172,7 @@ def register_collections_menu_item():
     return CollectionsMenuItem(
         _("Collections"),
         reverse("wagtailadmin_collections:index"),
+        name="collections",
         icon_name="folder-open-1",
         order=700,
     )
@@ -202,6 +203,7 @@ def register_workflows_menu_item():
     return WorkflowsMenuItem(
         _("Workflows"),
         reverse("wagtailadmin_workflows:index"),
+        name="workflows",
         icon_name="tasks",
         order=100,
     )
@@ -212,6 +214,7 @@ def register_workflow_tasks_menu_item():
     return WorkflowTasksMenuItem(
         _("Workflow tasks"),
         reverse("wagtailadmin_workflows:task_index"),
+        name="workflow-tasks",
         icon_name="thumbtack",
         order=150,
     )
@@ -928,6 +931,7 @@ def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
         _("Locked pages"),
         reverse("wagtailadmin_reports:locked_pages"),
+        name="locked-pages",
         icon_name="lock",
         order=700,
     )
@@ -938,6 +942,7 @@ def register_workflow_report_menu_item():
     return WorkflowReportMenuItem(
         _("Workflows"),
         reverse("wagtailadmin_reports:workflow"),
+        name="workflows",
         icon_name="tasks",
         order=800,
     )
@@ -948,6 +953,7 @@ def register_workflow_tasks_report_menu_item():
     return WorkflowReportMenuItem(
         _("Workflow tasks"),
         reverse("wagtailadmin_reports:workflow_tasks"),
+        name="workflow-tasks",
         icon_name="thumbtack",
         order=900,
     )
@@ -958,6 +964,7 @@ def register_site_history_report_menu_item():
     return SiteHistoryReportMenuItem(
         _("Site history"),
         reverse("wagtailadmin_reports:site_history"),
+        name="site-history",
         icon_name="history",
         order=1000,
     )
@@ -968,6 +975,7 @@ def register_aging_pages_report_menu_item():
     return AgingPagesReportMenuItem(
         _("Aging pages"),
         reverse("wagtailadmin_reports:aging_pages"),
+        name="aging-pages",
         icon_name="time",
         order=1100,
     )

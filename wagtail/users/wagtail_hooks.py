@@ -76,7 +76,11 @@ class UsersMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_users_menu_item():
     return UsersMenuItem(
-        _("Users"), reverse("wagtailusers_users:index"), icon_name="user", order=600
+        _("Users"),
+        reverse("wagtailusers_users:index"),
+        name="users",
+        icon_name="user",
+        order=600,
     )
 
 
@@ -92,7 +96,11 @@ class GroupsMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_groups_menu_item():
     return GroupsMenuItem(
-        _("Groups"), reverse("wagtailusers_groups:index"), icon_name="group", order=601
+        _("Groups"),
+        reverse("wagtailusers_groups:index"),
+        name="groups",
+        icon_name="group",
+        order=601,
     )
 
 

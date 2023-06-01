@@ -713,6 +713,7 @@ Contributors
 * Virag Jain
 * Lukas von Allmen
 * Ester Beltrami
+* Justin Koestinger
 
 Translators
 ===========

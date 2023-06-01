@@ -368,3 +368,63 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
         # We want the name to be consistent across languages, so this test will
         # fail if the label is translated.
         self.assertFalse(expected - names)
+
+    def test_submenu_items_have_names(self):
+        names = set()
+        # Generate the submenu items using a different language
+        with translation.override("fr"):
+            # Getting only the submenu items
+            for item in admin_menu.registered_menu_items:
+                if not hasattr(item, "menu"):
+                    continue
+
+                # Delete the registered_menu_items cache
+                try:
+                    del item.menu.registered_menu_items
+                # The cache may not be created yet if the test is run in isolation
+                except AttributeError:
+                    pass
+
+                for subitem in item.menu.registered_menu_items:
+                    names.add(subitem.name)
+
+        # Default submenu items
+        expected = {
+            "site-history",
+            "workflows",
+            "users",
+            "revisable-child-models",
+            "groups",
+            "aging-pages",
+            "editor-guide",
+            "sites",
+            "publishables",
+            "whats-new-in-wagtail-5.0",
+            "locked-pages",
+            "single-event-pages",
+            "event-pages",
+            "workflow-tasks",
+            "icon-site-setting",
+            "venue-pages",
+            "revisable-models",
+            "collections",
+            "locales",
+            "styleguide",
+            "test-generic-setting",
+            "test-site-setting",
+            "important-pages-generic-setting",
+            "redirects",
+            "important-pages-site-setting",
+            "workflow-tasks",
+            "promoted-search-results",
+            "icon-generic-setting",
+            "file-site-setting",
+            "workflows",
+            "file-generic-setting",
+        }
+
+        # If some of the above subitems do not have a name, they will be
+        # automatically generated from the label, which is translatable.
+        # We want the name to be consistent across languages, so this test will
+        # fail if the label is translated.
+        self.assertFalse(expected - names)
