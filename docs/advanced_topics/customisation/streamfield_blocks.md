@@ -20,7 +20,7 @@ class PersonBlock(blocks.StructBlock):
         form_classname = 'person-block struct-block'
 ```
 
-You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_editor_css) hook.
+You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_global_admin_css) hook.
 
 ```{note}
 Wagtail's editor styling has some built in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
