@@ -1,4 +1,5 @@
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
 
 function initPreview() {
@@ -225,11 +226,17 @@ function initPreview() {
       return changed;
     };
 
+    // Call setPreviewData only if no changes have been made within the interval
+    const debouncedSetPreviewData = debounce(
+      setPreviewData,
+      WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+    );
+
     const checkAndUpdatePreview = () => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
       if (hasPendingUpdate || !hasChanges()) return;
-      setPreviewData();
+      debouncedSetPreviewData();
     };
 
     previewSidePanel.addEventListener('show', () => {
@@ -237,6 +244,8 @@ function initPreview() {
       checkAndUpdatePreview();
 
       // Only set the interval while the panel is shown
+      // This interval performs the checks for changes but not necessarily the
+      // update itself
       updateInterval = setInterval(
         checkAndUpdatePreview,
         WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
