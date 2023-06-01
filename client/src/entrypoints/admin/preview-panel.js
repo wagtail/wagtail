@@ -101,11 +101,16 @@ function initPreview() {
 
     // Create a new invisible iframe element
     const newIframe = document.createElement('iframe');
+    const url = new URL(previewUrl, window.location.href);
+    if (previewModeSelect) {
+      url.searchParams.set('mode', previewModeSelect.value);
+    }
+    url.searchParams.set('in_preview_panel', 'true');
     newIframe.style.width = 0;
     newIframe.style.height = 0;
     newIframe.style.opacity = 0;
     newIframe.style.position = 'absolute';
-    newIframe.src = iframe.src;
+    newIframe.src = url.toString();
 
     // Put it in the DOM so it loads the page
     iframe.insertAdjacentElement('afterend', newIframe);
@@ -272,10 +277,8 @@ function initPreview() {
 
   const handlePreviewModeChange = (event) => {
     const mode = event.target.value;
-    const url = new URL(iframe.src);
+    const url = new URL(previewUrl, window.location.href);
     url.searchParams.set('mode', mode);
-
-    iframe.src = url.toString();
     url.searchParams.delete('in_preview_panel');
     newTabButton.href = url.toString();
 
