@@ -57,20 +57,19 @@
   }
 
   .col {
-    float: left;
+    display: flex;
     margin-inline-end: 2em;
   }
 
   .left {
-    float: left;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
   }
 
-  .right {
+  .w-header__secondary {
     text-align: end;
-    float: right;
+    display: flex;
   }
 
   // For case where content below header should merge with it
@@ -113,7 +112,7 @@
 
 @include media-breakpoint-up(sm) {
   .w-header {
-    .row {
+    .w-header__main {
       padding-inline-start: $desktop-nice-padding;
       padding-inline-end: $desktop-nice-padding;
       padding-top: theme('spacing.10');
@@ -129,22 +128,22 @@
       }
     }
 
-    .left {
-      float: left;
+    .w-header__primary {
+      display: flex;
       margin-inline-end: 0;
 
       &:first-child {
         padding-bottom: 0;
-        float: left;
+        display: flex;
       }
     }
 
     .second {
       clear: none;
 
-      .right,
-      .left {
-        float: right;
+      .w-header__secondary,
+      .w-header__primary {
+        display: flex;
       }
     }
 
