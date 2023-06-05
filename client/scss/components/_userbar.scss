@@ -12,6 +12,7 @@ $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1),
   0 1px 10px 0 rgba(107, 214, 230, 0.7);
 $max-items: 12;
 $userbar-radius: 6px;
+$userbar-z-index: 9999;
 
 // Possible positions for the userbar to exist in. These are set through the
 // {% wagtailuserbar 'bottom-left' %} template tag.
@@ -39,7 +40,7 @@ $positions: (
 // =============================================================================
 .w-userbar {
   position: fixed;
-  z-index: 9999;
+  z-index: $userbar-z-index;
   font-size: initial;
   line-height: initial;
   margin: 0;
@@ -246,6 +247,7 @@ $positions: (
   inset-inline-start: auto;
   font-family: $font-sans;
   padding-inline-end: 2rem;
+  z-index: $userbar-z-index;
 
   .w-dialog__close-button {
     $size: theme('spacing.6');
