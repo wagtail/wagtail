@@ -399,7 +399,6 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
             "editor-guide",
             "sites",
             "publishables",
-            "whats-new-in-wagtail-5.0",
             "locked-pages",
             "single-event-pages",
             "event-pages",
