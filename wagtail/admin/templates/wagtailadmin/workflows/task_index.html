@@ -41,7 +41,7 @@
                                 </div>
                             </td>
                             <td>
-                                {{ task.specific.get_verbose_name }}
+                                {{ task.get_verbose_name }}
                             </td>
                             <td>
                                 {% for workflow in task.active_workflows|slice:":5" %}

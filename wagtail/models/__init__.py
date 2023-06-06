@@ -4335,8 +4335,9 @@ class TaskState(SpecificMixin, models.Model):
         self.log_state_change_action(user, "approve")
         if update:
             self.workflow_state.update(user=user)
+        specific_self = self.specific
         task_approved.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
+            sender=specific_self.__class__, instance=specific_self, user=user
         )
         return self
 
@@ -4354,8 +4355,9 @@ class TaskState(SpecificMixin, models.Model):
         self.log_state_change_action(user, "reject")
         if update:
             self.workflow_state.update(user=user)
+        specific_self = self.specific
         task_rejected.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
+            sender=specific_self.__class__, instance=specific_self, user=user
         )
 
         return self
@@ -4389,8 +4391,9 @@ class TaskState(SpecificMixin, models.Model):
             self.workflow_state.update(user=user, next_task=self.task.specific)
         else:
             self.workflow_state.update(user=user)
+        specific_self = self.specific
         task_cancelled.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
+            sender=specific_self.__class__, instance=specific_self, user=user
         )
         return self
 
