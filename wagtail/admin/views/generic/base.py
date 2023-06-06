@@ -10,7 +10,7 @@ from django.views.generic.list import BaseListView
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.ui.tables import Table
+from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -138,6 +138,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     use_autocomplete = False
     table_class = Table
     context_object_name = None
+    columns = [Column("__str__", label=_("Title"))]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)

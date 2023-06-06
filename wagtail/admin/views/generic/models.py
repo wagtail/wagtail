@@ -72,6 +72,10 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     list_display = ["__str__", UpdatedAtColumn()]
 
+    # if not overridden at the class level, get_columns() will auto-generate the column list
+    # based on list_display
+    columns = None
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.columns = self.get_columns()
@@ -186,9 +190,7 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         )
 
     def get_columns(self):
-        try:
-            return self.columns
-        except AttributeError:
+        if self.columns is None:
             columns = []
             for i, field in enumerate(self.list_display):
                 if isinstance(field, Column):
@@ -199,7 +201,9 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
                     column = self._get_custom_column(field)
                 columns.append(column)
 
-            return columns
+            self.columns = columns
+
+        return self.columns
 
     def get_edit_url(self, instance):
         if self.permission_policy and not instance.annotated_permissions["change"]:
