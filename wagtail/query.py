@@ -139,11 +139,11 @@ class TreeQuerySet(MP_NodeQuerySet):
         return self.exclude(self.sibling_of_q(other, inclusive))
 
 
-class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
+class SpecificQuerySetMixin:
     def __init__(self, *args, **kwargs):
         """Set custom instance attributes"""
         super().__init__(*args, **kwargs)
-        # set by defer_streamfields()
+        # set by PageQuerySet.defer_streamfields()
         self._defer_streamfields = False
 
     def _clone(self):
@@ -152,6 +152,23 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         clone._defer_streamfields = self._defer_streamfields
         return clone
 
+    def specific(self, defer=False):
+        """
+        This efficiently gets all the specific items for the queryset, using
+        the minimum number of queries.
+
+        When the "defer" keyword argument is set to True, only generic
+        field values will be loaded and all specific fields will be deferred.
+        """
+        clone = self._clone()
+        if defer:
+            clone._iterable_class = DeferredSpecificIterable
+        else:
+            clone._iterable_class = SpecificIterable
+        return clone
+
+
+class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet):
     def live_q(self):
         return Q(live=True)
 
@@ -393,21 +410,6 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             return clone
         return clone.defer(*streamfield_names)
 
-    def specific(self, defer=False):
-        """
-        This efficiently gets all the specific pages for the queryset, using
-        the minimum number of queries.
-
-        When the "defer" keyword argument is set to True, only generic page
-        field values will be loaded and all specific fields will be deferred.
-        """
-        clone = self._clone()
-        if defer:
-            clone._iterable_class = DeferredSpecificIterable
-        else:
-            clone._iterable_class = SpecificIterable
-        return clone
-
     def in_site(self, site):
         """
         This filters the QuerySet to only contain pages within the specified site.
@@ -495,21 +497,19 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 class SpecificIterable(BaseIterable):
     def __iter__(self):
         """
-        Identify and return all specific pages in a queryset, and return them
+        Identify and return all specific items in a queryset, and return them
         in the same order, with any annotations intact.
         """
-        from wagtail.models import Page
-
         qs = self.queryset
         annotation_aliases = qs.query.annotations.keys()
         values_qs = qs.values("pk", "content_type", *annotation_aliases)
 
-        # Gather pages in batches to reduce peak memory usage
+        # Gather items in batches to reduce peak memory usage
         for values in self._get_chunks(values_qs):
 
             annotations_by_pk = defaultdict(list)
             if annotation_aliases:
-                # Extract annotation results keyed by pk so we can reapply to fetched pages.
+                # Extract annotation results keyed by pk so we can reapply to fetched items.
                 for data in values:
                     annotations_by_pk[data["pk"]] = {
                         k: v for k, v in data.items() if k in annotation_aliases
@@ -525,55 +525,55 @@ class SpecificIterable(BaseIterable):
                 pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types
             }
 
-            # Get the specific instances of all pages, one model class at a time.
-            pages_by_type = {}
+            # Get the specific instances of all items, one model class at a time.
+            items_by_type = {}
             missing_pks = []
 
             for content_type, pks in pks_by_type.items():
                 # look up model class for this content type, falling back on the original
                 # model (i.e. Page) if the more specific one is missing
                 model = content_types[content_type].model_class() or qs.model
-                pages = model.objects.filter(pk__in=pks)
+                items = model.objects.filter(pk__in=pks)
 
-                if qs._defer_streamfields:
-                    pages = pages.defer_streamfields()
+                if qs._defer_streamfields and hasattr(items, "defer_streamfields"):
+                    items = items.defer_streamfields()
 
-                pages_for_type = {page.pk: page for page in pages}
-                pages_by_type[content_type] = pages_for_type
-                missing_pks.extend(pk for pk in pks if pk not in pages_for_type)
+                items_for_type = {item.pk: item for item in items}
+                items_by_type[content_type] = items_for_type
+                missing_pks.extend(pk for pk in pks if pk not in items_for_type)
 
-            # Fetch generic pages to supplement missing items
+            # Fetch generic items to supplement missing items
             if missing_pks:
-                generic_pages = (
-                    Page.objects.filter(pk__in=missing_pks)
+                generic_items = (
+                    qs.model.objects.filter(pk__in=missing_pks)
                     .select_related("content_type")
                     .in_bulk()
                 )
                 warnings.warn(
-                    "Specific versions of the following pages could not be found. "
+                    "Specific versions of the following items could not be found. "
                     "This is most likely because a database migration has removed "
-                    "the relevant table or record since the page was created:\n{}".format(
+                    "the relevant table or record since the item was created:\n{}".format(
                         [
                             {"id": p.id, "title": p.title, "type": p.content_type}
-                            for p in generic_pages.values()
+                            for p in generic_items.values()
                         ]
                     ),
                     category=RuntimeWarning,
                 )
             else:
-                generic_pages = {}
+                generic_items = {}
 
-            # Yield all pages in the order they occurred in the original query.
+            # Yield all items in the order they occurred in the original query.
             for pk, content_type in pks_and_types:
                 try:
-                    page = pages_by_type[content_type][pk]
+                    item = items_by_type[content_type][pk]
                 except KeyError:
-                    page = generic_pages[pk]
+                    item = generic_items[pk]
                 if annotation_aliases:
                     # Reapply annotations before returning
-                    for annotation, value in annotations_by_pk.get(page.pk, {}).items():
-                        setattr(page, annotation, value)
-                yield page
+                    for annotation, value in annotations_by_pk.get(item.pk, {}).items():
+                        setattr(item, annotation, value)
+                yield item
 
     def _get_chunks(self, queryset) -> Iterable[Tuple[Dict[str, Any]]]:
         if not self.chunked_fetch:
@@ -582,7 +582,7 @@ class SpecificIterable(BaseIterable):
             yield tuple(queryset)
         else:
             # Iterate through the queryset, returning the rows in manageable
-            # chunks for self.__iter__() to fetch full pages for
+            # chunks for self.__iter__() to fetch full instances for
             current_chunk = []
             for r in queryset.iterator(self.chunk_size):
                 current_chunk.append(r)
@@ -601,9 +601,9 @@ class DeferredSpecificIterable(ModelIterable):
                 yield obj.specific_deferred
             else:
                 warnings.warn(
-                    "A specific version of the following page could not be returned "
-                    "because the specific page model is not present on the active "
-                    f"branch: <Page id='{obj.id}' title='{obj.title}' "
+                    "A specific version of the following object could not be returned "
+                    "because the specific model is not present on the active "
+                    f"branch: <{obj.__class__.__name__} id='{obj.id}' title='{obj.title}' "
                     f"type='{obj.content_type}'>",
                     category=RuntimeWarning,
                 )

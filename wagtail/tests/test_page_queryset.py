@@ -896,7 +896,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         ):
             with self.assertWarnsRegex(
                 RuntimeWarning,
-                "Specific versions of the following pages could not be found",
+                "Specific versions of the following items could not be found",
             ):
                 pages = list(
                     Page.objects.get(url_path="/home/").get_children().specific()
