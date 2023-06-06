@@ -88,7 +88,7 @@ class WorkflowHistoryDetailView(
                     task_state.task: task_state
                     for task_state in TaskState.objects.filter(
                         workflow_state=self.workflow_state, revision=revision
-                    )
+                    ).specific()
                 },
             )
             for revision in self.revisions

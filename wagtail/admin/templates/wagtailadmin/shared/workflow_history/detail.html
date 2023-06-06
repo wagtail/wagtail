@@ -84,8 +84,8 @@
                                         {% else %}
                                             {% status task_state.get_status_display classname="w-status--primary" %}
                                         {% endif %}
-                                        {% if task_state.specific.get_comment %}
-                                            <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
+                                        {% if task_state.get_comment %}
+                                            <p>{% trans 'with comment:' %} <b>"{{ task_state.get_comment }}"</b></p>
                                         {% endif %}
                                     </td>
                                 {% endfor %}
