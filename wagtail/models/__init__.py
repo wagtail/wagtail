@@ -74,7 +74,7 @@ from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
-from wagtail.query import PageQuerySet
+from wagtail.query import PageQuerySet, SpecificQuerySetMixin
 from wagtail.search import index
 from wagtail.signals import (
     page_published,
@@ -3449,9 +3449,12 @@ class WorkflowTask(Orderable):
         verbose_name_plural = _("workflow task orders")
 
 
-class TaskManager(models.Manager):
+class TaskQuerySet(SpecificQuerySetMixin, models.QuerySet):
     def active(self):
         return self.filter(active=True)
+
+
+TaskManager = models.Manager.from_queryset(TaskQuerySet)
 
 
 class Task(SpecificMixin, models.Model):
@@ -4204,7 +4207,7 @@ class WorkflowState(models.Model):
         ]
 
 
-class TaskStateManager(models.Manager):
+class BaseTaskStateManager(models.Manager):
     def reviewable_by(self, user):
         tasks = Task.objects.filter(active=True)
         states = TaskState.objects.none()
@@ -4212,25 +4215,29 @@ class TaskStateManager(models.Manager):
             states = states | task.specific.get_task_states_user_can_moderate(user=user)
         return states
 
+
+class TaskStateQuerySet(SpecificQuerySetMixin, models.QuerySet):
     def for_instance(self, instance):
         """
         Filters to only TaskStates for the given instance
         """
-        queryset = self.get_queryset()
         try:
             # Use RevisionMixin.get_base_content_type() if available
-            return queryset.filter(
+            return self.filter(
                 workflow_state__base_content_type=instance.get_base_content_type(),
                 workflow_state__object_id=str(instance.pk),
             )
         except AttributeError:
             # Fallback to ContentType for the model
-            return queryset.filter(
+            return self.filter(
                 workflow_state__content_type=ContentType.objects.get_for_model(
                     instance, for_concrete_model=False
                 ),
                 workflow_state__object_id=str(instance.pk),
             )
+
+
+TaskStateManager = BaseTaskStateManager.from_queryset(TaskStateQuerySet)
 
 
 class TaskState(SpecificMixin, models.Model):
