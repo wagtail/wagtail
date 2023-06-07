@@ -130,7 +130,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
 class TestPagePermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
         super().setUp()
-        self.policy = PagePermissionPolicy(Page)
+        self.policy = PagePermissionPolicy()
 
     def test_user_has_permission(self):
         self.assertUserPermissionMatrix(

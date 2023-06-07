@@ -12,12 +12,15 @@ from django.db.models import (
     Value,
 )
 
-from wagtail.models import GroupPagePermission
+from wagtail.models import GroupPagePermission, Page
 from wagtail.permission_policies.base import BasePermissionPolicy
 
 
 class PagePermissionPolicy(BasePermissionPolicy):
     perm_cache_name = "_page_perm_cache"
+
+    def __init__(self, model=Page):
+        super().__init__(model=model)
 
     def get_all_permissions_for_user(self, user):
         if not user.is_active or user.is_anonymous or user.is_superuser:
