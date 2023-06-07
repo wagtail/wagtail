@@ -2900,12 +2900,11 @@ class UserPagePermissionsProxy:
     across the page hierarchy."""
 
     def __init__(self, user):
-        self.user = user
+        from wagtail.permission_policies.pages import PagePermissionPolicy
 
-        if user.is_active and not user.is_superuser:
-            self.permissions = GroupPagePermission.objects.filter(
-                group__user=self.user
-            ).select_related("page")
+        self.user = user
+        self.permission_policy = PagePermissionPolicy()
+        self.permissions = self.permission_policy.get_cached_permissions_for_user(user)
 
     def revisions_for_moderation(self):
         """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
@@ -2918,11 +2917,7 @@ class UserPagePermissionsProxy:
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
-        publishable_pages_paths = (
-            self.permissions.filter(permission_type="publish")
-            .values_list("page__path", flat=True)
-            .distinct()
-        )
+        publishable_pages_paths = list({perm.page.path for perm in self.permissions})
         if not publishable_pages_paths:
             return Revision.objects.none()
 
@@ -2955,17 +2950,9 @@ class UserPagePermissionsProxy:
         if self.user.is_superuser:
             return Page.objects.all()
 
-        explorable_pages = Page.objects.none()
-
-        # Creates a union queryset of all objects the user has access to add,
-        # edit and publish
-        for perm in self.permissions.filter(
-            Q(permission_type="add")
-            | Q(permission_type="edit")
-            | Q(permission_type="publish")
-            | Q(permission_type="lock")
-        ):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+        explorable_pages = self.permission_policy.instances_user_has_any_permission_for(
+            self.user, ("add", "edit", "publish", "lock")
+        )
 
         # For all pages with specific permissions, add their ancestors as
         # explorable. This will allow deeply nested pages to be accessed in the
@@ -2984,27 +2971,9 @@ class UserPagePermissionsProxy:
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        editable_pages = Page.objects.none()
-
-        for perm in self.permissions.filter(permission_type="add"):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) that is owned by them
-            editable_pages |= Page.objects.descendant_of(
-                perm.page, inclusive=True
-            ).filter(owner=self.user)
-
-        for perm in self.permissions.filter(permission_type="edit"):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) regardless of owner
-            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
-        return editable_pages
+        return self.permission_policy.instances_user_has_permission_for(
+            self.user, "edit"
+        )
 
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
@@ -3012,20 +2981,9 @@ class UserPagePermissionsProxy:
 
     def publishable_pages(self):
         """Return a queryset of the pages that this user has permission to publish"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        publishable_pages = Page.objects.none()
-
-        for perm in self.permissions.filter(permission_type="publish"):
-            # user has publish permission on any subpage of perm.page
-            # (including perm.page itself)
-            publishable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
-        return publishable_pages
+        return self.permission_policy.instances_user_has_permission_for(
+            self.user, "publish"
+        )
 
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
@@ -3033,12 +2991,7 @@ class UserPagePermissionsProxy:
 
     def can_remove_locks(self):
         """Returns True if the user has permission to unlock pages they have not locked"""
-        if self.user.is_superuser:
-            return True
-        if not self.user.is_active:
-            return False
-        else:
-            return self.permissions.filter(permission_type="unlock").exists()
+        return self.permission_policy.user_has_any_permission(self.user, "unlock")
 
 
 class PagePermissionTester:
