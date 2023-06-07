@@ -1,0 +1,11 @@
+{% load i18n %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% for workflow in value|slice:":5" %}
+        <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}{% if not forloop.last %}, {% endif %}</a>
+    {% empty %}
+        {% trans "Not used" %}
+    {% endfor %}
+    {% if value.count > 5 %}
+        {% blocktrans trimmed count counter=value.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+    {% endif %}
+</td>

@@ -25,6 +25,7 @@ from wagtail.admin.forms.workflows import (
     get_workflow_edit_handler,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
@@ -382,6 +383,14 @@ def remove_workflow(request, page_pk, workflow_pk=None):
         return redirect("wagtailadmin_explore", page.id)
 
 
+class TaskTitleColumn(TitleColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/task_title_cell.html"
+
+
+class TaskUsageColumn(Column):
+    cell_template_name = "wagtailadmin/workflows/includes/task_usage_cell.html"
+
+
 class TaskIndex(IndexView):
     permission_policy = task_permission_policy
     model = Task
@@ -393,6 +402,13 @@ class TaskIndex(IndexView):
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = "thumbtack"
+    columns = [
+        TaskTitleColumn(
+            "name", label=_("Name"), url_name="wagtailadmin_workflows:edit_task"
+        ),
+        Column("type", label=_("Type"), accessor="get_verbose_name"),
+        TaskUsageColumn("usage", label=_("Used on"), accessor="active_workflows"),
+    ]
 
     def show_disabled(self):
         return self.request.GET.get("show_disabled", "false") == "true"
