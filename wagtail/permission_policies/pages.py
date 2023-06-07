@@ -24,9 +24,9 @@ class PagePermissionPolicy(BasePermissionPolicy):
 
     def get_all_permissions_for_user(self, user):
         if not user.is_active or user.is_anonymous or user.is_superuser:
-            return set()
-        return set(
-            GroupPagePermission.objects.filter(group__user=user).select_related("page")
+            return GroupPagePermission.objects.none()
+        return GroupPagePermission.objects.filter(group__user=user).select_related(
+            "page"
         )
 
     def _base_user_has_permission(self, user):
