@@ -20,6 +20,7 @@ Changelog
  * Docs: Reorganise snippets documentation to cover customisations and optional features (Sage Abdullah)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
+ * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)
 
 
 5.0.1 (25.05.2023)
