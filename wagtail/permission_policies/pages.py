@@ -1,6 +1,3 @@
-import operator
-from functools import reduce
-
 from django.contrib.auth import get_user_model
 from django.db.models import (
     CharField,
@@ -80,14 +77,16 @@ class PagePermissionPolicy(BasePermissionPolicy):
         if base_permission is True:
             return self.model._default_manager.all()
 
-        or_queries = [
-            Q(path__startswith=perm.page.path, depth__gte=perm.page.depth)
+        perm_pages = [
+            perm.page
             for perm in self.get_cached_permissions_for_user(user)
             if perm.permission_type in actions
         ]
-        if not or_queries:
-            return self.model._default_manager.none()
-        return self.model._default_manager.filter(reduce(operator.or_, or_queries))
+
+        pages = self.model._default_manager.none()
+        for page in perm_pages:
+            pages |= self.model._default_manager.descendant_of(page, inclusive=True)
+        return pages
 
     def users_with_any_permission_for_instance(self, actions, instance):
         permissions = GroupPagePermission.objects.annotate(
