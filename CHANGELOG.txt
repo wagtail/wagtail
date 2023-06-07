@@ -35,6 +35,7 @@ Changelog
  * Maintenance: Remove color tokens which are duplicates / unused (Thibaud Colas)
  * Maintenance: Add tests to help with maintenance of theme color tokens (Thibaud Colas)
  * Maintenance: Split out a base listing view from generic index view (Matt Westcott)
+ * Maintenance: Update type hints in admin/ui/components.py so that `parent_context` is mutable (Andreas Nüßlein)
 
 
 5.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
