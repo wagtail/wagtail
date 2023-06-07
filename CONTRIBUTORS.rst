@@ -11,6 +11,7 @@ Core team
 * LB Johnston
 * Loïc Teixeira (Springload)
 * Matthew Westcott (Torchbox)
+* Meagen Voss (Torchbox)
 * Naomi Morduch Toubman
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
