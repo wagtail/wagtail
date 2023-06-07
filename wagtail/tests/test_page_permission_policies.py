@@ -383,7 +383,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         )
         self.assertResultSetEqual(
             self.policy.users_with_permission_for_instance("edit", self.adder_report),
-            [self.superuser, self.root_editor, self.report_editor],
+            [self.superuser, self.root_editor, self.report_editor, self.report_adder],
         )
         self.assertResultSetEqual(
             self.policy.users_with_permission_for_instance("edit", self.editor_report),
@@ -411,7 +411,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
             self.policy.users_with_any_permission_for_instance(
                 ["edit", "delete"], self.adder_report
             ),
-            [self.superuser, self.root_editor, self.report_editor],
+            [self.superuser, self.root_editor, self.report_editor, self.report_adder],
         )
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(

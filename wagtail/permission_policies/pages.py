@@ -63,11 +63,14 @@ class PagePermissionPolicy(BasePermissionPolicy):
         base_permission = self._base_user_has_permission(user)
         if base_permission is not None:
             return base_permission
-        permissions = set(
-            perm.permission_type
-            for perm in self.get_cached_permissions_for_user(user)
-            if instance.pk == perm.page_id or instance.is_descendant_of(perm.page)
-        )
+
+        permissions = set()
+        for perm in self.get_cached_permissions_for_user(user):
+            if instance.pk == perm.page_id or instance.is_descendant_of(perm.page):
+                permissions.add(perm.permission_type)
+                if perm.permission_type == "add" and instance.owner_id == user.pk:
+                    permissions.add("edit")
+
         return bool(set(actions) & permissions)
 
     def instances_user_has_any_permission_for(self, user, actions):
@@ -77,31 +80,42 @@ class PagePermissionPolicy(BasePermissionPolicy):
         if base_permission is True:
             return self.model._default_manager.all()
 
-        perm_pages = [
-            perm.page
-            for perm in self.get_cached_permissions_for_user(user)
-            if perm.permission_type in actions
-        ]
-
         pages = self.model._default_manager.none()
-        for page in perm_pages:
-            pages |= self.model._default_manager.descendant_of(page, inclusive=True)
+        for perm in self.get_cached_permissions_for_user(user):
+            if (
+                perm.permission_type == "add"
+                and "add" not in actions
+                and "edit" in actions
+            ):
+                pages |= self.model._default_manager.descendant_of(
+                    perm.page, inclusive=True
+                ).filter(owner=user)
+            elif perm.permission_type in actions:
+                pages |= self.model._default_manager.descendant_of(
+                    perm.page, inclusive=True
+                )
         return pages
 
     def users_with_any_permission_for_instance(self, actions, instance):
-        permissions = GroupPagePermission.objects.annotate(
+        base_permissions = GroupPagePermission.objects.annotate(
             _instance_path=Value(instance.path, CharField()),
             _instance_depth=Value(instance.depth, PositiveIntegerField()),
         ).filter(
             _instance_path__startswith=F("page__path"),
             _instance_depth__gte=F("page__depth"),
             group__user=OuterRef("pk"),
-            permission_type__in=actions,
         )
+
+        permissions = base_permissions.filter(permission_type__in=actions)
+        q = Q(is_superuser=True) | Exists(permissions)
+
+        if "edit" in actions:
+            add_permission = base_permissions.filter(permission_type="add")
+            q |= Exists(add_permission) & Q(pk=instance.owner_id)
 
         return (
             get_user_model()
             ._default_manager.filter(is_active=True)
-            .filter(Q(is_superuser=True) | Exists(permissions))
+            .filter(q)
             .distinct()
         )
