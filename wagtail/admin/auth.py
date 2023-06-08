@@ -15,6 +15,7 @@ from django.utils.translation import override
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
 from wagtail.models import GroupPagePermission
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
@@ -137,7 +138,7 @@ def user_has_any_page_permission(user):
 
     # At least one of the users groups has a GroupPagePermission.
     # The user can probably do something.
-    if GroupPagePermission.objects.filter(group__in=user.groups.all()).exists():
+    if bool(PagePermissionPolicy().get_cached_permissions_for_user(user)):
         return True
 
     # Specific permissions for a page type do not mean anything.
