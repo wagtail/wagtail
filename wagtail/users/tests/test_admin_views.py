@@ -111,6 +111,8 @@ class TestGroupUsersView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/index.html")
         self.assertContains(response, "testuser")
+        # response should contain page furniture, including the "Add a user" button
+        self.assertContains(response, "Add a user")
 
     def test_inexisting_group(self):
         response = self.get(group_id=9999)
@@ -140,6 +142,38 @@ class TestGroupUsersView(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
 
 
+class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = self.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            password="password",
+            first_name="First Name",
+            last_name="Last Name",
+        )
+        self.test_group = Group.objects.create(name="Test Group")
+        self.test_user.groups.add(self.test_group)
+        self.login()
+
+    def get(self, params={}, group_id=None):
+        return self.client.get(
+            reverse(
+                "wagtailusers_groups:users_results",
+                args=(group_id or self.test_group.pk,),
+            ),
+            params,
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertContains(response, "testuser")
+        # response should contain not page furniture
+        self.assertNotContains(response, "Add a user")
+
+
 class TestUserIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
@@ -160,6 +194,8 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/index.html")
         self.assertContains(response, "testuser")
+        # response should contain page furniture, including the "Add a user" button
+        self.assertContains(response, "Add a user")
 
     @unittest.skipIf(
         settings.AUTH_USER_MODEL == "emailuser.EmailUser", "Negative UUID not possible"
@@ -204,6 +240,30 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.context_data["ordering"], "name")
         response = self.get({"ordering": "username"})
         self.assertEqual(response.context_data["ordering"], "username")
+
+
+class TestUserIndexResultsView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = self.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            password="password",
+            first_name="First Name",
+            last_name="Last Name",
+        )
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailusers_users:index_results"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertContains(response, "testuser")
+        # response should not contain page furniture
+        self.assertNotContains(response, "Add a user")
 
 
 class TestUserCreateView(WagtailTestUtils, TestCase):
@@ -1228,6 +1288,28 @@ class TestGroupIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        # response should contain page furniture, including the "Add a group" button
+        self.assertContains(response, "Add a group")
+
+    def test_search(self):
+        response = self.get({"q": "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["search_form"]["q"].value(), "Hello")
+
+
+class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailusers_groups:index_results"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/index_results.html")
+        # response should not contain page furniture
+        self.assertNotContains(response, "Add a group")
 
     def test_search(self):
         response = self.get({"q": "Hello"})
