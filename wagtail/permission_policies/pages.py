@@ -7,6 +7,7 @@ from wagtail.permission_policies.base import BasePermissionPolicy
 
 class PagePermissionPolicy(BasePermissionPolicy):
     permission_cache_name = "_page_permission_cache"
+    _explorable_root_instance_cache_name = "_explorable_root_page_cache"
 
     def __init__(self, model=Page):
         super().__init__(model=model)
@@ -163,6 +164,10 @@ class PagePermissionPolicy(BasePermissionPolicy):
             ]
 
     def explorable_root_instance(self, user):
+        # This method is used all around the admin via get_explorable_root_page,
+        # so cache the result on the user for the duration of the request
+        if hasattr(user, self._explorable_root_instance_cache_name):
+            return getattr(user, self._explorable_root_instance_cache_name)
         pages = self.instances_with_direct_explore_permission(user)
         try:
             root_page = Page.objects.first_common_ancestor_of(
@@ -170,6 +175,7 @@ class PagePermissionPolicy(BasePermissionPolicy):
             )
         except Page.DoesNotExist:
             root_page = None
+        setattr(user, self._explorable_root_instance_cache_name, root_page)
         return root_page
 
     def explorable_instances(self, user):
