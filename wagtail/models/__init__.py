@@ -11,6 +11,7 @@ as Page.
 
 import functools
 import logging
+import posixpath
 import uuid
 import warnings
 from io import StringIO
@@ -180,6 +181,35 @@ def get_streamfield_names(model_class):
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
+
+    def first_common_ancestor_of(self, pages, include_self=False, strict=False):
+        """
+        This is similar to `PageQuerySet.first_common_ancestor` but works
+        for a list of pages instead of a queryset.
+        """
+        if not pages:
+            if strict:
+                raise self.model.DoesNotExist("Can not find ancestor of empty list")
+            return self.model.get_first_root_node()
+
+        if include_self:
+            paths = list({page.path for page in pages})
+        else:
+            paths = list({page.path[: -self.model.steplen] for page in pages})
+
+        # This method works on anything, not just file system paths.
+        common_parent_path = posixpath.commonprefix(paths)
+        extra_chars = len(common_parent_path) % self.model.steplen
+        if extra_chars != 0:
+            common_parent_path = common_parent_path[:-extra_chars]
+
+        if common_parent_path == "":
+            if strict:
+                raise self.model.DoesNotExist("No common ancestor found!")
+
+            return self.model.get_first_root_node()
+
+        return self.get(path=common_parent_path)
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
@@ -2959,12 +2989,12 @@ class UserPagePermissionsProxy:
         # explorer. For example, in the hierarchy A>B>C>D where the user has
         # 'edit' access on D, they will be able to navigate to D without having
         # explicit access to A, B or C.
-        page_permissions = Page.objects.filter(group_permissions__in=self.permissions)
+        page_permissions = [perm.page for perm in self.permissions]
         for page in page_permissions:
             explorable_pages |= page.get_ancestors()
 
         # Remove unnecessary top-level ancestors that the user has no access to
-        fca_page = page_permissions.first_common_ancestor()
+        fca_page = Page.objects.first_common_ancestor_of(page_permissions)
         explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
 
         return explorable_pages
