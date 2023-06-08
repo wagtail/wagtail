@@ -53,6 +53,8 @@ class PermissionPanelFormsMixin:
 
 
 class IndexView(generic.IndexView):
+    template_name = "wagtailusers/groups/index.html"
+    results_template_name = "wagtailusers/groups/results.html"
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")
@@ -70,12 +72,6 @@ class IndexView(generic.IndexView):
             url_name="wagtailusers_groups:edit",
         ),
     ]
-
-    def get_template_names(self):
-        if self.request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return ["wagtailusers/groups/results.html"]
-        else:
-            return ["wagtailusers/groups/index.html"]
 
 
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
