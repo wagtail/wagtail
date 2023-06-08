@@ -3,22 +3,23 @@
 
     Variables accepted by this template:
 
-    - `classname` - if present, adds classname to the header class list. This will be the class/classes added to the header class list
+    - `classname` - if present, adds classname to the header class list
     - `title` - Displayed as `h1`
     - `subtitle` - Within the `h1` tag but smaller
     - `description` - if present, displayed as a small text below the `h1` tag title
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
+    - `search_form` - form object for the search form. Required if search_url is passed
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
     - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
-    - `merged` - if true, add the classname 'merged'
+    - `merged` - if true, add the classname 'w-header--merged'
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'plus'
     - `base_actions` - base actions to appear before the main action
     - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
     - `breadcrumb` - Custom breadcrumbs content as a variable, displayed in place of breadcrumb block before the header content
-    - `header` - Replaces the header `h1` completely with custom variable content
+    - `heading` - Replaces the header `h1` completely with custom variable content
     - `search` - An alternative search content variable displayed if provided and search_url url is not present
     - `extra_rows` - Shown at the end of the header container
 
