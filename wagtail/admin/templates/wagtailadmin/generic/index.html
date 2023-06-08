@@ -4,7 +4,7 @@
 {% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_url action_text=add_item_label icon=header_icon only %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_url action_text=add_item_label search_url=search_url search_form=search_form icon=header_icon only %}
 
     {% block listing %}
         <div class="nice-padding">
