@@ -90,7 +90,6 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    use_autocomplete = False
     filters = None
     filterset_class = None
     table_class = Table
@@ -272,11 +271,7 @@ class IndexView(
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
-            if self.use_autocomplete:
-                return search_backend.autocomplete(
-                    self.search_query, queryset, fields=self.search_fields
-                )
-            return search_backend.search(
+            return search_backend.autocomplete(
                 self.search_query, queryset, fields=self.search_fields
             )
 
