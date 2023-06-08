@@ -144,3 +144,25 @@ class PagePermissionPolicy(BasePermissionPolicy):
         return self.users_with_any_permission_for_instance(
             {action}, instance, include_superusers
         )
+
+    def instances_with_direct_explore_permission(self, user):
+        # Get all pages that the user has direct add/edit/publish/lock permission on
+        if user.is_superuser:
+            # superuser has implicit permission on the root node
+            return Page.objects.filter(depth=1)
+        else:
+            return [
+                perm.page
+                for perm in self.get_cached_permissions_for_user(user)
+                if perm.permission_type in {"add", "edit", "publish", "lock"}
+            ]
+
+    def explorable_root_instance(self, user):
+        pages = self.instances_with_direct_explore_permission(user)
+        try:
+            root_page = Page.objects.first_common_ancestor_of(
+                pages, include_self=True, strict=True
+            )
+        except Page.DoesNotExist:
+            root_page = None
+        return root_page
