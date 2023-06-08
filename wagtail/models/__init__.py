@@ -2974,30 +2974,7 @@ class UserPagePermissionsProxy:
         explorer (e.g. add/edit/publish permission). Includes all pages with
         specific group permissions and also the ancestors of those pages (in
         order to enable navigation in the explorer)"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        explorable_pages = self.permission_policy.instances_user_has_any_permission_for(
-            self.user, ("add", "edit", "publish", "lock")
-        )
-
-        # For all pages with specific permissions, add their ancestors as
-        # explorable. This will allow deeply nested pages to be accessed in the
-        # explorer. For example, in the hierarchy A>B>C>D where the user has
-        # 'edit' access on D, they will be able to navigate to D without having
-        # explicit access to A, B or C.
-        page_permissions = [perm.page for perm in self.permissions]
-        for page in page_permissions:
-            explorable_pages |= page.get_ancestors()
-
-        # Remove unnecessary top-level ancestors that the user has no access to
-        fca_page = Page.objects.first_common_ancestor_of(page_permissions)
-        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
-
-        return explorable_pages
+        return self.permission_policy.explorable_instances(self.user)
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
