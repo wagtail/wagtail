@@ -161,9 +161,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     table_class = InlineActionsTable
-    # Search on the index view shows results immediately via AJAX,
-    # so it makes sense to use autocomplete rather than exact word matches
-    use_autocomplete = True
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request
