@@ -1373,14 +1373,15 @@ class TestUsage(WagtailTestUtils, TestCase):
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
         self.assertContains(response, "Christmas")
+        self.assertContains(response, '<table class="listing">')
         self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
-        # There's no usage so there should be no table rows
-        self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
+        # There's no usage so there should be no listing table
+        self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_no_tags(self):
         # tags should not count towards an image's references
@@ -1389,8 +1390,8 @@ class TestUsage(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
-        # There's no usage so there should be no table rows
-        self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
+        # There's no usage so there should be no listing table
+        self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
         home_page = Page.objects.get(id=2)

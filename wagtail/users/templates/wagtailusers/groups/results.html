@@ -1,12 +1,11 @@
-{% load i18n wagtailadmin_tags %}
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n %}
 
-{% if groups %}
-    {% component table %}
-
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl="wagtailusers_groups:index" %}
-{% elif is_searching %}
-    <p role="alert">{% blocktrans trimmed with query=search_form.q.value %}Sorry, no groups match "{{ query }}"{% endblocktrans %}</p>
-{% else %}
-    {% url 'wagtailusers_groups:add' as wagtailusers_create_group_url %}
-    <p>{% blocktrans trimmed %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
-{% endif %}
+{% block no_results_message %}
+    {% if is_searching %}
+        <p role="alert">{% blocktrans trimmed with query=search_form.q.value %}Sorry, no groups match "{{ query }}"{% endblocktrans %}</p>
+    {% else %}
+        {% url 'wagtailusers_groups:add' as wagtailusers_create_group_url %}
+        <p>{% blocktrans trimmed %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}
