@@ -1927,12 +1927,13 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         event_page_related_link.save()
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         self.assertContains(response, "Christmas")
+        self.assertContains(response, '<table class="listing">')
         self.assertContains(response, "<td>Event page</td>", html=True)
 
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
-        # There's no usage so there should be no table rows
-        self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
+        # There's no usage so there should be no listing table
+        self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
         doc = models.Document.objects.get(id=1)
