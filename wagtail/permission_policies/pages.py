@@ -26,7 +26,7 @@ class PagePermissionPolicy(BasePermissionPolicy):
         return None
 
     def user_has_permission(self, user, action):
-        return self.user_has_any_permission(user, [action])
+        return self.user_has_any_permission(user, {action})
 
     def user_has_any_permission(self, user, actions):
         base_permission = self._base_user_has_permission(user)
@@ -43,7 +43,7 @@ class PagePermissionPolicy(BasePermissionPolicy):
         }
         return bool(actions & permissions)
 
-    def users_with_any_permission(self, actions):
+    def users_with_any_permission(self, actions, include_superusers=True):
         # User with only "add" permission can still edit their own pages
         actions = set(actions)
         if "edit" in actions:
@@ -52,15 +52,23 @@ class PagePermissionPolicy(BasePermissionPolicy):
         groups = GroupPagePermission.objects.filter(
             permission_type__in=actions
         ).values_list("group", flat=True)
+
+        q = Q(groups__in=groups)
+        if include_superusers:
+            q |= Q(is_superuser=True)
+
         return (
             get_user_model()
             ._default_manager.filter(is_active=True)
-            .filter(Q(is_superuser=True) | Q(groups__in=groups))
+            .filter(q)
             .distinct()
         )
 
+    def users_with_permission(self, action, include_superusers=True):
+        return self.users_with_any_permission({action}, include_superusers)
+
     def user_has_permission_for_instance(self, user, action, instance):
-        return self.user_has_any_permission_for_instance(user, [action], instance)
+        return self.user_has_any_permission_for_instance(user, {action}, instance)
 
     def user_has_any_permission_for_instance(self, user, actions, instance):
         base_permission = self._base_user_has_permission(user)
@@ -99,16 +107,19 @@ class PagePermissionPolicy(BasePermissionPolicy):
                 )
         return pages
 
-    def users_with_any_permission_for_instance(self, actions, instance):
-        q = Q(is_superuser=True)
-
+    def users_with_any_permission_for_instance(
+        self, actions, instance, include_superusers=True
+    ):
         # Find permissions for all ancestors that match any of the actions
         ancestors = instance.get_ancestors(inclusive=True)
         groups = GroupPagePermission.objects.filter(
             permission_type__in=actions, page__in=ancestors
         ).values_list("group", flat=True)
 
-        q |= Q(groups__in=groups)
+        q = Q(groups__in=groups)
+
+        if include_superusers:
+            q |= Q(is_superuser=True)
 
         # If "edit" is in actions but "add" is not, then we need to check for
         # cases where the user has "add" permission on an ancestor, and is the
@@ -125,4 +136,11 @@ class PagePermissionPolicy(BasePermissionPolicy):
             ._default_manager.filter(is_active=True)
             .filter(q)
             .distinct()
+        )
+
+    def users_with_permission_for_instance(
+        self, action, instance, include_superusers=True
+    ):
+        return self.users_with_any_permission_for_instance(
+            {action}, instance, include_superusers
         )
