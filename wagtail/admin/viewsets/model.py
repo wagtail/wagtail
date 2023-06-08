@@ -40,6 +40,7 @@ class ModelViewSet(ViewSet):
             "model": self.model,
             "permission_policy": self.permission_policy,
             "index_url_name": self.get_url_name("index"),
+            "index_results_url_name": self.get_url_name("index_results"),
             "add_url_name": self.get_url_name("add"),
             "edit_url_name": self.get_url_name("edit"),
             "header_icon": self.icon,

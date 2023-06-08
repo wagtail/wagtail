@@ -18,6 +18,16 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+
+    {% if search_form %}
+        <script>
+            window.headerSearch = {
+                url: "{{ index_results_url }}",
+                termInput: "#id_q",
+                targetOutput: "#index-results"
+            }
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block extra_css %}
