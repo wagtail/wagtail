@@ -25,6 +25,13 @@ class PagePermissionPolicy(BasePermissionPolicy):
             return True
         return None
 
+    def _base_queryset_for_user(self, user):
+        if not user.is_active:
+            return self.model._default_manager.none()
+        if user.is_superuser:
+            return self.model._default_manager.all()
+        return None
+
     def user_has_permission(self, user, action):
         return self.user_has_any_permission(user, {action})
 
@@ -85,11 +92,9 @@ class PagePermissionPolicy(BasePermissionPolicy):
         return bool(set(actions) & permissions)
 
     def instances_user_has_any_permission_for(self, user, actions):
-        base_permission = self._base_user_has_permission(user)
-        if base_permission is False:
-            return self.model._default_manager.none()
-        if base_permission is True:
-            return self.model._default_manager.all()
+        base_queryset = self._base_queryset_for_user(user)
+        if base_queryset is not None:
+            return base_queryset
 
         pages = self.model._default_manager.none()
         for perm in self.get_cached_permissions_for_user(user):
@@ -166,3 +171,28 @@ class PagePermissionPolicy(BasePermissionPolicy):
         except Page.DoesNotExist:
             root_page = None
         return root_page
+
+    def explorable_instances(self, user):
+        base_queryset = self._base_queryset_for_user(user)
+        if base_queryset is not None:
+            return base_queryset
+
+        explorable_pages = self.instances_user_has_any_permission_for(
+            user, {"add", "edit", "publish", "lock"}
+        )
+
+        # For all pages with specific permissions, add their ancestors as
+        # explorable. This will allow deeply nested pages to be accessed in the
+        # explorer. For example, in the hierarchy A>B>C>D where the user has
+        # 'edit' access on D, they will be able to navigate to D without having
+        # explicit access to A, B or C.
+        page_permissions = [
+            perm.page for perm in self.get_cached_permissions_for_user(user)
+        ]
+        for page in page_permissions:
+            explorable_pages |= page.get_ancestors()
+
+        # Remove unnecessary top-level ancestors that the user has no access to
+        fca_page = Page.objects.first_common_ancestor_of(page_permissions)
+        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
+        return explorable_pages
