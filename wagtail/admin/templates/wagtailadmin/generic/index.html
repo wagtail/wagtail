@@ -9,7 +9,7 @@
     {% block listing %}
         <div class="nice-padding">
             <div id="index-results">
-                {% include "wagtailadmin/generic/index_results.html" %}
+                {% include view.results_template_name|default:"wagtailadmin/generic/index_results.html" %}
             </div>
         </div>
     {% endblock %}

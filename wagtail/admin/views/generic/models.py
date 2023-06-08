@@ -79,6 +79,8 @@ class IndexView(
     add_item_label = _("Add")
     edit_url_name = None
     template_name = "wagtailadmin/generic/index.html"
+    results_template_name = "wagtailadmin/generic/index_results.html"
+    results_only = False  # If true, just render the results as an HTML fragment
     context_object_name = None
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
@@ -110,6 +112,12 @@ class IndexView(
         if self.search_form and self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data[self.search_kwarg]
             self.is_searching = True
+
+    def get_template_names(self):
+        if self.results_only:
+            return [self.results_template_name]
+        else:
+            return super().get_template_names()
 
     def get_is_searchable(self):
         if self.model is None:
