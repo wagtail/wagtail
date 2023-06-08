@@ -4,11 +4,7 @@
 {% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
 
 {% block content %}
-    {% if add_url %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_url action_text=add_item_label icon=header_icon only %}
-    {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
-    {% endif %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_url action_text=add_item_label icon=header_icon only %}
 
     {% block listing %}
         <div class="nice-padding">
