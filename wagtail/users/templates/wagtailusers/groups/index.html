@@ -5,9 +5,9 @@
     {{ block.super }}
     <script>
         window.headerSearch = {
-            url: "{% url view.index_url_name %}",
+            url: "{{ index_results_url }}",
             termInput: "#id_q",
-            targetOutput: "#group-results"
+            targetOutput: "#index-results"
         }
     </script>
 {% endblock %}
@@ -17,7 +17,7 @@
     {% include "wagtailadmin/shared/header.html" with title=page_title action_url=add_link action_text=view.add_item_label icon=header_icon search_url=view.index_url_name %}
 
     <div class="nice-padding">
-        <div id="group-results" class="groups">
+        <div id="index-results" class="groups">
             {% include "wagtailusers/groups/results.html" %}
         </div>
     </div>
