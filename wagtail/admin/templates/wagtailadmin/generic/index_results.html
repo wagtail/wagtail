@@ -1,0 +1,7 @@
+{% load wagtailadmin_tags %}
+
+{% component table %}
+
+{% if is_paginated %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+{% endif %}
