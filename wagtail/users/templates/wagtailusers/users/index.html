@@ -1,18 +1,7 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/index.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block extra_js %}
     {{ block.super }}
-    <script>
-        window.headerSearch = {
-            {% if group %}
-                url: "{% url 'wagtailusers_groups:users_results' group.id %}",
-            {% else %}
-                url: "{% url 'wagtailusers_users:index_results' %}",
-            {% endif %}
-            termInput: "#id_q",
-            targetOutput: "#user-results"
-        }
-    </script>
     <script>
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'USER';
     </script>
@@ -27,7 +16,7 @@
     {% include "wagtailadmin/shared/header.html" with subtitle=group.name title=users_str action_url=add_link action_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" %}
 
     <div class="nice-padding">
-        <div id="user-results" class="users">
+        <div id="index-results" class="users">
             {% include "wagtailusers/users/results.html" %}
         </div>
         {% trans "Select all users in listing" as select_all_text %}

@@ -89,6 +89,12 @@ class Index(IndexView):
         self.group_filter = Q(groups=self.group) if self.group else Q()
         self.model_fields = [f.name for f in User._meta.get_fields()]
 
+    def get_index_results_url(self):
+        if self.group:
+            return reverse("wagtailusers_groups:users_results", args=[self.group.pk])
+        else:
+            return reverse("wagtailusers_users:index_results")
+
     def get_valid_orderings(self):
         return ["name", "username"]
 
