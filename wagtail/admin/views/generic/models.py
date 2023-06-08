@@ -75,6 +75,7 @@ class IndexView(
 ):
     model = None
     index_url_name = None
+    index_results_url_name = None
     add_url_name = None
     add_item_label = _("Add")
     edit_url_name = None
@@ -333,6 +334,10 @@ class IndexView(
         if self.index_url_name:
             return reverse(self.index_url_name)
 
+    def get_index_results_url(self):
+        if self.index_results_url_name:
+            return reverse(self.index_results_url_name)
+
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
@@ -390,6 +395,7 @@ class IndexView(
 
         context["table"] = table
         context["index_url"] = index_url
+        context["index_results_url"] = self.get_index_results_url()
         context["is_paginated"] = bool(self.paginate_by)
         context["is_searchable"] = self.is_searchable
         context["search_url"] = self.get_search_url()
