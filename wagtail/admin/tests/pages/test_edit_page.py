@@ -1871,12 +1871,25 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-    def test_page_edit_num_queries(self):
+    def test_page_edit_num_queries_as_superuser(self):
         # Warm up cache so that result is the same when running this test in isolation
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
         with self.assertNumQueries(35):
+            self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+            )
+
+    def test_page_edit_num_queries_as_editor(self):
+        editor = self.create_user("editor", password="password")
+        editor.groups.add(Group.objects.get(name="Editors"))
+        self.login(username="editor")
+
+        # Warm up the cache as above.
+        self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
+
+        with self.assertNumQueries(44):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
