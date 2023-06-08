@@ -35,15 +35,27 @@ class ModelViewSet(ViewSet):
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
+    def get_index_view_kwargs(self):
+        return {
+            "model": self.model,
+            "permission_policy": self.permission_policy,
+            "index_url_name": self.get_url_name("index"),
+            "add_url_name": self.get_url_name("add"),
+            "edit_url_name": self.get_url_name("edit"),
+            "header_icon": self.icon,
+        }
+
     @property
     def index_view(self):
         return self.index_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("index"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            header_icon=self.icon,
+            **self.get_index_view_kwargs(),
+        )
+
+    @property
+    def index_results_view(self):
+        return self.index_view_class.as_view(
+            **self.get_index_view_kwargs(),
+            results_only=True,
         )
 
     @property
@@ -132,6 +144,7 @@ class ModelViewSet(ViewSet):
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path("", self.index_view, name="index"),
+            path("results/", self.index_results_view, name="index_results"),
             path("new/", self.add_view, name="add"),
             path("<int:pk>/", self.edit_view, name="edit"),
             path("<int:pk>/delete/", self.delete_view, name="delete"),
