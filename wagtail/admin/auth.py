@@ -3,9 +3,7 @@ from functools import wraps
 
 import l18n
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.timezone import override as override_tz
@@ -14,26 +12,13 @@ from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
-from wagtail.models import GroupPagePermission
 from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
-    # Get user model
-    User = get_user_model()
-
-    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
-    ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(
-        permission_type=permission_type, page__in=ancestors_and_self
+    return PagePermissionPolicy().users_with_permission_for_instance(
+        permission_type, page, include_superusers
     )
-    q = Q(groups__page_permissions__in=perm)
-
-    # Include superusers
-    if include_superusers:
-        q |= Q(is_superuser=True)
-
-    return User.objects.filter(is_active=True).filter(q).distinct()
 
 
 def permission_denied(request):
