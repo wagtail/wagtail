@@ -918,7 +918,7 @@ class WorkflowReportMenuItem(MenuItem):
 
 class SiteHistoryReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return UserPagePermissionsProxy(request.user).explorable_pages().exists()
+        return get_explorable_root_page(request.user) is not None
 
 
 class AgingPagesReportMenuItem(MenuItem):
