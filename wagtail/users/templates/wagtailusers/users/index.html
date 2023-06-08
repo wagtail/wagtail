@@ -5,9 +5,9 @@
     <script>
         window.headerSearch = {
             {% if group %}
-                url: "{% url 'wagtailusers_groups:users' group.id %}",
+                url: "{% url 'wagtailusers_groups:users_results' group.id %}",
             {% else %}
-                url: "{% url 'wagtailusers_users:index' %}",
+                url: "{% url 'wagtailusers_users:index_results' %}",
             {% endif %}
             termInput: "#id_q",
             targetOutput: "#user-results"

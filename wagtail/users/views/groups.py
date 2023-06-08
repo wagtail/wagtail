@@ -168,10 +168,17 @@ class GroupViewSet(ModelViewSet):
     def users_view(self):
         return Index.as_view()
 
+    @property
+    def users_results_view(self):
+        return Index.as_view(results_only=True)
+
     def get_form_class(self, for_update=False):
         return GroupForm
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             re_path(r"(\d+)/users/$", self.users_view, name="users"),
+            re_path(
+                r"(\d+)/users/results/$", self.users_results_view, name="users_results"
+            ),
         ]

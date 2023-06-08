@@ -69,6 +69,8 @@ class Index(IndexView):
     Lists the users for management within the admin.
     """
 
+    template_name = "wagtailusers/users/index.html"
+    results_template_name = "wagtailusers/users/results.html"
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(User)
     model = User
@@ -78,13 +80,11 @@ class Index(IndexView):
     edit_url_name = "wagtailusers_users:edit"
     default_ordering = "name"
     paginate_by = 20
-    template_name = None
     is_searchable = True
     page_title = gettext_lazy("Users")
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        setattr(self, "template_name", self.get_template())
         self.group = get_object_or_404(Group, id=args[0]) if args else None
         self.group_filter = Q(groups=self.group) if self.group else Q()
         self.model_fields = [f.name for f in User._meta.get_fields()]
@@ -110,20 +110,12 @@ class Index(IndexView):
 
         return users
 
-    def get_template(self):
-        if self.request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return "wagtailusers/users/results.html"
-        else:
-            return "wagtailusers/users/index.html"
-
     def get_context_data(self, *args, object_list=None, **kwargs):
         context_data = super().get_context_data(
             *args, object_list=object_list, **kwargs
         )
         context_data["ordering"] = self.get_ordering()
         context_data["group"] = self.group
-        if self.request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return context_data
 
         context_data.update(
             {
