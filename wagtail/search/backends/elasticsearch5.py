@@ -1100,43 +1100,54 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop("URLS", ["http://localhost:9200"])
         if self.hosts is None:
-            self.hosts = []
+            self.hosts = self._convert_urls_to_hosts(es_urls)
 
-            # if es_urls is not a list, convert it to a list
-            if isinstance(es_urls, str):
-                es_urls = [es_urls]
-
-            for url in es_urls:
-                parsed_url = urlparse(url)
-
-                use_ssl = parsed_url.scheme == "https"
-                port = parsed_url.port or (443 if use_ssl else 80)
-
-                http_auth = None
-                if parsed_url.username is not None and parsed_url.password is not None:
-                    http_auth = (parsed_url.username, parsed_url.password)
-
-                self.hosts.append(
-                    {
-                        "host": parsed_url.hostname,
-                        "port": port,
-                        "url_prefix": parsed_url.path,
-                        "use_ssl": use_ssl,
-                        "verify_certs": use_ssl,
-                        "http_auth": http_auth,
-                    }
-                )
-
-        self.settings = copy.deepcopy(
-            self.settings
-        )  # Make the class settings attribute as instance settings attribute
-        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
+        # Define the settings by combining search default settings and application settings
+        self.settings = self._get_settings(
+            index_settings=params.pop("INDEX_SETTINGS", {})
+        )
 
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
         options = params.pop("OPTIONS", {})
 
         self.es = Elasticsearch(hosts=self.hosts, timeout=self.timeout, **options)
+
+    def _get_settings(self, index_settings):
+        settings = copy.deepcopy(
+            self.settings
+        )  # Make the class settings attribute as instance settings attribute
+        return deep_update(settings, index_settings)
+
+    def _convert_urls_to_hosts(self, es_urls):
+        hosts = []
+
+        # if es_urls is not a list, convert it to a list
+        if isinstance(es_urls, str):
+            es_urls = [es_urls]
+
+        for url in es_urls:
+            parsed_url = urlparse(url)
+
+            use_ssl = parsed_url.scheme == "https"
+            port = parsed_url.port or (443 if use_ssl else 80)
+
+            http_auth = None
+            if parsed_url.username is not None and parsed_url.password is not None:
+                http_auth = (parsed_url.username, parsed_url.password)
+
+            hosts.append(
+                {
+                    "host": parsed_url.hostname,
+                    "port": port,
+                    "url_prefix": parsed_url.path,
+                    "use_ssl": use_ssl,
+                    "verify_certs": use_ssl,
+                    "http_auth": http_auth,
+                }
+            )
+
+        return hosts
 
     def get_index_for_model(self, model):
         # Split models up into separate indices based on their root model.

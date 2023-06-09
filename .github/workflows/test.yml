@@ -279,6 +279,53 @@ jobs:
           name: coverage-data
           path: .coverage.*
 
+  test-sqlite-elasticsearch8:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - python: '3.9'
+            django: 'Django>=4.2,<4.3'
+            emailuser: emailuser
+    steps:
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: 8.8.1
+          host port: 9200
+          container port: 9200
+          host node port: 9300
+          node port: 9300
+          discovery type: 'single-node'
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[testing]
+          pip install "${{ matrix.django }}"
+          pip install "elasticsearch>=8,<9"
+          pip install certifi
+      - name: Test
+        run: |
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch8
+        env:
+          DATABASE_ENGINE: django.db.backends.sqlite3
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
   # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
   # but https://github.com/elastic/elastic-github-actions does
   test-postgres-elasticsearch6:
