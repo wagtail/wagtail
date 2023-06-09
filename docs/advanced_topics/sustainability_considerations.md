@@ -32,4 +32,4 @@ To quantify the emissions of a Wagtail website, we recommend three different app
 
 ---
 
-We will build upon those considerations as part of two [Google Summer of Code internships focusing on sustainability](https://wagtail.org/blog/going-green-with-google-summer-of-code/), in partnership with the [Green Web Foundation and Green Coding Berlin](https://github.com/wagtail/wagtail/discussions/8843).
+We are working upon those considerations as part of Wagtail's development process. An example of this is the two [Google Summer of Code internships focusing on sustainability](https://wagtail.org/blog/going-green-with-google-summer-of-code/), in partnership with the [Green Web Foundation and Green Coding Berlin](https://github.com/wagtail/wagtail/discussions/8843).
