@@ -22,6 +22,7 @@ Changelog
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
  * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)
  * Maintenance: Use table UI component for workflow task index view (Matt Westcott)
+ * Maintenance: Make header search available on generic index view (Matt Westcott)
 
 
 5.0.1 (25.05.2023)
