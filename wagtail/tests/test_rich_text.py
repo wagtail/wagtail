@@ -134,6 +134,9 @@ class TestRichTextValue(TestCase):
     def test_compare_value(self):
         value1 = RichText("<p>wagtail</p>")
         value2 = RichText("<p>wagtail</p>")
+        value3 = RichText("<p>django</p>")
+        self.assertNotEqual(value1, value3)
+        self.assertNotEqual(value1, 12345)
         self.assertEqual(value1, value2)
 
 
