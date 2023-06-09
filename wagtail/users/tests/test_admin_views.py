@@ -136,10 +136,12 @@ class TestGroupUsersView(WagtailTestUtils, TestCase):
         self.assertIn(self.test_user, results)
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
@@ -226,10 +228,12 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         self.assertIn(self.test_user, results)
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
     def test_valid_ordering(self):
         # checking that only valid ordering used, in case of `IndexView` the valid
