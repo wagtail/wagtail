@@ -715,6 +715,7 @@ Contributors
 * Lukas von Allmen
 * Ester Beltrami
 * Justin Koestinger
+* NikilTn
 
 Translators
 ===========

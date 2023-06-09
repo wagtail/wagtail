@@ -99,6 +99,11 @@ class RichText:
     def __bool__(self):
         return bool(self.source)
 
+    def __eq__(self, other):
+        if isinstance(other, RichText):
+            return self.source == other.source
+        return False
+
 
 class EntityHandler:
     """

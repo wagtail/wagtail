@@ -13,6 +13,7 @@ Changelog
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
  * Fix: Fix missing link to `UsageView` from `EditView` for snippets (Christer Jensen)
  * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
+ * Fix: Ensure that `RichText` objects with the same values compare as equal (NikilTn)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)

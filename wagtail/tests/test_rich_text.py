@@ -131,6 +131,14 @@ class TestRichTextValue(TestCase):
         value = RichText("<p>wagtail</p>")
         self.assertTrue(value)
 
+    def test_compare_value(self):
+        value1 = RichText("<p>wagtail</p>")
+        value2 = RichText("<p>wagtail</p>")
+        value3 = RichText("<p>django</p>")
+        self.assertNotEqual(value1, value3)
+        self.assertNotEqual(value1, 12345)
+        self.assertEqual(value1, value2)
+
 
 class TestFeatureRegistry(TestCase):
     def test_register_rich_text_features_hook(self):
