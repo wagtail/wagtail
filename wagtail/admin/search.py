@@ -1,7 +1,9 @@
+from functools import total_ordering
+
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
-from django.utils.functional import cached_property, total_ordering
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
