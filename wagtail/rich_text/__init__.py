@@ -102,7 +102,7 @@ class RichText:
     def __eq__(self, other):
         if isinstance(other, RichText):
             return self.source == other.source
-        return False    
+        return False
 
 
 class EntityHandler:
