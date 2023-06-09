@@ -1,9 +1,10 @@
 import os
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -62,7 +63,10 @@ def index(request):
 
     # Pagination
     paginator = Paginator(redirects, per_page=20)
-    redirects = paginator.get_page(request.GET.get("p"))
+    try:
+        redirects = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
 
     # Render template
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
