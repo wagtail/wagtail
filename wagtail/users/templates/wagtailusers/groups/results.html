@@ -5,7 +5,6 @@
     {% if is_searching %}
         <p role="alert">{% blocktrans trimmed with query=search_form.q.value %}Sorry, no groups match "{{ query }}"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailusers_groups:add' as wagtailusers_create_group_url %}
-        <p>{% blocktrans trimmed %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with wagtailusers_create_group_url=add_url %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endblock %}
