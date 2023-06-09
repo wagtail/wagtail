@@ -2,8 +2,8 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
-from django.http import HttpResponse, JsonResponse
+from django.core.paginator import InvalidPage, Paginator
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -121,7 +121,10 @@ class BaseListingView(TemplateView):
 
         entries_per_page = self.get_num_entries_per_page()
         paginator = Paginator(images, per_page=entries_per_page)
-        images = paginator.get_page(self.request.GET.get("p"))
+        try:
+            images = paginator.page(self.request.GET.get("p", 1))
+        except InvalidPage:
+            raise Http404
 
         next_url = reverse("wagtailimages:index")
         request_query_string = self.request.META.get("QUERY_STRING")
