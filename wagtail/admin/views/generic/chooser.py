@@ -8,7 +8,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template.loader import render_to_string
@@ -232,7 +232,10 @@ class BaseChooseView(
         objects = self.filter_object_list(objects)
 
         paginator = Paginator(objects, per_page=self.per_page)
-        return paginator.get_page(request.GET.get("p"))
+        try:
+            return paginator.page(request.GET.get("p", 1))
+        except InvalidPage:
+            raise Http404
 
     def get(self, request):
         self.filter_form = self.get_filter_form()

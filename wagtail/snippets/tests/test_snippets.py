@@ -4347,14 +4347,13 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["results"][0].text, "advert 1")
 
     def test_simple_pagination(self):
-
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(
-                response, "wagtailadmin/generic/chooser/chooser.html"
-            )
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
     def test_not_searchable(self):
         # filter_form should not have a search field
