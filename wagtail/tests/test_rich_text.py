@@ -134,7 +134,7 @@ class TestRichTextValue(TestCase):
     def test_compare_value(self):
         value1 = RichText("<p>wagtail</p>")
         value2 = RichText("<p>wagtail</p>")
-        self.assertEquals(value1, value2)    
+        self.assertEqual(value1, value2)
 
 
 class TestFeatureRegistry(TestCase):
