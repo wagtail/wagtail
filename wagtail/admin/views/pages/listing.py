@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.db.models import Count
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -90,7 +91,10 @@ def index(request, parent_page_id=None):
     # Pagination
     if do_paginate:
         paginator = Paginator(pages, per_page=50)
-        pages = paginator.get_page(request.GET.get("p"))
+        try:
+            pages = paginator.page(request.GET.get("p", 1))
+        except InvalidPage:
+            raise Http404
 
     show_ordering_column = request.GET.get("ordering") == "ord"
 

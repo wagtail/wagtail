@@ -228,11 +228,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
-
-        # Check that we got page one
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.status_code, 404)
 
     def test_pagination_out_of_range(self):
         self.make_pages()
@@ -242,14 +238,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
-
-        # Check that we got the last page
-        self.assertEqual(
-            response.context["pages"].number,
-            response.context["pages"].paginator.num_pages,
-        )
+        self.assertEqual(response.status_code, 404)
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_bulk_action_checkbox(self):
