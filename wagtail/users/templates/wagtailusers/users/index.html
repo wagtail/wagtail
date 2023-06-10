@@ -16,7 +16,7 @@
     {% include "wagtailadmin/shared/header.html" with subtitle=group.name title=users_str action_url=add_link action_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" %}
 
     <div class="nice-padding">
-        <div id="index-results" class="users">
+        <div id="listing-results" class="users">
             {% include "wagtailusers/users/results.html" %}
         </div>
         {% trans "Select all users in listing" as select_all_text %}

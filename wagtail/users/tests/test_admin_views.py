@@ -1311,7 +1311,7 @@ class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index_results.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing_results.html")
         # response should not contain page furniture
         self.assertNotContains(response, "Add a group")
 
