@@ -18,3 +18,4 @@ from .page_chooser_panel import *  # NOQA: F403
 from .page_utils import *  # NOQA: F403
 from .publishing_panel import *  # NOQA: F403
 from .signal_handlers import *  # NOQA: F403
+from .title_field_panel import *  # NOQA: F403

@@ -3,6 +3,7 @@ from functools import wraps
 from typing import Any, List, Mapping, Optional
 from unittest import mock
 
+from bs4 import BeautifulSoup
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -27,6 +28,7 @@ from wagtail.admin.panels import (
     Panel,
     PublishingPanel,
     TabbedInterface,
+    TitleFieldPanel,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
 )
@@ -43,6 +45,7 @@ from wagtail.images import get_image_model
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
+    Advert,
     EventPage,
     EventPageChooserModel,
     EventPageSpeaker,
@@ -2063,3 +2066,320 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
             with self.subTest(panel_type=type(panel)):
                 self.assertEqual(bound_panel.icon, expected_icon)
                 self.assertIn(f"#icon-{expected_icon}", html)
+
+
+class TestTitleFieldPanel(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.login()
+        self.request = get_dummy_request()
+        self.request.user = self.user
+
+    def get_edit_handler_html(
+        self,
+        edit_handler,
+        model=EventPage,
+        instance=None,
+    ):
+        edit_handler = edit_handler.bind_to_model(model)
+        form_class = edit_handler.get_form_class()
+        bound_edit_handler = edit_handler.get_bound_panel(
+            request=self.request,
+            form=form_class(),
+            instance=instance,
+        )
+        html = bound_edit_handler.render_form_content()
+        return BeautifulSoup(html, "html5lib")
+
+    @clear_edit_handler(Page)
+    def test_default_page_content_panels_uses_title_field(self):
+        edit_handler = Page.get_edit_handler()
+        first_inner_panel_child = edit_handler.children[0].children[0]
+        self.assertTrue(isinstance(first_inner_panel_child, TitleFieldPanel))
+
+    def test_default_title_field_panel(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title"), FieldPanel("slug")])
+        )
+
+        # check default classname is used
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["placeholder"], "Page title*")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_slug")
+        self.assertEqual(
+            attrs["data-action"],
+            "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
+        )
+
+    def test_not_using_apply_actions_if_live(self):
+        """
+        If the Page (or any model) has `live = True`, do not apply the actions by default.
+        Allow this to be overridden though.
+        """
+
+        event_live = EventPage.objects.get(slug="christmas")
+
+        self.assertEqual(event_live.live, True)
+
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title"), FieldPanel("slug")]),
+            instance=event_live,
+        )
+
+        self.assertIsNone(html.find("input").attrs.get("data-action"))
+
+        # allow to be overridden
+
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [TitleFieldPanel("title", apply_if_live=True), FieldPanel("slug")]
+            ),
+            instance=event_live,
+        )
+
+        self.assertIsNotNone(html.find("input").attrs.get("data-action"))
+
+    def test_using_apply_actions_if_non_page_model(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("text", targets=["url"]), FieldPanel("url")]),
+            model=Advert,
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_url")
+        self.assertIsNotNone(attrs["data-action"])
+
+    def test_using_apply_actions_if_non_page_model_with_live_property(self):
+        """
+        Check for instance being live should be agnostic to how that is implemented.
+        """
+
+        advert_live = Advert(text="Free sheepdog", url="https://example.com", id=5000)
+        advert_live.live = True
+
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("text", targets=["url"]), FieldPanel("url")]),
+            model=Advert,
+            instance=advert_live,
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_url")
+        self.assertIsNone(attrs.get("data-action"))
+
+        # apply_if_live should work the same when apply_if_live is True
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [
+                    TitleFieldPanel(
+                        "text",
+                        targets=["url"],
+                        apply_if_live=True,
+                    ),
+                    FieldPanel("url"),
+                ]
+            ),
+            model=Advert,
+            instance=advert_live,
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertIsNotNone(attrs.get("data-action"))
+
+    def test_targets_override_with_empty(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", targets=[]), FieldPanel("slug")]),
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["data-w-sync-target-value"], "")
+
+    def test_targets_override_with_non_slug_field(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [TitleFieldPanel("location", targets=["title"]), FieldPanel("title")]
+            ),
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_title")
+
+    def test_targets_override_with_multiple_fields(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [
+                    TitleFieldPanel("title", targets=["cost", "location"]),
+                    FieldPanel("cost"),
+                    FieldPanel("location"),
+                ]
+            ),
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_cost, #id_location")
+
+    def test_classname_override(self):
+
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [TitleFieldPanel("title", classname="super-title"), FieldPanel("slug")]
+            )
+        )
+
+        # check default classname is not used
+        self.assertIsNone(html.find(attrs={"class": "w-panel title"}))
+
+        # check custom one is used
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel super-title"}))
+
+    def test_merging_data_attrs(self):
+        widget = forms.TextInput(
+            attrs={
+                "data-controller": "w-clean",
+                "data-action": "w-clean#clean blur->w-clean#clean",
+                "data-w-clean-filters-value": "trim upper",
+                "data-w-sync-target-value": ".will-be-ignored",
+            }
+        )
+
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", widget=widget), FieldPanel("slug")])
+        )
+
+        attrs = html.find("input").attrs
+
+        # data-controller should be merged
+        self.assertEqual(attrs["data-controller"], "w-clean w-sync")
+
+        # data-action should be merged
+        self.assertEqual(
+            attrs["data-action"],
+            " ".join(
+                [
+                    "w-clean#clean blur->w-clean#clean",
+                    "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
+                ]
+            ),
+        )
+
+        # "data-w-sync-target-value" should be ignored if supplied in widget attrs
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_slug")
+
+        # other data attributes should be appended
+        self.assertEqual(attrs["data-w-clean-filters-value"], "trim upper")
+
+    def test_placeholder_override_false(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [TitleFieldPanel("title", placeholder=False), FieldPanel("slug")]
+            )
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertNotIn("placeholder", attrs)
+
+    def test_placeholder_override_none(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", placeholder=None), FieldPanel("slug")])
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertNotIn("placeholder", attrs)
+
+    def test_placeholder_override_empty_string(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", placeholder=""), FieldPanel("slug")])
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertNotIn("placeholder", attrs)
+
+    def test_placeholder_override_via_widget(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [
+                    TitleFieldPanel(
+                        "title",
+                        widget=forms.TextInput(
+                            attrs={"placeholder": "My custom placeholder"}
+                        ),
+                    ),
+                    FieldPanel("slug"),
+                ]
+            )
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["placeholder"], "My custom placeholder")
+
+    def test_placeholder_override_via_widget_over_kwarg(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [
+                    TitleFieldPanel(
+                        "title",
+                        placeholder="PANEL placeholder",
+                        widget=forms.TextInput(
+                            attrs={"placeholder": "WIDGET placeholder"}
+                        ),
+                    ),
+                    FieldPanel("slug"),
+                ]
+            )
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["placeholder"], "WIDGET placeholder")
+
+    def test_placeholder_override_via_widget_over_false_kwarg(self):
+        html = self.get_edit_handler_html(
+            ObjectList(
+                [
+                    TitleFieldPanel(
+                        "title",
+                        placeholder=False,
+                        widget=forms.TextInput(
+                            attrs={"placeholder": "WIDGET placeholder"}
+                        ),
+                    ),
+                    FieldPanel("slug"),
+                ]
+            )
+        )
+
+        attrs = html.find("input").attrs
+
+        self.assertEqual(attrs["name"], "title")
+        self.assertEqual(attrs["data-controller"], "w-sync")
+        self.assertEqual(attrs["placeholder"], "WIDGET placeholder")
