@@ -115,7 +115,7 @@ export function gettextNoop(text: string): string {
 }
 
 /**
- * The pluralidx function works in a similar way to the pluralize template filter,
+ * The pluralIdx function works in a similar way to the pluralize template filter,
  * determining if a given count should use a plural form of a word or not.
  *
  * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#pluralidx
@@ -124,11 +124,11 @@ export function gettextNoop(text: string): string {
  * @returns {boolean}
  *
  * @example
- * pluralidx(0);
+ * pluralIdx(0);
  * // true
- * pluralidx(1);
+ * pluralIdx(1);
  * // false
- * pluralidx(2);
+ * pluralIdx(2);
  * // true
  *
  */
