@@ -2,6 +2,7 @@ import datetime
 import unittest
 from unittest import mock
 
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
@@ -973,6 +974,39 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             "slug",
             "Ensure this value has at most 255 characters (it has 287).",
         )
+
+    def test_title_field_attrs(self):
+        """
+        Should correctly add the sync field and placeholder attributes to the title field.
+        Note: Many test Page models use a FieldPanel for 'title', StandardChild does not
+        override content_panels (uses the default).
+        """
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "standardchild", self.root_page.id),
+            )
+        )
+
+        html = BeautifulSoup(response.content, "html5lib")
+
+        actual_attrs = html.find("input", {"name": "title"}).attrs
+
+        expected_attrs = {
+            "aria-describedby": "panel-child-content-child-title-helptext",
+            "data-action": "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
+            "data-controller": "w-sync",
+            "data-w-sync-target-value": "#id_slug",
+            "id": "id_title",
+            "maxlength": "255",
+            "name": "title",
+            "placeholder": "Page title*",
+            "required": "",
+            "type": "text",
+        }
+
+        self.assertEqual(actual_attrs, expected_attrs)
 
     def test_before_create_page_hook(self):
         def hook_func(request, parent_page, page_class):

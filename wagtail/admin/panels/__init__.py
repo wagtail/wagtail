@@ -18,3 +18,4 @@ from .page_chooser_panel import *  # NOQA
 from .page_utils import *  # NOQA
 from .publishing_panel import *  # NOQA
 from .signal_handlers import *  # NOQA
+from .title_field_panel import *  # NOQA
