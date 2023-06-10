@@ -1,7 +1,7 @@
 import re
 
 from django.conf import settings
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
@@ -342,7 +342,10 @@ class BrowseView(View):
         # We apply pagination first so we don't need to walk the entire list
         # in the block below
         paginator = Paginator(pages, per_page=25)
-        pages = paginator.get_page(request.GET.get("p"))
+        try:
+            pages = paginator.page(request.GET.get("p", 1))
+        except InvalidPage:
+            raise Http404
 
         # Annotate each page with can_choose/can_decend flags
         for page in pages:

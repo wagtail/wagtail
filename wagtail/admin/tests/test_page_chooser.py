@@ -298,13 +298,13 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         self.setup_pagination_test_data()
 
         response = self.get({"p": "foo"})
-        self.assertEqual(response.context["pagination_page"].number, 1)
+        self.assertEqual(response.status_code, 404)
 
     def test_pagination_out_of_range_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 100})
-        self.assertEqual(response.context["pagination_page"].number, 5)
+        self.assertEqual(response.status_code, 404)
 
 
 class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
