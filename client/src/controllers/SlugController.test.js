@@ -81,7 +81,7 @@ describe('compare behaviour', () => {
     const slugInput = document.querySelector('#id_slug');
 
     slugInput.dataset.action = [
-      'blur->w-slug#slugify',
+      'blur->w-slug#urlify',
       'custom:event->w-slug#compare',
     ].join(' ');
   });
@@ -109,6 +109,76 @@ describe('compare behaviour', () => {
     event.preventDefault = jest.fn();
 
     document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should prevent default using the slugify (default) behaviour as the compare function when urlify values is not equal', () => {
+    const slug = document.querySelector('#id_slug');
+
+    const title = 'Тестовий заголовок';
+
+    slug.setAttribute('value', title);
+
+    // apply the urlify method to the content to ensure the value before check is urlify
+    slug.dispatchEvent(new Event('blur'));
+
+    expect(slug.value).toEqual('testovij-zagolovok');
+
+    const event = new CustomEvent('custom:event', { detail: { value: title } });
+
+    event.preventDefault = jest.fn();
+
+    slug.dispatchEvent(event);
+
+    // slugify used for the compareAs value by default, so 'compare' fails
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should not prevent default using the slugify (default) behaviour as the compare function when urlify value is equal', () => {
+    const slug = document.querySelector('#id_slug');
+
+    const title = 'the-french-dispatch-a-love-letter-to-journalists';
+
+    slug.setAttribute('value', title);
+
+    // apply the urlify method to the content to ensure the value before check is urlify
+    slug.dispatchEvent(new Event('blur'));
+
+    expect(slug.value).toEqual(
+      'the-french-dispatch-a-love-letter-to-journalists',
+    );
+
+    const event = new CustomEvent('custom:event', { detail: { value: title } });
+
+    event.preventDefault = jest.fn();
+
+    slug.dispatchEvent(event);
+
+    // slugify used for the compareAs value by default, so 'compare' passes with the initial urlify value on blur
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should not prevent default using the urlify behaviour as the compare function when urlify value matches', () => {
+    const title = 'Тестовий заголовок';
+
+    const slug = document.querySelector('#id_slug');
+
+    slug.setAttribute('data-w-slug-compare-as-param', 'urlify');
+    slug.setAttribute('value', title);
+
+    // apply the urlify method to the content to ensure the value before check is urlify
+    slug.dispatchEvent(new Event('blur'));
+
+    expect(slug.value).toEqual('testovij-zagolovok');
+
+    const event = new CustomEvent('custom:event', {
+      detail: { compareAs: 'urlify', value: title },
+    });
+
+    event.preventDefault = jest.fn();
+
+    slug.dispatchEvent(event);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
   });
