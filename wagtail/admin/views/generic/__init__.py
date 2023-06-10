@@ -1,4 +1,9 @@
-from .base import BaseObjectMixin, BaseOperationView, WagtailAdminTemplateMixin  # noqa
+from .base import (  # noqa
+    BaseObjectMixin,
+    BaseOperationView,
+    WagtailAdminTemplateMixin,
+    BaseListingView,
+)
 from .mixins import (  # noqa
     BeforeAfterHookMixin,
     CreateEditViewOptionalFeaturesMixin,
