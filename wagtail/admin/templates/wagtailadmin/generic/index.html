@@ -1,36 +1,20 @@
-{% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% extends "wagtailadmin/generic/listing.html" %}
+{% load i18n %}
 
-{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
-
-{% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_url action_text=add_item_label search_url=search_url search_form=search_form icon=header_icon only %}
-
-    {% block listing %}
-        <div class="nice-padding">
-            <div id="index-results">
-                {% include view.results_template_name|default:"wagtailadmin/generic/index_results.html" %}
-            </div>
-        </div>
-    {% endblock %}
+{% block header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label search_url=search_url search_form=search_form icon=header_icon only %}
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-    {{ media.js }}
 
     {% if search_form %}
         <script>
             window.headerSearch = {
                 url: "{{ index_results_url }}",
                 termInput: "#id_q",
-                targetOutput: "#index-results"
+                targetOutput: "#listing-results"
             }
         </script>
     {% endif %}
-{% endblock %}
-
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
 {% endblock %}
