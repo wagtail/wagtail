@@ -74,7 +74,7 @@ describe('UpgradeController', () => {
     ).toBe(false);
 
     // should update the latest version number in the text
-    expect(document.getElementById('latest-version').innerText).toBe(
+    expect(document.getElementById('latest-version').textContent).toBe(
       data.version,
     );
 

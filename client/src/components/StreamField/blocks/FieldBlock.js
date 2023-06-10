@@ -125,9 +125,11 @@ export class FieldBlock {
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = error.messages
-        .map((message) => `<span>${h(message)}</span>`)
-        .join('');
+      error.messages.forEach((message) => {
+        const messageItem = document.createElement('span');
+        messageItem.textContent = message;
+        errorElement.appendChild(messageItem);
+      });
       errorContainer.appendChild(errorElement);
     } else {
       this.field.classList.remove('w-field--error');
