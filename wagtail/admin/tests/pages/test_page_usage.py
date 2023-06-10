@@ -29,7 +29,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         response = self.client.get(usage_url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertContains(response, "Usage of")
         self.assertContains(response, "Hello world!")
 
@@ -39,7 +39,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         response = self.client.get(usage_url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertContains(response, "Usage of")
         self.assertContains(response, "Hello world!")
 
@@ -62,7 +62,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         response = self.client.get(usage_url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertContains(response, "Usage of")
         self.assertContains(response, "Hello world!")
 

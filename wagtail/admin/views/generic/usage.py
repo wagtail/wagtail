@@ -6,8 +6,10 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui import tables
 from wagtail.admin.utils import get_latest_str
-from wagtail.admin.views.generic import BaseObjectMixin, IndexView
 from wagtail.models import DraftStateMixin, ReferenceIndex
+
+from .base import BaseListingView, BaseObjectMixin
+from .permissions import PermissionCheckedMixin
 
 
 class TitleColumn(tables.TitleColumn):
@@ -15,10 +17,13 @@ class TitleColumn(tables.TitleColumn):
         return {"title": instance["edit_link_title"]}
 
 
-class UsageView(BaseObjectMixin, IndexView):
+class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     paginate_by = 20
-    is_searchable = False
     page_title = gettext_lazy("Usage of")
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.columns = self.get_columns()
 
     @cached_property
     def describe_on_delete(self):

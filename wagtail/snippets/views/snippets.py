@@ -395,6 +395,7 @@ class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
+    edit_url_name = None
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
