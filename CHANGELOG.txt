@@ -24,6 +24,7 @@ Changelog
  * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)
  * Maintenance: Use table UI component for workflow task index view (Matt Westcott)
  * Maintenance: Make header search available on generic index view (Matt Westcott)
+ * Maintenance: Update pagination behaviour to reject out-of-range / invalid page numbers (Matt Westcott)
 
 
 5.0.1 (25.05.2023)
