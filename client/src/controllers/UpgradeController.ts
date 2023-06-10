@@ -78,12 +78,10 @@ export class UpgradeController extends Controller<HTMLElement> {
           }
 
           if (this.latestVersionTarget instanceof HTMLElement) {
-            this.latestVersionTarget.innerText = [
-              data.version,
-              showLTSOnly ? '(LTS)' : '',
-            ]
+            const versionLabel = [data.version, showLTSOnly ? '(LTS)' : '']
               .join(' ')
               .trim();
+            this.latestVersionTarget.textContent = versionLabel;
           }
 
           if (this.linkTarget instanceof HTMLElement) {
