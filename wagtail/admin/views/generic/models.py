@@ -77,7 +77,7 @@ class IndexView(
     index_url_name = None
     index_results_url_name = None
     add_url_name = None
-    add_item_label = _("Add")
+    add_item_label = gettext_lazy("Add")
     edit_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     results_template_name = "wagtailadmin/generic/index_results.html"
@@ -867,7 +867,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     edit_url_name = None
     unpublish_url_name = None
     usage_url_name = None
-    success_message = _("'%(object)s' unpublished.")
+    success_message = gettext_lazy("'%(object)s' unpublished.")
     template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):
