@@ -3,7 +3,6 @@ from collections import OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy, ngettext
@@ -23,46 +22,13 @@ def get_submissions_list_view(request, *args, **kwargs):
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
-class SafePaginateListView(ListView):
-    """Listing view with safe pagination, allowing incorrect or out of range values"""
-
-    paginate_by = 20
-    page_kwarg = "p"
-
-    def paginate_queryset(self, queryset, page_size):
-        """Paginate the queryset if needed with nice defaults on invalid param."""
-        paginator = self.get_paginator(
-            queryset,
-            page_size,
-            orphans=self.get_paginate_orphans(),
-            allow_empty_first_page=self.get_allow_empty(),
-        )
-        page_kwarg = self.page_kwarg
-        page_request = (
-            self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 0
-        )
-        try:
-            page_number = int(page_request)
-        except ValueError:
-            if page_request == "last":
-                page_number = paginator.num_pages
-            else:
-                page_number = 0
-        try:
-            if page_number > paginator.num_pages:
-                page_number = paginator.num_pages  # page out of range, show last page
-            page = paginator.page(page_number)
-        except InvalidPage:
-            page = paginator.page(1)
-        finally:
-            return paginator, page, page.object_list, page.has_other_pages()
-
-
-class FormPagesListView(SafePaginateListView):
+class FormPagesListView(ListView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
     context_object_name = "form_pages"
+    paginate_by = 20
+    page_kwarg = "p"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -174,7 +140,7 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
-class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
+class SubmissionsListView(SpreadsheetExportMixin, ListView):
     """Lists submissions for the provided form page"""
 
     template_name = "wagtailforms/submissions_index.html"
@@ -188,6 +154,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
     )  # used to validate ordering in URL
     page_title = gettext_lazy("Form data")
     select_date_form = None
+    paginate_by = 20
+    page_kwarg = "p"
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""

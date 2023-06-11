@@ -136,11 +136,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
-
-        # Check that we got page one
-        self.assertEqual(response.context["queries"].number, 1)
+        self.assertEqual(response.status_code, 404)
 
     def test_pagination_out_of_range(self):
         self.make_search_picks()
@@ -150,14 +146,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
-
-        # Check that we got the last page
-        self.assertEqual(
-            response.context["queries"].number,
-            response.context["queries"].paginator.num_pages,
-        )
+        self.assertEqual(response.status_code, 404)
 
     def test_results_are_ordered_alphabetically(self):
         self.make_search_picks()

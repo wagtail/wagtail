@@ -1,6 +1,7 @@
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Sum, functions
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -47,7 +48,10 @@ def index(request):
 
     # Paginate
     paginator = Paginator(queries, per_page=20)
-    queries = paginator.get_page(request.GET.get("p"))
+    try:
+        queries = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return TemplateResponse(

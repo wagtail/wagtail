@@ -1,4 +1,5 @@
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
+from django.http import Http404
 from django.template.response import TemplateResponse
 
 from wagtail.admin.forms.search import SearchForm
@@ -23,7 +24,10 @@ def chooser(request, get_results=False):
         searchform = SearchForm()
 
     paginator = Paginator(queries, per_page=10)
-    queries = paginator.get_page(request.GET.get("p"))
+    try:
+        queries = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
 
     # Render
     if get_results:

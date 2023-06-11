@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.views.decorators.vary import vary_on_headers
@@ -113,7 +113,10 @@ def search(request):
         form = SearchForm()
 
     paginator = Paginator(pages, per_page=20)
-    pages = paginator.get_page(request.GET.get("p"))
+    try:
+        pages = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return TemplateResponse(
