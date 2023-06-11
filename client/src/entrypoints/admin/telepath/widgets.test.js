@@ -8,6 +8,12 @@ import { EditorState } from 'draft-js';
 import ReactTestUtils from 'react-dom/test-utils';
 import $ from 'jquery';
 
+/**
+ * Mock window.scrollTo so that Jest JSDom doesn't
+ * complain about it not being implemented.
+ */
+window.scrollTo = () => {};
+
 window.$ = $;
 
 window.comments = {
@@ -59,6 +65,49 @@ describe('telepath: wagtail.widgets.Widget', () => {
   test('focus() focuses the text input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
+
+    document.body.focus(); // clear focus after test
+  });
+
+  test('focus() focuses the text input with the ability for it to be blocked via event listeners', () => {
+    document.body.appendChild(document.createElement('input'));
+
+    document.querySelectorAll('input')[1].focus(); // focus on a second input
+    expect(document.activeElement).not.toBe(document.querySelector('input'));
+
+    // Add a listener that prevents the focus if it is a soft focus
+    const eventListener = jest.fn((event) => {
+      if (event.detail.soft) event.preventDefault();
+    });
+
+    document
+      .querySelector('input')
+      .addEventListener('wagtail:telepath-widget-focus', eventListener);
+
+    boundWidget.focus();
+
+    expect(eventListener).toHaveBeenCalledTimes(1);
+    expect(eventListener).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: {} }),
+    );
+
+    expect(document.activeElement).toBe(document.querySelector('input'));
+
+    // reset & check focus has been reset
+    document.querySelectorAll('input')[1].focus();
+    expect(document.activeElement).not.toBe(document.querySelector('input'));
+
+    // call a second time with soft focus
+    boundWidget.focus({ soft: true });
+
+    expect(eventListener).toHaveBeenCalledTimes(2);
+    expect(eventListener).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: { soft: true } }),
+    );
+
+    expect(document.activeElement).not.toBe(document.querySelector('input'));
+
+    document.body.focus(); // clear focus after test
   });
 });
 

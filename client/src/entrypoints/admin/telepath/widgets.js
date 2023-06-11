@@ -4,6 +4,8 @@ import { gettext } from '../../../utils/gettext';
 class BoundWidget {
   constructor(element, name, idForLabel, initialState, parentCapabilities) {
     var selector = ':input[name="' + name + '"]';
+
+    /** @type {JQuery<HTMLElement|HTMLInputElement>} */
     this.input = element.find(selector).addBack(selector); // find, including element itself
     this.idForLabel = idForLabel;
     this.setState(initialState);
@@ -32,7 +34,24 @@ class BoundWidget {
     return val;
   }
 
-  focus() {
+  /**
+   * Focus on the Widget's input, dispatch a custom even prior that can
+   * have its default prevented for custom behaviour outside of the
+   * Telepath context.
+   *
+   * @param {{ soft: boolean }?} opts
+   */
+  focus(opts = {}) {
+    const event = new CustomEvent('wagtail:telepath-widget-focus', {
+      bubbles: false,
+      cancelable: true,
+      detail: { ...opts },
+    });
+
+    this.input[0]?.dispatchEvent(event);
+
+    if (event.defaultPrevented) return;
+
     this.input.focus();
   }
 
