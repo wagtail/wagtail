@@ -1,10 +1,11 @@
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_header_buttons, page_listing_more_buttons
+from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -293,3 +294,98 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         unpublish_button = next(buttons)
         full_url = unpublish_base_url + "?" + urlencode({"next": next_url})
         self.assertEqual(unpublish_button.url, full_url)
+
+
+class ButtonComparisonTestCase(SimpleTestCase):
+    """Tests the comparison functions."""
+
+    def setUp(self):
+        self.button1 = Button(
+            "Label 1", "/url1", classes={"class1", "class2"}, priority=100
+        )
+        self.button2 = Button(
+            "Label 2", "/url2", classes={"class2", "class3"}, priority=200
+        )
+        self.button3 = Button(
+            "Label 1", "/url3", classes={"class1", "class2"}, priority=300
+        )
+        self.button4 = Button(
+            "Label 1", "/url1", classes={"class1", "class2"}, priority=100
+        )
+
+    def test_eq(self):
+        # Same properties, should be equal
+        self.assertTrue(self.button1 == self.button4)
+
+        # Different priority, should not be equal
+        self.assertFalse(self.button1 == self.button2)
+
+        # Different URL, should not be equal
+        self.assertFalse(self.button1 == self.button3)
+
+        # Not a Button, should not be equal
+        self.assertFalse(self.button1 == "Something")
+
+    def test_lt(self):
+        # Less priority, should be True
+        self.assertTrue(self.button1 < self.button2)
+
+        # Same label, but less priority, should be True
+        self.assertTrue(self.button1 < self.button3)
+
+        # Greater priority, should be False
+        self.assertFalse(self.button2 < self.button1)
+
+        # Not a Button, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.button1 < "Something"
+
+    def test_le(self):
+        # Less priority, should be True
+        self.assertTrue(self.button1 <= self.button2)
+
+        # Same label, but less priority, should be True
+        self.assertTrue(self.button1 <= self.button3)
+
+        # Same object, should be True
+        self.assertTrue(self.button1 <= self.button1)
+
+        # Same label and priority, should be True
+        self.assertTrue(self.button1 <= self.button4)
+
+        # Greater priority, should be False
+        self.assertFalse(self.button2 <= self.button1)
+
+        # Not a Button, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.button1 <= "Something"
+
+    def test_gt(self):
+        # Greater priority, should be True
+        self.assertTrue(self.button2 > self.button1)
+
+        # Same label, but greater priority, should be True
+        self.assertTrue(self.button3 > self.button1)
+
+        # Less priority, should be False
+        self.assertFalse(self.button1 > self.button2)
+
+        # Not a Button, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.button1 > "Something"
+
+    def test_ge(self):
+        # Greater priority, should be True
+        self.assertTrue(self.button2 >= self.button1)
+
+        # Same label, but greater priority, should be True
+        self.assertTrue(self.button3 >= self.button1)
+
+        # Same object, should be True
+        self.assertTrue(self.button1 >= self.button1)
+
+        # Same label and priority, should be True
+        self.assertTrue(self.button1 >= self.button4)
+
+        # Less priority, should be False
+        self.assertFalse(self.button1 >= self.button2)

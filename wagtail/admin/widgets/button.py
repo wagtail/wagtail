@@ -1,5 +1,3 @@
-from functools import total_ordering
-
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
@@ -8,7 +6,6 @@ from django.utils.html import format_html
 from wagtail import hooks
 
 
-@total_ordering
 class Button:
     show = True
 
@@ -41,6 +38,21 @@ class Button:
         if not isinstance(other, Button):
             return NotImplemented
         return (self.priority, self.label) < (other.priority, other.label)
+
+    def __le__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) <= (other.priority, other.label)
+
+    def __gt__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) > (other.priority, other.label)
+
+    def __ge__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) >= (other.priority, other.label)
 
     def __eq__(self, other):
         if not isinstance(other, Button):
