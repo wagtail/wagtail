@@ -1,13 +1,15 @@
 import { Application } from '@hotwired/stimulus';
 import { SyncController } from './SyncController';
 
+import { range } from '../utils/range';
+
 jest.useFakeTimers();
 
 describe('SyncController', () => {
   let application;
 
   describe('basic sync between two fields', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       application?.stop();
 
       document.body.innerHTML = `
@@ -19,7 +21,7 @@ describe('SyncController', () => {
           name="event-date"
           value="2025-07-22"
           data-controller="w-sync"
-          data-action="change->w-sync#apply cut->w-sync#clear custom:event->w-sync#ping"
+          data-action="change->w-sync#apply keyup->w-sync#apply cut->w-sync#clear custom:event->w-sync#ping"
           data-w-sync-target-value="#title"
         />
       </section>`;
@@ -92,7 +94,7 @@ describe('SyncController', () => {
 
       expect(event.detail).toEqual({
         element: document.getElementById('event-date'),
-        value: '2025-05-05',
+        value: '2025-07-22',
       });
     });
 
@@ -102,7 +104,8 @@ describe('SyncController', () => {
         .getElementById('title')
         .addEventListener('change', changeListener);
 
-      expect(document.getElementById('title').value).toEqual('2025-05-05');
+      const titleElement = document.getElementById('title');
+      titleElement.setAttribute('value', 'initial title');
       expect(changeListener).not.toHaveBeenCalled();
 
       application.register('w-sync', SyncController);
@@ -133,6 +136,52 @@ describe('SyncController', () => {
       dateInput.dispatchEvent(new Event('cut'));
 
       expect(document.getElementById('title').value).toEqual('');
+    });
+
+    it('should debounce multiple consecutive calls to apply by default', () => {
+      const titleInput = document.getElementById('title');
+      const dateInput = document.getElementById('event-date');
+
+      const changeListener = jest.fn();
+
+      titleInput.addEventListener('change', changeListener);
+
+      dateInput.value = '2027-10-14';
+
+      application.register('w-sync', SyncController);
+
+      range(0, 8).forEach(() => {
+        dateInput.dispatchEvent(new Event('keyup'));
+        jest.advanceTimersByTime(5);
+      });
+
+      expect(changeListener).not.toHaveBeenCalled();
+      expect(titleInput.value).toEqual('');
+
+      jest.advanceTimersByTime(50); // not yet reaching the 100ms debounce value
+
+      expect(changeListener).not.toHaveBeenCalled();
+      expect(titleInput.value).toEqual('');
+
+      jest.advanceTimersByTime(50); // pass the 100ms debounce value
+
+      // keyup run multiple times, only one change event should occur
+      expect(titleInput.value).toEqual('2027-10-14');
+      expect(changeListener).toHaveBeenCalledTimes(1);
+
+      // adjust the delay via a data attribute
+      dateInput.setAttribute('data-w-sync-delay-value', '500');
+
+      range(0, 8).forEach(() => {
+        dateInput.dispatchEvent(new Event('keyup'));
+        jest.advanceTimersByTime(5);
+      });
+
+      jest.advanceTimersByTime(300); // not yet reaching the custom debounce value
+      expect(changeListener).toHaveBeenCalledTimes(1);
+
+      jest.advanceTimersByTime(295); // passing the custom debounce value
+      expect(changeListener).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -169,9 +218,10 @@ describe('SyncController', () => {
       jest.advanceTimersByTime(500);
 
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
-      expect(document.getElementById('title').value).toEqual('');
 
       jest.runAllTimers();
+
+      expect(document.getElementById('title').value).toEqual('');
     });
 
     it('should delay the update on apply based on the set value', () => {
@@ -193,10 +243,11 @@ describe('SyncController', () => {
       jest.advanceTimersByTime(500);
 
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
-      expect(document.getElementById('title').value).toEqual('2025-05-05');
-      expect(changeListener).toHaveBeenCalledTimes(1);
 
       jest.runAllTimers();
+
+      expect(document.getElementById('title').value).toEqual('2025-05-05');
+      expect(changeListener).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -266,6 +317,72 @@ describe('SyncController', () => {
 
       expect(titleElement.value).toEqual('keep me');
       expect(dateInput.getAttribute('data-w-sync-disabled-value')).toBeTruthy();
+    });
+  });
+
+  describe('ability to use sync for other field behaviour', () => {
+    beforeAll(() => {
+      application?.stop();
+    });
+
+    it('should allow the sync clear method to be used on a button to clear target fields', async () => {
+      document.body.innerHTML = `
+      <section>
+        <input type="text" name="title" id="title" value="a title field"/>
+        <button
+          type="button"
+          id="clear"
+          data-controller="w-sync"
+          data-action="w-sync#clear"
+          data-w-sync-target-value="#title"
+        >Clear</button>
+      </section>`;
+
+      application = Application.start();
+
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('title').value).toEqual('a title field');
+
+      document.getElementById('clear').click();
+
+      expect(document.getElementById('title').innerHTML).toEqual('');
+    });
+
+    it('should allow the sync apply method to accept a param instead of the element value', async () => {
+      document.body.innerHTML = `
+      <section>
+        <select name="pets" id="pet-select">
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="pikachu">Pikachu</option>
+          <option value="goldfish">Goldfish</option>
+        </select>
+        <button
+          type="button"
+          id="choose"
+          data-controller="w-sync"
+          data-action="w-sync#apply"
+          data-w-sync-apply-param="pikachu"
+          data-w-sync-target-value="#pet-select"
+        >Choose Pikachu</button>
+      </section>`;
+
+      application = Application.start();
+
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('pet-select').value).toEqual('dog');
+
+      document.getElementById('choose').dispatchEvent(new Event('click'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('pet-select').value).toEqual('pikachu');
     });
   });
 });

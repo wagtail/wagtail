@@ -1,5 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
+import { debounce } from '../utils/debounce';
+
 /**
  * Adds ability to sync the value or interactions with one input with one
  * or more targeted other inputs.
@@ -20,12 +22,14 @@ import { Controller } from '@hotwired/stimulus';
  */
 export class SyncController extends Controller<HTMLInputElement> {
   static values = {
+    debounce: { default: 100, type: Number },
     delay: { default: 0, type: Number },
     disabled: { default: false, type: Boolean },
     quiet: { default: false, type: Boolean },
     target: String,
   };
 
+  declare debounceValue: number;
   declare delayValue: number;
   declare disabledValue: boolean;
   declare quietValue: boolean;
@@ -38,6 +42,7 @@ export class SyncController extends Controller<HTMLInputElement> {
    */
   connect() {
     this.processTargetElements('start', true);
+    this.apply = debounce(this.apply.bind(this), this.debounceValue);
   }
 
   /**
@@ -50,20 +55,36 @@ export class SyncController extends Controller<HTMLInputElement> {
 
   /**
    * Applies a value from the controlled element to the targeted
-   * elements.
+   * elements. Calls to this method are debounced based on the
+   * controller's `debounceValue`.
+   *
+   * Applying of the value to the targets can be done with a delay,
+   * based on the controller's `delayValue`.
    */
-  apply() {
-    this.processTargetElements('apply').forEach((target) => {
-      setTimeout(() => {
-        target.setAttribute('value', this.element.value);
+  apply(event?: Event & { params?: { apply?: string } }) {
+    const valueToApply = event?.params?.apply || this.element.value;
 
-        if (this.quietValue) return;
-        this.dispatch('change', {
-          cancelable: false,
-          prefix: '',
-          target: target as HTMLInputElement,
-        });
-      }, this.delayValue);
+    const applyValue = (target) => {
+      /* use setter to correctly update value in non-inputs (e.g. select) */ // eslint-disable-next-line no-param-reassign
+      target.value = valueToApply;
+
+      if (this.quietValue) return;
+
+      this.dispatch('change', {
+        cancelable: false,
+        prefix: '',
+        target,
+      });
+    };
+
+    this.processTargetElements('apply').forEach((target) => {
+      if (this.delayValue) {
+        setTimeout(() => {
+          applyValue(target);
+        }, this.delayValue);
+      } else {
+        applyValue(target);
+      }
     });
   }
 
