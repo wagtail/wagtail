@@ -6,5 +6,6 @@
 # N806: Variable in function should be lowercase
 # E501: Line too long
 ignore = ["D100","D101","D102","D103","D105","N806","E501"]
-exclude = ["wagtail/project_template/*","node_modules","venv",".venv"]
+exclude = ["wagtail/project_template/*","node_modules","venv",".venv","migrations"]
 line-length = 88
+select = ["E", "F", "I"]

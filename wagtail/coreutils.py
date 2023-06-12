@@ -3,6 +3,7 @@ import inspect
 import logging
 import re
 import unicodedata
+from hashlib import md5
 from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
 
 from anyascii import anyascii
@@ -20,7 +21,6 @@ from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
-from hashlib import md5
 
 if TYPE_CHECKING:
     from wagtail.models import Site
