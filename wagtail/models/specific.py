@@ -1,5 +1,5 @@
-from django.db.models import DEFERRED
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import DEFERRED
 from django.utils.functional import cached_property
 
 

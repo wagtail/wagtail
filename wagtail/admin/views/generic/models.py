@@ -8,14 +8,18 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.utils.text import capfirst
 from django.views.generic import TemplateView
 from django.views.generic.detail import BaseDetailView
-from django.views.generic.edit import BaseCreateView
+from django.views.generic.edit import (
+    BaseCreateView,
+    BaseUpdateView,
+    DeletionMixin,
+    FormMixin,
+)
 from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
-from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.actions.unpublish import UnpublishAction

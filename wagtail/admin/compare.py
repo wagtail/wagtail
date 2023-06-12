@@ -14,7 +14,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.utils.registry import ModelFieldRegistry
 from wagtail.utils.text import text_from_html
 
-
 comparison_class_registry = ModelFieldRegistry()
 
 

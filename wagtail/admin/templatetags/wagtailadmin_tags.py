@@ -41,13 +41,13 @@ from wagtail.admin.utils import (
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
-from wagtail.coreutils import camelcase_to_underscore
-from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.coreutils import (
+    camelcase_to_underscore,
     escape_script,
     get_content_type_label,
     get_locales_display_names,
 )
+from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
     CollectionViewRestriction,
     Locale,
