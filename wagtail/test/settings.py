@@ -62,7 +62,7 @@ if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
 
 USE_TZ = not os.environ.get("DISABLE_TIMEZONE")
 if not USE_TZ:
-    print("Timezone support disabled")  # noqa
+    print("Timezone support disabled")  # noqa: T201
 
 LANGUAGE_CODE = "en"
 
@@ -186,7 +186,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 if os.environ.get("USE_EMAIL_USER_MODEL"):
     INSTALLED_APPS.append("wagtail.test.emailuser")
     AUTH_USER_MODEL = "emailuser.EmailUser"
-    print("EmailUser (no username) user model active")  # noqa
+    print("EmailUser (no username) user model active")  # noqa: T201
 else:
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"

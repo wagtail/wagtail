@@ -8,4 +8,4 @@
 ignore = ["D100","D101","D102","D103","D105","N806","E501"]
 exclude = ["wagtail/project_template/*","node_modules","venv",".venv","migrations"]
 line-length = 88
-select = ["E", "F", "I"]
+select = ["E", "F", "I", "T20"]

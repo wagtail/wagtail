@@ -15,14 +15,14 @@ class assets_mixin:
         try:
             subprocess.check_call(["npm", "run", "build"])
         except (OSError, subprocess.CalledProcessError) as e:
-            print("Error compiling assets: " + str(e))  # noqa
+            print("Error compiling assets: " + str(e))  # noqa: T201
             raise SystemExit(1)
 
     def publish_assets(self):
         try:
             subprocess.check_call(["npm", "publish", "client"])
         except (OSError, subprocess.CalledProcessError) as e:
-            print("Error publishing front-end assets: " + str(e))  # noqa
+            print("Error publishing front-end assets: " + str(e))  # noqa: T201
             raise SystemExit(1)
 
     def bump_client_version(self):
@@ -35,7 +35,7 @@ class assets_mixin:
         try:
             package = json.loads(input_file.read().decode("utf-8"))
         except (ValueError) as e:
-            print("Unable to read " + path + " " + e)  # noqa
+            print("Unable to read " + path + " " + e)  # noqa: T201
             raise SystemExit(1)
 
         package["version"] = __semver__
@@ -44,7 +44,9 @@ class assets_mixin:
             with io.open(path, "w", encoding="utf-8") as f:
                 f.write(str(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
-            print("Error setting the version for front-end assets: " + str(e))  # noqa
+            print(  # noqa: T201
+                "Error setting the version for front-end assets: " + str(e)
+            )
             raise SystemExit(1)
 
 
@@ -77,7 +79,7 @@ class check_bdist_egg(bdist_egg):
     def run(self):
         bdist_egg.run(self)
         if not os.path.isdir(self.sentinel_dir):
-            print(  # noqa
+            print(  # noqa: T201
                 "\n".join(
                     [  # noqa
                         "************************************************************",

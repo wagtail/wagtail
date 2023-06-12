@@ -79,10 +79,10 @@ class CreateProject(Command):
                 "name. Please try another name." % project_name
             )
 
-        print(  # noqa
+        print(  # noqa: T201
             "Creating a Wagtail project called %(project_name)s"
             % {"project_name": project_name}
-        )  # noqa
+        )
 
         # Create the project from the Wagtail template using startapp
 
@@ -108,10 +108,10 @@ class CreateProject(Command):
         utility = ManagementUtility(utility_args)
         utility.execute()
 
-        print(  # noqa
+        print(  # noqa: T201
             "Success! %(project_name)s has been created"
             % {"project_name": project_name}
-        )  # noqa
+        )
 
 
 class UpdateModulePaths(Command):
@@ -239,16 +239,16 @@ class UpdateModulePaths(Command):
                     else:  # actually update
                         change_count = self._rewrite_file(path)
                     if change_count:
-                        print(  # noqa
+                        print(  # noqa: T201
                             "%s - %d change%s"
                             % (relative_path, change_count, pluralize(change_count))
-                        )  # NOQA
+                        )
 
                 if change_count:
                     changed_file_count += 1
 
         if diff or list_files:
-            print(  # noqa
+            print(  # noqa: T201
                 "\nChecked %d .py file%s, %d file%s to update."
                 % (
                     checked_file_count,
@@ -256,9 +256,9 @@ class UpdateModulePaths(Command):
                     changed_file_count,
                     pluralize(changed_file_count),
                 )
-            )  # NOQA
+            )
         else:
-            print(  # noqa
+            print(  # noqa: T201
                 "\nChecked %d .py file%s, %d file%s updated."
                 % (
                     checked_file_count,
@@ -266,7 +266,7 @@ class UpdateModulePaths(Command):
                     changed_file_count,
                     pluralize(changed_file_count),
                 )
-            )  # NOQA
+            )
 
     def _rewrite_line(self, line):
         for pattern, repl in self.REPLACEMENTS:
@@ -381,7 +381,7 @@ class Version(Command):
 
         version = wagtail.get_version(wagtail.VERSION)
 
-        print("You are using Wagtail %(version)s" % {"version": version})  # noqa
+        print("You are using Wagtail %(version)s" % {"version": version})  # noqa: T201
 
 
 COMMANDS = {
@@ -396,17 +396,17 @@ def prog_name():
 
 
 def help_index():
-    print(  # noqa
+    print(  # noqa: T201
         "Type '%s help <subcommand>' for help on a specific subcommand.\n" % prog_name()
-    )  # NOQA
-    print("Available subcommands:\n")  # NOQA
+    )
+    print("Available subcommands:\n")  # NOQA: T201
     for name, cmd in sorted(COMMANDS.items()):
-        print("    %s%s" % (name.ljust(20), cmd.description))  # NOQA
+        print("    %s%s" % (name.ljust(20), cmd.description))  # NOQA: T201
 
 
 def unknown_command(command):
-    print("Unknown command: '%s'" % command)  # NOQA
-    print("Type '%s help' for usage." % prog_name())  # NOQA
+    print("Unknown command: '%s'" % command)  # NOQA: T201
+    print("Type '%s help' for usage." % prog_name())  # NOQA: T201
     sys.exit(1)
 
 
