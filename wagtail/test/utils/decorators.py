@@ -19,7 +19,7 @@ class disconnect_signal_receiver:
 
             try:
                 func(*args, **kwargs)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 exception = e
             finally:
                 self.signal.connect(self.receiver)

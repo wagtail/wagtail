@@ -33,7 +33,7 @@ class TestUpdateImageRenditions(TestCase):
             try:
                 rendition_image = rendition.image
                 rendition.delete()
-            except Exception:
+            except Exception:  # noqa: BLE001
                 warnings.warn(f"Could not delete rendition for {rendition_image}")
 
     def run_command(self, **options):

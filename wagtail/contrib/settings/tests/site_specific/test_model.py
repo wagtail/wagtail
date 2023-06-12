@@ -62,7 +62,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         # Attempt to pickle ImportantPages instance
         try:
             pickled = pickle.dumps(obj, -1)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occured when attempting to pickle %r: %s" % (obj, e)
             )
@@ -70,7 +70,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         # Now unpickle the pickled ImportantPages
         try:
             unpickled = pickle.loads(pickled)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occured when attempting to unpickle %r: %s" % (obj, e)
             )

@@ -85,5 +85,5 @@ class DummyExternalStorageFile(File):
     def size(self):
         try:
             return super().size
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             raise DummyExternalStorageError(str(e))

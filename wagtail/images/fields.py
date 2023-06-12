@@ -163,7 +163,7 @@ class WagtailImageField(ImageField):
             f.image = willow.Image.open(file)
             f.content_type = image_format_name_to_content_type(f.image.format_name)
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             # Willow doesn't recognize it as an image.
             raise ValidationError(
                 self.error_messages["invalid_image"],

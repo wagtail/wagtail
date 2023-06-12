@@ -23,7 +23,7 @@ class UnpublishBulkAction(PageBulkAction):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["has_live_descendants"] = any(
-            map(lambda x: x["live_descendant_count"] > 0, context["items"])
+            item["live_descendant_count"] > 0 for item in context["items"]
         )
         return context
 
