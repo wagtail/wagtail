@@ -8,4 +8,11 @@
 ignore = ["D100","D101","D102","D103","D105","N806","E501"]
 exclude = ["wagtail/project_template/*","node_modules","venv",".venv","migrations"]
 line-length = 88
-select = ["E", "F", "I", "T20"]
+
+# E: pycodestyle errors
+# F: Pyflakes
+# I: isort
+# T20: flake8-print
+# BLE: flake8-blind-except
+# C4: flake8-comprehensions
+select = ["E", "F", "I", "T20", "BLE", "C4"]

@@ -28,7 +28,7 @@ class Command(BaseCommand):
                     rendition_image = rendition.image
                     rendition.delete()
                     success_count = success_count + 1
-                except Exception:
+                except Exception:  # noqa: BLE001
                     self.stderr.write(
                         f"Could not purge rendition for {rendition_image.title}"
                     )
@@ -45,7 +45,7 @@ class Command(BaseCommand):
                     rendition.delete()
                     rendition_image.get_rendition(rendition_filter)
                     success_count = success_count + 1
-                except Exception:
+                except Exception:  # noqa: BLE001
                     self.stderr.write(
                         f"Could not regenerate rendition for {rendition_image.title}"
                     )
