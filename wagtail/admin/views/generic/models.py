@@ -287,19 +287,21 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         )
 
     def get_columns(self):
-        if self.columns is None:
-            columns = []
-            for i, field in enumerate(self.list_display):
-                if isinstance(field, Column):
-                    column = field
-                elif i == 0:
-                    column = self._get_title_column(field)
-                else:
-                    column = self._get_custom_column(field)
-                columns.append(column)
-            self.columns = columns
+        # Use columns set at the class level, if available
+        if self.columns is not None:
+            return self.columns
 
-        return self.columns
+        columns = []
+        for i, field in enumerate(self.list_display):
+            if isinstance(field, Column):
+                column = field
+            elif i == 0:
+                column = self._get_title_column(field)
+            else:
+                column = self._get_custom_column(field)
+            columns.append(column)
+
+        return columns
 
     def get_index_results_url(self):
         if self.index_results_url_name:
