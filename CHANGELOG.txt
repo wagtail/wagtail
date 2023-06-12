@@ -8,6 +8,7 @@ Changelog
  * Fix: Prevent crash when comparing page revisions that include `MultipleChooserPanel` (Matt Westcott)
  * Fix: Ensure that title and slug continue syncing after entering non-URL-safe characters (LB (Ben) Johnston)
  * Fix: Ensure that title and slug are synced on keypress, not just on blur (LB (Ben) Johnston)
+ * Fix: Add a more visible active state for side panel toggle buttons (Thibaud Colas)
 
 
 5.0.1 (25.05.2023)
