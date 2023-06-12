@@ -1,6 +1,6 @@
-==========================
-Wagtail 2.15 release notes
-==========================
+================================
+Wagtail 2.15 (LTS) release notes
+================================
 
 *November 4, 2021*
 
@@ -316,4 +316,3 @@ If your site relies on hooks like ``before_publish_page`` or ``before_copy_page`
 checks, or add additional functionality, those hooks will not be called on the
 corresponding bulk action views. If you want to add this to the bulk action views as well,
 use the new bulk action hooks: :ref:`before_bulk_action` and :ref:`after_bulk_action`.
-

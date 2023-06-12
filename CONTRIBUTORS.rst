@@ -716,6 +716,7 @@ Contributors
 * Ester Beltrami
 * Justin Koestinger
 * NikilTn
+* Thiago C. S. Tioma
 
 Translators
 ===========
