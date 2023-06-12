@@ -1291,6 +1291,7 @@ class TestGroupIndexView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/groups/index.html")
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
         # response should contain page furniture, including the "Add a group" button
         self.assertContains(response, "Add a group")
