@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_permission_codename, get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
@@ -9,6 +9,31 @@ from .base import BaseDjangoAuthPermissionPolicy
 
 
 class CollectionPermissionLookupMixin:
+    permission_cache_name = "_collection_permission_cache"
+
+    def _get_user_permission_objects_for_actions(self, user, actions):
+        """
+        Get a set of the user's GroupCollectionPermission objects for the given actions
+        """
+        permission_codenames = {
+            get_permission_codename(action, self.auth_model._meta) for action in actions
+        }
+        return {
+            group_permission
+            for group_permission in self.get_cached_permissions_for_user(user)
+            if group_permission.permission.codename in permission_codenames
+        }
+
+    def get_all_permissions_for_user(self, user):
+        # For these users, we can determine the permissions without querying
+        # GroupCollectionPermission by checking it directly in _check_perm()
+        if not user.is_active or user.is_anonymous or user.is_superuser:
+            return GroupCollectionPermission.objects.none()
+
+        return GroupCollectionPermission.objects.filter(
+            group__user=user
+        ).select_related("permission", "collection")
+
     def _check_perm(self, user, actions, collection=None):
         """
         Equivalent to user.has_perm(self._get_permission_name(action)) on all listed actions,
@@ -22,47 +47,34 @@ class CollectionPermissionLookupMixin:
         if user.is_superuser:
             return True
 
-        collection_permissions = GroupCollectionPermission.objects.filter(
-            group__user=user,
-            permission__in=self._get_permission_objects_for_actions(actions),
+        collection_permissions = self._get_user_permission_objects_for_actions(
+            user, actions
         )
 
         if collection:
-            collection_permissions = collection_permissions.filter(
-                collection__in=collection.get_ancestors(inclusive=True)
-            )
+            collection_permissions = {
+                permission
+                for permission in collection_permissions
+                if collection.is_descendant_of(permission.collection)
+                or collection.pk == permission.collection_id
+            }
 
-        return collection_permissions.exists()
+        return bool(collection_permissions)
 
     def _collections_with_perm(self, user, actions):
         """
         Return a queryset of collections on which this user has a GroupCollectionPermission
         record for any of the given actions, either on the collection itself or an ancestor
         """
-        # Get the permission objects corresponding to these actions
-        permissions = self._get_permission_objects_for_actions(actions)
+        permissions = self._get_user_permission_objects_for_actions(user, actions)
 
-        # Get the collections that have a GroupCollectionPermission record
-        # for any of these permissions and any of the user's groups;
-        # create a list of their paths
-        collection_root_paths = Collection.objects.filter(
-            group_permissions__group__in=user.groups.all(),
-            group_permissions__permission__in=permissions,
-        ).values_list("path", flat=True)
+        collections = Collection.objects.none()
+        for perm in permissions:
+            collections |= Collection.objects.descendant_of(
+                perm.collection, inclusive=True
+            )
 
-        if collection_root_paths:
-            # build a filter expression that will filter our model to just those
-            # instances in collections with a path that starts with one of the above
-            collection_path_filter = Q(path__startswith=collection_root_paths[0])
-            for path in collection_root_paths[1:]:
-                collection_path_filter = collection_path_filter | Q(
-                    path__startswith=path
-                )
-
-            return Collection.objects.all().filter(collection_path_filter)
-        else:
-            # no matching collections
-            return Collection.objects.none()
+        return collections
 
     def _users_with_perm_filter(self, actions, collection=None):
         """
@@ -83,8 +95,8 @@ class CollectionPermissionLookupMixin:
             collections = collection.get_ancestors(inclusive=True)
             groups = groups.filter(collection_permissions__collection__in=collections)
 
-        # Find all users who are superusers or in any of these groups, and are active
-        return (Q(is_superuser=True) | Q(groups__in=groups)) & Q(is_active=True)
+        # Find all users who are active, and are superusers or in any of these groups
+        return Q(is_active=True) & (Q(is_superuser=True) | Q(groups__in=groups))
 
     def _users_with_perm(self, actions, collection=None):
         """
