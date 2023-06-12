@@ -1,5 +1,5 @@
 ==========================
-Wagtail 1.13 release notes
+Wagtail 1.13 (LTS) release notes
 ==========================
 
 *October 16, 2017*

@@ -1,5 +1,5 @@
 =========================
-Wagtail 0.8 release notes
+Wagtail 0.8 (LTS) release notes
 =========================
 
 *November 5, 2014*
