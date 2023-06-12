@@ -14,23 +14,21 @@
     {% page_header_buttons parent_page page_perms=page_perms %}
 {% endblock %}
 {% block actions %}
-    {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label' %}
-        {% if not parent_page.is_root %}
-            {% include "wagtailadmin/shared/side_panel_toggles.html" %}
-            {# Page history #}
-            {% if parent_page.get_latest_revision %}
-                <a href="{% url 'wagtailadmin_pages:history' parent_page.id %}"
-                    class="{{ nav_icon_button_classes }}"
-                    data-tippy-content="{% trans 'History' %}"
-                    data-tippy-offset="[0, 0]"
-                    data-tippy-placement="bottom"
-                    aria-label="{% trans 'History' %}"
-                >
-                    {% icon name="history" classname=nav_icon_classes %}
-                </a>
-            {% endif %}
-
-            {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
+    {% if not parent_page.is_root %}
+        {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+        {# Page history #}
+        {% if parent_page.get_latest_revision %}
+            <a href="{% url 'wagtailadmin_pages:history' parent_page.id %}"
+                class="{{ nav_icon_button_classes }}"
+                data-tippy-content="{% trans 'History' %}"
+                data-tippy-offset="[0, 0]"
+                data-tippy-placement="bottom"
+                aria-label="{% trans 'History' %}"
+            >
+                {% icon name="history" classname=nav_icon_classes %}
+            </a>
         {% endif %}
-    {% endwith %}
+
+        {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
+    {% endif %}
 {% endblock %}
