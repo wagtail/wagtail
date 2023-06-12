@@ -1,1 +1,1 @@
-from .base import PageReportView, ReportView  # noqa
+from .base import PageReportView, ReportView  # noqa: F401

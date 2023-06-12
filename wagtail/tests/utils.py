@@ -1,6 +1,6 @@
 from warnings import warn
 
-from wagtail.test.utils import *  # noqa
+from wagtail.test.utils import *  # noqa: F403
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 warn(
