@@ -17,7 +17,7 @@ window.Draftail = Draftail;
 window.draftail = draftail;
 
 // Plugins for the built-in entities.
-const plugins = [
+const entityTypes = [
   {
     type: 'DOCUMENT',
     source: draftail.DocumentModalWorkflowSource,
@@ -41,4 +41,4 @@ const plugins = [
   },
 ];
 
-plugins.forEach(draftail.registerPlugin);
+entityTypes.forEach((type) => draftail.registerPlugin(type, 'entityTypes'));

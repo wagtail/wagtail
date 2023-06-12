@@ -16,6 +16,7 @@ Changelog
  * Optimise queries in collection permission policies using cache on the user object (Sage Abdullah)
  * Phone numbers entered via a link chooser will now have any spaces stripped out, ensuring a valid href="tel:..." attribute (Sahil Jangra)
  * Auto-select the `StreamField` block when only one block type is declared (Sébastien Corbin)
+ * Add support for more advanced Draftail customisation APIs (Thibaud Colas)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
