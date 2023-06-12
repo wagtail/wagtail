@@ -25,7 +25,7 @@ from .helpers import (
     PermissionHelper,
 )
 from .menus import GroupMenuItem, ModelAdminMenuItem
-from .mixins import ThumbnailMixin  # NOQA
+from .mixins import ThumbnailMixin  # NOQA: F401
 from .views import (
     ChooseParentView,
     CreateView,

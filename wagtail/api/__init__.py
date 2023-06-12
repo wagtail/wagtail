@@ -1,1 +1,1 @@
-from .conf import APIField  # noqa
+from .conf import APIField  # noqa: F401

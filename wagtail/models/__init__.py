@@ -1,7 +1,7 @@
 """
 wagtail.models is split into submodules for maintainability. All definitions intended as
-public should be imported here (with 'noqa' comments as required) and outside code should continue
-to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
+public should be imported here (with 'noqa: F401' comments as required) and outside code should
+continue to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
 `from wagtail.models.sites import Site`.)
 
 Submodules should take care to keep the direction of dependencies consistent; where possible they
@@ -92,13 +92,13 @@ from wagtail.signals import (
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
-from .audit_log import (  # noqa
+from .audit_log import (  # noqa: F401
     BaseLogEntry,
     BaseLogEntryManager,
     LogEntryQuerySet,
     ModelLogEntry,
 )
-from .collections import (  # noqa
+from .collections import (  # noqa: F401
     BaseCollectionManager,
     Collection,
     CollectionManager,
@@ -108,8 +108,8 @@ from .collections import (  # noqa
     GroupCollectionPermissionManager,
     get_root_collection_id,
 )
-from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa
-from .i18n import (  # noqa
+from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
+from .i18n import (  # noqa: F401
     BootstrapTranslatableMixin,
     BootstrapTranslatableModel,
     Locale,
@@ -118,8 +118,8 @@ from .i18n import (  # noqa
     bootstrap_translatable_model,
     get_translatable_models,
 )
-from .reference_index import ReferenceIndex  # noqa
-from .sites import Site, SiteManager, SiteRootPath  # noqa
+from .reference_index import ReferenceIndex  # noqa: F401
+from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 

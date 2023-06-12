@@ -37,7 +37,7 @@ from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
 from wagtail.test.utils import WagtailTestUtils
 
 try:
-    import embedly  # noqa
+    import embedly  # noqa: F401
 
     no_embedly = False
 except ImportError:
