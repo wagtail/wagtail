@@ -81,7 +81,7 @@ class check_bdist_egg(bdist_egg):
         if not os.path.isdir(self.sentinel_dir):
             print(  # noqa: T201
                 "\n".join(
-                    [  # noqa
+                    [
                         "************************************************************",
                         "The front end assets for Wagtail are missing.",
                         "To generate the assets, please refer to the documentation in",
