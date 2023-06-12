@@ -287,7 +287,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set correctly
         self.assertEqual(
@@ -340,7 +340,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set
         self.assertEqual(
@@ -369,7 +369,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set
         self.assertEqual(
@@ -419,7 +419,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site.save()
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Move new homepage to root
         new_homepage.move(root_page, pos="last-child")
@@ -447,7 +447,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Change homepage title and slug
         homepage.title = "New home"
@@ -466,7 +466,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Translate the homepage
         translated_homepage = homepage.copy_for_translation(
