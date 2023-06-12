@@ -15,8 +15,19 @@ Object {
   "bottomToolbar": [Function],
   "commandToolbar": [Function],
   "commands": true,
-  "controls": Array [],
-  "decorators": Array [],
+  "controls": Array [
+    Object {
+      "meta": [Function],
+      "type": "sentences",
+    },
+  ],
+  "decorators": Array [
+    Object {
+      "component": [Function],
+      "strategy": [Function],
+      "type": "punctuation",
+    },
+  ],
   "editorState": null,
   "enableHorizontalRule": Object {
     "description": "Horizontal line",
@@ -43,7 +54,12 @@ Object {
   "onFocus": null,
   "onSave": [Function],
   "placeholder": "Write something or type ‘/’ to insert a block",
-  "plugins": Array [],
+  "plugins": Array [
+    Object {
+      "handlePastedText": [Function],
+      "type": "anchorify",
+    },
+  ],
   "rawContentState": null,
   "readOnly": false,
   "showRedoControl": false,
