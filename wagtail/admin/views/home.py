@@ -27,6 +27,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 User = get_user_model()
 
@@ -224,9 +225,9 @@ class LockedPagesPanel(Component):
                     locked=True,
                     locked_by=request.user,
                 ),
-                "can_remove_locks": UserPagePermissionsProxy(
-                    request.user
-                ).can_remove_locks(),
+                "can_remove_locks": PagePermissionPolicy().user_has_any_permission(
+                    request.user, "unlock"
+                ),
                 "request": request,
                 "csrf_token": parent_context["csrf_token"],
             }

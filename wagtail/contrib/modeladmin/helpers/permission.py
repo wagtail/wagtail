@@ -3,7 +3,8 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.utils.functional import cached_property
 
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 class PermissionHelper:
@@ -134,9 +135,13 @@ class PagePermissionHelper(PermissionHelper):
             pages_where_user_can_add = Page.objects.all()
         else:
             pages_where_user_can_add = Page.objects.none()
-            user_perms = UserPagePermissionsProxy(user)
 
-            for perm in user_perms.permissions.filter(permission_type="add"):
+            perms = {
+                perm
+                for perm in PagePermissionPolicy().get_cached_permissions_for_user(user)
+                if perm.permission_type == "add"
+            }
+            for perm in perms:
                 # user has add permission on any subpage of perm.page
                 # (including perm.page itself)
                 pages_where_user_can_add |= Page.objects.descendant_of(

@@ -3214,7 +3214,7 @@ class PagePermissionTester:
             return False
 
         # Inspect permissions on the destination
-        destination_perms = PagePermissionTester(self.user, destination)
+        destination_perms = destination.permissions_for_user(self.user)
 
         # we always need at least add permission in the target
         if "add" not in destination_perms.permissions:
@@ -3248,7 +3248,7 @@ class PagePermissionTester:
             return True
 
         # Inspect permissions on the destination
-        destination_perms = PagePermissionTester(self.user, destination)
+        destination_perms = destination.permissions_for_user(self.user)
 
         if not destination.specific_class.creatable_subpage_models():
             return False
@@ -4438,9 +4438,11 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
+        from wagtail.permission_policies.pages import PagePermissionPolicy
+
         q = Q(
-            page__in=UserPagePermissionsProxy(user)
-            .explorable_pages()
+            page__in=PagePermissionPolicy()
+            .explorable_instances(user)
             .values_list("pk", flat=True)
         )
 

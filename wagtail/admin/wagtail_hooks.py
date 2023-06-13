@@ -53,7 +53,8 @@ from wagtail.admin.views.pages.bulk_actions import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
+from wagtail.models import Collection, Page, Task, Workflow
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
@@ -908,7 +909,7 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return UserPagePermissionsProxy(request.user).can_remove_locks()
+        return PagePermissionPolicy().user_has_any_permission(request.user, "unlock")
 
 
 class WorkflowReportMenuItem(MenuItem):
