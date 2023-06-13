@@ -25,6 +25,19 @@ class TestIssue613(WagtailTestUtils, TestCase):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
 
+    def reset_index(self):
+        if self.search_backend.rebuilder_class:
+            index = self.search_backend.get_index_for_model(models.Document)
+            rebuilder = self.search_backend.rebuilder_class(index)
+            index = rebuilder.start()
+            index.add_model(models.Document)
+            rebuilder.finish()
+
+    def refresh_index(self):
+        index = self.search_backend.get_index_for_model(models.Document)
+        if index:
+            index.refresh()
+
     def add_document(self, **params):
         # Build a fake file
         fake_file = ContentFile(b"A boring example document")
@@ -78,12 +91,12 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
     def test_issue_613_on_add(self):
         # Reset the search index
-        self.search_backend.reset_index()
+        self.reset_index()
         self.search_backend.add_type(models.Document)
 
         # Add a document with some tags
         document = self.add_document(tags="hello")
-        self.search_backend.refresh_index()
+        self.refresh_index()
 
         # Search for it by tag
         results = self.search_backend.search("hello", models.Document)
@@ -94,12 +107,12 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
     def test_issue_613_on_edit(self):
         # Reset the search index
-        self.search_backend.reset_index()
+        self.reset_index()
         self.search_backend.add_type(models.Document)
 
         # Add a document with some tags
         document = self.edit_document(tags="hello")
-        self.search_backend.refresh_index()
+        self.refresh_index()
 
         # Search for it by tag
         results = self.search_backend.search("hello", models.Document)

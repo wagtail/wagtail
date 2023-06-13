@@ -11,6 +11,7 @@ from wagtail.search.backends.elasticsearch7 import (
     Elasticsearch7SearchResults,
     ElasticsearchAutocompleteQueryCompilerImpl,
 )
+from wagtail.search.index import class_is_indexed
 from wagtail.utils.utils import deep_update
 
 
@@ -25,6 +26,35 @@ class Elasticsearch8Mapping(Elasticsearch7Mapping):
 
 
 class Elasticsearch8Index(Elasticsearch7Index):
+    def add_item(self, item):
+        # Make sure the object can be indexed
+        if not class_is_indexed(item.__class__):
+            return
+
+        # Get mapping
+        mapping = self.mapping_class(item.__class__)
+
+        # Add document to index
+        self.es.index(
+            index=self.name, 
+            document=mapping.get_document(item), 
+            id=mapping.get_document_id(item),
+        )
+
+    def delete_item(self, item):
+        # Make sure the object can be indexed
+        if not class_is_indexed(item.__class__):
+            return
+
+        # Get mapping
+        mapping = self.mapping_class(item.__class__)
+
+        # Delete document
+        try:
+            self.es.delete(index=self.name, id=mapping.get_document_id(item))
+        except NotFoundError:
+            pass  # Document doesn't exist, ignore this exception
+        
     def put(self):
         self.es.indices.create(index=self.name, settings=self.backend.settings)
 
@@ -39,6 +69,7 @@ class Elasticsearch8Index(Elasticsearch7Index):
 
     def refresh(self):
         self.es.indices.refresh(index=self.name)
+        
 
 
 class Elasticsearch8SearchQueryCompiler(Elasticsearch7SearchQueryCompiler):

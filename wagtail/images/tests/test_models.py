@@ -670,6 +670,19 @@ class TestIssue613(WagtailTestUtils, TestCase):
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
+    
+    def reset_index(self):
+        if self.search_backend.rebuilder_class:
+            index = self.search_backend.get_index_for_model(Image)
+            rebuilder = self.search_backend.rebuilder_class(index)
+            index = rebuilder.start()
+            index.add_model(Image)
+            rebuilder.finish()
+
+    def refresh_index(self):
+        index = self.search_backend.get_index_for_model(Image)
+        if index:
+            index.refresh()
 
     def add_image(self, **params):
         post_data = {
@@ -721,12 +734,12 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
     def test_issue_613_on_add(self):
         # Reset the search index
-        self.search_backend.reset_index()
+        self.reset_index()
         self.search_backend.add_type(Image)
 
         # Add an image with some tags
         image = self.add_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.refresh_index()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)
@@ -737,12 +750,12 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
     def test_issue_613_on_edit(self):
         # Reset the search index
-        self.search_backend.reset_index()
+        self.reset_index()
         self.search_backend.add_type(Image)
 
         # Add an image with some tags
         image = self.edit_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.refresh_index()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
+import os
 from unittest import mock
+import unittest
 
 from django.db.models import Q
 from django.test import TestCase
@@ -711,6 +713,9 @@ class TestElasticsearch7SearchQuery(TestCase):
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 
 
+@unittest.skipIf(
+    os.environ.get("ELASTICSEARCH_VERSION") == "8", "Elasticsearch 8 is not compatible with <7"
+)
 class TestElasticsearch7SearchResults(TestCase):
     fixtures = ["search"]
 
