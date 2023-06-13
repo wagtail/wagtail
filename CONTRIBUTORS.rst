@@ -305,7 +305,7 @@ Contributors
 * Todd Dembrey
 * Sebastian Brestin
 * Casper Timmers
-* Kevin Chung
+* Kevin Chung (chungky)
 * Kim Chee Leong
 * Dan Swain
 * Alexs Mathilda
@@ -717,6 +717,7 @@ Contributors
 * Justin Koestinger
 * NikilTn
 * Thiago C. S. Tioma
+* Kevin Chung (kev-odin)
 
 Translators
 ===========

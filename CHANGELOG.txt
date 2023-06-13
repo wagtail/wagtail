@@ -23,6 +23,7 @@ Changelog
  * Docs: Reorganise snippets documentation to cover customisations and optional features (Sage Abdullah)
  * Docs: Update color customisations guidance to include theme-agnostic options (Thibaud Colas)
  * Docs: Mark LTS releases in release note page titles (Thiago C. S. Tioma)
+ * Docs: Revise main Getting started tutorial for clarity (Kevin Chung (kev-odin))
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
  * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)
