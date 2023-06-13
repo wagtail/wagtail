@@ -2372,8 +2372,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
         """
-        user_perms = UserPagePermissionsProxy(user)
-        return user_perms.for_page(self)
+        return PagePermissionTester(user, self)
 
     def is_previewable(self):
         """Returns True if at least one preview mode is specified"""
@@ -2967,7 +2966,7 @@ class UserPagePermissionsProxy:
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given page"""
-        return PagePermissionTester(self, page)
+        return PagePermissionTester(self.user, page)
 
     def explorable_pages(self):
         """Return a queryset of pages that the user has access to view in the
@@ -3002,16 +3001,18 @@ class UserPagePermissionsProxy:
 
 
 class PagePermissionTester:
-    def __init__(self, user_perms, page):
-        self.user = user_perms.user
-        self.user_perms = user_perms
+    def __init__(self, user, page):
+        from wagtail.permission_policies.pages import PagePermissionPolicy
+
+        self.user = user
+        self.permission_policy = PagePermissionPolicy()
         self.page = page
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
                 perm.permission_type
-                for perm in user_perms.permissions
+                for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
 
@@ -3213,7 +3214,7 @@ class PagePermissionTester:
             return False
 
         # Inspect permissions on the destination
-        destination_perms = self.user_perms.for_page(destination)
+        destination_perms = PagePermissionTester(self.user, destination)
 
         # we always need at least add permission in the target
         if "add" not in destination_perms.permissions:
@@ -3247,7 +3248,7 @@ class PagePermissionTester:
             return True
 
         # Inspect permissions on the destination
-        destination_perms = self.user_perms.for_page(destination)
+        destination_perms = PagePermissionTester(self.user, destination)
 
         if not destination.specific_class.creatable_subpage_models():
             return False
