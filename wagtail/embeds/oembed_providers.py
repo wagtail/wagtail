@@ -681,6 +681,7 @@ youtube = {
         r"^https?://(?:[-\w]+\.)?youtube\.com/profile.+$",
         r"^https?://(?:[-\w]+\.)?youtube\.com/view_play_list.+$",
         r"^https?://(?:[-\w]+\.)?youtube\.com/playlist.+$",
+        r"^https?://(?:[-\w]+\.)?youtube\.com/shorts/.+$",
     ],
 }
 

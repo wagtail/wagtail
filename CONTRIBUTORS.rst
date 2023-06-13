@@ -718,6 +718,7 @@ Contributors
 * NikilTn
 * Thiago C. S. Tioma
 * Kevin Chung (kev-odin)
+* valnuro
 
 Translators
 ===========
