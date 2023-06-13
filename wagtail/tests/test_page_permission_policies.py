@@ -19,21 +19,21 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
         )
 
         root_editors_group = Group.objects.create(name="Root editors")
-        GroupPagePermission.objects.create(
+        self.root_edit_perm = GroupPagePermission.objects.create(
             group=root_editors_group,
             page=self.root_page,
             permission_type="edit",
         )
 
         report_editors_group = Group.objects.create(name="Report editors")
-        GroupPagePermission.objects.create(
+        self.report_edit_perm = GroupPagePermission.objects.create(
             group=report_editors_group,
             page=self.reports_page,
             permission_type="edit",
         )
 
         report_adders_group = Group.objects.create(name="Report adders")
-        GroupPagePermission.objects.create(
+        self.report_add_perm = GroupPagePermission.objects.create(
             group=report_adders_group,
             page=self.reports_page,
             permission_type="add",
@@ -131,6 +131,45 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
         super().setUp()
         self.policy = PagePermissionPolicy()
+
+    def _test_get_all_permissions_for_user(self):
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.superuser),
+            {},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.inactive_superuser),
+            {},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.inactive_root_editor),
+            {},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.useless_user),
+            {},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.anonymous_user),
+            {},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.root_editor),
+            {self.root_edit_perm},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.report_editor),
+            {self.report_edit_perm},
+        )
+        self.assertResultSetEqual(
+            self.policy.get_cached_permissions_for_user(self.report_adder),
+            {self.report_add_perm},
+        )
+
+    def test_get_cached_permissions_for_user(self):
+        self._test_get_all_permissions_for_user()
+        with self.assertNumQueries(0):
+            self._test_get_all_permissions_for_user()
 
     def test_user_has_permission(self):
         self.assertUserPermissionMatrix(
@@ -250,6 +289,12 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
             )
         )
 
+        self.assertTrue(
+            self.policy.user_has_any_permission_for_instance(
+                self.report_adder, ["edit", "delete"], self.adder_report
+            )
+        )
+
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
                 self.anonymous_user, ["edit", "delete"], self.editor_page
@@ -360,6 +405,13 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 self.useless_report,
                 self.anonymous_report,
             ],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(
+                self.report_adder, ["edit", "delete"]
+            ),
+            [self.adder_report],
         )
 
         self.assertResultSetEqual(
