@@ -34,6 +34,12 @@ Changelog
  * Maintenance: Split out a base listing view from generic index view (Matt Westcott)
 
 
+5.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent JS error when reverting the spinner on a submit button after a validation error (LB (Ben) Johnston)
+
+
 5.0.1 (25.05.2023)
 ~~~~~~~~~~~~~~~~~~
 
