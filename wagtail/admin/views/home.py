@@ -23,7 +23,6 @@ from wagtail.models import (
     Page,
     Revision,
     TaskState,
-    UserPagePermissionsProxy,
     WorkflowState,
     get_default_page_content_type,
 )
@@ -101,9 +100,9 @@ class PagesForModerationPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        user_perms = UserPagePermissionsProxy(request.user)
         context["page_revisions_for_moderation"] = (
-            user_perms.revisions_for_moderation()
+            PagePermissionPolicy()
+            .revisions_for_moderation(request.user)
             .select_related("user")
             .order_by("-created_at")
         )
