@@ -1,13 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.db.models import (
-    CharField,
-    Exists,
-    F,
-    OuterRef,
-    PositiveIntegerField,
-    Q,
-    Value,
-)
+from django.db.models import Q
 
 from wagtail.models import GroupPagePermission, Page
 from wagtail.permission_policies.base import BasePermissionPolicy
@@ -40,9 +32,9 @@ class PagePermissionPolicy(BasePermissionPolicy):
         base_permission = self._base_user_has_permission(user)
         if base_permission is not None:
             return base_permission
-        permissions = set(
+        permissions = {
             perm.permission_type for perm in self.get_cached_permissions_for_user(user)
-        )
+        }
         return bool(set(actions) & permissions)
 
     def users_with_any_permission(self, actions):
@@ -97,21 +89,25 @@ class PagePermissionPolicy(BasePermissionPolicy):
         return pages
 
     def users_with_any_permission_for_instance(self, actions, instance):
-        base_permissions = GroupPagePermission.objects.annotate(
-            _instance_path=Value(instance.path, CharField()),
-            _instance_depth=Value(instance.depth, PositiveIntegerField()),
-        ).filter(
-            _instance_path__startswith=F("page__path"),
-            _instance_depth__gte=F("page__depth"),
-            group__user=OuterRef("pk"),
-        )
+        q = Q(is_superuser=True)
 
-        permissions = base_permissions.filter(permission_type__in=actions)
-        q = Q(is_superuser=True) | Exists(permissions)
+        # Find permissions for all ancestors that match any of the actions
+        ancestors = instance.get_ancestors(inclusive=True)
+        groups = GroupPagePermission.objects.filter(
+            permission_type__in=actions, page__in=ancestors
+        ).values_list("group", flat=True)
 
-        if "edit" in actions:
-            add_permission = base_permissions.filter(permission_type="add")
-            q |= Exists(add_permission) & Q(pk=instance.owner_id)
+        q |= Q(groups__in=groups)
+
+        # If "edit" is in actions but "add" is not, then we need to check for
+        # cases where the user has "add" permission on an ancestor, and is the
+        # owner of the instance
+        if "edit" in actions and "add" not in actions:
+            add_groups = GroupPagePermission.objects.filter(
+                permission_type="add", page__in=ancestors
+            ).values_list("group", flat=True)
+
+            q |= Q(groups__in=add_groups) & Q(pk=instance.owner_id)
 
         return (
             get_user_model()
