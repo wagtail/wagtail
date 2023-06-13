@@ -17,7 +17,7 @@ from wagtail.admin.views.generic.models import (
     RevisionsUnscheduleView,
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
 
 
 def revisions_index(request, page_id):
@@ -152,8 +152,7 @@ class RevisionsUnschedule(RevisionsUnscheduleView):
     def get_object(self, queryset=None):
         page = get_object_or_404(Page, id=self.pk).specific
 
-        user_perms = UserPagePermissionsProxy(self.request.user)
-        if not user_perms.for_page(page).can_unschedule():
+        if not page.permissions_for_user(self.request.user).can_unschedule():
             raise PermissionDenied
         return page
 

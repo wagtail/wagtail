@@ -1168,10 +1168,10 @@ def add_pages_summary_item(request, items):
 
 class PageAdminURLFinder:
     def __init__(self, user):
-        self.page_perms = user and UserPagePermissionsProxy(user)
+        self.user = user
 
     def get_edit_url(self, instance):
-        if self.page_perms and not self.page_perms.for_page(instance).can_edit():
+        if self.user and not instance.permissions_for_user(self.user).can_edit():
             return None
         else:
             return reverse("wagtailadmin_pages:edit", args=(instance.pk,))

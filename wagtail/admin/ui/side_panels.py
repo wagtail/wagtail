@@ -6,13 +6,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.models import (
-    DraftStateMixin,
-    LockableMixin,
-    Page,
-    ReferenceIndex,
-    UserPagePermissionsProxy,
-)
+from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 
 
 class BaseSidePanel(Component):
@@ -209,7 +203,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        user_perms = UserPagePermissionsProxy(self.request.user)
         page = self.object
 
         if page.id:
@@ -255,7 +248,9 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                         for translation in page.get_translations()
                         .only("id", "locale", "depth")
                         .select_related("locale")
-                        if user_perms.for_page(translation).can_edit()
+                        if translation.permissions_for_user(
+                            self.request.user
+                        ).can_edit()
                     ],
                     # The sum of translated pages plus 1 to account for the current page
                     "translations_total": page.get_translations().count() + 1,

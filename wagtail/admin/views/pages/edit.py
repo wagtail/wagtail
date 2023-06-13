@@ -28,7 +28,6 @@ from wagtail.models import (
     CommentReply,
     Page,
     PageSubscription,
-    UserPagePermissionsProxy,
     WorkflowState,
 )
 
@@ -846,7 +845,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_perms = UserPagePermissionsProxy(self.request.user)
+        user_perms = self.page.permissions_for_user(self.request.user)
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
@@ -891,9 +890,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     args=(self.page.id,),
                 ),
                 "user_can_lock": (not self.lock or isinstance(self.lock, WorkflowLock))
-                and user_perms.for_page(self.page).can_lock(),
+                and user_perms.can_lock(),
                 "user_can_unlock": isinstance(self.lock, BasicLock)
-                and user_perms.for_page(self.page).can_unlock(),
+                and user_perms.can_unlock(),
                 "locale": None,
                 "translations": [],
                 "media": bound_panel.media
@@ -917,7 +916,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                         for translation in self.page.get_translations()
                         .only("id", "locale", "depth")
                         .select_related("locale")
-                        if user_perms.for_page(translation).can_edit()
+                        if translation.permissions_for_user(
+                            self.request.user
+                        ).can_edit()
                     ],
                 }
             )

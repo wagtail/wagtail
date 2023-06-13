@@ -73,8 +73,6 @@ class CopyPageAction:
         return self._uuid_mapping[old_uuid]
 
     def check(self, skip_permission_checks=False):
-        from wagtail.models import UserPagePermissionsProxy
-
         # Essential data model checks
         if self.page._state.adding:
             raise CopyPageIntegrityError("Page.copy() called on an unsaved page")
@@ -102,9 +100,7 @@ class CopyPageAction:
                 )
 
             if self.keep_live:
-                destination_perms = UserPagePermissionsProxy(self.user).for_page(
-                    self.to
-                )
+                destination_perms = self.to.permissions_for_user(self.user)
 
                 if not destination_perms.can_publish_subpage():
                     raise CopyPagePermissionError(

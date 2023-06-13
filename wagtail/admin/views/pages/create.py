@@ -16,7 +16,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
-from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
+from wagtail.models import Locale, Page, PageSubscription
 
 
 def add_subpage(request, parent_page_id):
@@ -381,7 +381,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 ]
 
             else:
-                user_perms = UserPagePermissionsProxy(self.request.user)
                 translations = [
                     {
                         "locale": translation.locale,
@@ -397,7 +396,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     for translation in self.parent_page.get_translations()
                     .only("id", "locale")
                     .select_related("locale")
-                    if user_perms.for_page(translation).can_add_subpage()
+                    if translation.permissions_for_user(
+                        self.request.user
+                    ).can_add_subpage()
                     and self.page_class
                     in translation.specific_class.creatable_subpage_models()
                     and self.page_class.can_create_at(translation)

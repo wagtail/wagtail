@@ -5,7 +5,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 
 from wagtail.admin.views import generic
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
 
 
 def content_type_use(request, content_type_app_name, content_type_model_name):
@@ -45,7 +45,6 @@ class UsageView(generic.UsageView):
     header_icon = "doc-empty-inverse"
 
     def dispatch(self, request, *args, **kwargs):
-        user_perms = UserPagePermissionsProxy(request.user)
-        if not user_perms.for_page(self.object).can_edit():
+        if not self.object.permissions_for_user(request.user).can_edit():
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

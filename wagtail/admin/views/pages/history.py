@@ -10,7 +10,7 @@ from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.generic import history
 from wagtail.admin.views.reports import ReportView
 from wagtail.log_actions import registry as log_action_registry
-from wagtail.models import Page, PageLogEntry, UserPagePermissionsProxy
+from wagtail.models import Page, PageLogEntry
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
@@ -47,8 +47,7 @@ class PageWorkflowHistoryViewMixin:
     pk_url_kwarg = "page_id"
 
     def dispatch(self, request, *args, **kwargs):
-        user_perms = UserPagePermissionsProxy(request.user)
-        if not user_perms.for_page(self.object).can_edit():
+        if not self.object.permissions_for_user(request.user).can_edit():
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
