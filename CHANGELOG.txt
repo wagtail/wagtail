@@ -15,6 +15,7 @@ Changelog
  * Fix: Prevent lowercase conversions of IndexView column headers (Virag Jain)
  * Fix: Ensure that `RichText` objects with the same values compare as equal (NikilTn)
  * Fix: Use `gettext_lazy` on generic model views so that language settings are correctly used (Matt Westcott)
+ * Fix: Prevent JS error when reverting the spinner on a submit button after a validation error (LB (Ben) Johnston)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
