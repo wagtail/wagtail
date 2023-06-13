@@ -30,6 +30,7 @@ Changelog
  * Maintenance: Update pagination behaviour to reject out-of-range / invalid page numbers (Matt Westcott)
  * Maintenance: Remove color tokens which are duplicates / unused (Thibaud Colas)
  * Maintenance: Add tests to help with maintenance of theme color tokens (Thibaud Colas)
+ * Maintenance: Split out a base listing view from generic index view (Matt Westcott)
 
 
 5.0.1 (25.05.2023)
