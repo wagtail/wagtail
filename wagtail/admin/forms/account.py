@@ -13,7 +13,7 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.admin.widgets import SwitchInput
-from wagtail.models import UserPagePermissionsProxy
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.models import UserProfile
 
 User = get_user_model()
@@ -22,10 +22,17 @@ User = get_user_model()
 class NotificationPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        user_perms = UserPagePermissionsProxy(self.instance.user)
-        if not user_perms.can_publish_pages():
+
+        permission_policy = PagePermissionPolicy()
+        publishable_pages = permission_policy.instances_user_has_permission_for(
+            self.instance.user, "publish"
+        )
+        editable_pages = permission_policy.instances_user_has_permission_for(
+            self.instance.user, "edit"
+        )
+        if not publishable_pages.exists():
             del self.fields["submitted_notifications"]
-        if not user_perms.can_edit_pages():
+        if not editable_pages.exists():
             del self.fields["approved_notifications"]
             del self.fields["rejected_notifications"]
             del self.fields["updated_comments_notifications"]

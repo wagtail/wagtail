@@ -29,7 +29,6 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.log_actions import log
-from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -162,13 +161,8 @@ class NotificationsSettingsPanel(BaseSettingsPanel):
     form_object = "profile"
 
     def is_active(self):
-        # Hide the panel if the user can't edit or publish pages
-        user_perms = UserPagePermissionsProxy(self.request.user)
-        if not user_perms.can_edit_pages() and not user_perms.can_publish_pages():
-            return False
-
         # Hide the panel if there are no notification preferences
-        return self.get_form().fields
+        return bool(self.get_form().fields)
 
 
 class LocaleSettingsPanel(BaseSettingsPanel):
