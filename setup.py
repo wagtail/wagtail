@@ -54,7 +54,7 @@ testing_extras = [
     "coverage>=3.7.0",
     "black==22.3.0",
     "doc8==0.8.1",
-    "ruff==0.0.261",
+    "ruff==0.0.272",
     # For enforcing string formatting mechanism in source files
     "semgrep==1.3.0",
     # For templates linting

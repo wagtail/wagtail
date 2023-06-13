@@ -356,7 +356,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         # A class with a 'panels' property defined should return that list
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
         self.assertEqual(len(result), 5)
-        self.assertTrue(any([isinstance(panel, MultiFieldPanel) for panel in result]))
+        self.assertTrue(any(isinstance(panel, MultiFieldPanel) for panel in result))
 
     def test_exclude(self):
         panels = extract_panel_definitions_from_model_class(Site, exclude=["hostname"])
@@ -369,10 +369,8 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
 
         self.assertTrue(
             any(
-                [
-                    isinstance(panel, FieldPanel) and panel.field_name == "date_from"
-                    for panel in panels
-                ]
+                isinstance(panel, FieldPanel) and panel.field_name == "date_from"
+                for panel in panels
             )
         )
 

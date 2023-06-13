@@ -268,10 +268,8 @@ def test_page_is_public(context, page):
         )
 
     is_private = any(
-        [
-            page.path.startswith(restricted_path)
-            for restricted_path in context["request"].all_page_view_restriction_paths
-        ]
+        page.path.startswith(restricted_path)
+        for restricted_path in context["request"].all_page_view_restriction_paths
     )
 
     return not is_private

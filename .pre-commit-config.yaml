@@ -9,9 +9,8 @@ repos:
         language_version: python3
         args: ['--target-version', 'py37']
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    # Ruff version.
-    rev: 'v0.0.261'
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 'v0.0.272'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
