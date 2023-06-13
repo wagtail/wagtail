@@ -84,7 +84,7 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         # 'pages' list in the response should contain root
         results = response.context["pages"]
-        self.assertTrue(any([r.slug == "root" for r in results]))
+        self.assertTrue(any(r.slug == "root" for r in results))
 
     def test_search_uses_admin_display_title_from_specific_class(self):
         # SingleEventPage has a custom get_admin_display_title method; explorer should

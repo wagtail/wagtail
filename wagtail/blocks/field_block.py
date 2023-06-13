@@ -549,7 +549,7 @@ class BaseChoiceBlock(FieldBlock):
             for v1, v2 in local_choices:
                 if isinstance(v2, (list, tuple)):
                     # this is a named group, and v2 is the value list
-                    has_blank_choice = any([value in ("", None) for value, label in v2])
+                    has_blank_choice = any(value in ("", None) for value, label in v2)
                     if has_blank_choice:
                         break
                 else:
