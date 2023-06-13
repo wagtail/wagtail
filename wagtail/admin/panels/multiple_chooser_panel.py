@@ -25,13 +25,15 @@ class MultipleChooserPanel(InlinePanel):
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.chooser_widget = self.formset.empty_form.fields[
-                self.panel.chooser_field_name
-            ].widget
-            self.js_context = JSContext()
-            self.chooser_widget_telepath_definition = self.js_context.pack(
-                self.chooser_widget
-            )
+
+            if self.form:
+                self.chooser_widget = self.formset.empty_form.fields[
+                    self.panel.chooser_field_name
+                ].widget
+                self.js_context = JSContext()
+                self.chooser_widget_telepath_definition = self.js_context.pack(
+                    self.chooser_widget
+                )
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
