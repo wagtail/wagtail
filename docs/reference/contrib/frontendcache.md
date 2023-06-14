@@ -109,7 +109,7 @@ WAGTAILFRONTENDCACHE = {
 Previous versions allowed passing a dict for `DISTRIBUTION_ID` to allow specifying different distribution IDs for different hostnames. This is now deprecated; instead, multiple distribution IDs should be defined as [multiple backends](frontendcache_multiple_backends), with a `HOSTNAMES` parameter to define the hostnames associated with each one.
 ```
 
-Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html). The user will need a policy similar to:
+`boto3` will attempt to discover credentials itself. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html). The user will need a policy similar to:
 
 ```json
 {
@@ -122,6 +122,20 @@ Configuration of credentials can done in multiple ways. You won't need to store 
             "Resource": "arn:aws:cloudfront::<account id>:distribution/<distribution id>"
         }
     ]
+}
+```
+
+To specify credentials manually, pass them as additional parameters:
+
+```python
+WAGTAILFRONTENDCACHE = {
+    'cloudfront': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
+        'DISTRIBUTION_ID': 'your-distribution-id',
+        'AWS_ACCESS_KEY_ID': os.environ['FRONTEND_CACHE_AWS_ACCESS_KEY_ID'],
+        'AWS_SECRET_ACCESS_KEY': os.environ['FRONTEND_CACHE_AWS_SECRET_ACCESS_KEY'],
+        'AWS_SESSION_TOKEN': os.environ['FRONTEND_CACHE_AWS_SESSION_TOKEN']
+    },
 }
 ```
 
