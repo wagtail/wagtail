@@ -5,7 +5,7 @@ import requests
 from azure.mgmt.cdn import CdnManagementClient
 from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 
 from wagtail.contrib.frontend_cache.backends import (
@@ -29,7 +29,7 @@ from .utils import (
 )
 
 
-class TestBackendConfiguration(TestCase):
+class TestBackendConfiguration(SimpleTestCase):
     def test_default(self):
         backends = get_backends()
 
@@ -81,6 +81,8 @@ class TestBackendConfiguration(TestCase):
                 "cloudfront": {
                     "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
                     "DISTRIBUTION_ID": "frontend",
+                    "AWS_ACCESS_KEY_ID": "my-access-key-id",
+                    "AWS_SECRET_ACCESS_KEY": "my-secret-access-key",
                 },
             }
         )
@@ -89,6 +91,12 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends["cloudfront"], CloudfrontBackend)
 
         self.assertEqual(backends["cloudfront"].cloudfront_distribution_id, "frontend")
+
+        credentials = backends["cloudfront"].client._request_signer._credentials
+
+        self.assertEqual(credentials.method, "explicit")
+        self.assertEqual(credentials.access_key, "my-access-key-id")
+        self.assertEqual(credentials.secret_key, "my-secret-access-key")
 
     def test_azure_cdn(self):
         backends = get_backends(

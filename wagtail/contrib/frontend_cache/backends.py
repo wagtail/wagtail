@@ -174,7 +174,13 @@ class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
         import boto3
 
-        self.client = boto3.client("cloudfront")
+        self.client = boto3.client(
+            "cloudfront",
+            aws_access_key_id=params.get("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=params.get("AWS_SECRET_ACCESS_KEY"),
+            aws_session_token=params.get("AWS_SESSION_TOKEN"),
+        )
+
         try:
             self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
         except KeyError:
