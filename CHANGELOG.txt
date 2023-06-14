@@ -43,6 +43,7 @@ Changelog
 
  * Fix: Prevent JS error when reverting the spinner on a submit button after a validation error (LB (Ben) Johnston)
  * Fix: Prevent crash when comparing page revisions that include `MultipleChooserPanel` (Matt Westcott)
+ * Fix: Ensure that title and slug continue syncing after entering non-URL-safe characters (LB (Ben) Johnston)
 
 
 5.0.1 (25.05.2023)
