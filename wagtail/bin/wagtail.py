@@ -58,6 +58,9 @@ class Command:
 class CreateProject(Command):
     description = "Creates the directory structure for a new Wagtail project."
 
+    def __init__(self):
+        self.default_template_path = self.get_default_template_path()
+
     def add_arguments(self, parser):
         parser.add_argument("project_name", help="Name for your Wagtail project")
         parser.add_argument(
@@ -65,8 +68,20 @@ class CreateProject(Command):
             nargs="?",
             help="Destination directory inside which to create the project",
         )
+        parser.add_argument(
+            "--template",
+            help="The path or URL to load the template from.",
+            default=self.default_template_path,
+        )
 
-    def run(self, project_name=None, dest_dir=None):
+    def get_default_template_path(self):
+        import wagtail
+
+        wagtail_path = os.path.dirname(wagtail.__file__)
+        default_template_path = os.path.join(wagtail_path, "project_template")
+        return default_template_path
+
+    def run(self, project_name=None, dest_dir=None, **options):
         # Make sure given name is not already in use by another python package/module.
         try:
             __import__(project_name)
@@ -79,24 +94,20 @@ class CreateProject(Command):
                 "name. Please try another name." % project_name
             )
 
+        template_name = options["template"]
+        if template_name == self.default_template_path:
+            template_name = "the default Wagtail template"
+
         print(  # noqa: T201
-            "Creating a Wagtail project called %(project_name)s"
-            % {"project_name": project_name}
+            "Creating a Wagtail project called %(project_name)s using %(template_name)s"
+            % {"project_name": project_name, "template_name": template_name}
         )
-
-        # Create the project from the Wagtail template using startapp
-
-        # First find the path to Wagtail
-        import wagtail
-
-        wagtail_path = os.path.dirname(wagtail.__file__)
-        template_path = os.path.join(wagtail_path, "project_template")
 
         # Call django-admin startproject
         utility_args = [
             "django-admin",
             "startproject",
-            "--template=" + template_path,
+            "--template=" + options["template"],
             "--ext=html,rst",
             "--name=Dockerfile",
             project_name,
