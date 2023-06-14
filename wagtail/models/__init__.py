@@ -2622,6 +2622,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name = _("page")
         verbose_name_plural = _("pages")
         unique_together = [("translation_key", "locale")]
+        permissions = [
+            ("publish_page", _("Publish any page")),
+            ("bulk_delete_page", _("Delete pages with children")),
+            ("lock_page", _("Lock/unlock pages you've locked")),
+            ("unlock_page", _("Unlock any page")),
+        ]
 
 
 class Orderable(models.Model):
