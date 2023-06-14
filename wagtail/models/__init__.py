@@ -19,7 +19,7 @@ from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
@@ -2908,6 +2908,13 @@ class GroupPagePermission(models.Model):
         verbose_name=_("page"),
         related_name="group_permissions",
         on_delete=models.CASCADE,
+    )
+    permission = models.ForeignKey(
+        Permission,
+        verbose_name=_("permission"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     permission_type = models.CharField(
         verbose_name=_("permission type"),
