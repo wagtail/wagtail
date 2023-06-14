@@ -2931,6 +2931,13 @@ class UserPagePermissionsProxy:
     def __init__(self, user):
         from wagtail.permission_policies.pages import PagePermissionPolicy
 
+        warnings.warn(
+            "UserPagePermissionsProxy is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+
         self.user = user
         self.permission_policy = PagePermissionPolicy()
         self.permissions = self.permission_policy.get_cached_permissions_for_user(user)
