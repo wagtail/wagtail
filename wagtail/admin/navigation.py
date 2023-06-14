@@ -18,6 +18,13 @@ def get_pages_with_direct_explore_permission(user):
 
 
 def get_explorable_root_page(user):
+    warnings.warn(
+        "get_explorable_root_page() is deprecated. "
+        "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+        "explorable_root_instance() instead.",
+        category=RemovedInWagtail60Warning,
+        stacklevel=2,
+    )
     return PagePermissionPolicy().explorable_root_instance(user)
 
 
