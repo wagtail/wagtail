@@ -8,6 +8,7 @@ from wagtail.admin.navigation import (
     get_pages_with_direct_explore_permission,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestExplorablePages(WagtailTestUtils, TestCase):
@@ -67,8 +68,16 @@ class TestExplorablePages(WagtailTestUtils, TestCase):
         # Josh has permissions for /example-home/content/page-1 and /example-home/other-content,
         # of which the closest common ancestor is /example-home.
         self.assertEqual(get_explorable_root_page(user).id, 4)
-        for page in get_pages_with_direct_explore_permission(user):
-            self.assertIn(page.id, [6, 8])
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "get_pages_with_direct_explore_permission() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "instances_with_direct_explore_permission() instead.",
+        ):
+            # Replace with PagePermissionPolicy().instances_with_direct_explore_permission(user)
+            for page in get_pages_with_direct_explore_permission(user):
+                self.assertIn(page.id, [6, 8])
 
     def test_nonadmin_sees_only_explorable_pages(self):
         # Sam has permissions for /home and /example-home/content/page-1 , of which the closest
@@ -78,8 +87,16 @@ class TestExplorablePages(WagtailTestUtils, TestCase):
         User = get_user_model()
         user = User.objects.get(email="sam@example.com")
         self.assertEqual(get_explorable_root_page(user).id, 1)
-        for page in get_pages_with_direct_explore_permission(user):
-            self.assertIn(page.id, [2, 6])
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "get_pages_with_direct_explore_permission() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "instances_with_direct_explore_permission() instead.",
+        ):
+            # Replace with PagePermissionPolicy().instances_with_direct_explore_permission(user)
+            for page in get_pages_with_direct_explore_permission(user):
+                self.assertIn(page.id, [2, 6])
 
     def test_nonadmin_with_no_page_perms_cannot_explore(self):
         User = get_user_model()

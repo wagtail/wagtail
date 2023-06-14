@@ -1,9 +1,19 @@
+import warnings
+
 from django.conf import settings
 
 from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 def get_pages_with_direct_explore_permission(user):
+    warnings.warn(
+        "get_pages_with_direct_explore_permission() is deprecated. "
+        "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+        "instances_with_direct_explore_permission() instead.",
+        category=RemovedInWagtail60Warning,
+        stacklevel=2,
+    )
     return PagePermissionPolicy().instances_with_direct_explore_permission(user)
 
 
