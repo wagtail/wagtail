@@ -2913,17 +2913,10 @@ class GroupPagePermission(models.Model):
         Permission,
         verbose_name=_("permission"),
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    permission_type = models.CharField(
-        verbose_name=_("permission type"),
-        max_length=20,
-        choices=PAGE_PERMISSION_TYPE_CHOICES,
     )
 
     class Meta:
-        unique_together = ("group", "page", "permission_type")
+        unique_together = ("group", "page", "permission")
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
 
@@ -2931,7 +2924,7 @@ class GroupPagePermission(models.Model):
         return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
             self.group.id,
             self.group,
-            self.permission_type,
+            self.permission.codename,
             self.page.id,
             self.page,
         )
