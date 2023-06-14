@@ -17,6 +17,7 @@ Changelog
  * Implement a new design for locale labels in listings (Albina Starykova)
  * Add alt text validation rule in the accessibility checker (Albina Starykova)
  * Add a `deactivate()` method to `ProgressController` (Alex Morega)
+ * Allow manually specifying credentials for CloudFront frontend cache backend (Jake Howard)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
