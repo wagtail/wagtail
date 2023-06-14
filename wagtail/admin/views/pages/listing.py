@@ -8,7 +8,6 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
@@ -20,8 +19,10 @@ def index(request, parent_page_id=None):
     else:
         parent_page = Page.get_first_root_node()
 
+    permission_policy = PagePermissionPolicy()
+
     # This will always succeed because of the @user_passes_test above.
-    root_page = get_explorable_root_page(request.user)
+    root_page = permission_policy.explorable_root_instance(request.user)
 
     # If this page isn't a descendant of the user's explorable root page,
     # then redirect to that explorable root page instead.
@@ -32,7 +33,7 @@ def index(request, parent_page_id=None):
 
     pages = parent_page.get_children().prefetch_related(
         "content_type", "sites_rooted_here"
-    ) & PagePermissionPolicy().explorable_instances(request.user)
+    ) & permission_policy.explorable_instances(request.user)
 
     # Get page ordering
     ordering = request.GET.get("ordering", "-latest_revision_created_at")

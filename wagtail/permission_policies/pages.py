@@ -165,7 +165,7 @@ class PagePermissionPolicy(BasePermissionPolicy):
             ]
 
     def explorable_root_instance(self, user):
-        # This method is used all around the admin via get_explorable_root_page,
+        # This method is used all around the admin,
         # so cache the result on the user for the duration of the request
         if hasattr(user, self._explorable_root_instance_cache_name):
             return getattr(user, self._explorable_root_instance_cache_name)

@@ -29,7 +29,6 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
@@ -49,6 +48,7 @@ from wagtail.coreutils import (
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import CollectionViewRestriction, Locale, Page, PageViewRestriction
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -76,7 +76,7 @@ def breadcrumbs(
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = get_explorable_root_page(user)
+    cca = PagePermissionPolicy().explorable_root_instance(user)
     if not cca:
         return {"pages": Page.objects.none()}
 

@@ -12,7 +12,7 @@ def get_explorable_root_page(user):
 
 
 def get_site_for_user(user):
-    root_page = get_explorable_root_page(user)
+    root_page = PagePermissionPolicy().explorable_root_instance(user)
     if root_page:
         root_site = root_page.get_site()
     else:
