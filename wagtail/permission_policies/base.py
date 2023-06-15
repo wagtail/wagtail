@@ -248,6 +248,15 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
             get_permission_codename(action, self.model._meta),
         )
 
+    def _get_permission_objects_for_actions(self, actions):
+        """
+        Get a queryset of the Permission objects for the given actions
+        """
+        return Permission.objects.filter(
+            content_type=self._content_type,
+            codename__in=self._get_permission_codenames(actions),
+        )
+
     def _get_users_with_any_permission_codenames_filter(self, permission_codenames):
         """
         Given a list of permission codenames, return a filter expression which

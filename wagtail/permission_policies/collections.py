@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
 
@@ -9,15 +9,6 @@ from .base import BaseDjangoAuthPermissionPolicy
 
 
 class CollectionPermissionLookupMixin:
-    def _get_permission_objects_for_actions(self, actions):
-        """
-        Get a queryset of the Permission objects for the given actions
-        """
-        return Permission.objects.filter(
-            content_type=self._content_type,
-            codename__in=self._get_permission_codenames(actions),
-        )
-
     def _check_perm(self, user, actions, collection=None):
         """
         Equivalent to user.has_perm(self._get_permission_name(action)) on all listed actions,
