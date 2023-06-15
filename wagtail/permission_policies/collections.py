@@ -13,11 +13,9 @@ class CollectionPermissionLookupMixin:
         """
         Get a queryset of the Permission objects for the given actions
         """
-        permission_codenames = [
-            "%s_%s" % (action, self.model_name) for action in actions
-        ]
         return Permission.objects.filter(
-            content_type=self._content_type, codename__in=permission_codenames
+            content_type=self._content_type,
+            codename__in=self._get_permission_codenames(actions),
         )
 
     def _check_perm(self, user, actions, collection=None):
