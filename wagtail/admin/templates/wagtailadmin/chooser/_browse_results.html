@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% if show_locale_labels %}
-    <div class="locale-options">
+    <div>
         {% if locale_options %}
             {% if selected_locale %}
                 {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=selected_locale only %}
@@ -9,12 +9,8 @@
                 {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=parent_page.locale only %}
             {% endif %}
         {% else %}
-            <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;">
-                <div class="c-dropdown__button u-btn-current">
-                    {% icon name="site" classname="default" %}
-                    {{ parent_page.locale.get_display_name }}
-                </div>
-            </div>
+            {% icon name="site" classname="default" %}
+            {{ parent_page.locale.get_display_name }}
         {% endif %}
     </div>
 {% endif %}

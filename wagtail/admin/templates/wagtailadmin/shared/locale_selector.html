@@ -1,27 +1,20 @@
-{# Based on listing/_button_with_dropdown.html #}
 {% load wagtailadmin_tags %}
-{% if translations %}
-    <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;" data-dropdown>
-        <a href="javascript:void(0)" aria-label="{{ locale.get_display_name }}" class="c-dropdown__button u-btn-current w-no-underline">
-            {% icon name="site" classname="default" %}
-            {{ locale.get_display_name }}
-            <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon">
-                {% icon name="arrow-down" %}{% icon name="arrow-up" %}
-            </div>
-        </a>
-        <div class="t-dark">
-            <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
-                {% for translation in translations %}
-                    <li class="c-dropdown__item ">
-                        <a href="{{ translation.url }}" aria-label="{{ translation.locale.get_display_name }}" class="u-link is-live w-no-underline">
-                            {{ translation.locale.get_display_name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-{% else %}
-    {% icon name="site" classname="default" %}
+
+{% fragment as locale_label %}
+    {% icon name="site" classname="middle" %}
     {{ locale.get_display_name }}
+{% endfragment %}
+
+{% if translations %}
+    {% fragment as toggle_classname %}{% if theme == "large" %}button{% else %}button button-small{% endif %} {{ class }}{% endfragment %}
+
+    {% dropdown attrs=self.attrs toggle_icon="arrow-down" toggle_label=locale_label classname="w-inline-block" toggle_classname=toggle_classname %}
+        {% for translation in translations %}
+            <a href="{{ translation.url }}" data-locale-selector-link>
+                {{ translation.locale.get_display_name }}
+            </a>
+        {% endfor %}
+    {% enddropdown %}
+{% else %}
+    {{ locale_label }}
 {% endif %}
