@@ -139,7 +139,7 @@ class PagePermissionHelper(PermissionHelper):
             perms = {
                 perm
                 for perm in PagePermissionPolicy().get_cached_permissions_for_user(user)
-                if perm.permission_type == "add"
+                if perm.permission.codename == "add_page"
             }
             for perm in perms:
                 # user has add permission on any subpage of perm.page

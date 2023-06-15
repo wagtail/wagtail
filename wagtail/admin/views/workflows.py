@@ -308,7 +308,7 @@ def usage(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
     editable_pages = PagePermissionPolicy().instances_user_has_permission_for(
-        request.user, "edit"
+        request.user, "change"
     )
     pages = workflow.all_pages() & editable_pages
     paginator = Paginator(pages, per_page=10)

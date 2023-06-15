@@ -2989,7 +2989,7 @@ class UserPagePermissionsProxy:
             stacklevel=2,
         )
         return self.permission_policy.instances_user_has_permission_for(
-            self.user, "edit"
+            self.user, "change"
         )
 
     def can_edit_pages(self):
@@ -3050,7 +3050,9 @@ class PagePermissionTester:
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
-                perm.permission_type
+                # Get the 'action' part of the permission codename, e.g.
+                # 'add' instead of 'add_page'
+                perm.permission.codename.rsplit("_", maxsplit=1)[0]
                 for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
@@ -3082,7 +3084,7 @@ class PagePermissionTester:
         if self.user.is_superuser:
             return True
 
-        if "edit" in self.permissions:
+        if "change" in self.permissions:
             return True
 
         if "add" in self.permissions and self.page.owner_id == self.user.pk:
@@ -3116,7 +3118,7 @@ class PagePermissionTester:
         ):
             return False
 
-        if "edit" in self.permissions:
+        if "change" in self.permissions:
             # if the user does not have publish permission, we also need to confirm that there
             # are no published pages here
             if "publish" not in self.permissions:
