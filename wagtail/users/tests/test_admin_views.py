@@ -1782,7 +1782,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
 
         # add edit permission on root
         GroupPagePermission.objects.create(
-            page=self.root_page, permission_type="edit", group=self.test_group
+            page=self.root_page, permission_type="change", group=self.test_group
         )
 
         # The test group now has two page permissions on root (but only one form covering both)
@@ -1805,7 +1805,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
 
         # add edit permission on home
         GroupPagePermission.objects.create(
-            page=self.home_page, permission_type="edit", group=self.test_group
+            page=self.home_page, permission_type="change", group=self.test_group
         )
 
         # The test group now has three page permissions, over two forms

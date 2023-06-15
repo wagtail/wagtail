@@ -189,7 +189,7 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="edit"
+            group__name="Event moderators", permission_type="change"
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")

@@ -43,7 +43,7 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
         )
         self.editor.groups.add(sub_editors)
 
-        for permission_type in ["add", "edit", "publish"]:
+        for permission_type in ["add", "change", "publish"]:
             GroupPagePermission.objects.create(
                 group=sub_editors, page=self.hello_page, permission_type=permission_type
             )

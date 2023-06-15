@@ -19,7 +19,7 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
 
         cls.test_page_group = Group.objects.create(name="Test page")
         GroupPagePermission.objects.create(
-            group=cls.test_page_group, page=cls.test_page, permission_type="edit"
+            group=cls.test_page_group, page=cls.test_page, permission_type="change"
         )
 
     @classmethod
