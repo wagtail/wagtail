@@ -189,7 +189,7 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="change"
+            group__name="Event moderators", permission__codename="change_page"
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -776,7 +776,7 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
         with self.assertWarnsMessage(
@@ -800,7 +800,7 @@ class TestPagePermission(TestCase):
         christmas_page.save()
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
         with self.assertWarnsMessage(
