@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_permission_codename, get_user_model
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
@@ -235,12 +235,18 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
     def _content_type(self):
         return ContentType.objects.get_for_model(self.auth_model)
 
+    def _get_permission_codenames(self, actions):
+        return {get_permission_codename(action, self.model._meta) for action in actions}
+
     def _get_permission_name(self, action):
         """
         Get the full app-label-qualified permission name (as required by
         user.has_perm(...) ) for the given action on this model
         """
-        return "%s.%s_%s" % (self.app_label, action, self.model_name)
+        return "%s.%s" % (
+            self.app_label,
+            get_permission_codename(action, self.model._meta),
+        )
 
     def _get_users_with_any_permission_codenames_filter(self, permission_codenames):
         """
@@ -280,10 +286,9 @@ class ModelPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         return user.has_perm(self._get_permission_name(action))
 
     def users_with_any_permission(self, actions):
-        permission_codenames = [
-            "%s_%s" % (action, self.model_name) for action in actions
-        ]
-        return self._get_users_with_any_permission_codenames(permission_codenames)
+        return self._get_users_with_any_permission_codenames(
+            self._get_permission_codenames(actions)
+        )
 
 
 class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
@@ -339,14 +344,9 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if "change" in actions or "delete" in actions:
             # either 'add' or 'change' permission means that there are *potentially*
             # some instances they can edit
-            permission_codenames = [
-                "add_%s" % self.model_name,
-                "change_%s" % self.model_name,
-            ]
+            permission_codenames = self._get_permission_codenames({"add", "change"})
         elif "add" in actions:
-            permission_codenames = [
-                "add_%s" % self.model_name,
-            ]
+            permission_codenames = self._get_permission_codenames({"add"})
         else:
             # none of the actions passed in here are ones that we recognise, so only
             # allow them for active superusers
@@ -399,7 +399,7 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if "change" in actions or "delete" in actions:
             # get filter expression for users with 'change' permission
             filter_expr = self._get_users_with_any_permission_codenames_filter(
-                ["change_%s" % self.model_name]
+                self._get_permission_codenames({"change"})
             )
 
             # add on the item's owner, if they still have 'add' permission

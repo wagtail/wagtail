@@ -3,10 +3,10 @@ from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 
 from wagtail.models import GroupPagePermission, Page, Revision
-from wagtail.permission_policies.base import BasePermissionPolicy
+from wagtail.permission_policies.base import OwnershipPermissionPolicy
 
 
-class PagePermissionPolicy(BasePermissionPolicy):
+class PagePermissionPolicy(OwnershipPermissionPolicy):
     permission_cache_name = "_page_permission_cache"
     _explorable_root_instance_cache_name = "_explorable_root_page_cache"
 
@@ -19,9 +19,6 @@ class PagePermissionPolicy(BasePermissionPolicy):
         return GroupPagePermission.objects.filter(group__user=user).select_related(
             "page", "permission"
         )
-
-    def _get_permission_codenames(self, actions):
-        return {get_permission_codename(action, self.model._meta) for action in actions}
 
     def _base_user_has_permission(self, user):
         if not user.is_active:
