@@ -15,7 +15,7 @@
 {% endcomment %}
 
 <div data-controller="w-dropdown" class="{% classnames 'w-dropdown' classname %}" {{ attrs }}>
-    <button type="button" class="{% classnames 'w-dropdown__toggle' toggle_label|yesno:',w-dropdown__toggle--icon' toggle_classname %}" data-w-dropdown-target="toggle" {% if toggle_aria_label %}aria-label="{{ toggle_aria_label }}"{% endif %} {% if toggle_describedby %}aria-describedby="{{ toggle_describedby }}"{% endif %} {% if toggle_tippy_offset %}data-tippy-offset="{{ toggle_tippy_offset }}"{% endif %}>
+    <button type="button" class="{% classnames 'w-dropdown__toggle' toggle_label|yesno:',w-dropdown__toggle--icon' toggle_classname %}" data-w-dropdown-target="toggle"{% if toggle_aria_label %} aria-label="{{ toggle_aria_label }}"{% endif %}{% if toggle_describedby %} aria-describedby="{{ toggle_describedby }}"{% endif %}{% if toggle_tippy_offset %} data-tippy-offset="{{ toggle_tippy_offset }}"{% endif %}>
         {{ toggle_label }}
         {% if toggle_icon %}
             {% icon name=toggle_icon classname="w-dropdown__toggle-icon" %}

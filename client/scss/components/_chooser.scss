@@ -1,3 +1,5 @@
+$preview-size: 2.625rem; // 42px
+
 .chooser {
   &.blank .chosen {
     display: none;
@@ -10,16 +12,16 @@
 
 // Very subdued button style specifically for choosers, as there can be a lot of
 // chooser fields left unused on a page editing form.
-.chooser__choose-button {
+.button.chooser__choose-button {
+  @apply w-label-3;
   display: flex;
   align-items: center;
+  color: theme('colors.text-button-outline-default');
   border-color: transparent;
-  padding-inline-start: 0;
-  // So the outline is slightly more separated from the text.
-  padding-inline-end: $focus-outline-width;
+  padding: theme('spacing.[1.5]');
 
   .icon {
-    @include svg-icon(theme('spacing.5'), initial);
+    @include svg-icon(theme('spacing.4'), initial);
     color: inherit;
     margin-inline-end: 5px;
   }
@@ -41,8 +43,8 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: $preview-size;
+  height: $preview-size;
   // Prevent this item from getting smaller if the title is long.
   flex-shrink: 0;
   background-color: theme('colors.border-button-small-outline-default');
@@ -52,12 +54,6 @@
   @media (forced-colors: active) {
     border: 1px solid transparent;
   }
-
-  .icon {
-    width: theme('spacing.7');
-    height: theme('spacing.7');
-    color: inherit;
-  }
 }
 
 .chooser__title {
@@ -65,14 +61,18 @@
 }
 
 .chooser__image {
-  max-width: 200px;
-  max-height: 140px;
+  max-width: 165px;
+  max-height: 125px;
   height: auto;
   width: auto;
 }
 
+.chooser .w-dropdown__toggle--icon {
+  width: $preview-size;
+  height: $preview-size;
+}
+
 // Display these as inline block so that action icons such as comments can appear as close as possible
-// We remove the padding here to let the chooser itself handle the padding
 .w-field--admin_task_chooser,
 .w-field--admin_page_chooser,
 .w-field--document_chooser_widget,
