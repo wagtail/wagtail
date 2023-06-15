@@ -2907,7 +2907,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         GroupPagePermission.objects.create(
             group=group,
             page=en_events_index,
-            permission_type="edit",
+            permission_type="change",
         )
         self.user.is_superuser = False
         self.user.user_permissions.add(
