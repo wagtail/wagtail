@@ -1,4 +1,4 @@
-import tippy, { Content, Props, Instance } from 'tippy.js';
+import tippy, { Instance } from 'tippy.js';
 
 /**
  * Hides tooltip when escape key is pressed
@@ -84,72 +84,5 @@ export const rotateToggleIcon = {
 export function initTooltips() {
   tippy('[data-tippy-content]', {
     plugins: [hideTooltipOnEsc],
-  });
-}
-
-/**
- * Actions Dropdown initialisation using the Tippy library.
- * @example
- * <div data-button-with-dropdown>
- *  <button data-button-with-dropdown-toggle>...</button>
- *  <div data-button-with-dropdown-content></div>
- * </div>
- */
-export function initModernDropdown() {
-  const containers = document.querySelectorAll('[data-button-with-dropdown]');
-
-  containers.forEach((container) => {
-    const content = container.querySelector(
-      '[data-button-with-dropdown-content]',
-    );
-    const toggle: HTMLElement | null = container.querySelector(
-      '[data-button-with-dropdown-toggle]',
-    );
-
-    // Adding data-hover-tooltip-content="Tooltip Text" to the toggle element will give you a tooltip on hover as well
-    const hoverTooltip = toggle?.dataset.hoverTooltipContent;
-    let hoverTooltipInstance: Instance;
-
-    if (toggle) {
-      if (content) {
-        content.classList.remove('w-hidden');
-      }
-
-      if (hoverTooltip) {
-        hoverTooltipInstance = tippy(toggle, {
-          content: hoverTooltip,
-          placement: 'bottom',
-          plugins: [hideTooltipOnEsc],
-        });
-      }
-
-      /**
-       * Default Tippy Options
-       */
-      const tippyOptions: Partial<Props> = {
-        content: content as Content,
-        trigger: 'click',
-        interactive: true,
-        theme: 'dropdown',
-        placement: 'bottom',
-        plugins: [
-          hideTooltipOnEsc,
-          hideTooltipOnBreadcrumbExpandAndCollapse,
-          rotateToggleIcon,
-        ],
-        onShow() {
-          if (hoverTooltipInstance) {
-            hoverTooltipInstance.disable();
-          }
-        },
-        onHide() {
-          if (hoverTooltipInstance) {
-            hoverTooltipInstance.enable();
-          }
-        },
-      };
-
-      tippy(toggle, tippyOptions);
-    }
   });
 }
