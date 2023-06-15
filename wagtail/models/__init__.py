@@ -1099,6 +1099,20 @@ class AbstractPage(
         abstract = True
 
 
+# Make sure that this list is sorted by the codename (first item in the tuple)
+# so that we can follow the same order when querying the Permission objects.
+PAGE_PERMISSION_TYPES = [
+    ("add_page", _("Add"), _("Add/edit pages you own")),
+    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
+    ("change_page", _("Edit"), _("Edit any page")),
+    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("publish_page", _("Publish"), _("Publish any page")),
+    ("unlock_page", _("Unlock"), _("Unlock any page")),
+]
+
+PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
+
+
 class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
         verbose_name=_("title"),
@@ -2623,11 +2637,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name = _("page")
         verbose_name_plural = _("pages")
         unique_together = [("translation_key", "locale")]
+        # Make sure that we auto-create Permission objects that are defined in
+        # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
         permissions = [
-            ("publish_page", _("Publish any page")),
-            ("bulk_delete_page", _("Delete pages with children")),
-            ("lock_page", _("Lock/unlock pages you've locked")),
-            ("unlock_page", _("Unlock any page")),
+            (codename, name)
+            for codename, _, name in PAGE_PERMISSION_TYPES
+            if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
 
 
@@ -2880,18 +2895,6 @@ class Revision(models.Model):
                 name="base_content_object_idx",
             ),
         ]
-
-
-PAGE_PERMISSION_TYPES = [
-    ("add_page", _("Add"), _("Add/edit pages you own")),
-    ("change_page", _("Edit"), _("Edit any page")),
-    ("publish_page", _("Publish"), _("Publish any page")),
-    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
-    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("unlock_page", _("Unlock"), _("Unlock any page")),
-]
-
-PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
 class GroupPagePermissionManager(models.Manager):

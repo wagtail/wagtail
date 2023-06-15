@@ -14,9 +14,9 @@ class Migration(migrations.Migration):
             name="page",
             options={
                 "permissions": [
-                    ("publish_page", "Publish any page"),
                     ("bulk_delete_page", "Delete pages with children"),
                     ("lock_page", "Lock/unlock pages you've locked"),
+                    ("publish_page", "Publish any page"),
                     ("unlock_page", "Unlock any page"),
                 ],
                 "verbose_name": "page",
