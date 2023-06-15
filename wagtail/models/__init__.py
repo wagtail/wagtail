@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -2893,6 +2894,21 @@ PAGE_PERMISSION_TYPES = [
 PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
+class GroupPagePermissionManager(models.Manager):
+    def create(self, **kwargs):
+        # Simplify creation of GroupPagePermission objects by allowing the
+        # permission_type (action) to be specified instead of the Permission object
+        if "permission" not in kwargs and "permission_type" in kwargs:
+            kwargs["permission"] = Permission.objects.get(
+                content_type=get_default_page_content_type(),
+                codename=get_permission_codename(
+                    kwargs.pop("permission_type"),
+                    Page._meta,
+                ),
+            )
+        return super().create(**kwargs)
+
+
 class GroupPagePermission(models.Model):
     group = models.ForeignKey(
         Group,
@@ -2911,6 +2927,8 @@ class GroupPagePermission(models.Model):
         verbose_name=_("permission"),
         on_delete=models.CASCADE,
     )
+
+    objects = GroupPagePermissionManager()
 
     class Meta:
         unique_together = ("group", "page", "permission")
