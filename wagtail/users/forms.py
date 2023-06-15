@@ -310,11 +310,7 @@ class PagePermissionsForm(forms.Form):
 
 class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
     # defined here for easy access from templates
-    permission_types = sorted(
-        PAGE_PERMISSION_TYPES,
-        # sort by the codename so that they are consistent with the queryset
-        key=lambda permission_type: permission_type[0],
-    )
+    permission_types = PAGE_PERMISSION_TYPES
 
     def __init__(self, data=None, files=None, instance=None, prefix="page_permissions"):
         if instance is None:
