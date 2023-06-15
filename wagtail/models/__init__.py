@@ -2882,18 +2882,15 @@ class Revision(models.Model):
 
 
 PAGE_PERMISSION_TYPES = [
-    ("add", _("Add"), _("Add/edit pages you own")),
-    ("edit", _("Edit"), _("Edit any page")),
-    ("publish", _("Publish"), _("Publish any page")),
-    ("bulk_delete", _("Bulk delete"), _("Delete pages with children")),
-    ("lock", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("unlock", _("Unlock"), _("Unlock any page")),
+    ("add_page", _("Add"), _("Add/edit pages you own")),
+    ("change_page", _("Edit"), _("Edit any page")),
+    ("publish_page", _("Publish"), _("Publish any page")),
+    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
+    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("unlock_page", _("Unlock"), _("Unlock any page")),
 ]
 
-PAGE_PERMISSION_TYPE_CHOICES = [
-    (identifier, long_label)
-    for identifier, short_label, long_label in PAGE_PERMISSION_TYPES
-]
+PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
 class GroupPagePermission(models.Model):

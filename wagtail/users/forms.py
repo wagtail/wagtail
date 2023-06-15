@@ -16,7 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.models import (
-    PAGE_PERMISSION_TYPE_CHOICES,
+    PAGE_PERMISSION_CODENAMES,
     PAGE_PERMISSION_TYPES,
     GroupPagePermission,
     Page,
@@ -290,8 +290,19 @@ class PagePermissionsForm(forms.Form):
         queryset=Page.objects.all(),
         widget=AdminPageChooser(show_edit_link=False, can_choose_root=True),
     )
-    permission_types = forms.MultipleChoiceField(
-        choices=PAGE_PERMISSION_TYPE_CHOICES,
+    permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.filter(
+            content_type__app_label="wagtailcore",
+            content_type__model="page",
+            codename__in=PAGE_PERMISSION_CODENAMES,
+        ),
+        # Use codename as the field to use for the option values rather than pk,
+        # to minimise the changes needed since we moved to the Permission model
+        # and to ease testing.
+        # Django advises `to_field_name` to be a unique field. While `codename`
+        # is not unique by itself, it is unique together with `content_type`, so
+        # it is unique in the context of the above queryset.
+        to_field_name="codename",
         required=False,
         widget=forms.CheckboxSelectMultiple,
     )
@@ -310,7 +321,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             full_page_permissions = []
         else:
             full_page_permissions = instance.page_permissions.select_related(
-                "page"
+                "page", "permission"
             ).order_by("page")
 
         self.instance = instance
@@ -324,7 +335,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             initial_data.append(
                 {
                     "page": page,
-                    "permission_types": [pp.permission_type for pp in page_permissions],
+                    "permissions": [pp.permission for pp in page_permissions],
                 }
             )
 
@@ -364,7 +375,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
                 "Cannot save a GroupPagePermissionFormSet for an unsaved group instance"
             )
 
-        # get a set of (page, permission_type) tuples for all ticked permissions
+        # get a set of (page, permission) tuples for all ticked permissions
         forms_to_save = [
             form
             for form in self.forms
@@ -373,10 +384,8 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
 
         final_permission_records = set()
         for form in forms_to_save:
-            for permission_type in form.cleaned_data["permission_types"]:
-                final_permission_records.add(
-                    (form.cleaned_data["page"], permission_type)
-                )
+            for permission in form.cleaned_data["permissions"]:
+                final_permission_records.add((form.cleaned_data["page"], permission))
 
         # fetch the group's existing page permission records, and from that, build a list
         # of records to be created / deleted
@@ -384,8 +393,8 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
         permission_records_to_keep = set()
 
         for pp in self.instance.page_permissions.all():
-            if (pp.page, pp.permission_type) in final_permission_records:
-                permission_records_to_keep.add((pp.page, pp.permission_type))
+            if (pp.page, pp.permission) in final_permission_records:
+                permission_records_to_keep.add((pp.page, pp.permission))
             else:
                 permission_ids_to_delete.append(pp.pk)
 
@@ -395,9 +404,9 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
         GroupPagePermission.objects.bulk_create(
             [
                 GroupPagePermission(
-                    group=self.instance, page=page, permission_type=permission_type
+                    group=self.instance, page=page, permission=permission
                 )
-                for (page, permission_type) in permissions_to_add
+                for (page, permission) in permissions_to_add
             ]
         )
 

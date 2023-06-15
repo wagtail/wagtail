@@ -1375,7 +1375,7 @@ class TestGroupCreateView(WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permission_types": ["edit", "publish"],
+                "page_permissions-0-permissions": ["change_page", "publish_page"],
                 "page_permissions-TOTAL_FORMS": ["1"],
                 "document_permissions-0-collection": [
                     Collection.get_first_root_node().pk
@@ -1403,9 +1403,9 @@ class TestGroupCreateView(WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permission_types": ["publish"],
+                "page_permissions-0-permissions": ["publish_page"],
                 "page_permissions-1-page": ["1"],
-                "page_permissions-1-permission_types": ["edit"],
+                "page_permissions-1-permissions": ["change_page"],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -1564,7 +1564,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
             "page_permissions-MAX_NUM_FORMS": ["1000"],
             "page_permissions-INITIAL_FORMS": ["1"],
             "page_permissions-0-page": [self.root_page.pk],
-            "page_permissions-0-permission_types": ["add"],
+            "page_permissions-0-permissions": ["add_page"],
             "document_permissions-TOTAL_FORMS": ["1"],
             "document_permissions-MAX_NUM_FORMS": ["1000"],
             "document_permissions-INITIAL_FORMS": ["1"],
@@ -1631,7 +1631,11 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         self.assertEqual(self.test_group.page_permissions.count(), 1)
         response = self.post(
             {
-                "page_permissions-0-permission_types": ["add", "publish", "edit"],
+                "page_permissions-0-permissions": [
+                    "add_page",
+                    "publish_page",
+                    "change_page",
+                ],
             }
         )
 
@@ -1773,7 +1777,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]["permission_types"].value(), ["add"]
+            page_permissions_formset.forms[0]["permissions"].value(), ["add_page"]
         )
 
         # add edit permission on root
@@ -1795,8 +1799,8 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            set(page_permissions_formset.forms[0]["permission_types"].value()),
-            {"add", "edit"},
+            set(page_permissions_formset.forms[0]["permissions"].value()),
+            {"add_page", "change_page"},
         )
 
         # add edit permission on home
@@ -1817,14 +1821,14 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            set(page_permissions_formset.forms[0]["permission_types"].value()),
-            {"add", "edit"},
+            set(page_permissions_formset.forms[0]["permissions"].value()),
+            {"add_page", "change_page"},
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["page"].value(), self.home_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[1]["permission_types"].value(), ["edit"]
+            page_permissions_formset.forms[1]["permissions"].value(), ["change_page"]
         )
 
     def test_duplicate_page_permissions_error(self):
@@ -1832,7 +1836,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-1-page": [self.root_page.pk],
-                "page_permissions-1-permission_types": ["edit"],
+                "page_permissions-1-permissions": ["change_page"],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
