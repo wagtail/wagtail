@@ -392,71 +392,20 @@
                 <br />
 
                 <p>
-                    Inline dropdown components, primarily used in the listing.
+                    Inline dropdown components.
                 </p>
 
-                <div class="c-dropdown t-default" data-dropdown="">
-                    <a class="c-dropdown__button  u-btn-current">
-                        More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon">
-                            {% icon name="arrow-down" %}
-                            {% icon name="arrow-up" %}
-                        </div>
-                    </a>
-                    <div class="t-dark">
-                        <nav aria-label="Inline dropdown menu example">
-                            <ul class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
-                                <li class="c-dropdown__item ">
-                                    <a href="/admin/pages/2/move/" class="u-link is-live ">
-                                        Move
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item ">
-                                    <a href="/admin/pages/2/copy/" class="u-link is-live ">
-                                        Copy
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item ">
-                                    <a href="/admin/pages/2/delete/" class="u-link is-live ">
-                                        Delete
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item ">
-                                    <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
-                                        Unpublish
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+                {% dropdown classname="w-inline-block" toggle_icon="arrow-down" toggle_classname="button button-secondary button-small" toggle_label="More" %}
+                    <a href="/admin/pages/2/move/">{% icon name="arrow-right-full" %} Move</a>
+                    <a href="/admin/pages/2/copy/">{% icon name="copy" %} Copy</a>
+                    <a href="/admin/pages/2/delete/">{% icon name="bin" %} Delete</a>
+                    <a href="/admin/pages/2/unpublish/">{% icon name="resubmit" %} Unpublish</a>
+                {% enddropdown %}
+
+                {% dropdown classname="w-inline-block" toggle_icon="dots-horizontal" toggle_aria_label="Actions" %}
+                    <a href="/admin/pages/2/move/">{% icon name="arrow-right-full" %} Move</a>
+                {% enddropdown %}
             </div>
-
-            <p>These can also have an inverted theme:</p>
-            <header class="w-header">
-                <div class="c-dropdown t-inverted" data-dropdown="">
-                    <a class="c-dropdown__button  u-btn-current">
-                        More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon">
-                            {% icon name="arrow-down" %}
-                            {% icon name="arrow-up" %}
-                        </div>
-                    </a>
-                    <div class="t-dark">
-                        <nav aria-label="Dark inline dropdown menu example">
-                            <ul class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
-                                <li class="c-dropdown__item ">
-                                    <a href="/admin/pages/2/move/" class="u-link is-live ">
-                                        Move
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
-
-
         {% endpanel %}
 
         {% panel id="dialog" heading="Dialogs" %}

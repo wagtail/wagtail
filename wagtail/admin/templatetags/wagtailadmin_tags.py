@@ -1235,6 +1235,13 @@ class HelpBlockNode(BlockInclusionNode):
 register.tag("help_block", HelpBlockNode.handle)
 
 
+class DropdownNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/dropdown/dropdown.html"
+
+
+register.tag("dropdown", DropdownNode.handle)
+
+
 class PanelNode(BlockInclusionNode):
     template = "wagtailadmin/shared/panel.html"
 
