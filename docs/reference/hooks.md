@@ -1094,7 +1094,7 @@ def page_custom_listing_more_buttons(page, page_perms, next_url=None):
         yield wagtailadmin_widgets.Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
 ```
 
-The template for the dropdown button can be customised by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. The JavaScript that runs the dropdowns makes use of custom data attributes, so you should leave `data-dropdown` and `data-dropdown-toggle` in the markup if you customise it.
+The template for the dropdown button can be customised by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. Make sure to leave the dropdown UI component itself as-is.
 
 ## Page serving
 

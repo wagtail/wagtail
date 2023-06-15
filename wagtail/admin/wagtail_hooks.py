@@ -271,10 +271,11 @@ def page_listing_buttons(page, page_perms, next_url=None):
         page=page,
         page_perms=page_perms,
         next_url=next_url,
+        classes={"button", "button-secondary", "button-small"},
         attrs={
             "target": "_blank",
             "rel": "noreferrer",
-            "title": _("View more options for '%(title)s'")
+            "title": _("More options for '%(title)s'")
             % {"title": page.get_admin_display_title()},
         },
         priority=50,
@@ -287,6 +288,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Move"),
             reverse("wagtailadmin_pages:move", args=[page.id]),
+            icon_name="arrow-right-full",
             attrs={
                 "title": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -301,6 +303,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Copy"),
             url,
+            icon_name="copy",
             attrs={
                 "title": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -321,6 +324,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Delete"),
             url,
+            icon_name="bin",
             attrs={
                 "title": _("Delete page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -335,6 +339,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Unpublish"),
             url,
+            icon_name="resubmit",
             attrs={
                 "title": _("Unpublish page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -345,6 +350,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("History"),
             reverse("wagtailadmin_pages:history", args=[page.id]),
+            icon_name="history",
             attrs={
                 "title": _("View page history for '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -356,6 +362,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",
+            icon_name="list-ul",
             attrs={
                 "title": _("Change ordering of child pages of '%(title)s'")
                 % {"title": page.get_admin_display_title()}

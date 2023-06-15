@@ -79,6 +79,7 @@ class BaseDropdownMenuButton(Button):
             "buttons": self.dropdown_buttons,
             "label": self.label,
             "title": self.attrs.get("title"),
+            "classes": self.classes,
         }
 
     def render(self):
@@ -96,7 +97,6 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
     def get_context_data(self):
         context = super().get_context_data()
         context["button_classes"] = self.button_classes
-        context["classes"] = self.classes
         return context
 
     @cached_property
