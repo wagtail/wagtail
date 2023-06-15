@@ -295,7 +295,7 @@ class PagePermissionsForm(forms.Form):
             content_type__app_label="wagtailcore",
             content_type__model="page",
             codename__in=PAGE_PERMISSION_CODENAMES,
-        ),
+        ).order_by("codename"),
         # Use codename as the field to use for the option values rather than pk,
         # to minimise the changes needed since we moved to the Permission model
         # and to ease testing.
@@ -309,8 +309,11 @@ class PagePermissionsForm(forms.Form):
 
 
 class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
-    permission_types = (
-        PAGE_PERMISSION_TYPES  # defined here for easy access from templates
+    # defined here for easy access from templates
+    permission_types = sorted(
+        PAGE_PERMISSION_TYPES,
+        # sort by the codename so that they are consistent with the queryset
+        key=lambda permission_type: permission_type[0],
     )
 
     def __init__(self, data=None, files=None, instance=None, prefix="page_permissions"):
