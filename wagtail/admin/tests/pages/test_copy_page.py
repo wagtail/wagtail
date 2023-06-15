@@ -708,7 +708,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.user.is_superuser = False
         self.user.groups.add(Group.objects.get(name="Moderators"))
         self.user.save()
-        GroupPagePermission.objects.filter(permission_type="publish").update(
+        GroupPagePermission.objects.filter(permission__codename="publish_page").update(
             page=self.destination_page
         )
 
