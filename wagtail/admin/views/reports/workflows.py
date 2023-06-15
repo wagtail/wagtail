@@ -37,7 +37,7 @@ def get_requested_by_queryset(request):
 
 def get_editable_page_ids_query(request):
     pages = PagePermissionPolicy().instances_user_has_permission_for(
-        request.user, "edit"
+        request.user, "change"
     )
     # Need to cast the page ids to string because Postgres doesn't support
     # implicit type casts when querying on GenericRelations

@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 
@@ -17,8 +17,11 @@ class PagePermissionPolicy(BasePermissionPolicy):
         if not user.is_active or user.is_anonymous or user.is_superuser:
             return GroupPagePermission.objects.none()
         return GroupPagePermission.objects.filter(group__user=user).select_related(
-            "page"
+            "page", "permission"
         )
+
+    def _get_permission_codenames(self, actions):
+        return {get_permission_codename(action, self.model._meta) for action in actions}
 
     def _base_user_has_permission(self, user):
         if not user.is_active:
@@ -44,22 +47,23 @@ class PagePermissionPolicy(BasePermissionPolicy):
 
         # User with only "add" permission can still edit their own pages
         actions = set(actions)
-        if "edit" in actions:
+        if "change" in actions:
             actions.add("add")
 
         permissions = {
-            perm.permission_type for perm in self.get_cached_permissions_for_user(user)
+            perm.permission.codename
+            for perm in self.get_cached_permissions_for_user(user)
         }
-        return bool(actions & permissions)
+        return bool(self._get_permission_codenames(actions) & permissions)
 
     def users_with_any_permission(self, actions, include_superusers=True):
         # User with only "add" permission can still edit their own pages
         actions = set(actions)
-        if "edit" in actions:
+        if "change" in actions:
             actions.add("add")
 
         groups = GroupPagePermission.objects.filter(
-            permission_type__in=actions
+            permission__codename__in=self._get_permission_codenames(actions)
         ).values_list("group", flat=True)
 
         q = Q(groups__in=groups)
@@ -87,11 +91,15 @@ class PagePermissionPolicy(BasePermissionPolicy):
         permissions = set()
         for perm in self.get_cached_permissions_for_user(user):
             if instance.pk == perm.page_id or instance.is_descendant_of(perm.page):
-                permissions.add(perm.permission_type)
-                if perm.permission_type == "add" and instance.owner_id == user.pk:
-                    permissions.add("edit")
+                permissions.add(perm.permission.codename)
+                if (
+                    perm.permission.codename
+                    == get_permission_codename("add", self.model._meta)
+                    and instance.owner_id == user.pk
+                ):
+                    permissions.add(get_permission_codename("change", self.model._meta))
 
-        return bool(set(actions) & permissions)
+        return bool(self._get_permission_codenames(actions) & permissions)
 
     def instances_user_has_any_permission_for(self, user, actions):
         base_queryset = self._base_queryset_for_user(user)
@@ -101,14 +109,15 @@ class PagePermissionPolicy(BasePermissionPolicy):
         pages = self.model._default_manager.none()
         for perm in self.get_cached_permissions_for_user(user):
             if (
-                perm.permission_type == "add"
+                perm.permission.codename
+                == get_permission_codename("add", self.model._meta)
                 and "add" not in actions
-                and "edit" in actions
+                and "change" in actions
             ):
                 pages |= self.model._default_manager.descendant_of(
                     perm.page, inclusive=True
                 ).filter(owner=user)
-            elif perm.permission_type in actions:
+            elif perm.permission.codename in self._get_permission_codenames(actions):
                 pages |= self.model._default_manager.descendant_of(
                     perm.page, inclusive=True
                 )
@@ -120,7 +129,8 @@ class PagePermissionPolicy(BasePermissionPolicy):
         # Find permissions for all ancestors that match any of the actions
         ancestors = instance.get_ancestors(inclusive=True)
         groups = GroupPagePermission.objects.filter(
-            permission_type__in=actions, page__in=ancestors
+            permission__codename__in=self._get_permission_codenames(actions),
+            page__in=ancestors,
         ).values_list("group", flat=True)
 
         q = Q(groups__in=groups)
@@ -128,12 +138,13 @@ class PagePermissionPolicy(BasePermissionPolicy):
         if include_superusers:
             q |= Q(is_superuser=True)
 
-        # If "edit" is in actions but "add" is not, then we need to check for
+        # If "change" is in actions but "add" is not, then we need to check for
         # cases where the user has "add" permission on an ancestor, and is the
         # owner of the instance
-        if "edit" in actions and "add" not in actions:
+        if "change" in actions and "add" not in actions:
             add_groups = GroupPagePermission.objects.filter(
-                permission_type="add", page__in=ancestors
+                permission__codename=get_permission_codename("add", self.model._meta),
+                page__in=ancestors,
             ).values_list("group", flat=True)
 
             q |= Q(groups__in=add_groups) & Q(pk=instance.owner_id)
@@ -153,15 +164,18 @@ class PagePermissionPolicy(BasePermissionPolicy):
         )
 
     def instances_with_direct_explore_permission(self, user):
-        # Get all pages that the user has direct add/edit/publish/lock permission on
+        # Get all pages that the user has direct add/change/publish/lock permission on
         if user.is_superuser:
             # superuser has implicit permission on the root node
             return Page.objects.filter(depth=1)
         else:
+            codenames = self._get_permission_codenames(
+                {"add", "change", "publish", "lock"}
+            )
             return [
                 perm.page
                 for perm in self.get_cached_permissions_for_user(user)
-                if perm.permission_type in {"add", "edit", "publish", "lock"}
+                if perm.permission.codename in codenames
             ]
 
     def explorable_root_instance(self, user):
@@ -185,13 +199,13 @@ class PagePermissionPolicy(BasePermissionPolicy):
             return base_queryset
 
         explorable_pages = self.instances_user_has_any_permission_for(
-            user, {"add", "edit", "publish", "lock"}
+            user, {"add", "change", "publish", "lock"}
         )
 
         # For all pages with specific permissions, add their ancestors as
         # explorable. This will allow deeply nested pages to be accessed in the
         # explorer. For example, in the hierarchy A>B>C>D where the user has
-        # 'edit' access on D, they will be able to navigate to D without having
+        # 'change' access on D, they will be able to navigate to D without having
         # explicit access to A, B or C.
         page_permissions = [
             perm.page for perm in self.get_cached_permissions_for_user(user)

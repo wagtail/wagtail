@@ -26,7 +26,7 @@ class NotificationPreferencesForm(forms.ModelForm):
         permission_policy = PagePermissionPolicy()
         if not permission_policy.user_has_permission(self.instance.user, "publish"):
             del self.fields["submitted_notifications"]
-        if not permission_policy.user_has_permission(self.instance.user, "edit"):
+        if not permission_policy.user_has_permission(self.instance.user, "change"):
             del self.fields["approved_notifications"]
             del self.fields["rejected_notifications"]
             del self.fields["updated_comments_notifications"]
