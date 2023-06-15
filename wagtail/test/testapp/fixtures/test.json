@@ -734,7 +734,7 @@
     "fields": {
       "group": ["Event editors"],
       "page": 3,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -743,7 +743,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -752,7 +752,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -761,7 +761,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "publish"
+      "permission": ["publish_page", "wagtailcore", "page"]
     }
   },
   {
@@ -770,7 +770,7 @@
     "fields": {
       "group": ["Site-wide editors"],
       "page": 2,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -779,7 +779,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "lock"
+      "permission": ["lock_page", "wagtailcore", "page"]
     }
   },
   {
@@ -788,7 +788,7 @@
     "fields": {
       "group": ["Corporate Editor"],
       "page": 7,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -797,7 +797,7 @@
     "fields": {
       "group": ["Corporate Editor"],
       "page": 15,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -806,7 +806,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "unlock"
+      "permission": ["unlock_page", "wagtailcore", "page"]
     }
   },
 
