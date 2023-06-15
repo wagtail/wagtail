@@ -27,7 +27,7 @@ export const hideTooltipOnEsc = {
 /**
  * Prevents the tooltip from staying open when the breadcrumbs expand and push the toggle button in the layout
  */
-const hideTooltipOnBreadcrumbExpandAndCollapse = {
+export const hideTooltipOnBreadcrumbExpandAndCollapse = {
   name: 'hideTooltipOnBreadcrumbAndCollapse',
   fn({ hide }: Instance) {
     function onBreadcrumbExpandAndCollapse() {
@@ -62,7 +62,7 @@ const hideTooltipOnBreadcrumbExpandAndCollapse = {
 /**
  * If the toggle button has a toggle arrow, rotate it when open and closed
  */
-const rotateToggleIcon = {
+export const rotateToggleIcon = {
   name: 'rotateToggleIcon',
   fn(instance: Instance) {
     const dropdownIcon = instance.reference.querySelector('.icon-arrow-down');
