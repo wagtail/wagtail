@@ -23,20 +23,16 @@
 
 {% block action %}
     {% if translations %}
-        <div data-button-with-dropdown>
-            {% trans 'Switch locales' as action_text %}
-            {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
+        {% trans 'Switch locales' as toggle_label %}
+        {% fragment as toggle_classname %}w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition{% endfragment %}
 
-            <div class="w-text-text-label-menus-default w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
-                {% for translation in translations %}
-                    <a href="{{ translation.url }}"
-                        lang="{{ translation.locale.language_code }}"
-                        class="w-inline-flex w-items-center w-text-text-label-menus-default hover:w-text-text-label-menus-active hover:w-bg-surface-menu-item-active w-py-2 w-px-4 w-font-bold w-no-underline w-transition">
-                        {{ translation.locale.get_display_name }}
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
+        {% dropdown toggle_label=toggle_label toggle_classname=toggle_classname toggle_icon="arrow-down" %}
+            {% for translation in translations %}
+                <a href="{{ translation.url }}" lang="{{ translation.locale.language_code }}">
+                    {{ translation.locale.get_display_name }}
+                </a>
+            {% endfor %}
+        {% enddropdown %}
     {% else %}
         {# No locales to switch to #}
     {% endif %}
