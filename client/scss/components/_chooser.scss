@@ -1,8 +1,4 @@
 .chooser {
-  // Add space to the end for hoverable area to extend outside of the field without impacting layout
-  padding-inline-end: theme('spacing.8');
-  margin-inline-end: calc(0 - theme('spacing.8'));
-
   &.blank .chosen {
     display: none;
   }
@@ -68,29 +64,6 @@
   @apply w-body-text-large;
 }
 
-.chooser__actions {
-  display: flex;
-  gap: theme('spacing.[1.5]');
-
-  .button {
-    // Subdued border as there can be a lot of chooser action buttons on a page.
-    border-color: theme('colors.border-button-small-outline-default');
-  }
-
-  // Hiding for devices capable of hover states only,
-  // with opacity only so keyboard focus can move to the first interactive element to reveal it.
-  @media (hover: hover) {
-    opacity: 0;
-
-    // Ensure the hovering over the comment icon will still show chooser actions.
-    // Uses a form-field class as well as widget classes, as all core and custom choosers use different widgets.
-    :is(.w-field--model_choice_field, .w-field--admin_task_chooser, .w-field--admin_page_chooser, .w-field--document_chooser_widget, .w-field--admin_image_chooser, .w-field--admin_snippet_chooser):is(:hover, :focus-within)
-      & {
-      opacity: 1;
-    }
-  }
-}
-
 .chooser__image {
   max-width: 200px;
   max-height: 140px;
@@ -106,5 +79,4 @@
 .w-field--admin_image_chooser,
 .w-field--admin_snippet_chooser {
   display: inline-block;
-  padding-inline-end: 0;
 }

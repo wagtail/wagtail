@@ -3,24 +3,25 @@
 exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 "<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser\\" data-chooser-url=\\"/admin/choose-page/\\">
           <div class=\\"chosen\\">
-          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
-          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Welcome to the Wagtail Bakery!</div>
-            <ul class=\\"chooser__actions\\">
-              <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
+            <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
+            <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Welcome to the Wagtail Bakery!</div>
+            <div data-controller=\\"w-dropdown\\">
+              <button type=\\"button\\" class=\\"w-dropdown__toggle\\" data-w-dropdown-target=\\"toggle\\" aria-label=\\"Actions\\" aria-describedby=\\"the-id-title\\">
+                dots-horizontal
+              </button>
+              <div class=\\"w-dropdown__content\\" data-w-dropdown-target=\\"content\\" hidden=\\"\\">
+                <button type=\\"button\\" data-chooser-action-choose=\\"\\" aria-describedby=\\"the-id-title\\">
                   Choose another page
                 </button>
-              </li>
-              <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+                <a href=\\"/admin/pages/60/edit/\\" data-chooser-edit-link=\\"\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
                   Edit this page
                 </a>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
-              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
+            <button type=\\"button\\" data-chooser-action-choose=\\"\\" class=\\"button button-small button-secondary chooser__choose-button\\">
+              Choose a page
             </button>
           </div>
         </div>
@@ -28,55 +29,29 @@ exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 `;
 
 exports[`telepath: wagtail.widgets.PageChooser setState() changes the current page 1`] = `
-"<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser\\" data-chooser-url=\\"/admin/choose-page/\\">
-          <div class=\\"chosen\\">
-          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
-          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Anadama</div>
-            <ul class=\\"chooser__actions\\">
-              <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
-                  Choose another page
-                </button>
-              </li>
-              <li>
-                <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+<a
+  aria-describedby="the-id-title"
+  data-chooser-edit-link=""
+  href="/admin/pages/34/edit/"
+  rel="noreferrer"
+  target="_blank"
+>
+  
                   Edit this page
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
-              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
-            </button>
-          </div>
-        </div>
-        <input type=\\"hidden\\" name=\\"the-name\\" id=\\"the-id\\" value=\\"34\\">"
+                
+</a>
 `;
 
 exports[`telepath: wagtail.widgets.PageChooser setState() to null clears the fields 1`] = `
-"<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser blank\\" data-chooser-url=\\"/admin/choose-page/\\">
-          <div class=\\"chosen\\">
-          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
-          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Welcome to the Wagtail Bakery!</div>
-            <ul class=\\"chooser__actions\\">
-              <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
-                  Choose another page
-                </button>
-              </li>
-              <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+<a
+  aria-describedby="the-id-title"
+  data-chooser-edit-link=""
+  href="/admin/pages/60/edit/"
+  rel="noreferrer"
+  target="_blank"
+>
+  
                   Edit this page
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
-              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
-            </button>
-          </div>
-        </div>
-        <input type=\\"hidden\\" name=\\"the-name\\" id=\\"the-id\\" value=\\"\\">"
+                
+</a>
 `;

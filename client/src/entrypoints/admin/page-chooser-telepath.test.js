@@ -8,37 +8,43 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.PageChooser',
-      // Copy of wagtailadmin/widgets/chooser.html. Make sure to update when making changes to the template.
+      // Copy of wagtailadmin/widgets/chooser.html without verbose markup. Make sure to update when making changes to the template.
       _args: [
         `<div id="__ID__-chooser" class="chooser page-chooser blank" data-chooser-url="/admin/choose-page/">
           <div class="chosen">
-          <div class="chooser__preview" role="presentation"></div>
-          <div class="chooser__title" data-chooser-title id="__ID__-title"></div>
-            <ul class="chooser__actions">
-              <li>
-                <button type="button" class="button action-choose button-small button-secondary" aria-describedby="__ID__-title">
+            <div class="chooser__preview" role="presentation"></div>
+            <div class="chooser__title" data-chooser-title id="__ID__-title"></div>
+            <div data-controller="w-dropdown">
+              <button
+                type="button"
+                class="w-dropdown__toggle"
+                data-w-dropdown-target="toggle"
+                aria-label="Actions"
+                aria-describedby="__ID__-title"
+              >
+                dots-horizontal
+              </button>
+              <div class="w-dropdown__content" data-w-dropdown-target="content" hidden>
+                <button type="button" data-chooser-action-choose aria-describedby="__ID__-title">
                   Choose another page
                 </button>
-              </li>
-              <li>
                 <a
                   href=""
-                  class="edit-link button button-small button-secondary"
+                  data-chooser-edit-link
                   target="_blank"
                   rel="noreferrer"
                   aria-describedby="__ID__-title"
                 >
                   Edit this page
                 </a>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           <div class="unchosen">
-            <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">
-              <svg class="icon icon-doc-empty-inverse" aria-hidden="true"><use href="#icon-doc-empty-inverse"></use></svg>Choose a page
+            <button type="button" data-chooser-action-choose class="button button-small button-secondary chooser__choose-button">
+              Choose a page
             </button>
           </div>
         </div>
@@ -90,29 +96,33 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
       adminTitle: 'Anadama',
       editUrl: '/admin/pages/34/edit/',
     });
-    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(
+      document.querySelector('[data-chooser-edit-link]'),
+    ).toMatchSnapshot();
     expect(document.querySelector('input').value).toBe('34');
   });
 
   test('setState() to null clears the fields', () => {
     boundWidget.setState(null);
-    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(
+      document.querySelector('[data-chooser-edit-link]'),
+    ).toMatchSnapshot();
     expect(document.querySelector('input').value).toBe('');
   });
 
-  test('focus() focuses the choose-another-page button when widget is populated', () => {
+  test('focus() focuses the toggle button when widget is populated', () => {
     boundWidget.focus();
 
     expect(document.activeElement).toBe(
-      document.querySelector('.chosen button'),
+      document.querySelector('.chooser button'),
     );
   });
-  test('focus() focuses the choose-a-page button when widget is blank', () => {
+  test('focus() focuses the toggle button when widget is blank', () => {
     boundWidget.setState(null);
     boundWidget.focus();
 
     expect(document.activeElement).toBe(
-      document.querySelector('.unchosen button'),
+      document.querySelector('.chooser button'),
     );
   });
 });

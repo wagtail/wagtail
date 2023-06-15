@@ -17,7 +17,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     wagtail.ui.initDropDowns();
     /* Set up dropdown links to open in the modal */
     // eslint-disable-next-line func-names
-    $('.c-dropdown__item .u-link', modal.body).on('click', function () {
+    $('[data-locale-selector-link]', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
@@ -133,7 +133,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         return false;
       });
       // eslint-disable-next-line func-names
-      $('.c-dropdown__item .u-link', modal.body).on('click', function () {
+      $('[data-locale-selector-link]', modal.body).on('click', function () {
         modal.loadUrl(this.href);
         return false;
       });
