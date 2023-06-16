@@ -4,86 +4,21 @@
 
 # Getting started
 
-```{note}
-   These instructions assume familiarity with virtual environments and the
-   [Django web framework](https://www.djangoproject.com/).
-   For more detailed instructions, see [](tutorial).
-   To add Wagtail to an existing Django project, see [](integrating_into_django).
-```
-
-## Dependencies needed for installation
-
--   [Python 3](https://www.python.org/downloads/).
--   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
-
-## Quick install
-
-Run the following commands in a virtual environment of your choice:
-
-```sh
-pip install wagtail
-```
-
-(Installing wagtail outside a virtual environment may require `sudo`. sudo is a program to run other programs with the security privileges of another user, by default the superuser)
-
-Once installed, Wagtail provides a command similar to Django's `django-admin startproject` to generate a new site/project:
-
-```sh
-wagtail start mysite
-```
-
-This will create a new folder `mysite`, based on a template containing everything you need to get started.
-More information on that template is available in
-[the project template reference](/reference/project_template).
-
-Inside your `mysite` folder, run the setup steps necessary for any Django project:
-
-```sh
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
-
-Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
-
-This will set you up with a new stand-alone Wagtail project.
-If you'd like to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/getting_started/integrating_into_django).
-
-There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
-
--   [Elasticsearch](/advanced_topics/performance)
--   [Feature Detection](image_feature_detection)
-
 ```{toctree}
 ---
 maxdepth: 1
 ---
 tutorial
+quick_install
 demo_site
 integrating_into_django
 the_zen_of_wagtail
 ```
 
-(common_installation_issues)=
+Wagtail is an open-source content management system (CMS) that is built on [Django](https://www.djangoproject.com/), a popular Python web framework. It has gained popularity among developers and content editors for its powerful features and intuitive interface, providing a streamlined editing experience. Wagtail offers a comprehensive toolkit for content creation and management, including a rich text editor with formatting options, image and document management, version control, workflows and content scheduling.
 
-## Common issues
+Developers appreciate Wagtail's highly customizable and modular architecture, which includes built-in support for Django's app structure. This allows them to easily create and integrate custom functionality, making Wagtail suitable for projects of any size. Wagtail excels in handling complex content structures, offering features like hierarchical page organization, robust search capabilities, and content localization.
 
-### Python is not available in `path`
+Wagtail stands out as the preferred choice for tens of thousands of organizations globally, including renowned names like Google, NASA, and the British NHS. It has proven scalability, capable of handling high volumes of traffic from millions of visitors every month. What sets Wagtail apart is its ability to extend beyond traditional content management, providing seamless integration with data tools and rich data visualizations.
 
-```sh
-python
-> command not found: python
-```
-
-For detailed guidance, see this guide on [how to add Python to your path](https://realpython.com/add-python-to-path/).
-
-### python3 not available
-
-```sh
-python3 -m pip install --upgrade pip
-> command not found: python3
-```
-
-If this error occurs, [the `python3` can be replaced with `py`](https://docs.python.org/3/faq/windows.html#how-do-i-run-a-python-program-under-windows).
+For more information about Wagtail and the guiding principles for building websites with it, read [the Zen of Wagtail](the_zen_of_wagtail).

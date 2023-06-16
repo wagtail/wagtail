@@ -1,7 +1,10 @@
 # Your first Wagtail site
 
+This tutorial shows you how to build a blog using Wagtail. With this tutorial, you'll get hands-on experience with some of Wagtail's features.
+
+A basic knowledge of Python programming and the Django framework will help you follow this tutorial.
+
 ```{note}
-This tutorial covers setting up a brand new Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
 
@@ -11,19 +14,17 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
 
-To check whether you have an appropriate version of Python 3:
+To check if you have an appropriate version of Python 3, run the following commmand:
 
 ```sh
 python --version
-```
-
-**On Windows** (cmd.exe, with the Python Launcher for Windows):
-
-```sh
+# Or:
+python3 --version
+# **On Windows** (cmd.exe, with the Python Launcher for Windows):
 py --version
 ```
 
-If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
+If these commands do not return a version number, or return a version lower than 3.7, then [install Python 3](https://www.python.org/downloads/).
 
 ```{note}
 Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG, and GIF images (via the Python **Pillow** library).
@@ -38,12 +39,14 @@ The way to do this varies by platform—see Pillow's
 We recommend using a virtual environment, which isolates installed dependencies from other projects.
 This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
 
-**On Windows** (cmd.exe):
+**On Windows** (cmd.exe), run the following commands:
 
 ```doscon
 py -m venv mysite\env
+# Then:
 mysite\env\Scripts\activate.bat
-# or:
+
+# If mysite\env\Scripts\activate.bat does not work, run:
 mysite\env\Scripts\activate
 ```
 
@@ -128,7 +131,7 @@ This command ensures that the tables in your database are matched to the models 
 python manage.py createsuperuser
 ```
 
-This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
+This will prompt you to create a new admin user account with full permissions. It's important to note that for security reasons, the password text won’t be visible while typing.
 
 ### Start the server
 
