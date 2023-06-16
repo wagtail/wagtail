@@ -17,7 +17,7 @@
 }} Colors */
 
 /** @type {Colors} */
-const colors = {
+const staticColors = {
   black: {
     DEFAULT: {
       hex: '#000000',
@@ -273,4 +273,20 @@ const colors = {
   },
 };
 
-module.exports = colors;
+const transparencies = {
+  '--w-color-white-10': 'rgba(255, 255, 255, 0.10)',
+  '--w-color-white-15': 'rgba(255, 255, 255, 0.15)',
+  '--w-color-white-50': 'rgba(255, 255, 255, 0.50)',
+  '--w-color-white-80': 'rgba(255, 255, 255, 0.80)',
+  '--w-color-black-5': 'rgba(0, 0, 0, 0.05)',
+  '--w-color-black-10': 'rgba(0, 0, 0, 0.10)',
+  '--w-color-black-20': 'rgba(0, 0, 0, 0.20)',
+  '--w-color-black-25': 'rgba(0, 0, 0, 0.25)',
+  '--w-color-black-35': 'rgba(0, 0, 0, 0.35)',
+  '--w-color-black-50': 'rgba(0, 0, 0, 0.50)',
+};
+
+module.exports = {
+  staticColors,
+  transparencies,
+};

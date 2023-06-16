@@ -651,7 +651,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             # Allow certain types of errors to be re-raised as-is so that the
             # caller can treat them in a special way.
             raise
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             # Every other error is caught with a naked except, because we don't
             # have any other way of validating lookup parameters. They might be
             # invalid if the keyword arguments are incorrect, or if the values

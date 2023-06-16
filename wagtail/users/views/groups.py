@@ -53,6 +53,7 @@ class PermissionPanelFormsMixin:
 
 
 class IndexView(generic.IndexView):
+    template_name = "wagtailusers/groups/index.html"
     results_template_name = "wagtailusers/groups/results.html"
     page_title = _("Groups")
     add_item_label = _("Add a group")

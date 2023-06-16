@@ -257,7 +257,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 resp = self.client.get(path, data=query_data)
             else:
                 resp = self.client.post(path, **post_kwargs)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to render route "%(route_path)s" for %(page_type)s "%(page)s":\n%(exc)s'
@@ -333,7 +333,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
         path = reverse("wagtailadmin_pages:edit", kwargs={"page_id": page.id})
         try:
             response = self.client.get(path)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             self.client.logout()
             msg = self._formatMessage(
                 msg,
@@ -364,7 +364,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
 
         try:
             self.client.post(path, data_to_post)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to load edit view via POST for %(page_type)s "%(page)s":\n%(exc)s'
@@ -419,7 +419,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 response.content.decode(),
                 {"is_valid": True, "is_available": True},
             )
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             self.client.logout()
             msg = self._formatMessage(
                 msg,
@@ -435,7 +435,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
 
         try:
             self.client.get(preview_path, data={"mode": mode})
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to load preview for %(page_type)s "%(page)s" with mode="%(mode)s":\n%(exc)s'

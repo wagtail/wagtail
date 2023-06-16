@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
-from . import checks, get_image_model  # NOQA
+from . import checks, get_image_model  # NOQA: F401
 from .signal_handlers import register_signal_handlers
 
 

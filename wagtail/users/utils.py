@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import safe_md5
 
-
 delete_user_perm = "{0}.delete_{1}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )

@@ -8,22 +8,25 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.utils.text import capfirst
 from django.views.generic import TemplateView
 from django.views.generic.detail import BaseDetailView
-from django.views.generic.edit import BaseCreateView
+from django.views.generic.edit import (
+    BaseCreateView,
+    BaseUpdateView,
+    DeletionMixin,
+    FormMixin,
+)
 from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
-from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
-from django.views.generic.list import BaseListView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
+from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -32,7 +35,7 @@ from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
-from .base import WagtailAdminTemplateMixin
+from .base import BaseListingView, WagtailAdminTemplateMixin
 from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
@@ -70,29 +73,21 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(
-    LocaleMixin, PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView
-):
+class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
     model = None
-    index_url_name = None
+    template_name = "wagtailadmin/generic/index.html"
     index_results_url_name = None
     add_url_name = None
-    add_item_label = _("Add")
+    add_item_label = gettext_lazy("Add")
     edit_url_name = None
-    template_name = "wagtailadmin/generic/index.html"
-    results_template_name = "wagtailadmin/generic/index_results.html"
-    results_only = False  # If true, just render the results as an HTML fragment
-    context_object_name = None
     any_permission_required = ["add", "change", "delete"]
-    page_kwarg = "p"
-    default_ordering = None
     search_fields = None
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
     filters = None
     filterset_class = None
-    table_class = Table
+    columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
 
@@ -112,12 +107,6 @@ class IndexView(
         if self.search_form and self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data[self.search_kwarg]
             self.is_searching = True
-
-    def get_template_names(self):
-        if self.results_only:
-            return [self.results_template_name]
-        else:
-            return super().get_template_names()
 
     def get_is_searchable(self):
         if self.model is None:
@@ -298,24 +287,21 @@ class IndexView(
         )
 
     def get_columns(self):
-        try:
+        # Use columns set at the class level, if available
+        if self.columns is not None:
             return self.columns
-        except AttributeError:
-            columns = []
-            for i, field in enumerate(self.list_display):
-                if isinstance(field, Column):
-                    column = field
-                elif i == 0:
-                    column = self._get_title_column(field)
-                else:
-                    column = self._get_custom_column(field)
-                columns.append(column)
 
-            return columns
+        columns = []
+        for i, field in enumerate(self.list_display):
+            if isinstance(field, Column):
+                column = field
+            elif i == 0:
+                column = self._get_title_column(field)
+            else:
+                column = self._get_custom_column(field)
+            columns.append(column)
 
-    def get_index_url(self):
-        if self.index_url_name:
-            return reverse(self.index_url_name)
+        return columns
 
     def get_index_results_url(self):
         if self.index_results_url_name:
@@ -329,45 +315,19 @@ class IndexView(
         if self.add_url_name:
             return reverse(self.add_url_name)
 
-    def get_valid_orderings(self):
-        orderings = []
-        for col in self.columns:
-            if col.sort_key:
-                orderings.append(col.sort_key)
-                orderings.append("-%s" % col.sort_key)
-        return orderings
-
-    def get_ordering(self):
-        ordering = self.request.GET.get("ordering", self.default_ordering)
-        if ordering not in self.get_valid_orderings():
-            ordering = self.default_ordering
-        return ordering
-
-    def get_table(self, object_list, **kwargs):
-        return self.table_class(
-            self.columns,
-            object_list,
-            ordering=self.get_ordering(),
-            **kwargs,
-        )
-
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
 
         context = super().get_context_data(*args, object_list=queryset, **kwargs)
 
-        index_url = self.get_index_url()
-        table = self.get_table(context["object_list"], base_url=index_url)
-        context["media"] = table.media
-
         context["can_add"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         )
         if context["can_add"]:
-            context["add_url"] = self.get_add_url()
-            context["add_item_label"] = self.add_item_label
+            context["add_url"] = context["header_action_url"] = self.get_add_url()
+            context["header_action_label"] = self.add_item_label
 
         if self.filters:
             context["filters"] = self.filters
@@ -376,10 +336,7 @@ class IndexView(
             )
             context["media"] += self.filters.form.media
 
-        context["table"] = table
-        context["index_url"] = index_url
         context["index_results_url"] = self.get_index_results_url()
-        context["is_paginated"] = bool(self.paginate_by)
         context["is_searchable"] = self.is_searchable
         context["search_url"] = self.get_search_url()
         context["search_form"] = self.search_form
@@ -867,7 +824,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     edit_url_name = None
     unpublish_url_name = None
     usage_url_name = None
-    success_message = _("'%(object)s' unpublished.")
+    success_message = gettext_lazy("'%(object)s' unpublished.")
     template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):

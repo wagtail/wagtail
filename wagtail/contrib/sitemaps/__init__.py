@@ -1,1 +1,1 @@
-from .sitemap_generator import Sitemap  # noqa
+from .sitemap_generator import Sitemap  # noqa: F401

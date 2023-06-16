@@ -15,13 +15,11 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url,
     i18n_enabled,
     locale_label_from_id,
-)
-from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
-from wagtail.admin.templatetags.wagtailadmin_tags import (
     notification_static,
     timesince_last_update,
     timesince_simple,
 )
+from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.admin.ui.components import Component
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale

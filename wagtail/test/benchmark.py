@@ -27,19 +27,19 @@ class Benchmark:
                 )
             )
 
-        print(  # noqa
+        print(  # noqa: T201
             "time min:",
             min(timings),
             "max:",
             max(timings),
             "avg:",
             sum(timings) / len(timings),
-        )  # NOQA
-        print(  # noqa
+        )
+        print(  # noqa: T201
             "memory min:",
             min(memory_usage),
             "max:",
             max(memory_usage),
             "avg:",
             sum(memory_usage) / len(memory_usage),
-        )  # NOQA
+        )

@@ -47,6 +47,7 @@ from wagtail.test.testapp.models import (
     EventPageChooserModel,
     EventPageSpeaker,
     FormPageWithRedirect,
+    GalleryPage,
     PageChooserModel,
     RestaurantPage,
     RestaurantTag,
@@ -1883,6 +1884,31 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
         self.assertContains(response, 'chooserFieldName: "image"')
+
+
+class TestMultipleChooserPanelGetComparison(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.request = RequestFactory().get("/")
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+        self.page = GalleryPage(title="Test page")
+        parent_page = Page.objects.get(id=2)
+        parent_page.add_child(instance=self.page)
+
+    def test_get_comparison(self):
+        # Test whether the InlinePanel passes it's label in get_comparison
+
+        comparison = (
+            self.page.get_edit_handler()
+            .get_bound_panel(instance=self.page, request=self.request)
+            .get_comparison()
+        )
+
+        comparison = [comp(self.page, self.page) for comp in comparison]
+        field_labels = [comp.field_label() for comp in comparison]
+        self.assertIn("Gallery images", field_labels)
 
 
 class TestPanelIcons(WagtailTestUtils, TestCase):

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.module_loading import import_string
 
-from wagtail.admin.rich_text.editors.draftail import DraftailRichTextArea  # NOQA
+from wagtail.admin.rich_text.editors.draftail import DraftailRichTextArea  # NOQA: F401
 
 DEFAULT_RICH_TEXT_EDITORS = {
     "default": {"WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea"}

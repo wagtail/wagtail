@@ -26,7 +26,7 @@ from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
 from .utils import Image, get_test_image_file
 
 try:
-    import sendfile  # noqa
+    import sendfile  # noqa: F401
 
     sendfile_mod = True
 except ImportError:

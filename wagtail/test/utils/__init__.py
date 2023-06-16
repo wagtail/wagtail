@@ -1,3 +1,3 @@
-from .decorators import *  # NOQA
-from .page_tests import *  # NOQA
-from .wagtail_tests import *  # NOQA
+from .decorators import *  # NOQA: F403
+from .page_tests import *  # NOQA: F403
+from .wagtail_tests import *  # NOQA: F403

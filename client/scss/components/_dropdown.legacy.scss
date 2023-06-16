@@ -278,11 +278,11 @@
 
 .dropdown.warning {
   ul {
-    background-color: theme('colors.surface-alert-warning');
+    background-color: theme('colors.warning.100');
   }
 
   .dropdown-toggle {
-    background-color: theme('colors.surface-alert-warning');
+    background-color: theme('colors.warning.100');
   }
 }
 

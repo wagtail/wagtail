@@ -7,7 +7,7 @@ from taggit.models import Tag
 # wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
 # wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
 # system checks.
-from wagtail.admin import panels  # NOQA
+from wagtail.admin import panels  # NOQA: F401
 from wagtail.models import Page
 
 

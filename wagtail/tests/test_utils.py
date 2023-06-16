@@ -175,14 +175,14 @@ class TestInvokeViaAttributeShortcut(SimpleTestCase):
     def test_pickleability(self):
         try:
             pickled = pickle.dumps(self.test_object, -1)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occured when attempting to pickle %r: %s"
                 % (self.test_object, e)
             )
         try:
             self.test_object = pickle.loads(pickled)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occured when attempting to unpickle %r: %s"
                 % (self.test_object, e)

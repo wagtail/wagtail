@@ -269,7 +269,7 @@ class TestServeViewWithSendfile(TestCase):
         # Import using a try-catch block to prevent crashes if the
         # django-sendfile module is not installed
         try:
-            import sendfile  # noqa
+            import sendfile  # noqa: F401
         except ImportError:
             raise unittest.SkipTest("django-sendfile not installed")
 

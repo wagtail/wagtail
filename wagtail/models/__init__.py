@@ -1,7 +1,7 @@
 """
 wagtail.models is split into submodules for maintainability. All definitions intended as
-public should be imported here (with 'noqa' comments as required) and outside code should continue
-to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
+public should be imported here (with 'noqa: F401' comments as required) and outside code should
+continue to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
 `from wagtail.models.sites import Site`.)
 
 Submodules should take care to keep the direction of dependencies consistent; where possible they
@@ -42,7 +42,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_str
-from django.utils.functional import cached_property
+from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -92,13 +92,13 @@ from wagtail.signals import (
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
-from .audit_log import (  # noqa
+from .audit_log import (  # noqa: F401
     BaseLogEntry,
     BaseLogEntryManager,
     LogEntryQuerySet,
     ModelLogEntry,
 )
-from .collections import (  # noqa
+from .collections import (  # noqa: F401
     BaseCollectionManager,
     Collection,
     CollectionManager,
@@ -108,8 +108,8 @@ from .collections import (  # noqa
     GroupCollectionPermissionManager,
     get_root_collection_id,
 )
-from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa
-from .i18n import (  # noqa
+from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
+from .i18n import (  # noqa: F401
     BootstrapTranslatableMixin,
     BootstrapTranslatableModel,
     Locale,
@@ -118,8 +118,8 @@ from .i18n import (  # noqa
     bootstrap_translatable_model,
     get_translatable_models,
 )
-from .reference_index import ReferenceIndex  # noqa
-from .sites import Site, SiteManager, SiteRootPath  # noqa
+from .reference_index import ReferenceIndex  # noqa: F401
+from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 
@@ -2231,7 +2231,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # make sure that page_description is actually a string rather than a model field
         if isinstance(description, str):
             return description
-        elif getattr(description, "_delegate_text", None):
+        elif isinstance(description, Promise):
             # description is a lazy object (e.g. the result of gettext_lazy())
             return str(description)
         else:

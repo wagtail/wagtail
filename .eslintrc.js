@@ -168,7 +168,6 @@ module.exports = {
       files: ['wagtail/**/**'],
       globals: {
         buildExpandingFormset: 'readonly',
-        cancelSpinner: 'readonly',
         escapeHtml: 'readonly',
         jsonData: 'readonly',
         ModalWorkflow: 'readonly',

@@ -139,7 +139,7 @@ class ImageFileMixin:
         if self.file_size is None:
             try:
                 self.file_size = self.file.size
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 # File not found
                 #
                 # Have to catch everything, because the exception
