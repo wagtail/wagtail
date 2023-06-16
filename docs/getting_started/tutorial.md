@@ -1,5 +1,9 @@
 # Your first Wagtail site
 
+This tutorial shows you how to build a blog using Wagtail. With this tutorial, you'll get hands-on experience with some of Wagtail's features.
+
+It is recommended that you understand the fundamentals of Python programming and the use of the Django framework in order to follow this tutorial easily.
+
 ```{note}
 This tutorial covers setting up a brand new Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
@@ -11,19 +15,21 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
 
-To check whether you have an appropriate version of Python 3:
+To check whether you have an appropriate version of Python 3, run the following commmand:
 
 ```sh
 python --version
-```
 
-**On Windows** (cmd.exe, with the Python Launcher for Windows):
+# or
 
-```sh
+python3 --version
+
+# or
+
 py --version
 ```
 
-If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
+If any of the command does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
 ```{note}
 Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG, and GIF images (via the Python **Pillow** library).
@@ -38,12 +44,15 @@ The way to do this varies by platform—see Pillow's
 We recommend using a virtual environment, which isolates installed dependencies from other projects.
 This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
 
-**On Windows** (cmd.exe):
+**On Windows** (cmd.exe), run the following commands:
 
 ```doscon
 py -m venv mysite\env
+
+# then
 mysite\env\Scripts\activate.bat
-# or:
+
+# if mysite\env\Scripts\activate.bat does not work, run:
 mysite\env\Scripts\activate
 ```
 
@@ -60,6 +69,8 @@ source mysite/env/bin/activate
 If you're using version control (such as git), `mysite` will be the directory for your project.
 The `env` directory inside of it should be excluded from any version control.
 ```
+
+For further help on how to set up your virtual enviroment, read the instructions on MDN's [Setting up a Django development environment](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment) page. 
 
 ### Install Wagtail
 
@@ -107,13 +118,17 @@ python manage.py migrate
 
 This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command to update the database.
 
+```{note}
+If you wish to deploy your Wagtail site into production, SQLite is not recommeded. This is because of its limited scalability and concurrency control, which makes it unsuitable for large-scale applications.
+```
+
 ### Create an admin user
 
 ```sh
 python manage.py createsuperuser
 ```
 
-This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
+This will prompt you to create a new admin user account with full permissions. it's important to note that for security reasons, the password text won’t be visible when typed.
 
 ### Start the server
 
