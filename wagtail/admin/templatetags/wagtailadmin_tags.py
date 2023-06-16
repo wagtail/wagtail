@@ -625,7 +625,7 @@ def bulk_action_choices(context, app_label, model_name):
         more_button = ButtonWithDropdown(
             label=_("More"),
             attrs={"title": _("More bulk actions")},
-            button_classes={"button", "button-small"},
+            button_classes={"button", "button-secondary", "button-small"},
             buttons_data=[
                 {
                     "label": action.display_name,
