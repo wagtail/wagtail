@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
+from wagtail.admin.auth import users_with_page_permission
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
@@ -688,6 +689,31 @@ class TestPagePermission(TestCase):
         )
 
         self.assertFalse(can_publish_pages)
+
+    def test_users_with_page_permission(self):
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        superuser = get_user_model().objects.get(email="superuser@example.com")
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "users_with_page_permission() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "users_with_permission_for_instance() instead.",
+        ):
+            users = users_with_page_permission(christmas_page, "publish", False)
+            self.assertCountEqual(users, {event_moderator})
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "users_with_page_permission() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "users_with_permission_for_instance() instead.",
+        ):
+            users = users_with_page_permission(christmas_page, "publish", True)
+            self.assertCountEqual(users, {event_moderator, superuser})
 
     def test_lock_page_for_superuser(self):
         user = get_user_model().objects.get(email="superuser@example.com")
