@@ -260,10 +260,10 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
             )
 
     def get_switch_current_locale_markup(self, locale):
-        return f'<a href="javascript:void(0)" aria-label="{locale.get_display_name()}" class="c-dropdown__button u-btn-current w-no-underline">'
+        return rf"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+{locale.get_display_name()}"
 
     def get_switch_link_markup(self, locale):
-        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" aria-label="{locale.get_display_name()}" class="u-link is-live w-no-underline">'
+        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" data-locale-selector-link>'
 
     def test_forms_index(self):
         response = self.client.get(self.forms_index_url)
@@ -271,16 +271,18 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, self.get_switch_current_locale_markup(self.en_locale)
+        self.assertRegex(
+            response.content.decode(),
+            self.get_switch_current_locale_markup(self.en_locale),
         )
         self.assertContains(response, self.get_switch_link_markup(self.fr_locale))
 
         response = self.client.get(
             self.forms_index_url, {"locale": self.fr_locale.language_code}
         )
-        self.assertContains(
-            response, self.get_switch_current_locale_markup(self.fr_locale)
+        self.assertRegex(
+            response.content.decode(),
+            self.get_switch_current_locale_markup(self.fr_locale),
         )
         self.assertContains(response, self.get_switch_link_markup(self.en_locale))
 
@@ -313,10 +315,7 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
     def test_switcher_doesnt_show_with_i18n_disabled(self):
         response = self.client.get(self.forms_index_url)
 
-        self.assertNotContains(
-            response, self.get_switch_current_locale_markup(self.en_locale)
-        )
-        self.assertNotContains(response, self.get_switch_link_markup(self.fr_locale))
+        self.assertNotContains(response, "data-locale-selector")
 
 
 class TestFormsSubmissionsList(WagtailTestUtils, TestCase):

@@ -1112,8 +1112,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
 class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
-    LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
+    LOCALE_SELECTOR_HTML = r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+English"
 
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
@@ -1132,7 +1131,9 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         switch_to_french_url = self.get_choose_page_url(
             self.fr_locale, parent_page_id=self.child_page_fr.pk
         )
-        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
+        self.LOCALE_SELECTOR_HTML_FR = (
+            f'<a href="{switch_to_french_url}" data-locale-selector-link>'
+        )
 
         self.login()
 
@@ -1160,17 +1161,17 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_choose_page"))
         html = response.json().get("html")
 
-        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
 
         switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
-        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
+        fr_selector = f'<a href="{switch_to_french_url}" data-locale-selector-link>'
         self.assertIn(fr_selector, html)
 
     def test_locale_selector(self):
         response = self.get(self.child_page.pk)
 
         html = response.json().get("html")
-        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
         self.assertIn(self.LOCALE_SELECTOR_HTML_FR, html)
 
     def test_locale_selector_without_translation(self):
@@ -1178,8 +1179,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
 
         response = self.get(self.child_page.pk)
         html = response.json().get("html")
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+        self.assertNotIn("data-locale-selector", html)
 
     def test_locale_selector_with_active_locale(self):
         switch_to_french_url = self.get_choose_page_url(
@@ -1188,18 +1188,18 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         response = self.client.get(switch_to_french_url)
         html = response.json().get("html")
 
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
         self.assertNotIn(f'data-title="{self.root_page.title}"', html)
         self.assertIn(self.root_page_fr.title, html)
-        self.assertIn(
-            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button u-btn-current w-no-underline">',
+        self.assertRegex(
             html,
+            r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+French",
         )
         switch_to_english_url = self.get_choose_page_url(
             locale=Locale.objects.get(language_code="en")
         )
         self.assertIn(
-            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live w-no-underline">',
+            f'<a href="{switch_to_english_url}" data-locale-selector-link>',
             html,
         )
 
@@ -1207,5 +1207,4 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.get(self.child_page.pk)
         html = response.json().get("html")
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+        self.assertNotIn("data-locale-selector", html)

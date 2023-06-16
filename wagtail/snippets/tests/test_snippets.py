@@ -227,7 +227,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
+            f'<a href="{switch_to_french_url}" data-locale-selector-link>',
         )
 
         # Check that the add URLs include the locale
@@ -249,14 +249,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
 
-        switch_to_french_url = (
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-            + "?locale=fr"
-        )
-        self.assertNotContains(
-            response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
-        )
+        self.assertNotContains(response, "data-locale-selector")
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
@@ -271,9 +264,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
 
-        self.assertNotContains(
-            response, 'aria-label="French" class="u-link is-live w-no-underline">'
-        )
+        self.assertNotContains(response, "data-locale-selector")
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_tests_advert:add")
@@ -4840,7 +4831,7 @@ class TestAdminSnippetChooserWidget(WagtailTestUtils, TestCase):
         self.assertInHTML(
             '<input type="hidden" name="__NAME__" id="__ID__">', js_args[0]
         )
-        self.assertIn(">Choose advert<", js_args[0])
+        self.assertIn("Choose advert", js_args[0])
         self.assertEqual(js_args[1], "__ID__")
 
 

@@ -34,7 +34,7 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertInHTML(
             """<input id="__ID__" name="__NAME__" type="hidden" />""", js_args[0]
         )
-        self.assertIn(">Choose a page<", js_args[0])
+        self.assertIn("Choose a page", js_args[0])
         self.assertEqual(js_args[1], "__ID__")
         self.assertEqual(
             js_args[2],
@@ -68,7 +68,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render_html("test", None, {})
         self.assertInHTML("""<input name="test" type="hidden" />""", html)
-        self.assertIn(">Choose a page<", html)
+        self.assertIn("Choose a page", html)
 
     def test_render_js_init(self):
         widget = widgets.AdminPageChooser()
@@ -116,7 +116,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn(">Choose a page (Simple Page)<", html)
+        self.assertIn("Choose a page (Simple Page)", html)
 
     def test_render_with_target_model_as_single_instance(self):
         widget = widgets.AdminPageChooser(target_models=SimplePage)
@@ -128,7 +128,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn(">Choose a page (Simple Page)<", html)
+        self.assertIn("Choose a page (Simple Page)", html)
 
     def test_render_with_target_model_as_single_string(self):
         widget = widgets.AdminPageChooser(target_models="tests.SimplePage")
@@ -140,7 +140,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn(">Choose a page (Simple Page)<", html)
+        self.assertIn("Choose a page (Simple Page)", html)
 
     def test_render_with_multiple_target_models(self):
         target_models = [SimplePage, "tests.eventpage"]
@@ -153,7 +153,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn(">Choose a page<", html)
+        self.assertIn("Choose a page", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)

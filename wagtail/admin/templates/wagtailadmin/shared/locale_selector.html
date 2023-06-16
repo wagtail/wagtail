@@ -8,7 +8,7 @@
 {% if translations %}
     {% fragment as toggle_classname %}{% if theme == "large" %}button{% else %}button button-small{% endif %} {{ class }}{% endfragment %}
 
-    {% dropdown attrs=self.attrs toggle_icon="arrow-down" toggle_label=locale_label classname="w-inline-block" toggle_classname=toggle_classname %}
+    {% dropdown attrs="data-locale-selector" toggle_icon="arrow-down" toggle_label=locale_label classname="w-inline-block" toggle_classname=toggle_classname %}
         {% for translation in translations %}
             <a href="{{ translation.url }}" data-locale-selector-link>
                 {{ translation.locale.get_display_name }}
