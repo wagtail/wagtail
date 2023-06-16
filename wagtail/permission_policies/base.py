@@ -26,7 +26,7 @@ class BasePermissionPolicy:
     fine-grained permission logic).
     """
 
-    perm_cache_name = ""
+    permission_cache_name = ""
 
     def __init__(self, model):
         self._model_or_name = model
@@ -61,12 +61,12 @@ class BasePermissionPolicy:
         This can be useful for the other methods to perform efficient queries
         against the set of permissions that the user has.
         """
-        if hasattr(user, self.perm_cache_name):
-            perms = getattr(user, self.perm_cache_name)
+        if hasattr(user, self.permission_cache_name):
+            perms = getattr(user, self.permission_cache_name)
         else:
             perms = self.get_all_permissions_for_user(user)
-            if self.perm_cache_name:
-                setattr(user, self.perm_cache_name, perms)
+            if self.permission_cache_name:
+                setattr(user, self.permission_cache_name, perms)
         return perms
 
     # Basic user permission tests. Most policies are expected to override these,

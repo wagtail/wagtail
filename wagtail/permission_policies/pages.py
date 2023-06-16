@@ -6,7 +6,7 @@ from wagtail.permission_policies.base import BasePermissionPolicy
 
 
 class PagePermissionPolicy(BasePermissionPolicy):
-    perm_cache_name = "_page_perm_cache"
+    permission_cache_name = "_page_permission_cache"
 
     def __init__(self, model=Page):
         super().__init__(model=model)
