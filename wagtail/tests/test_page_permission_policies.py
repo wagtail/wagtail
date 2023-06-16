@@ -179,7 +179,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 (self.root_editor, False, True, False, False),
                 (self.inactive_root_editor, False, False, False, False),
                 (self.report_editor, False, True, False, False),
-                (self.report_adder, True, False, False, False),
+                (self.report_adder, True, True, False, False),
                 (self.useless_user, False, False, False, False),
                 (self.anonymous_user, False, False, False, False),
             ],
@@ -204,6 +204,9 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertFalse(
             self.policy.user_has_any_permission(self.anonymous_user, ["add", "edit"])
         )
+        self.assertTrue(
+            self.policy.user_has_any_permission(self.report_adder, ["edit"])
+        )
 
     def test_users_with_any_permission(self):
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
@@ -212,6 +215,32 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             users_with_add_or_change_permission,
+            [
+                self.superuser,
+                self.root_editor,
+                self.report_editor,
+                self.report_adder,
+            ],
+        )
+
+        users_with_add_or_frobnicate_permission = self.policy.users_with_any_permission(
+            ["add", "frobnicate"]
+        )
+
+        self.assertResultSetEqual(
+            users_with_add_or_frobnicate_permission,
+            [
+                self.superuser,
+                self.report_adder,
+            ],
+        )
+
+        users_with_edit_or_frobnicate_permission = (
+            self.policy.users_with_any_permission(["edit", "frobnicate"])
+        )
+
+        self.assertResultSetEqual(
+            users_with_edit_or_frobnicate_permission,
             [
                 self.superuser,
                 self.root_editor,
@@ -229,6 +258,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 self.superuser,
                 self.root_editor,
                 self.report_editor,
+                self.report_adder,
             ],
         )
 

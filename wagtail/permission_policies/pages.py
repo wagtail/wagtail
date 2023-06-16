@@ -32,12 +32,23 @@ class PagePermissionPolicy(BasePermissionPolicy):
         base_permission = self._base_user_has_permission(user)
         if base_permission is not None:
             return base_permission
+
+        # User with only "add" permission can still edit their own pages
+        actions = set(actions)
+        if "edit" in actions:
+            actions.add("add")
+
         permissions = {
             perm.permission_type for perm in self.get_cached_permissions_for_user(user)
         }
-        return bool(set(actions) & permissions)
+        return bool(actions & permissions)
 
     def users_with_any_permission(self, actions):
+        # User with only "add" permission can still edit their own pages
+        actions = set(actions)
+        if "edit" in actions:
+            actions.add("add")
+
         groups = GroupPagePermission.objects.filter(
             permission_type__in=actions
         ).values_list("group", flat=True)
