@@ -393,6 +393,15 @@ class DownloadColumn(Column):
         return context
 
 
+class RelatedObjectsColumn(Column):
+    """Outputs a list of objects related to the object through a one-to-many relationship"""
+
+    cell_template_name = "wagtailadmin/tables/related_objects_cell.html"
+
+    def get_value(self, instance):
+        return getattr(instance, self.accessor).all()
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
