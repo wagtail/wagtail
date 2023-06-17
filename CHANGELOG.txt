@@ -5,7 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Refine wording of page & collection privacy using password is a shared password and should not be used for secure content (Rohit Sharma, Jake Howard)
- * Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
+ * Add RelatedObjectsColumn to the table UI framework (Matt Westcott)
+ * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (ramchandra-st)
 
 
