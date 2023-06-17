@@ -8,7 +8,7 @@ Changelog
  * Mark calls to `md5` as not being used for secure purposes, to avoid flagging on FIPS-mode systems (Sean Kelly)
  * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Explicitly specify `MenuItem.name` for all admin menu and submenu items (Justin Koestinger)
- * Add Embed URL provider support YouTube Shorts (valnuro)
+ * Add oEmbed provider patterns for YouTube Shorts Shorts and YouTube Live URLs (valnuro, Fabien Le Frapper)
  * Add initial implementation of `PagePermissionPolicy` (Sage Abdullah)
  * Refactor `UserPagePermissionsProxy` and `PagePermissionTester` to use `PagePermissionPolicy` (Sage Abdullah)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
