@@ -1,4 +1,4 @@
-(editing-api)=
+(editing_api)=
 
 # Panel types
 

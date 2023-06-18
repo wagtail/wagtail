@@ -4,7 +4,7 @@
 .. module:: wagtail.admin.panels
 ```
 
-This document describes the reference API for the base `Panel` and the `BoundPanel` classes that are used to render Wagtail's panels. For available panel types and how to use them, see [](editing-api).
+This document describes the reference API for the base `Panel` and the `BoundPanel` classes that are used to render Wagtail's panels. For available panel types and how to use them, see [](editing_api).
 
 ## `Panel`
 
