@@ -294,7 +294,7 @@ And to use the `<amp-img>` tag (based on the [Mountains example](https://amp.dev
 
 ## Images embedded in rich text
 
-The information above relates to images defined via image-specific fields in your model. However, images can also be embedded arbitrarily in Rich Text fields by the page editor (see [](rich-text)).
+The information above relates to images defined via image-specific fields in your model. However, images can also be embedded arbitrarily in Rich Text fields by the page editor (see [](rich_text)).
 
 Images embedded in Rich Text fields can't be controlled by the template developer as easily. There are no image objects to work with, so the `{% image %}` template tag can't be used. Instead, editors can choose from one of a number of image "Formats" at the point of inserting images into their text.
 

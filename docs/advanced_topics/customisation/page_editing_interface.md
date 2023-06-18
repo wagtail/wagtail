@@ -29,7 +29,7 @@ class BlogPage(Page):
     ])
 ```
 
-(rich-text)=
+(rich_text)=
 
 ## Rich Text (HTML)
 

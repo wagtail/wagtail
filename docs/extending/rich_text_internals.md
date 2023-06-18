@@ -15,7 +15,7 @@ The components involved in Wagtail's rich text handling are described below.
 
 ## Data format
 
-Rich text data (as handled by [RichTextField](rich-text), and `RichTextBlock` within [StreamField](../topics/streamfield.rst)) is stored in the database in a format that is similar, but not identical, to HTML. For example, a link to a page might be stored as:
+Rich text data (as handled by [RichTextField](rich_text), and `RichTextBlock` within [StreamField](../topics/streamfield.rst)) is stored in the database in a format that is similar, but not identical, to HTML. For example, a link to a page might be stored as:
 
 ```html
 <p><a linktype="page" id="3">Contact us</a> for more information.</p>
