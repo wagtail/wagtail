@@ -11,7 +11,12 @@ from django.utils.module_loading import import_string
 
 from wagtail.admin.viewsets import viewsets
 from wagtail.hooks import search_for_hooks
-from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
+from wagtail.models import (
+    DraftStateMixin,
+    LockableMixin,
+    ModelPermissionTester,
+    WorkflowMixin,
+)
 
 SNIPPET_MODELS = []
 
@@ -50,20 +55,11 @@ def get_editable_models(user):
 
 
 class SnippetAdminURLFinder:
-    # subclasses should define a 'model' attribute
     def __init__(self, user=None):
-        if user:
-            from wagtail.snippets.permissions import get_permission_name
-
-            self.user_can_edit = user.has_perm(
-                get_permission_name("change", self.model)
-            )
-        else:
-            # skip permission checks
-            self.user_can_edit = True
+        self.user = user
 
     def get_edit_url(self, instance):
-        if self.user_can_edit:
+        if not self.user or ModelPermissionTester(self.user, instance).can_edit():
             return reverse(
                 instance.snippet_viewset.get_url_name("edit"),
                 args=[quote(instance.pk)],
