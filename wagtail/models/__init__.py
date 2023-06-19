@@ -2953,6 +2953,8 @@ class GroupPagePermission(models.Model):
 
 
 class ModelPermissionTester:
+    owner_id_field_name = ""
+
     def __init__(self, user, object):
         self.user = user
         self.object = object
@@ -2996,6 +2998,14 @@ class ModelPermissionTester:
 
         if "change" in self.actions:
             return True
+
+        if self.owner_id_field_name:
+            # check for ownership
+            if (
+                "add" in self.actions
+                and getattr(self.object, self.owner_id_field_name) == self.user.pk
+            ):
+                return True
 
         if self.workflow_enabled:
             current_workflow_task = self.object.current_workflow_task
@@ -3093,6 +3103,8 @@ class ModelPermissionTester:
 
 
 class PagePermissionTester(ModelPermissionTester):
+    owner_id_field_name = "owner_id"
+
     def __init__(self, user, page):
         super().__init__(user, object=page)
         self.page = page  # For backwards-compatibility
@@ -3127,36 +3139,17 @@ class PagePermissionTester(ModelPermissionTester):
         return self.user.is_superuser or ("add" in self.actions)
 
     def can_edit(self):
-        if not self.user.is_active:
-            return False
-
         if self.page_is_root:
             # root node is not a page and can never be edited, even by superusers
             return False
-
-        if self.user.is_superuser:
-            return True
-
-        if "change" in self.actions:
-            return True
-
-        if "add" in self.actions and self.object.owner_id == self.user.pk:
-            return True
-
-        current_workflow_task = self.object.current_workflow_task
-        if current_workflow_task:
-            if current_workflow_task.user_can_access_editor(self.object, self.user):
-                return True
-
-        return False
+        return super().can_edit()
 
     def can_delete(self, ignore_bulk=False):
         if not self.user.is_active:
             return False
 
-        if (
-            self.page_is_root
-        ):  # root node is not a page and can never be deleted, even by superusers
+        if self.page_is_root:
+            # root node is not a page and can never be deleted, even by superusers
             return False
 
         if self.user.is_superuser:
