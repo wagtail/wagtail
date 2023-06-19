@@ -112,3 +112,18 @@
 @mixin show-focus-outline-inside {
   outline-offset: -1 * $focus-outline-width;
 }
+
+/**
+ * Apply styles for the dark theme only.
+ */
+@mixin dark-theme() {
+  .w-theme-dark & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .w-theme-system & {
+      @content;
+    }
+  }
+}
