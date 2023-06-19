@@ -420,18 +420,37 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
+        user_perms = UserPagePermissionsProxy(event_editor)
+
+        # To be replaced with the suggestion in the warning's message
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.editable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "edit") instead.',
         ):
-            # Replace with PagePermissionPolicy().instances_user_has_permission_for()
-            user_perms = UserPagePermissionsProxy(event_editor)
-
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+            editable_pages = user_perms.editable_pages()
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "edit") instead.',
+        ):
+            can_edit_pages = user_perms.can_edit_pages()
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "UserPagePermissionsProxy.publishable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "publish") instead.',
+        ):
+            publishable_pages = user_perms.publishable_pages()
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "UserPagePermissionsProxy.can_publish_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "publish") instead.',
+        ):
+            can_publish_pages = user_perms.can_publish_pages()
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -462,15 +481,15 @@ class TestPagePermission(TestCase):
         )
         about_us_page = Page.objects.get(url_path="/home/about-us/")
 
+        user_perms = UserPagePermissionsProxy(event_editor)
+
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.explorable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "explorable_instances(user) instead.",
         ):
-            # Replace with PagePermissionPolicy().explorable_instances()
-            user_perms = UserPagePermissionsProxy(event_editor)
-
-        explorable_pages = user_perms.explorable_pages()
+            explorable_pages = user_perms.explorable_pages()
 
         # Verify all pages below /home/events/ are explorable
         self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
@@ -506,19 +525,19 @@ class TestPagePermission(TestCase):
             email="corporateeditor@example.com"
         )
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-        ):
-            # Replace with PagePermissionPolicy().explorable_instances()
-            user_perms = UserPagePermissionsProxy(corporate_editor)
+        user_perms = UserPagePermissionsProxy(corporate_editor)
 
         about_us_page = Page.objects.get(url_path="/home/about-us/")
         businessy_events = Page.objects.get(url_path="/home/events/businessy-events/")
         events_page = Page.objects.get(url_path="/home/events/")
 
-        explorable_pages = user_perms.explorable_pages()
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "UserPagePermissionsProxy.explorable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "explorable_instances(user) instead.",
+        ):
+            explorable_pages = user_perms.explorable_pages()
 
         self.assertTrue(explorable_pages.filter(id=about_us_page.id).exists())
         self.assertTrue(explorable_pages.filter(id=businessy_events.id).exists())
@@ -537,18 +556,17 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-        ):
-            # Replace with PagePermissionPolicy().instances_user_has_permission_for()
-            user_perms = UserPagePermissionsProxy(event_moderator)
+        user_perms = UserPagePermissionsProxy(event_moderator)
 
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        # To be replaced with the suggestion in the warning's message
+        with self.assertWarns(RemovedInWagtail60Warning):
+            editable_pages = user_perms.editable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_edit_pages = user_perms.can_edit_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            publishable_pages = user_perms.publishable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_publish_pages = user_perms.can_publish_pages()
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -577,18 +595,17 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-        ):
-            # Replace with PagePermissionPolicy().instances_user_has_permission_for()
-            user_perms = UserPagePermissionsProxy(user)
+        user_perms = UserPagePermissionsProxy(user)
 
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        # To be replaced with the suggestion in the warning's message
+        with self.assertWarns(RemovedInWagtail60Warning):
+            editable_pages = user_perms.editable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_edit_pages = user_perms.can_edit_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            publishable_pages = user_perms.publishable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_publish_pages = user_perms.can_publish_pages()
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
@@ -619,18 +636,17 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-        ):
-            # Replace with PagePermissionPolicy().instances_user_has_permission_for()
-            user_perms = UserPagePermissionsProxy(user)
+        user_perms = UserPagePermissionsProxy(user)
 
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        # To be replaced with the suggestion in the warning's message
+        with self.assertWarns(RemovedInWagtail60Warning):
+            editable_pages = user_perms.editable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_edit_pages = user_perms.can_edit_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            publishable_pages = user_perms.publishable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_publish_pages = user_perms.can_publish_pages()
 
         self.assertTrue(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -659,18 +675,17 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-        ):
-            # Replace with PagePermissionPolicy().instances_user_has_permission_for()
-            user_perms = UserPagePermissionsProxy(user)
+        user_perms = UserPagePermissionsProxy(user)
 
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        # To be replaced with the suggestion in the warning's message
+        with self.assertWarns(RemovedInWagtail60Warning):
+            editable_pages = user_perms.editable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_edit_pages = user_perms.can_edit_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            publishable_pages = user_perms.publishable_pages()
+        with self.assertWarns(RemovedInWagtail60Warning):
+            can_publish_pages = user_perms.can_publish_pages()
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
@@ -720,16 +735,21 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         locked_page = Page.objects.get(url_path="/home/my-locked-page/")
 
+        user_perms = UserPagePermissionsProxy(user)
+
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
-            user_perms = UserPagePermissionsProxy(user)
+            perms = user_perms.for_page(christmas_page)
 
-        perms = user_perms.for_page(christmas_page)
-        locked_perms = user_perms.for_page(locked_page)
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
+        ):
+            locked_perms = user_perms.for_page(locked_page)
 
         self.assertTrue(perms.can_lock())
         self.assertFalse(
@@ -743,10 +763,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertTrue(perms.can_lock())
@@ -762,10 +781,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertTrue(perms.can_lock())
@@ -787,10 +805,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         # Unlike in the previous test, the user can unlock this page as it was them who locked
@@ -803,10 +820,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
@@ -818,10 +834,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
@@ -839,10 +854,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertTrue(perms.can_lock())
@@ -856,10 +870,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.page_locked())
@@ -876,10 +889,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         # The user who locked the page shouldn't see the page as locked
@@ -890,10 +902,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(other_user)
             other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
         self.assertTrue(other_perms.page_locked())
 
@@ -910,10 +921,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(user)
             perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         # The user who locked the page should now also see the page as locked
@@ -924,10 +934,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(other_user)
             other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
 
         self.assertTrue(other_perms.page_locked())
@@ -943,10 +952,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(moderator)
             moderator_perms = UserPagePermissionsProxy(moderator).for_page(
                 christmas_page
             )
@@ -957,10 +965,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(superuser)
             superuser_perms = UserPagePermissionsProxy(superuser).for_page(
                 christmas_page
             )
@@ -971,10 +978,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(editor)
             editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
 
         # the editor is not in the group assigned to moderate the task, so the page should
@@ -991,10 +997,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(moderator)
             moderator_perms = UserPagePermissionsProxy(moderator).for_page(
                 christmas_page
             )
@@ -1006,10 +1011,9 @@ class TestPagePermission(TestCase):
 
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
         ):
-            # Replace with page.permissions_for_user(editor)
             editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
 
         # the editor is not in the group assigned to moderate the task, so they can't lock or unlock the page

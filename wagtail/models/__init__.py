@@ -2931,55 +2931,105 @@ class UserPagePermissionsProxy:
     def __init__(self, user):
         from wagtail.permission_policies.pages import PagePermissionPolicy
 
-        warnings.warn(
-            "UserPagePermissionsProxy is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy instead.",
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-
         self.user = user
         self.permission_policy = PagePermissionPolicy()
-        self.permissions = self.permission_policy.get_cached_permissions_for_user(user)
+
+    @cached_property
+    def permissions(self):
+        return self.permission_policy.get_cached_permissions_for_user(self.user)
 
     def revisions_for_moderation(self):
         """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
+        warnings.warn(
+            "UserPagePermissionsProxy.revisions_for_moderation() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy.revisions_for_moderation(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.permission_policy.revisions_for_moderation(self.user)
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given page"""
-        return PagePermissionTester(self.user, page)
+        warnings.warn(
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return page.permissions_for_user(self.user)
 
     def explorable_pages(self):
         """Return a queryset of pages that the user has access to view in the
         explorer (e.g. add/edit/publish permission). Includes all pages with
         specific group permissions and also the ancestors of those pages (in
         order to enable navigation in the explorer)"""
+        warnings.warn(
+            "UserPagePermissionsProxy.explorable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "explorable_instances(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.permission_policy.explorable_instances(self.user)
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
+        warnings.warn(
+            "UserPagePermissionsProxy.editable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "edit") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.permission_policy.instances_user_has_permission_for(
             self.user, "edit"
         )
 
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
+        warnings.warn(
+            "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "edit") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.editable_pages().exists()
 
     def publishable_pages(self):
         """Return a queryset of the pages that this user has permission to publish"""
+        warnings.warn(
+            "UserPagePermissionsProxy.publishable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "publish") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.permission_policy.instances_user_has_permission_for(
             self.user, "publish"
         )
 
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
+        warnings.warn(
+            "UserPagePermissionsProxy.can_publish_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "publish") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.publishable_pages().exists()
 
     def can_remove_locks(self):
         """Returns True if the user has permission to unlock pages they have not locked"""
+        warnings.warn(
+            "UserPagePermissionsProxy.can_remove_locks() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "unlock") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.permission_policy.user_has_permission(self.user, "unlock")
 
 
