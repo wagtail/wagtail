@@ -122,23 +122,9 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    # Can't do nothin' if you're not active.
-    if not user.is_active:
-        return False
-
-    # Superusers can do anything.
-    if user.is_superuser:
-        return True
-
-    # At least one of the users groups has a GroupPagePermission.
-    # The user can probably do something.
-    if bool(PagePermissionPolicy().get_cached_permissions_for_user(user)):
-        return True
-
-    # Specific permissions for a page type do not mean anything.
-
-    # No luck! This user can not do anything with pages.
-    return False
+    return PagePermissionPolicy().user_has_any_permission(
+        user, {"add", "edit", "publish", "bulk_delete", "lock", "unlock"}
+    )
 
 
 def reject_request(request):
