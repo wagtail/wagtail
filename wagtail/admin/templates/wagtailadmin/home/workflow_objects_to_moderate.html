@@ -17,15 +17,11 @@
             <tbody>
                 {% for state in states %}
                     {% with revision=state.task_state.revision obj=state.obj task_state=state.task_state actions=state.actions workflow_tasks=state.workflow_tasks %}
-                        {% is_page obj as is_page %}
-                        {% if is_page %}
-                            {% page_permissions obj as page_perms %}
-                        {% endif %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% admin_edit_url obj as edit_url %}
-                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                    {% if edit_url %}
                                         <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
                                     {% else %}
                                         {% latest_str obj %}
@@ -48,7 +44,7 @@
                                                 {% for action_name, action_label, modal in actions %}
                                                     <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
                                                 {% endfor %}
-                                                {% if page_perms.can_edit or not is_page and edit_url %}
+                                                {% if edit_url %}
                                                     <a href="{{ edit_url }}">{% trans 'Edit' %}</a>
                                                 {% endif %}
                                                 {% if obj.is_previewable %}
