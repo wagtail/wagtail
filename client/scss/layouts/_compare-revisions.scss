@@ -1,9 +1,21 @@
-$color-addition-dark: #a6f3a6;
-$color-addition-light: #ebffeb;
-$color-deletion-dark: #f8cbcb;
-$color-deletion-light: #ffebeb;
+$color-addition-dark: var(--color-addition-dark);
+$color-addition-light: var(--color-addition-light);
+$color-deletion-dark: var(--color-deletion-dark);
+$color-deletion-light: var(--color-deletion-light);
 
 .comparison {
+  --color-addition-dark: #a6f3a6;
+  --color-addition-light: #ebffeb;
+  --color-deletion-dark: #f8cbcb;
+  --color-deletion-light: #ffebeb;
+
+  @include dark-theme() {
+    --color-addition-dark: #033a16;
+    --color-addition-light: #045720;
+    --color-deletion-dark: #67060c;
+    --color-deletion-light: #8e070f;
+  }
+
   &__child-object {
     border-top: 1px dashed theme('colors.border-furniture');
     padding: 1em;
