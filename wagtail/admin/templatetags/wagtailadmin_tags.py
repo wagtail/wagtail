@@ -47,7 +47,13 @@ from wagtail.coreutils import (
     get_locales_display_names,
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.models import CollectionViewRestriction, Locale, Page, PageViewRestriction
+from wagtail.models import (
+    CollectionViewRestriction,
+    Locale,
+    Page,
+    PageViewRestriction,
+    UserPagePermissionsProxy,
+)
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
@@ -137,6 +143,18 @@ def widgettype(bound_field):
             return ""
 
 
+def _get_user_page_permissions(context):
+    # RemovedInWagtail60Warning: Remove this function
+
+    # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if "user_page_permissions" not in context:
+        context["user_page_permissions"] = UserPagePermissionsProxy(
+            context["request"].user
+        )
+    return context["user_page_permissions"]
+
+
 @register.simple_tag(takes_context=True)
 def page_permissions(context, page):
     """
@@ -144,6 +162,9 @@ def page_permissions(context, page):
     Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
     what actions the current logged-in user can perform on the given page.
     """
+    # RemovedInWagtail60Warning: Keep the UserPagePermissionsProxy object in the context
+    # for backwards compatibility during the deprecation period, even though we don't use it
+    _get_user_page_permissions(context)
     return page.permissions_for_user(context["request"].user)
 
 
