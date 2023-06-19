@@ -6,6 +6,7 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Wagtail on Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0) (26 June 2023)
 -   [Build a Website Without Any Coding with Traleor (& Wagtail) in Just 10 Minutes (video)](https://www.youtube.com/watch?v=IQY0dzo2Wzg) (19 March 2023)
 -   [Getting Started with Wagtail: A Beginner’s Installation Guide (Windows)](https://medium.com/@dencomac/getting-started-with-wagtail-a-beginners-installation-guide-a5671da1eccc) (9 March 2023)
 -   [Introduction to Stimulus in Wagtail for contributors (video)](https://youtu.be/5WS7B8R0x0U) (28 February 2023)
@@ -68,6 +69,7 @@ the latest Wagtail versions.
 -   [Wagtail is the best python CMS in our galaxy - Russian](https://habr.com/ru/post/582898/) (12 October 2021)
 -   [Adding Tasks with a Checklist to Wagtail Workflows](https://dev.to/lb/adding-tasks-with-a-checklist-to-wagtail-workflows-29b8) (22 September 2021)
 -   [How to create a Zen (Focused) mode for the Wagtail CMS admin](https://dev.to/lb/how-to-create-a-zen-focused-mode-for-the-wagtail-cms-admin-3ipk) (5 September 2021)
+-   [Deploying Wagtail on Divio](https://docs.divio.com/en/latest/introduction/wagtail/) (~September 2021)
 -   [How to Install Wagtail on Shared Hosting without Root (CPanel)](https://chemicloud.com/kb/article/install-wagtail-without-root-access/) (26 August 2021)
 -   [Django for E-Commerce: A Developers Guide (with Wagtail CMS Tutorial)](https://dev.to/realguillaume/django-for-e-commerce-a-developers-guide-with-wagtail-cms-tutorial-57on) (26 August 2021)
 -   [How to create a Kanban (Trello style) view of your ModelAdmin data in Wagtail](https://dev.to/lb/how-to-create-a-kanban-trello-style-view-of-your-modeladmin-data-in-wagtail-20eg) (20 August 2021)
@@ -113,7 +115,7 @@ the latest Wagtail versions.
 -   [Learn Wagtail](https://learnwagtail.com/) - Regular video tutorials about all aspects of Wagtail (1 March 2019)
 -   [How to add buttons to ModelAdmin Index View in Wagtail CMS](https://timonweb.com/tutorials/how-to-add-buttons-to-modeladmin-index-view-in-wagtail-cms/) (23 January 2019)
 -   [Wagtail Tutorial Series](https://www.accordbox.com/blog/wagtail-tutorials/) (20 January 2019)
--   [How to Deploy Wagtail to Google App Engine PaaS (Video)](https://www.youtube.com/watch?v=uD9PTag2-PQ) (18 December 2018)
+-   [How to Deploy Wagtail to Google App Engine PaaS (Video)](https://www.youtube.com/watch?v=uD9PTag2-PQ) (28 December 2018)
 -   [How To Prevent Users From Creating Pages by Page Type](https://timonweb.com/tutorials/prevent-users-from-creating-certain-page-types-in-wagtail-cms/) (25 October 2018)
 -   [How to Deploy Wagtail to Jelastic PaaS](https://jelastic.com/blog/deploy-wagtail-python-cms/) (11 October 2018)
 -   [Basic Introduction to Setting Up Wagtail](https://medium.com/nonstopio/wagtail-an-open-source-cms-cec6b93706da) (15 August 2018)
@@ -125,6 +127,7 @@ the latest Wagtail versions.
 -   [Upgrading from Wagtail 1.0 to Wagtail 1.11](https://www.caktusgroup.com/blog/2017/07/19/upgrading-wagtail/) (19 July 2017)
 -   [Wagtail-Multilingual: a simple project to demonstrate how multilingual is implemented](https://github.com/cristovao-alves/Wagtail-Multilingual) (31 January 2017)
 -   [Wagtail: 2 Steps for Adding Pages Outside of the CMS](https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/) (15 February 2016)
+-   [Deploying Wagtail to Heroku](https://wagtail.org/blog/deploying-wagtail-heroku/) (15 July 2015)
 -   [Adding a Twitter Widget for Wagtail's new StreamField](https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/) (2 April 2015)
 -   [Working With Wagtail: Menus](https://www.tivix.com/blog/working-with-wagtail-menus/) (22 January 2015)
 -   [Upgrading Wagtail to use Django 1.7 locally using vagrant](https://jossingram.wordpress.com/2014/12/10/upgrading-wagtail-to-use-django-1-7-locally-using-vagrant/) (10 December 2014)
