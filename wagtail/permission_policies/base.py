@@ -209,6 +209,8 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
     perform lookups against the django.contrib.auth permission model
     """
 
+    permission_cache_name = "_django_permission_cache"
+
     def __init__(self, model, auth_model=None):
         # `auth_model` specifies the model to be used for permission record lookups;
         # usually this will match `model` (which specifies the type of instances that
@@ -218,6 +220,9 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
         # permission records for auth.user.
         super().__init__(model)
         self._auth_model_or_name = auth_model or model
+
+    def get_all_permissions_for_user(self, user):
+        return Permission.objects.filter(Q(group__user=user) | Q(user=user))
 
     @cached_property
     def auth_model(self):
@@ -290,6 +295,36 @@ class ModelPermissionPolicy(BaseDjangoAuthPermissionPolicy):
     A permission policy that enforces permissions at the model level, by consulting
     the standard django.contrib.auth permission model directly
     """
+
+    @cached_property
+    def permission_cache_name(self):
+        return f"_{self.app_label}_{self.model_name}_permission_cache"
+
+    def get_all_permissions_for_user(self, user):
+        return (
+            super()
+            .get_all_permissions_for_user(user)
+            .filter(content_type=self._content_type)
+        )
+
+    def get_cached_permissions_for_user(self, user):
+        if hasattr(user, self.permission_cache_name):
+            perms = getattr(user, self.permission_cache_name)
+        else:
+            # Reuse the base policy's cache if it's available so that we don't
+            # have to do a separate query for each model.
+            base_policy = BaseDjangoAuthPermissionPolicy(
+                self.model, auth_model=self.auth_model
+            )
+            cached_all_permissions = base_policy.get_cached_permissions_for_user(user)
+            perms = {
+                perm
+                for perm in cached_all_permissions
+                if perm.content_type_id == self._content_type.id
+            }
+            setattr(user, self.permission_cache_name, perms)
+
+        return perms
 
     def user_has_permission(self, user, action):
         return user.has_perm(self._get_permission_name(action))
