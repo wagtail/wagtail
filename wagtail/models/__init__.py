@@ -3290,22 +3290,14 @@ class PagePermissionTester(ModelPermissionTester):
             return False
 
     def can_unpublish(self):
-        if not self.user.is_active:
-            return False
-        if (not self.object.live) or self.page_is_root:
-            return False
-        if self.page_locked():
-            return False
-
-        return self.user.is_superuser or ("publish" in self.actions)
-
-    def can_publish(self):
-        if not self.user.is_active:
-            return False
         if self.page_is_root:
             return False
+        return super().can_unpublish()
 
-        return self.user.is_superuser or ("publish" in self.actions)
+    def can_publish(self):
+        if self.page_is_root:
+            return False
+        return super().can_publish()
 
     def can_set_view_restrictions(self):
         return self.can_publish()
