@@ -3,7 +3,7 @@ from io import BytesIO
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -12,7 +12,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.models import ModelLogEntry, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -69,6 +69,41 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         self.assertContains(
             response, 'title="This page is locked, by you, to further editing"'
         )
+
+    def test_get_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="unlock",
+        )
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertContains(response, "No locked pages found.")
+
+    def test_get_with_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+
+        response = self.get()
+
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_csv_export(self):
 

@@ -224,7 +224,7 @@ class LockedPagesPanel(Component):
                     locked=True,
                     locked_by=request.user,
                 ),
-                "can_remove_locks": PagePermissionPolicy().user_has_any_permission(
+                "can_remove_locks": PagePermissionPolicy().user_has_permission(
                     request.user, "unlock"
                 ),
                 "request": request,

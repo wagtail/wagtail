@@ -63,6 +63,6 @@ class LockedPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().user_has_any_permission(request.user, "unlock"):
+        if not PagePermissionPolicy().user_has_permission(request.user, "unlock"):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

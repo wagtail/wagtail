@@ -908,7 +908,7 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return PagePermissionPolicy().user_has_any_permission(request.user, "unlock")
+        return PagePermissionPolicy().user_has_permission(request.user, "unlock")
 
 
 class WorkflowReportMenuItem(MenuItem):

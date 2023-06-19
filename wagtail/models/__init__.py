@@ -2980,7 +2980,7 @@ class UserPagePermissionsProxy:
 
     def can_remove_locks(self):
         """Returns True if the user has permission to unlock pages they have not locked"""
-        return self.permission_policy.user_has_any_permission(self.user, "unlock")
+        return self.permission_policy.user_has_permission(self.user, "unlock")
 
 
 class PagePermissionTester:
