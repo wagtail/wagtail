@@ -3046,60 +3046,200 @@ class GroupPagePermission(models.Model):
         )
 
 
-class PagePermissionTester:
-    def __init__(self, user, page):
-        from wagtail.permissions import page_permission_policy
-
+class ModelPermissionTester:
+    def __init__(self, user, object):
         self.user = user
-        self.permission_policy = page_permission_policy
-        self.page = page
-        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
+        self.object = object
+        self.locking_enabled = isinstance(object, LockableMixin)
+        self.draftstate_enabled = isinstance(object, DraftStateMixin)
+        self.workflow_enabled = isinstance(object, WorkflowMixin)
+        self.permission_policy = self.get_permission_policy()
+        self.actions = self.get_actions()
 
-        if self.user.is_active and not self.user.is_superuser:
-            self.permissions = {
-                # Get the 'action' part of the permission codename, e.g.
-                # 'add' instead of 'add_page'
-                perm.permission.codename.rsplit("_", maxsplit=1)[0]
-                for perm in self.permission_policy.get_cached_permissions_for_user(user)
-                if self.page.path.startswith(perm.page.path)
-            }
+    def get_permission_policy(self):
+        from wagtail.permission_policies.base import ModelPermissionPolicy
+
+        return ModelPermissionPolicy(type(self.object))
+
+    def get_actions(self):
+        permissions = self.permission_policy.get_cached_permissions_for_user(self.user)
+        return {
+            # Get the 'action' part of Django's permission cache, e.g.
+            # 'add' instead of 'myapp.add_mymodel'.
+            permission.codename.split(".", maxsplit=1)[-1].rsplit("_", maxsplit=1)[0]
+            for permission in permissions
+        }
 
     def user_has_lock(self):
-        return self.page.locked_by_id == self.user.pk
+        if not self.locking_enabled:
+            return False
+        return self.object.locked_by_id == self.user.pk
 
-    def page_locked(self):
-        lock = self.page.get_lock()
+    def object_locked(self):
+        if not self.locking_enabled:
+            return False
+        lock = self.object.get_lock()
         return lock and lock.for_user(self.user)
-
-    def can_add_subpage(self):
-        if not self.user.is_active:
-            return False
-        specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
-            return False
-        return self.user.is_superuser or ("add" in self.permissions)
 
     def can_edit(self):
         if not self.user.is_active:
             return False
 
-        if (
-            self.page_is_root
-        ):  # root node is not a page and can never be edited, even by superusers
+        if self.user.is_superuser:
+            return True
+
+        if "change" in self.actions:
+            return True
+
+        if self.workflow_enabled:
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                if current_workflow_task.user_can_access_editor(self.object, self.user):
+                    return True
+
+        return False
+
+    def can_delete(self):
+        if not self.user.is_active:
+            return False
+
+        if self.user.is_superuser:
+            # superusers require no further checks
+            return True
+
+        if "delete" in self.actions:
+            if self.draftstate_enabled and self.object.live:
+                # if the object is live, we also need to check for publish permission
+                if "publish" not in self.actions:
+                    return False
+            return True
+
+        return False
+
+    def can_publish(self):
+        if not self.draftstate_enabled:
+            return False
+        if not self.user.is_active:
+            return False
+
+        return self.user.is_superuser or "publish" in self.actions
+
+    def can_unpublish(self):
+        if not self.draftstate_enabled:
+            return False
+        if not self.user.is_active:
+            return False
+        if not self.object.live:
+            return False
+        if self.object_locked():
+            return False
+
+        return self.user.is_superuser or "publish" in self.actions
+
+    def can_submit_for_moderation(self):
+        if not self.workflow_enabled:
+            return False
+        return (
+            not self.object_locked()
+            and self.object.has_workflow
+            and not self.object.workflow_in_progress
+        )
+
+    def can_unschedule(self):
+        return self.can_publish()
+
+    def can_lock(self):
+        if not self.locking_enabled:
             return False
 
         if self.user.is_superuser:
             return True
 
-        if "change" in self.permissions:
+        if self.workflow_enabled:
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                return current_workflow_task.user_can_lock(self.object, self.user)
+
+        if "lock" in self.actions:
             return True
 
-        if "add" in self.permissions and self.page.owner_id == self.user.pk:
+        return False
+
+    def can_unlock(self):
+        if not self.locking_enabled:
+            return False
+
+        if self.user.is_superuser:
             return True
 
-        current_workflow_task = self.page.current_workflow_task
+        if self.user_has_lock():
+            return True
+
+        if self.workflow_enabled:
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                return current_workflow_task.user_can_unlock(self.object, self.user)
+
+        if "unlock" in self.actions:
+            return True
+
+        return False
+
+
+class PagePermissionTester(ModelPermissionTester):
+    def __init__(self, user, page):
+        super().__init__(user, object=page)
+        self.page = page  # For backwards-compatibility
+        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
+        self.permissions = self.actions
+
+    def get_permission_policy(self):
+        from wagtail.permissions import page_permission_policy
+
+        return page_permission_policy
+
+    def get_actions(self):
+        return {
+            # Get the 'action' part of the permission codename, e.g.
+            # 'add' instead of 'add_page'
+            perm.permission.codename.rsplit("_", maxsplit=1)[0]
+            for perm in self.permission_policy.get_cached_permissions_for_user(
+                self.user
+            )
+            if self.object.path.startswith(perm.page.path)
+        }
+
+    def page_locked(self):
+        return self.object_locked()
+
+    def can_add_subpage(self):
+        if not self.user.is_active:
+            return False
+        specific_class = self.object.specific_class
+        if specific_class is None or not specific_class.creatable_subpage_models():
+            return False
+        return self.user.is_superuser or ("add" in self.actions)
+
+    def can_edit(self):
+        if not self.user.is_active:
+            return False
+
+        if self.page_is_root:
+            # root node is not a page and can never be edited, even by superusers
+            return False
+
+        if self.user.is_superuser:
+            return True
+
+        if "change" in self.actions:
+            return True
+
+        if "add" in self.actions and self.object.owner_id == self.user.pk:
+            return True
+
+        current_workflow_task = self.object.current_workflow_task
         if current_workflow_task:
-            if current_workflow_task.user_can_access_editor(self.page, self.user):
+            if current_workflow_task.user_can_access_editor(self.object, self.user):
                 return True
 
         return False
@@ -3119,25 +3259,25 @@ class PagePermissionTester:
 
         # if the user does not have bulk_delete permission, they may only delete leaf pages
         if (
-            "bulk_delete" not in self.permissions
-            and not self.page.is_leaf()
+            "bulk_delete" not in self.actions
+            and not self.object.is_leaf()
             and not ignore_bulk
         ):
             return False
 
-        if "change" in self.permissions:
+        if "change" in self.actions:
             # if the user does not have publish permission, we also need to confirm that there
             # are no published pages here
-            if "publish" not in self.permissions:
-                pages_to_delete = self.page.get_descendants(inclusive=True)
+            if "publish" not in self.actions:
+                pages_to_delete = self.object.get_descendants(inclusive=True)
                 if pages_to_delete.live().exists():
                     return False
 
             return True
 
-        elif "add" in self.permissions:
-            pages_to_delete = self.page.get_descendants(inclusive=True)
-            if "publish" in self.permissions:
+        elif "add" in self.actions:
+            pages_to_delete = self.object.get_descendants(inclusive=True)
+            if "publish" in self.actions:
                 # we don't care about live state, but all pages must be owned by this user
                 # (i.e. eliminating pages owned by this user must give us the empty set)
                 return not pages_to_delete.exclude(owner=self.user).exists()
@@ -3152,12 +3292,12 @@ class PagePermissionTester:
     def can_unpublish(self):
         if not self.user.is_active:
             return False
-        if (not self.page.live) or self.page_is_root:
+        if (not self.object.live) or self.page_is_root:
             return False
         if self.page_locked():
             return False
 
-        return self.user.is_superuser or ("publish" in self.permissions)
+        return self.user.is_superuser or ("publish" in self.actions)
 
     def can_publish(self):
         if not self.user.is_active:
@@ -3165,48 +3305,10 @@ class PagePermissionTester:
         if self.page_is_root:
             return False
 
-        return self.user.is_superuser or ("publish" in self.permissions)
-
-    def can_submit_for_moderation(self):
-        return (
-            not self.page_locked()
-            and self.page.has_workflow
-            and not self.page.workflow_in_progress
-        )
+        return self.user.is_superuser or ("publish" in self.actions)
 
     def can_set_view_restrictions(self):
         return self.can_publish()
-
-    def can_unschedule(self):
-        return self.can_publish()
-
-    def can_lock(self):
-        if self.user.is_superuser:
-            return True
-        current_workflow_task = self.page.current_workflow_task
-        if current_workflow_task:
-            return current_workflow_task.user_can_lock(self.page, self.user)
-
-        if "lock" in self.permissions:
-            return True
-
-        return False
-
-    def can_unlock(self):
-        if self.user.is_superuser:
-            return True
-
-        if self.user_has_lock():
-            return True
-
-        current_workflow_task = self.page.current_workflow_task
-        if current_workflow_task:
-            return current_workflow_task.user_can_unlock(self.page, self.user)
-
-        if "unlock" in self.permissions:
-            return True
-
-        return False
 
     def can_publish_subpage(self):
         """
@@ -3217,11 +3319,11 @@ class PagePermissionTester:
         """
         if not self.user.is_active:
             return False
-        specific_class = self.page.specific_class
+        specific_class = self.object.specific_class
         if specific_class is None or not specific_class.creatable_subpage_models():
             return False
 
-        return self.user.is_superuser or ("publish" in self.permissions)
+        return self.user.is_superuser or ("publish" in self.actions)
 
     def can_reorder_children(self):
         """
@@ -3243,12 +3345,12 @@ class PagePermissionTester:
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
-        if self.page == destination or destination.is_descendant_of(self.page):
+        if self.object == destination or destination.is_descendant_of(self.object):
             return False
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if not self.page.specific.can_move_to(destination):
+        if not self.object.specific.can_move_to(destination):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions
@@ -3265,12 +3367,12 @@ class PagePermissionTester:
         destination_perms = destination.permissions_for_user(self.user)
 
         # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
+        if "add" not in destination_perms.actions:
             return False
 
-        if self.page.live or self.page.get_descendants().filter(live=True).exists():
+        if self.object.live or self.object.get_descendants().filter(live=True).exists():
             # moving this page will entail publishing within the destination section
-            return "publish" in destination_perms.permissions
+            return "publish" in destination_perms.actions
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
@@ -3279,7 +3381,7 @@ class PagePermissionTester:
         # reject the logically impossible cases first
         # recursive can't copy to the same tree otherwise it will be on infinite loop
         if recursive and (
-            self.page == destination or destination.is_descendant_of(self.page)
+            self.object == destination or destination.is_descendant_of(self.object)
         ):
             return False
 
@@ -3288,7 +3390,7 @@ class PagePermissionTester:
             return False
 
         # reject early if pages of this type cannot be created at the destination
-        if not self.page.specific_class.can_create_at(destination):
+        if not self.object.specific_class.can_create_at(destination):
             return False
 
         # skip permission checking for super users
@@ -3302,7 +3404,7 @@ class PagePermissionTester:
             return False
 
         # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
+        if "add" not in destination_perms.actions:
             return False
 
         return True
