@@ -24,15 +24,9 @@ class NotificationPreferencesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         permission_policy = PagePermissionPolicy()
-        publishable_pages = permission_policy.instances_user_has_permission_for(
-            self.instance.user, "publish"
-        )
-        editable_pages = permission_policy.instances_user_has_permission_for(
-            self.instance.user, "edit"
-        )
-        if not publishable_pages.exists():
+        if not permission_policy.user_has_permission(self.instance.user, "publish"):
             del self.fields["submitted_notifications"]
-        if not editable_pages.exists():
+        if not permission_policy.user_has_permission(self.instance.user, "edit"):
             del self.fields["approved_notifications"]
             del self.fields["rejected_notifications"]
             del self.fields["updated_comments_notifications"]
