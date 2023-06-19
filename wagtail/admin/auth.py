@@ -123,7 +123,7 @@ def user_has_any_page_permission(user):
     page.
     """
     return PagePermissionPolicy().user_has_any_permission(
-        user, {"add", "edit", "publish", "bulk_delete", "lock", "unlock"}
+        user, {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
     )
 
 

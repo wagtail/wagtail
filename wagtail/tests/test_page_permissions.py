@@ -427,14 +427,14 @@ class TestPagePermission(TestCase):
             RemovedInWagtail60Warning,
             "UserPagePermissionsProxy.editable_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "edit") instead.',
+            'instances_user_has_permission_for(user, "change") instead.',
         ):
             editable_pages = user_perms.editable_pages()
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
             "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "edit") instead.',
+            'user_has_permission(user, "change") instead.',
         ):
             can_edit_pages = user_perms.can_edit_pages()
         with self.assertWarnsMessage(

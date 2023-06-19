@@ -3002,7 +3002,7 @@ class UserPagePermissionsProxy:
         warnings.warn(
             "UserPagePermissionsProxy.editable_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "edit") instead.',
+            'instances_user_has_permission_for(user, "change") instead.',
             category=RemovedInWagtail60Warning,
             stacklevel=2,
         )
@@ -3015,7 +3015,7 @@ class UserPagePermissionsProxy:
         warnings.warn(
             "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "edit") instead.',
+            'user_has_permission(user, "change") instead.',
             category=RemovedInWagtail60Warning,
             stacklevel=2,
         )
