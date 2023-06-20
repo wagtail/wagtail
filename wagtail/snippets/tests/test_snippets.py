@@ -1138,7 +1138,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -1538,10 +1538,14 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
+        )
+        self.assertContains(
+            response,
+            'This publishing schedule will only take effect after you select the "Publish" option',
         )
 
 
@@ -3240,6 +3244,35 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
         self.assertSchedulingDialogRendered(response)
+
+    def test_schedule_panel_without_publish_permission(self):
+        # Only add edit permission
+        self.user.is_superuser = False
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_draftstatecustomprimarykeymodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        self.user.user_permissions.add(edit_permission, admin_permission)
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response, "Anyone with editing permissions can create schedules"
+        )
+        self.assertContains(
+            response,
+            "But only those with publishing permissions can make them effective.",
+        )
+        self.assertNotContains(
+            response,
+            'This publishing schedule will only take effect after you select the "Publish" option',
+        )
 
 
 class TestScheduledForPublishLock(BaseTestSnippetEditView):
