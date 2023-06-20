@@ -53,6 +53,7 @@ Changelog
  * Fix: Ensure that title and slug continue syncing after entering non-URL-safe characters (LB (Ben) Johnston)
  * Fix: Ensure that title and slug are synced on keypress, not just on blur (LB (Ben) Johnston)
  * Fix: Add a more visible active state for side panel toggle buttons (Thibaud Colas)
+ * Fix: Use custom dark theme colors for revision comparisons (Thibaud Colas)
 
 
 5.0.1 (25.05.2023)
