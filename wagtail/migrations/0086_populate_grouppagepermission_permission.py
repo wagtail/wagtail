@@ -2,7 +2,7 @@
 
 from django.contrib.auth.management import create_permissions
 from django.db import migrations, models
-from django.db.models.functions import Concat
+from django.db.models.functions import Concat, Length, Substr
 
 
 def add_permissions(apps, schema_editor):
@@ -32,9 +32,36 @@ def populate_grouppagepermission_permission(apps, schema_editor):
     )
 
 
-def empty_grouppagepermission_permission(apps, schema_editor):
+def revert_grouppagepermission_permission(apps, schema_editor):
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
-    GroupPagePermission.objects.all().update(permission=None)
+    Permission = apps.get_model("auth.Permission")
+
+    permission_type = (
+        Permission.objects.filter(pk=models.OuterRef("permission"))
+        .annotate(
+            action=Substr(
+                models.F("codename"),
+                # Substr is 1-indexed
+                1,
+                # Length - 5 to remove "_page" suffix
+                Length(models.F("codename")) - 5,
+            )
+        )
+        .annotate(
+            # Replace "change" with "edit" to match old permission_type
+            permission_type=models.Case(
+                models.When(action="change", then=models.Value("edit")),
+                default=models.F("action"),
+            )
+        )
+        .values("permission_type")[:1]
+    )
+
+    # Backfill permission_type from permission foreign key and clear the foreign key
+    GroupPagePermission.objects.all().update(
+        permission_type=permission_type,
+        permission=None,
+    )
 
 
 class Migration(migrations.Migration):
@@ -47,6 +74,6 @@ class Migration(migrations.Migration):
         migrations.RunPython(add_permissions, migrations.operations.RunPython.noop),
         migrations.RunPython(
             populate_grouppagepermission_permission,
-            empty_grouppagepermission_permission,
+            revert_grouppagepermission_permission,
         ),
     ]
