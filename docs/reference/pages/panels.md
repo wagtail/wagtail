@@ -220,6 +220,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
+   :noindex:
 
 .. autoclass:: TitleFieldPanel
 
