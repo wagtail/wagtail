@@ -34,6 +34,7 @@ Changelog
  * Docs: Mark LTS releases in release note page titles (Thiago C. S. Tioma)
  * Docs: Revise main Getting started tutorial for clarity (Kevin Chung (kev-odin))
  * Docs: Revamp the start of the getting started section, with separate quick install page (Damilola Oladele)
+ * Docs: Move the tutorial’s snippets section to come before tags (Damilola Oladele)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
  * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)

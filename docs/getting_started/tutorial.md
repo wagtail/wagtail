@@ -682,6 +682,103 @@ This method is now available from our templates. Update `blog_index_page.html` t
 {% endfor %}
 ```
 
+(tutorial_categories)=
+
+### Categories
+
+Let's add a category system to our blog. Unlike tags, where a page author can bring a tag into existence simply by using it on a page, our categories will be a fixed list, managed by the site owner through a separate area of the admin interface.
+
+First, we define a `BlogCategory` model. A category is not a page in its own right, and so we define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of "snippets" for reusable pieces of content that need to be managed through the admin interface, but do not exist as part of the page tree themselves; a model can be registered as a snippet by adding the `@register_snippet` decorator. All the field types we've used so far on pages can be used on snippets too - here we'll give each category an icon image as well as a name. Add to `blog/models.py`:
+
+```python
+# Add this to the top of your blog/models.py file
+from wagtail.snippets.models import register_snippet
+
+# ... Keep BlogIndexPage, BlogPage, BlogPageGalleryImage, and then add the BlogCategory category:
+
+@register_snippet
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=255)
+    icon = models.ForeignKey(
+        'wagtailimages.Image', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'blog categories'
+```
+
+```{note}
+Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+```
+
+Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
+
+We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.To add categories to the `BlogPage`, modify `models.py` in your blog app folder:
+
+```python
+# New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
+from django import forms
+from django.db import models
+
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+
+# ... modify your BlogPage model
+
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    # Add this:
+    categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
+
+    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
+        ], heading="Blog information"),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        InlinePanel('gallery_images', label="Gallery images"),
+    ]
+```
+
+Here we're making use of the `widget` keyword argument on the `FieldPanel` definition to specify a checkbox-based widget instead of the default multiple select box, as this is often considered more user-friendly.
+
+Finally, update the `blog_page.html` template to display the categories:
+
+```html+django
+<h1>{{ page.title }}</h1>
+<p class="meta">{{ page.date }}</p>
+
+{% with categories=page.categories.all %}
+    {% if categories %}
+        <h3>Posted in:</h3>
+        <ul>
+            {% for category in categories %}
+                <li style="display: inline">
+                    {% image category.icon fill-32x32 style="vertical-align: middle" %}
+                    {{ category.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+```
+
+!["Second Post" page, with title, date, categories, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
+
 ### Tagging Posts
 
 Let's say we want to let editors "tag" their posts, so that readers can, for example,
@@ -695,9 +792,9 @@ First, alter `models.py` once more:
 ```python
 from django.db import models
 
-# New imports added for ClusterTaggableManager, TaggedItemBase, MultiFieldPanel
+# New imports added for ClusterTaggableManager, TaggedItemBase
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -722,13 +819,17 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
+    categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
+    # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    # ... (Keep the main_image method and search_fields definition)
+    # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date'),
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple)
+            # Add this:
             FieldPanel('tags'),
         ], heading="Blog information"),
         FieldPanel('intro'),
@@ -743,7 +844,6 @@ Summarising the changes:
 
 -   New `modelcluster` and `taggit` imports
 -   Addition of a new `BlogPageTag` model, and a `tags` field on `BlogPage`.
--   We've also taken the opportunity to use a `MultiFieldPanel` in `content_panels` to group the date and tags fields together for readability.
 
 Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 
@@ -752,6 +852,9 @@ Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 To render tags on a `BlogPage`, add this to `blog_page.html`:
 
 ```html+django
+<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+<!-- Add this: -->
 {% with tags=page.tags.all %}
     {% if tags %}
         <div class="tags">
@@ -772,7 +875,7 @@ isn't readily available, so we fall back on the less-preferred `slugurl` tag.
 
 With the modifications we've made so far, visiting a blog post with tags will display a series of linked buttons at the bottom, one for each tag associated with the post. However, clicking on a button will result in a 404 error page, as we have not yet defined a "tags" view.
 
-Return to `models.py` and add:
+Return to `blog/models.py` and add:
 
 ```python
 class BlogTagIndexPage(Page):
@@ -795,9 +898,7 @@ Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
 a QuerySet from its `get_context()` method.
 
-Migrate this in, then create a new `BlogTagIndexPage` in the admin.
-You'll probably want to create the new page/view as a child of Homepage,
-parallel to your Blog index. Give it the slug "tags" on the Promote tab.
+Migrate this by running `python manage.py makemigrations` and then `python manage.py`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface
 
 Access `/tags` and Django will tell you what you probably already knew:
 you need to create a template `blog/template/blog/blog_tag_index_page.html`:
@@ -839,103 +940,6 @@ Clicking the tag button at the bottom of a BlogPost should now render a page
 something like this:
 
 ![A page titled "Showing pages tagged bread", with two page links underneath](../_static/images/tutorial/tutorial_9.png)
-
-(tutorial_categories)=
-
-### Categories
-
-Let's add a category system to our blog. Unlike tags, where a page author can bring a tag into existence simply by using it on a page, our categories will be a fixed list, managed by the site owner through a separate area of the admin interface.
-
-First, we define a `BlogCategory` model. A category is not a page in its own right, and so we define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of "snippets" for reusable pieces of content that need to be managed through the admin interface, but do not exist as part of the page tree themselves; a model can be registered as a snippet by adding the `@register_snippet` decorator. All the field types we've used so far on pages can be used on snippets too - here we'll give each category an icon image as well as a name. Add to `blog/models.py`:
-
-```python
-from wagtail.snippets.models import register_snippet
-
-
-@register_snippet
-class BlogCategory(models.Model):
-    name = models.CharField(max_length=255)
-    icon = models.ForeignKey(
-        'wagtailimages.Image', null=True, blank=True,
-        on_delete=models.SET_NULL, related_name='+'
-    )
-
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('icon'),
-    ]
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'blog categories'
-```
-
-```{note}
-Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
-```
-
-Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
-
-We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.To add categories to the `BlogPage`, modify `models.py` in your blog app folder:
-
-```python
-# New imports added for forms and ParentalManyToManyField
-from django import forms
-from django.db import models
-
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-
-# ...
-
-class BlogPage(Page):
-    date = models.DateField("Post date")
-    intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
-    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-    categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
-
-    # ... (Keep the main_image method and search_fields definition)
-
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('date'),
-            FieldPanel('tags'),
-            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
-        ], heading="Blog information"),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-        InlinePanel('gallery_images', label="Gallery images"),
-    ]
-```
-
-Here we're making use of the `widget` keyword argument on the `FieldPanel` definition to specify a checkbox-based widget instead of the default multiple select box, as this is often considered more user-friendly.
-
-Finally, update the `blog_page.html` template to display the categories:
-
-```html+django
-<h1>{{ page.title }}</h1>
-<p class="meta">{{ page.date }}</p>
-
-{% with categories=page.categories.all %}
-    {% if categories %}
-        <h3>Posted in:</h3>
-        <ul>
-            {% for category in categories %}
-                <li style="display: inline">
-                    {% image category.icon fill-32x32 style="vertical-align: middle" %}
-                    {{ category.name }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-```
-
-!["Second Post" page, with title, date, categories, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
 
 ## Congratulations!
 
