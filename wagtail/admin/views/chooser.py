@@ -21,7 +21,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Locale, Page, Site, UserPagePermissionsProxy
+from wagtail.models import Locale, Page, Site
 
 
 def shared_context(request, extra_context=None):
@@ -57,7 +57,7 @@ def page_models_from_string(string):
 
 def can_choose_page(
     page,
-    permission_proxy,
+    user,
     desired_classes,
     can_choose_root=True,
     user_perm=None,
@@ -91,9 +91,9 @@ def can_choose_page(
                 return False
 
             if user_perm == "move_to":
-                return permission_proxy.for_page(page_to_move).can_move_to(page)
+                return page_to_move.permissions_for_user(user).can_move_to(page)
     if user_perm == "copy_to":
-        return permission_proxy.for_page(page).can_add_subpage()
+        return page.permissions_for_user(user).can_add_subpage()
 
     return True
 
@@ -259,13 +259,10 @@ class BrowseView(View):
 
         match_subclass = request.GET.get("match_subclass", True)
 
-        # Do permission lookups for this user now, instead of for every page.
-        permission_proxy = UserPagePermissionsProxy(request.user)
-
         # Parent page can be chosen if it is a instance of desired_classes
         self.parent_page.can_choose = can_choose_page(
             self.parent_page,
-            permission_proxy,
+            request.user,
             self.desired_classes,
             can_choose_root,
             user_perm,
@@ -351,7 +348,7 @@ class BrowseView(View):
         for page in pages:
             page.can_choose = can_choose_page(
                 page,
-                permission_proxy,
+                request.user,
                 self.desired_classes,
                 can_choose_root,
                 user_perm,

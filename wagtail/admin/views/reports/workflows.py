@@ -18,11 +18,11 @@ from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
     Task,
     TaskState,
-    UserPagePermissionsProxy,
     Workflow,
     WorkflowState,
     get_default_page_content_type,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
@@ -36,7 +36,9 @@ def get_requested_by_queryset(request):
 
 
 def get_editable_page_ids_query(request):
-    pages = UserPagePermissionsProxy(request.user).editable_pages()
+    pages = PagePermissionPolicy().instances_user_has_permission_for(
+        request.user, "edit"
+    )
     # Need to cast the page ids to string because Postgres doesn't support
     # implicit type casts when querying on GenericRelations
     # https://code.djangoproject.com/ticket/16055

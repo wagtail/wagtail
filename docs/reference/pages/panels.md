@@ -1,4 +1,4 @@
-(editing-api)=
+(editing_api)=
 
 # Panel types
 
@@ -220,6 +220,20 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
             content_panels = [
                 FormSubmissionsPanel(),
             ]
+```
+
+(title_field_panel)=
+
+### TitleFieldPanel
+
+```{eval-rst}
+.. module:: wagtail.admin.panels
+   :noindex:
+
+.. autoclass:: TitleFieldPanel
+
+    This is the panel to use for Page title fields or main titles on other models. It provides a default classname, placeholder and widget attributes to enable the automatic sync with the slug field in the form. Many of these defaults can be customised by passing additional arguments to the constructor. All the same `FieldPanel` arguments are supported including a custom widget. For more details, see :ref:`customising_panels`.
+
 ```
 
 (customising_panels)=

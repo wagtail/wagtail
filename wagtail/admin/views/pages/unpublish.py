@@ -8,7 +8,7 @@ from wagtail import hooks
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic.models import UnpublishView
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
 
 
 class Unpublish(UnpublishView):
@@ -32,8 +32,7 @@ class Unpublish(UnpublishView):
         return self.object.get_admin_display_title()
 
     def dispatch(self, request, *args, **kwargs):
-        user_perms = UserPagePermissionsProxy(request.user)
-        if not user_perms.for_page(self.object).can_unpublish():
+        if not self.object.permissions_for_user(request.user).can_unpublish():
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 

@@ -1,11 +1,10 @@
 import types
+import warnings
 from functools import wraps
 
 import l18n
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.timezone import override as override_tz
@@ -14,25 +13,21 @@ from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
-from wagtail.models import GroupPagePermission
+from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
-    # Get user model
-    User = get_user_model()
-
-    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
-    ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(
-        permission_type=permission_type, page__in=ancestors_and_self
+    warnings.warn(
+        "users_with_page_permission() is deprecated. "
+        "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+        "users_with_permission_for_instance() instead.",
+        category=RemovedInWagtail60Warning,
+        stacklevel=2,
     )
-    q = Q(groups__page_permissions__in=perm)
-
-    # Include superusers
-    if include_superusers:
-        q |= Q(is_superuser=True)
-
-    return User.objects.filter(is_active=True).filter(q).distinct()
+    return PagePermissionPolicy().users_with_permission_for_instance(
+        permission_type, page, include_superusers
+    )
 
 
 def permission_denied(request):
@@ -127,23 +122,9 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    # Can't do nothin' if you're not active.
-    if not user.is_active:
-        return False
-
-    # Superusers can do anything.
-    if user.is_superuser:
-        return True
-
-    # At least one of the users groups has a GroupPagePermission.
-    # The user can probably do something.
-    if GroupPagePermission.objects.filter(group__in=user.groups.all()).exists():
-        return True
-
-    # Specific permissions for a page type do not mean anything.
-
-    # No luck! This user can not do anything with pages.
-    return False
+    return PagePermissionPolicy().user_has_any_permission(
+        user, {"add", "edit", "publish", "bulk_delete", "lock", "unlock"}
+    )
 
 
 def reject_request(request):

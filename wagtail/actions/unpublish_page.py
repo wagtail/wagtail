@@ -57,9 +57,7 @@ class UnpublishPageAction(UnpublishAction):
         super().execute(skip_permission_checks)
 
         if self.include_descendants:
-            from wagtail.models import UserPagePermissionsProxy
 
-            user_perms = UserPagePermissionsProxy(self.user)
             for live_descendant_page in (
                 self.object.get_descendants()
                 .live()
@@ -68,5 +66,5 @@ class UnpublishPageAction(UnpublishAction):
                 .iterator()
             ):
                 action = UnpublishPageAction(live_descendant_page)
-                if user_perms.for_page(live_descendant_page).can_unpublish():
+                if live_descendant_page.permissions_for_user(self.user).can_unpublish():
                     action.execute(skip_permission_checks=True)

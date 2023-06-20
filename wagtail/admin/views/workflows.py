@@ -32,11 +32,11 @@ from wagtail.models import (
     Page,
     Task,
     TaskState,
-    UserPagePermissionsProxy,
     Workflow,
     WorkflowContentType,
     WorkflowState,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import task_permission_policy, workflow_permission_policy
 from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
@@ -307,9 +307,10 @@ class Disable(DeleteView):
 def usage(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
-    perms = UserPagePermissionsProxy(request.user)
-
-    pages = workflow.all_pages() & perms.editable_pages()
+    editable_pages = PagePermissionPolicy().instances_user_has_permission_for(
+        request.user, "edit"
+    )
+    pages = workflow.all_pages() & editable_pages
     paginator = Paginator(pages, per_page=10)
     pages = paginator.get_page(request.GET.get("p"))
 

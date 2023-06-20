@@ -9,6 +9,8 @@ Changelog
  * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Explicitly specify `MenuItem.name` for all admin menu and submenu items (Justin Koestinger)
  * Add Embed URL provider support YouTube Shorts (valnuro)
+ * Add initial implementation of `PagePermissionPolicy` (Sage Abdullah)
+ * Refactor `UserPagePermissionsProxy` and `PagePermissionTester` to use `PagePermissionPolicy` (Sage Abdullah)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
@@ -39,16 +41,19 @@ Changelog
  * Maintenance: Add tests to help with maintenance of theme color tokens (Thibaud Colas)
  * Maintenance: Split out a base listing view from generic index view (Matt Westcott)
  * Maintenance: Update type hints in admin/ui/components.py so that `parent_context` is mutable (Andreas Nüßlein)
+ * Maintenance: Deprecate `UserPagePermissionsProxy` (Sage Abdullah)
 
 
 5.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Added `TitleFieldPanel` to support title / slug field synchronisation (LB (Ben) Johnston)
  * Fix: Prevent JS error when reverting the spinner on a submit button after a validation error (LB (Ben) Johnston)
  * Fix: Prevent crash when comparing page revisions that include `MultipleChooserPanel` (Matt Westcott)
  * Fix: Ensure that title and slug continue syncing after entering non-URL-safe characters (LB (Ben) Johnston)
  * Fix: Ensure that title and slug are synced on keypress, not just on blur (LB (Ben) Johnston)
  * Fix: Add a more visible active state for side panel toggle buttons (Thibaud Colas)
+ * Fix: Use custom dark theme colors for revision comparisons (Thibaud Colas)
 
 
 5.0.1 (25.05.2023)

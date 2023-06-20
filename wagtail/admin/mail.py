@@ -7,9 +7,9 @@ from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.translation import override
 
-from wagtail.admin.auth import users_with_page_permission
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import GroupApprovalTask, Page, TaskState, WorkflowState
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.models import UserProfile
 
 logger = logging.getLogger("wagtail.admin")
@@ -75,8 +75,8 @@ def send_moderation_notification(revision, notification, excluded_user=None):
         include_superusers = getattr(
             settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
         )
-        recipient_users = users_with_page_permission(
-            revision.content_object, "publish", include_superusers
+        recipient_users = PagePermissionPolicy().users_with_permission_for_instance(
+            "publish", revision.content_object, include_superusers
         )
     elif notification in ["rejected", "approved"]:
         # Get submitter

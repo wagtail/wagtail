@@ -1832,7 +1832,7 @@ class TestCopyPage(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_copy_subclassed_page_copies_tags(self):
@@ -1865,7 +1865,7 @@ class TestCopyPage(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_copy_page_with_m2m_relations(self):
@@ -2421,7 +2421,7 @@ class TestCreateAlias(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_create_alias_with_m2m_relations(self):

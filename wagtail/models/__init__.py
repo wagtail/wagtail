@@ -11,6 +11,7 @@ as Page.
 
 import functools
 import logging
+import posixpath
 import uuid
 import warnings
 from io import StringIO
@@ -33,7 +34,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
-from django.db.models.functions import Cast, Concat, Substr
+from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -180,6 +181,35 @@ def get_streamfield_names(model_class):
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
+
+    def first_common_ancestor_of(self, pages, include_self=False, strict=False):
+        """
+        This is similar to `PageQuerySet.first_common_ancestor` but works
+        for a list of pages instead of a queryset.
+        """
+        if not pages:
+            if strict:
+                raise self.model.DoesNotExist("Can not find ancestor of empty list")
+            return self.model.get_first_root_node()
+
+        if include_self:
+            paths = list({page.path for page in pages})
+        else:
+            paths = list({page.path[: -self.model.steplen] for page in pages})
+
+        # This method works on anything, not just file system paths.
+        common_parent_path = posixpath.commonprefix(paths)
+        extra_chars = len(common_parent_path) % self.model.steplen
+        if extra_chars != 0:
+            common_parent_path = common_parent_path[:-extra_chars]
+
+        if common_parent_path == "":
+            if strict:
+                raise self.model.DoesNotExist("No common ancestor found!")
+
+            return self.model.get_first_root_node()
+
+        return self.get(path=common_parent_path)
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
@@ -2342,8 +2372,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
         """
-        user_perms = UserPagePermissionsProxy(user)
-        return user_perms.for_page(self)
+        return PagePermissionTester(user, self)
 
     def is_previewable(self):
         """Returns True if at least one preview mode is specified"""
@@ -2900,158 +2929,123 @@ class UserPagePermissionsProxy:
     across the page hierarchy."""
 
     def __init__(self, user):
-        self.user = user
+        from wagtail.permission_policies.pages import PagePermissionPolicy
 
-        if user.is_active and not user.is_superuser:
-            self.permissions = GroupPagePermission.objects.filter(
-                group__user=self.user
-            ).select_related("page")
+        self.user = user
+        self.permission_policy = PagePermissionPolicy()
+
+    @cached_property
+    def permissions(self):
+        return self.permission_policy.get_cached_permissions_for_user(self.user)
 
     def revisions_for_moderation(self):
         """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
-
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Revision.objects.none()
-        if self.user.is_superuser:
-            return Revision.page_revisions.submitted()
-
-        # get the list of pages for which they have direct publish permission
-        # (i.e. they can publish any page within this subtree)
-        publishable_pages_paths = (
-            self.permissions.filter(permission_type="publish")
-            .values_list("page__path", flat=True)
-            .distinct()
+        warnings.warn(
+            "UserPagePermissionsProxy.revisions_for_moderation() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy.revisions_for_moderation(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
         )
-        if not publishable_pages_paths:
-            return Revision.objects.none()
-
-        # compile a filter expression to apply to the Revision.page_revisions.submitted() queryset:
-        # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(path__startswith=publishable_pages_paths[0])
-        for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(path__startswith=page_path)
-
-        # return the filtered queryset
-        return Revision.page_revisions.submitted().filter(
-            object_id__in=Page.objects.filter(only_my_sections).values_list(
-                Cast("pk", output_field=models.CharField()), flat=True
-            )
-        )
+        return self.permission_policy.revisions_for_moderation(self.user)
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given page"""
-        return PagePermissionTester(self, page)
+        warnings.warn(
+            "UserPagePermissionsProxy.for_page() is deprecated. "
+            "Use page.permissions_for_user(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return page.permissions_for_user(self.user)
 
     def explorable_pages(self):
         """Return a queryset of pages that the user has access to view in the
         explorer (e.g. add/edit/publish permission). Includes all pages with
         specific group permissions and also the ancestors of those pages (in
         order to enable navigation in the explorer)"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        explorable_pages = Page.objects.none()
-
-        # Creates a union queryset of all objects the user has access to add,
-        # edit and publish
-        for perm in self.permissions.filter(
-            Q(permission_type="add")
-            | Q(permission_type="edit")
-            | Q(permission_type="publish")
-            | Q(permission_type="lock")
-        ):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
-        # For all pages with specific permissions, add their ancestors as
-        # explorable. This will allow deeply nested pages to be accessed in the
-        # explorer. For example, in the hierarchy A>B>C>D where the user has
-        # 'edit' access on D, they will be able to navigate to D without having
-        # explicit access to A, B or C.
-        page_permissions = Page.objects.filter(group_permissions__in=self.permissions)
-        for page in page_permissions:
-            explorable_pages |= page.get_ancestors()
-
-        # Remove unnecessary top-level ancestors that the user has no access to
-        fca_page = page_permissions.first_common_ancestor()
-        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
-
-        return explorable_pages
+        warnings.warn(
+            "UserPagePermissionsProxy.explorable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            "explorable_instances(user) instead.",
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return self.permission_policy.explorable_instances(self.user)
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        editable_pages = Page.objects.none()
-
-        for perm in self.permissions.filter(permission_type="add"):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) that is owned by them
-            editable_pages |= Page.objects.descendant_of(
-                perm.page, inclusive=True
-            ).filter(owner=self.user)
-
-        for perm in self.permissions.filter(permission_type="edit"):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) regardless of owner
-            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
-        return editable_pages
+        warnings.warn(
+            "UserPagePermissionsProxy.editable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "edit") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return self.permission_policy.instances_user_has_permission_for(
+            self.user, "edit"
+        )
 
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
+        warnings.warn(
+            "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "edit") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.editable_pages().exists()
 
     def publishable_pages(self):
         """Return a queryset of the pages that this user has permission to publish"""
-        # Deal with the trivial cases first...
-        if not self.user.is_active:
-            return Page.objects.none()
-        if self.user.is_superuser:
-            return Page.objects.all()
-
-        publishable_pages = Page.objects.none()
-
-        for perm in self.permissions.filter(permission_type="publish"):
-            # user has publish permission on any subpage of perm.page
-            # (including perm.page itself)
-            publishable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
-        return publishable_pages
+        warnings.warn(
+            "UserPagePermissionsProxy.publishable_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'instances_user_has_permission_for(user, "publish") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return self.permission_policy.instances_user_has_permission_for(
+            self.user, "publish"
+        )
 
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
+        warnings.warn(
+            "UserPagePermissionsProxy.can_publish_pages() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "publish") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         return self.publishable_pages().exists()
 
     def can_remove_locks(self):
         """Returns True if the user has permission to unlock pages they have not locked"""
-        if self.user.is_superuser:
-            return True
-        if not self.user.is_active:
-            return False
-        else:
-            return self.permissions.filter(permission_type="unlock").exists()
+        warnings.warn(
+            "UserPagePermissionsProxy.can_remove_locks() is deprecated. "
+            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
+            'user_has_permission(user, "unlock") instead.',
+            category=RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+        return self.permission_policy.user_has_permission(self.user, "unlock")
 
 
 class PagePermissionTester:
-    def __init__(self, user_perms, page):
-        self.user = user_perms.user
-        self.user_perms = user_perms
+    def __init__(self, user, page):
+        from wagtail.permission_policies.pages import PagePermissionPolicy
+
+        self.user = user
+        self.permission_policy = PagePermissionPolicy()
         self.page = page
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
                 perm.permission_type
-                for perm in user_perms.permissions
+                for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
 
@@ -3253,7 +3247,7 @@ class PagePermissionTester:
             return False
 
         # Inspect permissions on the destination
-        destination_perms = self.user_perms.for_page(destination)
+        destination_perms = destination.permissions_for_user(self.user)
 
         # we always need at least add permission in the target
         if "add" not in destination_perms.permissions:
@@ -3287,7 +3281,7 @@ class PagePermissionTester:
             return True
 
         # Inspect permissions on the destination
-        destination_perms = self.user_perms.for_page(destination)
+        destination_perms = destination.permissions_for_user(self.user)
 
         if not destination.specific_class.creatable_subpage_models():
             return False
@@ -4477,9 +4471,11 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
+        from wagtail.permission_policies.pages import PagePermissionPolicy
+
         q = Q(
-            page__in=UserPagePermissionsProxy(user)
-            .explorable_pages()
+            page__in=PagePermissionPolicy()
+            .explorable_instances(user)
             .values_list("pk", flat=True)
         )
 

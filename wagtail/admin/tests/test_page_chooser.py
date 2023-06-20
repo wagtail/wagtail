@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.models import Locale, Page, UserPagePermissionsProxy
+from wagtail.models import Locale, Page
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
@@ -998,35 +998,33 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.user = self.login()
-        self.permission_proxy = UserPagePermissionsProxy(self.user)
         self.desired_classes = (Page,)
 
     def test_can_choose_page(self):
         homepage = Page.objects.get(url_path="/home/")
-        result = can_choose_page(homepage, self.permission_proxy, self.desired_classes)
+        result = can_choose_page(homepage, self.user, self.desired_classes)
         self.assertTrue(result)
 
     def test_with_user_no_permission(self):
         homepage = Page.objects.get(url_path="/home/")
         # event editor does not have permissions on homepage
         event_editor = get_user_model().objects.get(email="eventeditor@example.com")
-        permission_proxy = UserPagePermissionsProxy(event_editor)
         result = can_choose_page(
-            homepage, permission_proxy, self.desired_classes, user_perm="copy_to"
+            homepage, event_editor, self.desired_classes, user_perm="copy_to"
         )
         self.assertFalse(result)
 
     def test_with_can_choose_root(self):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
-            root, self.permission_proxy, self.desired_classes, can_choose_root=True
+            root, self.user, self.desired_classes, can_choose_root=True
         )
         self.assertTrue(result)
 
     def test_with_can_not_choose_root(self):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
-            root, self.permission_proxy, self.desired_classes, can_choose_root=False
+            root, self.user, self.desired_classes, can_choose_root=False
         )
         self.assertFalse(result)
 
@@ -1034,7 +1032,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         homepage = Page.objects.get(url_path="/home/")
         result = can_choose_page(
             homepage,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="move_to",
             target_pages=[homepage],
@@ -1046,7 +1044,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
             root,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="move_to",
             target_pages=[homepage],
@@ -1060,7 +1058,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         homepage = Page.objects.get(url_path="/home/")
         result = can_choose_page(
             homepage,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="move_to",
             target_pages=[board_meetings],
@@ -1072,7 +1070,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         secret_plans = Page.objects.get(url_path="/home/secret-plans/")
         result = can_choose_page(
             homepage,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="bulk_move_to",
             target_pages=[homepage, secret_plans],
@@ -1085,7 +1083,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
             root,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="bulk_move_to",
             target_pages=[homepage, secret_plans],
@@ -1102,7 +1100,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
         homepage = Page.objects.get(url_path="/home/")
         result = can_choose_page(
             homepage,
-            self.permission_proxy,
+            self.user,
             self.desired_classes,
             user_perm="bulk_move_to",
             target_pages=[board_meetings, steal_underpants],

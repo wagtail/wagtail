@@ -29,7 +29,6 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
@@ -55,6 +54,7 @@ from wagtail.models import (
     PageViewRestriction,
     UserPagePermissionsProxy,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -82,7 +82,7 @@ def breadcrumbs(
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = get_explorable_root_page(user)
+    cca = PagePermissionPolicy().explorable_root_instance(user)
     if not cca:
         return {"pages": Page.objects.none()}
 
@@ -144,13 +144,14 @@ def widgettype(bound_field):
 
 
 def _get_user_page_permissions(context):
+    # RemovedInWagtail60Warning: Remove this function
+
     # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
     if "user_page_permissions" not in context:
         context["user_page_permissions"] = UserPagePermissionsProxy(
             context["request"].user
         )
-
     return context["user_page_permissions"]
 
 
@@ -161,7 +162,10 @@ def page_permissions(context, page):
     Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
     what actions the current logged-in user can perform on the given page.
     """
-    return _get_user_page_permissions(context).for_page(page)
+    # RemovedInWagtail60Warning: Keep the UserPagePermissionsProxy object in the context
+    # for backwards compatibility during the deprecation period, even though we don't use it
+    _get_user_page_permissions(context)
+    return page.permissions_for_user(context["request"].user)
 
 
 @register.simple_tag
@@ -264,10 +268,8 @@ def test_page_is_public(context, page):
         )
 
     is_private = any(
-        [
-            page.path.startswith(restricted_path)
-            for restricted_path in context["request"].all_page_view_restriction_paths
-        ]
+        page.path.startswith(restricted_path)
+        for restricted_path in context["request"].all_page_view_restriction_paths
     )
 
     return not is_private

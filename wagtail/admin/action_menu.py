@@ -29,7 +29,7 @@ class ActionMenuItem(Component):
     def get_user_page_permissions_tester(self, context):
         if "user_page_permissions_tester" in context:
             return context["user_page_permissions_tester"]
-        return context["user_page_permissions"].for_page(context["page"])
+        return context["page"].permissions_for_user(context["request"].user)
 
     def is_shown(self, context):
         """
@@ -79,8 +79,8 @@ class PublishMenuItem(ActionMenuItem):
     def is_shown(self, context):
         if context["view"] == "create":
             return (
-                context["user_page_permissions"]
-                .for_page(context["parent_page"])
+                context["parent_page"]
+                .permissions_for_user(context["request"].user)
                 .can_publish_subpage()
             )
         else:  # view == 'edit' or 'revisions_revert'
@@ -273,9 +273,9 @@ class PageActionMenu:
         user_page_permissions = UserPagePermissionsProxy(self.request.user)
         self.context["user_page_permissions"] = user_page_permissions
         if page:
-            self.context[
-                "user_page_permissions_tester"
-            ] = user_page_permissions.for_page(page)
+            self.context["user_page_permissions_tester"] = page.permissions_for_user(
+                self.request.user
+            )
 
         self.menu_items = []
 

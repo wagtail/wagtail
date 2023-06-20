@@ -23,10 +23,10 @@ from wagtail.models import (
     Page,
     Revision,
     TaskState,
-    UserPagePermissionsProxy,
     WorkflowState,
     get_default_page_content_type,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 User = get_user_model()
 
@@ -100,9 +100,9 @@ class PagesForModerationPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        user_perms = UserPagePermissionsProxy(request.user)
         context["page_revisions_for_moderation"] = (
-            user_perms.revisions_for_moderation()
+            PagePermissionPolicy()
+            .revisions_for_moderation(request.user)
             .select_related("user")
             .order_by("-created_at")
         )
@@ -224,9 +224,9 @@ class LockedPagesPanel(Component):
                     locked=True,
                     locked_by=request.user,
                 ),
-                "can_remove_locks": UserPagePermissionsProxy(
-                    request.user
-                ).can_remove_locks(),
+                "can_remove_locks": PagePermissionPolicy().user_has_permission(
+                    request.user, "unlock"
+                ),
                 "request": request,
                 "csrf_token": parent_context["csrf_token"],
             }

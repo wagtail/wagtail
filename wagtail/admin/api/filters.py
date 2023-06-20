@@ -2,7 +2,7 @@ from rest_framework.filters import BaseFilterBackend
 
 from wagtail import hooks
 from wagtail.api.v2.utils import BadRequestError, parse_boolean
-from wagtail.models import UserPagePermissionsProxy
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 class HasChildrenFilter(BaseFilterBackend):
@@ -38,7 +38,8 @@ class ForExplorerFilter(BaseFilterBackend):
             for hook in hooks.get_hooks("construct_explorer_page_queryset"):
                 queryset = hook(parent_page, queryset, request)
 
-            user_perms = UserPagePermissionsProxy(request.user)
-            queryset = user_perms.explorable_pages() & queryset
+            queryset = (
+                PagePermissionPolicy().explorable_instances(request.user) & queryset
+            )
 
         return queryset

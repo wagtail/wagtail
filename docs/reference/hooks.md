@@ -779,7 +779,11 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
 -   `parent_page` - for `view` = `'create'`, the parent page of the page being created
 -   `request` - the current request object
--   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against
+-   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
+
+    ```{versionchanged} 5.0
+    The `user_page_permissions` context variable is deprecated. If you use `user_page_permissions.for_page(page)`, replace it with `page.permissions_for_user(user)` instead. To make queries based on the user's permissions, use `wagtail.permission_policies.pages.PagePermissionPolicy`.
+    ```
 
 ```python
 from wagtail import hooks
