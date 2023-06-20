@@ -47,6 +47,7 @@ Changelog
 5.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Added `TitleFieldPanel` to support title / slug field synchronisation (LB (Ben) Johnston)
  * Fix: Prevent JS error when reverting the spinner on a submit button after a validation error (LB (Ben) Johnston)
  * Fix: Prevent crash when comparing page revisions that include `MultipleChooserPanel` (Matt Westcott)
  * Fix: Ensure that title and slug continue syncing after entering non-URL-safe characters (LB (Ben) Johnston)
