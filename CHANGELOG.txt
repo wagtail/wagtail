@@ -44,7 +44,7 @@ Changelog
  * Maintenance: Deprecate `UserPagePermissionsProxy` (Sage Abdullah)
 
 
-5.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+5.0.2 (21.06.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Added `TitleFieldPanel` to support title / slug field synchronisation (LB (Ben) Johnston)
