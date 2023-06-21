@@ -3,6 +3,7 @@ import hashlib
 import hmac
 
 from django.conf import settings
+from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_str
 
 
@@ -94,7 +95,9 @@ def generate_signature(image_id, filter_spec, key=None):
 
 
 def verify_signature(signature, image_id, filter_spec, key=None):
-    return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
+    return constant_time_compare(
+        signature, generate_signature(image_id, filter_spec, key=key)
+    )
 
 
 def find_image_duplicates(image, user, permission_policy):
