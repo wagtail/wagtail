@@ -3,9 +3,8 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db.models import Count
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.views.generic import View
+from django.views.generic import TemplateView
 
 from wagtail import hooks
 from wagtail.admin.ui.side_panels import PageSidePanels
@@ -13,7 +12,8 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(PermissionCheckedMixin, View):
+class IndexView(PermissionCheckedMixin, TemplateView):
+    template_name = "wagtailadmin/pages/index.html"
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
         "add",
@@ -26,9 +26,9 @@ class IndexView(PermissionCheckedMixin, View):
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
-            parent_page = get_object_or_404(Page, id=parent_page_id)
+            self.parent_page = get_object_or_404(Page, id=parent_page_id)
         else:
-            parent_page = Page.get_first_root_node()
+            self.parent_page = Page.get_first_root_node()
 
         # This will always succeed because of the check performed by PermissionCheckedMixin.
         root_page = self.permission_policy.explorable_root_instance(request.user)
@@ -36,18 +36,22 @@ class IndexView(PermissionCheckedMixin, View):
         # If this page isn't a descendant of the user's explorable root page,
         # then redirect to that explorable root page instead.
         if not (
-            parent_page.pk == root_page.pk or parent_page.is_descendant_of(root_page)
+            self.parent_page.pk == root_page.pk
+            or self.parent_page.is_descendant_of(root_page)
         ):
             return redirect("wagtailadmin_explore", root_page.pk)
 
-        parent_page = parent_page.specific
+        self.parent_page = self.parent_page.specific
 
-        pages = parent_page.get_children().prefetch_related(
+        return super().get(request)
+
+    def get_context_data(self, **kwargs):
+        pages = self.parent_page.get_children().prefetch_related(
             "content_type", "sites_rooted_here"
-        ) & self.permission_policy.explorable_instances(request.user)
+        ) & self.permission_policy.explorable_instances(self.request.user)
 
         # Get page ordering
-        ordering = request.GET.get("ordering", "-latest_revision_created_at")
+        ordering = self.request.GET.get("ordering", "-latest_revision_created_at")
         if ordering not in [
             "title",
             "-title",
@@ -90,7 +94,7 @@ class IndexView(PermissionCheckedMixin, View):
 
         # allow hooks defer_streamfieldsyset
         for hook in hooks.get_hooks("construct_explorer_page_queryset"):
-            pages = hook(parent_page, pages, request)
+            pages = hook(self.parent_page, pages, self.request)
 
         # Annotate queryset with various states to be used later for performance optimisations
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
@@ -102,25 +106,25 @@ class IndexView(PermissionCheckedMixin, View):
         if do_paginate:
             paginator = Paginator(pages, per_page=50)
             try:
-                pages = paginator.page(request.GET.get("p", 1))
+                pages = paginator.page(self.request.GET.get("p", 1))
             except InvalidPage:
                 raise Http404
 
-        show_ordering_column = request.GET.get("ordering") == "ord"
+        show_ordering_column = self.request.GET.get("ordering") == "ord"
 
         side_panels = PageSidePanels(
-            request,
-            parent_page.get_latest_revision_as_object(),
+            self.request,
+            self.parent_page.get_latest_revision_as_object(),
             show_schedule_publishing_toggle=False,
-            live_page=parent_page.specific,
-            scheduled_page=parent_page.get_scheduled_revision_as_object(),
+            live_page=self.parent_page,
+            scheduled_page=self.parent_page.get_scheduled_revision_as_object(),
             in_explorer=True,
             preview_enabled=False,
             comments_enabled=False,
         )
 
         context = {
-            "parent_page": parent_page.specific,
+            "parent_page": self.parent_page,
             "ordering": ordering,
             "side_panels": side_panels,
             "pages": pages,
@@ -133,10 +137,10 @@ class IndexView(PermissionCheckedMixin, View):
         }
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            if not parent_page.is_root():
+            if not self.parent_page.is_root():
                 context.update(
                     {
-                        "locale": parent_page.locale,
+                        "locale": self.parent_page.locale,
                         "translations": [
                             {
                                 "locale": translation.locale,
@@ -144,7 +148,7 @@ class IndexView(PermissionCheckedMixin, View):
                                     "wagtailadmin_explore", args=[translation.id]
                                 ),
                             }
-                            for translation in parent_page.get_translations()
+                            for translation in self.parent_page.get_translations()
                             .only("id", "locale")
                             .select_related("locale")
                         ],
@@ -153,4 +157,4 @@ class IndexView(PermissionCheckedMixin, View):
             else:
                 context["show_locale_labels"] = True
 
-        return TemplateResponse(request, "wagtailadmin/pages/index.html", context)
+        return context
