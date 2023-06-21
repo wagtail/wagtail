@@ -55,6 +55,9 @@ export class DropdownController extends Controller<HTMLElement> {
           hoverTooltipInstance.disable();
         }
       },
+      onShown() {
+        document.dispatchEvent(new CustomEvent('w-dropdown:shown'));
+      },
       onHide() {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.enable();

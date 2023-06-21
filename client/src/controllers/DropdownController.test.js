@@ -27,4 +27,15 @@ describe('DropdownController', () => {
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
     expect(content).toBe(null);
   });
+
+  it('triggers custom event on activation', () => {
+    const toggle = document.querySelector('[data-w-dropdown-target="toggle"]');
+    const mock = jest.fn();
+    document.addEventListener('w-dropdown:shown', mock);
+    toggle.dispatchEvent(new Event('click'));
+    // Leave time for animation to complete.
+    setTimeout(() => {
+      expect(mock).toHaveBeenCalled();
+    }, 500);
+  });
 });
