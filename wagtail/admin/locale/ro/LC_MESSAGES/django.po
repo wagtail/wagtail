@@ -3,9 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2022
+# Dan Braghis, 2014-2023
 # Julian C <jcuotpc@gmail.com>, 2021
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -267,6 +268,13 @@ msgstr ""
 "Nu este posibil de alocat acest flux de lucru la aceeași pagina de mai multe "
 "ori."
 
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Fragmentul '%(content_type)s' are deja alocat fluxtul de lucru "
+"'%(workflow_name)s'."
+
 msgid "Give your workflow a name"
 msgstr "Dați un nume fluxului de lucru"
 
@@ -448,6 +456,9 @@ msgstr "Resetează parola"
 msgid "Reset to default"
 msgstr "Resetează la starea implicită"
 
+msgid "Default avatar"
+msgstr "Avatar implicit"
+
 msgid "Upload a profile picture:"
 msgstr "Încarca poza profil"
 
@@ -517,20 +528,23 @@ msgstr[2] ""
 "Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
 "Rezultatele căutării vor exclude pagini de alt tip."
 
+msgid "Confirm selection"
+msgstr "Confirmă selecția"
+
 msgid "Convert to internal link"
 msgstr "Convertește în link internă"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Adresa de internet introdusă, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, se potrivește paginii interne "
-"%(page)s, cu adresa <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(internal_url)s\">%(internal_url)s</a> ."
+"Adresa de internet introdusă, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, se potrivește paginii "
+"interne %(page)s, cu adresa <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a> ."
 
 #, python-format
 msgid ""
@@ -556,6 +570,10 @@ msgstr "Adaugă un link extern"
 
 msgid "Add a phone link"
 msgstr "Adaugă link telefonic"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Selectează %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -609,11 +627,11 @@ msgstr "Nume"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creată nici o colecție. De ce să nu <a href="
-"\"%(add_collection_url)s\">adăugați una</a>?"
+"Nu a fost creată nici o colecție. De ce să nu <a "
+"href=\"%(add_collection_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -641,6 +659,34 @@ msgstr "Da, anulează publicarea"
 
 msgid "No, don't unpublish"
 msgstr "Nu, nu anulează publicarea"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publică %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Acest %(model_name)s a fost marcat cum că necesită schimbări la "
+"<strong>%(task)s</strong> în <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Acest %(model_name)s se află la <strong>%(task)s</strong> în "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Publicarea acestui %(model_name)s va anula fluxul de lucru curent."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Mai doriți să publicați acest %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Anulează"
@@ -772,8 +818,21 @@ msgstr[2] ""
 "<span>%(total)s</span> Pagini <span class=\"visuallyhidden\">create în "
 "%(site_name)s</span>"
 
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Este disponibilă o actualizare pentru Wagtail. Vă aflați la versiunea: "
+"<strong>%(current_version)s</strong>. Noua versiune: <strong data-w-upgrade-"
+"target=\"latestVersion\"></strong>."
+
 msgid "Read the release notes."
 msgstr "Citește notele de lansare."
+
+msgid "Your pages and snippets in a workflow"
+msgstr "Paginile și fragmentele Dvs. într-un flux de lucru"
 
 msgid "Task started"
 msgstr "Sarcină incepută"
@@ -786,6 +845,22 @@ msgstr "Așteaptă"
 
 msgid "Close"
 msgstr "Închideți"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "S-au schimbat lucruri în Wagtail %(version)s!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"E în regulă, avem grijă de dvs. Mergeți la <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"Editor Guide</a> ca să aflați ce s-a schimbat și ce funcționalități noi au "
+"apărut!"
 
 msgid "Awaiting your review"
 msgstr "Așteaptă recenzia ta"
@@ -864,8 +939,23 @@ msgstr ""
 "Pagina \"%(title)s\" a fost aprobată în faza de moderare  \"%(task)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost aprobat în faza de moderare \"%(task)s\"."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Puteți edita %(model_name)s aici:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Pagina \"%(title)s\" a fost aprobată în \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "%(model_name)s \"%(title)s\" a fost aprobat în \"%(task)s\"."
 
 #, python-format
 msgid ""
@@ -874,8 +964,19 @@ msgstr ""
 "Pagina \"%(title)s\" a fost respinsă în faza de moderare  \"%(task)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost respins în faza de moderare \"%(task)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "Pagina \"%(title)s\" a fost respinsă în \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "%(model_name)s \"%(title)s\" a fost respins în \"%(task)s\"."
 
 #, python-format
 msgid ""
@@ -884,6 +985,18 @@ msgid ""
 msgstr ""
 "Pagina \"%(title)s\" a fost trimisă pentru aprobare în faza de moderare  "
 "\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis pentru aprobare în faza de "
+"moderare \"%(task)s\"."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Puteți previzualiza %(model_name)s aici:"
 
 #, python-format
 msgid ""
@@ -895,11 +1008,27 @@ msgstr ""
 
 #, python-format
 msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval to "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis pentru aprobare către faza de "
+"moderare \"%(task)s\"."
+
+#, python-format
+msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\""
 msgstr ""
 "Pagina \"%(title)s\" a fost trimisă pentru aprobare în faza de moderare  "
 "\"%(task)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\""
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis pentru aprobare în faza de "
+"moderare \"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -942,8 +1071,20 @@ msgstr ""
 "Pagina \"%(title)s\" a fost aprobată în fluxul de lucru \"%(workflow)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost aprobat în fluxul de lucru "
+"\"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
 msgstr "Pagina \"%(title)s\" a fost aprobată în \"%(workflow)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "%(model_name)s \"%(title)s\" a fost aprobat în \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -966,8 +1107,29 @@ msgid "The following comment was left: \"%(comment)s\""
 msgstr "Următorul comentariu a fost lăsat: \"%(comment)s\""
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost respins la \"%(task)s\" în fluxul de "
+"lucru \"%(workflow)s\" de către %(rejector)s."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost respins la \"%(task)s\" în fluxul de "
+"lucru \"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Pagina \"%(title)s\" a fost respinsă în \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "%(model_name)s \"%(title)s\" a fost respins în \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -986,9 +1148,33 @@ msgstr ""
 "\"%(workflow)s\"."
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\" by %(requester)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis pentru moderare la fluxul de "
+"lucru \"%(workflow)s\" de către %(requester)s."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis pentru moderare la fluxul de "
+"lucru \"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr ""
 "Pagina \"%(title)s\" a fost trimisă în fluxul de lucru \"%(workflow)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"%(model_name)s \"%(title)s\" a fost trimis la fluxul de lucru "
+"\"%(workflow)s\""
 
 msgid "Page privacy"
 msgstr "Confidențialitate"
@@ -1079,9 +1265,9 @@ msgstr "Sigur doriți să mutați aceaste pagini?"
 #, python-format
 msgid "This page has one child page"
 msgid_plural "This page has %(counter)s child pages"
-msgstr[0] "Această pagină are o subpagină"
-msgstr[1] "Această pagină are %(counter)s subpagini"
-msgstr[2] "Această pagină are %(counter)s subpagini"
+msgstr[0] "Această pagină are o pagină descendentă"
+msgstr[1] "Această pagină are %(counter)s pagini descendente"
+msgstr[2] "Această pagină are %(counter)s de pagini descendente"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -1197,11 +1383,14 @@ msgid "Deleting this page will also delete %(descendant_count)s child page."
 msgid_plural ""
 "Deleting this page will also delete %(descendant_count)s more child pages."
 msgstr[0] ""
-"Ștergerea acestei pagini va șterge și %(descendant_count)s altă subpagină."
+"Ștergerea acestei pagini va șterge și %(descendant_count)s altă pagină "
+"descendentă."
 msgstr[1] ""
-"Ștergerea acestei pagini va șterge și %(descendant_count)s alte subpagini."
+"Ștergerea acestei pagini va șterge și %(descendant_count)s alte pagini "
+"descendente."
 msgstr[2] ""
-"Ștergerea acestei pagini va șterge și %(descendant_count)s alte subpagini."
+"Ștergerea acestei pagini va șterge și %(descendant_count)s de alte pagini "
+"descendente."
 
 #, python-format
 msgid ""
@@ -1212,13 +1401,13 @@ msgid_plural ""
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
 "De asemenea, va șterge 1 traducere și %(translation_descendant_count)s "
-"subpagină tradusă a acelei traduceri."
+"pagină descendentă tradusă a acelei traduceri."
 msgstr[1] ""
 "De asemenea, va șterge 1 traducere și %(translation_descendant_count)s "
-"subpagini traduse combinate a acelei traduceri."
+"pagini descendente traduse combinate a acelei traduceri."
 msgstr[2] ""
-"De asemenea, va șterge 1 traducere și %(translation_descendant_count)s "
-"subpagini traduse combinate a acelei traduceri."
+"De asemenea, va șterge 1 traducere și %(translation_descendant_count)s de "
+"pagini descendente traduse combinate a acelei traduceri."
 
 #, python-format
 msgid ""
@@ -1229,15 +1418,16 @@ msgid_plural ""
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
 "De asemenea, va șterge %(translation_count)s traduceri și "
-"%(translation_descendant_count)s subpagină tradusă a acelor traduceri."
+"%(translation_descendant_count)s pagină descendentă tradusă a acelor "
+"traduceri."
 msgstr[1] ""
 "De asemenea, va șterge %(translation_count)s traduceri și "
-"%(translation_descendant_count)s subpagini traduse combinate ale acelor "
-"traduceri."
+"%(translation_descendant_count)s pagini descendente traduse combinate ale "
+"acelor traduceri."
 msgstr[2] ""
 "De asemenea, va șterge %(translation_count)s traduceri și "
-"%(translation_descendant_count)s subpagini traduse combinate ale acelor "
-"traduceri."
+"%(translation_descendant_count)s de pagini descendente traduse combinate ale "
+"acelor traduceri."
 
 #, python-format
 msgid "It will also delete %(translation_count)s translation."
@@ -1254,14 +1444,14 @@ msgid_plural ""
 "Deleting this page will also delete 1 translation and its combined "
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
-"Stergerea acestei pagini va șterge și 1 traducere cu "
-"%(translation_descendant_count)s subpagină tradusă."
+"Ștergerea acestei pagini va șterge și 1 traducere cu "
+"%(translation_descendant_count)s pagină descendentă tradusă."
 msgstr[1] ""
-"Stergerea acestei pagini va șterge și 1 traducere cu "
-"%(translation_descendant_count)s subpagini traduse."
+"Ștergerea acestei pagini va șterge și 1 traducere cu "
+"%(translation_descendant_count)s pagini descendente traduse."
 msgstr[2] ""
-"Stergerea acestei pagini va șterge și 1 traducere cu "
-"%(translation_descendant_count)s subpagini traduse."
+"Ștergerea acestei pagini va șterge și 1 traducere cu "
+"%(translation_descendant_count)s de pagini descendente traduse."
 
 #, python-format
 msgid ""
@@ -1271,14 +1461,14 @@ msgid_plural ""
 "Deleting this page will also delete %(translation_count)s translations and "
 "their combined %(translation_descendant_count)s translated child pages."
 msgstr[0] ""
-"Stergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
-"%(translation_descendant_count)s subpagină tradusă."
+"Ștergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
+"%(translation_descendant_count)s pagină descendentă tradusă."
 msgstr[1] ""
-"Stergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
-"%(translation_descendant_count)s subpagini traduse combinate."
+"Ștergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
+"%(translation_descendant_count)s pagini descendente traduse combinate."
 msgstr[2] ""
-"Stergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
-"%(translation_descendant_count)s subpagini traduse combinate."
+"Ștergerea acestei pagini va șterge și %(translation_count)s traduceri cu "
+"%(translation_descendant_count)s de pagini descendente traduse combinate."
 
 #, python-format
 msgid ""
@@ -1288,14 +1478,14 @@ msgid_plural ""
 "This will also delete %(descendant_count)s more child pages. Deleting this "
 "page will also delete %(translation_count)s translations of this page."
 msgstr[0] ""
-"Stergerea acestei pagini va șterge și %(translation_count)s traducere "
+"Ștergerea acestei pagini va șterge și %(translation_count)s traducere "
 "corespunzătoare."
 msgstr[1] ""
-"Vor fi șterse și %(descendant_count)s subpagini. Stergerea acestei pagini va "
-"șterge și %(translation_count)s traduceri corespunzătoare."
+"Vor fi șterse și %(descendant_count)s pagini descendente. Ștergerea acestei "
+"pagini va șterge și %(translation_count)s traduceri corespunzătoare."
 msgstr[2] ""
-"Vor fi șterse și %(descendant_count)s subpagini. Stergerea acestei pagini va "
-"șterge și %(translation_count)s traduceri corespunzătoare."
+"Vor fi șterse și %(descendant_count)s pagini descendente. Ștergerea acestei "
+"pagini va șterge și %(translation_count)sde  traduceri corespunzătoare."
 
 #, python-format
 msgid "This action will delete total <b>%(total_pages)s</b> pages."
@@ -1334,13 +1524,81 @@ msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
 msgstr ""
-"Sigur doriți să mutați această pagină și paginile dependente în '%(title)s'?"
+"Sigur doriți să mutați această pagină și paginile ei descendente sub "
+"'%(title)s'?"
+
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] ""
+"Această acțiune va muta și o traducere a acestei pagini și a paginilor "
+"descendente"
+msgstr[1] ""
+"Această acțiune va muta și %(translations_to_move_count)s traduceri ale "
+"acestei pagini și ale paginilor descendente"
+msgstr[2] ""
+"Această acțiune va muta și %(translations_to_move_count)s de traduceri ale "
+"acestei pagini și ale paginilor descendente"
 
 msgid "Yes, move this page"
 msgstr "Da, mută această pagină"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea acestei pagini?"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "Această acțiune va anula publicarea unei traduceri a paginii."
+msgstr[1] ""
+"Această acțiune va anula publicarea a %(translation_count)s traduceri ale "
+"paginii."
+msgstr[2] ""
+"Această acțiune va anula publicarea a %(translation_count)s de traduceri ale "
+"paginii."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Această pagină are o pagină descendentă și traducerile au în total o singură "
+"pagină descendentă tradusă. Anulează și publicarea acestora"
+msgstr[1] ""
+"Această pagină are %(live_descendant_count)s pagini descendente și "
+"traducerile au în total o singură pagină descendentă tradusă. Anulează și "
+"publicarea acestora"
+msgstr[2] ""
+"Această pagină are %(live_descendant_count)s de pagini descendente și "
+"traducerile lor au în total o singură pagină descendentă tradusă. Anulează "
+"și publicarea acestora"
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Această pagină are o pagină descendentă și traducerile au în total "
+"%(translation_descendant_count)s pagini descendentă traduse. Anulează și "
+"publicarea acestora"
+msgstr[1] ""
+"Această pagină are %(live_descendant_count)s pagini descendente și "
+"traducerile au în total %(translation_descendant_count)s pagini descendente "
+"traduse. Anulează și publicarea acestora"
+msgstr[2] ""
+"Această pagină are %(live_descendant_count)s de pagini descendente și "
+"traducerile au în total %(translation_descendant_count)s pagini descendente "
+"traduse. Anulează și publicarea acestora"
 
 #, python-format
 msgid "This page has one subpage. Unpublish this too"
@@ -1451,6 +1709,14 @@ msgstr "Explorare %(title)s"
 msgid "Select all pages in listing"
 msgstr "Selectează toate paginile din listă"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Apăsați enter pentru a selecta un element, folosiți săgețile sus/jos pentru "
+"a muta elementul, apăsați enter pentru a finaliza mutarea sau escape pentru "
+"a anula mutarea curentă."
+
 msgid "Select page"
 msgstr "Selectează pagină"
 
@@ -1506,16 +1772,19 @@ msgstr "Nu a fost creată nici o pagină în această locație."
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "De ce să nu <a href=\"%(add_page_url)s\">creați una</a>?"
 
+msgid "This page is locked, by you, to further editing"
+msgstr "Această pagină este blocată, de către dvs., pentru editări ulterioare"
+
 msgid "This page is locked to further editing"
 msgstr "Această pagină este blocată pentru editări ulterioare."
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "Explorează paginile dependente de '%(title)s'"
+msgstr "Explorează paginile descendente la '%(title)s'"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Adaugă o pagină dependentă de '%(title)s'"
+msgstr "Adaugă o pagină descendentă la '%(title)s'"
 
 msgid "Sites menu"
 msgstr "Meniu saituri"
@@ -1537,19 +1806,19 @@ msgid "This page is protected from public view"
 msgstr "Această pagină este protejată de ochii publicului"
 
 msgid "Disable ordering of child pages"
-msgstr "Dezactivează rânduirea paginilor dependente"
+msgstr "Dezactivează rânduirea paginilor descendente"
 
 msgid "Sort"
 msgstr "Sortează"
 
 msgid "Enable ordering of child pages"
-msgstr "Activează rânduirea paginilor dependente"
+msgstr "Activează rânduirea paginilor descendente"
 
 msgid "Updated"
 msgstr "Actualizată"
 
 msgid "Confirm"
-msgstr "Confirmează"
+msgstr "Confirmă"
 
 msgid "History"
 msgstr "Istorie"
@@ -1596,6 +1865,23 @@ msgstr "Deplasează în sus"
 
 msgid "Move down"
 msgstr "Deplasează în jos"
+
+msgid "Set publishing schedule"
+msgstr "Setează programarea publicării"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Alegeți când această pagină va deveni live sau/și va expira"
+
+msgid "This publishing schedule will only take effect after you have published"
+msgstr ""
+"Această programare pentru publicare va intra în funcțiune doar după ce veți "
+"publica"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Oricine are permisiuni de editare poate crea programări"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr "Dar numai cei cu permisiuni de publicare le pot pune în funcțiune"
 
 msgid "Save schedule"
 msgstr "Salvează program"
@@ -1657,6 +1943,9 @@ msgstr "După sarcină"
 msgid "Workflow"
 msgstr "Flux de lucru"
 
+msgid "Page/Snippet"
+msgstr "Pagină/Fragment"
+
 msgid "Requested by"
 msgstr "Solicitat de"
 
@@ -1665,6 +1954,9 @@ msgstr "Început la"
 
 msgid "Incomplete task"
 msgstr "Sarcină incompletă"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Nicio pagină/fragment nu au fost trimise spre moderare până acum"
 
 msgid "By Workflow"
 msgstr "După flux de lucru"
@@ -1770,8 +2062,22 @@ msgstr "Fără alte traduceri"
 msgid "Switch locales"
 msgstr "Schimă localuri"
 
+msgid "Locking: "
+msgstr "Blocare:"
+
 msgid "Unlocked"
 msgstr "A deblochat"
+
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Oricine poate edita acest %(model_name)s – blocați-l ca să nu poată să îl "
+"editeze altcineva"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Oricine poate edita acest %(model_name)s"
 
 msgid "Lock"
 msgstr "Blochează"
@@ -1816,7 +2122,7 @@ msgid "Edit schedule"
 msgstr "Editează program"
 
 msgid "In Moderation"
-msgstr "În moderație"
+msgstr "În moderare"
 
 msgid "View details"
 msgstr "Vezi detalii"
@@ -1871,6 +2177,20 @@ msgstr "Mod de previzualizare"
 msgid "First published "
 msgstr "Publicat pentru prima dată"
 
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Acest obiect %(model_name)s este referenția %(usage_count)s dată."
+msgstr[1] ""
+"Acest obiect %(model_name)s este referențiat de %(usage_count)s ori."
+msgstr[2] "Acest %(model_name)s este referențiat de %(usage_count)s de ori."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Una sau mai multe referințe către acest %(model_name)s previn ștergerea lui."
+
 msgid "Edit / Review"
 msgstr "Editează  / Revizuie"
 
@@ -1884,6 +2204,10 @@ msgstr "Solicitat de către <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Început la <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Starea %(status)s"
 
 msgid "Timeline"
 msgstr "Cronologie"
@@ -1925,16 +2249,20 @@ msgstr "Sarcină approbată"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Această pagină incă n-a fost trimisă pentru moderarare"
 
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "Acest %(model_name)s încă nu a fost trimis pentru moderare"
+
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "Wagtail necesită JavaScript pentru utilizare, dar e dezactivat la moment."
-"<br />Vedeți <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instrucțiuni despre cum să activați JavaScript în "
-"browserul dvs. web</a>.        "
+"<br />Vedeți <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instrucțiuni despre cum să activați "
+"JavaScript în browserul dvs. web</a>.        "
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -1942,8 +2270,17 @@ msgstr "Săriți la conținutul principal"
 msgid "View Wagtail quick actions"
 msgstr "Vezi acțiunile Wagtail rapide"
 
+msgid "Issues found"
+msgstr "Probleme găsite"
+
+msgid "Accessibility"
+msgstr "Accesibilitate"
+
+msgid "Warnings"
+msgstr "Avertismente"
+
 msgid "Add a child page"
-msgstr "Adaugă o pagină dependentă"
+msgstr "Adaugă o pagină descendentă"
 
 msgid "Show in Explorer"
 msgstr "Arată în Explorator"
@@ -1974,6 +2311,9 @@ msgstr "Sigur doriți să dezactivați această sarcină?"
 msgid "Assign your workflow to pages"
 msgstr "Alocați fluxul de lucru la pagini"
 
+msgid "Assign your workflow to snippets"
+msgstr "Asignează fluxul de lucru la fragmente"
+
 msgid "Creating…"
 msgstr "În curs de creare..."
 
@@ -1983,17 +2323,23 @@ msgstr "Creează"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
-"Fluxurile de lucru sunt aplicabile și pentru pagini subordinate. Dacă "
-"selectați o pagină părinte aici, paginile subordinate vor folosi acest flux "
-"de lucru. Vezi <a href=\"%(workflow_pages_url)s\">lista paginilor</a> la "
-"care acest flux de lucru se aplică."
+"Fluxurile de lucru se aplică și paginilor descendente. Dacă selectați o "
+"pagină părinte aici, și paginile descendente vor folosi acest flux de lucru. "
+"Vezi <a href=\"%(workflow_pages_url)s\">lista paginilor</a> la care acest "
+"flux de lucru se aplică."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
 "Acest flux de lucru este dezactivat și nu poate fi alocat la nici o pagină."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"Acest flux de lucru este dezactivat, așa că nu poate fi alocat la niciun "
+"fragment."
 
 msgid "Used on the following active workflows"
 msgstr "Folosită în fluxurile de lucru următoare"
@@ -2019,12 +2365,22 @@ msgstr "Arată fluxurile de lucru dezactivate"
 msgid "Used by"
 msgstr "Folosit de"
 
+msgid "Disabled"
+msgstr "Dezactivat"
+
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1 pagină"
 msgstr[1] "%(counter)s pagini"
 msgstr[2] "%(counter)s pagini"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 tip de fragment"
+msgstr[1] "%(counter)s tipuri de fragment"
+msgstr[2] "%(counter)s de tipuri de fragment"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -2041,15 +2397,15 @@ msgstr[2] "+ incă %(counter)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un flux de lucru. De ce să nu <a href=\"%(add_url)s"
-"\">adăugați unul</a>?"
+"Nu a fost creat nici un flux de lucru. De ce să nu <a "
+"href=\"%(add_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu există nici un flux de lucru activate. De ce să nu <a href=\"%(add_url)s"
-"\">activați unul</a>?"
+"Nu există nici un flux de lucru activate. De ce să nu <a "
+"href=\"%(add_url)s\">activați unul</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Alegeți tipul de sarcină pe care doriți să creați."
@@ -2097,15 +2453,15 @@ msgstr "Arată sarcini dezactivate"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creată nici o sarcină. De ce să nu <a href=\"%(add_url)s"
-"\">adăugați una</a>?"
+"Nu a fost creată nici o sarcină. De ce să nu <a "
+"href=\"%(add_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu există nici o sarcină activată. De ce să nu <a href=\"%(add_url)s"
-"\">adăugați una</a>?"
+"Nu există nici o sarcină activată. De ce să nu <a "
+"href=\"%(add_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -2210,6 +2566,13 @@ msgstr "%(status_display)s%(task_name)s%(started_at)s"
 msgid "Toggle status"
 msgstr "Comută starea"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Referențiat %(count)s dată"
+msgstr[1] "Referențiat de %(count)s ori"
+msgstr[2] "Referențiat de %(count)s de ori"
+
 msgid "Comments"
 msgstr "Comentarii"
 
@@ -2218,6 +2581,47 @@ msgstr "Comută comentarii"
 
 msgid "Toggle preview"
 msgstr "Comută previzualizarea"
+
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Textul butonului este gol. Folosiți un text semnificativ pentru utilizatorii "
+"cu cititoare de ecran."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Titlu gol. Folosiți un text semnificativ pentru utilizatorii cu cititoare de "
+"ecran."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Titlul tabelului este gol. Folosiți un text semnificativ pentru utilizatorii "
+"cu cititoare de ecran."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Titlul pentru ramă este gol. Folosiți un text semnificativ pentru "
+"utilizatorii cu cititoare de ecran."
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "Ierarhia titlurilor este incorectă. Evitați să săriți peste niveluri."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Textul pentru butonul de introducere este gol. Folosiți un text semnificativ "
+"pentru utilizatorii cu cititoare de ecran."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Textul pentru link este gol. Folosiți un text semnificativ pentru "
+"utilizatorii cu cititoare de ecran."
+
+msgid "Misusing paragraphs as headings. Use proper heading tags."
+msgstr ""
+"Folosirea incorectă a paragrafelor pe post de titluri. Folosiți etichete de "
+"tip titlu corespunzătoare."
 
 msgid "Profile"
 msgstr "Profil"
@@ -2234,6 +2638,9 @@ msgstr "Poza de profil"
 msgid "Locale"
 msgstr "Localizare"
 
+msgid "Theme preferences"
+msgstr "Preferințe pentru temă"
+
 msgid "Password"
 msgstr "Parola"
 
@@ -2242,6 +2649,9 @@ msgstr "Setările contului tău au fost schimbate!"
 
 msgid "You have been successfully logged out."
 msgstr "V-ați deconectat cu success."
+
+msgid "Select"
+msgstr "Selectează"
 
 msgid "Collections"
 msgstr "Colecții"
@@ -2277,6 +2687,14 @@ msgid "Workflow progress"
 msgstr "Progresiune flux de lucru"
 
 #, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' este deblocat."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s nu poate fi salvat deoarece este blocat"
+
+#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' a fost actualizat(ă)."
 
@@ -2285,12 +2703,74 @@ msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' a fost creat(ă)."
 
 #, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' a fost programat pentru publicare."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' creat și programat pentru publicare."
+
+#, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s '%(object)s' este live și această versiune a fost programată "
+"pentru publicare."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' actualizat și publicat."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' creat și publicat."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been submitted for moderation."
+msgstr "%(model_name)s '%(object)s' a fost trimis pentru moderare."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and submitted for moderation."
+msgstr "%(model_name)s '%(object)s' creat și trimis pentru moderare."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr "Fluxul de lucru pe %(model_name)s '%(object)s' a fost repornit."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
+msgstr "Fluxul de lucru pe %(model_name)s '%(object)s' a fost anulat."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 "Sunteți în curs de vizualizare a versiunii precedente a %(model_name)s din "
 "<b>%(created_at)s</b> de către %(user)s"
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' has been replaced with version from "
+"%(timestamp)s."
+msgstr ""
+"%(model_name)s '%(object)s' a fost înlocuit(ă) cu versiunea din "
+"%(timestamp)s."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
+msgstr ""
+"Versiunea din %(timestamp)s a %(model_name)s '%(object)s' a fost publicată."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
+"for publishing."
+msgstr ""
+"Versiunea din %(timestamp)s a %(model_name)s '%(object)s' a fost programată "
+"pentru publicare."
 
 #, python-format
 msgid "Search %(model_name)s"
@@ -2299,14 +2779,33 @@ msgstr "Caută %(model_name)s"
 msgid "Editing"
 msgstr "Editare"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
+
 msgid "Earliest"
 msgstr "Cea mai veche"
 
 msgid "Latest"
 msgstr "Cea mai recentă"
 
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' nepublicat."
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Programarea versiunii %(revision_id)s a \"%(object)s\" a fost anulată."
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "revizia %(revision_id)s a \"%(object)s\""
+
 msgid "Usage of"
 msgstr "Utilizare"
+
+msgid "If you confirm deletion"
+msgstr "Dacă confirmați ștergerea"
 
 msgid "Field"
 msgstr "Câmp"
@@ -2318,6 +2817,18 @@ msgstr "(%(object)s privat/ă)"
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Editează %(object)s"
+
+#, python-format
+msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
+msgstr "%(model_name)s '%(title)s' nu este în moderare în acest moment."
+
+#, python-format
+msgid ""
+"The %(model_name)s '%(title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"%(model_name)s '%(title)s' nu este în acest moment în moderare la sarcina "
+"'%(task_name)s'."
 
 msgid "Dashboard"
 msgstr "Bord"
@@ -2331,9 +2842,10 @@ msgstr "1 pagină a fost ștersă"
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been deleted"
 msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 pagină și %(num_child_objects)d pagină dependentă au fost șterse"
-msgstr[1] "1 pagină și %(num_child_objects)d pagini dependente au fost șterse"
-msgstr[2] "1 pagină și %(num_child_objects)d pagini dependente au fost șterse"
+msgstr[0] "1 pagină și %(num_child_objects)d pagină descendentă au fost șterse"
+msgstr[1] "1 pagină și %(num_child_objects)d pagini descendente au fost șterse"
+msgstr[2] ""
+"1 pagină și %(num_child_objects)d de pagini descendente au fost șterse"
 
 #, python-format
 msgid "%(num_parent_objects)d pages have been deleted"
@@ -2347,14 +2859,14 @@ msgid_plural ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
 "deleted"
 msgstr[0] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini dependentă au "
+"%(num_parent_objects)d pagini și %(num_child_objects)d pagină descendentă au "
 "fost șterse"
 msgstr[1] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini dependente au "
+"%(num_parent_objects)d pagini și %(num_child_objects)d pagini descendente au "
 "fost șterse"
 msgstr[2] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini dependente au "
-"fost șterse"
+"%(num_parent_objects)d pagini și %(num_child_objects)d de pagini descendente "
+"au fost șterse"
 
 msgid "Select a new parent page"
 msgstr "Alege o pagină de bază nouă"
@@ -2379,11 +2891,11 @@ msgstr "1 pagină a fost publicată"
 msgid "1 page and %(num_child_objects)d child page have been published"
 msgid_plural "1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] ""
-"1 pagină și %(num_child_objects)d pagină dependentă au fost publicate"
+"1 pagină și %(num_child_objects)d pagină descendentă au fost publicate"
 msgstr[1] ""
-"1 pagină și %(num_child_objects)d pagini dependente au fost publicate"
+"1 pagină și %(num_child_objects)d pagini descendente au fost publicate"
 msgstr[2] ""
-"1 pagină și %(num_child_objects)d pagini dependente au fost publicate"
+"1 pagină și %(num_child_objects)d de pagini descendente au fost publicate"
 
 #, python-format
 msgid "%(num_parent_objects)d pages have been published"
@@ -2397,14 +2909,14 @@ msgid_plural ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
 "published"
 msgstr[0] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagină dependentă au "
+"%(num_parent_objects)d pagini și %(num_child_objects)d pagină descendentă au "
 "fost publicate"
 msgstr[1] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini dependente au "
+"%(num_parent_objects)d pagini și %(num_child_objects)d pagini descendente au "
 "fost publicate"
 msgstr[2] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini dependente au "
-"fost publicate"
+"%(num_parent_objects)d pagini și %(num_child_objects)d de pagini descendente "
+"au fost publicate"
 
 msgid "Unpublish selected pages"
 msgstr "Anulează publicarea paginilor selectate"
@@ -2417,13 +2929,13 @@ msgid "1 page and %(num_child_objects)d child page have been unpublished"
 msgid_plural ""
 "1 page and %(num_child_objects)d child pages have been unpublished"
 msgstr[0] ""
-"Publicarea la 1 pagină și %(num_child_objects)d pagină dependentă a fost "
+"Publicarea la 1 pagină și %(num_child_objects)d pagină descendentă a fost "
 "anulată"
 msgstr[1] ""
-"Publicarea la 1 pagină și %(num_child_objects)d pagini dependente a fost "
+"Publicarea la 1 pagină și %(num_child_objects)d pagini descendente a fost "
 "anulată"
 msgstr[2] ""
-"Publicarea la 1 pagină și %(num_child_objects)d pagini dependente a fost "
+"Publicarea la 1 pagină și %(num_child_objects)d de pagini descendente a fost "
 "anulată"
 
 #, python-format
@@ -2439,13 +2951,13 @@ msgid_plural ""
 "unpublished"
 msgstr[0] ""
 "Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d pagină "
-"dependentă a fost anulată"
+"descendentă a fost anulată"
 msgstr[1] ""
 "Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d pagini "
-"dependente a fost anulată"
+"descendente a fost anulată"
 msgstr[2] ""
-"Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d pagini "
-"dependente a fost anulată"
+"Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d de "
+"pagini descendente a fost anulată"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2563,7 +3075,7 @@ msgstr "Pagina '%(page_title)s' is fost deblocată."
 
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Pagina '%(page_title)s' nu este în moderare la moment."
+msgstr "Pagina '%(page_title)s' nu este în moderare în acest moment."
 
 #, python-format
 msgid "Page '%(page_title)s' published."
@@ -2596,8 +3108,8 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Sunteți în process de vizualizare a versiunii precedente a paginii din <b>"
-"%(created_at)s</b> de către %(user)s"
+"Sunteți în process de vizualizare a versiunii precedente a paginii din "
+"<b>%(created_at)s</b> de către %(user)s"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2644,6 +3156,15 @@ msgstr "Așteaptă recenzia mea"
 msgid "Workflows"
 msgstr "Fluxuri de lucru"
 
+msgid "Page/Snippet ID"
+msgstr "ID pagină/fragment"
+
+msgid "Page/Snippet Type"
+msgstr "Tip de pagină/fragment"
+
+msgid "Page/Snippet Title"
+msgstr "Titlu pagină/fragment"
+
 msgid "Workflow tasks"
 msgstr "Sarcini flux de lucru"
 
@@ -2681,6 +3202,26 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "Fluxul de lucru '%(object)s' a fost dezactivat."
 
 #, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Acest flux de lucru este în desfășurare pe %(states_in_progress)d pagină/"
+"fragment. Dezactivarea acestui flux de lucru va anula moderarea pe această "
+"pagină/fragment."
+msgstr[1] ""
+"Acest flux de lucru este în desfășurare pe %(states_in_progress)d pagini/"
+"fragmente. Dezactivarea acestui flux de lucru va anula moderarea pe aceste "
+"pagini/fragmente."
+msgstr[2] ""
+"Acest flux de lucru este în desfășurare pe %(states_in_progress)d de pagini/"
+"fragmente. Dezactivarea acestui flux de lucru va anula moderarea pe aceste "
+"pagini/fragmente."
+
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Fluxul de lucru '%(workflow_name)s' a fost activat."
 
@@ -2714,8 +3255,36 @@ msgid "Task '%(object)s' disabled."
 msgstr "Sarcina '%(object)s' a fost dezactivată."
 
 #, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Această sarcină este în desfășurare pe %(states_in_progress)d pagină/"
+"fragment. Dezactivarea acestei sarcini va face ca ea să fie sărită în fluxul "
+"de lucru de moderare și nu va fi listată pentru selecție când se editează un "
+"flux de lucru."
+msgstr[1] ""
+"Această sarcină este în desfășurare pe %(states_in_progress)d pagini/"
+"fragmente. Dezactivarea acestei sarcini va face ca ea să fie sărită în "
+"fluxul de lucru de moderare și nu va fi listată pentru selecție când se "
+"editează un flux de lucru."
+msgstr[2] ""
+"Această sarcină este în desfășurare pe %(states_in_progress)d de pagini/"
+"fragmente. Dezactivarea acestei sarcini va face ca ea să fie sărită în "
+"fluxul de lucru de moderare și nu va fi listată pentru selecție când se "
+"editează un flux de lucru."
+
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Sarcina '%(task_name)s' a fost activată."
+
+msgid "Choose another"
+msgstr "Alege alt(ă)"
 
 msgid "Pages"
 msgstr "Pagini"
@@ -2733,11 +3302,11 @@ msgid "View live version of '%(title)s'"
 msgstr "Vezi versiunea live a '%(title)s'"
 
 msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
+msgstr "Adaugă pagină descendentă"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "
-msgstr "Adaugă o pagină dependentă de '%(title)s'"
+msgstr "Adaugă o pagină descendentă de '%(title)s'"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2768,7 +3337,7 @@ msgstr "Sortează ordinea de meniu"
 
 #, python-format
 msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Schimbă ordinea paginilor dependente de '%(title)s'"
+msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -2806,6 +3375,10 @@ msgstr "Cod"
 
 msgid "Reports"
 msgstr "Rapoarte"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Ce e nou în Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Ghid editor"

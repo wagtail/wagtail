@@ -173,11 +173,11 @@ msgstr "Deskulpa, laiha grupu sira apar \"1%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Laiha grupu sira maka konfigura. Tamba sa labele<a href="
-"\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
+"Laiha grupu sira maka konfigura. Tamba sa labele<a "
+"href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
 
 msgid "Delete user"
 msgstr "Hamoos usuariu"

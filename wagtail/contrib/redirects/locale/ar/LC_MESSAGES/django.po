@@ -136,11 +136,11 @@ msgstr "عذرًا ، لا توجد عمليات إعادة توجيه تطاب�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"لم يتم إنشاء عمليات إعادة توجيه. لماذا لا<a href="
-"\"%(wagtailredirects_add_redirect_url)s\"> تضيف واحدة</a>؟"
+"لم يتم إنشاء عمليات إعادة توجيه. لماذا لا<a "
+"href=\"%(wagtailredirects_add_redirect_url)s\"> تضيف واحدة</a>؟"
 
 msgid "Search redirects"
 msgstr "ابحث تغييرات الاتجاه"

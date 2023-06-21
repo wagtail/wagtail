@@ -151,11 +151,11 @@ msgstr "Додати %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"%(snippet_type_name_plural)s ще не були створені. Чому б не <a href="
-"\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
+"%(snippet_type_name_plural)s ще не були створені. Чому б не <a "
+"href=\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
 
 msgid "Live version"
 msgstr "Версія наживо"

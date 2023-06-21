@@ -156,19 +156,19 @@ msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_stri
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
-"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
-"\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"

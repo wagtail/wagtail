@@ -1,16 +1,19 @@
 #
 # Translators:
-# Adam Hughes <adamhughes31@gmail.com>, 2022
 # Philip Crisp, 2022
+# Adam Hughes <adamhughes31@gmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Adam Hughes <adamhughes31@gmail.com>, 2023\n"
 "Language-Team: Welsh (https://app.transifex.com/torchbox/teams/8009/cy/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cy\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
+
+msgid "(New)"
+msgstr "(Newydd)"
 
 msgid "Alt text"
 msgstr "Testun amgen"

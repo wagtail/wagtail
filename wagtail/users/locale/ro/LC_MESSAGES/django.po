@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Utilizatori Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obligatoriu. Numai litere, cifre și @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
@@ -112,6 +116,18 @@ msgstr "Selectați fusul orar curent"
 
 msgid "profile picture"
 msgstr "poză profil"
+
+msgid "System default"
+msgstr "Opțiunea implicită a sistemului"
+
+msgid "Light"
+msgstr "Luminos"
+
+msgid "Dark"
+msgstr "Întunecat"
+
+msgid "admin theme"
+msgstr "temă pentru interfața de administrare"
 
 msgid "user profile"
 msgstr "profil utilizator"
@@ -269,11 +285,11 @@ msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu nici un grup"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nu există nici un grup configurat. De ce să nu <a href="
-"\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
+"Nu există nici un grup configurat. De ce să nu <a "
+"href=\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
 
 msgid "Delete user"
 msgstr "Șterge utilizator"
@@ -301,6 +317,9 @@ msgstr "Selectează toți utilizatorii din listă"
 
 msgid "Username"
 msgstr "Nume utlizator"
+
+msgid "Access level"
+msgstr "Nivel de acces"
 
 msgid "Status"
 msgstr "Stare"
@@ -332,19 +351,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a href="
-"\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a "
+"href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
-"\">adăugați câțiva</a>?"
+"Nu există nici un utilizator. De ce să nu <a "
+"href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -410,6 +429,10 @@ msgstr "Grupul nu a fost salvat din cauza erorilor."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupul '%(object)s' a fost șters."
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Utilizatorul '%(object)s' a fost creat."
 
 #, python-format
 msgid "User '%(object)s' updated."

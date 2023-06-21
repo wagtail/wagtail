@@ -11,6 +11,7 @@ Bashar Al-Abdulhadi
 HossamElDin Mohamed <garo5070.gmail.com>
 Khaled Arnaout <khaledarnaout.live.com>
 Loic Teixeira
+Mahmoud Marayef
 Matt Westcott <matthew.torchbox.com>
 Mohamed Mayla <mohamed.mayla.gmail.com>
 Mohammed Abdul gadir <weekmo.aol.com>
@@ -434,6 +435,7 @@ Polish - pl
 Bartek Sielicki <sielickib.student.mini.pw.edu.pl>
 Bartosz Wiśniewski <kontakt.pr0gramista.pl>
 Dominik Lech
+Kacper Podpora <podpora.kacper.link>
 Krzysztof Jeziorny <github.jeziorny.net>
 Loic Teixeira
 Mateusz <undefined5102.gmail.com>
@@ -445,11 +447,13 @@ Piotr Moskal <piotrmoskal2011.gmail.com>
 
 Portuguese (Brazil) - pt_BR
 -----
+A M
 Bruno Bertoldi <bruno.bertoldi.gmail.com>
 Claudemiro Alves Feitosa Neto <dimiro1.gmail.com>
 Daniel Carvalho <dnc331.gmail.com>
 Douglas Miranda <douglasmirandasilva.gmail.com>
 Ed Wurch <ewurch.gmail.com>
+Fabio Santos <f4bio.sa.gmail.com>
 Gilson Filho <me.gilsondev.in>
 Gladson <gladsonbrito.gmail.com>
 Guilherme Nabanete <neoheartz.gmail.com>
@@ -457,6 +461,7 @@ Gustavo Simões
 Iuri L. Machado
 Joao Garcia <joaosdgarcia.gmail.com>
 João Luiz Lorencetti <me.dirtycoder.net>
+LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Luiz Boaretto <lboaretto.gmail.com>
 Marcio Mazza <marciomazza.gmail.com>
@@ -486,6 +491,7 @@ Tiago Henriques <trinosauro.gmail.com>
 
 Romanian - ro
 -----
+Alex Morega
 Bogdan Mateescu
 Dan Braghis
 Julian C <jcuotpc.gmail.com>
@@ -564,6 +570,7 @@ Florian Merges
 Hector Garcia <torkoff.gmail.com>
 Joaquín T <joaquintita.gmail.com>
 José Luis <alagunajs.gmail.com>
+Lautaro Bringas
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Mauricio Baeza <python.amigos.email>

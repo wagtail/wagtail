@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2022
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Bogdan Mateescu, 2019\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +74,9 @@ msgstr "Pagină rutabilă Wagtail"
 msgid "Wagtail sitemaps"
 msgstr "Hărți de site Wagtail"
 
+msgid "Unknown content type"
+msgstr "Tip de conținut necunoscut"
+
 msgid "Password"
 msgstr "Parolă"
 
@@ -85,8 +89,90 @@ msgstr "Comentariu"
 msgid "Locked"
 msgstr "A blocat"
 
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nimeni nu poate face modificări cât timp %(model_name)s este blocat"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' a fost blocat</b> de către <b>dvs.</b> la <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' este blocat</b> de către <b>dvs.</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' a fost blocat</b> de către <b>{user}</b> la <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' este blocat</b>."
+
+msgid "Locked by you"
+msgstr "Blocat de către dvs."
+
+msgid "Locked by another user"
+msgstr "Blocat de către un alt utilizator"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Doar dvs. puteți face modificări cât timp %(model_name)s este blocat"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Doar %(user)s poate face modificări cât timp %(model_name)s este blocat"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Acest %(model_name)s este în moderare."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Acest {model_name} așteaptă <b>'{task_name}'</b> în fluxul de lucru "
+"<b>'{workflow_name}'</b> ."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Numai revizorii pentru această sarcină pot edita %(model_name)s."
+
 msgid "Unlocked"
 msgstr "A deblochat"
+
+msgid "Locked by workflow"
+msgstr "Blocat din fluxul de lucru"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Revizorii pot edita acest %(model_name)s – blocați pentru a împiedica alți "
+"revizori să editeze"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Doar revizorii pot edita și aproba %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' este blocat și a fost programat să fie publicat la "
+"{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Blocat conform programului"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Blocat în prezent și va fi publicat la data programată"
 
 msgid "latest revision"
 msgstr "ultima revizie"
@@ -140,10 +226,10 @@ msgid "locked by"
 msgstr "blocat de"
 
 msgid "in moderation"
-msgstr "în moderație"
+msgstr "în moderare"
 
 msgid "live + in moderation"
-msgstr "live + în moderație"
+msgstr "live + în moderare"
 
 msgid "title"
 msgstr "titlu"
@@ -200,6 +286,14 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Slug-ul '%(page_slug)s' este deja folosit în cadrul paginii părinte la "
+"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "pagină"
@@ -319,11 +413,25 @@ msgstr ""
 msgid "tasks"
 msgstr "sarcini"
 
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Fluxuri de lucru active pot fi adăugate la pagini/fragmente. Dezactivarea "
+"unui flux de lucru nu îl elimină de la pagini/fragmente existente."
+
 msgid "workflows"
 msgstr "fluxuri de lucru"
 
 msgid "groups"
 msgstr "grupuri"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pagini/fragmente aflate la acest pas dintr-un flux de lucru vor fi moderate "
+"sau aprobate de către aceste grupuri de utilizatori"
 
 msgid "Request changes"
 msgstr "Solicită modificări"
@@ -344,7 +452,7 @@ msgid "Group approval tasks"
 msgstr "Sarcini de aprobare de grup"
 
 msgid "In progress"
-msgstr "În progres"
+msgstr "În desfășurare"
 
 msgid "Approved"
 msgstr "Aprobat"
@@ -363,6 +471,19 @@ msgstr "solicitat de"
 
 msgid "current task state"
 msgstr "starea sarcinii curente"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Poate exista o singură stare a fluxului de lucru \"în lucru\" sau \"necesită "
+"schimbări\" per pagină/fragment."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Fluxul de lucru '%(workflow_name)s' pentru %(model_name)s '%(title)s': "
+"%(status)s"
 
 msgid "Not started"
 msgstr "Neînceput"
@@ -390,6 +511,10 @@ msgstr "terminat la"
 
 msgid "finished by"
 msgstr "terminat de"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Sarcina '%(task_name)s' pentru revizia '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Stare sarcină"
@@ -464,6 +589,30 @@ msgstr "permisiune grup colecție"
 
 msgid "group collection permissions"
 msgstr "permisiuni grup colecție"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s va fi șters de asemenea"
+
+msgid "prevents deletion"
+msgstr "previne ștergerea"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "va fi setat la %(model_name)s implicit"
+
+msgid "will do nothing"
+msgstr "nu va face nimic"
+
+msgid "may prevent deletion"
+msgstr "poate previne ștergerea"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "va fi setat la un %(model_name)s specificat de sistem"
+
+msgid "will unset the reference"
+msgstr "va șterge referința"
 
 msgid "hostname"
 msgstr "nume gazdă"
