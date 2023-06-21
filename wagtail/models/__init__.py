@@ -2917,6 +2917,34 @@ class GroupPagePermissionManager(models.Manager):
             kwargs["permission_type"] = permission.codename[:-5]
         return super().create(**kwargs)
 
+    def _migrate_permission_type(self):
+        # RemovedInWagtail60Warning: remove this method
+        # This follows the same logic as the
+        # 0086_populate_grouppagepermission_permission migration, but is run as
+        # part of a system check to ensure any objects that are created after
+        # that migration is run are also updated.
+        return (
+            self.filter(
+                models.Q(permission__isnull=True) | models.Q(permission_type="edit")
+            )
+            .annotate(
+                normalised_permission_type=models.Case(
+                    models.When(permission_type="edit", then=models.Value("change")),
+                    default=models.F("permission_type"),
+                )
+            )
+            .update(
+                permission=Permission.objects.filter(
+                    content_type=get_default_page_content_type(),
+                    codename=Concat(
+                        models.OuterRef("normalised_permission_type"),
+                        models.Value("_page"),
+                    ),
+                ).values_list("pk", flat=True)[:1],
+                permission_type=models.F("normalised_permission_type"),
+            )
+        )
+
 
 class GroupPagePermission(models.Model):
     group = models.ForeignKey(
@@ -2973,26 +3001,20 @@ class GroupPagePermission(models.Model):
     def check(cls, **kwargs):
         messages = super().check(**kwargs)
         try:
-            missing_fks = cls.objects.filter(permission__isnull=True).update(
-                permission=Permission.objects.filter(
-                    content_type=get_default_page_content_type(),
-                    codename=Concat(
-                        models.OuterRef("permission_type"), models.Value("_page")
-                    ),
-                ).values_list("pk", flat=True)[:1]
-            )
+            outdated_objs = cls.objects._migrate_permission_type()
         except OperationalError:
             # Migration hasn't been run yet
-            missing_fks = 0
+            outdated_objs = 0
 
-        if missing_fks:
+        if outdated_objs:
             # RemovedInWagtail60Warning
             messages.append(
                 checks.Warning(
-                    f"Found and fixed {missing_fks} GroupPagePermission object(s) with a null value in `permission` field.",
+                    f"Found and fixed {outdated_objs} GroupPagePermission object(s) with a null value in `permission` field and/or an outdated 'edit' value in `permission_type` field.",
                     hint=(
                         "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
-                        "If you create GroupPagePermission objects by other means, make sure to set the `permission` field instead of the `permission_type` field. "
+                        "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
+                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission."
                         "The `permission_type` field will be removed in Wagtail 6.0."
                     ),
                     obj=cls,
