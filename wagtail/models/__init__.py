@@ -2949,7 +2949,23 @@ class GroupPagePermission(models.Model):
     objects = GroupPagePermissionManager()
 
     class Meta:
-        unique_together = ("group", "page", "permission_type")
+        constraints = [
+            models.CheckConstraint(
+                check=(
+                    models.Q(permission__isnull=False)
+                    | models.Q(permission_type__isnull=False)
+                ),
+                name="permission_or_permission_type_not_null",
+            ),
+            models.UniqueConstraint(
+                fields=("group", "page", "permission"),
+                name="unique_permission",
+            ),
+            models.UniqueConstraint(
+                fields=("group", "page", "permission_type"),
+                name="unique_permission_type",
+            ),
+        ]
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
 
