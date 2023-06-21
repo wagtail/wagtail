@@ -16,7 +16,7 @@
 
         {% if do_paginate %}
             {% url 'wagtailadmin_explore' parent_page.id as pagination_base_url %}
-            {% paginate pages base_url=pagination_base_url %}
+            {% paginate page_obj base_url=pagination_base_url %}
         {% endif %}
         {% trans "Select all pages in listing" as select_all_text %}
         {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}

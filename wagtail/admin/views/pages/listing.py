@@ -1,10 +1,8 @@
 from django.conf import settings
-from django.core.paginator import InvalidPage, Paginator
 from django.db.models import Count
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 from wagtail import hooks
 from wagtail.admin.ui.side_panels import PageSidePanels
@@ -12,7 +10,7 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(PermissionCheckedMixin, TemplateView):
+class IndexView(PermissionCheckedMixin, ListView):
     template_name = "wagtailadmin/pages/index.html"
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
@@ -23,6 +21,9 @@ class IndexView(PermissionCheckedMixin, TemplateView):
         "lock",
         "unlock",
     }
+    context_object_name = "pages"
+    page_kwarg = "p"
+    paginate_by = 50
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
@@ -45,12 +46,7 @@ class IndexView(PermissionCheckedMixin, TemplateView):
 
         return super().get(request)
 
-    def get_context_data(self, **kwargs):
-        pages = self.parent_page.get_children().prefetch_related(
-            "content_type", "sites_rooted_here"
-        ) & self.permission_policy.explorable_instances(self.request.user)
-
-        # Get page ordering
+    def get_ordering(self):
         ordering = self.request.GET.get("ordering", "-latest_revision_created_at")
         if ordering not in [
             "title",
@@ -65,10 +61,19 @@ class IndexView(PermissionCheckedMixin, TemplateView):
         ]:
             ordering = "-latest_revision_created_at"
 
-        if ordering == "ord":
+        return ordering
+
+    def get_queryset(self):
+        pages = self.parent_page.get_children().prefetch_related(
+            "content_type", "sites_rooted_here"
+        ) & self.permission_policy.explorable_instances(self.request.user)
+
+        self.ordering = self.get_ordering()
+
+        if self.ordering == "ord":
             # preserve the native ordering from get_children()
             pass
-        elif ordering == "latest_revision_created_at":
+        elif self.ordering == "latest_revision_created_at":
             # order by oldest revision first.
             # Special case NULL entries - these should go at the top of the list.
             # Do this by annotating with Count('latest_revision_created_at'),
@@ -76,18 +81,14 @@ class IndexView(PermissionCheckedMixin, TemplateView):
             pages = pages.annotate(
                 null_position=Count("latest_revision_created_at")
             ).order_by("null_position", "latest_revision_created_at")
-        elif ordering == "-latest_revision_created_at":
+        elif self.ordering == "-latest_revision_created_at":
             # order by oldest revision first.
             # Special case NULL entries - these should go at the end of the list.
             pages = pages.annotate(
                 null_position=Count("latest_revision_created_at")
             ).order_by("-null_position", "-latest_revision_created_at")
         else:
-            pages = pages.order_by(ordering)
-
-        # Don't paginate if sorting by page order - all pages must be shown to
-        # allow drag-and-drop reordering
-        do_paginate = ordering != "ord"
+            pages = pages.order_by(self.ordering)
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -102,15 +103,23 @@ class IndexView(PermissionCheckedMixin, TemplateView):
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
-        # Pagination
-        if do_paginate:
-            paginator = Paginator(pages, per_page=50)
-            try:
-                pages = paginator.page(self.request.GET.get("p", 1))
-            except InvalidPage:
-                raise Http404
+        return pages
 
-        show_ordering_column = self.request.GET.get("ordering") == "ord"
+    def get_paginate_by(self, queryset):
+        if self.ordering == "ord":
+            # Don't paginate if sorting by page order - all pages must be shown to
+            # allow drag-and-drop reordering
+            return None
+        else:
+            return self.paginate_by
+
+    def paginate_queryset(self, queryset, page_size):
+        return super().paginate_queryset(queryset, page_size)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        show_ordering_column = self.ordering == "ord"
 
         side_panels = PageSidePanels(
             self.request,
@@ -123,18 +132,19 @@ class IndexView(PermissionCheckedMixin, TemplateView):
             comments_enabled=False,
         )
 
-        context = {
-            "parent_page": self.parent_page,
-            "ordering": ordering,
-            "side_panels": side_panels,
-            "pages": pages,
-            "do_paginate": do_paginate,
-            "locale": None,
-            "translations": [],
-            "show_ordering_column": show_ordering_column,
-            "show_bulk_actions": not show_ordering_column,
-            "show_locale_labels": False,
-        }
+        context.update(
+            {
+                "parent_page": self.parent_page,
+                "ordering": self.ordering,
+                "side_panels": side_panels,
+                "do_paginate": context["is_paginated"],
+                "locale": None,
+                "translations": [],
+                "show_ordering_column": show_ordering_column,
+                "show_bulk_actions": not show_ordering_column,
+                "show_locale_labels": False,
+            }
+        )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             if not self.parent_page.is_root():

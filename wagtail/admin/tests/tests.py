@@ -525,11 +525,7 @@ class TestAdminURLAppendSlash(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
             self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
-            self.assertTrue(
-                response.context["pages"]
-                .paginator.object_list.filter(id=self.root_page.id)
-                .exists()
-            )
+            self.assertIn(self.root_page, response.context["pages"])
 
 
 class TestRemoveStaleContentTypes(TestCase):
