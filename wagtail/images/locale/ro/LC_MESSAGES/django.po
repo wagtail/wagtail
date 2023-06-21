@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2016,2018-2022
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Dan Braghis, 2014-2016,2018-2022\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,14 @@ msgstr "Formate suportate:  %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Format de imagine neacceptat. Formate suportate: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Nu este o imagine .%(extension)s validă. Extensia nu se potrivește cu "
+"formatul (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -270,6 +279,10 @@ msgstr "Utilizează imagea existentă și sterge imagea nouă"
 msgid "Latest images"
 msgstr "Imagini recente"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Selectează %(title)s"
+
 msgid "You haven't uploaded any images in this collection."
 msgstr "Nu ați încărcat nici o imagine în această colecție."
 
@@ -409,19 +422,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
-"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a "
+"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine. De să nu <a href="
-"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine. De să nu <a "
+"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 msgid "Generating URL"
 msgstr "Generarea URL"

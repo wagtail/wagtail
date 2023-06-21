@@ -122,11 +122,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
+"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
 
 msgid "Search promoted results"
 msgstr "Søk i forfremmede resultater"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Dan Braghis, 2014,2016
 # Dan Braghis, 2016,2019-2020,2022
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Dan Braghis, 2016,2019-2020,2022\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +112,9 @@ msgstr "Deplasează în sus"
 msgid "Move down"
 msgstr "Deplasează în jos"
 
+msgid "Recommended page"
+msgstr "Recomandă pagina"
+
 msgid "Promoted search results"
 msgstr "Rezultate de căutare promovate"
 
@@ -165,11 +169,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
+"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
 
 msgid "Search promoted results"
 msgstr "Caută rezultate promovate"

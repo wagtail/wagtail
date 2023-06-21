@@ -139,19 +139,19 @@ msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har ikke lastet opp noen dokumenter til denne samlingen. Hvorfor ikke <a "
 "href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a href="
-"\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a "
+"href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
 
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"

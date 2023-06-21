@@ -235,19 +235,19 @@ msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har inte laddat upp några dokument. Varför inte <a href="
-"\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
+"Du har inte laddat upp några dokument. Varför inte <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""

@@ -264,19 +264,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a href="
-"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</a>"
+"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Dokumente hochgeladen. <a href="
-"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</a>"
+"Sie haben noch keine Dokumente hochgeladen. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid ""

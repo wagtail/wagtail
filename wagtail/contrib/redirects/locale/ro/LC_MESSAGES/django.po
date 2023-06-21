@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex Morega, 2023
 # Dan Braghis, 2014-2016,2019-2022
 # zerolab, 2014
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Dan Braghis, 2014-2016,2019-2022\n"
+"Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -145,10 +146,10 @@ msgid "Yes, delete"
 msgstr "Da, șterge"
 
 msgid "Confirm import"
-msgstr "Confirmează importare"
+msgstr "Confirmă importare"
 
 msgid "Confirm"
-msgstr "Confirmează"
+msgstr "Confirmă"
 
 msgid "Cancel"
 msgstr "Anulează"
@@ -215,11 +216,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creată nici o redirecție. De ce să nu <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
+"Nu a fost creată nici o redirecție. De ce să nu <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
 
 msgid "Search redirects"
 msgstr "Caută redirecționări"

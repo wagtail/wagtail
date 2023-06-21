@@ -259,19 +259,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não adicionou documentos nesta coleção. Por que não <a href="
-"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não adicionou documentos nesta coleção. Por que não <a "
+"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhum documento. Por que não <a href="
-"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não enviou nenhum documento. Por que não <a "
+"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
 #, python-format
 msgid ""

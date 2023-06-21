@@ -10,7 +10,7 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022-2023
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
 # Zoriana Zaiats, 2018
@@ -20,7 +20,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Zoriana Zaiats, 2018\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
+"2020,2022-2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -548,11 +549,11 @@ msgstr "Ім'я"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
-"\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a "
+"href=\"%(add_collection_url)s\">створити одну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
@@ -646,7 +647,7 @@ msgid "Preview"
 msgstr "Попередній перегляд"
 
 msgid "Your most recent edits"
-msgstr "Найостанніші зміни, зроблені вами"
+msgstr "Останні зміни, зроблені вами"
 
 msgid "Status"
 msgstr "Статус"
@@ -676,7 +677,7 @@ msgid "Tasks"
 msgstr "Завдання"
 
 msgid "Sign in"
-msgstr "Увійдіть"
+msgstr "Увійти"
 
 msgid "Sign in to Wagtail"
 msgstr "Увійдіть до Wagtail"
@@ -689,6 +690,9 @@ msgstr ""
 
 msgid "Forgotten password?"
 msgstr "Забули пароль?"
+
+msgid "Remember me"
+msgstr "Запам'ятати мене"
 
 msgid "Signing in…"
 msgstr "Здійснюється вхід..."
@@ -1321,6 +1325,17 @@ msgstr "Інші пошуки"
 msgid "Unlocked"
 msgstr "Розблоковано"
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Всі можуть редагувати цю %(model_name)s– заблокуйте її щоб інші не могли "
+"редагувати"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Всі можуть редагувати цю %(model_name)s"
+
 msgid "Lock"
 msgstr "Блокувати"
 
@@ -1418,8 +1433,9 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1469,8 +1485,8 @@ msgstr[3] "+%(counter)s більше"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
-"\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a "
+"href=\"%(add_url)s\">додати один</a>?"
 
 #, python-format
 msgid ""

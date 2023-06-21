@@ -225,11 +225,12 @@ msgstr "Уучлаарай, \"%(query)s\" хайлтаар бүлэг олдсо
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Бүлэг тохируулагүй байна. <a href=\"%(wagtailusers_create_group_url)s"
-"\">Шинийг үүсгэж</a> яагаад болохгүй гэж?"
+"Бүлэг тохируулагүй байна. <a "
+"href=\"%(wagtailusers_create_group_url)s\">Шинийг үүсгэж</a> яагаад болохгүй "
+"гэж?"
 
 msgid "Delete user"
 msgstr "Хэрэглэгч устгах"
@@ -279,11 +280,11 @@ msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэр
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"%(group_name)s группт хэрэглэгч алга. Яагаад <a href="
-"\"%(wagtailusers_add_url)s\">хэрэглэгч</a> нэмж болохгүй гэж? "
+"%(group_name)s группт хэрэглэгч алга. Яагаад <a "
+"href=\"%(wagtailusers_add_url)s\">хэрэглэгч</a> нэмж болохгүй гэж? "
 
 msgid "Assign role to selected users"
 msgstr "Сонгосон хэрэгчидэд эрх олгох"

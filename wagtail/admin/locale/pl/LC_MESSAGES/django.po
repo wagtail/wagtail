@@ -7,6 +7,7 @@
 # Bartosz Wiśniewski <kontakt@pr0gramista.pl>, 2017
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Kacper Podpora <podpora@kacper.link>, 2023
 # Krzysztof Jeziorny <github@jeziorny.net>, 2022-2023
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
@@ -23,16 +24,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2023\n"
+"Last-Translator: Kacper Podpora <podpora@kacper.link>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Opublikuj"
@@ -282,7 +283,7 @@ msgstr "Nie możesz przypisać tego procesu do tej samej strony kilka razy."
 msgid ""
 "Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
 msgstr ""
-"Snippet '%(content_type)s' posiada już przypisany proces '%(workflow_name)s'."
+"Skrawek '%(content_type)s' posiada już przypisany proces '%(workflow_name)s'."
 
 msgid "Give your workflow a name"
 msgstr "Nadaj nazwę swojemu procesowi"
@@ -550,15 +551,15 @@ msgstr "Konwertuj na link wewnętrzny"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"URL który wprowadziłeś, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, wygląda jakby pasował do adresu "
-"wewnętrznej strony %(page)s, która ma adres <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"URL który wprowadziłeś, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, wygląda jakby pasował do "
+"adresu wewnętrznej strony %(page)s, która ma adres <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -641,11 +642,11 @@ msgstr "Nazwa"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Żadna kolekcja nie została jeszcze stworzona. Dlaczego nie <a href="
-"\"%(add_collection_url)s\">dodać jednej</a>?"
+"Żadna kolekcja nie została jeszcze stworzona. Dlaczego nie <a "
+"href=\"%(add_collection_url)s\">dodać jednej</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -677,6 +678,27 @@ msgstr "Anuluj publikację"
 #, python-format
 msgid "Publish %(model_name)s"
 msgstr "Publikuj %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Ten %(model_name)s został oznaczony jako wymagający zmian w "
+"<strong>%(task)s</strong> w procesie <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Ten %(model_name)s jest obecnie w <strong>%(task)s</strong> w procesie "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr ""
+"Opublikowanie tego %(model_name)s spowoduje anulowanie bieżącego procesu."
 
 #, python-format
 msgid "Would you still like to publish this %(model_name)s?"
@@ -825,15 +847,15 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Nowa wersja Wagtail jest dostępna. Twoja wersja: <strong>"
-"%(current_version)s</strong>. Nowa wersja: <strong data-w-upgrade-target="
-"\"latestVersion\"></strong>."
+"Nowa wersja Wagtail jest dostępna. Twoja wersja: "
+"<strong>%(current_version)s</strong>. Nowa wersja: <strong data-w-upgrade-"
+"target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Przeczytaj notatki do wydania."
 
 msgid "Your pages and snippets in a workflow"
-msgstr "Twoje strony i snippety w procesie"
+msgstr "Twoje strony i skrawki w procesie"
 
 msgid "Task started"
 msgstr "Zadanie rozpoczęte"
@@ -853,15 +875,16 @@ msgstr "Funkcje w Wagtail %(version)s zmieniły się!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"Nie przejmuj się, pomożemy Ci. Sprawdz <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Podręcznik "
-"Edytora Wagtail </a>, żeby zobaczyć szczegółowe informacje o tym co się "
-"zmieniło i jakie są nowe ekscytujące funkcjonalności."
+"Nie przejmuj się, pomożemy Ci. Sprawdz <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Podręcznik Edytora Wagtail </a>, żeby zobaczyć "
+"szczegółowe informacje o tym co się zmieniło i jakie są nowe ekscytujące "
+"funkcjonalności."
 
 msgid "Awaiting your review"
 msgstr "Oczekujące na Twoją weryfikację"
@@ -969,8 +992,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" został odrzucony na etapie moderacji \"%(task)s"
-"\"."
+"%(model_name)s \"%(title)s\" został odrzucony na etapie moderacji "
+"\"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1074,11 +1097,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
-"\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" została zaakceptowana w workflow \"%(workflow)s"
-"\"."
+"%(model_name)s \"%(title)s\" została zaakceptowana w procesie "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1094,16 +1117,54 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"Strona \"%(title)s\" została odrzucona podczas \"%(task)s\" w workflow "
+"Strona \"%(title)s\" została odrzucona podczas \"%(task)s\" w procesie "
 "\"%(workflow)s\" przez %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Strona \"%(title)s\" została odrzucona podczas \"%(task)s\" w procesie "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid "The following comment was left: \"%(comment)s\""
 msgstr "Poniższy komentarz został zostawiony: \"%(comment)s\""
 
 #, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" został odrzucony podczas \"%(task)s\" w "
+"procesie \"%(workflow)s\" przez %(rejector)s."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" został odrzucony podczas \"%(task)s\" w "
+"procesie \"%(workflow)s\"."
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Strona \"%(title)s\" została odrzucona podczas \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" został odrzucony podczas \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Strona \"%(title)s\" została wysłana do moderacji przez %(requester)s w "
+"procesie \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -1738,7 +1799,7 @@ msgid "Workflow"
 msgstr "Proces"
 
 msgid "Page/Snippet"
-msgstr "Strona/Snippet"
+msgstr "Strona/Skrawek"
 
 msgid "Requested by"
 msgstr "Zażądane przez"
@@ -1750,7 +1811,7 @@ msgid "Incomplete task"
 msgstr "Niedokończone zadanie"
 
 msgid "No pages/snippets have been submitted for moderation yet"
-msgstr "Żadne strony/snippety nie zostały przekazane do moderacji"
+msgstr "Żadne strony/skrawki nie zostały przekazane do moderacji"
 
 msgid "By Workflow"
 msgstr "Wg. procesu"
@@ -1880,7 +1941,7 @@ msgid "Page visibility: "
 msgstr "Widoczność strony:"
 
 msgid "Once live anyone can view"
-msgstr "Opublikowana będzie widoczna dla wszystkich"
+msgstr "Widoczna dla wszystkich po publikacji"
 
 msgid "Not visible to the public"
 msgstr "Niewidoczna publicznie"
@@ -1965,6 +2026,14 @@ msgstr "Tryb podglądu"
 msgid "First published "
 msgstr "Pierwsza publikacja"
 
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Ten %(model_name)s został przywołany %(usage_count)s raz."
+msgstr[1] "Ten %(model_name)s został przywołany %(usage_count)s razy."
+msgstr[2] "Ten %(model_name)s został przywołany %(usage_count)s razy."
+msgstr[3] "Ten %(model_name)s został przywołany %(usage_count)s razy."
+
 msgid "Edit / Review"
 msgstr "Edytuj / Weryfikuj"
 
@@ -2025,9 +2094,9 @@ msgstr "Ta strona nie została jeszcze przekazana do moderacji"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "JavaScript jest wymagany by korzystać z Wagtail, ale aktualnie jest "
 "wyłączony.<br /> Tutaj znajdziejsz <a href=\"https://www.enable-javascript."
@@ -2080,7 +2149,7 @@ msgid "Assign your workflow to pages"
 msgstr "Przypisz swój proces do stron"
 
 msgid "Assign your workflow to snippets"
-msgstr "Przypisz swój workflow do snippetów"
+msgstr "Przypisz swój proces do skrawków"
 
 msgid "Creating…"
 msgstr "Tworzenie..."
@@ -2091,8 +2160,9 @@ msgstr "Utwórz"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Proces działa również na wszystkie strony podrzędne. Jeśli wybierzesz stronę "
 "nadrzędną, wszystkie jej strony podrzędne również będą używać tego procesu. "
@@ -2106,8 +2176,8 @@ msgstr ""
 
 msgid "This workflow is disabled so it cannot be assigned to any snippets."
 msgstr ""
-"Ten workflow jest wyłączony więc nie może zostać przypisany do "
-"jakiegokolwiek snippetu."
+"Ten proces jest wyłączony, więc nie może zostać przypisany do żadnego "
+"skrawka."
 
 msgid "Used on the following active workflows"
 msgstr "Użyte na następujących aktywnych procesach"
@@ -2160,15 +2230,15 @@ msgstr[3] "+%(counter)s więcej"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Żaden proces nie został jeszcze utworzony. Dlaczego nie <a href=\"%(add_url)s"
-"\">dodać jednego</a>?"
+"Żaden proces nie został jeszcze utworzony. Dlaczego nie <a "
+"href=\"%(add_url)s\">dodać jednego</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nie ma żadnych włączonych procesów. Dlaczego nie <a href=\"%(add_url)s"
-"\">dodać jednego</a>?"
+"Nie ma żadnych włączonych procesów. Dlaczego nie <a "
+"href=\"%(add_url)s\">dodać jednego</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Wybierz który rodzaj zadania chcesz utworzyć."
@@ -2216,8 +2286,8 @@ msgstr "Pokaż wyłączone zadania"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Żadne zadanie nie zostało jeszcze utworzone. Dlaczego nie <a href="
-"\"%(add_url)s\">dodać jednego</a>?"
+"Żadne zadanie nie zostało jeszcze utworzone. Dlaczego nie <a "
+"href=\"%(add_url)s\">dodać jednego</a>?"
 
 #, python-format
 msgid ""
@@ -2281,7 +2351,7 @@ msgid "0 minutes"
 msgstr "0 minut"
 
 msgid "just now"
-msgstr "właśnie teraz"
+msgstr "przed chwilą"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -2301,7 +2371,7 @@ msgstr "%(time)s przez %(user_display_name)s"
 
 #, python-format
 msgid "just now by %(user_display_name)s"
-msgstr "właśnie teraz przez %(user_display_name)s"
+msgstr "przed chwilą przez %(user_display_name)s"
 
 #, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
@@ -2320,6 +2390,14 @@ msgstr "Wyślij do %(task_name)s %(started_at)s"
 
 msgid "Toggle status"
 msgstr "Przełącz status"
+
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Przywołano %(count)s raz"
+msgstr[1] "Przywołano %(count)s razy"
+msgstr[2] "Przywołano %(count)s razy"
+msgstr[3] "Przywołano %(count)s razy"
 
 msgid "Comments"
 msgstr "Komentarze"
@@ -2716,13 +2794,13 @@ msgid "Workflows"
 msgstr "Procesy"
 
 msgid "Page/Snippet ID"
-msgstr "ID Strony/Snippetu"
+msgstr "ID Strony/Skrawka"
 
 msgid "Page/Snippet Type"
-msgstr "Typ Strony/Snippetu"
+msgstr "Typ Strony/Skrawka"
 
 msgid "Page/Snippet Title"
-msgstr "Tytuł Strony/Snippetu"
+msgstr "Tytuł Strony/Skrawka"
 
 msgid "Workflow tasks"
 msgstr "Zadania procesu"
