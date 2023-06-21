@@ -1,0 +1,11 @@
+[
+  {
+    "pk": 10,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 11,
+      "permission_type": "bulk_delete"
+    }
+  }
+]
