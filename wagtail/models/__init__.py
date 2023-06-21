@@ -31,7 +31,7 @@ from django.core.exceptions import (
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models, transaction
+from django.db import OperationalError, models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
@@ -2968,6 +2968,38 @@ class GroupPagePermission(models.Model):
         ]
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
+
+    @classmethod
+    def check(cls, **kwargs):
+        messages = super().check(**kwargs)
+        try:
+            missing_fks = cls.objects.filter(permission__isnull=True).update(
+                permission=Permission.objects.filter(
+                    content_type=get_default_page_content_type(),
+                    codename=Concat(
+                        models.OuterRef("permission_type"), models.Value("_page")
+                    ),
+                ).values_list("pk", flat=True)[:1]
+            )
+        except OperationalError:
+            # Migration hasn't been run yet
+            missing_fks = 0
+
+        if missing_fks:
+            # RemovedInWagtail60Warning
+            messages.append(
+                checks.Warning(
+                    f"Found and fixed {missing_fks} GroupPagePermission object(s) with a null value in `permission` field.",
+                    hint=(
+                        "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
+                        "If you create GroupPagePermission objects by other means, make sure to set the `permission` field instead of the `permission_type` field. "
+                        "The `permission_type` field will be removed in Wagtail 6.0."
+                    ),
+                    obj=cls,
+                    id="wagtailcore.W002",
+                )
+            )
+        return messages
 
     def __str__(self):
         return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
