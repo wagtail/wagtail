@@ -19,7 +19,6 @@ from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -2903,16 +2902,19 @@ class Revision(models.Model):
 
 class GroupPagePermissionManager(models.Manager):
     def create(self, **kwargs):
-        # Simplify creation of GroupPagePermission objects by allowing the
-        # permission_type (action) to be specified instead of the Permission object
-        if "permission" not in kwargs and "permission_type" in kwargs:
+        # Simplify creation of GroupPagePermission objects by allowing one
+        # of permission or permission_type to be passed in.
+        permission = kwargs.get("permission")
+        permission_type = kwargs.get("permission_type")
+        if not permission and permission_type:
+            # Not raising a warning here as we will still support this even after
+            # the permission_type field is removed.
             kwargs["permission"] = Permission.objects.get(
                 content_type=get_default_page_content_type(),
-                codename=get_permission_codename(
-                    kwargs.pop("permission_type"),
-                    Page._meta,
-                ),
+                codename=f"{permission_type}_page",
             )
+        if permission and not permission_type:
+            kwargs["permission_type"] = permission.codename[:-5]
         return super().create(**kwargs)
 
 
@@ -2959,6 +2961,26 @@ class GroupPagePermission(models.Model):
             self.page.id,
             self.page,
         )
+
+    def save(self, **kwargs):
+        # Automatically fill an empty permission or permission_type.
+        # This will be removed in Wagtail 6.0.
+        if not self.permission and self.permission_type:
+            warnings.warn(
+                "GroupPagePermission.permission_type is deprecated. Use the "
+                "GroupPagePermission.permission foreign key to the Permission model instead.",
+                category=RemovedInWagtail60Warning,
+                stacklevel=2,
+            )
+            self.permission = Permission.objects.get(
+                content_type=get_default_page_content_type(),
+                codename=f"{self.permission_type}_page",
+            )
+        if self.permission and not self.permission_type:
+            # No need to raise a warning here as we will remove the permission_type
+            # field in Wagtail 6.0
+            self.permission_type = self.permission.codename[:-5]
+        return super().save(**kwargs)
 
 
 class UserPagePermissionsProxy:
