@@ -10,6 +10,9 @@ class Migration(migrations.Migration):
         ("wagtailcore", "0084_add_default_page_permissions"),
     ]
 
+    # Add a nullable permission ForeignKey and make the old permission_type
+    # field nullable so both formats still work for the duration of the
+    # deprecation period.
     operations = [
         migrations.AddField(
             model_name="grouppagepermission",
@@ -22,23 +25,23 @@ class Migration(migrations.Migration):
                 verbose_name="permission",
             ),
         ),
-        # Make permission_type nullable so the RemoveField operation will be reversible
         migrations.AlterField(
             model_name="grouppagepermission",
             name="permission_type",
             field=models.CharField(
+                verbose_name="permission type",
                 null=True,
                 blank=True,
+                max_length=20,
                 choices=[
                     ("add", "Add/edit pages you own"),
-                    ("edit", "Edit any page"),
-                    ("publish", "Publish any page"),
                     ("bulk_delete", "Delete pages with children"),
+                    # Use "change" instead of "edit" to match Django's permission codename
+                    ("change", "Edit any page"),
                     ("lock", "Lock/unlock pages you've locked"),
+                    ("publish", "Publish any page"),
                     ("unlock", "Unlock any page"),
                 ],
-                max_length=20,
-                verbose_name="permission type",
             ),
         ),
     ]

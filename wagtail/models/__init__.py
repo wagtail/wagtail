@@ -1110,6 +1110,10 @@ PAGE_PERMISSION_TYPES = [
     ("unlock_page", _("Unlock"), _("Unlock any page")),
 ]
 
+PAGE_PERMISSION_TYPE_CHOICES = [
+    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
+]
+
 PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
@@ -2928,13 +2932,22 @@ class GroupPagePermission(models.Model):
     permission = models.ForeignKey(
         Permission,
         verbose_name=_("permission"),
+        null=True,
+        blank=True,
         on_delete=models.CASCADE,
+    )
+    permission_type = models.CharField(
+        verbose_name=_("permission type"),
+        null=True,
+        blank=True,
+        max_length=20,
+        choices=PAGE_PERMISSION_TYPE_CHOICES,
     )
 
     objects = GroupPagePermissionManager()
 
     class Meta:
-        unique_together = ("group", "page", "permission")
+        unique_together = ("group", "page", "permission_type")
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
 
