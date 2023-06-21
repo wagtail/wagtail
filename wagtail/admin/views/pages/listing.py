@@ -5,27 +5,33 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from wagtail import hooks
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(View):
-    @method_decorator(user_passes_test(user_has_any_page_permission))
+class IndexView(PermissionCheckedMixin, View):
+    permission_policy = PagePermissionPolicy()
+    any_permission_required = {
+        "add",
+        "edit",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
+
     def get(self, request, parent_page_id=None):
         if parent_page_id:
             parent_page = get_object_or_404(Page, id=parent_page_id)
         else:
             parent_page = Page.get_first_root_node()
 
-        permission_policy = PagePermissionPolicy()
-
-        # This will always succeed because of the @user_passes_test above.
-        root_page = permission_policy.explorable_root_instance(request.user)
+        # This will always succeed because of the check performed by PermissionCheckedMixin.
+        root_page = self.permission_policy.explorable_root_instance(request.user)
 
         # If this page isn't a descendant of the user's explorable root page,
         # then redirect to that explorable root page instead.
@@ -38,7 +44,7 @@ class IndexView(View):
 
         pages = parent_page.get_children().prefetch_related(
             "content_type", "sites_rooted_here"
-        ) & permission_policy.explorable_instances(request.user)
+        ) & self.permission_policy.explorable_instances(request.user)
 
         # Get page ordering
         ordering = request.GET.get("ordering", "-latest_revision_created_at")
