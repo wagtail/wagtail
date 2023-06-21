@@ -28,8 +28,12 @@ urlpatterns = [
     path("api/", include(api_urls)),
     path("failwhale/", home.error_test, name="wagtailadmin_error_test"),
     # TODO: Move into wagtailadmin_pages namespace
-    path("pages/", listing.index, name="wagtailadmin_explore_root"),
-    path("pages/<int:parent_page_id>/", listing.index, name="wagtailadmin_explore"),
+    path("pages/", listing.IndexView.as_view(), name="wagtailadmin_explore_root"),
+    path(
+        "pages/<int:parent_page_id>/",
+        listing.IndexView.as_view(),
+        name="wagtailadmin_explore",
+    ),
     # bulk actions
     path(
         "bulk/<str:app_label>/<str:model_name>/<str:action>/",
