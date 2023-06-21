@@ -18,17 +18,26 @@ def populate_grouppagepermission_permission(apps, schema_editor):
     Permission = apps.get_model("auth.Permission")
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
 
-    # Change it to match Django's permission codename
-    GroupPagePermission.objects.filter(permission_type="edit").update(
-        permission_type="change"
-    )
+    page_type = ContentType.objects.get_by_natural_key("wagtailcore", "page")
 
-    page_type = ContentType.objects.get(app_label="wagtailcore", model="page")
-    GroupPagePermission.objects.all().update(
+    # Normalise permission_type="edit" to permission_type="change"
+    # and backfill permission from permission_type
+    GroupPagePermission.objects.filter(
+        models.Q(permission__isnull=True) | models.Q(permission_type="edit")
+    ).annotate(
+        normalised_permission_type=models.Case(
+            models.When(permission_type="edit", then=models.Value("change")),
+            default=models.F("permission_type"),
+        )
+    ).update(
         permission=Permission.objects.filter(
             content_type=page_type,
-            codename=Concat(models.OuterRef("permission_type"), models.Value("_page")),
-        ).values_list("pk", flat=True)[:1]
+            codename=Concat(
+                models.OuterRef("normalised_permission_type"),
+                models.Value("_page"),
+            ),
+        ).values_list("pk", flat=True)[:1],
+        permission_type=models.F("normalised_permission_type"),
     )
 
 
