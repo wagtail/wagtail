@@ -3,6 +3,7 @@ from typing import Any, Dict
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
+from django.urls import reverse
 from django.views.generic import ListView
 
 from wagtail.admin.views import generic
@@ -15,7 +16,7 @@ class ContentTypeUseView(ListView):
     paginate_by = 50
     context_object_name = "pages"
 
-    def get(self, request, content_type_app_name, content_type_model_name):
+    def get(self, request, *, content_type_app_name, content_type_model_name):
         try:
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
@@ -24,8 +25,6 @@ class ContentTypeUseView(ListView):
             raise Http404
 
         self.page_class = content_type.model_class()
-        self.content_type_app_name = content_type_app_name
-        self.page_content_type = content_type
 
         # page_class must be a Page type and not some other random model
         if not issubclass(self.page_class, Page):
@@ -36,12 +35,20 @@ class ContentTypeUseView(ListView):
     def get_queryset(self):
         return self.page_class.objects.all().specific(defer=True)
 
+    def get_index_url(self):
+        return reverse(
+            "wagtailadmin_pages:type_use",
+            args=[
+                self.kwargs["content_type_app_name"],
+                self.kwargs["content_type_model_name"],
+            ],
+        )
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "app_name": self.content_type_app_name,
-                "content_type": self.page_content_type,
+                "index_url": self.get_index_url(),
                 "page_class": self.page_class,
             }
         )

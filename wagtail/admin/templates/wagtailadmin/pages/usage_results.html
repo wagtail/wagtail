@@ -3,8 +3,9 @@
     {% if pages %}
         {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
 
-        {% url 'wagtailadmin_pages:type_use' app_name content_type.model as pagination_base_url %}
-        {% paginate page_obj base_url=pagination_base_url %}
+        {% if is_paginated %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+        {% endif %}
     {% else %}
         <p>{% trans 'No pages use' %}<em>"{{ page_class.get_verbose_name }}"</em>.</p>
     {% endif %}
