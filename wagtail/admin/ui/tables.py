@@ -15,7 +15,7 @@ from wagtail.admin.ui.components import Component
 from wagtail.coreutils import multigetattr
 
 
-class Column(metaclass=MediaDefiningClass):
+class BaseColumn(metaclass=MediaDefiningClass):
     class Header:
         # Helper object used for rendering column headers in templates -
         # behaves as a component (i.e. it has a render_html method) but delegates rendering
@@ -38,7 +38,7 @@ class Column(metaclass=MediaDefiningClass):
             return self.column.render_cell_html(self.instance, parent_context)
 
     header_template_name = "wagtailadmin/tables/column_header.html"
-    cell_template_name = "wagtailadmin/tables/cell.html"
+    cell_template_name = None
 
     def __init__(
         self, name, label=None, accessor=None, classname=None, sort_key=None, width=None
@@ -74,6 +74,10 @@ class Column(metaclass=MediaDefiningClass):
 
     @cached_property
     def cell_template(self):
+        if self.cell_template_name is None:
+            raise NotImplementedError(
+                "cell_template_name must be specified on %r" % self
+            )
         return get_template(self.cell_template_name)
 
     def render_header_html(self, parent_context):
@@ -83,16 +87,6 @@ class Column(metaclass=MediaDefiningClass):
         context = self.get_header_context_data(parent_context)
         return self.header_template.render(context)
 
-    def get_value(self, instance):
-        """
-        Given an instance (i.e. any object containing data), extract the field of data to be
-        displayed in a cell of this column
-        """
-        if callable(self.accessor):
-            return self.accessor(instance)
-        else:
-            return multigetattr(instance, self.accessor)
-
     def get_cell_context_data(self, instance, parent_context):
         """
         Compiles the context dictionary to pass to the cell template when rendering a table cell for
@@ -101,7 +95,6 @@ class Column(metaclass=MediaDefiningClass):
         return {
             "instance": instance,
             "column": self,
-            "value": self.get_value(instance),
             "request": parent_context.get("request"),
         }
 
@@ -125,6 +118,27 @@ class Column(metaclass=MediaDefiningClass):
             self.__class__.__qualname__,
             self.name,
         )
+
+
+class Column(BaseColumn):
+    """A column that displays a single field of data from the model"""
+
+    cell_template_name = "wagtailadmin/tables/cell.html"
+
+    def get_value(self, instance):
+        """
+        Given an instance (i.e. any object containing data), extract the field of data to be
+        displayed in a cell of this column
+        """
+        if callable(self.accessor):
+            return self.accessor(instance)
+        else:
+            return multigetattr(instance, self.accessor)
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["value"] = self.get_value(instance)
+        return context
 
 
 class TitleColumn(Column):
