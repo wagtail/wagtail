@@ -4,17 +4,54 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.urls import reverse
-from django.views.generic import ListView
+from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.models import Page
 
 
-class ContentTypeUseView(ListView):
+class PageTitleColumn(Column):
+    cell_template_name = "wagtailadmin/pages/listing/_page_title_cell.html"
+
+    def get_value(self, instance):
+        return None
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["page_perms"] = instance.permissions_for_user(
+            parent_context["request"].user
+        )
+        return context
+
+
+class ParentPageColumn(Column):
+    cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
+
+    def get_value(self, instance):
+        return instance.get_parent()
+
+
+class PageStatusColumn(Column):
+    cell_template_name = "wagtailadmin/pages/listing/_page_status_cell.html"
+
+    def get_value(self, instance):
+        return None
+
+
+class ContentTypeUseView(BaseListingView):
     template_name = "wagtailadmin/pages/content_type_use.html"
     page_kwarg = "p"
     paginate_by = 50
     context_object_name = "pages"
+    columns = [
+        PageTitleColumn("title", label=_("Title")),
+        ParentPageColumn("parent", label=_("Parent")),
+        DateColumn("latest_revision_created_at", label=_("Updated"), width="12%"),
+        Column("type", label=_("Type"), accessor="page_type_display_name", width="12%"),
+        PageStatusColumn("status", label=_("Status"), width="12%"),
+    ]
 
     def get(self, request, *, content_type_app_name, content_type_model_name):
         try:

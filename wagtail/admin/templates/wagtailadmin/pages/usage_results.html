@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 <div class="nice-padding">
     {% if pages %}
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
+        {% component table %}
 
         {% if is_paginated %}
             {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}

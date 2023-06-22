@@ -545,7 +545,7 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms):
-    next_url = context.request.path
+    next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
