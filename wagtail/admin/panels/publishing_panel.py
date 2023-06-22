@@ -5,7 +5,7 @@ from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.models import Page
 
 from .field_panel import FieldPanel
-from .group import FieldRowPanel, MultiFieldPanel
+from .group import MultiFieldPanel
 
 
 # This allows users to include the publishing panel in their own per-model override
@@ -16,21 +16,17 @@ class PublishingPanel(MultiFieldPanel):
         js_overlay_parent_selector = "#schedule-publishing-dialog"
         updated_kwargs = {
             "children": [
-                FieldRowPanel(
-                    [
-                        FieldPanel(
-                            "go_live_at",
-                            widget=AdminDateTimeInput(
-                                js_overlay_parent_selector=js_overlay_parent_selector,
-                            ),
-                        ),
-                        FieldPanel(
-                            "expire_at",
-                            widget=AdminDateTimeInput(
-                                js_overlay_parent_selector=js_overlay_parent_selector,
-                            ),
-                        ),
-                    ],
+                FieldPanel(
+                    "go_live_at",
+                    widget=AdminDateTimeInput(
+                        js_overlay_parent_selector=js_overlay_parent_selector,
+                    ),
+                ),
+                FieldPanel(
+                    "expire_at",
+                    widget=AdminDateTimeInput(
+                        js_overlay_parent_selector=js_overlay_parent_selector,
+                    ),
                 ),
             ],
             "classname": "publishing",
