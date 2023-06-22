@@ -5,53 +5,6 @@
 {# Page listing include, customised for 'explore' mode #}
 
 {% block post_parent_page_headers %}
-
-    {% if parent_page %}
-        {% if parent_page.is_root %}
-            <tr><td colspan="6"><div class="help-block help-info">
-                {% icon name='help' %}
-                {% if perms.wagtailcore.add_site %}
-                    {% url 'wagtailsites:index' as wagtailsites_index_url %}
-                    <p>
-                        {% blocktrans trimmed %}
-                            The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.
-                        {% endblocktrans %}
-                        {% if wagtailsites_index_url %}
-                            <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
-                        {% endif %}
-                    </p>
-                    <p>
-                        {% blocktrans trimmed %}
-                            If you just want to add pages to an existing site, create them as children of the homepage instead.
-                        {% endblocktrans %}
-                    </p>
-                {% else %}
-                    {% blocktrans trimmed %}
-                        Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.
-                    {% endblocktrans %}
-                {% endif %}
-            </div></td></tr>
-            {# get_url_parts will return None is the page has no site #}
-        {% elif not parent_page.get_url_parts %}
-            <tr><td colspan="6"><div class="help-block help-warning">
-                {% icon name='warning' %}
-                {% if perms.wagtailcore.add_site %}
-                    {% url 'wagtailsites:index' as wagtailsites_index_url %}
-                    {% blocktrans trimmed %}
-                        There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.
-                    {% endblocktrans %}
-                    {% if wagtailsites_index_url %}
-                        <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
-                    {% endif %}
-                {% else %}
-                    {% blocktrans trimmed %}
-                        There is no site record for this location. Pages created here will not be accessible at any URL.
-                    {% endblocktrans %}
-                {% endif %}
-            </div></td></tr>
-        {% endif %}
-    {% endif %}
-
     {% include "wagtailadmin/pages/listing/_table_headers_explore.html" %}
 {% endblock %}
 
