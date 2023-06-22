@@ -15,6 +15,7 @@
     <col width="10%" />
     <thead>
         {% block post_parent_page_headers %}
+            {% include "wagtailadmin/pages/listing/_table_headers_explore.html" %}
         {% endblock %}
     </thead>
     <tbody>
@@ -40,6 +41,7 @@
                     {% endif %}
                     <td id="page_{{ page.pk|unlocalize }}_title" class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
+                            {% include "wagtailadmin/pages/listing/_page_title_explore.html" %}
                         {% endblock %}
                     </td>
                     {% if show_parent %}
@@ -63,11 +65,15 @@
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                     </td>
                     {% block page_navigation %}
+                        {% include "wagtailadmin/pages/listing/_navigation_explore.html" %}
                     {% endblock %}
                 </tr>
             {% endfor %}
         {% else %}
-            {% block no_results %}{% endblock %}
+            {% block no_results %}
+                {% url 'wagtailadmin_pages:add_subpage' parent_page.id as add_page_url%}
+                <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created at this location." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans trimmed %}Why not <a href="{{ add_page_url }}">create one</a>?{% endblocktrans %}{% endif %}</p></td></tr>
+            {% endblock %}
         {% endif %}
     </tbody>
 </table>
