@@ -1,15 +1,20 @@
+from typing import Any, Dict
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.http import Http404
-from django.template.response import TemplateResponse
-from django.views.generic import View
+from django.views.generic import ListView
 
 from wagtail.admin.views import generic
 from wagtail.models import Page
 
 
-class ContentTypeUseView(View):
+class ContentTypeUseView(ListView):
+    template_name = "wagtailadmin/pages/content_type_use.html"
+    page_kwarg = "p"
+    paginate_by = 50
+    context_object_name = "pages"
+
     def get(self, request, content_type_app_name, content_type_model_name):
         try:
             content_type = ContentType.objects.get_by_natural_key(
@@ -18,27 +23,29 @@ class ContentTypeUseView(View):
         except ContentType.DoesNotExist:
             raise Http404
 
-        page_class = content_type.model_class()
+        self.page_class = content_type.model_class()
+        self.content_type_app_name = content_type_app_name
+        self.page_content_type = content_type
 
         # page_class must be a Page type and not some other random model
-        if not issubclass(page_class, Page):
+        if not issubclass(self.page_class, Page):
             raise Http404
 
-        pages = page_class.objects.all().specific(defer=True)
+        return super().get(request)
 
-        paginator = Paginator(pages, per_page=10)
-        pages = paginator.get_page(request.GET.get("p"))
+    def get_queryset(self):
+        return self.page_class.objects.all().specific(defer=True)
 
-        return TemplateResponse(
-            request,
-            "wagtailadmin/pages/content_type_use.html",
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update(
             {
-                "pages": pages,
-                "app_name": content_type_app_name,
-                "content_type": content_type,
-                "page_class": page_class,
-            },
+                "app_name": self.content_type_app_name,
+                "content_type": self.page_content_type,
+                "page_class": self.page_class,
+            }
         )
+        return context
 
 
 class UsageView(generic.UsageView):
