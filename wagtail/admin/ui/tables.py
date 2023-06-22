@@ -326,13 +326,23 @@ class Table(Component):
     classname = "listing"
     header_row_classname = ""
 
-    def __init__(self, columns, data, template_name=None, base_url=None, ordering=None):
+    def __init__(
+        self,
+        columns,
+        data,
+        template_name=None,
+        base_url=None,
+        ordering=None,
+        classname=None,
+    ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
         self.data = data
         if template_name:
             self.template_name = template_name
         self.base_url = base_url
         self.ordering = ordering
+        if classname is not None:
+            self.classname = classname
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

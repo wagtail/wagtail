@@ -123,6 +123,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     results_template_name = "wagtailadmin/generic/listing_results.html"
     results_only = False  # If true, just render the results as an HTML fragment
     table_class = Table
+    table_classname = None
     columns = [Column("__str__", label=_("Title"))]
     index_url_name = None
     page_kwarg = "p"
@@ -153,6 +154,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             self.columns,
             object_list,
             ordering=self.get_ordering(),
+            classname=self.table_classname,
             **kwargs,
         )
 

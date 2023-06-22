@@ -45,6 +45,7 @@ class ContentTypeUseView(BaseListingView):
         Column("type", label=_("Type"), accessor="page_type_display_name", width="12%"),
         PageStatusColumn("status", label=_("Status"), width="12%"),
     ]
+    table_classname = "listing align-top"
 
     def get(self, request, *, content_type_app_name, content_type_model_name):
         try:

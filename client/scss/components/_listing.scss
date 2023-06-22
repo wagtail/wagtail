@@ -106,6 +106,10 @@ ul.listing {
     border: 0;
   }
 
+  &.align-top td {
+    vertical-align: top;
+  }
+
   &.chooser {
     tbody .parent-page {
       font-size: 1.15em;
