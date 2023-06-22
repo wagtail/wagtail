@@ -18,7 +18,9 @@ from wagtail.models import Page
 
 
 class ContentTypeUseView(BaseListingView):
-    template_name = "wagtailadmin/pages/content_type_use.html"
+    results_template_name = "wagtailadmin/pages/usage_results.html"
+    page_title = _("Pages using")
+    header_icon = "doc-empty-inverse"
     page_kwarg = "p"
     paginate_by = 50
     columns = [
@@ -45,6 +47,9 @@ class ContentTypeUseView(BaseListingView):
             raise Http404
 
         return super().get(request)
+
+    def get_page_subtitle(self):
+        return self.page_class.get_verbose_name()
 
     def get_queryset(self):
         return self.page_class.objects.all().specific(defer=True)
