@@ -1,12 +1,6 @@
-{% load i18n wagtailadmin_tags %}
-<div class="nice-padding">
-    {% if pages %}
-        {% component table %}
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n %}
 
-        {% if is_paginated %}
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
-        {% endif %}
-    {% else %}
-        <p>{% trans 'No pages use' %}<em>"{{ page_class.get_verbose_name }}"</em>.</p>
-    {% endif %}
-</div>
+{% block no_results_message %}
+    <p>{% trans 'No pages use' %} <em>"{{ page_class.get_verbose_name }}"</em>.</p>
+{% endblock %}

@@ -38,7 +38,6 @@ class ContentTypeUseView(BaseListingView):
     template_name = "wagtailadmin/pages/content_type_use.html"
     page_kwarg = "p"
     paginate_by = 50
-    context_object_name = "pages"
     columns = [
         PageTitleColumn("title", label=_("Title")),
         ParentPageColumn("parent", label=_("Parent")),
