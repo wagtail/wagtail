@@ -720,6 +720,7 @@ Contributors
 * Kevin Chung (kev-odin)
 * valnuro
 * Vitaly Babiy
+* Sébastien Corbin
 
 Translators
 ===========

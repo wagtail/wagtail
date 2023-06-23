@@ -27,6 +27,7 @@ Changelog
  * Fix: Debounce and optimise live preview panel to prevent excessive requests (Sage Abdullah)
  * Fix: Use constant-time comparison for image serve URL signatures (Jake Howard)
  * Fix: Ensure taggit field type-ahead options show correctly in the dark mode theme (Sage Abdullah)
+ * Fix: Fix the lock description message missing the model_name variable when locked only by system (Sébastien Corbin)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
