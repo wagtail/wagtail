@@ -53,7 +53,7 @@ urlpatterns = [
         convert_alias.convert_alias,
         name="convert_alias",
     ),
-    path("search/", search.search, name="search"),
+    path("search/", search.SearchView.as_view(), name="search"),
     path("<int:page_to_move_id>/move/", move.move_choose_destination, name="move"),
     path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
