@@ -50,6 +50,15 @@ class BaseStatusSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle status")
         icon_name = "info-circle"
+        counter_classname = "w-bg-critical-200"
+
+        def get_context_data(self, parent_context):
+            context = super().get_context_data(parent_context)
+            form = parent_context.get("form")
+            context["count"] = form and len(
+                form.errors.keys() & {"go_live_at", "expire_at"}
+            )
+            return context
 
     name = "status"
     title = gettext_lazy("Status")
@@ -94,13 +103,15 @@ class BaseStatusSidePanel(BaseSidePanel):
 
         return templates
 
-    def get_scheduled_publishing_context(self):
+    def get_scheduled_publishing_context(self, parent_context):
         if not isinstance(self.object, DraftStateMixin):
             return {"draftstate_enabled": False}
 
         context = {
             # Used for hiding the info completely if the model doesn't extend DraftStateMixin
             "draftstate_enabled": True,
+            # Show error message if any of the scheduled publishing fields has errors
+            "schedule_has_errors": False,
             # The dialog toggle can be hidden (e.g. if PublishingPanel is not present)
             # but the scheduled publishing info should still be shown
             "show_schedule_publishing_toggle": self.show_schedule_publishing_toggle,
@@ -117,6 +128,10 @@ class BaseStatusSidePanel(BaseSidePanel):
             # go_live_at is later than that
             "live_expire_at": None,
         }
+
+        # Reuse logic from the toggle to get the count of errors
+        if self.toggle.get_context_data(parent_context)["count"]:
+            context["schedule_has_errors"] = True
 
         # Only consider draft schedule if the object hasn't been created
         # or if there are unpublished changes
@@ -200,7 +215,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
         context["status_templates"] = self.get_status_templates(context)
-        context.update(self.get_scheduled_publishing_context())
+        context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
         if self.object.pk:
             context.update(self.get_usage_context())

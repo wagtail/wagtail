@@ -790,6 +790,11 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
 
 class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
+    STATUS_TOGGLE_BADGE_REGEX = (
+        r'data-side-panel-toggle="status"[^<]+<svg[^<]+<use[^<]+</use[^<]+</svg[^<]+'
+        r"<div data-side-panel-toggle-counter[^>]+w-bg-critical-200[^>]+>\s*%(num_errors)s\s*</div>"
+    )
+
     def setUp(self):
         self.user = self.login()
 
@@ -1095,6 +1100,20 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             "Go live date/time must be before expiry date/time",
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
     def test_create_scheduled_expire_in_the_past(self):
         response = self.post(
             post_data={
@@ -1108,6 +1127,20 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # Check that a form error was raised
         self.assertFormError(
             response, "form", "expire_at", "Expiry date/time must be in the future"
+        )
+
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 1
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
         )
 
     def test_create_post_publish_scheduled(self):
@@ -1506,6 +1539,11 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
 
 
 class TestEditDraftStateSnippet(BaseTestSnippetEditView):
+    STATUS_TOGGLE_BADGE_REGEX = (
+        r'data-side-panel-toggle="status"[^<]+<svg[^<]+<use[^<]+</use[^<]+</svg[^<]+'
+        r"<div data-side-panel-toggle-counter[^>]+w-bg-critical-200[^>]+>\s*%(num_errors)s\s*</div>"
+    )
+
     def setUp(self):
         super().setUp()
         self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.create(
@@ -2089,7 +2127,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
             count=1,
         )
@@ -2148,6 +2186,20 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             "Go live date/time must be before expiry date/time",
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
     def test_edit_scheduled_expire_in_the_past(self):
         response = self.post(
             post_data={
@@ -2161,6 +2213,86 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Check that a form error was raised
         self.assertFormError(
             response, "form", "expire_at", "Expiry date/time must be in the future"
+        )
+
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 1
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
+    def test_edit_post_invalid_schedule_with_existing_draft_schedule(self):
+        self.test_snippet.go_live_at = now() + datetime.timedelta(days=1)
+        self.test_snippet.expire_at = now() + datetime.timedelta(days=2)
+        latest_revision = self.test_snippet.save_revision()
+
+        go_live_at = now() + datetime.timedelta(days=10)
+        expire_at = now() + datetime.timedelta(days=-20)
+        response = self.post(
+            post_data={
+                "text": "Some edited content",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should render the edit page with errors instead of redirecting
+        self.assertEqual(response.status_code, 200)
+
+        self.test_snippet.refresh_from_db()
+
+        # The snippet will not be live
+        self.assertFalse(self.test_snippet.live)
+
+        # No new revision should have been created
+        self.assertEqual(self.test_snippet.latest_revision_id, latest_revision.pk)
+
+        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            '<span class="w-text-grey-600">Go-live:</span>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            '<span class="w-text-grey-600">Expiry:</span>',
+            html=True,
+        )
+
+        # Should show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
         )
 
     def test_first_published_at_editable(self):
@@ -2234,7 +2366,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
@@ -2409,7 +2541,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
@@ -2599,7 +2731,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should also show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
             count=1,
         )
@@ -2712,7 +2844,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
@@ -2827,7 +2959,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
@@ -2899,7 +3031,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         # Should show the go_live_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
 
@@ -2966,7 +3098,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         # Should show the go_live_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
 
