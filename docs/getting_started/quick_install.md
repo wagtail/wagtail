@@ -14,15 +14,14 @@
     See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
 ## Install Wagtail
+
 Run the following commands in a virtual environment of your choice:
 
 ```sh
 pip install wagtail
 ```
 
-To install Wagtail outside a virtual environment, use the `sudo` command. `sudo` is a program that allows running other programs with the security privileges of a different user. This different user is by default the superuser.
-
-Once installed, Wagtail provides a command similar to Django's `django-admin startproject` to generate a new site/project:
+Once installed, Wagtail provides a `wagtail start` command to generate a new project:
 
 ```sh
 wagtail start mysite
@@ -46,7 +45,7 @@ Your site is now accessible at `http://localhost:8000`, with the admin backend a
 This sets you up with a new stand-alone Wagtail project.
 If you want to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/getting_started/integrating_into_django).
 
-There are a few optional packages that are not installed by default. You can install them  to improve performance or add features to Wagtail. These optional packages include:
+There are a few optional packages that are not installed by default. You can install them to improve performance or add features to Wagtail. These optional packages include:
 
 -   [Elasticsearch](/advanced_topics/performance)
 -   [Feature Detection](image_feature_detection)
