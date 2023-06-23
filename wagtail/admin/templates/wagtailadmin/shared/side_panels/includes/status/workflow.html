@@ -39,7 +39,7 @@
                         {% if page %}
                             {% page_permissions object as page_perms %}
                         {% endif %}
-                        <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
+                        <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3 w-border w-border-transparent">
                             {% icon name='calendar-check' classname='w-w-4 w-h-4 w-text-info-100' %}
                             <div class="w-flex w-flex-1 w-items-start w-justify-between">
                                 <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text w-text-grey-400">
@@ -50,7 +50,7 @@
                                 </div>
                                 {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not lock_context.locked %}
                                     {% trans 'Edit schedule' as edit_schedule_text %}
-                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary-600 hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                                 {% endif %}
                             </div>
                         </div>
@@ -133,7 +133,7 @@
 
         {# Scheduled publishing #}
         {% if has_draft_publishing_schedule or schedule_has_errors %}
-            <div class="w-p-4 w-rounded w-flex w-space-x-3 {% if schedule_has_errors %}w-bg-critical-50{% else %}w-bg-info-50{% endif %}">
+            <div class="w-p-4 w-rounded w-flex w-space-x-3 w-border w-border-transparent {% if schedule_has_errors %}w-bg-critical-50{% else %}w-bg-info-50{% endif %}">
                 {% if schedule_has_errors %}
                     {% icon name='warning' classname='w-w-4 w-h-4 w-text-critical-100' %}
                 {% elif scheduled_go_live_at or scheduled_expire_at %}
@@ -165,7 +165,7 @@
                     </div>
                     {% if show_schedule_publishing_toggle and not lock_context.locked %}
                         {% trans 'Edit schedule' as edit_schedule_text %}
-                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary-600 hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                     {% endif %}
                 </div>
             </div>
