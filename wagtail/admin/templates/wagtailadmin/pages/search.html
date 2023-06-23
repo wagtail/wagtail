@@ -6,7 +6,7 @@
 
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailadmin_pages:search' %}",
+            url: "{% url 'wagtailadmin_pages:search_results' %}",
             termInput: "#id_q",
             targetOutput: "#page-results"
         }
@@ -19,7 +19,7 @@
 
 {% block content %}
     {% trans "Search" as search_str %}
-    {% include "wagtailadmin/shared/header.html" with title=search_str search_url="wagtailadmin_pages:search" icon="search" %}
+    {% include "wagtailadmin/shared/header.html" with title=search_str search_url="wagtailadmin_pages:search_results" icon="search" %}
 
     <div id="page-results">
         {% include "wagtailadmin/pages/search_results.html" %}
