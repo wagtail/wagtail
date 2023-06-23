@@ -841,6 +841,11 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
+        # Should show the correct subtitle in the dialog
+        self.assertContains(
+            response, "Choose when this draft state model should go live and/or expire"
+        )
+
         # Should not show the Unpublish action menu item
         unpublish_url = "/admin/snippets/tests/draftstatemodel/unpublish/"
         self.assertNotContains(response, unpublish_url)
@@ -1581,6 +1586,21 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # The status side panel should show "No publishing schedule set" info
         self.assertContains(response, "No publishing schedule set")
+
+        # Should show the "Set schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Set schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the correct subtitle in the dialog
+        self.assertContains(
+            response,
+            "Choose when this draft state custom primary key model should go live and/or expire",
+        )
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(

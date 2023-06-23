@@ -46,6 +46,7 @@ class PublishingPanel(MultiFieldPanel):
             context["request"] = self.request
             context["instance"] = self.instance
             context["classname"] = self.classname
+            context["model_opts"] = self.instance._meta
             if isinstance(self.instance, Page):
                 context["page"] = self.instance
             return context
