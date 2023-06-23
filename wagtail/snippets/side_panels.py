@@ -64,7 +64,7 @@ class SnippetSidePanels(BaseSidePanels):
         scheduled_object=None,
     ):
         self.side_panels = []
-        if object.pk or view.locale:
+        if object.pk or view.locale or show_schedule_publishing_toggle:
             self.side_panels += [
                 SnippetStatusSidePanel(
                     object,

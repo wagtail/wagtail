@@ -822,10 +822,23 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             response,
             '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
         )
-        # The status side panel should not be shown
-        self.assertNotContains(
+        # The status side panel should be rendered so that the
+        # publishing schedule can be configured
+        self.assertContains(
             response,
-            '<div class="form-side__panel" data-side-panel="status">',
+            '<div class="form-side__panel" data-side-panel="status" hidden>',
+        )
+
+        # The status side panel should show "No publishing schedule set" info
+        self.assertContains(response, "No publishing schedule set")
+
+        # Should show the "Set schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Set schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
         )
 
         # Should not show the Unpublish action menu item
