@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import tippy, { Content, Props, Instance } from 'tippy.js';
 import {
   hideTooltipOnBreadcrumbExpandAndCollapse,
+  hideTooltipOnClickInside,
   hideTooltipOnEsc,
   rotateToggleIcon,
 } from '../includes/initTooltips';
@@ -10,16 +11,20 @@ import {
  * A Tippy.js tooltip with interactive "dropdown" options.
  *
  * @example
- * <div data-controller="w-dropdown">
+ * <div data-controller="w-dropdown" data-w-dropdown-hide-on-click-value-"true">
  *  <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
  *  <div data-w-dropdown-target="content">[…]</div>
  * </div>
  */
 export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
+  static values = {
+    hideOnClick: { default: false, type: Boolean },
+  };
 
   declare readonly toggleTarget: HTMLButtonElement;
   declare readonly contentTarget: HTMLDivElement;
+  declare readonly hideOnClickValue: boolean;
 
   connect() {
     // If the dropdown toggle uses an ARIA label, use this as a hover tooltip.
@@ -36,6 +41,16 @@ export class DropdownController extends Controller<HTMLElement> {
       });
     }
 
+    const plugins = [
+      hideTooltipOnEsc,
+      hideTooltipOnBreadcrumbExpandAndCollapse,
+      rotateToggleIcon,
+    ];
+
+    if (this.hideOnClickValue) {
+      plugins.push(hideTooltipOnClickInside);
+    }
+
     /**
      * Default Tippy Options
      */
@@ -45,11 +60,7 @@ export class DropdownController extends Controller<HTMLElement> {
       interactive: true,
       theme: 'dropdown',
       placement: 'bottom',
-      plugins: [
-        hideTooltipOnEsc,
-        hideTooltipOnBreadcrumbExpandAndCollapse,
-        rotateToggleIcon,
-      ],
+      plugins,
       onShow() {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.disable();

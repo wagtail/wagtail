@@ -25,6 +25,26 @@ export const hideTooltipOnEsc = {
 };
 
 /**
+ * Hides tooltip when clicking inside.
+ */
+export const hideTooltipOnClickInside = {
+  name: 'hideTooltipOnClickInside',
+  defaultValue: true,
+  fn(instance: Instance) {
+    const onClick = () => instance.hide();
+
+    return {
+      onShow() {
+        instance.popper.addEventListener('click', onClick);
+      },
+      onHide() {
+        instance.popper.removeEventListener('click', onClick);
+      },
+    };
+  },
+};
+
+/**
  * Prevents the tooltip from staying open when the breadcrumbs expand and push the toggle button in the layout
  */
 export const hideTooltipOnBreadcrumbExpandAndCollapse = {
