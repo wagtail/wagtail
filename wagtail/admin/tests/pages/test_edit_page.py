@@ -447,7 +447,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            "This publishing schedule will only take effect after you have published",
+            'This publishing schedule will only take effect after you select the "Publish" option',
         )
 
     def test_edit_post_scheduled_custom_timezone(self):
@@ -541,7 +541,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            "This publishing schedule will only take effect after you have published",
+            'This publishing schedule will only take effect after you select the "Publish" option',
         )
 
     def test_schedule_panel_without_publish_permission(self):
