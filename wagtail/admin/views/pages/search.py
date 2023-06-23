@@ -1,11 +1,11 @@
+from typing import Any, Dict
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
-from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
-from django.views.decorators.vary import vary_on_headers
-from django.views.generic import View
+from django.views.generic import TemplateView
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.search import SearchForm
@@ -39,20 +39,19 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class SearchView(View):
-    @method_decorator(vary_on_headers("X-Requested-With"))
+class BaseSearchView(TemplateView):
     @method_decorator(user_passes_test(user_has_any_page_permission))
     def get(self, request):
-        pages = all_pages = (
+        pages = self.all_pages = (
             Page.objects.all().prefetch_related("content_type").specific()
         )
-        show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if show_locale_labels:
+        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        if self.show_locale_labels:
             pages = pages.select_related("locale")
 
-        q = MATCH_ALL
-        content_types = []
-        ordering = None
+        self.q = MATCH_ALL
+        self.content_types = []
+        self.ordering = None
 
         if "ordering" in request.GET:
             if request.GET["ordering"] in [
@@ -63,21 +62,21 @@ class SearchView(View):
                 "live",
                 "-live",
             ]:
-                ordering = request.GET["ordering"]
+                self.ordering = request.GET["ordering"]
 
-                if ordering == "title":
+                if self.ordering == "title":
                     pages = pages.order_by("title")
-                elif ordering == "-title":
+                elif self.ordering == "-title":
                     pages = pages.order_by("-title")
 
-                if ordering == "latest_revision_created_at":
+                if self.ordering == "latest_revision_created_at":
                     pages = pages.order_by("latest_revision_created_at")
-                elif ordering == "-latest_revision_created_at":
+                elif self.ordering == "-latest_revision_created_at":
                     pages = pages.order_by("-latest_revision_created_at")
 
-                if ordering == "live":
+                if self.ordering == "live":
                     pages = pages.order_by("live")
-                elif ordering == "-live":
+                elif self.ordering == "-live":
                     pages = pages.order_by("-live")
 
         if "content_type" in request.GET:
@@ -87,68 +86,70 @@ class SearchView(View):
                 raise Http404
 
             try:
-                selected_content_type = ContentType.objects.get_by_natural_key(
+                self.selected_content_type = ContentType.objects.get_by_natural_key(
                     app_label, model_name
                 )
             except ContentType.DoesNotExist:
                 raise Http404
 
-            pages = pages.filter(content_type=selected_content_type)
+            pages = pages.filter(content_type=self.selected_content_type)
         else:
-            selected_content_type = None
+            self.selected_content_type = None
 
         if "q" in request.GET:
-            form = SearchForm(request.GET)
-            if form.is_valid():
-                q = form.cleaned_data["q"]
+            self.form = SearchForm(request.GET)
+            if self.form.is_valid():
+                self.q = self.form.cleaned_data["q"]
 
                 # Parse query and filter
-                pages, all_pages = page_filter_search(q, pages, all_pages, ordering)
+                pages, self.all_pages = page_filter_search(
+                    self.q, pages, self.all_pages, self.ordering
+                )
 
                 # Facets
                 if pages.supports_facet:
-                    content_types = [
+                    self.content_types = [
                         (ContentType.objects.get(id=content_type_id), count)
-                        for content_type_id, count in all_pages.facet(
+                        for content_type_id, count in self.all_pages.facet(
                             "content_type_id"
                         ).items()
                     ]
 
         else:
-            form = SearchForm()
+            self.form = SearchForm()
 
         paginator = Paginator(pages, per_page=20)
         try:
-            pages = paginator.page(request.GET.get("p", 1))
+            self.pages = paginator.page(request.GET.get("p", 1))
         except InvalidPage:
             raise Http404
 
-        if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return TemplateResponse(
-                request,
-                "wagtailadmin/pages/search_results.html",
-                {
-                    "pages": pages,
-                    "all_pages": all_pages,
-                    "query_string": q,
-                    "content_types": content_types,
-                    "selected_content_type": selected_content_type,
-                    "ordering": ordering,
-                    "show_locale_labels": show_locale_labels,
-                },
-            )
-        else:
-            return TemplateResponse(
-                request,
-                "wagtailadmin/pages/search.html",
-                {
-                    "search_form": form,
-                    "pages": pages,
-                    "all_pages": all_pages,
-                    "query_string": q,
-                    "content_types": content_types,
-                    "selected_content_type": selected_content_type,
-                    "ordering": ordering,
-                    "show_locale_labels": show_locale_labels,
-                },
-            )
+        return super().get(request)
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "pages": self.pages,
+                "all_pages": self.all_pages,
+                "query_string": self.q,
+                "content_types": self.content_types,
+                "selected_content_type": self.selected_content_type,
+                "ordering": self.ordering,
+                "show_locale_labels": self.show_locale_labels,
+            }
+        )
+        return context
+
+
+class SearchView(BaseSearchView):
+    template_name = "wagtailadmin/pages/search.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = self.form
+        return context
+
+
+class SearchResultsView(BaseSearchView):
+    template_name = "wagtailadmin/pages/search_results.html"

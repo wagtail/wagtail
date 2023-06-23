@@ -54,6 +54,7 @@ urlpatterns = [
         name="convert_alias",
     ),
     path("search/", search.SearchView.as_view(), name="search"),
+    path("search/results/", search.SearchResultsView.as_view(), name="search_results"),
     path("<int:page_to_move_id>/move/", move.move_choose_destination, name="move"),
     path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
