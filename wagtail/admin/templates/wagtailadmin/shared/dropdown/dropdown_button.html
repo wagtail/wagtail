@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment "text/markdown" %}
+    A button with a dropdown menu next to it.
+
+    - `button` (fragment) - the main button
+    - `toggle_icon` (string?) - toggle icon identifier
+    - `toggle_classname` (string?) - additional toggle classes
+    - `children` - Dropdown contents (`a` and `button` elements only)
+{% endcomment %}
+
+<div class="{% classnames 'w-dropdown-button' classname %}">
+    {{ button }}
+    {% if children %}
+        {% fragment as toggle_classes %}{% classnames toggle_classname "button" %}{% endfragment %}
+        {% dropdown theme="dropdown-button" toggle_classname=toggle_classes toggle_icon=toggle_icon|default:"arrow-down" toggle_tippy_offset="[0, 0]" %}
+            {{ children }}
+        {% enddropdown %}
+    {% endif %}
+</div>

@@ -45,7 +45,7 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
     'no-underscore-dangle': [
       'error',
-      { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
+      { allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_tippy'] },
     ],
     // this rule can be confusing as it forces some non-intuitive code for variable assignment
     'prefer-destructuring': 'off',
