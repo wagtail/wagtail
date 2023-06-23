@@ -62,10 +62,12 @@ const hideTooltipOnClickInside = {
  * If the toggle button has a toggle arrow,
  * rotate it when open and closed.
  */
-const rotateToggleIcon = {
+export const rotateToggleIcon = {
   name: 'rotateToggleIcon',
   fn(instance: Instance) {
-    const dropdownIcon = instance.reference.querySelector('.icon-arrow-down');
+    const dropdownIcon = instance.reference.querySelector(
+      '.icon-arrow-down, .icon-arrow-up',
+    );
 
     if (!dropdownIcon) {
       return {};
@@ -77,6 +79,21 @@ const rotateToggleIcon = {
     };
   },
 };
+
+const themeOptions = {
+  'dropdown': {
+    arrow: true,
+    maxWidth: 350,
+    placement: 'bottom',
+  },
+  'dropdown-button': {
+    arrow: false,
+    maxWidth: 'none',
+    placement: 'bottom-start',
+  },
+} as const;
+
+type TippyTheme = keyof typeof themeOptions;
 
 /**
  * A Tippy.js tooltip with interactive "dropdown" options.
@@ -92,6 +109,7 @@ export class DropdownController extends Controller<HTMLElement> {
   static values = {
     hideOnClick: { default: false, type: Boolean },
     offset: Array,
+    theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
   declare hideOnClickValue: boolean;
@@ -101,6 +119,7 @@ export class DropdownController extends Controller<HTMLElement> {
   declare readonly hasContentTarget: boolean;
   declare readonly hasOffsetValue: boolean;
   declare readonly toggleTarget: HTMLButtonElement;
+  declare readonly themeValue: TippyTheme;
 
   tippy?: Instance<Props>;
 
@@ -144,11 +163,12 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
+      ...themeOptions[this.themeValue],
       trigger: 'click',
       interactive: true,
-      theme: 'dropdown',
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
-      placement: 'bottom',
+      getReferenceClientRect: () => this.getReference().getBoundingClientRect(),
+      theme: this.themeValue,
       plugins: this.plugins,
       onShow() {
         if (hoverTooltipInstance) {
@@ -172,5 +192,15 @@ export class DropdownController extends Controller<HTMLElement> {
       hideTooltipOnEsc,
       rotateToggleIcon,
     ].concat(this.hideOnClickValue ? [hideTooltipOnClickInside] : []);
+  }
+
+  /**
+   * Use a different reference element depending on the theme.
+   */
+  getReference() {
+    const toggleParent = this.toggleTarget.parentElement as HTMLElement;
+    return this.themeValue === 'dropdown-button'
+      ? (toggleParent.parentElement as HTMLElement)
+      : toggleParent;
   }
 }

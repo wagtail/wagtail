@@ -8,14 +8,12 @@ describe('DropdownController', () => {
 
   beforeEach(async () => {
     document.body.innerHTML = `
-  <section>
-    <div data-controller="w-dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
-      <button id="toggle" type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
-      <div data-w-dropdown-target="content">
-        <a href="/">Option</a>
-      </div>
-    </div>
-  </section>`;
+<div data-controller="w-dropdown" data-w-dropdown-theme-value="dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
+<button id="toggle" type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+  <div data-w-dropdown-target="content">
+    <a href="/">Option</a>
+  </div>
+</div>`;
 
     application = Application.start();
     application.register('w-dropdown', DropdownController);
@@ -55,6 +53,11 @@ describe('DropdownController', () => {
     expect(expandedContent).toHaveLength(1);
 
     expect(expandedContent[0].innerHTML).toContain('<a href="/">Option</a>');
+  });
+
+  it('supports providing a theme to Tippy.js', () => {
+    const toggle = document.querySelector('[data-w-dropdown-target="toggle"]');
+    expect(toggle._tippy.props.theme).toBe('dropdown');
   });
 
   it('triggers custom event on activation', async () => {

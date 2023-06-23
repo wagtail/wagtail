@@ -1890,28 +1890,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
                 reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
             )
 
-        publish_button = """
-            <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-controller="w-progress" data-action="w-progress#activate" data-w-progress-active-value="Publishing…">
-                <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true"><use href="#icon-upload"></use></svg>
+        soup = self.get_soup(response.content)
 
-                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg><em data-w-progress-target="label">Publish</em>
-            </button>
-        """
-        save_button = """
-            <button type="submit" class="button action-save button-longrunning " data-controller="w-progress" data-action="w-progress#activate" data-w-progress-active-value="Saving…" >
-                <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true"><use href="#icon-draft"></use></svg>
-
-                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg>
-                <em data-w-progress-target="label">Save draft</em>
-            </button>
-        """
-
-        # save button should be in a <li>
-        self.assertContains(response, "<li>%s</li>" % save_button, html=True)
-
-        # publish button should be present, but not in a <li>
-        self.assertContains(response, publish_button, html=True)
-        self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
+        # save button should be inside "More actions" toggle.
+        save_button = soup.select_one(".w-dropdown__content .action-save")
+        self.assertIsNotNone(save_button)
+        # publish button should be directly inside "Dropdown button".
+        publish_button = soup.select_one('.w-dropdown-button > [name="action-publish"]')
+        self.assertIsNotNone(publish_button)
 
     def test_override_publish_action_menu_item_label(self):
         def hook_func(menu_items, request, context):
