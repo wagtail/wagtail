@@ -4,12 +4,12 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -39,8 +39,17 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class BaseSearchView(TemplateView):
-    @method_decorator(user_passes_test(user_has_any_page_permission))
+class BaseSearchView(PermissionCheckedMixin, TemplateView):
+    permission_policy = PagePermissionPolicy()
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
+
     def get(self, request):
         pages = self.all_pages = (
             Page.objects.all().prefetch_related("content_type").specific()
