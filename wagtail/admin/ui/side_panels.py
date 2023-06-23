@@ -14,6 +14,8 @@ class BaseSidePanel(Component):
         template_name = "wagtailadmin/shared/side_panel_toggle.html"
         aria_label = ""
         icon_name = ""
+        has_counter = True
+        counter_classname = ""
 
         def __init__(self, panel):
             self.panel = panel
@@ -23,10 +25,12 @@ class BaseSidePanel(Component):
             inherit = {
                 "nav_icon_button_classes",
                 "nav_icon_classes",
+                "nav_icon_counter_classes",
             }
             context = {key: parent_context.get(key) for key in inherit}
             context["toggle"] = self
             context["panel"] = self.panel
+            context["count"] = 0
             return context
 
     def __init__(self, object, request):
@@ -311,6 +315,7 @@ class BasePreviewSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle preview")
         icon_name = "mobile-alt"
+        has_counter = False
 
     name = "preview"
     title = gettext_lazy("Preview")

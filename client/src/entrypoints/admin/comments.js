@@ -312,15 +312,9 @@ window.comments = (() => {
     });
 
     // Keep number of comments up to date with comment app
-    const commentToggle = document.querySelector(
-      '[data-side-panel-toggle="comments"]',
+    const commentCounter = document.querySelector(
+      '[data-side-panel-toggle="comments"] [data-side-panel-toggle-counter]',
     );
-
-    const commentCounter = document.createElement('div');
-    commentCounter.className =
-      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-bg-surface-button-default w-text-text-button w-border w-border-surface-page w-rounded-[1rem]';
-
-    commentToggle.appendChild(commentCounter);
 
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
@@ -334,6 +328,7 @@ window.comments = (() => {
 
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();
+        commentCounter.hidden = false;
       } else {
         // Note: Hide the circle when its content is empty
         commentCounter.hidden = true;

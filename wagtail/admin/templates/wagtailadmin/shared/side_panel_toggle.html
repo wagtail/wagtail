@@ -10,4 +10,9 @@
     aria-expanded="false"
 >
     {% icon name=toggle.icon_name classname=nav_icon_classes %}
+    {% if toggle.has_counter %}
+        <div data-side-panel-toggle-counter class="{{ nav_icon_counter_classes }} {{ toggle.counter_classname|default:'w-bg-surface-button-default'}}" {% if not count %}hidden{% endif %}>
+            {{ count }}
+        </div>
+    {% endif %}
 </button>
