@@ -10,10 +10,30 @@ from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 
 
 class BaseSidePanel(Component):
+    class SidePanelToggle(Component):
+        template_name = "wagtailadmin/shared/side_panel_toggle.html"
+        aria_label = ""
+        icon_name = ""
+
+        def __init__(self, panel):
+            self.panel = panel
+
+        def get_context_data(self, parent_context):
+            # Inherit classes from fragments defined in slim_header.html
+            inherit = {
+                "nav_icon_button_classes",
+                "nav_icon_classes",
+            }
+            context = {key: parent_context.get(key) for key in inherit}
+            context["toggle"] = self
+            context["panel"] = self.panel
+            return context
+
     def __init__(self, object, request):
         self.object = object
         self.request = request
         self.model = type(self.object)
+        self.toggle = self.SidePanelToggle(panel=self)
 
     def get_context_data(self, parent_context):
         context = {"panel": self, "object": self.object, "request": self.request}
@@ -23,12 +43,14 @@ class BaseSidePanel(Component):
 
 
 class BaseStatusSidePanel(BaseSidePanel):
+    class SidePanelToggle(BaseSidePanel.SidePanelToggle):
+        aria_label = gettext_lazy("Toggle status")
+        icon_name = "info-circle"
+
     name = "status"
     title = gettext_lazy("Status")
     template_name = "wagtailadmin/shared/side_panels/status.html"
     order = 100
-    toggle_aria_label = gettext_lazy("Toggle status")
-    toggle_icon_name = "info-circle"
 
     def __init__(
         self,
@@ -270,12 +292,14 @@ class PageStatusSidePanel(BaseStatusSidePanel):
 
 
 class CommentsSidePanel(BaseSidePanel):
+    class SidePanelToggle(BaseSidePanel.SidePanelToggle):
+        aria_label = gettext_lazy("Toggle comments")
+        icon_name = "comment"
+
     name = "comments"
     title = gettext_lazy("Comments")
     template_name = "wagtailadmin/shared/side_panels/comments.html"
     order = 300
-    toggle_aria_label = gettext_lazy("Toggle comments")
-    toggle_icon_name = "comment"
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
@@ -284,12 +308,14 @@ class CommentsSidePanel(BaseSidePanel):
 
 
 class BasePreviewSidePanel(BaseSidePanel):
+    class SidePanelToggle(BaseSidePanel.SidePanelToggle):
+        aria_label = gettext_lazy("Toggle preview")
+        icon_name = "mobile-alt"
+
     name = "preview"
     title = gettext_lazy("Preview")
     template_name = "wagtailadmin/shared/side_panels/preview.html"
     order = 400
-    toggle_aria_label = gettext_lazy("Toggle preview")
-    toggle_icon_name = "mobile-alt"
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

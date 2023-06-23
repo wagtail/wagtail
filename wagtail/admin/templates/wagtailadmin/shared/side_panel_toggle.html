@@ -1,0 +1,13 @@
+{% load wagtailadmin_tags %}
+
+<button type="button"
+    class="{{ nav_icon_button_classes }}"
+    aria-label="{{ toggle.aria_label }}"
+    data-tippy-content="{{ panel.title }}"
+    data-tippy-offset="[0,0]"
+    data-tippy-placement="bottom"
+    data-side-panel-toggle="{{ panel.name }}"
+    aria-expanded="false"
+>
+    {% icon name=toggle.icon_name classname=nav_icon_classes %}
+</button>
