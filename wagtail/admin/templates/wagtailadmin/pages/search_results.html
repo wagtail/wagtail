@@ -35,7 +35,7 @@
         {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 sortable=1 sortable_by_type=0 show_bulk_actions=1 show_locale_labels=show_locale_labels %}
 
         {% url 'wagtailadmin_pages:search' as pagination_base_url %}
-        {% paginate pages base_url=pagination_base_url %}
+        {% paginate page_obj base_url=pagination_base_url %}
     {% else %}
         {% if query_string %}
             <h2 role="alert">{% blocktrans trimmed %}Sorry, no pages match <em>{{ query_string }}</em>{% endblocktrans %}</h2>
