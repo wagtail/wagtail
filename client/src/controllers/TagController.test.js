@@ -3,8 +3,6 @@ import $ from 'jquery';
 import { Application } from '@hotwired/stimulus';
 import { TagController } from './TagController';
 
-const flushPromises = () => new Promise(setImmediate);
-
 window.$ = $;
 
 describe('TagController', () => {
@@ -41,7 +39,7 @@ describe('TagController', () => {
       someOther: 'option',
     });
 
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     // check the jQuery instance is the correct element
     expect(element).toContain(document.getElementById('tag-input'));
@@ -69,7 +67,7 @@ describe('TagController', () => {
 
     window.initTagField('not-present');
 
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     expect(tagitMock).not.toHaveBeenCalled();
   });
@@ -90,7 +88,7 @@ describe('TagController', () => {
 
     expect(tagitMock).not.toHaveBeenCalled();
 
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     expect(tagitMock).toHaveBeenCalledWith({
       allowSpaces: true,
@@ -116,7 +114,8 @@ describe('TagController', () => {
       .getElementById('id_tags')
       .dispatchEvent(new CustomEvent('example:event'));
 
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
+
     expect(tagitMock).toHaveBeenCalledWith('removeAll');
   });
 });

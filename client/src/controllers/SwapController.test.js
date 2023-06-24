@@ -1,3 +1,4 @@
+import { setImmediate } from 'timers';
 import { Application } from '@hotwired/stimulus';
 import { SwapController } from './SwapController';
 import { range } from '../utils/range';

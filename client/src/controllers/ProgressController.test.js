@@ -1,9 +1,7 @@
 import { Application } from '@hotwired/stimulus';
 import { ProgressController } from './ProgressController';
 
-jest.useFakeTimers();
-
-const flushPromises = () => new Promise(setImmediate);
+jest.useFakeTimers({ legacyFakeTimers: true });
 
 describe('ProgressController', () => {
   // form submit is not implemented in jsdom
@@ -37,7 +35,7 @@ describe('ProgressController', () => {
     jest.clearAllTimers();
   });
 
-  it('should not change the text of the button to Loading if the form is not valid', async () => {
+  it('should not change the text of the button to Loading if the form is not valid', () => {
     const form = document.querySelector('form');
     const button = document.querySelector('.button-longrunning');
     expect(mockSubmit).not.toHaveBeenCalled();
@@ -46,23 +44,15 @@ describe('ProgressController', () => {
     form.checkValidity = jest.fn().mockReturnValue(false);
     const onClick = jest.fn();
     button.addEventListener('click', onClick);
+
     button.dispatchEvent(new CustomEvent('click'));
 
-    jest.advanceTimersByTime(10);
-    await flushPromises();
-
-    expect(mockSubmit).not.toHaveBeenCalled();
+    expect(setTimeout).not.toHaveBeenCalled();
     expect(button.disabled).toEqual(false);
-    expect(onClick).toHaveBeenCalledTimes(1);
-
-    jest.runAllTimers();
-    await flushPromises();
-
     expect(mockSubmit).not.toHaveBeenCalled();
   });
 
   it('should trigger a timeout based on the value attribute', () => {
-    const form = document.querySelector('form');
     const button = document.querySelector('.button-longrunning');
     jest.spyOn(global, 'setTimeout');
 
@@ -91,14 +81,14 @@ describe('ProgressController', () => {
 
     button.click();
     jest.advanceTimersByTime(10);
-    await flushPromises();
+    await new Promise(queueMicrotask);
 
     expect(label.textContent).toBe('Loading');
     expect(button.getAttribute('disabled')).toEqual('');
     expect(button.classList.contains('button-longrunning-active')).toBe(true);
 
     jest.runAllTimers();
-    await flushPromises();
+    await new Promise(queueMicrotask);
 
     expect(mockSubmit).toHaveBeenCalled();
     expect(label.textContent).toBe('Sign in');

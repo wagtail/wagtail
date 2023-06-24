@@ -2,9 +2,6 @@ import { Application } from '@hotwired/stimulus';
 
 import { UpgradeController } from './UpgradeController';
 
-// https://stackoverflow.com/a/51045733
-const flushPromises = () => new Promise(setImmediate);
-
 describe('UpgradeController', () => {
   let application;
   const url = 'https://releases.wagtail.org/mock.txt';
@@ -66,7 +63,7 @@ describe('UpgradeController', () => {
       document.getElementById('panel').classList.contains('w-hidden'),
     ).toBe(true);
 
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     // should remove the hidden class on success
     expect(
@@ -112,7 +109,7 @@ describe('UpgradeController', () => {
     ).toBe(true);
   });
 
-  it('should throw an error if the fetch fails', () => {
+  it('should throw an error if the fetch fails', async () => {
     // Spy on console.error to verify that it is called with the expected error message
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -127,17 +124,16 @@ describe('UpgradeController', () => {
     application.register('w-upgrade', UpgradeController);
 
     // Wait for the catch block to be executed
-    /* eslint-disable-next-line no-promise-executor-return */
-    return new Promise((resolve) => setImmediate(resolve)).then(() => {
-      // Verify that console.error was called with the expected error message
-      /* eslint-disable-next-line no-console */
-      expect(console.error).toHaveBeenCalledWith(
-        `Error fetching ${url}. Error: Error: Fetch failed`,
-      );
+    await new Promise(requestAnimationFrame);
 
-      // Restore the original implementation of console.error
-      /* eslint-disable no-console */
-      console.error.mockRestore();
-    });
+    // Verify that console.error was called with the expected error message
+    /* eslint-disable-next-line no-console */
+    expect(console.error).toHaveBeenCalledWith(
+      `Error fetching ${url}. Error: Error: Fetch failed`,
+    );
+
+    // Restore the original implementation of console.error
+    /* eslint-disable no-console */
+    console.error.mockRestore();
   });
 });
