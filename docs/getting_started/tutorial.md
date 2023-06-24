@@ -338,7 +338,7 @@ Other than using `get_children`, the preceding `blog_index_page.html` template i
 
 If you have a Django background, then you will notice that the `pageurl` tag is similar to Django's `url` tag, but takes a Wagtail Page object as an additional argument.
 
-Now that this is complete, here is how you can create a page from the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface):  
+Now that this is complete, here is how you can create a page from the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface):
 
 1.  Go to <http://127.0.0.1:8000/admin> and sign in with your admin user details.
 2.  In the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), go to Pages, then click Home.
@@ -427,7 +427,7 @@ Populate the fields with the content of your choice:
 
 ![Page editor for "First blog post" page, with Post date, Intro, Body field](../_static/images/tutorial/tutorial_5.png)
 
-To add a link from your rich text **Body** field, highlight the text you want to attach the link to. You can now see a pop-up modal which has several actions represented by their icons. Click on the appropriate icon to add a link. You can also click the **+** icon, which appears at the left-hand side of the field to get similar actions as those shown in the pop-up modal. 
+To add a link from your rich text **Body** field, highlight the text you want to attach the link to. You can now see a pop-up modal which has several actions represented by their icons. Click on the appropriate icon to add a link. You can also click the **+** icon, which appears at the left-hand side of the field to get similar actions as those shown in the pop-up modal.
 
 To add an image, press enter to move to the next line in the field. Then click the **+** icon and select **Image** from the list of actions to add an image.
 
@@ -439,7 +439,7 @@ other page type.
 
 Publish each blog post when you are done editing.
 
-Congratulations! You now have the beginnings of a working blog. If you go to 
+Congratulations! You now have the beginnings of a working blog. If you go to
 <http://localhost:8080/blog> in your browser, you can see all the posts that you created by following the preceding steps:
 
 ![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
@@ -639,7 +639,7 @@ Here, you use the `{% image %}` tag, which exists in the `wagtailimages_tags` li
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
-Since your gallery images are database objects in their own right, you can  now query and re-use them independently of the blog post body. Now, define a `main_image` method in your `BlogPage` model, which returns the image from the first gallery item or `None` if no gallery items exist:
+Since your gallery images are database objects in their own right, you can now query and re-use them independently of the blog post body. Now, define a `main_image` method in your `BlogPage` model, which returns the image from the first gallery item or `None` if no gallery items exist:
 
 ```python
 class BlogPage(Page):
@@ -695,7 +695,7 @@ This method is now available from your templates. Update `blog_index_page.html` 
 
 You probably want your blog posts to have authors, which is an essential feature of blogs. The way to go about this is to have a fixed list, managed by the site owner through a separate area of the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
 
-First, define an `Author` model. This model isn't a page in its own right. You have to define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of **Snippets** for reusable pieces of content which don't exist as part of the page tree themselves. You can manage snippets through the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can register a model as a snippet by adding the `@register_snippet` decorator. Also, you can use all the fields types that you've used so far on pages on snippets too. 
+First, define an `Author` model. This model isn't a page in its own right. You have to define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of **Snippets** for reusable pieces of content which don't exist as part of the page tree themselves. You can manage snippets through the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can register a model as a snippet by adding the `@register_snippet` decorator. Also, you can use all the fields types that you've used so far on pages on snippets too.
 
 To create Authors and give each author an author image as well as a name, add the following to `blog/models.py`:
 
@@ -772,7 +772,7 @@ Finally, migrate your database by running `python manage.py makemigrations` and 
 {% block content %}
     <h1>{{ page.title }}</h1>
     <p class="meta">{{ page.date }}</p>
-    
+
     <!-- Add this: -->
     {% with authors=page.authors.all %}
         {% if authors %}
@@ -834,7 +834,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 
 
-# ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model 
+# ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         'BlogPage',

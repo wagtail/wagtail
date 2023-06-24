@@ -376,7 +376,7 @@ This can be changed either globally or on a per-tag basis.
 
 ### Changing globally
 
-Use the `WAGTAILIMAGES_AVIF_QUALITY`, `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change 
+Use the `WAGTAILIMAGES_AVIF_QUALITY`, `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change
 the global defaults of AVIF, JPEG and WebP quality:
 
 ```python
