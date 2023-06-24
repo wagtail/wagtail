@@ -159,7 +159,7 @@ class ProductViewSet(SnippetViewSet):
 
 class MarketingViewSetGroup(SnippetViewSetGroup):
     items = (AdvertViewSet, ProductViewSet)
-    icon = "folder-inverse"
+    menu_icon = "folder-inverse"
     menu_label = "Marketing"
     menu_name = "marketing"
 
