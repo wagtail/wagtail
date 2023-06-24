@@ -1,7 +1,5 @@
 import { initIconSprite } from './initIconSprite';
 
-const flushPromises = () => new Promise(setImmediate);
-
 describe('initIconSprite', () => {
   const spriteURL = 'https://example.com/sprite.svg';
   const responseText = '<svg>...</svg>';
@@ -22,7 +20,7 @@ describe('initIconSprite', () => {
       text: () => Promise.resolve(responseText),
     });
     initIconSprite(spriteContainer, spriteURL);
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     expect(global.fetch).toHaveBeenCalled();
     expect(global.fetch).toHaveBeenCalledWith(spriteURL);
@@ -38,7 +36,7 @@ describe('initIconSprite', () => {
       text: () => Promise.resolve(responseText),
     });
     initIconSprite(spriteContainer, spriteURL);
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     expect(localStorage).not.toBe(null);
     expect(localStorage['wagtail:spriteData']).toBe(responseText);
@@ -51,7 +49,7 @@ describe('initIconSprite', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation();
 
     initIconSprite(spriteContainer, spriteURL);
-    await flushPromises();
+    await new Promise(requestAnimationFrame);
 
     expect(global.fetch).toHaveBeenCalled();
     expect(global.fetch).toHaveBeenCalledWith(spriteURL);

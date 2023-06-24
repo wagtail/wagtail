@@ -22,7 +22,7 @@ class DummyWidgetDefinition {
 
   render(placeholder, name, id, initialState) {
     if (this.throwErrorOnRender) {
-      throw new Error();
+      throw new Error('Mock rendering error');
     }
 
     const widgetName = this.widgetName;
@@ -190,6 +190,9 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
   let boundBlock;
 
   beforeEach(() => {
+    // mock console.error to ensure it does not bubble to the logs
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
     // Create mocks for callbacks
     constructor = jest.fn();
     setState = jest.fn();
@@ -212,6 +215,7 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
 
     // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
+
     boundBlock = blockDef.render(
       $('#placeholder'),
       'the-prefix',
@@ -219,7 +223,16 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
     );
   });
 
+  afterEach(() => {
+    /* eslint-disable no-console */
+    console.error.mockRestore();
+  });
+
   test('it renders correctly', () => {
+    expect(console.error).toHaveBeenCalledTimes(1);
+    expect(console.error).toHaveBeenCalledWith(
+      new Error('Mock rendering error'),
+    );
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

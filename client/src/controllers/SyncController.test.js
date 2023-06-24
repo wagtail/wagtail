@@ -4,9 +4,14 @@ import { SyncController } from './SyncController';
 import { range } from '../utils/range';
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 describe('SyncController', () => {
   let application;
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe('basic sync between two fields', () => {
     beforeEach(() => {
