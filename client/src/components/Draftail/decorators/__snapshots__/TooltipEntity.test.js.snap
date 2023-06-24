@@ -37,7 +37,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
     <Tooltip
       direction="top"
       target={
-        Object {
+        {
           "container": <body
             data-draftail-editor-wrapper="true"
           >

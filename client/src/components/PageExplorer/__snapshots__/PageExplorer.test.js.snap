@@ -5,9 +5,9 @@ exports[`PageExplorer renders 1`] = `
   currentPageId={null}
   depth={0}
   gotoPage={[Function]}
-  nodes={Object {}}
+  nodes={{}}
   store={
-    Object {
+    {
       "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
@@ -26,20 +26,20 @@ exports[`PageExplorer visible 1`] = `
   depth={0}
   gotoPage={[Function]}
   nodes={
-    Object {
-      "1": Object {
-        "children": Object {
+    {
+      "1": {
+        "children": {
           "count": 0,
-          "items": Array [],
+          "items": [],
         },
         "id": 0,
         "isError": false,
         "isFetchingChildren": true,
         "isFetchingTranslations": false,
-        "meta": Object {
-          "children": Object {},
+        "meta": {
+          "children": {},
           "parent": null,
-          "status": Object {
+          "status": {
             "has_unpublished_changes": true,
             "live": false,
             "status": "",
@@ -49,7 +49,7 @@ exports[`PageExplorer visible 1`] = `
     }
   }
   store={
-    Object {
+    {
       "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],

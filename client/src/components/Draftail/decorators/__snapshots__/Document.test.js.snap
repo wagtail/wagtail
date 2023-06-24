@@ -4,7 +4,7 @@ exports[`Document no data 1`] = `
 <TooltipEntity
   contentState={
     Immutable.Record {
-      "entityMap": Object {
+      "entityMap": {
         "2": "2",
       },
       "blockMap": Immutable.OrderedMap {
@@ -71,7 +71,7 @@ exports[`Document works 1`] = `
 <TooltipEntity
   contentState={
     Immutable.Record {
-      "entityMap": Object {
+      "entityMap": {
         "1": "1",
       },
       "blockMap": Immutable.OrderedMap {

@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`telepath: wagtail.widgets.CheckboxInput it renders correctly 1`] = `"<input type=\\"checkbox\\" name=\\"sugar\\" id=\\"id-sugar\\" checked=\\"checked\\">"`;
+exports[`telepath: wagtail.widgets.CheckboxInput it renders correctly 1`] = `"<input type="checkbox" name="sugar" id="id-sugar" checked="checked">"`;
 
 exports[`telepath: wagtail.widgets.RadioSelect it renders correctly 1`] = `
-"<ul id=\\"the-id\\">
+"<ul id="the-id">
           <li>
-            <label for=\\"the-id_0\\">
-            <input type=\\"radio\\" name=\\"the-name\\" value=\\"tea\\" id=\\"the-id_0\\"> Tea</label>
+            <label for="the-id_0">
+            <input type="radio" name="the-name" value="tea" id="the-id_0"> Tea</label>
           </li>
           <li>
-            <label for=\\"the-id_1\\">
-            <input type=\\"radio\\" name=\\"the-name\\" value=\\"coffee\\" id=\\"the-id_1\\"> Coffee</label>
+            <label for="the-id_1">
+            <input type="radio" name="the-name" value="coffee" id="the-id_1"> Coffee</label>
           </li>
         </ul>"
 `;
 
 exports[`telepath: wagtail.widgets.Select it renders correctly 1`] = `
-"<select name=\\"the-name\\" id=\\"the-id\\">
-          <option value=\\"1\\">Option 1</option>
-          <option value=\\"2\\">Option 2</option>
+"<select name="the-name" id="the-id">
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
         </select>"
 `;

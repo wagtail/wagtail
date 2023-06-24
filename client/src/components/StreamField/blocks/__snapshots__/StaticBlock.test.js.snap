@@ -3,7 +3,7 @@
 exports[`telepath: wagtail.blocks.StaticBlock HTML escaping boundblock matches the snapshot 1`] = `
 StaticBlock {
   "blockDef": StaticBlockDefinition {
-    "meta": Object {
+    "meta": {
       "icon": "icon",
       "label": "The label",
       "text": "The admin text <script>somethingBad();</script>",
@@ -18,7 +18,7 @@ exports[`telepath: wagtail.blocks.StaticBlock HTML escaping it renders correctly
 exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML boundblock matches the snapshot 1`] = `
 StaticBlock {
   "blockDef": StaticBlockDefinition {
-    "meta": Object {
+    "meta": {
       "html": "The admin text <script>somethingBad();</script>",
       "icon": "icon",
       "label": "The label",
@@ -33,7 +33,7 @@ exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML it renders correc
 exports[`telepath: wagtail.blocks.StaticBlock boundblock matches the snapshot 1`] = `
 StaticBlock {
   "blockDef": StaticBlockDefinition {
-    "meta": Object {
+    "meta": {
       "icon": "icon",
       "label": "The label",
       "text": "The admin text",

@@ -3,9 +3,9 @@ require('./draftail');
 describe('draftail', () => {
   it('exposes a stable API', () => {
     expect(window.draftail).toMatchInlineSnapshot(`
-      Object {
+      {
         "DocumentModalWorkflowSource": [Function],
-        "DraftUtils": Object {
+        "DraftUtils": {
           "addHorizontalRuleRemovingSelection": [Function],
           "addLineBreak": [Function],
           "applyMarkdownStyle": [Function],
