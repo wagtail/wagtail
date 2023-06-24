@@ -37,7 +37,7 @@ exports[`PageExplorerMenuItem should render with the minimum required props 1`] 
     >
       <Provider
         store={
-          Object {
+          {
             "@@observable": [Function],
             "dispatch": [Function],
             "getState": [Function],

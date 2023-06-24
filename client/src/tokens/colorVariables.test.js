@@ -26,7 +26,7 @@ describe('generateColorVariables', () => {
   it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
     const colorVariables = generateColorVariables(staticColors);
     expect(colorVariables).toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-black": "hsl(var(--w-color-black-hue) var(--w-color-black-saturation) var(--w-color-black-lightness))",
         "--w-color-black-hue": "0",
         "--w-color-black-lightness": "0%",
@@ -139,7 +139,7 @@ describe('generateColorVariables', () => {
 describe('transparencies', () => {
   it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(transparencies).toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-black-10": "rgba(0, 0, 0, 0.10)",
         "--w-color-black-20": "rgba(0, 0, 0, 0.20)",
         "--w-color-black-25": "rgba(0, 0, 0, 0.25)",
@@ -176,7 +176,7 @@ describe('generateThemeColorVariables', () => {
   it('light theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.light))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-border-button-outline-default": "var(--w-color-secondary)",
         "--w-color-border-button-small-outline-default": "var(--w-color-grey-150)",
         "--w-color-border-field-default": "var(--w-color-grey-150)",
@@ -218,7 +218,7 @@ describe('generateThemeColorVariables', () => {
   it('dark theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.dark))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-border-button-outline-default": "var(--w-color-secondary-100)",
         "--w-color-border-button-small-outline-default": "var(--w-color-grey-400)",
         "--w-color-border-field-default": "var(--w-color-grey-400)",

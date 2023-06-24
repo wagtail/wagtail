@@ -5,7 +5,7 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
   _createFocusTrap={[Function]}
   active={true}
   focusTrapOptions={
-    Object {
+    {
       "allowOutsideClick": true,
       "clickOutsideDeactivates": false,
       "onDeactivate": [MockFunction],
@@ -32,12 +32,12 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
           gotoPage={[MockFunction]}
           onClick={[Function]}
           page={
-            Object {
-              "children": Object {
-                "items": Array [],
+            {
+              "children": {
+                "items": [],
               },
               "isError": true,
-              "meta": Object {
+              "meta": {
                 "parent": null,
               },
             }
@@ -58,12 +58,12 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
         </div>
         <PageCount
           page={
-            Object {
-              "children": Object {
-                "items": Array [],
+            {
+              "children": {
+                "items": [],
               },
               "isError": true,
-              "meta": Object {
+              "meta": {
                 "parent": null,
               },
             }
@@ -80,7 +80,7 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
   _createFocusTrap={[Function]}
   active={true}
   focusTrapOptions={
-    Object {
+    {
       "allowOutsideClick": true,
       "clickOutsideDeactivates": false,
       "onDeactivate": [MockFunction],
@@ -107,12 +107,12 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
           gotoPage={[MockFunction]}
           onClick={[Function]}
           page={
-            Object {
-              "children": Object {
-                "items": Array [],
+            {
+              "children": {
+                "items": [],
               },
               "isFetching": true,
-              "meta": Object {
+              "meta": {
                 "parent": null,
               },
             }
@@ -136,7 +136,7 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
   _createFocusTrap={[Function]}
   active={true}
   focusTrapOptions={
-    Object {
+    {
       "allowOutsideClick": true,
       "clickOutsideDeactivates": false,
       "onDeactivate": [MockFunction],
@@ -163,9 +163,9 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
           gotoPage={[MockFunction]}
           onClick={[Function]}
           page={
-            Object {
-              "children": Object {
-                "items": Array [
+            {
+              "children": {
+                "items": [
                   1,
                   2,
                 ],
@@ -181,11 +181,11 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
           >
             <PageExplorerItem
               item={
-                Object {
+                {
                   "admin_display_title": "Test",
                   "id": 1,
-                  "meta": Object {
-                    "status": Object {},
+                  "meta": {
+                    "status": {},
                     "type": "test",
                   },
                 }
@@ -195,11 +195,11 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
             />
             <PageExplorerItem
               item={
-                Object {
+                {
                   "admin_display_title": "Foo",
                   "id": 2,
-                  "meta": Object {
-                    "status": Object {},
+                  "meta": {
+                    "status": {},
                     "type": "foo",
                   },
                 }
@@ -220,7 +220,7 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
   _createFocusTrap={[Function]}
   active={true}
   focusTrapOptions={
-    Object {
+    {
       "allowOutsideClick": true,
       "clickOutsideDeactivates": false,
       "onDeactivate": [MockFunction],
@@ -247,8 +247,8 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
           gotoPage={[MockFunction]}
           onClick={[Function]}
           page={
-            Object {
-              "children": Object {},
+            {
+              "children": {},
             }
           }
         />
@@ -273,7 +273,7 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
   _createFocusTrap={[Function]}
   active={true}
   focusTrapOptions={
-    Object {
+    {
       "allowOutsideClick": true,
       "clickOutsideDeactivates": false,
       "onDeactivate": [MockFunction],
@@ -300,11 +300,11 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
           gotoPage={[MockFunction]}
           onClick={[Function]}
           page={
-            Object {
-              "children": Object {
-                "items": Array [],
+            {
+              "children": {
+                "items": [],
               },
-              "meta": Object {
+              "meta": {
                 "parent": null,
               },
             }

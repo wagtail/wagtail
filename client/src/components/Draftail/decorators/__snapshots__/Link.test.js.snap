@@ -4,7 +4,7 @@ exports[`Link works 1`] = `
 <TooltipEntity
   contentState={
     Immutable.Record {
-      "entityMap": Object {
+      "entityMap": {
         "1": "1",
       },
       "blockMap": Immutable.OrderedMap {
