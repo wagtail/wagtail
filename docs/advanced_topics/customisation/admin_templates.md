@@ -121,6 +121,7 @@ There are two ways to customise Wagtail’s colour scheme:
 For static colours, either set each colour separately (for example `--w-color-primary: #2E1F5E;`); or separately set [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (`--w-color-primary-hue`, `--w-color-primary-saturation`, `--w-color-primary-lightness`) variables so all shades are customised at once. For example, setting `--w-color-secondary-hue: 180;` will customise all of the secondary shades at once.
 
 ```{include} ../../_static/wagtail_colors_tables.txt
+
 ```
 
 ## Specifying a site or page in the branding
