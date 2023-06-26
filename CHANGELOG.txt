@@ -47,6 +47,8 @@ Changelog
  * Maintenance: Update type hints in admin/ui/components.py so that `parent_context` is mutable (Andreas Nüßlein)
  * Maintenance: Deprecate `UserPagePermissionsProxy` (Sage Abdullah)
  * Maintenance: Optimise the Settings context processor to avoid redundantly finding a Site to improve cache ratios (Jake Howard)
+ * Maintenance: Convert page listing to a class-based view (Matt Westcott)
+ * Maintenance: Clean up page reports and type usage views to be independent of page listing views (Matt Westcott)
 
 
 5.0.2 (21.06.2023)
