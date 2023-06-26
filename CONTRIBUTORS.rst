@@ -719,6 +719,7 @@ Contributors
 * Thiago C. S. Tioma
 * Kevin Chung (kev-odin)
 * valnuro
+* Vitaly Babiy
 
 Translators
 ===========
