@@ -303,6 +303,7 @@ Changelog
  * Adjust the size of panel labels on the "Account" form (Thibaud Colas)
  * Delay hiding the contents of the side panels when closing, so the animation is smoother (Thibaud Colas)
  * ListBlock now shows item-by-item differences when comparing versions (Tidiane Dia)
+ * Implement a new design for chooser buttons with better accessibility (Thibaud Colas)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
@@ -361,6 +362,10 @@ Changelog
  * Fix: Prevent account name from overflowing the sidebar (Aman Pandey)
  * Fix: Ensure edit form is displayed as unlocked immediately after cancelling a workflow (Sage Abdullah)
  * Fix: Prevent `latest_revision` pointer from being copied over when copying translatable snippets for translation (Sage Abdullah)
+ * Fix: Page listings actions under the "More" dropdown are now accessible for screen reader and keyboard users (Thibaud Colas)
+ * Fix: Bulk actions under the "More" dropdown are now accessible for screen reader and keyboard users (Thibaud Colas)
+ * Fix: Navigation to translations via the locale dropdown is now accessible for screen reader and keyboard users (Thibaud Colas)
+ * Fix: Make it possible for speech recognition users to reveal chooser buttons (Thibaud Colas)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -423,6 +428,7 @@ Changelog
  * Maintenance: Remove unused `icon-help` and `help-inverse` code (Thibaud Colas)
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
+ * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
 
 
 4.1.6 (25.05.2023)
