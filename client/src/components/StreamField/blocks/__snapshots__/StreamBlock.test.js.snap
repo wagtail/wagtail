@@ -923,3 +923,97 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
 `;
 
 exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it renders correctly 1`] = `"<div class=\\"w-combobox__optgroup\\"><div role=\\"option\\" aria-selected=\\"false\\" id=\\"downshift-2-item-0\\" class=\\"w-combobox__option w-combobox__option--col1\\"><div class=\\"w-combobox__option-icon\\"><svg class=\\"icon icon-placeholder \\" aria-hidden=\\"true\\"><use href=\\"#icon-placeholder\\"></use></svg></div><div class=\\"w-combobox__option-text\\">Test Block &lt;A&gt;</div></div><div role=\\"option\\" aria-selected=\\"false\\" id=\\"downshift-2-item-1\\" class=\\"w-combobox__option w-combobox__option--col2\\"><div class=\\"w-combobox__option-icon\\"><svg class=\\"icon icon-pilcrow \\" aria-hidden=\\"true\\"><use href=\\"#icon-pilcrow\\"></use></svg></div><div class=\\"w-combobox__option-text\\">Test Block &lt;B&gt;</div></div></div>"`;
+
+exports[`telepath: wagtail.blocks.StreamBlock with unique block type it can add block 1`] = `
+"<div class=\\"c-sf-help\\">
+          <div class=\\"help\\">
+            use <strong>plenty</strong> of this
+          </div>
+        </div><div class=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"1\\">
+        <div data-streamfield-stream-container=\\"\\"><div>
+        <button type=\\"button\\" title=\\"Insert a block\\" class=\\"c-sf-add-button\\">
+          <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+        </button>
+      </div><div data-contentpath=\\"fake-uuid-v4-value\\" style=\\"display: none;\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"fake-uuid-v4-value\\">
+        <section class=\\"w-panel w-panel--nested\\" id=\\"block-fake-uuid-v4-value-section\\" aria-labelledby=\\"block-fake-uuid-v4-value-heading\\" data-panel=\\"\\">
+          <div class=\\"w-panel__header\\">
+            <a class=\\"w-panel__anchor w-panel__anchor--prefix\\" href=\\"#block-fake-uuid-v4-value-section\\" aria-labelledby=\\"block-fake-uuid-v4-value-heading\\" data-panel-anchor=\\"\\">
+              <svg class=\\"icon icon-link w-panel__icon\\" aria-hidden=\\"true\\">
+                <use href=\\"#icon-link\\"></use>
+              </svg>
+            </a>
+            <button class=\\"w-panel__toggle\\" type=\\"button\\" aria-label=\\"Toggle section\\" aria-describedby=\\"block-fake-uuid-v4-value-heading\\" data-panel-toggle=\\"\\" aria-controls=\\"block-fake-uuid-v4-value-content\\" aria-expanded=\\"true\\">
+              <svg class=\\"icon icon-placeholder w-panel__icon\\" aria-hidden=\\"true\\">
+                <use href=\\"#icon-placeholder\\"></use>
+              </svg>
+            </button>
+            <h2 class=\\"w-panel__heading w-panel__heading--label\\" aria-level=\\"3\\" id=\\"block-fake-uuid-v4-value-heading\\" data-panel-heading=\\"\\">
+              <span data-panel-heading-text=\\"\\" class=\\"c-sf-block__title\\"></span>
+              <span class=\\"c-sf-block__type\\">Test Block A</span>
+              <span class=\\"w-required-mark\\" data-panel-required=\\"\\">*</span>
+            </h2>
+            <a class=\\"w-panel__anchor w-panel__anchor--suffix\\" href=\\"#block-fake-uuid-v4-value-section\\" aria-labelledby=\\"block-fake-uuid-v4-value-heading\\">
+              <svg class=\\"icon icon-link w-panel__icon\\" aria-hidden=\\"true\\">
+                <use href=\\"#icon-link\\"></use>
+              </svg>
+            </a>
+            <div class=\\"w-panel__divider\\"></div>
+            <div class=\\"w-panel__controls\\" data-panel-controls=\\"\\"><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move up\\" disabled=\\"disabled\\">
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
+      </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Move down\\" disabled=\\"disabled\\">
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
+      </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Duplicate\\">
+        <svg class=\\"icon icon-copy\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-copy\\"></use>
+        </svg>
+      </button><button type=\\"button\\" class=\\"button button--icon text-replace white\\" title=\\"Delete\\">
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
+      </button></div>
+          </div>
+          <div id=\\"block-fake-uuid-v4-value-content\\" class=\\"w-panel__content\\">
+            <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__help\\" id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
+          </div>
+        </div>
+      </div>
+          </div>
+        </section>
+      </div><div>
+        <button type=\\"button\\" title=\\"Insert a block\\" class=\\"c-sf-add-button\\">
+          <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+        </button>
+      </div></div>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.StreamBlock with unique block type it renders correctly without combobox 1`] = `
+"<div class=\\"c-sf-help\\">
+          <div class=\\"help\\">
+            use <strong>plenty</strong> of this
+          </div>
+        </div><div class=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"0\\">
+        <div data-streamfield-stream-container=\\"\\"><div>
+        <button type=\\"button\\" title=\\"Insert a block\\" class=\\"c-sf-add-button\\">
+          <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+        </button>
+      </div></div>
+      </div>"
+`;
