@@ -31,6 +31,7 @@ Changelog
  * Maintenance: Allow `ViewSet` subclasses to customise `url_prefix` and `url_namespace` logic (Matt Westcott)
  * Maintenance: Simplify `SnippetViewSet` registration code (Sage Abdullah)
  * Maintenance: Rename groups `IndexView.results_template_name` to `results.html` (Sage Abdullah)
+ * Maintenance: Migrate form submission listing checkbox toggling to the shared `w-bulk` Stimulus implementation (LB (Ben) Johnston)
 
 
 5.1.1 (14.08.2023)

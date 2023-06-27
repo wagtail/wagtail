@@ -21,62 +21,6 @@
                 timepicker: false,
                 format: 'Y-m-d',
             });
-
-            var selectAllCheckbox = document.getElementById('select-all');
-            var deleteButton = document.getElementById('delete-submissions');
-
-            function updateActions() {
-                var submissionCheckboxes = $('input[type=checkbox].select-submission');
-                var someSubmissionsSelected = submissionCheckboxes.is(':checked');
-                var everySubmissionSelected = !submissionCheckboxes.is(':not(:checked)');
-
-                // Select all box state
-                if (everySubmissionSelected) {
-                    // Every submission has been selected
-                    selectAllCheckbox.checked = true;
-                    selectAllCheckbox.indeterminate = false;
-                } else if (someSubmissionsSelected) {
-                    // At least one, but not all submissions have been selected
-                    selectAllCheckbox.checked = false;
-                    selectAllCheckbox.indeterminate = true;
-                } else {
-                    // No submissions have been selected
-                    selectAllCheckbox.checked = false;
-                    selectAllCheckbox.indeterminate = false;
-                }
-
-                // Delete button state
-                if (someSubmissionsSelected) {
-                    deleteButton.classList.remove('disabled')
-                    deleteButton.style.visibility = "visible";
-                } else {
-                    deleteButton.classList.add('disabled')
-                    deleteButton.style.visibility = "hidden";
-                }
-            }
-
-
-            // Event handlers
-
-            $(selectAllCheckbox).on('change', function() {
-                let checked = this.checked;
-
-                // Update checkbox states
-                $('input[type=checkbox].select-submission').each(function() {
-                    this.checked = checked;
-                });
-
-                updateActions();
-            });
-
-            $('input[type=checkbox].select-submission').on('change', function() {
-                updateActions();
-            });
-
-            // initial call to updateActions to bring delete button state in sync with checkboxes
-            // in the case that some checkboxes are pre-checked (which will be the case in some
-            // browsers when using the back button)
-            updateActions();
         });
     </script>
 {% endblock %}
