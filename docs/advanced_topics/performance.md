@@ -24,11 +24,7 @@ CACHES = {
 }
 ```
 
-### Caching image renditions
-
-If you define a cache named 'renditions' (typically alongside your 'default' cache),
-Wagtail will cache image rendition lookups, which may improve the performance of pages
-which include many images.
+To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend:
 
 ```python
 CACHES = {
