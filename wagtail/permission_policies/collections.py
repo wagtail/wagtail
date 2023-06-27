@@ -381,7 +381,7 @@ class CollectionOwnershipPermissionPolicy(
             return Collection.objects.none()
 
 
-class CollectionMangementPermissionPolicy(
+class CollectionManagementPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
 ):
     def _descendants_with_perm(self, user, action):

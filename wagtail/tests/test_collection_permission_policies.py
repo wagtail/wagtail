@@ -5,7 +5,7 @@ from django.test import TestCase
 from wagtail.documents.models import Document
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.permission_policies.collections import (
-    CollectionMangementPermissionPolicy,
+    CollectionManagementPermissionPolicy,
     CollectionOwnershipPermissionPolicy,
     CollectionPermissionPolicy,
 )
@@ -1045,7 +1045,7 @@ class TestCollectionManagementPermission(
     PermissionPolicyTestUtils, WagtailTestUtils, TestCase
 ):
     def setUp(self):
-        self.policy = CollectionMangementPermissionPolicy(Collection)
+        self.policy = CollectionManagementPermissionPolicy(Collection)
 
         # Permissions
         collection_content_type = ContentType.objects.get_for_model(Collection)
