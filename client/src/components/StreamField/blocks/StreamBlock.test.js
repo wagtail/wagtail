@@ -925,3 +925,77 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     assertCanAddBlock();
   });
 });
+
+describe('telepath: wagtail.blocks.StreamBlock with unique block type', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Define a test block
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A widget'),
+              {
+                label: 'Test Block A',
+                required: true,
+                icon: 'placeholder',
+                classname: 'w-field w-field--char_field w-field--text_input',
+              },
+            ),
+          ],
+        ],
+      ],
+      {
+        test_block_a: 'Block A options',
+      },
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of this',
+        helpIcon: '<svg></svg>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', []);
+  });
+
+  test('it renders correctly without combobox', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(document.querySelector('[role="listbox"]')).toBe(null);
+    expect(boundBlock.children.length).toEqual(0);
+  });
+
+  test('it can add block', () => {
+    boundBlock.inserters[0].addButton.click();
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(boundBlock.children.length).toEqual(1);
+    expect(boundBlock.children[0].type).toEqual('test_block_a');
+  });
+});

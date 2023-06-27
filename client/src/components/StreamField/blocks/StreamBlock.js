@@ -85,6 +85,18 @@ class StreamBlockMenu extends BaseInsertionControl {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     this.addButton = dom.find('button');
+
+    const blockItems = this.blockItems;
+    if (blockItems.length === 1 && blockItems[0].items.length === 1) {
+      // Only one child type can be added, bypass the combobox
+      this.addButton.click(() => {
+        if (this.onRequestInsert) {
+          this.onRequestInsert(this.index, blockItems[0].items[0]);
+        }
+      });
+      return;
+    }
+
     this.combobox = document.createElement('div');
     this.canAddBlock = true;
     this.disabledBlockTypes = new Set();
@@ -104,8 +116,8 @@ class StreamBlockMenu extends BaseInsertionControl {
     });
   }
 
-  renderMenu() {
-    const items = this.groupedChildBlockDefs.map(([group, blockDefs]) => {
+  get blockItems() {
+    return this.groupedChildBlockDefs.map(([group, blockDefs]) => {
       const groupItems = blockDefs
         // Allow adding all blockDefs even when disabled, so validation only impedes when saving.
         // Keeping the previous filtering here for future reference.
@@ -122,12 +134,15 @@ class StreamBlockMenu extends BaseInsertionControl {
         items: groupItems,
       };
     });
+  }
 
+  renderMenu() {
+    const blockItems = this.blockItems;
     ReactDOM.render(
       <ComboBox
         label={comboBoxLabel}
         placeholder={comboBoxLabel}
-        items={items}
+        items={blockItems}
         getItemLabel={(type, item) => item.label}
         getItemDescription={(item) => item.label}
         getSearchFields={(item) => [item.label, item.type]}
