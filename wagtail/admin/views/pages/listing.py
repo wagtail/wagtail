@@ -15,7 +15,7 @@ class IndexView(PermissionCheckedMixin, ListView):
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
         "add",
-        "edit",
+        "change",
         "publish",
         "bulk_delete",
         "lock",
