@@ -23,6 +23,9 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
         change_doc_permission = Permission.objects.get(
             content_type=document_content_type, codename="change_document"
         )
+        choose_doc_permission = Permission.objects.get(
+            content_type=document_content_type, codename="choose_document"
+        )
 
         # Collections
         self.root_collection = Collection.get_first_root_node()
@@ -48,6 +51,13 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_adders_group,
             collection=self.reports_collection,
             permission=add_doc_permission,
+        )
+
+        report_choosers_group = Group.objects.create(name="Report choosers")
+        GroupCollectionPermission.objects.create(
+            group=report_choosers_group,
+            collection=self.reports_collection,
+            permission=choose_doc_permission,
         )
 
         # Users
@@ -85,6 +95,12 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             "reportadder", "reportadder@example.com", "password"
         )
         self.report_adder.groups.add(report_adders_group)
+
+        # a user with choose_document permission on reports via the report_choosers group
+        self.report_chooser = self.create_user(
+            "reportchooser", "reportchooser@example.com", "password"
+        )
+        self.report_chooser.groups.add(report_choosers_group)
 
         # a user with no permissions
         self.useless_user = self.create_user(
@@ -137,15 +153,17 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
     def test_user_has_permission(self):
         self.assertUserPermissionMatrix(
             [
-                (self.superuser, True, True, True, True),
-                (self.inactive_superuser, False, False, False, False),
-                (self.doc_changer, False, True, False, False),
-                (self.inactive_doc_changer, False, False, False, False),
-                (self.report_changer, False, True, False, False),
-                (self.report_adder, True, False, False, False),
-                (self.useless_user, False, False, False, False),
-                (self.anonymous_user, False, False, False, False),
-            ]
+                (self.superuser, True, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False, False),
+                (self.doc_changer, False, True, False, False, False),
+                (self.inactive_doc_changer, False, False, False, False, False),
+                (self.report_changer, False, True, False, False, False),
+                (self.report_adder, True, False, False, False, False),
+                (self.report_chooser, False, False, False, False, True),
+                (self.useless_user, False, False, False, False, False),
+                (self.anonymous_user, False, False, False, False, False),
+            ],
+            actions=("add", "change", "delete", "frobnicate", "choose"),
         )
 
     def test_user_has_any_permission(self):
@@ -163,22 +181,28 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
         self.assertTrue(
             self.policy.user_has_any_permission(self.report_adder, ["add", "change"])
         )
+        self.assertTrue(
+            self.policy.user_has_any_permission(
+                self.report_chooser, ["change", "choose"]
+            )
+        )
         self.assertFalse(
             self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
 
     def test_users_with_any_permission(self):
-        users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ["add", "change"]
+        users_with_add_change_or_choose_permission = (
+            self.policy.users_with_any_permission(["add", "change", "choose"])
         )
 
         self.assertResultSetEqual(
-            users_with_add_or_change_permission,
+            users_with_add_change_or_choose_permission,
             [
                 self.superuser,
                 self.doc_changer,
                 self.report_changer,
                 self.report_adder,
+                self.report_chooser,
             ],
         )
 
@@ -191,6 +215,15 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
                 self.superuser,
                 self.doc_changer,
                 self.report_changer,
+            ],
+        )
+
+        users_with_choose_permission = self.policy.users_with_permission("choose")
+        self.assertResultSetEqual(
+            users_with_choose_permission,
+            [
+                self.superuser,
+                self.report_chooser,
             ],
         )
 
@@ -209,15 +242,17 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
         self.assertUserInstancePermissionMatrix(
             self.changer_doc,
             [
-                (self.superuser, True, True, True),
-                (self.inactive_superuser, False, False, False),
-                (self.doc_changer, True, False, False),
-                (self.inactive_doc_changer, False, False, False),
-                (self.report_changer, False, False, False),
-                (self.report_adder, False, False, False),
-                (self.useless_user, False, False, False),
-                (self.anonymous_user, False, False, False),
+                (self.superuser, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False),
+                (self.doc_changer, True, False, False, False),
+                (self.inactive_doc_changer, False, False, False, False),
+                (self.report_changer, False, False, False, False),
+                (self.report_adder, False, False, False, False),
+                (self.report_chooser, False, False, False, False),
+                (self.useless_user, False, False, False, False),
+                (self.anonymous_user, False, False, False, False),
             ],
+            actions=("change", "delete", "frobnicate", "choose"),
         )
 
         # document in 'reports' is editable by users with permissions
@@ -225,15 +260,17 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
         self.assertUserInstancePermissionMatrix(
             self.useless_report,
             [
-                (self.superuser, True, True, True),
-                (self.inactive_superuser, False, False, False),
-                (self.doc_changer, True, False, False),
-                (self.inactive_doc_changer, False, False, False),
-                (self.report_changer, True, False, False),
-                (self.report_adder, False, False, False),
-                (self.useless_user, False, False, False),
-                (self.anonymous_user, False, False, False),
+                (self.superuser, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False),
+                (self.doc_changer, True, False, False, False),
+                (self.inactive_doc_changer, False, False, False, False),
+                (self.report_changer, True, False, False, False),
+                (self.report_adder, False, False, False, False),
+                (self.report_chooser, False, False, False, True),
+                (self.useless_user, False, False, False, False),
+                (self.anonymous_user, False, False, False, False),
             ],
+            actions=("change", "delete", "frobnicate", "choose"),
         )
 
     def test_user_has_any_permission_for_instance(self):
@@ -246,6 +283,12 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
                 self.report_changer, ["change", "delete"], self.changer_doc
+            )
+        )
+
+        self.assertTrue(
+            self.policy.user_has_any_permission_for_instance(
+                self.report_chooser, ["change", "delete", "choose"], self.useless_report
             )
         )
 
@@ -296,6 +339,19 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             self.policy.instances_user_has_permission_for(
                 self.report_changer,
                 "change",
+            ),
+            [
+                self.changer_report,
+                self.useless_report,
+                self.adder_report,
+                self.anonymous_report,
+            ],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(
+                self.report_chooser,
+                "choose",
             ),
             [
                 self.changer_report,
@@ -369,6 +425,18 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
+                self.report_chooser, ["change", "delete", "choose"]
+            ),
+            [
+                self.changer_report,
+                self.adder_report,
+                self.useless_report,
+                self.anonymous_report,
+            ],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(
                 self.useless_user, ["change", "delete"]
             ),
             [],
@@ -398,6 +466,12 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
         )
         self.assertResultSetEqual(
             self.policy.users_with_permission_for_instance(
+                "choose", self.useless_report
+            ),
+            [self.superuser, self.report_chooser],
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance(
                 "change", self.useless_report
             ),
             [self.superuser, self.doc_changer, self.report_changer],
@@ -421,6 +495,17 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
                 ["change", "delete"], self.adder_report
             ),
             [self.superuser, self.doc_changer, self.report_changer],
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_any_permission_for_instance(
+                ["change", "delete", "choose"], self.useless_report
+            ),
+            [
+                self.superuser,
+                self.doc_changer,
+                self.report_changer,
+                self.report_chooser,
+            ],
         )
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(
@@ -486,6 +571,14 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.collections_user_has_permission_for(
+                self.report_chooser,
+                "choose",
+            ),
+            [self.reports_collection],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
                 self.useless_user,
                 "change",
             ),
@@ -545,6 +638,13 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.collections_user_has_any_permission_for(
+                self.report_chooser, ["change", "delete", "choose"]
+            ),
+            [self.reports_collection],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
                 self.useless_user, ["change", "delete"]
             ),
             [],
@@ -569,15 +669,17 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def test_user_has_permission(self):
         self.assertUserPermissionMatrix(
             [
-                (self.superuser, True, True, True, True),
-                (self.inactive_superuser, False, False, False, False),
-                (self.doc_changer, False, True, True, False),
-                (self.inactive_doc_changer, False, False, False, False),
-                (self.report_changer, False, True, True, False),
-                (self.report_adder, True, True, True, False),
-                (self.useless_user, False, False, False, False),
-                (self.anonymous_user, False, False, False, False),
-            ]
+                (self.superuser, True, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False, False),
+                (self.doc_changer, False, True, True, False, False),
+                (self.inactive_doc_changer, False, False, False, False, False),
+                (self.report_changer, False, True, True, False, False),
+                (self.report_adder, True, True, True, False, False),
+                (self.report_chooser, False, False, False, False, True),
+                (self.useless_user, False, False, False, False, False),
+                (self.anonymous_user, False, False, False, False, False),
+            ],
+            actions=("add", "change", "delete", "frobnicate", "choose"),
         )
 
     def test_user_has_any_permission(self):
@@ -598,22 +700,28 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertTrue(
             self.policy.user_has_any_permission(self.report_adder, ["change", "delete"])
         )
+        self.assertTrue(
+            self.policy.user_has_any_permission(
+                self.report_chooser, ["change", "choose"]
+            )
+        )
         self.assertFalse(
             self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
 
     def test_users_with_any_permission(self):
-        users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ["add", "change"]
+        users_with_add_change_or_choose_permission = (
+            self.policy.users_with_any_permission(["add", "change", "choose"])
         )
 
         self.assertResultSetEqual(
-            users_with_add_or_change_permission,
+            users_with_add_change_or_choose_permission,
             [
                 self.superuser,
                 self.doc_changer,
                 self.report_changer,
                 self.report_adder,
+                self.report_chooser,
             ],
         )
 
@@ -627,6 +735,15 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
                 self.doc_changer,
                 self.report_changer,
                 self.report_adder,
+            ],
+        )
+
+        users_with_choose_permission = self.policy.users_with_permission("choose")
+        self.assertResultSetEqual(
+            users_with_choose_permission,
+            [
+                self.superuser,
+                self.report_chooser,
             ],
         )
 
@@ -645,15 +762,17 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertUserInstancePermissionMatrix(
             self.changer_doc,
             [
-                (self.superuser, True, True, True),
-                (self.inactive_superuser, False, False, False),
-                (self.doc_changer, True, True, False),
-                (self.inactive_doc_changer, False, False, False),
-                (self.report_changer, False, False, False),
-                (self.report_adder, False, False, False),
-                (self.useless_user, False, False, False),
-                (self.anonymous_user, False, False, False),
+                (self.superuser, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False),
+                (self.doc_changer, True, True, False, False),
+                (self.inactive_doc_changer, False, False, False, False),
+                (self.report_changer, False, False, False, False),
+                (self.report_adder, False, False, False, False),
+                (self.report_chooser, False, False, False, False),
+                (self.useless_user, False, False, False, False),
+                (self.anonymous_user, False, False, False, False),
             ],
+            actions=("change", "delete", "frobnicate", "choose"),
         )
 
         # document in 'reports' is editable by users with permissions
@@ -661,30 +780,34 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertUserInstancePermissionMatrix(
             self.useless_report,
             [
-                (self.superuser, True, True, True),
-                (self.inactive_superuser, False, False, False),
-                (self.doc_changer, True, True, False),
-                (self.inactive_doc_changer, False, False, False),
-                (self.report_changer, True, True, False),
-                (self.report_adder, False, False, False),
-                (self.useless_user, False, False, False),
-                (self.anonymous_user, False, False, False),
+                (self.superuser, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False),
+                (self.doc_changer, True, True, False, False),
+                (self.inactive_doc_changer, False, False, False, False),
+                (self.report_changer, True, True, False, False),
+                (self.report_adder, False, False, False, False),
+                (self.report_chooser, False, False, False, True),
+                (self.useless_user, False, False, False, False),
+                (self.anonymous_user, False, False, False, False),
             ],
+            actions=("change", "delete", "frobnicate", "choose"),
         )
 
         # adder_report is editable by its owner (who only has 'add' permission)
         self.assertUserInstancePermissionMatrix(
             self.adder_report,
             [
-                (self.superuser, True, True, True),
-                (self.inactive_superuser, False, False, False),
-                (self.doc_changer, True, True, False),
-                (self.inactive_doc_changer, False, False, False),
-                (self.report_changer, True, True, False),
-                (self.report_adder, True, True, False),
-                (self.useless_user, False, False, False),
-                (self.anonymous_user, False, False, False),
+                (self.superuser, True, True, True, True),
+                (self.inactive_superuser, False, False, False, False),
+                (self.doc_changer, True, True, False, False),
+                (self.inactive_doc_changer, False, False, False, False),
+                (self.report_changer, True, True, False, False),
+                (self.report_adder, True, True, False, False),
+                (self.report_chooser, False, False, False, True),
+                (self.useless_user, False, False, False, False),
+                (self.anonymous_user, False, False, False, False),
             ],
+            actions=("change", "delete", "frobnicate", "choose"),
         )
 
     def test_user_has_any_permission_for_instance(self):
@@ -709,6 +832,12 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
                 self.report_adder, ["change", "delete"], self.adder_report
+            )
+        )
+
+        self.assertTrue(
+            self.policy.user_has_any_permission_for_instance(
+                self.report_chooser, ["change", "delete", "choose"], self.useless_report
             )
         )
 
@@ -759,6 +888,19 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
             self.policy.instances_user_has_permission_for(
                 self.report_changer,
                 "change",
+            ),
+            [
+                self.changer_report,
+                self.useless_report,
+                self.adder_report,
+                self.anonymous_report,
+            ],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(
+                self.report_chooser,
+                "choose",
             ),
             [
                 self.changer_report,
@@ -842,6 +984,18 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
+                self.report_chooser, ["change", "delete", "choose"]
+            ),
+            [
+                self.changer_report,
+                self.adder_report,
+                self.useless_report,
+                self.anonymous_report,
+            ],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(
                 self.useless_user, ["change", "delete"]
             ),
             [],
@@ -881,6 +1035,12 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         )
         self.assertResultSetEqual(
             self.policy.users_with_permission_for_instance(
+                "choose", self.useless_report
+            ),
+            [self.superuser, self.report_chooser],
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance(
                 "change", self.useless_report
             ),
             [self.superuser, self.doc_changer, self.report_changer],
@@ -904,6 +1064,17 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
                 ["change", "delete"], self.adder_report
             ),
             [self.superuser, self.doc_changer, self.report_changer, self.report_adder],
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_any_permission_for_instance(
+                ["change", "delete", "choose"], self.useless_report
+            ),
+            [
+                self.superuser,
+                self.doc_changer,
+                self.report_changer,
+                self.report_chooser,
+            ],
         )
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(
@@ -969,6 +1140,14 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.collections_user_has_permission_for(
+                self.report_chooser,
+                "choose",
+            ),
+            [self.reports_collection],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
                 self.useless_user,
                 "change",
             ),
@@ -1022,6 +1201,13 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.collections_user_has_any_permission_for(
                 self.report_adder, ["add", "delete"]
+            ),
+            [self.reports_collection],
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_chooser, ["change", "delete", "choose"]
             ),
             [self.reports_collection],
         )
