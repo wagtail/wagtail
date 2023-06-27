@@ -31,7 +31,7 @@ from django.core.exceptions import (
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import OperationalError, models, transaction
+from django.db import DatabaseError, models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
@@ -3002,7 +3002,7 @@ class GroupPagePermission(models.Model):
         messages = super().check(**kwargs)
         try:
             outdated_objs = cls.objects._migrate_permission_type()
-        except OperationalError:
+        except DatabaseError:
             # Migration hasn't been run yet
             outdated_objs = 0
 
