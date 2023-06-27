@@ -7,13 +7,13 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Dict, Iterable, List, Optional, Union
+from typing import Dict, Iterable, List, Union
 
 import willow
 from django.apps import apps
 from django.conf import settings
 from django.core import checks
-from django.core.cache import InvalidCacheBackendError, caches
+from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -428,11 +428,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             pass
 
     @property
-    def renditions_cache(self) -> Optional[BaseCache]:
+    def renditions_cache(self) -> BaseCache:
         try:
             return caches["renditions"]
         except InvalidCacheBackendError:
-            return None
+            return caches[DEFAULT_CACHE_ALIAS]
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
@@ -455,11 +455,10 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        if self.renditions_cache:
-            cache_key = Rendition.construct_cache_key(
-                self.id, filter.get_cache_key(self), filter.spec
-            )
-            self.renditions_cache.set(cache_key, rendition)
+        cache_key = Rendition.construct_cache_key(
+            self.id, filter.get_cache_key(self), filter.spec
+        )
+        self.renditions_cache.set(cache_key, rendition)
 
         return rendition
 
@@ -523,18 +522,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             self._add_to_prefetched_renditions(rendition)
             renditions[filter] = rendition
 
-        # If rendition caching is enabled, update the cache
-        if self.renditions_cache:
-            cache_additions = {
-                Rendition.construct_cache_key(
-                    self.id, filter.get_cache_key(self), filter.spec
-                ): rendition
-                for filter, rendition in renditions.items()
-                # prevent writing of cached data back to the cache
-                if not getattr(rendition, "_from_cache", False)
-            }
-            if cache_additions:
-                self.renditions_cache.set_many(cache_additions)
+        # Update the cache
+        cache_additions = {
+            Rendition.construct_cache_key(
+                self.id, filter.get_cache_key(self), filter.spec
+            ): rendition
+            for filter, rendition in renditions.items()
+            # prevent writing of cached data back to the cache
+            if not getattr(rendition, "_from_cache", False)
+        }
+        if cache_additions:
+            self.renditions_cache.set_many(cache_additions)
 
         # Return a dict in the expected format
         return {filter.spec: rendition for filter, rendition in renditions.items()}
@@ -588,17 +586,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Renditions are not prefetched, so attempt to find suitable
             # items in the cache or database
 
-            # Query the cache first (if enabled)
-            if self.renditions_cache is not None:
-                cache_keys = [
-                    Rendition.construct_cache_key(
-                        self.id, filter.get_cache_key(self), spec
-                    )
-                    for spec, filter in filters_by_spec.items()
-                ]
-                for rendition in self.renditions_cache.get_many(cache_keys).values():
-                    filter = filters_by_spec[rendition.filter_spec]
-                    found[filter] = rendition
+            # Query the cache first
+            cache_keys = [
+                Rendition.construct_cache_key(self.id, filter.get_cache_key(self), spec)
+                for spec, filter in filters_by_spec.items()
+            ]
+            for rendition in self.renditions_cache.get_many(cache_keys).values():
+                filter = filters_by_spec[rendition.filter_spec]
+                found[filter] = rendition
 
             # For items not found in the cache, look in the database
             not_found = [f for f in filters if f not in found]

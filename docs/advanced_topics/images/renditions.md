@@ -54,6 +54,14 @@ The return value is a dictionary of renditions keyed by the specification string
 }
 ```
 
+(caching_image_renditions)=
+
+## Caching image renditions
+
+Wagtail will cache image rendition lookups, which can improve the performance of pages which include many images.
+
+By default, Wagtail will try to use the cache called "renditions". If no such cache exists, it will fall back to using the default cache.
+
 (prefetching_image_renditions)=
 
 ## Prefetching image renditions

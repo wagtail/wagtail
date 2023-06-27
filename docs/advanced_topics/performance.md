@@ -24,25 +24,7 @@ CACHES = {
 }
 ```
 
-### Caching image renditions
-
-If you define a cache named 'renditions' (typically alongside your 'default' cache),
-Wagtail will cache image rendition lookups, which may improve the performance of pages
-which include many images.
-
-```python
-CACHES = {
-    'default': {...},
-    'renditions': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 600,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
-    }
-}
-```
+To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend.
 
 ### Image URLs
 
