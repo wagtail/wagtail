@@ -4,7 +4,7 @@ import { BulkController } from './BulkController';
 describe('BulkController', () => {
   beforeEach(() => {
     document.body.innerHTML = `
-    <div data-controller="w-bulk">
+    <div id="bulk-container" data-controller="w-bulk">
       <input id="select-all" type="checkbox" data-w-bulk-target="all" data-action="w-bulk#toggleAll">
       <div id="checkboxes">
         <input type="checkbox" data-w-bulk-target="item" disabled data-action="w-bulk#toggle">
@@ -114,5 +114,42 @@ describe('BulkController', () => {
     checkboxes.forEach((itemCheckbox) => {
       expect(itemCheckbox.checked).toBe(true);
     });
+  });
+
+  it('should allow for action targets to have classes toggled when any checkboxes are clicked', async () => {
+    const container = document.getElementById('bulk-container');
+
+    // create innerActions container that will be conditionally hidden with test classes
+    container.setAttribute(
+      'data-w-bulk-action-inactive-class',
+      'hidden w-invisible',
+    );
+    const innerActions = document.createElement('div');
+    innerActions.id = 'inner-actions';
+    innerActions.className = 'keep-me hidden w-invisible';
+    innerActions.setAttribute('data-w-bulk-target', 'action');
+    container.prepend(innerActions);
+
+    const innerActionsElement = document.getElementById('inner-actions');
+
+    expect(
+      document
+        .getElementById('checkboxes')
+        .querySelectorAll(':checked:not(:disabled)').length,
+    ).toEqual(0);
+
+    expect(innerActionsElement.className).toEqual('keep-me hidden w-invisible');
+
+    const firstCheckbox = document
+      .getElementById('checkboxes')
+      .querySelector("[type='checkbox']:not([disabled])");
+
+    firstCheckbox.click();
+
+    expect(innerActionsElement.className).toEqual('keep-me');
+
+    firstCheckbox.click();
+
+    expect(innerActionsElement.className).toEqual('keep-me hidden w-invisible');
   });
 });
