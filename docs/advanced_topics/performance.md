@@ -44,7 +44,7 @@ CACHES = {
 }
 ```
 
-### Image URLs
+## Image URLs
 
 If all you need is the URL to an image (such as for use in meta tags or other tag attributes), it is likely more efficient to use the [image serve view](using_images_outside_wagtail) and `{% image_url %}` tag:
 
@@ -58,7 +58,17 @@ Another side benefit is it prevents errors during conversation from causing page
 
 The same can be achieved in Python using [`generate_image_url`](dynamic_image_urls).
 
+## Prefetch image rendition
+
+When using a queryset to render a list of images or objects with images, you can [prefetch the renditions](prefetching_image_renditions) needed with a single additional query. For long lists of items, or where multiple renditions are used for each item, this can provide a significant boost to performance.
+
 (performance_page_urls)=
+
+## Frontend caching
+
+Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+
+Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
 
 ## Page URLs
 
