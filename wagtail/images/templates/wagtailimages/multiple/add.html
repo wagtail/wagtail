@@ -94,7 +94,6 @@
     <!-- Main script -->
     <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         window.fileupload_opts = {
             simple_upload_url: "{% url 'wagtailimages:add' %}",
@@ -106,8 +105,5 @@
                 accepted_file_types: "{{ error_accepted_file_types|escapejs }}"
             }
         }
-        window.tagit_opts = {
-            autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-        };
     </script>
 {% endblock %}

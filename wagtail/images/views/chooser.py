@@ -133,11 +133,6 @@ class ImageChooseViewMixin(ChooseViewMixin):
         context["popular_tags"] = popular_tags_for_model(self.model)
         return context
 
-    def get_response_json_data(self):
-        json_data = super().get_response_json_data()
-        json_data["tag_autocomplete_url"] = reverse("wagtailadmin_tag_autocomplete")
-        return json_data
-
 
 class ImageChooseView(
     ImageChooseViewMixin, ImageCreationFormMixin, BaseImageChooseView
