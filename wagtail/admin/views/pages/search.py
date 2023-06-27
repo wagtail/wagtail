@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
+from django.urls import reverse
 from django.views.generic import ListView
 
 from wagtail.admin.forms.search import SearchForm
@@ -119,6 +120,9 @@ class BaseSearchView(PermissionCheckedMixin, ListView):
 
         return pages
 
+    def get_index_url(self):
+        return reverse("wagtailadmin_pages:search")
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update(
@@ -129,6 +133,7 @@ class BaseSearchView(PermissionCheckedMixin, ListView):
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
                 "show_locale_labels": self.show_locale_labels,
+                "index_url": self.get_index_url(),
             }
         )
         return context
