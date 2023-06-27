@@ -31,6 +31,7 @@ Changelog
  * Fix: Ensure taggit field type-ahead options show correctly in the dark mode theme (Sage Abdullah)
  * Fix: Fix the lock description message missing the model_name variable when locked only by system (Sébastien Corbin)
  * Fix: Fix empty blocks created in migration operations (Sandil Ranasinghe)
+ * Fix: Ensure that gettext_lazy works correctly when using verbose_name on a generic Settings models (Sébastien Corbin)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)

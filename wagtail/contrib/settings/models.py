@@ -199,4 +199,4 @@ class BaseGenericSetting(AbstractSetting):
         return obj
 
     def __str__(self):
-        return self._meta.verbose_name
+        return str(self._meta.verbose_name)

@@ -1588,7 +1588,7 @@ class ImportantPagesSiteSetting(BaseSiteSetting):
     )
 
 
-@register_setting
+@register_setting(name="important-pages-generic-setting")
 class ImportantPagesGenericSetting(BaseGenericSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
@@ -1599,6 +1599,10 @@ class ImportantPagesGenericSetting(BaseGenericSetting):
     privacy_policy_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
     )
+
+    class Meta:
+        verbose_name = _("Important pages settings")
+        verbose_name_plural = _("Important pages settings")
 
 
 @register_setting(icon="icon-setting-tag")
