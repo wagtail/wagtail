@@ -466,10 +466,24 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         )
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
+        # Grant the marketing group permission to another collection so there is a valid destination
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.finance_collection,
+            permission=self.add_permission,
+        )
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
         self.assertNotContains(response, "Delete collection")
+
+    def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission(
+        self,
+    ):
+        # Remove the "add" permission so the user only has "change" permission
+        self.users_add_permission.delete()
+        # Do the same test as above
+        self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to()
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(
         self,
@@ -502,6 +516,14 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
             Collection.objects.get(pk=self.marketing_collection.pk).get_parent(),
             self.root_collection,
         )
+
+    def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission_post(
+        self,
+    ):
+        # Remove the "add" permission so the user only has "change" permission
+        self.users_add_permission.delete()
+        # Do the same test as above
+        self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post()
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
         # Retrieve edit form and check fields
