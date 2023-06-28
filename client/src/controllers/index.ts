@@ -15,6 +15,7 @@ import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
 import { TagController } from './TagController';
+import { TooltipController } from './TooltipController';
 import { UpgradeController } from './UpgradeController';
 
 /**
@@ -36,5 +37,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
   { controllerConstructor: TagController, identifier: 'w-tag' },
+  { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
 ];

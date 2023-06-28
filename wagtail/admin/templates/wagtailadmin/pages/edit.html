@@ -87,16 +87,6 @@
                 }
             );
 
-            /* Tooltips used by the workflow status component */
-            $('[data-wagtail-tooltip]').tooltip({
-                animation: false,
-                title: function() {
-                    return $(this).attr('data-wagtail-tooltip');
-                },
-                trigger: 'hover',
-                placement: 'bottom',
-            });
-
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
                 // Initialise comments UI
