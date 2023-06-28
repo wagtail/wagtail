@@ -25,13 +25,32 @@ export class DropdownController extends Controller<HTMLElement> {
   declare readonly toggleTarget: HTMLButtonElement;
   declare readonly contentTarget: HTMLDivElement;
   declare readonly hideOnClickValue: boolean;
+  declare readonly hasContentTarget: boolean;
+  tippy?: Instance<Props>;
 
   connect() {
+    this.tippy = tippy(this.toggleTarget, this.options);
+  }
+
+  hide() {
+    this.tippy?.hide();
+  }
+
+  show() {
+    this.tippy?.show();
+  }
+
+  /**
+   * Default Tippy Options
+   */
+  get options(): Partial<Props> {
     // If the dropdown toggle uses an ARIA label, use this as a hover tooltip.
     const hoverTooltip = this.toggleTarget.getAttribute('aria-label');
     let hoverTooltipInstance: Instance;
 
-    this.contentTarget.hidden = false;
+    if (this.hasContentTarget) {
+      this.contentTarget.hidden = false;
+    }
 
     if (hoverTooltip) {
       hoverTooltipInstance = tippy(this.toggleTarget, {
@@ -51,11 +70,17 @@ export class DropdownController extends Controller<HTMLElement> {
       plugins.push(hideTooltipOnClickInside);
     }
 
-    /**
-     * Default Tippy Options
-     */
-    const tippyOptions: Partial<Props> = {
-      content: this.contentTarget as Content,
+    const onShown = () => {
+      this.dispatch('shown', {
+        // work around for target type bug https://github.com/hotwired/stimulus/issues/642
+        target: ((key = 'document') => window[key])(),
+      });
+    };
+
+    return {
+      ...(this.hasContentTarget
+        ? { content: this.contentTarget as Content }
+        : {}),
       trigger: 'click',
       interactive: true,
       theme: 'dropdown',
@@ -67,7 +92,7 @@ export class DropdownController extends Controller<HTMLElement> {
         }
       },
       onShown() {
-        document.dispatchEvent(new CustomEvent('w-dropdown:shown'));
+        onShown();
       },
       onHide() {
         if (hoverTooltipInstance) {
@@ -75,7 +100,5 @@ export class DropdownController extends Controller<HTMLElement> {
         }
       },
     };
-
-    tippy(this.toggleTarget, tippyOptions);
   }
 }
