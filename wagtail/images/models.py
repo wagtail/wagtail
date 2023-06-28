@@ -456,7 +456,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             self._add_to_prefetched_renditions(rendition)
 
         cache_key = Rendition.construct_cache_key(
-            self.id, filter.get_cache_key(self), filter.spec
+            self, filter.get_cache_key(self), filter.spec
         )
         self.renditions_cache.set(cache_key, rendition)
 
@@ -525,7 +525,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         # Update the cache
         cache_additions = {
             Rendition.construct_cache_key(
-                self.id, filter.get_cache_key(self), filter.spec
+                self, filter.get_cache_key(self), filter.spec
             ): rendition
             for filter, rendition in renditions.items()
             # prevent writing of cached data back to the cache
@@ -588,7 +588,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
             # Query the cache first
             cache_keys = [
-                Rendition.construct_cache_key(self.id, filter.get_cache_key(self), spec)
+                Rendition.construct_cache_key(self, filter.get_cache_key(self), spec)
                 for spec, filter in filters_by_spec.items()
             ]
             for rendition in self.renditions_cache.get_many(cache_keys).values():
@@ -1121,15 +1121,20 @@ class AbstractRendition(ImageFileMixin, models.Model):
         return errors
 
     @staticmethod
-    def construct_cache_key(image_id, filter_cache_key, filter_spec):
-        return "image-{}-{}-{}".format(image_id, filter_cache_key, filter_spec)
+    def construct_cache_key(image, filter_cache_key, filter_spec):
+        return "wagtail-image-" + "-".join([
+            str(image.id),
+            image.file_hash,
+            filter_cache_key,
+            filter_spec
+        ])
 
     def purge_from_cache(self):
         try:
             cache = caches["renditions"]
             cache.delete(
                 self.construct_cache_key(
-                    self.image_id, self.focal_point_key, self.filter_spec
+                    self.image, self.focal_point_key, self.filter_spec
                 )
             )
         except InvalidCacheBackendError:
