@@ -310,6 +310,9 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    )
     def test_num_queries(self):
         # Warm up cache so that result is the same when running this test in isolation
         # as when running it within the full test suite.
@@ -1136,6 +1139,9 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file), old_rendition_data)
 
+        with self.assertRaises(type(old_rendition).DoesNotExist):
+            old_rendition.refresh_from_db()
+
     def test_reupload_different_name(self):
         """
         Checks that reuploading the image file with a different file name
@@ -1172,6 +1178,9 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         new_rendition = self.image.get_rendition("fill-5x5")
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file), old_rendition_data)
+
+        with self.assertRaises(type(old_rendition).DoesNotExist):
+            old_rendition.refresh_from_db()
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_focal_point_editor(self):
@@ -1636,6 +1645,9 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    )
     def test_num_queries(self):
         # Initial number of queries.
         with self.assertNumQueries(8):

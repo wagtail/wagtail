@@ -237,6 +237,9 @@ class TestImagePermissions(WagtailTestUtils, TestCase):
         self.assertFalse(self.image.is_editable_by_user(self.user))
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+)
 class TestRenditions(TestCase):
     SPECS = ("height-66", "width-100", "width-400")
 
@@ -593,6 +596,9 @@ class TestRenditions(TestCase):
         settings = bkp
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+)
 class TestPrefetchRenditions(TestCase):
     fixtures = ["test.json"]
 
