@@ -65,7 +65,7 @@
                                 <ul class="workflow-tasks">
                                     {% for task in workflow.tasks|slice:":5" %}
                                         <a href="{% url 'wagtailadmin_workflows:edit_task' task.pk %}">
-                                            <li class="workflow-tasks__task" data-wagtail-tooltip="{% blocktrans trimmed with forloop.counter as step_number %}Step {{ step_number }}{% endblocktrans %}: {{ task.name }}">
+                                            <li class="workflow-tasks__task" data-controller="w-tooltip" data-w-tooltip-content-value="{% blocktrans trimmed with forloop.counter as step_number %}Step {{ step_number }}{% endblocktrans %}: {{ task.name }}">
                                                 <div class="workflow-tasks__step">{% blocktrans trimmed with forloop.counter as step_number %}Step {{ step_number }}{% endblocktrans %}</div>
                                                 <h4 class="workflow-tasks__name">{{ task.name }}</h4>
                                             </li>
@@ -96,17 +96,4 @@
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-
-    <script>
-        $(function() {
-            $('[data-wagtail-tooltip]').tooltip({
-                animation: false,
-                title: function() {
-                    return $(this).attr('data-wagtail-tooltip');
-                },
-                trigger: 'hover',
-                placement: 'bottom',
-            });
-        });
-    </script>
 {% endblock %}
