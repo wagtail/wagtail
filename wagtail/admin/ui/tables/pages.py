@@ -1,7 +1,7 @@
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 
-from wagtail.admin.ui.tables import BaseColumn, Column
+from wagtail.admin.ui.tables import BaseColumn, Column, Table
 
 
 class PageTitleColumn(BaseColumn):
@@ -70,3 +70,11 @@ class NavigateToChildrenColumn(BaseColumn):
 
     def render_header_html(self, parent_context):
         return mark_safe("<th></th>")
+
+
+class PageTable(Table):
+    def get_row_classname(self, instance):
+        if not instance.live:
+            return "unpublished"
+        else:
+            return ""

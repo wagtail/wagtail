@@ -13,6 +13,7 @@ from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,
     PageStatusColumn,
+    PageTable,
     PageTitleColumn,
     ParentPageColumn,
 )
@@ -62,6 +63,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     paginate_by = 20
     page_kwarg = "p"
     context_object_name = "pages"
+    table_class = PageTable
 
     def get(self, request):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
