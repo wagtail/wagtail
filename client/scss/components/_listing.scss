@@ -106,7 +106,8 @@ ul.listing {
     border: 0;
   }
 
-  &.align-top td {
+  &.align-top td,
+  td.align-top {
     vertical-align: top;
   }
 

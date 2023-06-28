@@ -32,7 +32,7 @@
             </nav>
         {% endif %}
 
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 sortable=1 sortable_by_type=0 show_bulk_actions=1 show_locale_labels=show_locale_labels %}
+        {% component table %}
 
         {% if is_paginated %}
             {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
