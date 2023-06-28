@@ -13,7 +13,7 @@ except ImportError:
 
 
 class Command(BaseCommand):
-    help = "Delete page revisions which are not the latest revision for a page, published or scheduled to be published, or in moderation"
+    help = "Delete revisions which are not the latest revision, published or scheduled to be published, or in moderation"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
 def purge_revisions(days=None):
     # exclude revisions which have been submitted for moderation in the old system
-    purgeable_revisions = Revision.page_revisions.exclude(
+    purgeable_revisions = Revision.objects.exclude(
         submitted_for_moderation=True
     ).exclude(
         # and exclude revisions with an approved_go_live_at date
@@ -61,7 +61,7 @@ def purge_revisions(days=None):
     deleted_revisions_count = 0
 
     for revision in purgeable_revisions.iterator():
-        # don't delete the latest revision for any page
+        # don't delete the latest revision
         if not revision.is_latest_revision():
             revision.delete()
             deleted_revisions_count += 1
