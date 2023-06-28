@@ -1122,7 +1122,12 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @staticmethod
     def construct_cache_key(image, filter_cache_key, filter_spec):
-        return "image-{}-{}-{}".format(image.file_hash, filter_cache_key, filter_spec)
+        return "wagtail-image-" + "-".join([
+            str(image.id),
+            image.file_hash,
+            filter_cache_key,
+            filter_spec
+        ])
 
     def purge_from_cache(self):
         try:
