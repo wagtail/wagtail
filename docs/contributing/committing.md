@@ -91,7 +91,7 @@ Backwards compatibility notes should also be included. See previous release note
 The release notes for each version are found in `docs/releases/x.x.x.md`.
 
 If the contributor is a new person, and this is their first contribution to Wagtail,
-they should be added to the `CONTRIBUTORS.rst` list.
+they should be added to the `CONTRIBUTORS.md` list.
 Contributors are added in chronological order,
 with new contributors added to the bottom of the list.
 Use their preferred name.
