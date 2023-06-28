@@ -1,5 +1,4 @@
-Core team
-=========
+## Core team
 
 * Andy Chosak (consumerfinance.gov)
 * Coen van der Kamp (Four Digits)
@@ -22,8 +21,7 @@ Core team
 * Tom Dyson (Torchbox)
 * Vince Salvino (CodeRed)
 
-Core team alumni
-================
+## Core team alumni
 
 * Andy Babic
 * Bertrand Bordage
@@ -42,8 +40,7 @@ Core team alumni
 * Tim Heap
 * Will Barton
 
-Contributors
-============
+## Contributors
 
 * David Cranwell
 * Helen Chapman
@@ -722,8 +719,7 @@ Contributors
 * Vitaly Babiy
 * Sébastien Corbin
 
-Translators
-===========
+## Translators
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
 * Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
