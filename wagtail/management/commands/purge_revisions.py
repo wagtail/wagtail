@@ -1,15 +1,9 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.utils import timezone
 
-from wagtail.models import Revision
-
-try:
-    from wagtail.models import WorkflowState
-
-    workflow_support = True
-except ImportError:
-    workflow_support = False
+from wagtail.models import Revision, WorkflowState
 
 
 class Command(BaseCommand):
@@ -46,7 +40,7 @@ def purge_revisions(days=None):
         approved_go_live_at__isnull=False
     )
 
-    if workflow_support:
+    if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
         purgeable_revisions = purgeable_revisions.exclude(
             # and exclude revisions linked to an in progress or needs changes workflow state
             Q(task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS)

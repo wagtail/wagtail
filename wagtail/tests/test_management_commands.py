@@ -6,11 +6,19 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
 from django.db import models
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.embeds.models import Embed
-from wagtail.models import Collection, Page, PageLogEntry, Revision
+from wagtail.models import (
+    Collection,
+    Page,
+    PageLogEntry,
+    Revision,
+    Task,
+    Workflow,
+    WorkflowTask,
+)
 from wagtail.signals import page_published, page_unpublished, published, unpublished
 from wagtail.test.testapp.models import (
     DraftStateModel,
@@ -643,7 +651,7 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.assertFalse(Revision.objects.filter(id=revision_1.id).exists())
         self.assertTrue(Revision.objects.filter(id=revision_2.id).exists())
 
-    def test_revisions_in_moderation_not_purged(self):
+    def test_revisions_in_moderation_or_workflow_not_purged(self):
         revision = self.object.save_revision(submitted_for_moderation=True)
 
         # Save a new revision to ensure that the moderated revision
@@ -654,28 +662,29 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         self.assertTrue(Revision.objects.filter(id=revision.id).exists())
 
-        try:
-            from wagtail.models import Task, Workflow, WorkflowTask
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        user = get_user_model().objects.first()
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
 
-            workflow = Workflow.objects.create(name="test_workflow")
-            task_1 = Task.objects.create(name="test_task_1")
-            user = get_user_model().objects.first()
-            WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        revision = self.object.save_revision()
+        workflow.start(self.object, user)
 
-            revision = self.object.save_revision()
-            workflow.start(self.object, user)
+        # Save a new revision to ensure that the revision in the workflow
+        # is not the latest one
+        self.object.save_revision()
 
-            # Save a new revision to ensure that the revision in the workflow
-            # is not the latest one
-            self.object.save_revision()
+        self.run_command()
 
+        # even though they're no longer the latest revisions, the old revisions
+        # should stay as they are attached to an in progress workflow
+        self.assertTrue(Revision.objects.filter(id=revision.id).exists())
+
+        # If workflow is disabled at some point after that, the revision should
+        # be deleted
+        with override_settings(WAGTAIL_WORKFLOW_ENABLED=False):
             self.run_command()
-
-            # even though they're no longer the latest revisions, the old revisions
-            # should stay as they are attached to an in progress workflow
-            self.assertTrue(Revision.objects.filter(id=revision.id).exists())
-        except ImportError:
-            pass
+            self.assertFalse(Revision.objects.filter(id=revision.id).exists())
 
     def test_revisions_with_approve_go_live_not_purged(self):
         revision = self.object.save_revision(
