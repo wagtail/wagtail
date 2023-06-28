@@ -6,7 +6,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.models import Collection, GroupCollectionPermission
+from wagtail.models import Collection
 from wagtail.permissions import collection_permission_policy
 
 
@@ -75,14 +75,16 @@ class Edit(EditView):
         if user.is_active and user.is_superuser:
             return True
         else:
-            permissions = self.permission_policy._get_permission_objects_for_actions(
-                ["add", "edit", "delete"]
+            permissions = (
+                self.permission_policy._get_user_permission_objects_for_actions(
+                    user, {"add", "change", "delete"}
+                )
             )
-            return not GroupCollectionPermission.objects.filter(
-                group__user=user,
-                permission__in=permissions,
-                collection=instance,
-            ).exists()
+            return not {
+                permission
+                for permission in permissions
+                if permission.collection_id == instance.pk
+            }
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_permission_for(
