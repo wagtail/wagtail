@@ -5,9 +5,18 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
 from django.urls import reverse
-from django.views.generic import ListView
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.ui.tables import Column, DateColumn
+from wagtail.admin.ui.tables.pages import (
+    BulkActionsColumn,
+    NavigateToChildrenColumn,
+    PageStatusColumn,
+    PageTitleColumn,
+    ParentPageColumn,
+)
+from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
 from wagtail.permission_policies.pages import PagePermissionPolicy
@@ -40,7 +49,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class BaseSearchView(PermissionCheckedMixin, ListView):
+class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
         "add",
@@ -56,6 +65,40 @@ class BaseSearchView(PermissionCheckedMixin, ListView):
 
     def get(self, request):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
+        self.columns = [
+            BulkActionsColumn("bulk_actions", width="10px"),
+            PageTitleColumn(
+                "title",
+                label=_("Title"),
+                sort_key="title",
+                show_locale_labels=self.show_locale_labels,
+                classname="align-top",
+            ),
+            ParentPageColumn("parent", label=_("Parent"), classname="align-top"),
+            DateColumn(
+                "latest_revision_created_at",
+                label=_("Updated"),
+                sort_key="latest_revision_created_at",
+                width="12%",
+                classname="align-top",
+            ),
+            Column(
+                "type",
+                label=_("Type"),
+                accessor="page_type_display_name",
+                width="12%",
+                classname="align-top",
+            ),
+            PageStatusColumn(
+                "status",
+                label=_("Status"),
+                sort_key="live",
+                width="12%",
+                classname="align-top",
+            ),
+            NavigateToChildrenColumn("navigate", width="10%"),
+        ]
 
         self.content_types = []
         self.ordering = None
@@ -132,7 +175,6 @@ class BaseSearchView(PermissionCheckedMixin, ListView):
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
-                "show_locale_labels": self.show_locale_labels,
                 "index_url": self.get_index_url(),
             }
         )
