@@ -494,9 +494,7 @@ class TestRenditions(TestCase):
     def test_renditions_cache_backend(self):
         cache = caches["renditions"]
         rendition = self.image.get_rendition("width-500")
-        rendition_cache_key = "image-{}-{}-{}".format(
-            rendition.image.id, rendition.focal_point_key, rendition.filter_spec
-        )
+        rendition_cache_key = rendition.get_cache_key()
 
         # Check rendition is saved to cache
         self.assertEqual(cache.get(rendition_cache_key), rendition)
