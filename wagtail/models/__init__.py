@@ -2656,8 +2656,14 @@ class Orderable(models.Model):
 
 
 class RevisionQuerySet(models.QuerySet):
+    def page_revisions_q(self):
+        return Q(base_content_type=get_default_page_content_type())
+
     def page_revisions(self):
-        return self.filter(base_content_type=get_default_page_content_type())
+        return self.filter(self.page_revisions_q())
+
+    def not_page_revisions(self):
+        return self.exclude(self.page_revisions_q())
 
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
@@ -2671,12 +2677,7 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-class RevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db)
-
-    def for_instance(self, instance):
-        return self.get_queryset().for_instance(instance)
+RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
 
 
 class PageRevisionsManager(RevisionsManager):
