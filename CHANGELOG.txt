@@ -12,6 +12,7 @@ Changelog
  * Add initial implementation of `PagePermissionPolicy` (Sage Abdullah)
  * Refactor `UserPagePermissionsProxy` and `PagePermissionTester` to use `PagePermissionPolicy` (Sage Abdullah, Tidiane Dia)
  * Add a predictable default ordering of the "Object/Other permissions" in the Group Editing view, allow this ordering to be customised (Daniel Kirkham)
+ * Add `AbstractImage.get_renditions()` for efficient generation of multiple renditions (Andy Babic)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)
