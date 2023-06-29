@@ -7,16 +7,12 @@ from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn, Colum
 class PageTitleColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_page_title_cell.html"
 
-    def __init__(self, *args, show_locale_labels=False, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.show_locale_labels = show_locale_labels
-
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["page_perms"] = instance.permissions_for_user(
             parent_context["request"].user
         )
-        context["show_locale_labels"] = self.show_locale_labels
+        context["show_locale_labels"] = parent_context.get("show_locale_labels")
         return context
 
 
@@ -74,3 +70,8 @@ class PageTable(Table):
             return "unpublished"
         else:
             return ""
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["show_locale_labels"] = parent_context.get("show_locale_labels")
+        return context
