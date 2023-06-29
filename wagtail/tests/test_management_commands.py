@@ -617,6 +617,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
 
 
 class TestPurgeRevisionsCommandForPages(TestCase):
+    base_options = {}
+
     def setUp(self):
         self.object = self.get_object()
 
@@ -633,13 +635,16 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.page.refresh_from_db()
         return self.page
 
-    def run_command(self, days=None):
-        if days:
-            days_input = "--days=" + str(days)
-            return management.call_command(
-                "purge_revisions", days_input, stdout=StringIO()
-            )
-        return management.call_command("purge_revisions", stdout=StringIO())
+    def assertRevisionNotExists(self, revision):
+        self.assertFalse(Revision.objects.filter(id=revision.id).exists())
+
+    def assertRevisionExists(self, revision):
+        self.assertTrue(Revision.objects.filter(id=revision.id).exists())
+
+    def run_command(self, **options):
+        return management.call_command(
+            "purge_revisions", **{**self.base_options, **options}, stdout=StringIO()
+        )
 
     def test_latest_revision_not_purged(self):
         revision_1 = self.object.save_revision()
@@ -648,8 +653,8 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.run_command()
 
         # revision 1 should be deleted, revision 2 should not be
-        self.assertFalse(Revision.objects.filter(id=revision_1.id).exists())
-        self.assertTrue(Revision.objects.filter(id=revision_2.id).exists())
+        self.assertRevisionNotExists(revision_1)
+        self.assertRevisionExists(revision_2)
 
     def test_revisions_in_moderation_or_workflow_not_purged(self):
         revision = self.object.save_revision(submitted_for_moderation=True)
@@ -660,7 +665,7 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         self.run_command()
 
-        self.assertTrue(Revision.objects.filter(id=revision.id).exists())
+        self.assertRevisionExists(revision)
 
         workflow = Workflow.objects.create(name="test_workflow")
         task_1 = Task.objects.create(name="test_task_1")
@@ -678,13 +683,13 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         # even though they're no longer the latest revisions, the old revisions
         # should stay as they are attached to an in progress workflow
-        self.assertTrue(Revision.objects.filter(id=revision.id).exists())
+        self.assertRevisionExists(revision)
 
         # If workflow is disabled at some point after that, the revision should
         # be deleted
         with override_settings(WAGTAIL_WORKFLOW_ENABLED=False):
             self.run_command()
-            self.assertFalse(Revision.objects.filter(id=revision.id).exists())
+            self.assertRevisionNotExists(revision)
 
     def test_revisions_with_approve_go_live_not_purged(self):
         revision = self.object.save_revision(
@@ -697,7 +702,7 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         self.run_command()
 
-        self.assertTrue(Revision.objects.filter(id=revision.id).exists())
+        self.assertRevisionExists(revision)
 
     def test_purge_revisions_with_date_cutoff(self):
         old_revision = self.object.save_revision()
@@ -707,7 +712,7 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.run_command(days=30)
 
         # revision should not be deleted, as it is younger than 30 days
-        self.assertTrue(Revision.objects.filter(id=old_revision.id).exists())
+        self.assertRevisionExists(old_revision)
 
         old_revision.created_at = timezone.now() - timedelta(days=31)
         old_revision.save()
@@ -715,12 +720,42 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.run_command(days=30)
 
         # revision is now older than 30 days, so should be deleted
-        self.assertFalse(Revision.objects.filter(id=old_revision.id).exists())
+        self.assertRevisionNotExists(old_revision)
 
 
 class TestPurgeRevisionsCommandForSnippets(TestPurgeRevisionsCommandForPages):
     def get_object(self):
         return FullFeaturedSnippet.objects.create(text="Hello world!")
+
+
+class TestPurgeRevisionsCommandForPagesWithPagesOnly(TestPurgeRevisionsCommandForPages):
+    base_options = {"pages": True}
+
+
+class TestPurgeRevisionsCommandForPagesWithNonPagesOnly(
+    TestPurgeRevisionsCommandForPages
+):
+    base_options = {"non_pages": True}
+
+    def assertRevisionNotExists(self, revision):
+        # Page revisions won't be purged if only non_pages is specified
+        return self.assertRevisionExists(revision)
+
+
+class TestPurgeRevisionsCommandForSnippetsWithNonPagesOnly(
+    TestPurgeRevisionsCommandForSnippets
+):
+    base_options = {"non_pages": True}
+
+
+class TestPurgeRevisionsCommandForSnippetsWithPagesOnly(
+    TestPurgeRevisionsCommandForSnippets
+):
+    base_options = {"pages": True}
+
+    def assertRevisionNotExists(self, revision):
+        # Snippet revisions won't be purged if only pages is specified
+        return self.assertRevisionExists(revision)
 
 
 class TestPurgeEmbedsCommand(TestCase):
