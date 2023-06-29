@@ -5,15 +5,16 @@ import time
 from collections import OrderedDict, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
-from tempfile import SpooledTemporaryFile
 from io import BytesIO
-from typing import Dict, Iterable, List, Union
+from tempfile import SpooledTemporaryFile
+from typing import Dict, Iterable, List, Optional, Union
 
 import willow
 from django.apps import apps
 from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
+from django.core.cache.backends.base import BaseCache
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -427,11 +428,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             pass
 
     @property
-    def renditions_cache(self):
+    def renditions_cache(self) -> Optional[BaseCache]:
         try:
             return caches["renditions"]
         except InvalidCacheBackendError:
-            pass
+            return None
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
@@ -454,7 +455,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        if self.renditions_cache is not None:
+        if self.renditions_cache:
             cache_key = Rendition.construct_cache_key(
                 self.id, filter.get_cache_key(self), filter.spec
             )
@@ -511,19 +512,19 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        filters = tuple(Filter(spec) for spec in set(filter_specs))
+        filters = [Filter(spec) for spec in dict.fromkeys(filter_specs).keys()]
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
 
         # Create any renditions not found in prefetched values, cache or database
-        not_found = tuple(f for f in filters if f not in renditions)
+        not_found = [f for f in filters if f not in renditions]
         for filter, rendition in self.create_renditions(*not_found).items():
             self._add_to_prefetched_renditions(rendition)
             renditions[filter] = rendition
 
         # If rendition caching is enabled, update the cache
-        if self.renditions_cache is not None:
+        if self.renditions_cache:
             cache_additions = {
                 Rendition.construct_cache_key(
                     self.id, filter.get_cache_key(self), filter.spec
@@ -571,7 +572,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 else:
                     potential_matches[filter].append(rendition)
 
-            # For each filter we have rendtions for, look for one with a
+            # For each filter we have renditions for, look for one with a
             # 'focal_point_key' value matching filter.get_cache_key()
             for filter, renditions in potential_matches.items():
                 focal_point_key = filter.get_cache_key(self)
@@ -600,7 +601,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     found[filter] = rendition
 
             # For items not found in the cache, look in the database
-            not_found = tuple(f for f in filters if f not in found)
+            not_found = [f for f in filters if f not in found]
             if not_found:
                 lookup_q = Q()
                 for filter in not_found:
@@ -640,7 +641,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filters[0]
             return {filter: self.create_rendition(filter)}
 
-        created: Dict[Filter, AbstractRendition] = {}
+        return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
         with self.open_file() as file:
@@ -649,6 +650,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         to_create = []
 
         def _generate_single_rendition(filter):
+            # Using ContentFile here ensures we generate all renditions. Simply
+            # passing self.file required several page reloads to generate all
             image_file = self.generate_rendition_file(
                 filter, source=ContentFile(original_image_bytes, name=self.file.name)
             )
@@ -681,9 +684,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         for existing in self.renditions.filter(lookup_q):
             # Include the existing rendition in the return value
             filter = filter_map[existing.filter_spec]
-            created[filter] = existing
+            return_value[filter] = existing
 
-            for new in tuple(to_create):
+            for new in to_create:
                 if (
                     new.filter_spec == existing.filter_spec
                     and new.focal_point_key == existing.focal_point_key
@@ -693,16 +696,15 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     # Mark for deletion later, so as not to hold up creation
                     files_for_deletion.append(new.file)
 
-        for rendition in Rendition.objects.bulk_create(
-            to_create, ignore_conflicts=True
-        ):
-            created[filter_map[rendition.filter_spec]] = rendition
+        for new in Rendition.objects.bulk_create(to_create, ignore_conflicts=True):
+            filter = filter_map[new.filter_spec]
+            return_value[filter] = new
 
         # Delete redundant rendition image files
         for file in files_for_deletion:
             file.delete(save=False)
 
-        return created
+        return return_value
 
     def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """
