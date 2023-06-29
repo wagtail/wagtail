@@ -65,43 +65,41 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     context_object_name = "pages"
     table_class = PageTable
 
+    columns = [
+        BulkActionsColumn("bulk_actions", width="10px"),
+        PageTitleColumn(
+            "title",
+            label=_("Title"),
+            sort_key="title",
+            classname="align-top",
+        ),
+        ParentPageColumn("parent", label=_("Parent"), classname="align-top"),
+        DateColumn(
+            "latest_revision_created_at",
+            label=_("Updated"),
+            sort_key="latest_revision_created_at",
+            width="12%",
+            classname="align-top",
+        ),
+        Column(
+            "type",
+            label=_("Type"),
+            accessor="page_type_display_name",
+            width="12%",
+            classname="align-top",
+        ),
+        PageStatusColumn(
+            "status",
+            label=_("Status"),
+            sort_key="live",
+            width="12%",
+            classname="align-top",
+        ),
+        NavigateToChildrenColumn("navigate", width="10%"),
+    ]
+
     def get(self, request):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-
-        self.columns = [
-            BulkActionsColumn("bulk_actions", width="10px"),
-            PageTitleColumn(
-                "title",
-                label=_("Title"),
-                sort_key="title",
-                show_locale_labels=self.show_locale_labels,
-                classname="align-top",
-            ),
-            ParentPageColumn("parent", label=_("Parent"), classname="align-top"),
-            DateColumn(
-                "latest_revision_created_at",
-                label=_("Updated"),
-                sort_key="latest_revision_created_at",
-                width="12%",
-                classname="align-top",
-            ),
-            Column(
-                "type",
-                label=_("Type"),
-                accessor="page_type_display_name",
-                width="12%",
-                classname="align-top",
-            ),
-            PageStatusColumn(
-                "status",
-                label=_("Status"),
-                sort_key="live",
-                width="12%",
-                classname="align-top",
-            ),
-            NavigateToChildrenColumn("navigate", width="10%"),
-        ]
-
         self.content_types = []
         self.ordering = None
 
@@ -178,6 +176,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
+                "show_locale_labels": self.show_locale_labels,
             }
         )
         return context
