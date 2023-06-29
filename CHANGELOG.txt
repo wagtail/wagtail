@@ -54,6 +54,7 @@ Changelog
  * Maintenance: Clean up page reports and type usage views to be independent of page listing views (Matt Westcott)
  * Maintenance: Migrate Tagit initialisation to a Stimulus Controller (LB (Ben) Johnston)
  * Maintenance: Refactor GroupPagePermission to use Django's Permission model (Sage Abdullah)
+ * Maintenance: Convert the CONTRIBUTORS file to Markdown (Dan Braghis)
 
 
 5.0.2 (21.06.2023)
