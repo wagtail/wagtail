@@ -116,6 +116,9 @@ class IndexView(PermissionCheckedMixin, ListView):
     def paginate_queryset(self, queryset, page_size):
         return super().paginate_queryset(queryset, page_size)
 
+    def get_index_url(self):
+        return reverse("wagtailadmin_explore", args=[self.parent_page.id])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -137,12 +140,12 @@ class IndexView(PermissionCheckedMixin, ListView):
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
                 "side_panels": side_panels,
-                "do_paginate": context["is_paginated"],
                 "locale": None,
                 "translations": [],
                 "show_ordering_column": show_ordering_column,
                 "show_bulk_actions": not show_ordering_column,
                 "show_locale_labels": False,
+                "index_url": self.get_index_url(),
             }
         )
 
