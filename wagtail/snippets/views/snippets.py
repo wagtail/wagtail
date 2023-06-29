@@ -505,6 +505,11 @@ class HistoryView(ReportView):
         )
 
 
+class InspectView(generic.InspectView):
+    view_name = "inspect"
+    any_permission_required = ["add", "change", "delete"]
+
+
 class PreviewOnCreateView(PreviewOnCreate):
     pass
 
@@ -693,6 +698,15 @@ class SnippetViewSet(ModelViewSet):
     #: If set to a falsy value, the search will fall back to use Django's QuerySet API.
     search_backend_name = "default"
 
+    #: Whether to enable the inspect view. Defaults to ``False``.
+    inspect_view_enabled = False
+
+    #: The fields to display in the inspect view.
+    inspect_view_fields = []
+
+    #: The fields to exclude from the inspect view.
+    inspect_view_fields_exclude = []
+
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     admin_url_namespace = None
@@ -726,6 +740,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.HistoryView``.
     history_view_class = HistoryView
+
+    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippet.views.snippets.InspectView``.
+    inspect_view_class = InspectView
 
     #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.PreviewRevisionView``.
     revisions_view_class = PreviewRevisionView
@@ -795,6 +812,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The template to use for the history view.
     history_template_name = ""
+
+    #: The template to use for the inspect view.
+    inspect_template_name = ""
 
     def __init__(self, model=None, **kwargs):
         # Allow model to be defined on the class, or passed in via the constructor
@@ -980,6 +1000,18 @@ class SnippetViewSet(ModelViewSet):
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
+        )
+
+    @property
+    def inspect_view(self):
+        return self.inspect_view_class.as_view(
+            model=self.model,
+            template_name=self.get_inspect_template(),
+            permission_policy=self.permission_policy,
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
+            fields=self.inspect_view_fields,
+            fields_exclude=self.inspect_view_fields_exclude,
         )
 
     @property
@@ -1309,6 +1341,16 @@ class SnippetViewSet(ModelViewSet):
         """
         return self.history_template_name or self.get_templates("history")
 
+    def get_inspect_template(self):
+        """
+        Returns a template to be used when rendering ``inspect_view``. If a
+        template is specified by the ``inspect_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.inspect_template_name or self.get_templates(
+            "inspect", fallback=self.inspect_view_class.template_name
+        )
+
     def get_admin_url_namespace(self):
         """Returns the URL namespace for the admin URLs for this model."""
         if self.admin_url_namespace:
@@ -1355,6 +1397,11 @@ class SnippetViewSet(ModelViewSet):
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
         ]
+
+        if self.inspect_view_enabled:
+            urlpatterns += [
+                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+            ]
 
         if self.preview_enabled:
             urlpatterns += [

@@ -272,6 +272,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     menu_name = "fullfeatured"
     # Ensure that the menu item is placed last
     menu_order = 999999
+    inspect_view_enabled = True
 
     # TODO: When specific search fields are supported in SQLite FTS (see #10217),
     # specify search_fields or get_search_fields here
