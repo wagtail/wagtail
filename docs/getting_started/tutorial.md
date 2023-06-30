@@ -64,6 +64,7 @@ source mysite/env/bin/activate
 If you're using version control such as git, then `mysite` is the directory for your project.
 You must exclude the `env` directory from any version control.
 ```
+
 ### Install Wagtail
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
