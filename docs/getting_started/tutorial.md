@@ -116,7 +116,7 @@ The `requirements.txt` file contains all the dependencies needed in order to run
 
 ### Create the database
 
-If you haven't updated the project settings, this will be a SQLite database file in the project directory.
+By default, your database is SQLite. To match your database tables with your project's models, run the following command:
 
 ```sh
 python manage.py migrate
