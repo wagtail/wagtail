@@ -1115,7 +1115,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @staticmethod
     def construct_cache_key(image, filter_cache_key, filter_spec):
-        return "wagtail-image-" + "-".join(
+        return "wagtail-rendition-" + "-".join(
             [str(image.id), image.file_hash, filter_cache_key, filter_spec]
         )
 
