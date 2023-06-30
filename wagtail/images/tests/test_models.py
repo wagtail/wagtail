@@ -491,8 +491,8 @@ class TestRenditions(TestCase):
             },
         },
     )
-    def test_renditions_cache_backend(self):
-        cache = caches["renditions"]
+    def test_renditions_cache(self):
+        cache = Rendition.cache_backend
         rendition = self.image.get_rendition("width-500")
         rendition_cache_key = rendition.get_cache_key()
 
@@ -530,6 +530,29 @@ class TestRenditions(TestCase):
         self.image.renditions.all().delete()
         new_rendition = self.image.get_rendition("width-500")
         self.assertFalse(hasattr(new_rendition, "_mark"))
+
+    def test_prefers_rendition_cache_backend(self):
+        with override_settings(
+            CACHES={
+                "default": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                },
+                "renditions": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                },
+            }
+        ):
+            self.assertEqual(Rendition.cache_backend, caches["renditions"])
+
+    def test_uses_default_cache_when_no_renditions_cache(self):
+        with override_settings(
+            CACHES={
+                "default": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                }
+            }
+        ):
+            self.assertEqual(Rendition.cache_backend, caches["default"])
 
     def test_focal_point(self):
         self.image.focal_point_x = 100
