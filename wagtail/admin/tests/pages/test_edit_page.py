@@ -439,7 +439,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -525,7 +531,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -1237,7 +1249,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
