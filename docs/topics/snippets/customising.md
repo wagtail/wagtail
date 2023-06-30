@@ -53,6 +53,7 @@ class MemberViewSet(SnippetViewSet):
     icon = "user"
     list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
     list_per_page = 50
+    inspect_view_enabled = True
     admin_url_namespace = "member_views"
     base_url_path = "internal/member"
     filterset_class = MemberFilterSet
@@ -98,6 +99,18 @@ You can add the ability to export the listing view to a spreadsheet by setting t
 ```{versionadded} 5.1
 The ability to export the listing view was added.
 ```
+
+## Inspect view
+
+```{versionadded} 5.1
+The ability to enable inspect view was added.
+```
+
+The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_enabled` on your `SnippetViewSet` class.
+
+When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular snippet.
+
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields` or the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields_exclude` attributes to your `SnippetViewSet` class.
 
 ## Templates
 
