@@ -64,9 +64,6 @@ source mysite/env/bin/activate
 If you're using version control such as git, then `mysite` is the directory for your project.
 You must exclude the `env` directory from any version control.
 ```
-
-For further help on how to set up your virtual enviroment, read the instructions on MDN's [Setting up a Django development environment](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment).
-
 ### Install Wagtail
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
@@ -103,7 +100,7 @@ mysite/
 <!-- Generated with: tree -a -L 1 -F -I env mysite -->
 
 ```{note}
-Generally, in Wagtail, a single app represents a page type or content type. However, different apps can be aware of each other and access each other's data. You must register all apps within the `INSTALLED_APPS` section of the `base.py` file in the `mysite/settings` directory. Look at this file to see how the `start` command lists them in there.
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `base.py` file in the `mysite/settings` directory. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
@@ -118,7 +115,7 @@ The `requirements.txt` file contains all the dependencies needed in order to run
 
 ### Create the database
 
-If you are yet to update the project settings, then your database is a SQLite database file in the project directory.
+By default, your database is SQLite. To match your database tables with your project's models, run the following command:
 
 ```sh
 python manage.py migrate
@@ -154,7 +151,7 @@ You can now access the [admin interface](https://guide.wagtail.org/en-latest/con
 
 ## Extend the HomePage model
 
-Out of the box, the **home** app defines a blank `HomePage` model in `models.py`, along with a migration that creates a homepage and configures Wagtail to use it.
+Out of the box, the "home" app defines a blank `HomePage` model in `models.py`, along with a migration that creates a homepage and configures Wagtail to use it.
 
 Edit `home/models.py` as follows, to add a `body` field to the model:
 
