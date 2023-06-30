@@ -451,7 +451,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         cache_key = Rendition.construct_cache_key(
             self, filter.get_cache_key(self), filter.spec
         )
-        Rendition.cache.set(cache_key, rendition)
+        Rendition.cache_backend.set(cache_key, rendition)
 
         return rendition
 
@@ -525,7 +525,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             if not getattr(rendition, "_from_cache", False)
         }
         if cache_additions:
-            Rendition.cache.set_many(cache_additions)
+            Rendition.cache_backend.set_many(cache_additions)
 
         # Return a dict in the expected format
         return {filter.spec: rendition for filter, rendition in renditions.items()}
@@ -584,7 +584,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 Rendition.construct_cache_key(self, filter.get_cache_key(self), spec)
                 for spec, filter in filters_by_spec.items()
             ]
-            for rendition in Rendition.cache.get_many(cache_keys).values():
+            for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
                 found[filter] = rendition
 
@@ -1120,7 +1120,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         )
 
     @classproperty
-    def cache(self) -> BaseCache:
+    def cache_backend(cls) -> BaseCache:
         try:
             return caches["renditions"]
         except InvalidCacheBackendError:
@@ -1132,7 +1132,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         )
 
     def purge_from_cache(self):
-        self.cache.delete(self.get_cache_key())
+        self.cache_backend.delete(self.get_cache_key())
 
     class Meta:
         abstract = True
