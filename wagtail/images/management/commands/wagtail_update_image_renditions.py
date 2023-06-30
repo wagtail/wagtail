@@ -49,6 +49,8 @@ class Command(BaseCommand):
             )
 
         for rendition in (
+            # Pre-calculate the ids of the renditions to change, otherwise `.iterator` never
+            # ends.
             renditions.filter(id__in=rendition_ids)
             .select_related("image")
             .iterator(chunk_size=options["chunk_size"])
