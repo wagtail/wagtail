@@ -29,7 +29,7 @@ function ModalWorkflow(opts) {
   if (useDialog) {
     self.dialog = document.getElementById(opts.dialogId);
     self.url = opts.url || self.dialog.dataset.url;
-    self.body = self.dialog.querySelector('[data-dialog-body]');
+    self.body = self.dialog.querySelector('[data-w-dialog-target]');
 
     // Clear the dialog body as it may have been populated previously
     self.body.innerHTML = '';
@@ -131,7 +131,7 @@ function ModalWorkflow(opts) {
 
   self.close = function () {
     if (useDialog) {
-      self.dialog.dispatchEvent(new CustomEvent('wagtail:hide'));
+      self.dialog.dispatchEvent(new CustomEvent('w-dialog:hide'));
     } else {
       self.container.modal('hide');
     }

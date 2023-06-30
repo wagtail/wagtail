@@ -1,16 +1,16 @@
 {% load wagtailadmin_tags i18n %}
-<template data-wagtail-dialog>
+<template
+    data-controller="w-teleport"
+    {% if dialog_root_selector %}data-w-teleport-target-value="{{ dialog_root_selector }}"{% endif %}
+>
     <div id="{{ id }}"
         aria-labelledby="title-{{ id }}"
         aria-hidden="true"
         class="w-dialog {% if theme %}w-dialog--{{ theme }}{% endif %} {% if classname %} {{ classname }}{% endif %}"
-        {% if theme %}data-theme="{{ theme }}"{% endif %}
-        {% if dialog_root_selector %}
-            data-dialog-root-selector="{{ dialog_root_selector }}"
-        {% endif %}
-        {% if data_url %}
-            data-url="{{ data_url }}"
-        {% endif %}
+        data-controller="w-dialog"
+        data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show {% comment %} RemovedInWagtail60 - Remove the following two actions. {% endcomment %}wagtail:hide->w-dialog#hide wagtail:show->w-dialog#show"
+        {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
+        {% if data_url %}data-url="{{ data_url }}"{% endif %}
     >
         <div data-a11y-dialog-hide class="w-dialog__overlay"></div>
         <div class="w-dialog__box">
@@ -40,7 +40,7 @@
                     {% endif %}
                 </div>
 
-                <div data-dialog-body>
+                <div data-w-dialog-target="body">
                     {{ children }}
                 </div>
             </div>
