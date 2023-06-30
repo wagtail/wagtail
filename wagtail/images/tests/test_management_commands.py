@@ -64,7 +64,7 @@ class TestUpdateImageRenditions(TestCase):
         # checking if the number of renditions regenerated equal total_renditions
         self.assertEqual(
             output_string,
-            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+            f"Regenerating {total_renditions} rendition(s)\nDone\n",
         )
 
         # checking if the number of renditions now equal total_renditions
@@ -81,7 +81,7 @@ class TestUpdateImageRenditions(TestCase):
         # checking if the number of renditions purged equal total_renditions
         self.assertEqual(
             output_string,
-            f"Successfully purged {total_renditions} image rendition(s)\n",
+            f"Purging {total_renditions} rendition(s)\nDone\n",
         )
 
         # checking if the number of renditions now equal 0
