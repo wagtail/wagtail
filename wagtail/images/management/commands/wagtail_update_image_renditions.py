@@ -70,4 +70,4 @@ class Command(BaseCommand):
                     self.style.ERROR(f"Failed to operate on rendition {rendition.id}")
                 )
 
-        self.stdout.write(self.style.SUCCESS("Success"))
+        self.stdout.write(self.style.SUCCESS("Done"))
