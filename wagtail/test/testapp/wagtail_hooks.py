@@ -28,6 +28,7 @@ from wagtail.test.testapp.models import (
     ModeratedModel,
     RevisableChildModel,
     RevisableModel,
+    VariousOnDeleteModel,
 )
 
 from .forms import FavouriteColourForm
@@ -342,7 +343,13 @@ class ModeratedModelViewSet(SnippetViewSet):
     }
 
 
+class VariousOnDeleteModelViewSet(SnippetViewSet):
+    model = VariousOnDeleteModel
+    inspect_view_enabled = True
+
+
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModelViewSet)
 register_snippet(RevisableViewSetGroup)
+register_snippet(VariousOnDeleteModelViewSet)

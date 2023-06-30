@@ -1117,6 +1117,8 @@ class FullFeaturedSnippet(
     )
     some_date = models.DateField(auto_now=True)
 
+    some_attribute = "some value"
+
     search_fields = [
         index.SearchField("text"),
         index.FilterField("text"),
@@ -1223,9 +1225,6 @@ class VariousOnDeleteModel(models.Model):
         use_json_field=True,
     )
     rich_text = RichTextField(blank=True)
-
-
-register_snippet(VariousOnDeleteModel)
 
 
 class StandardIndex(Page):

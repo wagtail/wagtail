@@ -701,7 +701,17 @@ class SnippetViewSet(ModelViewSet):
     #: Whether to enable the inspect view. Defaults to ``False``.
     inspect_view_enabled = False
 
-    #: The fields to display in the inspect view.
+    #: The model fields or attributes to display in the inspect view.
+    #:
+    #: If the field has a corresponding :meth:`~django.db.models.Model.get_FOO_display`
+    #: method on the model, the method's return value will be used instead.
+    #:
+    #: If you have ``wagtail.images`` installed, and the field's value is an instance of
+    #: ``wagtail.images.models.AbstractImage``, a thumbnail of that image will be rendered.
+    #:
+    #: If you have ``wagtail.documents`` installed, and the field's value is an instance of
+    #: ``wagtail.docs.models.AbstractDocument``, a link to that document will be rendered,
+    #: along with the document title, file extension and size.
     inspect_view_fields = []
 
     #: The fields to exclude from the inspect view.
