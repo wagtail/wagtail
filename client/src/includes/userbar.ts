@@ -1,6 +1,9 @@
 import axe, { ElementContext, NodeResult, Result, RunOptions } from 'axe-core';
 
-import { dialog } from './dialog';
+import A11yDialog from 'a11y-dialog';
+import { Application } from '@hotwired/stimulus';
+import { DialogController } from '../controllers/DialogController';
+import { TeleportController } from '../controllers/TeleportController';
 
 /*
 This entrypoint is not bundled with any polyfills to keep it as light as possible
@@ -51,7 +54,9 @@ export class Userbar extends HTMLElement {
     const shadowRoot = this.attachShadow({
       mode: 'open',
     });
-    shadowRoot.appendChild(template.content.cloneNode(true));
+    shadowRoot.appendChild(
+      (template.content.firstElementChild as HTMLElement).cloneNode(true),
+    );
     // Removes the template from html after it's being used
     template.remove();
 
@@ -369,25 +374,37 @@ export class Userbar extends HTMLElement {
       this.trigger.appendChild(a11yErrorBadge);
     }
 
-    const dialogTemplates =
-      this.shadowRoot.querySelectorAll<HTMLTemplateElement>(
-        '[data-wagtail-dialog]',
-      );
-    const dialogs = dialog(
-      dialogTemplates,
-      this.shadowRoot as unknown as HTMLElement,
+    const stimulus = Application.start(
+      this.shadowRoot.firstElementChild as Element,
     );
-    if (!dialogs.length) return;
 
-    const modal = dialogs[0];
+    stimulus.register('w-dialog', DialogController);
+    stimulus.register('w-teleport', TeleportController);
+
+    const modalReady = new Promise<{ body: HTMLElement; dialog: A11yDialog }>(
+      (resolve) => {
+        this.shadowRoot?.addEventListener(
+          'w-dialog:ready',
+          (({
+            detail,
+          }: CustomEvent<{ body: HTMLElement; dialog: A11yDialog }>) => {
+            const { body, dialog } = detail;
+            resolve({ body, dialog });
+          }) as EventListener,
+          { once: true, passive: true },
+        );
+      },
+    );
+
+    const { body: modalBody, dialog: modal } = await modalReady;
+
     // Disable TS linter check for legacy code in 3rd party `A11yDialog` element
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const modalBody = modal.$el.querySelector(
-      '[data-dialog-body]',
-    ) as HTMLDivElement;
-    const accessibilityResultsBox =
-      this.shadowRoot.querySelector<HTMLDivElement>('#accessibility-results');
+    const accessibilityResultsBox = this.shadowRoot.querySelector(
+      '#accessibility-results',
+    );
+
     const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
       '#w-a11y-result-row-template',
     );
