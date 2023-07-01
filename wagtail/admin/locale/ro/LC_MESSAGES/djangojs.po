@@ -2,7 +2,7 @@
 # Translators:
 # Bogdan Mateescu, 2022
 # Julian C <jcuotpc@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Alex Morega, 2023
 # Dan Braghis, 2023
 #
 msgid ""
@@ -14,11 +14,26 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s elemente noi în acest meniu)"
+
 msgid "(1 new item in this menu)"
 msgstr "(1 articol nou în acest meniu)"
 
 msgid "(New)"
 msgstr "(Nou)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s eroare"
+msgstr[1] "%(num)s erori"
+msgstr[2] "%(num)s de erori"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixeli"
+msgstr[2] "%(num)s de pixeli"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"
@@ -122,6 +137,9 @@ msgstr "Explorator de pagini"
 msgid "Pages"
 msgstr "Pagini"
 
+msgid "Pin toolbar"
+msgstr "Fixează bara de instrumente"
+
 msgid "Reload saved content"
 msgstr "Reîncarcă conținutul salvat"
 
@@ -165,6 +183,9 @@ msgstr "În curs de salvare..."
 msgid "Search"
 msgstr "Căută"
 
+msgid "Search options…"
+msgstr "Opțiuni de căutare…"
+
 msgid "See all"
 msgstr "Vezi toate"
 
@@ -196,8 +217,11 @@ msgstr "Comutați bara laterală"
 msgid "Unfocus comment"
 msgstr "Defocalizează comentariu"
 
+msgid "Unpin toolbar"
+msgstr "Anulează fixarea barei de instrumente"
+
 msgid "View child pages of '%(title)s'"
-msgstr "Vezi paginile dependente de '%(title)s'"
+msgstr "Vezi pagini descendente la '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Scrie ceva, sau ‘/‘ pentru a insera un bloc"

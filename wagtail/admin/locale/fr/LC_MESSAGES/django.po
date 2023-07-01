@@ -477,6 +477,9 @@ msgstr "Réinitialisez votre mot de passe"
 msgid "Reset to default"
 msgstr "Réinitialiser aux valeurs par défaut"
 
+msgid "Default avatar"
+msgstr "Avatar par défaut"
+
 msgid "Upload a profile picture:"
 msgstr "Transférer une photo de profil :"
 
@@ -2095,6 +2098,17 @@ msgstr "Verrou :"
 msgid "Unlocked"
 msgstr "Déverrouillé(e)"
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Ce(tte) %(model_name)s est modifiable par tous. Verrouillez le/la afin "
+"d'empêcher d'autres utilisateurs de le/la modifier"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Ce(tte) %(model_name)s est modifiable par tous"
+
 msgid "Lock"
 msgstr "Verrouiller"
 
@@ -2193,6 +2207,20 @@ msgstr "Mode prévisualisation"
 msgid "First published "
 msgstr "Première publication"
 
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+msgstr[1] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+msgstr[2] "Ce(tte) %(model_name)s est référencé(e) %(usage_count)s fois."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
+"supprimé."
+
 msgid "Edit / Review"
 msgstr "Modifier / Vérifier"
 
@@ -2206,6 +2234,10 @@ msgstr "Demandé par <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Commencé à <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Statut %(status)s"
 
 msgid "Timeline"
 msgstr "Timeline"
@@ -2358,6 +2390,9 @@ msgstr "Afficher les workflows désactivés"
 
 msgid "Used by"
 msgstr "Utilisé par"
+
+msgid "Disabled"
+msgstr "Désactivé(e)"
 
 #, python-format
 msgid "1 page"
@@ -2555,6 +2590,13 @@ msgstr "%(status_display)s %(task_name)s %(started_at)s"
 msgid "Toggle status"
 msgstr "Afficher/masquer le statut"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Référencé(e) %(count)s fois"
+msgstr[1] "Référencé(e) %(count)s fois"
+msgstr[2] "Référencé(e) %(count)s fois"
+
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -2564,10 +2606,43 @@ msgstr "Afficher/masquer les commentaires"
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
 
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du bouton est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du titre est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte de l'en-tête du tableau est vide. Utilisez un texte significatif "
+"pour les utilisateurs de lecteurs d'écran."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Le titre du cadre intégré (frame) est vide. Utilisez un texte significatif "
+"pour les utilisateurs de lecteurs d'écran."
+
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr ""
 "Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
 "titres."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du bouton de saisie est vide. Utilisez un texte significatif pour "
+"les utilisateurs de lecteurs d'écran."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Le texte du lien est vide. Utilisez un texte significatif pour les "
+"utilisateurs de lecteurs d'écran."
 
 msgid "Misusing paragraphs as headings. Use proper heading tags."
 msgstr ""
@@ -2587,6 +2662,9 @@ msgstr "Photo de profil"
 
 msgid "Locale"
 msgstr "Région"
+
+msgid "Theme preferences"
+msgstr "Préférences de thème"
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -2729,6 +2807,10 @@ msgstr "Rechercher %(model_name)s"
 msgid "Editing"
 msgstr "Modification"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce(tte) %(model_name)s ?"
+
 msgid "Earliest"
 msgstr "Première"
 
@@ -2749,6 +2831,9 @@ msgstr "version %(revision_id)s de « %(object)s »"
 
 msgid "Usage of"
 msgstr "Utilisation de"
+
+msgid "If you confirm deletion"
+msgstr "Si vous confirmez la suppression"
 
 msgid "Field"
 msgstr "Champ"

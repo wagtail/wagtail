@@ -441,7 +441,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_create_with_single_mode(self):
         create_url = self.get_url_on_add("add", self.single)
         preview_url = self.get_url_on_add("preview_on_add", self.single)
-        iframe_url = preview_url + "?in_preview_panel=true&mode="
+        new_tab_url = preview_url + "?mode="
         response = self.client.get(create_url)
 
         self.assertEqual(response.status_code, 200)
@@ -454,8 +454,11 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
+
+        # Should show the new tab button with the default mode set
+        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
 
         # Should not show the preview mode selection
         self.assertNotContains(
@@ -466,7 +469,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_create_with_multiple_modes(self):
         create_url = self.get_url_on_add("add", self.multiple)
         preview_url = self.get_url_on_add("preview_on_add", self.multiple)
-        iframe_url = preview_url + "?in_preview_panel=true&mode=alt%231"
+        new_tab_url = preview_url + "?mode=alt%231"
         response = self.client.get(create_url)
 
         self.assertEqual(response.status_code, 200)
@@ -476,11 +479,14 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
-        # Should show the iframe with the default mode set and correctly quoted
+        # Should show the iframe
         self.assertContains(
             response,
-            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
+
+        # Should show the new tab button with the default mode set and correctly quoted
+        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
 
         # should show the preview mode selection
         self.assertContains(
@@ -497,7 +503,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url_on_edit("edit", self.single)
         preview_url = self.get_url_on_edit("preview_on_edit", self.single)
-        iframe_url = preview_url + "?in_preview_panel=true&mode="
+        new_tab_url = preview_url + "?mode="
         response = self.client.get(edit_url)
 
         self.assertEqual(response.status_code, 200)
@@ -510,8 +516,11 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
+
+        # Should show the new tab button with the default mode set
+        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
 
         # Should not show the preview mode selection
         self.assertNotContains(
@@ -522,7 +531,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_edit_with_multiple_modes(self):
         edit_url = self.get_url_on_edit("edit", self.multiple)
         preview_url = self.get_url_on_edit("preview_on_edit", self.multiple)
-        iframe_url = preview_url + "?in_preview_panel=true&mode=alt%231"
+        new_tab_url = preview_url + "?mode=alt%231"
         response = self.client.get(edit_url)
 
         self.assertEqual(response.status_code, 200)
@@ -532,11 +541,14 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
-        # Should show the iframe with the default mode set and correctly quoted
+        # Should show the iframe
         self.assertContains(
             response,
-            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
+
+        # Should show the new tab button with the default mode set and correctly quoted
+        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
 
         # should show the preview mode selection
         self.assertContains(

@@ -129,6 +129,18 @@ msgstr "Sélectionnez votre fuseau horaire actuel"
 msgid "profile picture"
 msgstr "photo de profil"
 
+msgid "System default"
+msgstr "Défaut du système"
+
+msgid "Light"
+msgstr "Clair"
+
+msgid "Dark"
+msgstr "Sombre"
+
+msgid "admin theme"
+msgstr "Thème d'interface d'administration"
+
 msgid "user profile"
 msgstr "compte utilisateur"
 
@@ -322,6 +334,9 @@ msgstr "Sélectionner tous les utilisateurs dans la liste"
 
 msgid "Username"
 msgstr "Identifiant"
+
+msgid "Access level"
+msgstr "Niveau d'accès"
 
 msgid "Status"
 msgstr "Statut"

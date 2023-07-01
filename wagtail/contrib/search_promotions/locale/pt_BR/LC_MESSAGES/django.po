@@ -131,6 +131,13 @@ msgid "None"
 msgstr "Nenhum"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
+
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
 

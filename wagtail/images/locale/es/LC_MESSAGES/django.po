@@ -294,6 +294,10 @@ msgstr "Usar la existente y eliminar la nueva"
 msgid "Latest images"
 msgstr "Últimas imágenes"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Seleccionar %(title)s"
+
 msgid "You haven't uploaded any images in this collection."
 msgstr "No has subido ninguna imagen en esta colección."
 

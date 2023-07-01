@@ -451,6 +451,9 @@ msgstr "Ponastavi geslo"
 msgid "Reset to default"
 msgstr "Ponastavi na privzeto"
 
+msgid "Default avatar"
+msgstr "Privzeti avatar"
+
 msgid "Upload a profile picture:"
 msgstr "Naloži profilno sliko:"
 
@@ -926,6 +929,12 @@ msgstr "Novi odgovori:"
 msgid "The following comment was left: \"%(comment)s\""
 msgstr "Puščen je bil naslednji komentar: \"%(comment)s\""
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr "Stran \"%(title)s\" je bila poslana v potek dela \"%(workflow)s\"."
+
 msgid "Page privacy"
 msgstr "Zasebnost strani"
 
@@ -1015,6 +1024,14 @@ msgstr "Premakni"
 
 msgid "Are you sure you want to move these pages?"
 msgstr "Ali ste prepričani, da želite premakniti te strani?"
+
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Ta stran ima eno podrejeno stran"
+msgstr[1] "Ta stran ima %(counter)s podrejeni strani"
+msgstr[2] "Ta stran ima %(counter)s podrejene strani"
+msgstr[3] "Ta stran ima %(counter)s podrejene strani"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -1227,7 +1244,7 @@ msgstr "Pretvorite ta vzdevek v običajno stran"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
-msgstr "Zgodovina strani za%(subtitle)s"
+msgstr "Zgodovina strani %(subtitle)s"
 
 msgid "Action"
 msgstr "Dejanje"
@@ -1501,6 +1518,9 @@ msgstr "Začeto ob"
 msgid "Incomplete task"
 msgstr "Nedokončana naloga"
 
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Nobena stran/izrezek še ni bil poslan v moderiranje"
+
 msgid "By Workflow"
 msgstr "Po poteku dela"
 
@@ -1611,6 +1631,17 @@ msgstr "Zaklepanje: "
 msgid "Unlocked"
 msgstr "Odklenjeno"
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Vsakdo lahko ureja ta %(model_name)s – zaklenite, da drugim preprečite "
+"urejanje"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Vsakdo lahko ureja ta %(model_name)s"
+
 msgid "Lock"
 msgstr "Zakleni"
 
@@ -1699,8 +1730,8 @@ msgid ""
 "Correct the validation errors to resume preview (saving will highlight "
 "errors)"
 msgstr ""
-"Popravite napake pri preverjanju za nadaljevanje predogleda (shranjevanje bo "
-"označilo napake)"
+"Za nadaljevanje predogleda, popravite napake (shranjevanje bo označilo "
+"napake)"
 
 msgid "Preview mode"
 msgstr "Način predogleda"
@@ -1721,6 +1752,10 @@ msgstr "Zahteval <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Začeto ob <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Stanje %(status)s"
 
 msgid "Timeline"
 msgstr "Časovnica"
@@ -1859,6 +1894,9 @@ msgstr "Pokaži onemogočene poteke dela"
 msgid "Used by"
 msgstr "Uporablja"
 
+msgid "Disabled"
+msgstr "Onemogočeno"
+
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -1906,6 +1944,13 @@ msgstr "Žal se nobena naloga ne ujema z \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Niste ustvarili nobene naloge."
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"Zakaj ne <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>ustvarite enega sedaj</a>?"
 
 msgid "Hide disabled tasks"
 msgstr "Skrij onemogočena opravila"
@@ -1961,6 +2006,14 @@ msgstr ""
 "Razvrsti vrstni red podrejenih strani znotraj '%(parent)s'  po '%(label)s' "
 "v  naraščajočem vrstnem redu."
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Razvrsti vrstni red podrejenih strani znotraj '%(parent)s' po '%(label)s' v "
+"padajočem vrstnem redu."
+
 msgid "More"
 msgstr "Več"
 
@@ -2003,6 +2056,14 @@ msgstr "Poslano na %(task_name)s %(started_at)s"
 msgid "Toggle status"
 msgstr "Preklopi stanje"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Omenjeno %(count)s-krat"
+msgstr[1] "Omenjeno %(count)s-krat"
+msgstr[2] "Omenjeno %(count)s-krat"
+msgstr[3] "Omenjeno %(count)s-krat"
+
 msgid "Comments"
 msgstr "Komentrarji"
 
@@ -2012,8 +2073,41 @@ msgstr "Preklopi komentarje"
 msgid "Toggle preview"
 msgstr "Preklopi predogled"
 
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Besedilo gumba je prazno. Uporabite smiselno besedilo za uporabnike "
+"bralnikov zaslona"
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Najden prazen naslov. Uporabite smiselno besedilo za uporabnike bralnikov "
+"zaslona."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Besedilo glave tabele je prazno. Uporabite smiselno besedilo za uporabnike "
+"bralnikov zaslona."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"Najden je prazen naslov okvirja. Uporabite smiseln naslov za uporabnike "
+"bralnika zaslona."
+
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Napačna hierarhija naslovov. Izogibajte se preskakovanju ravni."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Besedilo gumba za vnos je prazno. Uporabite smiselno besedilo za uporabnike "
+"bralnikov zaslona."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Besedilo povezave je prazno. Uporabite smiselno besedilo za uporabnike "
+"bralnikov zaslona."
 
 msgid "Misusing paragraphs as headings. Use proper heading tags."
 msgstr "Zloraba odstavkov kot naslovov. Uporabite ustrezne oznake naslovov."
@@ -2032,6 +2126,9 @@ msgstr "Profilna slika"
 
 msgid "Locale"
 msgstr "Jezik in območje"
+
+msgid "Theme preferences"
+msgstr "Nastavitve teme"
 
 msgid "Password"
 msgstr "Geslo"
@@ -2101,6 +2198,10 @@ msgstr "Išči %(model_name)s"
 msgid "Editing"
 msgstr "Urejanje"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Ali ste prepričani, da želite izbrisati ta %(model_name)s?"
+
 msgid "Earliest"
 msgstr "Najzgodnejši"
 
@@ -2121,6 +2222,9 @@ msgstr "Revizija %(revision_id)s od \"%(object)s\""
 
 msgid "Usage of"
 msgstr "Uporabe"
+
+msgid "If you confirm deletion"
+msgstr "Če potrdite izbris"
 
 msgid "Field"
 msgstr "Polje"

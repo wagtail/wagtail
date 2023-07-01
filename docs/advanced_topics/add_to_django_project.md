@@ -105,7 +105,7 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
  Management UI for Wagtail sites.
 
 **`wagtail.contrib.redirects`**  
- Admin interface for creating arbitrary redirects on your site.
+ [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) for creating arbitrary redirects on your site.
 
 **`wagtail.contrib.forms`**  
  Models for creating forms on your pages and viewing submissions. See [Form builder](form_builder).

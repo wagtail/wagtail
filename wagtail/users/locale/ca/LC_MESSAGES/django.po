@@ -116,6 +116,18 @@ msgstr "Escolliu la vostra zona horària"
 msgid "profile picture"
 msgstr "Imatge de perfil"
 
+msgid "System default"
+msgstr "Valor per defecte"
+
+msgid "Light"
+msgstr "Clar"
+
+msgid "Dark"
+msgstr "Fosc"
+
+msgid "admin theme"
+msgstr "tema de l'administració"
+
 msgid "user profile"
 msgstr "perfil d'usuari"
 
@@ -298,6 +310,9 @@ msgstr "Seleccionar tots els usuaris de la llista"
 
 msgid "Username"
 msgstr "Nom d'usuari"
+
+msgid "Access level"
+msgstr "Nivell d'accés"
 
 msgid "Status"
 msgstr "Estat"

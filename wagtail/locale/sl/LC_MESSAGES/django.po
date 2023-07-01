@@ -109,6 +109,9 @@ msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
 msgid "Unlocked"
 msgstr "Odklenjeno"
 
+msgid "Locked by workflow"
+msgstr "Zaklenjeni poteki dela"
+
 msgid "latest revision"
 msgstr "zadnja revizija"
 
@@ -854,6 +857,9 @@ msgstr "Zavrnjeno ob '%(task)s'. Zahtevane so spremembe"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Naloga poteka dela zavrnjena. Potek dela končan"
+
+msgid "Workflow: resume task"
+msgstr "Potek dela: nadaljuj nalogo"
 
 msgid "Workflow: cancel"
 msgstr "Potek dela: prekliči"

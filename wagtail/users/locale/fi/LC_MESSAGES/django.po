@@ -118,6 +118,18 @@ msgstr "Valitse nykyinen aikavyöhykkeesi"
 msgid "profile picture"
 msgstr "profiilin kuva"
 
+msgid "System default"
+msgstr "Järjestelmän oletus"
+
+msgid "Light"
+msgstr "Vaalea"
+
+msgid "Dark"
+msgstr "Tumma"
+
+msgid "admin theme"
+msgstr "admin-teema"
+
 msgid "user profile"
 msgstr "käyttäjäprofiili"
 
@@ -301,6 +313,9 @@ msgstr "Valitse listauksen kaikki käyttäjät"
 
 msgid "Username"
 msgstr "Käyttäjänimi"
+
+msgid "Access level"
+msgstr "Pääsytaso"
 
 msgid "Status"
 msgstr "Tila"

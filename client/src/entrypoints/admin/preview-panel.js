@@ -1,4 +1,5 @@
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
 
 function initPreview() {
@@ -86,6 +87,7 @@ function initPreview() {
   let iframe = previewPanel.querySelector('[data-preview-iframe]');
   let spinnerTimeout;
   let hasPendingUpdate = false;
+  let cleared = false;
 
   const finishUpdate = () => {
     clearTimeout(spinnerTimeout);
@@ -99,11 +101,16 @@ function initPreview() {
 
     // Create a new invisible iframe element
     const newIframe = document.createElement('iframe');
+    const url = new URL(previewUrl, window.location.href);
+    if (previewModeSelect) {
+      url.searchParams.set('mode', previewModeSelect.value);
+    }
+    url.searchParams.set('in_preview_panel', 'true');
     newIframe.style.width = 0;
     newIframe.style.height = 0;
     newIframe.style.opacity = 0;
     newIframe.style.position = 'absolute';
-    newIframe.src = iframe.src;
+    newIframe.src = url.toString();
 
     // Put it in the DOM so it loads the page
     iframe.insertAdjacentElement('afterend', newIframe);
@@ -172,8 +179,10 @@ function initPreview() {
 
         if (data.is_valid) {
           reloadIframe();
-        } else {
-          finishUpdate();
+        } else if (!cleared) {
+          clearPreviewData();
+          cleared = true;
+          reloadIframe();
         }
 
         return data.is_valid;
@@ -225,11 +234,17 @@ function initPreview() {
       return changed;
     };
 
+    // Call setPreviewData only if no changes have been made within the interval
+    const debouncedSetPreviewData = debounce(
+      setPreviewData,
+      WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+    );
+
     const checkAndUpdatePreview = () => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
       if (hasPendingUpdate || !hasChanges()) return;
-      setPreviewData();
+      debouncedSetPreviewData();
     };
 
     previewSidePanel.addEventListener('show', () => {
@@ -237,6 +252,8 @@ function initPreview() {
       checkAndUpdatePreview();
 
       // Only set the interval while the panel is shown
+      // This interval performs the checks for changes but not necessarily the
+      // update itself
       updateInterval = setInterval(
         checkAndUpdatePreview,
         WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
@@ -246,6 +263,12 @@ function initPreview() {
     previewSidePanel.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
+  } else {
+    // Even if the preview is not updated automatically, we still need to
+    // initialise the preview data when the panel is shown
+    previewSidePanel.addEventListener('show', () => {
+      setPreviewData();
+    });
   }
 
   //
@@ -254,10 +277,8 @@ function initPreview() {
 
   const handlePreviewModeChange = (event) => {
     const mode = event.target.value;
-    const url = new URL(iframe.src);
+    const url = new URL(previewUrl, window.location.href);
     url.searchParams.set('mode', mode);
-
-    iframe.src = url.toString();
     url.searchParams.delete('in_preview_panel');
     newTabButton.href = url.toString();
 
@@ -268,11 +289,6 @@ function initPreview() {
   if (previewModeSelect) {
     previewModeSelect.addEventListener('change', handlePreviewModeChange);
   }
-
-  // Make sure current preview data in session exists and is up-to-date.
-  clearPreviewData()
-    .then(() => setPreviewData())
-    .then(() => reloadIframe());
 
   // Remember last selected device size
   let lastDevice = null;

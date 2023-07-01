@@ -34,6 +34,16 @@ msgstr "قدّم للمراجعة"
 msgid "Resubmit to %(task_name)s"
 msgstr "إعادة اﻹدخال إلي %(task_name)s"
 
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "ارسال الي %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "اعادة تشغيل مكان العمل"
+
+msgid "Cancel workflow "
+msgstr "الغاء مكان العمل"
+
 msgid "Unpublish"
 msgstr "غير منشور"
 

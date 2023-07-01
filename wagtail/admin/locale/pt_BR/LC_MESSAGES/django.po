@@ -467,6 +467,13 @@ msgstr "Link de telefone"
 msgid "Anchor link"
 msgstr "Link de ancoragem"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
+
 msgid "Add an anchor link"
 msgstr "Adicionar um link âncora"
 
@@ -1317,6 +1324,9 @@ msgstr "Não, não agendar"
 
 msgid "Other searches"
 msgstr "Outras buscas"
+
+msgid "Toggle side panel"
+msgstr "Toggle side panel"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"

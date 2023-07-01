@@ -55,7 +55,7 @@
         </div>
 
         <div class="preview-panel__wrapper">
-            <iframe title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true&mode={{ object.default_preview_mode|urlencode }}" aria-describedby="preview-panel-error-banner"></iframe>
+            <iframe loading="lazy" title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner"></iframe>
         </div>
     </div>
 </div>
