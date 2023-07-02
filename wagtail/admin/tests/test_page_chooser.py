@@ -992,6 +992,18 @@ class TestChooserPhoneLink(WagtailTestUtils, TestCase):
         # link text has changed, so tell the caller to use it
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
+    def test_phone_number_has_spaces(self):
+        response = self.post(
+            {
+                "phone-link-chooser-phone_number": "+1 234 567 890",
+                "phone-link-chooser-link_text": "call",
+            }
+        )
+        result = json.loads(response.content.decode())["result"]
+        self.assertEqual(result["url"], "tel:+1234567890")
+        self.assertEqual(result["title"], "call")
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
 
 class TestCanChoosePage(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]

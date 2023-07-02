@@ -718,6 +718,7 @@
 * valnuro
 * Vitaly Babiy
 * Sébastien Corbin
+* Sahil Jangra
 
 ## Translators
 

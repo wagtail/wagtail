@@ -739,4 +739,5 @@ class PhoneLinkView(BaseLinkFormView):
     link_url_field_name = "phone_number"
 
     def get_url_from_field_value(self, value):
+        value = re.sub(r"\s", "", value)
         return "tel:" + value
