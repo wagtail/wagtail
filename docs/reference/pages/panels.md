@@ -47,6 +47,10 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
         By default, field values from ``StreamField`` or ``RichTextField`` are redacted to prevent rendering of potentially insecure HTML mid-form. You can change this behaviour for custom panel types by overriding ``Panel.format_value_for_display()``.
 
+    .. attribute:: FieldPanel.attrs (optional)
+
+        Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
 ```
 
 ### MultiFieldPanel
@@ -63,6 +67,11 @@ Here are some built-in panel types that you can use in your panel definitions. T
     .. attribute:: MultiFieldPanel.permission (optional)
 
         Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to :attr:`FieldPanel.permission`.
+
+    .. attribute:: MultiFieldPanel.attrs (optional)
+
+        Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
 ```
 
 (inline_panels)=
@@ -93,6 +102,10 @@ Here are some built-in panel types that you can use in your panel definitions. T
     .. attribute:: InlinePanel.max_num (optional)
 
         Maximum number of forms a user must submit.
+
+    .. attribute:: InlinePanel.attrs (optional)
+
+        Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
 
 ```
 
@@ -150,6 +163,11 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
     .. attribute:: FieldRowPanel.permission (optional)
 
         Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the panel will be omitted from the form. Similar to :attr:`FieldPanel.permission`.
+
+    .. attribute:: FieldRowPanel.attrs (optional)
+
+        Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
 ```
 
 ### HelpPanel
@@ -164,6 +182,11 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
     .. attribute:: HelpPanel.template
 
         Path to a template rendering the full panel HTML.
+
+    .. attribute:: HelpPanel.attrs (optional)
+
+        Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
 ```
 
 ### PageChooserPanel
@@ -323,3 +346,26 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 ### Hiding fields
 
 Without a top-level panel definition, a `FieldPanel` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
+
+(panels_attrs)=
+
+### Additional HTML attributes
+
+Use the `attrs` parameter to add custom attributes to the HTML element of the panel. This allows you to specify additional attributes, such as `data-*` attributes. The `attrs` parameter accepts a dictionary where the keys are the attribute names and these will be rendered in the same way as Django's widget `attrs`[https://docs.djangoproject.com/en/stable/ref/forms/widgets/#django.forms.Widget.attrs] where `True` and `False will be treated as HTML5 boolean attributes.
+
+For example, you can use the `attrs` parameter to integrate your Stimulus controller to the panel:
+
+```python
+    content_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('cover'),
+                FieldPanel('book_file'),
+                FieldPanel('publisher', attrs={'data-my-controller-target': 'myTarget'}),
+            ],
+            heading="Collection of Book Fields",
+            classname="collapsed",
+            attrs={'data-controller': 'my-controller'},
+        ),
+    ]
+```

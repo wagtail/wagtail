@@ -20,6 +20,7 @@ from wagtail.admin.panels import (
     CommentPanel,
     FieldPanel,
     FieldRowPanel,
+    HelpPanel,
     InlinePanel,
     MultiFieldPanel,
     MultipleChooserPanel,
@@ -379,6 +380,115 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
                 for panel in panels
             )
         )
+
+
+class TestPanelAttributes(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = RequestFactory().get("/")
+        user = self.create_superuser(username="admin")
+        self.request.user = user
+        self.user = self.login()
+
+        # a custom tabbed interface for EventPage
+        self.event_page_tabbed_interface = TabbedInterface(
+            [
+                ObjectList(
+                    [
+                        HelpPanel(
+                            "Double-check event details before submit.",
+                            attrs={"data-panel-type": "help"},
+                        ),
+                        FieldPanel("title", widget=forms.Textarea),
+                        FieldRowPanel(
+                            [
+                                FieldPanel("date_from"),
+                                FieldPanel(
+                                    "date_to", attrs={"data-panel-type": "field"}
+                                ),
+                            ],
+                            attrs={"data-panel-type": "field-row"},
+                        ),
+                    ],
+                    heading="Event details",
+                    classname="shiny",
+                    attrs={"data-panel-type": "object-list"},
+                ),
+                ObjectList(
+                    [
+                        InlinePanel(
+                            "speakers",
+                            label="Speakers",
+                            attrs={"data-panel-type": "inline"},
+                        ),
+                    ],
+                    heading="Speakers",
+                ),
+                ObjectList(
+                    [
+                        MultiFieldPanel(
+                            [
+                                HelpPanel(
+                                    "Double-check cost details before submit.",
+                                    attrs={"data-panel-type": "help-cost"},
+                                ),
+                                FieldPanel("cost"),
+                                FieldRowPanel(
+                                    [
+                                        FieldPanel("cost"),
+                                        FieldPanel(
+                                            "cost",
+                                            attrs={
+                                                "data-panel-type": "nested-object_list-multi_field-field_row-field"
+                                            },
+                                        ),
+                                    ],
+                                    attrs={
+                                        "data-panel-type": "nested-object_list-multi_field-field_row"
+                                    },
+                                ),
+                            ],
+                            attrs={"data-panel-type": "multi-field"},
+                        )
+                    ],
+                    heading="Secret",
+                ),
+            ],
+            attrs={"data-panel-type": "tabs"},
+        ).bind_to_model(EventPage)
+
+    def test_render(self):
+        EventPageForm = self.event_page_tabbed_interface.get_form_class()
+        event = EventPage(title="Abergavenny sheepdog trials")
+        form = EventPageForm(instance=event)
+
+        tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
+            instance=event,
+            form=form,
+            request=self.request,
+        )
+
+        result = tabbed_interface.render_html()
+
+        # result should contain custom data attributes assigned to panels
+        # each attribute should be rendered exactly once
+        self.assertEqual(result.count('data-panel-type="tabs"'), 1)
+        self.assertEqual(result.count('data-panel-type="multi-field"'), 1)
+        self.assertEqual(
+            result.count('data-panel-type="nested-object_list-multi_field-field_row"'),
+            1,
+        )
+        self.assertEqual(
+            result.count(
+                'data-panel-type="nested-object_list-multi_field-field_row-field"'
+            ),
+            1,
+        )
+        self.assertEqual(result.count('data-panel-type="help-cost"'), 1)
+        self.assertEqual(result.count('data-panel-type="inline"'), 1)
+        self.assertEqual(result.count('data-panel-type="object-list"'), 1)
+        self.assertEqual(result.count('data-panel-type="field-row"'), 1)
+        self.assertEqual(result.count('data-panel-type="field"'), 1)
+        self.assertEqual(result.count('data-panel-type="help"'), 1)
 
 
 class TestTabbedInterface(WagtailTestUtils, TestCase):
