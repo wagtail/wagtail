@@ -33,6 +33,7 @@ from wagtail.admin.views.generic.preview import (
     PreviewOnEdit,
     PreviewRevision,
 )
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet
@@ -154,7 +155,11 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
+class IndexView(
+    SpreadsheetExportMixin,
+    generic.IndexViewOptionalFeaturesMixin,
+    generic.IndexView,
+):
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -202,6 +207,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             ]
 
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -657,6 +669,8 @@ class SnippetViewSet(ModelViewSet):
     #: If ``filterset_class`` is set, this attribute will be ignored.
     list_filter = None
 
+    list_export = []
+
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
@@ -852,6 +866,7 @@ class SnippetViewSet(ModelViewSet):
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
             list_filter=self.list_filter,
+            list_export=self.list_export,
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
@@ -874,6 +889,7 @@ class SnippetViewSet(ModelViewSet):
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
             list_filter=self.list_filter,
+            list_export=self.list_export,
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
