@@ -545,7 +545,7 @@ You also need to modify your `blog_index_page.html` template slightly. Change:
 
 `{% for post in page.get_children %}` to `{% for post in blogpages %}`
 
-Now, unpublish one of your posts. The unpublished post should disappear from your blog's index page. Also, the remaining posts should be sorted with the most recently published posts coming first.
+Now, unpublish one of your posts. The unpublished post should disappear from your blog's index page. Also, the remaining posts should now be sorted with the most recently published posts coming first.
 
 ### Images
 
