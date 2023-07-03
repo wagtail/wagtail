@@ -65,6 +65,7 @@ class Panel:
     :param help_text: Help text to display within the panel.
     :param base_form_class: The base form class to use for the panel. Defaults to the model's ``base_form_class``, before falling back to :class:`~wagtail.admin.forms.WagtailAdminModelForm`. This is only relevant for the top-level panel.
     :param icon: The name of the icon to display next to the panel heading.
+    :param attrs: A dictionary of HTML attributes to add to the panel's HTML element.
     """
 
     BASE_ATTRS = {}

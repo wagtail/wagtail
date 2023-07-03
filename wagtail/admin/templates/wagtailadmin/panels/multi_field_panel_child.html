@@ -1,5 +1,5 @@
 {% load wagtailadmin_tags %}
-<div class="w-panel__wrapper {{ child.classes|join:' ' }}">
+<div class="{% classnames "w-panel__wrapper" child.classes|join:' ' %}" {% include "wagtailadmin/shared/attrs.html" with attrs=child.attrs %}>
     {% if child.heading %}
         {% fragment as label_content %}
             {{ child.heading }}{% if child.is_required %}<span class="w-required-mark">*</span>{% endif %}

@@ -4,7 +4,7 @@
     {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
 {% endif %}
 
-<div class="w-tabs" data-tabs>
+<div class="w-tabs" data-tabs {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
     <div class="w-tabs__wrapper">
         <div role="tablist" class="w-tabs__list">
             {% for child, identifier in self.visible_children_with_identifiers %}
