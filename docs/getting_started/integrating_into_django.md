@@ -37,13 +37,13 @@ Add the following entry to `MIDDLEWARE`:
 'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ```
 
-Add a `STATIC_ROOT` setting, if your project does not have one already:
+Add a `STATIC_ROOT` setting, if your project doesn't have one already:
 
 ```python
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ```
 
-Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project does not have these already:
+Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these already:
 
 ```python
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -78,21 +78,15 @@ urlpatterns = [
 ]
 ```
 
-The URL paths here can be altered as necessary to fit your project's URL scheme.
+You can alter URL paths here to fit your project's URL scheme.
 
-`wagtailadmin_urls` provides the admin interface for Wagtail. This is separate from the Django admin interface (`django.contrib.admin`); Wagtail-only projects typically host the Wagtail admin at `/admin/`, but if this would clash with your project's existing admin backend then an alternative path can be used, such as `/cms/` here.
+`wagtailadmin_urls` provides the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) for Wagtail. This is separate from the Django admin interface, `django.contrib.admin`. Wagtail-only projects host the Wagtail admin at `/admin/`, but if this clashes with your project's existing admin backend then you can use an alternative path, such as `/cms/`.
 
-`wagtaildocs_urls` is the location from where document files will be served. This can be omitted if you do not intend to use Wagtail's document management features.
+Wagtail serves your document files from the location, `wagtaildocs_urls`. You can omit this if you do not intend to use Wagtail's document management features.
 
-`wagtail_urls` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under `/pages/`, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
+Wagtail serves your pages from the `wagtail_urls` location. In the above example, Wagtail handles URLs under `/pages/`, leaving your Django project to handle the root URL and other paths as normal. If you want Wagtail to handle the entire URL space including the root URL, then place `path('', include(wagtail_urls))` at the end of the `urlpatterns` list. Placing `path('', include(wagtail_urls))` at the end of the `urlpatterns` ensures that it doesn't override more specific URL patterns.
 
-```python
-path('', include(wagtail_urls)),
-```
-
-In this case, this should be placed at the end of the `urlpatterns` list, so that it does not override more specific URL patterns.
-
-Finally, your project needs to be set up to serve user-uploaded files from `MEDIA_ROOT`. Your Django project may already have this in place, but if not, add the following snippet to `urls.py`:
+Finally, you need to set up your project to serve user-uploaded files from `MEDIA_ROOT`. Your Django project may already have this in place, but if not, add the following snippet to `urls.py`:
 
 ```python
 from django.conf import settings
@@ -103,16 +97,16 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-Note that this only works in development mode (`DEBUG = True`); in production, you will need to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](django:howto/static-files/deployment).
+Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](django:howto/static-files/deployment).
 
 With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 
 ## User accounts
 
-Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail admin interface; use `python manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
+Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface); use `python manage.py createsuperuser` if you don't already have one. Wagtail supports custom user models with some restrictions. Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
 ## Start developing
 
-You're now ready to add a new app to your Django project (via `python manage.py startapp` - remember to add it to `INSTALLED_APPS` in your settings.py file) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+You're now ready to add a new app to your Django project through `python manage.py startapp`. Remember to add the new app to `INSTALLED_APPS` in your settings.py file and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
 
-Note that there's one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You'll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
+Note that there's one small difference when you're not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which doesn't include any content fields beyond the title. You probably want to replace this with your own `HomePage` class. If you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
