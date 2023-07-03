@@ -1,5 +1,8 @@
+from datetime import datetime
+from io import BytesIO
 from unittest import mock
 
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
@@ -8,11 +11,13 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import now
+from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, Workflow, WorkflowContentType
@@ -668,6 +673,88 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
 
         # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+
+
+class TestListExport(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.model.objects.create(text="Pot Noodle", country_code="UK")
+        cls.some_date = now().date()
+
+        cls.first_published_at = "2023-07-01T13:12:11.100"
+        if settings.USE_TZ:
+            cls.first_published_at = "2023-07-01T13:12:11.100Z"
+
+        obj = cls.model.objects.create(
+            text="Indomie",
+            country_code="ID",
+            first_published_at=cls.first_published_at,
+        )
+        # Refresh so the first_published_at becomes a datetime object
+        obj.refresh_from_db()
+        cls.first_published_at = obj.first_published_at
+
+    def test_get_not_export_shows_export_buttons(self):
+        response = self.client.get(self.get_url("list"))
+        self.assertContains(response, "Download CSV")
+        self.assertContains(response, self.get_url("list") + "?export=csv")
+        self.assertContains(response, "Download XLSX")
+        self.assertContains(response, self.get_url("list") + "?export=xlsx")
+
+    def test_csv_export(self):
+        response = self.client.get(self.get_url("list"), {"export": "csv"})
+
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(
+            data_lines[0],
+            "Text,Country Code,get_foo_country_code,Some Date,First Published At\r",
+        )
+        self.assertEqual(
+            data_lines[1],
+            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},{self.first_published_at.isoformat(sep=' ')}\r",
+        )
+        self.assertEqual(
+            data_lines[2],
+            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},None\r",
+        )
+
+    def test_xlsx_export(self):
+        response = self.client.get(self.get_url("list"), {"export": "xlsx"})
+
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data)).active
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(
+            cell_array[0],
+            [
+                "Text",
+                "Country Code",
+                "get_foo_country_code",
+                "Some Date",
+                "First Published At",
+            ],
+        )
+        self.assertEqual(
+            cell_array[1],
+            [
+                "Indomie",
+                "ID",
+                "Foo ID",
+                self.some_date,
+                datetime(2023, 7, 1, 13, 12, 11, 100000),
+            ],
+        )
+        self.assertEqual(
+            cell_array[2],
+            ["Pot Noodle", "UK", "Foo UK", self.some_date, "None"],
+        )
+        self.assertEqual(len(cell_array), 3)
+
+        self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
 class TestCustomTemplates(BaseSnippetViewSetTests):

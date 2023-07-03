@@ -257,6 +257,13 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
+    list_export = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        "some_date",
+        "first_published_at",
+    ]
     index_template_name = "tests/fullfeaturedsnippet_index.html"
     ordering = ["text", "-_updated_at", "-pk"]
     add_to_admin_menu = True

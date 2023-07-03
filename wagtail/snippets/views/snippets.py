@@ -669,6 +669,7 @@ class SnippetViewSet(ModelViewSet):
     #: If ``filterset_class`` is set, this attribute will be ignored.
     list_filter = None
 
+    #: A list or tuple, where each item is the name of a field, an attribute, or a single-argument callable on the model.
     list_export = []
 
     #: The number of items to display per page in the index view. Defaults to 20.
