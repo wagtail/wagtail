@@ -80,11 +80,11 @@ urlpatterns = [
 
 You can alter URL paths here to fit your project's URL scheme.
 
-`wagtailadmin_urls` provides the [admin Interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) for Wagtail. This is separate from the Django admin interface, `django.contrib.admin`. Wagtail-only projects host the Wagtail admin at `/admin/`, but if this clashes with your project's existing admin backend then you can use an alternative path, such as `/cms/`.
+`wagtailadmin_urls` provides the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) for Wagtail. This is separate from the Django admin interface, `django.contrib.admin`. Wagtail-only projects host the Wagtail admin at `/admin/`, but if this clashes with your project's existing admin backend then you can use an alternative path, such as `/cms/`.
 
 Wagtail serves your document files from the location, `wagtaildocs_urls`. You can omit this if you do not intend to use Wagtail's document management features.
 
-Wagtail serves your pages from the base location, `wagtail_urls`. In the above example, Wagtail handles URLs under `/pages/`, leaving your Django project to handle the root URL and other paths as normal. If you want Wagtail to handle the entire URL space including the root URL, then place `path('', include(wagtail_urls))` at the end of the `urlpatterns` list. Placing `path('', include(wagtail_urls))` at the end of the `urlpatterns` ensures that it doesn't override more specific URL patterns.
+Wagtail serves your pages from the `wagtail_urls` location. In the above example, Wagtail handles URLs under `/pages/`, leaving your Django project to handle the root URL and other paths as normal. If you want Wagtail to handle the entire URL space including the root URL, then place `path('', include(wagtail_urls))` at the end of the `urlpatterns` list. Placing `path('', include(wagtail_urls))` at the end of the `urlpatterns` ensures that it doesn't override more specific URL patterns.
 
 Finally, you need to set up your project to serve user-uploaded files from `MEDIA_ROOT`. Your Django project may already have this in place, but if not, add the following snippet to `urls.py`:
 
@@ -103,7 +103,7 @@ With this configuration in place, you are ready to run `python manage.py migrate
 
 ## User accounts
 
-Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail [admin Interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface); use `python manage.py createsuperuser` if you don't already have one. Wagtail supports custom user models with some restrictions. Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
+Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface); use `python manage.py createsuperuser` if you don't already have one. Wagtail supports custom user models with some restrictions. Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
 ## Start developing
 
