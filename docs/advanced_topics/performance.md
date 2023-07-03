@@ -24,7 +24,21 @@ CACHES = {
 }
 ```
 
-To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend.
+To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend:
+
+```python
+CACHES = {
+    'default': {...},
+    'renditions': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
+```
 
 ### Image URLs
 
