@@ -47,7 +47,7 @@ If you want to add Wagtail to an existing Django project instead, see [Integrati
 
 There are a few optional packages that are not installed by default. You can install them to improve performance or add features to Wagtail. These optional packages include:
 
--   [Elasticsearch](/advanced_topics/performance)
+-   [Elasticsearch](wagtailsearch_backends_elasticsearch)
 -   [Feature Detection](image_feature_detection)
 
 (common_installation_issues)=
