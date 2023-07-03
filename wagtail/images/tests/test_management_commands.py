@@ -3,7 +3,7 @@ import warnings
 from io import StringIO
 
 from django.core import management
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.images import get_image_model
 
@@ -11,6 +11,8 @@ from .utils import Image, get_test_image_file
 
 
 class TestUpdateImageRenditions(TestCase):
+    REAESC = re.compile(r"\x1b[^m]*m")
+
     def setUp(self):
         self.image = Image.objects.create(
             title="Test image",
@@ -59,8 +61,7 @@ class TestUpdateImageRenditions(TestCase):
         renditions = get_image_model().get_rendition_model().objects.all()
         total_renditions = len(renditions)
         output = self.run_command()
-        reaesc = re.compile(r"\x1b[^m]*m")
-        output_string = reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         # checking if the number of renditions regenerated equal total_renditions
         self.assertEqual(
             output_string,
@@ -76,8 +77,7 @@ class TestUpdateImageRenditions(TestCase):
         renditions = get_image_model().get_rendition_model().objects.all()
         total_renditions = len(renditions)
         output = self.run_command(purge_only=True)
-        reaesc = re.compile(r"\x1b[^m]*m")
-        output_string = reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         # checking if the number of renditions purged equal total_renditions
         self.assertEqual(
             output_string,
@@ -88,3 +88,23 @@ class TestUpdateImageRenditions(TestCase):
         renditions_now = get_image_model().get_rendition_model().objects.all()
         total_renditions_now = len(renditions_now)
         self.assertEqual(total_renditions_now, 0)
+
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
+    def test_image_renditions_with_cache(self):
+        total_renditions = get_image_model().get_rendition_model().objects.count()
+        output = self.run_command()
+        output_string = self.REAESC.sub("", output.read())
+        self.assertEqual(
+            output_string,
+            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+        )
+
+        # Run the command again with a warmed cache
+        output = self.run_command()
+        output_string = self.REAESC.sub("", output.read())
+        self.assertEqual(
+            output_string,
+            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+        )
