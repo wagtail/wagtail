@@ -82,19 +82,7 @@
 {% endblock %}
 {% block content %}
     {% fragment as form_actions %}
-        <div class="dropdown dropdown-button">
-            <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">
-                {% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}
-            </a>
-            <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-            <ul>
-                <li>
-                    <a class="button bicolor button--icon" href="{{ view.csv_export_url }}">
-                        {% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}
-                    </a>
-                </li>
-            </ul>
-        </div>
+        {% include view.export_buttons_template_name %}
     {% endfragment %}
 
     {% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}

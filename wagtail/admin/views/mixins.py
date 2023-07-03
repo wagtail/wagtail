@@ -152,6 +152,8 @@ class SpreadsheetExportMixin:
     # A dictionary of column heading overrides in the format {field: heading}
     export_headings = {}
 
+    export_buttons_template_name = "wagtailadmin/shared/export_buttons.html"
+
     def get_filename(self):
         """Gets the base filename for the exported spreadsheet, without extensions"""
         return "spreadsheet-export"
