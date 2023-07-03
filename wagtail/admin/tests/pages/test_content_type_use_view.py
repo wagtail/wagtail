@@ -22,7 +22,8 @@ class TestContentTypeUse(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/content_type_use.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
+        self.assertTemplateUsed(response, "wagtailadmin/pages/usage_results.html")
         self.assertContains(response, "Christmas")
 
         # Links to 'delete' etc should include a 'next' URL parameter pointing back here

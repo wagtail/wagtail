@@ -1889,7 +1889,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(44):
+        with self.assertNumQueries(39):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2907,7 +2907,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         GroupPagePermission.objects.create(
             group=group,
             page=en_events_index,
-            permission_type="edit",
+            permission_type="change",
         )
         self.user.is_superuser = False
         self.user.user_permissions.add(

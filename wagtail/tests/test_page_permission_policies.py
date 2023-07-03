@@ -1,7 +1,7 @@
-from django.contrib.auth.models import AnonymousUser, Group
+from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.test import TestCase
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission, Page, get_default_page_content_type
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
@@ -9,6 +9,8 @@ from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
 
 class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
+        page_type = get_default_page_content_type()
+
         self.root_page = Page.objects.get(id=2)
 
         self.reports_page = self.root_page.add_child(
@@ -22,21 +24,27 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
         self.root_edit_perm = GroupPagePermission.objects.create(
             group=root_editors_group,
             page=self.root_page,
-            permission_type="edit",
+            permission=Permission.objects.get(
+                content_type=page_type, codename="change_page"
+            ),
         )
 
         report_editors_group = Group.objects.create(name="Report editors")
         self.report_edit_perm = GroupPagePermission.objects.create(
             group=report_editors_group,
             page=self.reports_page,
-            permission_type="edit",
+            permission=Permission.objects.get(
+                content_type=page_type, codename="change_page"
+            ),
         )
 
         report_adders_group = Group.objects.create(name="Report adders")
         self.report_add_perm = GroupPagePermission.objects.create(
             group=report_adders_group,
             page=self.reports_page,
-            permission_type="add",
+            permission=Permission.objects.get(
+                content_type=page_type, codename="add_page"
+            ),
         )
 
         # Users
@@ -183,34 +191,34 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 (self.useless_user, False, False, False, False),
                 (self.anonymous_user, False, False, False, False),
             ],
-            ["add", "edit", "delete", "frobnicate"],
+            ["add", "change", "delete", "frobnicate"],
         )
 
     def test_user_has_any_permission(self):
         self.assertTrue(
-            self.policy.user_has_any_permission(self.superuser, ["add", "edit"])
+            self.policy.user_has_any_permission(self.superuser, ["add", "change"])
         )
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_superuser, ["add", "edit"]
+                self.inactive_superuser, ["add", "change"]
             )
         )
         self.assertTrue(
-            self.policy.user_has_any_permission(self.report_editor, ["add", "edit"])
+            self.policy.user_has_any_permission(self.report_editor, ["add", "change"])
         )
         self.assertTrue(
-            self.policy.user_has_any_permission(self.report_adder, ["add", "edit"])
+            self.policy.user_has_any_permission(self.report_adder, ["add", "change"])
         )
         self.assertFalse(
-            self.policy.user_has_any_permission(self.anonymous_user, ["add", "edit"])
+            self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
         self.assertTrue(
-            self.policy.user_has_any_permission(self.report_adder, ["edit"])
+            self.policy.user_has_any_permission(self.report_adder, ["change"])
         )
 
     def test_users_with_any_permission(self):
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ["add", "edit"]
+            ["add", "change"]
         )
 
         self.assertResultSetEqual(
@@ -236,7 +244,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         )
 
         users_with_edit_or_frobnicate_permission = (
-            self.policy.users_with_any_permission(["edit", "frobnicate"])
+            self.policy.users_with_any_permission(["change", "frobnicate"])
         )
 
         self.assertResultSetEqual(
@@ -250,7 +258,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         )
 
     def test_users_with_permission(self):
-        users_with_change_permission = self.policy.users_with_permission("edit")
+        users_with_change_permission = self.policy.users_with_permission("change")
 
         self.assertResultSetEqual(
             users_with_change_permission,
@@ -286,7 +294,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 (self.useless_user, False, False, False),
                 (self.anonymous_user, False, False, False),
             ],
-            ["edit", "delete", "frobnicate"],
+            ["change", "delete", "frobnicate"],
         )
 
         # page in 'reports' is editable by users with permissions
@@ -303,31 +311,31 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
                 (self.useless_user, False, False, False),
                 (self.anonymous_user, False, False, False),
             ],
-            ["edit", "delete", "frobnicate"],
+            ["change", "delete", "frobnicate"],
         )
 
     def test_user_has_any_permission_for_instance(self):
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.report_editor, ["edit", "delete"], self.useless_report
+                self.report_editor, ["change", "delete"], self.useless_report
             )
         )
 
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.report_editor, ["edit", "delete"], self.editor_page
+                self.report_editor, ["change", "delete"], self.editor_page
             )
         )
 
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.report_adder, ["edit", "delete"], self.adder_report
+                self.report_adder, ["change", "delete"], self.adder_report
             )
         )
 
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.anonymous_user, ["edit", "delete"], self.editor_page
+                self.anonymous_user, ["change", "delete"], self.editor_page
             )
         )
 
@@ -335,7 +343,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.superuser,
-                "edit",
+                "change",
             ),
             Page.objects.all(),
         )
@@ -343,7 +351,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.inactive_superuser,
-                "edit",
+                "change",
             ),
             [],
         )
@@ -351,7 +359,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.root_editor,
-                "edit",
+                "change",
             ),
             [
                 self.root_page,
@@ -367,7 +375,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.report_editor,
-                "edit",
+                "change",
             ),
             [
                 self.reports_page,
@@ -381,7 +389,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.useless_user,
-                "edit",
+                "change",
             ),
             [],
         )
@@ -389,7 +397,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
                 self.anonymous_user,
-                "edit",
+                "change",
             ),
             [],
         )
@@ -397,21 +405,21 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
     def test_instances_user_has_any_permission_for(self):
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.superuser, ["edit", "delete"]
+                self.superuser, ["change", "delete"]
             ),
             Page.objects.all(),
         )
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_superuser, ["edit", "delete"]
+                self.inactive_superuser, ["change", "delete"]
             ),
             [],
         )
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.root_editor, ["edit", "delete"]
+                self.root_editor, ["change", "delete"]
             ),
             [
                 self.root_page,
@@ -426,7 +434,7 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.report_editor, ["edit", "delete"]
+                self.report_editor, ["change", "delete"]
             ),
             [
                 self.reports_page,
@@ -439,45 +447,49 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.report_adder, ["edit", "delete"]
+                self.report_adder, ["change", "delete"]
             ),
             [self.adder_report],
         )
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.useless_user, ["edit", "delete"]
+                self.useless_user, ["change", "delete"]
             ),
             [],
         )
 
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.anonymous_user, ["edit", "delete"]
+                self.anonymous_user, ["change", "delete"]
             ),
             [],
         )
 
     def test_users_with_permission_for_instance(self):
         self.assertResultSetEqual(
-            self.policy.users_with_permission_for_instance("edit", self.editor_page),
+            self.policy.users_with_permission_for_instance("change", self.editor_page),
             [self.superuser, self.root_editor],
         )
         self.assertResultSetEqual(
-            self.policy.users_with_permission_for_instance("edit", self.adder_report),
+            self.policy.users_with_permission_for_instance("change", self.adder_report),
             [self.superuser, self.root_editor, self.report_editor, self.report_adder],
         )
         self.assertResultSetEqual(
-            self.policy.users_with_permission_for_instance("edit", self.editor_report),
-            [self.superuser, self.root_editor, self.report_editor],
-        )
-        self.assertResultSetEqual(
-            self.policy.users_with_permission_for_instance("edit", self.useless_report),
+            self.policy.users_with_permission_for_instance(
+                "change", self.editor_report
+            ),
             [self.superuser, self.root_editor, self.report_editor],
         )
         self.assertResultSetEqual(
             self.policy.users_with_permission_for_instance(
-                "edit", self.anonymous_report
+                "change", self.useless_report
+            ),
+            [self.superuser, self.root_editor, self.report_editor],
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance(
+                "change", self.anonymous_report
             ),
             [self.superuser, self.root_editor, self.report_editor],
         )
@@ -485,19 +497,19 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_any_permission_for_instance(self):
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(
-                ["edit", "delete"], self.editor_page
+                ["change", "delete"], self.editor_page
             ),
             [self.superuser, self.root_editor],
         )
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(
-                ["edit", "delete"], self.adder_report
+                ["change", "delete"], self.adder_report
             ),
             [self.superuser, self.root_editor, self.report_editor, self.report_adder],
         )
         self.assertResultSetEqual(
             self.policy.users_with_any_permission_for_instance(
-                ["edit", "delete"], self.useless_report
+                ["change", "delete"], self.useless_report
             ),
             [self.superuser, self.root_editor, self.report_editor],
         )

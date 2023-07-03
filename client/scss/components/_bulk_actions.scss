@@ -5,10 +5,6 @@
       align-items: center;
     }
 
-    .c-dropdown__button {
-      padding-inline-start: 0.3rem;
-    }
-
     .bulk-actions-choices,
     .bulk-actions-choices > ul {
       display: flex;
@@ -50,27 +46,6 @@
 
     .button {
       font-weight: 600;
-    }
-
-    .bulk-actions-more {
-      .button {
-        border: 0;
-      }
-
-      .button:not(:hover) {
-        color: theme('colors.surface-button-default');
-      }
-
-      .c-dropdown__menu {
-        bottom: 50px;
-        flex-direction: column;
-      }
-    }
-
-    .bulk-actions-more.is-open {
-      .c-dropdown__menu.u-toggle {
-        display: flex;
-      }
     }
   }
 

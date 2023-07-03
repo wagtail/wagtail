@@ -545,7 +545,7 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms):
-    next_url = context.request.path
+    next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
@@ -561,7 +561,7 @@ def page_listing_buttons(context, page, page_perms):
 
 
 @register.inclusion_tag(
-    "wagtailadmin/pages/listing/_modern_dropdown.html", takes_context=True
+    "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path
@@ -577,25 +577,16 @@ def page_header_buttons(context, page, page_perms):
         "buttons": buttons,
         "title": _("Actions"),
         "icon_name": "dots-horizontal",
-        "classes": [
-            "w-flex",
-            "w-justify-center",
-            "w-items-center",
-            "w-h-slim-header",
-        ],
         "button_classes": [
             "w-p-0",
             "w-w-12",
-            "w-h-full",
-            "w-text-text-label",
-            "w-bg-transparent",
+            "w-h-slim-header",
             "hover:w-scale-110",
             "w-transition",
             "w-outline-offset-inside",
             "w-relative",
             "w-z-30",
         ],
-        "hide_title": True,
     }
 
 
@@ -633,9 +624,8 @@ def bulk_action_choices(context, app_label, model_name):
     if bulk_action_more_list:
         more_button = ButtonWithDropdown(
             label=_("More"),
-            attrs={"title": _("View more bulk actions")},
-            classes={"bulk-actions-more", "dropup"},
-            button_classes={"button", "button-small"},
+            attrs={"title": _("More bulk actions")},
+            button_classes={"button", "button-secondary", "button-small"},
             buttons_data=[
                 {
                     "label": action.display_name,
@@ -1233,6 +1223,13 @@ class HelpBlockNode(BlockInclusionNode):
 
 
 register.tag("help_block", HelpBlockNode.handle)
+
+
+class DropdownNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/dropdown/dropdown.html"
+
+
+register.tag("dropdown", DropdownNode.handle)
 
 
 class PanelNode(BlockInclusionNode):

@@ -1,5 +1,5 @@
 import { Icon, Portal } from '../..';
-import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
+import { initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
@@ -21,7 +21,6 @@ window.wagtail.components = {
  */
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
-  initModernDropdown();
   initTabs();
   dialog();
   initCollapsibleBreadcrumbs();

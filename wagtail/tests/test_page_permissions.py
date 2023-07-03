@@ -1,7 +1,8 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
+from django.core import checks
 from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
@@ -189,7 +190,7 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="edit"
+            group__name="Event moderators", permission__codename="change_page"
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -427,14 +428,14 @@ class TestPagePermission(TestCase):
             RemovedInWagtail60Warning,
             "UserPagePermissionsProxy.editable_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "edit") instead.',
+            'instances_user_has_permission_for(user, "change") instead.',
         ):
             editable_pages = user_perms.editable_pages()
         with self.assertWarnsMessage(
             RemovedInWagtail60Warning,
             "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "edit") instead.',
+            'user_has_permission(user, "change") instead.',
         ):
             can_edit_pages = user_perms.can_edit_pages()
         with self.assertWarnsMessage(
@@ -776,7 +777,7 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
         with self.assertWarnsMessage(
@@ -800,7 +801,7 @@ class TestPagePermission(TestCase):
         christmas_page.save()
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
         with self.assertWarnsMessage(
@@ -1107,4 +1108,112 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         # However, SingletonPageViaMaxCount.can_create_at() prevents copying, regardless of a user's permissions
         self.assertFalse(
             singleton_page_perms.can_copy_to(self.singleton_page.get_parent())
+        )
+
+
+class TestPagePermissionModel(TestCase):
+    fixtures = [
+        "test.json",
+        "test_permission_type.json",  # RemovedInWagtail60Warning: remove the fixture
+    ]
+
+    def test_create_with_permission_type_only(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        group_permission = GroupPagePermission.objects.create(
+            group=user.groups.first(), page=page, permission_type="add"
+        )
+        self.assertEqual(group_permission.permission.codename, "add_page")
+
+    def test_create_with_permission_only(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        group_permission = GroupPagePermission.objects.create(
+            group=user.groups.first(),
+            page=page,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtailcore",
+                content_type__model="page",
+                codename="add_page",
+            ),
+        )
+        self.assertEqual(group_permission.permission_type, "add")
+
+    def test_save_with_permission_type_only(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        group_permission = GroupPagePermission(
+            group=user.groups.first(), page=page, permission_type="add"
+        )
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "GroupPagePermission.permission_type is deprecated. Use the "
+            "GroupPagePermission.permission foreign key to the Permission model instead.",
+        ):
+            group_permission.save()
+
+        self.assertEqual(group_permission.permission.codename, "add_page")
+
+    def test_save_with_permission_only(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        group_permission = GroupPagePermission(
+            group=user.groups.first(),
+            page=page,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtailcore",
+                content_type__model="page",
+                codename="add_page",
+            ),
+        )
+        group_permission.save()
+        self.assertEqual(group_permission.permission_type, "add")
+
+    def test_system_check(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        permissions = [
+            GroupPagePermission(
+                group=user.groups.first(),
+                page=page,
+                permission_type=type,
+            )
+            for type in {"add", "lock", "publish"}
+        ]
+
+        GroupPagePermission.objects.bulk_create(permissions)
+
+        # bulk_create bypasses the autofill of the permission field, so it's null,
+        # and we have two objects with null permission field in the
+        # test_permission_type.json fixture. This simulates possible scenarios
+        # where the permission field is null.
+        self.assertEqual(
+            GroupPagePermission.objects.filter(permission__isnull=True).count(), 5
+        )
+
+        # Run the system check
+        errors = GroupPagePermission.check()
+
+        # The check should fix the 5 objects above, plus one object in the
+        # test_permission_type.json fixture that has the permission foreign key
+        # set correctly but has an outdated 'edit' value
+        expected_errors = [
+            checks.Warning(
+                "Found and fixed 6 GroupPagePermission object(s) with a null value in `permission` field and/or an outdated 'edit' value in `permission_type` field.",
+                hint=(
+                    "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
+                    "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
+                    "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission."
+                    "The `permission_type` field will be removed in Wagtail 6.0."
+                ),
+                obj=GroupPagePermission,
+                id="wagtailcore.W002",
+            )
+        ]
+
+        self.assertEqual(errors, expected_errors)
+
+        # Check that the system check fixed the issue
+        self.assertEqual(
+            GroupPagePermission.objects.filter(permission__isnull=True).count(), 0
         )

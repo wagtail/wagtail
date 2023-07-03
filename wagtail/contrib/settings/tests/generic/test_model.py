@@ -113,3 +113,11 @@ class GenericSettingModelTestCase(GenericSettingsTestMixin, TestCase):
                 self.assertEqual(settings.get_page_url("test_attribute"), "")
                 # when called indirectly via shortcut
                 self.assertEqual(settings.page_url.test_attribute, "")
+
+    def test_display_as_string(self):
+        self._create_importantpagesgenericsetting_object()
+
+        self.assertEqual(
+            str(ImportantPagesGenericSetting.load()),
+            "Important pages settings",
+        )

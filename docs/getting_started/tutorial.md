@@ -1,6 +1,6 @@
 # Your first Wagtail site
 
-This tutorial teaches you how to build a blog with Wagtail's features.
+This tutorial shows you how to build a blog using Wagtail. Also, the tutorial gives you hands-on experience with some of Wagtail's features.
 
 To complete this tutorial, we recommend that you have some basic programming knowledge, as well as an understanding of web development concepts. A basic understanding of Python and the Django framework ensures a more grounded understanding of this tutorial, but it's not mandatory.
 
@@ -51,8 +51,7 @@ mysite\env\Scripts\activate
 
 ```sh
 python -m venv mysite/env
-
-# then
+# Then:
 source mysite/env/bin/activate
 ```
 
@@ -65,7 +64,7 @@ You must exclude the `env` directory from any version control.
 
 ### Install Wagtail
 
-Use pip, which is packaged with Python, to install Wagtail and its dependencies:
+To install Wagtail and its dependencies, use pip, which is packaged with Python:
 
 ```sh
 pip install wagtail
@@ -73,8 +72,7 @@ pip install wagtail
 
 ### Generate your site
 
-Wagtail provides a `start` command similar to `django-admin startproject`.
-Running `wagtail start mysite` in your project generates a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a **home** app with a blank `HomePage` model and basic templates, and a sample "search" app.
+Wagtail provides a `start` command similar to `django-admin startproject`. Running `wagtail start mysite` in your project generates a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a "home" app with a blank `HomePage` model and basic templates, and a sample "search" app.
 
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
@@ -166,8 +164,7 @@ class HomePage(Page):
 ```
 
 `body` is a `RichTextField`, a special Wagtail field. When `blank=True`,
-it means the field isn't mandatory and you can leave it empty. You can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the capabilities and the layout of the editing interface. Adding fields to `content_panels` enables you to edit them in the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
-[You can read more about this on Page models](../topics/pages).
+it means the field isn't mandatory and you can leave it empty. You can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the capabilities and the layout of the editing interface. Adding fields to `content_panels` enables you to edit them in the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can read more about this on [Page models](../topics/pages).
 
 Run:
 
@@ -179,7 +176,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-You must run the above commands each time you make changes to the model definition. Here is the expected output from the terminal:
+You must run the preceding commands each time you make changes to the model definition. Here is the expected output from the terminal:
 
 ```txt
 Migrations for 'home':
@@ -191,7 +188,7 @@ Running migrations:
   Applying home.0003_homepage_body... OK
 ```
 
-You can now edit the homepage within the Wagtail [Admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). On your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), go to **Pages** and click edit beside **Home** to see the new body field.
+You can now edit the homepage within the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). On your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), go to **Pages** and click edit beside **Home** to see the new body field.
 
 ![Screenshot of an extended side panel of the Wagtail admin interface with the edit button of the home page marked in red](../_static/images/tutorial/tutorial_11.png)
 
@@ -200,28 +197,25 @@ Enter the text "Welcome to our new site!" into the body field, and publish the p
 You must update the page template to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
 type. By default, it looks for a template filename formed from the app and model name,
-separating capital letters with underscores. For example, `HomePage` within the **home** app becomes
-`home/home_page.html`. This template file can exist in any location that 
+separating capital letters with underscores. For example, `HomePage` within the "home" app becomes
+`home/home_page.html`. This template file can exist in any location that
 [Django's template rules](https://docs.djangoproject.com/en/stable/intro/tutorial03/#write-views-that-actually-do-something) recognize. Conventionally, you can place it within a `templates` folder within the app.
 
 Edit `home/templates/home/home_page.html` to contain the following:
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 3, 7-19
+```html+django
+<!-- load wagtailcore_tags by adding this at the top of the file: -->
+{% load wagtailcore_tags %}
 
-    {% extends "base.html" %}
+{% block body_class %}template-homepage{% endblock %}
 
-    {% load wagtailcore_tags %}
-    
-    {% block body_class %}template-homepage{% endblock %}
-    
-    {% block content %}
-        {{ page.body|richtext }}
-    {% endblock %}
+<!-- replace everything below with: -->
+{% block content %}
+    {{ page.body|richtext }}
+{% endblock %}
 ```
 
-`base.html` refers to a parent template. It is ussually the first template tag that you use in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame. By using block tags in the child template, you can override specific content within the parent template.
+`base.html` refers to a parent template. It's ussually the first template file in an app's  template folder. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame. By using block tags in the child template, you can override specific content within the parent template.
 
 Also, you must load `wagtailcore_tags` at the top of the template and provide additional tags to those provided by Django.
 
@@ -261,21 +255,18 @@ python manage.py startapp blog
 
 Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 2
-
-    INSTALLED_APPS = [
-        "blog",
-        "home",
-        "search",
-        "wagtail.contrib.forms",
-        "wagtail.contrib.redirects",
-        "wagtail.embeds",
-        "wagtail.sites",
-        "wagtail.users",
-        #... other packages
-    ]
+```html+django
+INSTALLED_APPS = [
+    "blog", # <- Our new blog app.
+    "home",
+    "search",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    #... other packages
+]
 ```
 
 ```{note}
@@ -286,22 +277,24 @@ You must register all apps within the `INSTALLED_APPS` section of the `base.py` 
 
 Start with creating a simple index page for your blog. Edit `blog/models.py` to include:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 3-12
+```python
+from django.db import models
 
-    from django.db import models
-    
-    from wagtail.models import Page
-    from wagtail.fields import RichTextField
-    from wagtail.admin.panels import FieldPanel
-    
-    class BlogIndexPage(Page):
-        intro = RichTextField(blank=True)
-    
-        content_panels = Page.content_panels + [
-            FieldPanel('intro')
-        ]
+# Add these:
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
+
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
+
+class BlogIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro')
+    ]
 ```
 
 Since you added a new model to your app, you must create and run a database migration:
@@ -358,37 +351,35 @@ You can now access the URL, `http://127.0.0.1:8000/blog` on your site. This give
 
 Now create a model and template for your blog posts. Edit `blog/models.py` to include:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 6,10-24
+```python
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
 
-    from django.db import models
-    
-    from wagtail.models import Page
-    from wagtail.fields import RichTextField
-    from wagtail.admin.panels import FieldPanel
-    from wagtail.search import index
-    
-    # Keep the definition of BlogIndexPage model, and add the BlogPage model:
-    
-    class BlogPage(Page):
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-    
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
-    
-        content_panels = Page.content_panels + [
-            FieldPanel('date'),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-        ]
+# add this:
+from wagtail.search import index
+
+
+# Keep the definition of BlogIndexPage model, and add the BlogPage model:
+
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+    ]
 ```
 
-The preceding model imports `index` as this makes the model searchable. Also, the model lists fields that you want users to be able to search.
+In the model above, you import `index` as this makes the model searchable. You then list fields that you want to be searchable for the user.
 
 You have to migrate your database again because of the new changes in your `models.py` file:
 
@@ -424,7 +415,7 @@ URL of the blog this post is a part of.
 
 Now, go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) and create a few blog posts as children of `BlogIndexPage` by following these steps:
 
-**Click Pages from your Wagtail [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).**
+**Click Pages from your Wagtail [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar)**
 
 **Click Home**
 
@@ -442,7 +433,7 @@ Now, go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/w
 
 To add a link from your `RichText` **Body** field, highlight the text you want to attach the link to. You can now see a pop-up modal which has several actions represented by their icons. Click on the appropriate icon to add a link. You can also click the **+** icon, which appears at the left-hand side of the `RichText` **Body** field to get similar actions as those shown in the pop-up modal. 
 
-To add an image, press enter to move to the next line in the RichText `Body` field. Then click the **+** icon, which appears on the left-hand side of the RichText `Body` field. Select **Image** from the list of actions to add an image.
+To add an image, press enter to move to the next line in the `RichText` **Body** field. Then click the **+** icon, which appears on the left-hand side of the `RichText` **Body** field. Select **Image** from the list of actions to add an image.
 
 ```{NOTE}
 Wagtail gives you full control over the kind of content you can create under
@@ -480,9 +471,9 @@ This has to do with the way you define your model, `class BlogPage(Page)`. The `
 When you want to reference properties of the instances that inherit from the base class,
 Wagtail provides the `specific` method that retrieves the actual `BlogPage` record.
 While the "title" field is present on the base `Page` model, "intro" is only present
-on the `BlogPage` model. Therefore, you need the `.specific` method to access the actual `BlogPage` record.
+on the `BlogPage` model. So you need the `.specific` method to access it.
 
-You can simplify the template code by using the Django `with` tag:
+You can simplify the template code by using the Django `with` tag. Now, modify your `blog_index_page.html`:
 
 ```html+django
 {% for post in page.get_children %}
@@ -525,89 +516,86 @@ page's children in the template. Instead, you want to modify the
 QuerySet in the model definition. Wagtail makes this possible via
 the overridable `get_context()` method.
 
-Modify your `BlogIndexPage` model like this:
+Modify your `BlogIndexPage` model:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 4-8
+```python
+class BlogIndexPage(Page):
+    intro = RichTextField(blank=True)
+    
+    # add the get_context method:
+    def get_context(self, request):
 
-    class BlogIndexPage(Page):
-        intro = RichTextField(blank=True)
-    
-        def get_context(self, request):
-            context = super().get_context(request)
-            blogpages = self.get_children().live().order_by('-first_published_at')
-            context['blogpages'] = blogpages
-            return context
-    
-        content_panels = Page.content_panels + [
-            FieldPanel('intro')
-        ]
+        # Update context to include only published posts, ordered by reverse-chron
+        context = super().get_context(request)
+        blogpages = self.get_children().live().order_by('-first_published_at')
+        context['blogpages'] = blogpages
+        return context
+
+    # ...
 ```
 
 Here is a quick breakdown of the changes that you made:
 
-1.  Retrieve the original context.
-2.  Create a custom QuerySet modifier.
-3.  Add it to the retrieved context.
-4.  Return the modified context to the view.
+1.  You retrieved the original context.
+2.  You created a custom QuerySet modifier.
+3.  You added the custom QuerySet modifier to the retrieved context.
+4.  You returned the modified context to the view.
 
 You also need to modify your `blog_index_page.html` template slightly. Change:
 
 `{% for post in page.get_children %}` to `{% for post in blogpages %}`
 
-Now, unpublish one of your posts. The unpublished post should disappear from your blog's index page. Also, the remaining posts is now sorted with the most recently published posts coming first.
+Now, unpublish one of your posts. The unpublished post should disappear from your blog's index page. Also, the remaining posts should be sorted with the most recently published posts coming first.
 
 ### Images
 
-The next feature that you need to add is the ability to attach an image gallery to your blog posts. While it's possible to simply insert images into the `RichText` **Body** field, there are several advantages to setting up your gallery images as a new dedicated object type within the database. This way, you have full control over the layout and styling of the images on the template, rather than having to lay them out in a particular way within the RichText field. It also makes it possible for you to use the images elsewhere, independently of the blog text. For example, displaying a thumbnail on the blog's index page.
+The next feature that you need to add is the ability to attach an image gallery to your blog posts. While it's possible to simply insert images into the `RichText` **Body** field, there are several advantages to setting up your gallery images as a new dedicated object type within the database. This way, you have full control over the layout and styling of the images on the template, rather than having to lay them out in a particular way within the `RichText` field. It also makes it possible for you to use the images elsewhere, independently of the blog text. For example, displaying a thumbnail on the blog's index page.
 
-Add a new `BlogPageGalleryImage` model to `blog/models.py`:
+Now modify your ``BlogPage` model and add a new `BlogPageGalleryImage` model to `blog/models.py`:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 5,6,8,27,29-40
+```python
+# New imports added for ParentalKey, Orderable, InlinePanel
 
-    from django.db import models
-    
-    # New imports added for ParentalKey, Orderable, InlinePanel
-    
-    from modelcluster.fields import ParentalKey
-    from wagtail.models import Page, Orderable
-    from wagtail.fields import RichTextField
-    from wagtail.admin.panels import FieldPanel, InlinePanel
-    from wagtail.search import index
-    
-    # ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
-    
-    class BlogPage(Page):
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-    
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
-    
-        content_panels = Page.content_panels + [
-            FieldPanel('date'),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            InlinePanel('gallery_images', label="Gallery images"),
-        ]
-    
-    class BlogPageGalleryImage(Orderable):
-        page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
-        image = models.ForeignKey(
-            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-        )
-        caption = models.CharField(blank=True, max_length=250)
-    
-        panels = [
-            FieldPanel('image'),
-            FieldPanel('caption'),
-        ]
+from modelcluster.fields import ParentalKey
+
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.search import index
+
+# ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
+
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+
+        # Add this:
+        InlinePanel('gallery_images', label="Gallery images"),
+    ]
+
+
+class BlogPageGalleryImage(Orderable):
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        FieldPanel('image'),
+        FieldPanel('caption'),
+    ]
 ```
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
@@ -617,10 +605,10 @@ There are a few new concepts here:
 1.  Inheriting from `Orderable` adds a `sort_order` field to the model. This helps to keep track of the ordering of images in the gallery.
 2.  The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specific page. A `ParentalKey` works similarly to a `ForeignKey`, but also defines `BlogPageGalleryImage` as a "child" of the `BlogPage` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
 3.  `image` is a `ForeignKey` to Wagtail's built-in `Image` model, which stores the actual images. This appears in the page editor as a pop-up interface for choosing an existing image or uploading a new one. This way, you allow an image to exist in multiple galleries. This creates a many-to-many relationship between pages and images.
-4.  Specifying `on_delete=models.CASCADE` on the foreign key means that deleting the image from the system also deletes the gallery. In other situations, it might be appropriate to leave the entry in place. For example, if an "our staff" page includes a list of people with headshots, and you delete one of those photos, but prefer to leave the person in place on the page without a photo. In this case, you must set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.
+4.  Specifying `on_delete=models.CASCADE` on the foreign key means that deleting the image from the system also deletes the gallery entry. In other situations, it might be appropriate to leave the gallery entry in place. For example, if an "our staff" page includes a list of people with headshots, and you delete one of those photos, but prefer to leave the person in place on the page without a photo. In this case, you must set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.
 5.  Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
 
-After editing `blog/models.py` you should see a _Gallery images_ field with the option to upload images and provide a caption for it in the [Edit Screen](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#edit-screen) of your blog posts. To go to the [Edit Screen](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#edit-screen) of your blog posts, follow these steps:
+After editing your `blog/models.py`, you should see **Images** in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar) and a **Gallery images** field with the option to upload images and provide a caption for it in the [Edit Screen](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#edit-screen) of your blog posts. To go to the [Edit Screen](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#edit-screen) of your blog posts, follow these steps:
 1.  Click **Pages** from your Wagtail [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), then click **Home**
 2.  Click the arrow located at the right-hand side of **our Blog**:
 
@@ -630,94 +618,89 @@ After editing `blog/models.py` you should see a _Gallery images_ field with the 
 
 Edit your blog page template `blog_page.html` to include the images section:
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 3,15-20
+```html+django
+<!-- Load the wagtailimages_tags: -->
+{% load wagtailcore_tags wagtailimages_tags %}
 
-    {% extends "base.html" %}
-    
-    {% load wagtailcore_tags wagtailimages_tags %}
-    
-    {% block body_class %}template-blogpage{% endblock %}
-    
-    {% block content %}
-        <h1>{{ page.title }}</h1>
-        <p class="meta">{{ page.date }}</p>
-    
-        <div class="intro">{{ page.intro }}</div>
-    
-        {{ page.body|richtext }}
-    
-        {% for item in page.gallery_images.all %}
-            <div style="float: left; margin: 10px">
-                {% image item.image fill-320x240 %}
-                <p>{{ item.caption }}</p>
-            </div>
-        {% endfor %}
-    
-        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
-    
-    {% endblock %}
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date }}</p>
+
+    <div class="intro">{{ page.intro }}</div>
+
+    {{ page.body|richtext }}
+
+    <!-- Add this: -->
+    {% for item in page.gallery_images.all %}
+        <div style="float: left; margin: 10px">
+            {% image item.image fill-320x240 %}
+            <p>{{ item.caption }}</p>
+        </div>
+    {% endfor %}
+
+    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+{% endblock %}
 ```
 
-Make sure to upload some images when editing the blog page in your Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to display them after editing your blog page template.
+Make sure to upload some images when editing the blog page on your Wagtail admin if you want to display them after editing your blog page template.
 
 Here, you use the `{% image %}` tag, which exists in the `wagtailimages_tags` library, imported at the top of the template to insert an `<img>` element, with a `fill-320x240` parameter to resize and crop the image to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
 Since your gallery images are database objects in their own right, you can 
-now query and re-use them independently of the blog post body. Now, define a `main_image` method, which returns the image from the first gallery item or `None` if no gallery items exist:
+now query and re-use them independently of the blog post body. Now, define a `main_image` method in your `BlogPage` model, which returns the image from the first gallery item or `None` if no gallery items exist:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 6-11
+```python
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    
+    # Add the main_image method:
+    def main_image(self):
+        gallery_item = self.gallery_images.first()
+        if gallery_item:
+            return gallery_item.image
+        else:
+            return None
 
-    class BlogPage(Page):
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-    
-        def main_image(self):
-            gallery_item = self.gallery_images.first()
-            if gallery_item:
-                return gallery_item.image
-            else:
-                return None
-    
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
-    
-        content_panels = Page.content_panels + [
-            FieldPanel('date'),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            InlinePanel('gallery_images', label="Gallery images"),
-        ]
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        InlinePanel('gallery_images', label="Gallery images"),
+    ]
 ```
 
 This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tag` and include the main image as a thumbnail alongside each post:
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 1,7-9
+```html+django
+<!-- Load wagtailimages_tags: -->
+{% load wagtailcore_tags wagtailimages_tags %}
 
-    {% load wagtailcore_tags wagtailimages_tags %}
-    
-    {% for post in blogpages %}
-        {% with post=post.specific %}
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-    
-            {% with post.main_image as main_image %}
-                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
-            {% endwith %}
-    
-            <p>{{ post.intro }}</p>
-            {{ post.body|richtext }}
+<!-- Modify this: -->
+{% for post in blogpages %}
+    {% with post=post.specific %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+
+        <!-- Add this: -->
+        {% with post.main_image as main_image %}
+            {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
         {% endwith %}
-    {% endfor %}
+
+        <p>{{ post.intro }}</p>
+        {{ post.body|richtext }}
+    {% endwith %}
+{% endfor %}
 ```
 
 (tutorial_categories)=
@@ -730,32 +713,29 @@ First, define an `Author` model. This model isn't a page in its own right. You h
 
 To create Authors and give each author an author image as well as a name, add the following to `blog/models.py`:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 1,5-22
+```python
+# Add this to the top of the file
+from wagtail.snippets.models import register_snippet
 
-    from wagtail.snippets.models import register_snippet
-    
-    # ... Keep BlogIndexPage, BlogPage, BlogPageGalleryImage models, and then add the Author model:
-    
-    @register_snippet
-    class Author(models.Model):
-        name = models.CharField(max_length=255)
-        author_image = models.ForeignKey(
-            'wagtailimages.Image', null=True, blank=True,
-            on_delete=models.SET_NULL, related_name='+'
-        )
-    
-        panels = [
-            FieldPanel('name'),
-            FieldPanel('author_image'),
-        ]
-    
-        def __str__(self):
-            return self.name
-    
-        class Meta:
-            verbose_name_plural = 'Authors'
+# ... Keep BlogIndexPage, BlogPage, BlogPageGalleryImage models, and then add the Author model:
+@register_snippet
+class Author(models.Model):
+    name = models.CharField(max_length=255)
+    author_image = models.ForeignKey(
+        'wagtailimages.Image', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('author_image'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Authors'
 ```
 
 ```{note}
@@ -766,85 +746,79 @@ Migrate this change by running `python manage.py makemigrations` and `python man
 
 You can now add authors to the `BlogPage` model, as a `many-to-many` field. The field type to use for this is `ParentalManyToManyField`. This field is a variation of the standard Django `ManyToManyField` that ensures the selected objects are properly associated with the page record in the revision history. It operates in a similar manner to how `ParentalKey` replaces `ForeignKey` for `one-to-many` relations. To add authors to the `BlogPage`, modify `models.py` in your blog app folder:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 3,6,9,18,22-30
+```python
+# New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
+from django import forms
+from django.db import models
 
-    # New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
-    from django import forms
-    from django.db import models
-    
-    from modelcluster.fields import ParentalKey, ParentalManyToManyField
-    from wagtail.models import Page, Orderable
-    from wagtail.fields import RichTextField
-    from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-    from wagtail.search import index
-    from wagtail.snippets.models import register_snippet
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
 
-    
-    class BlogPage(Page):
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-        authors = ParentalManyToManyField('blog.Author', blank=True)
-    
-        # ... Keep the main_image method and search_fields definition. Modify your     content_panels:
-    
-        content_panels = Page.content_panels + [
-            MultiFieldPanel([
-                FieldPanel('date'),
-                FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
-            ], heading="Blog information"),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            InlinePanel('gallery_images', label="Gallery images"),
-        ]
+    # Add this:
+    authors = ParentalManyToManyField('blog.Author', blank=True)
+
+    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
+        ], heading="Blog information"),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        InlinePanel('gallery_images', label="Gallery images"),
+    ]
 ```
 
 In the preceding model modification, you used the `widget` keyword argument on the `FieldPanel` definition to specify a checkbox-based widget instead of the default multiple select boxes. Using the `widget` keyword argument makes your model more user-friendly. Also, you used a `MultiFieldPanel` in `content_panels` to group the `date` and `Authors` fields together for readability.
 
-Finally, update the `blog_page.html` template to display the Authors:
+Finally, migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, update the `blog_page.html` template to display the Authors:
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 5-17
+```html+django
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date }}</p>
     
-    {% block content %}
-        <h1>{{ page.title }}</h1>
-        <p class="meta">{{ page.date }}</p>
-    
-        {% with authors=page.authors.all %}
-            {% if authors %}
-                <h3>Posted by:</h3>
-                <ul>
-                    {% for author in authors %}
-                        <li style="display: inline">
-                            {% image author.author_image fill-40x60 style="vertical-align: middle" %}
-                            {{ author.name }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-    
-        <div class="intro">{{ page.intro }}</div>
-    
-        {{ page.body|richtext }}
-    
-        {% for item in page.gallery_images.all %}
-            <div style="float: left; margin: 10px">
-                {% image item.image fill-320x240 %}
-                <p>{{ item.caption }}</p>
-            </div>
-        {% endfor %}
-    
-        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
-    
-    {% endblock %}
+    <!-- Add this: -->
+    {% with authors=page.authors.all %}
+        {% if authors %}
+            <h3>Posted by:</h3>
+            <ul>
+                {% for author in authors %}
+                    <li style="display: inline">
+                        {% image author.author_image fill-40x60 style="vertical-align: middle" %}
+                        {{ author.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class="intro">{{ page.intro }}</div>
+
+    {{ page.body|richtext }}
+
+    {% for item in page.gallery_images.all %}
+        <div style="float: left; margin: 10px">
+            {% image item.image fill-320x240 %}
+            <p>{{ item.caption }}</p>
+        </div>
+    {% endfor %}
+
+    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+{% endblock %}
 ```
 
-Now go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), in the [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), you can see the new **Snippets** option. Click this to create your authors. After creating your authors, go to your blog posts and add authors to them.
+Now go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), in the [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), you can see the new **Snippets** option. Click this to create your authors. After creating your authors, go to your blog posts and add authors to them. Clicking on your blog posts from your blog index page should now give you a page similar to this image:
 
 !["Second Post" page, with title, date, authors, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
 
@@ -858,55 +832,53 @@ Of course, you'll also need a working tag-specific URL view as well.
 
 First, alter `models.py` once more:
 
-```{eval-rst}
-.. code-block:: python
-    :emphasize-lines: 7,8,18-23,32,40
+```python
+from django import forms
+from django.db import models
 
-    from django import forms
-    from django.db import models
-    
-    # New imports added for ClusterTaggableManager, TaggedItemBase
-    
-    from modelcluster.fields import ParentalKey, ParentalManyToManyField
-    from modelcluster.contrib.taggit import ClusterTaggableManager
-    from taggit.models import TaggedItemBase
-    
-    from wagtail.models import Page, Orderable
-    from wagtail.fields import RichTextField
-    from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-    from wagtail.search import index
-    
-    
-    # ... Keep the definition of BlogIndexPage
-    
-    class BlogPageTag(TaggedItemBase):
-        content_object = ParentalKey(
-            'BlogPage',
-            related_name='tagged_items',
-            on_delete=models.CASCADE
-        )
-    
-    # Modify the BlogPage model:
-    
-    class BlogPage(Page):
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-        FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
-        tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-    
-        # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
-    
-        content_panels = Page.content_panels + [
-            MultiFieldPanel([
-                FieldPanel('date'),
-                FieldPanel('categories', widget=forms.CheckboxSelectMultiple)
-                FieldPanel('tags'),
-            ], heading="Blog information"),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            InlinePanel('gallery_images', label="Gallery images"),
-        ]
+# New imports added for ClusterTaggableManager, TaggedItemBase
+
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.search import index
+
+
+# ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model 
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'BlogPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
+
+# Modify the BlogPage model:
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    authors = ParentalManyToManyField('blog.BlogCategory', blank=True)
+
+    # Add this:
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
+
+            # Add this:
+            FieldPanel('tags'),
+        ], heading="Blog information"),
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        InlinePanel('gallery_images', label="Gallery images"),
+    ]
 ```
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
@@ -922,30 +894,28 @@ Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 
 To render tags on a `BlogPage`, add this to `blog_page.html`:
 
-```{eval-rst}
-.. code-block:: html+django
-    :emphasize-lines: 3-13
+```html+django
+<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
-    
-    {% with tags=page.tags.all %}
-        {% if tags %}
-            <div class="tags">
-                <h3>Tags</h3>
-                {% for tag in tags %}
-                    <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
+<!-- Add this: -->
+{% with tags=page.tags.all %}
+    {% if tags %}
+        <div class="tags">
+            <h3>Tags</h3>
+            {% for tag in tags %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 ```
 
 Notice that you're linking to pages here with the builtin `slugurl`
-tag rather than `pageurl`, which you used earlier. The difference is that `slugurl` takes a Page slug (from the Promote tab) as an argument. `pageurl` is more commonly used because it's unambiguous and avoids extra database lookups. But in the case of this loop, the Page object isn't readily available, so you fall back on the less-preferred `slugurl` tag.
+tag rather than `pageurl`, which you used earlier. The difference is that `slugurl` takes a `Page` slug (from the Promote tab) as an argument. `pageurl` is more commonly used because it's unambiguous and avoids extra database lookups. But in the case of this loop, the `Page` object isn't readily available, so you fall back on the less-preferred `slugurl` tag.
 
 With the modifications that you've made so far, visiting a blog post with tags displays a series of linked buttons at the bottom, one for each tag associated with the post. However, clicking on a button will result in a **404** error page, as you are yet to define a "tags" view.
 
-Return to `blog/models.py` and add:
+Return to `blog/models.py` and add a new `BlogTagIndexPage` model:
 
 ```python
 class BlogTagIndexPage(Page):
@@ -968,10 +938,10 @@ Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
 a QuerySet from its `get_context()` method.
 
-Migrate this by running `python manage.py makemigrations` and then `python manage.py`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. You probably want to create the new `BlogTagIndexPage` Page as a child of `Homepage`, parallel to your Blog index page, "Our Blog". Give it the slug "tags" on the Promote tab.
+Migrate this by running `python manage.py makemigrations` and then `python manage.py`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. You probably want to create the new `BlogTagIndexPage` Page as a child of `Homepage` and it's parallel to your Blog index page, "Our Blog". Give it the slug "tags" on the Promote tab.
 
-Access `/tags` and Django will tell you what you probably already knew:
-you need to create a template `blog/template/blog/blog_tag_index_page.html`:
+Access `/tags` and Django will tell you what you probably already knew.
+You need to create the template, `blog/templates/blog/blog_tag_index_page.html` and add the following content to it:
 
 ```html+django
 {% extends "base.html" %}

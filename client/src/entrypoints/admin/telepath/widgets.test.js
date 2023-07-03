@@ -21,7 +21,6 @@ describe('telepath: wagtail.widgets.Widget', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a simple text block widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.Widget',
       _args: [
@@ -70,7 +69,6 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.RadioSelect',
       _args: [
@@ -132,7 +130,6 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.CheckboxInput',
       _args: ['<input type="checkbox" name="__NAME__" id="__ID__">', '__ID__'],
@@ -181,7 +178,6 @@ describe('telepath: wagtail.widgets.Select', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.Select',
       _args: [
@@ -246,7 +242,6 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    // Unpack and render a Draftail input
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.DraftailRichTextArea',
       _args: [

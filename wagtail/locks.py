@@ -53,7 +53,10 @@ class BaseLock:
         """
         Returns a description of the lock to display to the given user.
         """
-        return capfirst(_("No one can make changes while the %(model_name)s is locked"))
+        return capfirst(
+            _("No one can make changes while the %(model_name)s is locked")
+            % {"model_name": self.model_name}
+        )
 
     def get_context_for_user(self, user, parent_context=None):
         """

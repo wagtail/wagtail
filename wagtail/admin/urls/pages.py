@@ -34,7 +34,7 @@ urlpatterns = [
     ),
     path(
         "usage/<slug:content_type_app_name>/<slug:content_type_model_name>/",
-        usage.content_type_use,
+        usage.ContentTypeUseView.as_view(),
         name="type_use",
     ),
     path("<int:page_id>/usage/", usage.UsageView.as_view(), name="usage"),

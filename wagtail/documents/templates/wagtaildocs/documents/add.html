@@ -8,7 +8,6 @@
 
     {{ form.media.js }}
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         $(function() {
             $('#id_file').on(
@@ -36,9 +35,6 @@
                     $titleField.val(data.title);
                 }
             );
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
         });
     </script>
 {% endblock %}

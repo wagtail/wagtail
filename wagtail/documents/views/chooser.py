@@ -1,5 +1,4 @@
 from django import forms
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -113,11 +112,6 @@ class DocumentChooseViewMixin(ChooseViewMixin):
         context = super().get_context_data(**kwargs)
         context["collections"] = self.collections
         return context
-
-    def get_response_json_data(self):
-        json_data = super().get_response_json_data()
-        json_data["tag_autocomplete_url"] = reverse("wagtailadmin_tag_autocomplete")
-        return json_data
 
 
 class DocumentChooseView(

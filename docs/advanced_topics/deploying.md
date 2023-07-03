@@ -1,48 +1,20 @@
+(deployment_guide)=
+
 # Deploying Wagtail
 
-## On your server
+Once you've built your Wagtail site, it's time to release it upon the rest of the internet.
 
-Wagtail is straightforward to deploy on modern Linux-based distributions, and should run with any of the combinations detailed in Django's [deployment documentation](django:howto/deployment/index).
-See the section on [performance](performance_overview) for the non-Python services we recommend.
+Wagtail is built on Django, and so the vast majority of the deployment steps and considerations for deploying Django are also true for Wagtail. We recommend reading Django's ["How to deploy Django"](django:howto/deployment/index) documentation.
 
-## On Divio Cloud
+## Infrastructure Requirements
 
-[Divio Cloud](https://www.divio.com/) is a Dockerised cloud hosting platform for Python/Django that allows you to launch and deploy Wagtail projects in minutes.
-With a free account, you can create a Wagtail project. Choose from a:
+When designing infrastructure for hosting a Wagtail site, there are a few basic requirements:
 
--   [site based on the Wagtail Bakery project](https://www.divio.com/wagtail/), or
--   [brand new Wagtail project](https://control.divio.com/control/project/create) (see the [how to get started notes](https://docs.divio.com/en/latest/introduction/wagtail/)).
+### WSGI / ASGI server
 
-## On PythonAnywhere
+> Django, being a web framework, needs a web server in order to operate. Since most web servers don’t natively speak Python, we need an interface to make that communication happen.
 
-[PythonAnywhere](https://www.pythonanywhere.com/) is a Platform-as-a-Service (PaaS) focused on Python hosting and development.
-It allows developers to quickly develop, host, and scale applications in a cloud environment.
-Starting with a free plan they also provide MySQL and PostgreSQL databases as well as very flexible and affordable paid plans, so there's all you need to host a Wagtail site.
-To get quickly up and running you may use the [wagtail-pythonanywhere-quickstart](https://github.com/texperience/wagtail-pythonanywhere-quickstart).
-
-## On Google Cloud
-
-[Google Cloud](https://cloud.google.com) is an Infrastructure-as-a-Service (IaaS) that offers multiple managed products, supported by Python client libraries, to help you build, deploy, and monitor your applications.
-You can deploy Wagtail, or any Django application, in a number of ways, including on [App Engine](https://www.youtube.com/watch?v=uD9PTag2-PQ) or [Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0).
-
-## On alwaysdata
-
-[alwaysdata](https://www.alwaysdata.com/) is a Platform-as-a-Service (PaaS) providing Public and Private Cloud offers.
-Starting with a free plan they provide MySQL/PostgreSQL databases, emails, free SSL certificates, included backups, etc.
-
-To get your Wagtail application running you may:
-
--   [Install Wagtail from alwaysdata Marketplace](https://www.alwaysdata.com/en/marketplace/wagtail/)
--   [Configure a Django application](https://help.alwaysdata.com/en/languages/python/django/)
-
-## On other PAASs and IAASs
-
-We know of Wagtail sites running on [Heroku](https://spapas.github.io/2014/02/13/wagtail-tutorial/), Digital Ocean and elsewhere.
-If you have successfully installed Wagtail on your platform or infrastructure, please [contribute](../contributing/index) your notes to this documentation!
-
-(deployment_tips)=
-
-## Deployment tips
+Wagtail can be deployed using either [WSGI](django:howto/deployment/wsgi/index) or [ASGI](django:howto/deployment/asgi/index), however Wagtail doesn't natively implement any async views or middleware, so we recommend WSGI.
 
 ### Static files
 
@@ -75,7 +47,7 @@ If a user bookmarks this url, they will be able to access the file without passi
 If this is not acceptable, you may want to set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and configure your web server so it will not serve document files itself.
 If you are serving documents from the cloud and need to enforce privacy settings, you should make sure the documents are not publicly accessible using the cloud service's file url.
 
-### Cloud storage
+#### Cloud storage
 
 Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server.
 In particular, original image files need to be read back whenever a new resized rendition is created, and documents may be configured to be served through a Django view in order to enforce permission checks (see [WAGTAILDOCS_SERVE_METHOD](wagtaildocs_serve_method)).
@@ -84,33 +56,30 @@ In particular, original image files need to be read back whenever a new resized 
 The django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage` and `storages.backends.s3boto3.S3Boto3Storage`) **do not correctly handle duplicate filenames** in their default configuration. When using these backends, `AWS_S3_FILE_OVERWRITE` must be set to `False`.
 ```
 
-If you are also serving Wagtail's static files from remote storage (using Django's [STATICFILES_STORAGE](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STATICFILES_STORAGE) setting), you'll need to ensure that it is configured to serve [CORS HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), as current browsers will reject remotely-hosted font files that lack a valid header. For Amazon S3, refer to the documentation [Setting Bucket and Object Access Permissions](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/set-permissions.html), or (for the `storages.backends.s3boto.S3Boto3Storage` backend only) add the following to your Django settings:
+### Cache
 
-```python
-AWS_S3_OBJECT_PARAMETERS = {
-    "ACL": "public-read"
-}
-```
+Wagtail is designed to make huge advantage of Django's [cache framework](django:topics/cache/index) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
 
-The `ACL` parameter accepts a list of predefined configurations for Amazon S3. For more information, refer to the documentation [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
+Wagtail supports any of Django's cache backend, however we recommend against using one tied to the specific process or environment Django is running (eg `FileBasedCache` or `LocMemCache`).
 
-For Google Cloud Storage, create a `cors.json` configuration:
+## Deployment tips
 
-```json
-[
-    {
-        "origin": ["*"],
-        "responseHeader": ["Content-Type"],
-        "method": ["GET"],
-        "maxAgeSeconds": 3600
-    }
-]
-```
+Wagtail, and by extension Django, can be deployed in many different ways on many different platforms. There is no "best" way to deploy it, however here are some tips to ensure your site is as stable and maintainable as possible:
 
-Then, apply this CORS configuration to the storage bucket:
+### Use Django's deployment checklist
 
-```sh
-gsutil cors set cors.json gs://$GS_BUCKET_NAME
-```
+Django has a [deployment checklist](django:howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
 
-For other storage services, refer to your provider's documentation, or the documentation for the Django storage backend library you're using.
+### Performance optimisation
+
+Your production site should be as fast and performant as possible. For tips on how to ensure Wagtail performs as well as possible, take a look at our [performance tips](performance_overview).
+
+(deployment_examples)=
+
+## Deployment examples
+
+Some examples for deployments on a few hosting platforms can be found in [](./third_party_tutorials). This is not a complete list of platforms where Wagtail can run, nor is it necessarily the only way to run Wagtail there.
+
+An example of a production Wagtail site is [guide.wagail.org](https://guide.wagtail.org/), which is [open-source](https://github.com/wagtail/guide) and run on Heroku. More information on its hosting environment can be found in [its documentation](https://github.com/wagtail/guide/blob/main/docs/hosting-environment.md).
+
+If you have successfully installed Wagtail on your platform or infrastructure, please [contribute](../contributing/index) your notes to this documentation!

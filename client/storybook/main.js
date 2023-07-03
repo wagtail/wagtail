@@ -5,7 +5,7 @@ module.exports = {
     {
       directory: '../../wagtail/admin/templates/wagtailadmin/shared/',
       titlePrefix: 'Shared',
-      files: '*.stories.*',
+      files: '**/*.stories.*',
     },
     '../../wagtail/**/*.stories.*',
   ],

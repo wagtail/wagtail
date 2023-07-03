@@ -16,7 +16,7 @@ $.get = jest.fn().mockImplementation((url, data, cb) => {
 describe('modal-workflow', () => {
   beforeEach(() => {
     document.body.innerHTML =
-      '<div id="content"><button class="button action-choose" id="trigger">Open</button></div>';
+      '<div id="content"><button data-chooser-action-choose id="trigger">Open</button></div>';
   });
 
   it('exposes module as global', () => {

@@ -63,11 +63,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
-        self.assertTrue(
-            response.context["pages"]
-            .paginator.object_list.filter(id=self.root_page.id)
-            .exists()
-        )
+        self.assertIn(self.root_page, response.context["pages"])
 
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
@@ -217,7 +213,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["pages"].number, 2)
+        self.assertEqual(response.context["page_obj"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_pages()

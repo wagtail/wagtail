@@ -36,7 +36,7 @@ def get_forms_for_user(user):
     Return a queryset of form pages that this user is allowed to access the submissions for
     """
     editable_forms = PagePermissionPolicy().instances_user_has_permission_for(
-        user, "edit"
+        user, "change"
     )
     editable_forms = editable_forms.filter(content_type__in=get_form_types())
 

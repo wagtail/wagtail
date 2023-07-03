@@ -12,7 +12,7 @@ from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
-from django.utils.html import json_script
+from django.utils.html import escape, json_script
 from freezegun import freeze_time
 
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
@@ -220,11 +220,14 @@ class TestGetFormForModel(TestCase):
             fields=["title", "slug", "tags"],
         )
         form_html = RestaurantPageForm().as_p()
-        self.assertIn("/admin/tag\\u002Dautocomplete/tests/restauranttag/", form_html)
+        self.assertIn(
+            'data-w-tag-url-value="/admin/tag-autocomplete/tests/restauranttag/"',
+            form_html,
+        )
 
         # widget should pick up the free_tagging=False attribute on the tag model
         # and set itself to autocomplete only
-        self.assertIn('"autocompleteOnly": true', form_html)
+        self.assertIn(escape('"autocompleteOnly": true'), form_html)
 
         # Free tagging should also be disabled at the form field validation level
         RestaurantTag.objects.create(name="Italian", slug="italian")
@@ -1100,7 +1103,7 @@ class TestPageChooserPanel(TestCase):
             result,
         )
         self.assertIn(
-            '<a href="/admin/pages/%d/edit/" aria-describedby="id_page-title" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">Edit this page</a>'
+            '<a data-chooser-edit-link href="/admin/pages/%d/edit/" aria-describedby="id_page-title"'
             % self.christmas_page.id,
             result,
         )

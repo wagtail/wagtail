@@ -1,0 +1,18 @@
+{% load wagtailadmin_tags i18n %}
+
+<nav aria-label="{{ title }}">
+    {% fragment as toggle_classname %}{{ button_classes|join:' ' }}{% endfragment %}
+
+    {% dropdown toggle_icon=icon_name toggle_aria_label=title toggle_classname=toggle_classname toggle_tippy_offset="[0, -2]" %}
+        {% block content %}
+            {% for button in buttons %}
+                <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="{{ button.classes|join:' ' }}">
+                    {% if button.icon_name %}
+                        {% icon name=button.icon_name %}
+                    {% endif %}
+                    {{ button.label }}
+                </a>
+            {% endfor %}
+        {% endblock %}
+    {% enddropdown %}
+</nav>

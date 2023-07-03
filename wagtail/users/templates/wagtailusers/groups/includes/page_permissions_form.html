@@ -5,7 +5,7 @@
     {{ form.DELETE }}
 </td>
 
-{% for option in form.permission_types %}
+{% for option in form.permissions %}
     <td><label for="{{ option.id_for_label }}" class="visuallyhidden">{{ option.choice_label }}</label>{{ option.tag }}</td>
 {% endfor %}
 

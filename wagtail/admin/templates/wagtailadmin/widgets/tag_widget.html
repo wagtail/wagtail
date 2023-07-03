@@ -1,9 +1,2 @@
 {% include 'django/forms/widgets/text.html' %}
 <p class="help">{{ widget.help_text }}</p>
-<script>
-    initTagField(
-        "{{ widget.attrs.id|escapejs }}",
-        "{{ widget.autocomplete_url|escapejs }}",
-        {{ widget.options_json|safe }}
-    );
-</script>

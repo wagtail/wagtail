@@ -19,7 +19,7 @@ from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
@@ -31,7 +31,7 @@ from django.core.exceptions import (
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models, transaction
+from django.db import DatabaseError, models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
@@ -1096,6 +1096,24 @@ class AbstractPage(
 
     class Meta:
         abstract = True
+
+
+# Make sure that this list is sorted by the codename (first item in the tuple)
+# so that we can follow the same order when querying the Permission objects.
+PAGE_PERMISSION_TYPES = [
+    ("add_page", _("Add"), _("Add/edit pages you own")),
+    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
+    ("change_page", _("Edit"), _("Edit any page")),
+    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("publish_page", _("Publish"), _("Publish any page")),
+    ("unlock_page", _("Unlock"), _("Unlock any page")),
+]
+
+PAGE_PERMISSION_TYPE_CHOICES = [
+    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
+]
+
+PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
 class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
@@ -2622,6 +2640,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name = _("page")
         verbose_name_plural = _("pages")
         unique_together = [("translation_key", "locale")]
+        # Make sure that we auto-create Permission objects that are defined in
+        # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
+        permissions = [
+            (codename, name)
+            for codename, _, name in PAGE_PERMISSION_TYPES
+            if codename not in {"add_page", "change_page", "delete_page", "view_page"}
+        ]
 
 
 class Orderable(models.Model):
@@ -2875,19 +2900,50 @@ class Revision(models.Model):
         ]
 
 
-PAGE_PERMISSION_TYPES = [
-    ("add", _("Add"), _("Add/edit pages you own")),
-    ("edit", _("Edit"), _("Edit any page")),
-    ("publish", _("Publish"), _("Publish any page")),
-    ("bulk_delete", _("Bulk delete"), _("Delete pages with children")),
-    ("lock", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("unlock", _("Unlock"), _("Unlock any page")),
-]
+class GroupPagePermissionManager(models.Manager):
+    def create(self, **kwargs):
+        # Simplify creation of GroupPagePermission objects by allowing one
+        # of permission or permission_type to be passed in.
+        permission = kwargs.get("permission")
+        permission_type = kwargs.get("permission_type")
+        if not permission and permission_type:
+            # Not raising a warning here as we will still support this even after
+            # the permission_type field is removed.
+            kwargs["permission"] = Permission.objects.get(
+                content_type=get_default_page_content_type(),
+                codename=f"{permission_type}_page",
+            )
+        if permission and not permission_type:
+            kwargs["permission_type"] = permission.codename[:-5]
+        return super().create(**kwargs)
 
-PAGE_PERMISSION_TYPE_CHOICES = [
-    (identifier, long_label)
-    for identifier, short_label, long_label in PAGE_PERMISSION_TYPES
-]
+    def _migrate_permission_type(self):
+        # RemovedInWagtail60Warning: remove this method
+        # This follows the same logic as the
+        # 0086_populate_grouppagepermission_permission migration, but is run as
+        # part of a system check to ensure any objects that are created after
+        # that migration is run are also updated.
+        return (
+            self.filter(
+                models.Q(permission__isnull=True) | models.Q(permission_type="edit")
+            )
+            .annotate(
+                normalised_permission_type=models.Case(
+                    models.When(permission_type="edit", then=models.Value("change")),
+                    default=models.F("permission_type"),
+                )
+            )
+            .update(
+                permission=Permission.objects.filter(
+                    content_type=get_default_page_content_type(),
+                    codename=Concat(
+                        models.OuterRef("normalised_permission_type"),
+                        models.Value("_page"),
+                    ),
+                ).values_list("pk", flat=True)[:1],
+                permission_type=models.F("normalised_permission_type"),
+            )
+        )
 
 
 class GroupPagePermission(models.Model):
@@ -2903,25 +2959,98 @@ class GroupPagePermission(models.Model):
         related_name="group_permissions",
         on_delete=models.CASCADE,
     )
+    permission = models.ForeignKey(
+        Permission,
+        verbose_name=_("permission"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
     permission_type = models.CharField(
         verbose_name=_("permission type"),
+        null=True,
+        blank=True,
         max_length=20,
         choices=PAGE_PERMISSION_TYPE_CHOICES,
     )
 
+    objects = GroupPagePermissionManager()
+
     class Meta:
-        unique_together = ("group", "page", "permission_type")
+        constraints = [
+            models.CheckConstraint(
+                check=(
+                    models.Q(permission__isnull=False)
+                    | models.Q(permission_type__isnull=False)
+                ),
+                name="permission_or_permission_type_not_null",
+            ),
+            models.UniqueConstraint(
+                fields=("group", "page", "permission"),
+                name="unique_permission",
+            ),
+            models.UniqueConstraint(
+                fields=("group", "page", "permission_type"),
+                name="unique_permission_type",
+            ),
+        ]
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
+
+    @classmethod
+    def check(cls, **kwargs):
+        messages = super().check(**kwargs)
+        try:
+            outdated_objs = cls.objects._migrate_permission_type()
+        except DatabaseError:
+            # Migration hasn't been run yet
+            outdated_objs = 0
+
+        if outdated_objs:
+            # RemovedInWagtail60Warning
+            messages.append(
+                checks.Warning(
+                    f"Found and fixed {outdated_objs} GroupPagePermission object(s) with a null value in `permission` field and/or an outdated 'edit' value in `permission_type` field.",
+                    hint=(
+                        "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
+                        "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
+                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission."
+                        "The `permission_type` field will be removed in Wagtail 6.0."
+                    ),
+                    obj=cls,
+                    id="wagtailcore.W002",
+                )
+            )
+        return messages
 
     def __str__(self):
         return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
             self.group.id,
             self.group,
-            self.permission_type,
+            self.permission.codename,
             self.page.id,
             self.page,
         )
+
+    def save(self, **kwargs):
+        # Automatically fill an empty permission or permission_type.
+        # This will be removed in Wagtail 6.0.
+        if not self.permission and self.permission_type:
+            warnings.warn(
+                "GroupPagePermission.permission_type is deprecated. Use the "
+                "GroupPagePermission.permission foreign key to the Permission model instead.",
+                category=RemovedInWagtail60Warning,
+                stacklevel=2,
+            )
+            self.permission = Permission.objects.get(
+                content_type=get_default_page_content_type(),
+                codename=f"{self.permission_type}_page",
+            )
+        if self.permission and not self.permission_type:
+            # No need to raise a warning here as we will remove the permission_type
+            # field in Wagtail 6.0
+            self.permission_type = self.permission.codename[:-5]
+        return super().save(**kwargs)
 
 
 class UserPagePermissionsProxy:
@@ -2978,12 +3107,12 @@ class UserPagePermissionsProxy:
         warnings.warn(
             "UserPagePermissionsProxy.editable_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "edit") instead.',
+            'instances_user_has_permission_for(user, "change") instead.',
             category=RemovedInWagtail60Warning,
             stacklevel=2,
         )
         return self.permission_policy.instances_user_has_permission_for(
-            self.user, "edit"
+            self.user, "change"
         )
 
     def can_edit_pages(self):
@@ -2991,7 +3120,7 @@ class UserPagePermissionsProxy:
         warnings.warn(
             "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
             "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "edit") instead.',
+            'user_has_permission(user, "change") instead.',
             category=RemovedInWagtail60Warning,
             stacklevel=2,
         )
@@ -3044,7 +3173,9 @@ class PagePermissionTester:
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
-                perm.permission_type
+                # Get the 'action' part of the permission codename, e.g.
+                # 'add' instead of 'add_page'
+                perm.permission.codename.rsplit("_", maxsplit=1)[0]
                 for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
@@ -3076,7 +3207,7 @@ class PagePermissionTester:
         if self.user.is_superuser:
             return True
 
-        if "edit" in self.permissions:
+        if "change" in self.permissions:
             return True
 
         if "add" in self.permissions and self.page.owner_id == self.user.pk:
@@ -3110,7 +3241,7 @@ class PagePermissionTester:
         ):
             return False
 
-        if "edit" in self.permissions:
+        if "change" in self.permissions:
             # if the user does not have publish permission, we also need to confirm that there
             # are no published pages here
             if "publish" not in self.permissions:

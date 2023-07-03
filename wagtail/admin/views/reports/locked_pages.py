@@ -48,7 +48,7 @@ class LockedPagesView(PageReportView):
         pages = (
             (
                 PagePermissionPolicy().instances_user_has_permission_for(
-                    self.request.user, "edit"
+                    self.request.user, "change"
                 )
                 | Page.objects.filter(locked_by=self.request.user)
             )
