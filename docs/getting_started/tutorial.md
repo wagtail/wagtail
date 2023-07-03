@@ -944,9 +944,6 @@ You need to create the template, `blog/templates/blog/blog_tag_index_page.html` 
           <p>
               <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
               <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
-              {% if blogpage.author %}
-                <p>By {{ blogpage.author.profile }}</p>
-              {% endif %}
           </p>
 
     {% empty %}
@@ -957,8 +954,6 @@ You need to create the template, `blog/templates/blog/blog_tag_index_page.html` 
 ```
 
 In the preceding `blog_tag_index_page.html` template, you're calling the built-in `latest_revision_created_at` field on the `Page` model. It's handy to know this is always available.
-
-There is currently no "author" field in your `BlogPage` model, nor do you have a `Profile` model for authors. Feel free to try this as an exercise on your own.
 
 Clicking the tag button at the bottom of a blog post renders a page like this:
 
