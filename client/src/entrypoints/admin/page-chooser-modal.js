@@ -2,8 +2,6 @@ import $ from 'jquery';
 import { ChooserModal } from '../../includes/chooserModal';
 import { initTooltips } from '../../includes/initTooltips';
 
-/* global wagtail */
-
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   browse(modal, jsonData) {
     /* Set up link-types links to open in the modal */
