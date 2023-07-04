@@ -15,6 +15,7 @@ import {
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
+import type { ProgressController } from './ProgressController';
 
 const runContentChecks = async () => {
   axe.registerPlugin(wagtailPreviewPlugin);
@@ -103,12 +104,16 @@ export class PreviewController extends Controller<HTMLElement> {
     autoUpdateInterval: { default: 500, type: Number },
   };
 
+  static outlets = ['w-progress'];
+
   declare readonly unavailableClass: string;
   declare readonly hasErrorsClass: string;
   declare readonly selectedSizeClass: string;
 
   declare readonly sizeTargets: HTMLInputElement[];
+  declare readonly hasNewTabTarget: boolean;
   declare readonly newTabTarget: HTMLAnchorElement;
+  declare readonly hasSpinnerTarget: boolean;
   declare readonly spinnerTarget: HTMLDivElement;
   declare readonly hasModeTarget: boolean;
   declare readonly modeTarget: HTMLSelectElement;
@@ -117,6 +122,9 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly urlValue: string;
   declare readonly autoUpdateValue: boolean;
   declare readonly autoUpdateIntervalValue: number;
+
+  declare readonly hasWProgressOutlet: boolean;
+  declare readonly wProgressOutlet: ProgressController;
 
   // Instance variables with initial values set in connect()
   declare editForm: HTMLFormElement;
@@ -208,7 +216,12 @@ export class PreviewController extends Controller<HTMLElement> {
       clearTimeout(this.spinnerTimeout);
       this.spinnerTimeout = null;
     }
-    this.spinnerTarget.hidden = true;
+    if (this.hasSpinnerTarget) {
+      this.spinnerTarget.hidden = true;
+    }
+    if (this.hasWProgressOutlet) {
+      this.wProgressOutlet.loadingValue = false;
+    }
     this.updatePromise = null;
   }
 
@@ -303,9 +316,11 @@ export class PreviewController extends Controller<HTMLElement> {
     // Store the promise so that subsequent calls to setPreviewData will
     // return the same promise as long as it hasn't finished yet
     this.updatePromise = (async () => {
-      this.spinnerTimeout = setTimeout(() => {
-        this.spinnerTarget.hidden = false;
-      }, 2000);
+      if (this.hasSpinnerTarget) {
+        this.spinnerTimeout = setTimeout(() => {
+          this.spinnerTarget.hidden = false;
+        }, 2000);
+      }
 
       try {
         const response = await fetch(this.urlValue, {

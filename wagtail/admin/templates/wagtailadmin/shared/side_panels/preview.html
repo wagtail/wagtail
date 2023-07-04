@@ -11,6 +11,7 @@
     data-w-preview-url-value="{{ preview_url }}"
     data-w-preview-auto-update-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW|yesno:'true,false' }}"
     data-w-preview-auto-update-interval-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL }}"
+    data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
 >
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button">
@@ -29,13 +30,25 @@
         <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
-    <div class="preview-panel__spinner" data-w-preview-target="spinner" hidden>
-        {% icon name="spinner" classname="default" %}
-        <span class="w-sr-only">{% trans 'Loading'%}</span>
-    </div>
-
-    {% if not settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
-        <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-action="w-preview#setPreviewDataWithAlert">{% icon name="rotate" %} Refresh</button>
+    {% if settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
+        <div class="preview-panel__spinner" data-w-preview-target="spinner" hidden>
+            {% icon name="spinner" classname="default" %}
+            <span class="w-sr-only">{% trans 'Loading'%}</span>
+        </div>
+    {% else %}
+        <button
+            type="button"
+            class="button button-small button-secondary button-longrunning button--icon preview-panel__refresh-button"
+            data-controller="w-progress"
+            data-action="click->w-preview#setPreviewDataWithAlert click->w-progress#activate"
+            data-w-progress-active-value="{% trans 'Refreshing…' %}"
+            data-w-progress-duration-seconds-value="300"
+        >
+            {% icon name="rotate" classname="button-longrunning__icon" %}
+            {% icon name="spinner" %}
+            {# Using sr-only for the label as there might not be enough room for the label if the panel is resized #}
+            <em class="w-sr-only" data-w-progress-target="label">{% trans 'Refresh' %}</em>
+        </button>
     {% endif %}
 
     <div class="preview-panel__area">
