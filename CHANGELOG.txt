@@ -69,6 +69,7 @@ Changelog
  * Maintenance: Refactor GroupPagePermission to use Django's Permission model (Sage Abdullah)
  * Maintenance: Convert the CONTRIBUTORS file to Markdown (Dan Braghis)
  * Maintenance: Move `django-filter` version upper bound to v24 (Yuekui)
+ * Maintenance: Update Pillow dependency to allow 10.x, only include support for >= 9.1.0 (Yuekui)
 
 
 5.0.2 (21.06.2023)
