@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
 
 from .models import ModelWithStringTypePrimaryKey
@@ -81,3 +82,7 @@ class TestDeleteView(DeleteView):
     delete_url_name = "testapp_generic_delete"
     success_message = gettext_lazy("User '%(object)s' updated.")
     page_title = gettext_lazy("test delete view")
+
+
+class Test10411ApiViewSet(PagesAPIViewSet):
+    meta_fields = []
