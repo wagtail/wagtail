@@ -19,7 +19,7 @@ To ensure consistency in tone and language, follow the [Google developer documen
 
 ## Writing style linter
 
-Before submitting a pull request, use Vale to check if your documentation adheres to the Google developer documentation style guide. Follow these steps to check your documentation with Vale:
+Before submitting a pull request, use [Vale](https://vale.sh/) to check if your documentation adheres to the Google developer documentation style guide. Follow these steps to check your documentation with Vale:
 
 1.  Copy and paste your Wagtail documentation content into a new markdown file located in a separate directory.
 2.  Open your command line terminal and navigate to the separate directory that has your new markdown file.
@@ -68,10 +68,10 @@ vale <documentation.md>
 ```
 
 ```{note}
-Replace the "documentation.md" with the actual name of your markdown file.
+Replace "documentation.md" with the actual name of your markdown file.
 ```
 
-If you follow the preceding steps correctly, your command line terminal will display errors indicating non-adherence to the Google developer documentation style guide.
+If you follow the preceding steps correctly, your command line terminal will display errors indicating non-adherence to the Google developer documentation style guide. To learn more about setting up Vale, refer to the [Vale documentation](https://vale.sh/docs/).
 
 ### Paragraphs
 
