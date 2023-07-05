@@ -11,7 +11,6 @@ from wagtail import hooks
 from wagtail.admin.forms.search import SearchForm
 
 
-@total_ordering
 class SearchArea(metaclass=MediaDefiningClass):
     template = "wagtailadmin/shared/search_area.html"
 
@@ -33,8 +32,20 @@ class SearchArea(metaclass=MediaDefiningClass):
     def __lt__(self, other):
         return (self.order, self.label) < (other.order, other.label)
 
+    def __le__(self, other):
+        return (self.order, self.label) <= (other.order, other.label)
+
+    def __ge__(self, other):
+        return (self.order, self.label) >= (other.order, other.label)
+
+    def __gt__(self, other):
+        return (self.order, self.label) > (other.order, other.label)
+
     def __eq__(self, other):
         return (self.order, self.label) == (other.order, other.label)
+
+    def __ne__(self, other):
+        return (self.order, self.label) != (other.order, other.label)
 
     def is_shown(self, request):
         """

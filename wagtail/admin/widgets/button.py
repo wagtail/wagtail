@@ -8,7 +8,6 @@ from django.utils.html import format_html
 from wagtail import hooks
 
 
-@total_ordering
 class Button:
     show = True
 
@@ -42,10 +41,36 @@ class Button:
             return NotImplemented
         return (self.priority, self.label) < (other.priority, other.label)
 
+    def __le__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) <= (other.priority, other.label)
+
+    def __ge__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) >= (other.priority, other.label)
+
+    def __gt__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) > (other.priority, other.label)
+
     def __eq__(self, other):
         if not isinstance(other, Button):
             return NotImplemented
         return (
+            self.label == other.label
+            and self.url == other.url
+            and self.classes == other.classes
+            and self.attrs == other.attrs
+            and self.priority == other.priority
+        )
+
+    def __ne__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return not (
             self.label == other.label
             and self.url == other.url
             and self.classes == other.classes
