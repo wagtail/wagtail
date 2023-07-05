@@ -71,7 +71,7 @@ vale <documentation.md>
 Replace the "documentation.md" with the actual name of your markdown file.
 ```
 
-If you have followed the preceding steps correctly, your command line terminal will display errors indicating non-adherence to the Google developer documentation style guide.
+If you follow the preceding steps correctly, your command line terminal will display errors indicating non-adherence to the Google developer documentation style guide.
 
 ### Paragraphs
 
