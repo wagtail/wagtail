@@ -1026,6 +1026,11 @@ class TestPageListing(WagtailTestUtils, TestCase):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
 
+    def test_issue_10411(self):
+        # Bug with removing meta fields from API
+        response = self.client.get(reverse("testapp_api_v2:test_issue_10411:listing"))
+        self.assertEqual(response.status_code, 200)
+
 
 class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["demosite.json"]
