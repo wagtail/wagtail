@@ -82,6 +82,29 @@ class TestIndexView(WagtailTestUtils, TestCase):
         root_page = Page.objects.get(depth=1)
         self.assertNotIn(root_page, response.context["paginator"].object_list)
 
+    def test_page_buttons_are_shown(self):
+        response = self.get()
+        self.assertContains(
+            response,
+            '<a href="/admin/tests/eventpage/inspect/12/" class="button button-secondary button-small" title="Inspect this event page">Inspect</a>',
+        )
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/12/edit/?next=/admin/tests/eventpage/" class="button button-secondary button-small" title="Edit this event page">Edit</a>',
+        )
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/12/copy/?next=/admin/tests/eventpage/" class="button button-small" title="Copy this event page">Copy</a>',
+        )
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/12/unpublish/?next=/admin/tests/eventpage/" class="button button-small" title="Unpublish this event page">Unpublish</a>',
+        )
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/12/delete/?next=/admin/tests/eventpage/" class="button no button-small" title="Delete this event page">Delete</a>',
+        )
+
 
 class TestExcludeFromExplorer(WagtailTestUtils, TestCase):
     fixtures = ["modeladmintest_test.json"]

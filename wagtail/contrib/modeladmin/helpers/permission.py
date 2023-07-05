@@ -177,7 +177,7 @@ class PagePermissionHelper(PermissionHelper):
         perms = obj.permissions_for_user(user)
         return perms.can_delete()
 
-    def user_can_publish_obj(self, user, obj):
+    def user_can_unpublish_obj(self, user, obj):
         perms = obj.permissions_for_user(user)
         return obj.live and perms.can_unpublish()
 
