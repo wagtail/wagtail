@@ -1,5 +1,3 @@
-from functools import total_ordering
-
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property

@@ -1,5 +1,3 @@
-from functools import total_ordering
-
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
