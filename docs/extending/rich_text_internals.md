@@ -110,7 +110,7 @@ You can create custom rewrite handlers to support your own new `linktype` and `e
 
         For example, ``PageLinkHandler.get_instance`` might receive ``{'id': 123}`` and return the instance of the Wagtail ``Page`` class with ID 123.
 
-        If left undefined, a default implementation of this method will query the ``id`` model field on the class returned by ``get_model`` using the provided ``id`` attribute; this can be overridden in your own handlers should you want to use some other model field.
+        If left undefined, a default implementation of this method will retrieve an instance of the model class returned by ``get_model`` by querying its primary key using the provided ``id`` attribute; this can be overriden in your own handlers should you want to use some other model field.
 ```
 
 Below is an example custom rewrite handler that implements these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like `<a linktype="user" username="wagtail">` to valid HTML like `<a href="mailto:hello@wagtail.org">`. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.

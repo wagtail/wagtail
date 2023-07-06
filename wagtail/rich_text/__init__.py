@@ -128,7 +128,7 @@ class EntityHandler:
     @classmethod
     def get_instance(cls, attrs: dict) -> Model:
         model = cls.get_model()
-        return model._default_manager.get(id=attrs["id"])
+        return model._default_manager.get(pk=attrs["id"])
 
     @staticmethod
     def expand_db_attributes(attrs: dict) -> str:

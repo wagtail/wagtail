@@ -6,11 +6,20 @@ from django.utils import translation
 
 from wagtail.fields import RichTextField
 from wagtail.models import Locale, Page
-from wagtail.rich_text import RichText, RichTextMaxLengthValidator, expand_db_html
+from wagtail.rich_text import (
+    LinkHandler,
+    RichText,
+    RichTextMaxLengthValidator,
+    expand_db_html,
+)
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
-from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.testapp.models import (
+    AdvertWithCustomPrimaryKey,
+    EventIndex,
+    EventPage,
+)
 from wagtail.test.utils.form_data import rich_text
 
 
@@ -72,6 +81,30 @@ class TestPageLinktypeHandlerWithI18N(TestCase):
         with translation.override("fr"):
             result = PageLinkHandler.expand_db_attributes({"id": self.event_page.id})
             self.assertEqual(result, '<a href="/en/events/christmas/">')
+
+
+class CustomEntityHandlerTests(TestCase):
+    def test_entity_with_custom_primary_key(self):
+        class AdvertLinkHandler(LinkHandler):
+            identifier = "advert"
+
+            @staticmethod
+            def get_model():
+                return AdvertWithCustomPrimaryKey
+
+            @classmethod
+            def expand_db_attributes(cls, attrs):
+                advert = cls.get_instance(attrs)
+                return '<a href="%s">' % advert.url
+
+        AdvertWithCustomPrimaryKey.objects.create(
+            advert_id="wagtail", url="https://wagtail.io", text="Wagtail"
+        )
+
+        self.assertEqual(
+            AdvertLinkHandler.expand_db_attributes({"id": "wagtail"}),
+            '<a href="https://wagtail.io">',
+        )
 
 
 class TestExtractAttrs(TestCase):
