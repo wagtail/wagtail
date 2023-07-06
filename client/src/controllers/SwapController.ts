@@ -48,7 +48,7 @@ const getGlobalHeaderSearchOptions = (): {
  *    data-controller="w-swap"
  *    data-action="input->w-swap#searchLazy"
  *    data-w-swap-src-value="path/to/search"
- *    data-w-swap-target-value="#results"
+ *    data-w-swap-target-value="#listing-results"
  *  />
  *
  */
@@ -63,7 +63,7 @@ export class SwapController extends Controller<
     icon: { default: '', type: String },
     loading: { default: false, type: Boolean },
     src: { default: '', type: String },
-    target: { default: '#results', type: String },
+    target: { default: '#listing-results', type: String },
     wait: { default: 200, type: Number },
   };
 
