@@ -68,6 +68,7 @@ Changelog
  * Maintenance: Migrate Tagit initialisation to a Stimulus Controller (LB (Ben) Johnston)
  * Maintenance: Refactor GroupPagePermission to use Django's Permission model (Sage Abdullah)
  * Maintenance: Convert the CONTRIBUTORS file to Markdown (Dan Braghis)
+ * Maintenance: Move `django-filter` version upper bound to v24 (Yuekui)
 
 
 5.0.2 (21.06.2023)
