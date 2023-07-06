@@ -5,6 +5,9 @@ $spacing-sm: theme('spacing.5');
 
 .w-combobox {
   width: min(400px, 80vw);
+  @include dark-theme() {
+    background-color: theme('colors.surface-tooltip');
+  }
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
