@@ -18,6 +18,7 @@ const borderWidth = {
 const boxShadow = {
   DEFAULT: '5px 5px 20px rgba(0, 0, 0, 0.05)',
   md: '5px 5px 30px rgba(0, 0, 0, 0.25)',
+  lg: '5px 5px 30px rgba(0, 0, 0, 0.5)',
 };
 
 module.exports = {
