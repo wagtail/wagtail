@@ -9,6 +9,9 @@
     - `description` - if present, displayed as a small text below the `h1` tag title
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `search_form` - form object for the search form. Required if search_url is passed
+    - `search_results_url` - URL to be used for async requests to search results, if not provided, the form's action URL will be used
+    - `search_target` - A selector string to be used as the target for teh search results to be swapped into. Defaults to '#results'
+    - `search_disable_async` - If True, the default header async search functionality will not be used
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
     - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
@@ -44,7 +47,19 @@
                 {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
             </div>
             {% if search_url %}
-                <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
+                <form
+                    class="col search-form"
+                    action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}"
+                    method="get"
+                    novalidate
+                    role="search"
+                    {% if not search_disable_async %}
+                        data-controller="w-swap"
+                        data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                        {% if search_results_url %}data-w-swap-src-value="{{ search_results_url }}"{% endif %}
+                        {% if search_target %}data-w-swap-target-value="{{ search_target }}"{% endif %}
+                    {% endif %}
+                >
                     {% for field in search_form %}
                         {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
                     {% endfor %}

@@ -462,6 +462,7 @@
 
             {% url "wagtailstyleguide" as add_link %}
             {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
+            <div id="listing-results" style="display: none;">{% comment %} Not implemented, hide content to avoid confusion {% endcomment %}</div>
         {% endpanel %}
 
         {% panel id="forms" heading="Forms" %}

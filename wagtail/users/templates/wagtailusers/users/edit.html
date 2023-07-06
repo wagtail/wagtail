@@ -4,7 +4,7 @@
 {% block content %}
 
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 icon="user" %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 icon="user" search_results_url=index_results_url %}
 
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">

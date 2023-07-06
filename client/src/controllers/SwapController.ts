@@ -11,7 +11,7 @@ declare global {
 /**
  * Support legacy window global approach until header search
  * can fully adopt data-attributes.
- *
+ * @deprecated RemovedInWagtail60
  */
 const getGlobalHeaderSearchOptions = (): {
   targetOutput?: string;
@@ -95,7 +95,7 @@ export class SwapController extends Controller<
    * Ensure we have backwards compatibility with setting window.headerSearch
    * and allowing for elements without a controller attached to be set up.
    *
-   * Will be removed in a future release.
+   * @deprecated RemovedInWagtail60
    */
   static afterLoad(identifier: string) {
     domReady().then(() => {

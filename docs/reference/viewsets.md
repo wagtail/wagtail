@@ -1,3 +1,5 @@
+(viewsets_reference)=
+
 # Viewsets
 
 Viewsets are Wagtail's mechanism for defining a group of related admin views with shared properties, as a single unit. See [Generic views](../extending/generic_views).

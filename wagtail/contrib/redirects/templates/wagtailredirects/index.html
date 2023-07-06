@@ -6,19 +6,9 @@
 
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
-{% block extra_js %}
-    {{ block.super }}
-    <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailredirects:index' %}",
-            termInput: "#id_q",
-            targetOutput: "#redirects-results"
-        }
-    </script>
-{% endblock %}
-
 {% block content %}
     {% trans "Redirects" as redirects_str %}
+    {% url 'wagtailredirects:index' as search_results_url %}
     {% if user_can_add %}
         {% url "wagtailredirects:add" as add_link %}
         {% trans "Add redirect" as add_str %}
@@ -35,17 +25,13 @@
                 </ul>
             </div>
         {% endfragment %}
-        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" query_parameters=query_parameters action_url=add_link action_text=add_str action_icon="plus" extra_actions=redirect_actions %}
-
-
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" query_parameters=query_parameters action_url=add_link action_text=add_str action_icon="plus" extra_actions=redirect_actions search_results_url=search_results_url search_target="#redirects-results" %}
     {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" %}
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" search_results_url=search_results_url search_target="#redirects-results" %}
     {% endif %}
-
     <div class="nice-padding">
         <div id="redirects-results" class="redirects">
             {% include "wagtailredirects/results.html" %}
         </div>
     </div>
-
 {% endblock %}

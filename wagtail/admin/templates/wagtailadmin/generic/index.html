@@ -2,19 +2,5 @@
 {% load i18n %}
 
 {% block header %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label search_url=search_url search_form=search_form icon=header_icon only %}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-
-    {% if search_form %}
-        <script>
-            window.headerSearch = {
-                url: "{{ index_results_url }}",
-                termInput: "#id_q",
-                targetOutput: "#listing-results"
-            }
-        </script>
-    {% endif %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
 {% endblock %}
