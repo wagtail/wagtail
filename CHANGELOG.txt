@@ -35,6 +35,7 @@ Changelog
  * Fix: Fix empty blocks created in migration operations (Sandil Ranasinghe)
  * Fix: Ensure that gettext_lazy works correctly when using verbose_name on a generic Settings models (Sébastien Corbin)
  * Fix: Remove unnecessary usage of `innerHTML` when modifying DOM content (LB (Ben) Johnston)
+ * Fix: Avoid `ValueError` when extending `PagesAPIViewSet` and setting `meta_fields` to an empty list (Henry Harutyunyan, Alex Morega)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)

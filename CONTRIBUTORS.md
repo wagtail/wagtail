@@ -719,6 +719,8 @@
 * Vitaly Babiy
 * Sébastien Corbin
 * Sahil Jangra
+* Henry Harutyunyan
+* Alex Morega
 
 ## Translators
 
