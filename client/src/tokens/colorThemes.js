@@ -94,6 +94,12 @@ const light = [
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',
       },
+      'surface-button-critical-hover': {
+        value: 'var(--w-color-critical-50)',
+        bgUtility: 'w-bg-surface-button-critical-hover',
+        textUtility: 'w-text-surface-button-critical-hover',
+        cssVariable: '--w-color-surface-button-critical-hover',
+      },
     },
   },
   {
@@ -170,6 +176,12 @@ const light = [
         bgUtility: 'w-bg-text-error',
         textUtility: 'w-text-text-error',
         cssVariable: '--w-color-text-error',
+      },
+      'text-button-critical-outline-hover': {
+        value: 'var(--w-color-critical-200)',
+        bgUtility: 'w-bg-text-button-critical-outline-hover',
+        textUtility: 'w-text-text-button-critical-outline-hover',
+        cssVariable: '--w-color-text-button-critical-outline-hover',
       },
     },
   },
@@ -322,6 +334,12 @@ const dark = [
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',
       },
+      'surface-button-critical-hover': {
+        value: 'var(--w-color-grey-600)',
+        bgUtility: 'w-bg-surface-button-critical-hover',
+        textUtility: 'w-text-surface-button-critical-hover',
+        cssVariable: '--w-color-surface-button-critical-hover',
+      },
     },
   },
   {
@@ -398,6 +416,12 @@ const dark = [
         bgUtility: 'w-bg-text-error',
         textUtility: 'w-text-text-error',
         cssVariable: '--w-color-text-error',
+      },
+      'text-button-critical-outline-hover': {
+        value: 'var(--w-color-critical-50)',
+        bgUtility: 'w-bg-text-button-critical-outline-hover',
+        textUtility: 'w-text-text-button-critical-outline-hover',
+        cssVariable: '--w-color-text-button-critical-outline-hover',
       },
     },
   },
