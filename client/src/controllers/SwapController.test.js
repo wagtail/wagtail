@@ -43,7 +43,7 @@ describe('SwapController', () => {
       expect(handleError).not.toHaveBeenCalled();
 
       document.body.innerHTML = `
-      <div id="results"></div>
+      <div id="listing-results"></div>
       <input
         id="search"
         type="text"
@@ -66,7 +66,7 @@ describe('SwapController', () => {
       expect(handleError).not.toHaveBeenCalled();
 
       document.body.innerHTML = `
-      <div id="results"></div>
+      <div id="listing-results"></div>
       <input
         id="search"
         type="text"
@@ -112,7 +112,7 @@ describe('SwapController', () => {
     });
   });
 
-  describe('fallback on window.headerSearch values if not in HTML', () => {
+  describe('fallback on window.headerSearch values if not in HTML (RemovedInWagtail60)', () => {
     it('should set the src & target value from the window.headerSearch if not present', async () => {
       window.headerSearch = {
         termInput: '#search',
