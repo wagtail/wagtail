@@ -2,23 +2,12 @@
 {% load i18n %}
 {% block titletag %}{% trans "Search Terms" %}{% endblock %}
 
-{% block extra_js %}
-    {{ block.super }}
-    <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailsearchpromotions:index' %}",
-            termInput: "#id_q",
-            targetOutput: "#editorspicks-results"
-        }
-    </script>
-{% endblock %}
-
 {% block content %}
     {% trans "Promoted search results" as sp_title_str %}
     {% trans "Add new promoted result" as sp_text_str %}
-
+    {% url 'wagtailsearchpromotions:index' as search_results_url %}
     {% url "wagtailsearchpromotions:add" as add_link %}
-    {% include "wagtailadmin/shared/header.html" with title=sp_title_str action_url=add_link icon="pick" action_text=sp_text_str search_url="wagtailsearchpromotions:index" %}
+    {% include "wagtailadmin/shared/header.html" with title=sp_title_str action_url=add_link icon="pick" action_text=sp_text_str search_url="wagtailsearchpromotions:index" search_results_url=search_results_url search_target="#editorspicks-results" %}
 
     <div class="nice-padding">
         <div id="editorspicks-results" class="redirects">

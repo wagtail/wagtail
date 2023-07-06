@@ -13,7 +13,7 @@
     {% trans "Add a user" as add_a_user_str %}
 
     {% url "wagtailusers_users:add" as add_link %}
-    {% include "wagtailadmin/shared/header.html" with subtitle=group.name title=users_str action_url=add_link action_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" %}
+    {% include "wagtailadmin/shared/header.html" with subtitle=group.name title=users_str action_url=add_link action_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" search_results_url=index_results_url %}
 
     <div class="nice-padding">
         <div id="listing-results" class="users">
