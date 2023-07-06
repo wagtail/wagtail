@@ -12,6 +12,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.models import Locale, Page, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
@@ -28,6 +29,10 @@ def get_total_page_count():
         .public()
         .count()
     )
+
+
+class Test10411APIViewSet(PagesAPIViewSet):
+    meta_fields = []
 
 
 class TestPageListing(WagtailTestUtils, TestCase):
@@ -1028,7 +1033,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
     def test_issue_10411(self):
         # Bug with removing meta fields from API
-        response = self.client.get(reverse("testapp_api_v2:test_issue_10411:listing"))
+        response = self.client.get(reverse("wagtailapi_v2:issue_10411:listing"))
         self.assertEqual(response.status_code, 200)
 
 
