@@ -2,7 +2,7 @@
 <!-- Wagtail user bar embed code -->
 <template id="wagtail-userbar-template">
     <aside>
-        <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar part="userbar">
+        <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar part="userbar">
             <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
             {% hook_output 'insert_global_admin_css' %}
             {% hook_output 'insert_editor_css' %}
