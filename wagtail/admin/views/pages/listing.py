@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
@@ -168,6 +169,12 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
+        if self.show_ordering_column:
+            kwargs["attrs"] = {
+                "aria-description": gettext(
+                    "Press enter to select an item, use up and down arrows to move the item, press enter to complete the move or escape to cancel the current move."
+                )
+            }
         return kwargs
 
     def get_context_data(self, **kwargs):
