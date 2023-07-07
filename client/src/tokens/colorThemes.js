@@ -258,7 +258,13 @@ const light = [
   {
     label: 'Misc',
     tokens: {
-      focus: focusToken,
+      'focus': focusToken,
+      'box-shadow-md': {
+        value: 'var(--w-color-black-25)',
+        bgUtility: 'w-bg-box-shadow-md',
+        textUtility: 'w-text-box-shadow-md',
+        cssVariable: '--w-color-box-shadow-md',
+      },
     },
   },
 ];
@@ -498,7 +504,13 @@ const dark = [
   {
     label: 'Misc',
     tokens: {
-      focus: focusToken,
+      'focus': focusToken,
+      'box-shadow-md': {
+        value: 'var(--w-color-black-50)',
+        bgUtility: 'w-bg-box-shadow-md',
+        textUtility: 'w-text-box-shadow-md',
+        cssVariable: '--w-color-box-shadow-md',
+      },
     },
   },
 ];

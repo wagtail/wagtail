@@ -158,9 +158,6 @@
 
   .w-dialog__box {
     pointer-events: auto;
-    @include dark-theme() {
-      box-shadow: theme('boxShadow.lg');
-    }
     box-shadow: theme('boxShadow.md');
   }
 

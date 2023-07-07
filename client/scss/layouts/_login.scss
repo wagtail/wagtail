@@ -57,9 +57,6 @@
     float: none;
     padding: theme('spacing.10') theme('spacing.12');
     background: theme('colors.surface-page');
-    @include dark-theme() {
-      box-shadow: theme('boxShadow.lg');
-    }
     box-shadow: theme('boxShadow.md');
     border-radius: theme('borderRadius.md');
     margin-bottom: 15vh; // should appear slightly above centre

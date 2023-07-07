@@ -12,9 +12,6 @@ $spacing-sm: theme('spacing.5');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
   font-size: theme('fontSize.18');
-  @include dark-theme() {
-    box-shadow: theme('boxShadow.lg');
-  }
   box-shadow: theme('boxShadow.md');
   outline: 10px solid transparent;
 }
