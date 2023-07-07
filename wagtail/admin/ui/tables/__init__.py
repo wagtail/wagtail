@@ -356,6 +356,7 @@ class Table(Component):
         base_url=None,
         ordering=None,
         classname=None,
+        attrs=None,
     ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
         self.data = data
@@ -365,6 +366,7 @@ class Table(Component):
         self.ordering = ordering
         if classname is not None:
             self.classname = classname
+        self.base_attrs = attrs or {}
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
@@ -387,6 +389,12 @@ class Table(Component):
     @property
     def row_count(self):
         return len(self.data)
+
+    @property
+    def attrs(self):
+        attrs = self.base_attrs.copy()
+        attrs["class"] = self.classname
+        return attrs
 
     def get_row_classname(self, instance):
         return ""
