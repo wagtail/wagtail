@@ -69,7 +69,7 @@ $positions: (
   width: $size-home-button;
   height: $size-home-button;
   margin: 0;
-  background-color: theme('colors.surface-page');
+  background-color: theme('colors.white.DEFAULT');
   border: 2px solid transparent;
   border-radius: 50%;
   padding: 0;
@@ -258,6 +258,10 @@ $positions: (
     background: theme('colors.surface-page');
   }
 
+  .w-dialog__close-icon {
+    color: theme('colors.text-context');
+  }
+
   .w-dialog__content {
     padding: 0;
     min-height: unset;
@@ -319,7 +323,7 @@ $positions: (
   .w-a11y-result__selector {
     display: flex;
     align-items: center;
-    background: theme('colors.surface-header');
+    background: theme('colors.surface-field-inactive');
     color: theme('colors.text-context');
     border-radius: theme('borderRadius.DEFAULT');
     margin-inline-end: theme('spacing.[2.5]');

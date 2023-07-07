@@ -613,16 +613,17 @@ def avatar_url(user, size=50, gravatar_only=False):
 
 
 @register.simple_tag(takes_context=True)
-def admin_theme_name(context):
+def admin_theme_classname(context):
     """
     Retrieves the theme name for the current user.
     """
     user = context["request"].user
-    return (
+    theme_name = (
         user.wagtail_userprofile.theme
         if hasattr(user, "wagtail_userprofile")
         else "system"
     )
+    return f"w-theme-{theme_name}"
 
 
 @register.simple_tag
