@@ -70,8 +70,11 @@ class NavigateToChildrenColumn(BaseColumn):
 
 
 class PageTable(Table):
-    # If true, attributes will be added on the <tr> element to support reordering
-    use_row_ordering_attributes = False
+    def __init__(self, *args, use_row_ordering_attributes=False, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # If true, attributes will be added on the <tr> element to support reordering
+        self.use_row_ordering_attributes = use_row_ordering_attributes
 
     def get_row_classname(self, instance):
         if not instance.live:

@@ -164,16 +164,18 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
+    def get_table_kwargs(self):
+        kwargs = super().get_table_kwargs()
+        kwargs["use_row_ordering_attributes"] = self.show_ordering_column
+        return kwargs
+
     def get_context_data(self, **kwargs):
-        show_ordering_column = self.ordering == "ord"
-        if show_ordering_column:
+        self.show_ordering_column = self.ordering == "ord"
+        if self.show_ordering_column:
             self.columns = self.columns.copy()
             self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
 
         context = super().get_context_data(**kwargs)
-
-        if show_ordering_column:
-            context["table"].use_row_ordering_attributes = True
 
         side_panels = PageSidePanels(
             self.request,
@@ -193,8 +195,6 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 "side_panels": side_panels,
                 "locale": None,
                 "translations": [],
-                "show_ordering_column": show_ordering_column,
-                "show_bulk_actions": not show_ordering_column,
                 "show_locale_labels": False,
                 "index_url": self.get_index_url(),
             }
