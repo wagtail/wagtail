@@ -365,6 +365,13 @@ class Table(Component):
     def get_row_classname(self, instance):
         return ""
 
+    def get_row_attrs(self, instance):
+        attrs = {}
+        classname = self.get_row_classname(instance)
+        if classname:
+            attrs["class"] = classname
+        return attrs
+
     def has_column_widths(self):
         return any(column.width for column in self.columns.values())
 
@@ -392,6 +399,10 @@ class Table(Component):
         @cached_property
         def classname(self):
             return self.table.get_row_classname(self.instance)
+
+        @cached_property
+        def attrs(self):
+            return self.table.get_row_attrs(self.instance)
 
 
 class InlineActionsTable(Table):
