@@ -421,7 +421,8 @@ table.listing {
 .page-explorer .listing {
   position: relative;
 
-  .table-headers {
+  .table-headers,
+  thead tr {
     height: 35px;
 
     .title {

@@ -62,7 +62,7 @@
             {% endif %}
         {% endif %}
 
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 sortable_by_type=1 full_width=1 show_ordering_column=show_ordering_column show_bulk_actions=show_bulk_actions parent_page=parent_page orderable=parent_page_perms.can_reorder_children show_locale_labels=show_locale_labels %}
+        {% component table %}
 
         {% if is_paginated %}
             {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}

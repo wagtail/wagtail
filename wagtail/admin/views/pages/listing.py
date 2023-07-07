@@ -2,15 +2,25 @@ from django.conf import settings
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.tables import Column, DateColumn
+from wagtail.admin.ui.tables.pages import (
+    BulkActionsColumn,
+    NavigateToChildrenColumn,
+    OrderingColumn,
+    PageStatusColumn,
+    PageTable,
+    PageTitleColumn,
+)
+from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(PermissionCheckedMixin, ListView):
+class IndexView(PermissionCheckedMixin, BaseListingView):
     template_name = "wagtailadmin/pages/index.html"
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
@@ -24,6 +34,41 @@ class IndexView(PermissionCheckedMixin, ListView):
     context_object_name = "pages"
     page_kwarg = "p"
     paginate_by = 50
+    table_class = PageTable
+    table_classname = "listing full-width"
+
+    columns = [
+        BulkActionsColumn("bulk_actions", width="10px"),
+        PageTitleColumn(
+            "title",
+            label=_("Title"),
+            sort_key="title",
+            classname="align-top title",
+        ),
+        DateColumn(
+            "latest_revision_created_at",
+            label=_("Updated"),
+            sort_key="latest_revision_created_at",
+            width="12%",
+            classname="align-top",
+        ),
+        Column(
+            "type",
+            label=_("Type"),
+            accessor="page_type_display_name",
+            sort_key="content_type",
+            width="12%",
+            classname="align-top",
+        ),
+        PageStatusColumn(
+            "status",
+            label=_("Status"),
+            sort_key="live",
+            width="12%",
+            classname="align-top",
+        ),
+        NavigateToChildrenColumn("navigate", width="10%"),
+    ]
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
@@ -120,9 +165,15 @@ class IndexView(PermissionCheckedMixin, ListView):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
     def get_context_data(self, **kwargs):
+        show_ordering_column = self.ordering == "ord"
+        if show_ordering_column:
+            self.columns = self.columns.copy()
+            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+
         context = super().get_context_data(**kwargs)
 
-        show_ordering_column = self.ordering == "ord"
+        if show_ordering_column:
+            context["table"].use_row_ordering_attributes = True
 
         side_panels = PageSidePanels(
             self.request,
