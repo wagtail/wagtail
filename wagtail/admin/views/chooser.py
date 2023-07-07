@@ -101,6 +101,15 @@ def can_choose_page(
 class PageChooserTable(Table):
     classname = "listing chooser"
 
+    def __init__(self, *args, show_locale_labels=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.show_locale_labels = show_locale_labels
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["show_locale_labels"] = self.show_locale_labels
+        return context
+
     def get_row_classname(self, page):
         classnames = []
         if page.is_parent_page:
@@ -116,11 +125,8 @@ class PageChooserTable(Table):
 class PageTitleColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/page_title_cell.html"
 
-    def __init__(
-        self, *args, show_locale_labels=False, is_multiple_choice=False, **kwargs
-    ):
+    def __init__(self, *args, is_multiple_choice=False, **kwargs):
         super().__init__(*args, **kwargs)
-        self.show_locale_labels = show_locale_labels
         self.is_multiple_choice = is_multiple_choice
 
     def get_value(self, instance):
@@ -129,18 +135,23 @@ class PageTitleColumn(Column):
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["page"] = instance
+        # only need to show locale labels for top-level pages
+        context["show_locale_labels"] = (
+            parent_context.get("show_locale_labels") and instance.depth == 2
+        )
         return context
 
 
 class ParentPageColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/parent_page_cell.html"
 
-    def __init__(self, *args, show_locale_labels=False, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.show_locale_labels = show_locale_labels
-
     def get_value(self, instance):
         return instance.get_parent()
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["show_locale_labels"] = parent_context.get("show_locale_labels")
+        return context
 
 
 class PageStatusColumn(Column):
@@ -170,7 +181,6 @@ class BrowseView(View):
             PageTitleColumn(
                 "title",
                 label=_("Title"),
-                show_locale_labels=self.i18n_enabled,
                 is_multiple_choice=self.is_multiple_choice,
             ),
             DateColumn(
@@ -361,6 +371,7 @@ class BrowseView(View):
         table = PageChooserTable(
             self.columns,
             [self.parent_page] + list(pages),
+            show_locale_labels=self.i18n_enabled,
         )
 
         # Render
@@ -378,7 +389,7 @@ class BrowseView(View):
                     for desired_class in self.desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
-                "show_locale_labels": self.i18n_enabled,
+                "show_locale_controls": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,
@@ -398,12 +409,8 @@ class SearchView(View):
     @property
     def columns(self):
         cols = [
-            PageTitleColumn(
-                "title", label=_("Title"), show_locale_labels=self.i18n_enabled
-            ),
-            ParentPageColumn(
-                "parent", label=_("Parent"), show_locale_labels=self.i18n_enabled
-            ),
+            PageTitleColumn("title", label=_("Title")),
+            ParentPageColumn("parent", label=_("Parent")),
             DateColumn(
                 "updated",
                 label=_("Updated"),
@@ -466,6 +473,7 @@ class SearchView(View):
         table = PageChooserTable(
             self.columns,
             pages,
+            show_locale_labels=self.i18n_enabled,
         )
 
         return TemplateResponse(
@@ -478,7 +486,6 @@ class SearchView(View):
                     "table": table,
                     "pages": pages,
                     "page_type_string": page_type_string,
-                    "show_locale_labels": self.i18n_enabled,
                 },
             ),
         )

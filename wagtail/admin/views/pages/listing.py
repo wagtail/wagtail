@@ -169,6 +169,8 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
+        kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
+
         if self.show_ordering_column:
             kwargs["attrs"] = {
                 "aria-description": gettext(
@@ -182,6 +184,7 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         if self.show_ordering_column:
             self.columns = self.columns.copy()
             self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         context = super().get_context_data(**kwargs)
 
@@ -203,30 +206,26 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 "side_panels": side_panels,
                 "locale": None,
                 "translations": [],
-                "show_locale_labels": False,
                 "index_url": self.get_index_url(),
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            if not self.parent_page.is_root():
-                context.update(
-                    {
-                        "locale": self.parent_page.locale,
-                        "translations": [
-                            {
-                                "locale": translation.locale,
-                                "url": reverse(
-                                    "wagtailadmin_explore", args=[translation.id]
-                                ),
-                            }
-                            for translation in self.parent_page.get_translations()
-                            .only("id", "locale")
-                            .select_related("locale")
-                        ],
-                    }
-                )
-            else:
-                context["show_locale_labels"] = True
+        if self.i18n_enabled and not self.parent_page.is_root():
+            context.update(
+                {
+                    "locale": self.parent_page.locale,
+                    "translations": [
+                        {
+                            "locale": translation.locale,
+                            "url": reverse(
+                                "wagtailadmin_explore", args=[translation.id]
+                            ),
+                        }
+                        for translation in self.parent_page.get_translations()
+                        .only("id", "locale")
+                        .select_related("locale")
+                    ],
+                }
+            )
 
         return context

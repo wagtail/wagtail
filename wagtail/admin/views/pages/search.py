@@ -166,6 +166,11 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     def get_index_url(self):
         return reverse("wagtailadmin_pages:search")
 
+    def get_table_kwargs(self):
+        kwargs = super().get_table_kwargs()
+        kwargs["show_locale_labels"] = self.show_locale_labels
+        return kwargs
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update(
@@ -176,7 +181,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
-                "show_locale_labels": self.show_locale_labels,
             }
         )
         return context
