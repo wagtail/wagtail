@@ -49,6 +49,11 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
         return context
 
 
+class OrderingColumn(BaseColumn):
+    header_template_name = "wagtailadmin/pages/listing/_ordering_header.html"
+    cell_template_name = "wagtailadmin/pages/listing/_ordering_cell.html"
+
+
 class NavigateToChildrenColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_navigation_explore.html"
 
@@ -65,11 +70,21 @@ class NavigateToChildrenColumn(BaseColumn):
 
 
 class PageTable(Table):
+    # If true, attributes will be added on the <tr> element to support reordering
+    use_row_ordering_attributes = False
+
     def get_row_classname(self, instance):
         if not instance.live:
             return "unpublished"
         else:
             return ""
+
+    def get_row_attrs(self, instance):
+        attrs = super().get_row_attrs(instance)
+        if self.use_row_ordering_attributes:
+            attrs["id"] = "page_%d" % instance.id
+            attrs["data-page-title"] = instance.get_admin_display_title()
+        return attrs
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

@@ -1,0 +1,10 @@
+{% load i18n wagtailadmin_tags %}
+<td class="ord">
+    <div class="handle" tabindex="0" aria-live="polite" data-order-handle>
+        {% icon name="grip" classname="default" %}
+        <span class="w-sr-only">
+            {% trans 'Drag' %}
+            <span data-order-label>Item {{ forloop.counter }} of {{ pages|length }}</span>
+        </span>
+    </div>
+</td>
