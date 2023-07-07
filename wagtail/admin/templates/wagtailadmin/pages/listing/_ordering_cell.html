@@ -4,7 +4,7 @@
         {% icon name="grip" classname="default" %}
         <span class="w-sr-only">
             {% trans 'Drag' %}
-            <span data-order-label>Item {{ forloop.counter }} of {{ pages|length }}</span>
+            <span data-order-label>Item {{ row.index|add:1 }} of {{ table.row_count }}</span>
         </span>
     </div>
 </td>

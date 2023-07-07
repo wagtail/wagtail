@@ -95,6 +95,8 @@ class BaseColumn(metaclass=MediaDefiningClass):
         return {
             "instance": instance,
             "column": self,
+            "row": parent_context["row"],
+            "table": parent_context["table"],
             "request": parent_context.get("request"),
         }
 
@@ -359,8 +361,12 @@ class Table(Component):
 
     @property
     def rows(self):
-        for instance in self.data:
-            yield Table.Row(self, instance)
+        for index, instance in enumerate(self.data):
+            yield Table.Row(self, instance, index)
+
+    @property
+    def row_count(self):
+        return len(self.data)
 
     def get_row_classname(self, instance):
         return ""
@@ -378,10 +384,11 @@ class Table(Component):
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
         # the corresponding column's format_cell method applied to the instance
-        def __init__(self, table, instance):
+        def __init__(self, table, instance, index):
             self.table = table
             self.columns = table.columns
             self.instance = instance
+            self.index = index
 
         def __len__(self):
             return len(self.columns)

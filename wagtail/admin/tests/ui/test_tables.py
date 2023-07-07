@@ -1,7 +1,8 @@
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
+from django.utils.html import format_html
 
-from wagtail.admin.ui.tables import Column, Table, TitleColumn
+from wagtail.admin.ui.tables import BaseColumn, Column, Table, TitleColumn
 from wagtail.models import Page, Site
 
 
@@ -243,6 +244,46 @@ class TestTable(TestCase):
                         <td>gallery.example.com</td>
                         <td>My gallery</td>
                     </tr>
+                </tbody>
+            </table>
+        """,
+        )
+
+    def test_table_and_row_in_context(self):
+        data = [
+            {"first_name": "Paul", "last_name": "Simon"},
+            {"first_name": "Art", "last_name": "Garfunkel"},
+        ]
+
+        class CounterColumn(BaseColumn):
+            def render_cell_html(self, instance, parent_context):
+                context = self.get_cell_context_data(instance, parent_context)
+                return format_html(
+                    "<td>{} of {}</td>",
+                    context["row"].index + 1,
+                    context["table"].row_count,
+                )
+
+        table = Table(
+            [
+                CounterColumn("index"),
+                Column("first_name"),
+                Column("last_name"),
+            ],
+            data,
+        )
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(
+            html,
+            """
+            <table class="listing">
+                <thead>
+                    <tr><th>Index</th><th>First name</th><th>Last name</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1 of 2</td><td>Paul</td><td>Simon</td></tr>
+                    <tr><td>2 of 2</td><td>Art</td><td>Garfunkel</td></tr>
                 </tbody>
             </table>
         """,
