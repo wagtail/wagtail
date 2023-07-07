@@ -176,6 +176,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         context["index_url"] = self.index_url
         context["table"] = table
         context["media"] = table.media
-        context["is_paginated"] = bool(self.paginate_by)
+        # On Django's BaseListView, a listing where pagination is applied, but the results
+        # only run to a single page, is considered is_paginated=False. Override this to
+        # always consider a listing to be paginated if pagination is applied. This ensures
+        # that we output "Page 1 of 1" as is standard in Wagtail.
+        context["is_paginated"] = context["page_obj"] is not None
 
         return context
