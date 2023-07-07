@@ -41,7 +41,16 @@ class TestElasticsearch7SearchQuery(TestCase):
         expected_result = {
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
-                "must": {"match": {"_all_text": {"query": "Hello"}}},
+                "must": {
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
+                },
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -56,7 +65,16 @@ class TestElasticsearch7SearchQuery(TestCase):
         expected_result = {
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
-                "must": {"match": {"_edgengrams": {"query": "Hello"}}},
+                "must": {
+                    "multi_match": {
+                        "fields": [
+                            "_edgengrams",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
+                },
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -85,12 +103,15 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                            "operator": "and",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                        "operator": "and",
+                    },
                 },
             }
         }
@@ -110,11 +131,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"term": {"title_filter": "Test"}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -144,11 +168,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     },
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -193,11 +220,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     },
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -224,11 +254,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     },
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -244,7 +277,16 @@ class TestElasticsearch7SearchQuery(TestCase):
         expected_result = {
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
-                "must": {"match": {"title": {"query": "Hello"}}},
+                "must": {
+                    "multi_match": {
+                        "fields": [
+                            "title",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
+                },
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -259,7 +301,17 @@ class TestElasticsearch7SearchQuery(TestCase):
         expected_result = {
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
-                "must": {"match": {"title": {"query": "Hello", "operator": "and"}}},
+                "must": {
+                    "multi_match": {
+                        "fields": [
+                            "title",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                        "operator": "and",
+                    },
+                },
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -275,7 +327,15 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {"fields": ["title", "content"], "query": "Hello"}
+                    "multi_match": {
+                        "fields": [
+                            "title",
+                            "content",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    }
                 },
             }
         }
@@ -296,7 +356,12 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
                     "multi_match": {
-                        "fields": ["title", "content"],
+                        "fields": [
+                            "title",
+                            "content",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
                         "query": "Hello",
                         "operator": "and",
                     }
@@ -319,11 +384,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"term": {"title_filter": "Test"}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -343,11 +411,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -367,11 +438,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -391,11 +465,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"exists": {"field": "title_filter"}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -415,11 +492,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"prefix": {"title_filter": "Test"}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -444,11 +524,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"range": {"publication_date_filter": {"gt": "2014-04-29"}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -471,11 +554,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"range": {"publication_date_filter": {"lt": "2014-04-29"}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -498,11 +584,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"range": {"publication_date_filter": {"gte": "2014-04-29"}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -525,11 +614,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"range": {"publication_date_filter": {"lte": "2014-04-29"}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -560,11 +652,14 @@ class TestElasticsearch7SearchQuery(TestCase):
                     },
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
-                    }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
+                    },
                 },
             }
         }
@@ -616,7 +711,13 @@ class TestElasticsearch7SearchQuery(TestCase):
         )
 
         # Check it
-        expected_result = {"match_phrase": {"_all_text": "Hello world"}}
+        expected_result = {
+            "multi_match": {
+                "fields": ["_all_text", "_all_text_boost_2^2", "_all_text_boost_10^10"],
+                "query": "Hello world",
+                "type": "phrase",
+            },
+        }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
     def test_phrase_query_multiple_fields(self):
@@ -631,7 +732,12 @@ class TestElasticsearch7SearchQuery(TestCase):
         expected_result = {
             "multi_match": {
                 "query": "Hello world",
-                "fields": ["title", "content"],
+                "fields": [
+                    "title",
+                    "content",
+                    "_all_text_boost_2^2",
+                    "_all_text_boost_10^10",
+                ],
                 "type": "phrase",
             }
         }
@@ -644,7 +750,13 @@ class TestElasticsearch7SearchQuery(TestCase):
         )
 
         # Check it
-        expected_result = {"match_phrase": {"title": "Hello world"}}
+        expected_result = {
+            "multi_match": {
+                "fields": ["title", "_all_text_boost_2^2", "_all_text_boost_10^10"],
+                "query": "Hello world",
+                "type": "phrase",
+            },
+        }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
     def test_fuzzy_query(self):
@@ -656,7 +768,11 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "match": {"_all_text": {"query": "Hello world", "fuzziness": "AUTO"}}
+            "multi_match": {
+                "fields": ["_all_text", "_all_text_boost_2^2", "_all_text_boost_10^10"],
+                "query": "Hello world",
+                "fuzziness": "AUTO",
+            }
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
@@ -670,7 +786,11 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "match": {"title": {"query": "Hello world", "fuzziness": "AUTO"}}
+            "multi_match": {
+                "fields": ["title", "_all_text_boost_2^2", "_all_text_boost_10^10"],
+                "query": "Hello world",
+                "fuzziness": "AUTO",
+            }
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
@@ -700,10 +820,13 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"range": {"publication_date_filter": {"lt": 1900}}},
                 ],
                 "must": {
-                    "match": {
-                        "_all_text": {
-                            "query": "Hello",
-                        }
+                    "multi_match": {
+                        "fields": [
+                            "_all_text",
+                            "_all_text_boost_2^2",
+                            "_all_text_boost_10^10",
+                        ],
+                        "query": "Hello",
                     }
                 },
             }
@@ -918,6 +1041,7 @@ class TestElasticsearch7Mapping(TestCase):
                 "pk": {"type": "keyword", "store": True},
                 "content_type": {"type": "keyword"},
                 "_all_text": {"type": "text"},
+                "_all_text_boost_2.0": {"type": "text"},
                 "_edgengrams": {
                     "analyzer": "edgengram_analyzer",
                     "search_analyzer": "standard",
@@ -926,7 +1050,7 @@ class TestElasticsearch7Mapping(TestCase):
                 "title": {
                     "type": "text",
                     "boost": 2.0,
-                    "copy_to": "_all_text",
+                    "copy_to": ["_all_text", "_all_text_boost_2.0"],
                 },
                 "title_edgengrams": {
                     "type": "text",
@@ -1041,7 +1165,11 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "searchtests_novel__protagonist": {
                     "type": "nested",
                     "properties": {
-                        "name": {"type": "text", "boost": 0.5, "copy_to": "_all_text"},
+                        "name": {
+                            "type": "text",
+                            "boost": 0.5,
+                            "copy_to": ["_all_text", "_all_text_boost_0.5"],
+                        },
                         "novel_id_filter": {"type": "integer"},
                     },
                 },
@@ -1049,13 +1177,20 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "searchtests_novel__characters": {
                     "type": "nested",
                     "properties": {
-                        "name": {"type": "text", "boost": 0.25, "copy_to": "_all_text"}
+                        "name": {
+                            "type": "text",
+                            "boost": 0.25,
+                            "copy_to": ["_all_text", "_all_text_boost_0.25"],
+                        },
                     },
                 },
                 # Inherited
                 "pk": {"type": "keyword", "store": True},
                 "content_type": {"type": "keyword"},
                 "_all_text": {"type": "text"},
+                "_all_text_boost_0.25": {"type": "text"},
+                "_all_text_boost_0.5": {"type": "text"},
+                "_all_text_boost_2.0": {"type": "text"},
                 "_edgengrams": {
                     "analyzer": "edgengram_analyzer",
                     "search_analyzer": "standard",
@@ -1064,7 +1199,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "title": {
                     "type": "text",
                     "boost": 2.0,
-                    "copy_to": "_all_text",
+                    "copy_to": ["_all_text", "_all_text_boost_2.0"],
                 },
                 "title_edgengrams": {
                     "type": "text",
