@@ -72,7 +72,12 @@ class NavigateToChildrenColumn(BaseColumn):
 
 class PageTable(Table):
     def __init__(
-        self, *args, use_row_ordering_attributes=False, parent_page=None, **kwargs
+        self,
+        *args,
+        use_row_ordering_attributes=False,
+        parent_page=None,
+        show_locale_labels=False,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
 
@@ -94,6 +99,8 @@ class PageTable(Table):
                 self.descending_title_text_format = gettext(
                     "Sort the order of child pages within '%(parent)s' by '%(label)s' in descending order."
                 )
+
+        self.show_locale_labels = show_locale_labels
 
     def get_ascending_title_text(self, column):
         return self.ascending_title_text_format % {
@@ -122,6 +129,6 @@ class PageTable(Table):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        context["show_locale_labels"] = parent_context.get("show_locale_labels")
+        context["show_locale_labels"] = self.show_locale_labels
         context["perms"] = parent_context.get("perms")
         return context

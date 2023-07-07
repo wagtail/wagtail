@@ -11,7 +11,7 @@
         {% else %}
             {{ value }}
         {% endif %}
-        {% if column.show_locale_labels and page.depth == 2 %}
+        {% if show_locale_labels %}
             {% status page.locale.get_display_name classname="w-status--label" %}
         {% endif %}
 
