@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         {% for row in table.rows %}
-            <tr {% if row.classname %}class="{{ row.classname }}"{% endif %}>
+            <tr{% include "wagtailadmin/tables/attrs.html" with attrs=row.attrs %}>
                 {% for cell in row.values %}
                     {% component cell %}
                 {% endfor %}

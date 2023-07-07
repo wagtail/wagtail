@@ -198,3 +198,52 @@ class TestTable(TestCase):
             </table>
         """,
         )
+
+    def test_row_attrs(self):
+        class SiteTable(Table):
+            def get_row_attrs(self, instance):
+                attrs = super().get_row_attrs(instance)
+                attrs["data-id"] = instance.pk
+                return attrs
+
+        root_page = Page.objects.filter(depth=2).first()
+        blog = Site.objects.create(
+            hostname="blog.example.com",
+            site_name="My blog",
+            root_page=root_page,
+            is_default_site=True,
+        )
+        gallery = Site.objects.create(
+            hostname="gallery.example.com", site_name="My gallery", root_page=root_page
+        )
+        data = [blog, gallery]
+
+        table = SiteTable(
+            [
+                Column("hostname"),
+                Column("site_name", label="Site name"),
+            ],
+            data,
+        )
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(
+            html,
+            f"""
+            <table class="listing">
+                <thead>
+                    <tr><th>Hostname</th><th>Site name</th></tr>
+                </thead>
+                <tbody>
+                    <tr data-id="{blog.pk}">
+                        <td>blog.example.com</td>
+                        <td>My blog</td>
+                    </tr>
+                    <tr data-id="{gallery.pk}">
+                        <td>gallery.example.com</td>
+                        <td>My gallery</td>
+                    </tr>
+                </tbody>
+            </table>
+        """,
+        )
