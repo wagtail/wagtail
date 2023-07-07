@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext, gettext_lazy
 
 from wagtail.admin.ui.components import Component
 from wagtail.coreutils import multigetattr
@@ -41,7 +41,15 @@ class BaseColumn(metaclass=MediaDefiningClass):
     cell_template_name = None
 
     def __init__(
-        self, name, label=None, accessor=None, classname=None, sort_key=None, width=None
+        self,
+        name,
+        label=None,
+        accessor=None,
+        classname=None,
+        sort_key=None,
+        width=None,
+        ascending_title_text=None,
+        descending_title_text=None,
     ):
         self.name = name
         self.accessor = accessor or name
@@ -53,6 +61,8 @@ class BaseColumn(metaclass=MediaDefiningClass):
         self.sort_key = sort_key
         self.header = Column.Header(self)
         self.width = width
+        self.ascending_title_text = ascending_title_text
+        self.descending_title_text = descending_title_text
 
     def get_header_context_data(self, parent_context):
         """
@@ -66,6 +76,10 @@ class BaseColumn(metaclass=MediaDefiningClass):
             "is_ascending": self.sort_key and table.ordering == self.sort_key,
             "is_descending": self.sort_key and table.ordering == ("-" + self.sort_key),
             "request": parent_context.get("request"),
+            "ascending_title_text": self.ascending_title_text
+            or table.get_ascending_title_text(self),
+            "descending_title_text": self.descending_title_text
+            or table.get_descending_title_text(self),
         }
 
     @cached_property
@@ -235,7 +249,7 @@ class LiveStatusTagColumn(StatusTagColumn):
     def __init__(self, **kwargs):
         super().__init__(
             "status_string",
-            label=kwargs.pop("label", _("Status")),
+            label=kwargs.pop("label", gettext("Status")),
             sort_key=kwargs.pop("sort_key", "live"),
             primary=lambda instance: instance.live,
             **kwargs,
@@ -254,7 +268,7 @@ class UpdatedAtColumn(DateColumn):
     def __init__(self, **kwargs):
         super().__init__(
             "_updated_at",
-            label=kwargs.pop("label", _("Updated")),
+            label=kwargs.pop("label", gettext("Updated")),
             sort_key=kwargs.pop("sort_key", "_updated_at"),
             **kwargs,
         )
@@ -327,6 +341,12 @@ class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
     header_row_classname = ""
+    ascending_title_text_format = gettext_lazy(
+        "Sort by '%(label)s' in ascending order."
+    )
+    descending_title_text_format = gettext_lazy(
+        "Sort by '%(label)s' in descending order."
+    )
 
     def __init__(
         self,
@@ -380,6 +400,14 @@ class Table(Component):
 
     def has_column_widths(self):
         return any(column.width for column in self.columns.values())
+
+    def get_ascending_title_text(self, column):
+        if self.ascending_title_text_format:
+            return self.ascending_title_text_format % {"label": column.label}
+
+    def get_descending_title_text(self, column):
+        if self.descending_title_text_format:
+            return self.descending_title_text_format % {"label": column.label}
 
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
