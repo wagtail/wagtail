@@ -167,6 +167,7 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
+        kwargs["parent_page"] = self.parent_page
         return kwargs
 
     def get_context_data(self, **kwargs):
