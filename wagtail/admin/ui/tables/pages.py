@@ -70,11 +70,41 @@ class NavigateToChildrenColumn(BaseColumn):
 
 
 class PageTable(Table):
-    def __init__(self, *args, use_row_ordering_attributes=False, **kwargs):
+    def __init__(
+        self, *args, use_row_ordering_attributes=False, parent_page=None, **kwargs
+    ):
         super().__init__(*args, **kwargs)
 
         # If true, attributes will be added on the <tr> element to support reordering
         self.use_row_ordering_attributes = use_row_ordering_attributes
+
+        # The parent page of the pages being listed - used to add extra context to the title text
+        # of the reordering links. Leave this undefined if the pages being listed do not share a
+        # common parent.
+        self.parent_page = parent_page
+        if self.parent_page:
+            # Use more detailed title text that mentions the parent page, if we have one and the
+            # current strings have not been overridden from Table's default
+            if self.ascending_title_text_format == Table.ascending_title_text_format:
+                self.ascending_title_text_format = gettext(
+                    "Sort the order of child pages within '%(parent)s' by '%(label)s' in ascending order."
+                )
+            if self.descending_title_text_format == Table.descending_title_text_format:
+                self.descending_title_text_format = gettext(
+                    "Sort the order of child pages within '%(parent)s' by '%(label)s' in descending order."
+                )
+
+    def get_ascending_title_text(self, column):
+        return self.ascending_title_text_format % {
+            "parent": self.parent_page and self.parent_page.get_admin_display_title(),
+            "label": column.label,
+        }
+
+    def get_descending_title_text(self, column):
+        return self.descending_title_text_format % {
+            "parent": self.parent_page and self.parent_page.get_admin_display_title(),
+            "label": column.label,
+        }
 
     def get_row_classname(self, instance):
         if not instance.live:
