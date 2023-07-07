@@ -13,6 +13,7 @@ class PageTitleColumn(BaseColumn):
             parent_context["request"].user
         )
         context["show_locale_labels"] = parent_context.get("show_locale_labels")
+        context["perms"] = parent_context.get("perms")
         return context
 
 
@@ -122,4 +123,5 @@ class PageTable(Table):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["show_locale_labels"] = parent_context.get("show_locale_labels")
+        context["perms"] = parent_context.get("perms")
         return context
