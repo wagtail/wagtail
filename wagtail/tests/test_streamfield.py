@@ -1,4 +1,5 @@
 import json
+import pickle
 
 from django.apps import apps
 from django.db import connection, models
@@ -11,12 +12,14 @@ from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
+    StreamPage,
 )
 
 
@@ -600,3 +603,25 @@ class TestJSONStreamField(TestCase):
         instance = JSONStreamModel.objects.filter(body__contains=value).first()
         self.assertIsNotNone(instance)
         self.assertEqual(instance.id, self.instance.id)
+
+
+class TestStreamFieldPickleSupport(TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+    def test_pickle_support(self):
+        stream_page = StreamPage(title="stream page", body=[("text", "hello")])
+        self.root_page.add_child(instance=stream_page)
+
+        # check that page can be serialized / deserialized
+        serialized = pickle.dumps(stream_page)
+        deserialized = pickle.loads(serialized)
+
+        # check that serialized page can be serialized / deserialized again
+        serialized2 = pickle.dumps(deserialized)
+        deserialized2 = pickle.loads(serialized2)
+
+        # check that page data is not corrupted
+        self.assertEqual(stream_page.body, deserialized.body)
+        self.assertEqual(stream_page.body, deserialized2.body)

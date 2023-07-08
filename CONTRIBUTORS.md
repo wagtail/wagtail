@@ -725,6 +725,7 @@
 * Florent Lebreton
 * Shreshth Srivastava
 * Sandeep Choudhary
+* Antoni Martyniuk
 
 ## Translators
 

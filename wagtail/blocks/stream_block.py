@@ -2,9 +2,11 @@ import itertools
 import uuid
 from collections import OrderedDict, defaultdict
 from collections.abc import Mapping, MutableSequence
+from pickle import PickleError
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db.models.fields import _load_field
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
@@ -719,6 +721,30 @@ class StreamValue(MutableSequence):
 
     def __str__(self):
         return self.__html__()
+
+    @staticmethod
+    def _deserialize_pickle_value(app_label, model_name, field_name, field_value):
+        """Returns StreamValue from pickled data"""
+        field = _load_field(app_label, model_name, field_name)
+        return field.to_python(field_value)
+
+    def __reduce__(self):
+        try:
+            stream_field = self._stream_field
+        except AttributeError:
+            raise PickleError(
+                "StreamValue can only be pickled if it is associated with a StreamField"
+            )
+
+        return (
+            self._deserialize_pickle_value,
+            (
+                stream_field.model._meta.app_label,
+                stream_field.model._meta.object_name,
+                stream_field.name,
+                self.get_prep_value(),
+            ),
+        )
 
 
 class StreamBlockAdapter(Adapter):

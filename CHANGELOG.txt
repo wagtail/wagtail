@@ -9,6 +9,7 @@ Changelog
  * Move `SnippetViewSet` menu registration mechanism to base `ViewSet` class (Sage Abdullah)
  * Enable reference index tracking for models registered with `ModelViewSet` (Sage Abdullah)
  * When copying a page or creating an alias, copy its view restrictions to the destination (Sandeep Choudhary, Suyash Singh)
+ * Support pickling of StreamField values (pySilver)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
