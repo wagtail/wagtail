@@ -530,40 +530,57 @@ class BaseChoiceBlock(FieldBlock):
         choices list with the addition of a blank choice (if blank_choice=True and one does not
         already exist).
         """
+        return self.choices_callable(choices, blank_choice)
 
-        def choices_callable():
-            # Variable choices could be an instance of CallableChoiceIterator, which may be wrapping
-            # something we don't want to evaluate multiple times (e.g. a database query). Cast as a
-            # list now to prevent it getting evaluated twice (once while searching for a blank choice,
-            # once while rendering the final ChoiceField).
-            local_choices = list(choices)
+    @staticmethod
+    def choices_callable(choices, blank_choice=True):
+        """
+        Callable to be used for choices in `forms.ChoiceField`, which will provide the choices
+        list with the addition of a blank choice (if blank_choice=True and one does not already exist).
+        """
+        # Variable choices could be an instance of CallableChoiceIterator, which may be wrapping
+        # something we don't want to evaluate multiple times (e.g. a database query). Cast as a
+        # list now to prevent it getting evaluated twice (once while searching for a blank choice,
+        # once while rendering the final ChoiceField).
+        local_choices = list(choices)
 
-            # If blank_choice=False has been specified, return the choices list as is
-            if not blank_choice:
-                return local_choices
-
-            # Else: if choices does not already contain a blank option, insert one
-            # (to match Django's own behaviour for modelfields:
-            # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
-            has_blank_choice = False
-            for v1, v2 in local_choices:
-                if isinstance(v2, (list, tuple)):
-                    # this is a named group, and v2 is the value list
-                    has_blank_choice = any(value in ("", None) for value, label in v2)
-                    if has_blank_choice:
-                        break
-                else:
-                    # this is an individual choice; v1 is the value
-                    if v1 in ("", None):
-                        has_blank_choice = True
-                        break
-
-            if not has_blank_choice:
-                return BLANK_CHOICE_DASH + local_choices
-
+        # If blank_choice=False has been specified, return the choices list as is
+        if not blank_choice:
             return local_choices
 
-        return choices_callable
+        # Else: if choices does not already contain a blank option, insert one
+        # (to match Django's own behaviour for modelfields:
+        # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
+        has_blank_choice = False
+        for v1, v2 in local_choices:
+            if isinstance(v2, (list, tuple)):
+                # this is a named group, and v2 is the value list
+                has_blank_choice = any(value in ("", None) for value, label in v2)
+                if has_blank_choice:
+                    break
+            else:
+                # this is an individual choice; v1 is the value
+                if v1 in ("", None):
+                    has_blank_choice = True
+                    break
+
+        if not has_blank_choice:
+            return BLANK_CHOICE_DASH + local_choices
+
+        return local_choices
+
+    def __getstate__(self):
+        state = super().__getstate__()
+        choices = getattr(self, "choices", ())
+        if callable(choices):
+            state["choices"] = None
+        return state
+
+    def __setstate__(self, state):
+        choices = getattr(self, "choices", ())
+        if state.get("choices") is None:
+            state["choices"] = choices
+        super().__setstate__(state)
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the
@@ -580,7 +597,7 @@ class ChoiceBlock(BaseChoiceBlock):
         # If we have a default choice and the field is required, we don't need to add a blank option.
         if blank_choice is None:
             blank_choice = not (self._default and self._required)
-        return super()._get_callable_choices(choices, blank_choice=blank_choice)
+        return self.choices_callable(choices, blank_choice=blank_choice)
 
     def deconstruct(self):
         """
@@ -612,7 +629,7 @@ class MultipleChoiceBlock(BaseChoiceBlock):
 
     def _get_callable_choices(self, choices, blank_choice=False):
         """Override to default blank choice to False"""
-        return super()._get_callable_choices(choices, blank_choice=blank_choice)
+        return self.choices_callable(choices, blank_choice=blank_choice)
 
     def deconstruct(self):
         """

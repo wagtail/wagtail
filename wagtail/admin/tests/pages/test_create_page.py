@@ -1813,7 +1813,13 @@ class TestPagePickleSupport(WagtailTestUtils, TestCase):
         self.user = self.login()
 
     def test_stream_page_is_pickleable(self):
-        stream_page = StreamPage(title="stream page", body=[("text", "hello")])
+        stream_page = StreamPage(
+            title="stream page",
+            body=[
+                ("text", "hello"),
+                ("choice", "one"),
+            ],
+        )
         self.root_page.add_child(instance=stream_page)
 
         # check that page can be serialized / deserialized
