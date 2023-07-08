@@ -48,6 +48,20 @@ class BaseBlock(type):
 
         return cls
 
+    def __getstate__(cls):
+        # Get the state of the class for pickling
+        state = cls.__dict__.copy()
+
+        # Remove the unpicklable attributes
+        del state["_meta_class"]
+
+        return state
+
+    def __setstate__(cls, state):
+        # Restore the class state from the pickled state
+        cls.__dict__.update(state)
+        cls._meta_class = type(str(cls.__name__ + "Meta"), (), {})
+
 
 class Block(metaclass=BaseBlock):
     name = ""
@@ -93,6 +107,20 @@ class Block(metaclass=BaseBlock):
         self.definition_prefix = "blockdef-%d" % self.creation_counter
 
         self.label = self.meta.label or ""
+
+    def __getstate__(self):
+        # Get the state of the object for pickling
+        state = self.__dict__.copy()
+
+        # Remove the unpicklable attributes
+        del state["meta"]
+
+        return state
+
+    def __setstate__(self, state):
+        # Restore the object state from the pickled state
+        self.__dict__.update(state)
+        self.meta = self._meta_class()
 
     def set_name(self, name):
         self.name = name
