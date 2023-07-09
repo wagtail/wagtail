@@ -120,12 +120,6 @@
 
   .login-logo {
     margin: theme('spacing.8') auto 0;
-    width: theme('spacing.8');
-  }
-
-  @media (forced-colors: active) and (prefers-color-scheme: dark) {
-    .login-logo-img {
-      filter: invert(100%);
-    }
+    width: theme('spacing.32');
   }
 }

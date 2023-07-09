@@ -27,6 +27,7 @@ Changelog
  * Purge revisions of non-page models in `purge_revisions` command (Sage Abdullah)
  * Add support for AVIF images (Aman Pandey)
  * Change the default WebP quality to 80 to match AVIF (Aman Pandey)
+ * Adopt optimised Wagtail logo in the admin interface (Albina Starykova)
  * Fix: Prevent choosers from failing when initial value is an unrecognised ID, e.g. when moving a page from a location where `parent_page_types` would disallow it (Dan Braghis)
  * Fix: Move comment notifications toggle to the comments side panel (Sage Abdullah)
  * Fix: Remove comment button on InlinePanel fields (Sage Abdullah)

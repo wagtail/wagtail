@@ -160,3 +160,12 @@ use[href='#icon-spinner'] {
   height: 1.5em;
   color: theme('colors.critical.200');
 }
+
+.icon-wagtail {
+  width: 100%;
+  height: auto;
+}
+
+.icon-wagtail__wordmark {
+  fill: theme('colors.text-context');
+}
