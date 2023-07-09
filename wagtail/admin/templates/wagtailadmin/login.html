@@ -68,7 +68,7 @@
 
         {% block branding_logo %}
             <div class="login-logo">
-                <img class="login-logo-img" alt="" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" />
+                {% include "wagtailadmin/logo.html" with wordmark="True" %}
             </div>
         {% endblock %}
     </main>

@@ -22,12 +22,7 @@
                 </svg>
 
                 <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="w-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
-                    {% block branding_logo %}
-                        {% comment %} Intentionally not using the icon template tag to show as SVG only {% endcomment %}
-                        <svg class="w-userbar-icon" aria-hidden="true">
-                            <use href="#icon-wagtail-icon"></use>
-                        </svg>
-                    {% endblock %}
+                    {% block branding_logo %}{% include "wagtailadmin/logo.html" with classname="w-userbar-icon" %}{% endblock %}
                     <span class="w-sr-only">{% trans 'View Wagtail quick actions' %}</span>
                 </button>
                 <ul aria-labelledby="wagtail-userbar-trigger" class="w-userbar-items" id="wagtail-userbar-items" role="menu">

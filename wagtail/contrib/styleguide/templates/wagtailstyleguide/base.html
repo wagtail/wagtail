@@ -529,12 +529,14 @@
             <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
             <p>Remove the "loading" class to disable the effect</p>
             <div class="loading-mask loading" style="width:200px">
-                <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
+                {% include "wagtailadmin/logo.html"%}
             </div>
 
             <h3>Image transparency</h3>
-            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
-            <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail"/>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> or <code>svg</code> tag thus:</p>
+            <div style="width:200px">
+                {% include "wagtailadmin/logo.html" with classname="show-transparency" %}
+            </div>
         {% endpanel %}
 
         {% panel id="icons" heading="Icons" %}
