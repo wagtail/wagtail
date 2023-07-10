@@ -571,7 +571,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
             response,
             "form",
             "file",
-            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["svg"])
@@ -2090,7 +2090,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
             response,
             "form",
             "file",
-            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter

@@ -126,6 +126,7 @@ def register_image_operations():
         ("scale", image_operations.ScaleOperation),
         ("jpegquality", image_operations.JPEGQualityOperation),
         ("webpquality", image_operations.WebPQualityOperation),
+        ("avifquality", image_operations.AvifQualityOperation),
         ("format", image_operations.FormatOperation),
         ("bgcolor", image_operations.BackgroundColorOperation),
     ]

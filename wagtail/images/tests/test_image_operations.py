@@ -13,6 +13,7 @@ from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
+    get_test_image_file_avif,
     get_test_image_file_jpeg,
     get_test_image_file_tiff,
     get_test_image_file_webp,
@@ -618,6 +619,30 @@ class TestUnknownOutputImageFormat(TestCase):
 
 
 class TestFormatFilter(TestCase):
+    def test_avif(self):
+        fil = Filter(spec="width-400|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "avif")
+
+    def test_avif_lossless(self):
+        fil = Filter(spec="width-400|format-avif-lossless")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        # quality=80 is default for The Willow and PIL libraries
+        save.assert_called_with(f, "AVIF", quality=-1, chroma=444)
+
     def test_jpeg(self):
         fil = Filter(spec="width-400|format-jpeg")
         image = Image.objects.create(
@@ -669,7 +694,7 @@ class TestFormatFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        # quality=80 is default for Williw and PIL libs
+        # quality=80 is default for the Willow and PIL libraries
         save.assert_called_with(f, "WEBP", quality=80, lossless=True)
 
     def test_invalid(self):
@@ -679,6 +704,86 @@ class TestFormatFilter(TestCase):
             file=get_test_image_file(),
         )
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+
+class TestAvifQualityFilter(TestCase):
+    def test_default_quality(self):
+        fil = Filter(spec="width-400|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_avif(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "AVIF", quality=80)
+
+    def test_avif_quality_filter(self):
+        fil = Filter(spec="width-400|avifquality-40|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "AVIF", quality=40)
+
+    def test_avif_quality_filter_invalid(self):
+        fil = Filter(spec="width-400|avifquality-abc|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_avif_quality_filter_no_value(self):
+        fil = Filter(spec="width-400|avifquality")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_avif_quality_filter_too_big(self):
+        fil = Filter(spec="width-400|avifquality-101|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    @override_settings(WAGTAILIMAGES_AVIF_QUALITY=50)
+    def test_avif_quality_setting(self):
+        fil = Filter(spec="width-400|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "AVIF", quality=50)
+
+    @override_settings(WAGTAILIMAGES_AVIF_QUALITY=50)
+    def test_avif_quality_filter_overrides_setting(self):
+        fil = Filter(spec="width-400|avifquality-40|format-avif")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "AVIF", quality=40)
 
 
 class TestJPEGQualityFilter(TestCase):
@@ -788,7 +893,7 @@ class TestWebPQualityFilter(TestCase):
 
         save.assert_called_with(f, "WEBP", quality=40, lossless=False)
 
-    def test_webp_quality_filter_invalid(self):
+    def test_jpeg_quality_filter_invalid(self):
         fil = Filter(spec="width-400|webpquality-abc|format-webp")
         image = Image.objects.create(
             title="Test image",
@@ -827,7 +932,7 @@ class TestWebPQualityFilter(TestCase):
         save.assert_called_with(f, "WEBP", quality=50, lossless=False)
 
     @override_settings(WAGTAILIMAGES_WEBP_QUALITY=50)
-    def test_jpeg_quality_filter_overrides_setting(self):
+    def test_webp_quality_filter_overrides_setting(self):
         fil = Filter(spec="width-400|webpquality-40|format-webp")
         image = Image.objects.create(
             title="Test image",

@@ -12,7 +12,9 @@ from django.utils.translation import gettext_lazy as _
 
 def get_allowed_image_extensions():
     return getattr(
-        settings, "WAGTAILIMAGES_EXTENSIONS", ["gif", "jpg", "jpeg", "png", "webp"]
+        settings,
+        "WAGTAILIMAGES_EXTENSIONS",
+        ["avif", "gif", "jpg", "jpeg", "png", "webp"],
     )
 
 
@@ -201,5 +203,7 @@ def image_format_name_to_content_type(image_format_name):
         return "image/tiff"
     elif image_format_name == "webp":
         return "image/webp"
+    elif image_format_name == "avif":
+        return "image/avif"
     else:
         raise ValueError("Unknown image format name")
