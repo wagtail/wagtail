@@ -34,23 +34,24 @@ class Command(BaseCommand):
         purge_only = options["purge_only"]
 
         if not renditions.exists():
-            self.stdout.write("No image renditions found.")
+            self.stdout.write(self.style.WARNING("No image renditions found."))
             return
 
         rendition_ids = list(renditions.values_list("id", flat=True))
+        num_renditions = len(rendition_ids)
 
         if purge_only:
             self.stdout.write(
-                self.style.HTTP_INFO(f"Purging {len(rendition_ids)} rendition(s)")
+                self.style.HTTP_INFO(f"Purging {num_renditions} rendition(s)")
             )
         else:
             self.stdout.write(
-                self.style.HTTP_INFO(f"Regenerating {len(rendition_ids)} rendition(s)")
+                self.style.HTTP_INFO(f"Regenerating {num_renditions} rendition(s)")
             )
 
         for rendition in (
-            # Pre-calculate the ids of the renditions to change, otherwise `.iterator` never
-            # ends.
+            # Pre-calculate the ids of the renditions to change,
+            # otherwise `.iterator` never ends.
             renditions.filter(id__in=rendition_ids)
             .select_related("image")
             .iterator(chunk_size=options["chunk_size"])
@@ -71,5 +72,13 @@ class Command(BaseCommand):
                 self.stderr.write(
                     self.style.ERROR(f"Failed to operate on rendition {rendition.id}")
                 )
+                num_renditions -= 1
 
-        self.stdout.write(self.style.SUCCESS("Done"))
+        if num_renditions:
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"Successfully processed {num_renditions} rendition(s)"
+                )
+            )
+        else:
+            self.stdout.write(self.style.WARNING("Could not process any renditions."))
