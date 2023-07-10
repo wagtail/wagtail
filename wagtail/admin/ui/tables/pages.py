@@ -1,7 +1,7 @@
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 
-from wagtail.admin.ui.tables import BaseColumn, Column, Table
+from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn, Column, Table
 
 
 class PageTitleColumn(BaseColumn):
@@ -31,10 +31,7 @@ class PageStatusColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_page_status_cell.html"
 
 
-class BulkActionsColumn(BaseColumn):
-    header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
-    cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
-
+class BulkActionsColumn(BulkActionsCheckboxColumn):
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
         parent_page = parent_context.get("parent_page")
@@ -47,7 +44,6 @@ class BulkActionsColumn(BaseColumn):
         context.update(
             {
                 "obj_type": "page",
-                "obj": instance,
                 "aria_labelledby_prefix": "page_",
                 "aria_labelledby": str(instance.pk),
                 "aria_labelledby_suffix": "_title",
