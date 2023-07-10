@@ -105,6 +105,7 @@ Changelog
  * Maintenance: Migrate dialog instantiation to a new `w-dialog` Stimulus controller (Loveth Omokaro, LB (Ben) Johnston)
  * Maintenance: Support dialog template cloning using a new `w-teleport` Stimulus controller (Loveth Omokaro, LB (Ben) Johnston)
  * Maintenance: Migrate away from using the `"wagtailadmin/shared/field_as_li.html"` template include (Storm Heg)
+ * Maintenance: Deprecate `wagtail.contrib.modeladmin` (Sage Abdullah)
 
 
 5.0.2 (21.06.2023)
