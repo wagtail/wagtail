@@ -204,20 +204,20 @@ If you need to add a new rich text feature that does not fit the pattern of the 
 Rewriters must be callables, that receive a single argument - the rich-text HTML - and are registered with the `register_frontend_rewriter` call on the rich-text `features` object. By convention they are written as classes with a `__call__` method, but a function would also suffice for simple replacers.
 
 ```python
-class GreenRewriter:
-    TAG_RE = re.compile(r"<green>(.+?)</green>")
+class MaoriRewriter:
+    TAG_RE = re.compile(r"<maori>(.+?)</maori>")
 
     def replace_tag(self, match):
         content = match.groups(1)[0]
-        return '<span style="color: green">{content}</span>'.format(content=content)
+        return '<span lang="mi">{content}</span>'.format(content=content)
 
     def __call__(self, html):
         return self.TAG_RE.sub(self.replace_tag, html)
 
 
 @hooks.register("register_rich_text_features")
-def register_green_feature(features):
-    features.register_frontend_rewriter(GreenRewriter(), order=300)
+def register_maori_feature(features):
+    features.register_frontend_rewriter(MaoriRewriter(), order=300)
 ```
 
 Note that as the rewriters do not have any defined specificity, the registration method takes an optional `order` value, in case the order of execution is significant. The default Link and Embed rewriters have an order of 100 and 200, respectively, so you will usually want to add your rewriters after these (with a larger number for `order`).
