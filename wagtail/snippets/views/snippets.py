@@ -672,6 +672,9 @@ class SnippetViewSet(ModelViewSet):
     #: A list or tuple, where each item is the name of a field, an attribute, or a single-argument callable on the model.
     list_export = []
 
+    #: The base file name for the exported listing, without extensions. If unset, the model's :attr:`~django.db.models.Options.db_table` will be used instead.
+    export_filename = None
+
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
@@ -868,6 +871,7 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             list_export=self.list_export,
+            export_filename=self.get_export_filename(),
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
@@ -891,6 +895,7 @@ class SnippetViewSet(ModelViewSet):
             list_display=self.list_display,
             list_filter=self.list_filter,
             list_export=self.list_export,
+            export_filename=self.get_export_filename(),
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
@@ -1237,6 +1242,9 @@ class SnippetViewSet(ModelViewSet):
         ``index_view.get_base_queryset()`` will be used instead.
         """
         return None
+
+    def get_export_filename(self):
+        return self.export_filename or self.model_opts.db_table
 
     def get_templates(self, action="index", fallback=""):
         """

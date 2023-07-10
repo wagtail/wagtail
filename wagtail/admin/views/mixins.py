@@ -154,6 +154,8 @@ class SpreadsheetExportMixin:
 
     export_buttons_template_name = "wagtailadmin/shared/export_buttons.html"
 
+    export_filename = "spreadsheet-export"
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.is_export = request.GET.get("export") in self.FORMATS
@@ -165,7 +167,7 @@ class SpreadsheetExportMixin:
 
     def get_filename(self):
         """Gets the base filename for the exported spreadsheet, without extensions"""
-        return "spreadsheet-export"
+        return self.export_filename
 
     def to_row_dict(self, item):
         """Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""

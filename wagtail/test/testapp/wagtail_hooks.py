@@ -264,6 +264,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         "some_date",
         "first_published_at",
     ]
+    export_filename = "all-fullfeatured-snippets"
     index_template_name = "tests/fullfeaturedsnippet_index.html"
     ordering = ["text", "-_updated_at", "-pk"]
     add_to_admin_menu = True

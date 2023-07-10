@@ -707,6 +707,11 @@ class TestListExport(BaseSnippetViewSetTests):
         response = self.client.get(self.get_url("list"), {"export": "csv"})
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="all-fullfeatured-snippets.csv"',
+        )
+
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
             data_lines[0],
@@ -725,6 +730,11 @@ class TestListExport(BaseSnippetViewSetTests):
         response = self.client.get(self.get_url("list"), {"export": "xlsx"})
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="all-fullfeatured-snippets.xlsx"',
+        )
+
         workbook_data = response.getvalue()
         worksheet = load_workbook(filename=BytesIO(workbook_data)).active
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
