@@ -49,6 +49,7 @@ logger = logging.getLogger("wagtail.images")
 
 
 IMAGE_FORMAT_EXTENSIONS = {
+    "avif": ".avif",
     "jpeg": ".jpg",
     "png": ".png",
     "gif": ".gif",
@@ -917,6 +918,7 @@ class Filter:
             else:
                 # Convert bmp and webp to png by default
                 default_conversions = {
+                    "avif": "png",
                     "bmp": "png",
                     "webp": "png",
                 }
@@ -965,6 +967,18 @@ class Filter:
                     quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
 
                 return willow.save_as_webp(output, quality=quality)
+            elif output_format == "avif":
+                # Allow changing of AVIF compression quality
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_avif(output, lossless=True)
+                elif "avif-quality" in env:
+                    quality = env["avif-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
+                return willow.save_as_avif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             raise UnknownOutputImageFormatError(

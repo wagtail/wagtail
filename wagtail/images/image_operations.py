@@ -386,6 +386,17 @@ class JPEGQualityOperation(FilterOperation):
         env["jpeg-quality"] = self.quality
 
 
+class AvifQualityOperation(FilterOperation):
+    def construct(self, quality):
+        self.quality = int(quality)
+
+        if self.quality > 100:
+            raise ValueError("AVIF quality must not be higher than 100")
+
+    def run(self, willow, image, env):
+        env["avif-quality"] = self.quality
+
+
 class WebPQualityOperation(FilterOperation):
     def construct(self, quality):
         self.quality = int(quality)
@@ -402,8 +413,10 @@ class FormatOperation(FilterOperation):
         self.format = format
         self.options = options
 
-        if self.format not in ["jpeg", "png", "gif", "webp"]:
-            raise ValueError("Format must be either 'jpeg', 'png', 'gif', or 'webp'")
+        if self.format not in ["jpeg", "png", "gif", "webp", "avif"]:
+            raise ValueError(
+                "Format must be either 'jpeg', 'png', 'gif', 'webp' or 'avif'"
+            )
 
     def run(self, willow, image, env):
         env["output-format"] = self.format
