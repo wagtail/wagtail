@@ -6,6 +6,7 @@ from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn, Colum
 
 class PageTitleColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_page_title_cell.html"
+    classname = "title"
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
