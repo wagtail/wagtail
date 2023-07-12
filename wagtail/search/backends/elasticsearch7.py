@@ -3,10 +3,8 @@ from copy import deepcopy
 from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.search.backends.elasticsearch5 import (
-    ElasticsearchAutocompleteQueryCompilerImpl,
-)
 from wagtail.search.backends.elasticsearch6 import (
+    Elasticsearch6AutocompleteQueryCompiler,
     Elasticsearch6Index,
     Elasticsearch6Mapping,
     Elasticsearch6SearchBackend,
@@ -85,7 +83,7 @@ class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
 
 
 class Elasticsearch7AutocompleteQueryCompiler(
-    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
+    Elasticsearch6AutocompleteQueryCompiler, Elasticsearch6SearchQueryCompiler
 ):
     pass
 

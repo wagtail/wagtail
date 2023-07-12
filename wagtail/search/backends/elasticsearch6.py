@@ -11,6 +11,12 @@ from .elasticsearch5 import (
 )
 
 
+class Field:
+    def __init__(self, field_name, boost=1):
+        self.field_name = field_name
+        self.boost = boost
+
+
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
     all_field_name = "_all_text"
     edgengrams_field_name = "_edgengrams"
@@ -18,7 +24,7 @@ class Elasticsearch6Mapping(Elasticsearch5Mapping):
     def get_boost_field_name(self, boost):
         # replace . with _ to avoid issues with . in field names
         boost = str(float(boost)).replace(".", "_")
-        return f"{self.all_field_name}_boost$$${boost}"
+        return f"{self.all_field_name}_boost_{boost}"
 
     def get_document_id(self, obj):
         return str(obj.pk)
@@ -76,46 +82,56 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
-        self.remapped_fields = remapped_fields + self.get_boosted_field_names()
+        remapped_fields = [Field(field) for field in remapped_fields]
 
-    def get_boosted_field_names(self):
         models = get_indexed_models()
         unique_boosts = set()
         for model in models:
             for field in model.get_searchable_search_fields():
                 if field.boost:
                     unique_boosts.add(float(field.boost))
-        return [self.mapping.get_boost_field_name(_boost) for _boost in unique_boosts]
 
-    def add_boosts_to_fields(self, fields, boost=1):
+        self.remapped_fields = remapped_fields + [
+            Field(self.mapping.get_boost_field_name(boost), boost)
+            for boost in unique_boosts
+        ]
+
+    def get_boosted_fields(self, fields):
         boosted_fields = []
         if not isinstance(fields, list):
             fields = [fields]
         for field in fields:
-            split = field.split("$$$")
-            if len(split) == 2:
-                _boost = float(split[1].replace("_", "."))
-                boosted_fields.append(f"{field}^{_boost * boost}")
+            if field.boost != 1:
+                boosted_fields.append(f"{field.field_name}^{field.boost}")
             else:
-                boosted_fields.append(field)
+                boosted_fields.append(field.field_name)
         return boosted_fields
 
     def _compile_fuzzy_query(self, query, fields):
+        if len(fields) == 1:
+            return {
+                "match": {
+                    fields[0]: {
+                        "query": query.query_string,
+                        "fuzziness": "AUTO",
+                    }
+                }
+            }
         return {
             "multi_match": {
                 "query": query.query_string,
-                "fields": self.add_boosts_to_fields(fields),
+                "fields": self.get_boosted_fields(fields),
                 "fuzziness": "AUTO",
             }
         }
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
         return super()._compile_plaintext_query(
-            query, self.add_boosts_to_fields(fields), boost
+            query, self.get_boosted_fields(fields), boost
         )
 
     def _compile_phrase_query(self, query, fields):
-        return super()._compile_phrase_query(query, self.add_boosts_to_fields(fields))
+        return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
 
     def get_inner_query(self):
         if self.remapped_fields:
@@ -173,7 +189,14 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
 class Elasticsearch6AutocompleteQueryCompiler(
     ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
 ):
-    pass
+    def get_inner_query(self):
+        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
+        fields = [Field(field) for field in fields]
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {"bool": {"mustNot": {"match_all": {}}}}
+
+        return self._compile_plaintext_query(self.query, fields)
 
 
 class Elasticsearch6SearchBackend(Elasticsearch5SearchBackend):

@@ -43,8 +43,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -101,8 +101,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -129,8 +129,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -166,8 +166,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -218,8 +218,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -252,8 +252,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -276,8 +276,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "title",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -300,8 +300,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "title",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -326,8 +326,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                         "fields": [
                             "title",
                             "content",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -354,8 +354,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                         "fields": [
                             "title",
                             "content",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -382,8 +382,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -409,8 +409,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -436,8 +436,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -463,8 +463,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -490,8 +490,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -522,8 +522,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -552,8 +552,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -582,8 +582,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -612,8 +612,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -650,8 +650,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -710,8 +710,8 @@ class TestElasticsearch6SearchQuery(TestCase):
             "multi_match": {
                 "fields": [
                     "_all_text",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "type": "phrase",
@@ -733,8 +733,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "fields": [
                     "title",
                     "content",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "type": "phrase",
@@ -753,8 +753,8 @@ class TestElasticsearch6SearchQuery(TestCase):
             "multi_match": {
                 "fields": [
                     "title",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "type": "phrase",
@@ -774,8 +774,8 @@ class TestElasticsearch6SearchQuery(TestCase):
             "multi_match": {
                 "fields": [
                     "_all_text",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -796,8 +796,8 @@ class TestElasticsearch6SearchQuery(TestCase):
             "multi_match": {
                 "fields": [
                     "title",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -818,8 +818,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "fields": [
                     "title",
                     "body",
-                    "_all_text_boost$$$2_0^2.0",
-                    "_all_text_boost$$$10_0^10.0",
+                    "_all_text_boost_2_0^2.0",
+                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -844,8 +844,8 @@ class TestElasticsearch6SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "_all_text",
-                            "_all_text_boost$$$2_0^2.0",
-                            "_all_text_boost$$$10_0^10.0",
+                            "_all_text_boost_2_0^2.0",
+                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -1061,7 +1061,7 @@ class TestElasticsearch6Mapping(TestCase):
                     "pk": {"type": "keyword", "store": True},
                     "content_type": {"type": "keyword"},
                     "_all_text": {"type": "text"},
-                    "_all_text_boost$$$2_0": {"type": "text"},
+                    "_all_text_boost_2_0": {"type": "text"},
                     "_edgengrams": {
                         "analyzer": "edgengram_analyzer",
                         "search_analyzer": "standard",
@@ -1069,7 +1069,7 @@ class TestElasticsearch6Mapping(TestCase):
                     },
                     "title": {
                         "type": "text",
-                        "copy_to": ["_all_text", "_all_text_boost$$$2_0"],
+                        "copy_to": ["_all_text", "_all_text_boost_2_0"],
                     },
                     "title_edgengrams": {
                         "type": "text",
@@ -1187,7 +1187,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                         "properties": {
                             "name": {
                                 "type": "text",
-                                "copy_to": ["_all_text", "_all_text_boost$$$0_5"],
+                                "copy_to": ["_all_text", "_all_text_boost_0_5"],
                             },
                             "novel_id_filter": {"type": "integer"},
                         },
@@ -1198,7 +1198,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                         "properties": {
                             "name": {
                                 "type": "text",
-                                "copy_to": ["_all_text", "_all_text_boost$$$0_25"],
+                                "copy_to": ["_all_text", "_all_text_boost_0_25"],
                             }
                         },
                     },
@@ -1206,9 +1206,9 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     "pk": {"type": "keyword", "store": True},
                     "content_type": {"type": "keyword"},
                     "_all_text": {"type": "text"},
-                    "_all_text_boost$$$0_25": {"type": "text"},
-                    "_all_text_boost$$$0_5": {"type": "text"},
-                    "_all_text_boost$$$2_0": {"type": "text"},
+                    "_all_text_boost_0_25": {"type": "text"},
+                    "_all_text_boost_0_5": {"type": "text"},
+                    "_all_text_boost_2_0": {"type": "text"},
                     "_edgengrams": {
                         "analyzer": "edgengram_analyzer",
                         "search_analyzer": "standard",
@@ -1216,7 +1216,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     },
                     "title": {
                         "type": "text",
-                        "copy_to": ["_all_text", "_all_text_boost$$$2_0"],
+                        "copy_to": ["_all_text", "_all_text_boost_2_0"],
                     },
                     "title_edgengrams": {
                         "type": "text",
