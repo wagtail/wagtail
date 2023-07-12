@@ -343,7 +343,23 @@ def render_with_errors(bound_field):
             errors=bound_field.errors,
         )
     else:
-        return bound_field.as_widget()
+        attrs = {}
+        # If the widget doesn't have an aria-describedby attribute,
+        # and the field has help text, and the field has an id,
+        # add an aria-describedby attribute pointing to the help text.
+        # In this case, the corresponding help text element's id is set in the
+        # wagtailadmin/shared/field.html template.
+
+        # In Django 5.0 and up, this is done automatically, but we want to keep
+        # this code because we use a different convention for the help text id
+        # (we use -helptext suffix instead of Django's _helptext).
+        if (
+            not bound_field.field.widget.attrs.get("aria-describedby")
+            and bound_field.field.help_text
+            and bound_field.id_for_label
+        ):
+            attrs["aria-describedby"] = f"{bound_field.id_for_label}-helptext"
+        return bound_field.as_widget(attrs=attrs)
 
 
 @register.filter

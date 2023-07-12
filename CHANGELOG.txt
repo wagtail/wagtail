@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
+ * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
 
 

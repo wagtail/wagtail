@@ -86,7 +86,21 @@ class TestLoginView(WagtailTestUtils, TestCase):
     def test_login_page_renders_extra_fields(self):
         response = self.client.get(reverse("wagtailadmin_login"))
         self.assertContains(
-            response, '<input type="text" name="captcha" required id="id_captcha">'
+            response,
+            """
+            <input type="text" name="captcha" required
+            aria-describedby="id_captcha-helptext" id="id_captcha">
+            """,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            """
+            <div class="w-field__help" id="id_captcha-helptext" data-field-help>
+                <div class="help">should be in extra_fields()</div>
+            </div>
+            """,
+            html=True,
         )
 
     def test_session_expire_on_browser_close(self):
@@ -126,7 +140,21 @@ class TestPasswordResetView(TestCase):
     def test_password_reset_page_renders_extra_fields(self):
         response = self.client.get(reverse("wagtailadmin_password_reset"))
         self.assertContains(
-            response, '<input type="text" name="captcha" required id="id_captcha">'
+            response,
+            """
+            <input type="text" name="captcha" required
+            aria-describedby="id_captcha-helptext" id="id_captcha">
+            """,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            """
+            <div class="w-field__help" id="id_captcha-helptext" data-field-help>
+                <div class="help">should be in extra_fields()</div>
+            </div>
+            """,
+            html=True,
         )
 
 
