@@ -1891,6 +1891,21 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertContains(response, publish_button, html=True)
         self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
 
+    def test_override_publish_action_menu_item_label(self):
+        def hook_func(menu_items, request, context):
+            for item in menu_items:
+                if item.name == "action-publish":
+                    item.label = "Foobar"
+                    break
+
+        with self.register_hook("construct_page_action_menu", hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
+            )
+
+        # publish button should have another label
+        self.assertContains(response, "Foobar")
+
     def test_edit_alias_page(self):
         alias_page = self.event_page.create_alias(update_slug="new-event-page")
         response = self.client.get(
