@@ -681,7 +681,6 @@ class TestListExport(BaseSnippetViewSetTests):
     @classmethod
     def setUpTestData(cls):
         cls.model.objects.create(text="Pot Noodle", country_code="UK")
-        cls.some_date = now().date()
 
         cls.first_published_at = "2023-07-01T13:12:11.100"
         if settings.USE_TZ:
@@ -695,6 +694,7 @@ class TestListExport(BaseSnippetViewSetTests):
         # Refresh so the first_published_at becomes a datetime object
         obj.refresh_from_db()
         cls.first_published_at = obj.first_published_at
+        cls.some_date = obj.some_date
 
     def test_get_not_export_shows_export_buttons(self):
         response = self.client.get(self.get_url("list"))
