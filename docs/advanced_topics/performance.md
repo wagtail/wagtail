@@ -24,6 +24,8 @@ CACHES = {
 }
 ```
 
+(custom_image_renditions_cache)=
+
 To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend:
 
 ```python
