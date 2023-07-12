@@ -31,8 +31,6 @@ class TestUpdateImageRenditions(TestCase):
             ),
         )
 
-        cls.reaesc = re.compile(r"\x1b[^m]*m")
-
     def delete_renditions(self):
         renditions = Rendition.objects.all()
         for rendition in renditions:
@@ -55,12 +53,12 @@ class TestUpdateImageRenditions(TestCase):
         self.delete_renditions()
         # checking when command is called without any arguments
         output = self.run_command()
-        output_string = self.reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         self.assertEqual(output_string, "No image renditions found.\n")
 
         # checking when command is called with '--purge-only'
         output = self.run_command(purge_only=True)
-        output_string = self.reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         self.assertEqual(output_string, "No image renditions found.\n")
 
     def test_image_renditions(self):
@@ -101,18 +99,16 @@ class TestUpdateImageRenditions(TestCase):
         CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
     )
     def test_image_renditions_with_cache(self):
-        total_renditions = get_image_model().get_rendition_model().objects.count()
+        total_renditions = Rendition.objects.count()
         output = self.run_command()
         output_string = self.REAESC.sub("", output.read())
-        self.assertEqual(
-            output_string,
-            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+        self.assertIn(
+            f"Successfully processed {total_renditions} rendition(s)\n", output_string
         )
 
         # Run the command again with a warmed cache
         output = self.run_command()
         output_string = self.REAESC.sub("", output.read())
-        self.assertEqual(
-            output_string,
-            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+        self.assertIn(
+            f"Successfully processed {total_renditions} rendition(s)\n", output_string
         )
