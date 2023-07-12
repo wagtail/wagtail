@@ -378,7 +378,7 @@ Here's an example Django view that could be used to add a "search" page to your 
 from django.shortcuts import render
 
 from wagtail.models import Page
-from wagtail.search.models import Query
+from wagtail.contrib.search_promotions.models import Query
 
 
 def search(request):

@@ -50,3 +50,69 @@ To retrieve a list of promoted search results for a particular search query, you
     {% endfor %}
 </ul>
 ```
+
+### Managing stored search queries
+
+The `searchpromotions` module keeps a log of search queries as well as the number of daily hits through the `Query` and `QueryDailyHits` models.
+
+```{eval-rst}
+.. class:: wagtail.contrib.search_promotions.models.Query
+
+    .. method:: get(query_string)
+        :classmethod:
+
+        Retrieves a stored search query or creates a new one if it doesn't exist.
+
+    .. method:: add_hit(date=None)
+
+        Records another daily hit for a search query by creating a new record or incrementing the number of hits for an existing record. Defaults to using the current date but an optional `date` parameter can be passed in.
+```
+
+#### Example search view
+
+Here's an example Django view for a search page that records a hit for the search query:
+
+```python
+from django.template.response import TemplateResponse
+
+from wagtail.models import Page
+from wagtail.contrib.search_promotions.models import Query
+
+
+def search(request):
+    search_query = request.GET.get("query", None)
+
+    if search_query:
+        search_results = Page.objects.live().search(search_query)
+        query = Query.get(search_query)
+
+        # Record hit
+        query.add_hit()
+    else:
+        search_results = Page.objects.none()
+
+    return TemplateResponse(
+        request,
+        "search/search.html",
+        {
+            "search_query": search_query,
+            "search_results": search_results,
+        },
+    )
+```
+
+## Management Commands
+
+(searchpromotions_garbage_collect)=
+
+### `searchpromotions_garbage_collect`
+
+```sh
+./manage.py searchpromotions_garbage_collect
+```
+
+On high traffic websites, the stored queries and daily hits logs may get large and you may want to clean out old records. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the [`WAGTAILSEARCH_HITS_MAX_AGE`](wagtailsearch_hits_max_age) setting).
+
+```{versionadded} 5.0
+This management command was renamed from `search_garbage_collect`.
+```

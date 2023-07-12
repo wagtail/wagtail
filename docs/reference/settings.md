@@ -68,7 +68,7 @@ Define a search backend. For a full explanation, see [](wagtailsearch_backends).
 WAGTAILSEARCH_HITS_MAX_AGE = 14
 ```
 
-Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](search_garbage_collect) command.
+Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](searchpromotions_garbage_collect) command.
 
 ## Internationalisation
 

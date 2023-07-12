@@ -124,8 +124,6 @@ If this is omitted or provided with any number above 0 it will produce the same 
 
 An alias for the `update_index` command that can be used when another installed package (such as [Haystack](https://haystacksearch.org/)) provides a command named `update_index`. In this case, the other package's entry in `INSTALLED_APPS` should appear above `wagtail.search` so that its `update_index` command takes precedence over Wagtail's.
 
-(search_garbage_collect)=
-
 ## rebuild_references_index
 
 ```sh
@@ -156,7 +154,9 @@ Displays a summary of the contents of the references index. This shows the numbe
 ./manage.py search_garbage_collect
 ```
 
-Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the [`WAGTAILSEARCH_HITS_MAX_AGE`](wagtailsearch_hits_max_age) setting).
+```{versionchanged} 5.0
+This management command has been renamed to [`searchpromotions_garbage_collect`](searchpromotions_garbage_collect). See the [upgrade consideration](wagtailsearch_query_migration) for more details.
+```
 
 (wagtail_update_image_renditions)=
 

@@ -721,6 +721,7 @@
 * Sahil Jangra
 * Henry Harutyunyan
 * Alex Morega
+* Scott Foster
 
 ## Translators
 
