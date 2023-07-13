@@ -62,6 +62,7 @@ Changelog
  * Fix: Take user's permissions into account for image / document counts on the admin dashboard (Sage Abdullah)
  * Fix: Avoid N+1 queries in users index view (Tidiane Dia)
  * Fix: Use a theme-agnostic color token for read-only panels support in dark mode (Thibaud Colas)
+ * Fix: Ensure collapsible StreamBlocks expand as necessary to show validation errors (Storm Heg)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
