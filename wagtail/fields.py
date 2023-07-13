@@ -13,6 +13,7 @@ from wagtail.rich_text import (
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
+from wagtail.utils.decorators import add_self_reference
 
 
 class RichTextField(models.TextField):
@@ -138,12 +139,8 @@ class StreamField(models.Field):
         kwargs["use_json_field"] = self.use_json_field
         return name, path, args, kwargs
 
+    @add_self_reference("_StreamFieldRef")
     def to_python(self, value):
-        value = self.__to_python(value)
-        value._StreamFieldRef = self
-        return value
-
-    def __to_python(self, value):
         if value is None or value == "":
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):

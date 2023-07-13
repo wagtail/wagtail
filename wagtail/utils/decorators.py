@@ -80,3 +80,18 @@ def xframe_options_sameorigin_override(view_func):
         return resp
 
     return functools.wraps(view_func)(wrapped_view)
+
+
+def add_self_reference(attribute_name):
+    """Adds object reference to return value of decorated method"""
+
+    def decorator(method):
+        @functools.wraps(method)
+        def wrapper(self, value):
+            result = method(self, value)
+            setattr(result, attribute_name, self)
+            return result
+
+        return wrapper
+
+    return decorator
