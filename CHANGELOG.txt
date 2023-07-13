@@ -82,6 +82,8 @@ Changelog
  * Maintenance: Migrate header search behaviour to `w-swap`, a Stimulus controller (LB (Ben) Johnston)
  * Maintenance: Replace Bootstrap tooltips with a new `w-tooltip` Stimulus controller (LB (Ben) Johnston)
  * Maintenance: Replace ModelAdmin history header human readable date template tag (LB (Ben) Johnston)
+ * Maintenance: Update uuid to v9 and Jest to v29, with `jest-environment-jsdom` and new snapshot format (LB (Ben) Johnston)
+ * Maintenance: Update test cases producing undesirable console output due to missing mocks, uncaught errors, warnings (LB (Ben) Johnston)
 
 
 5.0.2 (21.06.2023)
