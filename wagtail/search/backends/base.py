@@ -18,7 +18,7 @@ class FilterError(Exception):
 class FieldError(Exception):
     def __init__(self, *args, field_name=None, **kwargs):
         self.field_name = field_name
-        super(FieldError, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class SearchFieldError(FieldError):

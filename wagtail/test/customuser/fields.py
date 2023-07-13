@@ -18,13 +18,13 @@ class ConvertedValue(str):
             db_value = value
             display_value = value + SHIFT
 
-        self = super(ConvertedValue, cls).__new__(cls, display_value)
+        self = super().__new__(cls, display_value)
         self.db_value = db_value
 
         return self
 
     def __repr__(self):
-        return "<%s: %s>" % (self.__class__.__name__, self.db_value)
+        return f"<{self.__class__.__name__}: {self.db_value}>"
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

@@ -220,11 +220,11 @@ class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
 
     def __init__(cls, name, bases, dct):
-        super(PageBase, cls).__init__(name, bases, dct)
+        super().__init__(name, bases, dct)
 
         if "template" not in dct:
             # Define a default template path derived from the app name and model name
-            cls.template = "%s/%s.html" % (
+            cls.template = "{}/{}.html".format(
                 cls._meta.app_label,
                 camelcase_to_underscore(name),
             )
@@ -704,7 +704,7 @@ class PreviewableMixin:
 
         http_host = hostname
         if port != (443 if scheme == "https" else 80):
-            http_host = "%s:%s" % (http_host, port)
+            http_host = f"{http_host}:{port}"
         dummy_values = {
             "REQUEST_METHOD": "GET",
             "PATH_INFO": path,
@@ -1498,7 +1498,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(Page, cls).check(**kwargs)
+        errors = super().check(**kwargs)
 
         # Check that foreign keys from pages are not configured to cascade
         # This is the default Django behaviour which must be explicitly overridden
@@ -2118,7 +2118,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def get_indexed_objects(cls):
         content_type = ContentType.objects.get_for_model(cls)
-        return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
+        return super().get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):
         # This is accessed on save by the wagtailsearch signal handler, and in edge
@@ -4548,7 +4548,7 @@ class TaskState(SpecificMixin, models.Model):
             next_task_data = {"id": next_task.id, "title": next_task.name}
         log(
             instance=obj,
-            action="wagtail.workflow.{}".format(action),
+            action=f"wagtail.workflow.{action}",
             user=user,
             data={
                 "workflow": {
@@ -4707,7 +4707,7 @@ class Comment(ClusterableModel):
         verbose_name_plural = _("comments")
 
     def __str__(self):
-        return "Comment on Page '{0}', left by {1}: '{2}'".format(
+        return "Comment on Page '{}', left by {}: '{}'".format(
             self.page, self.user, self.text
         )
 
@@ -4779,7 +4779,7 @@ class CommentReply(models.Model):
         verbose_name_plural = _("comment replies")
 
     def __str__(self):
-        return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
+        return f"CommentReply left by '{self.user}': '{self.text}'"
 
     def _log(self, action, page_revision=None, user=None):
         log(

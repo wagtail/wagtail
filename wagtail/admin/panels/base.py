@@ -175,7 +175,7 @@ class Panel:
         pass
 
     def __repr__(self):
-        return "<%s with model=%s>" % (
+        return "<{} with model={}>".format(
             self.__class__.__name__,
             self.model,
         )
@@ -317,7 +317,7 @@ class Panel:
             return mark_safe(self.render_html() + self.render_missing_fields())
 
         def __repr__(self):
-            return "<%s with model=%s instance=%s request=%s form=%s>" % (
+            return "<{} with model={} instance={} request={} form={}>".format(
                 self.__class__.__name__,
                 self.panel.model,
                 self.instance,

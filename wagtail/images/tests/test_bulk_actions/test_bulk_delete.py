@@ -51,9 +51,7 @@ class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
         )
 
         for image in self.images:
-            self.assertInHTML(
-                "<li>{image_title}</li>".format(image_title=image.title), html
-            )
+            self.assertInHTML(f"<li>{image.title}</li>", html)
 
         response = self.client.post(self.url)
         # User should be redirected back to the index

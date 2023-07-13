@@ -98,7 +98,7 @@ class CombinedLexeme(LexemeCombinable):
         rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = "{} {} {}".format(lsql, self.connector, rsql)
+        combined_sql = f"{lsql} {self.connector} {rsql}"
         combined_value = combined_sql % tuple(value_params)
         return "%s", [combined_value]
 
@@ -194,7 +194,7 @@ class MatchExpression(Expression):
         return (self.template, params)
 
     def __repr__(self):
-        return "<MatchExpression: %r = %r>" % (self.columns, self.query)
+        return f"<MatchExpression: {self.columns!r} = {self.query!r}>"
 
 
 class AndNot(SearchQuery):
@@ -209,7 +209,7 @@ class AndNot(SearchQuery):
         self.subquery_b = subquery_b
 
     def __repr__(self):
-        return "<{} AndNot {}>".format(repr(self.subquery_a), repr(self.subquery_b))
+        return f"<{repr(self.subquery_a)} AndNot {repr(self.subquery_b)}>"
 
 
 def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:

@@ -92,7 +92,7 @@ def map_block_value(block_value, block_def, block_path, operation, **kwargs):
         )
 
     else:
-        raise ValueError("Unexpected Structural Block: {}".format(block_value))
+        raise ValueError(f"Unexpected Structural Block: {block_value}")
 
 
 def map_stream_block_value(stream_block_value, block_def, block_path, **kwargs):
@@ -165,7 +165,7 @@ def map_struct_block_value(struct_block_value, block_def, block_path, **kwargs):
             try:
                 child_block_def = block_def.child_blocks[key]
             except KeyError:
-                raise InvalidBlockDefError("No current block def named {}".format(key))
+                raise InvalidBlockDefError(f"No current block def named {key}")
             altered_child_value = map_block_value(
                 child_value,
                 block_def=child_block_def,

@@ -188,7 +188,7 @@ def include_block(parser, token):
 
     if tokens:
         raise template.TemplateSyntaxError(
-            "Unexpected argument to %r tag: %r" % (tag_name, tokens[0])
+            f"Unexpected argument to {tag_name!r} tag: {tokens[0]!r}"
         )
 
     return IncludeBlockNode(block_var, extra_context, use_parent_context)

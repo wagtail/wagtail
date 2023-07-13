@@ -201,8 +201,7 @@ def get_search_fields(search_fields):
         if isinstance(search_field, SearchField):
             yield search_field
         elif isinstance(search_field, RelatedFields):
-            for sub_field in get_search_fields(search_field.fields):
-                yield sub_field
+            yield from get_search_fields(search_field.fields)
 
 
 def get_postgresql_connections():

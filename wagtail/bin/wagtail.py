@@ -33,7 +33,7 @@ class Command:
             prog = None
         else:
             # hack the prog name as reported to ArgumentParser to include the command
-            prog = "%s %s" % (prog_name(), command_name)
+            prog = f"{prog_name()} {command_name}"
 
         parser = ArgumentParser(
             description=getattr(self, "description", None), add_help=False, prog=prog
@@ -392,7 +392,7 @@ class Version(Command):
 
         version = wagtail.get_version(wagtail.VERSION)
 
-        print("You are using Wagtail %(version)s" % {"version": version})  # noqa: T201
+        print(f"You are using Wagtail {version}")  # noqa: T201
 
 
 COMMANDS = {
@@ -412,7 +412,7 @@ def help_index():
     )
     print("Available subcommands:\n")  # NOQA: T201
     for name, cmd in sorted(COMMANDS.items()):
-        print("    %s%s" % (name.ljust(20), cmd.description))  # NOQA: T201
+        print(f"    {name.ljust(20)}{cmd.description}")  # NOQA: T201
 
 
 def unknown_command(command):

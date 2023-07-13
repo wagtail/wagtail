@@ -918,7 +918,7 @@ class PageChooserBlock(ChooserBlock):
 
             for target_model in self.target_models:
                 opts = target_model._meta
-                target_models.append("{}.{}".format(opts.app_label, opts.object_name))
+                target_models.append(f"{opts.app_label}.{opts.object_name}")
 
             kwargs.pop("target_model", None)
             kwargs["page_type"] = target_models

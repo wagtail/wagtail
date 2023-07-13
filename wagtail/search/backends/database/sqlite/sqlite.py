@@ -101,7 +101,7 @@ class ObjectIndexer:
                     isinstance(current_field, SearchField)
                     and current_field.field_name == "title"
                 ):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 
@@ -117,7 +117,7 @@ class ObjectIndexer:
                     isinstance(current_field, SearchField)
                     and not current_field.field_name == "title"
                 ):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 
@@ -130,7 +130,7 @@ class ObjectIndexer:
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
                 if isinstance(current_field, AutocompleteField):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 

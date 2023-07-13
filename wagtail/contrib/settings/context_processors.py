@@ -37,7 +37,7 @@ class SettingModuleProxy(dict):
         return value
 
     def __str__(self):
-        return "SettingModuleProxy({0})".format(self.app_label)
+        return f"SettingModuleProxy({self.app_label})"
 
     def get_setting(self, model_name):
         """

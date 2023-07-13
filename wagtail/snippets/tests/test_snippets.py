@@ -4882,7 +4882,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
-        super(TestSnippetViewWithCustomPrimaryKey, self).setUp()
+        super().setUp()
         self.login()
         self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(
             snippet_id="snippet/01", text="Hello"

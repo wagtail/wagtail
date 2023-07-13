@@ -970,7 +970,7 @@ def component(context, obj, fallback_render_method=False):
     if fallback_render_method and not has_render_html_method and hasattr(obj, "render"):
         return obj.render()
     elif not has_render_html_method:
-        raise ValueError("Cannot render %r as a component" % (obj,))
+        raise ValueError(f"Cannot render {obj!r} as a component")
 
     return obj.render_html(context)
 

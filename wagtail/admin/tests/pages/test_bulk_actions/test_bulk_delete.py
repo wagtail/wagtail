@@ -130,12 +130,10 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_deleted:
-            self.assertInHTML(
-                "<li>{page_title}</li>".format(page_title=child_page.title), html
-            )
+            self.assertInHTML(f"<li>{child_page.title}</li>", html)
 
         self.assertTagInHTML(
-            """<form action="{}" method="POST"></form>""".format(self.url),
+            f"""<form action="{self.url}" method="POST"></form>""",
             html,
             count=0,
         )

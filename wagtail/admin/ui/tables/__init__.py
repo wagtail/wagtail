@@ -129,7 +129,7 @@ class BaseColumn(metaclass=MediaDefiningClass):
         return Column.Cell(self, instance)
 
     def __repr__(self):
-        return "<%s.%s: %s>" % (
+        return "<{}.{}: {}>".format(
             self.__class__.__module__,
             self.__class__.__qualname__,
             self.name,
@@ -209,7 +209,7 @@ class TitleColumn(Column):
             return self._get_label_id_func(instance)
         elif self.label_prefix:
             id = multigetattr(instance, self.id_accessor)
-            return "%s-%s" % (self.label_prefix, id)
+            return f"{self.label_prefix}-{id}"
 
 
 class StatusFlagColumn(Column):
@@ -433,8 +433,7 @@ class Table(Component):
             return self.columns[key].get_cell(self.instance)
 
         def __iter__(self):
-            for name in self.columns:
-                yield name
+            yield from self.columns
 
         def __repr__(self):
             return repr([col.get_cell(self.instance) for col in self.columns.values()])

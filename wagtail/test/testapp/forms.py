@@ -22,7 +22,7 @@ class FormClassAdditionalFieldPageForm(WagtailAdminPageForm):
     code = forms.CharField(help_text="Enter SMS authentication code", max_length=5)
 
     def clean(self):
-        cleaned_data = super(FormClassAdditionalFieldPageForm, self).clean()
+        cleaned_data = super().clean()
 
         # validate the user's code with our code check
         code = cleaned_data["code"]

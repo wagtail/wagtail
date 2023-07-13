@@ -30,7 +30,7 @@ class ViewSetRegistry:
             if vs_urlpatterns:
                 urlpatterns.append(
                     re_path(
-                        r"^{}/".format(viewset.url_prefix),
+                        rf"^{viewset.url_prefix}/",
                         include((vs_urlpatterns, viewset.name), namespace=viewset.name),
                     )
                 )

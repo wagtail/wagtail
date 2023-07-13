@@ -79,9 +79,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
 
     def test_image_model(self):
         cls = get_image_model()
-        self.assertEqual(
-            "%s.%s" % (cls._meta.app_label, cls.__name__), "tests.CustomImage"
-        )
+        self.assertEqual(f"{cls._meta.app_label}.{cls.__name__}", "tests.CustomImage")
 
 
 @override_settings(WAGTAILIMAGES_FEATURE_DETECTION_ENABLED=True)

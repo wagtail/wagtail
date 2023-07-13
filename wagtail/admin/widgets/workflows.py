@@ -18,7 +18,7 @@ class AdminTaskChooser(BaseChooser):
     classname = "task-chooser"
 
     def render_js_init(self, id_, name, value_data):
-        return "createTaskChooser({0});".format(json.dumps(id_))
+        return f"createTaskChooser({json.dumps(id_)});"
 
     @property
     def media(self):

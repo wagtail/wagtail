@@ -493,21 +493,21 @@ class TestGarbageCollectManagementCommand(TestCase):
         # should be deleted by the search_garbage_collect command.
         query_ids_to_be_deleted = []
         for i in range(10):
-            q = Query.get("Hello {}".format(i))
+            q = Query.get(f"Hello {i}")
             q.add_hit(date=old_hit_date)
             query_ids_to_be_deleted.append(q.id)
 
         # Add 10 hits that are less than one week old. These ones should not be deleted.
         recent_query_ids = []
         for i in range(10):
-            q = Query.get("World {}".format(i))
+            q = Query.get(f"World {i}")
             q.add_hit(date=recent_hit_date)
             recent_query_ids.append(q.id)
 
         # Add 10 queries that are promoted. These ones should not be deleted.
         promoted_query_ids = []
         for i in range(10):
-            q = Query.get("Foo bar {}".format(i))
+            q = Query.get(f"Foo bar {i}")
             q.add_hit(date=old_hit_date)
             SearchPromotion.objects.create(
                 query=q, page_id=1, sort_order=0, description="Test"

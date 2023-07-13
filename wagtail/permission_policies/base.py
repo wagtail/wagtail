@@ -243,7 +243,7 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
         Get the full app-label-qualified permission name (as required by
         user.has_perm(...) ) for the given action on this model
         """
-        return "%s.%s" % (
+        return "{}.{}".format(
             self.app_label,
             get_permission_codename(action, self.model._meta),
         )

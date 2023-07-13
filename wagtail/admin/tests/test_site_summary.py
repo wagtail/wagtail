@@ -57,9 +57,7 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 
     def test_summary_includes_page_count_without_wagtail_root(self):
-        self.assertSummaryContains(
-            "<span>{}</span> Pages".format(Page.objects.count() - 1)
-        )
+        self.assertSummaryContains(f"<span>{Page.objects.count() - 1}</span> Pages")
 
     def test_summary_shows_zero_pages_if_none_exist_except_wagtail_root(self):
         Page.objects.exclude(pk=self.wagtail_root.pk).delete()

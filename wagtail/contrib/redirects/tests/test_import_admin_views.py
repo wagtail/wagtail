@@ -49,7 +49,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
         self.assertIn("import_file", response.context["form"].errors)
 
     def test_non_valid_format_returns_error(self):
-        f = "{}/files/example.yaml".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.yaml"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -67,7 +67,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             )
 
     def test_valid_csv_triggers_confirm_view(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -86,7 +86,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertEqual(len(response.context["dataset"]), 3)
 
     def test_import_step(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -115,7 +115,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertEqual(Redirect.objects.all().count(), 2)
 
     def test_import_step_with_offset_columns(self):
-        f = "{}/files/example_offset_columns.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example_offset_columns.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -144,7 +144,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertEqual(Redirect.objects.all().count(), 2)
 
     def test_permanent_setting(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -173,7 +173,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertFalse(Redirect.objects.first().is_permanent)
 
     def test_site_setting(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         default_site = Site.objects.first()
@@ -210,7 +210,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertEqual(Redirect.objects.first().site, new_site)
 
     def test_import_xlsx(self):
-        f = "{}/files/example.xlsx".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.xlsx"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -240,7 +240,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertEqual(Redirect.objects.all().count(), 3)
 
     def test_unicode_error_when_importing(self):
-        f = "{}/files/example_faulty.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example_faulty.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -261,7 +261,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 405)
 
     def test_error_in_data_renders_confirm_view_on_import(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -285,7 +285,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
             self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
     def test_import_tsv(self):
-        f = "{}/files/example.tsv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.tsv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -317,7 +317,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="cache")
     def test_import_xlsx_with_cache_store_engine(self):
-        f = "{}/files/example.xlsx".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.xlsx"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
@@ -348,7 +348,7 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="cache")
     def test_process_validation_works_when_using_plaintext_files_and_cache(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:
