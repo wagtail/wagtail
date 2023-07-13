@@ -15,7 +15,7 @@ def sendfile(request, filename, **kwargs):
     statobj = os.stat(filename)
 
     if not was_modified_since(
-        request.META.get("HTTP_IF_MODIFIED_SINCE"),
+        request.headers.get("if-modified-since"),
         statobj[stat.ST_MTIME],
     ):
         return HttpResponseNotModified()

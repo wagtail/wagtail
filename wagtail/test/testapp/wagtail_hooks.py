@@ -48,7 +48,7 @@ hooks.register("insert_editor_js", editor_js)
 
 
 def block_googlebot(page, request, serve_args, serve_kwargs):
-    if request.META.get("HTTP_USER_AGENT") == "GoogleBot":
+    if request.headers.get("user-agent") == "GoogleBot":
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
 
