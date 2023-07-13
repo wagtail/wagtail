@@ -2,6 +2,7 @@ from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import (
+    FieldDoesNotExist,
     ImproperlyConfigured,
     PermissionDenied,
 )
@@ -10,9 +11,7 @@ from django.db.models.functions import Cast
 from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.template.defaultfilters import filesizeformat
 from django.urls import reverse
-from django.utils.html import format_html
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -31,6 +30,8 @@ from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
+from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
@@ -753,10 +754,10 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         fields = [f for f in fields if f not in self.fields_exclude]
         return fields
 
-    def get_field_label(self, field_name):
+    def get_field_label(self, field_name, field):
         return capfirst(label_for_field(field_name, model=self.model))
 
-    def get_field_display_value(self, field_name):
+    def get_field_display_value(self, field_name, field):
         # First we check for a 'get_fieldname_display' property/method on
         # the model, and return the value of that, if present.
         value_func = getattr(self.object, "get_%s_display" % field_name, None)
@@ -775,46 +776,26 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         if isinstance(value, models.QuerySet):
             return ", ".join(str(obj) for obj in value) or "-"
 
-        # wagtail.images might not be installed
-        try:
-            from wagtail.images.models import AbstractImage
+        display_class = display_class_registry.get(field)
 
-            if isinstance(value, AbstractImage):
-                return self.get_image_field_display(value)
-        except RuntimeError:
-            pass
-
-        # wagtail.documents might not be installed
-        try:
-            from wagtail.documents.models import AbstractDocument
-
-            if isinstance(value, AbstractDocument):
-                # Render a link to the document
-                return self.get_document_field_display(value)
-        except RuntimeError:
-            pass
+        if display_class:
+            return display_class(value)
 
         return value
 
-    def get_image_field_display(self, image):
-        from wagtail.images.shortcuts import get_rendition_or_not_found
-
-        return get_rendition_or_not_found(image, "max-400x400").img_tag()
-
-    def get_document_field_display(self, document):
-        return format_html(
-            '<a href="{}">{} <span class="meta">({}, {})</span></a>',
-            document.url,
-            document.title,
-            document.file_extension.upper(),
-            filesizeformat(document.file.size),
-        )
-
     def get_context_for_field(self, field_name):
-        return {
-            "label": self.get_field_label(field_name),
-            "value": self.get_field_display_value(field_name),
+        try:
+            field = self.model._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            field = None
+        context = {
+            "label": self.get_field_label(field_name, field),
+            "value": self.get_field_display_value(field_name, field),
+            "component": None,
         }
+        if isinstance(context["value"], Component):
+            context["component"] = context["value"]
+        return context
 
     def get_fields_context(self):
         return [self.get_context_for_field(field_name) for field_name in self.fields]
