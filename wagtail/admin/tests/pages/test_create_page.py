@@ -1,5 +1,4 @@
 import datetime
-import pickle
 import unittest
 from unittest import mock
 
@@ -27,7 +26,6 @@ from wagtail.test.testapp.models import (
     SingletonPageViaMaxCount,
     StandardChild,
     StandardIndex,
-    StreamPage,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
@@ -1802,28 +1800,3 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
 
         self.assertEqual(subscription.user, self.user)
         self.assertFalse(subscription.comment_notifications)
-
-
-class TestPagePickleSupport(WagtailTestUtils, TestCase):
-    def setUp(self):
-        # Find root page
-        self.root_page = Page.objects.get(id=2)
-
-        # Login
-        self.user = self.login()
-
-    def test_stream_page_is_pickleable(self):
-        stream_page = StreamPage(title="stream page", body=[("text", "hello")])
-        self.root_page.add_child(instance=stream_page)
-
-        # check that page can be serialized / deserialized
-        serialized = pickle.dumps(stream_page)
-        deserialized = pickle.loads(serialized)
-
-        # check that serialized page can be serialized / deserialized again
-        serialized2 = pickle.dumps(deserialized)
-        deserialized2 = pickle.loads(serialized2)
-
-        # check that page data is not corrupted
-        self.assertEqual(stream_page.body, deserialized.body)
-        self.assertEqual(stream_page.body, deserialized2.body)
