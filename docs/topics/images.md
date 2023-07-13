@@ -371,12 +371,13 @@ representing the colour you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high). AVIF defaults to 80.
+Wagtail's JPEG image quality settings default to 85 (which is quite high). AVIF and WebP default to 80.
 This can be changed either globally or on a per-tag basis.
 
 ### Changing globally
 
-Use the `WAGTAILIMAGES_AVIF_QUALITY`, `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change the global defaults of AVIF, JPEG and WebP quality:
+Use the `WAGTAILIMAGES_AVIF_QUALITY`, `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change 
+the global defaults of AVIF, JPEG and WebP quality:
 
 ```python
 # settings.py
