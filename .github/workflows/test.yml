@@ -264,7 +264,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[testing]
           pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=7,<8"
+          pip install "elasticsearch>=8,<9"
           pip install certifi
       - name: Test
         run: |
