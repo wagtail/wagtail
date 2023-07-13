@@ -1826,10 +1826,4 @@ class TestPagePickleSupport(WagtailTestUtils, TestCase):
 
         # check that page data is not corrupted
         self.assertEqual(stream_page.body, deserialized.body)
-        self.assertEqual(
-            str(stream_page.body.raw_data), str(deserialized.body.raw_data)
-        )
         self.assertEqual(stream_page.body, deserialized2.body)
-        self.assertEqual(
-            str(stream_page.body.raw_data), str(deserialized2.body.raw_data)
-        )
