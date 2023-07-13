@@ -878,7 +878,7 @@ class TestWebPQualityFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        save.assert_called_with(f, "WEBP", quality=85, lossless=False)
+        save.assert_called_with(f, "WEBP", quality=80, lossless=False)
 
     def test_webp_quality_filter(self):
         fil = Filter(spec="width-400|webpquality-40|format-webp")
@@ -893,7 +893,7 @@ class TestWebPQualityFilter(TestCase):
 
         save.assert_called_with(f, "WEBP", quality=40, lossless=False)
 
-    def test_jpeg_quality_filter_invalid(self):
+    def test_webp_quality_filter_invalid(self):
         fil = Filter(spec="width-400|webpquality-abc|format-webp")
         image = Image.objects.create(
             title="Test image",

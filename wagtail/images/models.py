@@ -964,7 +964,7 @@ class Filter:
                 elif "webp-quality" in env:
                     quality = env["webp-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
+                    quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 80)
 
                 return willow.save_as_webp(output, quality=quality)
             elif output_format == "avif":
