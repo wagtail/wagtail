@@ -20,7 +20,7 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 3.2, python 3.7, postgres
+# - django 3.2, python 3.8, postgres
 # - django 3.2, python 3.8, mysql
 # - django 4.1, python 3.9, sqlite
 # - django 4.2, python 3.10, mysql
@@ -28,8 +28,8 @@ concurrency:
 # - django 4.2, python 3.11, postgres, DISABLE_TIMEZONE=yes
 # - django stable/4.2.x, python 3.10, postgres (allow failures)
 # - django main, python 3.10, postgres (allow failures)
-# - elasticsearch 5, django 3.2, python 3.7, sqlite
-# - elasticsearch 6, django 3.2, python 3.7, postgres
+# - elasticsearch 5, django 3.2, python 3.8, sqlite
+# - elasticsearch 6, django 3.2, python 3.8, postgres
 # - elasticsearch 7, django 4.1, python 3.8, postgres
 # - elasticsearch 7, django 4.2, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
 
@@ -73,7 +73,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.7'
+          - python: '3.8'
             django: 'Django>=3.2,<3.3'
             experimental: false
           - python: '3.11'
@@ -191,7 +191,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.7'
+          - python: '3.8'
             django: 'Django>=3.2,<3.3'
     steps:
       - name: Configure sysctl limits
@@ -285,7 +285,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.7'
+          - python: '3.8'
             django: 'Django>=3.2,<3.3'
 
     services:
