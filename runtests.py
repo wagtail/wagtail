@@ -22,6 +22,7 @@ def make_parser():
     parser.add_argument("--elasticsearch5", action="store_true")
     parser.add_argument("--elasticsearch6", action="store_true")
     parser.add_argument("--elasticsearch7", action="store_true")
+    parser.add_argument("--elasticsearch8", action="store_true")
     parser.add_argument("--emailuser", action="store_true")
     parser.add_argument("--disabletimezone", action="store_true")
     parser.add_argument("--bench", action="store_true")
@@ -69,6 +70,9 @@ def runtests():
     elif args.elasticsearch7:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
         os.environ.setdefault("ELASTICSEARCH_VERSION", "7")
+    elif args.elasticsearch8:
+        os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
+        os.environ.setdefault("ELASTICSEARCH_VERSION", "8")
 
     elif "ELASTICSEARCH_URL" in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
