@@ -902,7 +902,7 @@ class TestElasticsearch7SearchResults(TestCase):
         list(results)  # Performs search
 
         search.assert_any_call(
-            body={"query": "QUERY"},
+            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
@@ -920,7 +920,7 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            body={"query": "QUERY"},
+            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
@@ -936,7 +936,7 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=1,
-            body={"query": "QUERY"},
+            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
@@ -952,7 +952,7 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            body={"query": "QUERY"},
+            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
@@ -969,7 +969,7 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=20,
-            body={"query": "QUERY"},
+            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",

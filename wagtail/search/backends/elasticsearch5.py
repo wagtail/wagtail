@@ -691,11 +691,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
         }
 
         # Send to Elasticsearch
-        response = self.backend.es.search(
+        response = self._backend_do_search(
+            body,
             index=self.backend.get_index_for_model(
                 self.query_compiler.queryset.model
             ).name,
-            body=body,
             size=0,
         )
 
@@ -741,6 +741,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             if result:
                 yield result
 
+    def _backend_do_search(self, body, **kwargs):
+        # Send the search query to the backend. Wrapped here so that it can be overridden
+        # to handle different calling conventions for the 'body' parameter
+        return self.backend.es.search(body=body, **kwargs)
+
     def _do_search(self):
         PAGE_SIZE = 100
 
@@ -751,11 +756,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
 
         use_scroll = limit is None or limit > PAGE_SIZE
 
+        body = self._get_es_body()
         params = {
             "index": self.backend.get_index_for_model(
                 self.query_compiler.queryset.model
             ).name,
-            "body": self._get_es_body(),
             "_source": False,
             self.fields_param_name: "pk",
         }
@@ -772,7 +777,7 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             skip = self.start
 
             # Send to Elasticsearch
-            page = self.backend.es.search(**params)
+            page = self._backend_do_search(body, **params)
 
             while True:
                 hits = page["hits"]["hits"]
@@ -818,7 +823,7 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             )
 
             # Send to Elasticsearch
-            hits = self.backend.es.search(**params)["hits"]["hits"]
+            hits = self._backend_do_search(body, **params)["hits"]["hits"]
 
             # Get results
             for result in self._get_results_from_hits(hits):
