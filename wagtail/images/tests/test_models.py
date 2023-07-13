@@ -482,7 +482,7 @@ class TestRenditions(TestCase):
         ren_img = self.image.get_rendition("original")
         full_url = ren_img.full_url
         img_name = ren_img.file.name.split("/")[1]
-        self.assertEqual(full_url, "http://testserver/media/images/{}".format(img_name))
+        self.assertEqual(full_url, f"http://testserver/media/images/{img_name}")
 
     @override_settings(
         CACHES={

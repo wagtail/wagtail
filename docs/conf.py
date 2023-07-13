@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Wagtail documentation build configuration file, created by
 # sphinx-quickstart on Tue Jan 14 17:38:55 2014.
@@ -85,7 +84,7 @@ copyright = f"{datetime.now().year}, Torchbox and contributors"
 # built documents.
 
 # The short X.Y version.
-version = "{}.{}".format(VERSION[0], VERSION[1])
+version = f"{VERSION[0]}.{VERSION[1]}"
 # The full version, including alpha/beta/rc tags.
 release = __version__
 

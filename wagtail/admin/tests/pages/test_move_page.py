@@ -124,7 +124,7 @@ class TestPageMove(WagtailTestUtils, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(messages[0].level, message_constants.ERROR)
         # Slug should be in error message.
-        self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
+        self.assertIn(f"{self.test_page_b.slug}", messages[0].message)
 
     def test_move_triggers_signals(self):
         # Connect a mock signal handler to pre_page_move and post_page_move signals

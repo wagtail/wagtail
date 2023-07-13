@@ -95,10 +95,10 @@ class Command(BaseCommand):
             site = Site.objects.get(id=site_id)
 
         if not os.path.exists(src):
-            raise Exception("Missing file '{0}'".format(src))
+            raise Exception(f"Missing file '{src}'")
 
         if not os.path.getsize(src) > 0:
-            raise Exception("File '{0}' is empty".format(src))
+            raise Exception(f"File '{src}' is empty")
 
         _, extension = os.path.splitext(src)
         extension = extension.lstrip(".")
@@ -108,7 +108,7 @@ class Command(BaseCommand):
 
         import_format_cls = get_format_cls_by_extension(format_)
         if import_format_cls is None:
-            raise Exception("Invalid format '{0}'".format(extension))
+            raise Exception(f"Invalid format '{extension}'")
         input_format = import_format_cls()
 
         if extension in ["xls", "xlsx"]:
@@ -126,7 +126,7 @@ class Command(BaseCommand):
             self.stdout.write("--------------")
 
             if site:
-                self.stdout.write("Using site: {0}".format(site.hostname))
+                self.stdout.write(f"Using site: {site.hostname}")
 
             self.stdout.write("Importing redirects:")
 
@@ -193,10 +193,10 @@ class Command(BaseCommand):
                 successes += 1
 
         self.stdout.write("\n")
-        self.stdout.write("Found: {}".format(total))
-        self.stdout.write("Created: {}".format(successes))
-        self.stdout.write("Skipped : {}".format(skipped))
-        self.stdout.write("Errors: {}".format(len(errors)))
+        self.stdout.write(f"Found: {total}")
+        self.stdout.write(f"Created: {successes}")
+        self.stdout.write(f"Skipped : {skipped}")
+        self.stdout.write(f"Errors: {len(errors)}")
 
 
 def get_input(msg):  # pragma: no cover

@@ -90,7 +90,7 @@ class Registry(list):
         def permissions_hook():
             return Permission.objects.filter(
                 content_type__app_label=model._meta.app_label,
-                codename="change_{}".format(model._meta.model_name),
+                codename=f"change_{model._meta.model_name}",
             )
 
         # Register an admin URL finder

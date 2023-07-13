@@ -63,7 +63,7 @@ def get_search_backend(backend="default", **kwargs):
             import_backend(backend)
         except ImportError as e:
             raise InvalidSearchBackendError(
-                "Could not find backend '%s': %s" % (backend, e)
+                "Could not find backend '{}': {}".format(backend, e)
             )
         params = kwargs
     else:
@@ -77,7 +77,7 @@ def get_search_backend(backend="default", **kwargs):
         backend_cls = import_backend(backend)
     except ImportError as e:
         raise InvalidSearchBackendError(
-            "Could not find backend '%s': %s" % (backend, e)
+            "Could not find backend '{}': {}".format(backend, e)
         )
 
     # Create backend

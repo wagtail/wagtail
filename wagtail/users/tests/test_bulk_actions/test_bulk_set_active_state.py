@@ -66,7 +66,7 @@ class TestUserSetActiveStateView(WagtailTestUtils, TestCase):
         self.assertInHTML("<p>You cannot change your own active status</p>", html)
 
         needle = "<ul>"
-        needle += "<li>{user_email}</li>".format(user_email=self.current_user.email)
+        needle += f"<li>{self.current_user.email}</li>"
         needle += "</ul>"
         self.assertInHTML(needle, html)
 

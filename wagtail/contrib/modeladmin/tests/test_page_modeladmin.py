@@ -150,7 +150,7 @@ class TestCreateView(WagtailTestUtils, TestCase):
         expected_path = "/admin/pages/add/tests/businesschild/%d/" % business_index.pk
         expected_next_path = "/admin/tests/businesschild/"
         self.assertRedirects(
-            response, "%s?next=%s" % (expected_path, expected_next_path)
+            response, "{}?next={}".format(expected_path, expected_next_path)
         )
 
 
@@ -250,7 +250,7 @@ class TestEditView(WagtailTestUtils, TestCase):
         expected_path = "/admin/pages/4/edit/"
         expected_next_path = "/admin/tests/eventpage/"
         self.assertRedirects(
-            response, "%s?next=%s" % (expected_path, expected_next_path)
+            response, "{}?next={}".format(expected_path, expected_next_path)
         )
 
     def test_non_existent(self):
@@ -261,7 +261,7 @@ class TestEditView(WagtailTestUtils, TestCase):
     def test_using_core_page(self):
         # The core page is slightly different to other pages, so exclude it
         root_page = Page.objects.get(depth=1)
-        response = self.client.get("/admin/wagtailcore/page/{}/".format(root_page.id))
+        response = self.client.get(f"/admin/wagtailcore/page/{root_page.id}/")
         self.assertEqual(response.status_code, 404)
 
 
@@ -280,7 +280,7 @@ class TestDeleteView(WagtailTestUtils, TestCase):
         expected_path = "/admin/pages/4/delete/"
         expected_next_path = "/admin/tests/eventpage/"
         self.assertRedirects(
-            response, "%s?next=%s" % (expected_path, expected_next_path)
+            response, "{}?next={}".format(expected_path, expected_next_path)
         )
 
 
@@ -311,7 +311,7 @@ class TestChooseParentView(WagtailTestUtils, TestCase):
         expected_path = "/admin/pages/add/tests/eventpage/2/"
         expected_next_path = "/admin/tests/eventpage/"
         self.assertRedirects(
-            response, "%s?next=%s" % (expected_path, expected_next_path)
+            response, "{}?next={}".format(expected_path, expected_next_path)
         )
 
     def test_back_to_listing(self):

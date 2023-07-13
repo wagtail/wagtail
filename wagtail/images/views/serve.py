@@ -36,7 +36,7 @@ class ServeView(View):
                     "ServeView action must be either 'serve' or 'redirect'"
                 )
 
-        return super(ServeView, cls).as_view(**initkwargs)
+        return super().as_view(**initkwargs)
 
     @method_decorator(cache_control(max_age=3600, public=True))
     def get(self, request, signature, image_id, filter_spec, filename=None):

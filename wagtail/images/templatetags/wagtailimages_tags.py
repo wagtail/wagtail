@@ -106,7 +106,7 @@ class ImageNode(template.Node):
         self.filter_specs = filter_specs
         self.preserve_svg = preserve_svg
 
-    @lru_cache()
+    @lru_cache
     def get_filter(self, preserve_svg=False):
         if preserve_svg:
             return Filter(to_svg_safe_spec(self.filter_specs))

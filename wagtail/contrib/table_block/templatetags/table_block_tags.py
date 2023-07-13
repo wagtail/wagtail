@@ -13,5 +13,5 @@ def cell_classname(context, row_index, col_index, table_header=None):
         index = (row_index, col_index)
         cell_class = classnames.get(index)
         if cell_class:
-            return mark_safe('class="{}"'.format(cell_class))
+            return mark_safe(f'class="{cell_class}"')
     return ""

@@ -271,7 +271,7 @@ class TestSiteRouting(TestCase):
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
         request = get_dummy_request()
-        request.META["HTTP_HOST"] = "%s:%s" % (
+        request.META["HTTP_HOST"] = "{}:{}".format(
             self.events_site.hostname,
             self.events_site.port,
         )
@@ -3017,7 +3017,9 @@ class TestIssue1216(TestCase):
 
         # Check that the url path updated correctly
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
-        expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
+        expected_url_path = "/home/{}/{}/".format(
+            new_event_index_slug, new_christmas_slug
+        )
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
 
 

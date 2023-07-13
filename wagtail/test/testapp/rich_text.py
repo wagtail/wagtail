@@ -7,7 +7,7 @@ from wagtail.utils.widgets import WidgetWithScript
 
 class CustomRichTextArea(WidgetWithScript, widgets.Textarea):
     def render_js_init(self, id_, name, value):
-        return "customEditorInitScript({0});".format(json.dumps(id_))
+        return f"customEditorInitScript({json.dumps(id_)});"
 
     @property
     def media(self):
@@ -16,7 +16,7 @@ class CustomRichTextArea(WidgetWithScript, widgets.Textarea):
 
 class LegacyRichTextArea(WidgetWithScript, widgets.Textarea):
     def render_js_init(self, id_, name, value):
-        return "legacyEditorInitScript({0});".format(json.dumps(id_))
+        return f"legacyEditorInitScript({json.dumps(id_)});"
 
     @property
     def media(self):

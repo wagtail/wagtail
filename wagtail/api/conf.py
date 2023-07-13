@@ -7,4 +7,4 @@ class APIField:
         return hash(self.name)
 
     def __repr__(self):
-        return "<APIField {}>".format(self.name)
+        return f"<APIField {self.name}>"

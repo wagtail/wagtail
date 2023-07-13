@@ -273,7 +273,7 @@ class Index:
 
         data_sql = ", ".join(
             [
-                "(%%s, %%s, %s, %s, %s, 1.0)" % (a, b, c)
+                "(%s, %s, {}, {}, {}, 1.0)".format(a, b, c)
                 for a, b, c in zip(title_sql, autocomplete_sql, body_sql)
             ]
         )

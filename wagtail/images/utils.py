@@ -88,7 +88,7 @@ def generate_signature(image_id, filter_spec, key=None):
 
     # Based on libthumbor hmac generation
     # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
-    url = "{}/{}/".format(image_id, filter_spec)
+    url = f"{image_id}/{filter_spec}/"
     return force_str(
         base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest())
     )

@@ -15,7 +15,7 @@ TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 class TestImportUtils(TestCase):
     def test_writing_file_with_format(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
         (_, filename) = os.path.split(f)
 
         with open(f, "rb") as infile:

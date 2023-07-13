@@ -37,9 +37,7 @@ class TestContentTypeNames(TestCase):
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
-        return type(
-            str("DummyType"), (index.Indexed,), {"search_fields": search_fields}
-        )
+        return type("DummyType", (index.Indexed,), {"search_fields": search_fields})
 
     def get_checks_result(warning_id=None):
         """Run Django checks on any with the 'search' tag used when registering the check"""

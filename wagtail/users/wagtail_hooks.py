@@ -55,11 +55,11 @@ def register_viewset():
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
 # 'auth.delete_user') for user management actions, but this may vary according to
 # the AUTH_USER_MODEL setting
-add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-change_user_perm = "{0}.change_{1}".format(
+add_user_perm = f"{AUTH_USER_APP_LABEL}.add_{AUTH_USER_MODEL_NAME.lower()}"
+change_user_perm = "{}.change_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
-delete_user_perm = "{0}.delete_{1}".format(
+delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
 

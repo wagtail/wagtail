@@ -52,9 +52,7 @@ class TestBulkAddTags(WagtailTestUtils, TestCase):
         )
 
         for document in self.documents:
-            self.assertInHTML(
-                "<li>{document_title}</li>".format(document_title=document.title), html
-            )
+            self.assertInHTML(f"<li>{document.title}</li>", html)
 
         self.client.post(self.url, self.post_data)
 

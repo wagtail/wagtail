@@ -80,7 +80,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def test_image_model(self):
         cls = get_image_model()
         self.assertEqual(
-            "%s.%s" % (cls._meta.app_label, cls.__name__), "tests.CustomImage"
+            "{}.{}".format(cls._meta.app_label, cls.__name__), "tests.CustomImage"
         )
 
 

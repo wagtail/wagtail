@@ -51,7 +51,7 @@ class AbstractSetting(models.Model):
         Returns the name of the attribute that should be used to store
         a reference to the fetched/created object on a request.
         """
-        return "_{}.{}".format(cls._meta.app_label, cls._meta.model_name).lower()
+        return f"_{cls._meta.app_label}.{cls._meta.model_name}".lower()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

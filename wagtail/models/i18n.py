@@ -187,7 +187,7 @@ class TranslatableMixin(models.Model):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(TranslatableMixin, cls).check(**kwargs)
+        errors = super().check(**kwargs)
         is_translation_model = cls.get_translation_model() is cls
 
         # Raise error if subclass has removed the unique_together constraint
@@ -199,7 +199,7 @@ class TranslatableMixin(models.Model):
         ):
             errors.append(
                 checks.Error(
-                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields".format(
+                    "{}.{} is missing a unique_together constraint for the translation key and locale fields".format(
                         cls._meta.app_label, cls.__name__
                     ),
                     hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(

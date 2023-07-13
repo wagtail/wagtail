@@ -2281,7 +2281,7 @@ class TestIssue2492(WagtailTestUtils, TestCase):
 
         # The "View Live" button should have the custom URL.
         for message in response.context["messages"]:
-            self.assertIn('"{}"'.format(new_url), message.message)
+            self.assertIn(f'"{new_url}"', message.message)
             break
 
 

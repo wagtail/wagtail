@@ -34,7 +34,9 @@ class PermissionPolicyTestUtils:
                 if expected_result:
                     self.assertTrue(
                         self.policy.user_has_permission(user, action),
-                        msg="User %s should be able to %s, but can't" % (user, action),
+                        msg="User {} should be able to {}, but can't".format(
+                            user, action
+                        ),
                     )
                 else:
                     self.assertFalse(

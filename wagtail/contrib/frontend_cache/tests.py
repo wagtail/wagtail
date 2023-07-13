@@ -481,7 +481,7 @@ class TestCloudflareCachePurgingFunctions(TestCase):
 
     def test_cloudflare_purge_batch_chunked(self):
         batch = PurgeBatch()
-        urls = ["https://localhost/foo{}".format(i) for i in range(1, 65)]
+        urls = [f"https://localhost/foo{i}" for i in range(1, 65)]
         batch.add_urls(urls)
         batch.purge()
 
