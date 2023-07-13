@@ -31,7 +31,7 @@ concurrency:
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
 # - elasticsearch 6, django 3.2, python 3.8, postgres
 # - elasticsearch 7, django 4.1, python 3.8, postgres
-# - elasticsearch 7, django 4.2, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -231,12 +231,12 @@ jobs:
           name: coverage-data
           path: .coverage.*
 
-  test-sqlite-elasticsearch7:
+  test-sqlite-elasticsearch8:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - python: '3.9'
+          - python: '3.10'
             django: 'Django>=4.2,<4.3'
             emailuser: emailuser
     steps:
@@ -248,7 +248,7 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
       - uses: getong/elasticsearch-action@v1.2
         with:
-          elasticsearch version: 7.6.1
+          elasticsearch version: 8.8.0
           host port: 9200
           container port: 9200
           host node port: 9300
@@ -268,7 +268,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch8
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
@@ -398,7 +398,7 @@ jobs:
       - test-postgres
       - test-mysql
       - test-sqlite-elasticsearch5
-      - test-sqlite-elasticsearch7
+      - test-sqlite-elasticsearch8
       - test-postgres-elasticsearch6
       - test-postgres-elasticsearch7
     runs-on: ubuntu-latest
