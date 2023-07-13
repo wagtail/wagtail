@@ -3146,7 +3146,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3173,7 +3173,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3200,7 +3200,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost:8888")
+        self.assertEqual(request.headers["host"], "localhost:8888")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3237,17 +3237,17 @@ class TestMakePreviewRequest(TestCase):
             request.META["REMOTE_ADDR"], original_request.META["REMOTE_ADDR"]
         )
         self.assertEqual(
-            request.META["HTTP_X_FORWARDED_FOR"],
+            request.headers["x-forwarded-for"],
             original_request.META["HTTP_X_FORWARDED_FOR"],
         )
         self.assertEqual(
-            request.META["HTTP_COOKIE"], original_request.META["HTTP_COOKIE"]
+            request.headers["cookie"], original_request.META["HTTP_COOKIE"]
         )
         self.assertEqual(
-            request.META["HTTP_USER_AGENT"], original_request.META["HTTP_USER_AGENT"]
+            request.headers["user-agent"], original_request.META["HTTP_USER_AGENT"]
         )
         self.assertEqual(
-            request.META["HTTP_AUTHORIZATION"],
+            request.headers["authorization"],
             original_request.META["HTTP_AUTHORIZATION"],
         )
 
@@ -3276,7 +3276,7 @@ class TestMakePreviewRequest(TestCase):
         # in the absence of an actual Site record where we can access this page,
         # make_preview_request should still provide a hostname that Django's host header
         # validation won't reject
-        self.assertEqual(request.META["HTTP_HOST"], "production.example.com")
+        self.assertEqual(request.headers["host"], "production.example.com")
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
@@ -3288,7 +3288,7 @@ class TestMakePreviewRequest(TestCase):
         request = response.context_data["request"]
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
-        self.assertNotEqual(request.META["HTTP_HOST"], "*")
+        self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
         event_index = Page.objects.get(url_path="/home/events/")
