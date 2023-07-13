@@ -326,6 +326,7 @@ Wagtail may automatically change the format of some images when they are resized
 
 -   PNG and JPEG images don't change the format
 -   GIF images without animation are converted to PNGs
+-   AVIF images are converted to PNGs
 -   BMP images are converted to PNGs
 -   WebP images are converted to PNGs
 
@@ -340,11 +341,12 @@ For example, to make the tag always convert the image to a JPEG, use `format-jpe
 
 You may also use `format-png` or `format-gif`.
 
-### Lossless WebP
+### Lossless AVIF and WebP
 
-You can encode the image into lossless WebP format by using the `format-webp-lossless` filter:
+You can encode the image into lossless AVIF or WebP format by using `format-avif-lossless` or `format-webp-lossless` filter respectively:
 
 ```html+django
+{% image page.photo width-400 format-avif-lossless %}
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
@@ -369,17 +371,18 @@ representing the colour you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high).
+Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high). AVIF defaults to 80.
 This can be changed either globally or on a per-tag basis.
 
 ### Changing globally
 
-Use the `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change the global defaults of JPEG and WebP quality:
+Use the `WAGTAILIMAGES_AVIF_QUALITY`, `WAGTAILIMAGES_JPEG_QUALITY` and `WAGTAILIMAGES_WEBP_QUALITY` settings to change the global defaults of AVIF, JPEG and WebP quality:
 
 ```python
 # settings.py
 
 # Make low-quality but small images
+WAGTAILIMAGES_AVIF_QUALITY = 50
 WAGTAILIMAGES_JPEG_QUALITY = 40
 WAGTAILIMAGES_WEBP_QUALITY = 45
 ```
@@ -402,16 +405,18 @@ You can read more about this command from [](wagtail_update_image_renditions)
 
 ### Changing per-tag
 
-It's also possible to have different JPEG and WebP qualities on individual tags by using `jpegquality` and `webpquality` filters. This will always override the default setting:
+It's also possible to have different AVIF, JPEG and WebP qualities on individual tags by using `avifquality`, `jpegquality` and `webpquality` filters. This will always override the default setting:
 
 ```html+django
+{% image page.photo_avif width-400 avifquality-40 %}
 {% image page.photo_jpeg width-400 jpegquality-40 %}
 {% image page.photo_webp width-400 webpquality-50 %}
 ```
 
-Note that this will have no effect on PNG or GIF files. If you want all images to be low quality, you can use this filter with `format-jpeg` or `format-webp` (which forces all images to output in JPEG or WebP format):
+Note that this will have no effect on PNG or GIF files. If you want all images to be low quality, you can use this filter with `format-avif`, `format-jpeg` or `format-webp` (which forces all images to output in AVIF, JPEG or WebP format):
 
 ```html+Django
+{% image page.photo width-400 format-avif avifquality-40 %}
 {% image page.photo width-400 format-jpeg jpegquality-40 %}
 {% image page.photo width-400 format-webp webpquality-50 %}
 ```

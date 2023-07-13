@@ -359,7 +359,7 @@ WAGTAILIMAGES_EXTENSIONS = ['png', 'jpg']
 ```
 
 A list of allowed image extensions that will be validated during image uploading.
-If this isn't supplied, all of GIF, JPG, JPEG, PNG, WEBP are allowed.
+If this isn't supplied, all of AVIF, GIF, JPG, JPEG, PNG, WEBP are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
 
