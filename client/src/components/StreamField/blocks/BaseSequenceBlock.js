@@ -349,6 +349,11 @@ export class BaseSequenceChild extends EventEmitter {
 
   setError(error) {
     this.block.setError(error);
+
+    // If there is an error, the panel should be expanded always so the error is not obscured
+    if (error) {
+      toggleCollapsiblePanel(this.toggleElement, true);
+    }
   }
 
   focus(opts) {
