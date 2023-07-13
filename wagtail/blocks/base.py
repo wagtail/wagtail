@@ -108,6 +108,20 @@ class Block(metaclass=BaseBlock):
 
         self.label = self.meta.label or ""
 
+    def __getstate__(self):
+        # Get the state of the object for pickling
+        state = self.__dict__.copy()
+
+        # Remove the unpicklable attributes
+        del state["meta"]
+
+        return state
+
+    def __setstate__(self, state):
+        # Restore the object state from the pickled state
+        self.__dict__.update(state)
+        self.meta = self._meta_class()
+
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
@@ -434,20 +448,6 @@ class Block(metaclass=BaseBlock):
                 for attr in self.MUTABLE_META_ATTRIBUTES
             )
         )
-
-    def __getstate__(self):
-        # Get the state of the object for pickling
-        state = self.__dict__.copy()
-
-        # Remove the unpicklable attributes
-        del state["meta"]
-
-        return state
-
-    def __setstate__(self, state):
-        # Restore the object state from the pickled state
-        self.__dict__.update(state)
-        self.meta = self._meta_class()
 
 
 class BoundBlock:
