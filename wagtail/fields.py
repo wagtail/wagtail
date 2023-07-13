@@ -42,7 +42,7 @@ class RichTextField(models.TextField):
         field = super().formfield(**defaults)
 
         # replace any MaxLengthValidators with RichTextMaxLengthValidators to ignore tags
-        for i, validator in enumerate(field.validators):
+        for (i, validator) in enumerate(field.validators):
             if isinstance(validator, MaxLengthValidator):
                 field.validators[i] = RichTextMaxLengthValidator(
                     validator.limit_value, message=validator.message
@@ -142,7 +142,7 @@ class StreamField(models.Field):
         value = self.__to_python(value)
         value._StreamFieldRef = self
         return value
-    
+
     def __to_python(self, value):
         if value is None or value == "":
             return StreamValue(self.stream_block, [])

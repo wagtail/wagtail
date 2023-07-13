@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
-import pickle
 import json
+import pickle
 
 from django.apps import apps
 from django.db import connection, models
@@ -13,15 +13,13 @@ from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
-)
-from wagtail.models import Page
-from wagtail.test.testapp.models import (
     StreamPage,
 )
 
