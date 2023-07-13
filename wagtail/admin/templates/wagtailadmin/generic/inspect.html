@@ -7,7 +7,13 @@
             <dl>
                 {% for field in fields %}
                     <dt>{{ field.label }}</dt>
-                    <dd>{{ field.value }}</dd>
+                    <dd>
+                        {% if field.component %}
+                            {% component field.component %}
+                        {% else %}
+                            {{ field.value }}
+                        {% endif %}
+                    </dd>
                 {% endfor %}
             </dl>
         {% endif %}
