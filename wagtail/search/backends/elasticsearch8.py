@@ -15,7 +15,12 @@ class Elasticsearch8Mapping(Elasticsearch7Mapping):
 
 
 class Elasticsearch8Index(Elasticsearch7Index):
-    pass
+    def add_model(self, model):
+        # Get mapping
+        mapping = self.mapping_class(model)
+
+        # Put mapping
+        self.es.indices.put_mapping(index=self.name, **mapping.get_mapping())
 
 
 class Elasticsearch8SearchQueryCompiler(Elasticsearch7SearchQueryCompiler):
@@ -36,6 +41,7 @@ class Elasticsearch8SearchBackend(Elasticsearch7SearchBackend):
     query_compiler_class = Elasticsearch8SearchQueryCompiler
     autocomplete_query_compiler_class = Elasticsearch8AutocompleteQueryCompiler
     results_class = Elasticsearch8SearchResults
+    timeout_kwarg_name = "request_timeout"
 
     def _get_host_config_from_url(self, url):
         """Given a parsed URL, return the host configuration to be added to self.hosts"""
@@ -46,8 +52,8 @@ class Elasticsearch8SearchBackend(Elasticsearch7SearchBackend):
         return {
             "host": url.hostname,
             "port": port,
-            "url_prefix": url.path,
-            "use_ssl": use_ssl,
+            "path_prefix": url.path,
+            "scheme": url.scheme,
         }
 
     def _get_options_from_host_urls(self, urls):
