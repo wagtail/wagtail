@@ -95,6 +95,7 @@ Changelog
  * Maintenance: Update uuid to v9 and Jest to v29, with `jest-environment-jsdom` and new snapshot format (LB (Ben) Johnston)
  * Maintenance: Update test cases producing undesirable console output due to missing mocks, uncaught errors, warnings (LB (Ben) Johnston)
  * Maintenance: Remove unused snippets _header_with_history.html template (Thibaud Colas)
+ * Maintenance: Remove `"wagtailadmin/shared/field_as_li.html"` template include (Storm Heg)
 
 
 5.0.2 (21.06.2023)
