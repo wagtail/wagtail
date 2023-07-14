@@ -43,7 +43,6 @@ testing_extras = [
     # Required for running the tests
     "python-dateutil>=2.7",
     "pytz>=2014.7",
-    "elasticsearch>=5.0,<6.0",
     "Jinja2>=3.0,<3.2",
     "boto3>=1.16,<1.17",
     "freezegun>=0.3.8",

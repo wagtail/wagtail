@@ -1,22 +1,31 @@
 import datetime
 import json
+import unittest
 from unittest import mock
 
 from django.db.models import Q
 from django.test import TestCase
-from elasticsearch.serializer import JSONSerializer
 
-from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend
 from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
+try:
+    from elasticsearch import VERSION as ELASTICSEARCH_VERSION
+    from elasticsearch.serializer import JSONSerializer
 
+    from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend
+except ImportError:
+    ELASTICSEARCH_VERSION = (0, 0, 0)
+
+
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = "wagtail.search.backends.elasticsearch7"
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7SearchQuery(TestCase):
     maxDiff = None
 
@@ -27,10 +36,13 @@ class TestElasticsearch7SearchQuery(TestCase):
             json.dumps(b, sort_keys=True, default=default),
         )
 
-    query_compiler_class = Elasticsearch7SearchBackend.query_compiler_class
-    autocomplete_query_compiler_class = (
-        Elasticsearch7SearchBackend.autocomplete_query_compiler_class
-    )
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.query_compiler_class = Elasticsearch7SearchBackend.query_compiler_class
+        cls.autocomplete_query_compiler_class = (
+            Elasticsearch7SearchBackend.autocomplete_query_compiler_class
+        )
 
     def test_simple(self):
         # Create a query
@@ -856,6 +868,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7SearchResults(TestCase):
     fixtures = ["search"]
 
@@ -1031,6 +1044,7 @@ class TestElasticsearch7SearchResults(TestCase):
         self.assertEqual(results[2], models.Book.objects.get(id=1))
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7Mapping(TestCase):
     fixtures = ["search"]
 
@@ -1146,6 +1160,7 @@ class TestElasticsearch7Mapping(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7MappingInheritance(TestCase):
     fixtures = ["search"]
     maxDiff = None
@@ -1315,6 +1330,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 @mock.patch("wagtail.search.backends.elasticsearch5.Elasticsearch")
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):

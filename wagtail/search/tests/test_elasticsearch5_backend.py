@@ -1,22 +1,31 @@
 import datetime
 import json
+import unittest
 from unittest import mock
 
 from django.db.models import Q
 from django.test import TestCase
-from elasticsearch.serializer import JSONSerializer
 
-from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
 from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
+try:
+    from elasticsearch import VERSION as ELASTICSEARCH_VERSION
+    from elasticsearch.serializer import JSONSerializer
 
+    from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
+except ImportError:
+    ELASTICSEARCH_VERSION = (0, 0, 0)
+
+
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 class TestElasticsearch5SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = "wagtail.search.backends.elasticsearch5"
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 class TestElasticsearch5SearchQuery(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -25,10 +34,13 @@ class TestElasticsearch5SearchQuery(TestCase):
             json.dumps(b, sort_keys=True, default=default),
         )
 
-    query_compiler_class = Elasticsearch5SearchBackend.query_compiler_class
-    autocomplete_query_compiler_class = (
-        Elasticsearch5SearchBackend.autocomplete_query_compiler_class
-    )
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.query_compiler_class = Elasticsearch5SearchBackend.query_compiler_class
+        cls.autocomplete_query_compiler_class = (
+            Elasticsearch5SearchBackend.autocomplete_query_compiler_class
+        )
 
     def test_simple(self):
         # Create a query
@@ -622,6 +634,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 class TestElasticsearch5SearchResults(TestCase):
     fixtures = ["search"]
 
@@ -797,6 +810,7 @@ class TestElasticsearch5SearchResults(TestCase):
         self.assertEqual(results[2], models.Book.objects.get(id=1))
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 class TestElasticsearch5Mapping(TestCase):
     fixtures = ["search"]
 
@@ -926,6 +940,7 @@ class TestElasticsearch5Mapping(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 class TestElasticsearch5MappingInheritance(TestCase):
     fixtures = ["search"]
 
@@ -1119,6 +1134,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 5, "Elasticsearch 5 required")
 @mock.patch("wagtail.search.backends.elasticsearch5.Elasticsearch")
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):
