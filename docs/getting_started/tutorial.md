@@ -12,7 +12,7 @@ If you want to add Wagtail to an existing Django project instead, see [](integra
 
 ### Install dependencies
 
-Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
+Wagtail supports Python 3.8, 3.9, 3.10, and 3.11.
 
 To check if you have an appropriate version of Python 3, run the following command:
 
