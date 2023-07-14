@@ -1052,6 +1052,7 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
     basic_rebuilder_class = ElasticsearchIndexRebuilder
     atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
     catch_indexing_errors = True
+    timeout_kwarg_name = "timeout"
 
     settings = {
         "settings": {
@@ -1146,7 +1147,9 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
             self.hosts = [self._get_host_config_from_url(url) for url in parsed_urls]
             options.update(self._get_options_from_host_urls(parsed_urls))
 
-        self.es = Elasticsearch(hosts=self.hosts, timeout=self.timeout, **options)
+        options[self.timeout_kwarg_name] = self.timeout
+
+        self.es = Elasticsearch(hosts=self.hosts, **options)
 
     def get_index_for_model(self, model):
         # Split models up into separate indices based on their root model.
