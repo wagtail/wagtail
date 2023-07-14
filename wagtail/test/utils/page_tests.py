@@ -115,7 +115,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 raise self.failureException(msg)
 
             errors = "\n".join(
-                "  %s:\n    %s" % (field, "\n    ".join(errors))
+                "  {}:\n    {}".format(field, "\n    ".join(errors))
                 for field, errors in sorted(form.errors.items())
             )
             msg = self._formatMessage(

@@ -388,7 +388,7 @@ class HtmlToContentStateHandler(HTMLParser):
         if not self.open_elements:
             return  # avoid a pop from an empty list if we have an extra end tag
         expected_name, element_handler = self.open_elements.pop()
-        assert name == expected_name, "Unmatched tags: expected %s, got %s" % (
+        assert name == expected_name, "Unmatched tags: expected {}, got {}".format(
             expected_name,
             name,
         )

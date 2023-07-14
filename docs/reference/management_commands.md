@@ -45,12 +45,18 @@ Options:
 ## purge_revisions
 
 ```sh
-manage.py purge_revisions [--days=<number of days>]
+manage.py purge_revisions [--days=<number of days>] [--pages] [--non-pages]
 ```
 
-This command deletes old page revisions which are not in moderation, live, approved to go live, or the latest
-revision for a page. If the `days` argument is supplied, only revisions older than the specified number of
+This command deletes old revisions which are not in moderation, live, approved to go live, or the latest
+revision. If the `days` argument is supplied, only revisions older than the specified number of
 days will be deleted.
+
+If the `pages` argument is supplied, only revisions of page models will be deleted. If the `non-pages` argument is supplied, only revisions of non-page models will be deleted. If both or neither arguments are supplied, revisions of all models will be deleted.
+
+```{versionadded} 5.1
+Support for deleting revisions of non-page models is added.
+```
 
 (purge_embeds)=
 

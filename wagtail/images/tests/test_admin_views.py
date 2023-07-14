@@ -34,7 +34,7 @@ from wagtail.test.utils import WagtailTestUtils
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
 # Get the chars that Django considers safe to leave unescaped in a URL
-urlquote_safechars = RFC3986_SUBDELIMS + str("/~:@")
+urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
 
 
 class TestImageIndexView(WagtailTestUtils, TestCase):
@@ -221,7 +221,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
 
         edit_url = reverse("wagtailimages:edit", args=(image.id,))
         next_url = urllib.parse.quote(response._request.get_full_path())
-        self.assertContains(response, "%s?next=%s" % (edit_url, next_url))
+        self.assertContains(response, f"{edit_url}?next={next_url}")
 
     def test_tags(self):
         image_two_tags = Image.objects.create(

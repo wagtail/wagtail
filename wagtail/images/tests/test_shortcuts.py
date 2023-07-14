@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase
 
 from wagtail.images.shortcuts import get_rendition_or_not_found

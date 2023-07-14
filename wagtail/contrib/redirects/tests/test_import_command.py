@@ -25,7 +25,7 @@ class TestImportCommand(TestCase):
             call_command("import_redirects", src="random", stdout=out)
 
     def test_invalid_extension_raises_error(self):
-        f = "{}/files/example.yaml".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.yaml"
 
         with self.assertRaisesMessage(Exception, "Invalid format 'yaml'"):
             out = StringIO()
@@ -34,9 +34,7 @@ class TestImportCommand(TestCase):
     def test_empty_file_raises_error(self):
         empty_file = tempfile.NamedTemporaryFile()
 
-        with self.assertRaisesMessage(
-            Exception, "File '{}' is empty".format(empty_file.name)
-        ):
+        with self.assertRaisesMessage(Exception, f"File '{empty_file.name}' is empty"):
             out = StringIO()
             call_command("import_redirects", src=empty_file.name, stdout=out)
 
@@ -53,14 +51,14 @@ class TestImportCommand(TestCase):
         self.assertEqual(Redirect.objects.count(), 0)
 
     def test_format_gets_picked_up_from_file_extension(self):
-        f = "{}/files/example.csv".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.csv"
 
         out = StringIO()
         call_command("import_redirects", src=f, stdout=out)
         self.assertEqual(Redirect.objects.count(), 2)
 
     def test_binary_formats_are_supported(self):
-        f = "{}/files/example.xlsx".format(TEST_ROOT)
+        f = f"{TEST_ROOT}/files/example.xlsx"
 
         out = StringIO()
         call_command("import_redirects", src=f, stdout=out)
@@ -209,7 +207,7 @@ class TestImportCommand(TestCase):
         out = StringIO()
         call_command(
             "import_redirects",
-            "--src={}".format(invalid_file.name),
+            f"--src={invalid_file.name}",
             "--from=1",
             "--to=3",
             "--format=csv",

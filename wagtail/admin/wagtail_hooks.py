@@ -1164,7 +1164,7 @@ def register_icons(icons):
         "wagtail.svg",
         "warning.svg",
     ]:
-        icons.append("wagtailadmin/icons/{}".format(icon))
+        icons.append(f"wagtailadmin/icons/{icon}")
     return icons
 
 

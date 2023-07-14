@@ -176,7 +176,7 @@ class BaseIndexEntry(models.Model):
         abstract = True
 
     def __str__(self):
-        return "%s: %s" % (self.content_type.name, self.content_object)
+        return f"{self.content_type.name}: {self.content_object}"
 
     @property
     def model(self):

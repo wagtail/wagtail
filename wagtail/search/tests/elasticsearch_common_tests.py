@@ -149,7 +149,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )
@@ -167,7 +167,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )
@@ -187,7 +187,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )

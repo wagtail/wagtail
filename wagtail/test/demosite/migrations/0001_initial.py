@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields

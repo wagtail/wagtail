@@ -303,7 +303,7 @@ class Elasticsearch5Mapping:
         return doc
 
     def __repr__(self):
-        return "<ElasticsearchMapping: %s>" % (self.model.__name__,)
+        return f"<ElasticsearchMapping: {self.model.__name__}>"
 
 
 class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
@@ -311,7 +311,7 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "or"
 
     def __init__(self, *args, **kwargs):
-        super(Elasticsearch5SearchQueryCompiler, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
 
         # Convert field names into index column names
@@ -1085,7 +1085,7 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
     }
 
     def __init__(self, params):
-        super(Elasticsearch5SearchBackend, self).__init__(params)
+        super().__init__(params)
 
         # Get settings
         self.hosts = params.pop("HOSTS", None)

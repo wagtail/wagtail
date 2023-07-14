@@ -362,9 +362,7 @@ class TestAuditLog(TestCase):
                 )
                 workflow_state.refresh_from_db()
 
-                entry = PageLogEntry.objects.filter(
-                    action="wagtail.workflow.{}".format(action)
-                )
+                entry = PageLogEntry.objects.filter(action=f"wagtail.workflow.{action}")
                 self.assertEqual(entry.count(), 1)
                 self.assertEqual(
                     entry[0].data,

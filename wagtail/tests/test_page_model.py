@@ -271,7 +271,7 @@ class TestSiteRouting(TestCase):
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
         request = get_dummy_request()
-        request.META["HTTP_HOST"] = "%s:%s" % (
+        request.META["HTTP_HOST"] = "{}:{}".format(
             self.events_site.hostname,
             self.events_site.port,
         )
@@ -3017,7 +3017,9 @@ class TestIssue1216(TestCase):
 
         # Check that the url path updated correctly
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
-        expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
+        expected_url_path = "/home/{}/{}/".format(
+            new_event_index_slug, new_christmas_slug
+        )
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
 
 
@@ -3144,7 +3146,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3171,7 +3173,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3198,7 +3200,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost:8888")
+        self.assertEqual(request.headers["host"], "localhost:8888")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3235,17 +3237,17 @@ class TestMakePreviewRequest(TestCase):
             request.META["REMOTE_ADDR"], original_request.META["REMOTE_ADDR"]
         )
         self.assertEqual(
-            request.META["HTTP_X_FORWARDED_FOR"],
+            request.headers["x-forwarded-for"],
             original_request.META["HTTP_X_FORWARDED_FOR"],
         )
         self.assertEqual(
-            request.META["HTTP_COOKIE"], original_request.META["HTTP_COOKIE"]
+            request.headers["cookie"], original_request.META["HTTP_COOKIE"]
         )
         self.assertEqual(
-            request.META["HTTP_USER_AGENT"], original_request.META["HTTP_USER_AGENT"]
+            request.headers["user-agent"], original_request.META["HTTP_USER_AGENT"]
         )
         self.assertEqual(
-            request.META["HTTP_AUTHORIZATION"],
+            request.headers["authorization"],
             original_request.META["HTTP_AUTHORIZATION"],
         )
 
@@ -3274,7 +3276,7 @@ class TestMakePreviewRequest(TestCase):
         # in the absence of an actual Site record where we can access this page,
         # make_preview_request should still provide a hostname that Django's host header
         # validation won't reject
-        self.assertEqual(request.META["HTTP_HOST"], "production.example.com")
+        self.assertEqual(request.headers["host"], "production.example.com")
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
@@ -3286,7 +3288,7 @@ class TestMakePreviewRequest(TestCase):
         request = response.context_data["request"]
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
-        self.assertNotEqual(request.META["HTTP_HOST"], "*")
+        self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
         event_index = Page.objects.get(url_path="/home/events/")

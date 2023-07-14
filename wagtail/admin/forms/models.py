@@ -121,9 +121,7 @@ class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetac
             if "formfield_callback" not in attrs or attrs["formfield_callback"] is None:
                 attrs["formfield_callback"] = formfield_for_dbfield
 
-            new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(
-                cls, name, bases, attrs
-            )
+            new_class = super().__new__(cls, name, bases, attrs)
             return new_class
 
     @classmethod

@@ -369,7 +369,7 @@ class EmailFormMixin(models.Model):
             elif isinstance(value, datetime.date):
                 value = date_format(value, settings.SHORT_DATE_FORMAT)
 
-            content.append("{}: {}".format(field.label, value))
+            content.append(f"{field.label}: {value}")
 
         return "\n".join(content)
 

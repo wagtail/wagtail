@@ -102,7 +102,7 @@ class PanelGroup(Panel):
                     instance=self.instance,
                     request=self.request,
                     form=self.form,
-                    prefix=("%s-child-%s" % (self.prefix, identifier)),
+                    prefix=(f"{self.prefix}-child-{identifier}"),
                 )
                 for child, identifier in zip(
                     self.panel.children, self.panel.child_identifiers

@@ -96,7 +96,9 @@ class ImageTransformOperationTestCase(TestCase):
             )
 
         test_filter_spec_error.__name__ = str(
-            "test_filter_%s_raises_%s" % (filter_spec, InvalidFilterSpecError.__name__)
+            "test_filter_{}_raises_{}".format(
+                filter_spec, InvalidFilterSpecError.__name__
+            )
         )
         return test_filter_spec_error
 

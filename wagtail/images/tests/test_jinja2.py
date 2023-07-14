@@ -60,7 +60,7 @@ class TestImagesJinja(TestCase):
         Get the generated filename for a resized image
         """
         name, ext = os.path.splitext(os.path.basename(image.file.name))
-        return "{}images/{}.{}{}".format(settings.MEDIA_URL, name, filterspec, ext)
+        return f"{settings.MEDIA_URL}images/{name}.{filterspec}{ext}"
 
     def test_image(self):
         self.assertHTMLEqual(

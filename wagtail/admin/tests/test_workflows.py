@@ -1188,7 +1188,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         # Should show the moderation status
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.object.current_workflow_task.name),
+            rf"Sent to[\s|\n]+{self.object.current_workflow_task.name}",
         )
         self.assertContains(response, "In Moderation")
         self.assertNotContains(response, "Draft")
@@ -3413,13 +3413,13 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
         response = self.client.get(self.get_url("edit"))
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.task_1.name),
+            rf"Sent to[\s|\n]+{self.task_1.name}",
         )
 
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.task_2.name),
+            rf"Sent to[\s|\n]+{self.task_2.name}",
         )
 
         response = self.workflow_action("reject")
@@ -3430,7 +3430,7 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
         response = self.client.get(self.get_url("edit"))
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.task_2.name),
+            rf"Sent to[\s|\n]+{self.task_2.name}",
         )
 
         response = self.workflow_action("approve")
@@ -3448,14 +3448,14 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.task_2.name),
+            rf"Sent to[\s|\n]+{self.task_2.name}",
         )
         self.workflow_action("reject")
         self.post("restart-workflow")
         response = self.client.get(self.get_url("edit"))
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Sent to[\s|\n]+{}".format(self.task_1.name),
+            rf"Sent to[\s|\n]+{self.task_1.name}",
         )
 
     def test_workflow_status_modal_task_comments(self):

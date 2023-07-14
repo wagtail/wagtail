@@ -174,7 +174,7 @@ class ImageFileMixin:
                     image_file = storage.open(self.file.name, "rb")
 
                 close_file = True
-        except IOError as e:
+        except OSError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
             raise SourceImageIOError(str(e))
@@ -1071,7 +1071,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         if focal_point:
             horz = int((focal_point.x * 100) // self.width)
             vert = int((focal_point.y * 100) // self.height)
-            return "background-position: {}% {}%;".format(horz, vert)
+            return f"background-position: {horz}% {vert}%;"
         else:
             return "background-position: 50% 50%;"
 
@@ -1082,7 +1082,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
         attrs.update(extra_attributes)
 
-        return mark_safe("<img{}>".format(flatatt(attrs)))
+        return mark_safe(f"<img{flatatt(attrs)}>")
 
     def __html__(self):
         return self.img_tag()
@@ -1094,7 +1094,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(AbstractRendition, cls).check(**kwargs)
+        errors = super().check(**kwargs)
         if not cls._meta.abstract:
             if not any(
                 set(constraint) == {"image", "filter_spec", "focal_point_key"}

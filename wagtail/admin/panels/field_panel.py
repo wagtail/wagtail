@@ -122,7 +122,7 @@ class FieldPanel(Panel):
         return super().format_value_for_display(value)
 
     def __repr__(self):
-        return "<%s '%s' with model=%s>" % (
+        return "<{} '{}' with model={}>".format(
             self.__class__.__name__,
             self.field_name,
             self.model,
@@ -362,7 +362,7 @@ class FieldPanel(Panel):
             return []
 
         def __repr__(self):
-            return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
+            return "<{} '{}' with model={} instance={} request={} form={}>".format(
                 self.__class__.__name__,
                 self.field_name,
                 self.panel.model,

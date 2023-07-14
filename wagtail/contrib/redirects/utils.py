@@ -8,7 +8,7 @@ def write_to_file_storage(import_file, input_format):
     FileStorage = get_file_storage()
     file_storage = FileStorage()
 
-    data = bytes()
+    data = b""
     for chunk in import_file.chunks():
         data += chunk
 

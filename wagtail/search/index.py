@@ -104,7 +104,7 @@ class Indexed:
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(Indexed, cls).check(**kwargs)
+        errors = super().check(**kwargs)
         errors.extend(cls._check_search_fields(**kwargs))
         return errors
 
@@ -291,7 +291,7 @@ class BaseField:
             return value
 
     def __repr__(self):
-        return "<%s: %s>" % (self.__class__.__name__, self.field_name)
+        return f"<{self.__class__.__name__}: {self.field_name}>"
 
 
 class SearchField(BaseField):

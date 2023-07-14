@@ -49,13 +49,13 @@ class TestServeView(TestCase):
     def test_content_disposition_header(self):
         self.assertEqual(
             self.get(self.document)["Content-Disposition"],
-            'attachment; filename="{}"'.format(self.document.filename),
+            f'attachment; filename="{self.document.filename}"',
         )
 
     def test_inline_content_disposition_header(self):
         self.assertEqual(
             self.get(self.pdf_document)["Content-Disposition"],
-            'inline; filename="{}"'.format(self.pdf_document.filename),
+            f'inline; filename="{self.pdf_document.filename}"',
         )
 
     @mock.patch("wagtail.documents.views.serve.hooks")
