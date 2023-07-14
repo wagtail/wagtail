@@ -20,7 +20,9 @@
 
             <ul class="fields">
                 {% block fields %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                    <li>
+                        {% include "wagtailadmin/shared/field.html" with field=form.name %}
+                    </li>
                     {% block extra_fields %}{% endblock extra_fields %}
                 {% endblock fields %}
                 <li>
