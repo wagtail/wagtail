@@ -17,7 +17,7 @@ const borderWidth = {
 // If adding new values, use T-shirt sizing naming.
 const boxShadow = {
   DEFAULT: '5px 5px 20px rgba(0, 0, 0, 0.05)',
-  md: '5px 5px 30px rgba(0, 0, 0, 0.25)',
+  md: '5px 5px 30px var(--w-color-box-shadow-md)',
 };
 
 module.exports = {
