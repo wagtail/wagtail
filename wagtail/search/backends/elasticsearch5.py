@@ -1089,6 +1089,29 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         }
     }
 
+    def _get_host_config_from_url(self, url):
+        """Given a parsed URL, return the host configuration to be added to self.hosts"""
+        use_ssl = url.scheme == "https"
+        port = url.port or (443 if use_ssl else 80)
+
+        http_auth = None
+        if url.username is not None and url.password is not None:
+            http_auth = (url.username, url.password)
+
+        return {
+            "host": url.hostname,
+            "port": port,
+            "url_prefix": url.path,
+            "use_ssl": use_ssl,
+            "verify_certs": use_ssl,
+            "http_auth": http_auth,
+        }
+
+    def _get_options_from_host_urls(self, urls):
+        """Given a list of parsed URLs, return a dict of additional options to be passed into the
+        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
+        return {}
+
     def __init__(self, params):
         super().__init__(params)
 
@@ -1102,36 +1125,6 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         else:
             self.rebuilder_class = self.basic_rebuilder_class
 
-        # If HOSTS is not set, convert URLS setting to HOSTS
-        es_urls = params.pop("URLS", ["http://localhost:9200"])
-        if self.hosts is None:
-            self.hosts = []
-
-            # if es_urls is not a list, convert it to a list
-            if isinstance(es_urls, str):
-                es_urls = [es_urls]
-
-            for url in es_urls:
-                parsed_url = urlparse(url)
-
-                use_ssl = parsed_url.scheme == "https"
-                port = parsed_url.port or (443 if use_ssl else 80)
-
-                http_auth = None
-                if parsed_url.username is not None and parsed_url.password is not None:
-                    http_auth = (parsed_url.username, parsed_url.password)
-
-                self.hosts.append(
-                    {
-                        "host": parsed_url.hostname,
-                        "port": port,
-                        "url_prefix": parsed_url.path,
-                        "use_ssl": use_ssl,
-                        "verify_certs": use_ssl,
-                        "http_auth": http_auth,
-                    }
-                )
-
         self.settings = copy.deepcopy(
             self.settings
         )  # Make the class settings attribute as instance settings attribute
@@ -1140,6 +1133,18 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
         options = params.pop("OPTIONS", {})
+
+        # If HOSTS is not set, convert URLS setting to HOSTS
+        if self.hosts is None:
+            es_urls = params.pop("URLS", ["http://localhost:9200"])
+            # if es_urls is not a list, convert it to a list
+            if isinstance(es_urls, str):
+                es_urls = [es_urls]
+
+            parsed_urls = [urlparse(url) for url in es_urls]
+
+            self.hosts = [self._get_host_config_from_url(url) for url in parsed_urls]
+            options.update(self._get_options_from_host_urls(parsed_urls))
 
         self.es = Elasticsearch(hosts=self.hosts, timeout=self.timeout, **options)
 
