@@ -357,7 +357,7 @@ class Block(metaclass=BaseBlock):
         try:
             path = module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = "{}.{}".format(module_name, name)
+            path = f"{module_name}.{name}"
 
         return (
             path,

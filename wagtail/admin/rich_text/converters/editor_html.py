@@ -176,6 +176,6 @@ class PageLinkHandler:
             if parent_page:
                 attrs += 'data-parent-id="%d" ' % parent_page.id
 
-            return '<a {}href="{}">'.format(attrs, escape(page.localized.specific.url))
+            return f'<a {attrs}href="{escape(page.localized.specific.url)}">'
         except Page.DoesNotExist:
             return "<a>"

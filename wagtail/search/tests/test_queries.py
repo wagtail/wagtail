@@ -460,7 +460,7 @@ class TestBalancedReduce(SimpleTestCase):
                 self.b = b
 
             def __repr__(self):
-                return "({} {})".format(self.a, self.b)
+                return f"({self.a} {self.b})"
 
         self.assertEqual(
             repr(

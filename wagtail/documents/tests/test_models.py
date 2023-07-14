@@ -256,7 +256,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def test_document_model(self):
         cls = get_document_model()
         self.assertEqual(
-            "{}.{}".format(cls._meta.app_label, cls.__name__), "tests.CustomDocument"
+            f"{cls._meta.app_label}.{cls.__name__}", "tests.CustomDocument"
         )
 
 

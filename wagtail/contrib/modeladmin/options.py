@@ -507,9 +507,9 @@ class ModelAdmin(WagtailRegisterable):
         app_label = self.opts.app_label.lower()
         model_name = self.opts.model_name.lower()
         return [
-            "modeladmin/{}/{}/{}.html".format(app_label, model_name, action),
-            "modeladmin/{}/{}.html".format(app_label, action),
-            "modeladmin/{}.html".format(action),
+            f"modeladmin/{app_label}/{model_name}/{action}.html",
+            f"modeladmin/{app_label}/{action}.html",
+            f"modeladmin/{action}.html",
         ]
 
     def get_index_template(self):

@@ -194,7 +194,7 @@ class MatchExpression(Expression):
         return (self.template, params)
 
     def __repr__(self):
-        return "<MatchExpression: {!r} = {!r}>".format(self.columns, self.query)
+        return f"<MatchExpression: {self.columns!r} = {self.query!r}>"
 
 
 class AndNot(SearchQuery):

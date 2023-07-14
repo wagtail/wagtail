@@ -24,7 +24,7 @@ class ConvertedValue(str):
         return self
 
     def __repr__(self):
-        return "<{}: {}>".format(self.__class__.__name__, self.db_value)
+        return f"<{self.__class__.__name__}: {self.db_value}>"
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

@@ -221,7 +221,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
 
         edit_url = reverse("wagtailimages:edit", args=(image.id,))
         next_url = urllib.parse.quote(response._request.get_full_path())
-        self.assertContains(response, "{}?next={}".format(edit_url, next_url))
+        self.assertContains(response, f"{edit_url}?next={next_url}")
 
     def test_tags(self):
         image_two_tags = Image.objects.create(

@@ -383,14 +383,12 @@ def multigetattr(item, accessor):
                     TypeError,  # unsubscriptable object
                 ):
                     raise AttributeError(
-                        "Failed lookup for key [{}] in {!r}".format(bit, current)
+                        f"Failed lookup for key [{bit}] in {current!r}"
                     )
 
         if callable(current):
             if getattr(current, "alters_data", False):
-                raise SuspiciousOperation(
-                    "Cannot call {!r} from multigetattr".format(current)
-                )
+                raise SuspiciousOperation(f"Cannot call {current!r} from multigetattr")
 
             # if calling without arguments is invalid, let the exception bubble up
             current = current()

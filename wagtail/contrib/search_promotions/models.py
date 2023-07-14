@@ -110,7 +110,7 @@ class SearchPromotion(models.Model):
         )
 
     def __str__(self):
-        return "{} - {}".format(self.query.query_string, self.page.title)
+        return f"{self.query.query_string} - {self.page.title}"
 
     class Meta:
         ordering = ("sort_order",)

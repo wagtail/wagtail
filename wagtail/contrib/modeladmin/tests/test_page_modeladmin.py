@@ -149,9 +149,7 @@ class TestCreateView(WagtailTestUtils, TestCase):
 
         expected_path = "/admin/pages/add/tests/businesschild/%d/" % business_index.pk
         expected_next_path = "/admin/tests/businesschild/"
-        self.assertRedirects(
-            response, "{}?next={}".format(expected_path, expected_next_path)
-        )
+        self.assertRedirects(response, f"{expected_path}?next={expected_next_path}")
 
 
 class TestInspectView(WagtailTestUtils, TestCase):
@@ -249,9 +247,7 @@ class TestEditView(WagtailTestUtils, TestCase):
 
         expected_path = "/admin/pages/4/edit/"
         expected_next_path = "/admin/tests/eventpage/"
-        self.assertRedirects(
-            response, "{}?next={}".format(expected_path, expected_next_path)
-        )
+        self.assertRedirects(response, f"{expected_path}?next={expected_next_path}")
 
     def test_non_existent(self):
         response = self.get(100)
@@ -279,9 +275,7 @@ class TestDeleteView(WagtailTestUtils, TestCase):
 
         expected_path = "/admin/pages/4/delete/"
         expected_next_path = "/admin/tests/eventpage/"
-        self.assertRedirects(
-            response, "{}?next={}".format(expected_path, expected_next_path)
-        )
+        self.assertRedirects(response, f"{expected_path}?next={expected_next_path}")
 
 
 class TestChooseParentView(WagtailTestUtils, TestCase):
@@ -310,9 +304,7 @@ class TestChooseParentView(WagtailTestUtils, TestCase):
 
         expected_path = "/admin/pages/add/tests/eventpage/2/"
         expected_next_path = "/admin/tests/eventpage/"
-        self.assertRedirects(
-            response, "{}?next={}".format(expected_path, expected_next_path)
-        )
+        self.assertRedirects(response, f"{expected_path}?next={expected_next_path}")
 
     def test_back_to_listing(self):
         response = self.client.post("/admin/tests/eventpage/choose_parent/")

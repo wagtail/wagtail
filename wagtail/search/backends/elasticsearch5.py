@@ -303,7 +303,7 @@ class Elasticsearch5Mapping:
         return doc
 
     def __repr__(self):
-        return "<ElasticsearchMapping: {}>".format(self.model.__name__)
+        return f"<ElasticsearchMapping: {self.model.__name__}>"
 
 
 class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):

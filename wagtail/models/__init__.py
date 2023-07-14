@@ -704,7 +704,7 @@ class PreviewableMixin:
 
         http_host = hostname
         if port != (443 if scheme == "https" else 80):
-            http_host = "{}:{}".format(http_host, port)
+            http_host = f"{http_host}:{port}"
         dummy_values = {
             "REQUEST_METHOD": "GET",
             "PATH_INFO": path,

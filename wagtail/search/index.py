@@ -291,7 +291,7 @@ class BaseField:
             return value
 
     def __repr__(self):
-        return "<{}: {}>".format(self.__class__.__name__, self.field_name)
+        return f"<{self.__class__.__name__}: {self.field_name}>"
 
 
 class SearchField(BaseField):

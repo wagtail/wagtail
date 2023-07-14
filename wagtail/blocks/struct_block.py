@@ -141,9 +141,7 @@ class BaseStructBlock(Block):
             [
                 (
                     name,
-                    block.value_from_datadict(
-                        data, files, "{}-{}".format(prefix, name)
-                    ),
+                    block.value_from_datadict(data, files, f"{prefix}-{name}"),
                 )
                 for name, block in self.child_blocks.items()
             ]
@@ -151,7 +149,7 @@ class BaseStructBlock(Block):
 
     def value_omitted_from_data(self, data, files, prefix):
         return all(
-            block.value_omitted_from_data(data, files, "{}-{}".format(prefix, name))
+            block.value_omitted_from_data(data, files, f"{prefix}-{name}")
             for name, block in self.child_blocks.items()
         )
 
@@ -323,7 +321,7 @@ class BaseStructBlock(Block):
                     (
                         name,
                         PlaceholderBoundBlock(
-                            block, value.get(name), prefix="{}-{}".format(prefix, name)
+                            block, value.get(name), prefix=f"{prefix}-{name}"
                         ),
                     )
                     for name, block in self.child_blocks.items()

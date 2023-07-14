@@ -709,7 +709,7 @@ class StreamValue(MutableSequence):
         return len(self._bound_blocks)
 
     def __repr__(self):
-        return "<{} {!r}>".format(type(self).__name__, list(self))
+        return f"<{type(self).__name__} {list(self)!r}>"
 
     def render_as_block(self, context=None):
         return self.stream_block.render(self, context=context)

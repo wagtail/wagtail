@@ -209,7 +209,7 @@ class TitleColumn(Column):
             return self._get_label_id_func(instance)
         elif self.label_prefix:
             id = multigetattr(instance, self.id_accessor)
-            return "{}-{}".format(self.label_prefix, id)
+            return f"{self.label_prefix}-{id}"
 
 
 class StatusFlagColumn(Column):
