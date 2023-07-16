@@ -200,37 +200,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 54)
 
-    def test_search_with_date_filter(self):
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__gt=date(2000, 6, 1))
-        )
-        self.assertEqual(len(results), 4)
-
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__year__gte=2000)
-        )
-        self.assertEqual(len(results), 5)
-
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__year__gt=2000)
-        )
-        self.assertEqual(len(results), 4)
-
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__year__lte=1954)
-        )
-        self.assertEqual(len(results), 4)
-
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__year__lt=1954)
-        )
-        self.assertEqual(len(results), 2)
-
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(publication_date__year=1954)
-        )
-        self.assertEqual(len(results), 2)
-
+    def test_cannot_filter_on_date_parts_other_than_year(self):
         # Filtering by date not supported, should throw a FilterError
         from wagtail.search.backends.base import FilterError
 
