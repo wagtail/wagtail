@@ -1,3 +1,4 @@
+import datetime
 from warnings import warn
 
 from django.db.models.functions.datetime import Extract as ExtractDate
@@ -124,18 +125,64 @@ class BaseSearchQueryCompiler:
         # Check if this is a leaf node
         if isinstance(where_node, Lookup):
             if isinstance(where_node.lhs, ExtractDate):
-                if isinstance(where_node.lhs, ExtractYear):
-                    field_attname = where_node.lhs.lhs.target.attname
-                else:
+                if not isinstance(where_node.lhs, ExtractYear):
                     raise FilterError(
                         'Cannot apply filter on search results: "'
                         + where_node.lhs.lookup_name
                         + '" queries are not supported.'
                     )
+                else:
+                    field_attname = where_node.lhs.lhs.target.attname
+                    lookup = where_node.lookup_name
+                    if lookup == "gte":
+                        # filter on year(date) >= value
+                        # i.e. date >= Jan 1st of that year
+                        value = datetime.date(int(where_node.rhs), 1, 1)
+                    elif lookup == "gt":
+                        # filter on year(date) > value
+                        # i.e. date >= Jan 1st of the next year
+                        value = datetime.date(int(where_node.rhs) + 1, 1, 1)
+                        lookup = "gte"
+                    elif lookup == "lte":
+                        # filter on year(date) <= value
+                        # i.e. date < Jan 1st of the next year
+                        value = datetime.date(int(where_node.rhs) + 1, 1, 1)
+                        lookup = "lt"
+                    elif lookup == "lt":
+                        # filter on year(date) < value
+                        # i.e. date < Jan 1st of that year
+                        value = datetime.date(int(where_node.rhs), 1, 1)
+                    elif lookup == "exact":
+                        # filter on year(date) == value
+                        # i.e. date >= Jan 1st of that year and date < Jan 1st of the next year
+                        filter1 = self._process_filter(
+                            field_attname,
+                            "gte",
+                            datetime.date(int(where_node.rhs), 1, 1),
+                            check_only=check_only,
+                        )
+                        filter2 = self._process_filter(
+                            field_attname,
+                            "lt",
+                            datetime.date(int(where_node.rhs) + 1, 1, 1),
+                            check_only=check_only,
+                        )
+                        if check_only:
+                            return
+                        else:
+                            return self._connect_filters(
+                                [filter1, filter2], "AND", False
+                            )
+                    else:
+                        raise FilterError(
+                            'Cannot apply filter on search results: "'
+                            + where_node.lhs.lookup_name
+                            + '" queries are not supported.'
+                        )
             else:
                 field_attname = where_node.lhs.target.attname
-            lookup = where_node.lookup_name
-            value = where_node.rhs
+                lookup = where_node.lookup_name
+                value = where_node.rhs
 
             # Ignore pointer fields that show up in specific page type queries
             if field_attname.endswith("_ptr_id"):
