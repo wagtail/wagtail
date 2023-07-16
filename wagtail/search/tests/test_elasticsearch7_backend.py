@@ -851,7 +851,7 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": [
                     {"match": {"content_type": "searchtests.Book"}},
-                    {"range": {"publication_date_filter": {"lt": 1900}}},
+                    {"range": {"publication_date_filter": {"lt": "1900-01-01"}}},
                 ],
                 "must": {
                     "multi_match": {
