@@ -159,11 +159,10 @@ It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` 
 
 ### Testing Elasticsearch
 
-You can test Wagtail against Elasticsearch by passing the `--elasticsearch`
-argument to `runtests.py`:
+You can test Wagtail against Elasticsearch by passing the argument `--elasticsearch5`, `--elasticsearch6`, `--elasticsearch7` or `--elasticsearch8` (corresponding to the version of Elasticsearch you want to test against):
 
 ```sh
-python runtests.py --elasticsearch
+python runtests.py --elasticsearch8
 ```
 
 Wagtail will attempt to connect to a local instance of Elasticsearch
@@ -173,7 +172,7 @@ If your Elasticsearch instance is located somewhere else, you can set the
 `ELASTICSEARCH_URL` environment variable to point to its location:
 
 ```sh
-ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
+ELASTICSEARCH_URL=https://my-elasticsearch-instance:9200 python runtests.py --elasticsearch8
 ```
 
 ### Unit tests for JavaScript
