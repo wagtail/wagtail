@@ -15,4 +15,9 @@
   position: relative;
   overflow: hidden;
   overflow-wrap: break-word;
+
+  &,
+  &:hover {
+    border-color: theme('colors.border-field-inactive');
+  }
 }
