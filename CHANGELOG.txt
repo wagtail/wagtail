@@ -6,6 +6,7 @@ Changelog
 
  * Add support for read-only FieldPanels (Andy Babic)
  * Add support for query-time boosting to Elasticsearch 6 and above (Shohan Dutta Roy)
+ * Add support for Elasticsearch 8 (Matt Westcott, Wesley van Lee)
  * Mark calls to `md5` as not being used for secure purposes, to avoid flagging on FIPS-mode systems (Sean Kelly)
  * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Explicitly specify `MenuItem.name` for all admin menu and submenu items (Justin Koestinger)
