@@ -103,7 +103,7 @@ Changelog
  * Maintenance: Remove unused snippets _header_with_history.html template (Thibaud Colas)
  * Maintenance: Migrate dialog instantiation to a new `w-dialog` Stimulus controller (Loveth Omokaro, LB (Ben) Johnston)
  * Maintenance: Support dialog template cloning using a new `w-teleport` Stimulus controller (Loveth Omokaro, LB (Ben) Johnston)
- * Maintenance: Remove `"wagtailadmin/shared/field_as_li.html"` template include (Storm Heg)
+ * Maintenance: Migrate away from using the `"wagtailadmin/shared/field_as_li.html"` template include (Storm Heg)
 
 
 5.0.2 (21.06.2023)
