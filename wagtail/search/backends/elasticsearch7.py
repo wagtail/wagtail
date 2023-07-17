@@ -111,6 +111,7 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     query_compiler_class = Elasticsearch7SearchQueryCompiler
     autocomplete_query_compiler_class = Elasticsearch7AutocompleteQueryCompiler
     results_class = Elasticsearch7SearchResults
+    is_deprecated = False
 
     settings = deepcopy(Elasticsearch6SearchBackend.settings)
     settings["settings"]["index"] = {"max_ngram_diff": 12}

@@ -1,5 +1,6 @@
 import copy
 import json
+import warnings
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -25,6 +26,7 @@ from wagtail.search.index import (
     class_is_indexed,
 )
 from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.utils import deep_update
 
 
@@ -1053,6 +1055,7 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
     atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
     catch_indexing_errors = True
     timeout_kwarg_name = "timeout"
+    is_deprecated = True  # overriden on subclasses which are not deprecated
 
     settings = {
         "settings": {
@@ -1115,6 +1118,13 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super().__init__(params)
+
+        if self.is_deprecated:
+            warnings.warn(
+                f"The {self.__module__} search backend is deprecated and will be removed in a future release. "
+                "Please upgrade to Elasticsearch 7 or above.",
+                RemovedInWagtail60Warning,
+            )
 
         # Get settings
         self.hosts = params.pop("HOSTS", None)
