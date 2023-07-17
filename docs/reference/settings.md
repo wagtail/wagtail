@@ -52,7 +52,7 @@ If you use the ``False`` setting, keep in mind that serving your pages both with
 ```python
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch5',
+        'BACKEND': 'wagtail.search.backends.elasticsearch8',
         'INDEX': 'myapp'
     }
 }

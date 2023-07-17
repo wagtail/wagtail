@@ -62,11 +62,12 @@ This backend is intended to be used for development and also should be good enou
 
 ### Elasticsearch Backend
 
-Elasticsearch versions 5, 6 and 7 are supported. Use the appropriate backend for your version:
+Elasticsearch versions 5, 6, 7 and 8 are supported. Use the appropriate backend for your version:
 
 -   `wagtail.search.backends.elasticsearch5` (Elasticsearch 5.x)
 -   `wagtail.search.backends.elasticsearch6` (Elasticsearch 6.x)
 -   `wagtail.search.backends.elasticsearch7` (Elasticsearch 7.x)
+-   `wagtail.search.backends.elasticsearch8` (Elasticsearch 8.x)
 
 Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.io/) package. The major version of the package must match the installed version of Elasticsearch:
 
@@ -82,6 +83,10 @@ pip install "elasticsearch>=6.4.0,<7.0.0"  # for Elasticsearch 6.x
 pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
 ```
 
+```sh
+pip install "elasticsearch>=8.0.0,<9.0.0"  # for Elasticsearch 8.x
+```
+
 ```{warning}
 Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.4.0 or above.
 ```
@@ -91,8 +96,8 @@ The backend is configured in settings:
 ```python
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch5',
-        'URLS': ['http://localhost:9200'],
+        'BACKEND': 'wagtail.search.backends.elasticsearch8',
+        'URLS': ['https://localhost:9200'],
         'INDEX': 'wagtail',
         'TIMEOUT': 5,
         'OPTIONS': {},
@@ -109,7 +114,7 @@ A username and password may be optionally supplied to the `URL` field to provide
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         ...
-        'URLS': ['http://username:password@localhost:9200'],
+        'URLS': ['https://username:password@localhost:9200'],
         ...
     }
 }
