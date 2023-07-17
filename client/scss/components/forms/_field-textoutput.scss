@@ -8,7 +8,7 @@
 .w-field__textoutput {
   @include input-base();
   @apply w-body-text-large;
-  background-color: theme('colors.grey.50');
+  background-color: theme('colors.surface-field-inactive');
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
   min-height: $text-input-height;
