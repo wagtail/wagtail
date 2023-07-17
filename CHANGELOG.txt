@@ -57,6 +57,8 @@ Changelog
  * Fix: Ensure that audit logs and revisions are consistently use UTC and add migration for existing entries (Stefan Hammer)
  * Fix: Make sure "critical" buttons have enough color contrast in dark mode (Albina Starykova)
  * Fix: Improve visibility of scheduled publishing errors in status side panel (Sage Abdullah)
+ * Fix: Prevent 'choose' permission from being ignored when looking up 'choose', 'edit' and 'delete' permissions in combination (Sage Abdullah)
+ * Fix: Take user's permissions into account for image / document counts on the admin dashboard (Sage Abdullah)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
