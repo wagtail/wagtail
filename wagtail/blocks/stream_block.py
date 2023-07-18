@@ -732,9 +732,9 @@ class StreamValue(MutableSequence):
         return (
             self._deserialize_pickle_value,
             (
-                self._StreamFieldRef.model._meta.app_label,
-                self._StreamFieldRef.model._meta.object_name,
-                self._StreamFieldRef.name,
+                self._stream_field.model._meta.app_label,
+                self._stream_field.model._meta.object_name,
+                self._stream_field.name,
                 self.get_prep_value(),
             ),
         )
