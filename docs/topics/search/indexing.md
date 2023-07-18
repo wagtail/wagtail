@@ -106,10 +106,6 @@ These are used for performing full-text searches on your models, usually for tex
 
 -   **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
 
-```{versionchanged} 5.0
-The `partial_match` option has been deprecated. To index a field for partial matching, use `AutocompleteField` instead.
-```
-
 (wagtailsearch_index_autocompletefield)=
 
 ### `index.AutocompleteField`

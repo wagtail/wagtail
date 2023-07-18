@@ -18,10 +18,6 @@ This document details the block types provided by Wagtail for use in [StreamFiel
    :param collapsed: When true, all blocks are initially collapsed.
 ```
 
-```{versionchanged} 5.0
-The `use_json_field` argument must be set to `True`, except in migrations created prior to Wagtail 5.0.
-```
-
 ```python
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
