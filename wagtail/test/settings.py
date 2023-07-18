@@ -208,12 +208,6 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
 ]
 
-WAGTAILSEARCH_BACKENDS = {
-    "default": {
-        "BACKEND": "wagtail.search.backends.database.fallback",
-    }
-}
-
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 if os.environ.get("USE_EMAIL_USER_MODEL"):
@@ -229,11 +223,6 @@ else:
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")
-    WAGTAILSEARCH_BACKENDS["postgresql"] = {
-        "BACKEND": "wagtail.search.backends.database",
-        "AUTO_UPDATE": False,
-        "SEARCH_CONFIG": "english",
-    }
 
 if "ELASTICSEARCH_URL" in os.environ:
     if os.environ.get("ELASTICSEARCH_VERSION") == "8":
@@ -241,13 +230,21 @@ if "ELASTICSEARCH_URL" in os.environ:
     elif os.environ.get("ELASTICSEARCH_VERSION") == "7":
         backend = "wagtail.search.backends.elasticsearch7"
 
-    WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
-        "BACKEND": backend,
-        "URLS": [os.environ["ELASTICSEARCH_URL"]],
-        "TIMEOUT": 10,
-        "max_retries": 1,
-        "AUTO_UPDATE": False,
-        "INDEX_SETTINGS": {"settings": {"index": {"number_of_shards": 1}}},
+    WAGTAILSEARCH_BACKENDS = {
+        "default": {
+            "BACKEND": backend,
+            "URLS": [os.environ["ELASTICSEARCH_URL"]],
+            "TIMEOUT": 10,
+            "max_retries": 1,
+            "AUTO_UPDATE": False,
+            "INDEX_SETTINGS": {"settings": {"index": {"number_of_shards": 1}}},
+        }
+    }
+else:
+    WAGTAILSEARCH_BACKENDS = {
+        "default": {
+            "BACKEND": "wagtail.search.backends.database.fallback",
+        }
     }
 
 
