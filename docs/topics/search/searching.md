@@ -32,10 +32,6 @@ The `search()` method will convert your `QuerySet` into an instance of one of Wa
 
 The standard behaviour of the `search` method is to only return matches for complete words; for example, a search for "hel" will not return results containing the word "hello". The exception to this is the fallback database search backend, used when the database does not have full-text search extensions available, and no alternative backend has been specified. This performs basic substring matching, and will return results containing the search term ignoring all word boundaries.
 
-```{versionchanged} 5.0
-The Elasticsearch backend now defaults to matching on complete words. Previously, this backend performed partial matching by default, and it was necessary to pass the keyword argument `partial_match=False` to disable this. To perform searches with partial matching behaviour, you should instead use the `autocomplete` method (see below) in conjunction with `AutocompleteField`. Any occurrences of `partial_match=False` in your code can now be removed.
-```
-
 ### Autocomplete searches
 
 Wagtail provides a separate method which performs partial matching on specific autocomplete fields. This is primarily useful for suggesting pages to the user in real-time as they type their query - it is not recommended for ordinary searches, as the autocompletion will tend to add unwanted results beyond the specific term being searched for.

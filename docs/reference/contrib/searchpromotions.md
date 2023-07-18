@@ -112,7 +112,3 @@ def search(request):
 ```
 
 On high traffic websites, the stored queries and daily hits logs may get large and you may want to clean out old records. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the [`WAGTAILSEARCH_HITS_MAX_AGE`](wagtailsearch_hits_max_age) setting).
-
-```{versionadded} 5.0
-This management command was renamed from `search_garbage_collect`.
-```

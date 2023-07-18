@@ -154,10 +154,6 @@ Displays a summary of the contents of the references index. This shows the numbe
 ./manage.py search_garbage_collect
 ```
 
-```{versionchanged} 5.0
-This management command has been renamed to [`searchpromotions_garbage_collect`](searchpromotions_garbage_collect). See the [upgrade consideration](wagtailsearch_query_migration) for more details.
-```
-
 (wagtail_update_image_renditions)=
 
 ## wagtail_update_image_renditions
