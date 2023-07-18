@@ -1,9 +1,7 @@
-from io import StringIO
 from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase, TransactionTestCase
 
@@ -1205,13 +1203,7 @@ class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_specific.json"]
 
     def setUp(self):
-        management.call_command(
-            "update_index",
-            backend_name="default",
-            stdout=StringIO(),
-            chunk_size=50,
-        )
-
+        self.update_search_index()
         self.live_pages = Page.objects.live().specific()
         self.live_pages_with_annotations = (
             Page.objects.live().specific().annotate(count=Count("pk"))
