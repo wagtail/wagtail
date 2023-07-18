@@ -243,7 +243,7 @@ if "ELASTICSEARCH_URL" in os.environ:
 else:
     WAGTAILSEARCH_BACKENDS = {
         "default": {
-            "BACKEND": "wagtail.search.backends.database.fallback",
+            "BACKEND": "wagtail.search.backends.database",
         }
     }
 
