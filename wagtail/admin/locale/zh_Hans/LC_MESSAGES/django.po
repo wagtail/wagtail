@@ -17,6 +17,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
 # Monty NG, 2023
+# Terry Peng, 2023
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
@@ -30,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Monty NG, 2023\n"
+"Last-Translator: Terry Peng, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -447,6 +448,9 @@ msgstr "重设密码"
 msgid "Reset to default"
 msgstr "重置为默认值"
 
+msgid "Default avatar"
+msgstr "默认头像"
+
 msgid "Upload a profile picture:"
 msgstr "上传头像图片"
 
@@ -496,6 +500,15 @@ msgstr "选择"
 
 msgid "Choose a page"
 msgstr "选择一个页面"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] "这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
 
 msgid "Confirm selection"
 msgstr "确认选择"
@@ -572,8 +585,8 @@ msgstr "名字"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
@@ -1598,9 +1611,8 @@ msgstr "创建"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "工作流也应用于子页面。如果在此处选择父页面，则其子页面也将使用此工作流。请参"
 "见您的工作流应用的<a href=\"%(workflow_pages_url)s\">页面列表</a>。"

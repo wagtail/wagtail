@@ -208,16 +208,16 @@ msgstr[1] "%(counter)s találat van"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Sajnáljuk, de egy átirányítás sem felel meg a következő feltételeknek: "
-"\"<em>%(query_string)s</em>\""
+"Sajnáljuk, de egy átirányítás sem felel meg a következő feltételeknek: \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Még nincs átirányítás létrehozva. Miért nem <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
+"Még nincs átirányítás létrehozva. Miért nem <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
 
 msgid "Search redirects"
 msgstr "Átirányítások keresése"

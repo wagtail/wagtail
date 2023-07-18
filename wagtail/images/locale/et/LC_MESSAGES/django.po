@@ -247,19 +247,19 @@ msgstr "Vabandust, ükski pilt ei vasta \"<em>%(query_string)s</em>\" päringule
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a "
-"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a href="
+"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole ühtegi pilti üles laadinud. Miks mitte <a "
-"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+"Te pole ühtegi pilti üles laadinud. Miks mitte <a href="
+"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 msgid "Generating URL"
 msgstr "URL-i loomine"

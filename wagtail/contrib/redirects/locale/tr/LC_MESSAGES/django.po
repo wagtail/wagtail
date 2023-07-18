@@ -130,11 +130,11 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen yönlendirme yok
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Hiç yönedirme oluşturulmadı. Neden <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">bir tane eklemiyorsunuz</a>?"
+"Hiç yönedirme oluşturulmadı. Neden <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">bir tane eklemiyorsunuz</a>?"
 
 msgid "Search redirects"
 msgstr "Arama yönlendirmeleri"

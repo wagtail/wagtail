@@ -195,17 +195,24 @@ msgid "No redirects found."
 msgstr "Nenhum redirecionamento encontrado."
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrado %(counter)s resultado"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
+
+#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, nenhum redirecionamento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foi criado nenhum redirecionamento. Que tal <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">adicionar um</a>?"
+"Ainda não foi criado nenhum redirecionamento. Que tal <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adicionar um</a>?"
 
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"

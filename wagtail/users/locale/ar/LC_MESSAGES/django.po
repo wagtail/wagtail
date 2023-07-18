@@ -177,11 +177,11 @@ msgstr "عذرًا ، لا توجد مجموعات تطابق \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"لا توجد مجموعات تم تكوينها. لماذا لا <a "
-"href=\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
+"لا توجد مجموعات تم تكوينها. لماذا لا <a href="
+"\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
 
 msgid "Delete user"
 msgstr "إحذف المستخدم"
@@ -221,6 +221,16 @@ msgstr "نشيط"
 
 msgid "Inactive"
 msgstr "غير نشط"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "هنالك %(counter)sتَطابق"
+msgstr[1] "هنالك %(counter)sتَطابق"
+msgstr[2] "هنالك %(counter)sتَطابق"
+msgstr[3] "هنالك %(counter)sتَطابق"
+msgstr[4] "هنالك %(counter)sتَطابق"
+msgstr[5] "هنالك %(counter)sتَطابق"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

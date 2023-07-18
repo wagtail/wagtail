@@ -211,24 +211,31 @@ msgid "Select document"
 msgstr "Selecionar documento"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrado %(counter)s resultado"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhum documento nesta coleção. Que tal <a "
-"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+"Ainda não carregou nenhum documento nesta coleção. Que tal <a href="
+"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhum documento. Que tal <a "
-"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+"Ainda não carregou nenhum documento. Que tal <a href="
+"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
 
 msgid "Add multiple documents"
 msgstr "Adicionar múltiplos documentos"

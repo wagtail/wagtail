@@ -151,24 +151,34 @@ msgid "Created"
 msgstr "تم إنشاؤه"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "هنالك %(counter)sتَطابق"
+msgstr[1] "هنالك %(counter)sتَطابق"
+msgstr[2] "هنالك %(counter)sتَطابق"
+msgstr[3] "هنالك %(counter)sتَطابق"
+msgstr[4] "هنالك %(counter)sتَطابق"
+msgstr[5] "هنالك %(counter)sتَطابق"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a "
-"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات. لماذا لا <a "
-"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"

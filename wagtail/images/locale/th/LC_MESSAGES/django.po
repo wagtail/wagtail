@@ -219,19 +219,19 @@ msgstr "ขออภัย,ไม่มีรูปภาพที่ตรง�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a "
-"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a href="
+"\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a "
-"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a href=\"%(wagtailimages_add_image_url)s"
+"\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 msgid "Generating URL"
 msgstr "ที่ก่อให้เกิด URL"

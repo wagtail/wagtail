@@ -75,6 +75,16 @@ msgid "Delete "
 msgstr "احذف"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "تم استخدامه %(usage_count)sمرة"
+msgstr[1] "تم استخدامه %(usage_count)s مرة"
+msgstr[2] "تم استخدامه %(usage_count)s مرة"
+msgstr[3] "تم استخدامه %(usage_count)s مرة"
+msgstr[4] "تم استخدامه %(usage_count)s مرة"
+msgstr[5] "تم استخدامه %(usage_count)s مرة"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "هل أنت متأكد أنك تريد حذف هذا  %(snippet_type_name)s؟"
 
@@ -125,12 +135,22 @@ msgid "Add %(snippet_type_name)s"
 msgstr "اضف %(snippet_type_name)s"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "هنالك %(counter)sتَطابق"
+msgstr[1] "هنالك %(counter)sتَطابق"
+msgstr[2] "هنالك %(counter)sتَطابق"
+msgstr[3] "هنالك %(counter)sتَطابق"
+msgstr[4] "هنالك %(counter)sتَطابق"
+msgstr[5] "هنالك %(counter)sتَطابق"
+
+#, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a "
-"href=\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
+"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
+"\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
 
 msgid "Live version"
 msgstr "نسخة حية"
