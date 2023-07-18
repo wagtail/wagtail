@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,34 +240,26 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: templates/wagtailforms/submissions_index.html:87
-msgid "Download XLSX"
-msgstr ""
-
-#: templates/wagtailforms/submissions_index.html:93
-msgid "Download CSV"
-msgstr ""
-
-#: templates/wagtailforms/submissions_index.html:110
+#: templates/wagtailforms/submissions_index.html:98
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""
 
-#: templates/wagtailforms/submissions_index.html:114
+#: templates/wagtailforms/submissions_index.html:102
 msgid "Filter"
 msgstr ""
 
-#: templates/wagtailforms/submissions_index.html:122
+#: templates/wagtailforms/submissions_index.html:110
 msgid "Apply filters"
 msgstr ""
 
-#: views.py:135
+#: views.py:101
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:189
+#: views.py:155
 msgid "Form data"
 msgstr ""

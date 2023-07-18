@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:8
+#: apps.py:12
 msgid "Wagtail ModelAdmin"
 msgstr ""
 
@@ -106,11 +106,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: templates/modeladmin/create.html:58 templates/modeladmin/edit.html:17
+#: templates/modeladmin/create.html:45 templates/modeladmin/edit.html:17
 msgid "Saving…"
 msgstr ""
 
-#: templates/modeladmin/create.html:61 templates/modeladmin/edit.html:20
+#: templates/modeladmin/create.html:48 templates/modeladmin/edit.html:20
 msgid "Save"
 msgstr ""
 
@@ -175,40 +175,32 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/modeladmin/index.html:33
-msgid "Download XLSX"
-msgstr ""
-
-#: templates/modeladmin/index.html:39
-msgid "Download CSV"
-msgstr ""
-
-#: templates/modeladmin/index.html:62
+#: templates/modeladmin/index.html:50
 msgid "Filter"
 msgstr ""
 
-#: templates/modeladmin/index.html:73
+#: templates/modeladmin/index.html:61
 #, python-format
 msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
 
-#: templates/modeladmin/index.html:78
+#: templates/modeladmin/index.html:66
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr ""
 
-#: templates/modeladmin/index.html:80
+#: templates/modeladmin/index.html:68
 #, python-format
 msgid "Why not <a href=\"%(url)s\">add one</a>?"
 msgstr ""
 
-#: templates/modeladmin/index.html:93
+#: templates/modeladmin/index.html:81
 msgid "Pagination"
 msgstr ""
 
-#: templates/modeladmin/index.html:94
+#: templates/modeladmin/index.html:82
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr ""
