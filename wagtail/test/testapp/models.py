@@ -1121,6 +1121,7 @@ class FullFeaturedSnippet(
 
     search_fields = [
         index.SearchField("text"),
+        index.AutocompleteField("text"),
         index.FilterField("text"),
         index.FilterField("country_code"),
     ]

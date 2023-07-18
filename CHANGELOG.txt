@@ -4,7 +4,7 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
 
 
 5.1 (xx.xx.xxxx) - IN DEVELOPMENT
