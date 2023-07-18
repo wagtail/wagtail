@@ -779,7 +779,7 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `request` - the current request object
 -   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
 
-    ```{versionchanged} 5.0
+    ```{versionchanged} 5.1
     The `user_page_permissions` context variable is deprecated. If you use `user_page_permissions.for_page(page)`, replace it with `page.permissions_for_user(user)` instead. To make queries based on the user's permissions, use `wagtail.permission_policies.pages.PagePermissionPolicy`.
     ```
 
