@@ -16,7 +16,7 @@ Changelog
  * Mark calls to `md5` as not being used for secure purposes, to avoid flagging on FIPS-mode systems (Sean Kelly)
  * Return filters from `parse_query_string` as a `QueryDict` to support multiple values (Aman Pandey)
  * Explicitly specify `MenuItem.name` for all admin menu and submenu items (Justin Koestinger)
- * Add oEmbed provider patterns for YouTube Shorts Shorts and YouTube Live URLs (valnuro, Fabien Le Frapper)
+ * Add oEmbed provider patterns for YouTube Shorts and YouTube Live URLs (valnuro, Fabien Le Frapper)
  * Add initial implementation of `PagePermissionPolicy` (Sage Abdullah)
  * Refactor `UserPagePermissionsProxy` and `PagePermissionTester` to use `PagePermissionPolicy` (Sage Abdullah, Tidiane Dia)
  * Add a predictable default ordering of the "Object/Other permissions" in the Group Editing view, allow this ordering to be customised (Daniel Kirkham)
