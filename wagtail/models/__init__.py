@@ -2377,6 +2377,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
         """
+        # Allow specific classes to override this method, but only cast to the
+        # specific instance if it's not already specific and if the method has
+        # been overridden. This helps improve performance when working with
+        # base Page querysets.
+        is_overridden = (
+            self.specific_class
+            and self.specific_class.permissions_for_user
+            != type(self).permissions_for_user
+        )
+        if is_overridden and not isinstance(self, self.specific_class):
+            return self.specific_deferred.permissions_for_user(user)
         return PagePermissionTester(user, self)
 
     def is_previewable(self):

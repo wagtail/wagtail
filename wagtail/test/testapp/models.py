@@ -70,6 +70,7 @@ from wagtail.models import (
     Orderable,
     Page,
     PageManager,
+    PagePermissionTester,
     PageQuerySet,
     PreviewableMixin,
     RevisionMixin,
@@ -2189,3 +2190,12 @@ class SearchTestModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CustomPermissionTester(PagePermissionTester):
+    pass
+
+
+class CustomPermissionPage(Page):
+    def permissions_for_user(self, user):
+        return CustomPermissionTester(user, self)
