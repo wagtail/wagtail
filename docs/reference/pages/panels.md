@@ -351,7 +351,7 @@ Without a top-level panel definition, a `FieldPanel` will be constructed for eac
 
 ### Additional HTML attributes
 
-Use the `attrs` parameter to add custom attributes to the HTML element of the panel. This allows you to specify additional attributes, such as `data-*` attributes. The `attrs` parameter accepts a dictionary where the keys are the attribute names and these will be rendered in the same way as Django's widget `attrs`[https://docs.djangoproject.com/en/stable/ref/forms/widgets/#django.forms.Widget.attrs] where `True` and `False will be treated as HTML5 boolean attributes.
+Use the `attrs` parameter to add custom attributes to the HTML element of the panel. This allows you to specify additional attributes, such as `data-*` attributes. The `attrs` parameter accepts a dictionary where the keys are the attribute names and these will be rendered in the same way as Django's widget {attr}`~django.forms.Widget.attrs` where `True` and `False` will be treated as HTML5 boolean attributes.
 
 For example, you can use the `attrs` parameter to integrate your Stimulus controller to the panel:
 
