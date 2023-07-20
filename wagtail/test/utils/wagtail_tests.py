@@ -1,12 +1,18 @@
 import warnings
 from contextlib import contextmanager
 
+from bs4 import BeautifulSoup
 from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
+from django.http import HttpRequest
 from django.test.testcases import assert_and_parse_html
 
 
 class WagtailTestUtils:
+    @staticmethod
+    def get_soup(request: HttpRequest, parser="html.parser") -> BeautifulSoup:
+        return BeautifulSoup(request.content, parser)
+
     @staticmethod
     def create_test_user():
         """

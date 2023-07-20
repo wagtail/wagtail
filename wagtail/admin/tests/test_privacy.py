@@ -364,11 +364,16 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        # Check the privacy indicator is private
-        self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
-        self.assertContains(
-            response, '<div class="w-hidden" data-privacy-sidebar-public>'
-        )
+        soup = self.get_soup(response)
+
+        # Check the private privacy indicator is visible
+        private_indicator = soup.select_one("[data-privacy-sidebar-private]")
+        # There should not be any classes applied
+        self.assertEqual(private_indicator["class"], [])
+
+        # Privacy indicator should be hidden
+        public_indicator = soup.select_one("[data-privacy-sidebar-public].w-hidden")
+        self.assertIsNotNone(public_indicator)
 
     def test_explorer_private_child(self):
         """
