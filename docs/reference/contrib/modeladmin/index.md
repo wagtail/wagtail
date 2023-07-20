@@ -3,7 +3,9 @@
 The `modeladmin` module allows you to add any model in your project to the Wagtail admin. You can create customisable listing pages for a model, including plain Django models, and add navigation elements so that a model can be accessed directly from the Wagtail admin. Simply extend the `ModelAdmin` class, override a few attributes to suit your needs, register it with Wagtail using an easy one-line `modeladmin_register` method (you can copy and paste from the examples below), and you're good to go. Your model doesn’t need to extend `Page` or be registered as a `Snippet`, and it won’t interfere with any of the existing admin functionality that Wagtail provides.
 
 ```{note}
-The `modeladmin` module is deprecated. To manage non-page models in Wagtail, use [`wagtail.snippets`](snippets) instead. If you still rely on ModelAdmin, use the separate [wagtail-modeladmin](https://github.com/wagtail-nest/wagtail-modeladmin) package. The `wagtail.contrib.modeladmin` module will be removed in a future release.
+The `modeladmin` module is deprecated. To manage non-page models in Wagtail, use [`wagtail.snippets`](snippets) instead. For more details, see [](./migrating_to_snippets.md).
+
+If you still rely on ModelAdmin, use the separate [wagtail-modeladmin](https://github.com/wagtail-nest/wagtail-modeladmin) package. The `wagtail.contrib.modeladmin` module will be removed in a future release.
 ```
 
 (modeladmin_feature_summary)=
@@ -19,26 +21,9 @@ The `modeladmin` module is deprecated. To manage non-page models in Wagtail, use
 -   All you need to easily hook your `ModelAdmin` classes into Wagtail, taking care of URL registration, menu changes, and registering any missing model permissions, so that you can assign them to Groups.
 -   **Built to be customisable** - While `modeladmin` provides a solid experience out of the box, you can easily use your own templates, and the `ModelAdmin` class has a large number of methods that you can override or extend, allowing you to customise the behaviour to a greater degree.
 
-## Want to know more about customising `ModelAdmin`?
-
-```{toctree}
----
-maxdepth: 1
-titlesonly:
----
-primer
-base_url
-menu_item
-indexview
-create_edit_delete_views
-inspectview
-chooseparentview
-tips_and_tricks/index
-```
-
 (modeladmin_usage)=
 
-### Installation
+## Installation
 
 Add `wagtail.contrib.modeladmin` to your `INSTALLED_APPS`:
 
@@ -49,7 +34,7 @@ Add `wagtail.contrib.modeladmin` to your `INSTALLED_APPS`:
     ]
 ```
 
-### How to use
+## How to use
 
 (modeladmin_example_simple)=
 
@@ -188,4 +173,22 @@ class MusicAdminGroup(ModelAdminGroup):
 modeladmin_register(BookAdmin)
 modeladmin_register(MovieAdmin)
 modeladmin_register(MusicAdminGroup)
+```
+
+## Index
+
+```{toctree}
+---
+maxdepth: 1
+titlesonly:
+---
+primer
+base_url
+menu_item
+indexview
+create_edit_delete_views
+inspectview
+chooseparentview
+tips_and_tricks/index
+migrating_to_snippets
 ```

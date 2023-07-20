@@ -112,6 +112,8 @@ When inspect view is enabled, an 'Inspect' button will automatically appear for 
 
 By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields` or the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields_exclude` attributes to your `SnippetViewSet` class.
 
+(wagtailsnippets_templates)=
+
 ## Templates
 
 For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:

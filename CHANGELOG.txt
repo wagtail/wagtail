@@ -87,6 +87,7 @@ Changelog
  * Docs: Update the deployment documentation page and remove outdated information (Jake Howard)
  * Docs: Add more items to performance page regarding pre-fetching images and frontend caching (Jake Howard)
  * Docs: Add docs for managing stored queries in `searchpromotions` (Scott Foster)
+ * Docs: Add docs for migrating from ModelAdmin to Snippets (Sage Abdullah)
  * Maintenance: Removed support for Python 3.7 (Dan Braghis)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
