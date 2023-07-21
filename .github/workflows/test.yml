@@ -48,9 +48,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -110,9 +111,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -162,9 +164,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -210,9 +213,10 @@ jobs:
           discovery type: 'single-node'
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -256,9 +260,10 @@ jobs:
           discovery type: 'single-node'
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -309,9 +314,10 @@ jobs:
           stack-version: 6.8.13
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -366,9 +372,10 @@ jobs:
           stack-version: 7.6.1
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
