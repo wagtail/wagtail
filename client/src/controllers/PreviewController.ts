@@ -234,30 +234,29 @@ export class PreviewController extends Controller<HTMLElement> {
    * iframe from flashing when reloading.
    */
   reloadIframe() {
-    // Create a new invisible iframe element
-    const newIframe = document.createElement('iframe');
+    // Copy the iframe element
+    const newIframe = this.iframeTarget.cloneNode() as HTMLIFrameElement;
+
+    // The iframe does not have an src attribute on initial load,
+    // so we need to set it here. For subsequent loads, it's fine to set it
+    // again to ensure it's in sync with the selected preview mode.
     const url = new URL(this.urlValue, window.location.href);
     if (this.hasModeTarget) {
       url.searchParams.set('mode', this.modeTarget.value);
     }
     url.searchParams.set('in_preview_panel', 'true');
+    newIframe.src = url.toString();
+
+    // Make the new iframe invisible
     newIframe.style.width = '0';
     newIframe.style.height = '0';
     newIframe.style.opacity = '0';
     newIframe.style.position = 'absolute';
-    newIframe.src = url.toString();
 
     // Put it in the DOM so it loads the page
     this.iframeTarget.insertAdjacentElement('afterend', newIframe);
 
     const handleLoad = () => {
-      // Copy all attributes from the old iframe to the new one,
-      // except src as that will cause the iframe to be reloaded
-      Array.from(this.iframeTarget.attributes).forEach((key) => {
-        if (key.nodeName === 'src') return;
-        newIframe.setAttribute(key.nodeName, key.nodeValue as string);
-      });
-
       // Restore scroll position
       newIframe.contentWindow?.scroll(
         this.iframeTarget.contentWindow?.scrollX as number,
