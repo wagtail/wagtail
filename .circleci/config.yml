@@ -25,7 +25,7 @@ jobs:
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs
-      - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
+      - run: pipenv run python -u runtests.py --parallel
 
   frontend:
     docker:

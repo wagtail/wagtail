@@ -20,18 +20,24 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 3.2, python 3.8, postgres
+# - django 3.2, python 3.8, postgres, parallel
 # - django 3.2, python 3.8, mysql
 # - django 4.1, python 3.9, sqlite
-# - django 4.2, python 3.10, mysql
-# - django 4.1, python 3.10, postgres, USE_EMAIL_USER_MODEL=yes
-# - django 4.2, python 3.11, postgres, DISABLE_TIMEZONE=yes
+# - django 4.2, python 3.10, mysql, parallel
+# - django 4.1, python 3.10, postgres, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 4.2, python 3.11, postgres, parallel, DISABLE_TIMEZONE=yes
 # - django stable/4.2.x, python 3.10, postgres (allow failures)
-# - django main, python 3.10, postgres (allow failures)
+# - django main, python 3.10, postgres, parallel (allow failures)
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
 # - elasticsearch 6, django 3.2, python 3.8, postgres
 # - elasticsearch 7, django 4.1, python 3.8, postgres
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
+
+# Some tests are run in parallel by passing --parallel to runtests.py.
+# When running tests in parallel, some errors cannot be pickled and result in
+# non-helpful tracebacks (see https://code.djangoproject.com/ticket/29023).
+# Thus, we keep one test run without --parallel for each supported database.
+# ElasticSearch tests are not run in parallel as the test suite is not thread-safe.
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -77,15 +83,18 @@ jobs:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
             experimental: false
+            parallel: '--parallel'
           - python: '3.11'
             django: 'Django>=4.2,<4.3'
             postgres: 'postgres:12'
             notz: notz
             experimental: false
+            parallel: '--parallel'
           - python: '3.10'
             django: 'Django>=4.1,<4.2'
             experimental: false
             emailuser: emailuser
+            parallel: '--parallel'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@stable/4.2.x#egg=Django'
             experimental: true
@@ -94,6 +103,7 @@ jobs:
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
             postgres: 'postgres:12'
+            parallel: '--parallel'
             install_extras: |
               pip uninstall -y django-modelcluster
               pip install \
@@ -124,7 +134,7 @@ jobs:
           ${{ matrix.install_extras }}
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
@@ -150,6 +160,7 @@ jobs:
           - python: '3.10'
             django: 'Django>=4.2,<4.3'
             experimental: false
+            parallel: '--parallel'
 
     services:
       mysql:
@@ -176,7 +187,7 @@ jobs:
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.mysql
           DATABASE_HOST: '127.0.0.1'
