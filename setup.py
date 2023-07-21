@@ -60,10 +60,12 @@ testing_extras = [
     "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.5.2",
-    # for validating string formats in .po translation files
+    # For validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
     "factory-boy>=3.2",
+    # For running tests in parallel
+    "tblib>=2.0,<3.0",
 ]
 
 # Documentation dependencies
