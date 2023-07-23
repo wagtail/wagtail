@@ -207,7 +207,7 @@ class Block(metaclass=BaseBlock):
         )
         return context
 
-    def get_template(self, context=None):
+    def get_template(self, value=None, context=None):
         """
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
@@ -220,7 +220,7 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        template = self.get_template(context=context)
+        template = self.get_template(value=value, context=context)
         if not template:
             return self.render_basic(value, context=context)
 
