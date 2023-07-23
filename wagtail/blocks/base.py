@@ -2,6 +2,7 @@ import collections
 import itertools
 import json
 import re
+import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -16,7 +17,9 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 __all__ = [
     "BaseBlock",
@@ -207,10 +210,13 @@ class Block(metaclass=BaseBlock):
         )
         return context
 
-    def get_template(self, context=None):
+    def get_template(self, value=None, context=None):
         """
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
+
+        value contains the current value of the block, allowing overriden methods to
+        select the proper template based on the actual block value.
         """
         return getattr(self.meta, "template", None)
 
@@ -220,7 +226,16 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        template = self.get_template(context=context)
+        args = {"context": context}
+        if accepts_kwarg(self.get_template, "value"):
+            args["value"] = value
+        else:
+            warnings.warn(
+                "get_template should accept a 'value' argument as first argument, legacy call will be removed in Wagtail 6.0!.",
+                RemovedInWagtail60Warning,
+            )
+
+        template = self.get_template(**args)
         if not template:
             return self.render_basic(value, context=context)
 

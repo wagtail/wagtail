@@ -5188,8 +5188,20 @@ class BlockUsingGetTemplateMethod(blocks.Block):
 
     my_new_template = "my_super_awesome_dynamic_template.html"
 
-    def get_template(self):
+    def get_template(self, value=None, context=None):
         return self.my_new_template
+
+
+class BlockChoosingTemplateBasedOnValue(blocks.Block):
+
+    last_value = None
+
+    def get_template(self, value=None, context=None):
+        self.last_value = value
+        if value == "HEADING":
+            return "tests/blocks/heading_block.html"
+
+        return None  # using render_basic
 
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
@@ -5200,6 +5212,16 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
         )
         template = block.get_template()
         self.assertEqual(template, block.my_new_template)
+
+    def test_block_render_passes_the_value_argument_to_get_template(self):
+        """verifies Block.render() passes the value to get_template"""
+        block = BlockChoosingTemplateBasedOnValue()
+
+        html = block.render("Hello World")
+        self.assertEqual(html, "Hello World")
+
+        html = block.render("HEADING")
+        self.assertEqual(html, "<h1>HEADING</h1>")
 
 
 class TestValidationErrorAsJsonData(TestCase):
