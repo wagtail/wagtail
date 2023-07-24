@@ -431,7 +431,17 @@ jobs:
       - name: Combine coverage data
         run: |
           coverage combine
-          coverage report -m --skip-covered
+
+      - name: Generate coverage report
+        run: |
+          coverage report -m --skip-covered --skip-empty | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+          coverage html --skip-covered --skip-empty
+
+      - name: Upload HTML report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage_html_report
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
