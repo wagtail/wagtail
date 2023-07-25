@@ -177,6 +177,11 @@ function initPreview() {
           !data.is_available,
         );
 
+        if (!data.is_available) {
+          // Ensure the 'Preview not available' message is not scaled down
+          setPreviewWidth();
+        }
+
         if (data.is_valid) {
           reloadIframe();
         } else if (!cleared) {
