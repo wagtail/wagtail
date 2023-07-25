@@ -133,6 +133,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
+  updateInterval: ReturnType<typeof setInterval> | null = null;
   cleared = false;
   updatePromise: Promise<boolean> | null = null;
   formPayload = '';
@@ -443,8 +444,6 @@ export class PreviewController extends Controller<HTMLElement> {
    * the side panel is shown.
    */
   initAutoUpdate() {
-    let updateInterval: ReturnType<typeof setInterval>;
-
     // Apply debounce to the setPreviewData method
     this.setPreviewData = debounce(
       this.setPreviewData.bind(this),
@@ -458,27 +457,31 @@ export class PreviewController extends Controller<HTMLElement> {
       // Only set the interval while the panel is shown
       // This interval performs the checks for changes but not necessarily the
       // update itself
-      updateInterval = setInterval(
-        this.checkAndUpdatePreview.bind(this),
-        this.autoUpdateIntervalValue,
-      );
+      if (!this.updateInterval) {
+        this.updateInterval = setInterval(
+          this.checkAndUpdatePreview.bind(this),
+          this.autoUpdateIntervalValue,
+        );
+      }
     });
 
     // Use the same processing as the preview panel.
     this.checksSidePanel?.addEventListener('show', () => {
       this.checkAndUpdatePreview();
-      updateInterval = setInterval(
-        this.checkAndUpdatePreview.bind(this),
-        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-      );
+      if (!this.updateInterval) {
+        this.updateInterval = setInterval(
+          this.checkAndUpdatePreview.bind(this),
+          WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+        );
+      }
     });
 
     // Clear the interval when the panel is hidden
     this.sidePanelContainer.addEventListener('hide', () => {
-      clearInterval(updateInterval);
+      if (this.updateInterval) clearInterval(this.updateInterval);
     });
     this.checksSidePanel?.addEventListener('hide', () => {
-      clearInterval(updateInterval);
+      if (this.updateInterval) clearInterval(this.updateInterval);
     });
   }
 
