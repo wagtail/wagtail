@@ -102,6 +102,10 @@ export class PreviewController extends Controller<HTMLElement> {
     url: { default: '', type: String },
     autoUpdate: { default: true, type: Boolean },
     autoUpdateInterval: { default: 500, type: Number },
+    deviceLocalStorageKey: {
+      default: 'wagtail:preview-panel-device',
+      type: String,
+    },
   };
 
   static outlets = ['w-progress'];
@@ -122,6 +126,7 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly urlValue: string;
   declare readonly autoUpdateValue: boolean;
   declare readonly autoUpdateIntervalValue: number;
+  declare readonly deviceLocalStorageKeyValue: string;
 
   declare readonly hasWProgressOutlet: boolean;
   declare readonly wProgressOutlet: ProgressController;
@@ -183,7 +188,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.setPreviewWidth(deviceWidth);
     try {
-      localStorage.setItem('wagtail:preview-panel-device', device);
+      localStorage.setItem(this.deviceLocalStorageKeyValue, device);
     } catch (e) {
       // Skip saving the device if localStorage fails.
     }
@@ -548,7 +553,7 @@ export class PreviewController extends Controller<HTMLElement> {
     // Remember last selected device size
     let lastDevice: string | null = null;
     try {
-      lastDevice = localStorage.getItem('wagtail:preview-panel-device');
+      lastDevice = localStorage.getItem(this.deviceLocalStorageKeyValue);
     } catch (e) {
       // Initialise with the default device if the last one cannot be restored.
     }
