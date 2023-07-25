@@ -113,6 +113,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
   declare editForm: HTMLFormElement;
+  declare sidePanelContainer: HTMLDivElement;
 
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -426,14 +427,6 @@ export class PreviewController extends Controller<HTMLElement> {
   initAutoUpdate() {
     let updateInterval: ReturnType<typeof setInterval>;
 
-    // This controller is encapsulated as a child of the side panel element,
-    // so we need to listen to the show/hide events on the parent element
-    // (the one with [data-side-panel]).
-    // If we had support for data-controller attribute on the side panels,
-    // we could remove the intermediary element and make the [data-side-panel]
-    // element to also act as the controller.
-    const sidePanelContainer = this.element.parentElement as HTMLDivElement;
-
     const checksSidePanel = document.querySelector(
       '[data-side-panel="checks"]',
     );
@@ -444,7 +437,7 @@ export class PreviewController extends Controller<HTMLElement> {
       this.autoUpdateIntervalValue,
     );
 
-    sidePanelContainer.addEventListener('show', () => {
+    this.sidePanelContainer.addEventListener('show', () => {
       // Immediately update the preview when the panel is opened
       this.checkAndUpdatePreview();
 
@@ -467,7 +460,7 @@ export class PreviewController extends Controller<HTMLElement> {
     });
 
     // Clear the interval when the panel is hidden
-    sidePanelContainer.addEventListener('hide', () => {
+    this.sidePanelContainer.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
     checksSidePanel?.addEventListener('hide', () => {
@@ -515,14 +508,14 @@ export class PreviewController extends Controller<HTMLElement> {
     // If we had support for data-controller attribute on the side panels,
     // we could remove the intermediary element and make the [data-side-panel]
     // element to also act as the controller.
-    const sidePanelContainer = this.element.parentElement as HTMLDivElement;
+    this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
     if (this.autoUpdateValue) {
       this.initAutoUpdate();
     } else {
       // Even if the preview is not updated automatically, we still need to
       // initialise the preview data when the panel is shown
-      sidePanelContainer.addEventListener('show', () => {
+      this.sidePanelContainer.addEventListener('show', () => {
         this.setPreviewData();
       });
       checksSidePanel?.addEventListener('show', () => {
