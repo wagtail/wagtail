@@ -438,51 +438,46 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Initialises the auto update mechanism. This works by comparing the current
-   * form data with the previous form data at a set interval. If the form data
-   * has changed, the preview will be updated. The interval is only active when
-   * the side panel is shown.
+   * Activates the preview mechanism.
+   * The preview data is immediately updated. If auto-update is enabled,
+   * debounce is applied to setPreviewData for subsequent calls, and an interval
+   * is set up to automatically check the form and update the preview data.
    */
-  initAutoUpdate() {
-    // Apply debounce to the setPreviewData method
-    this.setPreviewData = debounce(
-      this.setPreviewData.bind(this),
-      this.autoUpdateIntervalValue,
-    );
+  activatePreview() {
+    // Immediately update the preview when the panel is opened
+    this.checkAndUpdatePreview();
 
-    this.sidePanelContainer.addEventListener('show', () => {
-      // Immediately update the preview when the panel is opened
-      this.checkAndUpdatePreview();
+    // Skip setting up the interval if auto update is disabled
+    if (!this.autoUpdateValue) return;
 
-      // Only set the interval while the panel is shown
-      // This interval performs the checks for changes but not necessarily the
-      // update itself
-      if (!this.updateInterval) {
-        this.updateInterval = setInterval(
-          this.checkAndUpdatePreview.bind(this),
-          this.autoUpdateIntervalValue,
-        );
-      }
-    });
+    // Apply debounce for subsequent updates if not already applied
+    if (!('cancel' in this.setPreviewData)) {
+      this.setPreviewData = debounce(
+        this.setPreviewData.bind(this),
+        this.autoUpdateIntervalValue,
+      );
+    }
 
-    // Use the same processing as the preview panel.
-    this.checksSidePanel?.addEventListener('show', () => {
-      this.checkAndUpdatePreview();
-      if (!this.updateInterval) {
-        this.updateInterval = setInterval(
-          this.checkAndUpdatePreview.bind(this),
-          WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-        );
-      }
-    });
+    // Only set the interval while the panel is shown
+    // This interval performs the checks for changes but not necessarily the
+    // update itself
+    if (!this.updateInterval) {
+      this.updateInterval = setInterval(
+        this.checkAndUpdatePreview.bind(this),
+        this.autoUpdateIntervalValue,
+      );
+    }
+  }
 
-    // Clear the interval when the panel is hidden
-    this.sidePanelContainer.addEventListener('hide', () => {
-      if (this.updateInterval) clearInterval(this.updateInterval);
-    });
-    this.checksSidePanel?.addEventListener('hide', () => {
-      if (this.updateInterval) clearInterval(this.updateInterval);
-    });
+  /**
+   * Deactivates the preview mechanism.
+   *
+   * If auto-update is enabled, clear the auto-update interval.
+   */
+  deactivatePreview() {
+    if (!this.updateInterval) return;
+    clearInterval(this.updateInterval);
+    this.updateInterval = null;
   }
 
   /**
@@ -525,20 +520,24 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
 
-    if (this.autoUpdateValue) {
-      this.initAutoUpdate();
-    } else {
-      // Even if the preview is not updated automatically, we still need to
-      // initialise the preview data when the panel is shown
-      this.sidePanelContainer.addEventListener('show', () => {
-        this.setPreviewData();
-      });
-      this.checksSidePanel?.addEventListener('show', () => {
-        this.setPreviewData();
-      });
-    }
+    this.activatePreview = this.activatePreview.bind(this);
+    this.deactivatePreview = this.deactivatePreview.bind(this);
+
+    this.sidePanelContainer.addEventListener('show', this.activatePreview);
+    this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
+
+    this.checksSidePanel?.addEventListener('show', this.activatePreview);
+    this.checksSidePanel?.addEventListener('hide', this.deactivatePreview);
 
     this.restoreLastSavedPreferences();
+  }
+
+  disconnect(): void {
+    this.sidePanelContainer.removeEventListener('show', this.activatePreview);
+    this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
+
+    this.checksSidePanel?.removeEventListener('show', this.activatePreview);
+    this.checksSidePanel?.removeEventListener('hide', this.deactivatePreview);
   }
 
   /**
