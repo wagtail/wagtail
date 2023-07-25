@@ -255,38 +255,39 @@ export class PreviewController extends Controller<HTMLElement> {
 
     // Put it in the DOM so it loads the page
     this.iframeTarget.insertAdjacentElement('afterend', newIframe);
+  }
 
-    const handleLoad = () => {
-      // Restore scroll position
-      newIframe.contentWindow?.scroll(
-        this.iframeTarget.contentWindow?.scrollX as number,
-        this.iframeTarget.contentWindow?.scrollY as number,
-      );
+  /**
+   * Replaces the old iframe with the new iframe.
+   * @param event The `load` event from the new iframe
+   */
+  replaceIframe(event: Event) {
+    const newIframe = event.target as HTMLIFrameElement;
 
-      // Remove the old iframe
-      // This will disconnect the old iframe target, but it's fine because
-      // the new iframe has been connected when we copy the attributes over,
-      // thus subsequent references to this.iframeTarget will be the new iframe.
-      // To verify, you can add console.log(this.iframeTargets) before and after
-      // the following line and see that the array contains two and then one iframe.
-      this.iframeTarget.remove();
+    // Restore scroll position
+    newIframe.contentWindow?.scroll(
+      this.iframeTarget.contentWindow?.scrollX as number,
+      this.iframeTarget.contentWindow?.scrollY as number,
+    );
 
-      // Make the new iframe visible
-      newIframe.removeAttribute('style');
+    // Remove the old iframe
+    // This will disconnect the old iframe target, but it's fine because
+    // the new iframe has been connected when we copy the attributes over,
+    // thus subsequent references to this.iframeTarget will be the new iframe.
+    // To verify, you can add console.log(this.iframeTargets) before and after
+    // the following line and see that the array contains two and then one iframe.
+    this.iframeTarget.remove();
 
-      // Ready for another update
-      this.finishUpdate();
+    // Make the new iframe visible
+    newIframe.removeAttribute('style');
 
-      // Remove the load event listener so it doesn't fire when switching modes
-      newIframe.removeEventListener('load', handleLoad);
+    runContentChecks();
 
-      runContentChecks();
+    const onClickSelector = () => this.newTabTarget.click();
+    runAccessibilityChecks(onClickSelector);
 
-      const onClickSelector = () => this.newTabTarget.click();
-      runAccessibilityChecks(onClickSelector);
-    };
-
-    newIframe.addEventListener('load', handleLoad);
+    // Ready for another update
+    this.finishUpdate();
   }
 
   /**
