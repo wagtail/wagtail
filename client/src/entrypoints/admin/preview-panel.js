@@ -188,6 +188,10 @@ function initPreview() {
           clearPreviewData();
           cleared = true;
           reloadIframe();
+        } else {
+          // Finish the process when the data is invalid to prepare for the next update
+          // and avoid elements like the loading spinner to be shown indefinitely
+          finishUpdate();
         }
 
         return data.is_valid;
