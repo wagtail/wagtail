@@ -9,13 +9,22 @@ class Migration(migrations.Migration):
         ("wagtailsearchpromotions", "0003_query_querydailyhits"),
     ]
 
+    # Columns should be explicitly specified in case the order of columns
+    # between each table pair is different, which may be the case for Wagtail
+    # instances that were created when we still used django-south.
     operations = [
         migrations.RunSQL(
-            "INSERT INTO wagtailsearchpromotions_query SELECT * FROM wagtailsearch_query",
+            """
+            INSERT INTO wagtailsearchpromotions_query (id, query_string)
+            SELECT id, query_string FROM wagtailsearch_query
+            """,
             "",
         ),
         migrations.RunSQL(
-            "INSERT INTO wagtailsearchpromotions_querydailyhits SELECT * FROM wagtailsearch_querydailyhits",
+            """
+            INSERT INTO wagtailsearchpromotions_querydailyhits (id, date, hits, query_id)
+            SELECT id, date, hits, query_id FROM wagtailsearch_querydailyhits
+            """,
             "",
         ),
     ]
