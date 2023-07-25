@@ -232,7 +232,9 @@ function initPreview() {
   }
 
   if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
-    let oldPayload = new URLSearchParams(new FormData(form)).toString();
+    // Start with an empty payload so that when checkAndUpdatePreview is called
+    // for the first time when the panel is opened, it will always update the preview
+    let oldPayload = '';
     let updateInterval;
 
     const hasChanges = () => {
