@@ -39,6 +39,8 @@ export class FieldBlock {
 
     this.prefix = prefix;
 
+    const options = { attributes: this.getAttributes() };
+
     try {
       this.widget = this.blockDef.widget.render(
         widgetElement,
@@ -46,6 +48,7 @@ export class FieldBlock {
         prefix,
         initialState,
         this.parentCapabilities,
+        options,
       );
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -135,6 +138,24 @@ export class FieldBlock {
       this.field.classList.remove('w-field--error');
       errorContainer.querySelector('.icon').setAttribute('hidden', 'true');
     }
+  }
+
+  getAttributes() {
+    const prefix = this.prefix;
+    const attributes = {};
+
+    // If the block has help text, we should associate this with the input rendered by the widget.
+    // To accomplish this, we must tell the widget to render an aria-describedby attribute referring
+    // to the help text id in its HTML.
+    if (this.blockDef.meta.helpText) {
+      attributes['aria-describedby'] = `${prefix}-helptext`;
+    }
+    // If the block is required, we must tell the widget to render a required attribute in its HTML.
+    if (this.blockDef.meta.required) {
+      attributes.required = '';
+    }
+
+    return attributes;
   }
 
   getState() {

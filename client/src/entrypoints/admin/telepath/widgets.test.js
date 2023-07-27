@@ -16,12 +16,13 @@ window.comments = {
 
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
+  let widgetDef;
 
   beforeEach(() => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    const widgetDef = window.telepath.unpack({
+    widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.Widget',
       _args: [
         '<input type="text" name="__NAME__" maxlength="255" id="__ID__">',
@@ -59,6 +60,30 @@ describe('telepath: wagtail.widgets.Widget', () => {
   test('focus() focuses the text input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
+  });
+
+  test('it should support options with attributes', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      'The Value',
+      {},
+      {
+        attributes: {
+          'maxLength': 512,
+          'aria-describedby': 'some-id',
+          'required': '',
+        },
+      },
+    );
+
+    const input = document.querySelector('input');
+
+    expect(input.maxLength).toBe(512);
+    expect(input.getAttribute('aria-describedby')).toBe('some-id');
+    expect(input.required).toBe(true);
   });
 });
 
