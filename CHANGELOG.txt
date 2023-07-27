@@ -6,11 +6,13 @@ Changelog
 
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
+ * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
  * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
  * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
+ * Maintenance: Add support for options/attrs in Telepath widgets so that attrs render on the created DOM (Storm Heg)
 
 
 5.1 (01.08.2023)
