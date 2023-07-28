@@ -42,7 +42,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
@@ -70,6 +70,7 @@ from wagtail.coreutils import (
     get_content_type_label,
     get_supported_content_language_variant,
     resolve_model_string,
+    safe_md5,
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
@@ -92,6 +93,7 @@ from wagtail.signals import (
 )
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
     BaseLogEntry,
@@ -219,11 +221,11 @@ class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
 
     def __init__(cls, name, bases, dct):
-        super(PageBase, cls).__init__(name, bases, dct)
+        super().__init__(name, bases, dct)
 
         if "template" not in dct:
             # Define a default template path derived from the app name and model name
-            cls.template = "%s/%s.html" % (
+            cls.template = "{}/{}.html".format(
                 cls._meta.app_label,
                 camelcase_to_underscore(name),
             )
@@ -426,9 +428,7 @@ class RevisionMixin(models.Model):
                     data={
                         "revision": {
                             "id": previous_revision.id,
-                            "created": previous_revision.created_at.strftime(
-                                "%d %b %Y %H:%M"
-                            ),
+                            "created": ensure_utc(previous_revision.created_at),
                         }
                     },
                     revision=revision,
@@ -705,7 +705,7 @@ class PreviewableMixin:
 
         http_host = hostname
         if port != (443 if scheme == "https" else 80):
-            http_host = "%s:%s" % (http_host, port)
+            http_host = f"{http_host}:{port}"
         dummy_values = {
             "REQUEST_METHOD": "GET",
             "PATH_INFO": path,
@@ -1499,7 +1499,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(Page, cls).check(**kwargs)
+        errors = super().check(**kwargs)
 
         # Check that foreign keys from pages are not configured to cascade
         # This is the default Django behaviour which must be explicitly overridden
@@ -1702,9 +1702,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     data={
                         "revision": {
                             "id": previous_revision.id,
-                            "created": previous_revision.created_at.strftime(
-                                "%d %b %Y %H:%M"
-                            ),
+                            "created": ensure_utc(previous_revision.created_at),
                         }
                     },
                     revision=revision,
@@ -2121,7 +2119,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def get_indexed_objects(cls):
         content_type = ContentType.objects.get_for_model(cls)
-        return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
+        return super().get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):
         # This is accessed on save by the wagtailsearch signal handler, and in edge
@@ -2432,6 +2430,34 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ["/"]
 
+    def get_cache_key_components(self):
+        """
+        The components of a :class:`Page` which make up the :attr:`cache_key`. Any change to a
+        page should be reflected in a change to at least one of these components.
+        """
+
+        return [
+            self.id,
+            self.url_path,
+            self.last_published_at.isoformat() if self.last_published_at else None,
+        ]
+
+    @property
+    def cache_key(self):
+        """
+        A generic cache key to identify a page in its current state.
+        Should the page change, so will the key.
+
+        Customizations to the cache key should be made in :attr:`get_cache_key_components`.
+        """
+
+        hasher = safe_md5()
+
+        for component in self.get_cache_key_components():
+            hasher.update(force_bytes(component))
+
+        return hasher.hexdigest()
+
     def get_sitemap_urls(self, request=None):
         return [
             {
@@ -2659,8 +2685,14 @@ class Orderable(models.Model):
 
 
 class RevisionQuerySet(models.QuerySet):
+    def page_revisions_q(self):
+        return Q(base_content_type=get_default_page_content_type())
+
     def page_revisions(self):
-        return self.filter(base_content_type=get_default_page_content_type())
+        return self.filter(self.page_revisions_q())
+
+    def not_page_revisions(self):
+        return self.exclude(self.page_revisions_q())
 
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
@@ -2674,12 +2706,7 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-class RevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db)
-
-    def for_instance(self, instance):
-        return self.get_queryset().for_instance(instance)
+RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
 
 
 class PageRevisionsManager(RevisionsManager):
@@ -2775,8 +2802,8 @@ class Revision(models.Model):
                 data={
                     "revision": {
                         "id": self.id,
-                        "created": self.created_at.strftime("%d %b %Y %H:%M"),
-                        "go_live_at": object.go_live_at.strftime("%d %b %Y %H:%M")
+                        "created": ensure_utc(self.created_at),
+                        "go_live_at": ensure_utc(object.go_live_at)
                         if object.go_live_at
                         else None,
                         "has_live_version": object.live,
@@ -4550,7 +4577,7 @@ class TaskState(SpecificMixin, models.Model):
             next_task_data = {"id": next_task.id, "title": next_task.name}
         log(
             instance=obj,
-            action="wagtail.workflow.{}".format(action),
+            action=f"wagtail.workflow.{action}",
             user=user,
             data={
                 "workflow": {
@@ -4709,7 +4736,7 @@ class Comment(ClusterableModel):
         verbose_name_plural = _("comments")
 
     def __str__(self):
-        return "Comment on Page '{0}', left by {1}: '{2}'".format(
+        return "Comment on Page '{}', left by {}: '{}'".format(
             self.page, self.user, self.text
         )
 
@@ -4781,7 +4808,7 @@ class CommentReply(models.Model):
         verbose_name_plural = _("comment replies")
 
     def __str__(self):
-        return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
+        return f"CommentReply left by '{self.user}': '{self.text}'"
 
     def _log(self, action, page_revision=None, user=None):
         log(

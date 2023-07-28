@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 #
 # Base classes
 #
@@ -48,7 +46,7 @@ class Phrase(SearchQuery):
         self.query_string = query_string
 
     def __repr__(self):
-        return "<Phrase {}>".format(repr(self.query_string))
+        return f"<Phrase {repr(self.query_string)}>"
 
 
 class Fuzzy(SearchQuery):
@@ -56,7 +54,7 @@ class Fuzzy(SearchQuery):
         self.query_string = query_string
 
     def __repr__(self):
-        return "<Fuzzy {}>".format(repr(self.query_string))
+        return f"<Fuzzy {repr(self.query_string)}>"
 
 
 class MatchAll(SearchQuery):
@@ -70,7 +68,7 @@ class Boost(SearchQuery):
         self.boost = boost
 
     def __repr__(self):
-        return "<Boost {} boost={}>".format(repr(self.subquery), repr(self.boost))
+        return f"<Boost {repr(self.subquery)} boost={repr(self.boost)}>"
 
 
 #
@@ -103,7 +101,7 @@ class Not(SearchQuery):
         self.subquery = subquery
 
     def __repr__(self):
-        return "<Not {}>".format(repr(self.subquery))
+        return f"<Not {repr(self.subquery)}>"
 
 
 MATCH_ALL = MatchAll()

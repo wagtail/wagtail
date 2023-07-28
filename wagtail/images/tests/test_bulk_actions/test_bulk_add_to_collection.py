@@ -53,9 +53,7 @@ class TestBulkAddImagesToCollection(WagtailTestUtils, TestCase):
         )
 
         for image in self.images:
-            self.assertInHTML(
-                "<li>{image_title}</li>".format(image_title=image.title), html
-            )
+            self.assertInHTML(f"<li>{image.title}</li>", html)
 
         self.client.post(self.url, self.post_data)
 

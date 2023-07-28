@@ -66,7 +66,7 @@ class InstagramOEmbedFinder(EmbedFinder):
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="%s" alt="">' % (oembed["url"],)
+            html = '<img src="{}" alt="">'.format(oembed["url"])
         else:
             html = oembed.get("html")
 

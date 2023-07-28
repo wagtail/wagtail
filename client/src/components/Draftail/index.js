@@ -90,11 +90,21 @@ const onSetToolbar = (choice, callback) => {
 /**
  * Registry for client-side code of Draftail plugins.
  */
-const PLUGINS = {};
+const PLUGINS = {
+  entityTypes: {},
+  plugins: {},
+  controls: {},
+  decorators: {},
+};
 
-const registerPlugin = (plugin) => {
-  PLUGINS[plugin.type] = plugin;
-  return PLUGINS;
+/**
+ * Client-side editor-specific equivalent to register_editor_plugin.
+ * `optionName` defaults to entityTypes for backwards-compatibility with
+ * previous function signature only allowing registering entities.
+ */
+const registerPlugin = (type, optionName = 'entityTypes') => {
+  PLUGINS[optionName][type.type] = type;
+  return PLUGINS[optionName];
 };
 
 /**
@@ -157,15 +167,28 @@ const initEditor = (selector, originalOptions, currentScript) => {
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
     let controls = newOptions.controls || [];
+    let decorators = newOptions.decorators || [];
+    let plugins = newOptions.plugins || [];
     const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
-    entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
-      const plugin = PLUGINS[type.type];
-
+    entityTypes = entityTypes
+      .map(wrapWagtailIcon)
       // Override the properties defined in the JS plugin: Python should be the source of truth.
-      return { ...plugin, ...type };
-    });
+      .map((type) => ({ ...PLUGINS.entityTypes[type.type], ...type }));
+
+    controls = controls.map((type) => ({
+      ...PLUGINS.controls[type.type],
+      ...type,
+    }));
+    decorators = decorators.map((type) => ({
+      ...PLUGINS.decorators[type.type],
+      ...type,
+    }));
+    plugins = plugins.map((type) => ({
+      ...PLUGINS.plugins[type.type],
+      ...type,
+    }));
 
     // Only initialise the character count / max length on fields explicitly requiring it.
     if (field.hasAttribute('maxlength')) {
@@ -228,6 +251,8 @@ const initEditor = (selector, originalOptions, currentScript) => {
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
       controls,
+      decorators,
+      plugins,
       commands,
       enableHorizontalRule,
     };

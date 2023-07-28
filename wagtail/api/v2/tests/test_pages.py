@@ -12,6 +12,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.models import Locale, Page, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
@@ -28,6 +29,10 @@ def get_total_page_count():
         .public()
         .count()
     )
+
+
+class Test10411APIViewSet(PagesAPIViewSet):
+    meta_fields = []
 
 
 class TestPageListing(WagtailTestUtils, TestCase):
@@ -1026,6 +1031,11 @@ class TestPageListing(WagtailTestUtils, TestCase):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
 
+    def test_issue_10411(self):
+        # Bug with removing meta fields from API
+        response = self.client.get(reverse("wagtailapi_v2:issue_10411:listing"))
+        self.assertEqual(response.status_code, 200)
+
 
 class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["demosite.json"]
@@ -1771,12 +1781,12 @@ class TestPageCacheInvalidation(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(TestPageCacheInvalidation, cls).setUpClass()
+        super().setUpClass()
         signal_handlers.register_signal_handlers()
 
     @classmethod
     def tearDownClass(cls):
-        super(TestPageCacheInvalidation, cls).tearDownClass()
+        super().tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):

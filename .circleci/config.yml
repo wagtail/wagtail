@@ -20,7 +20,7 @@ jobs:
           paths:
             - .venv
       - run: pipenv run ruff check .
-      - run: pipenv run black --target-version py37 --check --diff .
+      - run: pipenv run black --target-version py38 --check --diff .
       - run: pipenv run semgrep --config .semgrep.yml --error .
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run: pipenv run curlylint --parse-only wagtail

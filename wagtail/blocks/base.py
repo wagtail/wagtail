@@ -37,7 +37,7 @@ class BaseBlock(type):
     def __new__(mcs, name, bases, attrs):
         meta_class = attrs.pop("Meta", None)
 
-        cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
+        cls = super().__new__(mcs, name, bases, attrs)
 
         # Get all the Meta classes from all the bases
         meta_class_bases = [meta_class] + [
@@ -70,7 +70,7 @@ class Block(metaclass=BaseBlock):
     def __new__(cls, *args, **kwargs):
         # adapted from django.utils.deconstruct.deconstructible; capture the arguments
         # so that we can return them in the 'deconstruct' method
-        obj = super(Block, cls).__new__(cls)
+        obj = super().__new__(cls)
         obj._constructor_args = (args, kwargs)
         return obj
 
@@ -357,7 +357,7 @@ class Block(metaclass=BaseBlock):
         try:
             path = module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = "%s.%s" % (module_name, name)
+            path = f"{module_name}.{name}"
 
         return (
             path,
@@ -450,7 +450,7 @@ class BoundBlock:
         return self.block.render(self.value)
 
     def __repr__(self):
-        return "<block %s: %r>" % (
+        return "<block {}: {!r}>".format(
             self.block.name or type(self.block).__name__,
             self.value,
         )
@@ -474,9 +474,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         current_blocks.sort(key=lambda x: x[1].creation_counter)
         attrs["declared_blocks"] = collections.OrderedDict(current_blocks)
 
-        new_class = super(DeclarativeSubBlocksMetaclass, mcs).__new__(
-            mcs, name, bases, attrs
-        )
+        new_class = super().__new__(mcs, name, bases, attrs)
 
         # Walk through the MRO, collecting all inherited sub-blocks, to make
         # the combined `base_blocks`.

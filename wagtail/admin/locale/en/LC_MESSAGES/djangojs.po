@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:100
+#: src/components/Sidebar/menu/SubMenuItem.tsx:121
 msgid "(%(number)s new items in this menu)"
 msgstr ""
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:99
+#: src/components/Sidebar/menu/SubMenuItem.tsx:120
 msgid "(1 new item in this menu)"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:191
+#: src/entrypoints/admin/preview-panel.js:200
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Focus comment"
 msgstr ""
 
-#: src/components/Draftail/index.js:152
+#: src/components/Draftail/index.js:162
 msgid "Horizontal line"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Insert a block"
 msgstr ""
 
-#: src/components/Draftail/index.js:193
+#: src/components/Draftail/index.js:216
 msgid "Line break"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgid "More actions"
 msgstr ""
 
 #: src/components/ComboBox/ComboBox.tsx:11
-#: src/components/Draftail/index.js:219
+#: src/components/Draftail/index.js:242
 #: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/includes/chooserModal.js:47
+#: src/includes/chooserModal.js:52
 msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
@@ -261,7 +261,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
-#: src/includes/chooserModal.js:57
+#: src/includes/chooserModal.js:62
 msgid "Server Error"
 msgstr ""
 
@@ -306,6 +306,6 @@ msgstr ""
 msgid "View child pages of '%(title)s'"
 msgstr ""
 
-#: src/components/Draftail/index.js:190
+#: src/components/Draftail/index.js:213
 msgid "Write something or type ‘/’ to insert a block"
 msgstr ""

@@ -35,7 +35,7 @@ class Button:
         return self.render()
 
     def __repr__(self):
-        return "<Button: {}>".format(self.label)
+        return f"<Button: {self.label}>"
 
     def __lt__(self, other):
         if not isinstance(other, Button):

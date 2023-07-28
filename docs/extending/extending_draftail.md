@@ -2,15 +2,17 @@
 
 # Extending the Draftail Editor
 
-Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/), and its functionality can be extended through plugins.
+Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/), which supports different types of extensions.
 
-Plugins come in three types:
+## Formatting extensions
 
--   Inline styles – To format a portion of a line, for example `bold`, `italic` or `monospace`.
--   Blocks – To indicate the structure of the content, for example, `blockquote`, `ol`.
--   Entities – To enter additional data/metadata, for example, `link` (with a URL) or `image` (with a file).
+Draftail supports three types of formatting:
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. Place the following in a `wagtail_hooks.py` file in any installed app:
+-   **Inline styles** – To format a portion of a line, for example `bold`, `italic` or `monospace`. Text can have as many inline styles as needed – for example bold _and_ italic at the same time.
+-   **Blocks** – To indicate the structure of the content, for example, `blockquote`, `ol`. Any given text can only be of one block type.
+-   **Entities** – To enter additional data/metadata, for example, `link` (with a URL) or `image` (with a file). Text can only have one entity applied at a time.
+
+All of these extensions are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. Place the following in a `wagtail_hooks.py` file in any installed app:
 
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -68,13 +70,13 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 -   To display the control in the toolbar, combine `icon`, `label` and `description`.
 -   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references for example `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
 
-## Creating new inline styles
+### Creating new inline styles
 
 In addition to the initial example, inline styles take a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
 
 Finally, the DB to/from conversion uses an `InlineStyleElementHandler` to map from a given tag (`<mark>` in the example above) to a Draftail type, and the inverse mapping is done with [Draft.js exporter configuration](https://github.com/springload/draftjs_exporter) of the `style_map`.
 
-## Creating new blocks
+### Creating new blocks
 
 Blocks are nearly as simple as inline styles:
 
@@ -119,7 +121,7 @@ Optionally, we can also define styles for the blocks with the `Draftail-block--h
 
 That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
-## Creating new entities
+### Creating new entities
 
 ```{warning}
 This is an advanced feature. Please carefully consider whether you really need this.
@@ -147,7 +149,7 @@ To go further, please look at the [Draftail documentation](https://www.draftail.
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.
 For the sake of our example, we can imagine a news team working at a financial newspaper.
-They want to write articles about the stock market, refer to specific stocks anywhere inside of their content (for example "$TSLA" tokens in a sentence), and then have their article automatically enriched with the stock’s information (a link, a number, a sparkline).
+They want to write articles about the stock market, refer to specific stocks anywhere inside of their content (for example "$NEE" tokens in a sentence), and then have their article automatically enriched with the stock’s information (a link, a number, a sparkline).
 
 The editor toolbar could contain a "stock chooser" that displays a list of available stocks, then inserts the user’s selection as a textual token. For our example, we will just pick a stock at random:
 
@@ -228,55 +230,47 @@ Note how they both do similar conversions, but use different APIs. `to_database_
 The next step is to add JavaScript to define how the entities are created (the `source`), and how they are displayed (the `decorator`). Within `stock.js`, we define the source component:
 
 ```javascript
-const React = window.React;
-const Modifier = window.DraftJS.Modifier;
-const EditorState = window.DraftJS.EditorState;
-
-const DEMO_STOCKS = ['AMD', 'AAPL', 'TWTR', 'TSLA', 'BTC'];
-
 // Not a real React component – just creates the entities as soon as it is rendered.
-class StockSource extends React.Component {
-    componentDidMount() {
-        const { editorState, entityType, onComplete } = this.props;
+class StockSource extends window.React.Component {
+  componentDidMount() {
+    const { editorState, entityType, onComplete } = this.props;
 
-        const content = editorState.getCurrentContent();
-        const selection = editorState.getSelection();
+    const content = editorState.getCurrentContent();
+    const selection = editorState.getSelection();
 
-        const randomStock =
-            DEMO_STOCKS[Math.floor(Math.random() * DEMO_STOCKS.length)];
+    const demoStocks = ['AMD', 'AAPL', 'NEE', 'FSLR'];
+    const randomStock = demoStocks[Math.floor(Math.random() * demoStocks.length)];
 
-        // Uses the Draft.js API to create a new entity with the right data.
-        const contentWithEntity = content.createEntity(
-            entityType.type,
-            'IMMUTABLE',
-            {
-                stock: randomStock,
-            },
-        );
-        const entityKey = contentWithEntity.getLastCreatedEntityKey();
+    // Uses the Draft.js API to create a new entity with the right data.
+    const contentWithEntity = content.createEntity(
+      entityType.type,
+      'IMMUTABLE',
+      { stock: randomStock },
+    );
+    const entityKey = contentWithEntity.getLastCreatedEntityKey();
 
-        // We also add some text for the entity to be activated on.
-        const text = `$${randomStock}`;
+    // We also add some text for the entity to be activated on.
+    const text = `$${randomStock}`;
 
-        const newContent = Modifier.replaceText(
-            content,
-            selection,
-            text,
-            null,
-            entityKey,
-        );
-        const nextState = EditorState.push(
-            editorState,
-            newContent,
-            'insert-characters',
-        );
+    const newContent = window.DraftJS.Modifier.replaceText(
+      content,
+      selection,
+      text,
+      null,
+      entityKey,
+    );
+    const nextState = window.DraftJS.EditorState.push(
+      editorState,
+      newContent,
+      'insert-characters',
+    );
 
-        onComplete(nextState);
-    }
+    onComplete(nextState);
+  }
 
-    render() {
-        return null;
-    }
+  render() {
+    return null;
+  }
 }
 ```
 
@@ -287,19 +281,19 @@ We then create the decorator component:
 
 ```javascript
 const Stock = (props) => {
-    const { entityKey, contentState } = props;
-    const data = contentState.getEntity(entityKey).getData();
+  const { entityKey, contentState } = props;
+  const data = contentState.getEntity(entityKey).getData();
 
-    return React.createElement(
-        'a',
-        {
-            role: 'button',
-            onMouseUp: () => {
-                window.open(`https://finance.yahoo.com/quote/${data.stock}`);
-            },
-        },
-        props.children,
-    );
+  return window.React.createElement(
+    'a',
+    {
+      role: 'button',
+      onMouseUp: () => {
+        window.open(`https://finance.yahoo.com/quote/${data.stock}`);
+      },
+    },
+    props.children,
+  );
 };
 ```
 
@@ -310,18 +304,18 @@ Finally, we register the JS components of our plugin:
 ```javascript
 // Register the plugin directly on script execution so the editor loads it when initialising.
 window.draftail.registerPlugin({
-    type: 'STOCK',
-    source: StockSource,
-    decorator: Stock,
-});
+  type: 'STOCK',
+  source: StockSource,
+  decorator: Stock,
+}, 'entityTypes');
 ```
 
 And that’s it! All of this setup will finally produce the following HTML on the site’s front-end:
 
 ```html
 <p>
-    Anyone following Elon Musk’s <span data-stock="TSLA">$TSLA</span> should
-    also look into <span data-stock="BTC">$BTC</span>.
+    Anyone following NextEra technology <span data-stock="NEE">$NEE</span> should
+    also look into <span data-stock="FSLR">$FSLR</span>.
 </p>
 ```
 
@@ -329,16 +323,204 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
 
 ```javascript
 document.querySelectorAll('[data-stock]').forEach((elt) => {
-    const link = document.createElement('a');
-    link.href = `https://finance.yahoo.com/quote/${elt.dataset.stock}`;
-    link.innerHTML = `${elt.innerHTML}<svg width="50" height="20" stroke-width="2" stroke="blue" fill="rgba(0, 0, 255, .2)"><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4" fill="none"></path><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4 V 20 L 4 20 Z" stroke="none"></path></svg>`;
+  const link = document.createElement('a');
+  link.href = `https://finance.yahoo.com/quote/${elt.dataset.stock}`;
+  link.innerHTML = `${elt.innerHTML}<svg width="50" height="20" stroke-width="2" stroke="blue" fill="rgba(0, 0, 255, .2)"><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4" fill="none"></path><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4 V 20 L 4 20 Z" stroke="none"></path></svg>`;
 
-    elt.innerHTML = '';
-    elt.appendChild(link);
+  elt.innerHTML = '';
+  elt.appendChild(link);
 });
 ```
 
 Custom block entities can also be created (have a look at the separate [Draftail documentation](https://www.draftail.org/docs/blocks)), but these are not detailed here since [StreamField](streamfield_topic) is the go-to way to create block-level rich text in Wagtail.
+
+(extending_the_draftail_editor_advanced)=
+
+## Other editor extensions
+
+Draftail has additional APIs for more complex customisations:
+
+-   **Controls** – To add arbitrary UI elements to editor toolbars.
+-   **Decorators** – For arbitrary text decorations / highlighting.
+-   **Plugins** – For direct access to all Draft.js APIs.
+
+### Custom toolbar controls
+
+To add an arbitrary new UI element to editor toolbars, Draftail comes with a [controls API](https://www.draftail.org/docs/arbitrary-controls). Controls can be arbitrary React components, which can get and set the editor state. Note controls update on _every keystroke_ in the editor – make sure they render fast!
+
+Here is an example with a simple sentence counter – first, registering the editor feature in a `wagtail_hooks.py`:
+
+```python
+from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
+
+
+@hooks.register('register_rich_text_features')
+def register_sentences_counter(features):
+    feature_name = 'sentences'
+    features.default_features.append(feature_name)
+
+    features.register_editor_plugin(
+        'draftail',
+        feature_name,
+        ControlFeature({
+            'type': feature_name,
+        },
+        js=['draftail_sentences.js'],
+        ),
+    )
+```
+
+Then, `draftail_sentences.js` declares a React component that will be rendered in the "meta" bottom toolbar of the editor:
+
+```javascript
+const countSentences = (str) =>
+  str ? (str.match(/[.?!…]+./g) || []).length + 1 : 0;
+
+const SentenceCounter = ({ getEditorState }) => {
+  const editorState = getEditorState();
+  const content = editorState.getCurrentContent();
+  const text = content.getPlainText();
+
+  return window.React.createElement('div', {
+    className: 'w-inline-block w-tabular-nums w-help-text w-mr-4',
+  }, `Sentences: ${countSentences(text)}`);
+}
+
+window.draftail.registerPlugin({
+  type: 'sentences',
+  meta: SentenceCounter,
+}, 'controls');
+```
+
+### Text decorators
+
+The [decorators API](https://www.draftail.org/docs/decorators) is how Draftail / Draft.js supports highlighting text with special formatting in the editor. It uses the [CompositeDecorator](https://draftjs.org/docs/advanced-topics-decorators/#compositedecorator) API, with each entry having a `strategy` function to determine what text to target, and a `component` function to render the decoration.
+
+There are two important considerations when using this API:
+
+-   Order matters: only one decorator can render per character in the editor. This includes any entities that are rendered as decorations.
+-   For performance reasons, Draft.js only re-renders decorators that are on the currently-focused line of text.
+
+Here is an example with highlighting of problematic punctuation – first, registering the editor feature in a `wagtail_hooks.py`:
+
+```python
+from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
+
+
+@hooks.register('register_rich_text_features')
+def register_punctuation_highlighter(features):
+    feature_name = 'punctuation'
+    features.default_features.append(feature_name)
+
+    features.register_editor_plugin(
+        'draftail',
+        feature_name,
+        DecoratorFeature({
+            'type': feature_name,
+        },
+            js=['draftail_punctuation.js'],
+        ),
+    )
+```
+
+Then, `draftail_punctuation.js` defines the strategy and the highlighting component:
+
+```javascript
+const PUNCTUATION = /(\.\.\.|!!|\?!)/g;
+
+const punctuationStrategy = (block, callback) => {
+  const text = block.getText();
+  let matches;
+  while ((matches = PUNCTUATION.exec(text)) !== null) {
+    callback(matches.index, matches.index + matches[0].length);
+  }
+};
+
+const errorHighlight = {
+  color: 'var(--w-color-text-error)',
+  outline: '1px solid currentColor',
+}
+
+const PunctuationHighlighter = ({ children }) => (
+  window.React.createElement('span', { style: errorHighlight, title: 'refer to our styleguide' }, children)
+);
+
+window.draftail.registerPlugin({
+  type: 'punctuation',
+  strategy: punctuationStrategy,
+  component: PunctuationHighlighter,
+}, 'decorators');
+```
+
+### Arbitrary plugins
+
+```{warning}
+This is an advanced feature. Please carefully consider whether you really need this.
+```
+
+Draftail supports plugins following the [Draft.js Plugins](https://www.draft-js-plugins.com/) architecture. Such plugins are the most advanced and powerful type of extension for the editor, offering customisation capabilities equal to what would be possible with a custom Draft.js editor.
+
+A common scenario where this API can help is to add bespoke copy-paste processing. Here is a simple example, automatically converting URL anchor hash references to links. First, let’s register the extension in Python:
+
+```python
+@hooks.register('register_rich_text_features')
+def register_anchorify(features):
+    feature_name = 'anchorify'
+    features.default_features.append(feature_name)
+
+    features.register_editor_plugin(
+        'draftail',
+        feature_name,
+        PluginFeature({
+            'type': feature_name,
+        },
+            js=['draftail_anchorify.js'],
+        ),
+    )
+```
+
+Then, in `draftail_anchorify.js`:
+
+```javascript
+const anchorifyPlugin = {
+  type: 'anchorify',
+
+  handlePastedText(text, html, editorState, { setEditorState }) {
+    let nextState = editorState;
+
+    if (text.match(/^#[a-zA-Z0-9_-]+$/ig)) {
+      const selection = nextState.getSelection();
+      let content = nextState.getCurrentContent();
+      content = content.createEntity("LINK", "MUTABLE", { url: text });
+      const entityKey = content.getLastCreatedEntityKey();
+
+      if (selection.isCollapsed()) {
+        content = window.DraftJS.Modifier.insertText(
+          content,
+          selection,
+          text,
+          undefined,
+          entityKey,
+        )
+        nextState = window.DraftJS.EditorState.push(
+          nextState,
+          content,
+          "insert-fragment",
+        );
+      } else {
+        nextState = window.DraftJS.RichUtils.toggleLink(nextState, selection, entityKey);
+      }
+
+      setEditorState(nextState);
+      return "handled";
+    }
+
+    return "not-handled";
+  },
+};
+
+window.draftail.registerPlugin(anchorifyPlugin, 'plugins');
+```
 
 ## Integration of the Draftail widgets
 

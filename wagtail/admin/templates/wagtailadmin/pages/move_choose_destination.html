@@ -10,7 +10,9 @@
             {% csrf_token %}
 
             <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=move_form.new_parent_page %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" with field=move_form.new_parent_page %}
+                </li>
             </ul>
 
             <input type="submit" value="{% trans 'Confirm' %}" class="button">

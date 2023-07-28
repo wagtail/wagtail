@@ -20,4 +20,4 @@ def get_app_submodules(submodule_name):
     """
     for name, module in get_app_modules():
         if module_has_submodule(module, submodule_name):
-            yield name, import_module("%s.%s" % (name, submodule_name))
+            yield name, import_module(f"{name}.{submodule_name}")

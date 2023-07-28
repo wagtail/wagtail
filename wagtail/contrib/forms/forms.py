@@ -157,7 +157,7 @@ class FormBuilder:
         return options
 
     def get_form_class(self):
-        return type(str("WagtailForm"), (BaseForm,), self.formfields)
+        return type("WagtailForm", (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):

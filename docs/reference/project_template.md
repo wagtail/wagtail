@@ -1,5 +1,7 @@
 # The project template
 
+By default, running the `wagtail start` command (e.g. `wagtail start mysite`) will create a new Django project with the following structure:
+
 ```text
 mysite/
     home/
@@ -40,6 +42,16 @@ mysite/
     manage.py
     requirements.txt
 ```
+
+To use a custom template instead, you can specify the `--template` option when running the `wagtail start` command. This option accepts a directory, file path, or URL of a custom project template (similar to {option}`django-admin startproject --template <django:startproject --template>`).
+
+For example, with a custom template hosted as a GitHub repository, you can use a URL like the following:
+
+```shell
+wagtail start myproject --template=https://github.com/githubuser/wagtail-awesome-template/archive/main.zip
+```
+
+The following is a reference for the default project template.
 
 ## The "home" app
 

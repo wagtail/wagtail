@@ -33,6 +33,7 @@ from wagtail.admin.views.generic.preview import (
     PreviewOnEdit,
     PreviewRevision,
 )
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet
@@ -154,7 +155,11 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
+class IndexView(
+    SpreadsheetExportMixin,
+    generic.IndexViewOptionalFeaturesMixin,
+    generic.IndexView,
+):
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -202,6 +207,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             ]
 
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -493,6 +505,11 @@ class HistoryView(ReportView):
         )
 
 
+class InspectView(generic.InspectView):
+    view_name = "inspect"
+    any_permission_required = ["add", "change", "delete"]
+
+
 class PreviewOnCreateView(PreviewOnCreate):
     pass
 
@@ -657,6 +674,12 @@ class SnippetViewSet(ModelViewSet):
     #: If ``filterset_class`` is set, this attribute will be ignored.
     list_filter = None
 
+    #: A list or tuple, where each item is the name of a field, an attribute, or a single-argument callable on the model.
+    list_export = []
+
+    #: The base file name for the exported listing, without extensions. If unset, the model's :attr:`~django.db.models.Options.db_table` will be used instead.
+    export_filename = None
+
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
@@ -674,6 +697,25 @@ class SnippetViewSet(ModelViewSet):
     #: The name of the Wagtail search backend to use for the search in the index view.
     #: If set to a falsy value, the search will fall back to use Django's QuerySet API.
     search_backend_name = "default"
+
+    #: Whether to enable the inspect view. Defaults to ``False``.
+    inspect_view_enabled = False
+
+    #: The model fields or attributes to display in the inspect view.
+    #:
+    #: If the field has a corresponding :meth:`~django.db.models.Model.get_FOO_display`
+    #: method on the model, the method's return value will be used instead.
+    #:
+    #: If you have ``wagtail.images`` installed, and the field's value is an instance of
+    #: ``wagtail.images.models.AbstractImage``, a thumbnail of that image will be rendered.
+    #:
+    #: If you have ``wagtail.documents`` installed, and the field's value is an instance of
+    #: ``wagtail.docs.models.AbstractDocument``, a link to that document will be rendered,
+    #: along with the document title, file extension and size.
+    inspect_view_fields = []
+
+    #: The fields to exclude from the inspect view.
+    inspect_view_fields_exclude = []
 
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
@@ -708,6 +750,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.HistoryView``.
     history_view_class = HistoryView
+
+    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippet.views.snippets.InspectView``.
+    inspect_view_class = InspectView
 
     #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.PreviewRevisionView``.
     revisions_view_class = PreviewRevisionView
@@ -777,6 +822,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The template to use for the history view.
     history_template_name = ""
+
+    #: The template to use for the inspect view.
+    inspect_template_name = ""
 
     def __init__(self, model=None, **kwargs):
         # Allow model to be defined on the class, or passed in via the constructor
@@ -852,6 +900,8 @@ class SnippetViewSet(ModelViewSet):
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
             list_filter=self.list_filter,
+            list_export=self.list_export,
+            export_filename=self.get_export_filename(),
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
@@ -874,6 +924,8 @@ class SnippetViewSet(ModelViewSet):
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
             list_filter=self.list_filter,
+            list_export=self.list_export,
+            export_filename=self.get_export_filename(),
             paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             search_fields=self.search_fields,
@@ -958,6 +1010,18 @@ class SnippetViewSet(ModelViewSet):
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
+        )
+
+    @property
+    def inspect_view(self):
+        return self.inspect_view_class.as_view(
+            model=self.model,
+            template_name=self.get_inspect_template(),
+            permission_policy=self.permission_policy,
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
+            fields=self.inspect_view_fields,
+            fields_exclude=self.inspect_view_fields_exclude,
         )
 
     @property
@@ -1221,6 +1285,9 @@ class SnippetViewSet(ModelViewSet):
         """
         return None
 
+    def get_export_filename(self):
+        return self.export_filename or self.model_opts.db_table
+
     def get_templates(self, action="index", fallback=""):
         """
         Utility function that provides a list of templates to try for a given
@@ -1284,6 +1351,16 @@ class SnippetViewSet(ModelViewSet):
         """
         return self.history_template_name or self.get_templates("history")
 
+    def get_inspect_template(self):
+        """
+        Returns a template to be used when rendering ``inspect_view``. If a
+        template is specified by the ``inspect_template_name`` attribute, that will
+        be used. Otherwise, a list of preferred template names are returned.
+        """
+        return self.inspect_template_name or self.get_templates(
+            "inspect", fallback=self.inspect_view_class.template_name
+        )
+
     def get_admin_url_namespace(self):
         """Returns the URL namespace for the admin URLs for this model."""
         if self.admin_url_namespace:
@@ -1330,6 +1407,11 @@ class SnippetViewSet(ModelViewSet):
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
         ]
+
+        if self.inspect_view_enabled:
+            urlpatterns += [
+                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+            ]
 
         if self.preview_enabled:
             urlpatterns += [

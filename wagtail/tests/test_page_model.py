@@ -271,7 +271,7 @@ class TestSiteRouting(TestCase):
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
         request = get_dummy_request()
-        request.META["HTTP_HOST"] = "%s:%s" % (
+        request.META["HTTP_HOST"] = "{}:{}".format(
             self.events_site.hostname,
             self.events_site.port,
         )
@@ -3017,7 +3017,9 @@ class TestIssue1216(TestCase):
 
         # Check that the url path updated correctly
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
-        expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
+        expected_url_path = "/home/{}/{}/".format(
+            new_event_index_slug, new_christmas_slug
+        )
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
 
 
@@ -3144,7 +3146,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3171,7 +3173,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3198,7 +3200,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost:8888")
+        self.assertEqual(request.headers["host"], "localhost:8888")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3235,17 +3237,17 @@ class TestMakePreviewRequest(TestCase):
             request.META["REMOTE_ADDR"], original_request.META["REMOTE_ADDR"]
         )
         self.assertEqual(
-            request.META["HTTP_X_FORWARDED_FOR"],
+            request.headers["x-forwarded-for"],
             original_request.META["HTTP_X_FORWARDED_FOR"],
         )
         self.assertEqual(
-            request.META["HTTP_COOKIE"], original_request.META["HTTP_COOKIE"]
+            request.headers["cookie"], original_request.META["HTTP_COOKIE"]
         )
         self.assertEqual(
-            request.META["HTTP_USER_AGENT"], original_request.META["HTTP_USER_AGENT"]
+            request.headers["user-agent"], original_request.META["HTTP_USER_AGENT"]
         )
         self.assertEqual(
-            request.META["HTTP_AUTHORIZATION"],
+            request.headers["authorization"],
             original_request.META["HTTP_AUTHORIZATION"],
         )
 
@@ -3274,7 +3276,7 @@ class TestMakePreviewRequest(TestCase):
         # in the absence of an actual Site record where we can access this page,
         # make_preview_request should still provide a hostname that Django's host header
         # validation won't reject
-        self.assertEqual(request.META["HTTP_HOST"], "production.example.com")
+        self.assertEqual(request.headers["host"], "production.example.com")
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
@@ -3286,7 +3288,7 @@ class TestMakePreviewRequest(TestCase):
         request = response.context_data["request"]
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
-        self.assertNotEqual(request.META["HTTP_HOST"], "*")
+        self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
         event_index = Page.objects.get(url_path="/home/events/")
@@ -3611,19 +3613,31 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertFalse(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     def test_when_locked_without_locked_at(self):
@@ -3650,19 +3664,31 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertTrue(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
@@ -3672,7 +3698,12 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
@@ -3685,13 +3716,19 @@ class TestGetLock(TestCase):
             self.assertTrue(lock.for_user(christmas_event.owner))
             self.assertTrue(lock.for_user(moderator))
 
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     def test_when_locked_by_workflow(self):
@@ -3730,25 +3767,54 @@ class TestGetLock(TestCase):
 
     def test_when_scheduled_for_publish(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
+        if settings.USE_TZ:
+            christmas_event.go_live_at = datetime.datetime(
+                2030, 7, 29, 16, 32, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
         rvn = christmas_event.save_revision()
         rvn.publish()
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, ScheduledForPublishLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
+
         if settings.USE_TZ:
-            self.assertEqual(
-                lock.get_message(christmas_event.owner),
-                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 07:32",
-            )
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 30, 2030, 1:32 a.m."
         else:
-            self.assertEqual(
-                lock.get_message(christmas_event.owner),
-                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 16:32",
-            )
+            expected_date_string = "July 29, 2030, 4:32 p.m."
+
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"Page 'Christmas' is locked and has been scheduled to go live at {expected_date_string}",
+        )
 
         # Not even superusers can break this lock
         # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
         superuser = get_user_model().objects.get(email="superuser@example.com")
         self.assertTrue(lock.for_user(superuser))
+
+
+class TestPageCacheKey(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.page = Page.objects.last()
+        self.other_page = Page.objects.first()
+
+    def test_cache_key_consistent(self):
+        self.assertEqual(self.page.cache_key, self.page.cache_key)
+        self.assertEqual(self.other_page.cache_key, self.other_page.cache_key)
+
+    def test_no_queries(self):
+        with self.assertNumQueries(0):
+            self.page.cache_key
+            self.other_page.cache_key
+
+    def test_changes_when_slug_changes(self):
+        original_cache_key = self.page.cache_key
+        self.page.slug = "something-else"
+        self.page.save()
+        self.assertNotEqual(self.page.cache_key, original_cache_key)

@@ -14,13 +14,14 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Loic Teixeira, 2018,2020-2022\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +100,7 @@ msgstr[2] "Utilisé(e) %(usage_count)s fois"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer ce %(snippet_type_name)s ?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce/cette %(snippet_type_name)s ?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
@@ -127,13 +128,13 @@ msgstr "Désolé, aucun fragment ne correspond à « <em>%(search_query)s</em>�
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">en créer un maintenant</a> ?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">en créer un maintenant</a> ?"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -161,7 +162,7 @@ msgstr "Enregistrer le brouillon"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
-msgstr "Nouveau %(snippet_type_name)s"
+msgstr "Nouveau(elle) %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Nouveau"
@@ -228,11 +229,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a "
-"href=\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
+"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a href="
+"\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
 
 msgid "Live version"
 msgstr "Version publiée"

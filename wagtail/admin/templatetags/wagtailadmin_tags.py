@@ -19,7 +19,7 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.html import avoid_wrapping, format_html, format_html_join, json_script
+from django.utils.html import avoid_wrapping, json_script
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
@@ -343,7 +343,23 @@ def render_with_errors(bound_field):
             errors=bound_field.errors,
         )
     else:
-        return bound_field.as_widget()
+        attrs = {}
+        # If the widget doesn't have an aria-describedby attribute,
+        # and the field has help text, and the field has an id,
+        # add an aria-describedby attribute pointing to the help text.
+        # In this case, the corresponding help text element's id is set in the
+        # wagtailadmin/shared/field.html template.
+
+        # In Django 5.0 and up, this is done automatically, but we want to keep
+        # this code because we use a different convention for the help text id
+        # (we use -helptext suffix instead of Django's _helptext).
+        if (
+            not bound_field.field.widget.attrs.get("aria-describedby")
+            and bound_field.field.help_text
+            and bound_field.id_for_label
+        ):
+            attrs["aria-describedby"] = f"{bound_field.id_for_label}-helptext"
+        return bound_field.as_widget(attrs=attrs)
 
 
 @register.filter
@@ -388,113 +404,6 @@ def querystring(context, **kwargs):
             querydict[key] = str(value)
 
     return "?" + querydict.urlencode()
-
-
-@register.simple_tag(takes_context=True)
-def page_table_header_label(context, label=None, parent_page_title=None, **kwargs):
-    """
-    Wraps table_header_label to add a title attribute based on the parent page title and the column label
-    """
-    if label:
-        translation_context = {"parent": parent_page_title, "label": label}
-        ascending_title_text = (
-            _(
-                "Sort the order of child pages within '%(parent)s' by '%(label)s' in ascending order."
-            )
-            % translation_context
-        )
-        descending_title_text = (
-            _(
-                "Sort the order of child pages within '%(parent)s' by '%(label)s' in descending order."
-            )
-            % translation_context
-        )
-    else:
-        ascending_title_text = None
-        descending_title_text = None
-
-    return table_header_label(
-        context,
-        label=label,
-        ascending_title_text=ascending_title_text,
-        descending_title_text=descending_title_text,
-        **kwargs,
-    )
-
-
-@register.simple_tag(takes_context=True)
-def table_header_label(
-    context,
-    label=None,
-    sortable=True,
-    ordering=None,
-    sort_context_var="ordering",
-    sort_param="ordering",
-    sort_field=None,
-    ascending_title_text=None,
-    descending_title_text=None,
-):
-    """
-    A label to go in a table header cell, optionally with a 'sort' link that alternates between
-    forward and reverse sorting
-
-    label = label text
-    ordering = current active ordering. If not specified, we will fetch it from the template context variable
-        given by sort_context_var. (We don't fetch it from the URL because that wouldn't give the view method
-        the opportunity to set a default)
-    sort_param = URL parameter that indicates the current active ordering
-    sort_field = the value for sort_param that indicates that sorting is currently on this column.
-        For example, if sort_param='ordering' and sort_field='title', then a URL parameter of
-        ordering=title indicates that the listing is ordered forwards on this column, and a URL parameter
-        of ordering=-title indicated that the listing is ordered in reverse on this column
-    ascending_title_text = title attribute to use on the link when the link action will sort in ascending order
-    descending_title_text = title attribute to use on the link when the link action will sort in descending order
-
-    To disable sorting on this column, set sortable=False or leave sort_field unspecified.
-    """
-    if not sortable or not sort_field:
-        # render label without a sort link
-        return label
-
-    if ordering is None:
-        ordering = context.get(sort_context_var)
-    reverse_sort_field = "-%s" % sort_field
-
-    if ordering == sort_field:
-        # currently ordering forwards on this column; link should change to reverse ordering
-        attrs = {
-            "href": querystring(context, **{sort_param: reverse_sort_field}),
-            "class": "icon icon-arrow-down-after teal",
-        }
-        if descending_title_text is not None:
-            attrs["title"] = descending_title_text
-
-    elif ordering == reverse_sort_field:
-        # currently ordering backwards on this column; link should change to forward ordering
-        attrs = {
-            "href": querystring(context, **{sort_param: sort_field}),
-            "class": "icon icon-arrow-up-after teal",
-        }
-        if ascending_title_text is not None:
-            attrs["title"] = ascending_title_text
-
-    else:
-        # not currently ordering on this column; link should change to forward ordering
-        attrs = {
-            "href": querystring(context, **{sort_param: sort_field}),
-            "class": "icon icon-arrow-down-after",
-        }
-        if ascending_title_text is not None:
-            attrs["title"] = ascending_title_text
-
-    attrs_string = format_html_join(" ", '{}="{}"', attrs.items())
-
-    return format_html(
-        # need whitespace around label for correct positioning of arrow icon
-        "<a {attrs}> {label} </a>",
-        attrs=attrs_string,
-        label=label,
-    )
 
 
 @register.simple_tag(takes_context=True)
@@ -720,16 +629,17 @@ def avatar_url(user, size=50, gravatar_only=False):
 
 
 @register.simple_tag(takes_context=True)
-def admin_theme_name(context):
+def admin_theme_classname(context):
     """
     Retrieves the theme name for the current user.
     """
     user = context["request"].user
-    return (
+    theme_name = (
         user.wagtail_userprofile.theme
         if hasattr(user, "wagtail_userprofile")
         else "system"
     )
+    return f"w-theme-{theme_name}"
 
 
 @register.simple_tag
@@ -1077,7 +987,7 @@ def component(context, obj, fallback_render_method=False):
     if fallback_render_method and not has_render_html_method and hasattr(obj, "render"):
         return obj.render()
     elif not has_render_html_method:
-        raise ValueError("Cannot render %r as a component" % (obj,))
+        raise ValueError(f"Cannot render {obj!r} as a component")
 
     return obj.render_html(context)
 

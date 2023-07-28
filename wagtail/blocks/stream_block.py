@@ -429,7 +429,7 @@ class StreamValue(MutableSequence):
 
         def __init__(self, *args, **kwargs):
             self.id = kwargs.pop("id")
-            super(StreamValue.StreamChild, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
 
         @property
         def block_type(self):
@@ -534,8 +534,7 @@ class StreamValue(MutableSequence):
             return result
 
         def __iter__(self):
-            for block_name in self.block_names:
-                yield block_name
+            yield from self.block_names
 
         def __len__(self):
             return len(self.block_names)
@@ -710,7 +709,7 @@ class StreamValue(MutableSequence):
         return len(self._bound_blocks)
 
     def __repr__(self):
-        return "<%s %r>" % (type(self).__name__, list(self))
+        return f"<{type(self).__name__} {list(self)!r}>"
 
     def render_as_block(self, context=None):
         return self.stream_block.render(self, context=context)

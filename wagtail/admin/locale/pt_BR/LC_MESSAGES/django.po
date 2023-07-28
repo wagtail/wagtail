@@ -14,6 +14,7 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Gustavo Simões, 2022
 # Gustavo Simões, 2022
+# Hernandison Da Silva Bispo, 2023
 # Iuri L. Machado, 2021-2022
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
@@ -26,8 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>, "
-"2020\n"
+"Last-Translator: Hernandison Da Silva Bispo, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -553,11 +553,11 @@ msgstr "Nome"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Nenhuma coleção foi criada. Porque não <a "
-"href=\"%(add_collection_url)s\">adicionar uma</a>?"
+"Nenhuma coleção foi criada. Porque não <a href=\"%(add_collection_url)s"
+"\">adicionar uma</a>?"
 
 msgid "Yes, delete"
 msgstr "Sim, remover"
@@ -1427,14 +1427,13 @@ msgstr "Criar"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Os workflows também se aplicam a sub-páginas. Se você selecionar a página "
-"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a "
-"href=\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu "
-"fluxo de trabalho  atribuído."
+"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a href="
+"\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu fluxo de "
+"trabalho  atribuído."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -1480,15 +1479,15 @@ msgstr[2] "+%(counter)s mais "
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum fluxo de trabalho foi criado. Por que não <a "
-"href=\"%(add_url)s\">adicionar um</a>?"
+"Nenhum fluxo de trabalho foi criado. Por que não <a href=\"%(add_url)s"
+"\">adicionar um</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Não há fluxos de trabalho habilitados. Por que não <a "
-"href=\"%(add_url)s\">adicionar um</a>?"
+"Não há fluxos de trabalho habilitados. Por que não <a href=\"%(add_url)s"
+"\">adicionar um</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que deseja criar."
@@ -1953,8 +1952,8 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Você está visualizando uma versão anterior desta página de "
-"<b>%(created_at)s</b> por %(user)s"
+"Você está visualizando uma versão anterior desta página de <b>"
+"%(created_at)s</b> por %(user)s"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2164,6 +2163,12 @@ msgstr "Código"
 msgid "Reports"
 msgstr "Relatórios"
 
+msgid "Editor Guide"
+msgstr "Guia do editor"
+
+msgid "Help"
+msgstr "Ajuda"
+
 msgid "Yes"
 msgstr "Sim"
 
@@ -2178,6 +2183,17 @@ msgstr "Limpar escolha"
 
 msgid "Choose another page"
 msgstr "Escolher outra página"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Tags de várias palavras com espaços serão automaticamente colocadas entre "
+"aspas duplas (\")."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"As tags podem consistir apenas em uma única palavra, sem espaços permitidos."
 
 msgid "Choose another task"
 msgstr "Escolha outra tarefa"

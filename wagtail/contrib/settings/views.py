@@ -35,7 +35,7 @@ def get_model_from_url_params(app_name, model_name):
     return model
 
 
-@lru_cache()
+@lru_cache
 def get_setting_edit_handler(model):
     if hasattr(model, "edit_handler"):
         edit_handler = model.edit_handler

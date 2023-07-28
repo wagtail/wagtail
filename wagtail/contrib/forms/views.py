@@ -165,9 +165,7 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
         if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.is_export = self.request.GET.get("export") in self.FORMATS
         if self.is_export:
-            self.paginate_by = None
             data_fields = self.form_page.get_data_fields()
             # Set the export fields and the headings for spreadsheet export
             self.list_export = [field for field, label in data_fields]

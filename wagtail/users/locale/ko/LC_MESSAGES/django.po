@@ -173,11 +173,11 @@ msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
-"href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
+"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a href="
+"\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
 
 msgid "Delete user"
 msgstr "사용자 삭제"
@@ -217,6 +217,11 @@ msgstr "활성화"
 
 msgid "Inactive"
 msgstr "비활성화"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s만큼 일치"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

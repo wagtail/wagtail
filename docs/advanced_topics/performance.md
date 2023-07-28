@@ -24,11 +24,9 @@ CACHES = {
 }
 ```
 
-### Caching image renditions
+(custom_image_renditions_cache)=
 
-If you define a cache named 'renditions' (typically alongside your 'default' cache),
-Wagtail will cache image rendition lookups, which may improve the performance of pages
-which include many images.
+To use a different cache backend for [caching image renditions](caching_image_renditions), configure the "renditions" backend:
 
 ```python
 CACHES = {
@@ -101,6 +99,37 @@ Wagtail supports automatic cache invalidation for Varnish/Squid. See [](frontend
 For some images, it may be beneficial to lazy load images, so the rest of the page can continue to load. It can be configured site-wide [](adding_default_attributes_to_images) or per-image [](image_tag_alt). For more details you can read about the [`loading='lazy'` attribute](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading#images_and_iframes) and the [`'decoding='async'` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-decoding) or this [web.dev article on lazy loading images](https://web.dev/lazy-loading-images/).
 
 This optimisation is already handled for you for images in the admin site.
+
+## Template fragment caching
+
+Django supports [template fragment caching](https://docs.djangoproject.com/en/stable/topics/cache/#template-fragment-caching), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags: [`{% wagtailcache %}`](wagtailcache) and [`{% wagtailpagecache %}`](wagtailpagecache) which both avoid these issues.
+
+(page_cache_key)=
+
+## Page cache key
+
+It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.Page.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
+
+```python
+from django.core.cache import cache
+
+result = page.expensive_operation()
+cache.set("expensive_result_" + page.cache_key, result, 3600)
+
+# Later...
+cache.get("expensive_result_" + page.cache_key)
+```
+
+To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.Page.get_cache_key_components`:
+
+```python
+def get_cache_key_components(self):
+    components = super().get_cache_key_components()
+    components.append(self.external_slug)
+    return components
+```
+
+Manually updating a page might not result in a change to its cache key, unless the default component field values are modified directly. To be sure of a change in the cache key value, try saving the changes to a `Revision` instead, and then publishing it.
 
 ## Django
 

@@ -1,6 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 {% fragment as nav_icon_classes %}w-w-4 w-h-4 group-hover:w-transform group-hover:w-scale-110{% endfragment %}
-{% fragment as nav_icon_button_classes %}w-w-slim-header w-h-slim-header w-bg-transparent w-border-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition w-group hover:w-text-text-label focus:w-text-text-label expanded:w-text-text-label expanded:w-border-y-2 expanded:w-border-b-current{% endfragment %}
+{% fragment as nav_icon_button_classes %}w-w-slim-header w-h-slim-header w-bg-transparent w-border-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition w-group hover:w-text-text-label focus:w-text-text-label expanded:w-text-text-label expanded:w-border-y-2 expanded:w-border-b-current w-shrink-0{% endfragment %}
+{% fragment as nav_icon_counter_classes %}-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-text-text-button w-border w-border-surface-page w-rounded-[1rem]{% endfragment %}
 {# Z index 99 to ensure header is always above  #}
 <header class="w-slim-header w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-surface-header w-border-b w-border-border-furniture w-px-0 w-py-0 w-mb-0 w-relative w-top-0 w-z-header sm:w-sticky w-min-h-slim-header">
 

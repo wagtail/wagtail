@@ -2,10 +2,6 @@
 
 # StreamField validation
 
-```{versionadded} 5.0
-Support for custom validation logic on StreamField blocks was improved and simplified.
-```
-
 All StreamField blocks implement a `clean` method which accepts a block value and returns a cleaned version of that value, or raises a `ValidationError` if the value fails validation. Built-in validation rules, such as checking that a URLBlock value is a correctly-formatted URL, are implemented through this method. Additionally, for blocks that act as containers for other blocks, such as StructBlock, the `clean` method recursively calls the `clean` methods of its child blocks and handles raising validation errors back to the caller as required.
 
 The `clean` method can be overridden on block subclasses to implement custom validation logic. For example, a StructBlock that requires either one of its child blocks to be filled in could be implemented as follows:

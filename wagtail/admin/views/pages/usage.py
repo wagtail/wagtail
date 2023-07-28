@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.ui.tables.pages import (
     PageStatusColumn,
+    PageTable,
     PageTitleColumn,
     ParentPageColumn,
 )
@@ -30,6 +31,7 @@ class ContentTypeUseView(BaseListingView):
         Column("type", label=_("Type"), accessor="page_type_display_name", width="12%"),
         PageStatusColumn("status", label=_("Status"), width="12%"),
     ]
+    table_class = PageTable
     table_classname = "listing align-top"
 
     def get(self, request, *, content_type_app_name, content_type_model_name):

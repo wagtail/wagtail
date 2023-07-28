@@ -185,8 +185,7 @@ class WagtailTestUtils:
             yield haystack
         else:
             for child in haystack.children:
-                for script_tag in self._find_template_script_tags(child):
-                    yield script_tag
+                yield from self._find_template_script_tags(child)
 
     def assertTagInHTML(
         self, needle, haystack, count=None, msg_prefix="", allow_extra_attrs=False

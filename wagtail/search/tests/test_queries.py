@@ -124,14 +124,14 @@ class TestGarbageCollectCommand(TestCase):
         # should be deleted by the search_garbage_collect command.
         querie_ids_to_be_deleted = []
         for i in range(10):
-            q = models.Query.get("Hello {}".format(i))
+            q = models.Query.get(f"Hello {i}")
             q.add_hit(date=old_hit_date)
             querie_ids_to_be_deleted.append(q.id)
 
         # Add 10 hits that are less than one week old. These ones should not be deleted.
         recent_querie_ids = []
         for i in range(10):
-            q = models.Query.get("World {}".format(i))
+            q = models.Query.get(f"World {i}")
             q.add_hit(date=recent_hit_date)
             recent_querie_ids.append(q.id)
 
@@ -460,7 +460,7 @@ class TestBalancedReduce(SimpleTestCase):
                 self.b = b
 
             def __repr__(self):
-                return "(%s %s)" % (self.a, self.b)
+                return f"({self.a} {self.b})"
 
         self.assertEqual(
             repr(

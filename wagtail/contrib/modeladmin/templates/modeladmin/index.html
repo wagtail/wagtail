@@ -28,19 +28,7 @@
                             {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
                         {% endif %}
                         {% if view.list_export %}
-                            <div class="dropdown dropdown-button match-width col">
-                                <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor button--icon">
-                                    {% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}
-                                </a>
-                                <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                                <ul>
-                                    <li>
-                                        <a class="button bicolor button--icon" href="?export=csv&{{ request.GET.urlencode }}">{% icon name="download" wrapped=1 %}
-                                            {% trans 'Download CSV' %}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            {% include view.export_buttons_template_name %}
                         {% endif %}
                     </div>
                 {% endif %}

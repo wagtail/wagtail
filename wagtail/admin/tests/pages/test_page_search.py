@@ -24,10 +24,8 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         )
         self.user = self.login()
 
-    def get(self, params=None, **extra):
-        return self.client.get(
-            reverse("wagtailadmin_pages:search"), params or {}, **extra
-        )
+    def get(self, params=None, url_name="wagtailadmin_pages:search", **extra):
+        return self.client.get(reverse(url_name), params or {}, **extra)
 
     def test_view(self):
         response = self.get()
@@ -64,7 +62,9 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "There is one matching page")
 
     def test_ajax(self):
-        response = self.get({"q": "Hello"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        response = self.get(
+            {"q": "Hello"}, url_name="wagtailadmin_pages:search_results"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateNotUsed(response, "wagtailadmin/pages/search.html")
         self.assertTemplateUsed(response, "wagtailadmin/pages/search_results.html")

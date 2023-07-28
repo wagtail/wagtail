@@ -32,6 +32,11 @@ from wagtail.test.utils.timestamps import submittable_timestamp
 
 
 class TestPageCreation(WagtailTestUtils, TestCase):
+    STATUS_TOGGLE_BADGE_REGEX = (
+        r'data-side-panel-toggle="status"[^<]+<svg[^<]+<use[^<]+</use[^<]+</svg[^<]+'
+        r"<div data-side-panel-toggle-counter[^>]+w-bg-critical-200[^>]+>\s*%(num_errors)s\s*</div>"
+    )
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -526,6 +531,20 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             "Go live date/time must be before expiry date/time",
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
 
@@ -551,6 +570,20 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Check that a form error was raised
         self.assertFormError(
             response, "form", "expire_at", "Expiry date/time must be in the future"
+        )
+
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 1
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning

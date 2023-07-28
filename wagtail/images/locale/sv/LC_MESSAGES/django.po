@@ -412,19 +412,19 @@ msgstr "Ledsen, inga bilder matchar <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några bilder till den här samlingen. Varför inte <a "
 "href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har inte laddat upp några bilder  Varför inte <a "
-"href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
+"Du har inte laddat upp några bilder  Varför inte <a href="
+"\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
 
 msgid "Generating URL"
 msgstr "Genererar URL"

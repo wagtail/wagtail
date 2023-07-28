@@ -715,7 +715,7 @@ msgid "Page scheduled for publishing"
 msgstr "Сторінку заплановано для публікації"
 
 msgid "Unschedule publication"
-msgstr "Не запланована публікація"
+msgstr "Відмінити заплановану публікацію"
 
 #, python-format
 msgid ""

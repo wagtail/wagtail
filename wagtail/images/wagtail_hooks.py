@@ -126,6 +126,7 @@ def register_image_operations():
         ("scale", image_operations.ScaleOperation),
         ("jpegquality", image_operations.JPEGQualityOperation),
         ("webpquality", image_operations.WebPQualityOperation),
+        ("avifquality", image_operations.AvifQualityOperation),
         ("format", image_operations.FormatOperation),
         ("bgcolor", image_operations.BackgroundColorOperation),
     ]
@@ -139,7 +140,9 @@ class ImagesSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_images": get_image_model().objects.count(),
+            "total_images": permission_policy.instances_user_has_any_permission_for(
+                self.request.user, {"add", "change", "delete", "choose"}
+            ).count(),
             "site_name": site_name,
         }
 

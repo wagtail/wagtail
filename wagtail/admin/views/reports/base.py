@@ -20,9 +20,7 @@ class ReportView(SpreadsheetExportMixin, IndexView):
 
     def get(self, request, *args, **kwargs):
         self.filters, self.object_list = self.get_filtered_queryset()
-        self.is_export = self.request.GET.get("export") in self.FORMATS
         if self.is_export:
-            self.paginate_by = None
             self.object_list = self.decorate_paginated_queryset(self.object_list)
             return self.as_spreadsheet(self.object_list, self.request.GET.get("export"))
         else:

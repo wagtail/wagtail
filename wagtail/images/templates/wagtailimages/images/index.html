@@ -7,13 +7,6 @@
 {% block extra_js %}
     {{ block.super }}
     <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailimages:listing_results' %}",
-            termInput: "#id_q",
-            targetOutput: "#image-results"
-        }
-    </script>
-    <script>
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
     </script>
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
@@ -21,14 +14,14 @@
 
 {% block content %}
     {% trans "Images" as im_str %}
-
+    {% url 'wagtailimages:listing_results' as search_results_url %}
     {% if user_can_add %}
         {% trans "Add an image" as add_img_str %}
         {% url "wagtailimages:add_multiple" as add_link %}
         {% querystring as querystring %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str action_url=add_link|add:querystring icon="image" action_text=add_img_str search_url="wagtailimages:index" %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str action_url=add_link|add:querystring icon="image" action_text=add_img_str search_url="wagtailimages:index" search_results_url=search_results_url search_target="#image-results" %}
     {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" search_results_url=search_results_url search_target="#image-results" %}
     {% endif %}
 
     <div class="nice-padding">

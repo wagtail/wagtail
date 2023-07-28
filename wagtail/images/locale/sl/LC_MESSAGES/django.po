@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -166,6 +166,14 @@ msgstr "slika"
 msgid "images"
 msgstr "slike"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Dodajte oznake 1 sliki"
+msgstr[1] "Dodajte oznake %(counter)s slikama"
+msgstr[2] "Dodajte oznake %(counter)s slikam"
+msgstr[3] "Dodajte oznake %(counter)s slikam"
+
 msgid "Add tags to images"
 msgstr "Dodaj oznake k slikam"
 
@@ -188,6 +196,14 @@ msgstr "Da, dodaj"
 
 msgid "No, don't add"
 msgstr "Ne, ne dodaj"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Dodajte 1 sliko v novo zbirko"
+msgstr[1] "Dodajte %(counter)s sliki v novo zbirko"
+msgstr[2] "Dodajte %(counter)s slik v novo zbirko"
+msgstr[3] "Dodajte %(counter)s slik v novo zbirko"
 
 msgid "Add images to collection"
 msgstr "Dodajte slike v zbirko"
@@ -285,6 +301,13 @@ msgstr "V to zbirko niste naložili nobene slike."
 
 msgid "You haven't uploaded any images."
 msgstr "Naložili niste nobene datoteke. Zakaj je ne bi naložili sedaj?"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zakaj ne bi <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>enega naložili zdaj</a>?"
 
 msgid "Choose a format"
 msgstr "Izberite obliko zapisa"
@@ -395,19 +418,19 @@ msgstr "Žal ni slike, ki bi ustrezala \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V to zbirko niste naložili nobene slike. Zakaj ne bi <a "
-"href=\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
+"V to zbirko niste naložili nobene slike. Zakaj ne bi <a href="
+"\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Naložili niste nobene datoteke. Zakaj je <a "
-"href=\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
+"Naložili niste nobene datoteke. Zakaj je <a href="
+"\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
 
 msgid "Generating URL"
 msgstr "Generiranje URL"

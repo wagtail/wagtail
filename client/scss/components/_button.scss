@@ -77,13 +77,13 @@
   &.no,
   &.serious {
     background-color: theme('colors.surface-page');
-    border: 1px solid theme('colors.critical.200');
-    color: theme('colors.critical.200');
+    border: 1px solid theme('colors.text-error');
+    color: theme('colors.text-error');
 
     &:hover {
-      color: theme('colors.critical.200');
-      border-color: theme('colors.critical.200');
-      background-color: theme('colors.critical.50');
+      color: theme('colors.text-button-critical-outline-hover');
+      border-color: theme('colors.text-button-critical-outline-hover');
+      background-color: theme('colors.surface-button-critical-hover');
     }
   }
 

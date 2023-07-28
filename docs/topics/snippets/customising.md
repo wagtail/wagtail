@@ -53,6 +53,7 @@ class MemberViewSet(SnippetViewSet):
     icon = "user"
     list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
     list_per_page = 50
+    inspect_view_enabled = True
     admin_url_namespace = "member_views"
     base_url_path = "internal/member"
     filterset_class = MemberFilterSet
@@ -93,6 +94,26 @@ You can add the ability to filter the listing view by defining a {attr}`~wagtail
 
 If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
+You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+
+```{versionadded} 5.1
+The ability to export the listing view was added.
+```
+
+## Inspect view
+
+```{versionadded} 5.1
+The ability to enable inspect view was added.
+```
+
+The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_enabled` on your `SnippetViewSet` class.
+
+When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular snippet.
+
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields` or the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_fields_exclude` attributes to your `SnippetViewSet` class.
+
+(wagtailsnippets_templates)=
+
 ## Templates
 
 For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
@@ -113,10 +134,6 @@ For some common views, Wagtail also allows you to override the template used by 
 -   `HistoryView`: `history.html`, {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.history_template_name`, or {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_history_template()`
 
 ## Menu item
-
-```{versionadded} 5.0
-The ability to have a separate menu item was added.
-```
 
 By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. You can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the Settings menu, you can set {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.add_to_settings_menu` to `True`. The menu item will use the icon specified on the `SnippetViewSet` and it will link to the index view for the snippet model.
 

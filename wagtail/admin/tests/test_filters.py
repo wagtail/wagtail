@@ -54,20 +54,20 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         expected_html = """
             <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">%(david_username)s</option>
-                <option value="%(kevin)s" data-filter-value="%(actors)s">%(kevin_username)s</option>
-                <option value="%(morten)s" data-filter-value="%(musicians)s">%(morten_username)s</option>
+                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
+                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
+                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
             </select>
-        """ % {
-            "david": self.david.pk,
-            "kevin": self.kevin.pk,
-            "morten": self.morten.pk,
-            "musicians": self.musicians.pk,
-            "actors": self.actors.pk,
-            "david_username": self.david.get_username(),
-            "kevin_username": self.kevin.get_username(),
-            "morten_username": self.morten.get_username(),
-        }
+        """.format(
+            david=self.david.pk,
+            kevin=self.kevin.pk,
+            morten=self.morten.pk,
+            musicians=self.musicians.pk,
+            actors=self.actors.pk,
+            david_username=self.david.get_username(),
+            kevin_username=self.kevin.get_username(),
+            morten_username=self.morten.get_username(),
+        )
         self.assertHTMLEqual(html, expected_html)
 
     def test_with_callable(self):
@@ -83,18 +83,18 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         expected_html = """
             <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">%(david_username)s</option>
-                <option value="%(kevin)s" data-filter-value="%(actors)s">%(kevin_username)s</option>
-                <option value="%(morten)s" data-filter-value="%(musicians)s">%(morten_username)s</option>
+                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
+                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
+                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
             </select>
-        """ % {
-            "david": self.david.pk,
-            "kevin": self.kevin.pk,
-            "morten": self.morten.pk,
-            "musicians": self.musicians.pk,
-            "actors": self.actors.pk,
-            "david_username": self.david.get_username(),
-            "kevin_username": self.kevin.get_username(),
-            "morten_username": self.morten.get_username(),
-        }
+        """.format(
+            david=self.david.pk,
+            kevin=self.kevin.pk,
+            morten=self.morten.pk,
+            musicians=self.musicians.pk,
+            actors=self.actors.pk,
+            david_username=self.david.get_username(),
+            kevin_username=self.kevin.get_username(),
+            morten_username=self.morten.get_username(),
+        )
         self.assertHTMLEqual(html, expected_html)

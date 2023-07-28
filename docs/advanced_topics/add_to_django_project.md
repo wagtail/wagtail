@@ -328,7 +328,7 @@ WAGTAIL_SITE_NAME = 'My Project'
 # Replace the search backend
 #WAGTAILSEARCH_BACKENDS = {
 #  'default': {
-#    'BACKEND': 'wagtail.search.backends.elasticsearch5',
+#    'BACKEND': 'wagtail.search.backends.elasticsearch8',
 #    'INDEX': 'myapp'
 #  }
 #}

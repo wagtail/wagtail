@@ -7,13 +7,13 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Dict, Iterable, List, Optional, Union
+from typing import Dict, Iterable, List, Union
 
 import willow
 from django.apps import apps
 from django.conf import settings
 from django.core import checks
-from django.core.cache import InvalidCacheBackendError, caches
+from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -22,7 +22,7 @@ from django.db import models
 from django.db.models import Q
 from django.forms.utils import flatatt
 from django.urls import reverse
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, classproperty
 from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -49,6 +49,7 @@ logger = logging.getLogger("wagtail.images")
 
 
 IMAGE_FORMAT_EXTENSIONS = {
+    "avif": ".avif",
     "jpeg": ".jpg",
     "png": ".png",
     "gif": ".gif",
@@ -174,7 +175,7 @@ class ImageFileMixin:
                     image_file = storage.open(self.file.name, "rb")
 
                 close_file = True
-        except IOError as e:
+        except OSError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
             raise SourceImageIOError(str(e))
@@ -427,13 +428,6 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except AttributeError:
             pass
 
-    @property
-    def renditions_cache(self) -> Optional[BaseCache]:
-        try:
-            return caches["renditions"]
-        except InvalidCacheBackendError:
-            return None
-
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
@@ -455,11 +449,10 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        if self.renditions_cache:
-            cache_key = Rendition.construct_cache_key(
-                self.id, filter.get_cache_key(self), filter.spec
-            )
-            self.renditions_cache.set(cache_key, rendition)
+        cache_key = Rendition.construct_cache_key(
+            self, filter.get_cache_key(self), filter.spec
+        )
+        Rendition.cache_backend.set(cache_key, rendition)
 
         return rendition
 
@@ -523,18 +516,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             self._add_to_prefetched_renditions(rendition)
             renditions[filter] = rendition
 
-        # If rendition caching is enabled, update the cache
-        if self.renditions_cache:
-            cache_additions = {
-                Rendition.construct_cache_key(
-                    self.id, filter.get_cache_key(self), filter.spec
-                ): rendition
-                for filter, rendition in renditions.items()
-                # prevent writing of cached data back to the cache
-                if not getattr(rendition, "_from_cache", False)
-            }
-            if cache_additions:
-                self.renditions_cache.set_many(cache_additions)
+        # Update the cache
+        cache_additions = {
+            Rendition.construct_cache_key(
+                self, filter.get_cache_key(self), filter.spec
+            ): rendition
+            for filter, rendition in renditions.items()
+            # prevent writing of cached data back to the cache
+            if not getattr(rendition, "_from_cache", False)
+        }
+        if cache_additions:
+            Rendition.cache_backend.set_many(cache_additions)
 
         # Return a dict in the expected format
         return {filter.spec: rendition for filter, rendition in renditions.items()}
@@ -588,17 +580,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Renditions are not prefetched, so attempt to find suitable
             # items in the cache or database
 
-            # Query the cache first (if enabled)
-            if self.renditions_cache is not None:
-                cache_keys = [
-                    Rendition.construct_cache_key(
-                        self.id, filter.get_cache_key(self), spec
-                    )
-                    for spec, filter in filters_by_spec.items()
-                ]
-                for rendition in self.renditions_cache.get_many(cache_keys).values():
-                    filter = filters_by_spec[rendition.filter_spec]
-                    found[filter] = rendition
+            # Query the cache first
+            cache_keys = [
+                Rendition.construct_cache_key(self, filter.get_cache_key(self), spec)
+                for spec, filter in filters_by_spec.items()
+            ]
+            for rendition in Rendition.cache_backend.get_many(cache_keys).values():
+                filter = filters_by_spec[rendition.filter_spec]
+                found[filter] = rendition
 
             # For items not found in the cache, look in the database
             not_found = [f for f in filters if f not in found]
@@ -929,6 +918,7 @@ class Filter:
             else:
                 # Convert bmp and webp to png by default
                 default_conversions = {
+                    "avif": "png",
                     "bmp": "png",
                     "webp": "png",
                 }
@@ -974,9 +964,21 @@ class Filter:
                 elif "webp-quality" in env:
                     quality = env["webp-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
+                    quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 80)
 
                 return willow.save_as_webp(output, quality=quality)
+            elif output_format == "avif":
+                # Allow changing of AVIF compression quality
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_avif(output, lossless=True)
+                elif "avif-quality" in env:
+                    quality = env["avif-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
+                return willow.save_as_avif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             raise UnknownOutputImageFormatError(
@@ -1083,7 +1085,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         if focal_point:
             horz = int((focal_point.x * 100) // self.width)
             vert = int((focal_point.y * 100) // self.height)
-            return "background-position: {}% {}%;".format(horz, vert)
+            return f"background-position: {horz}% {vert}%;"
         else:
             return "background-position: 50% 50%;"
 
@@ -1094,7 +1096,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
         attrs.update(extra_attributes)
 
-        return mark_safe("<img{}>".format(flatatt(attrs)))
+        return mark_safe(f"<img{flatatt(attrs)}>")
 
     def __html__(self):
         return self.img_tag()
@@ -1106,7 +1108,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(AbstractRendition, cls).check(**kwargs)
+        errors = super().check(**kwargs)
         if not cls._meta.abstract:
             if not any(
                 set(constraint) == {"image", "filter_spec", "focal_point_key"}
@@ -1126,19 +1128,25 @@ class AbstractRendition(ImageFileMixin, models.Model):
         return errors
 
     @staticmethod
-    def construct_cache_key(image_id, filter_cache_key, filter_spec):
-        return "image-{}-{}-{}".format(image_id, filter_cache_key, filter_spec)
+    def construct_cache_key(image, filter_cache_key, filter_spec):
+        return "wagtail-rendition-" + "-".join(
+            [str(image.id), image.file_hash, filter_cache_key, filter_spec]
+        )
+
+    @classproperty
+    def cache_backend(cls) -> BaseCache:
+        try:
+            return caches["renditions"]
+        except InvalidCacheBackendError:
+            return caches[DEFAULT_CACHE_ALIAS]
+
+    def get_cache_key(self):
+        return self.construct_cache_key(
+            self.image, self.focal_point_key, self.filter_spec
+        )
 
     def purge_from_cache(self):
-        try:
-            cache = caches["renditions"]
-            cache.delete(
-                self.construct_cache_key(
-                    self.image_id, self.focal_point_key, self.filter_spec
-                )
-            )
-        except InvalidCacheBackendError:
-            pass
+        self.cache_backend.delete(self.get_cache_key())
 
     class Meta:
         abstract = True

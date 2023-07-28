@@ -55,9 +55,9 @@ class Lexeme(LexemeCombinable, Value):
             label += self.weight
 
         if label:
-            param = "{}:{}".format(param, label)
+            param = f"{param}:{label}"
         if self.invert:
-            param = "!{}".format(param)
+            param = f"!{param}"
 
         return template, [param]
 
@@ -79,6 +79,6 @@ class CombinedLexeme(LexemeCombinable):
         rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = "({} {} {})".format(lsql, self.connector, rsql)
+        combined_sql = f"({lsql} {self.connector} {rsql})"
         combined_value = combined_sql % tuple(value_params)
         return "%s", [combined_value]

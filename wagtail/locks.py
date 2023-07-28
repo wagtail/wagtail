@@ -8,6 +8,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.utils import get_latest_str, get_user_display_name
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.timestamps import render_timestamp
 
 
 class BaseLock:
@@ -104,7 +105,7 @@ class BasicLock(BaseLock):
                         "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
                     ),
                     title=title,
-                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    datetime=render_timestamp(self.object.locked_at),
                 )
 
             else:
@@ -122,7 +123,7 @@ class BasicLock(BaseLock):
                     ),
                     title=title,
                     user=get_user_display_name(self.object.locked_by),
-                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    datetime=render_timestamp(self.object.locked_at),
                 )
             else:
                 # Object was probably locked with an old version of Wagtail, or a script
@@ -264,7 +265,7 @@ class ScheduledForPublishLock(BaseLock):
             ),
             model_name=self.model_name,
             title=scheduled_revision.object_str,
-            datetime=scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
+            datetime=render_timestamp(scheduled_revision.approved_go_live_at),
         )
         return mark_safe(capfirst(message))
 

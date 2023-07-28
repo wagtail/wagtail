@@ -65,7 +65,10 @@ class Panel:
     :param help_text: Help text to display within the panel.
     :param base_form_class: The base form class to use for the panel. Defaults to the model's ``base_form_class``, before falling back to :class:`~wagtail.admin.forms.WagtailAdminModelForm`. This is only relevant for the top-level panel.
     :param icon: The name of the icon to display next to the panel heading.
+    :param attrs: A dictionary of HTML attributes to add to the panel's HTML element.
     """
+
+    BASE_ATTRS = {}
 
     def __init__(
         self,
@@ -74,6 +77,7 @@ class Panel:
         help_text="",
         base_form_class=None,
         icon="",
+        attrs=None,
     ):
         self.heading = heading
         self.classname = classname
@@ -81,6 +85,10 @@ class Panel:
         self.base_form_class = base_form_class
         self.icon = icon
         self.model = None
+        self.attrs = self.BASE_ATTRS.copy()
+
+        if attrs is not None:
+            self.attrs.update(attrs)
 
     def clone(self):
         """
@@ -95,6 +103,7 @@ class Panel:
         """
         return {
             "icon": self.icon,
+            "attrs": self.attrs,
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,
@@ -166,7 +175,7 @@ class Panel:
         pass
 
     def __repr__(self):
-        return "<%s with model=%s>" % (
+        return "<{} with model={}>".format(
             self.__class__.__name__,
             self.model,
         )
@@ -246,6 +255,10 @@ class Panel:
             return self.panel.classes()
 
         @property
+        def attrs(self):
+            return self.panel.attrs
+
+        @property
         def icon(self):
             return self.panel.icon
 
@@ -273,6 +286,7 @@ class Panel:
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["self"] = self
+            context["attrs"] = self.attrs
             return context
 
         def get_comparison(self):
@@ -303,7 +317,7 @@ class Panel:
             return mark_safe(self.render_html() + self.render_missing_fields())
 
         def __repr__(self):
-            return "<%s with model=%s instance=%s request=%s form=%s>" % (
+            return "<{} with model={} instance={} request={} form={}>".format(
                 self.__class__.__name__,
                 self.panel.model,
                 self.instance,

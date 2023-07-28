@@ -177,12 +177,21 @@ function initPreview() {
           !data.is_available,
         );
 
+        if (!data.is_available) {
+          // Ensure the 'Preview not available' message is not scaled down
+          setPreviewWidth();
+        }
+
         if (data.is_valid) {
           reloadIframe();
         } else if (!cleared) {
           clearPreviewData();
           cleared = true;
           reloadIframe();
+        } else {
+          // Finish the process when the data is invalid to prepare for the next update
+          // and avoid elements like the loading spinner to be shown indefinitely
+          finishUpdate();
         }
 
         return data.is_valid;
@@ -223,7 +232,9 @@ function initPreview() {
   }
 
   if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
-    let oldPayload = new URLSearchParams(new FormData(form)).toString();
+    // Start with an empty payload so that when checkAndUpdatePreview is called
+    // for the first time when the panel is opened, it will always update the preview
+    let oldPayload = '';
     let updateInterval;
 
     const hasChanges = () => {

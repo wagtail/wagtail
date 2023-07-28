@@ -94,6 +94,12 @@ const light = [
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',
       },
+      'surface-button-critical-hover': {
+        value: 'var(--w-color-critical-50)',
+        bgUtility: 'w-bg-surface-button-critical-hover',
+        textUtility: 'w-text-surface-button-critical-hover',
+        cssVariable: '--w-color-surface-button-critical-hover',
+      },
     },
   },
   {
@@ -171,6 +177,12 @@ const light = [
         textUtility: 'w-text-text-error',
         cssVariable: '--w-color-text-error',
       },
+      'text-button-critical-outline-hover': {
+        value: 'var(--w-color-critical-200)',
+        bgUtility: 'w-bg-text-button-critical-outline-hover',
+        textUtility: 'w-text-text-button-critical-outline-hover',
+        cssVariable: '--w-color-text-button-critical-outline-hover',
+      },
     },
   },
   {
@@ -246,7 +258,13 @@ const light = [
   {
     label: 'Misc',
     tokens: {
-      focus: focusToken,
+      'focus': focusToken,
+      'box-shadow-md': {
+        value: 'var(--w-color-black-25)',
+        bgUtility: 'w-bg-box-shadow-md',
+        textUtility: 'w-text-box-shadow-md',
+        cssVariable: '--w-color-box-shadow-md',
+      },
     },
   },
 ];
@@ -321,6 +339,12 @@ const dark = [
         bgUtility: 'w-bg-surface-button-outline-hover',
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',
+      },
+      'surface-button-critical-hover': {
+        value: 'var(--w-color-grey-600)',
+        bgUtility: 'w-bg-surface-button-critical-hover',
+        textUtility: 'w-text-surface-button-critical-hover',
+        cssVariable: '--w-color-surface-button-critical-hover',
       },
     },
   },
@@ -399,6 +423,12 @@ const dark = [
         textUtility: 'w-text-text-error',
         cssVariable: '--w-color-text-error',
       },
+      'text-button-critical-outline-hover': {
+        value: 'var(--w-color-critical-50)',
+        bgUtility: 'w-bg-text-button-critical-outline-hover',
+        textUtility: 'w-text-text-button-critical-outline-hover',
+        cssVariable: '--w-color-text-button-critical-outline-hover',
+      },
     },
   },
   {
@@ -474,7 +504,13 @@ const dark = [
   {
     label: 'Misc',
     tokens: {
-      focus: focusToken,
+      'focus': focusToken,
+      'box-shadow-md': {
+        value: 'var(--w-color-black-50)',
+        bgUtility: 'w-bg-box-shadow-md',
+        textUtility: 'w-text-box-shadow-md',
+        cssVariable: '--w-color-box-shadow-md',
+      },
     },
   },
 ];

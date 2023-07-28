@@ -240,7 +240,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = "wagtail-preview-{}".format(self.event_page.id)
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
         self.assertIn(preview_session_key, self.client.session)
 
         response = self.client.get(preview_url)
@@ -274,7 +274,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        preview_session_key = "wagtail-preview-{}".format(self.event_page.id)
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
         self.assertIn(preview_session_key, self.client.session)
 
         response = self.client.get(preview_url)
@@ -355,7 +355,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
     def test_preview_on_edit_clear_preview_data(self):
-        preview_session_key = "wagtail-preview-{}".format(self.event_page.id)
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
 
         # Set a fake preview session data for the page
         self.client.session[preview_session_key] = "test data"

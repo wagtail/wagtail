@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr ""
 
-#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:433
+#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:437
 msgid "Type"
 msgstr ""
 
@@ -124,25 +124,25 @@ msgid "redirects"
 msgstr ""
 
 #: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:5
-#: templates/wagtailredirects/index.html:24
+#: templates/wagtailredirects/index.html:14
 msgid "Add redirect"
 msgstr ""
 
-#: templates/wagtailredirects/add.html:19
-#: templates/wagtailredirects/edit.html:19
+#: templates/wagtailredirects/add.html:21
+#: templates/wagtailredirects/edit.html:21
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailredirects/choose_import_file.html:3
 #: templates/wagtailredirects/index.html:7
-#: templates/wagtailredirects/index.html:21 wagtail_hooks.py:34
+#: templates/wagtailredirects/index.html:10 wagtail_hooks.py:34
 msgid "Redirects"
 msgstr ""
 
 #: templates/wagtailredirects/choose_import_file.html:6
 #: templates/wagtailredirects/confirm_import.html:6
 #: templates/wagtailredirects/import_summary.html:5
-#: templates/wagtailredirects/index.html:27
+#: templates/wagtailredirects/index.html:17
 msgid "Import redirects"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgid ""
 "view where you can customize your redirects before import.</p>"
 msgstr ""
 
-#: templates/wagtailredirects/choose_import_file.html:30
+#: templates/wagtailredirects/choose_import_file.html:32
 msgid "Import"
 msgstr ""
 
@@ -180,15 +180,15 @@ msgstr ""
 msgid "Confirm import"
 msgstr ""
 
-#: templates/wagtailredirects/confirm_import.html:23
+#: templates/wagtailredirects/confirm_import.html:25
 msgid "Confirm"
 msgstr ""
 
-#: templates/wagtailredirects/confirm_import.html:25
+#: templates/wagtailredirects/confirm_import.html:27
 msgid "Cancel"
 msgstr ""
 
-#: templates/wagtailredirects/confirm_import.html:30
+#: templates/wagtailredirects/confirm_import.html:32
 msgid "Preview"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailredirects/edit.html:21
+#: templates/wagtailredirects/edit.html:23
 msgid "Delete redirect"
 msgstr ""
 
@@ -218,12 +218,12 @@ msgstr ""
 
 #: templates/wagtailredirects/import_summary.html:17
 #: templates/wagtailredirects/list.html:12
-#: templates/wagtailredirects/list.html:15 views.py:430
+#: templates/wagtailredirects/list.html:15 views.py:434
 msgid "From"
 msgstr ""
 
 #: templates/wagtailredirects/import_summary.html:18
-#: templates/wagtailredirects/list.html:19 views.py:432
+#: templates/wagtailredirects/list.html:19 views.py:436
 msgid "To"
 msgstr ""
 
@@ -235,11 +235,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: templates/wagtailredirects/index.html:28
+#: templates/wagtailredirects/index.html:18
 msgid "Export redirects"
 msgstr ""
 
-#: templates/wagtailredirects/list.html:18 views.py:431
+#: templates/wagtailredirects/list.html:18 views.py:435
 msgid "Site"
 msgstr ""
 
@@ -267,63 +267,63 @@ msgstr ""
 #: templates/wagtailredirects/results.html:21
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:88 views.py:233
+#: views.py:92 views.py:237
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:114
+#: views.py:118
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr ""
 
-#: views.py:119 views.py:187
+#: views.py:123 views.py:191
 msgid "Edit"
 msgstr ""
 
-#: views.py:125
+#: views.py:129
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:157
+#: views.py:161
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr ""
 
-#: views.py:182
+#: views.py:186
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr ""
 
-#: views.py:194
+#: views.py:198
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
-#: views.py:247
+#: views.py:251
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
 msgstr ""
 
-#: views.py:264
+#: views.py:268
 #, python-format
 msgid "Imported file has a wrong encoding: %(error_message)s"
 msgstr ""
 
-#: views.py:271
+#: views.py:275
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
 msgstr ""
 
-#: views.py:362
+#: views.py:366
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:418
+#: views.py:422
 msgid "Export Redirects"
 msgstr ""

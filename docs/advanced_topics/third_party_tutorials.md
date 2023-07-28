@@ -6,7 +6,13 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Creating Wagtail Streamfield StructBlocks with a Customised Editor Interface](https://enzedonline.com/en/tech-blog/how-to-create-wagtail-streamfield-structblocks-with-a-customised-editor-interface/) (9 July 2023)
 -   [Wagtail on Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0) (26 June 2023)
+-   [How to create a custom Wagtail CMS page type?](https://itcertifications.medium.com/how-to-create-a-custom-wagtail-cms-page-type-7bf72aff8413) (29 June 2023)
+-   [ Create Stylish Wagtail Pages with Tailwind CSS ](https://www.accordbox.com/blog/create-stylish-wagtail-pages-with-tailwind-css/) (15 June 2023)
+-   [Backup and Restore a Wagtail CMS website](https://experiencednovice.dev/blog/wagtail-backup-and-restore/) (26 May 2023)
+-   [A guide for updating Wagtail CMS](https://experiencednovice.dev/blog/updating-wagtailcms/) (22 May 2023)
+-   [Creating Custom Choosers with Viewsets](https://enzedonline.com/en/tech-blog/wagtail-creating-custom-choosers-with-viewsets/) (18 April 2023)
 -   [Build a Website Without Any Coding with Traleor (& Wagtail) in Just 10 Minutes (video)](https://www.youtube.com/watch?v=IQY0dzo2Wzg) (19 March 2023)
 -   [Getting Started with Wagtail: A Beginner’s Installation Guide (Windows)](https://medium.com/@dencomac/getting-started-with-wagtail-a-beginners-installation-guide-a5671da1eccc) (9 March 2023)
 -   [Introduction to Stimulus in Wagtail for contributors (video)](https://youtu.be/5WS7B8R0x0U) (28 February 2023)

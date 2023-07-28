@@ -11,14 +11,11 @@ $tooltip-z-index: $draftail-tooltip-z-index;
 $tooltip-color-no: theme('colors.critical.100');
 
 @mixin arrow--top {
-  margin-top: $tooltip-arrow-spacing;
+  margin-top: $tooltip-spacing;
   transform: translateX(calc(var(--w-direction-factor) * -50%));
 
   &::before {
-    bottom: 100%;
-    inset-inline-start: 50%;
-    transform: translateX(calc(var(--w-direction-factor) * -50%));
-    border-bottom-color: $tooltip-chrome;
+    content: none;
   }
 }
 

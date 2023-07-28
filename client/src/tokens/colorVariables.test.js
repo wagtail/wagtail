@@ -26,7 +26,7 @@ describe('generateColorVariables', () => {
   it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
     const colorVariables = generateColorVariables(staticColors);
     expect(colorVariables).toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-black": "hsl(var(--w-color-black-hue) var(--w-color-black-saturation) var(--w-color-black-lightness))",
         "--w-color-black-hue": "0",
         "--w-color-black-lightness": "0%",
@@ -139,7 +139,7 @@ describe('generateColorVariables', () => {
 describe('transparencies', () => {
   it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(transparencies).toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-black-10": "rgba(0, 0, 0, 0.10)",
         "--w-color-black-20": "rgba(0, 0, 0, 0.20)",
         "--w-color-black-25": "rgba(0, 0, 0, 0.25)",
@@ -176,18 +176,20 @@ describe('generateThemeColorVariables', () => {
   it('light theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.light))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-border-button-outline-default": "var(--w-color-secondary)",
         "--w-color-border-button-small-outline-default": "var(--w-color-grey-150)",
         "--w-color-border-field-default": "var(--w-color-grey-150)",
         "--w-color-border-field-hover": "var(--w-color-grey-200)",
         "--w-color-border-field-inactive": "var(--w-color-grey-150)",
         "--w-color-border-furniture": "var(--w-color-grey-100)",
+        "--w-color-box-shadow-md": "var(--w-color-black-25)",
         "--w-color-focus": "#00A885",
         "--w-color-icon-primary": "var(--w-color-primary)",
         "--w-color-icon-primary-hover": "var(--w-color-primary-200)",
         "--w-color-icon-secondary": "var(--w-color-grey-400)",
         "--w-color-icon-secondary-hover": "var(--w-color-primary-200)",
+        "--w-color-surface-button-critical-hover": "var(--w-color-critical-50)",
         "--w-color-surface-button-default": "var(--w-color-secondary)",
         "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
         "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
@@ -200,6 +202,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-page": "var(--w-color-white)",
         "--w-color-surface-tooltip": "var(--w-color-primary-200)",
         "--w-color-text-button": "var(--w-color-white)",
+        "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-200)",
         "--w-color-text-button-outline-default": "var(--w-color-secondary)",
         "--w-color-text-context": "var(--w-color-grey-600)",
         "--w-color-text-error": "var(--w-color-critical-200)",
@@ -218,18 +221,20 @@ describe('generateThemeColorVariables', () => {
   it('dark theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.dark))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "--w-color-border-button-outline-default": "var(--w-color-secondary-100)",
         "--w-color-border-button-small-outline-default": "var(--w-color-grey-400)",
         "--w-color-border-field-default": "var(--w-color-grey-400)",
         "--w-color-border-field-hover": "var(--w-color-grey-200)",
         "--w-color-border-field-inactive": "var(--w-color-grey-500)",
         "--w-color-border-furniture": "var(--w-color-grey-500)",
+        "--w-color-box-shadow-md": "var(--w-color-black-50)",
         "--w-color-focus": "#00A885",
         "--w-color-icon-primary": "var(--w-color-grey-150)",
         "--w-color-icon-primary-hover": "var(--w-color-grey-50)",
         "--w-color-icon-secondary": "var(--w-color-grey-150)",
         "--w-color-icon-secondary-hover": "var(--w-color-grey-50)",
+        "--w-color-surface-button-critical-hover": "var(--w-color-grey-600)",
         "--w-color-surface-button-default": "var(--w-color-secondary)",
         "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
         "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
@@ -242,6 +247,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-page": "var(--w-color-grey-600)",
         "--w-color-surface-tooltip": "var(--w-color-grey-500)",
         "--w-color-text-button": "var(--w-color-white)",
+        "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-50)",
         "--w-color-text-button-outline-default": "var(--w-color-secondary-100)",
         "--w-color-text-context": "var(--w-color-grey-50)",
         "--w-color-text-error": "var(--w-color-critical-100)",

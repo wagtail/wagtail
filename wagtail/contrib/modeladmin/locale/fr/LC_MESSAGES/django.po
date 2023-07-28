@@ -7,6 +7,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020-2022
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
 # Tom Dyson <tom@torchbox.com>, 2016
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>, 2016\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +58,7 @@ msgstr "Supprimer"
 
 #, python-format
 msgid "Delete this %(object)s"
-msgstr "Supprimer ce %(object)s"
+msgstr "Supprimer ce/cette %(object)s"
 
 msgid "Unpublish"
 msgstr "Dépublier"
@@ -71,7 +72,7 @@ msgstr "Copier"
 
 #, python-format
 msgid "Copy this %(object)s"
-msgstr "Copier ce %(object)s"
+msgstr "Copier ce/cette %(object)s"
 
 msgid "image"
 msgstr "image"

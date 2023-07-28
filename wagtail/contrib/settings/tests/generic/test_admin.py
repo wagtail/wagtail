@@ -160,7 +160,7 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         self.assertRedirects(
             response,
             status_code=302,
-            expected_url="%s%s/" % (url, TestGenericSetting.objects.first().pk),
+            expected_url=f"{url}{TestGenericSetting.objects.first().pk}/",
         )
 
 

@@ -146,6 +146,12 @@ msgstr "whakaahua"
 msgid "images"
 msgstr "Ngā whakaahua"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)s taima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
 msgid "Yes, delete"
 msgstr "Ae, muku"
 

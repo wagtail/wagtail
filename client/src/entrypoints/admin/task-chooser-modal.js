@@ -1,9 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-import {
-  submitCreationForm,
-  SearchController,
-} from '../../includes/chooserModal';
+import { submitCreationForm } from '../../includes/chooserModal';
 
 const ajaxifyTaskCreateTab = (modal) => {
   $(
@@ -24,36 +21,30 @@ const ajaxifyTaskCreateTab = (modal) => {
 
 const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser(modal, jsonData) {
-    function ajaxifyLinks(context) {
-      $('a.task-choice', context)
-        // eslint-disable-next-line func-names
-        .on('click', function () {
-          modal.loadUrl(this.href);
-          return false;
-        });
+    const form = $('form.task-search', modal.body)[0];
 
-      // eslint-disable-next-line func-names
-      $('.pagination a', context).on('click', function () {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        searchController.fetchResults(this.href);
+    function ajaxifyLinks(context) {
+      $('a.task-choice', context).on('click', function handleClick() {
+        modal.loadUrl(this.href);
+        return false;
+      });
+
+      $('.pagination a', context).on('click', function handleClick() {
+        const url = this.href;
+        form.dispatchEvent(new CustomEvent('navigate', { detail: { url } }));
         return false;
       });
 
       // Reinitialize tabs to hook up tab event listeners in the modal
       initTabs();
-    }
 
-    const searchController = new SearchController({
-      form: $('form.task-search', modal.body),
-      containerElement: modal.body,
-      resultsContainerSelector: '#search-results',
-      onLoadResults: (context) => {
-        ajaxifyLinks(context);
-      },
-      inputDelay: 50,
-    });
-    searchController.attachSearchInput('#id_q');
-    searchController.attachSearchFilter('#id_task_type');
+      // set up success handling when new results are returned for next search
+      modal.body[0].addEventListener(
+        'w-swap:success',
+        ({ srcElement }) => ajaxifyLinks($(srcElement)),
+        { once: true },
+      );
+    }
 
     ajaxifyLinks(modal.body);
     ajaxifyTaskCreateTab(modal, jsonData);

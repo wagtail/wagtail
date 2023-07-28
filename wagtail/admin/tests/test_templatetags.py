@@ -142,17 +142,17 @@ class TestTimesinceTags(TestCase):
 
         # Check prefix output
         timesince = timesince_last_update(dt, show_time_prefix=True)
-        self.assertEqual(timesince, "at {}".format(formatted_time))
+        self.assertEqual(timesince, f"at {formatted_time}")
 
         # Check user output
         timesince = timesince_last_update(dt, user_display_name="Gary")
-        self.assertEqual(timesince, "{} by Gary".format(formatted_time))
+        self.assertEqual(timesince, f"{formatted_time} by Gary")
 
         # Check user and prefix output
         timesince = timesince_last_update(
             dt, show_time_prefix=True, user_display_name="Gary"
         )
-        self.assertEqual(timesince, "at {} by Gary".format(formatted_time))
+        self.assertEqual(timesince, f"at {formatted_time} by Gary")
 
     def test_timesince_last_update_before_today_shows_timeago(self):
         dt = timezone.now() - timedelta(weeks=1, days=2)

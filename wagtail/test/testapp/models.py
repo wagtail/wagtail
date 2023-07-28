@@ -613,7 +613,7 @@ class FormPageWithRedirect(AbstractEmailForm):
     )
 
     def get_context(self, request):
-        context = super(FormPageWithRedirect, self).get_context(request)
+        context = super().get_context(request)
         context["greeting"] = "hello world"
         return context
 
@@ -624,9 +624,7 @@ class FormPageWithRedirect(AbstractEmailForm):
         if self.thank_you_redirect_page:
             return redirect(self.thank_you_redirect_page.url, permanent=False)
 
-        return super(FormPageWithRedirect, self).render_landing_page(
-            request, form_submission, *args, **kwargs
-        )
+        return super().render_landing_page(request, form_submission, *args, **kwargs)
 
     content_panels = [
         FieldPanel("title", classname="title"),
@@ -1119,8 +1117,11 @@ class FullFeaturedSnippet(
     )
     some_date = models.DateField(auto_now=True)
 
+    some_attribute = "some value"
+
     search_fields = [
         index.SearchField("text"),
+        index.AutocompleteField("text"),
         index.FilterField("text"),
         index.FilterField("country_code"),
     ]
@@ -1227,9 +1228,6 @@ class VariousOnDeleteModel(models.Model):
     rich_text = RichTextField(blank=True)
 
 
-register_snippet(VariousOnDeleteModel)
-
-
 class StandardIndex(Page):
     """Index for the site"""
 
@@ -1329,9 +1327,7 @@ class SingletonPage(Page):
     @classmethod
     def can_create_at(cls, parent):
         # You can only create one of these!
-        return (
-            super(SingletonPage, cls).can_create_at(parent) and not cls.objects.exists()
-        )
+        return super().can_create_at(parent) and not cls.objects.exists()
 
 
 class SingletonPageViaMaxCount(Page):

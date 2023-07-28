@@ -1,7 +1,11 @@
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import (
+    FieldDoesNotExist,
+    ImproperlyConfigured,
+    PermissionDenied,
+)
 from django.db import models, transaction
 from django.db.models.functions import Cast
 from django.forms import Form
@@ -26,6 +30,8 @@ from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
+from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
@@ -712,6 +718,114 @@ class DeleteView(
             context["usage_url"] = self.usage_url
             context["usage_count"] = self.usage.count()
             context["is_protected"] = self.usage.is_protected
+        return context
+
+
+class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
+    template_name = "wagtailadmin/generic/inspect.html"
+    page_title = gettext_lazy("Inspecting")
+    model = None
+    edit_url_name = None
+    delete_url_name = None
+    fields = []
+    fields_exclude = []
+    pk_url_kwarg = "pk"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = self.kwargs[self.pk_url_kwarg]
+        self.fields = self.get_fields()
+        self.object = self.get_object()
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_page_subtitle(self):
+        return str(self.object)
+
+    def get_fields(self):
+        fields = self.fields or [
+            f.name
+            for f in self.model._meta.get_fields()
+            if f.concrete
+            and (not f.is_relation or (not f.auto_created and f.related_model))
+        ]
+
+        fields = [f for f in fields if f not in self.fields_exclude]
+        return fields
+
+    def get_field_label(self, field_name, field):
+        return capfirst(label_for_field(field_name, model=self.model))
+
+    def get_field_display_value(self, field_name, field):
+        # First we check for a 'get_fieldname_display' property/method on
+        # the model, and return the value of that, if present.
+        value_func = getattr(self.object, "get_%s_display" % field_name, None)
+        if value_func is not None:
+            if callable(value_func):
+                return value_func()
+            return value_func
+
+        # Now let's get the attribute value from the instance itself and see if
+        # we can render something useful. Raises AttributeError appropriately.
+        value = getattr(self.object, field_name)
+
+        if isinstance(value, models.Manager):
+            value = value.all()
+
+        if isinstance(value, models.QuerySet):
+            return ", ".join(str(obj) for obj in value) or "-"
+
+        display_class = display_class_registry.get(field)
+
+        if display_class:
+            return display_class(value)
+
+        return value
+
+    def get_context_for_field(self, field_name):
+        try:
+            field = self.model._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            field = None
+        context = {
+            "label": self.get_field_label(field_name, field),
+            "value": self.get_field_display_value(field_name, field),
+            "component": None,
+        }
+        if isinstance(context["value"], Component):
+            context["component"] = context["value"]
+        return context
+
+    def get_fields_context(self):
+        return [self.get_context_for_field(field_name) for field_name in self.fields]
+
+    def get_edit_url(self):
+        if not self.edit_url_name or (
+            self.permission_policy
+            and not self.permission_policy.user_has_permission(
+                self.request.user, "change"
+            )
+        ):
+            return None
+        return reverse(self.edit_url_name, args=(quote(self.pk),))
+
+    def get_delete_url(self):
+        if not self.delete_url_name or (
+            self.permission_policy
+            and not self.permission_policy.user_has_permission(
+                self.request.user, "delete"
+            )
+        ):
+            return None
+        return reverse(self.delete_url_name, args=(quote(self.pk),))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object"] = self.object
+        context["fields"] = self.get_fields_context()
+        context["edit_url"] = self.get_edit_url()
+        context["delete_url"] = self.get_delete_url()
         return context
 
 

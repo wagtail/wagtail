@@ -46,7 +46,7 @@ class RenameStreamChildrenOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "rename_{}_to_{}".format(self.old_name, self.new_name)
+        return f"rename_{self.old_name}_to_{self.new_name}"
 
 
 @deconstructible
@@ -78,7 +78,7 @@ class RenameStructChildrenOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "rename_{}_to_{}".format(self.old_name, self.new_name)
+        return f"rename_{self.old_name}_to_{self.new_name}"
 
 
 @deconstructible
@@ -106,7 +106,7 @@ class RemoveStreamChildrenOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "remove_{}".format(self.name)
+        return f"remove_{self.name}"
 
 
 @deconstructible
@@ -134,7 +134,7 @@ class RemoveStructChildrenOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "remove_{}".format(self.name)
+        return f"remove_{self.name}"
 
 
 class StreamChildrenToListBlockOperation(BaseBlockOperation):
@@ -179,7 +179,7 @@ class StreamChildrenToListBlockOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "{}_to_list_block_{}".format(self.block_name, self.list_block_name)
+        return f"{self.block_name}_to_list_block_{self.list_block_name}"
 
 
 class StreamChildrenToStreamBlockOperation(BaseBlockOperation):
@@ -308,7 +308,7 @@ class StreamChildrenToStructBlockOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "{}_to_struct_block_{}".format(self.block_name, self.struct_block_name)
+        return f"{self.block_name}_to_struct_block_{self.struct_block_name}"
 
 
 class ListChildrenToStructBlockOperation(BaseBlockOperation):
@@ -329,4 +329,4 @@ class ListChildrenToStructBlockOperation(BaseBlockOperation):
 
     @property
     def operation_name_fragment(self):
-        return "list_block_items_to_{}".format(self.block_name)
+        return f"list_block_items_to_{self.block_name}"

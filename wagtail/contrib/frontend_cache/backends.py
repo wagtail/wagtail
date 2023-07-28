@@ -107,7 +107,7 @@ class CloudflareBackend(BaseBackend):
     def _purge_urls(self, urls):
         try:
             purge_url = (
-                "https://api.cloudflare.com/client/v4/zones/{0}/purge_cache".format(
+                "https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(
                     self.cloudflare_zoneid
                 )
             )
@@ -115,7 +115,7 @@ class CloudflareBackend(BaseBackend):
             headers = {"Content-Type": "application/json"}
 
             if self.cloudflare_token:
-                headers["Authorization"] = "Bearer {}".format(self.cloudflare_token)
+                headers["Authorization"] = f"Bearer {self.cloudflare_token}"
             else:
                 headers["X-Auth-Email"] = self.cloudflare_email
                 headers["X-Auth-Key"] = self.cloudflare_api_key

@@ -45,7 +45,7 @@ class Book(index.Indexed, models.Model):
 
     @classmethod
     def get_indexed_objects(cls):
-        indexed_objects = super(Book, cls).get_indexed_objects()
+        indexed_objects = super().get_indexed_objects()
 
         # Don't index books using Book class that they have a more specific type
         if cls is Book:

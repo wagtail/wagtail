@@ -12,7 +12,8 @@
         {% trans 'Issues found' %}
         <span class="w-a11y-result__count" data-a11y-result-count></span>
     {% endfragment %}
-    {% dialog id="accessibility-results" theme="floating" classname="w-dialog--userbar" title=dialog_title subtitle=issues_found a11y_count="a11y_count" %}
+    {% fragment as dialog_classname %}w-dialog--userbar {% admin_theme_classname %}{% endfragment %}
+    {% dialog id="accessibility-results" theme="floating" classname=dialog_classname title=dialog_title subtitle=issues_found a11y_count="a11y_count" %}
         {# Contents of the dialog created in JS based on these templates. #}
         <template id="w-a11y-result-row-template">
             <div class="w-a11y-result__row" data-a11y-result-row>

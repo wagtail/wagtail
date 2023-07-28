@@ -28,6 +28,7 @@ from wagtail.test.testapp.models import (
     ModeratedModel,
     RevisableChildModel,
     RevisableModel,
+    VariousOnDeleteModel,
 )
 
 from .forms import FavouriteColourForm
@@ -48,7 +49,7 @@ hooks.register("insert_editor_js", editor_js)
 
 
 def block_googlebot(page, request, serve_args, serve_kwargs):
-    if request.META.get("HTTP_USER_AGENT") == "GoogleBot":
+    if request.headers.get("user-agent") == "GoogleBot":
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
 
@@ -257,6 +258,14 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
     list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
+    list_export = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        "some_date",
+        "first_published_at",
+    ]
+    export_filename = "all-fullfeatured-snippets"
     index_template_name = "tests/fullfeaturedsnippet_index.html"
     ordering = ["text", "-_updated_at", "-pk"]
     add_to_admin_menu = True
@@ -264,6 +273,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     menu_name = "fullfeatured"
     # Ensure that the menu item is placed last
     menu_order = 999999
+    inspect_view_enabled = True
 
     # TODO: When specific search fields are supported in SQLite FTS (see #10217),
     # specify search_fields or get_search_fields here
@@ -333,7 +343,13 @@ class ModeratedModelViewSet(SnippetViewSet):
     }
 
 
+class VariousOnDeleteModelViewSet(SnippetViewSet):
+    model = VariousOnDeleteModel
+    inspect_view_enabled = True
+
+
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModelViewSet)
 register_snippet(RevisableViewSetGroup)
+register_snippet(VariousOnDeleteModelViewSet)

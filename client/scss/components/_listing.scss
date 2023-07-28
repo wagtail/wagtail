@@ -106,7 +106,8 @@ ul.listing {
     border: 0;
   }
 
-  &.align-top td {
+  &.align-top td,
+  td.align-top {
     vertical-align: top;
   }
 
@@ -420,7 +421,8 @@ table.listing {
 .page-explorer .listing {
   position: relative;
 
-  .table-headers {
+  .table-headers,
+  thead tr {
     height: 35px;
 
     .title {

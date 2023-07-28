@@ -3,10 +3,8 @@ from copy import deepcopy
 from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.search.backends.elasticsearch5 import (
-    ElasticsearchAutocompleteQueryCompilerImpl,
-)
 from wagtail.search.backends.elasticsearch6 import (
+    Elasticsearch6AutocompleteQueryCompiler,
     Elasticsearch6Index,
     Elasticsearch6Mapping,
     Elasticsearch6SearchBackend,
@@ -23,6 +21,18 @@ class Elasticsearch7Mapping(Elasticsearch6Mapping):
 
 
 class Elasticsearch7Index(Elasticsearch6Index):
+    def put(self):
+        self.es.indices.create(index=self.name, **self.backend.settings)
+
+    def delete(self):
+        try:
+            self.es.indices.delete(index=self.name)
+        except NotFoundError:
+            pass
+
+    def refresh(self):
+        self.es.indices.refresh(index=self.name)
+
     def add_model(self, model):
         # Get mapping
         mapping = self.mapping_class(model)
@@ -40,7 +50,9 @@ class Elasticsearch7Index(Elasticsearch6Index):
 
         # Add document to index
         self.es.index(
-            self.name, mapping.get_document(item), id=mapping.get_document_id(item)
+            index=self.name,
+            document=mapping.get_document(item),
+            id=mapping.get_document_id(item),
         )
 
     def add_items(self, model, items):
@@ -71,7 +83,7 @@ class Elasticsearch7Index(Elasticsearch6Index):
 
         # Delete document
         try:
-            self.es.delete(self.name, mapping.get_document_id(item))
+            self.es.delete(index=self.name, id=mapping.get_document_id(item))
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
 
@@ -81,11 +93,14 @@ class Elasticsearch7SearchQueryCompiler(Elasticsearch6SearchQueryCompiler):
 
 
 class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
-    pass
+    def _backend_do_search(self, body, **kwargs):
+        # As of Elasticsearch 7, the 'body' parameter is deprecated; instead, the top-level
+        # keys of the body dict are now kwargs in their own right
+        return self.backend.es.search(**body, **kwargs)
 
 
 class Elasticsearch7AutocompleteQueryCompiler(
-    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
+    Elasticsearch6AutocompleteQueryCompiler, Elasticsearch6SearchQueryCompiler
 ):
     pass
 
@@ -96,6 +111,7 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     query_compiler_class = Elasticsearch7SearchQueryCompiler
     autocomplete_query_compiler_class = Elasticsearch7AutocompleteQueryCompiler
     results_class = Elasticsearch7SearchResults
+    is_deprecated = False
 
     settings = deepcopy(Elasticsearch6SearchBackend.settings)
     settings["settings"]["index"] = {"max_ngram_diff": 12}

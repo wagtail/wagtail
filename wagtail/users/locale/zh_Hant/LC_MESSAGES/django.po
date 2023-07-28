@@ -178,8 +178,8 @@ msgstr "對不起，沒有符合“%(query)s”的群組"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
 
@@ -221,6 +221,11 @@ msgstr "有效"
 
 msgid "Inactive"
 msgstr "無效"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "共有 %(counter)s 項符合"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

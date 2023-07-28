@@ -1,7 +1,6 @@
 import { Icon, Portal } from '../..';
 import { initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
-import { dialog } from '../../includes/dialog';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 import initSidePanel from '../../includes/sidePanel';
 import {
@@ -22,7 +21,6 @@ window.wagtail.components = {
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initTabs();
-  dialog();
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
@@ -35,4 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   initAnchoredPanels();
   initMinimap();
+});
+
+/**
+ * When search results are successful, reinitialise widgets
+ * that could be inside the newly injected DOM.
+ */
+window.addEventListener('w-swap:success', () => {
+  initTooltips(); // reinitialise any tooltips
 });

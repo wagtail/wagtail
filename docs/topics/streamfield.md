@@ -45,10 +45,6 @@ You can find the complete list of available block types in the [](streamfield_bl
    StreamField is not a direct replacement for other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to [](streamfield_migrating_richtext).
 ```
 
-```{versionchanged} 5.0
-The `use_json_field=True` argument is required. `use_json_field=False` is only permitted within migrations created before Wagtail 5.0. This is a temporary measure to ensure that all existing StreamFields are upgraded to the database's native JSONField support; it will be removed in a future release.
-```
-
 (streamfield_template_rendering)=
 
 ## Template rendering

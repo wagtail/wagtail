@@ -294,9 +294,7 @@ class BaseSequenceBlockComparison(BlockComparison):
                 block_rendered = comparison.htmlvalue(comparison.val_a)
 
             classes = " ".join(classes)
-            comparisons_html.append(
-                '<div class="{0}">{1}</div>'.format(classes, block_rendered)
-            )
+            comparisons_html.append(f'<div class="{classes}">{block_rendered}</div>')
 
         return mark_safe("\n".join(comparisons_html))
 

@@ -91,7 +91,7 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
     >
       <PublicationStatus
         status={
-          Object {
+          {
             "has_unpublished_changes": true,
             "live": false,
             "status": "test",
@@ -146,7 +146,7 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
     >
       <PublicationStatus
         status={
-          Object {
+          {
             "has_unpublished_changes": true,
             "live": true,
             "status": "test",

@@ -5,6 +5,7 @@ import { ActionController } from './ActionController';
 import { AutosizeController } from './AutosizeController';
 import { BulkController } from './BulkController';
 import { CountController } from './CountController';
+import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
 import { DropdownController } from './DropdownController';
 import { MessagesController } from './MessagesController';
@@ -12,8 +13,11 @@ import { ProgressController } from './ProgressController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
+import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
 import { TagController } from './TagController';
+import { TeleportController } from './TeleportController';
+import { TooltipController } from './TooltipController';
 import { UpgradeController } from './UpgradeController';
 
 /**
@@ -25,6 +29,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
   { controllerConstructor: CountController, identifier: 'w-count' },
+  { controllerConstructor: DialogController, identifier: 'w-dialog' },
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: MessagesController, identifier: 'w-messages' },
@@ -32,7 +37,10 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
+  { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
   { controllerConstructor: TagController, identifier: 'w-tag' },
+  { controllerConstructor: TeleportController, identifier: 'w-teleport' },
+  { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
 ];

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     FormField,

@@ -29,8 +29,8 @@ from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.users.wagtail_hooks import get_group_viewset_cls
 
-delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
-change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
+delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
+change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
 
 
 def test_avatar_provider(user, default, size=50):
@@ -245,6 +245,19 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.context_data["ordering"], "name")
         response = self.get({"ordering": "username"})
         self.assertEqual(response.context_data["ordering"], "username")
+
+    def test_num_queries(self):
+        # Warm up
+        self.get()
+
+        num_queries = 9
+        with self.assertNumQueries(num_queries):
+            self.get()
+
+        # Ensure we don't have any N+1 queries
+        self.create_user("test", "test@example.com", "gu@rd14n")
+        with self.assertNumQueries(num_queries):
+            self.get()
 
 
 class TestUserIndexResultsView(WagtailTestUtils, TestCase):
@@ -1963,8 +1976,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
                 # iterates through perm_set dict, flattens the list if present
                 for v in perm_set.values():
                     if isinstance(v, list):
-                        for e in v:
-                            yield e
+                        yield from v
                     else:
                         yield v
 
@@ -2079,7 +2091,7 @@ class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
 
     def test_authorised(self):
         for permission in ("add", "change", "delete"):
-            permission_name = "{}_{}".format(permission, AUTH_USER_MODEL_NAME.lower())
+            permission_name = f"{permission}_{AUTH_USER_MODEL_NAME.lower()}"
             permission_object = Permission.objects.get(codename=permission_name)
             self._user.user_permissions.add(permission_object)
 
@@ -2107,7 +2119,7 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
         self._user.user_permissions.add(
             Permission.objects.get(
                 content_type__app_label=AUTH_USER_APP_LABEL,
-                codename="add_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                codename=f"add_{AUTH_USER_MODEL_NAME.lower()}",
             )
         )
 
@@ -2192,7 +2204,7 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
         self._user.user_permissions.add(
             Permission.objects.get(
                 content_type__app_label=AUTH_USER_APP_LABEL,
-                codename="change_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                codename=f"change_{AUTH_USER_MODEL_NAME.lower()}",
             )
         )
 
@@ -2277,7 +2289,7 @@ class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
         self._user.user_permissions.add(
             Permission.objects.get(
                 content_type__app_label=AUTH_USER_APP_LABEL,
-                codename="delete_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                codename=f"delete_{AUTH_USER_MODEL_NAME.lower()}",
             )
         )
 

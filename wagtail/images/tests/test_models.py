@@ -237,6 +237,9 @@ class TestImagePermissions(WagtailTestUtils, TestCase):
         self.assertFalse(self.image.is_editable_by_user(self.user))
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+)
 class TestRenditions(TestCase):
     SPECS = ("height-66", "width-100", "width-400")
 
@@ -479,7 +482,7 @@ class TestRenditions(TestCase):
         ren_img = self.image.get_rendition("original")
         full_url = ren_img.full_url
         img_name = ren_img.file.name.split("/")[1]
-        self.assertEqual(full_url, "http://testserver/media/images/{}".format(img_name))
+        self.assertEqual(full_url, f"http://testserver/media/images/{img_name}")
 
     @override_settings(
         CACHES={
@@ -488,12 +491,10 @@ class TestRenditions(TestCase):
             },
         },
     )
-    def test_renditions_cache_backend(self):
-        cache = caches["renditions"]
+    def test_renditions_cache(self):
+        cache = Rendition.cache_backend
         rendition = self.image.get_rendition("width-500")
-        rendition_cache_key = "image-{}-{}-{}".format(
-            rendition.image.id, rendition.focal_point_key, rendition.filter_spec
-        )
+        rendition_cache_key = rendition.get_cache_key()
 
         # Check rendition is saved to cache
         self.assertEqual(cache.get(rendition_cache_key), rendition)
@@ -529,6 +530,29 @@ class TestRenditions(TestCase):
         self.image.renditions.all().delete()
         new_rendition = self.image.get_rendition("width-500")
         self.assertFalse(hasattr(new_rendition, "_mark"))
+
+    def test_prefers_rendition_cache_backend(self):
+        with override_settings(
+            CACHES={
+                "default": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                },
+                "renditions": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                },
+            }
+        ):
+            self.assertEqual(Rendition.cache_backend, caches["renditions"])
+
+    def test_uses_default_cache_when_no_renditions_cache(self):
+        with override_settings(
+            CACHES={
+                "default": {
+                    "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+                }
+            }
+        ):
+            self.assertEqual(Rendition.cache_backend, caches["default"])
 
     def test_focal_point(self):
         self.image.focal_point_x = 100
@@ -593,6 +617,9 @@ class TestRenditions(TestCase):
         settings = bkp
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+)
 class TestPrefetchRenditions(TestCase):
     fixtures = ["test.json"]
 

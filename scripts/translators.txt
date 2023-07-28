@@ -88,6 +88,7 @@ Jian Li <kdlijian.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Monty NG
+Terry Peng
 Vincent Zhao <zhaopu2008.gmail.com>
 Yin Guanhao <sopium.mysterious.site>
 hanfeng <appweb.cn.gmail.com>
@@ -206,6 +207,7 @@ Renaud Kern <renaud.kern.gmail.com>
 Romain Dorgueil <romain.dorgueil.net>
 Sebastien Andrivet <sebastien.andrivet.com>
 Sophy O <sophy.ouch.erudit.org>
+Sébastien Corbin <seb.corbin.gmail.com>
 Timothy Allen <flipper.peregrinesalon.com>
 Tom Dyson <tom.torchbox.com>
 fpoulain <fpoulain.metrodore.fr>
@@ -458,6 +460,7 @@ Gilson Filho <me.gilsondev.in>
 Gladson <gladsonbrito.gmail.com>
 Guilherme Nabanete <neoheartz.gmail.com>
 Gustavo Simões
+Hernandison Da Silva Bispo
 Iuri L. Machado
 Joao Garcia <joaosdgarcia.gmail.com>
 João Luiz Lorencetti <me.dirtycoder.net>
@@ -580,6 +583,10 @@ Oluwadamilare Ogunbanjo
 Oscar Luciano Espirilla Flores
 X Bello <xbello.gmail.com>
 fonso <fonzzo.gmail.com>
+
+Spanish (Venezuela) - es_VE
+-----
+Rodrigo Yanez
 
 Swedish - sv
 -----

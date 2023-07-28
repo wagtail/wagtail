@@ -510,7 +510,7 @@ class TestPagePermission(TestCase):
 
         homepage = Page.objects.get(url_path="/home/")
         explorer_response = client.get(
-            "/admin/api/main/pages/?child_of={}&for_explorer=1".format(homepage.pk)
+            f"/admin/api/main/pages/?child_of={homepage.pk}&for_explorer=1"
         )
         explorer_json = json.loads(explorer_response.content.decode("utf-8"))
 

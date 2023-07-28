@@ -18,7 +18,7 @@ develop: clean-pyc
 	npm install --no-save && npm run build
 
 lint-server:
-	black --target-version py37 --check --diff .
+	black --target-version py38 --check --diff .
 	ruff check .
 	semgrep --config .semgrep.yml --error .
 	curlylint --parse-only wagtail
@@ -35,7 +35,7 @@ lint-docs:
 lint: lint-server lint-client lint-docs
 
 format-server:
-	black --target-version py37 .
+	black --target-version py38 .
 	ruff check . --fix
 	git ls-files '*.html' | xargs djhtml -i
 

@@ -45,7 +45,7 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
       const label = document.createElement('label');
       label.setAttribute('for', id);
       label.classList.add('visuallyhidden');
-      label.innerHTML = labelContent;
+      label.textContent = labelContent;
       var holder = document.getElementsByClassName('jcrop-holder');
       holder[0].prepend(label);
     },

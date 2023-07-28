@@ -52,7 +52,7 @@ If you use the ``False`` setting, keep in mind that serving your pages both with
 ```python
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch5',
+        'BACKEND': 'wagtail.search.backends.elasticsearch8',
         'INDEX': 'myapp'
     }
 }
@@ -68,7 +68,7 @@ Define a search backend. For a full explanation, see [](wagtailsearch_backends).
 WAGTAILSEARCH_HITS_MAX_AGE = 14
 ```
 
-Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](search_garbage_collect) command.
+Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](searchpromotions_garbage_collect) command.
 
 ## Internationalisation
 
@@ -359,7 +359,7 @@ WAGTAILIMAGES_EXTENSIONS = ['png', 'jpg']
 ```
 
 A list of allowed image extensions that will be validated during image uploading.
-If this isn't supplied, all of GIF, JPG, JPEG, PNG, WEBP are allowed.
+If this isn't supplied, all of AVIF, GIF, JPG, JPEG, PNG, WEBP are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
 

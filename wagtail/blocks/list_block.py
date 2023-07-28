@@ -134,7 +134,7 @@ class ListValue(MutableSequence):
         )
 
     def __repr__(self):
-        return "<ListValue: %r>" % ([bb.value for bb in self.bound_blocks],)
+        return f"<ListValue: {[bb.value for bb in self.bound_blocks]!r}>"
 
 
 class ListBlock(Block):

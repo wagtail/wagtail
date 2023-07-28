@@ -10,6 +10,7 @@ from anyascii import anyascii
 from django.apps import apps
 from django.conf import settings
 from django.conf.locale import LANG_INFO
+from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.signals import setting_changed
 from django.db.models import Model
@@ -74,7 +75,7 @@ def resolve_model_string(model_string, default_app=None):
                 model_name = model_string
             else:
                 raise ValueError(
-                    "Can not resolve {0!r} into a model. Model names "
+                    "Can not resolve {!r} into a model. Model names "
                     "should be in the form app_label.model_name".format(model_string),
                     model_string,
                 )
@@ -85,9 +86,7 @@ def resolve_model_string(model_string, default_app=None):
         return model_string
 
     else:
-        raise ValueError(
-            "Can not resolve {0!r} into a model".format(model_string), model_string
-        )
+        raise ValueError(f"Can not resolve {model_string!r} into a model", model_string)
 
 
 SCRIPT_RE = re.compile(r"<(-*)/script>")
@@ -249,7 +248,7 @@ def find_available_slug(parent, requested_slug, ignore_page_id=None):
     return slug
 
 
-@functools.lru_cache()
+@functools.lru_cache
 def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
@@ -328,7 +327,7 @@ def get_supported_content_language_variant(lang_code, strict=False):
     raise LookupError(lang_code)
 
 
-@functools.lru_cache()
+@functools.lru_cache
 def get_locales_display_names() -> dict:
     """
     Cache of the locale id -> locale display name mapping
@@ -385,14 +384,12 @@ def multigetattr(item, accessor):
                     TypeError,  # unsubscriptable object
                 ):
                     raise AttributeError(
-                        "Failed lookup for key [%s] in %r" % (bit, current)
+                        f"Failed lookup for key [{bit}] in {current!r}"
                     )
 
         if callable(current):
             if getattr(current, "alters_data", False):
-                raise SuspiciousOperation(
-                    "Cannot call %r from multigetattr" % (current,)
-                )
+                raise SuspiciousOperation(f"Cannot call {current!r} from multigetattr")
 
             # if calling without arguments is invalid, let the exception bubble up
             current = current()
@@ -564,3 +561,14 @@ class BatchCreator(BatchProcessor):
     def get_summary(self):
         opts = self.model._meta
         return f"{self.created_count}/{self.added_count} {opts.verbose_name_plural} were created successfully."
+
+
+def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
+    """
+    A modified version of `make_template_fragment_key` which varies on page and
+    site for use with `{% wagtailpagecache %}`.
+    """
+    if vary_on is None:
+        vary_on = []
+    vary_on.extend([page.cache_key, site.id])
+    return make_template_fragment_key(fragment_name, vary_on)

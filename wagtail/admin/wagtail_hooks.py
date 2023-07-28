@@ -1001,7 +1001,7 @@ def register_reports_menu():
 
 @hooks.register("register_help_menu_item")
 def register_whats_new_in_wagtail_version_menu_item():
-    version = "5.0"
+    version = "5.2"
     return DismissibleMenuItem(
         _("What's new in Wagtail %(version)s") % {"version": version},
         wagtail_feature_release_whats_new_link(),
@@ -1164,7 +1164,7 @@ def register_icons(icons):
         "wagtail.svg",
         "warning.svg",
     ]:
-        icons.append("wagtailadmin/icons/{}".format(icon))
+        icons.append(f"wagtailadmin/icons/{icon}")
     return icons
 
 

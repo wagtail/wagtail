@@ -58,7 +58,7 @@ class Command(BaseCommand):
                     if queryset.model is Page:
                         for obj in queryset:
                             self.stdout.write(
-                                "{0}\t{1}\t{2}\t{3}".format(
+                                "{}\t{}\t{}\t{}".format(
                                     obj.expire_at.strftime("%Y-%m-%d %H:%M"),
                                     obj.specific_class.__name__,
                                     obj.slug,
@@ -68,7 +68,7 @@ class Command(BaseCommand):
                     else:
                         for obj in queryset:
                             self.stdout.write(
-                                "{0}\t{1}\t{2}\t\t{3}".format(
+                                "{}\t{}\t{}\t\t{}".format(
                                     obj.expire_at.strftime("%Y-%m-%d %H:%M"),
                                     queryset.model.__name__,
                                     "",
@@ -104,7 +104,7 @@ class Command(BaseCommand):
                 for er in expired_revs:
                     rev_data = er.content
                     self.stdout.write(
-                        "{0}\t{1}\t{2}".format(
+                        "{}\t{}\t{}".format(
                             dateparse.parse_datetime(
                                 rev_data.get("expire_at")
                             ).strftime("%Y-%m-%d %H:%M"),
@@ -133,7 +133,7 @@ class Command(BaseCommand):
                     model = rp.content_type.model_class()
                     rev_data = rp.content
                     self.stdout.write(
-                        "{0}\t{1}\t{2}\t\t{3}".format(
+                        "{}\t{}\t{}\t\t{}".format(
                             rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),
                             model.__name__,
                             rev_data.get("slug", ""),

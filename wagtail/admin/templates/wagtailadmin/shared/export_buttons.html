@@ -1,0 +1,16 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `view` - a view instance (usually of `SpreadsheetExportMixin`) that has `xlsx_export_url` and `csv_export_url` properties.
+
+{% endcomment %}
+
+<div class="dropdown dropdown-button match-width col">
+    <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+    <ul>
+        <li><a  class="button bicolor button--icon" href="{{ view.csv_export_url }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+    </ul>
+</div>

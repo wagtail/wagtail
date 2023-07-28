@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgid_plural "Translate the parent pages."
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/simple_translation/admin/submit_translation.html:26
+#: templates/simple_translation/admin/submit_translation.html:28
 msgid "Submit"
 msgstr ""
 

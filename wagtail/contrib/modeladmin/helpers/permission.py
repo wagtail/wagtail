@@ -47,7 +47,7 @@ class PermissionHelper:
         Django user's built-in `has_perm` method.
         """
 
-        return user.has_perm("%s.%s" % (self.opts.app_label, perm_codename))
+        return user.has_perm(f"{self.opts.app_label}.{perm_codename}")
 
     def user_has_any_permissions(self, user):
         """
@@ -177,7 +177,7 @@ class PagePermissionHelper(PermissionHelper):
         perms = obj.permissions_for_user(user)
         return perms.can_delete()
 
-    def user_can_publish_obj(self, user, obj):
+    def user_can_unpublish_obj(self, user, obj):
         perms = obj.permissions_for_user(user)
         return obj.live and perms.can_unpublish()
 

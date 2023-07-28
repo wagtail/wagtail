@@ -19,7 +19,7 @@ const validateCreationForm = (form) => {
         }
         const errorElement = document.createElement('p');
         errorElement.classList.add('error-message');
-        errorElement.innerHTML = gettext('This field is required.');
+        errorElement.textContent = gettext('This field is required.');
         errors.appendChild(errorElement);
       }
     }

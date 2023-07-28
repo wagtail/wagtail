@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime
 from io import BytesIO
 
@@ -68,7 +67,7 @@ class TestFormResponsesPanel(TestCase):
         result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
-        link = '<a href="{}">1</a>'.format(url)
+        link = f'<a href="{url}">1</a>'
 
         self.assertIn(link, result)
 
@@ -117,7 +116,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
         result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
-        link = '<a href="{}">1</a>'.format(url)
+        link = f'<a href="{url}">1</a>'
 
         self.assertIn(link, result)
 
@@ -1190,7 +1189,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
     def test_delete_submission_show_confirmation(self):
         response = self.client.get(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(FormSubmission.objects.first().id)
+            + f"?selected-submissions={FormSubmission.objects.first().id}"
         )
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed(response, "wagtailforms/confirm_delete.html")
@@ -1201,7 +1200,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
     def test_delete_submission_with_permissions(self):
         response = self.client.post(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(FormSubmission.objects.first().id)
+            + f"?selected-submissions={FormSubmission.objects.first().id}"
         )
 
         # Check that the submission is gone
@@ -1233,7 +1232,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
 
         response = self.client.post(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(FormSubmission.objects.first().id)
+            + f"?selected-submissions={FormSubmission.objects.first().id}"
         )
 
         # Check that the user received a permission denied response
@@ -1252,7 +1251,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         ):
             response = self.client.post(
                 reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-                + "?selected-submissions={}".format(FormSubmission.objects.first().id)
+                + f"?selected-submissions={FormSubmission.objects.first().id}"
             )
 
         # An user can't delete a from submission with the hook

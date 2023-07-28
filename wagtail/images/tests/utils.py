@@ -15,6 +15,13 @@ def get_test_image_file(filename="test.png", colour="white", size=(640, 480)):
     return ImageFile(f, name=filename)
 
 
+def get_test_image_file_avif(filename="test.png", colour="white", size=(640, 480)):
+    f = BytesIO()
+    image = PIL.Image.new("RGBA", size, colour)
+    image.save(f, "AVIF")
+    return ImageFile(f, name=filename)
+
+
 def get_test_image_file_jpeg(filename="test.jpg", colour="white", size=(640, 480)):
     f = BytesIO()
     image = PIL.Image.new("RGB", size, colour)

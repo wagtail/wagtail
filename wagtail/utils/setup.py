@@ -1,4 +1,3 @@
-import io
 import json
 import os
 import subprocess
@@ -30,7 +29,7 @@ class assets_mixin:
         Writes the current Wagtail version number into package.json
         """
         path = os.path.join(".", "client", "package.json")
-        input_file = io.open(path, "r")
+        input_file = open(path)
 
         try:
             package = json.loads(input_file.read().decode("utf-8"))
@@ -41,9 +40,9 @@ class assets_mixin:
         package["version"] = __semver__
 
         try:
-            with io.open(path, "w", encoding="utf-8") as f:
+            with open(path, "w", encoding="utf-8") as f:
                 f.write(str(json.dumps(package, indent=2, ensure_ascii=False)))
-        except (IOError) as e:
+        except (OSError) as e:
             print(  # noqa: T201
                 "Error setting the version for front-end assets: " + str(e)
             )

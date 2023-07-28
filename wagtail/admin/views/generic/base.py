@@ -149,13 +149,18 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             ordering = self.default_ordering
         return ordering
 
-    def get_table(self, object_list, **kwargs):
+    def get_table_kwargs(self):
+        return {
+            "ordering": self.get_ordering(),
+            "classname": self.table_classname,
+            "base_url": self.index_url,
+        }
+
+    def get_table(self, object_list):
         return self.table_class(
             self.columns,
             object_list,
-            ordering=self.get_ordering(),
-            classname=self.table_classname,
-            **kwargs,
+            **self.get_table_kwargs(),
         )
 
     def get_index_url(self):
@@ -165,12 +170,16 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        index_url = self.get_index_url()
-        context["index_url"] = index_url
+        self.index_url = self.get_index_url()
+        table = self.get_table(context["object_list"])
 
-        table = self.get_table(context["object_list"], base_url=index_url)
+        context["index_url"] = self.index_url
         context["table"] = table
         context["media"] = table.media
-        context["is_paginated"] = bool(self.paginate_by)
+        # On Django's BaseListView, a listing where pagination is applied, but the results
+        # only run to a single page, is considered is_paginated=False. Override this to
+        # always consider a listing to be paginated if pagination is applied. This ensures
+        # that we output "Page 1 of 1" as is standard in Wagtail.
+        context["is_paginated"] = context["page_obj"] is not None
 
         return context

@@ -549,11 +549,11 @@ msgstr "Ім'я"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a "
-"href=\"%(add_collection_url)s\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
+"\">створити одну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
@@ -1355,6 +1355,9 @@ msgstr[1] "Використано %(usage_count)s рази"
 msgstr[2] "Використано %(usage_count)s разів"
 msgstr[3] "Використано %(usage_count)s разів"
 
+msgid "First published "
+msgstr "Вперше опубліковано "
+
 msgid "Edit / Review"
 msgstr "Редагувати / Перевірити"
 
@@ -1433,9 +1436,8 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1485,8 +1487,8 @@ msgstr[3] "+%(counter)s більше"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a "
-"href=\"%(add_url)s\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
+"\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -1600,9 +1602,16 @@ msgstr "Переглянути більше групових дій"
 msgid "0 minutes"
 msgstr "0 хвилин"
 
+msgid "just now"
+msgstr "щойно"
+
 #, python-format
 msgid "%(time_period)s ago"
-msgstr "1%(time_period)s тому"
+msgstr "%(time_period)s тому"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "щойно користувачем %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Вийти"

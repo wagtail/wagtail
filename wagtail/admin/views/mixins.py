@@ -152,9 +152,22 @@ class SpreadsheetExportMixin:
     # A dictionary of column heading overrides in the format {field: heading}
     export_headings = {}
 
+    export_buttons_template_name = "wagtailadmin/shared/export_buttons.html"
+
+    export_filename = "spreadsheet-export"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.is_export = request.GET.get("export") in self.FORMATS
+
+    def get_paginate_by(self, queryset):
+        if self.is_export:
+            return None
+        return super().get_paginate_by(queryset)
+
     def get_filename(self):
         """Gets the base filename for the exported spreadsheet, without extensions"""
-        return "spreadsheet-export"
+        return self.export_filename
 
     def to_row_dict(self, item):
         """Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""

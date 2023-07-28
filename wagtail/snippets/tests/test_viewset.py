@@ -1,20 +1,30 @@
+from datetime import datetime
+from io import BytesIO
 from unittest import mock
 
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
+from django.template.defaultfilters import date
 from django.test import TestCase, TransactionTestCase
-from django.urls import reverse
+from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
+from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
+from wagtail.documents import get_document_model
+from wagtail.documents.tests.utils import get_test_document_file
+from wagtail.images import get_image_model
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Workflow, WorkflowContentType
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
@@ -28,6 +38,7 @@ from wagtail.test.testapp.models import (
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
+    VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -670,6 +681,98 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
 
 
+class TestListExport(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.model.objects.create(text="Pot Noodle", country_code="UK")
+
+        cls.first_published_at = "2023-07-01T13:12:11.100"
+        if settings.USE_TZ:
+            cls.first_published_at = "2023-07-01T13:12:11.100Z"
+
+        obj = cls.model.objects.create(
+            text="Indomie",
+            country_code="ID",
+            first_published_at=cls.first_published_at,
+        )
+        # Refresh so the first_published_at becomes a datetime object
+        obj.refresh_from_db()
+        cls.first_published_at = obj.first_published_at
+        cls.some_date = obj.some_date
+
+    def test_get_not_export_shows_export_buttons(self):
+        response = self.client.get(self.get_url("list"))
+        self.assertContains(response, "Download CSV")
+        self.assertContains(response, self.get_url("list") + "?export=csv")
+        self.assertContains(response, "Download XLSX")
+        self.assertContains(response, self.get_url("list") + "?export=xlsx")
+
+    def test_csv_export(self):
+        response = self.client.get(self.get_url("list"), {"export": "csv"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="all-fullfeatured-snippets.csv"',
+        )
+
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(
+            data_lines[0],
+            "Text,Country Code,get_foo_country_code,Some Date,First Published At\r",
+        )
+        self.assertEqual(
+            data_lines[1],
+            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},{self.first_published_at.isoformat(sep=' ')}\r",
+        )
+        self.assertEqual(
+            data_lines[2],
+            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},None\r",
+        )
+
+    def test_xlsx_export(self):
+        response = self.client.get(self.get_url("list"), {"export": "xlsx"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="all-fullfeatured-snippets.xlsx"',
+        )
+
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data)).active
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(
+            cell_array[0],
+            [
+                "Text",
+                "Country Code",
+                "get_foo_country_code",
+                "Some Date",
+                "First Published At",
+            ],
+        )
+        self.assertEqual(
+            cell_array[1],
+            [
+                "Indomie",
+                "ID",
+                "Foo ID",
+                self.some_date,
+                datetime(2023, 7, 1, 13, 12, 11, 100000),
+            ],
+        )
+        self.assertEqual(
+            cell_array[2],
+            ["Pot Noodle", "UK", "Foo UK", self.some_date, "None"],
+        )
+        self.assertEqual(len(cell_array), 3)
+
+        self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
+
+
 class TestCustomTemplates(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
@@ -976,3 +1079,222 @@ class TestCustomFormClass(BaseSnippetViewSetTests):
         edit_view = self.client.get(self.get_url("edit", args=(quote(obj.pk),)))
         self.assertContains(edit_view, '<input type="text" name="text"')
         self.assertNotContains(edit_view, '<textarea name="text"')
+
+
+class TestInspectViewConfiguration(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.viewset = self.model.snippet_viewset
+        self.object = self.model.objects.create(text="Perkedel", country_code="ID")
+
+    def test_enabled(self):
+        self.model = FullFeaturedSnippet
+        url = self.get_url("inspect", args=(quote(self.object.pk),))
+        response = self.client.get(url)
+        self.assertContains(
+            response,
+            "<dt>Text</dt> <dd>Perkedel</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Country code</dt> <dd>Indonesia</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f"<dt>Some date</dt> <dd>{date(self.object.some_date)}</dd>",
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            "<dt>Some attribute</dt> <dd>some value</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            self.get_url("edit", args=(quote(self.object.pk),)),
+        )
+        self.assertContains(
+            response,
+            self.get_url("delete", args=(quote(self.object.pk),)),
+        )
+
+    def test_disabled(self):
+        self.model = Advert
+        object = self.model.objects.create(text="ad")
+        with self.assertRaises(NoReverseMatch):
+            self.get_url("inspect", args=(quote(object.pk),))
+
+    def test_only_add_permission(self):
+        self.model = FullFeaturedSnippet
+
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=self.model._meta.app_label,
+                codename=get_permission_codename("add", self.model._meta),
+            ),
+        )
+        self.user.save()
+
+        url = self.get_url("inspect", args=(quote(self.object.pk),))
+        response = self.client.get(url)
+
+        self.assertContains(
+            response,
+            "<dt>Text</dt> <dd>Perkedel</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Country code</dt> <dd>Indonesia</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f"<dt>Some date</dt> <dd>{date(self.object.some_date)}</dd>",
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            self.get_url("edit", args=(quote(self.object.pk),)),
+        )
+        self.assertNotContains(
+            response,
+            self.get_url("delete", args=(quote(self.object.pk),)),
+        )
+
+    def test_custom_fields(self):
+        self.model = FullFeaturedSnippet
+        url = self.get_url("inspect", args=(quote(self.object.pk),))
+        view_func = resolve(url).func
+
+        adverts = [Advert.objects.create(text=f"advertisement {i}") for i in range(3)]
+        queryset = Advert.objects.filter(pk=adverts[0].pk)
+
+        mock_manager = mock.patch.object(
+            self.model, "adverts", Advert.objects, create=True
+        )
+
+        mock_queryset = mock.patch.object(
+            self.model, "some_queryset", queryset, create=True
+        )
+
+        mock_fields = mock.patch.dict(
+            view_func.view_initkwargs,
+            {
+                "fields": [
+                    "country_code",  # Field with choices (thus get_FOO_display method)
+                    "some_date",  # DateField
+                    "some_attribute",  # Model attribute
+                    "adverts",  # Manager
+                    "some_queryset",  # QuerySet
+                ]
+            },
+        )
+
+        # We need to mock the view's init kwargs instead of the viewset's
+        # attributes, because the viewset's attributes are only used when the
+        # view is instantiated, and the view is instantiated once at startup.
+        with mock_manager, mock_queryset, mock_fields:
+            response = self.client.get(url)
+
+        self.assertNotContains(
+            response,
+            "<dt>Text</dt> <dd>Perkedel</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Country code</dt> <dd>Indonesia</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f"<dt>Some date</dt> <dd>{date(self.object.some_date)}</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Some attribute</dt> <dd>some value</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            """
+            <dt>Adverts</dt>
+            <dd>advertisement 0, advertisement 1, advertisement 2</dd>
+            """,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Some queryset</dt> <dd>advertisement 0</dd>",
+            html=True,
+        )
+
+    def test_exclude_fields(self):
+        self.model = FullFeaturedSnippet
+        url = self.get_url("inspect", args=(quote(self.object.pk),))
+        view_func = resolve(url).func
+
+        # We need to mock the view's init kwargs instead of the viewset's
+        # attributes, because the viewset's attributes are only used when the
+        # view is instantiated, and the view is instantiated once at startup.
+        with mock.patch.dict(
+            view_func.view_initkwargs,
+            {"fields_exclude": ["some_date"]},
+        ):
+            response = self.client.get(url)
+
+        self.assertContains(
+            response,
+            "<dt>Text</dt> <dd>Perkedel</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Country code</dt> <dd>Indonesia</dd>",
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            f"<dt>Some date</dt> <dd>{date(self.object.some_date)}</dd>",
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            "<dt>Some attribute</dt> <dd>some value</dd>",
+            html=True,
+        )
+
+    def test_image_and_document_fields(self):
+        self.model = VariousOnDeleteModel
+        image = get_image_model().objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        document = get_document_model().objects.create(
+            title="Test document", file=get_test_document_file()
+        )
+        object = self.model.objects.create(
+            protected_image=image, protected_document=document
+        )
+        response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
+
+        self.assertContains(
+            response,
+            f"<dt>Protected image</dt> <dd>{image.get_rendition('max-400x400').img_tag()}</dd>",
+            html=True,
+        )
+        self.assertContains(response, "<dt>Protected document</dt>", html=True)
+        self.assertContains(response, f'<a href="{document.url}">')
+        self.assertContains(response, "Test document")
+        self.assertContains(response, "TXT")
+        self.assertContains(response, f"{document.file.size}\xa0bytes")

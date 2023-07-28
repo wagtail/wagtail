@@ -125,7 +125,7 @@ class AvatarPreferencesForm(forms.ModelForm):
             # will clear the now-updated field on self.instance too
             try:
                 self._original_avatar.storage.delete(self._original_avatar.name)
-            except IOError:
+            except OSError:
                 # failure to delete the old avatar shouldn't prevent us from continuing
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name

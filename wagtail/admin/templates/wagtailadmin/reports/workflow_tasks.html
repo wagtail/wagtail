@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block actions %}
-    <div class="addbutton">
+    <div>
         <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
     </div>
     {{ block.super }}

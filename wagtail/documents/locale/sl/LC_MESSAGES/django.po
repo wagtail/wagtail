@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenti"
@@ -69,6 +69,14 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumenti"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Dodajte oznake v 1 dokument"
+msgstr[1] "Dodajte oznake %(counter)s dokumentom"
+msgstr[2] "Dodajte oznake %(counter)s dokumentom"
+msgstr[3] "Dodajte oznake %(counter)s dokumentom"
+
 msgid "Add tags to documents"
 msgstr "Dodajte oznake dokumentom"
 
@@ -92,8 +100,31 @@ msgstr "Da, dodaj"
 msgid "No, don't add"
 msgstr "Ne, ne dodaj"
 
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Dodajte 1 dokument v novo zbirko"
+msgstr[1] "Dodajte %(counter)s dokumenta v novo zbirko"
+msgstr[2] "Dodajte %(counter)s dokumentov v novo zbirko"
+msgstr[3] "Dodajte %(counter)s dokumentov v novo zbirko"
+
 msgid "Add documents to collection"
 msgstr "Dodajte dokumente v zbirko"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Ali ste prepričani, da želite dodati naslednji dokument v izbrano zbirko?"
+msgstr[1] ""
+"Ali ste prepričani, da želite dodati naslednja dokumenta v izbrano zbirko?"
+msgstr[2] ""
+"Ali ste prepričani, da želite dodati naslednje dokumente v izbrano zbirko?"
+msgstr[3] ""
+"Ali ste prepričani, da želite dodati naslednje dokumente v izbrano zbirko?"
 
 msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
@@ -144,11 +175,22 @@ msgstr "Ne, ne izbriši"
 msgid "Latest documents"
 msgstr "Zadnji dokumenti"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Žal se noben dokument ne ujema na \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "V to zbirko niste naložili nobenega dokumenta."
 
 msgid "You haven't uploaded any documents."
 msgstr "Naložili niste nobenega dokumenta."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zakaj ne bi <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>enega naložili zdaj</a>?"
 
 msgid "Change document:"
 msgstr "Spremeni dokument:"
@@ -219,19 +261,19 @@ msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a "
-"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a href="
+"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Naložen ni še noben dokument. Zakaj ga ne bi <a "
-"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"Naložen ni še noben dokument. Zakaj ga ne bi <a href="
+"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"

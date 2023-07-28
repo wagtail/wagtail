@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext, gettext_lazy
 
 from wagtail.admin.ui.components import Component
 from wagtail.coreutils import multigetattr
@@ -41,7 +41,15 @@ class BaseColumn(metaclass=MediaDefiningClass):
     cell_template_name = None
 
     def __init__(
-        self, name, label=None, accessor=None, classname=None, sort_key=None, width=None
+        self,
+        name,
+        label=None,
+        accessor=None,
+        classname=None,
+        sort_key=None,
+        width=None,
+        ascending_title_text=None,
+        descending_title_text=None,
     ):
         self.name = name
         self.accessor = accessor or name
@@ -53,6 +61,8 @@ class BaseColumn(metaclass=MediaDefiningClass):
         self.sort_key = sort_key
         self.header = Column.Header(self)
         self.width = width
+        self.ascending_title_text = ascending_title_text
+        self.descending_title_text = descending_title_text
 
     def get_header_context_data(self, parent_context):
         """
@@ -66,6 +76,10 @@ class BaseColumn(metaclass=MediaDefiningClass):
             "is_ascending": self.sort_key and table.ordering == self.sort_key,
             "is_descending": self.sort_key and table.ordering == ("-" + self.sort_key),
             "request": parent_context.get("request"),
+            "ascending_title_text": self.ascending_title_text
+            or table.get_ascending_title_text(self),
+            "descending_title_text": self.descending_title_text
+            or table.get_descending_title_text(self),
         }
 
     @cached_property
@@ -95,6 +109,8 @@ class BaseColumn(metaclass=MediaDefiningClass):
         return {
             "instance": instance,
             "column": self,
+            "row": parent_context["row"],
+            "table": parent_context["table"],
             "request": parent_context.get("request"),
         }
 
@@ -113,7 +129,7 @@ class BaseColumn(metaclass=MediaDefiningClass):
         return Column.Cell(self, instance)
 
     def __repr__(self):
-        return "<%s.%s: %s>" % (
+        return "<{}.{}: {}>".format(
             self.__class__.__module__,
             self.__class__.__qualname__,
             self.name,
@@ -193,7 +209,7 @@ class TitleColumn(Column):
             return self._get_label_id_func(instance)
         elif self.label_prefix:
             id = multigetattr(instance, self.id_accessor)
-            return "%s-%s" % (self.label_prefix, id)
+            return f"{self.label_prefix}-{id}"
 
 
 class StatusFlagColumn(Column):
@@ -233,7 +249,7 @@ class LiveStatusTagColumn(StatusTagColumn):
     def __init__(self, **kwargs):
         super().__init__(
             "status_string",
-            label=kwargs.pop("label", _("Status")),
+            label=kwargs.pop("label", gettext("Status")),
             sort_key=kwargs.pop("sort_key", "live"),
             primary=lambda instance: instance.live,
             **kwargs,
@@ -252,7 +268,7 @@ class UpdatedAtColumn(DateColumn):
     def __init__(self, **kwargs):
         super().__init__(
             "_updated_at",
-            label=kwargs.pop("label", _("Updated")),
+            label=kwargs.pop("label", gettext("Updated")),
             sort_key=kwargs.pop("sort_key", "_updated_at"),
             **kwargs,
         )
@@ -282,13 +298,13 @@ class UserColumn(Column):
         return context
 
 
-class BulkActionsCheckboxColumn(Column):
+class BulkActionsCheckboxColumn(BaseColumn):
     header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
     cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["obj"] = context["instance"]
+        context["obj"] = instance
         return context
 
 
@@ -325,6 +341,12 @@ class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
     header_row_classname = ""
+    ascending_title_text_format = gettext_lazy(
+        "Sort by '%(label)s' in ascending order."
+    )
+    descending_title_text_format = gettext_lazy(
+        "Sort by '%(label)s' in descending order."
+    )
 
     def __init__(
         self,
@@ -334,6 +356,7 @@ class Table(Component):
         base_url=None,
         ordering=None,
         classname=None,
+        attrs=None,
     ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
         self.data = data
@@ -343,6 +366,7 @@ class Table(Component):
         self.ordering = ordering
         if classname is not None:
             self.classname = classname
+        self.base_attrs = attrs or {}
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
@@ -359,22 +383,48 @@ class Table(Component):
 
     @property
     def rows(self):
-        for instance in self.data:
-            yield Table.Row(self, instance)
+        for index, instance in enumerate(self.data):
+            yield Table.Row(self, instance, index)
+
+    @property
+    def row_count(self):
+        return len(self.data)
+
+    @property
+    def attrs(self):
+        attrs = self.base_attrs.copy()
+        attrs["class"] = self.classname
+        return attrs
 
     def get_row_classname(self, instance):
         return ""
 
+    def get_row_attrs(self, instance):
+        attrs = {}
+        classname = self.get_row_classname(instance)
+        if classname:
+            attrs["class"] = classname
+        return attrs
+
     def has_column_widths(self):
         return any(column.width for column in self.columns.values())
+
+    def get_ascending_title_text(self, column):
+        if self.ascending_title_text_format:
+            return self.ascending_title_text_format % {"label": column.label}
+
+    def get_descending_title_text(self, column):
+        if self.descending_title_text_format:
+            return self.descending_title_text_format % {"label": column.label}
 
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
         # the corresponding column's format_cell method applied to the instance
-        def __init__(self, table, instance):
+        def __init__(self, table, instance, index):
             self.table = table
             self.columns = table.columns
             self.instance = instance
+            self.index = index
 
         def __len__(self):
             return len(self.columns)
@@ -383,8 +433,7 @@ class Table(Component):
             return self.columns[key].get_cell(self.instance)
 
         def __iter__(self):
-            for name in self.columns:
-                yield name
+            yield from self.columns
 
         def __repr__(self):
             return repr([col.get_cell(self.instance) for col in self.columns.values()])
@@ -392,6 +441,10 @@ class Table(Component):
         @cached_property
         def classname(self):
             return self.table.get_row_classname(self.instance)
+
+        @cached_property
+        def attrs(self):
+            return self.table.get_row_attrs(self.instance)
 
 
 class InlineActionsTable(Table):

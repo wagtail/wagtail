@@ -161,7 +161,7 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
 
         response = self.client.get(url)
         self.assertRedirects(
-            response, status_code=302, expected_url="%s%s/" % (url, default_site.pk)
+            response, status_code=302, expected_url=f"{url}{default_site.pk}/"
         )
 
     def test_get_redirect_to_relevant_instance_invalid(self):

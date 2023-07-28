@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*
 import json
 
 from django.apps import apps
@@ -260,7 +259,7 @@ class TestStreamFieldRenderingBase(TestCase):
             [
                 '<div class="block-rich_text"><p>Rich text</p></div>',
                 '<div class="block-rich_text"><p>Привет, Микола</p></div>',
-                '<div class="block-image">{}</div>'.format(img_tag),
+                f'<div class="block-image">{img_tag}</div>',
                 '<div class="block-text">Hello, World!</div>',
             ]
         )

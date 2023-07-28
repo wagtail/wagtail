@@ -43,11 +43,17 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
-from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
+from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestPageEdit(WagtailTestUtils, TestCase):
+    STATUS_TOGGLE_BADGE_REGEX = (
+        r'data-side-panel-toggle="status"[^<]+<svg[^<]+<use[^<]+</use[^<]+</svg[^<]+'
+        r"<div data-side-panel-toggle-counter[^>]+w-bg-critical-200[^>]+>\s*%(num_errors)s\s*</div>"
+    )
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -405,19 +411,19 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -433,7 +439,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -441,7 +453,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            "This publishing schedule will only take effect after you have published",
+            'This publishing schedule will only take effect after you select the "Publish" option',
         )
 
     def test_edit_post_scheduled_custom_timezone(self):
@@ -498,7 +510,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # and should be in the user's timezone
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
             count=1,
         )
@@ -519,7 +531,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -535,7 +553,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            "This publishing schedule will only take effect after you have published",
+            'This publishing schedule will only take effect after you select the "Publish" option',
         )
 
     def test_schedule_panel_without_publish_permission(self):
@@ -582,6 +600,20 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "Go live date/time must be before expiry date/time",
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
 
@@ -605,8 +637,90 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response, "form", "expire_at", "Expiry date/time must be in the future"
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 1
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
+
+    def test_edit_post_invalid_schedule_with_existing_draft_schedule(self):
+        self.child_page.go_live_at = timezone.now() + datetime.timedelta(days=1)
+        self.child_page.expire_at = timezone.now() + datetime.timedelta(days=2)
+        latest_revision = self.child_page.save_revision()
+
+        go_live_at = timezone.now() + datetime.timedelta(days=10)
+        expire_at = timezone.now() + datetime.timedelta(days=-20)
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "go_live_at": submittable_timestamp(go_live_at),
+            "expire_at": submittable_timestamp(expire_at),
+        }
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        response = self.client.post(edit_url, post_data)
+
+        # Should render the edit page with errors instead of redirecting
+        self.assertEqual(response.status_code, 200)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page will still be live
+        self.assertTrue(child_page_new.live)
+
+        # No new revision should have been created
+        self.assertEqual(child_page_new.latest_revision_id, latest_revision.pk)
+
+        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            '<span class="w-text-grey-600">Go-live:</span>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            '<span class="w-text-grey-600">Expiry:</span>',
+            html=True,
+        )
+
+        # Should show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
 
     def test_page_edit_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -760,18 +874,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -924,18 +1038,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1099,7 +1213,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should still show the active expire_at in the live object
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1107,19 +1221,19 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should also show the draft go_live_at and expire_at under the "Once published" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -1135,7 +1249,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -1210,25 +1330,25 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # override the existing expire_at when it goes live
         self.assertNotContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
         )
 
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -1313,7 +1433,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # unpublished (expired) -> published (scheduled) -> unpublished (expired again)
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1321,18 +1441,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should show the go_live_at and expire_at without the "Once published" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-grey-600">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once published:</div>',
             html=True,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2280,7 +2400,7 @@ class TestIssue2492(WagtailTestUtils, TestCase):
 
         # The "View Live" button should have the custom URL.
         for message in response.context["messages"]:
-            self.assertIn('"{}"'.format(new_url), message.message)
+            self.assertIn(f'"{new_url}"', message.message)
             break
 
 

@@ -48,6 +48,11 @@ msgstr "Đồng ý, thêm"
 msgid "No, don't add"
 msgstr "Không thêm"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Dùng %(usage_count)s lần"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 

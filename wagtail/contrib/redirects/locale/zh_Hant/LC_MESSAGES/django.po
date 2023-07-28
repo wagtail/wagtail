@@ -140,16 +140,21 @@ msgid "Edit this redirect"
 msgstr "編輯重定向"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "共有 %(counter)s 項符合"
+
+#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "對不起，沒有重定向符合\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"還沒有創建過重定向呢。為何不 <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">創建一個</a>?"
+"還沒有創建過重定向呢。為何不 <a href=\"%(wagtailredirects_add_redirect_url)s"
+"\">創建一個</a>?"
 
 msgid "Search redirects"
 msgstr "搜索重定向"

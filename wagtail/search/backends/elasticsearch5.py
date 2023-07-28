@@ -1,5 +1,6 @@
 import copy
 import json
+import warnings
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -25,6 +26,7 @@ from wagtail.search.index import (
     class_is_indexed,
 )
 from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.utils import deep_update
 
 
@@ -303,7 +305,7 @@ class Elasticsearch5Mapping:
         return doc
 
     def __repr__(self):
-        return "<ElasticsearchMapping: %s>" % (self.model.__name__,)
+        return f"<ElasticsearchMapping: {self.model.__name__}>"
 
 
 class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
@@ -311,7 +313,7 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "or"
 
     def __init__(self, *args, **kwargs):
-        super(Elasticsearch5SearchQueryCompiler, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
 
         # Convert field names into index column names
@@ -691,11 +693,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
         }
 
         # Send to Elasticsearch
-        response = self.backend.es.search(
+        response = self._backend_do_search(
+            body,
             index=self.backend.get_index_for_model(
                 self.query_compiler.queryset.model
             ).name,
-            body=body,
             size=0,
         )
 
@@ -741,6 +743,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             if result:
                 yield result
 
+    def _backend_do_search(self, body, **kwargs):
+        # Send the search query to the backend. Wrapped here so that it can be overridden
+        # to handle different calling conventions for the 'body' parameter
+        return self.backend.es.search(body=body, **kwargs)
+
     def _do_search(self):
         PAGE_SIZE = 100
 
@@ -751,11 +758,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
 
         use_scroll = limit is None or limit > PAGE_SIZE
 
+        body = self._get_es_body()
         params = {
             "index": self.backend.get_index_for_model(
                 self.query_compiler.queryset.model
             ).name,
-            "body": self._get_es_body(),
             "_source": False,
             self.fields_param_name: "pk",
         }
@@ -772,7 +779,7 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             skip = self.start
 
             # Send to Elasticsearch
-            page = self.backend.es.search(**params)
+            page = self._backend_do_search(body, **params)
 
             while True:
                 hits = page["hits"]["hits"]
@@ -818,7 +825,7 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             )
 
             # Send to Elasticsearch
-            hits = self.backend.es.search(**params)["hits"]["hits"]
+            hits = self._backend_do_search(body, **params)["hits"]["hits"]
 
             # Get results
             for result in self._get_results_from_hits(hits):
@@ -1047,6 +1054,8 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
     basic_rebuilder_class = ElasticsearchIndexRebuilder
     atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
     catch_indexing_errors = True
+    timeout_kwarg_name = "timeout"
+    is_deprecated = True  # overriden on subclasses which are not deprecated
 
     settings = {
         "settings": {
@@ -1084,8 +1093,38 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         }
     }
 
+    def _get_host_config_from_url(self, url):
+        """Given a parsed URL, return the host configuration to be added to self.hosts"""
+        use_ssl = url.scheme == "https"
+        port = url.port or (443 if use_ssl else 80)
+
+        http_auth = None
+        if url.username is not None and url.password is not None:
+            http_auth = (url.username, url.password)
+
+        return {
+            "host": url.hostname,
+            "port": port,
+            "url_prefix": url.path,
+            "use_ssl": use_ssl,
+            "verify_certs": use_ssl,
+            "http_auth": http_auth,
+        }
+
+    def _get_options_from_host_urls(self, urls):
+        """Given a list of parsed URLs, return a dict of additional options to be passed into the
+        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
+        return {}
+
     def __init__(self, params):
-        super(Elasticsearch5SearchBackend, self).__init__(params)
+        super().__init__(params)
+
+        if self.is_deprecated:
+            warnings.warn(
+                f"The {self.__module__} search backend is deprecated and will be removed in a future release. "
+                "Please upgrade to Elasticsearch 7 or above.",
+                RemovedInWagtail60Warning,
+            )
 
         # Get settings
         self.hosts = params.pop("HOSTS", None)
@@ -1097,36 +1136,6 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         else:
             self.rebuilder_class = self.basic_rebuilder_class
 
-        # If HOSTS is not set, convert URLS setting to HOSTS
-        es_urls = params.pop("URLS", ["http://localhost:9200"])
-        if self.hosts is None:
-            self.hosts = []
-
-            # if es_urls is not a list, convert it to a list
-            if isinstance(es_urls, str):
-                es_urls = [es_urls]
-
-            for url in es_urls:
-                parsed_url = urlparse(url)
-
-                use_ssl = parsed_url.scheme == "https"
-                port = parsed_url.port or (443 if use_ssl else 80)
-
-                http_auth = None
-                if parsed_url.username is not None and parsed_url.password is not None:
-                    http_auth = (parsed_url.username, parsed_url.password)
-
-                self.hosts.append(
-                    {
-                        "host": parsed_url.hostname,
-                        "port": port,
-                        "url_prefix": parsed_url.path,
-                        "use_ssl": use_ssl,
-                        "verify_certs": use_ssl,
-                        "http_auth": http_auth,
-                    }
-                )
-
         self.settings = copy.deepcopy(
             self.settings
         )  # Make the class settings attribute as instance settings attribute
@@ -1136,7 +1145,21 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         # Any remaining params are passed into the Elasticsearch constructor
         options = params.pop("OPTIONS", {})
 
-        self.es = Elasticsearch(hosts=self.hosts, timeout=self.timeout, **options)
+        # If HOSTS is not set, convert URLS setting to HOSTS
+        if self.hosts is None:
+            es_urls = params.pop("URLS", ["http://localhost:9200"])
+            # if es_urls is not a list, convert it to a list
+            if isinstance(es_urls, str):
+                es_urls = [es_urls]
+
+            parsed_urls = [urlparse(url) for url in es_urls]
+
+            self.hosts = [self._get_host_config_from_url(url) for url in parsed_urls]
+            options.update(self._get_options_from_host_urls(parsed_urls))
+
+        options[self.timeout_kwarg_name] = self.timeout
+
+        self.es = Elasticsearch(hosts=self.hosts, **options)
 
     def get_index_for_model(self, model):
         # Split models up into separate indices based on their root model.

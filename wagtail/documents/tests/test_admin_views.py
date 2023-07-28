@@ -149,7 +149,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
 
         edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
         next_url = quote(response._request.get_full_path())
-        self.assertContains(response, "%s?next=%s" % (edit_url, next_url))
+        self.assertContains(response, f"{edit_url}?next={next_url}")
 
     def test_search_form_rendered(self):
         response = self.get()

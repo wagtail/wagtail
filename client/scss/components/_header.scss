@@ -69,6 +69,8 @@
   }
 
   .right {
+    display: flex;
+    gap: theme('spacing[2.5]');
     text-align: end;
     float: right;
   }

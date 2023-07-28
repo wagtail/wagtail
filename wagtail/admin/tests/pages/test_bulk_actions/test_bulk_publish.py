@@ -130,9 +130,7 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_published:
-            self.assertInHTML(
-                "<li>{page_title}</li>".format(page_title=child_page.title), html
-            )
+            self.assertInHTML(f"<li>{child_page.title}</li>", html)
 
     def test_publish_view_post(self):
         """

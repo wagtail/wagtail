@@ -108,7 +108,7 @@ class SubmitTranslationForm(forms.Form):
                     len(disabled_locales),
                 )
                 help_text += "<br>"
-                help_text += '<a href="{}">'.format(url)
+                help_text += f'<a href="{url}">'
                 help_text += ngettext(
                     "Translate the parent page.",
                     "Translate the parent pages.",

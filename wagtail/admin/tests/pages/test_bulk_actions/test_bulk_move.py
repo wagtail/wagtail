@@ -126,12 +126,10 @@ class TestBulkMove(WagtailTestUtils, TestCase):
         self.assertInHTML("<p>You don't have permission to move these pages</p>", html)
 
         for child_page in self.pages_to_be_moved:
-            self.assertInHTML(
-                "<li>{page_title}</li>".format(page_title=child_page.title), html
-            )
+            self.assertInHTML(f"<li>{child_page.title}</li>", html)
 
         self.assertTagInHTML(
-            """<form action="{}" method="POST"></form>""".format(self.url),
+            f"""<form action="{self.url}" method="POST"></form>""",
             html,
             count=0,
         )
@@ -170,7 +168,7 @@ class TestBulkMove(WagtailTestUtils, TestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            "<p>The following pages cannot be moved to {}</p>".format(page.title), html
+            f"<p>The following pages cannot be moved to {page.title}</p>", html
         )
 
         for child_page in self.pages_to_be_moved:

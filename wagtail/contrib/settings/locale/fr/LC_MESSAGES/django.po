@@ -7,13 +7,14 @@
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020,2022
 # Loic Teixeira, 2020,2022
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 11:47+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Loic Teixeira, 2020,2022\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +55,7 @@ msgstr "Ce paramètre ne peut être ouvert car aucun site n’est défini."
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "1 %(setting_type)s mis à jour."
+msgstr "%(setting_type)s mis à jour."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Ce paramètre ne peut être enregistré du fait d’erreurs."
