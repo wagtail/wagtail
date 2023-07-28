@@ -20,7 +20,7 @@ deployments:
       # Load content, will also create a superuser for us (admin / changeme)
       - python manage.py load_initial_data
       # Ensure that the CSRF_TRUSTED_ORIGINS setting includes the Squash.io domain
-      - echo "CSRF_TRUSTED_ORIGINS = ['https://*.squash.io']" >> /bakerydemo/bakerydemo/settings/base.py
+      - echo "CSRF_TRUSTED_ORIGINS = ['https://*.squash.io']" > /bakerydemo/bakerydemo/settings/local.py
     launch_steps:
       - cd /bakerydemo/
       - python manage.py runserver 0.0.0.0:80
