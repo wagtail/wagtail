@@ -10,6 +10,7 @@ Changelog
  * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
  * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
+ * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
 
 
 5.1 (01.08.2023)

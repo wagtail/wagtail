@@ -600,10 +600,6 @@ class ConfirmWorkflowCancellationView(workflow.ConfirmWorkflowCancellation):
     pass
 
 
-class WorkflowStatusView(PermissionCheckedMixin, workflow.WorkflowStatus):
-    permission_required = "change"
-
-
 class WorkflowPreviewView(workflow.PreviewRevisionForTask):
     pass
 
@@ -786,9 +782,6 @@ class SnippetViewSet(ModelViewSet):
 
     #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippet.views.snippets.ConfirmWorkflowCancellationView``.
     confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
-
-    #: The view class to use for rendering the workflow status modal; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowStatusView``.
-    workflow_status_view_class = WorkflowStatusView
 
     #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
     workflow_preview_view_class = WorkflowPreviewView
@@ -1153,15 +1146,6 @@ class SnippetViewSet(ModelViewSet):
         return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
 
     @property
-    def workflow_status_view(self):
-        return self.workflow_status_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            workflow_history_url_name=self.get_url_name("workflow_history"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-        )
-
-    @property
     def workflow_preview_view(self):
         return self.workflow_preview_view_class.as_view(model=self.model)
 
@@ -1478,11 +1462,6 @@ class SnippetViewSet(ModelViewSet):
                     "workflow/confirm_cancellation/<str:pk>/",
                     self.confirm_workflow_cancellation_view,
                     name="confirm_workflow_cancellation",
-                ),
-                path(
-                    "workflow/status/<str:pk>/",
-                    self.workflow_status_view,
-                    name="workflow_status",
                 ),
                 path(
                     "workflow_history/<str:pk>/",
