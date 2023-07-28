@@ -1,6 +1,6 @@
 deployments:
   default:
-    dockerimage: python:3.10.5-slim-buster
+    dockerimage: python:3.11.4-slim-bullseye
     build_steps:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
       - RUN bash -c "curl -sL https://deb.nodesource.com/setup_18.x | bash -"
@@ -10,17 +10,19 @@ deployments:
     post_build_steps:
       - npm ci --audit=false --progress=false
       - npm run build
+      - git clone --depth=1 https://github.com/wagtail/bakerydemo.git /bakerydemo
+      # Install bakerydemo dependencies
+      - pip install -r /bakerydemo/requirements/base.txt
+      # Install the checked-out version of Wagtail, overriding whatever version was installed previously
       - pip install /code
-      - mkdir /myproject
-      - cd /myproject
-      - wagtail start mysite
-      - cd /myproject/mysite
+      - cd /bakerydemo
       - python manage.py migrate
-      - echo "<br><h1>Wagtail test instance</h1><p>Log into <a href='/admin/'>/admin/</a> with 'admin' / 'changeme'.</p>" > home/templates/home/welcome_page.html
-      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'changeme')" | python manage.py shell
-      - echo "CSRF_TRUSTED_ORIGINS = ['https://*.squash.io']" >> mysite/settings/dev.py
+      # Load content, will also create a superuser for us (admin / changeme)
+      - python manage.py load_initial_data
+      # Ensure that the CSRF_TRUSTED_ORIGINS setting includes the Squash.io domain
+      - echo "CSRF_TRUSTED_ORIGINS = ['https://*.squash.io']" > /bakerydemo/bakerydemo/settings/local.py
     launch_steps:
-      - cd /myproject/mysite
+      - cd /bakerydemo/
       - python manage.py runserver 0.0.0.0:80
     port_forwarding: 80:80
     run_options: -v ~/code:/code
