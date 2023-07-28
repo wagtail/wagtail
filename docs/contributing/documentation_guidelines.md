@@ -7,71 +7,17 @@ depth: 1
 ---
 ```
 
-## Formatting recommendations
-
-Wagtail’s documentation uses a mixture of [Markdown](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
-
-Here are formats we encourage using when writing documentation for Wagtail.
+(writing_style_guide)=
 
 ## Writing style guide
 
 To ensure consistency in tone and language, follow the [Google developer documentation style guide](https://developers.google.com/style) when writing the Wagtail documentation.
 
-## Writing style linter
+## Formatting recommendations
 
-Before submitting a pull request, use [Vale](https://vale.sh/) to check if your documentation adheres to the Google developer documentation style guide. Follow these steps to check your documentation with Vale:
+Wagtail’s documentation uses a mixture of [Markdown](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
 
-1.  Copy and paste your Wagtail documentation content into a new markdown file located in a separate directory.
-2.  Open your command line terminal and navigate to the separate directory that has your new markdown file.
-3.  Install Vale using a package manager suitable for your operating system, such as [Homebrew](https://brew.sh/) for macOS or [Chocolatey](https://phoenixnap.com/kb/chocolatey-windows) for Windows.
-    -  For Windows:
-    
-    ```doscon
-    choco install vale
-    ```
-    
-    -  For macOS:
-    
-    ```sh
-    brew install vale
-    ```
-
-4.  Verify the successful installation of Vale by running the command:
-
-```sh
-vale -v
-```
-
-This should display the version of Vale you installed.
-5.  Create a configuration file named `.vale.ini` in the same directory.
-6.  Paste the following contents into your `.vale.ini` configuration file:
-
-```txt
-StylesPath = styles
-MinAlertLevel = suggestion
-Packages = Google
-
-[*]
-BasedOnStyles = Vale, Google
-```
-
-7.  Initialize your directory by running the command:
-
-```sh
-vale sync
-```
-
-8.  Check for writing style errors in your documentation:
-
-```sh
-vale <documentation.md>
-```
-
-```{note}
-Replace "documentation.md" with the actual name of your markdown file.
-```
-
-If you follow the preceding steps correctly, your command line terminal will display errors indicating non-adherence to the Google developer documentation style guide. To learn more about setting up Vale, refer to the [Vale documentation](https://vale.sh/docs/).
+Here are formats we encourage using when writing documentation for Wagtail.
 
 ### Paragraphs
 
@@ -79,6 +25,19 @@ It all starts here.
 Keep your sentences short, varied in length.
 
 Separate text with an empty line to create a new paragraph.
+
+### Latin phrases and abbreviations
+
+Try to avoid Latin phrases (such as `ergo` or `de facto`) and abbreviations (such as `i.e.` or `e.g.`), and use common English phrases instead. Alternatively, find a simpler way to communicate the concept or idea to the reader. The exception is `etc.` which can be used when space is limited.
+
+Examples:
+
+| Don't use this | Use this instead     |
+| -------------- | -------------------- |
+| e.g.           | for example, such as |
+| i.e.           | that is              |
+| viz.           | namely               |
+| ergo           | therefore            |
 
 ### Heading levels
 
