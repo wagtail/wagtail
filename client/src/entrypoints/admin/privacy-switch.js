@@ -27,17 +27,21 @@ $(() => {
           const passwordField = $('[name="password"]', modal.body).parents(
             '[data-field-wrapper]',
           );
+          const passwordWarning = $('#password-warning', modal.body);
           const groupsFields = $('#groups-fields', modal.body);
 
           function refreshFormFields() {
             if (restrictionTypePasswordField.is(':checked')) {
               passwordField.show();
+              passwordWarning.show();
               groupsFields.hide();
             } else if (restrictionTypeGroupsField.is(':checked')) {
               passwordField.hide();
+              passwordWarning.hide();
               groupsFields.show();
             } else {
               passwordField.hide();
+              passwordWarning.hide();
               groupsFields.hide();
             }
           }
