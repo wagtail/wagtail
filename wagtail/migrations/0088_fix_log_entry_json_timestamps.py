@@ -54,7 +54,14 @@ def migrate_logs_with_created_only(model, converter):
                 converter.__name__,
             )
             continue
-        except KeyError:
+        except (KeyError, TypeError):
+            # Empty `data` in logs created since Wagtail 3.0 normalises to the
+            # empty JSON object `{}`, so accessing unavailable data will raise
+            # a `KeyError`.
+            # However, old logs (e.g. "wagtail.publish" ones) may store the
+            # `data` as a JSON `null` instead of an empty JSON object `{}` in
+            # the database, which is deserialized to `None` by Python. So,
+            # it raises a `TypeError` instead of a `KeyError`.
             continue
         else:
             item.save(update_fields=["data"])
@@ -68,11 +75,9 @@ def migrate_schedule_logs(model, converter):
         .only("data")
         .iterator()
     ):
-        created = item.data["revision"]["created"]
-        # May be unset for "wagtail.schedule.cancel"-logs.
-        go_live_at = item.data["revision"].get("go_live_at")
         changed = False
         try:
+            created = item.data["revision"]["created"]
             # "created" is set to timezone.now() for new revisions ("wagtail.publish.schedule")
             # and to self.created_at for "wagtail.schedule.cancel", which is set to UTC
             # by django.
@@ -86,25 +91,31 @@ def migrate_schedule_logs(model, converter):
                 item.pk,
                 converter.__name__,
             )
+        except (KeyError, TypeError):
+            pass
 
-        if go_live_at:
-            # The go_live_at date is set to the revision object's "go_live_at".
-            # The revision's object is created by deserializing the json data (see wagtail.models.Revision.as_object()),
-            # and this process converts all datetime objects to the local timestamp (see https://github.com/wagtail/django-modelcluster/blob/8666f16eaf23ca98afc160b0a4729864411c0563/modelcluster/models.py#L109-L115).
-            # That's the reason, why this date is the only date, which is not stored in the log's JSON as UTC, but in the default timezone.
-            try:
+        # The go_live_at date is set to the revision object's "go_live_at".
+        # The revision's object is created by deserializing the json data (see wagtail.models.Revision.as_object()),
+        # and this process converts all datetime objects to the local timestamp (see https://github.com/wagtail/django-modelcluster/blob/8666f16eaf23ca98afc160b0a4729864411c0563/modelcluster/models.py#L109-L115).
+        # That's the reason, why this date is the only date, which is not stored in the log's JSON as UTC, but in the default timezone.
+        try:
+            # May be unset for "wagtail.schedule.cancel"-logs.
+            go_live_at = item.data["revision"].get("go_live_at")
+            if go_live_at:
                 item.data["revision"]["go_live_at"] = converter(
                     go_live_at, tz=timezone.get_default_timezone()
                 )
                 changed = True
-            except ValueError:
-                logger.warning(
-                    "Failed to migrate 'go_live_at' timestamp '%s' of %s %s (%s)",
-                    go_live_at,
-                    model.__name__,
-                    item.pk,
-                    converter.__name__,
-                )
+        except ValueError:
+            logger.warning(
+                "Failed to migrate 'go_live_at' timestamp '%s' of %s %s (%s)",
+                go_live_at,
+                model.__name__,
+                item.pk,
+                converter.__name__,
+            )
+        except (KeyError, TypeError):
+            pass
 
         if changed:
             item.save(update_fields=["data"])
