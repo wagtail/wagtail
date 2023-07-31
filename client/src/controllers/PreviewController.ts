@@ -139,6 +139,7 @@ export class PreviewController extends Controller<HTMLElement> {
   declare editForm: HTMLFormElement;
   declare sidePanelContainer: HTMLDivElement;
   declare checksSidePanel: HTMLDivElement | null;
+  declare resizeObserver: ResizeObserver;
 
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -218,6 +219,7 @@ export class PreviewController extends Controller<HTMLElement> {
       ),
     );
     resizeObserver.observe(this.element);
+    return resizeObserver;
   }
 
   /**
@@ -513,7 +515,7 @@ export class PreviewController extends Controller<HTMLElement> {
       );
     }
 
-    this.observePanelSize();
+    this.resizeObserver = this.observePanelSize();
 
     this.editForm = document.querySelector<HTMLFormElement>(
       '[data-edit-form]',
@@ -547,6 +549,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.checksSidePanel?.removeEventListener('show', this.activatePreview);
     this.checksSidePanel?.removeEventListener('hide', this.deactivatePreview);
+
+    this.resizeObserver.disconnect();
   }
 
   /**
