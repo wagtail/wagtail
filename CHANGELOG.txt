@@ -75,6 +75,7 @@ Changelog
  * Fix: Fix preview panel loading issues (Sage Abdullah)
  * Fix: Fix `search_promotions` `0004_copy_queries` migration for long-lived Wagtail instances (Sage Abdullah)
  * Fix: Guard against `TypeError` in `0088_fix_log_entry_json_timestamps` migration (Sage Abdullah)
+ * Fix: Add migration to replace JSON null values with empty objects in log entries' data (Sage Abdullah)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
