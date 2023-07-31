@@ -102,6 +102,8 @@ export class PreviewController extends Controller<HTMLElement> {
     url: { default: '', type: String },
     autoUpdate: { default: true, type: Boolean },
     autoUpdateInterval: { default: 500, type: Number },
+    deviceWidthProperty: { default: '--preview-device-width', type: String },
+    panelWidthProperty: { default: '--preview-panel-width', type: String },
     deviceLocalStorageKey: {
       default: 'wagtail:preview-panel-device',
       type: String,
@@ -126,6 +128,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly urlValue: string;
   declare readonly autoUpdateValue: boolean;
   declare readonly autoUpdateIntervalValue: number;
+  declare readonly deviceWidthPropertyValue: string;
+  declare readonly panelWidthPropertyValue: string;
   declare readonly deviceLocalStorageKeyValue: string;
 
   declare readonly hasWProgressOutlet: boolean;
@@ -171,7 +175,7 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.element.style.setProperty(
-      '--preview-device-width',
+      this.deviceWidthPropertyValue,
       deviceWidth as string,
     );
   }
@@ -209,7 +213,7 @@ export class PreviewController extends Controller<HTMLElement> {
   observePanelSize() {
     const resizeObserver = new ResizeObserver((entries) =>
       this.element.style.setProperty(
-        '--preview-panel-width',
+        this.panelWidthPropertyValue,
         entries[0].contentRect.width.toString(),
       ),
     );
