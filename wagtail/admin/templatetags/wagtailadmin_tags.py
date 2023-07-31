@@ -473,7 +473,7 @@ def page_listing_buttons(context, page, page_perms):
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
-    next_url = context.request.path
+    next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
     buttons = []
