@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.models import Page, PageViewRestriction
@@ -153,6 +153,30 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Be sure there are no groups set
         self.assertEqual(restriction.groups.count(), 0)
+
+    @override_settings(
+        AUTH_PASSWORD_VALIDATORS=[
+            {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+        ],
+    )
+    def test_set_weak_password_restriction(self):
+        post_data = {
+            "restriction_type": "password",
+            "password": "password1",
+            "groups": [],
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+            post_data,
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context["form"].is_valid())
+        self.assertEqual(
+            response.context["form"].errors["password"],
+            ["This password is too common."],
+        )
 
     def test_set_password_restriction_password_unset(self):
         """

@@ -8,6 +8,10 @@ Users with publish permission on a page can set it to be private by clicking the
 -   **Accessible with the following password:** The user must enter the given password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
 -   **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
 
+```{warning}
+Shared passwords should not be used to protect sensitive content.
+```
+
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).
 
 Private pages and documents work on Wagtail out of the box - the site implementer does not need to do anything to set them up. However, the default "log in" and "password required" forms are only bare-bones HTML pages, and site implementers may wish to replace them with a page customised to their site design.
@@ -90,4 +94,24 @@ class VideoPage(Page):
     ...
 
     password_required_template = 'video/password_required.html'
+```
+
+## Password validation
+
+Users often choose poor passwords. Wagtail leverages [Django's password validators](django.contrib.auth.password_validation) to ensure provided passwords are strong.
+
+To customize the validators used, set `WAGTAIL_AUTH_PASSWORD_VALIDATORS`:
+
+```python
+WAGTAIL_AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    }
+]
+```
+
+To disable strength validation for page protection, don't provide any validators:
+
+```python
+WAGTAIL_AUTH_PASSWORD_VALIDATORS = []
 ```
