@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -203,9 +203,6 @@ msgstr ""
 msgid "This field is required."
 msgstr "שדה חובה"
 
-msgid "Page title"
-msgstr "כותרת העמוד"
-
 msgid "Content"
 msgstr "תוכן"
 
@@ -214,6 +211,12 @@ msgstr "קידום"
 
 msgid "Settings"
 msgstr "הגדרות"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "Page title"
+msgstr "כותרת העמוד"
 
 msgid "Account"
 msgstr "חשבון"
@@ -309,9 +312,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
-
-msgid "Title"
-msgstr "כותרת"
 
 msgid "Edit this page"
 msgstr "ערכו עמוד זה"
@@ -456,9 +456,6 @@ msgstr "כן, העבר את העמוד"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
 
-msgid "Pages using"
-msgstr "עמודים משמשים"
-
 #, python-format
 msgid "Copy %(title)s"
 msgstr "העתקת %(title)s"
@@ -484,9 +481,6 @@ msgstr "משתמש"
 msgid "Exploring %(title)s"
 msgstr "מסייר ב%(title)s"
 
-msgid "Drag"
-msgstr "גרור"
-
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
 
@@ -498,6 +492,15 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
+msgid "Drag"
+msgstr "גרור"
+
+msgid "Disable ordering of child pages"
+msgstr "כיבוי סידור של תתי-עמודים"
+
+msgid "Enable ordering of child pages"
+msgstr "הפעלת סידור של תתי-עמודים"
+
 msgid "Previous"
 msgstr "קודם"
 
@@ -506,15 +509,6 @@ msgstr "הבא"
 
 msgid "This page is protected from public view"
 msgstr "עמוד זה מוגן מתצוגה פומבית"
-
-msgid "Disable ordering of child pages"
-msgstr "כיבוי סידור של תתי-עמודים"
-
-msgid "Enable ordering of child pages"
-msgstr "הפעלת סידור של תתי-עמודים"
-
-msgid "Updated"
-msgstr "עדכן"
 
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
@@ -532,8 +526,8 @@ msgstr "עברו מעלה"
 msgid "Move down"
 msgstr "עברו מטה"
 
-msgid "Download CSV"
-msgstr "הורד CSV"
+msgid "Updated"
+msgstr "עדכן"
 
 msgid "Locked"
 msgstr "נעול"
@@ -544,6 +538,9 @@ msgstr "ערוך פריט זה"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
+
+msgid "Download CSV"
+msgstr "הורד CSV"
 
 msgid "Filter"
 msgstr "מסנן"
@@ -650,6 +647,9 @@ msgstr "עמוד %(page_title)s הוזז"
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "פרסום עמוד %(page_title)s בוטל"
+
+msgid "Pages using"
+msgstr "עמודים משמשים"
 
 msgid "Pages"
 msgstr "עמודים"

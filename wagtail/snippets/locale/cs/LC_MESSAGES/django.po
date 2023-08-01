@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -96,9 +96,6 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nerušit."
 
-msgid "History"
-msgstr "Historie"
-
 msgid "Publishing…"
 msgstr "Publikování..."
 
@@ -129,6 +126,9 @@ msgstr "Navigace stránek"
 
 msgid "Snippets"
 msgstr "Úryvky"
+
+msgid "History"
+msgstr "Historie"
 
 msgid "Usage"
 msgstr "Použití"
@@ -200,6 +200,9 @@ msgstr "Datum"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editovat '%(title)s'"
+
+msgid "Inspect"
+msgstr "Prozkoumat"
 
 #, python-format
 msgid "Delete '%(title)s'"

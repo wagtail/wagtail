@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -126,12 +126,6 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">skapa en nu</a>?"
 
-msgid "Last updated"
-msgstr "Senast ändrad"
-
-msgid "History"
-msgstr "Historik"
-
 msgid "Publishing…"
 msgstr "Publicerar..."
 
@@ -180,6 +174,9 @@ msgstr "Ny: %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Redigera %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Historik"
 
 msgid "Usage"
 msgstr "Användning"
@@ -285,6 +282,9 @@ msgstr "%(model_name)s historik"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspektera"
 
 #, python-format
 msgid "Delete '%(title)s'"

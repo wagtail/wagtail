@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,6 +101,30 @@ msgstr "ต้นแบบ"
 msgid "locked"
 msgstr "ล็อค"
 
+msgid "Add/edit pages you own"
+msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
+
+msgid "Bulk delete"
+msgstr "ลบทิ้งบางส่วน"
+
+msgid "Delete pages with children"
+msgstr "ลบหน้าที่มีหน้าย่อย"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit any page"
+msgstr "แก้ไขหน้าอื่นๆ"
+
+msgid "Lock"
+msgstr "ล็อค"
+
+msgid "Publish"
+msgstr "จัดพิมพ์,ตีพิมพ์"
+
+msgid "Publish any page"
+msgstr "จัดพิมพ์หน้าที่คุณเลือก"
+
 msgid "title"
 msgstr "หัวข้อ"
 
@@ -155,32 +179,11 @@ msgstr "ข้อมูลของ JSON"
 msgid "approved go live at"
 msgstr "อนุมัติให้ไปยังถ่ายทอดสด"
 
-msgid "Add/edit pages you own"
-msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
-
-msgid "Edit"
-msgstr "แก้ไข"
-
-msgid "Edit any page"
-msgstr "แก้ไขหน้าอื่นๆ"
-
-msgid "Publish"
-msgstr "จัดพิมพ์,ตีพิมพ์"
-
-msgid "Publish any page"
-msgstr "จัดพิมพ์หน้าที่คุณเลือก"
-
-msgid "Bulk delete"
-msgstr "ลบทิ้งบางส่วน"
-
-msgid "Delete pages with children"
-msgstr "ลบหน้าที่มีหน้าย่อย"
-
-msgid "Lock"
-msgstr "ล็อค"
-
 msgid "group"
 msgstr "กลุ่ม"
+
+msgid "permission"
+msgstr "การอนุญาต"
 
 msgid "permission type"
 msgstr "ประเภทของการอนุญาต"
@@ -217,9 +220,6 @@ msgstr "การดูชุดมีข้อจำกัด"
 
 msgid "collections"
 msgstr "ของสะสมต่างๆ"
-
-msgid "permission"
-msgstr "การอนุญาต"
 
 msgid "group collection permission"
 msgstr "การสะสมกลุ่มที่จะอนุญาต"

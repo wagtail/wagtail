@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -201,12 +201,6 @@ msgstr "Inga formulär har skapats."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Mottagna från %(form_title)s "
-
-msgid "Download XLSX"
-msgstr "Ladda ner XLSX"
-
-msgid "Download CSV"
-msgstr "Ladda ner CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -111,6 +111,39 @@ msgstr "låst den"
 msgid "locked by"
 msgstr "låst av"
 
+msgid "Add/edit pages you own"
+msgstr "Legg til/rediger sider du eier"
+
+msgid "Bulk delete"
+msgstr "Massesletting"
+
+msgid "Delete pages with children"
+msgstr "Slett sider med undersider"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit any page"
+msgstr "Rediger enhver side"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås opp sider som du har låst"
+
+msgid "Publish"
+msgstr "Publiser"
+
+msgid "Publish any page"
+msgstr "Publiser enhver side"
+
+msgid "Unlock"
+msgstr "Lås opp"
+
+msgid "Unlock any page"
+msgstr "Lås opp hvilken som helst side"
+
 msgid "title"
 msgstr "tittel"
 
@@ -168,41 +201,11 @@ msgstr "JSON for innhold"
 msgid "approved go live at"
 msgstr "godkjent for publisering"
 
-msgid "Add/edit pages you own"
-msgstr "Legg til/rediger sider du eier"
-
-msgid "Edit"
-msgstr "Rediger"
-
-msgid "Edit any page"
-msgstr "Rediger enhver side"
-
-msgid "Publish"
-msgstr "Publiser"
-
-msgid "Publish any page"
-msgstr "Publiser enhver side"
-
-msgid "Bulk delete"
-msgstr "Massesletting"
-
-msgid "Delete pages with children"
-msgstr "Slett sider med undersider"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Lås/lås opp sider som du har låst"
-
-msgid "Unlock"
-msgstr "Lås opp"
-
-msgid "Unlock any page"
-msgstr "Lås opp hvilken som helst side"
-
 msgid "group"
 msgstr "gruppe"
+
+msgid "permission"
+msgstr "tillatelse"
 
 msgid "permission type"
 msgstr "tillatelsestype"
@@ -239,9 +242,6 @@ msgstr "visningsbegrensninger for samling"
 
 msgid "collections"
 msgstr "samlinger"
-
-msgid "permission"
-msgstr "tillatelse"
 
 msgid "group collection permission"
 msgstr "gruppetillatelse for samling"

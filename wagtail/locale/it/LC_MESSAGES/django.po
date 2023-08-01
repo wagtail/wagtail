@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -144,6 +144,39 @@ msgstr "in moderazione"
 msgid "live + in moderation"
 msgstr "live + in moderazione"
 
+msgid "Add/edit pages you own"
+msgstr "Aggiungi/modifica pagine di tua proprietà"
+
+msgid "Bulk delete"
+msgstr "Eliminazione massiva"
+
+msgid "Delete pages with children"
+msgstr "Elimina pagine con sottopagine"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit any page"
+msgstr "Modifica qualsiasi pagina"
+
+msgid "Lock"
+msgstr "Blocca"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Blocca/sblocca pagine che hai bloccato"
+
+msgid "Publish"
+msgstr "Pubblica"
+
+msgid "Publish any page"
+msgstr "Pubblica qualsiasi pagina"
+
+msgid "Unlock"
+msgstr "Sblocca"
+
+msgid "Unlock any page"
+msgstr "Sblocca qualsiasi pagina"
+
 msgid "title"
 msgstr "titolo"
 
@@ -226,41 +259,11 @@ msgstr "revisione"
 msgid "revisions"
 msgstr "visioni"
 
-msgid "Add/edit pages you own"
-msgstr "Aggiungi/modifica pagine di tua proprietà"
-
-msgid "Edit"
-msgstr "Modifica"
-
-msgid "Edit any page"
-msgstr "Modifica qualsiasi pagina"
-
-msgid "Publish"
-msgstr "Pubblica"
-
-msgid "Publish any page"
-msgstr "Pubblica qualsiasi pagina"
-
-msgid "Bulk delete"
-msgstr "Eliminazione massiva"
-
-msgid "Delete pages with children"
-msgstr "Elimina pagine con sottopagine"
-
-msgid "Lock"
-msgstr "Blocca"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Blocca/sblocca pagine che hai bloccato"
-
-msgid "Unlock"
-msgstr "Sblocca"
-
-msgid "Unlock any page"
-msgstr "Sblocca qualsiasi pagina"
-
 msgid "group"
 msgstr "gruppo"
+
+msgid "permission"
+msgstr "permesso"
 
 msgid "permission type"
 msgstr "tipo di permesso"
@@ -450,9 +453,6 @@ msgstr "limitazioni per la vista della raccolta"
 
 msgid "collections"
 msgstr "raccolte"
-
-msgid "permission"
-msgstr "permesso"
 
 msgid "group collection permission"
 msgstr "permesso di gruppo nella raccolta"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Ocin Leung, 2020\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -173,12 +173,6 @@ msgstr "還沒有創建表單頁面。"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "提交%(form_title)s"
-
-msgid "Download XLSX"
-msgstr "下載為XLSX"
-
-msgid "Download CSV"
-msgstr "下載為CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

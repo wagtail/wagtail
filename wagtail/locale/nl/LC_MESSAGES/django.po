@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -233,6 +233,39 @@ msgstr "ter goedkeuring"
 msgid "live + in moderation"
 msgstr "live + ter goedkeuring"
 
+msgid "Add/edit pages you own"
+msgstr "Eigen pagina's toevoegen/wijzigen"
+
+msgid "Bulk delete"
+msgstr "Mag meerdere dingen tegelijk verwijderen"
+
+msgid "Delete pages with children"
+msgstr "Verwijder pagina's met onderliggende pagina's"
+
+msgid "Edit"
+msgstr "Wijzigen"
+
+msgid "Edit any page"
+msgstr "Alle pagina's wijzigen"
+
+msgid "Lock"
+msgstr "Vergrendelen"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Vergrendel/ontgrendel pagina's die je vergrendeld hebt"
+
+msgid "Publish"
+msgstr "Publiceren"
+
+msgid "Publish any page"
+msgstr "Elke pagina publiceren"
+
+msgid "Unlock"
+msgstr "Ontgrendelen"
+
+msgid "Unlock any page"
+msgstr "Ontgrendel welke pagina ook"
+
 msgid "title"
 msgstr "titel"
 
@@ -327,41 +360,11 @@ msgstr "revisie"
 msgid "revisions"
 msgstr "revisies"
 
-msgid "Add/edit pages you own"
-msgstr "Eigen pagina's toevoegen/wijzigen"
-
-msgid "Edit"
-msgstr "Wijzigen"
-
-msgid "Edit any page"
-msgstr "Alle pagina's wijzigen"
-
-msgid "Publish"
-msgstr "Publiceren"
-
-msgid "Publish any page"
-msgstr "Elke pagina publiceren"
-
-msgid "Bulk delete"
-msgstr "Mag meerdere dingen tegelijk verwijderen"
-
-msgid "Delete pages with children"
-msgstr "Verwijder pagina's met onderliggende pagina's"
-
-msgid "Lock"
-msgstr "Vergrendelen"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Vergrendel/ontgrendel pagina's die je vergrendeld hebt"
-
-msgid "Unlock"
-msgstr "Ontgrendelen"
-
-msgid "Unlock any page"
-msgstr "Ontgrendel welke pagina ook"
-
 msgid "group"
 msgstr "groep"
+
+msgid "permission"
+msgstr "machtiging"
 
 msgid "permission type"
 msgstr "machtiging"
@@ -581,9 +584,6 @@ msgstr "collectie bekijk restricties"
 
 msgid "collections"
 msgstr "collecties"
-
-msgid "permission"
-msgstr "machtiging"
 
 msgid "group collection permission"
 msgstr "groepsmachtiging binnen collectie"

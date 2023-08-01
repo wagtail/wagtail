@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: bayside kent, 2022\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,9 +100,6 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-msgid "History"
-msgstr "履歴"
-
 msgid "Publishing…"
 msgstr "公開中..."
 
@@ -133,6 +130,9 @@ msgstr "パンくず"
 
 msgid "Snippets"
 msgstr "スニペット"
+
+msgid "History"
+msgstr "履歴"
 
 msgid "Usage"
 msgstr "使用法"
@@ -198,6 +198,9 @@ msgstr "日付"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s'を編集します"
+
+msgid "Inspect"
+msgstr "詳細"
 
 #, python-format
 msgid "Choose %(object)s"

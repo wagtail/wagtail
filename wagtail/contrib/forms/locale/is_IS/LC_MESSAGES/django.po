@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2018,2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -196,12 +196,6 @@ msgstr "Engin skráningarform hafa verið búin til"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Innsendingar fyrir %(form_title)s"
-
-msgid "Download XLSX"
-msgstr "Sækja XLSX"
-
-msgid "Download CSV"
-msgstr "Hlaða niður CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

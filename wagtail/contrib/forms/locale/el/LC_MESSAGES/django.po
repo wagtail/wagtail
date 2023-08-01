@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -157,9 +157,6 @@ msgstr "Δεν έχουν δημιουργηθεί σελίδες μορφής. 
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Υποβολές του %(form_title)s"
-
-msgid "Download CSV"
-msgstr "Ληψη CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

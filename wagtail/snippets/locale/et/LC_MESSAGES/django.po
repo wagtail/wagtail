@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,9 +90,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "History"
-msgstr "Ajalugu"
-
 msgid "Publishing…"
 msgstr "Avaldamine ..."
 
@@ -123,6 +120,9 @@ msgstr "Riivsai"
 
 msgid "Snippets"
 msgstr "Jupid"
+
+msgid "History"
+msgstr "Ajalugu"
 
 msgid "Usage"
 msgstr "Kasutus"
@@ -194,6 +194,9 @@ msgstr "Kuupäev"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Redigeeri '%(title)s'"
+
+msgid "Inspect"
+msgstr "Kontrollige"
 
 #, python-format
 msgid "Choose %(object)s"

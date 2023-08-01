@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Kacper Podpora <podpora@kacper.link>, 2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -378,9 +378,6 @@ msgstr "Wszystkie %(objects)s pozycje na tym ekranie zaznaczone"
 msgid "All items in listing selected"
 msgstr "Wszystkie pozycje na liście zaznaczone"
 
-msgid "Page title"
-msgstr "Tytuł strony"
-
 msgid "For search engines"
 msgstr "Dla silników wyszukiwania"
 
@@ -395,6 +392,12 @@ msgstr "Promocja SEO"
 
 msgid "Settings"
 msgstr "Ustawienia"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Page title"
+msgstr "Tytuł strony"
 
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
@@ -765,9 +768,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Twoje zablokowane strony"
-
-msgid "Title"
-msgstr "Tytuł"
 
 msgid "Locked at"
 msgstr "Zablokowano"
@@ -1492,13 +1492,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Czy w dalszym ciągu chcesz opublikować tą stronę?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Strony wykorzystujące %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Strony używające"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Skopiuj %(title)s"
 
@@ -1560,23 +1553,6 @@ msgstr "Brak wpisów w logu."
 msgid "Exploring %(title)s"
 msgstr "Przeglądaj %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Zaznacz wszystkie strony na liście"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Naciśnij klawisz Enter aby wybrać element, użyj strzałek w górę i dół aby "
-"przenieść elementy, naciśnij Enter aby zakończyć przenoszenie albo Esc aby "
-"anulować aktualny ruch."
-
-msgid "Select page"
-msgstr "Zaznacz stronę"
-
-msgid "Drag"
-msgstr "Przeciągnij"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1619,12 +1595,8 @@ msgstr ""
 "Nie utworzono strony głównej dla tego adresu. Strony utworzone tutaj nie "
 "będą dostępne pod jakimkolwiek adresem URL.                    "
 
-msgid "No pages have been created at this location."
-msgstr "Nie utworzono żadnej strony w tej lokalizacji."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Czemu nie <a href=\"%(add_page_url)s\">dodać jednej</a>?"
+msgid "Select all pages in listing"
+msgstr "Zaznacz wszystkie strony na liście"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Ta strona jest zablokowana, przez Ciebie, do dalszej edycji"
@@ -1639,6 +1611,18 @@ msgstr "Przeglądaj strony pochodne '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj stronę podrzędną do '%(title)s'"
+
+msgid "Drag"
+msgstr "Przeciągnij"
+
+msgid "Disable ordering of child pages"
+msgstr "Wyłącz sortowanie stron podrzędnych"
+
+msgid "Sort"
+msgstr "Sortuj"
+
+msgid "Enable ordering of child pages"
+msgstr "Włącz sortowanie stron podrzędnych"
 
 msgid "Sites menu"
 msgstr "Menu serwisów"
@@ -1658,18 +1642,6 @@ msgstr "Naprzód"
 
 msgid "This page is protected from public view"
 msgstr "Strona nie jest publicznie dostępna"
-
-msgid "Disable ordering of child pages"
-msgstr "Wyłącz sortowanie stron podrzędnych"
-
-msgid "Sort"
-msgstr "Sortuj"
-
-msgid "Enable ordering of child pages"
-msgstr "Włącz sortowanie stron podrzędnych"
-
-msgid "Updated"
-msgstr "Modyfikacja"
 
 msgid "Confirm"
 msgstr "Potwierdź"
@@ -1728,9 +1700,6 @@ msgstr ""
 "Wybierz kiedy ta strona powinna być opublikowana albo utracić status "
 "publikacji"
 
-msgid "This publishing schedule will only take effect after you have published"
-msgstr "Ten plan publikacji zostanie aktywowany kiedy opublikujesz stronę"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Każdy z uprawnieniami edycji może tworzyć plany"
 
@@ -1739,9 +1708,6 @@ msgstr "Ale tylko ci z uprawnieniami publikacji mogą je aktywować."
 
 msgid "Save schedule"
 msgstr "Zapisz plan"
-
-msgid "Comment notifications"
-msgstr "Powiadomienia komentarza"
 
 msgid "Collection management permissions"
 msgstr "Zarządzania uprawnieniami kolekcji"
@@ -1761,11 +1727,8 @@ msgstr "Nie znaleziono żadnych stron."
 msgid "No pages match this report's criteria."
 msgstr "Żadne strony nie pasują do kryteriów raportu."
 
-msgid "Download XLSX"
-msgstr "Pobierz XLSX"
-
-msgid "Download CSV"
-msgstr "Pobierz CSV"
+msgid "Updated"
+msgstr "Modyfikacja"
 
 msgid "Locking status"
 msgstr "Status blokowania"
@@ -1834,6 +1797,12 @@ msgstr "Główny"
 msgid "Close dialog"
 msgstr "Zamknij informację"
 
+msgid "Download XLSX"
+msgstr "Pobierz XLSX"
+
+msgid "Download CSV"
+msgstr "Pobierz CSV"
+
 msgid "Add comment"
 msgstr "Dodaj komentarz"
 
@@ -1899,6 +1868,9 @@ msgstr "Rozszerzanie bocznego panelu"
 
 msgid "Side panel width"
 msgstr "Szerokość panelu bocznego"
+
+msgid "Comment notifications"
+msgstr "Powiadomienia komentarza"
 
 msgid "Page Locale: "
 msgstr "Tłumaczenia strony"
@@ -1989,6 +1961,9 @@ msgstr "przez %(user)s"
 msgid "View history"
 msgstr "Wyświetl historię"
 
+msgid "Invalid schedule"
+msgstr "Niepoprawny plan"
+
 msgid "Go-live:"
 msgstr "Idź online:"
 
@@ -2032,6 +2007,13 @@ msgstr[0] "Ten %(model_name)s został przywołany %(usage_count)s raz."
 msgstr[1] "Ten %(model_name)s został przywołany %(usage_count)s razy."
 msgstr[2] "Ten %(model_name)s został przywołany %(usage_count)s razy."
 msgstr[3] "Ten %(model_name)s został przywołany %(usage_count)s razy."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Jedna lub więcej powiązań to tego %(model_name)s uniemożliwia jego "
+"skasowanie."
 
 msgid "Edit / Review"
 msgstr "Edytuj / Weryfikuj"
@@ -2183,6 +2165,17 @@ msgstr "Użyte na następujących aktywnych procesach"
 msgid "Not used"
 msgstr "Nie użyty"
 
+msgid "Disabled"
+msgstr "Wyłączone"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s więcej"
+msgstr[1] "+%(counter)s więcej"
+msgstr[2] "+%(counter)s więcej"
+msgstr[3] "+%(counter)s więcej"
+
 msgid "Assigned pages"
 msgstr "Przypisane strony"
 
@@ -2201,9 +2194,6 @@ msgstr "Pokaż wyłączone procesy"
 msgid "Used by"
 msgstr "Użyte przez"
 
-msgid "Disabled"
-msgstr "Wyłączone"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -2213,16 +2203,16 @@ msgstr[2] "%(counter)s stron"
 msgstr[3] "%(counter)s stron"
 
 #, python-format
-msgid "Step %(step_number)s"
-msgstr "Krok %(step_number)s"
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 typ skrawka"
+msgstr[1] "%(counter)s typy skrawka"
+msgstr[2] "%(counter)s typów skrawka"
+msgstr[3] "%(counter)s typów skrawka"
 
 #, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s więcej"
-msgstr[1] "+%(counter)s więcej"
-msgstr[2] "+%(counter)s więcej"
-msgstr[3] "+%(counter)s więcej"
+msgid "Step %(step_number)s"
+msgstr "Krok %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2327,23 +2317,11 @@ msgstr "Zobacz pełną historię"
 msgid "Compare with live version"
 msgstr "Porównaj z wersją Live"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' rosnąco."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
-
 msgid "More"
 msgstr "Więcej"
 
-msgid "View more bulk actions"
-msgstr "Zobacz więcej akcji masowych"
+msgid "More bulk actions"
+msgstr "Więcej akcji masowych"
 
 msgid "0 minutes"
 msgstr "0 minut"
@@ -2397,14 +2375,29 @@ msgstr[1] "Przywołano %(count)s razy"
 msgstr[2] "Przywołano %(count)s razy"
 msgstr[3] "Przywołano %(count)s razy"
 
-msgid "Comments"
-msgstr "Komentarze"
-
 msgid "Toggle comments"
 msgstr "Przełącz komentarze"
 
+msgid "Comments"
+msgstr "Komentarze"
+
 msgid "Toggle preview"
 msgstr "Przełącz podgląd"
+
+msgid "Select page"
+msgstr "Zaznacz stronę"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' rosnąco."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
 
 msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr ""
@@ -2525,6 +2518,13 @@ msgstr "Szukaj %(model_name)s"
 msgid "Editing"
 msgstr "Edytowanie"
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Czy na pewno chcesz usunąć ten %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Sprawdzanie"
+
 msgid "Earliest"
 msgstr "Najstarsze"
 
@@ -2569,6 +2569,14 @@ msgstr "Usuń wybrane strony"
 msgid "1 page has been deleted"
 msgstr "1 strona została usunięta"
 
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 strona i %(num_child_objects)d strona podrzędna zostały usunięte"
+msgstr[1] "1 strona i %(num_child_objects)d strony podrzędne zostały usunięte"
+msgstr[2] "1 strona i %(num_child_objects)d stron podrzędnych zostały usunięte"
+msgstr[3] "1 strona i %(num_child_objects)d stron podrzędnych zostały usunięte"
+
 msgid "Select a new parent page"
 msgstr "Wybierz nową stronę nadrzędną"
 
@@ -2588,6 +2596,18 @@ msgstr "Opublikuj wybrane strony"
 
 msgid "1 page has been published"
 msgstr "1 strona została opublikowana"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] ""
+"1 strona i %(num_child_objects)d strona podrzędna zostały opublikowane"
+msgstr[1] ""
+"1 strona i %(num_child_objects)d strony podrzędne zostały opublikowane"
+msgstr[2] ""
+"1 strona i %(num_child_objects)d stron podrzędnych zostały opublikowane"
+msgstr[3] ""
+"1 strona i %(num_child_objects)d stron podrzędnych zostały opublikowane"
 
 msgid "Unpublish selected pages"
 msgstr "Odpublikuj wybrane strony"
@@ -2705,6 +2725,14 @@ msgstr "Ukryj akcje komentowania"
 msgid "Page history"
 msgstr "Historia strony"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Naciśnij klawisz Enter aby wybrać element, użyj strzałek w górę i dół aby "
+"przenieść elementy, naciśnij Enter aby zakończyć przenoszenie albo Esc aby "
+"anulować aktualny ruch."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Strona '%(page_title)s' jest teraz odblokowana."
@@ -2750,6 +2778,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Cofnięto publikację strony '%(page_title)s'."
+
+msgid "Pages using"
+msgstr "Strony używające"
 
 #, python-format
 msgid ""
@@ -2837,6 +2868,26 @@ msgid "Workflow '%(object)s' disabled."
 msgstr "Proces '%(object)s' wyłączony."
 
 #, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Ten proces jest w trakcie na %(states_in_progress)d stronie/skrawku. "
+"Wyłączenie tego procesu skasuje moderację na tej stronie/skrawku."
+msgstr[1] ""
+"Ten proces jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego procesu skasuje moderację na tych stronach/skrawkach."
+msgstr[2] ""
+"Ten proces jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego procesu skasuje moderację na tych stronach/skrawkach."
+msgstr[3] ""
+"Ten proces jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego procesu skasuje moderację na tych stronach/skrawkach."
+
+#, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "Proces '%(workflow_name)s' włączony."
 
@@ -2870,6 +2921,32 @@ msgid "Task '%(object)s' disabled."
 msgstr "Zadanie '%(object)s' wyłączone."
 
 #, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"To zadanie jest w trakcie na %(states_in_progress)d stronie/skrawku. "
+"Wyłączenie tego zadania spowoduje przeskoczenie go w procesie moderacji i "
+"nie będzie dostępne do wyboru przy edytowaniu procesu."
+msgstr[1] ""
+"To zadanie jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego zadania spowoduje przeskoczenie go w procesie moderacji i "
+"nie będzie dostępne do wyboru przy edytowaniu procesu."
+msgstr[2] ""
+"To zadanie jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego zadania spowoduje przeskoczenie go w procesie moderacji i "
+"nie będzie dostępne do wyboru przy edytowaniu procesu."
+msgstr[3] ""
+"To zadanie jest w trakcie na %(states_in_progress)d stronach/skrawkach. "
+"Wyłączenie tego zadania spowoduje przeskoczenie go w procesie moderacji i "
+"nie będzie dostępne do wyboru przy edytowaniu procesu."
+
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Zadanie '%(task_name)s' włączone."
 
@@ -2899,8 +2976,8 @@ msgid "Add a child page to '%(title)s' "
 msgstr "Dodaj stronę podrzędną dla '%(title)s' "
 
 #, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Wyświetl więcej opcji dla '%(title)s'"
+msgid "More options for '%(title)s'"
+msgstr "Więcej opcji dla '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -194,6 +194,13 @@ msgstr "Novi"
 msgid "Latest images"
 msgstr "Najnovije slike"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zašto ne <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>dodate jedan</a>?"
+
 msgid "Choose a format"
 msgstr "Odaberi format"
 
@@ -345,6 +352,15 @@ msgstr "Dozvole slike"
 
 msgid "Add an image permission"
 msgstr "Dodaj dozvolu slike"
+
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add to collection"
+msgstr "Dodaj u zbirku"
 
 msgid "Delete"
 msgstr "Izbriši"

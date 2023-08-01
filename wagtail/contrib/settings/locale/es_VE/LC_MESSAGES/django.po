@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Venezuela) (http://app.transifex.com/torchbox/"
@@ -20,11 +20,33 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s para %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Editando %(instance)s"
+
+msgid "Site"
+msgstr "Página"
+
 msgid "Saving…"
 msgstr "Guardando..."
 
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"La configuración no puede abrirse debido a que no hay una página definida."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s actualizado(s)."
 
 msgid "The setting could not be saved due to errors."
 msgstr "La configuración no se ha podido guardar debido a errores."

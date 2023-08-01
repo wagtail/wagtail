@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,7 +54,7 @@ msgid "Move down"
 msgstr "Перемістити вниз"
 
 msgid "Duplicate"
-msgstr "Дублікат"
+msgstr "Дублювати"
 
 msgid "Delete"
 msgstr "Видалити"
@@ -153,6 +153,39 @@ msgstr "на модерації"
 msgid "live + in moderation"
 msgstr "наживо + на модерації"
 
+msgid "Add/edit pages you own"
+msgstr "Додавати/редагувати сторінки, які належать вам"
+
+msgid "Bulk delete"
+msgstr "Масове видалення"
+
+msgid "Delete pages with children"
+msgstr "Видаляти сторінки разом з дочірніми"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Edit any page"
+msgstr "Редагувати будь-яку сторінку"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Заблокувати/розблокувати сторінки, які ви заблокували"
+
+msgid "Publish"
+msgstr "Опублікувати"
+
+msgid "Publish any page"
+msgstr "Публікувати будь-яку сторінку"
+
+msgid "Unlock"
+msgstr "Розблокувати"
+
+msgid "Unlock any page"
+msgstr "Розблокувати будь-яку сторінку"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -239,41 +272,11 @@ msgstr "ревізія"
 msgid "revisions"
 msgstr "ревізії"
 
-msgid "Add/edit pages you own"
-msgstr "Додавати/редагувати сторінки, які належать вам"
-
-msgid "Edit"
-msgstr "Редагувати"
-
-msgid "Edit any page"
-msgstr "Редагувати будь-яку сторінку"
-
-msgid "Publish"
-msgstr "Опублікувати"
-
-msgid "Publish any page"
-msgstr "Публікувати будь-яку сторінку"
-
-msgid "Bulk delete"
-msgstr "Масове видалення"
-
-msgid "Delete pages with children"
-msgstr "Видаляти сторінки разом з дочірніми"
-
-msgid "Lock"
-msgstr "Блокувати"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Заблокувати/розблокувати сторінки, які ви заблокували"
-
-msgid "Unlock"
-msgstr "Розблокувати"
-
-msgid "Unlock any page"
-msgstr "Розблокувати будь-яку сторінку"
-
 msgid "group"
 msgstr "група"
+
+msgid "permission"
+msgstr "дозвіл"
 
 msgid "permission type"
 msgstr "тип дозволу"
@@ -463,9 +466,6 @@ msgstr "обмеження показу колекції"
 
 msgid "collections"
 msgstr "колекції"
-
-msgid "permission"
-msgstr "дозвіл"
 
 msgid "group collection permission"
 msgstr "дозволи для групи колекцій "

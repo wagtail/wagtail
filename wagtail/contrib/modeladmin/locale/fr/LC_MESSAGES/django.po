@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,12 +155,6 @@ msgstr "Rechercher %(name)s"
 msgid "Search"
 msgstr "Rechercher"
 
-msgid "Download XLSX"
-msgstr "Télécharger en XLSX"
-
-msgid "Download CSV"
-msgstr "Télécharger en CSV"
-
 msgid "Filter"
 msgstr "Filtrer"
 
@@ -169,12 +163,12 @@ msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
-"Aucun %(name)s n'a été créé pour l'instant. L'un des suivants doit être créé "
-"avant de pouvoir ajouter un %(name)s :"
+"Aucun(e) %(name)s n'a été créé(e) pour l'instant. Au moins un des éléments "
+"suivants doit être créé avant de pouvoir ajouter un(e) %(name)s :"
 
 #, python-format
 msgid "No %(name)s have been created yet."
-msgstr "Aucun %(name)s n'a été créé(e) pour l'instant."
+msgstr "Aucun(e) %(name)s n'a été créé(e) pour l'instant."
 
 #, python-format
 msgid "Why not <a href=\"%(url)s\">add one</a>?"

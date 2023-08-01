@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -134,6 +134,9 @@ msgstr "Ei lukittu"
 msgid "Locked by workflow"
 msgstr "Lukittu työnkulun toimesta"
 
+msgid "Locked by schedule"
+msgstr "Lukittu aikataulun toimesta"
+
 msgid "live"
 msgstr "julkaistu"
 
@@ -187,6 +190,39 @@ msgstr "tarkastettavana"
 
 msgid "live + in moderation"
 msgstr "esillä + tarkastettavana"
+
+msgid "Add/edit pages you own"
+msgstr "Lisää/muokkaa sivuja jota omistat"
+
+msgid "Bulk delete"
+msgstr "Poista useita"
+
+msgid "Delete pages with children"
+msgstr "Poista sivut, joilla alasivuja"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any page"
+msgstr "Muokkaa mitä vain sivua"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lukitse tai avaa lukitsemiasi sivuja"
+
+msgid "Publish"
+msgstr "Julkaise"
+
+msgid "Publish any page"
+msgstr "Julkaise kaikkia sivuja"
+
+msgid "Unlock"
+msgstr "Avaa lukitus"
+
+msgid "Unlock any page"
+msgstr "Avaa minkä tahansa sivun lukitus"
 
 msgid "title"
 msgstr "otsikko"
@@ -260,41 +296,11 @@ msgstr "sisältö-JSON"
 msgid "approved go live at"
 msgstr "hyväksytty julkistus"
 
-msgid "Add/edit pages you own"
-msgstr "Lisää/muokkaa sivuja jota omistat"
-
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "Edit any page"
-msgstr "Muokkaa mitä vain sivua"
-
-msgid "Publish"
-msgstr "Julkaise"
-
-msgid "Publish any page"
-msgstr "Julkaise kaikkia sivuja"
-
-msgid "Bulk delete"
-msgstr "Poista useita"
-
-msgid "Delete pages with children"
-msgstr "Poista sivut, joilla alasivuja"
-
-msgid "Lock"
-msgstr "Lukitse"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Lukitse tai avaa lukitsemiasi sivuja"
-
-msgid "Unlock"
-msgstr "Avaa lukitus"
-
-msgid "Unlock any page"
-msgstr "Avaa minkä tahansa sivun lukitus"
-
 msgid "group"
 msgstr "ryhmä"
+
+msgid "permission"
+msgstr "oikeudet"
 
 msgid "permission type"
 msgstr "oikeustyyppi"
@@ -332,6 +338,14 @@ msgstr ""
 
 msgid "tasks"
 msgstr "tehtävät"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin/pätkiin. Työnkulun "
+"aktivoinnin poistaminen ei poista työnkulkua olemassa olevasta sivusta/"
+"pätkästä."
 
 msgid "workflows"
 msgstr "työnkulut"
@@ -461,14 +475,15 @@ msgstr "kokoelman rajoitukset"
 msgid "collections"
 msgstr "kokoelmat"
 
-msgid "permission"
-msgstr "oikeudet"
-
 msgid "group collection permission"
 msgstr "ryhmä/kokoelma-oikeus"
 
 msgid "group collection permissions"
 msgstr "ryhmän oikeudet kokoelmaan"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s poistetaan myös"
 
 msgid "prevents deletion"
 msgstr "estää poistamisen"
@@ -804,6 +819,9 @@ msgstr "Hylätty tehtävässä '%(task)s'. Muutoksia pyydetty"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Työnkulun tehtävä hylätty. Työnkulku valmistui"
+
+msgid "Workflow: resume task"
+msgstr "Työnkulku: palauta tehtävä"
 
 msgid "Workflow: cancel"
 msgstr "Työnkulku: peruttu"

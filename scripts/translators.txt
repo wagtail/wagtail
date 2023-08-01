@@ -521,7 +521,6 @@ Nikita Tonkoshkur <humapen.gmail.com>
 Rustam Mirzaev <mirus.2x2.pw>
 Sergey Khalymon <sergiykhalimon.gmail.com>
 Sergey Komarov <sjkomarov.gmail.com>
-Sergey Mazanov <mvver.outlook.com>
 Tatsiana Tsygan <art.tatsiana.gmail.com>
 Vassily <zuber.kg.gmail.com>
 Zhdan Parfenov
@@ -583,6 +582,10 @@ Oluwadamilare Ogunbanjo
 Oscar Luciano Espirilla Flores
 X Bello <xbello.gmail.com>
 fonso <fonzzo.gmail.com>
+
+Spanish (Latin America) - es_419
+-----
+Rodrigo Yanez
 
 Spanish (Venezuela) - es_VE
 -----
@@ -691,4 +694,3 @@ Adam Hughes <adamhughes31.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Philip Crisp
-

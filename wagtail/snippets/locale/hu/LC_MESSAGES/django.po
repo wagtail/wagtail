@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "Save"
 msgstr "Mentés"
 
 msgid "Locked"
-msgstr "Lezárt"
+msgstr "Zárolt"
 
 #, python-format
 msgid "%(label)s and Publish"
@@ -64,6 +64,12 @@ msgstr "Kiválasztott elemek törlése"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "'%(object)s' %(model_name)s törölve."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s törölve."
+msgstr[1] "%(count)d %(model_name)s törölve."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -116,12 +122,6 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
-msgid "Last updated"
-msgstr "Utolsó frissítés"
-
-msgid "History"
-msgstr "Történet"
-
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
 
@@ -164,8 +164,15 @@ msgid "Snippets"
 msgstr "Elemek"
 
 #, python-format
+msgid "New: %(model_name)s"
+msgstr "Új: %(model_name)s"
+
+#, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "%(title)s %(snippet_type)s szerkesztése"
+
+msgid "History"
+msgstr "Történet"
 
 msgid "Usage"
 msgstr "Használat"
@@ -273,6 +280,13 @@ msgstr "%(model_name)s története"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' szerkesztése"
+
+msgid "Inspect"
+msgstr "Vizsgálat"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "'%(title)s' vizsgálata"
 
 #, python-format
 msgid "Delete '%(title)s'"

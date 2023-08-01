@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020,2022
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,38 @@ msgstr "Komentar"
 msgid "Locked"
 msgstr "Zaključano"
 
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nitko ne može napraviti promjene dok je %(model_name)s zaključano."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaključali</b> <b>vi</b> na dan <b>{datetime}</b> "
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' ste zaključali</b> <b>vi</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' je zaključao</b> korisnik <b>{user}</b> na dan <b>{datetime}</"
+"b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' je zaključano</b>."
+
+msgid "Locked by you"
+msgstr "Vi ste zaključali"
+
+msgid "Locked by another user"
+msgstr "Zaključao drugi korisnik"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Samo vi možete napraviti promjene dok je %(model_name)s zaključano"
+
 msgid "Unlocked"
 msgstr "Otključano"
 
@@ -127,6 +159,39 @@ msgstr "u moderiranju"
 
 msgid "live + in moderation"
 msgstr "uživo + u moderiranju"
+
+msgid "Add/edit pages you own"
+msgstr "Dodaj/uredi vlastite stranice"
+
+msgid "Bulk delete"
+msgstr "Grupno brisanje"
+
+msgid "Delete pages with children"
+msgstr "Brisanje stranica sa djecom"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit any page"
+msgstr "Uređivanje bilo koje stranice"
+
+msgid "Lock"
+msgstr "Zaključavanje"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Zaključavanje/otključavanje stranica koje ste zaključali"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Publish any page"
+msgstr "Objavljivanje bilo koje stranice"
+
+msgid "Unlock"
+msgstr "Otključavanje"
+
+msgid "Unlock any page"
+msgstr "Otključavanje bilo koje stranice"
 
 msgid "title"
 msgstr "naslov"
@@ -204,41 +269,11 @@ msgstr "sadržaj JSON"
 msgid "approved go live at"
 msgstr "odobreno uživo u"
 
-msgid "Add/edit pages you own"
-msgstr "Dodaj/uredi vlastite stranice"
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "Edit any page"
-msgstr "Uređivanje bilo koje stranice"
-
-msgid "Publish"
-msgstr "Objavi"
-
-msgid "Publish any page"
-msgstr "Objavljivanje bilo koje stranice"
-
-msgid "Bulk delete"
-msgstr "Grupno brisanje"
-
-msgid "Delete pages with children"
-msgstr "Brisanje stranica sa djecom"
-
-msgid "Lock"
-msgstr "Zaključavanje"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Zaključavanje/otključavanje stranica koje ste zaključali"
-
-msgid "Unlock"
-msgstr "Otključavanje"
-
-msgid "Unlock any page"
-msgstr "Otključavanje bilo koje stranice"
-
 msgid "group"
 msgstr "grupa"
+
+msgid "permission"
+msgstr "dozvole"
 
 msgid "permission type"
 msgstr "vrsta dozvole"
@@ -292,11 +327,25 @@ msgstr ""
 msgid "tasks"
 msgstr "zadaci"
 
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktivni tijekovi rada se mogu dodati stranicama/izrescima. Obustavljanje "
+"tijeka rada ga ne briše iz postojećih stranica/izrezaka."
+
 msgid "workflows"
 msgstr "tijekovi rada"
 
 msgid "groups"
 msgstr "grupe"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Stranice/izresci u ovom koraku radnog tijeka će biti moderirane ili odobrene "
+"od strane ovih grupa korisnika"
 
 msgid "Request changes"
 msgstr "Zatraži izmjene"
@@ -403,14 +452,15 @@ msgstr "ograničenje pogleda zbirki"
 msgid "collections"
 msgstr "zbirke"
 
-msgid "permission"
-msgstr "dozvole"
-
 msgid "group collection permission"
 msgstr "Grupna dozvola zbirke"
 
 msgid "group collection permissions"
 msgstr "Grupne dozvole zbirke"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s će također biti izbrisano"
 
 msgid "hostname"
 msgstr "naziv domaćina"
@@ -562,6 +612,13 @@ msgstr "Preimenovano"
 msgid "Revert"
 msgstr "Vrati na staro"
 
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Vraćeno na prethodnu verziju s identifikatorom %(revision_id)s iz "
+"%(created_at)s"
+
 msgid "Reverted to previous revision"
 msgstr "Vraćeno na prijašnju verziju"
 
@@ -585,6 +642,16 @@ msgstr "Stvoren je alias za %(title)s"
 msgid "Created an alias"
 msgstr "Stvoren je alias"
 
+msgid "Convert alias into ordinary page"
+msgstr "Pretvori alias u običnu stranicu"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Alias '%(title)s' je pretvoren u običnu stranicu"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Alias je pretvoren u običnu stranicu"
+
 msgid "Move"
 msgstr "Premjesti"
 
@@ -604,6 +671,9 @@ msgstr "Stranici je zakazano objavljivanje u %(go_live_at)s"
 
 msgid "Page scheduled for publishing"
 msgstr "Stranici je zakazano objavljivanje"
+
+msgid "Unschedule publication"
+msgstr "Otkaži objavu"
 
 #, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"
@@ -648,12 +718,18 @@ msgstr "Dodaj komentar"
 msgid "Delete comment"
 msgstr "Izbriši komentar"
 
+msgid "Workflow: start"
+msgstr "Tijek rada: započni"
+
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
 msgstr "'%(workflow)s' je započeo. Sljedeći korak '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Tijek rada je započeo"
+
+msgid "Workflow: approve task"
+msgstr "Tijeka rada: odobri zadatak"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -666,12 +742,21 @@ msgstr "Odoboreno u '%(task)s'. '%(workflow)s' završen"
 msgid "Workflow task approved"
 msgstr "Zadatak tijeka rada je odobren"
 
+msgid "Workflow: reject task"
+msgstr "Tijek rada: odbij zadatak"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Odbijeno u '%(task)s'. Zahtijeva promjene"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Tijek rada odbijen. Tijek rada završen"
+
+msgid "Workflow: resume task"
+msgstr "Tijeka rada: nastavi zadatak"
+
+msgid "Workflow: cancel"
+msgstr "Tijek rada: otkaži"
 
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"

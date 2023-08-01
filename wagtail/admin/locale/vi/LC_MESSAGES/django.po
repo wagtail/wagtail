@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -104,6 +104,9 @@ msgstr "1 hình ảnh được chọn"
 msgid "Settings"
 msgstr "Tùy chỉnh"
 
+msgid "Title"
+msgstr "Tiêu đề"
+
 msgid "Error 404"
 msgstr "Lỗi 404"
 
@@ -171,9 +174,6 @@ msgstr "So sánh %(title)s"
 msgid "Comparing"
 msgstr "So sánh"
 
-msgid "Title"
-msgstr "Tiêu đề"
-
 msgid "Unlock"
 msgstr "Mở khóa"
 
@@ -218,14 +218,14 @@ msgstr "Bình luận"
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
 
+msgid "Locked"
+msgstr "Đã bị khóa"
+
 msgid "Download XLSX"
 msgstr "Tải XLSX"
 
 msgid "Download CSV"
 msgstr "Tải CSV"
-
-msgid "Locked"
-msgstr "Đã bị khóa"
 
 msgid "Add comment"
 msgstr "Thêm bình luận"

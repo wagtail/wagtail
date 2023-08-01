@@ -5,6 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2017
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2021,2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +36,7 @@ msgid "Wagtail core"
 msgstr "Rdzeń Wagtail"
 
 msgid "Add Comment"
-msgstr "Dodaj Komentarz"
+msgstr "Dodaj komentarz"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -79,6 +80,9 @@ msgstr "Routowalna strona Wagtail"
 msgid "Wagtail sitemaps"
 msgstr "Mapa strony Wagtail"
 
+msgid "Unknown content type"
+msgstr "Nieznany typ zawartości"
+
 msgid "Password"
 msgstr "Hasło"
 
@@ -90,6 +94,10 @@ msgstr "Komentarz"
 
 msgid "Locked"
 msgstr "Zablokowany"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nikt nie może wprowadzać zmian gdy %(model_name)s jest zablokowany"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -111,6 +119,21 @@ msgstr ""
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' jest zablokowany</b>."
 
+msgid "Locked by you"
+msgstr "Zablokowany przez ciebie"
+
+msgid "Locked by another user"
+msgstr "Zablokowany przez innego użytkownika"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Tylko ty możesz wprowadzać zmiany gdy %(model_name)s jest zablokowany"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Tylko %(user)s może wprowadzać zmiany gdy %(model_name)s jest zablokowany"
+
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Ten %(model_name)s aktualnie oczekuje na moderację."
@@ -130,6 +153,9 @@ msgstr "Tylko weryfikujący to zadanie mogą edytować %(model_name)s."
 msgid "Unlocked"
 msgstr "Odblokowany"
 
+msgid "Locked by workflow"
+msgstr "Zablokowany przez proces"
+
 #, python-brace-format
 msgid ""
 "{model_name} '{title}' is locked and has been scheduled to go live at "
@@ -137,6 +163,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' jest zablokowany i został zaplanowany do publikacji "
 "dnia {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Zablokowany przez oznaczony termin"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Obecnie zablokowany i będzie opublikowany w oznaczonym terminie"
 
 msgid "latest revision"
 msgstr "najnowsza wersja"
@@ -194,6 +226,39 @@ msgstr "w moderacji"
 
 msgid "live + in moderation"
 msgstr "opublikowane + w moderacji"
+
+msgid "Add/edit pages you own"
+msgstr "Dodaj/edytuj swoje strony"
+
+msgid "Bulk delete"
+msgstr "Seryjne usunięcie"
+
+msgid "Delete pages with children"
+msgstr "Usuń strony z podstronami"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit any page"
+msgstr "Edytuj dowolną stronę"
+
+msgid "Lock"
+msgstr "Zablokuj"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Zablokuj/odblokuj strony które zablokowałeś"
+
+msgid "Publish"
+msgstr "Opublikuj"
+
+msgid "Publish any page"
+msgstr "Publikuj dowolną stronę"
+
+msgid "Unlock"
+msgstr "Odblokowanie"
+
+msgid "Unlock any page"
+msgstr "Odblokowanie dowolnej strony"
 
 msgid "title"
 msgstr "tytuł"
@@ -286,41 +351,11 @@ msgstr "wersja"
 msgid "revisions"
 msgstr "wersje"
 
-msgid "Add/edit pages you own"
-msgstr "Dodaj/edytuj swoje strony"
-
-msgid "Edit"
-msgstr "Edytuj"
-
-msgid "Edit any page"
-msgstr "Edytuj dowolną stronę"
-
-msgid "Publish"
-msgstr "Opublikuj"
-
-msgid "Publish any page"
-msgstr "Publikuj dowolną stronę"
-
-msgid "Bulk delete"
-msgstr "Seryjne usunięcie"
-
-msgid "Delete pages with children"
-msgstr "Usuń strony z podstronami"
-
-msgid "Lock"
-msgstr "Zablokuj"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Zablokuj/odblokuj strony które zablokowałeś"
-
-msgid "Unlock"
-msgstr "Odblokowanie"
-
-msgid "Unlock any page"
-msgstr "Odblokowanie dowolnej strony"
-
 msgid "group"
 msgstr "grupa"
+
+msgid "permission"
+msgstr "uprawnienia"
 
 msgid "permission type"
 msgstr "typ uprawnień"
@@ -378,8 +413,8 @@ msgid ""
 "Active workflows can be added to pages/snippets. Deactivating a workflow "
 "does not remove it from existing pages/snippets."
 msgstr ""
-"Aktywne workflow mogą być dodawane do stron / snippetów. Deaktywacja "
-"workflow nie usuwa ich z istniejących stron / snippetów."
+"Aktywne procesy mogą być dodawane do stron/skrawków. Deaktywacja procesu nie "
+"usuwa ich z istniejących stron/skrawków."
 
 msgid "workflows"
 msgstr "workflowy"
@@ -391,8 +426,8 @@ msgid ""
 "Pages/snippets at this step in a workflow will be moderated or approved by "
 "these groups of users"
 msgstr ""
-"Strony/snippety na tym kroku workflow będą moderowane lub akceptowane przez "
-"te grupy użytkowników"
+"Strony/skrawki na tym kroku procesu będą moderowane lub akceptowane przez te "
+"grupy użytkowników"
 
 msgid "Request changes"
 msgstr "Żądania zmian"
@@ -437,8 +472,8 @@ msgid ""
 "There may only be one in progress or needs changes workflow state per page/"
 "snippet."
 msgstr ""
-"Może być tylko jedna w toku lub wymaga zmiany stanu workflow per strona/"
-"snippet."
+"Może być tylko jedna w toku lub wymaga zmiany stanu procesu na stronie/"
+"skrawku."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
@@ -540,14 +575,24 @@ msgstr "restrykcje widoczności kolekcji"
 msgid "collections"
 msgstr "kolekcje"
 
-msgid "permission"
-msgstr "uprawnienia"
-
 msgid "group collection permission"
 msgstr "uprawnienia kolekcji grup"
 
 msgid "group collection permissions"
 msgstr "uprawnienia kolekcji grup"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s również będzie usunięty"
+
+msgid "prevents deletion"
+msgstr "uniemożliwia usunięcie"
+
+msgid "will do nothing"
+msgstr "nie spowoduje zmian"
+
+msgid "may prevent deletion"
+msgstr "może uniemożliwić usunięcie"
 
 msgid "hostname"
 msgstr "nazwa hosta"

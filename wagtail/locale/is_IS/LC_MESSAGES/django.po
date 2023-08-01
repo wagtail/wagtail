@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2021,2023\n"
@@ -228,6 +228,39 @@ msgstr "bíður samþykktar"
 msgid "live + in moderation"
 msgstr "í birtingu + bíður samþykktar"
 
+msgid "Add/edit pages you own"
+msgstr "Bæta við/breyta síðum sem þú átt"
+
+msgid "Bulk delete"
+msgstr "Magneyða"
+
+msgid "Delete pages with children"
+msgstr "Eyða síðum og undirsíðum"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit any page"
+msgstr "Breyta einhverri síðu"
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Læsa/aflæsa síðum sem þú hefur læst"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
+
+msgid "Publish any page"
+msgstr "Setja einhverja síðu í birtingu"
+
+msgid "Unlock"
+msgstr "Aflæsa"
+
+msgid "Unlock any page"
+msgstr "Aflæsa einhverri síðu"
+
 msgid "title"
 msgstr "titill"
 
@@ -317,41 +350,11 @@ msgstr "útgáfa"
 msgid "revisions"
 msgstr "útgáfur"
 
-msgid "Add/edit pages you own"
-msgstr "Bæta við/breyta síðum sem þú átt"
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "Edit any page"
-msgstr "Breyta einhverri síðu"
-
-msgid "Publish"
-msgstr "Setja í birtingu"
-
-msgid "Publish any page"
-msgstr "Setja einhverja síðu í birtingu"
-
-msgid "Bulk delete"
-msgstr "Magneyða"
-
-msgid "Delete pages with children"
-msgstr "Eyða síðum og undirsíðum"
-
-msgid "Lock"
-msgstr "Læsa"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Læsa/aflæsa síðum sem þú hefur læst"
-
-msgid "Unlock"
-msgstr "Aflæsa"
-
-msgid "Unlock any page"
-msgstr "Aflæsa einhverri síðu"
-
 msgid "group"
 msgstr "hópur"
+
+msgid "permission"
+msgstr "heimild"
 
 msgid "permission type"
 msgstr "tegund heimildar"
@@ -571,9 +574,6 @@ msgstr "skoðunartakmarkanir safns"
 
 msgid "collections"
 msgstr "söfn"
-
-msgid "permission"
-msgstr "heimild"
 
 msgid "group collection permission"
 msgstr "safnheimild hóps"

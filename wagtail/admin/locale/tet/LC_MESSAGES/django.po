@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -196,6 +196,9 @@ msgstr "Promove"
 
 msgid "Settings"
 msgstr "Konfigurasaun"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
@@ -394,9 +397,6 @@ msgid ""
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
 
-msgid "Title"
-msgstr "Titlu"
-
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
 
@@ -575,13 +575,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Ita iha serteza katak ita hakarak la publika pájina neʼe?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Pájina ne ' ebé uza %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Pájina ne'ebé uza"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kópia %(title)s"
 
@@ -615,18 +608,8 @@ msgstr "Esbosu agora dadaun"
 msgid "Exploring %(title)s"
 msgstr "Explora %(title)s"
 
-msgid "Drag"
-msgstr "Rasta"
-
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
-
-msgid "No pages have been created at this location."
-msgstr "Laiha pajina iha nee"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Hakarak <a href=\"%(add_page_url)s\">kria pajina ida</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Pajina nee xavi, labele troka"
@@ -638,6 +621,18 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Aumenta pajina iha '%(title)s' okos"
+
+msgid "Drag"
+msgstr "Rasta"
+
+msgid "Disable ordering of child pages"
+msgstr "Xavi orden pajina"
+
+msgid "Sort"
+msgstr "Orden"
+
+msgid "Enable ordering of child pages"
+msgstr "Loke pajina orden"
 
 msgid "Sites menu"
 msgstr "Munu situs"
@@ -653,18 +648,6 @@ msgstr "Tuir mai"
 
 msgid "This page is protected from public view"
 msgstr "Pajina nee la publiku"
-
-msgid "Disable ordering of child pages"
-msgstr "Xavi orden pajina"
-
-msgid "Sort"
-msgstr "Orden"
-
-msgid "Enable ordering of child pages"
-msgstr "Loke pajina orden"
-
-msgid "Updated"
-msgstr "Atualiza ona"
 
 msgid "Cancel scheduled publish"
 msgstr "Kansela orariu publiku"
@@ -688,8 +671,8 @@ msgstr "Muda ba leten"
 msgid "Move down"
 msgstr "Muda ba kraik"
 
-msgid "Download CSV"
-msgstr "Download CSV"
+msgid "Updated"
+msgstr "Atualiza ona"
 
 msgid "Locked"
 msgstr "Xavi tiha ona"
@@ -703,6 +686,9 @@ msgstr "Hatudu dalan korta"
 
 msgid "Root"
 msgstr "Abut"
+
+msgid "Download CSV"
+msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filtru"
@@ -815,6 +801,9 @@ msgstr "%(model_name)s '%(object)s' kria ona"
 msgid "Editing"
 msgstr "Hadia hela"
 
+msgid "Inspecting"
+msgstr "Inspeksaun tiha ona"
+
 msgid "Latest"
 msgstr " Mak tardi liu"
 
@@ -834,6 +823,9 @@ msgstr "Haree iha situ"
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Pajina '%(page_title)s' hammos ona."
+
+msgid "Pages using"
+msgstr "Pájina ne'ebé uza"
 
 msgid "Pages"
 msgstr "Pajina sira"

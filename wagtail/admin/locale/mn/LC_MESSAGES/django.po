@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -287,9 +287,6 @@ msgstr "%(objects)sдокумент сонгогдсон"
 msgid "All %(objects)s documents on this screen selected"
 msgstr "Дэлгэц дээрх бүх %(objects)s документыг сонгосон"
 
-msgid "Page title"
-msgstr "Хуудасны гарчиг"
-
 msgid "Content"
 msgstr "Контент"
 
@@ -298,6 +295,12 @@ msgstr "Бусад тохиргоо"
 
 msgid "Settings"
 msgstr "Тохиргоо"
+
+msgid "Title"
+msgstr "Гарчиг"
+
+msgid "Page title"
+msgstr "Хуудасны гарчиг"
 
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
@@ -489,9 +492,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Түгжигдсэн хуудсууд"
-
-msgid "Title"
-msgstr "Гарчиг"
 
 msgid "Locked at"
 msgstr "Түгжигдсэн"
@@ -758,13 +758,6 @@ msgid "Publish page"
 msgstr "Хуудас нийтлэх"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "%(page_class_verbose_name)s-г ашиглаж буй хуудсууд"
-
-msgid "Pages using"
-msgstr "Ашиглаж буй хуудсууд"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "%(title)s хуулах"
 
@@ -798,14 +791,8 @@ msgstr "Одоогийн ноорог"
 msgid "Exploring %(title)s"
 msgstr "%(title)s-дыг үзэж байна"
 
-msgid "Drag"
-msgstr "Чирэх"
-
 msgid "Configure a site now."
 msgstr "Сайтаа тохируулна уу."
-
-msgid "No pages have been created at this location."
-msgstr "Энэ байрлалд ямар ч хуудас үүсээгүй байна."
 
 msgid "This page is locked to further editing"
 msgstr "Энэ хуудсыг дахин засахаас сэргийлж түгжсэн байна"
@@ -817,6 +804,15 @@ msgstr "'%(title)s'-ын дэд хуудсуудыг харах"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s'-д дэд хуудас нэмэх"
+
+msgid "Drag"
+msgstr "Чирэх"
+
+msgid "Disable ordering of child pages"
+msgstr "Дэд хуудсуудын эрэмбийг болиулах"
+
+msgid "Enable ordering of child pages"
+msgstr "Дэд хуудсуудыг эрэмбэлэх"
 
 msgid "Sites menu"
 msgstr "Сайтын цэс"
@@ -832,15 +828,6 @@ msgstr "Дараагийнх"
 
 msgid "This page is protected from public view"
 msgstr "Энэ хуудас олон нийтэд харагдахгүй хамгаалагдсан"
-
-msgid "Disable ordering of child pages"
-msgstr "Дэд хуудсуудын эрэмбийг болиулах"
-
-msgid "Enable ordering of child pages"
-msgstr "Дэд хуудсуудыг эрэмбэлэх"
-
-msgid "Updated"
-msgstr "Шинэчлэгдсэн"
 
 msgid "History"
 msgstr "Түүх"
@@ -867,11 +854,8 @@ msgstr "Дээш зөөх"
 msgid "Move down"
 msgstr "Доош зөөх"
 
-msgid "Download XLSX"
-msgstr "XLSX-р татах"
-
-msgid "Download CSV"
-msgstr "CSV татах"
+msgid "Updated"
+msgstr "Шинэчлэгдсэн"
 
 msgid "Locked"
 msgstr "Түгжигдсэн"
@@ -888,6 +872,12 @@ msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
 msgid "Root"
 msgstr "Үндэс"
+
+msgid "Download XLSX"
+msgstr "XLSX-р татах"
+
+msgid "Download CSV"
+msgstr "CSV татах"
 
 msgid "Filter"
 msgstr "Шүүлтүүр"
@@ -991,6 +981,9 @@ msgstr "%(model_name)s%(object)s боллоо."
 msgid "Editing"
 msgstr "Засч байна"
 
+msgid "Inspecting"
+msgstr "Шалгаж байна"
+
 msgid "Earliest"
 msgstr "Хамгийн эхний"
 
@@ -1091,6 +1084,9 @@ msgstr "'%(page_title)s' хуудас зөөгдлөө."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "'%(page_title)s' хуудсыг хаалаа."
+
+msgid "Pages using"
+msgstr "Ашиглаж буй хуудсууд"
 
 msgid "Pages"
 msgstr "Хуудсууд"

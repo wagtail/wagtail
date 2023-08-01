@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,12 +128,6 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">Voeg er nu een toe</a>"
 
-msgid "Last updated"
-msgstr "Laatst bijgewerkt"
-
-msgid "History"
-msgstr "Geschiedenis"
-
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
 
@@ -182,6 +176,9 @@ msgstr "Nieuw: %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Wijzigen: %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Geschiedenis"
 
 msgid "Usage"
 msgstr "Gebruik"
@@ -287,6 +284,13 @@ msgstr "%(model_name)s geschiedenis"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Wijzig '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspecteer"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspecteer '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"

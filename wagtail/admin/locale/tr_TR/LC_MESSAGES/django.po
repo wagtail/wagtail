@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -199,9 +199,6 @@ msgstr "Bu alan zorunludur."
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
 
-msgid "Page title"
-msgstr "Sayfanın başlığı"
-
 msgid "Content"
 msgstr "İçerik"
 
@@ -210,6 +207,12 @@ msgstr "Tanıtımını yap"
 
 msgid "Settings"
 msgstr "Ayarlar"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Page title"
+msgstr "Sayfanın başlığı"
 
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
@@ -410,9 +413,6 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Kilitli sayfalarınız"
 
-msgid "Title"
-msgstr "Başlık"
-
 msgid "Locked at"
 msgstr "Kilitli"
 
@@ -599,13 +599,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Bu sayfayı yayından kaldırmak istediğinize emin misiniz?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "%(page_class_verbose_name)s kullanan sayfalar"
-
-msgid "Pages using"
-msgstr "Kullanan sayfalar"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "%(title)s kopyala"
 
@@ -642,18 +635,8 @@ msgstr "Şimdiki taslak"
 msgid "Exploring %(title)s"
 msgstr "%(title)s araştırılıyor"
 
-msgid "Drag"
-msgstr "Sürükle"
-
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
-
-msgid "No pages have been created at this location."
-msgstr "Bu konumda hiç sayfa oluşturulmadı."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Neden <a href=\"%(add_page_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Bu sayfa düzenlemeye karşı kilitlenmiştir"
@@ -665,6 +648,18 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
+
+msgid "Drag"
+msgstr "Sürükle"
+
+msgid "Disable ordering of child pages"
+msgstr "Alt sayfaların sıralamasını etkisizleştir"
+
+msgid "Sort"
+msgstr "Sırala"
+
+msgid "Enable ordering of child pages"
+msgstr "Alt sayfaların sıralamasını etkinleştir"
 
 msgid "Sites menu"
 msgstr "Siteler menüsü"
@@ -680,18 +675,6 @@ msgstr "Sonraki"
 
 msgid "This page is protected from public view"
 msgstr "Bu sayfa genel görünüme karşı korumalıdır"
-
-msgid "Disable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkisizleştir"
-
-msgid "Sort"
-msgstr "Sırala"
-
-msgid "Enable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkinleştir"
-
-msgid "Updated"
-msgstr "Güncellendi"
 
 msgid "Cancel scheduled publish"
 msgstr "Zamanlanmış yayını iptal et"
@@ -721,11 +704,8 @@ msgstr "Sayfa bulunamadı."
 msgid "No pages match this report's criteria."
 msgstr "Rapor kriteriyle eşleşen sayfa bulunamadı."
 
-msgid "Download XLSX"
-msgstr "XLSX İndir"
-
-msgid "Download CSV"
-msgstr "CSV İndir"
+msgid "Updated"
+msgstr "Güncellendi"
 
 msgid "Locking status"
 msgstr "Kilitli durum"
@@ -748,6 +728,12 @@ msgstr "İçerik haritası"
 
 msgid "Root"
 msgstr "Root (kök)"
+
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
 
 msgid "Filter"
 msgstr "Filtrele"
@@ -811,6 +797,16 @@ msgstr "Yeni"
 msgid "Compare with live version"
 msgstr "Canlı sürümüyle karşılaştır"
 
+msgid "More"
+msgstr "Daha fazla"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
+
+msgid "Log out"
+msgstr "Çıkış yap"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -826,16 +822,6 @@ msgid ""
 msgstr ""
 "'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre azalan "
 "şekilde sırala."
-
-msgid "More"
-msgstr "Daha fazla"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
-
-msgid "Log out"
-msgstr "Çıkış yap"
 
 msgid "Password"
 msgstr "Parola"
@@ -883,6 +869,9 @@ msgstr "%(model_name)s '%(object)s' oluşturuldu."
 
 msgid "Editing"
 msgstr "Düzenleniyor"
+
+msgid "Inspecting"
+msgstr "İnceleniyor"
 
 msgid "Earliest"
 msgstr "En eski"
@@ -1001,6 +990,9 @@ msgstr "Sayfa '%(page_title)s' taşındı."
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sayfa '%(page_title)s' yayından kaldırıldı."
 
+msgid "Pages using"
+msgstr "Kullanan sayfalar"
+
 msgid "Pages"
 msgstr "Sayfalar"
 
@@ -1022,10 +1014,6 @@ msgstr "Alt sayfa ekle"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "'%(title)s' sayfasına alt sayfalar ekle "
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "'%(title)s' için daha fazla seçenek gör"
 
 #, python-format
 msgid "Move page '%(title)s'"

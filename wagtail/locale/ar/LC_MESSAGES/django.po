@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -106,6 +106,33 @@ msgstr "عادي"
 msgid "locked"
 msgstr "مغلق"
 
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Bulk delete"
+msgstr "حذف بالجملة"
+
+msgid "Delete pages with children"
+msgstr "حذف الصفحات مع التفرعات"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Edit any page"
+msgstr "تحرير أي صفحة"
+
+msgid "Lock"
+msgstr "أقفل"
+
+msgid "Publish"
+msgstr "انشر"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -161,35 +188,11 @@ msgstr "محتوى JSON"
 msgid "approved go live at"
 msgstr "وافق على النشر في"
 
-msgid "Add/edit pages you own"
-msgstr "أضف أو نقح سفحات أنت الصاحب لها "
-
-msgid "Edit"
-msgstr "تعديل"
-
-msgid "Edit any page"
-msgstr "تحرير أي صفحة"
-
-msgid "Publish"
-msgstr "انشر"
-
-msgid "Publish any page"
-msgstr "انشر أي صفحة"
-
-msgid "Bulk delete"
-msgstr "حذف بالجملة"
-
-msgid "Delete pages with children"
-msgstr "حذف الصفحات مع التفرعات"
-
-msgid "Lock"
-msgstr "أقفل"
-
-msgid "Unlock"
-msgstr "إزالة القفل"
-
 msgid "group"
 msgstr "مجموعة"
+
+msgid "permission"
+msgstr "تصريح"
 
 msgid "permission type"
 msgstr "نوع  التصريح"
@@ -226,9 +229,6 @@ msgstr "قيود عرض المجموعة"
 
 msgid "collections"
 msgstr "مجموعات"
-
-msgid "permission"
-msgstr "تصريح"
 
 msgid "group collection permission"
 msgstr "إذن مجموعة المجموعة"

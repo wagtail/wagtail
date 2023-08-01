@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -175,12 +175,6 @@ msgstr "Ingen skjemasider har blitt opprettet."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Innsendte %(form_title)s"
-
-msgid "Download XLSX"
-msgstr "Last ned XLSX"
-
-msgid "Download CSV"
-msgstr "Last ned CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

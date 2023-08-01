@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2019\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -149,12 +149,6 @@ msgstr "%(name)s keresés"
 
 msgid "Search"
 msgstr "Keresés"
-
-msgid "Download XLSX"
-msgstr "XLSX letöltése"
-
-msgid "Download CSV"
-msgstr "CSV letöltése"
 
 msgid "Filter"
 msgstr "Szűrő"

@@ -22,6 +22,16 @@ msgstr "(1 új elem ebben a menüben)"
 msgid "(New)"
 msgstr "(Új)"
 
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s hiba"
+msgstr[1] "%(num)s hiba"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixel"
+
 msgid "Add a comment"
 msgstr "Megjegyzés hozzáadása"
 
@@ -124,6 +134,9 @@ msgstr "Intéző"
 msgid "Pages"
 msgstr "Oldalak"
 
+msgid "Pin toolbar"
+msgstr "Eszköztár kitűzése"
+
 msgid "Reload saved content"
 msgstr "Mentett tartalom újratöltése"
 
@@ -165,6 +178,9 @@ msgstr "Mentés..."
 msgid "Search"
 msgstr "Keresés"
 
+msgid "Search options…"
+msgstr "Lehetőségek keresése..."
+
 msgid "See all"
 msgstr "Összes megjelenítése"
 
@@ -197,6 +213,9 @@ msgstr "Oldalsáv kapcsolása"
 
 msgid "Unfocus comment"
 msgstr "Megjegyzés kivétele a fókuszból"
+
+msgid "Unpin toolbar"
+msgstr "Eszköztár elrejtése"
 
 msgid "View child pages of '%(title)s'"
 msgstr "'%(title)s' gyerekoldalainak megtekintése"
