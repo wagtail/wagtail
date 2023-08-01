@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -128,12 +128,6 @@ msgstr "Søk etter %(name)s"
 
 msgid "Search"
 msgstr "Søk"
-
-msgid "Download XLSX"
-msgstr "Last ned XLSX"
-
-msgid "Download CSV"
-msgstr "Last ned CSV"
 
 msgid "Filter"
 msgstr "Filter"

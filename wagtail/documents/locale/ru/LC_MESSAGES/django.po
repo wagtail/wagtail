@@ -16,21 +16,21 @@
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
 # sergeybe <sergeybe@gmail.com>, 2020
-# Sergey Mazanov <mvver@outlook.com>, 2021
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # Влад <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Влад <integration.into.society@gmail.com>, 2022
 # Михаил Герасимов, 2019
 # Михаил Герасимов, 2019
 # Никита Викторович <hnknta@gmail.com>, 2014
-# Sergey Mazanov <mvver@outlook.com>, 2021
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sergey Mazanov <mvver@outlook.com>, 2021\n"
+"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"

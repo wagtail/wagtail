@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -282,9 +282,6 @@ msgstr "Όλα τα αρχεία της λίστας επιλέχθηκαν"
 msgid "1 image selected"
 msgstr "1 εικόνα επιλέχθηκε"
 
-msgid "Page title"
-msgstr "Τίτλος σελίδας"
-
 msgid "For search engines"
 msgstr "Για μηχανές αναζήτησης"
 
@@ -299,6 +296,12 @@ msgstr "Προώθηση"
 
 msgid "Settings"
 msgstr "Ρυθμίσεις"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Page title"
+msgstr "Τίτλος σελίδας"
 
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
@@ -475,9 +478,6 @@ msgid ""
 msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
-
-msgid "Title"
-msgstr "Τίτλος"
 
 msgid "Edit this page"
 msgstr "Διόρθωση της σελίδας"
@@ -775,9 +775,6 @@ msgstr "Είστε σίγουρος ότι θέλετε να αποεκδόσε�
 msgid "Publish page"
 msgstr "Δημοσίευση σελίδας"
 
-msgid "Pages using"
-msgstr "Οι σελίδες που το χρησιμοποιούν"
-
 #, python-format
 msgid "Copy %(title)s"
 msgstr "Αντιγραφή %(title)s"
@@ -824,24 +821,11 @@ msgstr "Τρέχον σχέδιο"
 msgid "Exploring %(title)s"
 msgstr "Εξερεύνηση %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Επιλογή όλων των σελίδων της λίστας"
-
-msgid "Select page"
-msgstr "Επιλογή σελίδας"
-
-msgid "Drag"
-msgstr "Τραβήξτε"
-
 msgid "Configure a site now."
 msgstr "Διαμόρφωση site."
 
-msgid "No pages have been created at this location."
-msgstr "Δεν έχουν δημιουργηθεί σελίδες εδώ."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Θέλετε να <a href=\"%(add_page_url)s\">δημιουργήσετε μία</a>;"
+msgid "Select all pages in listing"
+msgstr "Επιλογή όλων των σελίδων της λίστας"
 
 msgid "This page is locked to further editing"
 msgstr "Αυτή η σελίδα έχει κλειδωθεί για περαιτέρω επεξεργασία"
@@ -853,6 +837,15 @@ msgstr "Εξερεύνηση των σελίδων - παιδιών του '%(ti
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
+
+msgid "Drag"
+msgstr "Τραβήξτε"
+
+msgid "Disable ordering of child pages"
+msgstr "Απενεργοποίηση ταξινόμησης σελίδων - παιδιά"
+
+msgid "Enable ordering of child pages"
+msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παιδιά"
 
 msgid "Sites menu"
 msgstr "Μενού ιστοτόπων"
@@ -868,15 +861,6 @@ msgstr "Επόμενο"
 
 msgid "This page is protected from public view"
 msgstr "Αυτή η σελίδα προστατεύεται από τη δημοσιότητα"
-
-msgid "Disable ordering of child pages"
-msgstr "Απενεργοποίηση ταξινόμησης σελίδων - παιδιά"
-
-msgid "Enable ordering of child pages"
-msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παιδιά"
-
-msgid "Updated"
-msgstr "Ενημερωθηκε"
 
 msgid "History"
 msgstr "Ιστορικό"
@@ -896,8 +880,8 @@ msgstr "Μετακίνηση πάνω"
 msgid "Move down"
 msgstr "Μετακίνηση κάτω"
 
-msgid "Download CSV"
-msgstr "Ληψη CSV"
+msgid "Updated"
+msgstr "Ενημερωθηκε"
 
 msgid "Locked"
 msgstr "Κλειδωμένο"
@@ -914,6 +898,9 @@ msgstr "Ροή εργασιών"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+
+msgid "Download CSV"
+msgstr "Ληψη CSV"
 
 msgid "Filter"
 msgstr "Φίλτρο"
@@ -984,6 +971,9 @@ msgstr "πριν από %(time_period)s"
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
+msgid "Select page"
+msgstr "Επιλογή σελίδας"
+
 msgid "Profile"
 msgstr "Προφίλ"
 
@@ -1042,6 +1032,9 @@ msgstr "%(model_name)s '%(object)s' δημιουργήθηκε"
 
 msgid "Editing"
 msgstr "Διόρθωση"
+
+msgid "Inspecting"
+msgstr "Επισκόπηση"
 
 msgid "Earliest"
 msgstr "Πιο πρόσφατες"
@@ -1219,6 +1212,9 @@ msgstr "Έγινε η μετακίνηση της σελίδας '%(page_title)s
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Έγινε αποδημοσίευση της '%(page_title)s'."
+
+msgid "Pages using"
+msgstr "Οι σελίδες που το χρησιμοποιούν"
 
 msgid "Pages"
 msgstr "Σελίδες"

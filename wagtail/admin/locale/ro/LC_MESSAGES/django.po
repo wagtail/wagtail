@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -368,9 +368,6 @@ msgstr "Toate %(objects)s articolele selectate pe acest ecran"
 msgid "All items in listing selected"
 msgstr "Toate articolele din listă selectate"
 
-msgid "Page title"
-msgstr "Titlu pagină"
-
 msgid "For search engines"
 msgstr "Pentru mașini de căutare"
 
@@ -385,6 +382,12 @@ msgstr "Promovează"
 
 msgid "Settings"
 msgstr "Setări"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Page title"
+msgstr "Titlu pagină"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -745,9 +748,6 @@ msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs.
 
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
-
-msgid "Title"
-msgstr "Titlu"
 
 msgid "Locked at"
 msgstr "Blocat la"
@@ -1638,13 +1638,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Doriți să publicați această pagină?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Pagini folosing %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Pagini cu"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Copie %(title)s"
 
@@ -1706,23 +1699,6 @@ msgstr "Nu s-au găsit intrări de jurnal."
 msgid "Exploring %(title)s"
 msgstr "Explorare %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Selectează toate paginile din listă"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Apăsați enter pentru a selecta un element, folosiți săgețile sus/jos pentru "
-"a muta elementul, apăsați enter pentru a finaliza mutarea sau escape pentru "
-"a anula mutarea curentă."
-
-msgid "Select page"
-msgstr "Selectează pagină"
-
-msgid "Drag"
-msgstr "Glisează"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1765,12 +1741,8 @@ msgstr ""
 "Nu există nici un site pentru această locație. Paginile create aici nu vor "
 "fi accesibile la nici o adresă URL."
 
-msgid "No pages have been created at this location."
-msgstr "Nu a fost creată nici o pagină în această locație."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "De ce să nu <a href=\"%(add_page_url)s\">creați una</a>?"
+msgid "Select all pages in listing"
+msgstr "Selectează toate paginile din listă"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Această pagină este blocată, de către dvs., pentru editări ulterioare"
@@ -1785,6 +1757,18 @@ msgstr "Explorează paginile descendente la '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină descendentă la '%(title)s'"
+
+msgid "Drag"
+msgstr "Glisează"
+
+msgid "Disable ordering of child pages"
+msgstr "Dezactivează rânduirea paginilor descendente"
+
+msgid "Sort"
+msgstr "Sortează"
+
+msgid "Enable ordering of child pages"
+msgstr "Activează rânduirea paginilor descendente"
 
 msgid "Sites menu"
 msgstr "Meniu saituri"
@@ -1804,18 +1788,6 @@ msgstr "Următor"
 
 msgid "This page is protected from public view"
 msgstr "Această pagină este protejată de ochii publicului"
-
-msgid "Disable ordering of child pages"
-msgstr "Dezactivează rânduirea paginilor descendente"
-
-msgid "Sort"
-msgstr "Sortează"
-
-msgid "Enable ordering of child pages"
-msgstr "Activează rânduirea paginilor descendente"
-
-msgid "Updated"
-msgstr "Actualizată"
 
 msgid "Confirm"
 msgstr "Confirmă"
@@ -1869,13 +1841,19 @@ msgstr "Deplasează în jos"
 msgid "Set publishing schedule"
 msgstr "Setează programarea publicării"
 
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr "Alege când acest %(model_name)s va fi publicat sau/și va expira"
+
 msgid "Choose when this page should go live and/or expire"
 msgstr "Alegeți când această pagină va deveni live sau/și va expira"
 
-msgid "This publishing schedule will only take effect after you have published"
+msgid ""
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
-"Această programare pentru publicare va intra în funcțiune doar după ce veți "
-"publica"
+"Acest program de publicare va fi aplicat numai după ce selectați opțiunea "
+"\"Publică\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Oricine are permisiuni de editare poate crea programări"
@@ -1885,9 +1863,6 @@ msgstr "Dar numai cei cu permisiuni de publicare le pot pune în funcțiune"
 
 msgid "Save schedule"
 msgstr "Salvează program"
-
-msgid "Comment notifications"
-msgstr "Notificări comentarii"
 
 msgid "Collection management permissions"
 msgstr "Permisiuni de gestionare a colecțiilor"
@@ -1907,11 +1882,8 @@ msgstr "Nu s-au găsit pagini."
 msgid "No pages match this report's criteria."
 msgstr "Nici o pagină nu corespunde criteriilor acestui raport."
 
-msgid "Download XLSX"
-msgstr "Descarcă XLSX"
-
-msgid "Download CSV"
-msgstr "Descarcă CSV"
+msgid "Updated"
+msgstr "Actualizată"
 
 msgid "Locking status"
 msgstr "Stare blocare"
@@ -1980,6 +1952,12 @@ msgstr "Pagină de bază"
 msgid "Close dialog"
 msgstr "Închide dialog"
 
+msgid "Download XLSX"
+msgstr "Descarcă XLSX"
+
+msgid "Download CSV"
+msgstr "Descarcă CSV"
+
 msgid "Add comment"
 msgstr "Adaugă comentariu"
 
@@ -2045,6 +2023,9 @@ msgstr "Comută panou lateral"
 
 msgid "Side panel width"
 msgstr "Lățime panou lateral"
+
+msgid "Comment notifications"
+msgstr "Notificări comentarii"
 
 msgid "Page Locale: "
 msgstr "Local pagină:"
@@ -2133,6 +2114,9 @@ msgstr "de către %(user)s"
 
 msgid "View history"
 msgstr "Vezi istorie"
+
+msgid "Invalid schedule"
+msgstr "Program invalid"
 
 msgid "Go-live:"
 msgstr "Dată de lansare:"
@@ -2346,6 +2330,16 @@ msgstr "Folosită în fluxurile de lucru următoare"
 msgid "Not used"
 msgstr "Nefolosit"
 
+msgid "Disabled"
+msgstr "Dezactivat"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+ incă %(counter)s"
+msgstr[1] "+ incă %(counter)s"
+msgstr[2] "+ incă %(counter)s"
+
 msgid "Assigned pages"
 msgstr "Pagini alocate"
 
@@ -2364,9 +2358,6 @@ msgstr "Arată fluxurile de lucru dezactivate"
 msgid "Used by"
 msgstr "Folosit de"
 
-msgid "Disabled"
-msgstr "Dezactivat"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -2384,13 +2375,6 @@ msgstr[2] "%(counter)s de tipuri de fragment"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Faza %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+ incă %(counter)s"
-msgstr[1] "+ incă %(counter)s"
-msgstr[2] "+ incă %(counter)s"
 
 #, python-format
 msgid ""
@@ -2495,27 +2479,11 @@ msgstr "Vezi istoria completă"
 msgid "Compare with live version"
 msgstr "Compară cu revizia publicată"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
-"crescătoare."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
-"decrescătoare."
-
 msgid "More"
 msgstr "Mai mult"
 
-msgid "View more bulk actions"
-msgstr "Vezi mai multe acțiuni în bloc"
+msgid "More bulk actions"
+msgstr "Mai multe acțiuni în masă"
 
 msgid "0 minutes"
 msgstr "0 minute"
@@ -2572,14 +2540,41 @@ msgstr[0] "Referențiat %(count)s dată"
 msgstr[1] "Referențiat de %(count)s ori"
 msgstr[2] "Referențiat de %(count)s de ori"
 
-msgid "Comments"
-msgstr "Comentarii"
-
 msgid "Toggle comments"
 msgstr "Comută comentarii"
 
+msgid "Comments"
+msgstr "Comentarii"
+
 msgid "Toggle preview"
 msgstr "Comută previzualizarea"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "Sortează după '%(label)s' în ordine crescătoare."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "Sortează după '%(label)s' în ordine descrescătoare."
+
+msgid "Select page"
+msgstr "Selectează pagină"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
+"crescătoare."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
+"decrescătoare."
 
 msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr ""
@@ -2781,6 +2776,9 @@ msgstr "Editare"
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Examinare"
 
 msgid "Earliest"
 msgstr "Cea mai veche"
@@ -3068,6 +3066,14 @@ msgstr "Ascunde acțiunile de comentare"
 msgid "Page history"
 msgstr "Istoria paginii"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Apăsați enter pentru a selecta un element, folosiți săgețile sus/jos pentru "
+"a muta elementul, apăsați enter pentru a finaliza mutarea sau escape pentru "
+"a anula mutarea curentă."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Pagina '%(page_title)s' is fost deblocată."
@@ -3113,6 +3119,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Publicare anulată pentru pagina '%(page_title)s'."
+
+msgid "Pages using"
+msgstr "Pagini cu"
 
 #, python-format
 msgid ""
@@ -3308,8 +3317,8 @@ msgid "Add a child page to '%(title)s' "
 msgstr "Adaugă o pagină descendentă de '%(title)s'"
 
 #, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Vezi mai multe opțiuni pentru '%(title)s'"
+msgid "More options for '%(title)s'"
+msgstr "Mai multe opțiuni pentru '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

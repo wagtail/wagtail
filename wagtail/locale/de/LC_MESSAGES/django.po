@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -265,6 +265,39 @@ msgstr "in Moderation"
 msgid "live + in moderation"
 msgstr "Live + in Moderation"
 
+msgid "Add/edit pages you own"
+msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
+
+msgid "Bulk delete"
+msgstr "Alles löschen"
+
+msgid "Delete pages with children"
+msgstr "Seiten inkl. Unterseiten löschen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any page"
+msgstr "Jede Seite bearbeiten."
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Sperren/Entsperren der von Ihnen gesperrten Seiten"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Publish any page"
+msgstr "Jede Seite veröffentlichen"
+
+msgid "Unlock"
+msgstr "Entsperren"
+
+msgid "Unlock any page"
+msgstr "Beliebige Seite entsperren"
+
 msgid "title"
 msgstr "Titel"
 
@@ -359,41 +392,11 @@ msgstr "Revision"
 msgid "revisions"
 msgstr "Revisionen"
 
-msgid "Add/edit pages you own"
-msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Edit any page"
-msgstr "Jede Seite bearbeiten."
-
-msgid "Publish"
-msgstr "Veröffentlichen"
-
-msgid "Publish any page"
-msgstr "Jede Seite veröffentlichen"
-
-msgid "Bulk delete"
-msgstr "Alles löschen"
-
-msgid "Delete pages with children"
-msgstr "Seiten inkl. Unterseiten löschen"
-
-msgid "Lock"
-msgstr "Sperren"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Sperren/Entsperren der von Ihnen gesperrten Seiten"
-
-msgid "Unlock"
-msgstr "Entsperren"
-
-msgid "Unlock any page"
-msgstr "Beliebige Seite entsperren"
-
 msgid "group"
 msgstr "Gruppe"
+
+msgid "permission"
+msgstr "Berechtigung"
 
 msgid "permission type"
 msgstr "Berechtigungstyp"
@@ -616,9 +619,6 @@ msgstr "Sammlung Ansichtsrestriktionen"
 
 msgid "collections"
 msgstr "Sammlungen"
-
-msgid "permission"
-msgstr "Berechtigung"
 
 msgid "group collection permission"
 msgstr "Gruppen Sammlungs-Berechtigung"

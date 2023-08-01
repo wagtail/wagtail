@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -248,6 +248,9 @@ msgstr "Whakatuarā"
 msgid "Settings"
 msgstr "Tautuhinga"
 
+msgid "Title"
+msgstr "Taitara"
+
 msgid "Error 404: Page not found"
 msgstr "Hē 404: Kua ngaro te whārangi"
 
@@ -395,9 +398,6 @@ msgid ""
 "created will be displayed."
 msgstr ""
 "Koinei tō papatohu. I konei ka taea e koe te tirohia ki ngā pārongo āwhina."
-
-msgid "Title"
-msgstr "Taitara"
 
 msgid "Edit this page"
 msgstr "Whakarerekē i tēnei whārangi"

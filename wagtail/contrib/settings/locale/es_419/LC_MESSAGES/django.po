@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Rodrigo Yanez, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Rodrigo Yanez, 2023\n"
+"Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
+"wagtail/language/es_419/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "default"
+msgstr "predeterminado"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s para %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Editando %(instance)s"
+
+msgid "Site"
+msgstr "Página"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Saving…"
+msgstr "Guardando..."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Esta configuración no puede abrirse porque no hay una página definida."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s actualizada."
+
+msgid "The setting could not be saved due to errors."
+msgstr "La configuración no se ha podido guardar debido a errores."

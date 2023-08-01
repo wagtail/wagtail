@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2023\n"
@@ -228,10 +228,10 @@ msgstr[3] ""
 "копїю?"
 
 msgid "Alias"
-msgstr "Псевдонім"
+msgstr "Пов'язана копія "
 
 msgid "Keep the new pages updated with future changes"
-msgstr "Зберігати нові сторінки з урахуванням майбутніх змін "
+msgstr "Копія буде автоматично оновлюватись, при зміні оригінальної сторінки"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -350,9 +350,6 @@ msgstr "Обрано всі %(objects)s об'єктів на цьому екра
 msgid "All items in listing selected"
 msgstr "Обрано всі об'єкти у списку"
 
-msgid "Page title"
-msgstr "Заголовок сторінки"
-
 msgid "For search engines"
 msgstr "Для пошукових систем"
 
@@ -367,6 +364,12 @@ msgstr "Просування"
 
 msgid "Settings"
 msgstr "Налаштування"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Page title"
+msgstr "Заголовок сторінки"
 
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
@@ -606,9 +609,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Ваші заблоковані сторінки"
-
-msgid "Title"
-msgstr "Заголовок"
 
 msgid "Locked at"
 msgstr "Заблоковано в "
@@ -1058,13 +1058,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Ви все одно хочете опублікувати сторінку?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Сторінки використовують %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Сторінки використовують"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Копіювати%(title)s"
 
@@ -1126,24 +1119,11 @@ msgstr "Записи в журналі не знайдені. "
 msgid "Exploring %(title)s"
 msgstr "Перегляд %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Обрати всі сторінки у списку"
-
-msgid "Select page"
-msgstr "Обрати сторінку"
-
-msgid "Drag"
-msgstr "Перетягнути"
-
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
 
-msgid "No pages have been created at this location."
-msgstr "У цьому розташування немає створених сторінок."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Чому б <a href=\"%(add_page_url)s\">не створити одну</a>?"
+msgid "Select all pages in listing"
+msgstr "Обрати всі сторінки у списку"
 
 msgid "This page is locked to further editing"
 msgstr "Сторінку заблоковану для майбутнього редагування"
@@ -1155,6 +1135,18 @@ msgstr "Переглянути дочірні сторінки для '%(title)s
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Додати дочірню сторінку для'%(title)s'"
+
+msgid "Drag"
+msgstr "Перетягнути"
+
+msgid "Disable ordering of child pages"
+msgstr "Вимкнути впорядковування дочірніх сторінок"
+
+msgid "Sort"
+msgstr "Сортувати"
+
+msgid "Enable ordering of child pages"
+msgstr "Увімкнути впорядковування дочірніх сторінок"
 
 msgid "Sites menu"
 msgstr "Меню сайтів"
@@ -1170,18 +1162,6 @@ msgstr "Наступний"
 
 msgid "This page is protected from public view"
 msgstr "Ця сторінка захищена від публічного перегляду"
-
-msgid "Disable ordering of child pages"
-msgstr "Вимкнути впорядковування дочірніх сторінок"
-
-msgid "Sort"
-msgstr "Сортувати"
-
-msgid "Enable ordering of child pages"
-msgstr "Увімкнути впорядковування дочірніх сторінок"
-
-msgid "Updated"
-msgstr "Оновлено"
 
 msgid "Confirm"
 msgstr "Підтвердити"
@@ -1224,9 +1204,6 @@ msgstr "Пересунути вгору"
 msgid "Move down"
 msgstr "Пересунути вниз"
 
-msgid "Comment notifications"
-msgstr "Сповіщення про коментарі"
-
 msgid "Collection management permissions"
 msgstr "Дозволи на керування колекцією"
 
@@ -1239,11 +1216,8 @@ msgstr "Сторінок не знайдено."
 msgid "No pages match this report's criteria."
 msgstr "Жодна сторінка не відповідає критеріям цього звіту. "
 
-msgid "Download XLSX"
-msgstr "Завантажити XLSX"
-
-msgid "Download CSV"
-msgstr "Завантажити CSV"
+msgid "Updated"
+msgstr "Оновлено"
 
 msgid "Locking status"
 msgstr "Статус блокування"
@@ -1288,6 +1262,12 @@ msgstr "Ланцюжок навігації"
 msgid "Root"
 msgstr "Корінь"
 
+msgid "Download XLSX"
+msgstr "Завантажити XLSX"
+
+msgid "Download CSV"
+msgstr "Завантажити CSV"
+
 msgid "Add comment"
 msgstr "Додати коментар"
 
@@ -1322,6 +1302,9 @@ msgstr "Ні, не знімати з розкладу"
 msgid "Other searches"
 msgstr "Інші пошуки"
 
+msgid "Comment notifications"
+msgstr "Сповіщення про коментарі"
+
 msgid "Unlocked"
 msgstr "Розблоковано"
 
@@ -1329,7 +1312,7 @@ msgstr "Розблоковано"
 msgid ""
 "Anyone can edit this %(model_name)s – lock it to prevent others from editing"
 msgstr ""
-"Всі можуть редагувати цю %(model_name)s– заблокуйте її щоб інші не могли "
+"Всі можуть редагувати цю %(model_name)s – заблокуйте її щоб інші не могли "
 "редагувати"
 
 #, python-format
@@ -1453,6 +1436,14 @@ msgstr "Використовується в наведених нижче акт
 msgid "Not used"
 msgstr "Не використовується"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s більше"
+msgstr[1] "+%(counter)s більше"
+msgstr[2] "+%(counter)s більше"
+msgstr[3] "+%(counter)s більше"
+
 msgid "Assigned pages"
 msgstr "Призначені сторінки"
 
@@ -1474,14 +1465,6 @@ msgstr "Використовується "
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Крок %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s більше"
-msgstr[1] "+%(counter)s більше"
-msgstr[2] "+%(counter)s більше"
-msgstr[3] "+%(counter)s більше"
 
 #, python-format
 msgid ""
@@ -1577,27 +1560,8 @@ msgstr "Переглянути повну історію"
 msgid "Compare with live version"
 msgstr "Порівняти із версією наживо"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
-"порядку більшення."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
-"порядку зменшення."
-
 msgid "More"
 msgstr "Більше"
-
-msgid "View more bulk actions"
-msgstr "Переглянути більше групових дій"
 
 msgid "0 minutes"
 msgstr "0 хвилин"
@@ -1618,6 +1582,25 @@ msgstr "Вийти"
 
 msgid "Comments"
 msgstr "Коментарі"
+
+msgid "Select page"
+msgstr "Обрати сторінку"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку більшення."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку зменшення."
 
 msgid "Profile"
 msgstr "Профіль"
@@ -1686,6 +1669,9 @@ msgstr "%(model_name)s '%(object)s' створено."
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Inspecting"
+msgstr "Перегляд"
 
 msgid "Earliest"
 msgstr "Найбільш раннє"
@@ -1991,6 +1977,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Сторінку '%(page_title)s' знято з публікації."
 
+msgid "Pages using"
+msgstr "Сторінки використовують"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -2117,10 +2106,6 @@ msgstr "Додати дочірню сторінку"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Додати дочірню сторінку для'%(title)s'"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Показати більше опцій для '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

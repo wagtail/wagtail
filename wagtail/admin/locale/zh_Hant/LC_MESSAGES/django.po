@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -307,9 +307,6 @@ msgstr "已選擇顯示範圍內所有 %(objects)s 個項目"
 msgid "All items in listing selected"
 msgstr "已選擇列表中的所有項目"
 
-msgid "Page title"
-msgstr "頁面標題"
-
 msgid "Content"
 msgstr "內容"
 
@@ -318,6 +315,12 @@ msgstr "推薦"
 
 msgid "Settings"
 msgstr "設置"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Page title"
+msgstr "頁面標題"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -537,9 +540,6 @@ msgstr "此面版可顯示你所建立內容的相關資訊。"
 
 msgid "Your locked pages"
 msgstr "你已鎖定的頁面"
-
-msgid "Title"
-msgstr "標題"
 
 msgid "Locked at"
 msgstr "鎖定於"
@@ -924,13 +924,6 @@ msgid "Would you still like to publish this page?"
 msgstr "確定仍要發佈此頁面？"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "使用%(page_class_verbose_name)s的頁面"
-
-msgid "Pages using"
-msgstr "頁面使用"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "複製%(title)s"
 
@@ -989,24 +982,11 @@ msgstr "沒有發現任何記錄"
 msgid "Exploring %(title)s"
 msgstr "瀏覽 %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "選擇列表中的所有頁面"
-
-msgid "Select page"
-msgstr "選擇頁面"
-
-msgid "Drag"
-msgstr "拖曳"
-
 msgid "Configure a site now."
 msgstr "立即設定一個網站。"
 
-msgid "No pages have been created at this location."
-msgstr "這個位置還沒有創建頁面。"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "要不<a href=\"%(add_page_url)s\">創建一個</a>?"
+msgid "Select all pages in listing"
+msgstr "選擇列表中的所有頁面"
 
 msgid "This page is locked to further editing"
 msgstr "此頁面已鎖定，無法編輯"
@@ -1018,6 +998,18 @@ msgstr "查看'%(title)s'的子頁面"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "為'%(title)s'新增子頁面"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Disable ordering of child pages"
+msgstr "禁用子頁面排序"
+
+msgid "Sort"
+msgstr "排序"
+
+msgid "Enable ordering of child pages"
+msgstr "啟用子頁面排序"
 
 msgid "Sites menu"
 msgstr "網站選單"
@@ -1033,18 +1025,6 @@ msgstr "下一個"
 
 msgid "This page is protected from public view"
 msgstr "此頁面已受保護，公眾不可見。"
-
-msgid "Disable ordering of child pages"
-msgstr "禁用子頁面排序"
-
-msgid "Sort"
-msgstr "排序"
-
-msgid "Enable ordering of child pages"
-msgstr "啟用子頁面排序"
-
-msgid "Updated"
-msgstr "已更新"
 
 msgid "Confirm"
 msgstr "確認"
@@ -1089,11 +1069,8 @@ msgstr "儲存排程"
 msgid "Last published"
 msgstr "最後發佈"
 
-msgid "Download XLSX"
-msgstr "下載 XLSX"
-
-msgid "Download CSV"
-msgstr "下載 CSV"
+msgid "Updated"
+msgstr "已更新"
 
 msgid "Locking status"
 msgstr "鎖定狀態"
@@ -1128,6 +1105,12 @@ msgstr "根"
 
 msgid "Close dialog"
 msgstr "關閉對話框"
+
+msgid "Download XLSX"
+msgstr "下載 XLSX"
+
+msgid "Download CSV"
+msgstr "下載 CSV"
 
 msgid "Add comment"
 msgstr "新增評論"
@@ -1372,14 +1355,17 @@ msgstr "登出"
 msgid "Toggle status"
 msgstr "切換狀態"
 
-msgid "Comments"
-msgstr "評論"
-
 msgid "Toggle comments"
 msgstr "切換評論"
 
+msgid "Comments"
+msgstr "評論"
+
 msgid "Toggle preview"
 msgstr "切換預覽"
+
+msgid "Select page"
+msgstr "選擇頁面"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1439,6 +1425,9 @@ msgstr "%(model_name)s '%(object)s' 已創建。"
 
 msgid "Editing"
 msgstr "正在編輯"
+
+msgid "Inspecting"
+msgstr "正在檢查"
 
 msgid "Earliest"
 msgstr "最早的"
@@ -1567,6 +1556,9 @@ msgstr "頁面 '%(page_title)s' 已移動。"
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "頁面'%(page_title)s'已取消發佈。"
+
+msgid "Pages using"
+msgstr "頁面使用"
 
 msgid "Site history"
 msgstr "網站歷史"

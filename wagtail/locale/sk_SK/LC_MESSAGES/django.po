@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -97,6 +97,30 @@ msgstr "Predvolené"
 msgid "locked"
 msgstr "zamknuté"
 
+msgid "Add/edit pages you own"
+msgstr "Pridať/upraviť stránky ktoré vlastníte"
+
+msgid "Bulk delete"
+msgstr "Hromadne vymazať"
+
+msgid "Delete pages with children"
+msgstr "Vymazať stránky s potomkami"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Edit any page"
+msgstr "Upraviť stránku"
+
+msgid "Lock"
+msgstr "Zamknúť"
+
+msgid "Publish"
+msgstr "Publikovať"
+
+msgid "Publish any page"
+msgstr "Publikovať akúkoľvek stránku"
+
 msgid "title"
 msgstr "titulok"
 
@@ -153,32 +177,11 @@ msgstr "obsah JSON"
 msgid "approved go live at"
 msgstr "schválené na zverejnenie"
 
-msgid "Add/edit pages you own"
-msgstr "Pridať/upraviť stránky ktoré vlastníte"
-
-msgid "Edit"
-msgstr "Upraviť"
-
-msgid "Edit any page"
-msgstr "Upraviť stránku"
-
-msgid "Publish"
-msgstr "Publikovať"
-
-msgid "Publish any page"
-msgstr "Publikovať akúkoľvek stránku"
-
-msgid "Bulk delete"
-msgstr "Hromadne vymazať"
-
-msgid "Delete pages with children"
-msgstr "Vymazať stránky s potomkami"
-
-msgid "Lock"
-msgstr "Zamknúť"
-
 msgid "group"
 msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnenie"
 
 msgid "permission type"
 msgstr "typ oprávnenia"
@@ -215,9 +218,6 @@ msgstr "obmedzenia zobrazenia kolekcie"
 
 msgid "collections"
 msgstr "kolekcie"
-
-msgid "permission"
-msgstr "oprávnenie"
 
 msgid "group collection permission"
 msgstr "oprávnenia skupiny ku kolekcii"

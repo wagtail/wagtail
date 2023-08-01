@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2022
 # Loic Teixeira, 2022
+# Dino Aljević <dino8890@protonmail.com>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2023\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,13 @@ msgstr "Lokaliteti"
 
 msgid "All child pages will be created."
 msgstr "Sve podstranice će biti stvorene."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Uključi podstranice (%(descendant_count)s stranica)"
+msgstr[1] "Uključi podstranice (%(descendant_count)s stranica)"
+msgstr[2] "Uključi podstranice (%(descendant_count)s stranica)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -79,6 +86,9 @@ msgstr "Prevedi %(model_name)s"
 msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
 "Uspješno stvoreni lokaliteti %(locales)s za %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Prevedi ovu stranicu"
 
 #, python-format
 msgid "Translate '%(title)s'"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -184,6 +184,9 @@ msgstr "โปรโมท"
 msgid "Settings"
 msgstr "การตั้งค่า"
 
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
 
@@ -350,9 +353,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
 
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
@@ -534,13 +534,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "คุณแน่ใจว่าคุณต้องการยกเลิกการจัดพิมพ์หน้านี้?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "หน้านี้ถูกใช้ %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "หน้านี้กำลังถูกใช้อยู่"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "ก๊อปปี้ %(title)s"
 
@@ -571,18 +564,8 @@ msgstr "ร่างปัจจุบันที่กำลังใช้อ
 msgid "Exploring %(title)s"
 msgstr "กำลังสำรวจ %(title)s"
 
-msgid "Drag"
-msgstr "ลาก"
-
 msgid "Configure a site now."
 msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
-
-msgid "No pages have been created at this location."
-msgstr "ไม่มีหน้าที่ถูกสร้างที่นี่"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "ทำไมถึงไม่ <a href=\"%(add_page_url)s\">สร้างอีกอันล่ะ</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "หน้านี้ถูกล็อกไม่สามารถแก้ไขได้แล้ว"
@@ -595,6 +578,15 @@ msgstr "สำรวจหน้าย่อยของ '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "เพิ่มหน้าย่อยที่ '%(title)s'"
 
+msgid "Drag"
+msgstr "ลาก"
+
+msgid "Disable ordering of child pages"
+msgstr "การเรียงไม่สามารถทำได้ในหย้าย่อย"
+
+msgid "Enable ordering of child pages"
+msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
+
 msgid "Sites menu"
 msgstr "เมนูของเว็บไซด์"
 
@@ -606,15 +598,6 @@ msgstr "ถัดไป"
 
 msgid "This page is protected from public view"
 msgstr "หน้านี้ถูกป้องกันจากสาธารณะ"
-
-msgid "Disable ordering of child pages"
-msgstr "การเรียงไม่สามารถทำได้ในหย้าย่อย"
-
-msgid "Enable ordering of child pages"
-msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
-
-msgid "Updated"
-msgstr "อัพเดท"
 
 msgid "Cancel scheduled publish"
 msgstr "ยกเลิกการจัดพิมพ์ตาราง"
@@ -638,8 +621,8 @@ msgstr "เลื่อนขึ้น"
 msgid "Move down"
 msgstr "เลื่อนลง"
 
-msgid "Download CSV"
-msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
+msgid "Updated"
+msgstr "อัพเดท"
 
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
@@ -653,6 +636,9 @@ msgstr "หน้า %(page_num)s ของ%(total_pages)s."
 
 msgid "Root"
 msgstr "ต้นฉบับ"
+
+msgid "Download CSV"
+msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
 
 msgid "Filter"
 msgstr "คัดกรอง"
@@ -754,6 +740,9 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
+
+msgid "Inspecting"
+msgstr "กำลังตรวจ"
 
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
@@ -866,6 +855,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "หน้า%(page_title)s ยกเลิกจัดพิมพ์แล้ว"
+
+msgid "Pages using"
+msgstr "หน้านี้กำลังถูกใช้อยู่"
 
 msgid "Pages"
 msgstr "หลายหน้า"

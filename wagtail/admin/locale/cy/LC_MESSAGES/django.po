@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -259,6 +259,9 @@ msgstr "Hyrwyddo"
 msgid "Settings"
 msgstr "Gosodiadau"
 
+msgid "Title"
+msgstr "Teitl"
+
 msgid "Error 404"
 msgstr "Gwall 404"
 
@@ -315,9 +318,6 @@ msgstr "Canslo"
 
 msgid "Update"
 msgstr "Diweddariad"
-
-msgid "Title"
-msgstr "Teitl"
 
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
@@ -385,12 +385,6 @@ msgstr "Symyd i fyny"
 msgid "Move down"
 msgstr "Symyd i lawr"
 
-msgid "Download XLSX"
-msgstr "Lawrlwythwch XSLX"
-
-msgid "Download CSV"
-msgstr "Lawrlwythwch CSV"
-
 msgid "Workflow"
 msgstr "Llif gwaith"
 
@@ -402,6 +396,12 @@ msgstr "Wedi'i gwblhau yn"
 
 msgid "Breadcrumb"
 msgstr "Briwsion Bara"
+
+msgid "Download XLSX"
+msgstr "Lawrlwythwch XSLX"
+
+msgid "Download CSV"
+msgstr "Lawrlwythwch CSV"
 
 msgid "Filter"
 msgstr "Hidlydd"
@@ -446,6 +446,9 @@ msgstr "%(model_name)s '%(object)s' wedi'i greu."
 
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Inspecting"
+msgstr "Arolygu"
 
 msgid "Usage of"
 msgstr "Defnydd o"

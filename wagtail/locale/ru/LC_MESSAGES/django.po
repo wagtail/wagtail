@@ -14,19 +14,19 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
-# Sergey Mazanov <mvver@outlook.com>, 2021
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # Михаил Герасимов, 2019
-# Sergey Mazanov <mvver@outlook.com>, 2021
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -162,6 +162,39 @@ msgstr "на модерации"
 msgid "live + in moderation"
 msgstr "опубликовано + на модерации"
 
+msgid "Add/edit pages you own"
+msgstr "Добавить/редактировать свои страницы"
+
+msgid "Bulk delete"
+msgstr "Массовое удаление"
+
+msgid "Delete pages with children"
+msgstr "Удалить вместе с дочерними страницами"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit any page"
+msgstr "Редактировать любую страницу"
+
+msgid "Lock"
+msgstr "Заблокировать"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Ваши заблокированные/разблокированные страницы"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Publish any page"
+msgstr "Опубликовать любую страницу"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "Unlock any page"
+msgstr "Разблокировать любую страницу"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -247,41 +280,11 @@ msgstr "версия"
 msgid "revisions"
 msgstr "версии"
 
-msgid "Add/edit pages you own"
-msgstr "Добавить/редактировать свои страницы"
-
-msgid "Edit"
-msgstr "Редактировать"
-
-msgid "Edit any page"
-msgstr "Редактировать любую страницу"
-
-msgid "Publish"
-msgstr "Опубликовать"
-
-msgid "Publish any page"
-msgstr "Опубликовать любую страницу"
-
-msgid "Bulk delete"
-msgstr "Массовое удаление"
-
-msgid "Delete pages with children"
-msgstr "Удалить вместе с дочерними страницами"
-
-msgid "Lock"
-msgstr "Заблокировать"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Ваши заблокированные/разблокированные страницы"
-
-msgid "Unlock"
-msgstr "Разблокировать"
-
-msgid "Unlock any page"
-msgstr "Разблокировать любую страницу"
-
 msgid "group"
 msgstr "группа"
+
+msgid "permission"
+msgstr "право доступа"
 
 msgid "permission type"
 msgstr "тип прав"
@@ -471,9 +474,6 @@ msgstr "ограничения на просмотр коллекции"
 
 msgid "collections"
 msgstr "коллекции"
-
-msgid "permission"
-msgstr "право доступа"
 
 msgid "group collection permission"
 msgstr "право доступа к коллекции у группы"

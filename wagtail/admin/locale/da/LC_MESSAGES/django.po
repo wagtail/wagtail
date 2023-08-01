@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -206,6 +206,9 @@ msgstr "Promover"
 msgid "Settings"
 msgstr "Indstillinger"
 
+msgid "Title"
+msgstr "Titel"
+
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
 
@@ -361,9 +364,6 @@ msgstr "Ændringer"
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Velkommen til %(site_name)s Wagtail CMS"
 
-msgid "Title"
-msgstr "Titel"
-
 msgid "Edit this page"
 msgstr "Rediger denne side"
 
@@ -508,13 +508,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på, at du vil afpublicere denne side?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sider der bruger %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Sider der bruger"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopier %(title)s"
 
@@ -545,18 +538,8 @@ msgstr "Nuværende skitse"
 msgid "Exploring %(title)s"
 msgstr "Udforsker %(title)s"
 
-msgid "Drag"
-msgstr "Træk"
-
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."
-
-msgid "No pages have been created at this location."
-msgstr "Ingen sider er blevet lavet på denne lokation."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Hvorfor ikke <a href=\"%(add_page_url)s\">lave én</a>?"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -565,6 +548,15 @@ msgstr "Udforsk undersider af '%(title)s'?"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Tilføj en underside til '%(title)s'"
+
+msgid "Drag"
+msgstr "Træk"
+
+msgid "Disable ordering of child pages"
+msgstr "Deaktiver arrangering af undersider"
+
+msgid "Enable ordering of child pages"
+msgstr "Aktiver arrangering af undersider"
 
 msgid "Sites menu"
 msgstr "Sidemenu"
@@ -578,15 +570,6 @@ msgstr "Næste"
 msgid "This page is protected from public view"
 msgstr "Denne side er beskyttet mod offentlig skue"
 
-msgid "Disable ordering of child pages"
-msgstr "Deaktiver arrangering af undersider"
-
-msgid "Enable ordering of child pages"
-msgstr "Aktiver arrangering af undersider"
-
-msgid "Updated"
-msgstr "Opdateret"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Tilføj %(label)s"
@@ -596,6 +579,9 @@ msgstr "Bevæg op"
 
 msgid "Move down"
 msgstr "Bevæg ned"
+
+msgid "Updated"
+msgstr "Opdateret"
 
 msgid "Locked"
 msgstr "Låst"
@@ -687,6 +673,9 @@ msgstr "SIde '%(page_title)s' flyttet."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "SIde '%(page_title)s' afpubliceret."
+
+msgid "Pages using"
+msgstr "Sider der bruger"
 
 msgid "Pages"
 msgstr "Sider"

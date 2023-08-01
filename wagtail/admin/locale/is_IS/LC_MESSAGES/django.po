@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2023\n"
@@ -364,9 +364,6 @@ msgstr "Allir %(objects)s hlutir á þessum skjá valdir"
 msgid "All items in listing selected"
 msgstr "Allir hlutir valdir"
 
-msgid "Page title"
-msgstr "Titill síðu"
-
 msgid "For search engines"
 msgstr "Fyrir leitarvélar"
 
@@ -381,6 +378,12 @@ msgstr "Sýnileiki"
 
 msgid "Settings"
 msgstr "Stillingar"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "Page title"
+msgstr "Titill síðu"
 
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"
@@ -738,9 +741,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Þínar læstu síður"
-
-msgid "Title"
-msgstr "Titill"
 
 msgid "Locked at"
 msgstr "Læst"
@@ -1567,13 +1567,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Viltu samt setja þessa síðu í birtingu?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Síður sem nota %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Síður sem nota"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Afrita %(title)s"
 
@@ -1635,23 +1628,6 @@ msgstr "Engar atburðaskráningar fundust."
 msgid "Exploring %(title)s"
 msgstr "Skoðar %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Velja allar síðu"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Ýttu á enter til að velja, notaðu upp og niður örvar til að færa og ýttu "
-"aftur á enter til að staðfesta færsluna eða escape til að hætta við "
-"núverandi færslu."
-
-msgid "Select page"
-msgstr "Velja síðu"
-
-msgid "Drag"
-msgstr "Draga"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1692,12 +1668,8 @@ msgstr ""
 "Það er ekkert vefsvæði tengt þessum stað. Síður sem verða búnar til hér "
 "verða ekki aðgengilegar á neinni slóð."
 
-msgid "No pages have been created at this location."
-msgstr "Engar síður hafa verið búnar til hér."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Hví ekki að <a href=\"%(add_page_url)s\">búa til eina</a>?"
+msgid "Select all pages in listing"
+msgstr "Velja allar síðu"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Þessi síða er læst, af þér, fyrir frekari breytingum"
@@ -1712,6 +1684,18 @@ msgstr "Skoða undirsíður '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Bæta undirsíðu við '%(title)s'"
+
+msgid "Drag"
+msgstr "Draga"
+
+msgid "Disable ordering of child pages"
+msgstr "Óvirkja röðun á undirsíðum"
+
+msgid "Sort"
+msgstr "Raða"
+
+msgid "Enable ordering of child pages"
+msgstr "Virkja röðun á undirsíðum"
 
 msgid "Sites menu"
 msgstr "Síðuvalmynd"
@@ -1731,18 +1715,6 @@ msgstr "Næsta"
 
 msgid "This page is protected from public view"
 msgstr "Þessi síða er ekki aðgengileg almenningi"
-
-msgid "Disable ordering of child pages"
-msgstr "Óvirkja röðun á undirsíðum"
-
-msgid "Sort"
-msgstr "Raða"
-
-msgid "Enable ordering of child pages"
-msgstr "Virkja röðun á undirsíðum"
-
-msgid "Updated"
-msgstr "Uppfært"
 
 msgid "Confirm"
 msgstr "Staðfesta"
@@ -1798,11 +1770,6 @@ msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Veldu hvenær þessi síða á að fara í loftið og/eða verða tekin úr loftinu"
 
-msgid "This publishing schedule will only take effect after you have published"
-msgstr ""
-"Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að setja "
-"síðuna í loftið"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Allir sem eru með leyfi til breytinga get búið til tímastillingar"
 
@@ -1811,9 +1778,6 @@ msgstr "En aðeins þau sem hafa útgáfuréttindi geta virkjað hana."
 
 msgid "Save schedule"
 msgstr "Vista tímastillingar"
-
-msgid "Comment notifications"
-msgstr "Athugasemda tilkynningar"
 
 msgid "Collection management permissions"
 msgstr "Réttindi fyrir umsýslu myndasafna"
@@ -1833,11 +1797,8 @@ msgstr "Engar síður fundust."
 msgid "No pages match this report's criteria."
 msgstr "Engar síður passa við forsendur þessarar skýrslu."
 
-msgid "Download XLSX"
-msgstr "Sækja XLSX"
-
-msgid "Download CSV"
-msgstr "Sækja CSV"
+msgid "Updated"
+msgstr "Uppfært"
 
 msgid "Locking status"
 msgstr "Staða á læsingu"
@@ -1906,6 +1867,12 @@ msgstr "Rót"
 msgid "Close dialog"
 msgstr "Loka glugga"
 
+msgid "Download XLSX"
+msgstr "Sækja XLSX"
+
+msgid "Download CSV"
+msgstr "Sækja CSV"
+
 msgid "Add comment"
 msgstr "Bæta við athugasemd"
 
@@ -1971,6 +1938,9 @@ msgstr "Sýna/fela hliðarstiku"
 
 msgid "Side panel width"
 msgstr "Breidd hliðarvalmyndar"
+
+msgid "Comment notifications"
+msgstr "Athugasemda tilkynningar"
 
 msgid "Page Locale: "
 msgstr "Þýðing síðu:"
@@ -2264,6 +2234,15 @@ msgstr "Notað af eftirfarandi virkum vinnuflæðum"
 msgid "Not used"
 msgstr "Ekki notað"
 
+msgid "Disabled"
+msgstr "Óvirkt"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s í viðbót"
+msgstr[1] "+%(counter)s í viðbót"
+
 msgid "Assigned pages"
 msgstr "Tengdar síður"
 
@@ -2282,9 +2261,6 @@ msgstr "Sýna óvirk vinnuflæði"
 msgid "Used by"
 msgstr "Notað af"
 
-msgid "Disabled"
-msgstr "Óvirkt"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -2300,12 +2276,6 @@ msgstr[1] "%(counter)s tegundir snifsa"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Skref %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s í viðbót"
-msgstr[1] "+%(counter)s í viðbót"
 
 #, python-format
 msgid ""
@@ -2409,24 +2379,8 @@ msgstr "Sjá alla söguna"
 msgid "Compare with live version"
 msgstr "Bera saman við útgáfu í birtingu"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr "Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í stafrófsröð."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í öfugri stafrófsröð."
-
 msgid "More"
 msgstr "Meira"
-
-msgid "View more bulk actions"
-msgstr "Skoða fleiri magn aðgerðir"
 
 msgid "0 minutes"
 msgstr "0 mínútur"
@@ -2482,14 +2436,30 @@ msgid_plural "Referenced %(count)s times"
 msgstr[0] "Vísað í %(count)s sinni"
 msgstr[1] "Vísað í %(count)s sinnum"
 
-msgid "Comments"
-msgstr "Athugasemdir"
-
 msgid "Toggle comments"
 msgstr "Sýna/fela athugasemdir"
 
+msgid "Comments"
+msgstr "Athugasemdir"
+
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
+
+msgid "Select page"
+msgstr "Velja síðu"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í stafrófsröð."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í öfugri stafrófsröð."
 
 msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
@@ -2681,6 +2651,9 @@ msgstr "Breyti"
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Ertu viss um að þú viljir eyða þessu %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Skoða"
 
 msgid "Earliest"
 msgstr "Fyrsta"
@@ -2950,6 +2923,14 @@ msgstr "Fela athugasemdaaðgerðir"
 msgid "Page history"
 msgstr "Saga síðu"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Ýttu á enter til að velja, notaðu upp og niður örvar til að færa og ýttu "
+"aftur á enter til að staðfesta færsluna eða escape til að hætta við "
+"núverandi færslu."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Síða '%(page_title)s' er nú ólæst."
@@ -2995,6 +2976,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Síða '%(page_title)s' tekin úr birtingu."
+
+msgid "Pages using"
+msgstr "Síður sem nota"
 
 #, python-format
 msgid ""
@@ -3175,10 +3159,6 @@ msgstr "Bæta við undirsíðu"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Bæta við undirsíðu undir '%(title)s' "
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Skoða fleiri valkosti fyrir '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

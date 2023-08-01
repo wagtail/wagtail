@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,6 +115,39 @@ msgstr "kia whakaōrite"
 msgid "live + in moderation"
 msgstr "mataora + kia whakaōrite"
 
+msgid "Add/edit pages you own"
+msgstr "Tāpiri/ whakarerekē ou whārangi"
+
+msgid "Bulk delete"
+msgstr "Muku maha"
+
+msgid "Delete pages with children"
+msgstr "Muku ngā whārangi-a-tamariki"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Edit any page"
+msgstr "Whakarerekē ngā whārangi"
+
+msgid "Lock"
+msgstr "Raka"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Raka/ iriti ngā whārangi kua raka e koe"
+
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Publish any page"
+msgstr "Perehi ngā whārangi"
+
+msgid "Unlock"
+msgstr "Iriti"
+
+msgid "Unlock any page"
+msgstr "Iriti ngā whārangi"
+
 msgid "title"
 msgstr "taitara"
 
@@ -173,41 +206,11 @@ msgstr "Rārangi take JSON"
 msgid "approved go live at"
 msgstr "Whakamiha kia tuku hei mataora ki"
 
-msgid "Add/edit pages you own"
-msgstr "Tāpiri/ whakarerekē ou whārangi"
-
-msgid "Edit"
-msgstr "Whakarerekē"
-
-msgid "Edit any page"
-msgstr "Whakarerekē ngā whārangi"
-
-msgid "Publish"
-msgstr "Perehi"
-
-msgid "Publish any page"
-msgstr "Perehi ngā whārangi"
-
-msgid "Bulk delete"
-msgstr "Muku maha"
-
-msgid "Delete pages with children"
-msgstr "Muku ngā whārangi-a-tamariki"
-
-msgid "Lock"
-msgstr "Raka"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Raka/ iriti ngā whārangi kua raka e koe"
-
-msgid "Unlock"
-msgstr "Iriti"
-
-msgid "Unlock any page"
-msgstr "Iriti ngā whārangi"
-
 msgid "group"
 msgstr "rōpū"
+
+msgid "permission"
+msgstr "whakaae"
 
 msgid "permission type"
 msgstr "momo–whakaae "
@@ -372,9 +375,6 @@ msgstr "Ngā kohikohinga kitea aukatinga"
 
 msgid "collections"
 msgstr "Ngā kohikohinga"
-
-msgid "permission"
-msgstr "whakaae"
 
 msgid "group collection permission"
 msgstr "rōpū kohikohinga whakaae"

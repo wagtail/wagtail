@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -305,6 +305,9 @@ msgstr "Promoviraj"
 msgid "Settings"
 msgstr "Postavke"
 
+msgid "Title"
+msgstr "Naslov"
+
 msgid "Error 404: Page not found"
 msgstr "Greška 404: Stranica nije pronađena"
 
@@ -518,9 +521,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Vaše zaključane stranice"
-
-msgid "Title"
-msgstr "Naslov"
 
 msgid "Locked at"
 msgstr "Zaključano u"
@@ -832,13 +832,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Želite li i dalje objaviti ovu stranicu?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Stranice koje koriste %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Stranice koje koriste"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopiraj %(title)s"
 
@@ -897,18 +890,8 @@ msgstr "Nema pronađenih zapisa."
 msgid "Exploring %(title)s"
 msgstr "Pretraživanje %(title)s"
 
-msgid "Drag"
-msgstr "Povucite"
-
 msgid "Configure a site now."
 msgstr "Postavite sjedište sada."
-
-msgid "No pages have been created at this location."
-msgstr "Na ovome mjestu nema stvorenih stranica."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Zašto ne <a href=\"%(add_page_url)s\">stvorite jednu</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Ova stranica je zaključana za daljnje uređivanje"
@@ -921,6 +904,18 @@ msgstr "Pretraži djecu stranice '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj dijete stranici '%(title)s'"
 
+msgid "Drag"
+msgstr "Povucite"
+
+msgid "Disable ordering of child pages"
+msgstr "Isključite mijenjanje redoslijeda podređenih stranica"
+
+msgid "Sort"
+msgstr "Sortiraj"
+
+msgid "Enable ordering of child pages"
+msgstr "Uključite mijenjanje redoslijeda podređenih stranica"
+
 msgid "Pagination"
 msgstr "Numeriranje stranica"
 
@@ -932,18 +927,6 @@ msgstr "Sljedeća"
 
 msgid "This page is protected from public view"
 msgstr "Stranica je sakrivena od javnosti"
-
-msgid "Disable ordering of child pages"
-msgstr "Isključite mijenjanje redoslijeda podređenih stranica"
-
-msgid "Sort"
-msgstr "Sortiraj"
-
-msgid "Enable ordering of child pages"
-msgstr "Uključite mijenjanje redoslijeda podređenih stranica"
-
-msgid "Updated"
-msgstr "Ažurirano"
 
 msgid "Confirm"
 msgstr "Potvrdi"
@@ -959,6 +942,9 @@ msgstr "Usporedi sa prijašnjom verzijom"
 
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
+
+msgid "Cancel scheduled publish"
+msgstr "Otkaži zakazano objavljivanje"
 
 msgid "Page types"
 msgstr "Vrste stranica"
@@ -987,11 +973,8 @@ msgstr "Pomakni prema dolje"
 msgid "No pages found."
 msgstr "Nema pronađenih stranica."
 
-msgid "Download XLSX"
-msgstr "Preuzmi XLSX"
-
-msgid "Download CSV"
-msgstr "Preuzmi CSV"
+msgid "Updated"
+msgstr "Ažurirano"
 
 msgid "Locking status"
 msgstr "Status zaključavanja"
@@ -1030,8 +1013,20 @@ msgstr "Završeno u"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Stranica %(page_num)s od %(total_pages)s."
 
+msgid "Toggle breadcrumbs"
+msgstr "Prikaži/sakrij navigacijsku traku"
+
+msgid "Breadcrumb"
+msgstr "Navigacijska traka"
+
 msgid "Root"
 msgstr "Korijen"
+
+msgid "Download XLSX"
+msgstr "Preuzmi XLSX"
+
+msgid "Download CSV"
+msgstr "Preuzmi CSV"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"
@@ -1041,6 +1036,10 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Primjeni filtere"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Novi: %(model_name)s"
 
 msgid "Current page status:"
 msgstr "Trenutni status stranice"
@@ -1066,6 +1065,9 @@ msgstr "Ne, nemoj otkazati"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
+
+msgid "Minimap"
+msgstr "Prozor za prelistavanje"
 
 msgid "Unlocked"
 msgstr "Otključano"
@@ -1168,6 +1170,13 @@ msgstr ""
 msgid "Not used"
 msgstr "Ne koristi se"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s dodatni"
+msgstr[1] "+%(counter)s dodatnih"
+msgstr[2] "+%(counter)s dodatnih"
+
 msgid "Assigned pages"
 msgstr "Pridružene stranice"
 
@@ -1189,13 +1198,6 @@ msgstr "Koristi ga"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Korak %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s dodatni"
-msgstr[1] "+%(counter)s dodatnih"
-msgstr[2] "+%(counter)s dodatnih"
 
 #, python-format
 msgid ""
@@ -1286,20 +1288,6 @@ msgstr "Objavljeno"
 msgid "Compare with live version"
 msgstr "Usporedi sa verzijom uživo"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Sortiranje djece unutar '%(parent)s' po '%(label)s' u uzlaznom poretku."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Sortiranje djece unutar '%(parent)s' po '%(label)s' u silaznom poretku."
-
 msgid "More"
 msgstr "Više"
 
@@ -1315,6 +1303,20 @@ msgstr "Odjava"
 
 msgid "Comments"
 msgstr "Komentari"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortiranje djece unutar '%(parent)s' po '%(label)s' u uzlaznom poretku."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortiranje djece unutar '%(parent)s' po '%(label)s' u silaznom poretku."
 
 msgid "Password"
 msgstr "Lozinka"
@@ -1365,6 +1367,9 @@ msgstr "%(model_name)s '%(object)s' je stvoren."
 
 msgid "Editing"
 msgstr "Uređivanje"
+
+msgid "Inspecting"
+msgstr "Pregled"
 
 msgid "Earliest"
 msgstr "Najranije"
@@ -1486,6 +1491,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stranica '%(page_title)s' je odjavljena."
+
+msgid "Pages using"
+msgstr "Stranice koje koriste"
 
 msgid "Last published before"
 msgstr "Zadnji put objavljeno prije"

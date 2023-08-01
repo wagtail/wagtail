@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,6 +131,27 @@ msgstr "tika slēgta"
 msgid "in moderation"
 msgstr "pārbaudē"
 
+msgid "Add/edit pages you own"
+msgstr "Pievienot/labot jums piederošās lapas"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Edit any page"
+msgstr "Labot jebkuru lapu"
+
+msgid "Lock"
+msgstr "Slēgt"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Publish any page"
+msgstr "Publicēt jebkuru lapu"
+
+msgid "Unlock"
+msgstr "Atslēgt"
+
 msgid "title"
 msgstr "virsraksts"
 
@@ -192,27 +213,6 @@ msgstr "lapas"
 
 msgid "object id"
 msgstr "objekta identifikātors"
-
-msgid "Add/edit pages you own"
-msgstr "Pievienot/labot jums piederošās lapas"
-
-msgid "Edit"
-msgstr "Labot"
-
-msgid "Edit any page"
-msgstr "Labot jebkuru lapu"
-
-msgid "Publish"
-msgstr "Publicēt"
-
-msgid "Publish any page"
-msgstr "Publicēt jebkuru lapu"
-
-msgid "Lock"
-msgstr "Slēgt"
-
-msgid "Unlock"
-msgstr "Atslēgt"
 
 msgid "page view restriction"
 msgstr "lapu skatījuma ierobežojumi"

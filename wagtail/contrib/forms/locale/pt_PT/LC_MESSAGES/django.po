@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -186,12 +186,6 @@ msgstr "Não existem páginas de formulário."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Envios de %(form_title)s"
-
-msgid "Download XLSX"
-msgstr "Descarregar XLSX"
-
-msgid "Download CSV"
-msgstr "Descarregar CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -104,6 +104,27 @@ msgstr "Estandar"
 msgid "locked"
 msgstr "Xavi tiha ona"
 
+msgid "Add/edit pages you own"
+msgstr "Hatama/hadia pajina ita nia rasik."
+
+msgid "Delete pages with children"
+msgstr "Hamoos pajina ho oan"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Edit any page"
+msgstr "Hadia kualker pajina"
+
+msgid "Lock"
+msgstr "Xavi"
+
+msgid "Publish"
+msgstr "Publika"
+
+msgid "Publish any page"
+msgstr "Publika kualker pajina"
+
 msgid "title"
 msgstr "titlu"
 
@@ -155,29 +176,11 @@ msgstr "Konteudu JSON"
 msgid "approved go live at"
 msgstr "Aprova ona ba hela iha"
 
-msgid "Add/edit pages you own"
-msgstr "Hatama/hadia pajina ita nia rasik."
-
-msgid "Edit"
-msgstr "Hadia"
-
-msgid "Edit any page"
-msgstr "Hadia kualker pajina"
-
-msgid "Publish"
-msgstr "Publika"
-
-msgid "Publish any page"
-msgstr "Publika kualker pajina"
-
-msgid "Delete pages with children"
-msgstr "Hamoos pajina ho oan"
-
-msgid "Lock"
-msgstr "Xavi"
-
 msgid "group"
 msgstr "Grupu"
+
+msgid "permission"
+msgstr "Permisaun"
 
 msgid "permission type"
 msgstr "Tipu Permisaun "
@@ -202,9 +205,6 @@ msgstr "Koleksaun"
 
 msgid "collections"
 msgstr "Koleksaun sira"
-
-msgid "permission"
-msgstr "Permisaun"
 
 msgid "hostname"
 msgstr "naranhost"

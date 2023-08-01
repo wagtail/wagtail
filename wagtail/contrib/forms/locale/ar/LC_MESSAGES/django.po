@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,12 +170,6 @@ msgstr "أحدث التقديم"
 
 msgid "No form pages have been created."
 msgstr "لم تنشئ أي  نماذج."
-
-msgid "Download XLSX"
-msgstr "تنزيل XLSX"
-
-msgid "Download CSV"
-msgstr "تنزيل ملف CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

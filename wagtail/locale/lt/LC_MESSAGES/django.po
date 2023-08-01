@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -114,6 +114,36 @@ msgstr "Numatytasis"
 msgid "locked"
 msgstr "Užrakintas"
 
+msgid "Add/edit pages you own"
+msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
+
+msgid "Bulk delete"
+msgstr "Masinis trynimas"
+
+msgid "Delete pages with children"
+msgstr "Trinti puslapius su vidiniais puslapiais"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit any page"
+msgstr "Redaguoti bet kurį puslapį"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
+msgid "Publish any page"
+msgstr "Publikuoti bet kurį puslapį"
+
+msgid "Unlock"
+msgstr "Atrakinti"
+
+msgid "Unlock any page"
+msgstr "Atrakinti bet kurį puslapį"
+
 msgid "title"
 msgstr "pavadinimas"
 
@@ -190,38 +220,11 @@ msgstr "turinys JSON"
 msgid "approved go live at"
 msgstr "patvirtintas įjungimas"
 
-msgid "Add/edit pages you own"
-msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
-
-msgid "Edit"
-msgstr "Redaguoti"
-
-msgid "Edit any page"
-msgstr "Redaguoti bet kurį puslapį"
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Publish any page"
-msgstr "Publikuoti bet kurį puslapį"
-
-msgid "Bulk delete"
-msgstr "Masinis trynimas"
-
-msgid "Delete pages with children"
-msgstr "Trinti puslapius su vidiniais puslapiais"
-
-msgid "Lock"
-msgstr "Užrakinti"
-
-msgid "Unlock"
-msgstr "Atrakinti"
-
-msgid "Unlock any page"
-msgstr "Atrakinti bet kurį puslapį"
-
 msgid "group"
 msgstr "grupė"
+
+msgid "permission"
+msgstr "leidimai"
 
 msgid "permission type"
 msgstr "leidimo tipas"
@@ -273,9 +276,6 @@ msgstr "žiūrėti kolekcijos apribojimus"
 
 msgid "collections"
 msgstr "kolekcijos"
-
-msgid "permission"
-msgstr "leidimai"
 
 msgid "group collection permission"
 msgstr "grupės kolekcijos leidimas"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -223,6 +223,9 @@ msgstr "Прасоўванне"
 msgid "Settings"
 msgstr "Налады"
 
+msgid "Title"
+msgstr "Назва"
+
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
 
@@ -426,9 +429,6 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Заблакаваныя старонкі"
 
-msgid "Title"
-msgstr "Назва"
-
 msgid "Locked at"
 msgstr "Зачынены ў"
 
@@ -616,13 +616,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы ўпэўнены, што хочаце апублікаваць гэтую старонку?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Старонкі з выкарыстаннем %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Старонак выкарыстоўваецца"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Скапіяваць %(title)s"
 
@@ -656,18 +649,8 @@ msgstr "Чарнавік"
 msgid "Exploring %(title)s"
 msgstr "Агляд %(title)s"
 
-msgid "Drag"
-msgstr "Перацягнуць"
-
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
-
-msgid "No pages have been created at this location."
-msgstr "У гэтым размяшчэнні не было створана старонак."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Чаму б не стварыць <a href=\"%(add_page_url)s\">адну</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Гэтая старонка заблакаваная для далейшага рэдагавання"
@@ -679,6 +662,18 @@ msgstr "Агляд даччыных для '%(title)s' старонак"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Дадаць даччыную старонку да '%(title)s'"
+
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Disable ordering of child pages"
+msgstr "Адключыць ўпарадкаванне даччыных старонак"
+
+msgid "Sort"
+msgstr "Парадак"
+
+msgid "Enable ordering of child pages"
+msgstr "Уключыць ўпарадкаванне даччыных старонак"
 
 msgid "Sites menu"
 msgstr "Спіс сайтаў"
@@ -694,18 +689,6 @@ msgstr "Наступная"
 
 msgid "This page is protected from public view"
 msgstr "Гэтая старонка ахоўваецца публічнага прагляду"
-
-msgid "Disable ordering of child pages"
-msgstr "Адключыць ўпарадкаванне даччыных старонак"
-
-msgid "Sort"
-msgstr "Парадак"
-
-msgid "Enable ordering of child pages"
-msgstr "Уключыць ўпарадкаванне даччыных старонак"
-
-msgid "Updated"
-msgstr "Абноўлена"
 
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
@@ -735,11 +718,8 @@ msgstr "Старонкі не знойдзены."
 msgid "No pages match this report's criteria."
 msgstr "Няма старонак задавальняюць крытэры справаздачы."
 
-msgid "Download XLSX"
-msgstr "Спампаваць XLSX"
-
-msgid "Download CSV"
-msgstr "Спампаваць CSV"
+msgid "Updated"
+msgstr "Абноўлена"
 
 msgid "Locking status"
 msgstr "Статус блакавання"
@@ -762,6 +742,12 @@ msgstr "Шлях па сайту"
 
 msgid "Root"
 msgstr "Галоўная"
+
+msgid "Download XLSX"
+msgstr "Спампаваць XLSX"
+
+msgid "Download CSV"
+msgstr "Спампаваць CSV"
 
 msgid "Filter"
 msgstr "Фільтр"
@@ -827,6 +813,16 @@ msgstr "Новы"
 msgid "Compare with live version"
 msgstr "Параўнаць з апублікаванай версіяй"
 
+msgid "More"
+msgstr "Больш"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
+
+msgid "Log out"
+msgstr "Выйсці"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -842,16 +838,6 @@ msgid ""
 msgstr ""
 "Адсартаваць даччыныя старонкі з '%(parent)s' у '%(label)s у парадку "
 "змяншэння."
-
-msgid "More"
-msgstr "Больш"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму назад"
-
-msgid "Log out"
-msgstr "Выйсці"
 
 msgid "Password"
 msgstr "Пароль"
@@ -1009,6 +995,9 @@ msgstr "Старонка '%(page_title)s' перамешчана."
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Старонка '%(page_title)s' знята з публікацыі."
 
+msgid "Pages using"
+msgstr "Старонак выкарыстоўваецца"
+
 msgid "Pages"
 msgstr "Старонкі"
 
@@ -1030,10 +1019,6 @@ msgstr "Дадаць даччыную старонку"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Дадаць даччыную старонку '%(title)s'"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Паглядзець больш налад для '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

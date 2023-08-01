@@ -7,7 +7,7 @@
 # sergeybe <sergeybe@gmail.com>, 2022
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
-# Sergey Mazanov <mvver@outlook.com>, 2022
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2022
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
 # Loic Teixeira, 2022
