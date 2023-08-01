@@ -8,6 +8,7 @@ Changelog
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
+ * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
 
 
 5.1 (01.08.2023)
