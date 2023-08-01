@@ -9,7 +9,7 @@ Changelog
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
 
 
-5.1 (xx.xx.xxxx) - IN DEVELOPMENT
+5.1 (01.08.2023)
 ~~~~~~~~~~~~~~~~
 
  * Add support for read-only FieldPanels (Andy Babic)
