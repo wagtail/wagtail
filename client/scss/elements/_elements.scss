@@ -41,7 +41,9 @@ body {
   &:after {
     content: '';
     position: fixed;
-    transition: visibility 0s linear 0s, opacity 0.2s ease-out;
+    transition:
+      visibility 0s linear 0s,
+      opacity 0.2s ease-out;
     background: theme('colors.white-50');
     width: 100%;
     height: 100%;
