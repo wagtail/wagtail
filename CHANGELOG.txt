@@ -9,6 +9,7 @@ Changelog
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
+ * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
 
 
 5.1 (01.08.2023)
