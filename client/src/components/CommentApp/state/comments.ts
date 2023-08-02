@@ -1,7 +1,6 @@
 import produce, { enableMapSet, enableES5 } from 'immer';
 import type { Annotation } from '../utils/annotation';
 import * as actions from '../actions/comments';
-import { update } from './utils';
 
 enableES5();
 enableMapSet();
@@ -225,7 +224,7 @@ export const reducer = produce(
           if (action.update.newText && action.update.newText.length === 0) {
             break;
           }
-          update(comment, action.update);
+          Object.assign(comment, action.update);
         }
         break;
       }
@@ -280,7 +279,7 @@ export const reducer = produce(
         if (action.update.newText && action.update.newText.length === 0) {
           break;
         }
-        update(reply, action.update);
+        Object.assign(reply, action.update);
         break;
       }
       case actions.DELETE_REPLY: {
