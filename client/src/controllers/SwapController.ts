@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+import type { Application } from '@hotwired/stimulus';
+
 import { debounce } from '../utils/debounce';
 import { domReady } from '../utils/domReady';
 
@@ -97,7 +99,9 @@ export class SwapController extends Controller<
    *
    * @deprecated RemovedInWagtail60
    */
-  static afterLoad(identifier: string) {
+  static afterLoad(identifier: string, application: Application) {
+    const { actionAttribute, controllerAttribute } = application.schema;
+
     domReady().then(() => {
       const { termInput, targetOutput, url } = getGlobalHeaderSearchOptions();
 
@@ -114,8 +118,8 @@ export class SwapController extends Controller<
       }
 
       Object.entries({
-        'data-controller': identifier,
-        'data-action': [
+        [controllerAttribute]: identifier,
+        [actionAttribute]: [
           `change->${identifier}#searchLazy`,
           `input->${identifier}#searchLazy`,
         ].join(' '),

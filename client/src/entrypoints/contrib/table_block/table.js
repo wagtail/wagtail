@@ -240,7 +240,6 @@ class TableInput {
         input.value = JSON.stringify(state);
         initTable(id, options);
       },
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       focus() {},
     };
     widget.setState(initialState);

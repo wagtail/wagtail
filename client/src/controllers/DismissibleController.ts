@@ -21,7 +21,7 @@ export const updateDismissibles = (
     method: 'PATCH',
     headers: {
       [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
-      'Content-Type': 'application/json', // eslint-disable-line @typescript-eslint/naming-convention
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
     mode: 'same-origin',
