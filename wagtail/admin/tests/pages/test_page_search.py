@@ -1,7 +1,4 @@
-from io import StringIO
-
 from django.contrib.auth.models import Permission
-from django.core import management
 from django.test import TransactionTestCase
 from django.urls import reverse
 
@@ -16,12 +13,7 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        management.call_command(
-            "update_index",
-            backend_name="default",
-            stdout=StringIO(),
-            chunk_size=50,
-        )
+        self.update_search_index()
         self.user = self.login()
 
     def get(self, params=None, url_name="wagtailadmin_pages:search", **extra):

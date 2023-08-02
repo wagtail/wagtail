@@ -1,11 +1,9 @@
 import collections
 import json
-from io import StringIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
-from django.core import management
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -1042,12 +1040,7 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        management.call_command(
-            "update_index",
-            backend_name="default",
-            stdout=StringIO(),
-            chunk_size=50,
-        )
+        self.update_search_index()
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)

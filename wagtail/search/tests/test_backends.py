@@ -55,12 +55,7 @@ class BackendTests(WagtailTestUtils):
         # HACK: This is a hack to delete all the index entries that may be present in the test database before each test is run.
         IndexEntry.objects.all().delete()
 
-        management.call_command(
-            "update_index",
-            backend_name=self.backend_name,
-            stdout=StringIO(),
-            chunk_size=50,
-        )
+        self.update_search_index()
 
     def assertUnsortedListEqual(self, a, b):
         """

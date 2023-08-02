@@ -75,15 +75,15 @@ jobs:
         include:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
-            experimental: false
+            experimental: true
           - python: '3.11'
             django: 'Django>=4.2,<4.3'
             postgres: 'postgres:12'
             notz: notz
-            experimental: false
+            experimental: true
           - python: '3.10'
             django: 'Django>=4.1,<4.2'
-            experimental: false
+            experimental: true
             emailuser: emailuser
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@stable/4.2.x#egg=Django'
@@ -144,10 +144,10 @@ jobs:
         include:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
-            experimental: false
+            experimental: true
           - python: '3.10'
             django: 'Django>=4.2,<4.3'
-            experimental: false
+            experimental: true
 
     services:
       mysql:
@@ -222,7 +222,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
+          coverage run --parallel-mode --source wagtail runtests.py --elasticsearch5
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
       - name: Upload coverage data
@@ -268,7 +268,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch8
+          coverage run --parallel-mode --source wagtail runtests.py --elasticsearch8
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
@@ -322,7 +322,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
+          coverage run --parallel-mode --source wagtail runtests.py --elasticsearch6
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
@@ -343,7 +343,7 @@ jobs:
         include:
           - python: '3.8'
             django: 'Django>=4.1,<4.2'
-            experimental: false
+            experimental: true
 
     services:
       postgres:
@@ -379,7 +379,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py --elasticsearch7
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost

@@ -1,8 +1,10 @@
 import warnings
 from contextlib import contextmanager
+from io import StringIO
 
 from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
+from django.core import management
 from django.test.testcases import assert_and_parse_html
 
 
@@ -76,6 +78,15 @@ class WagtailTestUtils:
             kwargs[User.USERNAME_FIELD] = username
 
         return User.objects.create_superuser(**kwargs)
+
+    @staticmethod
+    def update_search_index():
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
 
     @staticmethod
     @contextmanager
