@@ -25,10 +25,8 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
       },
     },
     function () {
-      jcropapi = this;
-
       // Set alt="" on the image so its src is not read out loud to screen reader users.
-      var $holderImage = $('img', jcropapi.ui.holder);
+      var $holderImage = $('img', this.ui.holder);
       $holderImage.attr('alt', '');
 
       const labelContent = focalPointOriginal.label;
@@ -37,7 +35,7 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
 
       // set the id on the input
       const id = 'jcrop-holder-input';
-      var $holderInput = $('input', jcropapi.ui.holder);
+      var $holderInput = $('input', this.ui.holder);
       $holderInput.attr('id', id);
 
       // create a label that references the id
