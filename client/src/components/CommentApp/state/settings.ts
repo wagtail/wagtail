@@ -1,7 +1,6 @@
 import produce from 'immer';
 import * as actions from '../actions/settings';
 import type { Author } from './comments';
-import { update } from './utils';
 
 export interface SettingsState {
   user: Author | null;
@@ -20,7 +19,7 @@ export const reducer = produce(
   (draft: SettingsState, action: actions.Action) => {
     switch (action.type) {
       case actions.UPDATE_GLOBAL_SETTINGS:
-        update(draft, action.update);
+        Object.assign(draft, action.update);
         break;
       default:
         break;
