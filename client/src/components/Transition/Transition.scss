@@ -12,7 +12,8 @@ $c-transition-duration: 200ms;
 
 .c-transition-push-enter {
   transform: translateX(calc(var(--w-direction-factor) * 100%));
-  transition: transform $c-transition-duration ease,
+  transition:
+    transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 0;
 }
@@ -24,7 +25,8 @@ $c-transition-duration: 200ms;
 
 .c-transition-push-leave {
   transform: translateX(0);
-  transition: transform $c-transition-duration ease,
+  transition:
+    transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 1;
 }
@@ -39,7 +41,8 @@ $c-transition-duration: 200ms;
 // =============================================================================
 .c-transition-pop-enter {
   transform: translateX(calc(var(--w-direction-factor) * -100%));
-  transition: transform $c-transition-duration ease,
+  transition:
+    transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 0;
 }
@@ -51,7 +54,8 @@ $c-transition-duration: 200ms;
 
 .c-transition-pop-leave {
   transform: translateX(0);
-  transition: transform $c-transition-duration ease,
+  transition:
+    transform $c-transition-duration ease,
     opacity $c-transition-duration linear;
   opacity: 1;
 }
