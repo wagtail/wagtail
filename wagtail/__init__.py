@@ -1,6 +1,7 @@
 # PLEASE NOTE: If you edit this file (other than updating the version number), please
 # also update scripts/nightly/get_version.py as well as that needs to generate a new
 # version of this file from a template for nightly builds
+import wagtail
 
 from wagtail.utils.version import get_semver_version, get_version
 
@@ -13,6 +14,7 @@ __version__ = get_version(VERSION)
 # Required for npm package for frontend
 __semver__ = get_semver_version(VERSION)
 
+print(wagtail.__version__)
 
 def setup():
     import warnings

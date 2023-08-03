@@ -131,6 +131,7 @@
   "scripts": {
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "build": "webpack --config ./client/webpack.config.js --mode production",
+    "builds": "python get_wagtail_version.py > static/wagtailadmin/js/version.js && webpack",
     "fix:js": "eslint --ext .js,.ts,.tsx --fix .",
     "format": "prettier --write \"**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}\"",
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
