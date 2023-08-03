@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -119,6 +119,33 @@ msgstr "ロックされています"
 msgid "locked at"
 msgstr "ロック日時"
 
+msgid "Add/edit pages you own"
+msgstr "自分のページを追加/編集"
+
+msgid "Bulk delete"
+msgstr "一括削除"
+
+msgid "Delete pages with children"
+msgstr "子要素と共にページを削除します。"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit any page"
+msgstr "ページを編集"
+
+msgid "Lock"
+msgstr "ロックあり"
+
+msgid "Publish"
+msgstr "公開"
+
+msgid "Publish any page"
+msgstr "ページを公開"
+
+msgid "Unlock"
+msgstr "ロックを解除"
+
 msgid "title"
 msgstr "タイトル"
 
@@ -184,35 +211,11 @@ msgstr "JSONコンテンツ"
 msgid "approved go live at"
 msgstr "承認済み・公開予定："
 
-msgid "Add/edit pages you own"
-msgstr "自分のページを追加/編集"
-
-msgid "Edit"
-msgstr "編集"
-
-msgid "Edit any page"
-msgstr "ページを編集"
-
-msgid "Publish"
-msgstr "公開"
-
-msgid "Publish any page"
-msgstr "ページを公開"
-
-msgid "Bulk delete"
-msgstr "一括削除"
-
-msgid "Delete pages with children"
-msgstr "子要素と共にページを削除します。"
-
-msgid "Lock"
-msgstr "ロックあり"
-
-msgid "Unlock"
-msgstr "ロックを解除"
-
 msgid "group"
 msgstr "グループ"
+
+msgid "permission"
+msgstr "権限"
 
 msgid "permission type"
 msgstr "権限"
@@ -336,9 +339,6 @@ msgstr "コレクションページ閲覧の権限"
 
 msgid "collections"
 msgstr "コレクション"
-
-msgid "permission"
-msgstr "権限"
 
 msgid "group collection permission"
 msgstr "グループコレクションの権限"

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -252,9 +252,6 @@ msgstr "ワークフローにタスクを追加"
 msgid "Task"
 msgstr "タスク"
 
-msgid "Page title"
-msgstr "ページタイトル"
-
 msgid "For search engines"
 msgstr "検索エンジンのため"
 
@@ -269,6 +266,12 @@ msgstr "プロモート"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Page title"
+msgstr "ページタイトル"
 
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
@@ -487,9 +490,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "あなたのロックされているページ"
-
-msgid "Title"
-msgstr "タイトル"
 
 msgid "Locked at"
 msgstr "ロック時刻"
@@ -735,13 +735,6 @@ msgid "Publish page"
 msgstr "公開する"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "ページは%(page_class_verbose_name)sを使っている"
-
-msgid "Pages using"
-msgstr "ページタイプ"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "%(title)sを複製"
 
@@ -791,18 +784,8 @@ msgstr "現在の下書き"
 msgid "Exploring %(title)s"
 msgstr "%(title)sを閲覧"
 
-msgid "Drag"
-msgstr "ドラッグ"
-
 msgid "Configure a site now."
 msgstr "サイトを設定する"
-
-msgid "No pages have been created at this location."
-msgstr "ここに作成されたページはありません。"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">ページを作成</a>"
 
 msgid "This page is locked to further editing"
 msgstr "このページにはロックがかかっています。"
@@ -814,6 +797,18 @@ msgstr "%(title)sの子ページを閲覧"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "%(title)sに子ページを追加"
+
+msgid "Drag"
+msgstr "ドラッグ"
+
+msgid "Disable ordering of child pages"
+msgstr "子ページの序列を無効化"
+
+msgid "Sort"
+msgstr "分類する"
+
+msgid "Enable ordering of child pages"
+msgstr "子ページに順番をつける"
 
 msgid "Sites menu"
 msgstr "サイトメニュー"
@@ -829,18 +824,6 @@ msgstr "次のページ"
 
 msgid "This page is protected from public view"
 msgstr "このページは非公開です"
-
-msgid "Disable ordering of child pages"
-msgstr "子ページの序列を無効化"
-
-msgid "Sort"
-msgstr "分類する"
-
-msgid "Enable ordering of child pages"
-msgstr "子ページに順番をつける"
-
-msgid "Updated"
-msgstr "更新"
 
 msgid "Confirm"
 msgstr "確認"
@@ -873,17 +856,11 @@ msgstr "上に移動"
 msgid "Move down"
 msgstr "下に移動"
 
-msgid "Comment notifications"
-msgstr "コメント通知"
-
 msgid "Add a collection permission"
 msgstr "コレクションの権限を追加"
 
-msgid "Download XLSX"
-msgstr "XLSXファイルをダウンロード"
-
-msgid "Download CSV"
-msgstr "CSVをダウンロードする"
+msgid "Updated"
+msgstr "更新"
 
 msgid "Locked"
 msgstr "ロックあり"
@@ -915,6 +892,12 @@ msgstr "パンくず"
 
 msgid "Root"
 msgstr "ルート"
+
+msgid "Download XLSX"
+msgstr "XLSXファイルをダウンロード"
+
+msgid "Download CSV"
+msgstr "CSVをダウンロードする"
 
 msgid "Add comment"
 msgstr "コメントを追加"
@@ -949,6 +932,9 @@ msgstr "いいえ、予定外にしないです"
 
 msgid "Other searches"
 msgstr "他の検索結果"
+
+msgid "Comment notifications"
+msgstr "コメント通知"
 
 msgid "Unlocked"
 msgstr "ロックなし"
@@ -992,18 +978,6 @@ msgstr "新規作成"
 msgid "Compare with live version"
 msgstr "ライブ版と比較する"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で昇順に並べ替えます。"
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ替えます。"
-
 msgid "More"
 msgstr "詳細表示"
 
@@ -1016,6 +990,18 @@ msgstr "ログアウト"
 
 msgid "Comments"
 msgstr "コメント"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で昇順に並べ替えます。"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ替えます。"
 
 msgid "Password"
 msgstr "パスワード"
@@ -1055,6 +1041,9 @@ msgstr "コレクションを完全に削除しますか"
 
 msgid "Editing"
 msgstr "編集中"
+
+msgid "Inspecting"
+msgstr "詳細"
 
 msgid "Earliest"
 msgstr "最も早い"
@@ -1185,6 +1174,9 @@ msgstr "ページ：'%(page_title)s' が除去されました。"
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "ページ：'%(page_title)s' が非公開に設定されました。"
+
+msgid "Pages using"
+msgstr "ページタイプ"
 
 msgid "Site history"
 msgstr "サイトの履歴"

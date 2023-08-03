@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -236,6 +236,9 @@ msgstr "Tõsta esile"
 msgid "Settings"
 msgstr "Seaded"
 
+msgid "Title"
+msgstr "Pealkiri"
+
 msgid "Error 404: Page not found"
 msgstr "Viga 404: lehte ei leitud"
 
@@ -443,9 +446,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Teie lukustatud lehed"
-
-msgid "Title"
-msgstr "Pealkiri"
 
 msgid "Locked at"
 msgstr "Lukustatud kell"
@@ -733,13 +733,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Kas soovite ikkagi selle lehe avaldada?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Lehed, mis kasutavad %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Kasutatavad lehed"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopeeri %(title)s"
 
@@ -792,18 +785,8 @@ msgstr "Logikirjeid ei leitud."
 msgid "Exploring %(title)s"
 msgstr "%(title)s uurimine"
 
-msgid "Drag"
-msgstr "Vedama"
-
 msgid "Configure a site now."
 msgstr "Saidi konfigureerimine kohe."
-
-msgid "No pages have been created at this location."
-msgstr "Selles asukohas pole ühtegi lehte loodud."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Miks mitte <a href=\"%(add_page_url)s\">lisada üks</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "See leht on edasiseks muutmiseks lukustatud"
@@ -815,6 +798,18 @@ msgstr "Avastage ' %(title)s' alamlehti"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisage alamleht lehele %(title)s"
+
+msgid "Drag"
+msgstr "Vedama"
+
+msgid "Disable ordering of child pages"
+msgstr "Keela alamlehtede järjestamine"
+
+msgid "Sort"
+msgstr "Sorteeri"
+
+msgid "Enable ordering of child pages"
+msgstr "Luba alamlehtede tellimine"
 
 msgid "Sites menu"
 msgstr "Saidimenüü"
@@ -830,18 +825,6 @@ msgstr "Järgmine"
 
 msgid "This page is protected from public view"
 msgstr "See leht on avalike vaadete eest kaitstud"
-
-msgid "Disable ordering of child pages"
-msgstr "Keela alamlehtede järjestamine"
-
-msgid "Sort"
-msgstr "Sorteeri"
-
-msgid "Enable ordering of child pages"
-msgstr "Luba alamlehtede tellimine"
-
-msgid "Updated"
-msgstr "Uuendatud"
 
 msgid "Confirm"
 msgstr "Kinnitage"
@@ -890,11 +873,8 @@ msgstr "Ühtegi lehte ei leitud."
 msgid "No pages match this report's criteria."
 msgstr "Ükski leht ei vasta selle aruande kriteeriumidele."
 
-msgid "Download XLSX"
-msgstr "Laadige alla XLSX"
-
-msgid "Download CSV"
-msgstr "Laadige alla CSV"
+msgid "Updated"
+msgstr "Uuendatud"
 
 msgid "Locking status"
 msgstr "Lukustuse olek"
@@ -938,6 +918,12 @@ msgstr "Riivsai"
 
 msgid "Root"
 msgstr "Juur"
+
+msgid "Download XLSX"
+msgstr "Laadige alla XLSX"
+
+msgid "Download CSV"
+msgstr "Laadige alla CSV"
 
 msgid "Filter"
 msgstr "Filtreeri"
@@ -1079,6 +1065,12 @@ msgstr "Kasutatakse järgmistel aktiivsetel töövoogudel"
 msgid "Not used"
 msgstr "Pole kasutatud"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+ %(counter)s juurde"
+msgstr[1] "+%(counter)s juurde"
+
 msgid "Assigned pages"
 msgstr "Määratud lehed"
 
@@ -1100,12 +1092,6 @@ msgstr "Kasutatud"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Samm %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+ %(counter)s juurde"
-msgstr[1] "+%(counter)s juurde"
 
 #, python-format
 msgid ""
@@ -1199,6 +1185,19 @@ msgstr "Vaadake kogu ajalugu"
 msgid "Compare with live version"
 msgstr "Võrdle reaalajas versiooniga"
 
+msgid "More"
+msgstr "Veel"
+
+msgid "0 minutes"
+msgstr "0 minutit"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s tagasi"
+
+msgid "Log out"
+msgstr "Logi välja"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1214,19 +1213,6 @@ msgid ""
 msgstr ""
 "Sortige alamlehekülgede järjestus \"%(parent)s\" ja \"%(label)s\" poolt "
 "kahanevas järjekorras."
-
-msgid "More"
-msgstr "Veel"
-
-msgid "0 minutes"
-msgstr "0 minutit"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
-
-msgid "Log out"
-msgstr "Logi välja"
 
 msgid "Password"
 msgstr "Parool"
@@ -1277,6 +1263,9 @@ msgstr "%(model_name)s '%(object)s' on loodud."
 
 msgid "Editing"
 msgstr "Redigeerimine"
+
+msgid "Inspecting"
+msgstr "Ülevaatus"
 
 msgid "Earliest"
 msgstr "Varaseim"
@@ -1439,6 +1428,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Lehe '%(page_title)s' avaldamine tühistati."
 
+msgid "Pages using"
+msgstr "Kasutatavad lehed"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -1564,10 +1556,6 @@ msgstr "Lapse lisamine"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Lisage alamleht lehele %(title)s"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Kuva ' %(title)s' rohkem võimalusi"
 
 #, python-format
 msgid "Move page '%(title)s'"

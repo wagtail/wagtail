@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -89,12 +89,6 @@ msgstr "Тийм, устга"
 msgid "No, don't delete"
 msgstr "Үгүй, устгахгүй"
 
-msgid "Last updated"
-msgstr "Шинэчлэгдсэн"
-
-msgid "History"
-msgstr "Түүх"
-
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
 
@@ -119,6 +113,9 @@ msgstr "Шинэ"
 
 msgid "Snippets"
 msgstr "Хэсэг"
+
+msgid "History"
+msgstr "Түүх"
 
 msgid "Usage"
 msgstr "Хэрэглээ"
@@ -175,6 +172,9 @@ msgstr "Огноо"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' засах"
+
+msgid "Inspect"
+msgstr "Шалгалт"
 
 #, python-format
 msgid "Choose %(object)s"

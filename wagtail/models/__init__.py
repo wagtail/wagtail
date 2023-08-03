@@ -3041,7 +3041,7 @@ class GroupPagePermission(models.Model):
                     hint=(
                         "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
                         "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
-                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission."
+                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission. "
                         "The `permission_type` field will be removed in Wagtail 6.0."
                     ),
                     obj=cls,

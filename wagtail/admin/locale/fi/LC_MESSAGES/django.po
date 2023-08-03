@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -324,9 +324,6 @@ msgstr "Kaikki %(objects)s tietuetta tässä näytössä valittu"
 msgid "All items in listing selected"
 msgstr "Kaikki listauksen tietueet valittu"
 
-msgid "Page title"
-msgstr "Sivun otsikko"
-
 msgid "For search engines"
 msgstr "Hakukoneille"
 
@@ -341,6 +338,12 @@ msgstr "Nosto"
 
 msgid "Settings"
 msgstr "Asetukset"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Page title"
+msgstr "Sivun otsikko"
 
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
@@ -624,9 +627,6 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Lukitut sivusi"
 
-msgid "Title"
-msgstr "Otsikko"
-
 msgid "Locked at"
 msgstr "Lukittu"
 
@@ -677,6 +677,20 @@ msgstr "Sivuston yhteenveto"
 
 #, python-format
 msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> sivu <span class=\"visuallyhidden\">luotu sivustolle "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotu sivustolle "
+"%(site_name)s</span>"
+
+#, python-format
+msgid ""
 "Wagtail upgrade available. Your version: <strong>%(current_version)s</"
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
@@ -700,6 +714,18 @@ msgstr "Sulje"
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
 msgstr "Wagtailin versiossa %(version)s on muutoksia!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
+msgstr ""
+"Älä huoli, me autamme sinua. Tutustu <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtailin "
+"muokkausoppaaseen</a> pysyäksesi ajan tasalla muutoksista ja uusista "
+"ominaisuuksista!"
 
 msgid "Awaiting your review"
 msgstr "Odottaa tarkastustasi"
@@ -914,6 +940,13 @@ msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Oikeutesi eivät riitä tämän sivun siirtämiseen"
 msgstr[1] "Oikeutesi eivät riitä näiden sivujen siirtämiseen"
 
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"Seuraavaa sivua ei voi siirtää polkutunnuksen kaksoiskappaleen vuoksi"
+msgstr[1] ""
+"Seuraavia sivuja ei voi siirtää polkutunnusten kaksoiskappaleiden vuoksi"
+
 msgid "Yes, move these pages"
 msgstr "Kyllä, siirrä nämä sivut"
 
@@ -1039,13 +1072,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Haluatko silti julkaista tämän sivun?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sivut, joiden luokka on %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Käyttävät sivut"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopioi %(title)s"
 
@@ -1107,24 +1133,11 @@ msgstr "Lokimerkintöjä ei löytynyt."
 msgid "Exploring %(title)s"
 msgstr "Selataan kohdetta %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Valitse listauksen kaikki sivut"
-
-msgid "Select page"
-msgstr "Valitse sivu"
-
-msgid "Drag"
-msgstr "Vedä"
-
 msgid "Configure a site now."
 msgstr "Konfiguroi sivusto nyt."
 
-msgid "No pages have been created at this location."
-msgstr "Tässä sijainnissa ei ole yhtään sivua."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Mikset vaikka <a href=\"%(add_page_url)s\">loisi yhtä</a>?"
+msgid "Select all pages in listing"
+msgstr "Valitse listauksen kaikki sivut"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Tämä sivu on lukittu toimestasi muokkausta varten"
@@ -1139,6 +1152,18 @@ msgstr "Selaa sivun %(title)s alasivuja"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
+
+msgid "Drag"
+msgstr "Vedä"
+
+msgid "Disable ordering of child pages"
+msgstr "Estä alasivujen uudelleenjärjestäminen"
+
+msgid "Sort"
+msgstr "Järjestä"
+
+msgid "Enable ordering of child pages"
+msgstr "Salli alasivujen uudelleenjärjestäminen"
 
 msgid "Sites menu"
 msgstr "Sivustot-valikko"
@@ -1158,18 +1183,6 @@ msgstr "Seuraava"
 
 msgid "This page is protected from public view"
 msgstr "Sivu on suojattu näkymästä julkisesti"
-
-msgid "Disable ordering of child pages"
-msgstr "Estä alasivujen uudelleenjärjestäminen"
-
-msgid "Sort"
-msgstr "Järjestä"
-
-msgid "Enable ordering of child pages"
-msgstr "Salli alasivujen uudelleenjärjestäminen"
-
-msgid "Updated"
-msgstr "Päivitetty"
 
 msgid "Confirm"
 msgstr "Vahvista"
@@ -1230,9 +1243,6 @@ msgstr "Kuka tahansa muokkausoikeudet omaava voi luoda aikatauluja"
 msgid "Save schedule"
 msgstr "Tallenna ajastus"
 
-msgid "Comment notifications"
-msgstr "Kommentti-ilmoitukset"
-
 msgid "Collection management permissions"
 msgstr "Kokoelman hallinnan oikeudet"
 
@@ -1251,11 +1261,8 @@ msgstr "Sivuja ei löytynyt."
 msgid "No pages match this report's criteria."
 msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
 
-msgid "Download XLSX"
-msgstr "Hae XLSX"
-
-msgid "Download CSV"
-msgstr "Hae CSV"
+msgid "Updated"
+msgstr "Päivitetty"
 
 msgid "Locking status"
 msgstr "Lukitsemisen tila"
@@ -1305,6 +1312,12 @@ msgstr "Linkkipolku"
 
 msgid "Root"
 msgstr "Juuri"
+
+msgid "Download XLSX"
+msgstr "Hae XLSX"
+
+msgid "Download CSV"
+msgstr "Hae CSV"
 
 msgid "Add comment"
 msgstr "Lisää kommentti"
@@ -1368,6 +1381,9 @@ msgstr "Sivupaneeli päälle/pois"
 
 msgid "Side panel width"
 msgstr "Sivupaneelin leveys"
+
+msgid "Comment notifications"
+msgstr "Kommentti-ilmoitukset"
 
 msgid "Page Locale: "
 msgstr "Sivun maa-asetus:"
@@ -1448,6 +1464,9 @@ msgstr "Näytä tiedot"
 
 msgid "View history"
 msgstr "Näytä historia"
+
+msgid "Invalid schedule"
+msgstr "Virheellinen ajastus"
 
 msgid "Go-live:"
 msgstr "Siirry liveksi:"
@@ -1592,6 +1611,15 @@ msgstr "Käytössä seuraavissa aktiivisissa työnkuluissa"
 msgid "Not used"
 msgstr "Ei käytössä"
 
+msgid "Disabled"
+msgstr "Pois käytöstä"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s lisää"
+msgstr[1] "+%(counter)s lisää"
+
 msgid "Page"
 msgstr "Sivu"
 
@@ -1604,9 +1632,6 @@ msgstr "Piilota käytöstä poistetut työnkulut"
 msgid "Show disabled workflows"
 msgstr "Näytä käytöstä poistetut työnkulut"
 
-msgid "Disabled"
-msgstr "Pois käytöstä"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -1616,12 +1641,6 @@ msgstr[1] "%(counter)s sivua"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Vaihe %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s lisää"
-msgstr[1] "+%(counter)s lisää"
 
 #, python-format
 msgid ""
@@ -1707,25 +1726,8 @@ msgstr "Näytä koko historia"
 msgid "Compare with live version"
 msgstr "Vertaile julkaistun version kanssa"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan nousevasti. "
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
-
 msgid "More"
 msgstr "Lisää"
-
-msgid "View more bulk actions"
-msgstr "Näytä lisää massatoimintoja"
 
 msgid "0 minutes"
 msgstr "0 minuuttia"
@@ -1742,6 +1744,23 @@ msgstr "Kirjaudu ulos"
 
 msgid "Comments"
 msgstr "Kommentit"
+
+msgid "Select page"
+msgstr "Valitse sivu"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan nousevasti. "
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
 
 msgid "Incorrect heading hierarchy. Avoid skipping levels."
 msgstr "Virheellinen otsikkohierarkia. Vältä tasojen ohittamista."
@@ -1839,6 +1858,9 @@ msgstr "Muokataan"
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Haluatko varmasti poistaa tämän %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Tarkastellaan"
 
 msgid "Earliest"
 msgstr "Aikaisin"
@@ -1943,6 +1965,14 @@ msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
 #, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"Sivu '%(page_title)s' on korvattu versiolla, jonka ajankohta on "
+"%(previous_revision_datetime)s."
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Sivu '%(page_title)s' päivitetty."
 
@@ -2023,6 +2053,9 @@ msgstr "Sivu '%(page_title)s' siirretty."
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sivu '%(page_title)s' piilotettu"
 
+msgid "Pages using"
+msgstr "Käyttävät sivut"
+
 msgid "Last published at"
 msgstr "Viimeksi julkaistu"
 
@@ -2046,6 +2079,15 @@ msgstr "Odottaa tarkastustani"
 
 msgid "Workflows"
 msgstr "Työnkulut"
+
+msgid "Page/Snippet ID"
+msgstr "Sivun/pätkän tunniste"
+
+msgid "Page/Snippet Type"
+msgstr "Sivun/pätkän tyyppi"
+
+msgid "Page/Snippet Title"
+msgstr "Sivun/pätkän nimi"
 
 msgid "Workflow tasks"
 msgstr "Työnkulun tehtävät"
@@ -2146,10 +2188,6 @@ msgid "Add a child page to '%(title)s' "
 msgstr "Lisää sivulle '%(title)s' alasivu"
 
 #, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Lisää valintoja sivulle '%(title)s'"
-
-#, python-format
 msgid "Move page '%(title)s'"
 msgstr "Siirrä sivu '%(title)s'"
 
@@ -2209,6 +2247,9 @@ msgstr "Raportit"
 #, python-format
 msgid "What's new in Wagtail %(version)s"
 msgstr "Mitä uutta Wagtail %(version)s sisältää"
+
+msgid "Editor Guide"
+msgstr "Muokkausopas"
 
 msgid "Help"
 msgstr "Tuki"

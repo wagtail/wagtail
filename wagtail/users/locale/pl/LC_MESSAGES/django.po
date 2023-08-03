@@ -5,6 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +122,18 @@ msgstr "Wybierz swoją obecną strefę czasową"
 
 msgid "profile picture"
 msgstr "zdjęcie profilu"
+
+msgid "System default"
+msgstr "Domyślny systemu"
+
+msgid "Light"
+msgstr "Jasny"
+
+msgid "Dark"
+msgstr "Ciemny"
+
+msgid "admin theme"
+msgstr "wygląd stron administracyjnych"
 
 msgid "user profile"
 msgstr "profil użytkownika"
@@ -322,6 +335,9 @@ msgstr "Wybierz wszystkich użytkowników z listy"
 
 msgid "Username"
 msgstr "Nazwa użytkownika"
+
+msgid "Access level"
+msgstr "Poziom dostępu"
 
 msgid "Status"
 msgstr "Status"

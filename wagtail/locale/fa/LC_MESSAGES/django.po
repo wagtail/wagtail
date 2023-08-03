@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,6 +97,33 @@ msgstr "پیشفرض"
 msgid "locked"
 msgstr "قفل شده"
 
+msgid "Add/edit pages you own"
+msgstr "افزودن/ویرایش صفحه های خودتان"
+
+msgid "Bulk delete"
+msgstr "حذف فله‌ای"
+
+msgid "Delete pages with children"
+msgstr "حذف صفحه ها با زیرصفحه ها"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit any page"
+msgstr "ویرایش صفحه"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Publish"
+msgstr "انتشار"
+
+msgid "Publish any page"
+msgstr "انتشار هر صفحه ای"
+
+msgid "Unlock"
+msgstr "حذف قفل"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -154,35 +181,11 @@ msgstr "محتوای JSON"
 msgid "approved go live at"
 msgstr "تایید انتقال به حالت زنده در"
 
-msgid "Add/edit pages you own"
-msgstr "افزودن/ویرایش صفحه های خودتان"
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "Edit any page"
-msgstr "ویرایش صفحه"
-
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Publish any page"
-msgstr "انتشار هر صفحه ای"
-
-msgid "Bulk delete"
-msgstr "حذف فله‌ای"
-
-msgid "Delete pages with children"
-msgstr "حذف صفحه ها با زیرصفحه ها"
-
-msgid "Lock"
-msgstr "قفل"
-
-msgid "Unlock"
-msgstr "حذف قفل"
-
 msgid "group"
 msgstr "گروه"
+
+msgid "permission"
+msgstr "مجوز"
 
 msgid "permission type"
 msgstr "نوع مجوز"
@@ -228,9 +231,6 @@ msgstr "محدودیت‌های دیدن مجموعه"
 
 msgid "collections"
 msgstr "مجموعه ها"
-
-msgid "permission"
-msgstr "مجوز"
 
 msgid "group collection permission"
 msgstr "مجوز مجموعه گروه"

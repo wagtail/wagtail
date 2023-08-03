@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2022-2023\n"
@@ -123,12 +123,6 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noreferrer\">búa til eitt núna</a>?"
 
-msgid "Last updated"
-msgstr "Síðast uppfært"
-
-msgid "History"
-msgstr "Saga"
-
 msgid "Publishing…"
 msgstr "Set í birtingu..."
 
@@ -177,6 +171,9 @@ msgstr "Nýtt: %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Breyti %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Saga"
 
 msgid "Usage"
 msgstr "Notkun"
@@ -283,6 +280,9 @@ msgstr "%(model_name)s saga"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Breyta '%(title)s'"
+
+msgid "Inspect"
+msgstr "Skoða"
 
 #, python-format
 msgid "Delete '%(title)s'"

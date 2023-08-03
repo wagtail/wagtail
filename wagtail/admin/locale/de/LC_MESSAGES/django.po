@@ -62,7 +62,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -419,9 +419,6 @@ msgstr "Alle %(objects)s Elemente auf dem Bildschirm ausgewählt"
 msgid "All items in listing selected"
 msgstr "Alle Elemente der Auflistung ausgewählt"
 
-msgid "Page title"
-msgstr "Seitentitel"
-
 msgid "For search engines"
 msgstr "Für Suchmaschinen"
 
@@ -436,6 +433,12 @@ msgstr "Veröffentlichung"
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Page title"
+msgstr "Seitentitel"
 
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
@@ -803,9 +806,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Ihre gesperrten Seiten"
-
-msgid "Title"
-msgstr "Titel"
 
 msgid "Locked at"
 msgstr "Gesperrt"
@@ -1663,13 +1663,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Möchten Sie diese Seite dennoch veröffentlichen?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Seiten, die %(page_class_verbose_name)s verwenden"
-
-msgid "Pages using"
-msgstr "Benutzende Seiten"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "%(title)s kopieren"
 
@@ -1731,24 +1724,6 @@ msgstr "Keine Protokoll-Einträge gefunden."
 msgid "Exploring %(title)s"
 msgstr "%(title)s durchstöbern"
 
-msgid "Select all pages in listing"
-msgstr "Alle Seiten in der Aufzählung auswählen"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Drücken Sie die Eingabetaste, um ein Element auszuwählen, verwenden Sie die "
-"Aufwärts- und Abwärtspfeile, um das Element zu verschieben, drücken Sie die "
-"Eingabetaste, um die Bewegung abzuschließen, oder die Escape-Taste, um "
-"abzubrechen."
-
-msgid "Select page"
-msgstr "Seite auswählen"
-
-msgid "Drag"
-msgstr "Ziehen"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1791,12 +1766,8 @@ msgstr ""
 "Es gibt keinen Website-Eintrag für diesen Ort. Seiten, die hier erstellt "
 "werden, sind über keine URL zu erreichen."
 
-msgid "No pages have been created at this location."
-msgstr "Es wurden keine Seiten an dieser Stelle angelegt."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Warum nicht <a href=\"%(add_page_url)s\">eine anlegen</a>?"
+msgid "Select all pages in listing"
+msgstr "Alle Seiten in der Aufzählung auswählen"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Diese Seite ist von Ihnen für die weitere Bearbeitung gesperrt"
@@ -1811,6 +1782,18 @@ msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
+
+msgid "Drag"
+msgstr "Ziehen"
+
+msgid "Disable ordering of child pages"
+msgstr "Sortierung von Unterseiten deaktivieren"
+
+msgid "Sort"
+msgstr "Sortieren"
+
+msgid "Enable ordering of child pages"
+msgstr "Sortierung von Unterseiten aktivieren"
 
 msgid "Sites menu"
 msgstr "Seitenmenü"
@@ -1830,18 +1813,6 @@ msgstr "Nächste"
 
 msgid "This page is protected from public view"
 msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
-
-msgid "Disable ordering of child pages"
-msgstr "Sortierung von Unterseiten deaktivieren"
-
-msgid "Sort"
-msgstr "Sortieren"
-
-msgid "Enable ordering of child pages"
-msgstr "Sortierung von Unterseiten aktivieren"
-
-msgid "Updated"
-msgstr "Aktualisiert"
 
 msgid "Confirm"
 msgstr "Bestätigen"
@@ -1893,12 +1864,21 @@ msgstr "Nach unten"
 msgid "Set publishing schedule"
 msgstr "Veröffentlichungszeitplan festlegen"
 
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr ""
+"Wählen Sie aus, wann dieses %(model_name)s-Objekt live gehen und/oder "
+"ablaufen soll"
+
 msgid "Choose when this page should go live and/or expire"
 msgstr "Wählen Sie aus, wann diese Seite live gehen und/oder ablaufen soll"
 
-msgid "This publishing schedule will only take effect after you have published"
+msgid ""
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
-"Dieser Veröffentlichungszeitplan tritt erst in Kraft, wenn Sie publizieren"
+"Dieser Veröffentlichungszeitplan tritt erst in Kraft, nachdem Sie die Option "
+"„Veröffentlichen“ ausgewählt haben"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Jeder mit Bearbeitungsberechtigungen kann Zeitpläne erstellen"
@@ -1910,9 +1890,6 @@ msgstr ""
 
 msgid "Save schedule"
 msgstr "Zeitplan speichern"
-
-msgid "Comment notifications"
-msgstr "Kommentarbenachichtigungen"
 
 msgid "Collection management permissions"
 msgstr "Berechtigungen für die Verwaltung einer Sammlung"
@@ -1932,11 +1909,8 @@ msgstr "Keine Seiten gefunden"
 msgid "No pages match this report's criteria."
 msgstr "Es gibt keine Seiten welche den Kriterien dieses Reports entsprechen"
 
-msgid "Download XLSX"
-msgstr "XLSX herunterladen"
-
-msgid "Download CSV"
-msgstr "CSV herunterladen"
+msgid "Updated"
+msgstr "Aktualisiert"
 
 msgid "Locking status"
 msgstr "Sperr-Status"
@@ -2004,6 +1978,12 @@ msgstr "Ursprung"
 
 msgid "Close dialog"
 msgstr "Dialog schließen"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
+
+msgid "Download CSV"
+msgstr "CSV herunterladen"
 
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
@@ -2073,6 +2053,9 @@ msgstr "Seitenleiste ein-/ausblenden"
 
 msgid "Side panel width"
 msgstr "Breite der Seitenleiste"
+
+msgid "Comment notifications"
+msgstr "Kommentarbenachichtigungen"
 
 msgid "Page Locale: "
 msgstr "Seitenlocale: "
@@ -2160,6 +2143,9 @@ msgstr "von %(user)s"
 
 msgid "View history"
 msgstr "Historie anschauen"
+
+msgid "Invalid schedule"
+msgstr "Ungültiger Zeitplan"
 
 msgid "Go-live:"
 msgstr "Go-Live:"
@@ -2374,6 +2360,15 @@ msgstr "Wird bei den folgenden aktiven Workflows verwendet"
 msgid "Not used"
 msgstr "Nicht verwendet"
 
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s weiteres"
+msgstr[1] "+%(counter)s weitere"
+
 msgid "Assigned pages"
 msgstr "Zugewiesene Seiten"
 
@@ -2392,9 +2387,6 @@ msgstr "Deaktivierte Workflows anzeigen"
 msgid "Used by"
 msgstr "Verwendet von"
 
-msgid "Disabled"
-msgstr "Deaktiviert"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -2410,12 +2402,6 @@ msgstr[1] "%(counter)s Schnipseltypen"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Schritt %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s weiteres"
-msgstr[1] "+%(counter)s weitere"
 
 #, python-format
 msgid ""
@@ -2520,27 +2506,11 @@ msgstr "Vollständige Historie anzeigen"
 msgid "Compare with live version"
 msgstr "Mit veröffentlichter Revision vergleichen"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in aufsteigender "
-"Reihenfolge"
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
-"Reihenfolge"
-
 msgid "More"
 msgstr "Mehr"
 
-msgid "View more bulk actions"
-msgstr "Weitere Mehrfachaktionen ansehen"
+msgid "More bulk actions"
+msgstr "Weitere Mehrfachaktionen"
 
 msgid "0 minutes"
 msgstr "0 Minuten"
@@ -2596,14 +2566,41 @@ msgid_plural "Referenced %(count)s times"
 msgstr[0] "%(count)s mal referenziert"
 msgstr[1] "%(count)s mal referenziert"
 
-msgid "Comments"
-msgstr "Kommentare"
-
 msgid "Toggle comments"
 msgstr "Kommentare umschalten"
 
+msgid "Comments"
+msgstr "Kommentare"
+
 msgid "Toggle preview"
 msgstr "Vorschau umschalten"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "Sortiere nach '%(label)s' in aufsteigender Reihenfolge."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "Sortiere nach '%(label)s' in absteigender Reihenfolge."
+
+msgid "Select page"
+msgstr "Seite auswählen"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in aufsteigender "
+"Reihenfolge"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
+"Reihenfolge"
 
 msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr ""
@@ -2810,6 +2807,9 @@ msgstr "Bearbeite"
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Möchten Sie dieses %(model_name)s-Objekt wirklich löschen?"
+
+msgid "Inspecting"
+msgstr "Ansehen"
 
 msgid "Earliest"
 msgstr "Früheste"
@@ -3084,6 +3084,15 @@ msgstr "Kommentaraktionen verbergen"
 msgid "Page history"
 msgstr "Seitenhistorie"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Drücken Sie die Eingabetaste, um ein Element auszuwählen, verwenden Sie die "
+"Aufwärts- und Abwärtspfeile, um das Element zu verschieben, drücken Sie die "
+"Eingabetaste, um die Bewegung abzuschließen, oder die Escape-Taste, um "
+"abzubrechen."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Die Seite ‚%(page_title)s‘ ist jetzt entsperrt."
@@ -3130,6 +3139,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Veröffentlichung der Seite \"%(page_title)s\" aufgehoben."
+
+msgid "Pages using"
+msgstr "Benutzende Seiten"
 
 #, python-format
 msgid ""
@@ -3316,8 +3328,8 @@ msgid "Add a child page to '%(title)s' "
 msgstr "Unterseite zu '%(title)s' hinzufügen"
 
 #, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Weiter Optionen für '%(title)s' anzeigen"
+msgid "More options for '%(title)s'"
+msgstr "Weitere Optionen für '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -361,9 +361,6 @@ msgstr "Alla %(objects)s objekt i denna vy är valda"
 msgid "All items in listing selected"
 msgstr "Alla objekt i lista valda"
 
-msgid "Page title"
-msgstr "Sidrubrik"
-
 msgid "For search engines"
 msgstr "För sökmotorer"
 
@@ -378,6 +375,12 @@ msgstr "Marknadsför"
 
 msgid "Settings"
 msgstr "Inställningar"
+
+msgid "Title"
+msgstr "Rubrik"
+
+msgid "Page title"
+msgstr "Sidrubrik"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -736,9 +739,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Dina låsta sidor"
-
-msgid "Title"
-msgstr "Rubrik"
 
 msgid "Locked at"
 msgstr "Låstes"
@@ -1337,13 +1337,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Vill du fortfarande publicera denna sida?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sidor som använder %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Sidor som använder"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopiera %(title)s"
 
@@ -1405,23 +1398,6 @@ msgstr "Inga loggposter funna"
 msgid "Exploring %(title)s"
 msgstr "Utforskar %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Välj alla sidor i listan"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Tryck på enter för att välja ett objekt, använd upp och ner pilarna för att "
-"flytta objektet, tryck på enter för att slutföra flytten eller escape för "
-"att avbryta flytten."
-
-msgid "Select page"
-msgstr "Välj sida"
-
-msgid "Drag"
-msgstr "Dra"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1463,12 +1439,8 @@ msgstr ""
 "Det finns inga sidor på denna plats. Sidor som skapas här kommer inte vara "
 "tillgänglig på någon URL."
 
-msgid "No pages have been created at this location."
-msgstr "Inga sidor har skapats på denna plats"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Varför inte <a href=\"%(add_page_url)s\">skapa en</a>?"
+msgid "Select all pages in listing"
+msgstr "Välj alla sidor i listan"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Denna sida är låst, av dig, för fortsatt redigering"
@@ -1483,6 +1455,18 @@ msgstr "Utforska undersidor till '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
+
+msgid "Drag"
+msgstr "Dra"
+
+msgid "Disable ordering of child pages"
+msgstr "Inaktivera sortering av undersidor"
+
+msgid "Sort"
+msgstr "Sortera"
+
+msgid "Enable ordering of child pages"
+msgstr "Aktivera sortering av undersidor"
 
 msgid "Sites menu"
 msgstr "Sajtmeny"
@@ -1502,18 +1486,6 @@ msgstr "Nästa"
 
 msgid "This page is protected from public view"
 msgstr "Denna sida är skyddad från att synas publikt"
-
-msgid "Disable ordering of child pages"
-msgstr "Inaktivera sortering av undersidor"
-
-msgid "Sort"
-msgstr "Sortera"
-
-msgid "Enable ordering of child pages"
-msgstr "Aktivera sortering av undersidor"
-
-msgid "Updated"
-msgstr "Uppdaterad"
 
 msgid "Confirm"
 msgstr "Bekräfta"
@@ -1571,9 +1543,6 @@ msgstr "Välj när denna sida ska publiceras och/eller utgå"
 msgid "Save schedule"
 msgstr "Spara schema"
 
-msgid "Comment notifications"
-msgstr "Kommentarnotifiering"
-
 msgid "Collection management permissions"
 msgstr "Samling hantering rättigheter"
 
@@ -1592,11 +1561,8 @@ msgstr "Inga sidor funna"
 msgid "No pages match this report's criteria."
 msgstr "Inga sidor matchade kriterierna för denna rapport."
 
-msgid "Download XLSX"
-msgstr "Ladda ner XLSX"
-
-msgid "Download CSV"
-msgstr "Ladda ner CSV"
+msgid "Updated"
+msgstr "Uppdaterad"
 
 msgid "Locking status"
 msgstr "Låsstatus"
@@ -1665,6 +1631,12 @@ msgstr "Rot"
 msgid "Close dialog"
 msgstr "Stäng dialog"
 
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
 msgid "Add comment"
 msgstr "Lägg till kommentar"
 
@@ -1721,6 +1693,9 @@ msgstr "Andra sökningar"
 
 msgid "Toggle side panel"
 msgstr "Växla sidopanel"
+
+msgid "Comment notifications"
+msgstr "Kommentarnotifiering"
 
 msgid "Page Locale: "
 msgstr "Sidans språk:"
@@ -1962,6 +1937,12 @@ msgstr "Används på följande aktiva arbetsflöden"
 msgid "Not used"
 msgstr "Används ej"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s till"
+msgstr[1] "+%(counter)s till"
+
 msgid "Assigned pages"
 msgstr "Tilldelade sidor"
 
@@ -1989,12 +1970,6 @@ msgstr[1] "%(counter)s sidor"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Steg %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s till"
-msgstr[1] "+%(counter)s till"
 
 #, python-format
 msgid ""
@@ -2097,27 +2072,8 @@ msgstr "Visa full historik"
 msgid "Compare with live version"
 msgstr "Jämför med den publicerade versionen"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
-"stigande ordning."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
-"fallande ordning."
-
 msgid "More"
 msgstr "Mer"
-
-msgid "View more bulk actions"
-msgstr "Visa fler massåtgärder"
 
 msgid "0 minutes"
 msgstr "0 minuter"
@@ -2163,14 +2119,33 @@ msgstr "%(status_display)s %(task_name)s %(started_at)s"
 msgid "Toggle status"
 msgstr "Växla status"
 
-msgid "Comments"
-msgstr "Kommentarer"
-
 msgid "Toggle comments"
 msgstr "Växla kommentarer"
 
+msgid "Comments"
+msgstr "Kommentarer"
+
 msgid "Toggle preview"
 msgstr "Växla förhandsgranskning"
+
+msgid "Select page"
+msgstr "Välj sida"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
+"stigande ordning."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
+"fallande ordning."
 
 msgid "Profile"
 msgstr "Profil"
@@ -2265,6 +2240,9 @@ msgstr "Sök %(model_name)s"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Inspecting"
+msgstr "Inspekterar"
 
 msgid "Earliest"
 msgstr "Tidigast"
@@ -2513,6 +2491,14 @@ msgstr "Göm kommenteringshandlingar"
 msgid "Page history"
 msgstr "Sidhistorik"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Tryck på enter för att välja ett objekt, använd upp och ner pilarna för att "
+"flytta objektet, tryck på enter för att slutföra flytten eller escape för "
+"att avbryta flytten."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sida '%(page_title)s' är nu olåst."
@@ -2558,6 +2544,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sida '%(page_title)s' opublicerad."
+
+msgid "Pages using"
+msgstr "Sidor som använder"
 
 #, python-format
 msgid ""
@@ -2703,10 +2692,6 @@ msgstr "Lägg till undersida"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Lägg till undersida till '%(title)s'"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Se fler alternativ för '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

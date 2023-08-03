@@ -88,11 +88,6 @@ urlpatterns = [
         name="workflow_preview",
     ),
     path(
-        "workflow/status/<int:page_id>/",
-        workflow.WorkflowStatus.as_view(),
-        name="workflow_status",
-    ),
-    path(
         "moderation/<int:revision_id>/approve/",
         moderation.approve_moderation,
         name="approve_moderation",

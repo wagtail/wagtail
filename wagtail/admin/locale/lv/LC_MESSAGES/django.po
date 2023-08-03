@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -220,9 +220,6 @@ msgstr "Pievieno uzdevumus savai darbplūsmai "
 msgid "Task"
 msgstr "Uzdevums"
 
-msgid "Page title"
-msgstr "Lapas virsraksts"
-
 msgid "Content"
 msgstr "Saturs"
 
@@ -231,6 +228,12 @@ msgstr "Veicināšana"
 
 msgid "Settings"
 msgstr "Iestatījumi"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "Page title"
+msgstr "Lapas virsraksts"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -405,9 +408,6 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Jūsu slēgtās lapas"
 
-msgid "Title"
-msgstr "Virsraksts"
-
 msgid "Locked at"
 msgstr "Slēgta plkst."
 
@@ -578,9 +578,6 @@ msgstr "Pārvietot šo lapu"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Atsaukt lapas publicēšanu?"
 
-msgid "Pages using"
-msgstr "Lapas, kas lieto"
-
 #, python-format
 msgid "Copy %(title)s"
 msgstr "Kopēt %(title)s"
@@ -618,18 +615,8 @@ msgstr "Patreizējā sagatave"
 msgid "Exploring %(title)s"
 msgstr "Pārlūko %(title)s"
 
-msgid "Drag"
-msgstr "Pārvilkt"
-
 msgid "Configure a site now."
 msgstr "Konfigurēt vietni"
-
-msgid "No pages have been created at this location."
-msgstr "Šajā vietā lapas nav izveidotas."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">Izveidot jaunu?</a>"
 
 msgid "This page is locked to further editing"
 msgstr "Lapa ir slēgta labojumiem"
@@ -642,6 +629,15 @@ msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
 msgid "Add a child page to '%(title)s'"
 msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
 
+msgid "Drag"
+msgstr "Pārvilkt"
+
+msgid "Disable ordering of child pages"
+msgstr "Atspējot apakšlapu kārtošanu"
+
+msgid "Enable ordering of child pages"
+msgstr "Iespējot apakšlapu kārtošanu"
+
 msgid "Previous"
 msgstr "Iepriekšējais"
 
@@ -650,15 +646,6 @@ msgstr "Nākamais"
 
 msgid "This page is protected from public view"
 msgstr "Lapa nav publiski pieejama"
-
-msgid "Disable ordering of child pages"
-msgstr "Atspējot apakšlapu kārtošanu"
-
-msgid "Enable ordering of child pages"
-msgstr "Iespējot apakšlapu kārtošanu"
-
-msgid "Updated"
-msgstr "Atjaunots"
 
 msgid "Enter a search term above"
 msgstr "Lūdzu ievadiet meklēšanas terminu"
@@ -676,8 +663,8 @@ msgstr "Uz augšu"
 msgid "Move down"
 msgstr "Uz leju"
 
-msgid "Download CSV"
-msgstr "Lejupielādēt CSV failu"
+msgid "Updated"
+msgstr "Atjaunots"
 
 msgid "Locked"
 msgstr "Slēgts"
@@ -697,6 +684,9 @@ msgstr "Pabeigts plkst."
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
+
+msgid "Download CSV"
+msgstr "Lejupielādēt CSV failu"
 
 msgid "Filter"
 msgstr "Atsijāt"
@@ -871,6 +861,9 @@ msgstr "Lapa '%(page_title)s' pārvietota."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Page '%(page_title)s' unpublished."
+
+msgid "Pages using"
+msgstr "Lapas, kas lieto"
 
 msgid "Show"
 msgstr "Rādīt"

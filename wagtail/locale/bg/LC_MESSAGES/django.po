@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -31,6 +31,12 @@ msgstr "Изтрий"
 msgid "Password"
 msgstr "Парола"
 
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Publish"
+msgstr "Публикувай"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Заглавието на страницата както желаете да се вижда"
 
@@ -45,12 +51,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Дали линк към тази страница ще се появи в автоматично генерираните менюта"
-
-msgid "Edit"
-msgstr "Редакция"
-
-msgid "Publish"
-msgstr "Публикувай"
 
 msgid "Approve"
 msgstr "Одобрете"

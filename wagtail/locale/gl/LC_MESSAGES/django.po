@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -227,6 +227,39 @@ msgstr "en moderación"
 msgid "live + in moderation"
 msgstr "en vivo + en moderación"
 
+msgid "Add/edit pages you own"
+msgstr "Engadir/editar páxinas que posúes"
+
+msgid "Bulk delete"
+msgstr "Eliminado en masa"
+
+msgid "Delete pages with children"
+msgstr "Eliminar páxinas con fillos"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any page"
+msgstr "Editar calquera páxina"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloquear/desbloquear páxinas que bloqueaches"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar calquera páxina"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Unlock any page"
+msgstr "Desbloquear calquer páxina"
+
 msgid "title"
 msgstr "título"
 
@@ -320,41 +353,11 @@ msgstr "revisión"
 msgid "revisions"
 msgstr "revisións"
 
-msgid "Add/edit pages you own"
-msgstr "Engadir/editar páxinas que posúes"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Edit any page"
-msgstr "Editar calquera páxina"
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Publish any page"
-msgstr "Publicar calquera páxina"
-
-msgid "Bulk delete"
-msgstr "Eliminado en masa"
-
-msgid "Delete pages with children"
-msgstr "Eliminar páxinas con fillos"
-
-msgid "Lock"
-msgstr "Bloquear"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Bloquear/desbloquear páxinas que bloqueaches"
-
-msgid "Unlock"
-msgstr "Desbloquear"
-
-msgid "Unlock any page"
-msgstr "Desbloquear calquer páxina"
-
 msgid "group"
 msgstr "grupo"
+
+msgid "permission"
+msgstr "permiso"
 
 msgid "permission type"
 msgstr "tipo de permiso"
@@ -576,9 +579,6 @@ msgstr "restriccións na vista da colección"
 
 msgid "collections"
 msgstr "coleccións"
-
-msgid "permission"
-msgstr "permiso"
 
 msgid "group collection permission"
 msgstr "permiso de grupo da colección"

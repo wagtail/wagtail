@@ -22,10 +22,12 @@ $chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
       theme('colors.text-label') 66%,
       transparent 66%
     );
-  background-position: calc(100% - $chevron-top-offset - $chevron-width)
-      $chevron-top-offset,
+  background-position:
+    calc(100% - $chevron-top-offset - $chevron-width) $chevron-top-offset,
     calc(100% - $chevron-inline-end-offset) $chevron-top-offset;
-  background-size: $chevron-width $chevron-width, $chevron-width $chevron-width;
+  background-size:
+    $chevron-width $chevron-width,
+    $chevron-width $chevron-width;
   background-repeat: no-repeat;
 }
 

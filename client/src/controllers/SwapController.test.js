@@ -125,7 +125,7 @@ describe('SwapController', () => {
       <div id="page-results"></div>
       `;
 
-      SwapController.afterLoad('w-swap');
+      SwapController.afterLoad('w-swap', application);
 
       // trigger next browser render cycle
       await Promise.resolve();

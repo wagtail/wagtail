@@ -55,10 +55,10 @@ export class StructBlock {
         const childDom = $(`
         <div data-contentpath="${childBlockDef.name}">
           <label class="w-field__label">${h(childBlockDef.meta.label)}${
-          childBlockDef.meta.required
-            ? '<span class="w-required-mark">*</span>'
-            : ''
-        }</label>
+            childBlockDef.meta.required
+              ? '<span class="w-required-mark">*</span>'
+              : ''
+          }</label>
             <div data-streamfield-block></div>
           </div>
         `);

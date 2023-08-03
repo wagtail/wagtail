@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -115,6 +115,18 @@ msgstr "Odaberite vašu vremensku zonu"
 
 msgid "profile picture"
 msgstr "slika profila"
+
+msgid "System default"
+msgstr "Sistemska"
+
+msgid "Light"
+msgstr "Svijetla"
+
+msgid "Dark"
+msgstr "Tamna"
+
+msgid "admin theme"
+msgstr "tema sučelja"
 
 msgid "user profile"
 msgstr "korisnički profil"
@@ -306,6 +318,9 @@ msgstr "Odaberite sve korisnike iz popisa"
 
 msgid "Username"
 msgstr "Korisničko ime"
+
+msgid "Access level"
+msgstr "Razina pristupa"
 
 msgid "Status"
 msgstr "Status"

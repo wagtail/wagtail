@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -76,14 +76,17 @@ msgstr "删除"
 msgid "New title"
 msgstr "新标题"
 
-msgid "Page title"
-msgstr "页面标题"
-
 msgid "Content"
 msgstr "内容"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Page title"
+msgstr "页面标题"
 
 msgid "Account"
 msgstr "账号"
@@ -163,9 +166,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
-
-msgid "Title"
-msgstr "标题"
 
 msgid "Edit this page"
 msgstr "编辑这个页面"
@@ -298,9 +298,6 @@ msgstr "是的，移动这页"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "你确定你想停止发布这页吗？"
 
-msgid "Pages using"
-msgstr "页面在用"
-
 msgid "Copy"
 msgstr "复制"
 
@@ -312,24 +309,24 @@ msgstr "新%(page_type)s类"
 msgid "Exploring %(title)s"
 msgstr "浏览%(title)s"
 
-msgid "Drag"
-msgstr "拖动"
-
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-msgid "Previous"
-msgstr "向前"
-
-msgid "Next"
-msgstr "往后"
+msgid "Drag"
+msgstr "拖动"
 
 msgid "Disable ordering of child pages"
 msgstr "禁止自页面的顺序"
 
 msgid "Enable ordering of child pages"
 msgstr "开启子页面顺序"
+
+msgid "Previous"
+msgstr "向前"
+
+msgid "Next"
+msgstr "往后"
 
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
@@ -401,6 +398,9 @@ msgstr "第 '%(page_title)s' 页已移动。"
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "第 '%(page_title)s' 页已取消发布"
+
+msgid "Pages using"
+msgstr "页面在用"
 
 msgid "Add child page"
 msgstr "添加子页面"

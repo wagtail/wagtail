@@ -1,8 +1,6 @@
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic import workflow
 from wagtail.models import Page
@@ -40,12 +38,6 @@ class ConfirmWorkflowCancellation(
     WorkflowPageViewMixin, workflow.ConfirmWorkflowCancellation
 ):
     template_name = "wagtailadmin/pages/confirm_workflow_cancellation.html"
-
-
-@method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
-class WorkflowStatus(WorkflowPageViewMixin, workflow.WorkflowStatus):
-    workflow_history_url_name = "wagtailadmin_pages:workflow_history"
-    revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
 
 
 class PreviewRevisionForTask(WorkflowPageViewMixin, workflow.PreviewRevisionForTask):

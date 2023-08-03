@@ -20,9 +20,9 @@ develop: clean-pyc
 lint-server:
 	black --target-version py38 --check --diff .
 	ruff check .
-	semgrep --config .semgrep.yml --error .
 	curlylint --parse-only wagtail
 	git ls-files '*.html' | xargs djhtml --check
+	semgrep --config .semgrep.yml --error .
 
 lint-client:
 	npm run lint:css --silent

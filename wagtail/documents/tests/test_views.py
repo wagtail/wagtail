@@ -17,10 +17,12 @@ from wagtail.documents import models
 class TestServeView(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document", file_hash="123456")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view.doc", ContentFile("A boring example document")
+        )
         self.pdf_document = models.Document(title="Test document", file_hash="123456")
         self.pdf_document.file.save(
-            "example.pdf", ContentFile("A boring example document")
+            "serve_view.pdf", ContentFile("A boring example document")
         )
 
     def tearDown(self):
@@ -179,7 +181,10 @@ class TestServeView(TestCase):
 class TestServeViewWithRedirect(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view_with_redirect.doc",
+            ContentFile("A boring example document"),
+        )
         self.serve_view_url = reverse(
             "wagtaildocs_serve", args=(self.document.id, self.document.filename)
         )
@@ -208,7 +213,10 @@ class TestServeViewWithRedirect(TestCase):
 class TestDirectDocumentUrls(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "direct_document_urls.doc",
+            ContentFile("A boring example document"),
+        )
 
     def tearDown(self):
         self.document.delete()
@@ -244,7 +252,10 @@ class TestServeWithExternalStorage(TestCase):
 
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_with_external_storage.doc",
+            ContentFile("A boring example document"),
+        )
         self.serve_view_url = reverse(
             "wagtaildocs_serve", args=(self.document.id, self.document.filename)
         )
@@ -274,7 +285,10 @@ class TestServeViewWithSendfile(TestCase):
             raise unittest.SkipTest("django-sendfile not installed")
 
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view_with_sendfile.doc",
+            ContentFile("A boring example document"),
+        )
 
     def tearDown(self):
         # delete the FieldFile directly because the TestCase does not commit

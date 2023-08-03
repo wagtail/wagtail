@@ -2,8 +2,8 @@
 
 /* global $ */
 
-import { v4 as uuidv4 } from 'uuid';
 import EventEmitter from 'events';
+import { v4 as uuidv4 } from 'uuid';
 import { escapeHtml as h } from '../../../utils/text';
 import {
   initCollapsiblePanel,
@@ -146,11 +146,11 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${h(
-      this.type || '',
-    )}">
+          this.type || '',
+        )}">
         <input type="hidden" name="${this.prefix}-id" value="${h(
-      this.id || '',
-    )}">
+          this.id || '',
+        )}">
         <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>

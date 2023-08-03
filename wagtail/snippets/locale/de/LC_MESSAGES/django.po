@@ -27,7 +27,7 @@
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
 # Scriptim <Scriptim@gmx.de>, 2020
-# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Scriptim <Scriptim@gmx.de>, 2020
@@ -37,9 +37,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -156,12 +156,6 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noreferrer\">ein neues erstellen</a>?"
 
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert:"
-
-msgid "History"
-msgstr "Historie"
-
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
 
@@ -210,6 +204,9 @@ msgstr "Neu: %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Bearbeite %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Historie"
 
 msgid "Usage"
 msgstr "Benutzung"
@@ -315,6 +312,13 @@ msgstr "%(model_name)s-Historie"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' bearbeiten"
+
+msgid "Inspect"
+msgstr "Ansehen"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "'%(title)s' ansehen"
 
 #, python-format
 msgid "Delete '%(title)s'"
