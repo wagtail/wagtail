@@ -25,7 +25,12 @@ jobs:
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs
-      - run: pipenv run python -u runtests.py --parallel
+      - run:
+          name: Run tests
+          no_output_timeout: 30m
+          command: |
+            export PYTHONUNBUFFERED=1
+            pipenv run python -u runtests.py --parallel
 
   frontend:
     docker:
