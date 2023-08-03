@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -114,6 +114,39 @@ msgstr "잠긴 시간:"
 msgid "locked by"
 msgstr "잠근 사람:"
 
+msgid "Add/edit pages you own"
+msgstr "페이지 추가/수정"
+
+msgid "Bulk delete"
+msgstr "한 번에 지우기"
+
+msgid "Delete pages with children"
+msgstr "하위 페이지들과 함께 지우기"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Edit any page"
+msgstr "페이지 수정"
+
+msgid "Lock"
+msgstr "잠금"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "잠긴 페이지 잠금/잠금 해제"
+
+msgid "Publish"
+msgstr "게시"
+
+msgid "Publish any page"
+msgstr "페이지 게시"
+
+msgid "Unlock"
+msgstr "잠금 풀기"
+
+msgid "Unlock any page"
+msgstr "모든 페이지 잠금 풀기"
+
 msgid "title"
 msgstr "제목"
 
@@ -170,41 +203,11 @@ msgstr "컨텐트 JSON"
 msgid "approved go live at"
 msgstr "라이브 승인 일시:"
 
-msgid "Add/edit pages you own"
-msgstr "페이지 추가/수정"
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "Edit any page"
-msgstr "페이지 수정"
-
-msgid "Publish"
-msgstr "게시"
-
-msgid "Publish any page"
-msgstr "페이지 게시"
-
-msgid "Bulk delete"
-msgstr "한 번에 지우기"
-
-msgid "Delete pages with children"
-msgstr "하위 페이지들과 함께 지우기"
-
-msgid "Lock"
-msgstr "잠금"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "잠긴 페이지 잠금/잠금 해제"
-
-msgid "Unlock"
-msgstr "잠금 풀기"
-
-msgid "Unlock any page"
-msgstr "모든 페이지 잠금 풀기"
-
 msgid "group"
 msgstr "그룹"
+
+msgid "permission"
+msgstr "권한"
 
 msgid "permission type"
 msgstr "권한 형태"
@@ -244,9 +247,6 @@ msgstr "모음 보기 제한 사항"
 
 msgid "collections"
 msgstr "모음"
-
-msgid "permission"
-msgstr "권한"
 
 msgid "group collection permission"
 msgstr "그룹 모음 권한"

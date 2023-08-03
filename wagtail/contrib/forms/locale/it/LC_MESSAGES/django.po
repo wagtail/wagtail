@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -180,12 +180,6 @@ msgstr "Nessuna pagina form è stata creata."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Invio di %(form_title)s"
-
-msgid "Download XLSX"
-msgstr "Scarica XLSX"
-
-msgid "Download CSV"
-msgstr "Scarica CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

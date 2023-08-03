@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,7 +100,7 @@ msgstr[2] "Utilisé(e) %(usage_count)s fois"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer ce/cette %(snippet_type_name)s ?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce/cette %(snippet_type_name)s ?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
@@ -135,12 +135,6 @@ msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noreferrer\">en créer un maintenant</a> ?"
-
-msgid "Last updated"
-msgstr "Dernière mise à jour"
-
-msgid "History"
-msgstr "Historique"
 
 msgid "Publishing…"
 msgstr "Publication..."
@@ -190,6 +184,9 @@ msgstr "Nouvel(le) : %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Modification de %(snippet_type)s « %(title)s »"
+
+msgid "History"
+msgstr "Historique"
 
 msgid "Usage"
 msgstr "Utilisation"
@@ -297,6 +294,13 @@ msgstr "Historique de %(model_name)s"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Modifier « %(title)s »"
+
+msgid "Inspect"
+msgstr "Inspecter"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspecter « %(title)s »"
 
 #, python-format
 msgid "Delete '%(title)s'"

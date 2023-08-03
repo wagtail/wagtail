@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -152,6 +152,39 @@ msgstr "审核中"
 msgid "live + in moderation"
 msgstr "发布+审核中"
 
+msgid "Add/edit pages you own"
+msgstr "添加/编辑所属的页面"
+
+msgid "Bulk delete"
+msgstr "批量删除"
+
+msgid "Delete pages with children"
+msgstr "删除页面及其子页面"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit any page"
+msgstr "编辑任意页面"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "锁定/解锁你已锁定的页面"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Publish any page"
+msgstr "发布任意页面"
+
+msgid "Unlock"
+msgstr "解锁"
+
+msgid "Unlock any page"
+msgstr "解锁任意页面"
+
 msgid "title"
 msgstr "标题"
 
@@ -231,41 +264,11 @@ msgstr "修订版本"
 msgid "revisions"
 msgstr "修订版本"
 
-msgid "Add/edit pages you own"
-msgstr "添加/编辑所属的页面"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Edit any page"
-msgstr "编辑任意页面"
-
-msgid "Publish"
-msgstr "发布"
-
-msgid "Publish any page"
-msgstr "发布任意页面"
-
-msgid "Bulk delete"
-msgstr "批量删除"
-
-msgid "Delete pages with children"
-msgstr "删除页面及其子页面"
-
-msgid "Lock"
-msgstr "锁定"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "锁定/解锁你已锁定的页面"
-
-msgid "Unlock"
-msgstr "解锁"
-
-msgid "Unlock any page"
-msgstr "解锁任意页面"
-
 msgid "group"
 msgstr "组"
+
+msgid "permission"
+msgstr "权限"
 
 msgid "permission type"
 msgstr "权限类型"
@@ -453,9 +456,6 @@ msgstr "集合查看限制"
 
 msgid "collections"
 msgstr "集合"
-
-msgid "permission"
-msgstr "权限"
 
 msgid "group collection permission"
 msgstr "群组集合权限"

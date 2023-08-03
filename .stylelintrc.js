@@ -47,6 +47,7 @@ module.exports = {
         // 'z-index',
       ],
       {
+        disableFix: true,
         ignoreValues: [
           'currentColor',
           'inherit',

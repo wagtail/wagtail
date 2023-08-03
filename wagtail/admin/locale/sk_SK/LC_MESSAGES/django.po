@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -186,9 +186,6 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
-msgid "Page title"
-msgstr "Titulok stránky"
-
 msgid "Content"
 msgstr "Obsah"
 
@@ -197,6 +194,12 @@ msgstr "Propagovať"
 
 msgid "Settings"
 msgstr "Nastavenia"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "Page title"
+msgstr "Titulok stránky"
 
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
@@ -351,9 +354,6 @@ msgid ""
 msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
-
-msgid "Title"
-msgstr "Titulok"
 
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
@@ -524,13 +524,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Naozaj chcete odpublikovať túto stránku?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Stránky používajúce %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Stránky požívajúce"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopírovať %(title)s"
 
@@ -567,18 +560,8 @@ msgstr "Aktuálny koncept"
 msgid "Exploring %(title)s"
 msgstr "Prehliadanie %(title)s"
 
-msgid "Drag"
-msgstr "Potiahnuť"
-
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
-
-msgid "No pages have been created at this location."
-msgstr "V tejto lokácii neboli vytvorené žiadne stránky."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Prečo nevytvoriť <a href=\"%(add_page_url)s\">jednu ihneď</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Táto stránka bola uzamknutá pre budúcu úpravu"
@@ -590,6 +573,15 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridajte podstránku do '%(title)s'"
+
+msgid "Drag"
+msgstr "Potiahnuť"
+
+msgid "Disable ordering of child pages"
+msgstr "Zakázať usporiadanie podstránok"
+
+msgid "Enable ordering of child pages"
+msgstr "Povoliť usporiadanie child stránok"
 
 msgid "Sites menu"
 msgstr "Menu sídiel"
@@ -603,15 +595,6 @@ msgstr "Následujúca"
 msgid "This page is protected from public view"
 msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 
-msgid "Disable ordering of child pages"
-msgstr "Zakázať usporiadanie podstránok"
-
-msgid "Enable ordering of child pages"
-msgstr "Povoliť usporiadanie child stránok"
-
-msgid "Updated"
-msgstr "Aktualizované"
-
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
 
@@ -624,8 +607,8 @@ msgstr "Posunúť vyššie"
 msgid "Move down"
 msgstr "Posunúť nižšie"
 
-msgid "Download CSV"
-msgstr "Stiahnuť CSV"
+msgid "Updated"
+msgstr "Aktualizované"
 
 msgid "Locked"
 msgstr "Zamknuté"
@@ -639,6 +622,9 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 
 msgid "Root"
 msgstr "Koreň"
+
+msgid "Download CSV"
+msgstr "Stiahnuť CSV"
 
 msgid "Filter"
 msgstr "Filter"
@@ -718,6 +704,9 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 
 msgid "Editing"
 msgstr "Editácia"
+
+msgid "Inspecting"
+msgstr "Kontrola %s"
 
 msgid "Earliest"
 msgstr "Najstaršie"
@@ -828,6 +817,9 @@ msgstr "Stránka '%(page_title)s' bola presunutá."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stránka '%(page_title)s' bola odpublikovaná."
+
+msgid "Pages using"
+msgstr "Stránky požívajúce"
 
 msgid "Pages"
 msgstr "Stránky"

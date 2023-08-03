@@ -1,6 +1,7 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
+concurrency = multiprocessing,thread
 
 source = wagtail
 

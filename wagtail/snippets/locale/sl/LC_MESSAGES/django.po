@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,12 +131,6 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">ustvarili enega sedaj</a>?"
 
-msgid "Last updated"
-msgstr "Zadnje posodobljeno"
-
-msgid "History"
-msgstr "Zgodovina"
-
 msgid "Publishing…"
 msgstr "Objavljanje…"
 
@@ -185,6 +179,9 @@ msgstr "Nov: %(model_name)s"
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Urejam %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Zgodovina"
 
 msgid "Usage"
 msgstr "Uporaba"
@@ -292,6 +289,13 @@ msgstr "Zgodovina %(model_name)s"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
+
+msgid "Inspect"
+msgstr "Preglejte"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Preglejte '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"

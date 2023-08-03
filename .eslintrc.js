@@ -99,7 +99,7 @@ module.exports = {
             },
           },
           {
-            selector: 'property',
+            selector: 'classProperty',
             format: ['camelCase'],
             custom: {
               // Use Stimulus values where possible for internal state, avoid a generic state object as these are not reactive.
@@ -135,11 +135,13 @@ module.exports = {
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-this-alias': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'global-require': 'off',
         'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'jsx-a11y/control-has-associated-label': 'off',
         'no-unused-expressions': 'off',
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',

@@ -58,7 +58,6 @@ module.exports = function exports(env, argv) {
       'userbar',
       'wagtailadmin',
       'workflow-action',
-      'workflow-status',
       'bulk-actions',
     ],
     'images': [

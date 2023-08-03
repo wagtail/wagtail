@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -227,6 +227,9 @@ msgstr "Promosikan"
 msgid "Settings"
 msgstr "Pengaturan"
 
+msgid "Title"
+msgstr "Judul"
+
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
 
@@ -402,9 +405,6 @@ msgid ""
 msgstr ""
 "Ini adalah dasbor Anda. Di sini akan ditampilkan informasi yang berguna "
 "mengenai konten yang Anda buat,"
-
-msgid "Title"
-msgstr "Judul"
 
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
@@ -597,13 +597,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Apakan anda yakin akan menarik publikasi halaman ini?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Halaman yang menggunakan %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Halaman yang menggunakan"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Salin %(title)s"
 
@@ -637,18 +630,8 @@ msgstr "Konsep saat ini"
 msgid "Exploring %(title)s"
 msgstr "Menjelajah %(title)s"
 
-msgid "Drag"
-msgstr "Seret"
-
 msgid "Configure a site now."
 msgstr "Atur sebuah situs sekarang."
-
-msgid "No pages have been created at this location."
-msgstr "Tidak ada halaman  yang dibuat di lokasi ini."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Bagaimana kalau <a href=\"%(add_page_url)s\">buat sebuah</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Halaman ini dikunci sehingga tidak dapat diubah"
@@ -661,6 +644,15 @@ msgstr "Jelajahi halaman turunan dari '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Tambahkan halaman turunan ke '%(title)s'"
 
+msgid "Drag"
+msgstr "Seret"
+
+msgid "Disable ordering of child pages"
+msgstr "Nonaktifkan pengurutan halaman turunan "
+
+msgid "Enable ordering of child pages"
+msgstr "Aktifkan pengurutan halaman turunan"
+
 msgid "Sites menu"
 msgstr "Menu situs"
 
@@ -672,15 +664,6 @@ msgstr "Berikutnya"
 
 msgid "This page is protected from public view"
 msgstr "Halaman ini tidak tampak oleh publik"
-
-msgid "Disable ordering of child pages"
-msgstr "Nonaktifkan pengurutan halaman turunan "
-
-msgid "Enable ordering of child pages"
-msgstr "Aktifkan pengurutan halaman turunan"
-
-msgid "Updated"
-msgstr "Telah diubah"
 
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
@@ -704,8 +687,8 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
-msgid "Download CSV"
-msgstr "Unduh CSV"
+msgid "Updated"
+msgstr "Telah diubah"
 
 msgid "Locked"
 msgstr "Terkunci"
@@ -728,6 +711,9 @@ msgstr "Halaman %(page_num)s dari %(total_pages)s."
 
 msgid "Root"
 msgstr "Dasar"
+
+msgid "Download CSV"
+msgstr "Unduh CSV"
 
 msgid "Filter"
 msgstr "Saring"
@@ -832,6 +818,9 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 
 msgid "Editing"
 msgstr "Mengubah"
+
+msgid "Inspecting"
+msgstr "Memeriksa"
 
 msgid "Earliest"
 msgstr "Paling awal"
@@ -942,6 +931,9 @@ msgstr "Halaman '%(page_title)s' telah dipindah."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Halaman '%(page_title)s' ditarik dari publikasi."
+
+msgid "Pages using"
+msgstr "Halaman yang menggunakan"
 
 msgid "Show"
 msgstr "Tampilkan"

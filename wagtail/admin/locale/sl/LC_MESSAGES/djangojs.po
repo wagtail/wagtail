@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s novih elementov v tem meniju)"
+
 msgid "(1 new item in this menu)"
 msgstr "(1 nov element v tem meniju)"
 
@@ -137,6 +140,9 @@ msgstr "Raziskovalec strani"
 msgid "Pages"
 msgstr "Strani"
 
+msgid "Pin toolbar"
+msgstr "Pripni orodno vrstico"
+
 msgid "Reload saved content"
 msgstr "Ponovno naložite shranjeno vsebino"
 
@@ -179,6 +185,9 @@ msgstr "Shranjevanje..."
 msgid "Search"
 msgstr "Iskanje"
 
+msgid "Search options…"
+msgstr "Možnosti iskanja..."
+
 msgid "See all"
 msgstr "Poglej vse"
 
@@ -211,6 +220,9 @@ msgstr "Preklopi stransko vrstico"
 
 msgid "Unfocus comment"
 msgstr "Odstrani fokus komentarja"
+
+msgid "Unpin toolbar"
+msgstr "Odpni orodno vrstico"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ogled podrejenih strani za  '%(title)s'"

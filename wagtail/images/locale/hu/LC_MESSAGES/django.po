@@ -4,14 +4,14 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: aaao <aron.santa@gmail.com>, 2019\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,14 @@ msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "A kép nem megfelelő formátumú. A támogatott formátumok: "
 "%(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Érvénytelen .%(extension)skép. A megadott kiterjesztés nem egyezik a fájl "
+"formátumával (%(image_format)s)"
 
 #, python-format
 msgid ""

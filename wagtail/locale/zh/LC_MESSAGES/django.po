@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,6 +33,12 @@ msgstr "添加"
 msgid "Password"
 msgstr "密码"
 
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Publish"
+msgstr "发布"
+
 msgid "title"
 msgstr "标题"
 
@@ -50,12 +56,6 @@ msgstr "一个链接到这页的链接会显示在自动生成的菜单中"
 
 msgid "created at"
 msgstr "创建于"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Publish"
-msgstr "发布"
 
 msgid "Approve"
 msgstr "通过"

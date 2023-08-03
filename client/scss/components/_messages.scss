@@ -83,7 +83,10 @@
 
 .ready .messages > ul,
 .messages.appear > ul {
-  transition: top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease;
+  transition:
+    top 0.5s ease,
+    opacity 0.5s ease,
+    max-height 1.2s ease;
   opacity: 1;
   top: 0;
 }

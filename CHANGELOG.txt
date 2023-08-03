@@ -7,9 +7,13 @@ Changelog
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
+ * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
+ * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
+ * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
+ * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
 
 
-5.1 (xx.xx.xxxx) - IN DEVELOPMENT
+5.1 (01.08.2023)
 ~~~~~~~~~~~~~~~~
 
  * Add support for read-only FieldPanels (Andy Babic)
@@ -76,6 +80,7 @@ Changelog
  * Fix: Fix `search_promotions` `0004_copy_queries` migration for long-lived Wagtail instances (Sage Abdullah)
  * Fix: Guard against `TypeError` in `0088_fix_log_entry_json_timestamps` migration (Sage Abdullah)
  * Fix: Add migration to replace JSON null values with empty objects in log entries' data (Sage Abdullah)
+ * Fix: Typo in the `page_header_buttons` template tag when accessing the context's request object (Robert Rollins)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)

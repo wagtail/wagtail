@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Terry Peng, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -363,9 +363,6 @@ msgstr "已选择本屏幕的所有%(objects)s 个条目"
 msgid "All items in listing selected"
 msgstr "已选择列表中的所有条目"
 
-msgid "Page title"
-msgstr "页面标题"
-
 msgid "For search engines"
 msgstr "用于搜索引擎"
 
@@ -380,6 +377,12 @@ msgstr "推荐"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Page title"
+msgstr "页面标题"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -649,9 +652,6 @@ msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。
 
 msgid "Your locked pages"
 msgstr "你锁定的页面"
-
-msgid "Title"
-msgstr "标题"
 
 msgid "Locked at"
 msgstr "锁定于"
@@ -1127,13 +1127,6 @@ msgid "Would you still like to publish this page?"
 msgstr "你确定仍然要发布此页面吗?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "使用%(page_class_verbose_name)s的页面"
-
-msgid "Pages using"
-msgstr "页面使用"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "复制%(title)s"
 
@@ -1195,24 +1188,11 @@ msgstr "未找到日志记录"
 msgid "Exploring %(title)s"
 msgstr "浏览 %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "选择列表中的所有页面"
-
-msgid "Select page"
-msgstr "选择页面"
-
-msgid "Drag"
-msgstr "拖曳"
-
 msgid "Configure a site now."
 msgstr "现在配置一个站点。"
 
-msgid "No pages have been created at this location."
-msgstr "这个位置还没有创建页面。"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "要不<a href=\"%(add_page_url)s\">创建一个</a>?"
+msgid "Select all pages in listing"
+msgstr "选择列表中的所有页面"
 
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
@@ -1224,6 +1204,18 @@ msgstr "查看'%(title)s'的子页面"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "为'%(title)s'添加子页面"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Disable ordering of child pages"
+msgstr "禁用子页面排序"
+
+msgid "Sort"
+msgstr "排序"
+
+msgid "Enable ordering of child pages"
+msgstr "启用子页面排序"
 
 msgid "Sites menu"
 msgstr "站点菜单"
@@ -1239,18 +1231,6 @@ msgstr "下一个"
 
 msgid "This page is protected from public view"
 msgstr "此页面已受保护，公众不可见。"
-
-msgid "Disable ordering of child pages"
-msgstr "禁用子页面排序"
-
-msgid "Sort"
-msgstr "排序"
-
-msgid "Enable ordering of child pages"
-msgstr "启用子页面排序"
-
-msgid "Updated"
-msgstr "已更新"
 
 msgid "Confirm"
 msgstr "确认"
@@ -1299,9 +1279,6 @@ msgstr "设置发布计划"
 msgid "Save schedule"
 msgstr "保存计划"
 
-msgid "Comment notifications"
-msgstr "评论通知"
-
 msgid "Collection management permissions"
 msgstr "集合管理权限"
 
@@ -1320,11 +1297,8 @@ msgstr "找不到页面。"
 msgid "No pages match this report's criteria."
 msgstr "没有页面符合此报告的条件。"
 
-msgid "Download XLSX"
-msgstr "下载XLSX"
-
-msgid "Download CSV"
-msgstr "下载CSV"
+msgid "Updated"
+msgstr "已更新"
 
 msgid "Locking status"
 msgstr "锁定状态"
@@ -1381,6 +1355,12 @@ msgstr "根"
 
 msgid "Close dialog"
 msgstr "关闭对话框"
+
+msgid "Download XLSX"
+msgstr "下载XLSX"
+
+msgid "Download CSV"
+msgstr "下载CSV"
 
 msgid "Add comment"
 msgstr "添加评论"
@@ -1440,6 +1420,9 @@ msgstr "边栏面板开关"
 
 msgid "Side panel width"
 msgstr "边栏宽度"
+
+msgid "Comment notifications"
+msgstr "评论通知"
 
 msgid "Page Locale: "
 msgstr "页面语言:"
@@ -1626,6 +1609,11 @@ msgstr "使用了以下活动工作流"
 msgid "Not used"
 msgstr "未使用"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+ %(counter)s"
+
 msgid "Assigned pages"
 msgstr "已分配的页面"
 
@@ -1652,11 +1640,6 @@ msgstr[0] "%(counter)s 页面"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "步进数%(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+ %(counter)s"
 
 #, python-format
 msgid ""
@@ -1752,23 +1735,8 @@ msgstr "查看完整历史"
 msgid "Compare with live version"
 msgstr "与发布版本进行比较"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr "以'%(label)s'顺序排列'%(parent)s'的子页面"
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr "以'%(label)s'倒序排列'%(parent)s'的子页面"
-
 msgid "More"
 msgstr "更多"
-
-msgid "View more bulk actions"
-msgstr "查看更多的批量动作"
 
 msgid "0 minutes"
 msgstr "0 分钟"
@@ -1786,14 +1754,29 @@ msgstr "注销"
 msgid "Toggle status"
 msgstr "状态开关"
 
-msgid "Comments"
-msgstr "评论"
-
 msgid "Toggle comments"
 msgstr "评论开关"
 
+msgid "Comments"
+msgstr "评论"
+
 msgid "Toggle preview"
 msgstr "预览开关"
+
+msgid "Select page"
+msgstr "选择页面"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "以'%(label)s'顺序排列'%(parent)s'的子页面"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "以'%(label)s'倒序排列'%(parent)s'的子页面"
 
 msgid "Profile"
 msgstr "资料"
@@ -1869,6 +1852,9 @@ msgstr "搜索 %(model_name)s"
 
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Inspecting"
+msgstr "正在检查"
 
 msgid "Earliest"
 msgstr "最早的"
@@ -2124,6 +2110,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "页面'%(page_title)s'已取消发布。"
 
+msgid "Pages using"
+msgstr "页面使用"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -2269,10 +2258,6 @@ msgstr "添加子页面"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "添加“%(title)s”的子页面"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "查看“%(title)s”的更多选项"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -22,8 +22,10 @@ $logo-size: 110px;
   text-align: center;
   width: $logo-size;
   height: $logo-size;
-  transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
-    width $menu-transition-duration ease, height $menu-transition-duration ease,
+  transition:
+    transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
+    width $menu-transition-duration ease,
+    height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
   border-radius: 100%;
 

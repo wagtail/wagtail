@@ -4,15 +4,15 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,18 @@ msgstr "Válassza ki a jelenlegi időzónát"
 
 msgid "profile picture"
 msgstr "profilkép"
+
+msgid "System default"
+msgstr "Rendszer alapértelmezés"
+
+msgid "Light"
+msgstr "Világos"
+
+msgid "Dark"
+msgstr "Sötét"
+
+msgid "admin theme"
+msgstr "admin téma"
 
 msgid "user profile"
 msgstr "felhasználói profil"
@@ -242,7 +254,7 @@ msgid "Publish"
 msgstr "Közzététel"
 
 msgid "Lock"
-msgstr "Lezár"
+msgstr "Zárol"
 
 msgid "Unlock"
 msgstr "Feloldás"
@@ -302,6 +314,9 @@ msgstr "Összes felhasználó kiválasztása a listában"
 
 msgid "Username"
 msgstr "Felhasználónév"
+
+msgid "Access level"
+msgstr "Elérés szintje"
 
 msgid "Status"
 msgstr "Állapot"
@@ -406,6 +421,10 @@ msgstr "Hiba történt a csoport mentése közben."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Csoport törölve: '%(object)s'"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Felhasználó létrehozva: '%(object)s'."
 
 #, python-format
 msgid "User '%(object)s' updated."

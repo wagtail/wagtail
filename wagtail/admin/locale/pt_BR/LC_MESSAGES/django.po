@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hernandison Da Silva Bispo, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -346,9 +346,6 @@ msgstr "Todos os %(objects)s itens na tela foram selecionados"
 msgid "All items in listing selected"
 msgstr "Todos os itens listados foram selecionados"
 
-msgid "Page title"
-msgstr "Título da página"
-
 msgid "For search engines"
 msgstr "Para motores de busca"
 
@@ -363,6 +360,12 @@ msgstr "Promover"
 
 msgid "Settings"
 msgstr "Configurações"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Page title"
+msgstr "Título da página"
 
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
@@ -610,9 +613,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Suas páginas bloqueadas"
-
-msgid "Title"
-msgstr "Título"
 
 msgid "Locked at"
 msgstr "Bloqueado em"
@@ -1055,13 +1055,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Você ainda gostaria de publicar esta página?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Páginas usando %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Usando páginas"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Copiar %(title)s"
 
@@ -1123,24 +1116,11 @@ msgstr "Nenhuma entrada de log encontrada."
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Selecionar todas as páginas da lista"
-
-msgid "Select page"
-msgstr "Selecionar página"
-
-msgid "Drag"
-msgstr "Arrastar"
-
 msgid "Configure a site now."
 msgstr "Configurar um site agora."
 
-msgid "No pages have been created at this location."
-msgstr "Nenhuma página foi criada a partir deste local"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Por que não <a href=\"%(add_page_url)s\">criar uma</a>?"
+msgid "Select all pages in listing"
+msgstr "Selecionar todas as páginas da lista"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página está bloqueada para futuras edições"
@@ -1152,6 +1132,18 @@ msgstr "Explorar subpáginas de '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar subpágina de %(title)s"
+
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Disable ordering of child pages"
+msgstr "Desabilitar ordenação de subpáginas"
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "Enable ordering of child pages"
+msgstr "Habilitar ordenação de subpáginas"
 
 msgid "Sites menu"
 msgstr "Menu de sites"
@@ -1167,18 +1159,6 @@ msgstr "Próximo"
 
 msgid "This page is protected from public view"
 msgstr "Esta página está protegida da visualização pública"
-
-msgid "Disable ordering of child pages"
-msgstr "Desabilitar ordenação de subpáginas"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Habilitar ordenação de subpáginas"
-
-msgid "Updated"
-msgstr "Atualizada"
 
 msgid "Confirm"
 msgstr "Confirmar"
@@ -1221,9 +1201,6 @@ msgstr "Mover para cima"
 msgid "Move down"
 msgstr "Mover para baixo"
 
-msgid "Comment notifications"
-msgstr "Notificações de comentários"
-
 msgid "Collection management permissions"
 msgstr "Permissões de gerenciamento de coleção"
 
@@ -1242,11 +1219,8 @@ msgstr "Nenhuma página encontrada."
 msgid "No pages match this report's criteria."
 msgstr "Nenhuma página corresponde aos critérios deste relatório."
 
-msgid "Download XLSX"
-msgstr "Baixar XLSX"
-
-msgid "Download CSV"
-msgstr "Baixar CSV"
+msgid "Updated"
+msgstr "Atualizada"
 
 msgid "Locking status"
 msgstr "Status de bloqueio"
@@ -1291,6 +1265,12 @@ msgstr "Navegação"
 msgid "Root"
 msgstr "Raiz"
 
+msgid "Download XLSX"
+msgstr "Baixar XLSX"
+
+msgid "Download CSV"
+msgstr "Baixar CSV"
+
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
@@ -1327,6 +1307,9 @@ msgstr "Outras buscas"
 
 msgid "Toggle side panel"
 msgstr "Toggle side panel"
+
+msgid "Comment notifications"
+msgstr "Notificações de comentários"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
@@ -1446,6 +1429,13 @@ msgstr "Usado nos seguintes fluxos de trabalho ativos"
 msgid "Not used"
 msgstr "Não usado"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s mais"
+msgstr[1] "+%(counter)s mais "
+msgstr[2] "+%(counter)s mais "
+
 msgid "Assigned pages"
 msgstr "Páginas atribuídas"
 
@@ -1467,13 +1457,6 @@ msgstr "Usado por"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Fase %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s mais"
-msgstr[1] "+%(counter)s mais "
-msgstr[2] "+%(counter)s mais "
 
 #, python-format
 msgid ""
@@ -1570,6 +1553,25 @@ msgstr "Veja o histórico completo"
 msgid "Compare with live version"
 msgstr "Comparar com versão publicada"
 
+msgid "More"
+msgstr "Mais"
+
+msgid "0 minutes"
+msgstr "0 minutos"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+msgid "Log out"
+msgstr "Sair"
+
+msgid "Comments"
+msgstr "Comentários"
+
+msgid "Select page"
+msgstr "Selecionar página"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1585,25 +1587,6 @@ msgid ""
 msgstr ""
 "Classifique a ordem das páginas filhas em '%(parent)s' por '%(label)s' em "
 "ordem decrescente."
-
-msgid "More"
-msgstr "Mais"
-
-msgid "View more bulk actions"
-msgstr "Ver outras ações em massa"
-
-msgid "0 minutes"
-msgstr "0 minutos"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
-
-msgid "Log out"
-msgstr "Sair"
-
-msgid "Comments"
-msgstr "Comentários"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -1672,6 +1655,9 @@ msgstr "%(model_name)s '%(object)s' criado."
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Inspecting"
+msgstr "Inspecionando"
 
 msgid "Earliest"
 msgstr "Mais cedo"
@@ -1959,6 +1945,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Página '%(page_title)s' despublicada."
 
+msgid "Pages using"
+msgstr "Usando páginas"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -2094,10 +2083,6 @@ msgstr "Adicionar subpágina"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Adicionar uma página filha a '%(title)s' "
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Ver mais opções para '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

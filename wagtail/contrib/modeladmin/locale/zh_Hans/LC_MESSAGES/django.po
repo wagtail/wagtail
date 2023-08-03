@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -145,12 +145,6 @@ msgstr "搜索  %(name)s "
 
 msgid "Search"
 msgstr "搜索"
-
-msgid "Download XLSX"
-msgstr "下载XLSX"
-
-msgid "Download CSV"
-msgstr "下载CSV"
 
 msgid "Filter"
 msgstr "过滤器"

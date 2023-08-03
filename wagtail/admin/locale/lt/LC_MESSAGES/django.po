@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -246,6 +246,9 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
+msgid "Title"
+msgstr "Pavadinimas"
+
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
 
@@ -468,9 +471,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Jūsų užrakinti puslapiai"
-
-msgid "Title"
-msgstr "Pavadinimas"
 
 msgid "Locked at"
 msgstr "Užrakinimo data"
@@ -740,13 +740,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Ar vis tiek norite publikuoti šį puslapį?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Puslapiai naudojantys %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Puslapiai naudoja"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopijuoti %(title)s"
 
@@ -796,21 +789,8 @@ msgstr "Dabartinis juodraštis"
 msgid "Exploring %(title)s"
 msgstr "Naršoma %(title)s"
 
-msgid "Select page"
-msgstr "Pasirinkti puslapį"
-
-msgid "Drag"
-msgstr "Tempti"
-
 msgid "Configure a site now."
 msgstr "Konfigūruoti tinklalapį dabar."
-
-msgid "No pages have been created at this location."
-msgstr "Šioje vietoje nebuvo sukurta jokių puslapių."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Kodėl gi <a href=\"%(add_page_url)s\">nesukūrus vieno</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Šis puslapis tolimesniam redagavimui užrakintas"
@@ -822,6 +802,15 @@ msgstr "Naršyti vidinius '%(title)s' puslapius"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridėti vidinį puslapį į '%(title)s'"
+
+msgid "Drag"
+msgstr "Tempti"
+
+msgid "Disable ordering of child pages"
+msgstr "Išjungti vidinių puslapių rikiavimą"
+
+msgid "Enable ordering of child pages"
+msgstr "Įgalinti vidinių puslapių rikiavimą"
 
 msgid "Sites menu"
 msgstr "Tinklalapių meniu"
@@ -837,15 +826,6 @@ msgstr "Kitas"
 
 msgid "This page is protected from public view"
 msgstr "Šis puslapis apsaugotas nuo viešo matymo"
-
-msgid "Disable ordering of child pages"
-msgstr "Išjungti vidinių puslapių rikiavimą"
-
-msgid "Enable ordering of child pages"
-msgstr "Įgalinti vidinių puslapių rikiavimą"
-
-msgid "Updated"
-msgstr "Atnaujintas"
 
 msgid "Confirm"
 msgstr "Patvirtinti"
@@ -884,9 +864,6 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
-msgid "Comment notifications"
-msgstr "Komentarų pranešimai"
-
 msgid "Collection management permissions"
 msgstr "Kolekcijų valdymo leidimai"
 
@@ -896,11 +873,8 @@ msgstr "Pridėti kolekcijų leidimą"
 msgid "No pages found."
 msgstr "Puslapių nerasta."
 
-msgid "Download XLSX"
-msgstr "Parsiųsti XLSX"
-
-msgid "Download CSV"
-msgstr "Parsisiųsti CSV"
+msgid "Updated"
+msgstr "Atnaujintas"
 
 #, python-format
 msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
@@ -936,6 +910,12 @@ msgstr "Naršymo kelias"
 msgid "Root"
 msgstr "Šakninis"
 
+msgid "Download XLSX"
+msgstr "Parsiųsti XLSX"
+
+msgid "Download CSV"
+msgstr "Parsisiųsti CSV"
+
 msgid "Add comment"
 msgstr "Pridėti komentarą"
 
@@ -966,6 +946,9 @@ msgstr "Ne, planuoti"
 
 msgid "Other searches"
 msgstr "Kitos paieškos"
+
+msgid "Comment notifications"
+msgstr "Komentarų pranešimai"
 
 msgid "Page Locale: "
 msgstr "Puslapio lokalė:"
@@ -1041,9 +1024,6 @@ msgstr "Palyginti su veikiančia versija"
 msgid "More"
 msgstr "Daugiau"
 
-msgid "View more bulk actions"
-msgstr "Peržiūrėti daugiau masinių veiksmų"
-
 msgid "0 minutes"
 msgstr "0 minučių"
 
@@ -1056,6 +1036,9 @@ msgstr "Atsijungti"
 
 msgid "Comments"
 msgstr "Komentarai"
+
+msgid "Select page"
+msgstr "Pasirinkti puslapį"
 
 msgid "Profile"
 msgstr "Profilis"
@@ -1121,6 +1104,9 @@ msgstr "%(model_name)s '%(object)s' sukurtas."
 
 msgid "Editing"
 msgstr "Redaguojama"
+
+msgid "Inspecting"
+msgstr "Tikrinama"
 
 msgid "Earliest"
 msgstr "Naujausias"
@@ -1237,6 +1223,9 @@ msgstr "Puslapis '%(page_title)s' buvo perkeltas."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Puslapis '%(page_title)s' nebepublikuojamas."
+
+msgid "Pages using"
+msgstr "Puslapiai naudoja"
 
 msgid "Aging pages"
 msgstr "Senstantys puslapiai"

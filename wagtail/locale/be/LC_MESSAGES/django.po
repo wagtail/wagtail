@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -111,6 +111,39 @@ msgstr "заблякаваны ў"
 msgid "locked by"
 msgstr "заблякаваны"
 
+msgid "Add/edit pages you own"
+msgstr "Дадаць / рэдагаваць свае старонкі"
+
+msgid "Bulk delete"
+msgstr "Масавае выдаленне"
+
+msgid "Delete pages with children"
+msgstr "Выдаліць разам з даччынымі старонкамі"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit any page"
+msgstr "Рэдагаваць любую старонку"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Вашы заблякаваныя / разблакаваныя старонкі"
+
+msgid "Publish"
+msgstr "Апублікаваць"
+
+msgid "Publish any page"
+msgstr "Апублікаваць любую старонку"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
+msgid "Unlock any page"
+msgstr "Разблакаваць любую старонку"
+
 msgid "title"
 msgstr "загаловак"
 
@@ -169,41 +202,11 @@ msgstr "сожержимое JSON"
 msgid "approved go live at"
 msgstr "пацверджана да публікацыі"
 
-msgid "Add/edit pages you own"
-msgstr "Дадаць / рэдагаваць свае старонкі"
-
-msgid "Edit"
-msgstr "Рэдагаваць"
-
-msgid "Edit any page"
-msgstr "Рэдагаваць любую старонку"
-
-msgid "Publish"
-msgstr "Апублікаваць"
-
-msgid "Publish any page"
-msgstr "Апублікаваць любую старонку"
-
-msgid "Bulk delete"
-msgstr "Масавае выдаленне"
-
-msgid "Delete pages with children"
-msgstr "Выдаліць разам з даччынымі старонкамі"
-
-msgid "Lock"
-msgstr "Заблакаваць"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Вашы заблякаваныя / разблакаваныя старонкі"
-
-msgid "Unlock"
-msgstr "Разблакаваць"
-
-msgid "Unlock any page"
-msgstr "Разблакаваць любую старонку"
-
 msgid "group"
 msgstr "група"
+
+msgid "permission"
+msgstr "права доступу"
 
 msgid "permission type"
 msgstr "тып правоў"
@@ -240,9 +243,6 @@ msgstr "абмежаванні на прагляд калекцыі"
 
 msgid "collections"
 msgstr "калекцыі"
-
-msgid "permission"
-msgstr "права доступу"
 
 msgid "group collection permission"
 msgstr "права доступу да калекцыі ў гурта"

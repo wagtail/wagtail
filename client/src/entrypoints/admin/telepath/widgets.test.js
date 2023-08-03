@@ -2,11 +2,11 @@ import '../draftail';
 import './telepath';
 import './widgets';
 
+import $ from 'jquery';
 import { createEditorStateFromRaw } from 'draftail';
 import { EditorState } from 'draft-js';
 
 import ReactTestUtils from 'react-dom/test-utils';
-import $ from 'jquery';
 
 window.$ = $;
 

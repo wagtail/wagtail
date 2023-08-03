@@ -103,22 +103,27 @@ class TestDocumentPermissions(WagtailTestUtils, TestCase):
 class TestDocumentFilenameProperties(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "sample_name.doc",
+            ContentFile("A boring example document"),
+        )
 
         self.pdf_document = models.Document(title="Test document")
         self.pdf_document.file.save(
-            "example.pdf", ContentFile("A boring example document")
+            "sample_name.pdf",
+            ContentFile("A boring example document"),
         )
 
         self.extensionless_document = models.Document(title="Test document")
         self.extensionless_document.file.save(
-            "example", ContentFile("A boring example document")
+            "sample_name",
+            ContentFile("A boring example document"),
         )
 
     def test_filename(self):
-        self.assertEqual("example.doc", self.document.filename)
-        self.assertEqual("example.pdf", self.pdf_document.filename)
-        self.assertEqual("example", self.extensionless_document.filename)
+        self.assertEqual("sample_name.doc", self.document.filename)
+        self.assertEqual("sample_name.pdf", self.pdf_document.filename)
+        self.assertEqual("sample_name", self.extensionless_document.filename)
 
     def test_file_extension(self):
         self.assertEqual("doc", self.document.file_extension)
@@ -147,12 +152,12 @@ class TestDocumentFilenameProperties(TestCase):
 
     def test_content_disposition(self):
         self.assertEqual(
-            """attachment; filename=example.doc; filename*=UTF-8''example.doc""",
+            """attachment; filename=sample_name.doc; filename*=UTF-8''sample_name.doc""",
             self.document.content_disposition,
         )
         self.assertEqual("inline", self.pdf_document.content_disposition)
         self.assertEqual(
-            """attachment; filename=example; filename*=UTF-8''example""",
+            """attachment; filename=sample_name; filename*=UTF-8''sample_name""",
             self.extensionless_document.content_disposition,
         )
 

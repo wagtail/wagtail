@@ -1,18 +1,33 @@
 #
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
-# Dino Aljević <dino8890@protonmail.com>, 2022
 # Loic Teixeira, 2022
+# Dino Aljević <dino8890@protonmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2023\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s greška"
+msgstr[1] "%(num)s grešaka"
+msgstr[2] "%(num)s grešaka"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s piksel"
+msgstr[1] "%(num)s piksela"
+msgstr[2] "%(num)s piksela"
+
+msgid "Add a comment"
+msgstr "Dodaj komentar"
 
 msgid "Alt text"
 msgstr "Alternativni tekst"
@@ -25,6 +40,9 @@ msgstr "Neispravna poveznica"
 
 msgid "Cancel"
 msgstr "Odustani"
+
+msgid "Character count:"
+msgstr "Broj znakova:"
 
 msgid "Close"
 msgstr "Zatvori"
@@ -74,6 +92,9 @@ msgstr "Pretraživač stranica"
 msgid "Pages"
 msgstr "Stranice"
 
+msgid "Pin toolbar"
+msgstr "Prikači alatnu traku"
+
 msgid "Reload saved content"
 msgstr "Ponovno učitaj sačuvani sadržaj"
 
@@ -103,5 +124,11 @@ msgstr ""
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
 
+msgid "Unpin toolbar"
+msgstr "Otkvači alatnu traku"
+
 msgid "View child pages of '%(title)s'"
 msgstr "Pogledaj djecu stranice '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Upišite nešto ili utipkajte '/' za ubacivanje bloka"

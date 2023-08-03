@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -262,9 +262,6 @@ msgstr "تم تحديد %(objects)s مُستخدم"
 msgid "1 item selected"
 msgstr "تم تحديد 1 عنصر"
 
-msgid "Page title"
-msgstr "عنوان الصفحة"
-
 msgid "For search engines"
 msgstr "خاص بمحركات البحث"
 
@@ -279,6 +276,12 @@ msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Page title"
+msgstr "عنوان الصفحة"
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -491,9 +494,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "صفحاتُك المقفلة"
-
-msgid "Title"
-msgstr "عنوان"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
@@ -714,13 +714,6 @@ msgid "Publish page"
 msgstr "نشر الصفحة"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "صفحات مستخدمة%(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "صفحات تستعمل"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "نسخ %(title)s"
 
@@ -760,18 +753,8 @@ msgstr "المسودة الحالية"
 msgid "Exploring %(title)s"
 msgstr "استكشف %(title)s"
 
-msgid "Drag"
-msgstr "اسحب"
-
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
-
-msgid "No pages have been created at this location."
-msgstr "لم تنسأ إي صفحات في هذا الموقع"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "لماذا لا تنشئ <a href=\"%(add_page_url)s\">واحدة</a>؟"
 
 msgid "This page is locked to further editing"
 msgstr "هذه الصفحة مغلقة لأي تنقيح"
@@ -783,6 +766,18 @@ msgstr "استكشاف الصفحات الفردية '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "اضافة تفرع لصفحة %(title)s"
+
+msgid "Drag"
+msgstr "اسحب"
+
+msgid "Disable ordering of child pages"
+msgstr "تعطيل ترتيب الصفحات الفرعية"
+
+msgid "Sort"
+msgstr "ترتيب"
+
+msgid "Enable ordering of child pages"
+msgstr "تمكين ترتيب الصفحات الفرعية"
 
 msgid "Sites menu"
 msgstr "قائمة الموقع"
@@ -798,18 +793,6 @@ msgstr "قادم"
 
 msgid "This page is protected from public view"
 msgstr "هذه الصفحة محمية من النظر العمومي"
-
-msgid "Disable ordering of child pages"
-msgstr "تعطيل ترتيب الصفحات الفرعية"
-
-msgid "Sort"
-msgstr "ترتيب"
-
-msgid "Enable ordering of child pages"
-msgstr "تمكين ترتيب الصفحات الفرعية"
-
-msgid "Updated"
-msgstr "مجدد"
 
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
@@ -836,11 +819,8 @@ msgstr "تقدم إلى تحت"
 msgid "No pages found."
 msgstr "لم يتم العثور على صفحات."
 
-msgid "Download XLSX"
-msgstr "حمل XLSX"
-
-msgid "Download CSV"
-msgstr "تنزيل ملف CSV"
+msgid "Updated"
+msgstr "مجدد"
 
 msgid "Locked"
 msgstr "مغلق"
@@ -857,6 +837,12 @@ msgstr "صفحة %(page_num)s من %(total_pages)s"
 
 msgid "Root"
 msgstr "الجذر"
+
+msgid "Download XLSX"
+msgstr "حمل XLSX"
+
+msgid "Download CSV"
+msgstr "تنزيل ملف CSV"
 
 msgid "Filter"
 msgstr "فلتر"
@@ -980,6 +966,9 @@ msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
 msgid "Editing"
 msgstr "جاري التعديل"
 
+msgid "Inspecting"
+msgstr "يتم الفحص"
+
 msgid "Earliest"
 msgstr "السابقة"
 
@@ -1087,6 +1076,9 @@ msgstr "تم نقل الصفحة '%(page_title)s'."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "الصفحة '%(page_title)s' غير منشورة."
+
+msgid "Pages using"
+msgstr "صفحات تستعمل"
 
 msgid "ID"
 msgstr "المُعَرِّفْ"

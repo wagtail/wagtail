@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,23 +39,23 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Ulåst"
 
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Publish"
+msgstr "Udgiv"
+
+msgid "Unlock"
+msgstr "Lås op"
+
 msgid "title"
 msgstr "Titel"
 
 msgid "created at"
 msgstr "oprettet"
-
-msgid "Edit"
-msgstr "Rediger"
-
-msgid "Publish"
-msgstr "Udgiv"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Unlock"
-msgstr "Lås op"
 
 msgid "Approve"
 msgstr "Godkend"

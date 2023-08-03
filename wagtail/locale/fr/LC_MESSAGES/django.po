@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -251,6 +251,39 @@ msgstr "en cours de modération"
 msgid "live + in moderation"
 msgstr "publiée + en cours de modération"
 
+msgid "Add/edit pages you own"
+msgstr "Ajouter/modifier vos pages"
+
+msgid "Bulk delete"
+msgstr "Supprimer en masse"
+
+msgid "Delete pages with children"
+msgstr "Supprimer des pages avec leurs enfants"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit any page"
+msgstr "Modifier n'importe quelle page"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Verrouiller / Déverrouiller les pages que vous avez verrouillés"
+
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Publish any page"
+msgstr "Publier n'importe quelle page"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Unlock any page"
+msgstr "Déverrouiller n'importe quelle page"
+
 msgid "title"
 msgstr "Titre"
 
@@ -346,41 +379,11 @@ msgstr "version"
 msgid "revisions"
 msgstr "versions"
 
-msgid "Add/edit pages you own"
-msgstr "Ajouter/modifier vos pages"
-
-msgid "Edit"
-msgstr "Modifier"
-
-msgid "Edit any page"
-msgstr "Modifier n'importe quelle page"
-
-msgid "Publish"
-msgstr "Publier"
-
-msgid "Publish any page"
-msgstr "Publier n'importe quelle page"
-
-msgid "Bulk delete"
-msgstr "Supprimer en masse"
-
-msgid "Delete pages with children"
-msgstr "Supprimer des pages avec leurs enfants"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Verrouiller / Déverrouiller les pages que vous avez verrouillés"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Unlock any page"
-msgstr "Déverrouiller n'importe quelle page"
-
 msgid "group"
 msgstr "groupe"
+
+msgid "permission"
+msgstr "permission"
 
 msgid "permission type"
 msgstr "type de permission"
@@ -602,9 +605,6 @@ msgstr "confidentialités de collection"
 
 msgid "collections"
 msgstr "collections"
-
-msgid "permission"
-msgstr "permission"
 
 msgid "group collection permission"
 msgstr "permission de collection de groupe"

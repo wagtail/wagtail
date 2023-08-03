@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -119,6 +119,17 @@ msgstr "Preusmeritve"
 
 msgid "Import redirects"
 msgstr "Uvozite preusmeritve"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Izberite datoteko, kjer so preusmeritve ločene v vrstice in vsebuje "
+"stolpce, ki predstavljajo <code>od</code> in <code>do</code> (lahko jih "
+"poljubno poimenujete).</p> <p>Po oddaji boste preusmerjeni v potrditveni "
+"pogled, kjer lahko prilagodite svoje preusmeritve pred uvozom.</p>"
 
 msgid "Import"
 msgstr "preusmeri"
@@ -236,6 +247,10 @@ msgstr "Preusmeritev '%(redirect_title)s' dodana."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Format datoteke vrste '%(extension)s' ni podprt"
 
 #, python-format
 msgid "Imported file has a wrong encoding: %(error_message)s"

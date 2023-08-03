@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,12 +99,6 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
-msgid "Last updated"
-msgstr "Τελευταία αναθεώρηση"
-
-msgid "History"
-msgstr "Ιστορικό"
-
 msgid "Saving…"
 msgstr "Αποθήκευση…"
 
@@ -126,6 +120,9 @@ msgstr "Ενέργειες"
 
 msgid "Snippets"
 msgstr "Snippets"
+
+msgid "History"
+msgstr "Ιστορικό"
 
 msgid "Usage"
 msgstr "Χρήση"
@@ -185,6 +182,9 @@ msgstr "Ιστορικό αποσπάσματος"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Αναθεώρηση '%(title)s'"
+
+msgid "Inspect"
+msgstr "Επιθεωρείστε"
 
 #, python-format
 msgid "Delete '%(title)s'"
