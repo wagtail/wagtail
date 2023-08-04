@@ -30,7 +30,7 @@ jobs:
           no_output_timeout: 30m
           command: |
             export PYTHONUNBUFFERED=1
-            DATABASE_NAME=wagtail.db pipenv run python -u runtests.py --parallel
+            pipenv run python -u runtests.py --parallel
 
   frontend:
     docker:
