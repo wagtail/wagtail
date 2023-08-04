@@ -27,10 +27,9 @@ jobs:
       - run: pipenv run doc8 docs
       - run:
           name: Run tests
-          no_output_timeout: 30m
           command: |
             export PYTHONUNBUFFERED=1
-            pipenv run python -u runtests.py --parallel
+            pipenv run python -u runtests.py --parallel=2
 
   frontend:
     docker:
