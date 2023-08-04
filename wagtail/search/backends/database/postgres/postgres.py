@@ -2,7 +2,12 @@ import warnings
 from collections import OrderedDict
 from functools import reduce
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramWordSimilarity
+from django.contrib.postgres.search import (
+    SearchQuery,
+    SearchRank,
+    SearchVector,
+    TrigramWordSimilarity,
+)
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
 from django.db.models import Avg, Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
