@@ -2,7 +2,7 @@ import warnings
 from collections import OrderedDict
 from functools import reduce
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramWordSimilarity
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
 from django.db.models import Avg, Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
@@ -582,9 +582,29 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         queryset = self.queryset.annotate(_vector_=combined_vector).filter(
             _vector_=search_query
         )
+        filters = Q(_vector_=search_query)
+        order_by = [rank_expression.desc(), "-pk"]
+
+        if True:  # some settings in django or in the search query
+            fields_to_search_for_trigrams = [("title", 0.2)]  # TODO : search against
+            # index and not against page model
+            queryset = queryset.annotate(
+                **{
+                    f"{field}_similarity": TrigramWordSimilarity(
+                        self.query.query_string, field
+                    )
+                    for field in fields_to_search_for_trigrams
+                }
+            )
+
+            for field, threshold in fields_to_search_for_trigrams:
+                filters = filters | Q(**{f"{field}_similarity__gte": threshold})
+                order_by = [f"-{field}_similarity", *order_by]
+
+        queryset = queryset.filter(filters)
 
         if self.order_by_relevance:
-            queryset = queryset.order_by(rank_expression.desc(), "-pk")
+            queryset = queryset.order_by(*order_by)
 
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
