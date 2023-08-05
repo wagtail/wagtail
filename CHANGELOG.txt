@@ -13,6 +13,7 @@ Changelog
  * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
  * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
  * Maintenance: Add support for options/attrs in Telepath widgets so that attrs render on the created DOM (Storm Heg)
+ * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
 
 
 5.1 (01.08.2023)
