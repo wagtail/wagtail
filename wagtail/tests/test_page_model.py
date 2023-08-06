@@ -23,6 +23,7 @@ from wagtail.models import (
     Page,
     PageLogEntry,
     PageManager,
+    PageViewRestriction,
     Site,
     Workflow,
     WorkflowTask,
@@ -2140,6 +2141,82 @@ class TestCopyPage(TestCase):
 
         # The copy should just be a copy of the original page, not an alias
         self.assertIsNone(about_us_alias_copy.alias_of)
+
+    def test_copy_page_copies_restriction(self):
+        """Test that view restrictions attached to a page are copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        homepage.add_child(instance=child_page_1)
+
+        # Add PageViewRestriction to child_page_1
+        PageViewRestriction.objects.create(page=child_page_1, password="hello")
+
+        child_page_2 = child_page_1.copy(
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"}
+        )
+
+        # check that the copied page child_page_2 has a view restriction
+        self.assertTrue(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_copy_page_does_not_copy_restrictions_from_parent(self):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+        PageViewRestriction.objects.create(page=origin_parent, password="hello")
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+
+        child_page_2 = child_page_1.copy(
+            to=destination_parent,
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"},
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_copy_page_does_not_copy_restrictions_when_new_parent_has_one_already(self):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+        PageViewRestriction.objects.create(page=destination_parent, password="hello")
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+        PageViewRestriction.objects.create(page=child_page_1, password="hello")
+
+        child_page_2 = child_page_1.copy(
+            to=destination_parent,
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"},
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
 
 
 class TestCreateAlias(TestCase):

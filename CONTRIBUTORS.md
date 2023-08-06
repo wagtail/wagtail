@@ -724,6 +724,7 @@
 * Scott Foster
 * Florent Lebreton
 * Shreshth Srivastava
+* Sandeep Choudhary
 
 ## Translators
 
