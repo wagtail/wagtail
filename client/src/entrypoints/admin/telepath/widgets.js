@@ -2,12 +2,20 @@
 import { gettext } from '../../../utils/gettext';
 
 class BoundWidget {
-  constructor(element, name, idForLabel, initialState, parentCapabilities) {
+  constructor(
+    element,
+    name,
+    idForLabel,
+    initialState,
+    parentCapabilities,
+    options,
+  ) {
     var selector = ':input[name="' + name + '"]';
     this.input = element.find(selector).addBack(selector); // find, including element itself
     this.idForLabel = idForLabel;
     this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
+    this.options = options;
   }
 
   getValue() {
@@ -49,10 +57,24 @@ class Widget {
 
   boundWidgetClass = BoundWidget;
 
-  render(placeholder, name, id, initialState, parentCapabilities) {
+  render(
+    placeholder,
+    name,
+    id,
+    initialState,
+    parentCapabilities,
+    options = {},
+  ) {
     var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     var idForLabel = this.idPattern.replace(/__ID__/g, id);
     var dom = $(html);
+
+    // Add any extra attributes we received to the HTML of the widget
+    if (typeof options?.attributes === 'object') {
+      Object.entries(options.attributes).forEach(([key, value]) => {
+        dom.attr(key, value);
+      });
+    }
     $(placeholder).replaceWith(dom);
     // eslint-disable-next-line new-cap
     return new this.boundWidgetClass(
@@ -61,6 +83,7 @@ class Widget {
       idForLabel,
       initialState,
       parentCapabilities,
+      options,
     );
   }
 }
@@ -349,7 +372,7 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
-  render(container, name, id, initialState, parentCapabilities) {
+  render(container, name, id, initialState, parentCapabilities, options = {}) {
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -363,7 +386,7 @@ class DraftailRichTextArea {
 
     const boundDraftail = new BoundDraftailWidget(
       input,
-      this.options,
+      { ...this.options, ...options },
       parentCapabilities,
     );
 
