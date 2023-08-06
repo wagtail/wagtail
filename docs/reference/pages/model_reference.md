@@ -728,11 +728,40 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
 
         The user that created the revision.
 
-    .. attribute:: content
+     .. attribute:: content
 
         (dict)
 
-        The JSON content for the object at the time the revision was created.
+        The JSON content for the object at the time the revision was created. The content of a revision is a JSON-                serializable dictionary representing the state of the object when the revision was saved.
+
+    Note: Purging Stale Revisions
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Stale revisions are revisions that are no longer associated with any live objects. These revisions can accumulate         over time as content is updated and new revisions are created. To manage database size and improve performance,           administrators can use the `purge_revisions` management command to remove stale revisions from the database.
+
+    Please exercise caution when running the `purge_revisions` command, as it will permanently delete stale revisions         that are no longer referenced by any live content. Make sure to back up important revisions or consider using a           ForeignKey with `on_delete=models.PROTECT` if there are specific revisions that you want to preserve and prevent from     being deleted.
+
+    Using ForeignKey with `on_delete=models.PROTECT`
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Wagtail implementors may want to use a `ForeignKey` field with `on_delete=models.PROTECT` when referring to a             specific revision they don't want to be deleted. By doing so, the revision will be protected from deletion as long as     it is referenced by any other live objects in the system.
+
+    Here's an example of using `on_delete=models.PROTECT` with a `ForeignKey` field in your model definition:
+
+    .. code-block:: python
+
+        from django.db import models
+        from wagtail.core.models import Revision
+
+        class MyModel(models.Model):
+            revision = models.ForeignKey(
+                Revision,
+                on_delete=models.PROTECT,
+                # Add other fields for your model
+            )
+            # Add other fields for your model
+
+    With this setup, when a `Revision` instance is referenced by the `revision` field of `MyModel`, the `purge_revisions`     command will not delete that particular revision, ensuring its preservation even if it becomes stale.
 ```
 
 ### Managers
