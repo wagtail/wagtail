@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
-from django.db.utils import ProtectedError
+import sys 
 from django.utils import timezone
 
 from wagtail.models import Revision, WorkflowState
