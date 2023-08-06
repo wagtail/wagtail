@@ -320,7 +320,7 @@ class CopyPageAction:
         )
 
         # Copy child pages
-        from wagtail.models import Page
+        from wagtail.models import Page, PageViewRestriction
 
         if self.recursive:
             numchild = 0
@@ -339,6 +339,22 @@ class CopyPageAction:
             if numchild > 0:
                 page_copy.numchild = numchild
                 page_copy.save(clean=False, update_fields=["numchild"])
+
+        # Copy parent privacy permission (Issue 6212)
+        if to:
+            parent_page_restriction = to.get_view_restrictions()
+        else:
+            parent_page_restriction = self.page.get_parent().get_view_restrictions()
+
+        if not parent_page_restriction.exists():
+            for privacy_settings_to_copy in self.page.view_restrictions.all():
+                privacy_settings_to_copy_fields = {
+                    'restriction_type': privacy_settings_to_copy.restriction_type,
+                    'password': privacy_settings_to_copy.password,
+                    'page': page_copy,
+                }
+                page_view_restriction = PageViewRestriction(**privacy_settings_to_copy_fields)
+                page_view_restriction.save(user=self.user)
 
         return page_copy
 
