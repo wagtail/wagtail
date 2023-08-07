@@ -10,7 +10,7 @@ from wagtail.admin.admin_url_finder import (
 from wagtail.admin.views import generic
 from wagtail.permissions import ModelPermissionPolicy
 
-from .base import ViewSet
+from .base import ViewSet, ViewSetGroup
 
 
 class ModelViewSet(ViewSet):
@@ -192,3 +192,15 @@ class ModelViewSet(ViewSet):
     def on_register(self):
         super().on_register()
         self.register_admin_url_finder()
+
+
+class ModelViewSetGroup(ViewSetGroup):
+    def get_app_label_from_subitems(self):
+        for instance in self.registerables:
+            if app_label := getattr(instance, "app_label", ""):
+                return app_label.title()
+        return ""
+
+    @cached_property
+    def menu_label(self):
+        return self.get_app_label_from_subitems()
