@@ -2,7 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.utils.functional import cached_property
 
-from wagtail.admin.menu import WagtailMenuRegisterable
+from wagtail.admin.menu import WagtailMenuRegisterable, WagtailMenuRegisterableGroup
 
 
 class ViewSet(WagtailMenuRegisterable):
@@ -84,3 +84,13 @@ class ViewSet(WagtailMenuRegisterable):
     @cached_property
     def menu_url(self):
         return reverse(self.get_url_name(self.get_urlpatterns()[0].name))
+
+
+class ViewSetGroup(WagtailMenuRegisterableGroup):
+    """
+    A container for grouping together multiple ViewSet instances.
+    Creates a menu item with a submenu for accessing the main URL for each instances.
+    """
+
+    def on_register(self):
+        self.register_menu_item()
