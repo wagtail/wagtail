@@ -219,7 +219,12 @@ class IndexView(
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        queryset = self._annotate_queryset_updated_at(queryset)
+        has_updated_at_column = any(
+            getattr(column, "accessor", None) == "_updated_at"
+            for column in self.columns
+        )
+        if has_updated_at_column:
+            queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -236,9 +241,12 @@ class IndexView(
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by(
-                models.F("_updated_at").desc(nulls_last=True), "-pk"
-            )
+            if has_updated_at_column:
+                queryset = queryset.order_by(
+                    models.F("_updated_at").desc(nulls_last=True), "-pk"
+                )
+            else:
+                queryset = queryset.order_by("-pk")
 
         return queryset
 
