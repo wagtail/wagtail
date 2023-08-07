@@ -1,8 +1,11 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse
 from django.utils.functional import cached_property
 
+from wagtail.admin.menu import WagtailMenuRegisterable
 
-class ViewSet:
+
+class ViewSet(WagtailMenuRegisterable):
     """
     Defines a viewset to be registered with the Wagtail admin.
 
@@ -57,7 +60,7 @@ class ViewSet:
         """
         Called when the viewset is registered; subclasses can override this to perform additional setup.
         """
-        pass
+        self.register_menu_item()
 
     def get_urlpatterns(self):
         """
@@ -70,3 +73,7 @@ class ViewSet:
         Returns the namespaced URL name for the given view.
         """
         return self.url_namespace + ":" + view_name
+
+    @cached_property
+    def menu_url(self):
+        return reverse(self.get_url_name(self.get_urlpatterns()[0].name))
