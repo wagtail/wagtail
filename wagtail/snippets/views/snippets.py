@@ -11,10 +11,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.menu import MenuItem
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import (
@@ -623,30 +621,6 @@ class SnippetViewSet(ModelViewSet):
     #: The model class to be registered as a snippet with this viewset.
     model = None
 
-    #: The icon to use across the admin for this snippet type.
-    icon = "snippet"
-
-    #: Register a custom menu item for this snippet type in the admin's main menu.
-    add_to_admin_menu = False
-
-    #: Register a custom menu item for this snippet type in the admin's "Settings" menu.
-    #: This takes precedence if both ``add_to_admin_menu`` and ``add_to_settings_menu`` are set to ``True``.
-    add_to_settings_menu = False
-
-    #: The displayed label used for the menu item that appears in Wagtail's sidebar.
-    #: If unset, the title-cased version of the model's :attr:`~django.db.models.Options.verbose_name_plural` will be used.
-    menu_label = None
-
-    #: The ``name`` argument passed to the ``MenuItem`` constructor, becoming the ``name`` attribute value for that instance.
-    #: This can be useful when manipulating the menu items in a custom menu hook, e.g. :ref:`construct_main_menu`.
-    #: If unset, a slugified version of the label is used.
-    menu_name = None
-
-    #: An integer determining the order of the menu item, 0 being the first place.
-    #: If the viewset is registered within a :class:`SnippetViewSetGroup`,
-    #: this is ignored and the menu item order is determined by the order of :attr:`~SnippetViewSetGroup.items`.
-    menu_order = None
-
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = None
 
@@ -1220,54 +1194,66 @@ class SnippetViewSet(ModelViewSet):
             per_page=self.chooser_per_page,
         )
 
-    def get_icon(self):
-        """Returns the icon to be used for the admin views."""
-        return self.icon
-
-    def get_menu_label(self):
-        """Returns the label text to be used for the menu item."""
-        return self.menu_label or self.model_opts.verbose_name_plural.title()
-
-    def get_menu_name(self):
-        """Returns the name to be used for the menu item."""
-        return self.menu_name
-
-    def get_menu_icon(self):
-        """Returns the icon to be used for the menu item."""
+    @cached_property
+    def icon(self):
         return self.get_icon()
 
+    def get_icon(self):
+        """
+        Returns the icon to be used for the admin views.
+
+        **Deprecated** - the preferred way to customise this is to define an ``icon`` property.
+        """
+        return "snippet"
+
+    @cached_property
+    def menu_label(self):
+        return self.get_menu_label()
+
+    def get_menu_label(self):
+        """
+        Returns the label text to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_label`` property.
+        """
+        return self.model_opts.verbose_name_plural.title()
+
+    @cached_property
+    def menu_name(self):
+        return self.get_menu_name()
+
+    def get_menu_name(self):
+        """
+        Returns the name to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_name`` property.
+        """
+        return ""
+
+    @cached_property
+    def menu_icon(self):
+        return self.get_menu_icon()
+
+    def get_menu_icon(self):
+        """
+        Returns the icon to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_icon`` property.
+        """
+        return self.icon
+
+    @cached_property
+    def menu_order(self):
+        return self.get_menu_order()
+
     def get_menu_order(self):
-        """Returns the ordering number to be applied to the menu item."""
+        """
+        Returns the ordering number to be applied to the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_order`` property.
+        """
         # By default, put it at the last item before Reports, whose order is 9000.
-        return self.menu_order or 8999
-
-    @property
-    def menu_item_class(self):
-        def is_shown(_self, request):
-            return self.permission_policy.user_has_any_permission(
-                request.user, ("add", "change", "delete")
-            )
-
-        return type(
-            f"{self.model.__name__}MenuItem",
-            (MenuItem,),
-            {"is_shown": is_shown},
-        )
-
-    def get_menu_item(self, order=None):
-        """
-        Returns a ``MenuItem`` instance to be registered with the Wagtail admin.
-
-        The ``order`` parameter allows the method to be called from the outside (e.g.
-        :class:`SnippetViewSetGroup`) to create a sub menu item with the correct order.
-        """
-        return self.menu_item_class(
-            label=self.get_menu_label(),
-            url=reverse(self.get_url_name("index")),
-            name=self.get_menu_name(),
-            icon_name=self.get_menu_icon(),
-            order=order or self.get_menu_order(),
-        )
+        return 8999
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
@@ -1545,12 +1531,6 @@ class SnippetViewSet(ModelViewSet):
 
         checks.register(snippets_model_check, "panels")
 
-    def register_menu_item(self):
-        if self.add_to_settings_menu:
-            hooks.register("register_settings_menu_item", self.get_menu_item)
-        elif self.add_to_admin_menu:
-            hooks.register("register_admin_menu_item", self.get_menu_item)
-
     def on_register(self):
         super().on_register()
         # For convenience, attach viewset to the model class to allow accessing
@@ -1558,7 +1538,6 @@ class SnippetViewSet(ModelViewSet):
         self.model.snippet_viewset = self
         viewsets.register(self.chooser_viewset)
         self.register_model_check()
-        self.register_menu_item()
 
 
 class SnippetViewSetGroup(ModelViewSetGroup):
