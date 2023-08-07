@@ -9,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.core.paginator import InvalidPage, Paginator
+from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template.loader import render_to_string
@@ -296,7 +297,7 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif self.model_class:
+        elif issubclass(self.model_class, Model):
             return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
