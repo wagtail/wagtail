@@ -38,6 +38,10 @@ class ModelViewSet(ViewSet):
                 % self
             )
 
+        self.model_opts = self.model._meta
+        self.app_label = self.model_opts.app_label
+        self.model_name = self.model_opts.model_name
+
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
@@ -48,7 +52,7 @@ class ModelViewSet(ViewSet):
         Viewset name, to use as the URL prefix and namespace.
         Defaults to the :attr:`~django.db.models.Options.model_name`.
         """
-        return self.model._meta.model_name
+        return self.model_name
 
     def get_index_view_kwargs(self):
         return {
@@ -106,6 +110,25 @@ class ModelViewSet(ViewSet):
             index_url_name=self.get_url_name("index"),
             delete_url_name=self.get_url_name("delete"),
             header_icon=self.icon,
+        )
+
+    @cached_property
+    def menu_label(self):
+        return self.model_opts.verbose_name_plural.title()
+
+    @cached_property
+    def menu_item_class(self):
+        from wagtail.admin.menu import MenuItem
+
+        def is_shown(_self, request):
+            return self.permission_policy.user_has_any_permission(
+                request.user, ("add", "change", "delete")
+            )
+
+        return type(
+            f"{self.model.__name__}MenuItem",
+            (MenuItem,),
+            {"is_shown": is_shown},
         )
 
     def formfield_for_dbfield(self, db_field, **kwargs):
