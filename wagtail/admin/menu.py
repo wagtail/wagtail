@@ -163,6 +163,117 @@ class AdminOnlyMenuItem(MenuItem):
         return request.user.is_superuser
 
 
+class WagtailMenuRegisterable:
+    #: The icon used for the menu item that appears in Wagtail's sidebar.
+    menu_icon = ""
+
+    #: The displayed label used for the menu item.
+    menu_label = ""
+
+    #: The ``name`` argument passed to the ``MenuItem`` constructor, becoming the ``name`` attribute value for that instance.
+    #: This can be useful when manipulating the menu items in a custom menu hook, e.g. :ref:`construct_main_menu`.
+    #: If unset, a slugified version of :attr:`menu_label` is used.
+    menu_name = ""
+
+    #: An integer determining the order of the menu item, 0 being the first place.
+    #: By default, it will be the last item before Reports, whose order is 9000.
+    menu_order = 8999
+
+    #: The URL to be used for the menu item.
+    menu_url = None
+
+    #: Register the menu item within the admin's main menu.
+    add_to_admin_menu = False
+
+    #: Register the menu item within the admin's "Settings" menu.
+    #: This takes precedence if both ``add_to_admin_menu`` and ``add_to_settings_menu`` are set to ``True``.
+    add_to_settings_menu = False
+
+    @cached_property
+    def menu_item_class(self):
+        """A ``wagtail.admin.menu.MenuItem`` subclass to be registered with a menu hook."""
+        return type(
+            f"{self.__class__.__name__}MenuItem",
+            (MenuItem,),
+            {},
+        )
+
+    def get_menu_item(self, order=None):
+        """
+        Returns a ``wagtail.admin.menu.MenuItem`` instance to be registered
+        with the Wagtail admin.
+
+        The ``order`` parameter allows the method to be called from the outside
+        (e.g. a ``WagtailMenuRegisterableGroup``) to create a sub menu item with
+        the correct order.
+        """
+        return self.menu_item_class(
+            label=self.menu_label,
+            url=self.menu_url,
+            name=self.menu_name,
+            icon_name=self.menu_icon,
+            order=order or self.menu_order,
+        )
+
+    @cached_property
+    def menu_hook(self):
+        """
+        The name of the hook to register the menu item within.
+
+        This takes precedence over ``add_to_admin_menu`` and ``add_to_settings_menu``.
+        """
+        if self.add_to_settings_menu:
+            return "register_settings_menu_item"
+        if self.add_to_admin_menu:
+            return "register_admin_menu_item"
+
+    def register_menu_item(self):
+        """Registers the menu item with the Wagtail admin."""
+        if self.menu_hook:
+            hooks.register(self.menu_hook, self.get_menu_item)
+
+
+class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
+    """
+    A container for grouping together multiple WagtailMenuRegisterable instances.
+    Creates a menu item with a submenu for accessing the main URL for each instances.
+    """
+
+    #: A list or tuple of ``WagtailMenuRegisterable`` classes or instances
+    #: to be grouped together.
+    items = ()
+
+    menu_icon = "folder-open-inverse"
+    add_to_admin_menu = True
+
+    def __init__(self):
+        """
+        When initialising, instantiate the classes (or use the instances)
+        within 'items', and assign the list to a ``registerables`` attribute.
+        """
+        self.registerables = [
+            registerable() if callable(registerable) else registerable
+            for registerable in self.items
+        ]
+
+    def get_submenu_items(self):
+        menu_items = []
+        item_order = 1
+        for registerable in self.registerables:
+            menu_items.append(registerable.get_menu_item(order=item_order))
+            item_order += 1
+        return menu_items
+
+    def get_menu_item(self, order=None):
+        return SubmenuMenuItem(
+            label=self.menu_label,
+            menu=Menu(items=self.get_submenu_items()),
+            name=self.menu_name,
+            icon_name=self.menu_icon,
+            order=order or self.menu_order,
+        )
+
+
 admin_menu = Menu(
     register_hook_name="register_admin_menu_item",
     construct_hook_name="construct_main_menu",
