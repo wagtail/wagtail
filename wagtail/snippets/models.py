@@ -95,7 +95,7 @@ def _register_snippet_immediately(registerable, viewset=None):
         # register_snippet(CustomViewSetGroup) or
         # @register_snippet on class CustomViewSetGroup
         viewset_group = registerable()
-        for admin_viewset in viewset_group.viewsets:
+        for admin_viewset in viewset_group.registerables:
             register_snippet_viewset(admin_viewset)
         viewset_group.on_register()
         return
