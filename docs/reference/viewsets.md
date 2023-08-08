@@ -9,6 +9,10 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
+   .. autoattribute:: admin_url_namespace
+   .. autoattribute:: base_url_path
+   .. automethod:: get_admin_url_namespace
+   .. automethod:: get_admin_base_path
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
@@ -21,7 +25,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with.
+   The model class that this viewset will work with. Required, unless the ``model`` argument is passed to the constructor.
 
    .. attribute:: form_fields
 
@@ -144,8 +148,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_delete_template
    .. automethod:: get_history_template
    .. automethod:: get_inspect_template
-   .. automethod:: get_admin_url_namespace
-   .. automethod:: get_admin_base_path
    .. automethod:: get_chooser_admin_url_namespace
    .. automethod:: get_chooser_admin_base_path
 ```

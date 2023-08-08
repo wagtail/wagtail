@@ -47,11 +47,11 @@ class TestIncorrectRegistration(TestCase):
     def test_no_model_set_or_passed(self):
         # The base SnippetViewSet class has no `model` attribute set,
         # so using it directly should raise an error
-        with self.assertRaisesMessage(
-            ImproperlyConfigured,
-            "SnippetViewSet must be passed a model or define a model attribute.",
-        ):
+        with self.assertRaises(ImproperlyConfigured) as cm:
             register_snippet(SnippetViewSet)
+        message = str(cm.exception)
+        self.assertIn("ModelViewSet subclass", message)
+        self.assertIn("must define a model attribute or pass a model argument", message)
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):

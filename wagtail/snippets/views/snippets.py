@@ -2,7 +2,7 @@ import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
 from django.core import checks
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
@@ -617,6 +617,8 @@ class WorkflowHistoryDetailView(
 class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
+
+    All attributes and methods from :class:`~wagtail.admin.viewsets.model.ModelViewSet` are available.
     """
 
     #: The model class to be registered as a snippet with this viewset.
@@ -819,18 +821,8 @@ class SnippetViewSet(ModelViewSet):
     #: The template to use for the inspect view.
     inspect_template_name = ""
 
-    def __init__(self, model=None, **kwargs):
-        # Allow model to be defined on the class, or passed in via the constructor
-        self.model = model or self.model
-
-        if self.model is None:
-            raise ImproperlyConfigured(
-                "SnippetViewSet must be passed a model or define a model attribute."
-            )
-
-        self.model_opts = self.model._meta
-        self.app_label = self.model_opts.app_label
-        self.model_name = self.model_opts.model_name
+    def __init__(self, name=None, model=None, **kwargs):
+        super().__init__(name=name, model=model, **kwargs)
 
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
@@ -840,12 +832,6 @@ class SnippetViewSet(ModelViewSet):
 
         self.menu_item_is_registered = (
             self.add_to_admin_menu or self.add_to_settings_menu
-        )
-
-        super().__init__(
-            name=self.get_admin_url_namespace(),
-            url_prefix=self.get_admin_base_path(),
-            **kwargs,
         )
 
         if not self.list_display:
@@ -1348,7 +1334,7 @@ class SnippetViewSet(ModelViewSet):
     def get_admin_url_namespace(self):
         """Returns the URL namespace for the admin URLs for this model."""
         if self.admin_url_namespace:
-            return self.admin_url_namespace
+            return super().get_admin_url_namespace()
         return f"wagtailsnippets_{self.app_label}_{self.model_name}"
 
     def get_admin_base_path(self):
@@ -1357,7 +1343,7 @@ class SnippetViewSet(ModelViewSet):
         The returned string must not begin or end with a slash.
         """
         if self.base_url_path:
-            return self.base_url_path.strip().strip("/")
+            return super().get_admin_base_path()
         return f"snippets/{self.app_label}/{self.model_name}"
 
     def get_chooser_admin_url_namespace(self):
