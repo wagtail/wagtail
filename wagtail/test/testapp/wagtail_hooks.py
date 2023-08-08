@@ -17,7 +17,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElement
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
-from wagtail.admin.ui.tables import UpdatedAtColumn
+from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
@@ -263,6 +263,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         "get_foo_country_code",
         UpdatedAtColumn(),
         "modulo_two",
+        BooleanColumn("tristate"),
     ]
     list_export = [
         "text",
