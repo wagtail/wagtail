@@ -1129,6 +1129,9 @@ class FullFeaturedSnippet(
     def __str__(self):
         return self.text
 
+    def modulo_two(self):
+        return self.pk % 2
+
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
 

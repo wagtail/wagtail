@@ -257,7 +257,13 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     list_per_page = 5
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
-    list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
+    list_display = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        UpdatedAtColumn(),
+        "modulo_two",
+    ]
     list_export = [
         "text",
         "country_code",
