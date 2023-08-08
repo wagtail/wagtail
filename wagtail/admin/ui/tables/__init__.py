@@ -243,6 +243,12 @@ class StatusTagColumn(Column):
         return context
 
 
+class BooleanColumn(Column):
+    """Represents a True/False/None value as a tick/cross/question icon"""
+
+    cell_template_name = "wagtailadmin/tables/boolean_cell.html"
+
+
 class LiveStatusTagColumn(StatusTagColumn):
     """Represents a live/draft status tag"""
 

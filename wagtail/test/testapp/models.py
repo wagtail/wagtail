@@ -1132,6 +1132,9 @@ class FullFeaturedSnippet(
     def modulo_two(self):
         return self.pk % 2
 
+    def tristate(self):
+        return (None, True, False)[self.pk % 3]
+
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
 

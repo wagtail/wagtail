@@ -53,6 +53,24 @@ There are a few attributes of `ModelAdmin` that need to be renamed/adjusted for 
 | `form_fields_exclude`  | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.exclude_form_fields`           | Same value, but different attribute name to better align with `ModelViewSet`. |
 | - | {attr}`~SnippetViewSet.template_prefix` | New attribute. Set to the name of a template directory to override the `"wagtailsnippets/snippets/"` default. If set to `"modeladmin/"`, the template directory structure will be equal to what ModelAdmin uses. Make sure any custom templates are placed in the correct directory according to this prefix. See [](wagtailsnippets_templates) for more details. |
 
+### Boolean properties in `list_display`
+
+In ModelAdmin, boolean fields in `list_display` are rendered as tick/cross icons. To achieve the same behavior in SnippetViewSet, you need to use a `wagtail.admin.ui.tables.BooleanColumn` instance in `SnippetViewSet.list_display`:
+
+```python
+from wagtail.admin.ui.tables import BooleanColumn
+
+
+class MySnippetViewSet(SnippetViewSet):
+    list_display = ("title", BooleanColumn("is_active"))
+```
+
+The `BooleanColumn` class works with both model fields and custom properties that return booleans.
+
+```{versionadded} 5.1.1
+The `BooleanColumn` class was added.
+```
+
 ## Convert `ModelAdminGroup` class to `SnippetViewSetGroup`
 
 The {class}`~SnippetViewSetGroup` class is the snippets-equivalent to the `ModelAdminGroup` class. To migrate a `ModelAdminGroup` class to a `SnippetViewSetGroup` class, follow these instructions.
