@@ -25,7 +25,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   The model class that this viewset will work with. Required, unless the ``model`` argument is passed to the constructor.
+   Required; the model class that this viewset will work with.
 
    .. attribute:: form_fields
 

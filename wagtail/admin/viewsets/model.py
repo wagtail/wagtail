@@ -19,8 +19,6 @@ class ModelViewSet(ViewSet):
     All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet` are available.
     """
 
-    model = None  #: The model class to use for this viewset.
-
     icon = ""  #: The icon to use to represent the model within this viewset.
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
@@ -35,17 +33,15 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
 
-    def __init__(self, name=None, model=None, **kwargs):
-        # Set up the model before calling super().__init__() so it can be used
-        # in get_admin_url_namespace() and get_admin_base_path(), which are
-        # called by super().__init__().
-        self.model = model or self.model
+    def __init__(self, name=None, **kwargs):
         if not self.model:
             raise ImproperlyConfigured(
-                f"ModelViewSet subclass {repr(self)} must define a model "
-                "attribute or pass a model argument"
+                f"ModelViewSet subclass {repr(self)} must define a model attribute"
             )
 
+        # Set these before calling super().__init__() so they can be used
+        # in get_admin_url_namespace() and get_admin_base_path(), which are
+        # called by super().__init__().
         self.model_opts = self.model._meta
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name

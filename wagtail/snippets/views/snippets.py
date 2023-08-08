@@ -821,8 +821,8 @@ class SnippetViewSet(ModelViewSet):
     #: The template to use for the inspect view.
     inspect_template_name = ""
 
-    def __init__(self, name=None, model=None, **kwargs):
-        super().__init__(name=name, model=model, **kwargs)
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs)
 
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)

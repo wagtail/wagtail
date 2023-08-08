@@ -44,14 +44,14 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestIncorrectRegistration(TestCase):
-    def test_no_model_set_or_passed(self):
+    def test_no_model_set(self):
         # The base SnippetViewSet class has no `model` attribute set,
         # so using it directly should raise an error
         with self.assertRaises(ImproperlyConfigured) as cm:
             register_snippet(SnippetViewSet)
         message = str(cm.exception)
         self.assertIn("ModelViewSet subclass", message)
-        self.assertIn("must define a model attribute or pass a model argument", message)
+        self.assertIn("must define a model attribute", message)
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
