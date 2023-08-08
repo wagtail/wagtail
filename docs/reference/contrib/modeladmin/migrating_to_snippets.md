@@ -53,6 +53,28 @@ There are a few attributes of `ModelAdmin` that need to be renamed/adjusted for 
 | `form_fields_exclude`  | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.exclude_form_fields`           | Same value, but different attribute name to better align with `ModelViewSet`. |
 | - | {attr}`~SnippetViewSet.template_prefix` | New attribute. Set to the name of a template directory to override the `"wagtailsnippets/snippets/"` default. If set to `"modeladmin/"`, the template directory structure will be equal to what ModelAdmin uses. Make sure any custom templates are placed in the correct directory according to this prefix. See [](wagtailsnippets_templates) for more details. |
 
+## Convert `ModelAdminGroup` class to `SnippetViewSetGroup`
+
+The {class}`~SnippetViewSetGroup` class is the snippets-equivalent to the `ModelAdminGroup` class. To migrate a `ModelAdminGroup` class to a `SnippetViewSetGroup` class, follow these instructions.
+
+Change any imports of `ModelAdminGroup` to `SnippetViewSetGroup`:
+
+```diff
+- from wagtail.contrib.modeladmin.options import ModelAdminGroup
++ from wagtail.snippets.views.snippets import SnippetViewSetGroup
+```
+
+Change any references to `ModelAdminGroup` to `SnippetViewSetGroup`:
+
+```diff
+- class MyModelAdminGroup(ModelAdminGroup):
++ class MySnippetViewSetGroup(SnippetViewSetGroup):
+      ...
+
+- modeladmin_register(MyModelAdminGroup)
++ register_snippet(MySnippetViewSetGroup)
+```
+
 ## Unsupported features and customizations
 
 Some features and customizations in `ModelAdmin` are not directly supported via `SnippetViewSet`, but may be achievable via other means that are more in line with Wagtail's architecture.
