@@ -666,6 +666,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         self.assertContains(response, "Country code")
         self.assertContains(response, "Custom FOO column")
         self.assertContains(response, "Updated")
+        self.assertContains(response, "Modulo two")
 
         self.assertContains(response, "Foo UK")
 
@@ -677,8 +678,13 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
 
         html = response.content.decode()
 
-        # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
-        self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+        # The bulk actions column plus 5 columns defined in FullFeaturedSnippetViewSet
+        self.assertTagInHTML("<th>", html, count=6, allow_extra_attrs=True)
+
+    def test_falsy_value(self):
+        # https://github.com/wagtail/wagtail/issues/10765
+        response = self.get()
+        self.assertContains(response, "<td>0</td>", html=True, count=1)
 
 
 class TestListExport(BaseSnippetViewSetTests):
