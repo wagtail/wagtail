@@ -599,7 +599,7 @@ describe('SwapController', () => {
       expect(beginEventHandler).not.toHaveBeenCalled();
 
       jest.runAllTimers(); // search is debounced
-      await Promise.resolve(requestAnimationFrame);
+      await Promise.resolve();
 
       // should fire a begin event before the request is made
       expect(beginEventHandler).toHaveBeenCalledTimes(1);
@@ -985,7 +985,7 @@ describe('SwapController', () => {
       expect(beginEventHandler).not.toHaveBeenCalled();
 
       jest.runAllTimers(); // search is debounced
-      await Promise.resolve(requestAnimationFrame);
+      await Promise.resolve();
 
       // should fire a begin event before the request is made
       expect(beginEventHandler).toHaveBeenCalledTimes(1);

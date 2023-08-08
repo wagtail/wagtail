@@ -131,14 +131,14 @@ describe('initStimulus', () => {
 
     document.querySelector('section').after(section);
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // after controller connected - should have an output element
     expect(document.querySelector('#example-a > output').innerHTML).toEqual(
       '2 / 10 words',
     );
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // should respond to changes on the input
     const input = document.querySelector('#example-a > input');
@@ -152,7 +152,7 @@ describe('initStimulus', () => {
     // removal of the input should also remove the output (disconnect method)
     input.remove();
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // should call the disconnect method (removal of the injected HTML)
     expect(document.querySelector('#example-a > output')).toEqual(null);
@@ -174,14 +174,14 @@ describe('initStimulus', () => {
 
     document.querySelector('section').after(section);
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // after controller connected - should have an output element
     expect(document.querySelector('#example-b > output').innerHTML).toEqual(
       '2 / 5 words',
     );
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // should respond to changes on the input
     const input = document.querySelector('#example-b > input');
@@ -195,7 +195,7 @@ describe('initStimulus', () => {
     // removal of the input should also remove the output (disconnect method)
     input.remove();
 
-    await Promise.resolve({});
+    await Promise.resolve();
 
     // should call the disconnect method (removal of the injected HTML)
     expect(document.querySelector('#example-b > output')).toEqual(null);

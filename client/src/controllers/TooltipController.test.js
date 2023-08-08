@@ -30,7 +30,7 @@ describe('TooltipController', () => {
     application = Application.start();
     application.register('w-tooltip', TooltipController);
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     // set all animation durations to 0 so that tests can ignore animation delays
     // Tippy relies on transitionend which is not yet supported in JSDom
@@ -56,7 +56,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.dispatchEvent(new Event('mouseenter'));
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(1);
     const tooltip = document.querySelector('[role="tooltip"]');
@@ -74,7 +74,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.dispatchEvent(new Event('mouseenter'));
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     const tooltip = document.querySelector('[role="tooltip"]');
 
@@ -96,7 +96,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.removeAttribute('data-controller');
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(controller.tippy.destroy).toHaveBeenCalled();
   });
@@ -129,7 +129,7 @@ describe('TooltipController', () => {
     // change the content value
     tooltipTrigger.setAttribute('data-w-tooltip-content-value', 'NEW content!');
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(tooltip.textContent).toEqual('NEW content!');
   });

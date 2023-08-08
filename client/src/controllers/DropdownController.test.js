@@ -16,7 +16,7 @@ describe('DropdownController', () => {
     application = Application.start();
     application.register('w-dropdown', DropdownController);
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     // set all animation durations to 0 so that tests can ignore animation delays
     // Tippy relies on transitionend which is not yet supported in JSDom
