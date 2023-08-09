@@ -10,7 +10,7 @@ from django.utils.module_loading import import_string
 
 from wagtail.admin.viewsets import viewsets
 from wagtail.hooks import search_for_hooks
-from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
+from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 
 SNIPPET_MODELS = []
 
@@ -123,11 +123,6 @@ def register_snippet_viewset(viewset):
         return
 
     viewsets.register(viewset)
-
-    SNIPPET_MODELS.append(model)
-    SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
-
-    ReferenceIndex.register_model(model)
 
 
 def register_deferred_snippets():

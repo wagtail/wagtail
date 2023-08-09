@@ -42,6 +42,7 @@ from wagtail.models import (
     Locale,
     LockableMixin,
     PreviewableMixin,
+    ReferenceIndex,
     RevisionMixin,
     WorkflowMixin,
 )
@@ -1534,6 +1535,14 @@ class SnippetViewSet(ModelViewSet):
 
         checks.register(snippets_model_check, "panels")
 
+    def register_snippet_model(self):
+        snippet_models = get_snippet_models()
+        snippet_models.append(self.model)
+        snippet_models.sort(key=lambda x: x._meta.verbose_name)
+
+    def register_reference_index(self):
+        ReferenceIndex.register_model(self.model)
+
     def on_register(self):
         super().on_register()
         # For convenience, attach viewset to the model class to allow accessing
@@ -1541,6 +1550,8 @@ class SnippetViewSet(ModelViewSet):
         self.model.snippet_viewset = self
         self.register_chooser_viewset()
         self.register_model_check()
+        self.register_snippet_model()
+        self.register_reference_index()
 
 
 class SnippetViewSetGroup(ModelViewSetGroup):
