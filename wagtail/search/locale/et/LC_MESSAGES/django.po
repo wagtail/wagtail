@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail otsing"
+
+msgid "Query Daily Hits"
+msgstr "Päringu Igapäevased Kordused"
+
+msgid "Popular search terms"
+msgstr "Populaarsed otsinguterminid"
+
+msgid "Search"
+msgstr "Otsing"
+
+msgid "Terms"
+msgstr "Terminid"
+
+msgid "Views (past week)"
+msgstr "Vaatamised (eelmine nädal) "
+
+msgid "No results found"
+msgstr "Tulemusi ei leitud"
+
+msgid "Choose from popular search terms"
+msgstr "Valige populaarsete otsinguterminite hulgast"

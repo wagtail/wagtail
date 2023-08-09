@@ -1,0 +1,53 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
+
+{% block content %}
+
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon only %}
+
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields nice-padding">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <li>
+                        {% include "wagtailadmin/shared/field.html" %}
+                    </li>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% block footer %}
+            <footer class="footer" role="contentinfo">
+                <ul>
+                    <li class="actions footer__container">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button
+                                    type="submit"
+                                    class="button action-save button-longrunning"
+                                    data-controller="w-progress"
+                                    data-action="w-progress#activate"
+                                    data-w-progress-active-value="{% trans 'Creating…' %}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{% trans 'Create' %}</em>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

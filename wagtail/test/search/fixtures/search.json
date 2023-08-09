@@ -1,0 +1,545 @@
+[
+  {
+    "pk": 1,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "George R.R. Martin",
+      "date_of_birth": "1948-09-20"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "J. R. R. Tolkien",
+      "date_of_birth": "1892-01-03"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Isaac Asimov",
+      "date_of_birth": "1920-01-02"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "David Ascher",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 6,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Mark Lutz",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 7,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Daniel Roy Greenfeld",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 8,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Audrey Roy Greenfeld",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 9,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Douglas Crockford",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 10,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "David Flanagan",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 11,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Steve Klabnik",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 12,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Carol Nichols",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 13,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Jim Blandy",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 14,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Jason Orendorff",
+      "date_of_birth": null
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "A Game of Thrones",
+      "authors": [1],
+      "publication_date": "1996-08-01",
+      "number_of_pages": 694
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "A Clash of Kings",
+      "authors": [1],
+      "publication_date": "1998-01-01",
+      "number_of_pages": 768
+    }
+  },
+  {
+    "pk": 3,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "A Storm of Swords",
+      "authors": [1],
+      "publication_date": "2000-01-01",
+      "number_of_pages": 973
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "The Fellowship of the Ring",
+      "authors": [2],
+      "publication_date": "1954-07-29",
+      "number_of_pages": 423
+    }
+  },
+  {
+    "pk": 5,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "The Two Towers",
+      "authors": [2],
+      "publication_date": "1954-11-11",
+      "number_of_pages": 352
+    }
+  },
+  {
+    "pk": 6,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "The Return of the King",
+      "authors": [2],
+      "publication_date": "1955-10-20",
+      "number_of_pages": 440
+    }
+  },
+  {
+    "pk": 7,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "The Hobbit",
+      "authors": [2],
+      "publication_date": "1937-09-21",
+      "number_of_pages": 320
+    }
+  },
+  {
+    "pk": 10,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "Foundation",
+      "authors": [4],
+      "publication_date": "1951-01-01",
+      "number_of_pages": 255
+    }
+  },
+  {
+    "pk": 11,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "Learning Python",
+      "authors": [5, 6],
+      "publication_date": "1999-01-01",
+      "number_of_pages": 1160
+    }
+  },
+  {
+    "pk": 12,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "Two Scoops of Django 1.11",
+      "authors": [7, 8],
+      "publication_date": "2017-04-26",
+      "number_of_pages": 556
+    }
+  },
+  {
+    "pk": 13,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "JavaScript: The good parts",
+      "authors": [9],
+      "publication_date": "2008-05-18",
+      "number_of_pages": 172
+    }
+  },
+  {
+    "pk": 14,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "JavaScript: The Definitive Guide",
+      "authors": [10],
+      "publication_date": "1998-06-11",
+      "number_of_pages": 792
+    }
+  },
+  {
+    "pk": 15,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "The Rust Programming Language",
+      "authors": [11, 12],
+      "publication_date": "2018-05-22",
+      "number_of_pages": 440
+    }
+  },
+  {
+    "pk": 16,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "Programming Rust",
+      "authors": [13, 14],
+      "publication_date": "2017-12-01",
+      "number_of_pages": 622
+    }
+  },
+  {
+    "pk": 1,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Game of Thrones U",
+      "publication_date": "1996-08-01",
+      "number_of_pages": 694
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Clash of Kings U",
+      "publication_date": "1998-01-01",
+      "number_of_pages": 768
+    }
+  },
+  {
+    "pk": 3,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Storm of Swords U",
+      "publication_date": "2000-01-01",
+      "number_of_pages": 973
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "The Fellowship of the Ring U",
+      "publication_date": "1954-07-29",
+      "number_of_pages": 423
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Daenerys Targaryen",
+      "novel": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Jon Snow",
+      "novel": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Eddard Stark",
+      "novel": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Daenerys Targaryen",
+      "novel": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Jon Snow",
+      "novel": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Daenerys Targaryen",
+      "novel": 3
+    }
+  },
+  {
+    "pk": 7,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Jon Snow",
+      "novel": 3
+    }
+  },
+  {
+    "pk": 8,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Frodo Baggins",
+      "novel": 4
+    }
+  },
+  {
+    "pk": 9,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Bilbo Baggins",
+      "novel": 4
+    }
+  },
+  {
+    "pk": 10,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Gandalf",
+      "novel": 4
+    }
+  },
+  {
+    "pk": 11,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Frodo Baggins",
+      "novel": 5
+    }
+  },
+  {
+    "pk": 12,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Bilbo Baggins",
+      "novel": 5
+    }
+  },
+  {
+    "pk": 13,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Gandalf",
+      "novel": 5
+    }
+  },
+  {
+    "pk": 14,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Frodo Baggins",
+      "novel": 6
+    }
+  },
+  {
+    "pk": 15,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Bilbo Baggins",
+      "novel": 6
+    }
+  },
+  {
+    "pk": 16,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Gandalf",
+      "novel": 6
+    }
+  },
+  {
+    "pk": 17,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Bilbo Baggins",
+      "novel": 7
+    }
+  },
+  {
+    "pk": 18,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Thorin Oakenshield",
+      "novel": 7
+    }
+  },
+  {
+    "pk": 19,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Hari Seldon",
+      "novel": 10
+    }
+  },
+  {
+    "pk": 20,
+    "model": "searchtests.character",
+    "fields": {
+      "name": "Salvor Hardin",
+      "novel": 10
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Westeros",
+      "protagonist": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Westeros",
+      "protagonist": null
+    }
+  },
+  {
+    "pk": 3,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Westeros",
+      "protagonist": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Middle Earth",
+      "protagonist": 8
+    }
+  },
+  {
+    "pk": 5,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Middle Earth",
+      "protagonist": 11
+    }
+  },
+  {
+    "pk": 6,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Middle Earth",
+      "protagonist": 14
+    }
+  },
+  {
+    "pk": 7,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Middle Earth",
+      "protagonist": 17
+    }
+  },
+  {
+    "pk": 10,
+    "model": "searchtests.novel",
+    "fields": {
+      "setting": "Galactic Empire",
+      "protagonist": null
+    }
+  },
+
+  {
+    "pk": 11,
+    "model": "searchtests.programmingguide",
+    "fields": {
+      "programming_language": "py"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "searchtests.programmingguide",
+    "fields": {
+      "programming_language": "py"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "searchtests.programmingguide",
+    "fields": {
+      "programming_language": "js"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "searchtests.programmingguide",
+    "fields": {
+      "programming_language": "js"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "searchtests.programmingguide",
+    "fields": {
+      "programming_language": "rs"
+    }
+  }
+]

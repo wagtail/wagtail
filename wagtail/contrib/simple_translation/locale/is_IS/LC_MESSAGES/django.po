@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Loic Teixeira, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail einfaldar þýðingar"
+
+msgid "Select all"
+msgstr "Velja allt"
+
+msgid "Locales"
+msgstr "Þýðingar"
+
+msgid "All child pages will be created."
+msgstr "Allar undirsíður verða búnar til"
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Innifela undirsíður (%(descendant_count)s síðu)"
+msgstr[1] "Innifela undirsíður (%(descendant_count)s síður)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "Tungumál er ekki aðgengilegt þar sem yfirsíða er ekki þýdd."
+msgstr[1] "Sum tungumál eru ekki aðgengileg þar sem yfirsíður eru ekki þýddar."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Þýða yfirsíðuna"
+msgstr[1] "Þýða yfirsíður."
+
+msgid "Submit"
+msgstr "Senda"
+
+msgid "Translate"
+msgstr "Þýða"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s þýðingar"
+
+msgid "Translate page"
+msgstr "Þýða síðu"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Tókst að búa til síðuna '%(page_title)s' í %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Þýða %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Tókst að búa til %(locales)s fyrir %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Þýða þessa síðu"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Þýða '%(title)s'"

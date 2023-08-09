@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel <codeangel@posteo.de>, 2021
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# Matthias Martin, 2019
+# Matthias Martin, 2019
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Oliver Engel <codeangel@posteo.de>, 2021
+# Patrick Hebner <hebner.tec@gmail.com>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>, 2015\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail Formulare"
+
+msgid "Date from"
+msgstr "Datum von"
+
+msgid "Date to"
+msgstr "Datum bis"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Es gibt ein weiteres Feld mit der Bezeichnung %(label_name)s, bitte ändern "
+"Sie eines der beiden."
+
+msgid "Single line text"
+msgstr "Einzeiliger Text"
+
+msgid "Multi-line text"
+msgstr "Mehrzeiliger Text"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Number"
+msgstr "Zahl"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "Checkboxes"
+msgstr "Checkboxen"
+
+msgid "Drop down"
+msgstr "Dropdown"
+
+msgid "Multiple select"
+msgstr "Mehrfachauswahl"
+
+msgid "Radio buttons"
+msgstr "Radiobuttons"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Zeitpunkt"
+
+msgid "Hidden field"
+msgstr "Verstecktes Feld"
+
+msgid "submit time"
+msgstr "Absendezeitpunkt"
+
+msgid "form submission"
+msgstr "Formularabsendung"
+
+msgid "form submissions"
+msgstr "Formulareinreichungen"
+
+msgid "name"
+msgstr "Name"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Speichern Sie den Namen des Feldes der Eingabemaske, die Bezeichnung wurde "
+"in ascii_snake_case konvertiert"
+
+msgid "label"
+msgstr "Beschriftung"
+
+msgid "The label of the form field"
+msgstr "Die Bezeichnung dieses Formularfeldes"
+
+msgid "field type"
+msgstr "Feldtyp"
+
+msgid "required"
+msgstr "Erforderlich"
+
+msgid "choices"
+msgstr "Auswahl"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Liste der Wahlmöglichkeiten, durch Kommas oder Zeilenumbrüche getrennt. Gilt "
+"nur für Checkboxen, Dropdowns und Radiobuttons."
+
+msgid "default value"
+msgstr "Vorgabewert"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Standardwert. Werte für Checkboxen können durch Kommas oder Zeilenumbrüche "
+"getrennt werden."
+
+msgid "help text"
+msgstr "Hilfetext"
+
+msgid "Submission date"
+msgstr "Einreichungsdatum"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Landing page"
+msgstr "Landingpage"
+
+msgid "to address"
+msgstr "An-Adresse"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Optional – eingereichte Formulare werden an diese E-Mail-Adressen "
+"verschickt. Trennen Sie mehrere Adressen mit einem Komma voneinander ab."
+
+msgid "from address"
+msgstr "Von-Adresse"
+
+msgid "subject"
+msgstr "Betreff"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s Abgaben"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Formulardaten löschen %(title)s"
+
+msgid "Delete form data"
+msgstr "Formulardaten löschen"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Sind Sie sicher, dass Sie diese Formular-Eingabe löschen wollen?"
+msgstr[1] "Sind Sie sicher, dass Sie diese Formular-Eingaben löschen wollen?"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Forms"
+msgstr "Formulare"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Ursprung"
+
+msgid "Delete selected submissions"
+msgstr "Ausgewählte Abgaben löschen"
+
+msgid "Total submissions"
+msgstr "Anzahl Abgaben"
+
+msgid "Latest submission"
+msgstr "Neueste Abgabe"
+
+msgid "No form pages have been created."
+msgstr "Es wurden keine Formularseiten angelegt."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Einreichungen für %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Für ‚%(title)s‘ wurde bisher nichts eingereicht."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filter anwenden"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Eine Formular-Eingabe wurde gelöscht."
+msgstr[1] "%(count)d Formular-Eingaben wurden gelöscht."
+
+msgid "Form data"
+msgstr "Formulardaten"

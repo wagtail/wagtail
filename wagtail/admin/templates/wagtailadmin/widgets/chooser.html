@@ -1,0 +1,51 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment %}
+    Either the chosen or unchosen div will be shown, depending on the presence
+    of the 'blank' class on the container.
+{% endcomment %}
+{% fragment as title_id %}{{ attrs.id }}-title{% endfragment %}
+<div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}{% if classname %}{{ classname }}{% endif %}{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% if chooser_url %}data-chooser-url="{{ chooser_url }}"{% endif %}{% endblock %}>
+
+    <div class="chosen">
+        {% block chosen_icon %}
+            <div class="chooser__preview" role="presentation">
+                {% if icon %}{% icon name=icon classname="default" %}{% endif %}
+            </div>
+        {% endblock chosen_icon %}
+        {% block chosen_state_view %}
+            <div class="chooser__title" data-chooser-title id="{{ title_id }}">{{ display_title }}</div>
+        {% endblock %}
+
+        {% trans "Actions" as toggle_label %}
+        {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=toggle_label toggle_describedby=title_id hide_on_click=True %}
+            <button type="button" data-chooser-action-choose aria-describedby="{{ title_id }}">
+                {% icon name="resubmit" %}
+                {{ widget.choose_another_text }}
+            </button>
+            {% if widget.show_edit_link %}
+                {% block edit_link %}
+                    <a data-chooser-edit-link href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" aria-describedby="{{ title_id }}" {% if not edit_url %}hidden{% endif %} target="_blank" rel="noreferrer">
+                        {% icon name="edit" %}
+                        {{ widget.link_to_chosen_text }}
+                    </a>
+                {% endblock %}
+            {% endif %}
+            {% if not widget.is_required and widget.show_clear_link %}
+                <button type="button" data-chooser-action-clear aria-describedby="{{ title_id }}">
+                    {% icon name="bin" %}
+                    {{ widget.clear_choice_text }}
+                </button>
+            {% endif %}
+        {% enddropdown %}
+    </div>
+
+    <div class="unchosen">
+        <button type="button" data-chooser-action-choose class="button button-small button-secondary chooser__choose-button">
+            {% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}
+            {{ widget.choose_one_text }}
+        </button>
+    </div>
+</div>
+
+{{ original_field_html }}

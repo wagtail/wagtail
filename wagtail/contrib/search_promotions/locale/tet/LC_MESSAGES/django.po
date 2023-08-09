@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Joanico Barros <joanico@catalpa.io>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail buka promosaun"
+
+msgid "Search term(s)/phrase"
+msgstr "Buka termus / frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Tama buka hotu  talin ne'ebe  jogu. Jogu  lo-loos sei  presiza ba ita  "
+"promove resultadu se  hatudu, kartaun-fuik ne'ebe la permiti."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Favór ida espesífika rekomendasaun ida ba termu peskiza ida ne'e."
+
+msgid "Query Daily Hits"
+msgstr " Pergunta tula liman loro-loron"
+
+msgid "page"
+msgstr "Pájina"
+
+msgid "description"
+msgstr "Deskrisaun"
+
+msgid "search promotion"
+msgstr "Buka promosaun"
+
+msgid "Add search promotion"
+msgstr "Aumenta buka promosaun"
+
+msgid "Save"
+msgstr "Salva"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Hamoos %(query)s"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ita iha serteza katak ita hakarak hamoos rezultadu hotu-hotu ne ' ebé "
+"promove rezultadu ba termu peskiza ida-ne'e ka lae?"
+
+msgid "Yes, delete"
+msgstr "Sin, hamoos"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Hadia %(query)s"
+
+msgid "Editing"
+msgstr "Hadia"
+
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba karik"
+
+msgid "Promoted search results"
+msgstr "Promove rezultadu peskiza"
+
+msgid "Add recommended page"
+msgstr "Aumenta pájina rekomenda"
+
+msgid "Search Terms"
+msgstr "Termu peskiza"
+
+msgid "Add new promoted result"
+msgstr "Aumenta rezultadu foun ne'ebé promove"
+
+msgid "Search term(s)"
+msgstr "Termu(s) peskiza"
+
+msgid "Promoted results"
+msgstr "Rezultadu ne'ebé promove"
+
+msgid "Views (past week)"
+msgstr "Hatudu (semana kotuk)"
+
+msgid "Edit this promotion"
+msgstr "Hadia promosaun ida ne'e"
+
+msgid "None"
+msgstr "La iha"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Deskulpa, rezultadu promove la korresponde \" %(query_string)s 1\""
+
+msgid "Search promoted results"
+msgstr "Buka rezultadu ne'ebé promove tiha ona"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Hadia nain hatudu katak ba '%(query)s' kria tiha ona."
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Rekomendasaun la kria tiha ona tanba erru sira"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Hadia nain hatudu katak ba '%(query)s' atualiza."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Rekomendasaun la salva tiha ona tanba erru sira"
+
+msgid "Editor's picks deleted."
+msgstr "Hadia nain hatudu katak hamoos tiha ona."

@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Ole Kristian Losvik <ole@losol.no>, 2020
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
+"Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail-skjema"
+
+msgid "Date from"
+msgstr "Fra-dato"
+
+msgid "Date to"
+msgstr "Til-dato"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Det er et annet felt med feltnavnet %(label_name)s, du må endre en av dem."
+
+msgid "Single line text"
+msgstr "Enkeltlinje tekst"
+
+msgid "Multi-line text"
+msgstr "Flerlinjes tekst"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Avkrysningsboks"
+
+msgid "Checkboxes"
+msgstr "Avkrysningsbokser"
+
+msgid "Drop down"
+msgstr "Rullegardinmeny"
+
+msgid "Multiple select"
+msgstr "Flervalgsmeny"
+
+msgid "Radio buttons"
+msgstr "Radioknapper"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Date/time"
+msgstr "Dato/klokkeslett"
+
+msgid "Hidden field"
+msgstr "Skjult felt"
+
+msgid "submit time"
+msgstr "tidspunkt innsendt"
+
+msgid "form submission"
+msgstr "innsendt skjema"
+
+msgid "form submissions"
+msgstr "skjemainnsendinger"
+
+msgid "name"
+msgstr "navn"
+
+msgid "label"
+msgstr "feltnavn"
+
+msgid "The label of the form field"
+msgstr "Visningsnavn for skjemafeltet"
+
+msgid "field type"
+msgstr "felttype"
+
+msgid "required"
+msgstr "påkrevet"
+
+msgid "choices"
+msgstr "valg"
+
+msgid "default value"
+msgstr "standardverdi"
+
+msgid "help text"
+msgstr "hjelpetekst"
+
+msgid "Submission date"
+msgstr "Innsendt dato"
+
+msgid "Form"
+msgstr "Skjema"
+
+msgid "Landing page"
+msgstr "Landingsside"
+
+msgid "to address"
+msgstr "til-adresse"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Valgfritt - innsendte skjema blir sendt til disse e-postadressene. Legg til "
+"flere adresser adskildt med komma."
+
+msgid "from address"
+msgstr "fra-adresse"
+
+msgid "subject"
+msgstr "emne"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s innsendinger"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Slett skjemadata for %(title)s"
+
+msgid "Delete form data"
+msgstr "Slett skjemadata"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Forms"
+msgstr "Skjemaer"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "Origin"
+msgstr "Opphav"
+
+msgid "Delete selected submissions"
+msgstr "Slett valgte innsendinger"
+
+msgid "Total submissions"
+msgstr "Alle innsendinger"
+
+msgid "Latest submission"
+msgstr "Siste innsendinger"
+
+msgid "No form pages have been created."
+msgstr "Ingen skjemasider har blitt opprettet."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Innsendte %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Det er ingen innsendte skjemaer for \"%(title)s\"."
+
+msgid "Filter"
+msgstr "Filter"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Ett innsendt skjema ble slettet."
+msgstr[1] "%(count)d innsendte skjema ble slettet."

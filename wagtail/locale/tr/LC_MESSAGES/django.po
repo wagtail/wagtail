@@ -1,0 +1,348 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
+# José Luis <alagunajs@gmail.com>, 2015
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail core (çekirdek)"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Asgari öğe sayısı %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Azami öğe sayısı %(max_num)d"
+
+msgid "Move up"
+msgstr "Yukarı çıkar"
+
+msgid "Move down"
+msgstr "Aşağı indir"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Add"
+msgstr "Ekle"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: bu blokta seçenek yok."
+
+msgid "This block has no options."
+msgstr "Bu blokta seçenek yok."
+
+msgid "This field is required."
+msgstr "Bu alan gerekli."
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "live"
+msgstr "canlı"
+
+msgid "has unpublished changes"
+msgstr "yayınlanmayan değişiklikler var"
+
+msgid "first published at"
+msgstr "ilk yayınlanma zamanı"
+
+msgid "last published at"
+msgstr "son yayınlanma zamanı"
+
+msgid "go live date/time"
+msgstr "yayın başlangış tarihi/zamanı"
+
+msgid "expiry date/time"
+msgstr "yayın bitiş tarihi/zamanı"
+
+msgid "expired"
+msgstr "süresi doldu"
+
+msgid "scheduled"
+msgstr "zamanlandı"
+
+msgid "draft"
+msgstr "taslak"
+
+msgid "live + scheduled"
+msgstr "canlı + zamanlandı"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "locked"
+msgstr "kilitlendi"
+
+msgid "Add/edit pages you own"
+msgstr "Sahip olduğun sayfalara ekle/düzenle"
+
+msgid "Bulk delete"
+msgstr "Toplu sil"
+
+msgid "Delete pages with children"
+msgstr "Alt sayfası olan sayfaları sil"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit any page"
+msgstr "Herhangi bir sayfayı düzenle"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Publish any page"
+msgstr "Herhangi bir sayfayı yayınla"
+
+msgid "Unlock"
+msgstr "Kilidini aç"
+
+msgid "title"
+msgstr "başlık"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Genele görünecek sayfa başlığı"
+
+msgid "slug"
+msgstr "Başlık url'si"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"URL'lelerde sayfanın görüneceği ad, örneğin http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "içerik türü"
+
+msgid "URL path"
+msgstr "URL yolu"
+
+msgid "owner"
+msgstr "sahibi"
+
+msgid "show in menus"
+msgstr "menülerde göster"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Otomatik olarak oluşturulan menülerde, bu sayfaya bir bağlantı olacaktır"
+
+msgid "latest revision created at"
+msgstr "en son oluşturulan revizyon zamanı"
+
+msgid "page"
+msgstr "sayfa"
+
+msgid "pages"
+msgstr "sayfalar"
+
+msgid "submitted for moderation"
+msgstr "kontrol için gönderildi"
+
+msgid "created at"
+msgstr "oluşturulma zamanı"
+
+msgid "user"
+msgstr "kullanıcı"
+
+msgid "content JSON"
+msgstr "JSON içerik"
+
+msgid "approved go live at"
+msgstr "onaylandı, canlısı"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "permission type"
+msgstr "izin türü"
+
+msgid "group page permission"
+msgstr "grup sayfası izni"
+
+msgid "group page permissions"
+msgstr "grup sayfası izinleri"
+
+msgid "page view restriction"
+msgstr "sayfa izleme kısıtı"
+
+msgid "page view restrictions"
+msgstr "sayfa görme kısıtları"
+
+msgid "name"
+msgstr "isim"
+
+msgid "groups"
+msgstr "gruplar"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "collection"
+msgstr "koleksiyon"
+
+msgid "collection view restriction"
+msgstr "koleksiyon görme kısıtı"
+
+msgid "collection view restrictions"
+msgstr "koleksiyon görme kısıtları"
+
+msgid "collections"
+msgstr "koleksiyonlar"
+
+msgid "group collection permission"
+msgstr "grup koleksiyon izni"
+
+msgid "group collection permissions"
+msgstr "grup koleksiyon izinleri"
+
+msgid "hostname"
+msgstr "ana bilgisayar adı (hostname)"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Eğer URL'lerde görünmesini istediğiniz, 80 dışında belirli bir port numarası "
+"varsa girin (8000 portunde geliştirme gibi). İstek işlemesini (request "
+"handling) etkilemez (dolayısıyla port yönlendirme çalışmaya devam eder)."
+
+msgid "site name"
+msgstr "site adı"
+
+msgid "Human-readable name for the site."
+msgstr "Okunabilir site adı."
+
+msgid "root page"
+msgstr "root (kök) sayfası"
+
+msgid "is default site"
+msgstr "varsayılan site mi"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Eğer doğru seçilirse bu site, içeriği olmayan tüm diğer hostname'lerin "
+"isteklerini işleyecektir."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "siteler"
+
+msgid "default"
+msgstr "varsayılan"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s zaten varsayılan site olarak ayarlandı. Bu siteyi varsayılan "
+"olarak seçmek için önce onun varsayılan site ayarını kaldırmalısınız."
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Gizli, giriş yapan kullanıcılar erişebilir"
+
+msgid "Private, accessible with the following password"
+msgstr "Gizli, şu şifreyle erişilebilir"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Gizli, belirli gruptaki kullanıcılar erişebilir"
+
+msgid "password"
+msgstr "şifre"
+
+msgid "view restriction"
+msgstr "kısıtı gör"
+
+msgid "view restrictions"
+msgstr "kısıtları gör"
+
+msgid "Log in"
+msgstr "Giriş yap"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Kullanıcı adı ve şifre eşleşmedi. Lütfen tekrar deneyin."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Hesabınızın bu sayfaya erişimi yok. Devam etmek için lütfen erişimi olan bir "
+"hesapla giriş yapın."
+
+msgid "Password required"
+msgstr "Şifre gerekli"
+
+msgid "You need a password to access this page."
+msgstr "Bu sayfaya erişmek için şifre gerekiyor."
+
+msgid "Continue"
+msgstr "Devam et"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+msgid "Unpublish"
+msgstr "Yayından kaldır"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Move"
+msgstr "Taşı"

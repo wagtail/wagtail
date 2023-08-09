@@ -1,0 +1,82 @@
+#
+# Translators:
+# Philip Crisp, 2022
+# Adam Hughes <adamhughes31@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Adam Hughes <adamhughes31@gmail.com>, 2023\n"
+"Language-Team: Welsh (https://app.transifex.com/torchbox/teams/8009/cy/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "(New)"
+msgstr "(Newydd)"
+
+msgid "Alt text"
+msgstr "Testun amgen"
+
+msgid "Are you sure?"
+msgstr "Wyt ti'n siwr?"
+
+msgid "Cancel"
+msgstr "Canslo"
+
+msgid "Close"
+msgstr "Cau"
+
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Edit '%(title)s'"
+msgstr "Golygu '%(title)s'"
+
+msgid "Missing document"
+msgstr "Dogfen ar goll"
+
+msgid "Page"
+msgstr "Tudalen"
+
+msgid "Pages"
+msgstr "Tudalennau"
+
+msgid "Reply"
+msgstr "Ymateb"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Riportiwch y gwall hwn i weinyddwr eich gwefan gyda'r wybodaeth ganlynol:"
+
+msgid "Resolve"
+msgstr "Datrys"
+
+msgid "Retry"
+msgstr "Ailgynnig"
+
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Save error"
+msgstr "Arbed gwall"
+
+msgid "Saving..."
+msgstr "Cadw..."
+
+msgid "Search"
+msgstr "Chwilio"
+
+msgid "Server Error"
+msgstr "Gwall Gweinydd"
+
+msgid "This field is required."
+msgstr "Mae angen y'r ffild hon."

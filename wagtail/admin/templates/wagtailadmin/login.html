@@ -1,0 +1,75 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" id="main">
+        <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
+
+        <div class="messages" role="status">
+            {# Always show messages div so it can be appended to by JS #}
+            {% if messages or form.errors %}
+                <ul>
+                    {% if form.errors %}
+                        <li class="error">{% blocktrans trimmed %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% endif %}
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        {% block above_login %}{% endblock %}
+
+        <form class="login-form" action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
+            {% block login_form %}
+                {% csrf_token %}
+
+                {% url 'wagtailadmin_home' as home_url %}
+                <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+
+                {% block fields %}
+                    {% field field=form.username %}{% endfield %}
+                    {% field field=form.password %}{% endfield %}
+
+                    {% if show_password_reset %}
+                        <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
+                    {% endif %}
+
+                    {% block extra_fields %}
+                        {% for field_name, field in form.extra_fields %}
+                            {% field field=field %}{% endfield %}
+                        {% endfor %}
+                    {% endblock extra_fields %}
+
+                    {% trans "Remember me" as checkbox_text %}
+                    {% include "wagtailadmin/shared/forms/single_checkbox.html" with label_classname="remember-me" name="remember" text=checkbox_text %}
+                {% endblock %}
+            {% endblock %}
+            <footer class="form-actions">
+                {% block submit_buttons %}
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{% trans 'Signing in…' %}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Sign in' %}</em>
+                    </button>
+                {% endblock %}
+            </footer>
+        </form>
+
+        {% block below_login %}{% endblock %}
+
+        {% block branding_logo %}
+            <div class="login-logo">
+                {% include "wagtailadmin/logo.html" with wordmark="True" %}
+            </div>
+        {% endblock %}
+    </main>
+{% endblock %}

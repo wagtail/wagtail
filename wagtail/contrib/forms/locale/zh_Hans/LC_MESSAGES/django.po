@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aosp T, 2016
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
+# Feng Wang <wangfeng.w@gmail.com>, 2015
+# First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2023
+# hanfeng <appweb.cn@gmail.com>, 2014
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# listeng, 2016
+# Aosp T, 2016
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018,2020
+# 祝沙军 <zhushajun@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail 表单"
+
+msgid "Date from"
+msgstr "起始日起"
+
+msgid "Date to"
+msgstr "结束日期"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "%(label_name)s 标签被其它字段使用，请更换一个标签。"
+
+msgid "Single line text"
+msgstr "单行文本"
+
+msgid "Multi-line text"
+msgstr "多行文本"
+
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "Number"
+msgstr "数字"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "检查框"
+
+msgid "Checkboxes"
+msgstr "多选框"
+
+msgid "Drop down"
+msgstr "下拉列表框"
+
+msgid "Multiple select"
+msgstr "多选列表框"
+
+msgid "Radio buttons"
+msgstr "单选按钮"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Date/time"
+msgstr "日期/时间"
+
+msgid "Hidden field"
+msgstr "隐藏字段"
+
+msgid "submit time"
+msgstr "提交时间"
+
+msgid "form submission"
+msgstr "提交表格"
+
+msgid "form submissions"
+msgstr "提交表单"
+
+msgid "name"
+msgstr "名称"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "表单字段的安全名称，标签已转换为字母蛇行命名法（ascii_snake_case）"
+
+msgid "label"
+msgstr "标签"
+
+msgid "The label of the form field"
+msgstr "字段的标签"
+
+msgid "field type"
+msgstr "字段类型"
+
+msgid "required"
+msgstr "必填"
+
+msgid "choices"
+msgstr "选项"
+
+msgid "default value"
+msgstr "默认值"
+
+msgid "help text"
+msgstr "帮助文本"
+
+msgid "Submission date"
+msgstr "提交日期"
+
+msgid "Form"
+msgstr "表单"
+
+msgid "Landing page"
+msgstr "着陆页"
+
+msgid "to address"
+msgstr "收件人"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr "可选 - 提交的表单将通过email发送给这些地址。多个地址请用逗号隔开。"
+
+msgid "from address"
+msgstr "发件人"
+
+msgid "subject"
+msgstr "主题"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s提交"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "删除表单数据 %(title)s"
+
+msgid "Delete form data"
+msgstr "删除表单数据"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Forms"
+msgstr "表单"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Delete selected submissions"
+msgstr "删除选中提交"
+
+msgid "Total submissions"
+msgstr "所有的提交"
+
+msgid "Latest submission"
+msgstr "上一次提交"
+
+msgid "No form pages have been created."
+msgstr "还没有创建表单页面。"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "提交%(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "表格%(title)s没有已提交的内容"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Apply filters"
+msgstr "应用过滤器"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d 次提交已被删除。"
+
+msgid "Form data"
+msgstr "表单数据"

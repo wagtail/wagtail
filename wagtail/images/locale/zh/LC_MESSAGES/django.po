@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Adeline Link, 2022
+# Adeline Link, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Adeline Link, 2022\n"
+"Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
+"zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "tags"
+msgstr "标签"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "你确定要删除这些图片吗？"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
+
+msgid "Popular tags"
+msgstr "流行的标签"
+
+msgid "New"
+msgstr "新"
+
+msgid "Latest images"
+msgstr "最新图片"
+
+msgid "Choose a format"
+msgstr "选择一个格式"
+
+msgid "Insert image"
+msgstr "插入图片"
+
+msgid "Add an image"
+msgstr "添加一个图片"
+
+msgid "Add image"
+msgstr "添加图片"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "编辑图片 %(title)s"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "Delete image"
+msgstr "删除图片"
+
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
+msgid "Images"
+msgstr "图片"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Server Error"
+msgstr "服务错误"
+
+msgid "Tags"
+msgstr "标签"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Upload"
+msgstr "上传"
+
+msgid "Uploading…"
+msgstr "上传中"
+
+msgid "Choose an image"
+msgstr "选择一个图片"
+
+msgid "Choose another image"
+msgstr "选择另外一个图片"
+
+msgid "Search images"
+msgstr "搜索图片"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "图片 '%(image_title)s' 已更新"
+
+msgid "The image could not be saved due to errors."
+msgstr "图片 因为有错不能被保存"
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "图片 '%(image_title)s' 已删除."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "图片 '%(image_title)s' 已添加."
+
+msgid "The image could not be created due to errors."
+msgstr "图片因为有错不能被创建"

@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% fragment as report_actions %}
+        <div class="report__actions">
+            {% block actions %}
+                {% if view.list_export %}
+                    {% include view.export_buttons_template_name %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endfragment %}
+
+    {% include "wagtailadmin/shared/header.html" with title=title icon=header_icon merged=1 extra_actions=report_actions %}
+    <div class="report{% if filters %} filterable{% endif %}">
+        <div class="report__results">
+            {% block results %}
+            {% endblock %}
+            {% if page_obj %}
+                {% paginate page_obj base_url=request.path %}
+            {% endif %}
+        </div>
+        {% if filters %}
+            {% include "wagtailadmin/shared/filters.html" %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ filters.form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ filters.form.media.js }}
+{% endblock %}

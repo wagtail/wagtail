@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationStatus #status live 1`] = `
+<span
+  className="o-pill c-status c-status--live"
+>
+  live + draft
+</span>
+`;
+
+exports[`PublicationStatus #status not live 1`] = `
+<span
+  className="o-pill c-status"
+>
+  live + draft
+</span>
+`;

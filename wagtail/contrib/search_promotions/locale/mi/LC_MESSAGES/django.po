@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Haha whakatuarā-a-Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "haha-a-karangatanga/rerenga kupu"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Tāuru te haha-a-tui katoa kia whakataurite. He whakataurite tuturu anake te "
+"mea hei whakamātakitaki Ī ou tukunga iho whakatuarā, ehara e āhei ngā kāri "
+"pāwhara."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Tautuhi koa he tūtohu kotahi mo te karangatanga-a-haha nei"
+
+msgid "Query Daily Hits"
+msgstr "Pātai hahau ō te rā"
+
+msgid "page"
+msgstr "Whārangi"
+
+msgid "description"
+msgstr "whakaaturanga"
+
+msgid "search promotion"
+msgstr "Haha whakatuarā"
+
+msgid "Add search promotion"
+msgstr "Tāpiri he haha whakatuarā"
+
+msgid "Add search pick"
+msgstr "Tāpiri haha whawhaki"
+
+msgid "Save"
+msgstr "Puritia"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Muku %(query)s"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"E pirangi ana koe kī te mukuhia I ēnei tukunga iho mō tēnei karangatanga-a-"
+"haha?"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "E Whakarerekē %(query)s"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "Move up"
+msgstr "Mū ki runga"
+
+msgid "Move down"
+msgstr "Mū ki raro"
+
+msgid "Views (past week)"
+msgstr "Tirohanga (te wiki kua pāhi)"
+
+msgid "None"
+msgstr "Kore"
+
+msgid "Edit"
+msgstr "Whakarerekē"

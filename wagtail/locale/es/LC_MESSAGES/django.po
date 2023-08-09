@@ -1,0 +1,892 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020-2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017-2018
+# Maylon Pedroso <maylonpedroso@gmail.com>, 2020
+# Oscar Luciano Espirilla Flores, 2020
+# Oscar Luciano Espirilla Flores, 2020
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# X Bello <xbello@gmail.com>, 2022
+# José Luis <alagunajs@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail API v2"
+msgstr "API de Wagtail v2"
+
+msgid "Wagtail core"
+msgstr "Núcleo Wagtail"
+
+msgid "Add Comment"
+msgstr "Añadir Comentario"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El mínimo número de elementos es %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El máximo número de elementos es %(max_num)d"
+
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Bajar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Add"
+msgstr "Agregar"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Este bloque no tiene opciones."
+
+msgid "This block has no options."
+msgstr "Este bloque no tiene opciones."
+
+msgid "This field is required."
+msgstr "Este campo es necesario."
+
+msgid "Wagtail frontend cache"
+msgstr "Cache frontal Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Página enrutable Wagtal"
+
+msgid "Wagtail sitemaps"
+msgstr "Mapas de sitio Wagtail"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+msgid "Unlocked"
+msgstr "Desbloqueado"
+
+msgid "latest revision"
+msgstr "última revisión"
+
+msgid "live"
+msgstr "Ver en vivo"
+
+msgid "has unpublished changes"
+msgstr "tiene cambios sin publicar"
+
+msgid "first published at"
+msgstr "Publicado por primera vez a las"
+
+msgid "last published at"
+msgstr "última vez publicado en"
+
+msgid "live revision"
+msgstr "revisión en vivo"
+
+msgid "go live date/time"
+msgstr "fecha/hora ir en vivo"
+
+msgid "expiry date/time"
+msgstr "fecha/hora de expiración"
+
+msgid "expired"
+msgstr "expiró"
+
+msgid "scheduled"
+msgstr "Agendado"
+
+msgid "draft"
+msgstr "Borrador"
+
+msgid "live + scheduled"
+msgstr "en vivo + programado"
+
+msgid "live + draft"
+msgstr "Ver borrador"
+
+msgid "Default"
+msgstr "Predeterminado"
+
+msgid "locked"
+msgstr "bloqueado"
+
+msgid "locked at"
+msgstr "Bloqueado en"
+
+msgid "locked by"
+msgstr "Bloqueado por"
+
+msgid "in moderation"
+msgstr "en moderación"
+
+msgid "live + in moderation"
+msgstr "en vivo + en moderación"
+
+msgid "Add/edit pages you own"
+msgstr "Añadir/editar tus propias páginas"
+
+msgid "Bulk delete"
+msgstr "Eliminar volumen."
+
+msgid "Delete pages with children"
+msgstr "Eliminar páginas con hijos."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any page"
+msgstr "Editar cualquier página"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloquear/desbloquear páginas que usted bloqueó"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar cualquier página"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Unlock any page"
+msgstr "Desbloquear cualquier página"
+
+msgid "title"
+msgstr "Título"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "El título de la página como quieres que sea visto por el público"
+
+msgid "slug"
+msgstr "marquilla"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "tipo de contenido"
+
+msgid "URL path"
+msgstr "Dirección URL"
+
+msgid "owner"
+msgstr "propietario"
+
+msgid "title tag"
+msgstr "etiqueta título"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"El nombre de la página mostrado en los resultados del motor de búsqueda como "
+"titular para hacer clic."
+
+msgid "show in menus"
+msgstr "mostrar en menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
+
+msgid "meta description"
+msgstr "Descripción meta"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"El texto descriptivo mostrado debajo de un titular en los resultados del "
+"motor de búsqueda."
+
+msgid "latest revision created at"
+msgstr "última revisión creada a las"
+
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
+msgid "object id"
+msgstr "id del objeto"
+
+msgid "submitted for moderation"
+msgstr "enviado para moderación"
+
+msgid "created at"
+msgstr "creado el"
+
+msgid "user"
+msgstr "usuario"
+
+msgid "content JSON"
+msgstr "contenido JSON"
+
+msgid "approved go live at"
+msgstr "aprovado para publicación a las"
+
+msgid "revision"
+msgstr "revisión"
+
+msgid "revisions"
+msgstr "revisiones"
+
+msgid "group"
+msgstr "grupo"
+
+msgid "permission"
+msgstr "permiso"
+
+msgid "permission type"
+msgstr "tipo de permiso"
+
+msgid "group page permission"
+msgstr "grupo de permisos de página"
+
+msgid "group page permissions"
+msgstr "grupos de permisos de páginas"
+
+msgid "page view restriction"
+msgstr "restricción de vista de página"
+
+msgid "page view restrictions"
+msgstr "restricciones de vista de página"
+
+msgid "workflow"
+msgstr "flujo de trabajo"
+
+msgid "workflow page"
+msgstr "página de flujo de trabajo"
+
+msgid "workflow pages"
+msgstr "páginas de flujo de trabajo"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "tarea"
+
+msgid "workflow task order"
+msgstr "Orden de tarea de flujo de trabajo"
+
+msgid "workflow task orders"
+msgstr "Órdenes de tarea de flujo de trabajo"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "active"
+msgstr "activo"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Las tareas activas pueden ser añadidas a flujos de trabajo. Desactivando una "
+"tarea no la elimina de los flujos de trabajo existentes."
+
+msgid "tasks"
+msgstr "tareas"
+
+msgid "workflows"
+msgstr "flujos de trabajo"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "Request changes"
+msgstr "Solicitar cambios"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Approve with comment"
+msgstr "Aprobar con comentario"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr ""
+"Los miembros de los  Grupos de Wagtail elegidos pueden aprobar esta tarea"
+
+msgid "Group approval task"
+msgstr "Tarea de aprobación de grupo"
+
+msgid "Group approval tasks"
+msgstr "Tareas de aprobación de grupo"
+
+msgid "In progress"
+msgstr "En progreso"
+
+msgid "Approved"
+msgstr "Aprobado"
+
+msgid "Needs changes"
+msgstr "Necesita cambios"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "status"
+msgstr "estado"
+
+msgid "requested by"
+msgstr "solicitado por"
+
+msgid "current task state"
+msgstr "estado de tarea actual"
+
+msgid "Not started"
+msgstr "No iniciado"
+
+msgid "Workflow state"
+msgstr "Estado de flujo de trabajo"
+
+msgid "Workflow states"
+msgstr "Estados de flujo de trabajo"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Skipped"
+msgstr "Omitido"
+
+msgid "workflow state"
+msgstr "estado de flujo de trabajo"
+
+msgid "started at"
+msgstr "iniciado el"
+
+msgid "finished at"
+msgstr "terminado el"
+
+msgid "finished by"
+msgstr "finalizado por"
+
+msgid "Task state"
+msgstr "Estado de tarea"
+
+msgid "Task states"
+msgstr "Estados de tarea"
+
+msgid "page log entry"
+msgstr "entrada de registro de página"
+
+msgid "page log entries"
+msgstr "entradas de registro de página"
+
+msgid "Draft saved"
+msgstr "Borrador guardado"
+
+msgid "comment"
+msgstr "comentario"
+
+msgid "comments"
+msgstr "comentarios"
+
+msgid "comment reply"
+msgstr "respuesta de comentario"
+
+msgid "comment replies"
+msgstr "respuestas de comentario"
+
+msgid "timestamp (UTC)"
+msgstr "marca de tiempo (UTC)"
+
+msgid "log entry"
+msgstr "entrada de registro"
+
+msgid "log entries"
+msgstr "entradas de registro"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "La acción de log '%(action_name)s' no ha sido registrado."
+
+msgid "system"
+msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Desconocido %(action)s"
+
+msgid "model log entry"
+msgstr "entrada de registro modelo"
+
+msgid "model log entries"
+msgstr "entradas de registro modelo"
+
+msgid "collection"
+msgstr "colección"
+
+msgid "collection view restriction"
+msgstr "Restrición de vista de la colección"
+
+msgid "collection view restrictions"
+msgstr "Restriciones de vista de la colección"
+
+msgid "collections"
+msgstr "coleciones"
+
+msgid "group collection permission"
+msgstr "permiso de colección de grupo"
+
+msgid "group collection permissions"
+msgstr "permisos de colección de grupo"
+
+msgid "hostname"
+msgstr "nombre del host"
+
+msgid "port"
+msgstr "puerto"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Cambia esto a algo que no sea el puerto 80 si necesitas que un puerto "
+"específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no "
+"afecta al manejo de solicitudes (así que la redirección de puertos sigue "
+"funcionando)."
+
+msgid "site name"
+msgstr "nombre del sitio"
+
+msgid "Human-readable name for the site."
+msgstr "Nombre del sitio legible para usuarios"
+
+msgid "root page"
+msgstr "página raíz"
+
+msgid "is default site"
+msgstr "es sitio por defecto"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si es afirmativo, este sitio manejará solicitudes para todos los demás "
+"nombres de host que no tengan un sitio para sí mismos"
+
+msgid "site"
+msgstr "sitio"
+
+msgid "sites"
+msgstr "sitios"
+
+msgid "default"
+msgstr "predeterminado"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s está seleccionado como sitio por defecto. Debe desactivarlo "
+"antes de poder seleccionar este sitio por defecto."
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, accesible para usuarios que han iniciado sesión"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, accesible con la siguiente contraseña"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, accesible para usuarios en grupos específicos"
+
+msgid "password"
+msgstr "contraseña"
+
+msgid "view restriction"
+msgstr "restricción de vista"
+
+msgid "view restrictions"
+msgstr "restricciones de vista"
+
+msgid "Log in"
+msgstr "Ingresar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Su usuario y contraseña no coinciden. Intente de nuevo por favor."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Su cuenta no tiene acceso a ésta página. Para proceder, por favor ingrese "
+"con una cuenta que tenga acceso."
+
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+msgid "You need a password to access this page."
+msgstr "Necesita una contraseña para acceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s colección descendiente"
+msgstr[1] "%(count)s colecciones descendientes"
+msgstr[2] "%(count)s colecciones descendientes"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Created"
+msgstr "Creado"
+
+msgid "Edited"
+msgstr "Editado"
+
+msgid "Deleted"
+msgstr "Eliminado"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Publish scheduled draft"
+msgstr "Publicar borrador programado"
+
+msgid "Published scheduled draft"
+msgstr "Publicado borrador programado"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Unpublished"
+msgstr "Sin publicar"
+
+msgid "Unpublish scheduled draft"
+msgstr "Despublicar borrador programado"
+
+msgid "Unpublished scheduled draft"
+msgstr "Borrador programado sin publicar"
+
+msgid "Reject"
+msgstr "Rechazar"
+
+msgid "Rename"
+msgstr "Renombrar"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renombrado de '%(old)s' a '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renombrado"
+
+msgid "Revert"
+msgstr "Revertir"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Revertido a la revisión anterior con id %(revision_id)s del %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Revertido a una versión anterior"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiado de %(title)s"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "Copy for translation"
+msgstr "Copiar para traducción"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiado para tranducción de %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Copiado para traducción"
+
+msgid "Create alias"
+msgstr "Crear alias"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Creado un alias de %(title)s"
+
+msgid "Created an alias"
+msgstr "Creado un alias"
+
+msgid "Convert alias into ordinary page"
+msgstr "Convertir alias a página ordinaria"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Convertido el alias '%(title)s' en una página ordinaria"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Convertido un alias en una página ordinaria"
+
+msgid "Move"
+msgstr "Mover"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Movido desde '%(old_parent)s' a '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Movido"
+
+msgid "Reorder"
+msgstr "Reordenar"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Reordenado debajo de '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Reordenado"
+
+msgid "Schedule publication"
+msgstr "Publicación programada"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisión %(revision_id)s del %(created_at)s programada para publicación el "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Página programada para publicación el %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Página programada para publicación"
+
+msgid "Unschedule publication"
+msgstr "Publicación no programada"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisión %(revision_id)s del %(created_at)s no programada para publicación "
+"el %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Página no programada para publicar el %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Página no programada para publicación"
+
+msgid "Add view restrictions"
+msgstr "Añadir restricciones de vista"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Añadida la restricción de vista '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Añadir restricción de vista"
+
+msgid "Update view restrictions"
+msgstr "Actualizar restricciones de vista"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Actualizada la restricción de vista a '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Actualizada la restricción de vista"
+
+msgid "Remove view restrictions"
+msgstr "Eliminar restricciones de vista"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Eliminada la restricción de vista '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Eliminada restricción de vista"
+
+msgid "Add comment"
+msgstr "Añadir comentario"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Añadido un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Añadido un comentario"
+
+msgid "Edit comment"
+msgstr "Editar comentario"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Editado un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Editado un comentario"
+
+msgid "Delete comment"
+msgstr "Eliminar comentario"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Eliminado un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Eliminado un comentario"
+
+msgid "Resolve comment"
+msgstr "Resolver comentario"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Resuelto un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Resuelto un comentario"
+
+msgid "Reply to comment"
+msgstr "Responder a comentario"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Respondió a un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Respondió a un comentario"
+
+msgid "Edit reply to comment"
+msgstr "Editar respuesta a comentario"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Editada una respuesta a un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Editada una respuesta"
+
+msgid "Delete reply to comment"
+msgstr "Eliminar respuesta a comentario"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Eliminada una respuesta a un comentario en campo %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Eliminada una respuesta"
+
+msgid "Workflow: start"
+msgstr "Flujo de trabajo: iniciar"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' iniciado. Siguiente paso '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Flujo de trabajo iniciado"
+
+msgid "Workflow: approve task"
+msgstr "Flujo de trabajo: aprobar tarea"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprobada en '%(task)s'. Siguiente paso '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Aprobada en '%(task)s'. '%(workflow)s' completo"
+
+msgid "Workflow task approved"
+msgstr "Tarea de flujo de trabajo aprobada"
+
+msgid "Workflow: reject task"
+msgstr "Flujo de trabajo: rechazar tarea"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rechazada en '%(task)s'. Cambios solicitados"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Tarea de flujo de trabajo rechazada. Flujo de trabajo completo"
+
+msgid "Workflow: resume task"
+msgstr "Flujo de trabajo: reanudar tarea"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Reenviada '%(task)s'. Flujo de trabajo reanudado'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Tarea de flujo de trabajo reenviada. Flujo de trabajo reanudado"
+
+msgid "Workflow: cancel"
+msgstr "Flujo de trabajo: cancelar"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Cancelado '%(workflow)s' en '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Flujo de trabajo cancelado"

@@ -1,0 +1,16 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=redirect.title %}Delete redirect {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Delete" as delete_str %}
+    {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=redirect.title icon="redirect" %}
+
+    <div class="row row-flush nice-padding">
+        <p>{% trans "Are you sure you want to delete this redirect?" %}</p>
+        <form action="{% url 'wagtailredirects:delete' redirect.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+        </form>
+    </div>
+
+{% endblock %}

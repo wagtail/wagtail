@@ -1,0 +1,5 @@
+{% load wagtailadmin_tags %}
+
+{% for panel in side_panels %}
+    {% component panel.toggle %}
+{% endfor %}

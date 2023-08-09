@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Zoriana Zaiats, 2018
+# Zoriana Zaiats, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Zoriana Zaiats, 2018\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
+
+msgid "Parent page"
+msgstr "Батьківська сторінка"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "Додати %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "Додати %(object)s"
+
+msgid "Inspect"
+msgstr "Переглянути"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "Дослідити %(object)s"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "Видалити %(object)s"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "Зняти з публікації %(object)s"
+
+msgid "Copy"
+msgstr "Копіювати"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "Копіювати %(object)s"
+
+msgid "image"
+msgstr "зображення"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Назад до %(model_name)s списку"
+
+msgid "Choose a parent page"
+msgstr "Оберіть батьківську сторінку"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s можуть бути додані до більш ніж однієї локації вашого сайту. Що з "
+"нижче перечисленого буде батьківським об'єктом вашої нової сторінки?"
+
+msgid "Continue"
+msgstr "Продовжити"
+
+msgid "Saving…"
+msgstr "Йде зберігання..."
+
+msgid "Save"
+msgstr "Зберегти"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s не може бути видалено"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"На '%(instance_name)s' зараз вказують декілька об'єктів і його видалення "
+"порушить цілісність даних. Для того, щоб успішно видалити цей об'єкт, "
+"спочатку заберіть посилання з цих об'єктів, а потім спробуйте знову:"
+
+msgid "Go back to listing"
+msgstr "Повернутися назад до списку"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
+msgid "Last updated"
+msgstr "Востаннє оновлено"
+
+msgid "History"
+msgstr "Історія змін"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s з %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Вибачте, немає %(name)s, що збігаються з вашими пошуковими параметрами. "
+
+msgid "Search for"
+msgstr "Шукати на"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Шукати %(name)s"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Жодного %(name)s ще не було створено. Перед додаванням будь якого %(name)s "
+"має бути спочатку створено щось із цього:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Жодних %(name)s ще не було створено."
+
+msgid "Pagination"
+msgstr "Пагінація"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Сторінка %(current_page)s з %(num_pages)s."
+
+msgid "Previous"
+msgstr "Назад"
+
+msgid "Next"
+msgstr "Далі"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' створено."
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "%(object)s не може бути створено через помилки."
+
+msgid "New"
+msgstr "Новий"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "Створити новий %(object)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Редагування %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' оновлено."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "%(object)s не може бути збережено через помилки."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "Схваліть видалення %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"Ви впевнені, що бажаєте видалити %(object)s? Якщо є інші пов'язані сутності, "
+"то це також може їх зачепити."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' видалено."
+
+msgid "Inspecting"
+msgstr "Перегляд"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "Перегляд %(object)s"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Date"
+msgstr "Дата"

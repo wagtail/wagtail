@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid "Add"
+msgstr "Ychwanegu"
+
+msgid "This field is required."
+msgstr "Mae angen y'r ffild hon."
+
+msgid "Password"
+msgstr "Cyfrinair"
+
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Default"
+msgstr "Diofyn"
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Lock"
+msgstr "Clo"
+
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Unlock"
+msgstr "Datgloi"
+
+msgid "title"
+msgstr "teitl"
+
+msgid "page"
+msgstr "tudalen"
+
+msgid "created at"
+msgstr "creu yn"
+
+msgid "name"
+msgstr "enw"
+
+msgid "groups"
+msgstr "grwpiau"
+
+msgid "site"
+msgstr "safle"
+
+msgid "default"
+msgstr "diofyn"
+
+msgid "Continue"
+msgstr "Parhau"
+
+msgid "Published"
+msgstr "Wedi cyhoeddi"
+
+msgid "Unpublish"
+msgstr "Anghyhoedd"
+
+msgid "Copy"
+msgstr "Copio"

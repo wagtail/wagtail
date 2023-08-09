@@ -1,0 +1,9 @@
+<div class="{{ classname }}" data-prefix="{{ prefix }}">
+    <p>{{ extra_var }}</p>
+
+    <ul class="fields">
+        {% for child in children.values %}
+            <li>{{ child.render_form }}</li>
+        {% endfor %}
+    </ul>
+</div>

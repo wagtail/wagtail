@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
+"Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail แนะนำสไตล์"
+
+msgid "Styleguide"
+msgstr "แนะนำสไตล์"
+
+msgid "Save"
+msgstr "เซฟ"
+
+msgid "Delete image"
+msgstr "ลบรูปภาพ"
+
+msgid "Search something"
+msgstr "ค้นหาบางอย่าง"
+
+msgid "Success message"
+msgstr "ข้อความที่สำเร็จ"
+
+msgid "View live"
+msgstr "ดูถ่ายทอดสด"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Warning message"
+msgstr "ข้อความการเตือน"
+
+msgid "Error message"
+msgstr "ข้อความผิดพลาด"

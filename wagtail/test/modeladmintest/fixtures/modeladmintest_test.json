@@ -1,0 +1,286 @@
+[
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 0,
+      "name": "Root"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "modeladmintest.author",
+    "fields": {
+      "name": "J. R. R. Tolkien",
+      "date_of_birth": "1892-01-03"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "modeladmintest.author",
+    "fields": {
+      "name": "Roald Dahl",
+      "date_of_birth": "1916-09-13"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "modeladmintest.author",
+    "fields": {
+      "name": "Roald Dahl",
+      "date_of_birth": "1898-11-29"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "modeladmintest.author",
+    "fields": {
+      "name": "J. R. Hartley",
+      "date_of_birth": "1898-11-29"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "modeladmintest.author",
+    "fields": {
+      "name": "Harper Lee",
+      "date_of_birth": "1926-04-28"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "modeladmintest.book",
+    "fields": {
+      "title": "The Lord of the Rings",
+      "author_id": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "modeladmintest.book",
+    "fields": {
+      "title": "The Hobbit",
+      "author_id": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "modeladmintest.book",
+    "fields": {
+      "title": "Charlie and the Chocolate Factory",
+      "author_id": 2
+    }
+  },
+  {
+    "pk": 4,
+    "model": "modeladmintest.book",
+    "fields": {
+      "title": "The Chronicles of the Lord of Narnia",
+      "author_id": 3
+    }
+  },
+  {
+    "pk": 4,
+    "model": "modeladmintest.solobook",
+    "fields": {
+      "title": "To Kill a Mockingbird",
+      "author_id": 5
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "fr"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "modeladmintest.translatablebook",
+    "fields": {
+      "title": "The Lord of the Rings",
+      "author_id": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "modeladmintest.translatablebook",
+    "fields": {
+      "title": "Le Seigneur des anneaux",
+      "author_id": 1,
+      "locale_id": 2
+    }
+  },
+  {
+    "pk": "boom",
+    "model": "modeladmintest.token",
+    "fields": {
+      "key": "boom"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Root",
+      "draft_title": "Root",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 1,
+      "content_type": ["wagtailcore", "page"],
+      "path": "0001",
+      "url_path": "/",
+      "slug": "root"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to the Wagtail test site!",
+      "draft_title": "Welcome to the Wagtail test site!",
+      "numchild": 5,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010001",
+      "url_path": "/home/",
+      "slug": "home"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Events",
+      "draft_title": "Events",
+      "numchild": 4,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventindex"],
+      "path": "000100010001",
+      "url_path": "/home/events/",
+      "slug": "events"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.eventindex",
+    "fields": {
+      "intro": "Look at our lovely events."
+    }
+  },
+
+  {
+    "pk": 4,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Christmas",
+      "draft_title": "Christmas",
+      "numchild": 3,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010001",
+      "url_path": "/home/events/christmas/",
+      "slug": "christmas"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Chestnuts roasting on an open fire</p>",
+      "cost": "Free"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Santa's Grotto",
+      "draft_title": "Santa's Grotto",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 5,
+      "content_type": ["modeladmintest", "venuepage"],
+      "path": "00010001000100010001",
+      "url_path": "/home/events/christmas/santas-grotto/",
+      "slug": "santas-grotto"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "modeladmintest.venuepage",
+    "fields": {
+      "address": "The North Pole",
+      "capacity": 3
+    }
+  },
+  {
+    "pk": 6,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Santa's Workshop",
+      "draft_title": "Santa's Workshop",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 5,
+      "content_type": ["modeladmintest", "venuepage"],
+      "path": "00010001000100010002",
+      "url_path": "/home/events/christmas/santas-workshop/",
+      "slug": "santas-workshop"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "modeladmintest.venuepage",
+    "fields": {
+      "address": "The North Pole",
+      "capacity": 25
+    }
+  },
+  {
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Claim your free present!",
+      "draft_title": "Claim your free present!",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 5,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010001000100010003",
+      "url_path": "/home/events/christmas/claim-free-present/",
+      "slug": "claim-free-present"
+    }
+  }
+]

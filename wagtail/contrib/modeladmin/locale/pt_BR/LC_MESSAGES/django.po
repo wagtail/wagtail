@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2019-2020
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021-2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>, 2021-2022\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
+
+msgid "Parent page"
+msgstr "Página raíz"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "Adicionar %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "Adicionar um novo %(object)s"
+
+msgid "Inspect"
+msgstr "Inspecionar"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "Inspecionando este %(object)s"
+
+msgid "Edit"
+msgstr "Editar"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
+
+msgid "Delete"
+msgstr "Excluir"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "Remover este %(object)s"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "Despublicar este %(object)s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "Copiar este %(object)s"
+
+msgid "image"
+msgstr "imagem"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Back to %(model_name)s list"
+
+msgid "Choose a parent page"
+msgstr "Escolha uma página raíz"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s pode ser adicionado a mais de um lugar dentro do seu site. Qual "
+"das seguintes é que gostaria de ser a raíz da sua nova página?"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Saving…"
+msgstr "Salvando…"
+
+msgid "Save"
+msgstr "Salvar"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s não pode ser excluído"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' é atualmente referenciada por outros objetos, e não pode "
+"ser excluído, sem comprometer a integridade dos dados. Para excluí-lo com "
+"sucesso, em primeiro lugar remover referências a partir dos seguintes "
+"objetos, em seguida, tente novamente:"
+
+msgid "Go back to listing"
+msgstr "Voltar a listagem"
+
+msgid "Yes, delete"
+msgstr "Sim, exclua"
+
+msgid "No, don't delete"
+msgstr "Não, não apague"
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr " Por %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Última atualização"
+
+msgid "History"
+msgstr "Histórico"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s fora de %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Desculpe, não há %(name)s que satisfazem os seus parâmetros de pesquisa."
+
+msgid "Search for"
+msgstr "Procurar por"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Pesquisa %(name)s"
+
+msgid "Search"
+msgstr "Busca"
+
+msgid "Filter"
+msgstr "Filtro"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Nenhum %(name)s foi criado ainda. Uma das seguintes opções deve ser criado "
+"antes de adicionar qualquer %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Nenhum %(name)s foi criado ainda."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Porque não <a href=\"%(url)s\">criar uma</a>?"
+
+msgid "Pagination"
+msgstr "Paginação"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Página %(current_page)s de %(num_pages)s."
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próximo"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' criado."
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "O %(object)s não pode ser criado devido a erros."
+
+msgid "New"
+msgstr "Adicionar"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "Adicionar novo %(object)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Editando %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atualizado."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "O %(object)s não pôde ser salvo devido a erros."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmar a exclusão de %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"Tem certeza de que quer apagar este %(object)s? Se outras coisas em seu site "
+"estão relacionadas a ele, eles também podem ser afetados."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' excluído."
+
+msgid "Inspecting"
+msgstr "Inspecionando"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "Inspecionando %(object)s"
+
+msgid "Action"
+msgstr "Ação"
+
+msgid "Date"
+msgstr "Data"

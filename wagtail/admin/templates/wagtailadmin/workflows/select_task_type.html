@@ -1,0 +1,30 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% block titletag %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Choose which type of task you'd like to create." %}</p>
+
+        {% if task_types %}
+            <ul class="listing">
+                {% for verbose_name, app_label, model_name, description in task_types %}
+                    <li>
+                        <div class="row row-flush">
+                            <div class="col6">
+                                <a href="{% url 'wagtailadmin_workflows:add_task' app_label model_name %}">{% icon name="plus-inverse" classname="middle w-mr-1" %}{{ verbose_name }}</a>
+                            </div>
+                            <div class="col6">
+                                {{ description }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+=========================
+Wagtail 2.2 release notes
+=========================
+
+*August 10, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Faceted search
+~~~~~~~~~~~~~~
+
+Wagtail search now includes support for facets, allowing you to display search result counts broken down by a particular field value. For further details, see :ref:`wagtailsearch_faceted_search`. This feature was developed by Karl Hobley.
+
+
+Improved admin page search
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The page search in the Wagtail admin now supports filtering by page type and ordering search results by title, creation date and status. This feature was developed by Karl Hobley.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
+* Added ``annotate_score`` support to PostgreSQL search backend (Bertrand Bordage)
+* Pillow's image optimisation is now applied when saving PNG images (Dmitry Vasilev)
+* JS / CSS media files can now be associated with Draftail feature definitions (Matt Westcott)
+* The ``{% slugurl %}`` template tag is now site-aware (Samir Shah)
+* Added ``file_size`` field to documents (Karl Hobley)
+* Added ``file_hash`` field to images (Karl Hobley)
+* Update documentation (configuring Django for Wagtail) to contain all current settings options (Matt Westcott, LB (Ben Johnston))
+* Added ``defer`` flag to ``PageQuerySet.specific`` (Karl Hobley)
+* Snippets can now be deleted from the listing view (LB (Ben Johnston))
+* Increased max length of redirect URL field to 255 (Michael Harrison)
+* Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
+* Added accessible colour contrast guidelines to the style guide (Catherine Farman)
+* Admin modal views no longer rely on JavaScript ``eval()``, for better CSP compliance (Matt Westcott)
+* Update editor guide for embeds and documents in rich text (Kevin Howbrook)
+* Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
+* Added an internal API for autocomplete (Karl Hobley)
+
+Bug fixes
+~~~~~~~~~
+
+* Handle all exceptions from ``Image.get_file_size`` (Andrew Plummer)
+* Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
+* Remove duplicate border radius of avatars (Benjamin Thurm)
+* Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
+* Pages with missing model definitions no longer crash the API (Abdulmalik Abdulwahab)
+* Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+* Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
+* Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
+* Copy-paste between Draftail editors now preserves all formatting/content (Thibaud Colas)
+* Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
+
+Upgrade considerations
+======================
+
+JavaScript templates in modal workflows are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtail.admin.modal_workflow`` module (used internally by Wagtail to handle modal popup interfaces such as the page chooser) has been updated to avoid returning JavaScript code as part of HTTP responses. User code that relies on this functionality can be updated as follows:
+
+* Eliminate template tags from the .js template. Any dynamic data needed by the template can instead be passed in a dict to ``render_modal_workflow``, as a keyword argument ``json_data``; this data will then be available as the second parameter of the JavaScript function.
+* At the point where you call the ``ModalWorkflow`` constructor, add an ``onload`` option - a dictionary of functions to be called on loading each step of the workflow. Move the code from the .js template into this dictionary. Then, on the call to ``render_modal_workflow``, rather than passing the .js template name (which should now be replaced by ``None``), pass a ``step`` item in the ``json_data`` dictionary to indicate the ``onload`` function to be called.
+
+Additionally, if your code calls ``loadResponseText`` as part of a jQuery AJAX callback, this should now be passed all three arguments from the callback (the response data, status string and XMLHttpRequest object).
+
+
+``Page.get_sitemap_urls()`` now accepts an optional ``request`` keyword argument
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page.get_sitemap_urls()`` method used by the ``wagtail.contrib.sitemaps`` module has been updated to receive an optional ``request`` keyword argument. If you have overridden this method in your page models, you will need to update the method signature to accept this argument (and pass it on when calling ``super``, if applicable).

@@ -1,0 +1,938 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020-2021,2023
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021-2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2023\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail kärna"
+
+msgid "Add Comment"
+msgstr "Lägg till kommentar"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Det minsta antalet block är %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Det maximala antalet block är %(max_num)d"
+
+msgid "Move up"
+msgstr "Flytta upp"
+
+msgid "Move down"
+msgstr "Flytta ner"
+
+msgid "Duplicate"
+msgstr "Duplicera"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Add"
+msgstr "Lägg till"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: det här blocket har inga inställningar."
+
+msgid "This block has no options."
+msgstr "Detta block har inga inställningar."
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sajtkarta"
+
+msgid "Password"
+msgstr "Lösenord"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Locked"
+msgstr "Låst"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' låstes</b> av <b>dig</b> vid <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' är låst</b> av <b>dig</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' låstes</b> av <b>{user}</b> vid <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' är låst</b>."
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Denna %(model_name)s väntar på moderering."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Denna {model_name} väntar på <b>'{task_name}'</b> i <b>'{workflow_name}'</b> "
+"arbetsflöde."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Endast granskare för denna uppgift kan redigera %(model_name)s."
+
+msgid "Unlocked"
+msgstr "Olåst"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' är låst och har schemalagts att publiceras vid "
+"{datetime}"
+
+msgid "latest revision"
+msgstr "senaste revision"
+
+msgid "live"
+msgstr "publicerad"
+
+msgid "has unpublished changes"
+msgstr "har opublicerade ändringar"
+
+msgid "first published at"
+msgstr "först publicerad vid"
+
+msgid "last published at"
+msgstr "senast publicerad"
+
+msgid "live revision"
+msgstr "publicerad revision"
+
+msgid "go live date/time"
+msgstr "publicera vid datum/tid"
+
+msgid "expiry date/time"
+msgstr "utgångsdatum/tid"
+
+msgid "expired"
+msgstr "utgången"
+
+msgid "scheduled"
+msgstr "schemalagd"
+
+msgid "draft"
+msgstr "utkast"
+
+msgid "live + scheduled"
+msgstr "live + schemalagd"
+
+msgid "live + draft"
+msgstr "publicerad + utkast"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "locked at"
+msgstr "låstes as"
+
+msgid "locked by"
+msgstr "låst av"
+
+msgid "in moderation"
+msgstr "under moderering"
+
+msgid "live + in moderation"
+msgstr "publicerad + under moderering"
+
+msgid "Add/edit pages you own"
+msgstr "Skapa/redigera sidor du äger"
+
+msgid "Bulk delete"
+msgstr "Massradera"
+
+msgid "Delete pages with children"
+msgstr "Radera sidor med undersidor"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit any page"
+msgstr "Redigera alla sidor"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås upp sidor du låst"
+
+msgid "Publish"
+msgstr "Publicera"
+
+msgid "Publish any page"
+msgstr "Publicera alla sidor"
+
+msgid "Unlock"
+msgstr "Lås upp"
+
+msgid "Unlock any page"
+msgstr "Lås upp valfri sida"
+
+msgid "title"
+msgstr "titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Sidans titel som du vill att den ska synas publikt"
+
+msgid "slug"
+msgstr "slugg"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Namnet på sidan så som den kommer att synas i URLer t.ex http://domain.com/"
+"blog/[min-slugg]/"
+
+msgid "content type"
+msgstr "innehållstyp"
+
+msgid "URL path"
+msgstr "URL sökväg"
+
+msgid "owner"
+msgstr "ägare"
+
+msgid "title tag"
+msgstr "titeltagg"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Namnet på sidan som syns i sökresultat som den klickbara rubriken"
+
+msgid "show in menus"
+msgstr "visa i menyer"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Om huruvida en länk till den här sidan ska synas i automatiskt genererade "
+"menyer"
+
+msgid "meta description"
+msgstr "Metabeskrivning"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Den beskrivande texten som är synlig under rubriken bland resultaten i "
+"sökmotorer."
+
+msgid "latest revision created at"
+msgstr "senaste revision skapad vid"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Sluggen '%(page_slug)s' används redan inom föräldersidan vid "
+"'%(parent_url_path)s'"
+
+msgid "page"
+msgstr "sida"
+
+msgid "pages"
+msgstr "sidor"
+
+msgid "object id"
+msgstr "objektid"
+
+msgid "submitted for moderation"
+msgstr "inlämnad för moderering"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "user"
+msgstr "användare"
+
+msgid "content JSON"
+msgstr "innehålls JSON"
+
+msgid "approved go live at"
+msgstr "godkänd för att publiceras vid"
+
+msgid "revision"
+msgstr "revision"
+
+msgid "revisions"
+msgstr "revisioner"
+
+msgid "group"
+msgstr "grupp"
+
+msgid "permission"
+msgstr "rättighet"
+
+msgid "permission type"
+msgstr "rättighetstyp"
+
+msgid "group page permission"
+msgstr "gruppens sidrättighet"
+
+msgid "group page permissions"
+msgstr "gruppens sidrättigheter"
+
+msgid "page view restriction"
+msgstr "Sidovisningsrestriktion"
+
+msgid "page view restrictions"
+msgstr "Sidovisningsrestriktioner"
+
+msgid "workflow"
+msgstr "arbetsflöde"
+
+msgid "workflow page"
+msgstr "arbetsflödessida"
+
+msgid "workflow pages"
+msgstr "arbetsflödessidor"
+
+msgid "workflow_tasks"
+msgstr "Arbetsflödesuppgifter"
+
+msgid "task"
+msgstr "uppgift"
+
+msgid "workflow task order"
+msgstr "arbetsflöde uppgiftsuppdrag"
+
+msgid "workflow task orders"
+msgstr "arbetsflöde uppgiftsuppdrag"
+
+msgid "name"
+msgstr "namn"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktiva uppgifter kan läggas till på arbetsflöden. Inaktivering av en uppgift "
+"tar inte bort den från existerande arbetsflöden."
+
+msgid "tasks"
+msgstr "uppgifter"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktiva arbetsflöden kan läggas till på sidor/snuttar. Deaktivering av "
+"arbetsflöde raderar inte den från existerande sidor/snuttar."
+
+msgid "workflows"
+msgstr "arbetsflöden"
+
+msgid "groups"
+msgstr "grupper"
+
+msgid "Request changes"
+msgstr "Begär ändringar"
+
+msgid "Approve"
+msgstr "Godkänn"
+
+msgid "Approve with comment"
+msgstr "Godkänn med kommentar"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Medlemmar i de valda Wagtail Grupperna kan godkänna denna uppgift"
+
+msgid "Group approval task"
+msgstr "Grupp godkännande uppgift"
+
+msgid "Group approval tasks"
+msgstr "Grupp godkännande uppgifter"
+
+msgid "In progress"
+msgstr "pågående"
+
+msgid "Approved"
+msgstr "Godkänd"
+
+msgid "Needs changes"
+msgstr "Behöver förändringar"
+
+msgid "Cancelled"
+msgstr "Avbruten"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "begärdes av"
+
+msgid "current task state"
+msgstr "nuvarande uppgiftsstatus"
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Arbetsflöde '%(workflow_name)s' på %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Ej påbörjad"
+
+msgid "Workflow state"
+msgstr "Arbetsflöde status"
+
+msgid "Workflow states"
+msgstr "Arbetsflöde status"
+
+msgid "Rejected"
+msgstr "Avvisad"
+
+msgid "Skipped"
+msgstr "Hoppade över"
+
+msgid "workflow state"
+msgstr "arbetsflöde status"
+
+msgid "started at"
+msgstr "påbörjades vid"
+
+msgid "finished at"
+msgstr "färdigställdes vid"
+
+msgid "finished by"
+msgstr "färdigställdes av"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Uppgift '%(task_name)s' på revision '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Uppgiftsstatus"
+
+msgid "Task states"
+msgstr "Uppgift status"
+
+msgid "page log entry"
+msgstr "sidloggpost"
+
+msgid "page log entries"
+msgstr "sidloggposter"
+
+msgid "Draft saved"
+msgstr "Utkast sparat"
+
+msgid "comment"
+msgstr "kommentar"
+
+msgid "comments"
+msgstr "kommentarer"
+
+msgid "comment reply"
+msgstr "kommentarssvar"
+
+msgid "comment replies"
+msgstr "kommentarssvar"
+
+msgid "timestamp (UTC)"
+msgstr "tidsstämpel (UTC)"
+
+msgid "log entry"
+msgstr "loggpost"
+
+msgid "log entries"
+msgstr "loggposter"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Loggningen '%(action_name)s' har inte blivit registrerad."
+
+msgid "system"
+msgstr "system"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Okänt %(action)s"
+
+msgid "model log entry"
+msgstr "modelllogpost"
+
+msgid "model log entries"
+msgstr "modellloggposter"
+
+msgid "collection"
+msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsrestriktion för samling"
+
+msgid "collection view restrictions"
+msgstr "visningsrestriktioner för samling"
+
+msgid "collections"
+msgstr "samlingar"
+
+msgid "group collection permission"
+msgstr "gruppsamlingsrättighet"
+
+msgid "group collection permissions"
+msgstr "gruppsamlingsbehörigheter"
+
+msgid "hostname"
+msgstr "värdnamn"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Sätt det här till något annat än 80 om du behöver ett specifikt portnummer "
+"som ska synas i URLen (t.ex. utveckling på port 8000). Påverkar inte "
+"hantering av serverförfrågningar (så vidarebefordring av port fungerar "
+"fortfarande)"
+
+msgid "site name"
+msgstr "sajtnamn"
+
+msgid "Human-readable name for the site."
+msgstr "Läsbart namn för sajten"
+
+msgid "root page"
+msgstr "rotsida"
+
+msgid "is default site"
+msgstr "är standardsajten"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Om sant, så kommer sajten att hantera serverförfrågningar för alla andra "
+"värdnamn som inte har en egen inmatning"
+
+msgid "site"
+msgstr "sajt"
+
+msgid "sites"
+msgstr "sajter"
+
+msgid "default"
+msgstr "standard"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s är redan konfigurerad till att vara din standardsajt. Du måste "
+"ändra det värdet innan du kan spara denna sajt som standard."
+
+msgid "Public"
+msgstr "Publik"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, åtkomligen för inloggade användare"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, åtkomligen med följande lösenord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, åtkomligen för användare i specifika grupper"
+
+msgid "password"
+msgstr "lösenord"
+
+msgid "view restriction"
+msgstr "visningsrestriktion"
+
+msgid "view restrictions"
+msgstr "visningsrestriktioner"
+
+msgid "Log in"
+msgstr "Logga in"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ditt användarnamn och lösenord matchade inte. Vänligen försök igen."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ditt konto har inte tillgång till den här sidan. För att fortsätta, vänligen "
+"logga in med ett konto som har tillgång."
+
+msgid "Password required"
+msgstr "Lösenord krävs"
+
+msgid "You need a password to access this page."
+msgstr "Du behöver ett lösenord för åtkomst till sidan."
+
+msgid "Continue"
+msgstr "Fortsätt"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s härstammande samling"
+msgstr[1] "%(count)s härstammande samlingar"
+
+msgid "Create"
+msgstr "Skapa"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "Edited"
+msgstr "Redigerad"
+
+msgid "Deleted"
+msgstr "Raderad"
+
+msgid "Published"
+msgstr "Publicerad"
+
+msgid "Publish scheduled draft"
+msgstr "Publicera schemalagd utkast"
+
+msgid "Published scheduled draft"
+msgstr "Publicerade schemalagda utkast"
+
+msgid "Unpublish"
+msgstr "Avpublicera"
+
+msgid "Unpublished"
+msgstr "Avpublicerad"
+
+msgid "Unpublish scheduled draft"
+msgstr "Avpublicera schemalagd utkast"
+
+msgid "Unpublished scheduled draft"
+msgstr "Opublicerade schemalagda utkast"
+
+msgid "Reject"
+msgstr "Avvisa"
+
+msgid "Rename"
+msgstr "Byt namn"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Bytte namn från '%(old)s' till '%(new)s'"
+
+msgid "Renamed"
+msgstr "Namnbytt"
+
+msgid "Revert"
+msgstr "Återställ"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Återställd till tidigare revision med id %(revision_id)s från %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Återställd till tidigare revision"
+
+msgid "Copy"
+msgstr "Kopiera"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopierad från %(title)s"
+
+msgid "Copied"
+msgstr "Kopierad"
+
+msgid "Copy for translation"
+msgstr "Kopiera för översättning"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Kopierad för översättning från %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Kopierad för översättning"
+
+msgid "Create alias"
+msgstr "Skapa alias"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Skapade ett alias av %(title)s"
+
+msgid "Created an alias"
+msgstr "Skapade ett alias"
+
+msgid "Convert alias into ordinary page"
+msgstr "Konvertera alias till en vanlig sida"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Konverterade aliaset '%(title)s' till en vanlig sida"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Konverterade ett alias till en vanlig sida"
+
+msgid "Move"
+msgstr "Flytta"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Flyttade från '%(old_parent)s' till '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Flyttad"
+
+msgid "Reorder"
+msgstr "Omsortera"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Omsorterad under '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Omsorterad"
+
+msgid "Schedule publication"
+msgstr "Schemalägg publicering"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revision %(revision_id)s från %(created_at)s schemalagd för publicering vid "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Sida schemalagd för publicering vid %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Sida schemalagd för publicering"
+
+msgid "Unschedule publication"
+msgstr "Avschemalägg publicering"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revision %(revision_id)s från %(created_at)s avschemalagd för publicering "
+"vid %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Sida avschemalagd för publicering vid %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Sida avschemalagd för publicering"
+
+msgid "Add view restrictions"
+msgstr "Lägg till vyrestriktioner"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Lade till vyrestriktionen '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Lade till vyrestriktion"
+
+msgid "Update view restrictions"
+msgstr "Uppdatera vyrestriktioner"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Uppdaterade vyrestriktionen till '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Uppdaterade vyrestriktionen"
+
+msgid "Remove view restrictions"
+msgstr "Radera vyrestriktioner"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Raderade vyrestriktionen '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Raderade vyrestriktionen"
+
+msgid "Add comment"
+msgstr "Lägg till kommentar"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Lade till en kommentar på fältet %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Lade till en kommentar"
+
+msgid "Edit comment"
+msgstr "Editera kommentar"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Editerade en kommentar på fältet %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Editerade en kommentar"
+
+msgid "Delete comment"
+msgstr "Radera kommentar"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Raderade en kommentar på fältet %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Raderade en kommentar"
+
+msgid "Resolve comment"
+msgstr "Lös kommentar"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Löste en kommentar på fältet %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Löste en kommentar"
+
+msgid "Reply to comment"
+msgstr "Svara på kommentar"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Svarade kommentaren på fältet %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Svarade på en kommentar"
+
+msgid "Edit reply to comment"
+msgstr "Editera svar till kommentar"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Editerade ett svar till en kommentar på fältet %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Editerade ett svar"
+
+msgid "Delete reply to comment"
+msgstr "Radera svar på kommentar"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Raderade ett svar till kommentaren på fältet %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Raderade ett svar"
+
+msgid "Workflow: start"
+msgstr "Arbetsflöde: start"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' startad. Nästa steg '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Arbetsflöde startad"
+
+msgid "Workflow: approve task"
+msgstr "Arbetsflöde: godkänn uppgift"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Godkänd vid '%(task)s'. Nästa steg '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Godkänd vid '%(task)s'. '%(workflow)s' klart"
+
+msgid "Workflow task approved"
+msgstr "Arbetsflödets uppgift godkänd"
+
+msgid "Workflow: reject task"
+msgstr "Arbetsflöde: avvisa uppgift"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Avvisad vid '%(task)s'. Ändringar begärda"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Arbetsflödesuppgift avvisad. Arbetsflöde komplett"
+
+msgid "Workflow: resume task"
+msgstr "Arbetsflöde: återuppta uppgift"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Återinskickade '%(task)s'. Arbetsflöde återupptaget"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Arbetsflödesuppgift återinskickad. Arbetsflöde återupptagen"
+
+msgid "Workflow: cancel"
+msgstr "Arbetsflöde: avbryt"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Inställt '%(workflow)s' vid '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Arbetsflöde inställt"

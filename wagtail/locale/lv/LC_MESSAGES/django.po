@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Add Comment"
+msgstr "Pievienot komentāru"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimālais skaits ir %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimālais skaits ir %(max_num)d"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Duplicate"
+msgstr "Dublicēt"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Add"
+msgstr "Pievienot"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: šim blokam nav opciju."
+
+msgid "This block has no options."
+msgstr "Šim blokam nav opciju"
+
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail maršrutējama lapa"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail vietnes kartes"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+"Parole, kuru Jūs esat ievadījuši, nav pareiza. Lūdzu, mēģinājiet vēlreiz."
+
+msgid "Comment"
+msgstr "Komentārs"
+
+msgid "Locked"
+msgstr "Slēgts"
+
+msgid "Unlocked"
+msgstr "Atslēgts"
+
+msgid "latest revision"
+msgstr "pēdējā revīzija"
+
+msgid "live"
+msgstr "tiešsaistē"
+
+msgid "has unpublished changes"
+msgstr "ir nepublicētas izmaiņas"
+
+msgid "first published at"
+msgstr "pirmo reizi publicēta"
+
+msgid "last published at"
+msgstr "pēdējo reizi publicēta"
+
+msgid "live revision"
+msgstr "tiešsaistes revīzija"
+
+msgid "go live date/time"
+msgstr "publicēt tiešsaistē datums/laiks"
+
+msgid "expiry date/time"
+msgstr "derīguma beigšanās laiks/datums"
+
+msgid "expired"
+msgstr "novecojis"
+
+msgid "scheduled"
+msgstr "plānots"
+
+msgid "draft"
+msgstr "melnraksts"
+
+msgid "live + draft"
+msgstr "tiešsaitē + melnraksts"
+
+msgid "Default"
+msgstr "Noklusējums"
+
+msgid "locked"
+msgstr "slēgta"
+
+msgid "locked at"
+msgstr "tika slēgta"
+
+msgid "locked by"
+msgstr "tika slēgta"
+
+msgid "in moderation"
+msgstr "pārbaudē"
+
+msgid "Add/edit pages you own"
+msgstr "Pievienot/labot jums piederošās lapas"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Edit any page"
+msgstr "Labot jebkuru lapu"
+
+msgid "Lock"
+msgstr "Slēgt"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Publish any page"
+msgstr "Publicēt jebkuru lapu"
+
+msgid "Unlock"
+msgstr "Atslēgt"
+
+msgid "title"
+msgstr "virsraksts"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Lapas virsraksts, kas ir publiski pieejams"
+
+msgid "slug"
+msgstr "saites daļa"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Lapas nosaukums, kas parādās saitē, t. i., http://domain.com/blog/[jūsu-"
+"saites-daļa]/"
+
+msgid "content type"
+msgstr "satura veids"
+
+msgid "URL path"
+msgstr "saites ceļš"
+
+msgid "owner"
+msgstr "īpašnieks"
+
+msgid "title tag"
+msgstr "virsraksta tags"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Lapas nosaukums, kas ir rādīt mēklētājprogrammu rezultātos kā spiežamais "
+"virsraksts."
+
+msgid "show in menus"
+msgstr "radīt izvēlnēs"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Vai saite uz lapu tiks radīta automātiski ģenerētās izvēlnes"
+
+msgid "meta description"
+msgstr "meta aparaksts"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "Teksts, kas tiek rādīts zem virsraksta mēklētājprogrammās."
+
+msgid "latest revision created at"
+msgstr "pēdējā versija tika izveidota"
+
+msgid "page"
+msgstr "lapa"
+
+msgid "pages"
+msgstr "lapas"
+
+msgid "object id"
+msgstr "objekta identifikātors"
+
+msgid "page view restriction"
+msgstr "lapu skatījuma ierobežojumi"
+
+msgid "page view restrictions"
+msgstr "Lapu skatīšanas ierobežojumi"
+
+msgid "groups"
+msgstr "grupas"
+
+msgid "Approve"
+msgstr "Apstiprināt"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Nezināma %(action)s"
+
+msgid "hostname"
+msgstr " resursdatora nosaukums"
+
+msgid "site"
+msgstr "vietne"
+
+msgid "sites"
+msgstr "vietnes"
+
+msgid "default"
+msgstr "noklusētais"
+
+msgid "Public"
+msgstr "Publisks"
+
+msgid "Private, accessible with the following password"
+msgstr "Privāts, pieejams ar šādu paroli"
+
+msgid "Edited"
+msgstr "Labots"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Reject"
+msgstr "Noraidīt"
+
+msgid "Rename"
+msgstr "Pārsaukt"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Pārsaukts no '%(old)s' uz '%(new)s'"
+
+msgid "Renamed"
+msgstr "Pārsaukts"
+
+msgid "Revert"
+msgstr "Agriezt"
+
+msgid "Copy"
+msgstr "Kopēt"
+
+msgid "Copied"
+msgstr "Kopēts"
+
+msgid "Create alias"
+msgstr "Izveidot aizstājlapu"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Izveidota %(title)s aizstājējlapa"
+
+msgid "Created an alias"
+msgstr "Izveidota aizstājējlapa"
+
+msgid "Move"
+msgstr "Pārvietot"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Pārvietota no %(old_parent)s uz %(new_parent)s"
+
+msgid "Moved"
+msgstr "Pārvietota"
+
+msgid "Schedule publication"
+msgstr "Plānot publicēšanu"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Pārskatījumam %(revision_id)s no %(created_at)s ieplānota publicēšanai "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Lapa ieplānota publicēšanai %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Lapa ieplānota publicēšanai"
+
+msgid "Unschedule publication"
+msgstr "Atplānot publicēšanu"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Pārskatījumam %(revision_id)s no %(created_at)s atcelta %(go_live_at)s "
+"plānotā publicēšana"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Lapai atcelta plānotā publicēšana %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Lapai atcelta plānotā publicēšana"
+
+msgid "Add view restrictions"
+msgstr "Pievienot apskates ierobežojumus"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Pievienots %(restriction)s apskates ierobežojums"
+
+msgid "Added view restriction"
+msgstr "PIevienots apskates ierobežojums"
+
+msgid "Update view restrictions"
+msgstr "Atjaunināt apskates ierobežojumus"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Atjaunināts %(restriction)s apskates ierobežojums"
+
+msgid "Updated view restriction"
+msgstr "Atjaunināts apskates ierobežojums"
+
+msgid "Remove view restrictions"
+msgstr "Noņemt apskates ierobežojumus"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Noņemts %(restriction)s apskates ierobežojums"
+
+msgid "Removed view restriction"
+msgstr "Noņemts apskates ierobežojums"
+
+msgid "Workflow: start"
+msgstr "Darbplūsma: uzsākt"
+
+msgid "Workflow: approve task"
+msgstr "Darbplūsma: apstiprināt uzdevumu"
+
+msgid "Workflow task approved"
+msgstr "Darbplūsmas uzdevums apstiprināts."
+
+msgid "Workflow: reject task"
+msgstr "Darbplūsma: noraidīt uzdevumu"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Darbplūsmas uzdevums noraidīts. Darbplūsma pabeigta."
+
+msgid "Workflow: resume task"
+msgstr "Darbplūsma: atsākt uzdevumu"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Darbplūsmas uzdevums atkārtoti iesniegts. Darbplūsma atsākta."
+
+msgid "Workflow: cancel"
+msgstr "Darbplūsma: atcelt"
+
+msgid "Workflow cancelled"
+msgstr "Darbplūsma atcelta"

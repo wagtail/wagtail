@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020,2022
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
+# Daniel Chimeno <daniel@chimeno.me>, 2015
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
+# Joaquín T <joaquintita@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015,2017-2018
+# Mauricio Baeza <python@amigos.email>, 2014
+# Mauricio Baeza <python@amigos.email>, 2014
+# Oscar Luciano Espirilla Flores, 2020
+# Oscar Luciano Espirilla Flores, 2020
+# X Bello <xbello@gmail.com>, 2022
+# José Luis <alagunajs@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail forms"
+msgstr "Formularios Wagtail"
+
+msgid "Date from"
+msgstr "Fecha de"
+
+msgid "Date to"
+msgstr "Fecha a"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Hay otro campo con la etiqueta %(label_name)s, por favor cambie alguno de "
+"ellos."
+
+msgid "Single line text"
+msgstr "Una línea de texto"
+
+msgid "Multi-line text"
+msgstr "Multilinea de texto"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Casilla de verificación"
+
+msgid "Checkboxes"
+msgstr "Casillas de verificación"
+
+msgid "Drop down"
+msgstr "Lista desplegable"
+
+msgid "Multiple select"
+msgstr "Selección múltiple"
+
+msgid "Radio buttons"
+msgstr "Botón de opción"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Date/time"
+msgstr "Fecha/Hora"
+
+msgid "Hidden field"
+msgstr "Campo oculto"
+
+msgid "submit time"
+msgstr "enviado en"
+
+msgid "form submission"
+msgstr "formulario de presentación"
+
+msgid "form submissions"
+msgstr "Formularios presentados"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Nombre seguro del campo de formulario, la etiqueta convertida a "
+"ascii_snake_case"
+
+msgid "label"
+msgstr "rótulo"
+
+msgid "The label of the form field"
+msgstr "La etiqueta del campo del formulario"
+
+msgid "field type"
+msgstr "tipo de campo"
+
+msgid "required"
+msgstr "requerido"
+
+msgid "choices"
+msgstr "opciones"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Lista de opciones separadas por comas o saltos de línea. Solo aplicable para "
+"casillas de verificación, botones de opción y listas desplegables."
+
+msgid "default value"
+msgstr "valor por defecto"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valor por defecto. Valores separados por comas o saltos de línea soportados "
+"para casillas de verificación."
+
+msgid "help text"
+msgstr "texto de ayuda"
+
+msgid "Submission date"
+msgstr "Fecha de envío"
+
+msgid "Form"
+msgstr "Formulario"
+
+msgid "Landing page"
+msgstr "Página de presentación"
+
+msgid "to address"
+msgstr "a dirección"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opcional - los formularios seran enviados por correo electrónico a estas "
+"direcciones."
+
+msgid "from address"
+msgstr "desde dirección"
+
+msgid "subject"
+msgstr "asunto"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s presentaciones"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Eliminar el formulario de datas %(title)s"
+
+msgid "Delete form data"
+msgstr "Eliminar formulario de datos"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "¿Seguro que quieres eliminar este envío de formulario?"
+msgstr[1] "¿Seguro que quieres eliminar estos envíos de formulario?"
+msgstr[2] "¿Seguro que quieres eliminar estos envíos de formulario?"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Forms"
+msgstr "Formularios"
+
+msgid "Pages"
+msgstr "Páginas"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Origen"
+
+msgid "Delete selected submissions"
+msgstr "Eliminar las presentaciones seleccionadas"
+
+msgid "Total submissions"
+msgstr "Presentaciones totales"
+
+msgid "Latest submission"
+msgstr "Última presentación"
+
+msgid "No form pages have been created."
+msgstr "No se han creado páginas de formularios."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Envíos de %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "No se han realizado presentaciones del formulario '%(title)s'."
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Un evío ha sido eliminado."
+msgstr[1] "%(count)d envíos han sido borrados."
+msgstr[2] "%(count)d envíos han sido borrados."
+
+msgid "Form data"
+msgstr "Datos del formulario"

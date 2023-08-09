@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% trans "Delete user" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=user icon="user" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Are you sure you want to delete this user?" %}</p>
+        <form action="{% url 'wagtailusers_users:delete' user.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+        </form>
+    </div>
+{% endblock %}

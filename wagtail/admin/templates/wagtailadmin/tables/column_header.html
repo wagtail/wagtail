@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags %}
+<th {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if is_orderable %}
+        {% if is_ascending %}
+            <a href="{{ table.base_url }}{% querystring p=None ordering='-'|add:column.sort_key %}" {% if descending_title_text %}title="{{ descending_title_text }}"{% endif %} class="icon icon-arrow-up-after teal">
+                {{ column.label }}
+            </a>
+        {% elif is_descending %}
+            <a href="{{ table.base_url }}{% querystring p=None ordering=column.sort_key %}" {% if ascending_title_text %}title="{{ ascending_title_text }}"{% endif %} class="icon icon-arrow-down-after teal">
+                {{ column.label }}
+            </a>
+        {% else %}
+            <a href="{{ table.base_url }}{% querystring p=None ordering=column.sort_key %}" {% if ascending_title_text %}title="{{ ascending_title_text }}"{% endif %} class="icon icon-arrow-down-after">
+                {{ column.label }}
+            </a>
+        {% endif %}
+    {% else %}
+        {{ column.label }}
+    {% endif %}
+</th>

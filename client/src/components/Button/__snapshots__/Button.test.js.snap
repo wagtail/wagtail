@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button #accessibleLabel 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+>
+  <span
+    className="visuallyhidden"
+  >
+    I am here in the shadows
+  </span>
+</a>
+`;
+
+exports[`Button #children 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+>
+  To infinity and beyond!
+</a>
+`;
+
+exports[`Button #dialogTrigger 1`] = `
+<a
+  aria-haspopup="dialog"
+  className=""
+  href="#"
+  onClick={[Function]}
+/>
+`;
+
+exports[`Button #target 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+  rel="noreferrer"
+  target="_blank"
+/>
+`;
+
+exports[`Button basic 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+/>
+`;

@@ -1,0 +1,12 @@
+{% load i18n wagtailadmin_tags %}
+<button
+    type="submit"
+    class="button action-save button-longrunning {% if is_revision %}warning{% endif %}"
+    data-controller="w-progress"
+    data-action="w-progress#activate"
+    data-w-progress-active-value="{% trans 'Saving…' %}"
+>
+    {% icon name="draft" classname="button-longrunning__icon" %}
+    {% icon name="spinner" %}
+    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}</em>
+</button>

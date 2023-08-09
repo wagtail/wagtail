@@ -1,0 +1,51 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %}
+    {% if page %}
+        {% if task_state.finished_by %}
+            <p>{% blocktrans trimmed with title=page.get_admin_display_title workflow=workflow.name task=task.name rejector=task_state.finished_by|user_display_name %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans trimmed with title=page.get_admin_display_title workflow=workflow.name task=task.name %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".{% endblocktrans %}</p>
+        {% endif %}
+        {% if comment %}
+            <p>{% blocktrans trimmed %}The following comment was left: "{{ comment }}"{% endblocktrans %}</p>
+        {% endif %}
+        <p>{% trans "You can edit the page here:"%} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
+    {% else %}
+        {% latest_str object as title %}
+        {% admin_edit_url object user as edit_url %}
+        {% if task_state.finished_by %}
+            <p>
+                {% blocktrans trimmed with title=title workflow=workflow.name task=task.name rejector=task_state.finished_by|user_display_name model_name=model_name asvar message %}
+                    The {{ model_name }} "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.
+                {% endblocktrans %}
+                {{ message|capfirst }}
+            </p>
+        {% else %}
+            <p>
+                {% blocktrans trimmed with title=title workflow=workflow.name task=task.name model_name=model_name asvar message %}
+                    The {{ model_name }} "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".
+                {% endblocktrans %}
+                {{ message|capfirst }}
+            </p>
+        {% endif %}
+        {% if comment %}
+            <p>
+                {% blocktrans trimmed %}
+                    The following comment was left: "{{ comment }}"
+                {% endblocktrans %}
+            </p>
+        {% endif %}
+        {% if edit_url %}
+            <p>
+                {% blocktrans trimmed with model_name=model_name asvar edit_message %}
+                    You can edit the {{ model_name }} here:
+                {% endblocktrans %}
+                {{ edit_message|capfirst }}
+                <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

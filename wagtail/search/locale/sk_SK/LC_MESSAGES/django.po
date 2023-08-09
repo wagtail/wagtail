@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
+"Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Query Daily Hits"
+msgstr "Denné dotazy vyhľadávania"
+
+msgid "Popular search terms"
+msgstr "Najviac hľadané výrazy"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (posledný týždeň)"
+
+msgid "No results found"
+msgstr "Žiadne výsledky hľadania"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrať z načastejšie hľadaných"

@@ -1,0 +1,91 @@
+{% extends "!layout.html" %}
+
+{% set docsearch_version = '2' %}
+{% set docsearch_base = 'https://cdn.jsdelivr.net/npm/docsearch.js@' ~ docsearch_version ~ '/dist/cdn/' %}
+
+{% block extrahead %}
+    <meta name="docsearch:version" content="{% if READTHEDOCS and current_version %}{{ current_version }}{% else %}unknown{% endif %}" />
+
+    <link rel="stylesheet" href="{{ docsearch_base ~ 'docsearch.min.css' }}"/>
+    <link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
+    <link rel="stylesheet" href="{{ pathto('_static/css/pagination.css', 1) }}" />
+    <link rel="stylesheet" href="{{ pathto('_static/css/custom.css', 1) }}" />
+{% endblock %}
+
+{% block search %}
+    <script async defer data-domain="docs.wagtail.org" src="https://plausible.io/js/plausible.js"></script>
+    <script src="{{ docsearch_base }}docsearch.min.js"></script>
+    <script>
+        /**
+         * Get version of the currently served docs.
+         *
+         * PR builds have their version set to the PR ID (for example "6753").
+         * If the docs are built for a PR or local development, use the "latest" facet filter.
+         * Otherwise, use the facet filter for the current version.
+         */
+        function getReadTheDocsVersion() {
+            const meta = document.querySelector('meta[name="docsearch:version"]');
+            const rtd_version = meta ? meta.content : 'latest';
+            const version = rtd_version.match(/^(\d+|unknown)$/) ? 'latest' : rtd_version;
+            return version;
+        }
+
+        function getVersionFacetFilter() {
+            return `version:${getReadTheDocsVersion()}`;
+        }
+
+        /**
+         * Return true (debug: on) for local builds or Read the Docs PR previews.
+         *
+         * The debug mode allows inspection of the dropodown.
+         */
+        function getSearchDebugMode() {
+            let debug = false
+            if (window.READTHEDOCS_DATA === undefined) {
+                // When developing locally, the `window.READTHEDOCS_DATA` object does not exist.
+                debug = true
+            } else {
+                // When PR preview on Readthedocs, then the version can be converted into
+                // a number. This does not work for the production version identifiers
+                // like 'stable', 'latest', 'v2.12', etc. In that case `Number()` is `NaN`.
+                const versionNumber = Number(window.READTHEDOCS_DATA.version)
+                debug = !isNaN(versionNumber)
+            }
+            return debug
+        }
+
+        function docSearchReady() {
+            /**
+             * Configure Algolia DocSearch.
+             * See https://github.com/wagtail/wagtail/wiki/Documentation-search for index configuration.
+             */
+            const search = docsearch({
+                appId: 'XSYGEO7KMJ',
+                apiKey: 'd50a485660ed9280079aada4e09454b2',
+                indexName: 'wagtail',
+                inputSelector: '#searchbox [name="q"]',
+                algoliaOptions: {
+                    facetFilters: [getVersionFacetFilter()],
+                },
+                autocompleteOptions: {
+                    // Do NOT automatically select the first suggestion in the dropdown.
+                    // https://github.com/algolia/autocomplete/blob/45fa32d008620cf52bf4a90530be338543dfba7f/README.md#global-options
+                    autoSelect: false
+                },
+                debug: getSearchDebugMode(),
+            })
+
+            // Change page styles when the dropdown is open, to lock scrolling.
+            search.autocomplete.on('autocomplete:updated', function (event) {
+                const isOpen = event.target.value.trim() !== '';
+                document.body.classList.toggle('body--autocomplete-open', isOpen);
+            });
+            search.autocomplete.on('autocomplete:closed', function (event) {
+                document.body.classList.toggle('body--autocomplete-open', false);
+            });
+            return search
+        }
+
+        docSearchReady();
+    </script>
+{% endblock %}

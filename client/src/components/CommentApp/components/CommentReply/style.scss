@@ -1,0 +1,110 @@
+.comment-reply {
+  padding-top: 20px;
+  pointer-events: auto;
+  position: relative;
+  border-top: 1px solid $color-comment-separator;
+
+  &__text {
+    color: $color-box-text;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    &--mode-deleting {
+      color: theme('colors.text-context');
+    }
+  }
+
+  &--mode-deleting &__avatar {
+    opacity: 0.5;
+  }
+
+  &--mode-deleting &__text {
+    color: theme('colors.text-meta');
+  }
+
+  form {
+    margin-top: 10px;
+  }
+
+  &__button {
+    @include button;
+  }
+
+  &__actions,
+  &__confirm-delete,
+  &__progress,
+  &__error {
+    &::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+  }
+
+  &__actions {
+    padding-bottom: 10px;
+  }
+
+  &__actions &__button {
+    margin-inline-end: 10px;
+    margin-top: 10px;
+  }
+
+  &__confirm-delete &__button {
+    margin-inline-start: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__confirm-delete,
+  &__error {
+    color: $color-box-text;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 10px;
+
+    button {
+      float: right;
+    }
+
+    &::after {
+      display: block;
+      content: ' ';
+      clear: both;
+    }
+  }
+
+  &__error {
+    color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.critical.200');
+    border-radius: 3px;
+    padding: 5px;
+    padding-inline-start: 10px;
+    height: 26px;
+    line-height: 26px;
+    vertical-align: middle;
+
+    button {
+      height: 26px;
+      float: right;
+      margin-inline-start: 5px;
+      color: theme('colors.white.DEFAULT');
+      background-color: theme('colors.critical.200');
+      border-color: theme('colors.white.DEFAULT');
+      padding: 2px;
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
+      font-size: 0.65em;
+      font-weight: bold;
+    }
+  }
+
+  &__progress {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+}

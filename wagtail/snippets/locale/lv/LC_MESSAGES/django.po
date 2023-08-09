@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Submit for moderation"
+msgstr "Iesniegt moderācijai"
+
+msgid "Restart workflow "
+msgstr "Restartēt darbplūsmu"
+
+msgid "Cancel workflow "
+msgstr "Atcelt darbplūsmu"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Locked"
+msgstr "Slēgts"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Saving…"
+msgstr "Saglabā..."
+
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Jauns %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "Actions"
+msgstr "Darbības"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pievienot %(snippet_type_name)s"
+
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid "User"
+msgstr "Lietotājs"
+
+msgid "Date"
+msgstr "Datums"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Rediģēt '%(title)s'"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Izvēlēties %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Izvēlēties citu %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Labot šo %(object)s"

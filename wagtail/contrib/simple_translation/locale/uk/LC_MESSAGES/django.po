@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Anastasiia La, 2022
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Ukrainian (https://app.transifex.com/torchbox/teams/8009/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Простий переклад Wagtail"
+
+msgid "Select all"
+msgstr "Обрати все"
+
+msgid "Locales"
+msgstr "Локалі"
+
+msgid "All child pages will be created."
+msgstr "Всі дочірні сторінки буде створено."
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Деякі локалі вимкнено, оскільки батьківська сторінка не перекладена."
+msgstr[1] ""
+"Деякі локалі вимкнено, оскільки деякі батьківські сторінки не перекладені."
+msgstr[2] ""
+"Деякі локалі вимкнено, оскільки деякі батьківські сторінки не перекладені."
+msgstr[3] ""
+"Деякі локалі вимкнено, оскільки деякі батьківські сторінки не перекладені."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Перекласти батьківську сторінку."
+msgstr[1] "Перекласти батьківські сторінки."
+msgstr[2] "Перекласти батьківські сторінки."
+msgstr[3] "Перекласти батьківські сторінки."
+
+msgid "Submit"
+msgstr "Застосувати"
+
+msgid "Translate"
+msgstr "Перекласти"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s локалі"
+
+msgid "Translate page"
+msgstr "Перекласти сторінку"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Сторінка '%(page_title)s' була успішно створена в %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Перекласти %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Успішно створено %(locales)s для %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Перекладіть цю сторінку"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Перекладено %(title)s"

@@ -1,0 +1,49 @@
+===========================
+Wagtail 1.6.1 release notes
+===========================
+
+*August 26, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+
+* Added ``WAGTAIL_ALLOW_UNICODE_SLUGS`` setting to make Unicode support optional in page slugs (Matt Westcott)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Wagtail's middleware classes are now compatible with Django 1.10's `new-style middleware <https://docs.djangoproject.com/en/stable/releases/1.10/#new-style-middleware>`_ (Karl Hobley)
+* The :meth:`~wagtail.core.models.Page.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
+* Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
+* ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
+* The page editor no longer fails to load JavaScript files with ``ManifestStaticFilesStorage`` (Matt Westcott)
+* Django 1.10 enables client-side validation for all forms by default, but it fails to handle all the nuances of how forms are used in Wagtail. The client-side validation has been disabled for the Wagtail UI (Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+Multi-level inheritance and custom managers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The inheritance rules for :ref:`custom_page_managers` have been updated to match Django's standard behaviour. In the vast majority of scenarios there will be no change. However, in the specific case where a page model with a custom ``objects`` manager is subclassed further, the subclass will be assigned a plain ``Manager`` instead of a ``PageManager``, and will now need to explicitly override this with a ``PageManager`` to function correctly:
+
+.. code-block:: python
+
+    class EventPage(Page):
+        objects = EventManager()
+
+
+    class SpecialEventPage(EventPage):
+        # Previously SpecialEventPage.objects would be set to a PageManager automatically;
+        # this now needs to be set explicitly
+        objects = PageManager()

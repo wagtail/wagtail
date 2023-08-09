@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/shared/header_with_locale_selector.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block extra_rows %}
+    <div class="row last-updated">
+        {% if latest_log_entry %}
+            <ul>
+                <li>
+                    {% avatar user=latest_log_entry.user size="small" tooltip=latest_log_entry.user_display_name %}
+                    {% trans "Last updated" %}
+                    {% human_readable_date latest_log_entry.timestamp %}
+                </li>
+                {% if history_url %}
+                    <li><a href="{{ history_url }}">{% icon "history" classname="default" %} {% trans "History" %}</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

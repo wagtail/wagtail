@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'USER';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Users" as users_str %}
+    {% trans "Add a user" as add_a_user_str %}
+
+    {% url "wagtailusers_users:add" as add_link %}
+    {% include "wagtailadmin/shared/header.html" with subtitle=group.name title=users_str action_url=add_link action_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" search_results_url=index_results_url %}
+
+    <div class="nice-padding">
+        <div id="listing-results" class="users">
+            {% include "wagtailusers/users/results.html" %}
+        </div>
+        {% trans "Select all users in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=page_obj %}
+    </div>
+{% endblock %}

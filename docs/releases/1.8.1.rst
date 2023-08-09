@@ -1,0 +1,18 @@
+===========================
+Wagtail 1.8.1 release notes
+===========================
+
+*January 26, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Reduced ``Rendition.focal_point_key`` field length to prevent migration failure when upgrading to Wagtail 1.8 on MySQL with ``utf8`` character encoding (Andy Chosak, Matt Westcott)

@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumentu sira"
+
+msgid "Collection"
+msgstr "Koleksaun"
+
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Add/edit documents you own"
+msgstr "Hatama/troka ita boot nia dokumentu sira"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Choose"
+msgstr "Hili"
+
+msgid "title"
+msgstr "titlu"
+
+msgid "file"
+msgstr "dokumentu"
+
+msgid "created at"
+msgstr "Kria iha"
+
+msgid "uploaded by user"
+msgstr "hatama ona husi uzuariu"
+
+msgid "tags"
+msgstr "tag sira"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
+msgid "Yes, delete"
+msgstr "Sim, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+msgid "Change document:"
+msgstr "Troka dokumentu"
+
+msgid "Add a document"
+msgstr "Hatama dokumentu"
+
+msgid "Add document"
+msgstr "Hatama dokumentu"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Hadia hela %(title)s"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+msgid "Save"
+msgstr "Rai"
+
+msgid "Delete document"
+msgstr "Hamoos dokumentu"
+
+msgid "Usage"
+msgstr "Uza"
+
+msgid "Documents"
+msgstr "Dokumentu sira"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Edit this document"
+msgstr "Hadia dokumentu nee"
+
+msgid "Search documents"
+msgstr "Buka documentu"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dkumentu '%(document_title)s' hatama ona"
+
+msgid "Document"
+msgstr "Dokumentu"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokumentu"

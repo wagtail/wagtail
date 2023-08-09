@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}Documents{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'DOCUMENT';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Documents" as doc_str %}
+    {% url 'wagtaildocs:listing_results' as search_results_url %}
+    {% if user_can_add %}
+        {% trans "Add a document" as add_doc_str %}
+        {% url "wagtaildocs:add_multiple" as add_link %}
+        {% querystring as querystring %}
+        {% include "wagtailadmin/shared/header.html" with title=doc_str action_url=add_link|add:querystring icon="doc-full-inverse" action_text=add_doc_str search_url="wagtaildocs:index" search_results_url=search_results_url search_target="#document-results" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=doc_str icon="doc-full-inverse" search_url="wagtaildocs:index" search_results_url=search_results_url search_target="#document-results" %}
+    {% endif %}
+
+    <div class="nice-padding">
+        {% if collections %}
+            <form class="image-search" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
+                <ul class="fields">
+                    <li>{% include "wagtailadmin/shared/collection_chooser.html" %}</li>
+                </ul>
+            </form>
+        {% endif %}
+
+        <div id="document-results" class="documents">
+            {% include "wagtaildocs/documents/results.html" with querystring=querystring %}
+        </div>
+    </div>
+    {% trans "Select all documents in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=documents %}
+{% endblock %}

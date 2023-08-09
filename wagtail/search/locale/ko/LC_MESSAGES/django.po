@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyu Choi, 2022
+# Kyu Choi, 2022
+# Kyungil Choi <hanpama@gmail.com>, 2017-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Kyu Choi, 2022\n"
+"Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "웨그테일 검색"
+
+msgid "Query Daily Hits"
+msgstr "일간 히트 쿼리"
+
+msgid "index entry"
+msgstr "색인 등록"
+
+msgid "index entries"
+msgstr "색인 등록들"
+
+msgid "Popular search terms"
+msgstr "인기있는 검색어"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Terms"
+msgstr "단어"
+
+msgid "Views (past week)"
+msgstr "조회수 (지난 주)"
+
+msgid "No results found"
+msgstr "검색 결과가 없습니다"
+
+msgid "Choose from popular search terms"
+msgstr "인기있는 검색어로부터 선택"

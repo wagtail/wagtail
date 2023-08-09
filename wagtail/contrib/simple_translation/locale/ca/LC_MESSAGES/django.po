@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Roger Pons <rogerpons@gmail.com>, 2023
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Traducció simple de Wagtail"
+
+msgid "Select all"
+msgstr "Seleccionar tot"
+
+msgid "Locales"
+msgstr "Configuracions regionals"
+
+msgid "All child pages will be created."
+msgstr "Seran creades totes les pàgines filles"
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Incloure subarbre (%(descendant_count)s pàgina)"
+msgstr[1] "Incloure subarbre (%(descendant_count)s pàgines)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Una configuració regional està desactivada perquè una pàgina pare no està "
+"traduïda."
+msgstr[1] ""
+"Algunes configuracions regionals estan desactivades perquè algunes pàgines "
+"pare no estan traduïdes."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduir la pàgina pare"
+msgstr[1] "Traduir les pàgines pare."
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Translate"
+msgstr "Traduir"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s configuracions regionals"
+
+msgid "Translate page"
+msgstr "Traduir pàgina"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "S'ha creat correctament la pàgina '%(page_title)s' a %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Traduir %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "S'ha creat correctament %(locales)s per %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Traduir aquesta pàgina"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduir '%(title)s'"

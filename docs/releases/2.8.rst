@@ -1,0 +1,155 @@
+=========================
+Wagtail 2.8 release notes
+=========================
+
+*February 3, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Django 3.0 support
+~~~~~~~~~~~~~~~~~~
+
+This release is compatible with Django 3.0. Compatibility fixes were contributed by Matt Westcott and Mads Jensen.
+
+
+Improved page locking
+~~~~~~~~~~~~~~~~~~~~~
+
+The page locking feature has been revised so that the editor locking a page is given exclusive edit access to it, rather than it becoming read-only to everyone. A new Reports menu allows admin / moderator level users to see the currently locked pages, and unlock them if required.
+
+This feature was developed by Karl Hobley and Jacob Topp-Mugglestone. Thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring this feature.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
+* Combine flake8 configurations (Sergey Fedoseev)
+* Improve diffing behaviour for text fields (Aliosha Padovani)
+* Improve contrast of disabled inputs (Nick Smith)
+* Added ``get_document_model_string`` function (Andrey Smirnov)
+* Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
+* Cloudflare frontend cache invalidation requests are now sent in chunks of 30 to fit within API limits (Tom Usher)
+* Added ``ancestors`` field to the pages endpoint in admin API (Karl Hobley)
+* Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
+* Cleaned up Django docs URLs in documentation (Pete Andrew)
+* Add StreamFieldPanel to available panel types in documentation (Dan Swain)
+* Add ``{{ block.super }}`` example to ModelAdmin customisation in documentation (Dan Swain)
+* Add ability to filter image index by a tag (Benedikt Willi)
+* Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
+* Added cache control headers when serving documents (Johannes Vogel)
+* Use ``sensitive_post_parameters`` on password reset form (Dan Braghis)
+* Add ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting to remove automatic addition of ``responsive-object`` around embeds (Kalob Taulien)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
+* Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
+* Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)
+* Moved ``get_document_model`` location so it can be imported when Models are not yet loaded (Andrey Smirnov)
+* Use correct HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
+* All templates with wagtailsettings and modeladmin now use ``block.super`` for ``extra_js`` & ``extra_css`` (Timothy Bautista)
+* Layout issue when using ``FieldRowPanel`` with a heading (Andreas Bernacca)
+* ``file_size`` and ``file_hash`` now updated when Document file changed (Andreas Bernacca)
+* Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
+* Added ``verbose_name_plural`` to form submission model (Janneke Janssen)
+* Prevent ``update_index`` failures and incorrect front-end rendering on blank ``TableBlock`` (Carlo Ascani)
+* Dropdown initialisation on the search page after AJAX call (Eric Sherman)
+* Make sure all modal chooser search results correspond to the latest search by cancelling previous requests (Esper Kuijs)
+
+
+Upgrade considerations
+======================
+
+Removed support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.0 is no longer supported as of this release; please upgrade to Django 2.1 or above before upgrading Wagtail.
+
+
+Edit locking behaviour changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The behaviour of the page locking feature in the admin interface has been changed.
+In past versions, the page lock would apply to all users including the user who
+locked the page. Now, the user who locked the page can still edit it but all other
+users cannot.
+
+Pages that were locked before this release will continue to be locked in the same
+way as before, so this only applies to newly locked pages. If you would like to
+restore the previous behaviour, you can set the
+``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` setting to ``True``.
+
+
+Responsive HTML for embeds no longer added by default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, embedded media elements were given
+a class name of ``responsive-object`` and an inline ``padding-bottom`` style to assist
+in styling them responsively. These are no longer added by default. To restore the previous
+behaviour, add ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` to your project settings.
+
+
+API endpoint classes have moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For consistency with Django REST Framework, the ``PagesAPIEndpoint``, ``ImagesAPIEndpoint`` and ``DocumentsAPIEndpoint`` classes have been renamed to ``PagesAPIViewSet``, ``ImagesAPIViewSet`` and ``DocumentsAPIViewSet`` and moved to the ``views`` module in their respective packages. Projects using the Wagtail API should update their registration code accordingly.
+
+Old code:
+
+.. code-block:: python
+
+  from wagtail.api.v2.endpoints import PagesAPIEndpoint
+  from wagtail.api.v2.router import WagtailAPIRouter
+  from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
+  from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
+
+  api_router = WagtailAPIRouter('wagtailapi')
+  api_router.register_endpoint('pages', PagesAPIEndpoint)
+  api_router.register_endpoint('images', ImagesAPIEndpoint)
+  api_router.register_endpoint('documents', DocumentsAPIEndpoint)
+
+New code:
+
+.. code-block:: python
+
+  from wagtail.api.v2.views import PagesAPIViewSet
+  from wagtail.api.v2.router import WagtailAPIRouter
+  from wagtail.images.api.v2.views import ImagesAPIViewSet
+  from wagtail.documents.api.v2.views import DocumentsAPIViewSet
+
+  api_router = WagtailAPIRouter('wagtailapi')
+  api_router.register_endpoint('pages', PagesAPIViewSet)
+  api_router.register_endpoint('images', ImagesAPIViewSet)
+  api_router.register_endpoint('documents', DocumentsAPIViewSet)
+
+
+``wagtail.documents.models.get_document_model`` has moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``get_document_model`` function should now be imported from ``wagtail.documents`` rather than ``wagtail.documents.models``. See :ref:`custom_document_model`.
+
+
+Removed ``Page`` and ``Site`` models from Django admin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page`` and ``Site`` models are no longer editable through the Django admin backend. If required these models can be re-registered within your own project using `Django's ModelAdmin <https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#modeladmin-objects>`_:
+
+
+.. code-block:: python
+
+    # my_app/admin.py
+    from django.contrib import admin
+
+    from wagtail.core.models import Page, Site
+
+    admin.site.register(Site)
+    admin.site.register(Page)

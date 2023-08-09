@@ -1,0 +1,1011 @@
+[
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 3,
+      "name": "Root"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Root",
+      "draft_title": "Root",
+      "numchild": 2,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 1,
+      "content_type": ["wagtailcore", "page"],
+      "path": "0001",
+      "url_path": "/",
+      "slug": "root"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to the Wagtail test site!",
+      "draft_title": "Welcome to the Wagtail test site!",
+      "numchild": 10,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010001",
+      "url_path": "/home/",
+      "slug": "home",
+      "first_published_at": "2014-01-01T12:00:00.000Z",
+      "last_published_at": "2014-02-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Events",
+      "draft_title": "Events",
+      "numchild": 6,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventindex"],
+      "path": "000100010001",
+      "url_path": "/home/events/",
+      "slug": "events"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.eventindex",
+    "fields": {
+      "intro": "Look at our lovely events."
+    }
+  },
+
+  {
+    "pk": 4,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Christmas",
+      "draft_title": "Christmas",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010001",
+      "url_path": "/home/events/christmas/",
+      "slug": "christmas",
+      "owner": 2
+    }
+  },
+  {
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Chestnuts roasting on an open fire</p>",
+      "cost": "Free",
+      "feed_image": 1
+    }
+  },
+
+  {
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Saint Patrick",
+      "draft_title": "Saint Patrick",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "singleeventpage"],
+      "path": "0001000100010005",
+      "url_path": "/home/events/saint-patrick/",
+      "slug": "saint-patrick",
+      "owner": 2
+    }
+  },
+  {
+    "pk": 13,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "private",
+      "location": "Wellington",
+      "body": "<p>The day when nothing makes sense.</p>",
+      "cost": "Semi-free"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "tests.singleeventpage",
+    "fields": {
+      "excerpt": "A little tiny excerpt for Saint Patrick."
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "tests.eventpagespeaker",
+    "fields": {
+      "page": 4,
+      "first_name": "Father",
+      "last_name": "Christmas",
+      "sort_order": 0
+    }
+  },
+
+  {
+    "pk": 5,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Tentative Unpublished Event",
+      "draft_title": "Tentative Unpublished Event",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010002",
+      "url_path": "/home/events/tentative-unpublished-event/",
+      "slug": "tentative-unpublished-event",
+      "owner": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "public",
+      "location": "The moon",
+      "body": "<p>I haven't worked out the details yet, but it's going to have cake and ponies</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 6,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Someone Else's Event",
+      "draft_title": "Someone Else's Event",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010003",
+      "url_path": "/home/events/someone-elses-event/",
+      "slug": "someone-elses-event",
+      "owner": 3
+    }
+  },
+  {
+    "pk": 6,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "private",
+      "location": "The moon",
+      "body": "<p>your name's not down, you're not coming in</p>",
+      "cost": "Free (but not for you)"
+    }
+  },
+
+  {
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "About us",
+      "draft_title": "About us",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010002",
+      "url_path": "/home/about-us/",
+      "slug": "about-us",
+      "first_published_at": "2014-01-01T12:00:00.000Z",
+      "last_published_at": "2014-02-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>We are really good.</p>"
+    }
+  },
+
+  {
+    "pk": 8,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Contact us",
+      "draft_title": "Contact us",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "formpage"],
+      "path": "000100010003",
+      "url_path": "/home/contact-us/",
+      "slug": "contact-us"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "tests.formpage",
+    "fields": {
+      "to_address": "to@email.com",
+      "from_address": "from@email.com",
+      "subject": "The subject"
+    }
+  },
+
+  {
+    "pk": 9,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Ameristralia Day",
+      "draft_title": "Ameristralia Day",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010004",
+      "url_path": "/home/events/final-event/",
+      "slug": "final-event",
+      "owner": 3
+    }
+  },
+  {
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-04-22",
+      "audience": "public",
+      "location": "Ameristralia",
+      "body": "<p>come celebrate the independence of Ameristralia <embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"where did my image go?\" /></p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "tests.formfield",
+    "fields": {
+      "clean_name": "your_email",
+      "sort_order": 1,
+      "label": "Your email",
+      "field_type": "email",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 8
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.formfield",
+    "fields": {
+      "clean_name": "your_message",
+      "sort_order": 2,
+      "label": "Your message",
+      "field_type": "multiline",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 8
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.formfield",
+    "fields": {
+      "clean_name": "your_choices",
+      "sort_order": 3,
+      "label": "Your choices",
+      "field_type": "checkboxes",
+      "required": false,
+      "choices": "foo,bar,baz",
+      "default_value": "",
+      "help_text": "",
+      "page": 8
+    }
+  },
+
+  {
+    "pk": 10,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Old style route method",
+      "draft_title": "Old style route method",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "pagewitholdstyleroutemethod"],
+      "path": "000100010004",
+      "url_path": "/home/old-style-route/",
+      "slug": "old-style-route"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "tests.pagewitholdstyleroutemethod",
+    "fields": {
+      "content": "<p>Test with old style route method</p>"
+    }
+  },
+
+  {
+    "pk": 11,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Secret plans",
+      "draft_title": "Secret plans",
+      "numchild": 1,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010005",
+      "url_path": "/home/secret-plans/",
+      "slug": "secret-plans"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>muahahahaha</p>"
+    }
+  },
+
+  {
+    "pk": 12,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Steal underpants",
+      "draft_title": "Steal underpants",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100050001",
+      "url_path": "/home/secret-plans/steal-underpants/",
+      "slug": "steal-underpants"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "private",
+      "location": "Marks and Spencer",
+      "body": "<p>meet in the menswear department at noon</p>",
+      "cost": "free"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "My locked page",
+      "draft_title": "My locked page",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["wagtailcore", "page"],
+      "path": "000100010006",
+      "url_path": "/home/my-locked-page/",
+      "slug": "my-locked-page",
+      "locked": true
+    }
+  },
+  {
+    "pk": 15,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Businessy events",
+      "draft_title": "Businessy events",
+      "numchild": 1,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 4,
+      "content_type": ["tests", "businessindex"],
+      "path": "0001000100010006",
+      "url_path": "/home/events/businessy-events/",
+      "slug": "businessy-events",
+      "owner": 2
+    }
+  },
+  {
+    "pk": 15,
+    "model": "tests.businessindex",
+    "fields": {}
+  },
+
+  {
+    "pk": 16,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Board meetings",
+      "draft_title": "Board meetings",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 5,
+      "content_type": ["tests", "businesssubindex"],
+      "path": "00010001000100060001",
+      "url_path": "/home/events/businessy-events/board-meetings/",
+      "slug": "board-meetings",
+      "owner": 2
+    }
+  },
+  {
+    "pk": 16,
+    "model": "tests.businesssubindex",
+    "fields": {}
+  },
+
+  {
+    "pk": 17,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Contact us one more time",
+      "draft_title": "Contact us one more time",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "formpagewithcustomsubmission"],
+      "path": "000100010007",
+      "url_path": "/home/contact-us-one-more-time/",
+      "slug": "contact-us-one-more-time"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "tests.formpagewithcustomsubmission",
+    "fields": {
+      "to_address": "to@email.com",
+      "from_address": "from@email.com",
+      "subject": "The subject"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+      "clean_name": "your_email",
+      "sort_order": 1,
+      "label": "Your email",
+      "field_type": "email",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 17
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+      "clean_name": "your_message",
+      "sort_order": 2,
+      "label": "Your message",
+      "field_type": "multiline",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 17
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+      "clean_name": "your_choices",
+      "sort_order": 3,
+      "label": "Your choices",
+      "field_type": "checkboxes",
+      "required": false,
+      "choices": "foo,bar,baz",
+      "default_value": "",
+      "help_text": "",
+      "page": 17
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+      "form_data": {
+        "your-email": "old@example.com",
+        "your-message": "this is a really old message"
+      },
+      "user": 2,
+      "page": 17,
+      "submit_time": "2013-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+      "form_data": {
+        "your-email": "new@example.com",
+        "your-message": "this is a fairly new message"
+      },
+      "user": 5,
+      "page": 17,
+      "submit_time": "2014-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Secret event editor plans",
+      "draft_title": "Secret event editor plans",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010008",
+      "url_path": "/home/secret-event-editor-plans/",
+      "slug": "secret-event-editor-plans"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>let's move Easter to Christmas</p>"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Secret login plans",
+      "draft_title": "Secret login plans",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010009",
+      "url_path": "/home/secret-login-plans/",
+      "slug": "secret-login-plans"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>collect logs</p>"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "This page doesn't get served",
+      "draft_title": "This page doesn't get served",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010002",
+      "url_path": "/does-not-exist/",
+      "slug": "does-not-exist"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "This page has a field that shouldn't be copied",
+      "draft_title": "This page has a field that shouldn't be copied",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "pagewithexcludedcopyfield"],
+      "path": "000100010010",
+      "url_path": "/home/page-with-exclude-fields-in-copy/",
+      "slug": "page-with-exclude-fields-in-copy"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "tests.pagewithexcludedcopyfield",
+    "fields": {
+      "content": "Copy me.",
+      "special_field": "Don't copy me."
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 2,
+      "hostname": "localhost",
+      "port": 80,
+      "is_default_site": true
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "auth.group",
+    "fields": {
+      "name": "Event editors",
+      "permissions": [
+        ["access_admin", "wagtailadmin", "admin"],
+        ["add_image", "wagtailimages", "image"],
+        ["change_image", "wagtailimages", "image"],
+        ["delete_image", "wagtailimages", "image"]
+      ]
+    }
+  },
+  {
+    "pk": 4,
+    "model": "auth.group",
+    "fields": {
+      "name": "Event moderators",
+      "permissions": [
+        ["access_admin", "wagtailadmin", "admin"],
+        ["add_image", "wagtailimages", "image"],
+        ["change_image", "wagtailimages", "image"],
+        ["delete_image", "wagtailimages", "image"]
+      ]
+    }
+  },
+  {
+    "pk": 5,
+    "model": "auth.group",
+    "fields": {
+      "name": "Site-wide editors",
+      "permissions": [
+        ["access_admin", "wagtailadmin", "admin"],
+        ["add_image", "wagtailimages", "image"],
+        ["change_image", "wagtailimages", "image"],
+        ["delete_image", "wagtailimages", "image"]
+      ]
+    }
+  },
+  {
+    "pk": 6,
+    "model": "auth.group",
+    "fields": {
+      "name": "Admin non-editors",
+      "permissions": [["access_admin", "wagtailadmin", "admin"]]
+    }
+  },
+  {
+    "pk": 7,
+    "model": "auth.group",
+    "fields": {
+      "name": "Corporate Editor",
+      "permissions": [
+        ["access_admin", "wagtailadmin", "admin"],
+        ["add_image", "wagtailimages", "image"],
+        ["change_image", "wagtailimages", "image"],
+        ["delete_image", "wagtailimages", "image"]
+      ]
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event editors"],
+      "page": 3,
+      "permission": ["add_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 3,
+      "permission": ["add_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 3,
+      "permission": ["change_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 4,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 3,
+      "permission": ["publish_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 5,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Site-wide editors"],
+      "page": 2,
+      "permission": ["change_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 6,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 3,
+      "permission": ["lock_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 7,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Corporate Editor"],
+      "page": 7,
+      "permission": ["change_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 8,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Corporate Editor"],
+      "page": 15,
+      "permission": ["add_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 9,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 3,
+      "permission": ["unlock_page", "wagtailcore", "page"]
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "wagtailforms.formsubmission",
+    "fields": {
+      "form_data": {
+        "your_email": "old@example.com",
+        "your_message": "this is a really old message"
+      },
+      "page": 8,
+      "submit_time": "2013-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailforms.formsubmission",
+    "fields": {
+      "form_data": {
+        "your_email": "new@example.com",
+        "your_message": "this is a fairly new message"
+      },
+      "page": 8,
+      "submit_time": "2014-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.AdvertPlacement",
+    "fields": {
+      "page": 2,
+      "advert": 1,
+      "colour": "yellow"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.AdvertPlacement",
+    "fields": {
+      "page": 4,
+      "advert": 1,
+      "colour": "greener than a Christmas tree"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.advert",
+    "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.advertwithtabbedinterface",
+    "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com",
+      "something_else": "Model with tabbed interface"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtaildocs.Document",
+    "fields": {
+      "title": "test document",
+      "created_at": "2014-01-01T12:00:00.000Z",
+      "file": "documents/test.pdf"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+      "page": 11,
+      "restriction_type": "password",
+      "password": "swordfish"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+      "page": 18,
+      "restriction_type": "groups",
+      "groups": [["Event editors"]]
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+      "page": 19,
+      "restriction_type": "login"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailimages.image",
+    "fields": {
+      "title": "A missing image",
+      "file": "original_images/missing.jpg",
+      "width": 1000,
+      "height": 1000,
+      "created_at": "2014-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 1,
+    "fields": {
+      "restriction_type": "password",
+      "password": "swordfish",
+      "collection": 2
+    }
+  },
+  {
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 2,
+    "fields": {
+      "restriction_type": "login",
+      "collection": 3
+    }
+  },
+  {
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 3,
+    "fields": {
+      "restriction_type": "groups",
+      "collection": 4,
+      "groups": [["Event editors"]]
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 2,
+    "fields": {
+      "path": "00010001",
+      "depth": 2,
+      "numchild": 0,
+      "name": "Password protected"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 3,
+    "fields": {
+      "path": "00010002",
+      "depth": 2,
+      "numchild": 0,
+      "name": "Login protected"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 4,
+    "fields": {
+      "path": "00010003",
+      "depth": 2,
+      "numchild": 0,
+      "name": "Group protected"
+    }
+  },
+  {
+    "pk": "advert/01",
+    "model": "tests.advertwithcustomprimarykey",
+    "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+    }
+  },
+  {
+    "pk": "2dbe9aa7-1f4a-428a-8cca-b929ee5bff5b",
+    "model": "tests.advertwithcustomuuidprimarykey",
+    "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+    }
+  },
+  {
+    "pk": "string-pk-1",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "first modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-2",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "second modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-:#?;@&=+$,\"[]<>%",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "non-url-safe pk modelwithstringtypeprimarykey model"
+    }
+  }
+]

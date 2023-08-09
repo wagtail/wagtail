@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
+# Dan Braghis, 2014-2020,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Dan Braghis, 2014-2020,2022\n"
+"Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail forms"
+msgstr "Formulare Wagtail"
+
+msgid "Date from"
+msgstr "Data din"
+
+msgid "Date to"
+msgstr "Data la"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "Un alt câmp are eticheta %(label_name)s. Amendeză unul din ele."
+
+msgid "Single line text"
+msgstr "Linie de text"
+
+msgid "Multi-line text"
+msgstr "Linii de text"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Număr"
+
+msgid "URL"
+msgstr "Adresă de internet"
+
+msgid "Checkbox"
+msgstr "Casetă"
+
+msgid "Checkboxes"
+msgstr "Casete"
+
+msgid "Drop down"
+msgstr "Listă derulantă"
+
+msgid "Multiple select"
+msgstr "Selecțtie multiplă"
+
+msgid "Radio buttons"
+msgstr "Butoane radio"
+
+msgid "Date"
+msgstr "Dată"
+
+msgid "Date/time"
+msgstr "Dată/Timp"
+
+msgid "Hidden field"
+msgstr "Câmp ascuns"
+
+msgid "submit time"
+msgstr "timput trimiterii"
+
+msgid "form submission"
+msgstr "înregistrare formular"
+
+msgid "form submissions"
+msgstr "depuneri formular"
+
+msgid "name"
+msgstr "nume"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Numele sigur al câmpului formularului, eticheta convertită în "
+"ascii_snake_case"
+
+msgid "label"
+msgstr "etichetă"
+
+msgid "The label of the form field"
+msgstr "Etichetă pentru câmp de formular"
+
+msgid "field type"
+msgstr "tip câmp"
+
+msgid "required"
+msgstr "necesar"
+
+msgid "choices"
+msgstr "opțiuni"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Listă de opțiuni separate prin virgulă sau linii noi. Se aplică numai în "
+"casetele de selectare, butoane radio și liste derulante."
+
+msgid "default value"
+msgstr "valoare implicită"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valoare implicită. Suportă valori separate prin virgule sau linii noi pentru "
+"casetele de selectare."
+
+msgid "help text"
+msgstr "text de ajutor"
+
+msgid "Submission date"
+msgstr "Data trimiterii"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Landing page"
+msgstr "Pagina principală"
+
+msgid "to address"
+msgstr "adresă la"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opțional. Înregistrările de formular vor fi trimise la această adresă de "
+"email. Separează mai multe adrese prin virgulă."
+
+msgid "from address"
+msgstr "adresa de la"
+
+msgid "subject"
+msgstr "subiect"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s depuneri"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Șterge datele formularui %(title)s"
+
+msgid "Delete form data"
+msgstr "Șterge date formular"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Sigur doriți să ștergeți această depunere de formular?"
+msgstr[1] "Sigur doriți să ștergeți aceste depuneri de formular?"
+msgstr[2] "Sigur doriți să ștergeți aceste depuneri de formular?"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Forms"
+msgstr "Formulare"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Delete selected submissions"
+msgstr "Șterge înregistrările selectate"
+
+msgid "Total submissions"
+msgstr "Total înregistrări"
+
+msgid "Latest submission"
+msgstr "Ultima înregistrare"
+
+msgid "No form pages have been created."
+msgstr "Nu a fost creată nici o pagină de formular"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Înregistrări pentru %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nu sunt înregistrări pentru formularul '%(title)s'"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+msgid "Apply filters"
+msgstr "Aplică filtre"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "O înregistrare a fost ștearsă."
+msgstr[1] "%(count)d înregistrări au fost șterse."
+msgstr[2] "%(count)d de înregistrări au fost șterse."
+
+msgid "Form data"
+msgstr "Date formular"

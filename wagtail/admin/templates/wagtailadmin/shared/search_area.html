@@ -1,0 +1,4 @@
+{% load wagtailadmin_tags %}
+<li>
+    <a href="{{ url }}?q={{ query_string|urlencode }}" class="{{ classnames }}{% if active %} nolink{% endif %}"{{ attr_string }}>{% if icon_name %}{% icon name=icon_name classname="filter-options__icon" %}{% endif %}{{ label }}</a>
+</li>

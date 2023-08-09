@@ -1,0 +1,66 @@
+{% load i18n wagtailadmin_tags %}
+{% load wagtailcore_tags %}
+{% if locked_pages %}
+    {% trans "Your locked pages" as heading %}
+    {% panel id="locked-pages" heading=heading %}
+        <table class="listing listing-page">
+            <col />
+            <col width="30%"/>
+            <col width="15%"/>
+
+            <thead>
+                <tr>
+                    <th class="title">{% trans "Title" %}</th>
+                    <th></th>
+                    <th>{% trans "Locked at" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in locked_pages %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <div class="title-wrapper">
+                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+
+                                {% i18n_enabled as show_locale_labels %}
+                                {% if show_locale_labels and page.locale_id %}
+                                    {% locale_label_from_id page.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
+                                {% endif %}
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                            </div>
+                            <ul class="actions">
+                                {% if can_remove_locks %}
+                                    <li>
+                                        <button
+                                            class="button button-small button-secondary"
+                                            data-controller="w-action"
+                                            data-action="w-action#post"
+                                            data-w-action-next-value="{% url 'wagtailadmin_home' %}"
+                                            data-w-action-url-value="{% url 'wagtailadmin_pages:unlock' page.id %}"
+                                        >
+                                            {% trans "Unlock" %}
+                                        </button>
+                                    </li>
+                                {% endif %}
+                                <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
+                                {% if page.has_unpublished_changes and page.is_previewable %}
+                                    <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a></li>
+                                {% endif %}
+                                {% if page.live %}
+                                    {% pageurl page as page_url %}
+                                    {% if page_url is not None %}
+                                        <li><a href="{{ page_url }}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Live' %}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td>{# Deliberately empty #}</td>
+                        <td valign="top">{% human_readable_date page.locked_at %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpanel %}
+{% endif %}

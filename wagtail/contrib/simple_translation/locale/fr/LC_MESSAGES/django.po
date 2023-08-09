@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail simple translation"
+msgstr "Traduction Simple Wagtail"
+
+msgid "Select all"
+msgstr "Tout sélectionner"
+
+msgid "Locales"
+msgstr "Régions"
+
+msgid "All child pages will be created."
+msgstr "Toutes les sous-pages seront crées."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Inclure le sous-arbre (%(descendant_count)s page)"
+msgstr[1] "Inclure le sous-arbre (%(descendant_count)s page)"
+msgstr[2] "Inclure le sous-arbre (%(descendant_count)s page)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "Une région est désactivée car une page parente n'est pas traduite."
+msgstr[1] ""
+"Certaines régions sont désactivées car certaines pages parentes ne sont pas "
+"traduites."
+msgstr[2] ""
+"Certaines régions sont désactivées car certaines pages parentes ne sont pas "
+"traduites."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduire la page parente."
+msgstr[1] "Traduire les pages parentes."
+msgstr[2] "Traduire les pages parentes."
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Translate"
+msgstr "Traduire"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s régions"
+
+msgid "Translate page"
+msgstr "Traduire la page"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "La page '%(page_title)s' a été crée avec succès en %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Traduire %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr ""
+"Les régions %(locales)s ont été créées avec succès pour %(model_name)s "
+"'%(object)s'"
+
+msgid "Translate this page"
+msgstr "Traduire cette page"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduire '%(title)s'"

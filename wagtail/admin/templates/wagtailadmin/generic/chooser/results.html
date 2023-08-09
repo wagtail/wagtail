@@ -1,0 +1,32 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if results %}
+    {% if is_searching %}
+        {% block search_results_count %}
+            <h2 role="alert">
+                {% blocktrans trimmed count counter=results.paginator.count %}
+                    There is {{ counter }} match
+                {% plural %}
+                    There are {{ counter }} matches
+                {% endblocktrans %}
+            </h2>
+        {% endblock %}
+    {% else %}
+        {% block listing_title %}{% endblock %}
+    {% endif %}
+
+    {% block results_listing %}
+        {% component table %}
+    {% endblock %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_pagination_url %}
+{% else %}
+    {% if is_searching %}
+        {% block no_search_results_message %}
+            <p role="alert">{% blocktrans trimmed %}Sorry, there are no matches for "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+        {% endblock %}
+    {% else %}
+        {% block no_items_message %}
+            <p>{% trans "No items have been created." %}</p>
+        {% endblock %}
+    {% endif %}
+{% endif %}

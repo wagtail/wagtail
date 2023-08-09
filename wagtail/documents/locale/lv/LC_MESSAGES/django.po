@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "title"
+msgstr "virsraksts"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Latest documents"
+msgstr "Jaunākie dokumenti"
+
+msgid "Change document:"
+msgstr "Mainīt dokumentu:"
+
+msgid "Add a document"
+msgstr "Pievienot dokumentu"
+
+msgid "Add document"
+msgstr "Pievienot dokumentu"
+
+msgid "Upload"
+msgstr "Augšupielādēt"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Labo %(title)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Delete document"
+msgstr "Dzēst dokumentu"
+
+msgid "Filesize"
+msgstr "Faila izmērs"
+
+msgid "File not found"
+msgstr "Fails netika atrasts"
+
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "File"
+msgstr "Fails"
+
+msgid "Or choose from your computer"
+msgstr "Izvēlēties no datora"
+
+msgid "Sorry, upload failed."
+msgstr "Augšupielāde neizdevās."
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Choose a document"
+msgstr "Izvēlēties dokumentu"
+
+msgid "Choose another document"
+msgstr "Izvēlēties citu dokumentu."
+
+msgid "Edit this document"
+msgstr "Labot šo dokumentu"
+
+msgid "Search documents"
+msgstr "Meklēt dokumentus"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokuments '%(document_title)s' tika pievienots."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentu nevarēja saglabāt kļūdu dēļ."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokuments '%(document_title)s' atjaunots"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokuments '%(document_title)s' tika dzēsts."
+
+msgid "Document"
+msgstr "Dokuments"

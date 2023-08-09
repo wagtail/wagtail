@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Joanico Barros <joanico@catalpa.io>, 2019-2020
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail fuan"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numeru minimum sasan %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numeru maximum sasan %(max_num)d"
+
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba karik"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Add"
+msgstr "Hatama"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)sBloku ida ne'e la iha opsaun."
+
+msgid "This block has no options."
+msgstr "Bloku nee laiha opsaun"
+
+msgid "This field is required."
+msgstr "Presiza hatama dadus nee"
+
+msgid "Password"
+msgstr "Seña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Seña ladiak! Favor koko ida tan."
+
+msgid "Locked"
+msgstr "Xavi tiha ona"
+
+msgid "Unlocked"
+msgstr "Loke tiha ona"
+
+msgid "live"
+msgstr "Hela"
+
+msgid "has unpublished changes"
+msgstr "Iha sasan la hanesan publiku"
+
+msgid "first published at"
+msgstr "Publika dahuluk iha"
+
+msgid "last published at"
+msgstr "Publika ikus iha"
+
+msgid "go live date/time"
+msgstr "Ba husi hela data/tempu"
+
+msgid "expiry date/time"
+msgstr "Termu data/tempu"
+
+msgid "expired"
+msgstr "Data liu ona"
+
+msgid "scheduled"
+msgstr "Ajenda ona"
+
+msgid "draft"
+msgstr "Esbosu"
+
+msgid "live + scheduled"
+msgstr "Hela + ajenda"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
+
+msgid "Default"
+msgstr "Estandar"
+
+msgid "locked"
+msgstr "Xavi tiha ona"
+
+msgid "Add/edit pages you own"
+msgstr "Hatama/hadia pajina ita nia rasik."
+
+msgid "Delete pages with children"
+msgstr "Hamoos pajina ho oan"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Edit any page"
+msgstr "Hadia kualker pajina"
+
+msgid "Lock"
+msgstr "Xavi"
+
+msgid "Publish"
+msgstr "Publika"
+
+msgid "Publish any page"
+msgstr "Publika kualker pajina"
+
+msgid "title"
+msgstr "titlu"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titlu pajina katak ema publiku haree"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Naran pajina iha URL sira laran ezemplu http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "Tipu konteudu"
+
+msgid "URL path"
+msgstr "Dalan URL"
+
+msgid "owner"
+msgstr "nain"
+
+msgid "show in menus"
+msgstr "Hatudu iha menus sira"
+
+msgid "latest revision created at"
+msgstr "Revizaun ikus kria ona iha"
+
+msgid "page"
+msgstr "Pajina"
+
+msgid "pages"
+msgstr "Pajina sira"
+
+msgid "submitted for moderation"
+msgstr "Submete ona ba moderasaun"
+
+msgid "created at"
+msgstr "Kria iha"
+
+msgid "user"
+msgstr "Uzuariu"
+
+msgid "content JSON"
+msgstr "Konteudu JSON"
+
+msgid "approved go live at"
+msgstr "Aprova ona ba hela iha"
+
+msgid "group"
+msgstr "Grupu"
+
+msgid "permission"
+msgstr "Permisaun"
+
+msgid "permission type"
+msgstr "Tipu Permisaun "
+
+msgid "group page permission"
+msgstr "Grupu pajina permisaun"
+
+msgid "group page permissions"
+msgstr "Grupu pajina permisaun sira"
+
+msgid "name"
+msgstr "Naran"
+
+msgid "groups"
+msgstr "Grupu sira"
+
+msgid "Approve"
+msgstr "Aprova"
+
+msgid "collection"
+msgstr "Koleksaun"
+
+msgid "collections"
+msgstr "Koleksaun sira"
+
+msgid "hostname"
+msgstr "naranhost"
+
+msgid "port"
+msgstr "portu"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Se ita boot presiza portu specifiku iha URL hatama nee (ezemplu portu 8000)"
+
+msgid "site name"
+msgstr "naran situs"
+
+msgid "Human-readable name for the site."
+msgstr "naran situs lee fasil"
+
+msgid "root page"
+msgstr "pajina fuan"
+
+msgid "is default site"
+msgstr "Ne'e situs detallu"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se karik loos, situs ida ne'e sei liga ho rekerimentu hotu-hotu hostname "
+"seluk katak la iha situs ida ho sira an rasik."
+
+msgid "site"
+msgstr "situs"
+
+msgid "sites"
+msgstr "situs sira"
+
+msgid "default"
+msgstr "default"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"Agora  situs onorárius. Ita tenki halo %(hostname)s la onorárius antes xavi "
+"situs nee onorárius."
+
+msgid "Public"
+msgstr "Publiku"
+
+msgid "password"
+msgstr "Sena"
+
+msgid "Log in"
+msgstr "Tama"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ita-boot nia naran uzuariu ho sena la loos. Favor koko fila fali."
+
+msgid "Password required"
+msgstr "Husu Seña"
+
+msgid "You need a password to access this page."
+msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
+
+msgid "Continue"
+msgstr "Kontinua"
+
+msgid "Edited"
+msgstr "Hadia tiha ona"
+
+msgid "Unpublish"
+msgstr "La publika "
+
+msgid "Reject"
+msgstr "Rejeita"
+
+msgid "Copy"
+msgstr "kopia"
+
+msgid "Move"
+msgstr "Muda"

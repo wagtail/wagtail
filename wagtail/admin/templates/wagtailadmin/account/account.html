@@ -1,0 +1,79 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% trans "Account" %}{% endblock %}
+{% block content %}
+    {% trans "Account" as account_str %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str icon="user" merged=1 %}
+
+    <div class="w-tabs" data-tabs>
+        <div class="w-tabs__wrapper">
+            <div role="tablist" class="w-tabs__list">
+                {% for tab in panels_by_tab.keys %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
+                {% endfor %}
+
+                {% if menu_items %}
+                    {% trans 'More actions' as menu_items_title %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='actions' title=menu_items_title %}
+                {% endif %}
+            </div>
+        </div>
+
+        <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data" novalidate>
+            <div class="tab-content">
+                {% csrf_token %}
+
+                {% for tab, panels in panels_by_tab.items %}
+                    <section
+                        id="tab-{{ tab.name|cautious_slugify }}"
+                        class="w-tabs__panel"
+                        role="tabpanel"
+                        hidden
+                        aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
+                    >
+                        {% for panel in panels %}
+                            {% panel id=panel.name heading=panel.title heading_size="label" %}
+                                {{ panel.render }}
+                            {% endpanel %}
+                        {% endfor %}
+
+                        <button type="submit" class="button">{% trans 'Save account details' %}</button>
+                    </section>
+                {% endfor %}
+
+                {% if menu_items %}
+                    <section
+                        id="tab-actions"
+                        class="w-tabs__panel"
+                        role="tabpanel"
+                        hidden
+                        aria-labelledby="tab-label-actions"
+                    >
+                        <ul class="listing">
+                            {% for item in menu_items %}
+                                <li class="row row-flush">
+                                    <div class="col6">
+                                        <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
+                                    </div>
+                                    <small class="col6">{{ item.help_text }}</small>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ media.js }}
+{% endblock %}

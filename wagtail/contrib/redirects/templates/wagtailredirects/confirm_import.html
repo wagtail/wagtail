@@ -1,0 +1,52 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Confirm import" %}{% endblock %}
+{% block content %}
+    {% trans "Import redirects" as header_title %}
+    {% trans "Confirm import" as header_subtitle %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=header_subtitle icon="redirect" %}
+
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+    <form action="{% url 'wagtailredirects:process_import' %}" method="POST" class="nice-padding" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+
+        <ul class="fields">
+            {% for field in form.visible_fields %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
+            {% endfor %}
+
+            <li>
+                <input type="submit" value="{% trans 'Confirm' %}" class="button" />
+                <a href="{% url 'wagtailredirects:index' %}" class="button button-secondary">
+                    {% trans 'Cancel' %}
+                </a>
+            </li>
+        </ul>
+
+        <h2>{% trans "Preview" %}</h2>
+        <table class="listing listing-with-x-scroll">
+            <thead>
+                <tr>
+                    {% for column in dataset.headers %}
+                        <td>{{ column }}</td>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in dataset %}
+                    <tr>
+                        {% for column in row %}
+                            <td>{{ column }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

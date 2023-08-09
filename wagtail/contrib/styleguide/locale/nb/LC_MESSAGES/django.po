@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2018\n"
+"Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail-stilguide"
+
+msgid "Styleguide"
+msgstr "Stilguide"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Delete image"
+msgstr "Slett bilde"
+
+msgid "Search something"
+msgstr "Søk etter noe"
+
+msgid "Success message"
+msgstr "Positiv tilbakemeldning"
+
+msgid "View live"
+msgstr "Se publisert"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Warning message"
+msgstr "Advarsel"
+
+msgid "Error message"
+msgstr "Feilmelding"

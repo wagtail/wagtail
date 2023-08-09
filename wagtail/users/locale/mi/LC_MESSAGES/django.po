@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail users"
+msgstr "Kai-whakamahi-a-Wagtail"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Tēra pea ka puoto tēnei wāriu i ngā reta, nama me @/./+/-/_ characters."
+
+msgid "A user with that username already exists."
+msgstr "Kā tu tonu tēnei ingoa kai-whakamahi."
+
+msgid "The two password fields didn't match."
+msgstr "Ehara he ōrite nga whīra kupu muna e rua."
+
+msgid "Email"
+msgstr "Īmera"
+
+msgid "First Name"
+msgstr "Ingoa tuatahi"
+
+msgid "Last Name"
+msgstr "Ingoa tuarua"
+
+msgid "Password"
+msgstr "Kupu muna"
+
+msgid "Leave blank if not changing."
+msgstr "Mahue hei wātea mēna kaore tēnei e kōrure."
+
+msgid "Password confirmation"
+msgstr "Whakapā kupu muna"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Tāuru te kupu muna ōrite hei ki runga, kia whakatūturu"
+
+msgid "Administrator"
+msgstr "Whakahaere tikanga"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Ka tāea ngā kai whakahaere kī te tomonga me whakahaere ngā tautuhinga, "
+"ahanoa katoa."
+
+msgid "A group with that name already exists."
+msgstr "Kā tu tonu tēra ingoa-a-rōpu."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Kāore koe ka taea ngā rekoata–whakaae e nui ake ki te kotahi anake, ki roto "
+"ī te whārangi ōrite."
+
+msgid "submitted notifications"
+msgstr "Tukungia whakaatu"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Whiwhingia whakaatu I ngā wā e tikungia he whārangi hei whakaōrite"
+
+msgid "approved notifications"
+msgstr "Ngā whakaatu kua whakaae"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Whiwhingia whakaatu I ngā wā kua whakamiha tō kotikoti-a-whārangi "
+
+msgid "rejected notifications"
+msgstr "Parahako ngā whakaatu"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Whiwhingia whakaatu I ngā wā kua parahako tō kotikoti-a-whārangi "
+
+msgid "preferred language"
+msgstr "Te reo mariu"
+
+msgid "Select language for the admin"
+msgstr "Kōwhiri he reo mō te kai whakahaere"
+
+msgid "current time zone"
+msgstr "Te rohe wā o nāianei"
+
+msgid "Select your current time zone"
+msgstr "Kōwhiri tō rohe wā o nāianei"
+
+msgid "profile picture"
+msgstr "Whakaahua kōtaha"
+
+msgid "user profile"
+msgstr "Kōtaha ō te kai-whakamahi"
+
+msgid "user profiles"
+msgstr "Ngā kōtaha ō te kai-whakamahi"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Delete group"
+msgstr "Mukuhia te rōpu"
+
+msgid "Add group"
+msgstr "Tāpiri he rōpū"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "View users in this group"
+msgstr "Kitea ngā kai-whakamahi ki roto i tēnei rōpū"
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Object permissions"
+msgstr "Whakaae-a-ahanoa"
+
+msgid "Name"
+msgstr "Ingoa"
+
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Change"
+msgstr "Panoni"
+
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Lock"
+msgstr "Raka"
+
+msgid "Unlock"
+msgstr "Iriti"
+
+msgid "Other permissions"
+msgstr "Ē rā atu ahanoa"
+
+msgid "Page permissions"
+msgstr "Ngā whakaae-a-whārangi"
+
+msgid "Page"
+msgstr "Whārangi"
+
+msgid "Add a page permission"
+msgstr "Tāpiri he whakaae-a-whārangi"
+
+msgid "Delete user"
+msgstr "Mukuhia kai-whakamahi"
+
+msgid "Add user"
+msgstr "Tāpiri he kai-whakamahi"
+
+msgid "Account"
+msgstr "Rongorua"
+
+msgid "Roles"
+msgstr "Ngā whakatau"
+
+msgid "Users"
+msgstr "Ngā kai-whakamahi"
+
+msgid "Add a user"
+msgstr "Tāpiri he kai-whakamahi"
+
+msgid "Username"
+msgstr "Ingoa kai-whakamahi"
+
+msgid "Status"
+msgstr "Tūnga"
+
+msgid "Last Login"
+msgstr "Te takiuru nō tēra"
+
+msgid "Admin"
+msgstr "Kaiwhakahaere"
+
+msgid "Active"
+msgstr "hohe"
+
+msgid "Inactive"
+msgstr "Koretake"
+
+msgid "Add a group"
+msgstr "Tāpiri he rōpū"
+
+msgid "The user could not be saved due to errors."
+msgstr "Ehara tēnei kaiwhakamahi e taea ki te puritia, he raruraru "
+
+msgid "Edit"
+msgstr "Whakarerekē"

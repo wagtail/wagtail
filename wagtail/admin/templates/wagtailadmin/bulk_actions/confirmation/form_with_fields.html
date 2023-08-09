@@ -1,0 +1,11 @@
+{% extends './form.html' %}
+
+{% block form_fields %}
+    {% for field in form %}
+        {% if field.is_hidden %}
+            {{ field }}
+        {% else %}
+            {% include "wagtailadmin/shared/field.html" with field=field %}
+        {% endif %}
+    {% endfor %}
+{% endblock form_fields %}

@@ -1,0 +1,29 @@
+===========================
+Wagtail 0.8.5 release notes
+===========================
+
+*February 17, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* On adding a new page, the available page types are ordered by the displayed verbose name
+* Active admin submenus were not properly closed when activating another
+* ``get_sitemap_urls`` is now called on the specific page class so it can now be overridden
+* (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
+* Storage backends that return raw ContentFile objects are now handled correctly when resizing images
+* Punctuation characters are no longer stripped when performing search queries
+* When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
+* ``richtext`` template tag no longer raises ``TypeError`` if ``None`` is passed into it
+* Serving documents now uses a streaming HTTP response and will no longer break Django's cache middleware
+* User admin area no longer fails in the presence of negative user IDs (as used by ``django-guardian``'s default settings)
+* Password reset emails now use the ``BASE_URL`` setting for the reset URL
+* ``BASE_URL`` is now included in the project template's default settings file

@@ -1,0 +1,24 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if show_locale_controls %}
+    <div>
+        {% if locale_options %}
+            {% if selected_locale %}
+                {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=selected_locale only %}
+            {% else %}
+                {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=parent_page.locale only %}
+            {% endif %}
+        {% else %}
+            {% icon name="site" classname="default" %}
+            {{ parent_page.locale.get_display_name }}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% querystring p=None as querystring_value %}
+{% breadcrumbs parent_page 'wagtailadmin_choose_page_child' include_self=False is_expanded=True querystring_value=querystring_value %}
+
+{% component table %}
+
+{% url 'wagtailadmin_choose_page_child' parent_page.id as pagination_base_url %}
+{% paginate pagination_page base_url=pagination_base_url classname="navigate-pages" %}

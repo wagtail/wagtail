@@ -1,0 +1,496 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail core"
+msgstr "Iho-a-Wagtail"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Te nama iti rawa mō ēnei tūemi ko %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Te nama nui rawa mō ēnei tūemi ko %(max_num)d"
+
+msgid "Move up"
+msgstr "Mū ki runga"
+
+msgid "Move down"
+msgstr "Mū ki raro"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Add"
+msgstr "Tāpiri"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Ehara he kōwhiringa mō tēnei paraka"
+
+msgid "This block has no options."
+msgstr "Ehara he kōwhiringa mō tēnei paraka"
+
+msgid "This field is required."
+msgstr "Hiahiatia ana tēnei whīra"
+
+msgid "Password"
+msgstr "Kupu muna"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Kua hē tou kupu muna. Whakamātau koa anō."
+
+msgid "Comment"
+msgstr "Tākupu"
+
+msgid "live"
+msgstr "mataora"
+
+msgid "has unpublished changes"
+msgstr "ngā panoni ehara kua perehi"
+
+msgid "first published at"
+msgstr "I perehi tuatahi ki"
+
+msgid "last published at"
+msgstr "Perehi whakamutunga ki"
+
+msgid "live revision"
+msgstr "whakahou mataora"
+
+msgid "go live date/time"
+msgstr "Haere mataora rā/ taima"
+
+msgid "expiry date/time"
+msgstr "mōnehu rā/ taima"
+
+msgid "expired"
+msgstr "kua mōnehu"
+
+msgid "scheduled"
+msgstr "āpiti"
+
+msgid "draft"
+msgstr "hukihuki"
+
+msgid "live + scheduled"
+msgstr "mataora + āpiti"
+
+msgid "live + draft"
+msgstr "mataora + hukihuki"
+
+msgid "Default"
+msgstr "Taunoa"
+
+msgid "locked"
+msgstr "kua raka"
+
+msgid "locked at"
+msgstr "Kua raka ki"
+
+msgid "locked by"
+msgstr "I raka nō"
+
+msgid "in moderation"
+msgstr "kia whakaōrite"
+
+msgid "live + in moderation"
+msgstr "mataora + kia whakaōrite"
+
+msgid "Add/edit pages you own"
+msgstr "Tāpiri/ whakarerekē ou whārangi"
+
+msgid "Bulk delete"
+msgstr "Muku maha"
+
+msgid "Delete pages with children"
+msgstr "Muku ngā whārangi-a-tamariki"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Edit any page"
+msgstr "Whakarerekē ngā whārangi"
+
+msgid "Lock"
+msgstr "Raka"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Raka/ iriti ngā whārangi kua raka e koe"
+
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Publish any page"
+msgstr "Perehi ngā whārangi"
+
+msgid "Unlock"
+msgstr "Iriti"
+
+msgid "Unlock any page"
+msgstr "Iriti ngā whārangi"
+
+msgid "title"
+msgstr "taitara"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Te taitara-a-whārangi e pirangi ana koe kia kite mā marea"
+
+msgid "slug"
+msgstr "ngata"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Te ingoa ō te whārangi hei kitea i roto it ngā URLs ara, http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "Momo rārangi take"
+
+msgid "URL path"
+msgstr "Tukutata URL"
+
+msgid "owner"
+msgstr "Rangatira"
+
+msgid "show in menus"
+msgstr "Kitea kī roto i te pae tahua"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Mēna ka kitea he taukea ki tēnei whārangi ki roto i ngā pae tahua aunoa-"
+"waihanga"
+
+msgid "latest revision created at"
+msgstr "I hanga whakahou ki"
+
+msgid "page"
+msgstr "Whārangi"
+
+msgid "pages"
+msgstr "Ngā whārangi"
+
+msgid "submitted for moderation"
+msgstr "Tukungia mō ngā mahi whakaōrite"
+
+msgid "created at"
+msgstr "I hangaia ki"
+
+msgid "user"
+msgstr "Kaiwhakamahi"
+
+msgid "content JSON"
+msgstr "Rārangi take JSON"
+
+msgid "approved go live at"
+msgstr "Whakamiha kia tuku hei mataora ki"
+
+msgid "group"
+msgstr "rōpū"
+
+msgid "permission"
+msgstr "whakaae"
+
+msgid "permission type"
+msgstr "momo–whakaae "
+
+msgid "group page permission"
+msgstr "Rōpū whakaae-a-whārangi"
+
+msgid "group page permissions"
+msgstr "Ngā rōpū whakaae-a-whārangi"
+
+msgid "page view restriction"
+msgstr "Kitea aukatinga-a-whārangi"
+
+msgid "page view restrictions"
+msgstr "Ngā kitea aukatinga-a-whārangi"
+
+msgid "workflow"
+msgstr "mahi pūheke"
+
+msgid "workflow page"
+msgstr "Whārangi mahi pūheke"
+
+msgid "workflow pages"
+msgstr "Ngā whārangi mahi pūheke"
+
+msgid "workflow_tasks"
+msgstr "Ngā mahi pūheke"
+
+msgid "task"
+msgstr "mahi"
+
+msgid "workflow task order"
+msgstr "Ōra mahi pūheke"
+
+msgid "workflow task orders"
+msgstr "Ngā ōra mahi pūheke"
+
+msgid "name"
+msgstr "Ingoa"
+
+msgid "active"
+msgstr "hohe"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Ka taea ngā mahi hohe ki te tāpiri ki ngā mahi pūheke. Mēna ka whakaweto e "
+"koe i tēnei, ehara ka hura mai i ngā mahi pūheke e tauoranga."
+
+msgid "tasks"
+msgstr "mahi"
+
+msgid "workflows"
+msgstr "Ngā mahi pūheke"
+
+msgid "groups"
+msgstr "Rōpū"
+
+msgid "Request changes"
+msgstr "Tono kōrure"
+
+msgid "Approve"
+msgstr "Whakamiha"
+
+msgid "Approve with comment"
+msgstr "Whakamiha me tētahi tākupu"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Ka taea ngā mema-a-rōpū kōhiti ō Wagtail ki te whakamiha tēnei mahi"
+
+msgid "Group approval task"
+msgstr "Mahi whakamiha-a-rōpū"
+
+msgid "Group approval tasks"
+msgstr "Ngā mahi whakamiha-a-rōpū"
+
+msgid "In progress"
+msgstr "haeretia"
+
+msgid "Approved"
+msgstr "kua whakamiha"
+
+msgid "Needs changes"
+msgstr "Matea kōrure"
+
+msgid "Cancelled"
+msgstr "Whakakāhoretia"
+
+msgid "status"
+msgstr "tūnga"
+
+msgid "requested by"
+msgstr "I tonoa a"
+
+msgid "current task state"
+msgstr "te tātaku ō te mahi o nāianei"
+
+msgid "Not started"
+msgstr "Kāhore ē timata"
+
+msgid "Workflow state"
+msgstr "Tātaku ō te mahi pūheke"
+
+msgid "Workflow states"
+msgstr "Ngā tātaku ō te mahi pūheke"
+
+msgid "Rejected"
+msgstr "Parahako"
+
+msgid "Skipped"
+msgstr "Piu"
+
+msgid "workflow state"
+msgstr "tātaku ō te mahi pūheke"
+
+msgid "started at"
+msgstr "Tīmata ki"
+
+msgid "finished at"
+msgstr "I mutu ī"
+
+msgid "finished by"
+msgstr "I mutu a"
+
+msgid "Task state"
+msgstr "Mahi tātaku"
+
+msgid "Task states"
+msgstr "Ngā mahi tātaku"
+
+msgid "page log entry"
+msgstr "takiuru tomokanga-a-whārangi"
+
+msgid "page log entries"
+msgstr "ngā takiuru tomokanga-a-whārangi"
+
+msgid "timestamp (UTC)"
+msgstr "takahi taima (UTC)"
+
+msgid "log entry"
+msgstr "takiuru tomokanga"
+
+msgid "log entries"
+msgstr "ngā takiuru tomokanga"
+
+msgid "system"
+msgstr "pūnaha"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "tautangata %(action)s"
+
+msgid "collection"
+msgstr "kohikohinga"
+
+msgid "collection view restriction"
+msgstr "Kohikohinga kitea aukatinga"
+
+msgid "collection view restrictions"
+msgstr "Ngā kohikohinga kitea aukatinga"
+
+msgid "collections"
+msgstr "Ngā kohikohinga"
+
+msgid "group collection permission"
+msgstr "rōpū kohikohinga whakaae"
+
+msgid "group collection permissions"
+msgstr "Ngā rōpū kohikohinga whakaae"
+
+msgid "hostname"
+msgstr "Ingoa-a-manuhiri"
+
+msgid "port"
+msgstr "Tumu rorohiko"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Hāpai tēnei kī tētahi nama ērā atu kī te 80 mēna ka hiahia koe kī te kimihia "
+"te tumu kī roto ī ngā URLs\n"
+"(ara, whakawhanake kī tumu 8000). Karekau tēnei e pā tono hūrau. (kei te "
+"mahi tonu ngā tumu whakaete)."
+
+msgid "site name"
+msgstr "Ingoa-a-pae"
+
+msgid "Human-readable name for the site."
+msgstr "He Ingoa tūturu mō tēnei pae. Pānui-a-tangata"
+
+msgid "root page"
+msgstr "whārangi rarau"
+
+msgid "is default site"
+msgstr "kō te pae taunoa"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Mēna he pono, ka hūrau tēnei pae ī ngā tono katoa mō nga ingoa-a-manuhiri e "
+"kore pae tomokanga mō a rātau."
+
+msgid "site"
+msgstr "Pae"
+
+msgid "sites"
+msgstr "Ngā pae"
+
+msgid "default"
+msgstr "taunoa"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"Kua whakatakoto a %(hostname)s hei te pae taunoa. Me whakakore koe tēnei i "
+"mua, hei puritia tēnei pae hei taunoa."
+
+msgid "Public"
+msgstr "Marea"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi e takiuru"
+
+msgid "Private, accessible with the following password"
+msgstr "Paraiweti, whakatapoko me tēnei kupu muna"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi i roto ngā rōpū motuhake"
+
+msgid "password"
+msgstr "Kupu muna"
+
+msgid "view restriction"
+msgstr "Kitea ngā aukatinga"
+
+msgid "view restrictions"
+msgstr "Kitea ngā aukatinga"
+
+msgid "Log in"
+msgstr "Takiuru"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ehara ī māti tōu ingoa kaiwhakamahi me tōu kupu muna. Tēnā anō koa."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Karekau tōu pūkete ka taea ki te tomonga ī tēnei whārangi. Kia haere tonu, "
+"takiuru koa me tētahi pūkete hei tomonga."
+
+msgid "Password required"
+msgstr "Hiahia kupu muna "
+
+msgid "You need a password to access this page."
+msgstr "E hiahia ana he kupu muna kia tomonga i tēnei whārangi."
+
+msgid "Continue"
+msgstr "Tonu"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s tuhanga kohikohinga"
+msgstr[1] "%(count)s tuhanga kohikohinga"
+
+msgid "Created"
+msgstr "Hangaia"
+
+msgid "Edited"
+msgstr "Kua whakarerekē"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
+msgid "Reject"
+msgstr "Parahako"

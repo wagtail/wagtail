@@ -1,0 +1,51 @@
+.u-hidden {
+  // stylelint-disable-next-line declaration-no-important
+  display: none !important;
+}
+
+.clearfix {
+  @include clearfix();
+}
+
+.nice-padding {
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .divider-before {
+    border-inline-start: 1px solid theme('colors.border-furniture');
+  }
+}
+
+body.reordering {
+  overflow: visible;
+}
+
+// Show a transparency grid in background
+.show-transparency {
+  background: url('#{$images-root}transparency.svg');
+}
+
+// make a block-level element inline
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+// utility class to allow things to be scrollable if their contents can't wrap more nicely
+.overflow {
+  overflow: auto;
+}

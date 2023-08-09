@@ -1,0 +1,232 @@
+#
+# Translators:
+# nahuel, 2022
+# Karl Hobley <karl@torchbox.com>, 2022
+# Benoît Vogel <contact@spicy-informatique.com>, 2022
+# incognitae <pierre@onoffdesign.com>, 2022
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
+# Aurélien Debord <contact@aureliendebord.com>, 2022
+# Loic Teixeira, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2023\n"
+"Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s  nouvel élément dans ce menu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nouvel élément dans ce menu)"
+
+msgid "(New)"
+msgstr "(Nouveau)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s erreur"
+msgstr[1] "%(num)s erreurs"
+msgstr[2] "%(num)s erreurs"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixels"
+msgstr[2] "%(num)s pixels"
+
+msgid "Add a comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Alt text"
+msgstr "Texte alternatif"
+
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr(e) ?"
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Broken link"
+msgstr "Lien mort"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Character count:"
+msgstr "Nombre de caractères  :"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Collapse all"
+msgstr "Tout replier"
+
+msgid "Comment"
+msgstr "Commenter"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Decorative image"
+msgstr "Image décorative"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete error"
+msgstr "Supprimer l'erreur"
+
+msgid "Deleting"
+msgstr "Suppression…"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit '%(title)s'"
+msgstr "Modifier '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Modifiez votre compte"
+
+msgid "Enter your comments..."
+msgstr "Entrez votre commentaire…"
+
+msgid "Enter your reply..."
+msgstr "Entrez votre réponse…"
+
+msgid "Error while sending preview data."
+msgstr ""
+"Une erreur est survenue lors de l'envoi des données de prévisualisation."
+
+msgid "Expand all"
+msgstr "Tout déplier"
+
+msgid "Focus comment"
+msgstr "Mettre le commentaire au premier-plan"
+
+msgid "Horizontal line"
+msgstr "Ligne horizontale"
+
+msgid "Insert a block"
+msgstr "Insérer un bloc"
+
+msgid "Line break"
+msgstr "Retour à la ligne"
+
+msgid "Loading…"
+msgstr "Chargement…"
+
+msgid "Main menu"
+msgstr "Menu principal"
+
+msgid "Missing document"
+msgstr "Document manquant"
+
+msgid "More actions"
+msgstr "Plus d'actions"
+
+msgid "No results"
+msgstr "Aucun résultat"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Page explorer"
+msgstr "Explorateur"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Pin toolbar"
+msgstr "Épingler la barre d'outils"
+
+msgid "Reload saved content"
+msgstr "Recharger le contenu sauvegardé"
+
+msgid "Reload the page"
+msgstr "Recharger la page"
+
+msgid "Reply"
+msgstr "Répondre"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Signalez cette erreur à votre webmaster avec les informations suivantes :"
+
+msgid "Resolve"
+msgstr "Archiver"
+
+msgid "Retry"
+msgstr "Réessayer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Save error"
+msgstr "Enregistrer l'erreur"
+
+msgid "Save the page to add this comment"
+msgstr "Enregistrer la page pour ajouter ce commentaire"
+
+msgid "Save the page to save this comment"
+msgstr "Enregistrer la page pour enregistrer ce commentaire"
+
+msgid "Save the page to save this reply"
+msgstr "Enregistrer la page pour enregistrer ce commentaire"
+
+msgid "Saving..."
+msgstr "Enregistrement…"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search options…"
+msgstr "Options de recherche…"
+
+msgid "See all"
+msgstr "Tout voir"
+
+msgid "Server Error"
+msgstr "Erreur de serveur"
+
+msgid "Show error"
+msgstr "Afficher l’erreur"
+
+msgid "Show latest content"
+msgstr "Montrer le dernier contenu"
+
+msgid "Split block"
+msgstr "Scinder le bloc"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
+"restauré."
+
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
+msgid "Toggle side panel"
+msgstr "Afficher/masquer le panneau latéral"
+
+msgid "Toggle sidebar"
+msgstr "Afficher/masquer la barre latérale"
+
+msgid "Unfocus comment"
+msgstr "Mettre le commentaire en arrière-plan"
+
+msgid "Unpin toolbar"
+msgstr "Désépingler la barre d'outils"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Voir les sous-pages de '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"

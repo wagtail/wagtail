@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Chih Wang <ihcgno@icloud.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2020
+# Ocin Leung, 2020
+# Ocin Leung, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Ocin Leung, 2020\n"
+"Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail 表單"
+
+msgid "Date from"
+msgstr "起始日期"
+
+msgid "Date to"
+msgstr "結束日期"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "%(label_name)s 標簽被其它欄位使用，請更換一個標簽。"
+
+msgid "Single line text"
+msgstr "單行文本"
+
+msgid "Multi-line text"
+msgstr "多行文本"
+
+msgid "Email"
+msgstr "電子郵件"
+
+msgid "Number"
+msgstr "數字"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "檢查框"
+
+msgid "Checkboxes"
+msgstr "多選框"
+
+msgid "Drop down"
+msgstr "下拉列表框"
+
+msgid "Multiple select"
+msgstr "多選列表框"
+
+msgid "Radio buttons"
+msgstr "單選按鈕"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Date/time"
+msgstr "日期/時間"
+
+msgid "Hidden field"
+msgstr "隱藏欄位"
+
+msgid "submit time"
+msgstr "提交時間"
+
+msgid "form submission"
+msgstr "提交表格"
+
+msgid "form submissions"
+msgstr "已提交表單"
+
+msgid "name"
+msgstr "名稱"
+
+msgid "label"
+msgstr "標簽"
+
+msgid "The label of the form field"
+msgstr "欄位的標簽"
+
+msgid "field type"
+msgstr "欄位類型"
+
+msgid "required"
+msgstr "必填"
+
+msgid "choices"
+msgstr "選項"
+
+msgid "default value"
+msgstr "預設值"
+
+msgid "help text"
+msgstr "幫助文本"
+
+msgid "Submission date"
+msgstr "提交日期"
+
+msgid "Form"
+msgstr "表單"
+
+msgid "Landing page"
+msgstr "登陸頁面"
+
+msgid "to address"
+msgstr "收件人"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr "可選 - 提交的表單將通過email發送給這些地址。多個地址請用逗號隔開。"
+
+msgid "from address"
+msgstr "發件人"
+
+msgid "subject"
+msgstr "主題"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s提交"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "刪除表單數據 %(title)s"
+
+msgid "Delete form data"
+msgstr "刪除表單數據"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Forms"
+msgstr "表單"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Delete selected submissions"
+msgstr "刪除選中提交"
+
+msgid "Total submissions"
+msgstr "所有的提交"
+
+msgid "Latest submission"
+msgstr "上一次提交"
+
+msgid "No form pages have been created."
+msgstr "還沒有創建表單頁面。"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "提交%(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "表格%(title)s沒有已提交的內容"
+
+msgid "Filter"
+msgstr "過濾器"
+
+msgid "Apply filters"
+msgstr "套用過濾"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d 次提交已被刪除。"

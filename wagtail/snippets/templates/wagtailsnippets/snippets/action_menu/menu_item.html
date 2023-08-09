@@ -1,0 +1,6 @@
+{% load wagtailadmin_tags %}
+{% if url %}
+    <a class="button{% if classname %} {{ classname }}{% endif %}{% if is_revision %} warning{% endif %}" href="{{ url }}">{% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}</a>
+{% else %}
+    <button type="submit" name="{{ name }}" value="{{ label }}" class="button{% if classname %} {{ classname }}{% endif %}{% if is_revision %} warning{% endif %}">{% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}</button>
+{% endif %}

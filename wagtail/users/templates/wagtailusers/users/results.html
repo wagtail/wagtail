@@ -1,0 +1,33 @@
+{% load i18n wagtailadmin_tags %}
+{% if users %}
+    {% if is_searching %}
+        <h2 role="alert">
+            {% blocktrans trimmed count counter=users|length %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
+        </h2>
+
+        {% search_other %}
+    {% endif %}
+
+    {% include "wagtailusers/users/list.html" %}
+
+    {# call pagination_nav with no linkurl, to generate general-purpose links like <a href="?p=2"> #}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
+{% else %}
+    {% if is_searching %}
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+
+        {% search_other %}
+    {% else %}
+        {% if group %}
+            {% with group.name as group_name %}
+                <p>{% blocktrans trimmed with wagtailusers_add_url=add_url %}The {{ group_name }} group has no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+            {% endwith %}
+        {% else %}
+            <p>{% blocktrans trimmed with wagtailusers_add_url=add_url %}There are no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,81 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% load wagtailimages_tags %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Images" %}{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Images" as im_str %}
+    {% url 'wagtailimages:listing_results' as search_results_url %}
+    {% if user_can_add %}
+        {% trans "Add an image" as add_img_str %}
+        {% url "wagtailimages:add_multiple" as add_link %}
+        {% querystring as querystring %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str action_url=add_link|add:querystring icon="image" action_text=add_img_str search_url="wagtailimages:index" search_results_url=search_results_url search_target="#image-results" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" search_results_url=search_results_url search_target="#image-results" %}
+    {% endif %}
+
+    <div class="nice-padding">
+        <form class="image-search" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
+            {% if current_tag %}
+                <input type="hidden" name="tag" value="{{ current_tag }}" />
+            {% endif %}
+
+            {% field_row max_content=True %}
+                {% if collections %}
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                {% endif %}
+
+                {% trans "Sort by" as sort_by %}
+                {% field label_text=sort_by id_for_label="order_images_by" %}
+                    <select id="order_images_by" name="ordering" data-controller="w-submit" data-action="change->w-submit#submit">
+                        {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                            <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                        {% endfor %}
+                    </select>
+                {% endfield %}
+
+                {% trans "Entries per page" as entries_per_page_label %}
+                {% field label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
+                    <select id="entries_per_page" name="entries_per_page" data-controller="w-submit" data-action="change->w-submit#submit">
+                        {% for value in ENTRIES_PER_PAGE_CHOICES %}
+                            <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                {% endfield %}
+            {% endfield_row %}
+
+            {% if popular_tags %}
+                <fieldset class="tagfilter">
+                    <legend>{% trans 'Popular Tags:' %}</legend>
+                    {% for tag in popular_tags %}
+                        {% if tag.name != current_tag %}
+                            <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                        {% else %}
+                            <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_tag %}
+                        <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear' %}</a>
+                    {% endif %}
+                </fieldset>
+            {% endif %}
+        </form>
+
+        <div id="image-results">
+            {% include "wagtailimages/images/results.html" with querystring=querystring %}
+        </div>
+        {% trans "Select all images in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=images parent=current_collection.id %}
+    </div>
+
+{% endblock %}

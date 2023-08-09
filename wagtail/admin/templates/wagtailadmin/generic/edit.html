@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load i18n %}
+
+{% block actions %}
+    <input type="submit" value="{% trans 'Save' %}" class="button" />
+    {% if delete_url %}
+        <a href="{{ delete_url }}" class="button no">{{ delete_item_label }}</a>
+    {% endif %}
+{% endblock %}

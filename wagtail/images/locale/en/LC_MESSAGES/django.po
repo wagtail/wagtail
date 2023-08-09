@@ -1,0 +1,736 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:12
+msgid "Wagtail images"
+msgstr ""
+
+#: fields.py:53
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+
+#: fields.py:59
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr ""
+
+#: fields.py:67
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+
+#: fields.py:71
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+
+#: fields.py:75
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+
+#: fields.py:79
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+
+#: fields.py:83
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+
+#: formats.py:101
+msgid "Full width"
+msgstr ""
+
+#: formats.py:104
+msgid "Left-aligned"
+msgstr ""
+
+#: formats.py:107
+msgid "Right-aligned"
+msgstr ""
+
+#: forms.py:28 views/bulk_actions/add_to_collection.py:13
+msgid "Collection"
+msgstr ""
+
+#: forms.py:149
+msgid "Format"
+msgstr ""
+
+#: forms.py:154
+msgid "Image is decorative"
+msgstr ""
+
+#: forms.py:156
+msgid "Alt text"
+msgstr ""
+
+#: forms.py:169
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+
+#: forms.py:177
+msgid "Filter"
+msgstr ""
+
+#: forms.py:179
+msgid "Original size"
+msgstr ""
+
+#: forms.py:180
+msgid "Resize to width"
+msgstr ""
+
+#: forms.py:181
+msgid "Resize to height"
+msgstr ""
+
+#: forms.py:182
+msgid "Resize to min"
+msgstr ""
+
+#: forms.py:183
+msgid "Resize to max"
+msgstr ""
+
+#: forms.py:184
+msgid "Resize to fill"
+msgstr ""
+
+#: forms.py:187
+msgid "Width"
+msgstr ""
+
+#: forms.py:188
+msgid "Height"
+msgstr ""
+
+#: forms.py:189
+msgid "Closeness"
+msgstr ""
+
+#: forms.py:195
+msgid "Add"
+msgstr ""
+
+#: forms.py:195
+msgid "Add/edit images you own"
+msgstr ""
+
+#: forms.py:196 views/images.py:395
+msgid "Edit"
+msgstr ""
+
+#: forms.py:196
+msgid "Edit any image"
+msgstr ""
+
+#: forms.py:197
+msgid "Choose"
+msgstr ""
+
+#: forms.py:197
+msgid "Select images in choosers"
+msgstr ""
+
+#: models.py:239
+msgid "title"
+msgstr ""
+
+#: models.py:242
+msgid "file"
+msgstr ""
+
+#: models.py:247
+msgid "width"
+msgstr ""
+
+#: models.py:248
+msgid "height"
+msgstr ""
+
+#: models.py:250
+msgid "created at"
+msgstr ""
+
+#: models.py:254 models.py:1175
+msgid "uploaded by user"
+msgstr ""
+
+#: models.py:262
+msgid "tags"
+msgstr ""
+
+#: models.py:811
+msgid "image"
+msgstr ""
+
+#: models.py:812
+msgid "images"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:4
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:7
+msgid "Add tags to images"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:14
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:32
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:39
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:39
+msgid "Yes, add"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_tags.html:40
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:40
+msgid "No, don't add"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:4
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:7
+msgid "Add images to collection"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:14
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html:32
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:3
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:6
+msgid "Delete images"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:13
+#: views/images.py:368
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:23
+#: templates/wagtailimages/images/edit.html:87
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:32
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:39
+#: templates/wagtailimages/images/confirm_delete.html:16
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailimages/bulk_actions/confirm_bulk_delete.html:40
+#: templates/wagtailimages/images/confirm_delete.html:17
+msgid "No, don't delete"
+msgstr ""
+
+#: templates/wagtailimages/chooser/chooser.html:14
+msgid "Popular tags"
+msgstr ""
+
+#: templates/wagtailimages/chooser/confirm_duplicate_upload.html:6
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+
+#: templates/wagtailimages/chooser/confirm_duplicate_upload.html:10
+msgid "Existing"
+msgstr ""
+
+#: templates/wagtailimages/chooser/confirm_duplicate_upload.html:15
+msgid "New"
+msgstr ""
+
+#: templates/wagtailimages/chooser/confirm_duplicate_upload.html:22
+msgid "Use new image"
+msgstr ""
+
+#: templates/wagtailimages/chooser/confirm_duplicate_upload.html:32
+msgid "Use existing and delete new"
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:4
+msgid "Latest images"
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:14
+#, python-format
+msgid "Select %(title)s"
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:32
+msgid "You haven't uploaded any images in this collection."
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:34
+msgid "You haven't uploaded any images."
+msgstr ""
+
+#: templates/wagtailimages/chooser/results.html:37
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+
+#: templates/wagtailimages/chooser/select_format.html:3
+msgid "Choose a format"
+msgstr ""
+
+#: templates/wagtailimages/chooser/select_format.html:16
+msgid "Insert image"
+msgstr ""
+
+#: templates/wagtailimages/homepage/site_summary_images.html:6
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/images/_file_field.html:8
+msgid "Change image file:"
+msgstr ""
+
+#: templates/wagtailimages/images/add.html:4
+#: templates/wagtailimages/images/index.html:19
+msgid "Add an image"
+msgstr ""
+
+#: templates/wagtailimages/images/add.html:48
+msgid "Add image"
+msgstr ""
+
+#: templates/wagtailimages/images/add.html:66
+#: templates/wagtailimages/images/edit.html:41
+#: templates/wagtailimages/images/edit.html:97
+msgid "Save"
+msgstr ""
+
+#: templates/wagtailimages/images/confirm_duplicate_upload.html:14
+msgid "Keep new image"
+msgstr ""
+
+#: templates/wagtailimages/images/confirm_duplicate_upload.html:18
+msgid "Delete new image"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:3
+#: templates/wagtailimages/images/url_generator.html:4
+#, python-format
+msgid "Editing image %(title)s"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:22
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:43
+#: templates/wagtailimages/images/edit.html:99 views/images.py:356
+msgid "Delete image"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:58
+msgid "Image focal point"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:65
+msgid "URL Generator"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:71
+msgid "Focal point"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:71
+msgid "(optional)"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:72
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:72
+msgid "Current focal point shown"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:74
+msgid "Remove focal area"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:80
+msgid "Max dimensions"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:82
+msgid "Filesize"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:83
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:85
+msgid "Usage"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:6
+#: templates/wagtailimages/images/index.html:16 wagtail_hooks.py:53
+#: wagtail_hooks.py:170
+msgid "Images"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:38
+msgid "Sort by"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:47
+msgid "Entries per page"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:59
+msgid "Popular Tags:"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:68
+msgid "Clear"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:77
+msgid "Select all images in listing"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:6
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailimages/images/results.html:17
+msgid "Select image"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:26
+msgid "pixels"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:41
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:48
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:50
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:7
+msgid "Generating URL"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:20
+msgid "URL"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:25
+#: templates/wagtailimages/images/url_generator.html:29
+msgid "Preview"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:32
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:5
+msgid "Add multiple images"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:13
+msgid "Add images"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:18
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:23
+msgid "Or choose from your computer"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:28
+msgid "Add to collection:"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:62
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:64
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:66
+msgid "Sorry, upload failed."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:68
+msgid "Server Error"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:69
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:72
+msgid "Image updated."
+msgstr ""
+
+#: templates/wagtailimages/permissions/includes/image_permissions_formset.html:5
+msgid "Image permissions"
+msgstr ""
+
+#: templates/wagtailimages/permissions/includes/image_permissions_formset.html:6
+msgid "Add an image permission"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:10
+msgid "Tags"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:14
+msgid "Tag"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:16
+msgid "Add tags to the selected images"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:41
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/add_to_collection.py:21
+msgid "Add to collection"
+msgstr ""
+
+#: views/bulk_actions/add_to_collection.py:23
+msgid "Add selected images to collection"
+msgstr ""
+
+#: views/bulk_actions/add_to_collection.py:54
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/delete.py:8 views/images.py:239
+msgid "Delete"
+msgstr ""
+
+#: views/bulk_actions/delete.py:10
+msgid "Delete selected images"
+msgstr ""
+
+#: views/bulk_actions/delete.py:30
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/chooser.py:51 views/chooser.py:313
+msgid "Upload"
+msgstr ""
+
+#: views/chooser.py:52 views/chooser.py:314
+msgid "Uploading…"
+msgstr ""
+
+#: views/chooser.py:312 widgets.py:13
+msgid "Choose an image"
+msgstr ""
+
+#: views/chooser.py:315
+msgid "Choose another image"
+msgstr ""
+
+#: views/chooser.py:316 widgets.py:15
+msgid "Edit this image"
+msgstr ""
+
+#: views/images.py:41
+msgid "Newest"
+msgstr ""
+
+#: views/images.py:42
+msgid "Oldest"
+msgstr ""
+
+#: views/images.py:43
+msgid "Title: (A -> Z)"
+msgstr ""
+
+#: views/images.py:44
+msgid "Title: (Z -> A)"
+msgstr ""
+
+#: views/images.py:45
+msgid "File size: (low to high)"
+msgstr ""
+
+#: views/images.py:46
+msgid "File size: (high to low)"
+msgstr ""
+
+#: views/images.py:105 views/images.py:112
+msgid "Search images"
+msgstr ""
+
+#: views/images.py:212
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr ""
+
+#: views/images.py:213
+msgid "Edit again"
+msgstr ""
+
+#: views/images.py:217
+msgid "The image could not be saved due to errors."
+msgstr ""
+
+#: views/images.py:234
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+
+#: views/images.py:374
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr ""
+
+#: views/images.py:392
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr ""
+
+#: views/images.py:401
+msgid "The image could not be created due to errors."
+msgstr ""
+
+#: wagtail_hooks.py:92
+msgid "Image"
+msgstr ""
+
+#: wagtail_hooks.py:190
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: widgets.py:14
+msgid "Change image"
+msgstr ""

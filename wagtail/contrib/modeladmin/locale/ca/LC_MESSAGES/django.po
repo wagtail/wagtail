@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
+"Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "ModelAdmin de Wagtail"
+
+msgid "Parent page"
+msgstr "Pàgina pare"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "Afegir %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "Afegir nou %(object)s"
+
+msgid "Inspect"
+msgstr "Inspeccionar"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "Inspeccionar aquest %(object)s"
+
+msgid "Edit"
+msgstr "Editar"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar aquest %(object)s"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "Eliminar aquest %(object)s"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "Despublicar aquest %(object)s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "Copiar aquest %(object)s"
+
+msgid "image"
+msgstr "imatge"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Tornar la llista de %(model_name)s"
+
+msgid "Choose a parent page"
+msgstr "Triar pàgina pare"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s poden ser afegides a més d'una ubicació dins del vostre lloc web. "
+"Quin dels següents voleu que sigui el pare de la nova pàgina web?"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Saving…"
+msgstr "Desant…"
+
+msgid "Save"
+msgstr "Desar"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "No es pot eliminar %(model_name)s"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' està actualment referenciat per altres objectes i no pot "
+"ser eliminat sense posar en perill la integritat de les dades. Per tal de "
+"poder-lo eliminar, suprimiu les referències dels objectes següents i torneu "
+"a provar:"
+
+msgid "Go back to listing"
+msgstr "Tornar a la llista"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Per %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Última actualització"
+
+msgid "History"
+msgstr "Historial"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s fora de %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "No hi ha %(name)s que coincideixin amb els paràmetres de cerca."
+
+msgid "Search for"
+msgstr "Cercar per"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Cercar %(name)s"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Encara no s'ha creat cap %(name)s. Cal crear un dels següents abans que "
+"pugueu afegir algun %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Encara no s'ha creat cap %(name)s."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Voleu <a href=\"%(url)s\">afegir un</a>?"
+
+msgid "Pagination"
+msgstr "Paginació"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Pàgina %(current_page)s de %(num_pages)s."
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Següent"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' creat."
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "No s'ha pogut crear el %(object)s a causa d'errors."
+
+msgid "New"
+msgstr "Nou"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "Crear nou %(object)s"
+
+msgid "Editing"
+msgstr "Editant"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Editant %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' actualitzat."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "No s'ha pogut desar el %(object)s a causa d'errors."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmar eliminació de %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"Segur que voleu eliminar aquest %(object)s? Si hi ha altres elements del "
+"vostre lloc relacionats amb ell podrien veure's afectats."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' esborrat."
+
+msgid "Inspecting"
+msgstr "Inspeccionant"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "Inspeccionant %(object)s"
+
+msgid "Action"
+msgstr "Acció"
+
+msgid "Date"
+msgstr "Data"

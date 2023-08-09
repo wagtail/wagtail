@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# B N <biczoxd@gmail.com>, 2018
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019,2021
+# B N <biczoxd@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Keresés"
+
+msgid "Query Daily Hits"
+msgstr "Napi találatok lekérdezése"
+
+msgid "index entry"
+msgstr "index bejegyzés"
+
+msgid "index entries"
+msgstr "index bejegyzések"
+
+msgid "Popular search terms"
+msgstr "Népszerű keresések"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Terms"
+msgstr "Kifejezések"
+
+msgid "Views (past week)"
+msgstr "Megtekintések (elmúlt hétben)"
+
+msgid "No results found"
+msgstr "Nincs találat."
+
+msgid "Choose from popular search terms"
+msgstr "Válassz a népszerű keresések közül"

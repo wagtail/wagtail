@@ -1,0 +1,26 @@
+===========================
+Wagtail 1.4.5 release notes
+===========================
+
+*May 19, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Paste / drag operations done entirely with the mouse are now correctly picked up as edits within the rich text editor (Matt Fozard)
+* Logic for cancelling the "unsaved changes" check on form submission has been fixed to work cross-browser (Stephen Rice)
+* The "unsaved changes" confirmation was erroneously shown on IE / Firefox when previewing a page with validation errors (Matt Westcott)
+* The up / down / delete controls on the "Promoted search results" form no longer trigger a form submission (Matt Westcott)
+* Opening preview window no longer performs user-agent sniffing, and now works correctly on IE11 (Matt Westcott)
+* Tree paths are now correctly assigned when previewing a newly-created page underneath a parent with deleted children (Matt Westcott)
+* Added BASE_URL setting back to project template
+* Clearing the search box in the page chooser now returns the user to the browse view (Matt Westcott)
+* The above fix also fixed an issue where Internet Explorer got stuck in the search view upon opening the page chooser (Matt Westcott)

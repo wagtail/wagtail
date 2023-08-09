@@ -1,0 +1,27 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+[Makefile]
+indent_style = tab
+
+[*.py]
+charset = utf-8
+indent_size = 4
+max_line_length = 88
+
+[*.js]
+charset = utf-8
+
+[*.{html,rst,md}]
+indent_size = 4
+
+[*.{js,ts,tsx,json,yml,yaml,css,scss}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

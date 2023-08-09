@@ -1,0 +1,12 @@
+# git-blame ignored revisions
+# To configure, run
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+# Requires Git > 2.23
+# See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt
+
+# Initial Prettier reformatting (#7912)
+af942a27e41b47e257b6cd46c01a13cd381fed04
+# Initial djhtml reformatting (#7945)
+01986cfa1702929352ac8b6d58ada6070da2c700
+# Initial black reformatting (#7967)
+d10f15e55806c6944827d801cd9c2d53f5da4186

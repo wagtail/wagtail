@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "Meklēšanas termins(i)/frāze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Ievadiet pilnu meklējamo frāzi. Precīza atbilstība ir nepieciešama lai "
+"parādītu Jūsu reklamētos rezultātus, aizstājējzīmes NAV atļautas."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Lūdzu norādiet vismaz vienu rekomendāciju šim meklēšanas vaicājumam"
+
+msgid "Query Daily Hits"
+msgstr "Dienas sasniegtie vaicājumi"
+
+msgid "page"
+msgstr "lapa"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Dzēst %(query)s"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Labo %(query)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Add recommended page"
+msgstr "Pievienot ieteiktu lapu"
+
+msgid "Search Terms"
+msgstr "Meklēšanas termini"
+
+msgid "Search term(s)"
+msgstr "Meklēšanas termins(i)"
+
+msgid "Views (past week)"
+msgstr "Skatījumi (pagājusī nedēļa)"
+
+msgid "None"
+msgstr "Nav"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Ieteikumus nevarēja izveidot kļūdu dēļ"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Ieteikumi netika saglabāti kļūdu dēļ."

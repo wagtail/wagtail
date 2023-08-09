@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/shared/field.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block form_field %}
+    {% field_row %}
+        {{ field }}
+
+        <button type="button" id="{{ field.auto_id }}-chooser" class="button button-secondary">{% trans "Choose from popular search terms" %}</button>
+    {% endfield_row %}
+{% endblock %}

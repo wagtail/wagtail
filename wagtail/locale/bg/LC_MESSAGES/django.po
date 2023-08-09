@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
+"Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Move up"
+msgstr "Нагоре"
+
+msgid "Move down"
+msgstr "Надолу"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Password"
+msgstr "Парола"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Publish"
+msgstr "Публикувай"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заглавието на страницата както желаете да се вижда"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Името на страницата както ще изглежда в URL-ите. Например http://domain.com/"
+"blog/[my-slug]/"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Дали линк към тази страница ще се появи в автоматично генерираните менюта"
+
+msgid "Approve"
+msgstr "Одобрете"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Задайте това като нещо различно от 80, в случай че имате нужда от определен "
+"порт да се появи в URL адресите ви (напр. код-разработка на порт 8000). Не "
+"се отнася за боравене със заявки (така Port Forwarding ще работи)."
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ако е Вярно, този сайт ще борави със заявки за всички останали хостове, "
+"които нямат собствен сайт."
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Вашето потребителско име и парола не съвпадат. Моля опитайте пак."
+
+msgid "Unpublish"
+msgstr "Отмени публикуването"
+
+msgid "Reject"
+msgstr "Отхвърлете"
+
+msgid "Move"
+msgstr "Премести"

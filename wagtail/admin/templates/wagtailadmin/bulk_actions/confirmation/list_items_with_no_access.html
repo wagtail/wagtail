@@ -1,0 +1,10 @@
+{% if items %}
+    <p>{{ no_access_msg }}</p>
+    <ul>
+        {% for item in items %}
+            <li>
+                {% block per_item %}{% endblock per_item %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

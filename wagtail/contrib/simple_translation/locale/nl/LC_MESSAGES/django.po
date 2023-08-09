@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Loic Teixeira, 2022
+# Storm Heg <storm@stormbase.digital>, 2023
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail simpele vertalingen"
+
+msgid "Select all"
+msgstr "Selecteer alles"
+
+msgid "Locales"
+msgstr "Taalregio's"
+
+msgid "All child pages will be created."
+msgstr "Alle onderliggende pagina's zullen worden aangemaakt."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Neem onderliggende boomstructuur mee (%(descendant_count)s pagina)"
+msgstr[1] ""
+"Neem onderliggende boomstructuur mee (%(descendant_count)s pagina's)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Een taalregio is uitgeschakeld omdat een bovenliggende pagina niet vertaald "
+"is."
+msgstr[1] ""
+"Sommige taalregio's zijn uitgeschakeld omdat bovenliggende pagina's niet "
+"vertaald zijn."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Vertaal de bovenliggende pagina."
+msgstr[1] "Vertaal de bovenliggende paginas."
+
+msgid "Submit"
+msgstr "Verzenden"
+
+msgid "Translate"
+msgstr "Vertaal"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s taalregio's"
+
+msgid "Translate page"
+msgstr "Vertaal pagina"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "De pagina '%(page_title)s' is succesvol aangemaakt in %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Vertaal %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr ""
+"Vertalingen in %(locales)s voor %(model_name)s '%(object)s' zijn succesvol "
+"aangemaakt"
+
+msgid "Translate this page"
+msgstr "Vertaal deze pagina"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Vertaal '%(title)s'"

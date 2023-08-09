@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/generic/chooser/results.html" %}
+{% load i18n %}
+
+{% block no_search_results_message %}
+    <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+{% endblock %}
+
+{% block no_items_message %}
+    {% url add_url_name as wagtailsnippets_create_snippet_url %}
+    <p>{% blocktrans trimmed with snippet_type_name=snippet_type_name %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank" rel="noreferrer">create one now</a>?{% endblocktrans %}</p>
+{% endblock %}

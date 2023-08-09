@@ -1,0 +1,182 @@
+================================
+Wagtail 2.11 (LTS) release notes
+================================
+
+*November 2, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 2.11 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 12 months).
+
+
+What's new
+==========
+
+Multi-lingual content
+~~~~~~~~~~~~~~~~~~~~~
+
+With this release, Wagtail now has official support for authoring content
+for multiple languages/regions.
+
+To find out more about this feature, see :ref:`multi_language_content`.
+
+We have also developed a new plugin for translating content between different
+locales called ``wagtail-localize``. You can find details about ``wagtail-localize``
+on its `GitHub page <https://github.com/wagtail/wagtail-localize>`_.
+
+This feature was sponsored by The Mozilla Foundation and Torchbox.
+
+
+Page aliases
+~~~~~~~~~~~~
+
+This release introduces support for creating page aliases.
+
+Page aliases are exact copies of another page that sit in another part of the tree.
+They remain in sync with the original page until this link is removed by converting them into a regular page, or deleting the original page.
+
+A page alias can be created through the "Copy Page" UI by selecting the "Alias" checkbox when creating a page copy.
+
+This feature was sponsored by The Mozilla Foundation.
+
+
+Collections hierarchy
+~~~~~~~~~~~~~~~~~~~~~
+
+Collections (for organising images, documents or other media) can now be managed as a hierarchy rather than a flat list. This feature was developed by Robert Rollins.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Add ``before_edit_snippet``, ``before_create_snippet`` and ``before_delete_snippet`` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
+* Add ``register_snippet_listing_buttons`` and ``construct_snippet_listing_buttons`` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
+* Add ``wagtail --version`` to available Wagtail CLI commands (Kalob Taulien)
+* Add ``hooks.register_temporarily`` utility function for testing hooks (Karl Hobley. Sponsored by the Mozilla Foundation)
+* Remove ``unidecode`` and use ``anyascii`` in for Unicode to ASCII conversion (Robbie Mackay)
+* Add ``render`` helper to ``RoutablePageMixin`` to support serving template responses according to Wagtail conventions (Andy Babic)
+* Specify minimum Python version in setup.py (Vince Salvino)
+* Extend treebeard's ``fix_tree`` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
+* Add support for hierarchical/nested Collections (Robert Rollins)
+* Show user's full name in report views (Matt Westcott)
+* Improve Wagtail admin page load performance by caching SVG icons sprite in localStorage (Coen van der Kamp)
+* Support SVG icons in ModelAdmin menu items (Scott Cranfill)
+* Support SVG icons in admin breadcrumbs (Coen van der Kamp)
+* Serve PDFs inline in the browser (Matt Westcott)
+* Make document ``content-type`` and ``content-disposition`` configurable via ``WAGTAILDOCS_CONTENT_TYPES`` and ``WAGTAILDOCS_INLINE_CONTENT_TYPES`` (Matt Westcott)
+* Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
+* Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
+* The ``BASE_URL`` setting is now converted to a string, if it isn't already, when constructing API URLs (thenewguy)
+* Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
+* Add document extension validation if ``WAGTAIL_DOCS_EXTENSIONS`` is set to a list of allowed extensions (Meghana Bhange)
+* Use ``django-admin`` command in place of ``django-admin.py`` (minusf)
+* Add ``register_snippet_action_menu_item`` and ``construct_snippet_action_menu`` hooks to modify the actions available when creating / editing a snippet (Karl Hobley)
+* Moved ``generate_signature`` and ``verify_signature`` functions into ``wagtail.images.utils`` (Noah H)
+* Implement ``bulk_to_python`` on all structural StreamField block types (Matt Westcott)
+* Add natural key support to ``GroupCollectionPermission`` (Jim Jazwiecki)
+* Implement ``prepopulated_fields`` for ``wagtail.contrib.modeladmin`` (David Bramwell)
+* Change ``classname`` keyword argument on basic StreamField blocks to ``form_classname`` (Meghana Bhange)
+* Replace page explorer pushPage/popPage with gotoPage for more flexible explorer navigation (Karl Hobley)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
+* ``WAGTAILFRONTENDCACHE_LANGUAGES`` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
+* Update oEmbed endpoints to use https where available (Matt Westcott)
+* Revise ``edit_handler`` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
+* Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
+* Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
+* Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
+* ``Page.copy()`` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
+* ``Page.copy()`` now triggers a ``page_published`` if the copied page is live (Anton Zhyltsou)
+* The Elasticsearch ``URLS`` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
+* Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
+* Fixed padding around checkbox and radio inputs (Cole Maclean)
+* Fix spacing around the privacy indicator panel (Sævar Öfjörð Magnússon, Dan Braghis)
+* Consistently redirect to admin home on permission denied (Matt Westcott, Anton Zhyltsou)
+
+
+Upgrade considerations
+======================
+
+``run_before`` declaration needed in initial homepage migration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The migration that creates the initial site homepage needs to be updated to ensure that will continue working under Wagtail 2.11. If you have kept the ``home`` app from the original project layout generated by the ``wagtail start`` command, this will be ``home/migrations/0002_create_homepage.py``. Inside the ``Migration`` class, add the line ``run_before = [('wagtailcore', '0053_locale_model')]`` - for example:
+
+.. code-block:: python
+
+    # ...
+
+    class Migration(migrations.Migration):
+
+        run_before = [
+            ('wagtailcore', '0053_locale_model'),  # added for Wagtail 2.11 compatibility
+        ]
+
+        dependencies = [
+            ('home', '0001_initial'),
+        ]
+
+        operations = [
+            migrations.RunPython(create_homepage, remove_homepage),
+        ]
+
+This fix applies to any migration that creates page instances programmatically. If you installed Wagtail into an existing Django project by following the instructions at :doc:`../getting_started/integrating_into_django`, you most likely created the initial homepage manually, and no change is required in this case.
+
+**Further background:** Wagtail 2.11 adds a ``locale`` field to the Page model, and since the existing migrations in your project pre-date this, they are designed to run against a version of the Page model that has no ``locale`` field. As a result, they need to run before the new migrations that have been added to ``wagtailcore`` within Wagtail 2.11. However, in the old version of the homepage migration, there is nothing to ensure that this sequence is followed. The actual order chosen is an internal implementation detail of Django, and in particular is liable to change as you continue developing your project under Wagtail 2.11 and create new migrations that depend on the current state of ``wagtailcore``. In this situation, a user installing your project on a clean database may encounter the following error when running ``manage.py migrate``::
+
+    django.db.utils.IntegrityError: NOT NULL constraint failed: wagtailcore_page.locale_id
+
+Adding the ``run_before`` directive will ensure that the migrations run in the intended order, avoiding this error.
+
+
+IE11 support being phased out
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release begins the process of phasing out support for Internet Explorer.
+
+
+SiteMiddleware moved to ``wagtail.contrib.legacy``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
+
+
+Collection model enforces alphabetical ordering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As part of the hierarchical collections support, the ``path`` field on the Collection model now enforces alphabetical ordering. Previously, collections were stored in the order in which they were created - and then sorted by name where displayed in the CMS. This change will be handled automatically through migrations when upgrading to Wagtail 2.11.
+
+However, if your project creates new collections programmatically after migrations have run, and assigns the ``path`` field directly - for example, by loading from a fixture file - this code will need to be updated to insert them in alphabetical order. Otherwise, errors may occur when subsequently adding new collections through the Wagtail admin. This can be done as follows:
+
+* Update paths to match alphabetical order. For example, if you have a fixture that creates the collections ``Zebras`` and ``Aardvarks`` with paths ``00010001`` and ``00010002`` respectively, these paths should be swapped.
+* *Alternatively*, after creating the collections, run the Python code:
+
+  .. code-block:: python
+
+      from wagtail.core.models import Collection
+      Collection.fix_tree(fix_paths=True)
+
+  or the management command:
+
+  .. code-block:: console
+
+      python manage.py fixtree --full
+
+
+``Site.get_site_root_paths`` now returns language code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, ``Site.get_site_root_paths`` returned a list of ``(site_id, root_path, root_url)`` tuples. To support the new internationalisation model, this has now been changed to a list of named tuples with the fields: ``site_id``, ``root_path``, ``root_url`` and ``language_code``. Existing code that handled this as a 3-tuple should be updated accordingly.
+
+
+``classname`` argument on StreamField blocks is now ``form_classname``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Basic StreamField block types such as CharBlock previously accepted a ``classname`` keyword argument, to specify a ``class`` attribute to appear on the page editing form. For consistency with StructBlock, this has now been changed to ``form_classname``. The ``classname`` argument is still recognised, but deprecated.

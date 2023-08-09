@@ -1,0 +1,350 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2023
+# Yin Guanhao <sopium@mysterious.site>, 2020
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2021
+# 祝沙军 <zhushajun@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail 文档"
+
+msgid "Collection"
+msgstr "集合"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Add/edit documents you own"
+msgstr "添加/编辑所属的文档"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit any document"
+msgstr "编辑任意文档"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "Select documents in choosers"
+msgstr "在选择器中选择文档"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "uploaded by user"
+msgstr "用户上传"
+
+msgid "tags"
+msgstr "标签"
+
+msgid "document"
+msgstr "文档"
+
+msgid "documents"
+msgstr "文档"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "添加标签到 %(counter)s 个文档"
+
+msgid "Add tags to documents"
+msgstr "给文档添加标签"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "你确实要给以下文档添加标签吗？"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "您没有给这些文档添加标签的权限"
+
+msgid "Yes, add"
+msgstr "是的，添加"
+
+msgid "No, don't add"
+msgstr "否，不添加"
+
+msgid "Add documents to collection"
+msgstr "将文档添加到集合"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "是否确实要将以下文档添加到所选集合？"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "您没有将这些文档添加到集合的权限"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "删除 %(counter)s 个文档"
+
+msgid "Delete documents"
+msgstr "删除文档"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "你确定要删除这些文档吗？"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "您没有删除这些文档的权限"
+
+msgid "Yes, delete"
+msgstr "是，删除"
+
+msgid "No, don't delete"
+msgstr "否，不删除"
+
+msgid "Latest documents"
+msgstr "最新文档"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "你还没有上传任何文档到这个集合。"
+
+msgid "You haven't uploaded any documents."
+msgstr "你还没有上传任何文档。"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"为什么不 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>立"
+"刻上传一个</a>呢?"
+
+msgid "Change document:"
+msgstr "修改文档："
+
+msgid "Add a document"
+msgstr "添加一个文档"
+
+msgid "Add document"
+msgstr "添加文档"
+
+msgid "Uploading…"
+msgstr "正在上传…"
+
+msgid "Upload"
+msgstr "上传"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "编辑%(title)s"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Delete document"
+msgstr "删除文档"
+
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
+msgid "Usage"
+msgstr "使用情况"
+
+msgid "Documents"
+msgstr "文档"
+
+msgid "Select all documents in listing"
+msgstr "选择列表中的所有文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Created"
+msgstr "创建时间"
+
+msgid "Select document"
+msgstr "选择文档"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "总共有 %(counter)s 条匹配"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"此集合中还没有文档。为何不 <a href=\"%(wagtaildocs_add_document_url)s\">上传"
+"一份</a> ？"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
+"a> ？"
+
+msgid "Add multiple documents"
+msgstr "添加多个文档"
+
+msgid "Add documents"
+msgstr "添加多个文档"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "拖曳多个文档到此区域即可上传。"
+
+msgid "Or choose from your computer"
+msgstr "或者打开本地文件选择框"
+
+msgid "Add to collection:"
+msgstr "添加到集合："
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"上传成功。如有必要，可为文档填写更合适的标题。如果不需要本次上传的文档，也可"
+"以彻底删除它们。"
+
+msgid "Sorry, upload failed."
+msgstr "对不起，上传失败。"
+
+msgid "Document updated."
+msgstr "文档已更新"
+
+msgid "You need a password to access this document."
+msgstr "你需要一个密码来访问这个文档。"
+
+msgid "Document permissions"
+msgstr "文档权限"
+
+msgid "Add a document permission"
+msgstr "添加一个文档权限"
+
+msgid "Tags"
+msgstr "标签"
+
+msgid "Tag"
+msgstr "标签"
+
+msgid "Add tags to the selected documents"
+msgstr "给所选文档添加标签"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "新标签已添加到%(num_parent_objects)d个文档"
+
+msgid "Add to collection"
+msgstr "添加到集合"
+
+msgid "Add selected documents to collection"
+msgstr "将所选文档添加到集合"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "已将%(num_parent_objects)d个文档添加到集合%(collection)s"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete selected documents"
+msgstr "删除选择的文档"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "已删除%(num_parent_objects)d个文档"
+
+msgid "Choose a document"
+msgstr "选择一个文档"
+
+msgid "Choose another document"
+msgstr "选择另一个文档"
+
+msgid "Edit this document"
+msgstr "编辑此文档"
+
+msgid "Search documents"
+msgstr "搜索文档"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "文档'%(document_title)s' 已添加"
+
+msgid "The document could not be saved due to errors."
+msgstr "无法保存文档，出现错误。"
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "文档'%(document_title)s' 已更新"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "无法找到文件。请修改源或者删除文档。"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "文档'%(document_title)s' 已删除"
+
+msgid "Document"
+msgstr "文档"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s 个文档"

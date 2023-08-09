@@ -1,0 +1,222 @@
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
+# Loic Teixeira, 2022
+# X Bello <xbello@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
+"Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s novos elementos neste menú)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 novo elemento neste menu)"
+
+msgid "(New)"
+msgstr "(Novo)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s erro"
+msgstr[1] "%(num)s erros"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s píxel"
+msgstr[1] "%(num)s píxels"
+
+msgid "Add a comment"
+msgstr "Engadir un comentario"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Are you sure?"
+msgstr "Estás seguro?"
+
+msgid "Blocks"
+msgstr "Bloques"
+
+msgid "Broken link"
+msgstr "Enlace roto"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Character count:"
+msgstr "Total de caracteres:"
+
+msgid "Close"
+msgstr "Pechar"
+
+msgid "Collapse all"
+msgstr "Colapsar todo"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Dashboard"
+msgstr "Panel de control"
+
+msgid "Decorative image"
+msgstr "Imaxe decorativa"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Delete error"
+msgstr "Eliminar erro"
+
+msgid "Deleting"
+msgstr "Eliminando"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Editar a túa conta"
+
+msgid "Enter your comments..."
+msgstr "Introduce os teus comentarios..."
+
+msgid "Enter your reply..."
+msgstr "Introduce a túa resposta..."
+
+msgid "Error while sending preview data."
+msgstr "Erro mentras se enviaban os datos de previsualización."
+
+msgid "Expand all"
+msgstr "Expandir todo"
+
+msgid "Focus comment"
+msgstr "Enfocar comentario"
+
+msgid "Horizontal line"
+msgstr "Liña horizontal"
+
+msgid "Insert a block"
+msgstr "Inserir un bloque"
+
+msgid "Line break"
+msgstr "Nova liña"
+
+msgid "Loading…"
+msgstr "Cargando..."
+
+msgid "Main menu"
+msgstr "Menú principal"
+
+msgid "Missing document"
+msgstr "Documento faltante"
+
+msgid "More actions"
+msgstr "Máis accións"
+
+msgid "No results"
+msgstr "Sen resultados"
+
+msgid "Page"
+msgstr "Páxina"
+
+msgid "Page explorer"
+msgstr "Explorador de páxinas"
+
+msgid "Pages"
+msgstr "Páxinas"
+
+msgid "Pin toolbar"
+msgstr "Fixar barra de ferramentas"
+
+msgid "Reload saved content"
+msgstr "Recargar contido gardado"
+
+msgid "Reload the page"
+msgstr "Recargar a páxina"
+
+msgid "Reply"
+msgstr "Respostar"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar deste erro ó teu administrador da web ca seguinte información:"
+
+msgid "Resolve"
+msgstr "Resolver"
+
+msgid "Retry"
+msgstr "Reintentar"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Save error"
+msgstr "Gardar erro"
+
+msgid "Save the page to add this comment"
+msgstr "Gardar a páxina para engadir este comentario"
+
+msgid "Save the page to save this comment"
+msgstr "Gardar a páxina para gardar este comentario"
+
+msgid "Save the page to save this reply"
+msgstr "Gardar a páxina para gardar esta resposta"
+
+msgid "Saving..."
+msgstr "Gardando..."
+
+msgid "Search"
+msgstr "Procurar"
+
+msgid "Search options…"
+msgstr "Opcións de búsqueda…"
+
+msgid "See all"
+msgstr "Ver todo"
+
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Show error"
+msgstr "Amosar erro"
+
+msgid "Show latest content"
+msgstr "Amosar último contido"
+
+msgid "Split block"
+msgstr "Partir bloque"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
+
+msgid "This field is required."
+msgstr "Este campo é requirido."
+
+msgid "Toggle side panel"
+msgstr "Permutar panel lateral"
+
+msgid "Toggle sidebar"
+msgstr "Permutar barra lateral"
+
+msgid "Unfocus comment"
+msgstr "Desenfocar comentario"
+
+msgid "Unpin toolbar"
+msgstr "Soltar barra de ferramentas"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Ver as páxinas fillas de '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Escribe algo ou pulsa '/' para inserir un bloque"

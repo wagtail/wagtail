@@ -1,0 +1,99 @@
+#
+# Translators:
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2022
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2022
+# Mario <mario@catalpa.io>, 2022
+# Joanico Barros <joanico@catalpa.io>, 2022
+# Peter Coward <peter@catalpa.io>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
+"tet/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Alt text"
+msgstr "Alt testu"
+
+msgid "Broken link"
+msgstr "Ligasaun ladiak"
+
+msgid "Close"
+msgstr "Taka"
+
+msgid "Dashboard"
+msgstr "Painel kontrolu"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Hadia ita nia konta"
+
+msgid "Horizontal line"
+msgstr "Liña orizontal"
+
+msgid "Line break"
+msgstr "Linna hafahe"
+
+msgid "Loading…"
+msgstr "Tula"
+
+msgid "Missing document"
+msgstr "Dokumentu lakon"
+
+msgid "No results"
+msgstr "La iha rezultadu"
+
+msgid "Page"
+msgstr "Pajina"
+
+msgid "Page explorer"
+msgstr "Explora pajina"
+
+msgid "Pages"
+msgstr "Pajina sira"
+
+msgid "Reload saved content"
+msgstr "Reload konteúdu ne'ebe salva ona"
+
+msgid "Reload the page"
+msgstr "Reload pájina"
+
+msgid "Save"
+msgstr "Rai"
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "See all"
+msgstr "Haree hotu"
+
+msgid "Server Error"
+msgstr "Servidor erru"
+
+msgid "Show error"
+msgstr "Hatudu erru"
+
+msgid "Show latest content"
+msgstr "Hatudu konteúdu ikus"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
+
+msgid "This field is required."
+msgstr "Presiza hatama dadus nee"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Haree pajina oan sira husi '%(title)s'"

@@ -1,0 +1,25 @@
+===========================
+Wagtail 2.0.1 release notes
+===========================
+
+*April 4, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+* Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
+* Added error handling to the Draftail editor (Thibaud Colas)
+
+Bug fixes
+~~~~~~~~~
+
+* Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
+* Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+* ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
+* Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+* Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)

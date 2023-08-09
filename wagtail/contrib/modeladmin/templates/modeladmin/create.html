@@ -1,0 +1,57 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags modeladmin_tags %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    {{ media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ media.js }}
+
+    {% prepopulated_slugs %}
+{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon merged=1 %}
+    {% endblock %}
+
+    <form action="{% block form_action %}{{ view.create_url }}{% endblock %}{% if locale %}?locale={{ locale.language_code }}{% endif %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
+        {% csrf_token %}
+
+        <div class="nice-padding">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        </div>
+
+        {% block footer %}
+            <footer class="footer">
+                <ul>
+                    <li class="actions footer__container">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button
+                                    type="submit"
+                                    class="button action-save button-longrunning"
+                                    data-controller="w-progress"
+                                    data-action="w-progress#activate"
+                                    data-w-progress-active-value="{% trans 'Saving…' %}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{% trans 'Save' %}</em>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

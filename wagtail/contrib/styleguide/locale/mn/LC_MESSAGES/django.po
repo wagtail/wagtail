@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Хэв маягийн удирдамж"
+
+msgid "Styleguide"
+msgstr "Хэв маягийн удирдамж"
+
+msgid "Save"
+msgstr "Хадгалах"
+
+msgid "Delete image"
+msgstr "Зураг устгах"
+
+msgid "Search something"
+msgstr "Хайлт хийх"
+
+msgid "Success message"
+msgstr "Амжилттай мессеж"
+
+msgid "View live"
+msgstr "Нийтлэгдсэнийг харах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Warning message"
+msgstr "Анхааруулга мессеж"
+
+msgid "Error message"
+msgstr "Алдааны мессеж"

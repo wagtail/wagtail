@@ -1,0 +1,9 @@
+{% load i18n %}
+{% trans "Total submissions" as total %}
+{% trans "Latest submission" as latest %}
+<p>
+    <span class="w-label-3">{{ total }}</span> <a href="{% url 'wagtailforms:list_submissions' self.instance.id %}">{{ submission_count }}</a>
+</p>
+<p>
+    <span class="w-label-3">{{ latest }}</span> {{ last_submit_time }}
+</p>

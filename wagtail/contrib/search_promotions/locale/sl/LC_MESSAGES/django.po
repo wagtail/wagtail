@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2023
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Promocije iskanja Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Iskalni niz(i)/fraze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Vnesite polni iskalni niz za ujemanje. Za uspešen prikaz priporočenih "
+"strani, je potrebno popolno ujemanje, nadomestni znaki (*) niso dovoljeni."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prosim določite vsaj eno priporočilo za ta iskalni niz"
+
+msgid "Query Daily Hits"
+msgstr "Dnevni zadetki za iskalni niz"
+
+msgid "page"
+msgstr "stran"
+
+msgid "description"
+msgstr "opis"
+
+msgid "search promotion"
+msgstr "promoviran rezultat"
+
+msgid "Add search promotion"
+msgstr "Dodaj promoviran rezultat"
+
+msgid "Add search pick"
+msgstr "Dodaj promoviran rezultat"
+
+msgid "Save"
+msgstr "Shrani"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Izbriši %(query)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ali ste prepričani, da želite izbrisati vse promovirane rezultati za iskalni "
+"niz?"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Uredi %(query)s"
+
+msgid "Editing"
+msgstr "Urejanje"
+
+msgid "Move up"
+msgstr "Premakni gor"
+
+msgid "Move down"
+msgstr "Premakni navzdol"
+
+msgid "Recommended page"
+msgstr "Priporočena stran"
+
+msgid "Promoted search results"
+msgstr "Promovirani rezultati iskanja"
+
+msgid "Add recommended page"
+msgstr "Dodaj priporočeno stran"
+
+msgid "Search Terms"
+msgstr "Iskalni nizi"
+
+msgid "Add new promoted result"
+msgstr "Dodaj nov promoviran rezultat"
+
+msgid "Search term(s)"
+msgstr "Iskalni niz(i)"
+
+msgid "Order by search term alphabetically"
+msgstr "Razvrsti po iskanem nizu po abecedi"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Razvrsti po iskanem nizu obratno po abecedi"
+
+msgid "Promoted results"
+msgstr "Promovirani rezultati"
+
+msgid "Views (past week)"
+msgstr "Ogledi (pretekli teden)"
+
+msgid "Order by views (lowest first)"
+msgstr "Razvrsti po ogledih (najmanjši najprej)"
+
+msgid "Order by views (highest first)"
+msgstr "Razvrsti po ogledih (največji najprej)"
+
+msgid "Edit this promotion"
+msgstr "Uredi promoviran rezultat"
+
+msgid "None"
+msgstr "/"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s zadetek"
+msgstr[1] "%(counter)s zadetka"
+msgstr[2] "%(counter)s zadetkov"
+msgstr[3] "%(counter)s zadetkov"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Žal ni promoviranega rezultata, ki bi ustrezal nizu \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Dodan ni še noben promoviran rezultat. Zakaj ga ne bi a href="
+"\"%(wagtailsearchpromotions_add_url)s\">dodali</a>"
+
+msgid "Search promoted results"
+msgstr "Iskanje po promoviranih rezultatih"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Promoviran rezultat za '%(query)s' ustvarjen."
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Promoviran rezultat za '%(query)s' posodobljen."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno shraniti."
+
+msgid "Editor's picks deleted."
+msgstr "Promoviran rezultat izbrisan."

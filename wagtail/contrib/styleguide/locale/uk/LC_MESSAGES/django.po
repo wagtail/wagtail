@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail style guide"
+msgstr "Гід по стилям Wagtail "
+
+msgid "Styleguide"
+msgstr "Гід по стилям"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Delete image"
+msgstr "Видалити зображення"
+
+msgid "Search something"
+msgstr "Шукати щось"
+
+msgid "Success message"
+msgstr "Повідомлення на позначення успішності"
+
+msgid "View live"
+msgstr "Переглянути наживо"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Warning message"
+msgstr "Повідомлення про попередеження"
+
+msgid "Error message"
+msgstr "Повідомлення про помилку"

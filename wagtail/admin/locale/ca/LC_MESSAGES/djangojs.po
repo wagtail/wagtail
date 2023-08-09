@@ -1,0 +1,223 @@
+#
+# Translators:
+# David Llop, 2022
+# Loic Teixeira, 2022
+# Roger Pons <rogerpons@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s elements nous en aquest menú)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 element nou en aquest menú)"
+
+msgid "(New)"
+msgstr "(Nou)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s error"
+msgstr[1] "%(num)s errors"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s píxel"
+msgstr[1] "%(num)s píxels"
+
+msgid "Add a comment"
+msgstr "Afegir un comentari"
+
+msgid "Alt text"
+msgstr "Text alternatiu"
+
+msgid "Are you sure?"
+msgstr "N'esteu segur?"
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Broken link"
+msgstr "Enllaç no vàlid"
+
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+msgid "Character count:"
+msgstr "Nombre de caràcters:"
+
+msgid "Close"
+msgstr "Tanca"
+
+msgid "Collapse all"
+msgstr "Col·lapsar tot"
+
+msgid "Comment"
+msgstr "Comentari"
+
+msgid "Dashboard"
+msgstr "Tauler de control"
+
+msgid "Decorative image"
+msgstr "Imatge decorativa"
+
+msgid "Delete"
+msgstr "Esborrar"
+
+msgid "Delete error"
+msgstr "Esborrar error"
+
+msgid "Deleting"
+msgstr "Esborrant"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Modifica el teu compte d'usuari"
+
+msgid "Enter your comments..."
+msgstr "Introduïu els vostres comentaris..."
+
+msgid "Enter your reply..."
+msgstr "Introduïu la vostra resposta..."
+
+msgid "Error while sending preview data."
+msgstr "S'ha produït un error mentre s'enviaven les dades de previsualització."
+
+msgid "Expand all"
+msgstr "Ampliar tot"
+
+msgid "Focus comment"
+msgstr "Comentari d'enfocament"
+
+msgid "Horizontal line"
+msgstr "Línia horitzontal"
+
+msgid "Insert a block"
+msgstr "Inserir un bloc"
+
+msgid "Line break"
+msgstr "Salt de línia"
+
+msgid "Loading…"
+msgstr "Carregant..."
+
+msgid "Main menu"
+msgstr "Menú principal"
+
+msgid "Missing document"
+msgstr "Document no trobat"
+
+msgid "More actions"
+msgstr "Més accions"
+
+msgid "No results"
+msgstr "Cap resultat"
+
+msgid "Page"
+msgstr "Pàgina"
+
+msgid "Page explorer"
+msgstr "Explorador de pàgines"
+
+msgid "Pages"
+msgstr "Pàgines"
+
+msgid "Pin toolbar"
+msgstr "Fixar barra d'eines"
+
+msgid "Reload saved content"
+msgstr "Recarrega el contingut desat"
+
+msgid "Reload the page"
+msgstr "Recarrega la pàgina"
+
+msgid "Reply"
+msgstr "Respondre"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar d'aquest error a l'administrador web amb la informació següent:"
+
+msgid "Resolve"
+msgstr "Resoldre"
+
+msgid "Retry"
+msgstr "Tornar a intentar"
+
+msgid "Save"
+msgstr "Desar"
+
+msgid "Save error"
+msgstr "Desar error"
+
+msgid "Save the page to add this comment"
+msgstr "Deseu la pàgina per afegir aquest comentari"
+
+msgid "Save the page to save this comment"
+msgstr "Deseu la pàgina per desar aquest comentari"
+
+msgid "Save the page to save this reply"
+msgstr "Deseu la pàgina per desar aquesta resposta"
+
+msgid "Saving..."
+msgstr "Desant..."
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Search options…"
+msgstr "Opcions de cerca..."
+
+msgid "See all"
+msgstr "Mostra tot"
+
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Show error"
+msgstr "Mostra l'error"
+
+msgid "Show latest content"
+msgstr "Mostra l'últim contingut"
+
+msgid "Split block"
+msgstr "Dividir el bloc"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L'editor ha fallat. El contingut ha estat reiniciat a l'última versió desada."
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori."
+
+msgid "Toggle side panel"
+msgstr "Communtar panell lateral"
+
+msgid "Toggle sidebar"
+msgstr "Commutar la barra lateral"
+
+msgid "Unfocus comment"
+msgstr "Comentari de desenfocament"
+
+msgid "Unpin toolbar"
+msgstr "Desenganxar la barra d'eines"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Mostra pàgines filles de '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Escriviu alguna cosa o teclegeu '/' per inserir un bloc"

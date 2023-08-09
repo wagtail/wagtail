@@ -1,0 +1,50 @@
+============================
+Wagtail 2.15.2 release notes
+============================
+
+*January 18, 2022*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+CVE-2022-21683: Comment reply notifications sent to incorrect users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses an information disclosure issue in Wagtail's commenting feature. Previously, when notifications for new replies in comment threads were sent, they were sent to all users who had replied or commented anywhere on the site, rather than only in the relevant threads. This meant that a user could listen in to new comment replies on pages they did not have editing access to, as long as they had left a comment or reply somewhere on the site.
+
+Many thanks to Ihor Marhitych for reporting this issue. For further details, please see `the CVE-2022-21683 security advisory <https://github.com/wagtail/wagtail/security/advisories/GHSA-xqxm-2rpm-3889>`_.
+
+Bug fixes
+~~~~~~~~~
+
+ * Fixed transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
+ * Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
+ * Ensure that bulk publish actions pick up the latest draft revision (Matt Westcott)
+ * Ensure the ``checkbox_aria_label`` is used correctly in the Bulk Actions checkboxes (Vu Pham)
+ * Prevent error on MySQL search backend when searching three or more terms (Aldán Creo)
+ * Allow wagtail.search app migrations to complete on versions of SQLite without full-text search support (Matt Westcott)
+ * Update Pillow dependency to allow 9.x (Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+Support for SQLite without full-text search support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release restores the ability to run Wagtail against installations of SQLite that do not include the ``fts5`` extension for full-text search support. On these installations, the fallback search backend (without support for full-text queries) will be used, and the database table for storing indexed content will not be created.
+
+If SQLite is subsequently upgraded to a version with ``fts5`` support, existing databases will still be missing this table, and full-text search will continue to be unavailable until it is created. To correct this, first make a backup copy of the database (since rolling back the migration could potentially reverse other schema changes), then run:
+
+.. code-block:: console
+
+  ./manage.py migrate wagtailsearch 0005
+  ./manage.py migrate
+  ./manage.py update_index
+
+Additionally, since the database search backend now needs to run a query on initialisation to check for the presence of this table, calling ``wagtail.search.backends.get_search_backend`` during application startup may now fail with a "Models aren't loaded yet" error. Code that does this should be updated to only call ``get_search_backend`` at the point when a search query is to be performed.

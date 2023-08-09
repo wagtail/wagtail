@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
+"Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Cerca de Wagtail"
+
+msgid "Query Daily Hits"
+msgstr "Consultar Visites Diàries"
+
+msgid "index entry"
+msgstr "Entrada d'índex"
+
+msgid "index entries"
+msgstr "Entrades d'índex"
+
+msgid "Popular search terms"
+msgstr "Termes de cerca populars"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Terms"
+msgstr "Termes"
+
+msgid "Views (past week)"
+msgstr "Vistes (la setmana pasada)"
+
+msgid "No results found"
+msgstr "No s'han trobat resultats"
+
+msgid "Choose from popular search terms"
+msgstr "Trieu entre els termes de cerca populars"

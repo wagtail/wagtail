@@ -1,0 +1,20 @@
+{% load i18n wagtailadmin_tags %}
+
+<div class="filterable__filters">
+    <h2>{% trans 'Filter' %}</h2>
+    <form method="get">
+        <button
+            class="button button-longrunning"
+            type="submit"
+            data-controller="w-progress"
+            data-action="w-progress#activate"
+        >
+            {% icon name="spinner" %}{% trans 'Apply filters' %}
+        </button>
+
+        {% for field in filters.form %}
+            {% field field=field %}
+            {% endfield %}
+        {% endfor %}
+    </form>
+</div>

@@ -1,0 +1,63 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block actions %}
+    <div>
+        <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans 'Task' %}
+                    </th>
+                    <th>
+                        {% trans 'Page/Snippet' %}
+                    </th>
+                    <th>
+                        {% trans 'Status' %}
+                    </th>
+                    <th>
+                        {% trans 'Started at' %}
+                    </th>
+                    <th>
+                        {% trans 'Completed at' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task_state in object_list %}
+                    <tr>
+                        <td>
+                            <b>{{ task_state.task }}</b>
+                        </td>
+                        <td>
+                            {% with task_state.workflow_state.content_object as object %}
+                                <a href="{% admin_edit_url object %}">
+                                    {% latest_str object %}
+                                </a>
+                                {% i18n_enabled as show_locale_labels %}
+                                {% if show_locale_labels and object.locale_id %}
+                                    {% locale_label_from_id object.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td>
+                            {% status task_state.get_status_display classname="w-status--primary" %}
+                        </td>
+                        <td>{{ task_state.started_at }}</td>
+                        <td>{{ task_state.finished_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No pages/snippets have been submitted for moderation yet" %}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,483 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Adam Hughes <adamhughes31@gmail.com>, 2017,2020-2021
+# Philip Crisp, 2022
+# Philip Crisp, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Submit for moderation"
+msgstr "Cyflwyno i'w gymedroli"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ailgyflwyno i %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Cyflwyno i %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Ailgychwyn llif gwaith"
+
+msgid "Cancel workflow "
+msgstr "Canslo llif gwaith"
+
+msgid "Unpublish"
+msgstr "Anghyhoedd"
+
+msgid "Save Draft"
+msgstr "Cadw drafft"
+
+msgid "Page locked"
+msgstr "Tudalen dan glo"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a chyhoeddi"
+
+msgid "Wagtail admin"
+msgstr "Gweinyddiaeth Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr ""
+"Mae'n ddrwg gennym, nid oes gennych ganiatâd i gael mynediad i'r ardal hon."
+
+msgid "You do not have permission to access the admin"
+msgstr "Nid oes gennych ganiatâd i gael mynediad i'r weinyddiaeth"
+
+msgid "None"
+msgstr "Ddim"
+
+msgid "Date from"
+msgstr "Dyddiad o"
+
+msgid "Date to"
+msgstr "Dyddiad i"
+
+msgid "All"
+msgstr "I gyd"
+
+msgid "Preferred language"
+msgstr "Iaith a ffafrir"
+
+msgid "Current time zone"
+msgstr "Cylchfa amser gyfredol"
+
+msgid "First Name"
+msgstr "Enw Cyntaf"
+
+msgid "Last Name"
+msgstr "Cyfenw"
+
+msgid "Email"
+msgstr "E-Bost"
+
+msgid "Upload a profile picture"
+msgstr "Llwythwch i fyny lun broffil"
+
+msgid "Enter password"
+msgstr "Rhowch cyfrinair "
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Rhowch eich %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Rhowch eich cyfeiriad ebost i ailosod eich cyfrinair"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr ""
+" \n"
+"Term Chwilio"
+
+msgid "Search"
+msgstr "Chwillio"
+
+msgid "Collection"
+msgstr "Casgliad"
+
+msgid "Parent"
+msgstr "Rhiant"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Dewiswch safle hierarchaidd. Sylwch: ni all casgliad ddod yn blentyn iddo'i "
+"hun nac yn un o'i ddisgynyddion."
+
+msgid "Please select another parent"
+msgstr "Dwiswch rhiant arall os gwelwch yn dda"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Ni allwch gael cofnodion caniatâd lluosog ar gyfer yr un casgliad."
+
+msgid "Add"
+msgstr "Ychwanegu"
+
+msgid "Add collections"
+msgstr "Ychwanegu casgliad"
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Edit collections"
+msgstr "Golygu casgliad"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid "Delete collections"
+msgstr "Dileu casgliad"
+
+msgid "You cannot edit another user's comment."
+msgstr "Ni allwch olygu sylw defnyddiwr arall."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
+
+msgid "New title"
+msgstr "Teitl newydd"
+
+msgid "New slug"
+msgstr "Gwlithod newydd"
+
+msgid "New parent page"
+msgstr "Tudalen rhiant newydd"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Bydd y copi hwn yn blentyn o'r dudalen rhiant benodol hon."
+
+msgid "Copy subpages"
+msgstr "Copïo is-dudalennau"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Fydd hon yn copïo %(count)s is-dudalen."
+msgstr[1] "Fydd hon yn copïo %(count)s is-dudalennau."
+msgstr[2] "Fydd hon yn copïo %(count)s is-dudalennau."
+msgstr[3] "Fydd hon yn copïo %(count)s is-dudalennau."
+
+msgid "Publish copied page"
+msgstr "Cyhoeddi tudalen wedi'i chopïo"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Mae'r dudalen hon yn fyw. Hoffech chi gyhoeddi ei gopi hefyd?"
+
+msgid "Publish copies"
+msgstr "Cyhoeddi gopiau"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"Mae %(count)s o'r tudalennau sy'n cael eu copïo yn fyw. Hoffech chi "
+"gyhoeddi'r gopi?"
+msgstr[1] ""
+"Mae %(count)s o'r tudalennau sy'n cael eu copïo yn fyw. Hoffech chi "
+"gyhoeddi'r copïau?"
+msgstr[2] ""
+"Mae %(count)s o'r tudalennau sy'n cael eu copïo yn fyw. Hoffech chi "
+"gyhoeddi'r copïau?"
+msgstr[3] ""
+"Mae %(count)s o'r tudalennau sy'n cael eu copïo yn fyw. Hoffech chi "
+"gyhoeddi'r copïau?"
+
+msgid "Alias"
+msgstr "Arallenw"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Diweddaru'r tudalennau newydd gyda newidiadau yn y dyfodol"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nid oes gennych ganiatâd i gopïo i'r dudalen \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Mae'r wlithen hon eisoes yn cael ei defnyddio yng nghyd-destun ei riant-"
+"dudalen \"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Ni allwch gopïo tudalen ynddo'i hun wrth gopïo is-dudalennau"
+
+msgid "Visibility"
+msgstr "Gwelededd"
+
+msgid "This field is required."
+msgstr "Mae angen y'r ffild hon."
+
+msgid "Please select at least one group."
+msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
+
+msgid "For search engines"
+msgstr "Ar gyfer peiriannau chwilio"
+
+msgid "For site menus"
+msgstr "Ar gyfer ddewislen safle"
+
+msgid "Content"
+msgstr "Cynnwys"
+
+msgid "Promote"
+msgstr "Hyrwyddo"
+
+msgid "Settings"
+msgstr "Gosodiadau"
+
+msgid "Title"
+msgstr "Teitl"
+
+msgid "Error 404"
+msgstr "Gwall 404"
+
+msgid "Go to Wagtail admin"
+msgstr "Ewch i Wagtail Admin"
+
+msgid "Account"
+msgstr "Cyfrif"
+
+msgid "Save account details"
+msgstr "Cadw manylion cyfrif"
+
+msgid "Reset password"
+msgstr "Ailosod cyfrinair"
+
+msgid "Login"
+msgstr "Mewngofnodi"
+
+msgid "Invalid password reset link"
+msgstr "Dolen ailosod cyfrinair annilys"
+
+msgid "Check your email"
+msgstr "Gwiriwch eich e-bost"
+
+msgid "Go back"
+msgstr "Mynd yn ôl"
+
+msgid "Select all"
+msgstr "Dewiswch bob un"
+
+msgid "Choose"
+msgstr "Dewis"
+
+msgid "Choose a page"
+msgstr "Dewisiwch tudalen"
+
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Privacy"
+msgstr "Preifatrwydd"
+
+msgid "Name"
+msgstr "Enw"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+msgid "No, don't delete"
+msgstr "Na, peidiwch a ddileu"
+
+msgid "Cancel"
+msgstr "Canslo"
+
+msgid "Update"
+msgstr "Diweddariad"
+
+msgid "Edit this page"
+msgstr "Golygu tudalen hon"
+
+msgid "Unlock"
+msgstr "Datgloi"
+
+msgid "Draft"
+msgstr "Drafft"
+
+msgid "Live"
+msgstr "Yn fyw"
+
+msgid "Type"
+msgstr "Math"
+
+msgid "Preview"
+msgstr "Rhagolwg"
+
+msgid "Status"
+msgstr "Statws"
+
+msgid "Date"
+msgstr "Dyddiad"
+
+msgid "Close"
+msgstr "Cau"
+
+msgid "Saving…"
+msgstr "Cadw…"
+
+msgid "Yes, convert it"
+msgstr "Ia, ei drosi"
+
+msgid "Copy"
+msgstr "Copio"
+
+msgid "Actions"
+msgstr "Gweithredoedd"
+
+msgid "Action"
+msgstr "Gweithred"
+
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Pagination"
+msgstr "Tudaleniad"
+
+msgid "Previous"
+msgstr "Blaenorol"
+
+msgid "Next"
+msgstr "Nesaf"
+
+msgid "Confirm"
+msgstr "Cadarnhau"
+
+msgid "History"
+msgstr "Hanes"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
+msgid "Workflow"
+msgstr "Llif gwaith"
+
+msgid "Started at"
+msgstr "Dechreuwyd yn"
+
+msgid "Completed at"
+msgstr "Wedi'i gwblhau yn"
+
+msgid "Breadcrumb"
+msgstr "Briwsion Bara"
+
+msgid "Download XLSX"
+msgstr "Lawrlwythwch XSLX"
+
+msgid "Download CSV"
+msgstr "Lawrlwythwch CSV"
+
+msgid "Filter"
+msgstr "Hidlydd"
+
+msgid "Lock"
+msgstr "Clo"
+
+msgid "Usage"
+msgstr "Defnydd"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Wedi defnyddio %(usage_count)s waith"
+msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
+
+msgid "Page"
+msgstr "Tudalen"
+
+msgid "New"
+msgstr "Newydd"
+
+msgid "Published"
+msgstr "Wedi cyhoeddi"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yn ôl"
+
+msgid "Password"
+msgstr "Cyfrinair"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' wedi'i greu."
+
+msgid "Editing"
+msgstr "Golygu"
+
+msgid "Inspecting"
+msgstr "Arolygu"
+
+msgid "Usage of"
+msgstr "Defnydd o"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Golygu %(object)s"
+
+msgid "View live"
+msgstr "Gweld in fyw"
+
+msgid "Show"
+msgstr "Dangos"
+
+msgid "Awaiting my review"
+msgstr "Yn aros am fy adolygiad"
+
+msgid "Disable"
+msgstr "Analluogi"
+
+msgid "Enable"
+msgstr "Galluogi"
+
+msgid "Pages"
+msgstr "Tudalennau"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Golygu '%(title)s'"
+
+msgid "Clear choice"
+msgstr "Dewis clir"

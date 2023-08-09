@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail core"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
+
+msgid "Move up"
+msgstr "تقدم إلى فوق "
+
+msgid "Move down"
+msgstr "تقدم إلى تحت"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Add"
+msgstr "أضف"
+
+msgid "This block has no options."
+msgstr "هذه الكتلة لا يوجد لديه خيارات."
+
+msgid "This field is required."
+msgstr "هذه الخانة مطلوبه."
+
+msgid "Password"
+msgstr "كلمة سر"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
+
+msgid "live"
+msgstr "حي"
+
+msgid "has unpublished changes"
+msgstr "يحتوي على تغييرات غير منشورة"
+
+msgid "first published at"
+msgstr "نشر للمرة الأولى في"
+
+msgid "last published at"
+msgstr "نشرت في"
+
+msgid "go live date/time"
+msgstr "تاريخ النشر / الوقت"
+
+msgid "expiry date/time"
+msgstr "تاريخ انتهاء الصلاحية / الوقت"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "scheduled"
+msgstr "موقت"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "live + scheduled"
+msgstr "حي + مجدول"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "locked"
+msgstr "مغلق"
+
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Bulk delete"
+msgstr "حذف بالجملة"
+
+msgid "Delete pages with children"
+msgstr "حذف الصفحات مع التفرعات"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Edit any page"
+msgstr "تحرير أي صفحة"
+
+msgid "Lock"
+msgstr "أقفل"
+
+msgid "Publish"
+msgstr "انشر"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "عنوان الصفحة كما تريد أن يراه الجمهور"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "اسم الصفحة كما ستظهر في URLs e.g http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "نوع المحتوى"
+
+msgid "URL path"
+msgstr "مسار عنوان URL"
+
+msgid "owner"
+msgstr "صاحب"
+
+msgid "show in menus"
+msgstr "تظهر في القوائم"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"ما إذا كان رابط إلى هذه الصفحة سيظهر في القوائم التي يتم إنشاؤها تلقائيًا"
+
+msgid "latest revision created at"
+msgstr "أحدث نسخة تم إنشاؤها في"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
+msgid "submitted for moderation"
+msgstr "قدمت للإشراف"
+
+msgid "created at"
+msgstr "أنشئت في"
+
+msgid "user"
+msgstr "مستخدم"
+
+msgid "content JSON"
+msgstr "محتوى JSON"
+
+msgid "approved go live at"
+msgstr "وافق على النشر في"
+
+msgid "group"
+msgstr "مجموعة"
+
+msgid "permission"
+msgstr "تصريح"
+
+msgid "permission type"
+msgstr "نوع  التصريح"
+
+msgid "group page permission"
+msgstr "إذن صفحة المجموعة"
+
+msgid "group page permissions"
+msgstr "أذونات صفحة المجموعة"
+
+msgid "page view restriction"
+msgstr "تقييد عرض الصفحة"
+
+msgid "page view restrictions"
+msgstr "قيود عرض الصفحة"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "groups"
+msgstr "مجموعات"
+
+msgid "Approve"
+msgstr "موافق"
+
+msgid "collection"
+msgstr "مجموعة"
+
+msgid "collection view restriction"
+msgstr "تقييد عرض المجموعة"
+
+msgid "collection view restrictions"
+msgstr "قيود عرض المجموعة"
+
+msgid "collections"
+msgstr "مجموعات"
+
+msgid "group collection permission"
+msgstr "إذن مجموعة المجموعة"
+
+msgid "group collection permissions"
+msgstr "مجموعة أذونات المجموعة"
+
+msgid "hostname"
+msgstr "اسم المضيف"
+
+msgid "port"
+msgstr "منفذ"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"عيّن هذا إلى شيء آخر غير 80 إذا كنت تريد رقم منفذ محددًا ليظهر في عناوين URL "
+"(على سبيل المثال ، التطوير على المنفذ 8000). لا يؤثر على معالجة الطلب (لذلك "
+"لا يزال يعمل إعادة توجيه المنفذ)."
+
+msgid "site name"
+msgstr "إسم الموقع"
+
+msgid "Human-readable name for the site."
+msgstr "اسم قابل للقراءة من قبل الإنسان للموقع."
+
+msgid "root page"
+msgstr "الصفحة الرئيسية"
+
+msgid "is default site"
+msgstr "أهذا هو الموقع الافتراضي"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"إذا كان هذا صحيحًا ، فسيتعامل هذا الموقع مع طلبات جميع أسماء المضيف الأخرى "
+"التي لا تحتوي على إدخال موقع خاص بها"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+msgid "default"
+msgstr "الإفتراضي"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s تم تكوينه بالفعل كموقع افتراضي. يجب عليك تعطيل هذا قبل أن تتمكن "
+"من حفظ هذا الموقع كإعداد افتراضي. "
+
+msgid "Public"
+msgstr "عام"
+
+msgid "Private, accessible to logged-in users"
+msgstr "خاصة ، يمكن للمستخدمين الذين يسجلون دخولهم"
+
+msgid "Private, accessible with the following password"
+msgstr "خاص ، يمكن الوصول إليه باستخدام كلمة المرور التالية"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "خاص ، يمكن للمستخدمين الوصول إليه في مجموعات محددة"
+
+msgid "password"
+msgstr "كلمة سر"
+
+msgid "view restriction"
+msgstr "عرض تقييد"
+
+msgid "view restrictions"
+msgstr "قيود العرض"
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "اسم المستخدم وكلمة المرور غير متطابقين. حاول مرة اخرى."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"حسابك ليس لديه حق الوصول إلى هذه الصفحة. للمتابعة ، يرجى تسجيل الدخول "
+"باستخدام حساب لديه حق الوصول."
+
+msgid "Password required"
+msgstr "كلمة السر مطلوبة"
+
+msgid "You need a password to access this page."
+msgstr "هذه الصفحة تتطلب كلمة مرور."
+
+msgid "Continue"
+msgstr "أكمل"
+
+msgid "Created"
+msgstr "تم إنشاؤه"
+
+msgid "Edited"
+msgstr "محررة"
+
+msgid "Published"
+msgstr "تم نشره"
+
+msgid "Unpublish"
+msgstr "غير منشور"
+
+msgid "Reject"
+msgstr "مرفوض"
+
+msgid "Copy"
+msgstr "انسخ"
+
+msgid "Move"
+msgstr "انقل"

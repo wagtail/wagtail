@@ -1,0 +1,351 @@
+=========================
+Wagtail 1.0 release notes
+=========================
+
+*July 16, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+StreamField - a field type for freeform content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield_topic`.
+
+
+Wagtail API - A RESTful API for your Wagtail site
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When installed, the new Wagtail API module provides a RESTful web API to your
+Wagtail site. You can use this for accessing your raw field content for your
+sites pages, images and documents in JSON format.
+
+
+MySQL support
+~~~~~~~~~~~~~
+
+Wagtail now officially supports MySQL as a database backend.
+
+
+Django 1.8 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail now officially supports running under Django 1.8.
+
+
+Vanilla project template
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The built-in project template is more like the Django built-in one with several
+Wagtail-specific additions. It includes bare minimum settings and two apps (home and search).
+
+
+Minor changes
+~~~~~~~~~~~~~
+
+* Dropped Django 1.6 support
+* Dropped Python 2.6 and 3.2 support
+* Dropped Elasticsearch 0.90.x support
+* Removed dependency on ``libsass``
+* Users without usernames can now be created and edited in the admin interface
+* Added new translations for Croatian and Finnish
+
+
+Core
+----
+
+* The Page model now records the date/time that a page was first published, as the field ``first_published_at``
+* Increased the maximum length of a page slug from 50 to 255 characters
+* Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
+* Page URL paths can now be longer than 255 characters
+
+
+Admin
+-----
+
+**UI**
+
+* Improvements to the layout of the left-hand menu footer
+* Menu items of custom apps are now highlighted when being used
+* Added thousands separator for counters on dashboard
+* Added contextual links to admin notification messages
+* When copying pages, it is now possible to specify a place to copy to
+* Added pagination to the snippets listing and chooser
+* Page / document / image / snippet choosers now include a link to edit the chosen item
+* Plain text fields in the page editor now use auto-expanding text areas
+* Added "Add child page" button to admin userbar
+* Added update notifications (See: :ref:`update_notifications`)
+
+
+**Page editor**
+
+* JavaScript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+* The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
+* Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+
+
+**Edit handlers API**
+
+* ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
+* Page model fields without a ``FieldPanel`` are no longer displayed in the form
+* No longer need to specify the base model on ``InlinePanel`` definitions
+* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customising_the_tabbed_interface`.
+
+
+**Other admin changes**
+
+* SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
+* Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
+* Password reset view names namespaced to wagtailadmin
+* Removed the need to add permission check on admin views (now automated)
+* Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
+* Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
+* Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
+* Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
+* Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
+* 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
+
+
+Docs
+----
+
+* Support for ``django-sendfile`` added
+* Documents now served with correct mime-type
+* Support for ``If-Modified-Since`` HTTP header
+
+
+Search
+------
+
+* Search view accepts "page" GET parameter in line with pagination
+* Added :ref:`wagtailsearch_backends_auto_update` flag to search backend settings to enable/disable automatically updating the search index on model changes
+
+
+Routable pages
+--------------
+
+* Added a new decorator-based syntax for RoutablePage, compatible with Django 1.8
+
+
+Bug fixes
+~~~~~~~~~
+
+* The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
+* Image edit page no longer throws ``OSError`` when the original image is missing
+* Collapsible blocks stay open on any form error
+* Document upload modal no longer switches tabs on form errors
+* ``with_metaclass`` is now imported from Django's bundled copy of the ``six`` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
+
+
+Upgrade considerations
+======================
+
+Support for older Django/Python/Elasticsearch versions dropped
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90.x. Please make sure these are updated before upgrading.
+
+If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
+
+Wagtail version upgrade notifications are enabled by default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Starting from Wagtail 1.0, the admin dashboard will (for admin users only) perform a check to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you’d rather not receive update notifications, or if you’d like your site to remain unknown, you can disable it by adding this line to your settings file:
+
+.. code-block:: python
+
+    WAGTAIL_ENABLE_UPDATE_CHECK = False
+
+``InlinePanel`` definitions no longer need to specify the base model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like:
+
+.. code-block:: python
+
+    InlinePanel(HomePage, 'carousel_items', label="Carousel items")
+
+It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to:
+
+.. code-block:: python
+
+    InlinePanel('carousel_items', label="Carousel items")
+
+The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
+
+Custom image models should now set the ``admin_form_fields`` attribute
+----------------------------------------------------------------------
+
+Django 1.8 now requires that all the fields in a ``ModelForm`` must be defined in its ``Meta.fields`` attribute.
+
+As Wagtail uses Django's ``ModelForm`` for creating image model forms, we've added a new attribute called ``admin_form_fields``
+that should be set to a ``tuple`` of field names on the image model.
+
+See :ref:`custom_image_model` for an example.
+
+You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are upgrading from an older version of Wagtail, you probably want to remove these from your project settings.
+
+Previously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
+respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
+should work fine without them.
+
+``RoutablePage`` now uses decorator syntax for defining views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, page types that used the :class:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` had endpoints configured by setting their :attr:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin.subpage_urls` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/stable/releases/1.8/#django-conf-urls-patterns).
+
+Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
+
+The old ``subpage_urls`` convention will continue to work on Django versions prior to 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
+
+Upgrading from the external ``wagtailapi`` module.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you were previously using the external ``wagtailapi`` module (which has now become ``wagtail.contrib.wagtailapi``). Please be aware of the following backwards-incompatible changes:
+
+
+**1. Representation of foreign keys has changed**
+
+Foreign keys were previously represented by just the value of their primary key.
+For example:
+
+.. code-block:: python
+
+    "feed_image": 1
+
+This has now been changed to add some ``meta`` information:
+
+.. code-block:: python
+
+    "feed_image": {
+        "id": 1,
+        "meta": {
+            "type": "wagtailimages.Image",
+            "detail_url": "http://api.example.com/api/v1/images/1/"
+        }
+    }
+
+
+**2. On the page detail view, the "parent" field has been moved out of meta**
+
+Previously, there was a "parent" field in the "meta" section on the page detail
+view:
+
+.. code-block:: python
+
+    {
+        "id": 10,
+        "meta": {
+             "type": "demo.BlogPage",
+             "parent": 2
+        },
+
+        ...
+    }
+
+
+This has now been moved to the top level. Also, the above change to how foreign
+keys are represented applies to this field too:
+
+.. code-block:: python
+
+    {
+        "id": 10,
+        "meta": {
+             "type": "demo.BlogPage"
+        },
+        "parent": {
+             "id": 2,
+             "meta": {
+                 "type": "demo.BlogIndexPage"
+             }
+        }
+
+        ...
+    }
+
+Celery no longer automatically used for sending notification emails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, Wagtail would try to use Celery whenever the ``djcelery`` module was
+installed, even if Celery wasn't actually set up. This could cause a very hard
+to track down problem where notification emails would not be sent so this
+functionality has now been removed.
+
+If you would like to keep using Celery for sending notification emails, have a
+look at: `django-celery-email <https://pypi.python.org/pypi/django-celery-email>`_
+
+Login/Password reset views renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It was previously possible to reverse the Wagtail login view using ``django.contrib.auth.views.login``.
+This is no longer possible. Update any references to ``wagtailadmin_login``.
+
+Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
+
+JavaScript includes in admin backend have been moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To improve compatibility with third-party form widgets, pages within the Wagtail admin backend now output their JavaScript includes in the HTML header, rather than at the end of the page. If your project extends the admin backend (through the ``register_admin_menu_item`` hook, for example) you will need to ensure that all associated JavaScript code runs correctly from the new location. In particular, any code that accesses HTML elements will need to be contained in an 'onload' handler (e.g. jQuery's ``$(document).ready()``).
+
+EditHandler internal API has changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While it is not an official Wagtail API, it has been possible for Wagtail site implementers to define their own ``EditHandler`` subclasses for use in panel definitions, to customise the behaviour of the page / snippet editing forms. If you have made use of this facility, you will need to update your custom EditHandlers, as this mechanism has been refactored (to allow EditHandler classes to keep a persistent reference to their corresponding model). If you have only used Wagtail's built-in panel types (``FieldPanel``, ``InlinePanel``, ``PageChooserPanel`` and so on), you are unaffected by this change.
+
+Previously, functions like ``FieldPanel`` acted as 'factory' functions, where a call such as ``FieldPanel('title')`` constructed and returned an ``EditHandler`` subclass tailored to work on a 'title' field. These functions now return an object with a ``bind_to_model`` method instead; the EditHandler subclass can be obtained by calling this with the model class as a parameter. As a guide to updating your custom EditHandler code, you may wish to refer to `the relevant change to the Wagtail codebase <https://github.com/wagtail/wagtail/commit/121c01c7f7db6087a985fa8dc9957bc78b9f6a6a>`_.
+
+chooser_panel templates are obsolete
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have added your own custom admin views to the Wagtail admin (e.g. through the ``register_admin_urls`` hook), you may have used one of the following template includes to incorporate a chooser element for pages, documents, images or snippets into your forms:
+
+- ``wagtailadmin/edit_handlers/chooser_panel.html``
+- ``wagtailadmin/edit_handlers/page_chooser_panel.html``
+- ``wagtaildocs/edit_handlers/document_chooser_panel.html``
+- ``wagtailimages/edit_handlers/image_chooser_panel.html``
+- ``wagtailsnippets/edit_handlers/snippet_chooser_panel.html``
+
+All of these templates are now deprecated. Wagtail now provides a set of Django form widgets for this purpose - ``AdminPageChooser``, ``AdminDocumentChooser``, ``AdminImageChooser`` and ``AdminSnippetChooser`` - which can be used in place of the ``HiddenInput`` widget that these form fields were previously using. The field can then be rendered using the regular ``wagtailadmin/shared/field.html`` or ``wagtailadmin/shared/field_as_li.html`` template.
+
+``document_served`` signal arguments have changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``document_served`` signal (which is fired whenever a user downloads a document) passed the document instance as the ``sender``. This has now been changed to correspond the behaviour of Django's built-in signals; ``sender`` is now the ``Document`` class, and the document instance is passed as the argument ``instance``. Any existing signal listeners that expect to receive the document instance in ``sender`` must now be updated to check the ``instance`` argument instead.
+
+Custom image models must specify an ``admin_form_fields`` list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example:
+
+.. code-block:: python
+
+    from wagtail.wagtailimages.models import AbstractImage, Image
+
+    class MyImage(AbstractImage):
+        photographer = models.CharField(max_length=255)
+        has_legal_approval = models.BooleanField()
+
+        admin_form_fields = Image.admin_form_fields + ['photographer']
+
+``construct_wagtail_edit_bird`` hook has been renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously you could customise the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+The hook has been renamed to ``construct_wagtail_userbar``.
+
+The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.
+
+
+``IMAGE_COMPRESSION_QUALITY`` setting has been renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``IMAGE_COMPRESSION_QUALITY`` setting, which determines the quality of saved JPEG images as a value from 1 to 100, has been renamed to ``WAGTAILIMAGES_JPEG_QUALITY``. If you have used this setting, please update your settings file accordingly.

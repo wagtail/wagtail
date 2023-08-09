@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Query Daily Hits"
+msgstr "Dienas sasniegtie vaicājumi"
+
+msgid "Popular search terms"
+msgstr "Populāri meklēšanas termini"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Terms"
+msgstr "Termini"
+
+msgid "Views (past week)"
+msgstr "Skatījumi (pagājusī nedēļa)"
+
+msgid "No results found"
+msgstr "Nav rezultātu"
+
+msgid "Choose from popular search terms"
+msgstr "Izvēlēties starp populāriem meklēšanas terminiem"

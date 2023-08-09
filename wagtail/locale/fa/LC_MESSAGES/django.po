@@ -1,0 +1,363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
+
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Add"
+msgstr "افزودن"
+
+msgid "This block has no options."
+msgstr "این قطعه هیچ گزینه ای ندارد."
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
+
+msgid "Password"
+msgstr "رمزعبور"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
+
+msgid "Locked"
+msgstr "قفل شده"
+
+msgid "Unlocked"
+msgstr "گشوده"
+
+msgid "live"
+msgstr "زنده"
+
+msgid "has unpublished changes"
+msgstr "حاوی تغییر منتشرنشده"
+
+msgid "first published at"
+msgstr "انتشار نخست در"
+
+msgid "last published at"
+msgstr "انتشار قبلی در"
+
+msgid "go live date/time"
+msgstr "تاریخ/ساعت تبدیل به زنده"
+
+msgid "expiry date/time"
+msgstr "تاریخ/ساعت انقضا"
+
+msgid "expired"
+msgstr "انقضا یافته"
+
+msgid "scheduled"
+msgstr "برنامه‌ریزی شده"
+
+msgid "draft"
+msgstr "پیشنویس"
+
+msgid "live + draft"
+msgstr "زنده + پیشنویس"
+
+msgid "Default"
+msgstr "پیشفرض"
+
+msgid "locked"
+msgstr "قفل شده"
+
+msgid "Add/edit pages you own"
+msgstr "افزودن/ویرایش صفحه های خودتان"
+
+msgid "Bulk delete"
+msgstr "حذف فله‌ای"
+
+msgid "Delete pages with children"
+msgstr "حذف صفحه ها با زیرصفحه ها"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit any page"
+msgstr "ویرایش صفحه"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Publish"
+msgstr "انتشار"
+
+msgid "Publish any page"
+msgstr "انتشار هر صفحه ای"
+
+msgid "Unlock"
+msgstr "حذف قفل"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "عنوان صفحه که میخواهید به صورت عمومی دیده شود"
+
+msgid "slug"
+msgstr "اسلاگ"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"نام صفحه که در نشانی اینترنتی می‌آید. مثلا http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "نوع محتوا"
+
+msgid "URL path"
+msgstr "مسیر نشانی"
+
+msgid "owner"
+msgstr "مالک"
+
+msgid "show in menus"
+msgstr "نمایش در منوها"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"این که آیا یک لینک به این صفحه در منوهای ساخته شده بصورت خودکار نمایش داده "
+"می‌شود یا نه"
+
+msgid "latest revision created at"
+msgstr "آخرین بازبینی ایجاد شده در"
+
+msgid "page"
+msgstr "صفحه"
+
+msgid "pages"
+msgstr "صفحه ها"
+
+msgid "submitted for moderation"
+msgstr "فرستاده شده برای نظارت"
+
+msgid "created at"
+msgstr "ایجادشده در"
+
+msgid "user"
+msgstr "کاربر"
+
+msgid "content JSON"
+msgstr "محتوای JSON"
+
+msgid "approved go live at"
+msgstr "تایید انتقال به حالت زنده در"
+
+msgid "group"
+msgstr "گروه"
+
+msgid "permission"
+msgstr "مجوز"
+
+msgid "permission type"
+msgstr "نوع مجوز"
+
+msgid "group page permission"
+msgstr "مجوز گروه صفحه"
+
+msgid "group page permissions"
+msgstr "مجوزهای صفحه گروه"
+
+msgid "page view restriction"
+msgstr "نمایش محدودیت صفحه"
+
+msgid "page view restrictions"
+msgstr "محدودیت های نمایش صفحه"
+
+msgid "name"
+msgstr "نام"
+
+msgid "groups"
+msgstr "گروه ها"
+
+msgid "Approve"
+msgstr "تایید"
+
+msgid "Not started"
+msgstr "شروع نشده"
+
+msgid "comments"
+msgstr "نظر ها"
+
+msgid "comment reply"
+msgstr "ثبت پاسخ"
+
+msgid "collection"
+msgstr "مجموعه"
+
+msgid "collection view restriction"
+msgstr "محدودیت دیدن مجموعه"
+
+msgid "collection view restrictions"
+msgstr "محدودیت‌های دیدن مجموعه"
+
+msgid "collections"
+msgstr "مجموعه ها"
+
+msgid "group collection permission"
+msgstr "مجوز مجموعه گروه"
+
+msgid "hostname"
+msgstr "نام میزبان"
+
+msgid "port"
+msgstr "پورت"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"این مقدار را به چیزی غیر از 80 تغییر دهید اگر میخواهید شماره پورت در نشانی "
+"بیاید. (برای مثال پورت 8000). تاثیری بر روی رفتار با درخواست ها نخواهد داشت "
+"(در نتیجه port forwarding همچنان کار خواهد کرد)."
+
+msgid "site name"
+msgstr "نام سایت"
+
+msgid "Human-readable name for the site."
+msgstr "نام قابل فهم برای این سایت."
+
+msgid "root page"
+msgstr "صفحه ریشه"
+
+msgid "is default site"
+msgstr "سایت پیش فرض"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"اگر مثبت باشد، این سایت درخواست های متعلق به همه نام های میزبانی را که سایت "
+"خودشان را ندارند اداره می‌کند"
+
+msgid "site"
+msgstr "سایت"
+
+msgid "sites"
+msgstr "سایت ها"
+
+msgid "default"
+msgstr "پیشفرض"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s به عنوان نام پیشفرض سایت تنظیم شده. شما باید ابتدا آن را پیش از "
+"ذخیره این سایت به عنوان پیشفرض حذف کنید."
+
+msgid "Public"
+msgstr "عمومی"
+
+msgid "Private, accessible to logged-in users"
+msgstr "خصوصی، تنها برای اعضای وارد شده قابل دسترسی است"
+
+msgid "Private, accessible with the following password"
+msgstr "خصوصی، تنها با رمزعبور قابل دسترسی است"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "خصوصی، تنها برای اعضای گروه های خاصی قابل دسترسی است"
+
+msgid "password"
+msgstr "رمزعبور"
+
+msgid "view restriction"
+msgstr "دیدن محدودیت"
+
+msgid "view restrictions"
+msgstr "دیدن محدودیت‌ها"
+
+msgid "Log in"
+msgstr "ورود"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "نام کاربری و رمزعبور شما با هم مطابقت ندارد. لطفا مجددا تلاش کنید."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"حساب شما دسترسی لازم برای این صفحه را ندارد. برای عبور لطفا با کاربری که این "
+"دسترسی را دارد وارد شود."
+
+msgid "Password required"
+msgstr "رمزعبور نیاز است"
+
+msgid "You need a password to access this page."
+msgstr "برای دسترسی به این صفحه نیاز به رمزعبور دارید."
+
+msgid "Continue"
+msgstr "ادامه"
+
+msgid "Create"
+msgstr "ساختن"
+
+msgid "Edited"
+msgstr "تصحیح شده"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Reject"
+msgstr "رد"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Move"
+msgstr "انتقال"
+
+msgid "Remove view restrictions"
+msgstr "برداشتن محدودیت های نمایش"
+
+msgid "Add comment"
+msgstr "افزودن نظر"
+
+msgid "Edit comment"
+msgstr "ویرایش نظر"
+
+msgid "Delete comment"
+msgstr "حذف نظر"
+
+msgid "Replied to a comment"
+msgstr "به یک نظر پاسخ داده"

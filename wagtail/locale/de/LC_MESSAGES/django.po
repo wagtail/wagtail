@@ -1,0 +1,1063 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Bohreromir, 2020
+# Oliver Engel <codeangel@posteo.de>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Florian Vogt <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015,2017
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel <codeangel@posteo.de>, 2021
+# Bohreromir, 2020
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matthias Martin, 2019
+# Matthias Martin, 2019
+# Matti Borchers, 2022
+# Matti Borchers, 2022
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Oliver Engel <codeangel@posteo.de>, 2021-2022
+# Oliver Engel <codeangel@posteo.de>, 2021
+# Patrick Hebner <hebner.tec@gmail.com>, 2020
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Florian Vogt <flori@vorlif.org>, 2015,2017
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail Kern"
+
+msgid "Add Comment"
+msgstr "Kommentar hinzufügen"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Die minimale Anzahl an Elementen ist %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Die maximale Anzahl an Elementen ist %(max_num)d"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "This block has no options."
+msgstr "Dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail Frontend-Cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail Routable-Page"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail Sitemaps"
+
+msgid "Unknown content type"
+msgstr "Unbekannter Inhaltstyp"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Niemand kann Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}'</b> wurde von <b>Ihnen</b> am <b>{datetime}</b> gesperrt."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}'</b> ist von <b>Ihnen</b> gesperrt."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}'</b> wurde von <b>{user}</b> am <b>{datetime}</b> gesperrt."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' ist gesperrt</b>."
+
+msgid "Locked by you"
+msgstr "Von Ihnen gesperrt"
+
+msgid "Locked by another user"
+msgstr "Von einem anderen Benutzer gesperrt"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Nur Sie können Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Nur %(user)s kann Änderungen vornehmen, während das %(model_name)s-Objekt "
+"gesperrt ist"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Dieses %(model_name)s-Objekt wartet derzeit auf Moderation."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Dieses {model_name}-Objekt erwartet <b>'{task_name}'</b> in dem Workflow "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr ""
+"Nur Gutachter für diese Aufgabe können dieses %(model_name)s-Objekt "
+"bearbeiten."
+
+msgid "Unlocked"
+msgstr "Entsperrt"
+
+msgid "Locked by workflow"
+msgstr "Durch Workflow gesperrt"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Gutachter können dieses %(model_name)s-Objekt bearbeiten – sperren Sie es, "
+"um zu verhindern, dass andere Gutachter es bearbeiten"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr ""
+"Nur Gutachter können das %(model_name)s-Objekt bearbeiten und genehmigen"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' ist gesperrt und wurde zur Veröffentlichung am "
+"{datetime} eingeplant"
+
+msgid "Locked by schedule"
+msgstr "Durch Zeitplan gesperrt"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Derzeit gesperrt und wird zum geplanten Datum live gehen"
+
+msgid "latest revision"
+msgstr "Neuste Revision"
+
+msgid "live"
+msgstr "Veröffentlicht"
+
+msgid "has unpublished changes"
+msgstr "hat unveröffentlichte Änderungen"
+
+msgid "first published at"
+msgstr "Zuerst publiziert am"
+
+msgid "last published at"
+msgstr "zuletzt publiziert am"
+
+msgid "live revision"
+msgstr "Live Revision"
+
+msgid "go live date/time"
+msgstr "Veröffentlicht ab"
+
+msgid "expiry date/time"
+msgstr "Veröffentlicht bis"
+
+msgid "expired"
+msgstr "abgelaufen"
+
+msgid "scheduled"
+msgstr "geplant"
+
+msgid "draft"
+msgstr "Entwurf"
+
+msgid "live + scheduled"
+msgstr "veröffentlicht + geplant"
+
+msgid "live + draft"
+msgstr "Veröffentlicht + Entwurf"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "Gesperrt"
+
+msgid "locked at"
+msgstr "Gesperrt am"
+
+msgid "locked by"
+msgstr "Gesperrt von"
+
+msgid "in moderation"
+msgstr "in Moderation"
+
+msgid "live + in moderation"
+msgstr "Live + in Moderation"
+
+msgid "Add/edit pages you own"
+msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
+
+msgid "Bulk delete"
+msgstr "Alles löschen"
+
+msgid "Delete pages with children"
+msgstr "Seiten inkl. Unterseiten löschen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any page"
+msgstr "Jede Seite bearbeiten."
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Sperren/Entsperren der von Ihnen gesperrten Seiten"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Publish any page"
+msgstr "Jede Seite veröffentlichen"
+
+msgid "Unlock"
+msgstr "Entsperren"
+
+msgid "Unlock any page"
+msgstr "Beliebige Seite entsperren"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
+
+msgid "slug"
+msgstr "Kurztitel"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain."
+"com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "Inhaltstyp"
+
+msgid "URL path"
+msgstr "URL Pfad"
+
+msgid "owner"
+msgstr "Eigner"
+
+msgid "title tag"
+msgstr "Titel"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Der Titel der Seite, dargestellt in Suchmaschinen-Ergebnissen als die "
+"verlinkte Überschrift."
+
+msgid "show in menus"
+msgstr "In Menüs anzeigen"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
+
+msgid "meta description"
+msgstr "Meta-Information Beschreibung"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Die informative Beschreibung, dargestellt in Suchmaschinen-Ergebnissen unter "
+"der Überschrift."
+
+msgid "latest revision created at"
+msgstr "Neuste Revision erstellt am"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Der Kurztitel '%(page_slug)s' wird innerhalb der übergeordneten Seite unter "
+"'%(parent_url_path)s' bereits verwendet."
+
+msgid "page"
+msgstr "Seite"
+
+msgid "pages"
+msgstr "Seiten"
+
+msgid "object id"
+msgstr "Objekt-ID"
+
+msgid "submitted for moderation"
+msgstr "Zur Freischaltung eingereicht"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "user"
+msgstr "Benutzer"
+
+msgid "content JSON"
+msgstr "JSON Inhalt"
+
+msgid "approved go live at"
+msgstr "Freigegeben zur Veröffentlichung am"
+
+msgid "revision"
+msgstr "Revision"
+
+msgid "revisions"
+msgstr "Revisionen"
+
+msgid "group"
+msgstr "Gruppe"
+
+msgid "permission"
+msgstr "Berechtigung"
+
+msgid "permission type"
+msgstr "Berechtigungstyp"
+
+msgid "group page permission"
+msgstr "Gruppen Seitenberechtigung"
+
+msgid "group page permissions"
+msgstr "Gruppen Seitenberechtigungen"
+
+msgid "page view restriction"
+msgstr "Seiten Ansichtsrestriktion"
+
+msgid "page view restrictions"
+msgstr "Seiten Ansichtsrestriktionen"
+
+msgid "workflow"
+msgstr "Workflow"
+
+msgid "workflow page"
+msgstr "Workflow-Seite"
+
+msgid "workflow pages"
+msgstr "Workflow-Seiten"
+
+msgid "workflow_tasks"
+msgstr "Workflow-Aufgaben"
+
+msgid "task"
+msgstr "Aufgabe"
+
+msgid "workflow task order"
+msgstr "Reihenfolge der Workflow-Aufgaben"
+
+msgid "workflow task orders"
+msgstr "Reihenfolgen der Workflow-Aufgaben"
+
+msgid "name"
+msgstr "Name"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktive Aufgaben können zu einem Workflow hinzugefügt werden. Die "
+"Deaktivierung einer Aufgabe entfernt diese nicht aus einem bestehenden "
+"Workflow."
+
+msgid "tasks"
+msgstr "Aufgaben"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktive Workflows können zu Seiten/Schnipseln hinzugefügt werden. Die "
+"Deaktivierung eines Workflows entfernt diesen nicht aus bestehenden Seiten/"
+"Schnipseln."
+
+msgid "workflows"
+msgstr "Workflows"
+
+msgid "groups"
+msgstr "Gruppen"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Seiten/Schnipsel in diesem Schritt eines Workflows werden durch diese "
+"Gruppen von  Benutzern moderiert oder freigeschaltet"
+
+msgid "Request changes"
+msgstr "Änderungen anfordern"
+
+msgid "Approve"
+msgstr "Freigeben"
+
+msgid "Approve with comment"
+msgstr "Mit Kommentar genehmigen"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr ""
+"Mitglieder der ausgewählten Wagtail-Gruppe können diese Aufgabe genehmigen"
+
+msgid "Group approval task"
+msgstr "Gruppengenehmigungsaufgabe"
+
+msgid "Group approval tasks"
+msgstr "Gruppengenehmigungsaufgaben"
+
+msgid "In progress"
+msgstr "In Bearbeitung"
+
+msgid "Approved"
+msgstr "Freigegeben"
+
+msgid "Needs changes"
+msgstr "Änderungen benötigt"
+
+msgid "Cancelled"
+msgstr "Gelöscht"
+
+msgid "status"
+msgstr "Status"
+
+msgid "requested by"
+msgstr "angefragt von"
+
+msgid "current task state"
+msgstr "Aktueller Zustand der Aufgabe"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Es kann nur einen Workflow-Zustand „in Bearbeitung“ oder „Änderungen "
+"benötigt“ pro Seite/Schnipsel geben."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Workflow '%(workflow_name)s' auf %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Nicht begonnen"
+
+msgid "Workflow state"
+msgstr "Workflow-Zustand"
+
+msgid "Workflow states"
+msgstr "Workflow-Zustände"
+
+msgid "Rejected"
+msgstr "Abgelehnt"
+
+msgid "Skipped"
+msgstr "Übersprungen"
+
+msgid "workflow state"
+msgstr "Workflow-Zustand"
+
+msgid "started at"
+msgstr "Gestartet am"
+
+msgid "finished at"
+msgstr "Beendet am"
+
+msgid "finished by"
+msgstr "Beendet von"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Aufgabe '%(task_name)s' bei Revision '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Zustand der Aufgabe"
+
+msgid "Task states"
+msgstr "Zustände der Aufgabe"
+
+msgid "page log entry"
+msgstr "Seitenprotokolleintrag"
+
+msgid "page log entries"
+msgstr "Seitenprotokolleinträge"
+
+msgid "Draft saved"
+msgstr "Entwurf gespeichert"
+
+msgid "comment"
+msgstr "Kommentar"
+
+msgid "comments"
+msgstr "Kommentare"
+
+msgid "comment reply"
+msgstr "Antwort auf Kommentar"
+
+msgid "comment replies"
+msgstr "Antworten auf Kommentar"
+
+msgid "timestamp (UTC)"
+msgstr "Zeitstempel (UTC)"
+
+msgid "log entry"
+msgstr "Protokolleintrag"
+
+msgid "log entries"
+msgstr "Protokolleinträge"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Die Protokollaktion '%(action_name)s' wurde nicht registriert."
+
+msgid "system"
+msgstr "System"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Unbekannte %(action)s"
+
+msgid "model log entry"
+msgstr "Protokolleintrag"
+
+msgid "model log entries"
+msgstr "Protokolleinträge"
+
+msgid "collection"
+msgstr "Sammlung"
+
+msgid "collection view restriction"
+msgstr "Sammlung Ansichtsrestriktion"
+
+msgid "collection view restrictions"
+msgstr "Sammlung Ansichtsrestriktionen"
+
+msgid "collections"
+msgstr "Sammlungen"
+
+msgid "group collection permission"
+msgstr "Gruppen Sammlungs-Berechtigung"
+
+msgid "group collection permissions"
+msgstr "Gruppen-Sammlungs-Berechtigungen"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "das %(model_name)s-Objekt wird ebenfalls gelöscht"
+
+msgid "prevents deletion"
+msgstr "verhindert das Löschen"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "wird auf das Standard-%(model_name)s-Objekt gesetzt"
+
+msgid "will do nothing"
+msgstr "wird nichts tun"
+
+msgid "may prevent deletion"
+msgstr "kann das Löschen verhindern"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "wird auf ein vom System vorgegebenes %(model_name)s-Objekt gesetzt"
+
+msgid "will unset the reference"
+msgstr "setzt die Referenz zurück"
+
+msgid "hostname"
+msgstr "Hostname"
+
+msgid "port"
+msgstr "Port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Geben Sie hier einen anderen Wert als 80 ein, wenn dieser in URLs auftauchen "
+"soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request "
+"Handling, so dass Port Forwarding weiterhin funktioniert."
+
+msgid "site name"
+msgstr "Website-Name"
+
+msgid "Human-readable name for the site."
+msgstr "Für Menschen lesbarer Name für die Website"
+
+msgid "root page"
+msgstr "Ursprungsseite"
+
+msgid "is default site"
+msgstr "Ist die standardmäßige Website"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die "
+"keinen eigenen Seiteneintrag haben."
+
+msgid "site"
+msgstr "Webseite"
+
+msgid "sites"
+msgstr "Webseiten"
+
+msgid "default"
+msgstr "Standard"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
+"Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, nur für angemeldete Benutzer einsehbar"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, einsehbar mit folgendem Passwort"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
+
+msgid "password"
+msgstr "Passwort"
+
+msgid "view restriction"
+msgstr "Ansichtsrestriktion"
+
+msgid "view restrictions"
+msgstr "Ansichtsrestriktionen"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ihr Benutzername und Ihr Passwort wurden nicht erkannt. Bitte versuchen Sie "
+"es erneut!"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ihr Konto hat keinen Zugang zu dieser Seite. Um fortzufahren melden Sie sich "
+"mit einem Konto an, das Zugang hat."
+
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+msgid "You need a password to access this page."
+msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
+
+msgid "Continue"
+msgstr "Weiter"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s untergeordnete Sammlung"
+msgstr[1] "%(count)s untergeordnete Sammlungen"
+
+msgid "Create"
+msgstr "Erstellen"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Edited"
+msgstr "Bearbeitet"
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Published"
+msgstr "Veröffentlicht"
+
+msgid "Publish scheduled draft"
+msgstr "Geplanten Entwurf veröffentlichen"
+
+msgid "Published scheduled draft"
+msgstr "Geplanter Entwurf veröffentlicht"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Unpublished"
+msgstr "Veröffentlichung aufgehoben"
+
+msgid "Unpublish scheduled draft"
+msgstr "Geplanten Entwurf zurücknehmen"
+
+msgid "Unpublished scheduled draft"
+msgstr "Geplanten Entwurf zurückgenommen"
+
+msgid "Reject"
+msgstr "Ablehnen"
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Von ‚%(old)s‘ nach ‚%(new)s‘ umbenannt"
+
+msgid "Renamed"
+msgstr "Umbenannt"
+
+msgid "Revert"
+msgstr "Zurückkehren"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Zu vorheriger Revision mit ID %(revision_id)s vom %(created_at)s "
+"zurückgekehrt"
+
+msgid "Reverted to previous revision"
+msgstr "Zu vorheriger Revision zurückgekehrt"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Von %(title)s kopiert"
+
+msgid "Copied"
+msgstr "Kopiert"
+
+msgid "Copy for translation"
+msgstr "Für die Übersetzung kopieren"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Kopiert für die Übersetzung von %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Kopiert für die Übersetzung"
+
+msgid "Create alias"
+msgstr "Einen Alias erstellen"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Einen Alias von %(title)s erstellt"
+
+msgid "Created an alias"
+msgstr "Einen Alias erstellt"
+
+msgid "Convert alias into ordinary page"
+msgstr "Diesen Alias in eine reguläre Seite konvertieren"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Alias '%(title)s' in eine reguläre Seite konvertiert"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Einen Alias in eine reguläre Seite konvertiert"
+
+msgid "Move"
+msgstr "Verschieben"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Von ‚%(old_parent)s‘ nach ‚%(new_parent)s‘ verschoben"
+
+msgid "Moved"
+msgstr "Verschoben"
+
+msgid "Reorder"
+msgstr "Umsortieren"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Unter '%(parent)s' umsortiert"
+
+msgid "Reordered"
+msgstr "Umsortiert"
+
+msgid "Schedule publication"
+msgstr "Veröffentlichung einplanen"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revision %(revision_id)s vom %(created_at)s zur Veröffentlichung am "
+"%(go_live_at)s eingeplant."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Seite zur Veröffentlichung am %(go_live_at)s eingeplant"
+
+msgid "Page scheduled for publishing"
+msgstr "Seite zur Veröffentlichung eingeplant"
+
+msgid "Unschedule publication"
+msgstr "Geplante Veröffentlichung aufheben"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Geplante Veröffentlichung von Revision %(revision_id)s vom %(created_at)s am "
+"%(go_live_at)s aufgehoben."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Veröffentlichung der Seite am %(go_live_at)s aufgehoben"
+
+msgid "Page unscheduled from publishing"
+msgstr "Geplante Veröffentlichung der Seite aufgehoben"
+
+msgid "Add view restrictions"
+msgstr "Ansichtsrestriktionen hinzufügen"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Ansichtsrestriktion „%(restriction)s“ hinzugefügt"
+
+msgid "Added view restriction"
+msgstr "Ansichtsrestriktion hinzugefügt"
+
+msgid "Update view restrictions"
+msgstr "Ansichtsrestriktionen ändern"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Ansichtsrestriktion geändert in „%(restriction)s“"
+
+msgid "Updated view restriction"
+msgstr "Ansichtsrestriktion geändert"
+
+msgid "Remove view restrictions"
+msgstr "Ansichtsrestriktionen entfernen"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Ansichtsrestriktion „%(restriction)s“ entfernt"
+
+msgid "Removed view restriction"
+msgstr "Ansichtsrestriktion entfernt"
+
+msgid "Add comment"
+msgstr "Kommentar hinzufügen"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Einen Kommentar \"%(text)s\" beim Feld %(field)s hinzugefügt."
+
+msgid "Added a comment"
+msgstr "Einen Kommentar hinzugefügt"
+
+msgid "Edit comment"
+msgstr "Kommentar bearbeiten"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Einen Kommentar bearbeitet"
+
+msgid "Delete comment"
+msgstr "Kommentar löschen"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Einen Kommentar gelöscht"
+
+msgid "Resolve comment"
+msgstr "Kommentar auflösen"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s gelöst: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Einen Kommentar gelöst"
+
+msgid "Reply to comment"
+msgstr "Auf Kommentar antworten"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Auf einen Kommentar beim Feld %(field)s geantwortet: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Auf einen Kommentar geantwortet"
+
+msgid "Edit reply to comment"
+msgstr "Antwort zum Kommentar bearbeiten"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Eine Antwort zum Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Eine Antwort bearbeitet"
+
+msgid "Delete reply to comment"
+msgstr "Antwort zum Kommentar löschen"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Eine Antwort zum Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Eine Antwort gelöscht"
+
+msgid "Workflow: start"
+msgstr "Workflow: Start"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "„%(workflow)s“ gestartet. Nächster Schritt „%(task)s“"
+
+msgid "Workflow started"
+msgstr "Workflow gestartet"
+
+msgid "Workflow: approve task"
+msgstr "Workflow: Aufgabe genehmigen"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Freigegeben bei „%(task)s“. Nächster Schritt „%(next_task)s“"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Freigegeben bei „%(task)s“. „%(workflow)s“ abgeschlossen"
+
+msgid "Workflow task approved"
+msgstr "Workflow-Aufgabe freigegeben"
+
+msgid "Workflow: reject task"
+msgstr "Workflow: Aufgabe ablehnen"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Abgelehnt bei „%(task)s“. Änderungen angefordert"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Workflow-Aufgabe abgelehnt. Workflow abgeschlossen"
+
+msgid "Workflow: resume task"
+msgstr "Workflow: Aufgabe fortsetzen"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "„%(task)s“ erneut eingereicht. Workflow fortgesetzt"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Workflow-Aufgabe erneut eingereicht. Workflow fortgesetzt"
+
+msgid "Workflow: cancel"
+msgstr "Workflow: Abbruch"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "„%(workflow)s“ abgebrochen bei „%(task)s“"
+
+msgid "Workflow cancelled"
+msgstr "Workflow abgebrochen"

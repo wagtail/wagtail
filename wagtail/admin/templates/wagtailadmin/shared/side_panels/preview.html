@@ -1,0 +1,61 @@
+{% load i18n wagtailadmin_tags %}
+
+{% wagtail_config as settings %}
+
+<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
+    <div class="preview-panel__sizes">
+        <label class="preview-panel__size-button preview-panel__size-button--mobile">
+            {% icon name="mobile-alt" %}
+            <input type="radio" name="preview-size" value="mobile" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
+        </label>
+        <label class="preview-panel__size-button preview-panel__size-button--tablet">
+            {% icon name="tablet-alt" %}
+            <input type="radio" name="preview-size" value="tablet" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
+        </label>
+        <label class="preview-panel__size-button preview-panel__size-button--desktop">
+            {% icon name="desktop" %}
+            <input type="radio" name="preview-size" value="desktop" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
+        </label>
+
+        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+    </div>
+
+    <div class="preview-panel__spinner w-hidden" data-preview-spinner>
+        {% icon name="spinner" classname="default" %}
+        <span class="w-sr-only">{% trans 'Loading'%}</span>
+    </div>
+
+    {% if not settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
+        <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-refresh-preview>{% icon name="rotate" %} Refresh</button>
+    {% endif %}
+
+    <div class="preview-panel__area">
+        <div class="preview-panel__controls{% if has_multiple_modes %} preview-panel__controls--multiple{% endif %}">
+            <div id="preview-panel-error-banner" class="preview-panel__error-banner">
+                {% icon name='warning' classname='default' %}
+                <div>
+                    <h3 class="preview-panel__error-title">
+                        {% trans 'Preview is out of date' %}
+                    </h3>
+                    <p class="preview-panel__error-details">
+                        {% trans 'Correct the validation errors to resume preview (saving will highlight errors)' %}
+                    </p>
+                </div>
+            </div>
+            {% if has_multiple_modes %}
+                {% trans 'Preview mode' as label_text %}
+                {% field label_text=label_text id_for_label="id_preview_mode" classname="preview-panel__modes" %}
+                    <select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>
+                        {% for internal_name, display_name in object.preview_modes %}
+                            <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>
+                        {% endfor %}
+                    </select>
+                {% endfield %}
+            {% endif %}
+        </div>
+
+        <div class="preview-panel__wrapper">
+            <iframe loading="lazy" title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner"></iframe>
+        </div>
+    </div>
+</div>

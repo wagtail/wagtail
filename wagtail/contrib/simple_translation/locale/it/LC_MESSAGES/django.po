@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Loic Teixeira, 2022
+# Marco Badan <marco.badan@gmail.com>, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
+"Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail traduzione semplificata"
+
+msgid "Select all"
+msgstr "Seleziona tutti"
+
+msgid "Locales"
+msgstr "Lingue"
+
+msgid "All child pages will be created."
+msgstr "Tutte le pagine figlio verranno create."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Include sotto-albero (%(descendant_count)s pagina)"
+msgstr[1] "Include sotto-albero (%(descendant_count)s pagine)"
+msgstr[2] "Include sotto-albero (%(descendant_count)s pagine)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Una lingua è disabilitata perché una pagina genitore non è stata tradotta."
+msgstr[1] ""
+"Alcune lingue sono disabilitate perché alcune pagine genitore non sono state "
+"tradotte."
+msgstr[2] ""
+"Alcune lingue sono disabilitate perché alcune pagine genitore non sono state "
+"tradotte."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduci la pagina genitore."
+msgstr[1] "Traduci le pagine genitori."
+msgstr[2] "Traduci le pagine genitori."
+
+msgid "Submit"
+msgstr "Invia"
+
+msgid "Translate"
+msgstr "Traduci"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s lingue"
+
+msgid "Translate page"
+msgstr "Traduci pagina"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "La pagina '%(page_title)s' è stata creata con successo in %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Traduci %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "%(locales)s creato con successo per %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Traduci questa pagina"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduci '%(title)s'"

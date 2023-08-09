@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon #className 1`] = `
+<Fragment>
+  <svg
+    aria-hidden="true"
+    className="icon icon-test u-test"
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
+</Fragment>
+`;
+
+exports[`Icon #name 1`] = `
+<Fragment>
+  <svg
+    aria-hidden="true"
+    className="icon icon-test "
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
+</Fragment>
+`;
+
+exports[`Icon #title 1`] = `
+<Fragment>
+  <svg
+    aria-hidden="true"
+    className="icon icon-test "
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
+  <span
+    className="visuallyhidden"
+  >
+    Test title
+  </span>
+</Fragment>
+`;

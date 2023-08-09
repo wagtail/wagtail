@@ -1,0 +1,22 @@
+============================
+Wagtail 2.12.1 release notes
+============================
+
+*February 16, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Ensure aliases are published when the source page is published (Karl Hobley)
+* Make page privacy rules apply to aliases (Karl Hobley)
+* Prevent error when saving embeds that do not include a thumbnail URL (Cynthia Kiser)
+* Ensure that duplicate embed records are deleted when upgrading (Matt Westcott)
+* Prevent failure when running ``manage.py dumpdata`` with no arguments (Matt Westcott)

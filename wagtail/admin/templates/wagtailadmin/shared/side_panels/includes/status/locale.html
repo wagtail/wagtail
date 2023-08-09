@@ -1,0 +1,39 @@
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    {% if page %}
+        {% trans 'Page Locale: ' as screen_reader_title_prefix %}
+    {% else %}
+        {% trans 'Locale: ' as screen_reader_title_prefix %}
+    {% endif %}
+
+    {% if object.pk and translations %}
+        {% blocktrans trimmed asvar help_text %}
+            Available in {{ translations_total }} locales
+        {% endblocktrans %}
+    {% else %}
+        {% trans 'No other translations' as help_text %}
+    {% endif %}
+
+    {% with icon_name='globe' title=locale.get_display_name %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block action %}
+    {% if translations %}
+        {% trans 'Switch locales' as toggle_label %}
+        {% fragment as toggle_classname %}w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition{% endfragment %}
+
+        {% dropdown toggle_label=toggle_label toggle_classname=toggle_classname toggle_icon="arrow-down" %}
+            {% for translation in translations %}
+                <a href="{{ translation.url }}" lang="{{ translation.locale.language_code }}">
+                    {{ translation.locale.get_display_name }}
+                </a>
+            {% endfor %}
+        {% enddropdown %}
+    {% else %}
+        {# No locales to switch to #}
+    {% endif %}
+{% endblock %}

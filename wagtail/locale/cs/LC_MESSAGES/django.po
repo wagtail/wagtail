@@ -1,0 +1,773 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ales Dvorak <mail@alesdvorak.cz>, 2017
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2020
+# Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
+# Vláďa Macek <macek@sandbox.cz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail jádro"
+
+msgid "Add Comment"
+msgstr "Přidat komentář"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimální počet položek je %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximální počet položek je %(max_num)d"
+
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Duplicate"
+msgstr "Duplikovat"
+
+msgid "Delete"
+msgstr "Zrušit"
+
+msgid "Add"
+msgstr "Přidat"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: tento blok nemá žádné volby."
+
+msgid "This block has no options."
+msgstr "Tento blok nemá žádné volby."
+
+msgid "This field is required."
+msgstr "Toto pole je vyžadováno."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
+
+msgid "Comment"
+msgstr "Komentář"
+
+msgid "Locked"
+msgstr "Uzamčeno"
+
+msgid "Unlocked"
+msgstr "Odemčeno"
+
+msgid "live"
+msgstr "publikováno"
+
+msgid "has unpublished changes"
+msgstr "má nepublikované změny"
+
+msgid "first published at"
+msgstr "poprvé publikováno:"
+
+msgid "last published at"
+msgstr "naposledy publikováno:"
+
+msgid "live revision"
+msgstr "publikováno verze"
+
+msgid "go live date/time"
+msgstr "datum/čas publikování"
+
+msgid "expiry date/time"
+msgstr "datum/čas expirace"
+
+msgid "expired"
+msgstr "platnost skončila"
+
+msgid "scheduled"
+msgstr "naplánováno"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + scheduled"
+msgstr "publikováno + naplánováno"
+
+msgid "live + draft"
+msgstr "publikováno + koncept"
+
+msgid "Default"
+msgstr "Default(ní)"
+
+msgid "locked"
+msgstr "uzamčeno"
+
+msgid "locked at"
+msgstr "uzamčeno: "
+
+msgid "locked by"
+msgstr "uzamčeno uživatelem"
+
+msgid "in moderation"
+msgstr "probíhá schvalování"
+
+msgid "live + in moderation"
+msgstr "publikováno + probíhá schvalování"
+
+msgid "Add/edit pages you own"
+msgstr "Přidat/Editovat vámi vlastněné stránky"
+
+msgid "Bulk delete"
+msgstr "Hromadné zrušení"
+
+msgid "Delete pages with children"
+msgstr "Rušit stránky s podstránkami"
+
+msgid "Edit"
+msgstr "Editovat"
+
+msgid "Edit any page"
+msgstr "Editovat jakoukoliv stránku"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Uzamknout/odemknout vámi uzamčené stránky"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Publish any page"
+msgstr "Možnost publikovat jakoukoliv stránku"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Unlock any page"
+msgstr "Odemknout jakoukoliv stránku"
+
+msgid "title"
+msgstr "titulek"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Veřejně viditelný název stránky"
+
+msgid "slug"
+msgstr "slug (identifikátor)"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "content type (typ obsahu)"
+
+msgid "URL path"
+msgstr "URL adresa"
+
+msgid "owner"
+msgstr "vlastník"
+
+msgid "title tag"
+msgstr "značka titulku (title tag)"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Jméno stránky na vyhledávači jako nadpis, na nějž lze kliknout."
+
+msgid "show in menus"
+msgstr "zobrazit v menu"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Určuje, zda se bude odkaz na tuto stránku zobrazovat v automaticky "
+"generovaných menu"
+
+msgid "meta description"
+msgstr "meta popis"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
+
+msgid "latest revision created at"
+msgstr "poslední verze vytvořena:"
+
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
+msgid "submitted for moderation"
+msgstr "odesláno ke schválení"
+
+msgid "created at"
+msgstr "vytvořeno:"
+
+msgid "user"
+msgstr "uživatel"
+
+msgid "content JSON"
+msgstr "obsah JSON"
+
+msgid "approved go live at"
+msgstr "povoleno publikovat:"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnění"
+
+msgid "permission type"
+msgstr "typ oprávnění"
+
+msgid "group page permission"
+msgstr "skupinové oprávnění stránky"
+
+msgid "group page permissions"
+msgstr "skupinová oprávnění stránky"
+
+msgid "page view restriction"
+msgstr "omezení zobrazení stránky"
+
+msgid "page view restrictions"
+msgstr "omezení zobrazení stránky"
+
+msgid "workflow"
+msgstr "postup"
+
+msgid "workflow page"
+msgstr "stránka postupu"
+
+msgid "workflow pages"
+msgstr "stránky postupu"
+
+msgid "workflow_tasks"
+msgstr "úlohy postupu"
+
+msgid "task"
+msgstr "úloha"
+
+msgid "workflow task order"
+msgstr "pořadí úloh postupu"
+
+msgid "workflow task orders"
+msgstr "pořadí úloh postupu"
+
+msgid "name"
+msgstr "jméno"
+
+msgid "active"
+msgstr "aktivní"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivní úlohy mohou být přidány do postupu. (Deaktivování úlohy ji nevyřadí "
+"z probíhajícího zpracování.)"
+
+msgid "tasks"
+msgstr "úlohy"
+
+msgid "workflows"
+msgstr "postupy"
+
+msgid "groups"
+msgstr "skupiny"
+
+msgid "Request changes"
+msgstr "Vyžádat změny"
+
+msgid "Approve"
+msgstr "Schválit"
+
+msgid "Approve with comment"
+msgstr "Schválit s komentářem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Členové zvolené skupiny mohou schválit tuto úlohu"
+
+msgid "Group approval task"
+msgstr "Skupinou schvalovaná úloha"
+
+msgid "Group approval tasks"
+msgstr "Skupinou schvalované úlohy"
+
+msgid "In progress"
+msgstr "Probíhající.."
+
+msgid "Approved"
+msgstr "Schváleno"
+
+msgid "Needs changes"
+msgstr "Vyžaduje úpravy"
+
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+msgid "status"
+msgstr "stav"
+
+msgid "requested by"
+msgstr "požadováno kým"
+
+msgid "current task state"
+msgstr "aktuální stav úlohy"
+
+msgid "Not started"
+msgstr "Není spuštěno"
+
+msgid "Workflow state"
+msgstr "Stav postupu"
+
+msgid "Workflow states"
+msgstr "Stavy postupu"
+
+msgid "Rejected"
+msgstr "Odmítnuto"
+
+msgid "Skipped"
+msgstr "Přeskočeno"
+
+msgid "workflow state"
+msgstr "stav zpracování"
+
+msgid "started at"
+msgstr "spuštěno v"
+
+msgid "finished at"
+msgstr "dokončeno v"
+
+msgid "finished by"
+msgstr "dokončeno (kým)"
+
+msgid "Task state"
+msgstr "Stav úlohy"
+
+msgid "Task states"
+msgstr "Stavy úlohy"
+
+msgid "page log entry"
+msgstr "položka logu pro stránku"
+
+msgid "page log entries"
+msgstr "položky logu pro stránku"
+
+msgid "Draft saved"
+msgstr "Návrh byl uložen"
+
+msgid "comment"
+msgstr "komentář"
+
+msgid "comments"
+msgstr "komentáře"
+
+msgid "comment reply"
+msgstr "reakce na komentář"
+
+msgid "comment replies"
+msgstr "reakce na komentář"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp - čas zpracování (UTC)"
+
+msgid "log entry"
+msgstr "položka logu"
+
+msgid "log entries"
+msgstr "položky logu"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akce logu '%(action_name)s' není registrována."
+
+msgid "system"
+msgstr "systém"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznámé %(action)s"
+
+msgid "collection"
+msgstr "kolekce"
+
+msgid "collection view restriction"
+msgstr "omezení zobrazení kolekce"
+
+msgid "collection view restrictions"
+msgstr "omezení zobrazení kolekcí"
+
+msgid "collections"
+msgstr "kolekce"
+
+msgid "group collection permission"
+msgstr "skupinové oprávnění pro kolekci"
+
+msgid "group collection permissions"
+msgstr "skupinová oprávnění pro kolekci"
+
+msgid "hostname"
+msgstr "hostname (jméno hostitele)"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nastavte, pokud potřebujete mít v URL jiné číslo portu než 80 (např. vývoj "
+"na portu 8000). Neovlivňuje zpracování requestů (lze tedy použít s "
+"přesměrováním portů)."
+
+msgid "site name"
+msgstr "Název webu"
+
+msgid "Human-readable name for the site."
+msgstr "Jméno webu v podobě čitelné člověkem."
+
+msgid "root page"
+msgstr "výchozí stránka"
+
+msgid "is default site"
+msgstr "je defaultní web"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Je-li nastaveno, bude tento web výchozí pro všechny hostname, která nemají "
+"přiřazen žádný web."
+
+msgid "site"
+msgstr "web"
+
+msgid "sites"
+msgstr "weby"
+
+msgid "default"
+msgstr "default(ní)"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve "
+"zrušit."
+
+msgid "Public"
+msgstr "Veřejné"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privátní, pro přihlášené uživatele"
+
+msgid "Private, accessible with the following password"
+msgstr "Privátní, dostupné s následujícím heslem"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privátní, dostupné uživatelům v oprávněných skupinách"
+
+msgid "password"
+msgstr "heslo"
+
+msgid "view restriction"
+msgstr "omezení zobrazení"
+
+msgid "view restrictions"
+msgstr "omezení zobrazení"
+
+msgid "Log in"
+msgstr "Přihlásit se"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Vaše jméno a heslo neodpovídají. Zkuste to znova."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Váš účet nemá oprávnění k této stránce. Je potřeba se přihlásit účtem, který "
+"taková oprávnění má."
+
+msgid "Password required"
+msgstr "Je vyžadováno heslo"
+
+msgid "You need a password to access this page."
+msgstr "Pro přístup k této stránce potřebujete heslo."
+
+msgid "Continue"
+msgstr "Pokračovat"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s závislá kolekce"
+msgstr[1] "%(count)s závislé kolekce"
+msgstr[2] "%(count)s závislých kolekcí"
+msgstr[3] "%(count)s závislých kolekcí"
+
+msgid "Create"
+msgstr "Vytvořit"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
+msgid "Edited"
+msgstr "Upraveno"
+
+msgid "Deleted"
+msgstr "Zrušeno"
+
+msgid "Published"
+msgstr "Zveřejněno"
+
+msgid "Publish scheduled draft"
+msgstr "Zveřejnit plánovaný návrh"
+
+msgid "Published scheduled draft"
+msgstr "Byl zveřejněn plánovaný návrh"
+
+msgid "Unpublish"
+msgstr "Nezveřejňovat"
+
+msgid "Unpublished"
+msgstr "Zveřejnění bylo odvoláno"
+
+msgid "Unpublish scheduled draft"
+msgstr "Odvolat zveřejnění plánovaného návrhu"
+
+msgid "Unpublished scheduled draft"
+msgstr "Zveřejnění plánovaného návrhu bylo odvoláno"
+
+msgid "Reject"
+msgstr "Odmítnout"
+
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Přejmenováno z '%(old)s' na '%(new)s'"
+
+msgid "Renamed"
+msgstr "Přejmenováno"
+
+msgid "Revert"
+msgstr "Vrátit"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr "Bylo vráceno na předchozí verzi s id %(revision_id)s z %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Bylo vráceno na předchozí verzi"
+
+msgid "Copy"
+msgstr "Zkopírovat"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Zkopírováno z %(title)s"
+
+msgid "Copied"
+msgstr "Zkopírováno"
+
+msgid "Create alias"
+msgstr "Vytvořit zástupce"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Byl vytvořen zástupce pro %(title)s"
+
+msgid "Created an alias"
+msgstr "Byl vytvořen zástupce"
+
+msgid "Move"
+msgstr "Přesunout"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Přesunuto z '%(old_parent)s' do '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Přesunuto"
+
+msgid "Reorder"
+msgstr "Setřídit"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Setříděno pod '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Setříděno"
+
+msgid "Schedule publication"
+msgstr "Naplánovat zveřejnění"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Verze %(revision_id)s z %(created_at)s byla naplánována ke ke zveřejnění na "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Stránka byla naplánována ke ke zveřejnění na %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Stránka byla naplánována ke ke zveřejnění"
+
+msgid "Unschedule publication"
+msgstr "Odvolat plánované zveřejnění"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Verzi %(revision_id)s z %(created_at)s bylo zrušeno zveřejnění, plánované na "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Stránce bylo zrušeno plánované zveřejnění v %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Stránce bylo zrušeno plánované zveřejnění"
+
+msgid "Add view restrictions"
+msgstr "Přidat omezení zobrazení"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Bylo přidáno '%(restriction)s' omezení zobrazení"
+
+msgid "Added view restriction"
+msgstr "Bylo přidáno omezení zobrazení"
+
+msgid "Update view restrictions"
+msgstr "Změnit omezení zobrazení"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Aktualizováno omezení zobrazení na '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Aktualizováno omezení zobrazení"
+
+msgid "Remove view restrictions"
+msgstr "Zrušit omezení zobrazení"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Zrušeno omezení zobrazení '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Zrušeno omezení zobrazení"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Added a comment"
+msgstr "Komentář přidán"
+
+msgid "Edit comment"
+msgstr "Upravit komentář"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Komentář upraven v poli %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Komentář upraven"
+
+msgid "Delete comment"
+msgstr "Odstranit komentář"
+
+msgid "Workflow: start"
+msgstr "Postup: start"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' zahájen. Další krok '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Postup byl zahájen"
+
+msgid "Workflow: approve task"
+msgstr "Postup: schválit úlohu"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Schváleno '%(task)s'. Další krok '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Schváleno '%(task)s'. '%(workflow)s' dokončen."
+
+msgid "Workflow task approved"
+msgstr "Úkol postupu byl schválen."
+
+msgid "Workflow: reject task"
+msgstr "Postup: odmítnout úlohu"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Odmítnuto '%(task)s'. Jsou požadovány změny"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Úkol postupu byl zamítnut. Postup dokončen"
+
+msgid "Workflow: resume task"
+msgstr "Postup: obnovit úlohu"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Úkol postupu byl potvrzen. Postup byl obnoven"
+
+msgid "Workflow: cancel"
+msgstr "Postup: přerušit"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Zrušen '%(workflow)s' na úkolu '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Postup byl zrušen"

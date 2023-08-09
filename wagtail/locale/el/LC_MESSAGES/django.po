@@ -1,0 +1,467 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# Dimitri Fekas, 2022
+# fekioh, 2022
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add Comment"
+msgstr "Προσθήκη σχολίου"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
+
+msgid "Move up"
+msgstr "Πάνω"
+
+msgid "Move down"
+msgstr "Κάτω"
+
+msgid "Duplicate"
+msgstr "Αναπαραγωγή"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Add"
+msgstr "Προσθήκη"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: αυτό το μπλοκ δεν έχει επιλογές"
+
+msgid "This block has no options."
+msgstr "Αυτό το block δεν έχει επιλογές."
+
+msgid "This field is required."
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Password"
+msgstr "Κωδικός"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Ο κωδικός που εισαγάγατε δεν είναι σωστός. Προσπαθήστε ξανα."
+
+msgid "Comment"
+msgstr "Σχόλιο"
+
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
+msgid "Unlocked"
+msgstr "Ξεκλειδωμενο"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "έχει αδημοσίευτες αλλαγές"
+
+msgid "first published at"
+msgstr "πρώτη δημοσίευση στις"
+
+msgid "last published at"
+msgstr "τελευταία δημοσίευση στις"
+
+msgid "live revision"
+msgstr "τρέχουσα αναθεώρηση"
+
+msgid "go live date/time"
+msgstr "ημερομηνία/ώρα δημοσίευσης"
+
+msgid "expiry date/time"
+msgstr "ημερομηνία/ώρα λήξης"
+
+msgid "expired"
+msgstr "έχει λήξει"
+
+msgid "scheduled"
+msgstr "έχει προγραμματιστεί"
+
+msgid "draft"
+msgstr "draft"
+
+msgid "live + scheduled"
+msgstr "τρέχουσα + προγραμματισμένη"
+
+msgid "live + draft"
+msgstr "live + draft "
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
+msgid "locked"
+msgstr "κλειδωμένο"
+
+msgid "locked at"
+msgstr "κλειδώθηκε στις"
+
+msgid "locked by"
+msgstr "κλειδώθηκε από"
+
+msgid "in moderation"
+msgstr "υπό έλεγχο"
+
+msgid "live + in moderation"
+msgstr "τρέχουσα + υπό έλεγχο"
+
+msgid "Add/edit pages you own"
+msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
+
+msgid "Bulk delete"
+msgstr "Μαζική διαγραφή"
+
+msgid "Delete pages with children"
+msgstr "Διαγραφή σελιδών με υποσελίδες"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit any page"
+msgstr "Επεξεργασία όλων των σελίδων"
+
+msgid "Lock"
+msgstr "Κλείδωμα"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Κλείδωμα/ξεκλείδωμα σελίδων που έχετε κλειδώσει"
+
+msgid "Publish"
+msgstr "Δημοσίευση"
+
+msgid "Publish any page"
+msgstr "Δημοσίευση καθε σελίδας"
+
+msgid "Unlock"
+msgstr "Ξεκλείδωμα"
+
+msgid "Unlock any page"
+msgstr "Ξεκλείδωμα οποιασδήποτε σελίδας"
+
+msgid "title"
+msgstr "τίτλος"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφανίζεται στο κοινό"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
+"domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "Τύπος περιεχομένου"
+
+msgid "URL path"
+msgstr "Διεύθυνση URL"
+
+msgid "owner"
+msgstr "ιδιοκτήτης"
+
+msgid "title tag"
+msgstr "ετικέτα τίτλου"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Το όνομα της σελίδας που εμφανίζεται ως επικεφαλίδα-σύνδεσμος σε μηχανές "
+"αναζήτησης"
+
+msgid "show in menus"
+msgstr "εμφάνιση στα μενού"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
+"δημιουργούνται αυτόματα"
+
+msgid "meta description"
+msgstr "Περιγραφή"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Το κείμενο που εμφανίζεται κάτω από την επικεφαλίδα σε μηχανές αναζήτησης"
+
+msgid "latest revision created at"
+msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
+
+msgid "page"
+msgstr "σελίδα"
+
+msgid "pages"
+msgstr "σελίδες"
+
+msgid "submitted for moderation"
+msgstr "υποβλήθηκαν για έλεγχο"
+
+msgid "created at"
+msgstr "δημιουργία στις"
+
+msgid "user"
+msgstr "χρήστης"
+
+msgid "content JSON"
+msgstr "περιεχόμενο JSON"
+
+msgid "approved go live at"
+msgstr "εγκρίθηκε να δημοσιευθεί στις"
+
+msgid "group"
+msgstr "ομάδα"
+
+msgid "permission"
+msgstr "άδεια"
+
+msgid "permission type"
+msgstr "είδος άδειας"
+
+msgid "group page permission"
+msgstr "άδεια ομάδας σελίδων"
+
+msgid "group page permissions"
+msgstr "άδειες ομάδας σελίδων"
+
+msgid "page view restriction"
+msgstr "περιορισμός προβολής σελίδων"
+
+msgid "page view restrictions"
+msgstr "περιορισμός προβολών σελίδων"
+
+msgid "workflow"
+msgstr "ροή εργασιών"
+
+msgid "workflow page"
+msgstr "σελίδα ροής εργασιών"
+
+msgid "workflow pages"
+msgstr "σελίδες ροής εργασιών"
+
+msgid "workflow_tasks"
+msgstr "ροή_εργασιών_εργασίες"
+
+msgid "task"
+msgstr "εργασία"
+
+msgid "workflow task order"
+msgstr "σειρά εργασιών της ροής εργασιών"
+
+msgid "workflow task orders"
+msgstr "σειρές εργασιών της ροής εργασιών"
+
+msgid "name"
+msgstr "όνομα"
+
+msgid "active"
+msgstr "εν ενεργεία"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Εργασίες εν ενεργεία μπορούν να προστεθούν σε ροές εργασιών . Η "
+"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές "
+"εργασιών.  "
+
+msgid "tasks"
+msgstr "εργασίες"
+
+msgid "workflows"
+msgstr "ροές εργασιών"
+
+msgid "groups"
+msgstr "ομάδες"
+
+msgid "Approve"
+msgstr "Έγκριση"
+
+msgid "Draft saved"
+msgstr "Προσχέδιο αποθηκεύτηκε"
+
+msgid "collection"
+msgstr "συλλογή"
+
+msgid "collections"
+msgstr "συλλογές"
+
+msgid "group collection permission"
+msgstr "άδεια ομάδας συλλογών"
+
+msgid "hostname"
+msgstr "Όνομα κεντρικού υπολογιστή"
+
+msgid "port"
+msgstr "θύρα"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε κάτι διαφορετικό από το 80 αν θέλετε να "
+"εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα "
+"8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
+"προώθηση θύρας δουλεύει ακόμα)"
+
+msgid "site name"
+msgstr "ονομα site"
+
+msgid "Human-readable name for the site."
+msgstr "Φιλικό όνομα για το site."
+
+msgid "root page"
+msgstr "κεντρική σελίδα"
+
+msgid "is default site"
+msgstr "είναι το προεπιλεγμένο site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
+"άλλα ονόματα που δεν έχουν δική τους εγγραφή"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+msgid "default"
+msgstr "προεπιλογή"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s έχει ήδη ρυθμιστεί ως η προεπιλεγμένη τοποθεσία. Θα πρέπει να "
+"το απενεργοποιήσετε προτού αποθηκεύσετε αυτή την τοποθεσία ως προεπιλογή."
+
+msgid "Public"
+msgstr "Δημόσια"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Ιδιωτικό, προσβάσιμο μόνο σε εγγεγραμμένους χρήστες"
+
+msgid "Private, accessible with the following password"
+msgstr "Ιδιωτικό, προσβάσιμο με τον ακόλουθο κωδικό"
+
+msgid "Private, accessible to users in specific groups"
+msgstr ""
+"Ιδιωτικό, προσβάσιμο μόνο σε χρήστες που ανήκουν σε συγκεκριμένες ομάδες"
+
+msgid "password"
+msgstr "κωδικός"
+
+msgid "Log in"
+msgstr "Είσοδος"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Το όνομα χρήστη και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ο λογαριασμός σας δεν έχει πρόσβαση σε αυτή τη σελίδα. Για να προχωρήσετε, "
+"παρακαλούμε συνδεθείτε με έναν λογαριασμό που να έχει πρόσβαση."
+
+msgid "Password required"
+msgstr "Απαιτείται κωδικός"
+
+msgid "You need a password to access this page."
+msgstr "Θα χρειαστείτε κωδικό για να δείτε αυτή τη σελίδα"
+
+msgid "Continue"
+msgstr "Συνέχεια"
+
+msgid "Create"
+msgstr "Δημιουργία"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+msgid "Edited"
+msgstr "Διορθωμένη"
+
+msgid "Deleted"
+msgstr "Διαγράφηκε"
+
+msgid "Published"
+msgstr "Δημοσιεύθηκε"
+
+msgid "Publish scheduled draft"
+msgstr "Δημοσίευση προγραμματισμένου προσχεδίου"
+
+msgid "Published scheduled draft"
+msgstr "Προγραμματισμένο προσχέδιο δημοσιεύτηκε"
+
+msgid "Unpublish"
+msgstr "Κατάργηση δημοσίευσης"
+
+msgid "Unpublished"
+msgstr "Αποδημοσιεύτηκε"
+
+msgid "Unpublish scheduled draft"
+msgstr "Αποδημοσίευση προγραμματισμένου προσχεδίου"
+
+msgid "Unpublished scheduled draft"
+msgstr "Προγραμματισμένο προσχέδιο αποδημοσιεύτηκε"
+
+msgid "Reject"
+msgstr "Απόρριψη"
+
+msgid "Rename"
+msgstr "μετονομασία"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Μετονομάστηκε από '%(old)s' σε '%(new)s' "
+
+msgid "Renamed"
+msgstr "Μετονομάστηκε"
+
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+msgid "Move"
+msgstr "Μετακίνηση"

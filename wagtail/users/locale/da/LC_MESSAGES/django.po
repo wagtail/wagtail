@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Efternavn"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Publish"
+msgstr "Udgiv"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Unlock"
+msgstr "Lås op"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit"
+msgstr "Rediger"

@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ultraify media <ultraify@gmail.com>, 2018
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Parent page"
+msgstr "صفحة الأم"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "اضف %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "اضف جديد %(object)s"
+
+msgid "Inspect"
+msgstr "فحص"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "افحص %(object)s"
+
+msgid "Edit"
+msgstr "تعديل"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "تحرير هذا %(object)s"
+
+msgid "Delete"
+msgstr "حذف"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "حذف %(object)s"
+
+msgid "Unpublish"
+msgstr "غير منشور"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "عدم نشر %(object)s"
+
+msgid "Copy"
+msgstr "انسخ"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "نسخ %(object)s"
+
+msgid "image"
+msgstr "صورة"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "الرجوع الى %(model_name)s القائمة"
+
+msgid "Choose a parent page"
+msgstr "إختر صفحة أم"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)sيمكن إضافتها إلى أكثر من مكان واحد في موقعك. أي مما يلي تود أن "
+"تكون أصل الصفحة الجديدة؟ "
+
+msgid "Continue"
+msgstr "أكمل"
+
+msgid "Saving…"
+msgstr "يتم الحفظ…"
+
+msgid "Save"
+msgstr "حفظ"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)sلا يمكن حذفها "
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' تتم الإشارة إليها حاليًا بواسطة كائنات أخرى ، ولا يمكن "
+"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع "
+"من الكائنات التالية ، ثم حاول مرة أخرى:"
+
+msgid "Go back to listing"
+msgstr "العودة إلى القائمة"
+
+msgid "Yes, delete"
+msgstr "نعم, احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "عذرًا ، لا توجد مطابقة لـ %(name)s عمليات البحث الخاصة بك."
+
+msgid "Search for"
+msgstr "إبحث عن"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "بحث %(name)s"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Filter"
+msgstr "فلتر"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"لا %(name)s تم إنشاؤه بعد. يجب إنشاء أحد الإجراءات التالية قبل أن تتمكن من "
+"إضافة أي %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "لا %(name)s تم إنشاؤه بعد."
+
+msgid "Pagination"
+msgstr "ترقيم الصفحات"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "صفحة %(current_page)s من %(num_pages)s."
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Next"
+msgstr "التالي"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "لا يمكن إنشاء %(object)s بسبب أخطاء."
+
+msgid "New"
+msgstr "جديد"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "أنشئ %(object)s جديد"
+
+msgid "Editing"
+msgstr "جاري التعديل"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "جاري التعديل %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "تم تحديث '%(object)s' '%(model_name)s'."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "لا يمكن حفظ %(object)s بسبب الأخطاء."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "تأكيد حذف %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"هل أنت متأكد أنك تريد حذف هذا %(object)s؟ إذا كانت هناك أشياء أخرى في موقعك "
+"مرتبطة بها ، فقد تتأثر أيضًا."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "تم حذف '%(object)s' '%(model_name)s'."
+
+msgid "Inspecting"
+msgstr "يتم الفحص"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "يتم فحص %(object)s"
+
+msgid "Date"
+msgstr "تاريخ"

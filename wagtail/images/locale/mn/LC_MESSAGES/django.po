@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2022
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
+# visual, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Soft Exim, 2022\n"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Зургууд"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Дэмжигдсэн форматууд: %(supported_formats)s. Файлын дээд хэмжээ: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Дэмжигдсэн форматууд: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Дэмжигдээгүй зургийн формат байна. Дэмжигдсэн форматууд: "
+"%(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэт том хэмжээтэй байна (%(file_size)s). Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
+
+msgid "Full width"
+msgstr "Бүтэн өргөн"
+
+msgid "Left-aligned"
+msgstr "Зүүн-зэрэгцүүлэх"
+
+msgid "Right-aligned"
+msgstr "Баруун-зэрэгцүүлэх"
+
+msgid "Collection"
+msgstr "Цуглуулга"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
+
+msgid "Filter"
+msgstr "Шүүлтүүр"
+
+msgid "Original size"
+msgstr "Оригнал хэмжээ"
+
+msgid "Resize to width"
+msgstr "Өргөнийг өөрчлөх"
+
+msgid "Resize to height"
+msgstr "Өндрийг өөрчлөх"
+
+msgid "Resize to min"
+msgstr "Хамгийн багыг өөрчлөх"
+
+msgid "Resize to max"
+msgstr "Хамгийн ихийг өөрчлөх"
+
+msgid "Width"
+msgstr "Өргөн"
+
+msgid "Height"
+msgstr "Өндөр"
+
+msgid "Closeness"
+msgstr "Нягтшил"
+
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Add/edit images you own"
+msgstr "Өөрийн зургуудаа нэмэх/засах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Edit any image"
+msgstr "Ямар ч хуудсыг засах"
+
+msgid "Choose"
+msgstr "Сонгох"
+
+msgid "title"
+msgstr "гарчиг"
+
+msgid "file"
+msgstr "файл"
+
+msgid "width"
+msgstr "өргөн"
+
+msgid "height"
+msgstr "өндөр"
+
+msgid "created at"
+msgstr "үүссэн "
+
+msgid "uploaded by user"
+msgstr "хэрэглэгчийн хуулсан"
+
+msgid "tags"
+msgstr "шошго"
+
+msgid "image"
+msgstr "зураг"
+
+msgid "images"
+msgstr "зургууд"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
+msgid "Popular tags"
+msgstr "Түгээмэл шошгууд"
+
+msgid "New"
+msgstr "Шинэ"
+
+msgid "Latest images"
+msgstr "Сүүлийн зургууд"
+
+msgid "Choose a format"
+msgstr "Форматаа сонгоно уу"
+
+msgid "Insert image"
+msgstr "Зураг оруулах"
+
+msgid "Change image file:"
+msgstr "Зургийн файл солих:"
+
+msgid "Add an image"
+msgstr "Зураг нэмэх"
+
+msgid "Add image"
+msgstr "Зураг нэмэх"
+
+msgid "Save"
+msgstr "Хадгалах"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "%(title)s зургийг засч байна"
+
+msgid "Editing"
+msgstr "Засч байна"
+
+msgid "Delete image"
+msgstr "Зургийг устгах"
+
+msgid "URL Generator"
+msgstr "URL Үүсгэгч"
+
+msgid "Focal point"
+msgstr "Фокусын цэг"
+
+msgid "(optional)"
+msgstr "(заавал биш)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr "Зургийн хамгийн чухал хэсгийг зурган дээр зурж сонгоно уу."
+
+msgid "Current focal point shown"
+msgstr "Одоо харагдаж буй фокусын цэг"
+
+msgid "Remove focal area"
+msgstr "Фокусын хэсгийг устгах"
+
+msgid "Max dimensions"
+msgstr "Дээд хэмжүүр"
+
+msgid "Filesize"
+msgstr "Файлын хэмжээ"
+
+msgid "File not found"
+msgstr "Файл олдсонгүй"
+
+msgid "Usage"
+msgstr "Хэрэглээ"
+
+msgid "Images"
+msgstr "Зургууд"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
+
+msgid "Generating URL"
+msgstr "URL үүсгэж байна"
+
+msgid "URL"
+msgstr "URL хаяг"
+
+msgid "Preview"
+msgstr "Урдчилж харах"
+
+msgid "Add multiple images"
+msgstr "Олон зураг нэмэх"
+
+msgid "Add images"
+msgstr "Зураг нэмэх"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Энэ хэсэгт зургуудаа чирж оруулж сайт руу хуулна уу."
+
+msgid "Or choose from your computer"
+msgstr "Эсвэл компьютерээсээ хуулах"
+
+msgid "Add to collection:"
+msgstr "Цуглуулга руу нэмэх"
+
+msgid "Sorry, upload failed."
+msgstr "Уучлаарай, хуулахад алдаа гарлаа."
+
+msgid "Server Error"
+msgstr "Серверийн алдаа"
+
+msgid "Image updated."
+msgstr "Зураг шинэчлэгдлээ."
+
+msgid "Image permissions"
+msgstr "Зургийн хандалтын эрх"
+
+msgid "Add an image permission"
+msgstr "Зургийн хандах эрх нэмэх"
+
+msgid "Tags"
+msgstr "Шошго"
+
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "Upload"
+msgstr "Хуулах"
+
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
+msgid "Choose an image"
+msgstr "Зургаа сонгоно уу"
+
+msgid "Choose another image"
+msgstr "Өөр зураг сонгох"
+
+msgid "Edit this image"
+msgstr "Энэ зургийг засах"
+
+msgid "Search images"
+msgstr "Зураг хайх"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "'%(image_title)s' зураг засагдлаа."
+
+msgid "Edit again"
+msgstr "Дахин засах"
+
+msgid "The image could not be saved due to errors."
+msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "'%(image_title)s' зураг устлаа."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "'%(image_title)s' зураг нэмэгдлээ."
+
+msgid "The image could not be created due to errors."
+msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
+
+msgid "Image"
+msgstr "Зураг"
+
+msgid "Change image"
+msgstr "Зураг солих"

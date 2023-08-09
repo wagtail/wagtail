@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Expects a variable 'page', a page object.
+    Tests whether that page is locked for editing, and if so, outputs a 'locked' icon.
+{% endcomment %}
+
+{% if page.locked %}
+    <span
+        class="indicator locked-indicator {% if page.locked_by == request.user %}indicator--is-inverse{% endif %}"
+        title="{% if page.locked_by == request.user %}{% trans 'This page is locked, by you, to further editing' %}{% else %}{% trans 'This page is locked to further editing' %}{% endif %}"
+    >
+        {% icon name="lock" classname="initial" %}
+    </span>
+{% endif %}

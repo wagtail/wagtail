@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<form action="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" method="POST" novalidate>
+    {% csrf_token %}
+    {% include "wagtailadmin/shared/field.html" with field=form.restriction_type show_label=False %}
+    {% include "wagtailadmin/shared/field.html" with field=form.password %}
+    <div id="groups-fields">
+        {% include "wagtailadmin/shared/field.html" with field=form.groups %}
+    </div>
+    <input type="submit" value="{% trans "Save" %}" class="button" />
+</form>

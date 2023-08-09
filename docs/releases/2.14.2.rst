@@ -1,0 +1,48 @@
+============================
+Wagtail 2.14.2 release notes
+============================
+
+*October 14, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Corrected badly-formed format strings in translations (Matt Westcott)
+ * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
+
+Upgrade considerations
+======================
+
+Customising relation name for admin comments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The admin commenting feature introduced in Wagtail 2.13 added a relation named ``comments`` to the Page and User
+models. This can cause conflicts with third-party apps that implement commenting functionality, and so this will be
+renamed to ``wagtail_admin_comments`` in Wagtail 2.15. Developers who are affected by this issue, and have thus been
+unable to upgrade to Wagtail 2.13 or above, can now "opt in" to the Wagtail 2.15 behaviour by adding the following
+line to their project settings:
+
+.. code-block:: python
+
+    WAGTAIL_COMMENTS_RELATION_NAME = 'wagtail_admin_comments'
+
+This will allow third-party commenting apps to work in Wagtail 2.14.2 alongside Wagtail's admin commenting functionality.
+
+Reusable library code that needs to preserve backwards compatibility with previous Wagtail versions
+can find out the relation name as follows:
+
+.. code-block:: python
+
+    try:
+        from wagtail.core.models import COMMENTS_RELATION_NAME
+    except ImportError:
+        COMMENTS_RELATION_NAME = 'comments'

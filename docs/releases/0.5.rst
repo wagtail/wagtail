@@ -1,0 +1,136 @@
+=========================
+Wagtail 0.5 release notes
+=========================
+
+*August 1, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Multiple image uploader
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The image uploader UI has been improved to allow multiple images to be uploaded at once.
+
+
+Image feature detection
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail can now apply face and feature detection on images using `OpenCV <http://opencv.org/>`_, and use this to intelligently crop images.
+
+:ref:`image_feature_detection`
+
+
+Using images outside Wagtail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In normal use, Wagtail will generate resized versions of images at the point that they are referenced on a template, which means that those images are not easily accessible for use outside of Wagtail, such as displaying them on external sites. Wagtail now provides a way to obtain URLs to your images, at any size.
+
+:ref:`using_images_outside_wagtail`
+
+
+RoutablePage
+~~~~~~~~~~~~
+
+A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
+
+:ref:`routable_page_mixin`
+
+
+Usage stats for images, documents and snippets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's now easier to find where a particular image, document or snippet is being used on your site.
+
+Set the ``WAGTAIL_USAGE_COUNT_ENABLED`` setting to ``True`` and an icon will appear on the edit page showing you which pages they have been used on.
+
+
+Copy Page action
+~~~~~~~~~~~~~~~~
+
+The explorer interface now offers the ability to copy pages, with or without subpages.
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+Core
+----
+
+* Hooks can now be defined using decorator syntax:
+
+.. code-block:: python
+
+  @hooks.register('construct_main_menu')
+  def construct_main_menu(request, menu_items):
+      menu_items.append(
+          MenuItem('Kittens!', '/kittens/', classnames='icon icon-folder-inverse', order=1000)
+      )
+
+* The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
+* A ``page_unpublished`` signal has been added.
+
+
+Admin
+-----
+
+* Explorer nav now rendered separately and fetched with AJAX when needed.
+
+  This improves the general performance of the admin interface for large sites.
+
+
+Bug fixes
+~~~~~~~~~
+
+* Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
+
+
+Upgrade considerations
+======================
+
+Urlconf entries for ``/admin/images/``, ``/admin/embeds/`` etc need to be removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you created a Wagtail project prior to the release of Wagtail 0.3, it is likely to contain the following entries in its ``urls.py``:
+
+.. code-block:: python
+
+  # TODO: some way of getting wagtailimages to register itself within wagtailadmin so that we
+  # don't have to define it separately here
+  url(r'^admin/images/', include(wagtailimages_urls)),
+  url(r'^admin/embeds/', include(wagtailembeds_urls)),
+  url(r'^admin/documents/', include(wagtaildocs_admin_urls)),
+  url(r'^admin/snippets/', include(wagtailsnippets_urls)),
+  url(r'^admin/search/', include(wagtailsearch_admin_urls)),
+  url(r'^admin/users/', include(wagtailusers_urls)),
+  url(r'^admin/redirects/', include(wagtailredirects_urls)),
+
+
+These entries (and the corresponding ``from wagtail.wagtail* import ...`` lines) need to be removed from ``urls.py``. (The entry for ``/admin/`` should be left in, however.)
+
+Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in future. Leaving these entries in place will now cause an ``ImproperlyConfigured`` exception to be thrown.
+
+
+New fields on Image and Rendition models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Several new fields have been added to the Image and Rendition models to support :ref:`image_feature_detection`. These will be added to the database when you run ``./manage.py migrate``. If you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` and ``wagtailimages.AbstractRendition`` classes and specifying ``WAGTAILIMAGES_IMAGE_MODEL`` in settings), the change needs to be applied to that model's database table too. Running the command:
+
+.. code-block:: console
+
+    $ ./manage.py schemamigration myapp --auto add_image_focal_point_fields
+
+(with 'myapp' replaced with your app name) will generate the necessary migration file.
+
+
+South upgraded to 1.0
+~~~~~~~~~~~~~~~~~~~~~
+
+In preparation for Django 1.7 support in a future release, Wagtail now depends on South 1.0, and its migration files have been moved from ``migrations`` to ``south_migrations``. Older versions of South will fail to find the migrations in the new location.
+
+If your project's requirements file (most commonly requirements.txt or requirements/base.txt) references a specific older version of South, this must be updated to South 1.0.

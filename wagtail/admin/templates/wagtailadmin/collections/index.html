@@ -1,0 +1,34 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block listing %}
+    <div class="nice-padding">
+        {% if collections %}
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>
+                            {% trans "Name" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pk, display_name in collections.get_indented_choices %}
+                        <tr>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    <a href="{% url 'wagtailadmin_collections:edit' pk %}">
+                                        {{ display_name }}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% url 'wagtailadmin_collections:add' as add_collection_url %}
+            <p>{% blocktrans trimmed %}No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?{% endblocktrans %}</p>
+        {% endif %}
+    </div>
+{% endblock %}

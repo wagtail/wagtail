@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtailin tyyliopas"
+
+msgid "Styleguide"
+msgstr "Tyyliopas"
+
+msgid "Minimap"
+msgstr "Pienoiskartta"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Delete image"
+msgstr "Poista kuva"
+
+msgid "Search something"
+msgstr "Hae jotain"
+
+msgid "Success message"
+msgstr "Onnistumisviesti"
+
+msgid "View live"
+msgstr "Näytä live"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Warning message"
+msgstr "Varoitusviesti"
+
+msgid "Error message"
+msgstr "Virheviesti"

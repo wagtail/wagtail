@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Thomas Kunambi <kunambi@gmail.com>, 2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail sökpromotioner"
+
+msgid "Search term(s)/phrase"
+msgstr "Sökterm/-fras"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Skriv in fulltextsökningen att matcha mot. En exakt match är nödvändig för "
+"att dina Främjade Resultat ska synas, jokertecken är EJ tillåtna."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Vänligen specificera minst en rekommendation för den här söktermen."
+
+msgid "Query Daily Hits"
+msgstr "Dagliga träffar för sökterm"
+
+msgid "page"
+msgstr "sida"
+
+msgid "description"
+msgstr "beskrivning"
+
+msgid "search promotion"
+msgstr "Premierad sökning"
+
+msgid "Add search promotion"
+msgstr "Lägg till premierad sökning"
+
+msgid "Add search pick"
+msgstr "Lägg till sökträff"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Premierade sökresultat är ett sätt att rekommendera specifika sidor som "
+"kanske inte rankas högt bland de organiska sökresultaten. Ex. rekommendera "
+"din primära donationssida till en användare som söker med den mindre vanliga "
+"termen \"<em>ge gåvor</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Fältet för \"Söktermen(-erna)/sökfrasen\" nedan måste innehålla hela och "
+"den exakta sökningen för vilka du vill rekommendera resultat, "
+"<em>inkluerande</em> eventuella felstavningar/användarfel. Som stöd kan du "
+"välja bland söktermer som har varit populära bland dina användare."
+
+msgid "Save"
+msgstr "Spara"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Radera %(query)s"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Är du säker på att du vill radera alla premierade resultat för den här "
+"söktermen?"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Redigerar %(query)s"
+
+msgid "Editing"
+msgstr "Redigerar"
+
+msgid "Move up"
+msgstr "Flytta upp"
+
+msgid "Move down"
+msgstr "Flytta ner"
+
+msgid "Recommended page"
+msgstr "Rekommenderad sida"
+
+msgid "Promoted search results"
+msgstr "Premierade sökresultat"
+
+msgid "Add recommended page"
+msgstr "Lägg till rekommenderad sida"
+
+msgid "Search Terms"
+msgstr "Söktermer"
+
+msgid "Add new promoted result"
+msgstr "Lägg till ett nytt premierat resultat"
+
+msgid "Search term(s)"
+msgstr "Sökterm(er)"
+
+msgid "Order by search term alphabetically"
+msgstr "Sortera efter sökterm alfabetiskt"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Sortera efter sökterm alfabetiskt i fallande ordning"
+
+msgid "Promoted results"
+msgstr "Premierade resultat"
+
+msgid "Views (past week)"
+msgstr "Visningar (förra veckan)"
+
+msgid "Order by views (lowest first)"
+msgstr "Sortera efter antal visningar (lägst först)"
+
+msgid "Order by views (highest first)"
+msgstr "Sortera efter antal visningar (högst först)"
+
+msgid "Edit this promotion"
+msgstr "Redigera denna premiering"
+
+msgid "None"
+msgstr "Ingen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga premierade resultat matchar \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Inga premierade resultat har skapats. Varför inte <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
+
+msgid "Search promoted results"
+msgstr "Premierade sökresultat"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Redaktörens val för '%(query)s' skapad. "
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Rekommendationer kunde inte läggas till p.g.a. fel"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Redaktörens val för '%(query)s' uppdaterad. "
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Rekommendationer kunde inte sparas p.g.a. fel"
+
+msgid "Editor's picks deleted."
+msgstr "Redaktörens val togs bort."

@@ -1,0 +1,12 @@
+{% load i18n wagtailadmin_tags %}
+
+<li>
+    {% icon name="image" %}
+    <a href="{% url 'wagtailimages:index' %}">
+        {% blocktrans trimmed count counter=total_images with total_images|intcomma as total %}
+            <span>{{ total }}</span> Image <span class="visuallyhidden">created in {{ site_name }}</span>
+        {% plural %}
+            <span>{{ total }}</span> Images <span class="visuallyhidden">created in {{ site_name }}</span>
+        {% endblocktrans %}
+    </a>
+</li>

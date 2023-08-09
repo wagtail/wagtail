@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail hledání"
+
+msgid "Query Daily Hits"
+msgstr "Denní vyhledávané výrazy"
+
+msgid "Popular search terms"
+msgstr "Oblíbené hledané výrazy"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (poslední týden)"
+
+msgid "No results found"
+msgstr "Nebyly nalezeny žádné výsledky"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrat z nejčastěji hledaných výrazů"

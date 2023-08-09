@@ -1,0 +1,18 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    {% if page %}
+        <p>{% blocktrans trimmed with title=page.get_admin_display_title workflow=workflow.name %}The page "{{ title }}" has been approved in workflow "{{ workflow }}".{% endblocktrans %}</p>
+        <p>{% trans "You can view the page here:" %} <a href="{{ page.full_url }}">{{ page.full_url }}</a></p>
+    {% else %}
+        {% latest_str object as title %}
+        {% admin_edit_url object user as edit_url %}
+        <p>
+            {% blocktrans trimmed with title=title workflow=workflow.name model_name=model_name asvar message %}
+                The {{ model_name }} "{{ title }}" has been approved in workflow "{{ workflow }}".
+            {% endblocktrans %}
+            {{ message|capfirst }}
+        </p>
+    {% endif %}
+{% endblock %}

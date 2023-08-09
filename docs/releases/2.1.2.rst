@@ -1,0 +1,19 @@
+===========================
+Wagtail 2.1.2 release notes
+===========================
+
+*August 6, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Bundle the l18n package to avoid installation issues on systems with a non-Unicode locale (Matt Westcott)
+* Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)

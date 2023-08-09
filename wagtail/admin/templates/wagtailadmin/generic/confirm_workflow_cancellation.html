@@ -1,0 +1,31 @@
+{% load i18n %}
+{% blocktrans trimmed with model_name=model_opts.verbose_name asvar publish_title %}
+    Publish {{ model_name }}
+{% endblocktrans %}
+{% include "wagtailadmin/shared/header.html" with title=publish_title icon="clipboard-list" %}
+
+<div class="nice-padding">
+    <p>
+        {% if needs_changes %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                This {{ model_name }} was marked as needing changes at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                This {{ model_name }} is currently at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+            {% endblocktrans %}
+        {% endif %}
+    </p>
+    <p>
+        {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+            Publishing this {{ model_name }} will cancel the current workflow.
+        {% endblocktrans %}
+    </p>
+    <p>
+        {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+            Would you still like to publish this {{ model_name }}?
+        {% endblocktrans %}
+    </p>
+    <button type="submit" class="button" data-confirm-cancellation>{% trans 'Publish' %}</button>
+    <button type="submit" class="button no" data-cancel-dialog>{% trans 'Cancel' %}</button>
+</div>

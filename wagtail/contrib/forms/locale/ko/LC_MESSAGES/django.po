@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyu Choi, 2022
+# Kyu Choi, 2022
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Kyu Choi, 2022\n"
+"Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "웨그테일 폼"
+
+msgid "Date from"
+msgstr "시작일"
+
+msgid "Date to"
+msgstr "종료일"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"%(label_name)s 레이블을 사용하는 다른 필드가 있습니다. 그 중 하나는 다른 걸"
+"로 바꾸어 주세요."
+
+msgid "Single line text"
+msgstr "단일 라인 텍스트"
+
+msgid "Multi-line text"
+msgstr "복수 라인 텍스트"
+
+msgid "Email"
+msgstr "이메일"
+
+msgid "Number"
+msgstr "숫자"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "체크박스"
+
+msgid "Checkboxes"
+msgstr "체크박스"
+
+msgid "Drop down"
+msgstr "드롭 다운"
+
+msgid "Multiple select"
+msgstr "여러 개 선택"
+
+msgid "Radio buttons"
+msgstr "라디오 버튼"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Date/time"
+msgstr "날짜/시간"
+
+msgid "Hidden field"
+msgstr "숨겨진 필드"
+
+msgid "submit time"
+msgstr "제출 시간"
+
+msgid "form submission"
+msgstr "양식 제출"
+
+msgid "form submissions"
+msgstr "양식 제출"
+
+msgid "name"
+msgstr "이름"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "양식 필드의 안전한 이름, 레이블이 ascii_snake_case로 변환됨"
+
+msgid "label"
+msgstr "레이블"
+
+msgid "The label of the form field"
+msgstr "양식 폼의 레이블"
+
+msgid "field type"
+msgstr "필드 종류"
+
+msgid "required"
+msgstr "필수"
+
+msgid "choices"
+msgstr "선택지"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"쉼표 또는 줄바꿈으로 구분된 선택 목록입니다. 체크박스, 라디오 및 드롭다운에서"
+"만 사용할 수 있습니다."
+
+msgid "default value"
+msgstr "기본값"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr "기본값입니다. 확인란에서 지원되는 쉼표 또는 새 줄 구분 값입니다."
+
+msgid "help text"
+msgstr "도움말"
+
+msgid "Submission date"
+msgstr "제출일"
+
+msgid "Form"
+msgstr "양식"
+
+msgid "Landing page"
+msgstr "랜딩 페이지"
+
+msgid "to address"
+msgstr "받는 주소"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"선택 사항 - 양식 제출이 이 이메일 주소들로 전송됩니다. 여러 개의 주소는 콤마"
+"로 구분하여 적습니다."
+
+msgid "from address"
+msgstr "보내는 주소"
+
+msgid "subject"
+msgstr "주제"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s 개 제출"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "양식 데이터 %(title)s 삭제"
+
+msgid "Delete form data"
+msgstr "양식 데이터 삭제"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "정말 제출된 해당 폼을 삭제하길 원합니까?"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Forms"
+msgstr "양식"
+
+msgid "Pages"
+msgstr "페이지"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Origin"
+msgstr "원본"
+
+msgid "Delete selected submissions"
+msgstr "선택된 제출 삭제"
+
+msgid "Total submissions"
+msgstr "전체 제출"
+
+msgid "Latest submission"
+msgstr "최근 제출"
+
+msgid "No form pages have been created."
+msgstr "양식 페이지가 생성되지 않았습니다."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s 의 제출"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "'%(title)s' 양식에 관한 제출 한 결과가 없습니다."
+
+msgid "Filter"
+msgstr "필터"
+
+msgid "Apply filters"
+msgstr "필터를 적용한"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d개의 제출이 삭제되었습니다."

@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load static wagtailadmin_tags %}
+
+{% block bodyclass %}redirects{% endblock %}
+
+{% block titletag %}{% trans "Redirects" %}{% endblock %}
+
+{% block content %}
+    {% trans "Redirects" as redirects_str %}
+    {% url 'wagtailredirects:index' as search_results_url %}
+    {% if user_can_add %}
+        {% url "wagtailredirects:add" as add_link %}
+        {% trans "Add redirect" as add_str %}
+        {% url "wagtailredirects:start_import" as import_link %}
+        {% url "wagtailredirects:report" as report_link %}
+        {% trans "Import redirects" as import_str %}
+        {% trans "Export redirects" as export_str %}
+        {% fragment as redirect_actions %}
+            <div class="dropdown dropdown-button match-width">
+                <a href="{{ import_link }}" class="button bicolor button--icon">{% icon name="doc-full-inverse" wrapped=1 %}{{ import_str }}</a>
+                <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                <ul>
+                    <li><a class="button bicolor button--icon" href="{{ report_link }}">{% icon name="download" wrapped=1 %}{{ export_str }}</a></li>
+                </ul>
+            </div>
+        {% endfragment %}
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" query_parameters=query_parameters action_url=add_link action_text=add_str action_icon="plus" extra_actions=redirect_actions search_results_url=search_results_url search_target="#redirects-results" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" search_results_url=search_results_url search_target="#redirects-results" %}
+    {% endif %}
+    <div class="nice-padding">
+        <div id="redirects-results" class="redirects">
+            {% include "wagtailredirects/results.html" %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    {% with page_obj as pages %}
+        <div id="page-results">
+            {% if pages %}
+                {% block listing %}
+                    {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
+                {% endblock %}
+            {% else %}
+                {% block no_results %}
+                    <p>{% trans "No pages match this report's criteria." %}</p>
+                {% endblock %}
+            {% endif %}
+        </div>
+    {% endwith %}
+{% endblock %}

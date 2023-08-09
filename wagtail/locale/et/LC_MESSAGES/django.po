@@ -1,0 +1,694 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
+# Martin <martinpajuste@gmail.com>, 2023
+# Matt Westcott <matthew@torchbox.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail südamik"
+
+msgid "Add Comment"
+msgstr "Lisage kommentaar"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimaalne üksuste arv on %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimaalne üksuste arv on %(max_num)d"
+
+msgid "Move up"
+msgstr "Üles liikuma"
+
+msgid "Move down"
+msgstr "Mine alla"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Add"
+msgstr "Lisama"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s sellel plokil pole valikuid."
+
+msgid "This block has no options."
+msgstr "Sellel plokil pole valikuid."
+
+msgid "This field is required."
+msgstr "Selle välja täitmine on kohustuslik."
+
+msgid "Password"
+msgstr "Parool"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Sisestatud parool pole õige. Palun proovi uuesti."
+
+msgid "Comment"
+msgstr "Kommentaar"
+
+msgid "Locked"
+msgstr "Lukustatud"
+
+msgid "Unlocked"
+msgstr "Lukustamata"
+
+msgid "latest revision"
+msgstr "uusim redaktsioon"
+
+msgid "live"
+msgstr "elama"
+
+msgid "has unpublished changes"
+msgstr "on avaldamata muudatusi"
+
+msgid "first published at"
+msgstr "esmakordselt avaldatud aadressil"
+
+msgid "last published at"
+msgstr "viimati avaldatud aadressil"
+
+msgid "live revision"
+msgstr "otseülekanne"
+
+msgid "go live date/time"
+msgstr "mine otse kuupäev / kellaaeg"
+
+msgid "expiry date/time"
+msgstr "aegumiskuupäev / kellaaeg"
+
+msgid "expired"
+msgstr "aegunud"
+
+msgid "scheduled"
+msgstr "ajastatud"
+
+msgid "draft"
+msgstr "mustand"
+
+msgid "live + scheduled"
+msgstr "otse + plaanitud"
+
+msgid "live + draft"
+msgstr "otse + mustand"
+
+msgid "Default"
+msgstr "Vaikimisi"
+
+msgid "locked"
+msgstr "lukus"
+
+msgid "locked at"
+msgstr "lukustatud kell"
+
+msgid "locked by"
+msgstr "lukustatud"
+
+msgid "in moderation"
+msgstr "mõõdukalt"
+
+msgid "live + in moderation"
+msgstr "live + mõõdukalt"
+
+msgid "Add/edit pages you own"
+msgstr "Lisage / muutke omatavaid lehti"
+
+msgid "Bulk delete"
+msgstr "Hulgi kustutamine"
+
+msgid "Delete pages with children"
+msgstr "Kustutage lastega lehed"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Edit any page"
+msgstr "Muutke suvalist lehte"
+
+msgid "Lock"
+msgstr "Lukusta"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lukustage / avage lukustatud lehed"
+
+msgid "Publish"
+msgstr "Avalda"
+
+msgid "Publish any page"
+msgstr "Avaldage mis tahes leht"
+
+msgid "Unlock"
+msgstr "Ava"
+
+msgid "Unlock any page"
+msgstr "Avage mis tahes leht"
+
+msgid "title"
+msgstr "pealkiri"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Lehe pealkiri sellisena, nagu soovite, et avalikkus seda näeks"
+
+msgid "slug"
+msgstr "nälkjas"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Lehe nimi sellisena, nagu see URL-ides ilmub, nt http://domain.com/blog/[my-"
+"slug]/"
+
+msgid "content type"
+msgstr "sisu tüüp"
+
+msgid "URL path"
+msgstr "URL-i tee"
+
+msgid "owner"
+msgstr "omanik"
+
+msgid "show in menus"
+msgstr "saade menüüdes"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
+
+msgid "latest revision created at"
+msgstr "viimane redaktsioon loodud aadressil"
+
+msgid "page"
+msgstr "lehele"
+
+msgid "pages"
+msgstr "lehekülgi"
+
+msgid "submitted for moderation"
+msgstr "modereerimiseks esitatud"
+
+msgid "created at"
+msgstr "loodud aadressil"
+
+msgid "user"
+msgstr "kasutaja"
+
+msgid "content JSON"
+msgstr "sisu JSON"
+
+msgid "approved go live at"
+msgstr "heakskiidetud otseülekanne kell"
+
+msgid "revision"
+msgstr "redaktsioon"
+
+msgid "revisions"
+msgstr "redaktsioonid"
+
+msgid "group"
+msgstr "Grupp"
+
+msgid "permission"
+msgstr "luba"
+
+msgid "permission type"
+msgstr "loa tüüp"
+
+msgid "group page permission"
+msgstr "grupilehe luba"
+
+msgid "group page permissions"
+msgstr "grupilehe load"
+
+msgid "page view restriction"
+msgstr "lehevaatamise piirang"
+
+msgid "page view restrictions"
+msgstr "lehevaatamise piirangud"
+
+msgid "workflow"
+msgstr "töövoog"
+
+msgid "workflow page"
+msgstr "töövoo leht"
+
+msgid "workflow pages"
+msgstr "töövoo lehed"
+
+msgid "workflow_tasks"
+msgstr "töövoo_ülesanded"
+
+msgid "task"
+msgstr "ülesanne"
+
+msgid "workflow task order"
+msgstr "töövoo ülesannete järjekord"
+
+msgid "workflow task orders"
+msgstr "töövoo ülesannete tellimused"
+
+msgid "name"
+msgstr "nimi"
+
+msgid "active"
+msgstr "aktiivne"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Töövoogudesse saab lisada aktiivseid ülesandeid. Ülesande desaktiveerimine "
+"ei eemalda seda olemasolevatest töövoogudest."
+
+msgid "tasks"
+msgstr "ülesandeid"
+
+msgid "workflows"
+msgstr "töövood"
+
+msgid "groups"
+msgstr "rühmadesse"
+
+msgid "Request changes"
+msgstr "Taotle muudatusi"
+
+msgid "Approve"
+msgstr "Kinnita"
+
+msgid "Approve with comment"
+msgstr "Kinnitage kommentaariga"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Valitud Wagtail Groupsi liikmed saavad selle ülesande heaks kiita"
+
+msgid "Group approval task"
+msgstr "Grupi kinnitamise ülesanne"
+
+msgid "Group approval tasks"
+msgstr "Grupi kinnitamise ülesanded"
+
+msgid "In progress"
+msgstr "Pooleli"
+
+msgid "Approved"
+msgstr "Heaks kiidetud"
+
+msgid "Needs changes"
+msgstr "Vajab muudatusi"
+
+msgid "Cancelled"
+msgstr "Tühistatud"
+
+msgid "status"
+msgstr "staatus"
+
+msgid "requested by"
+msgstr "nõutud"
+
+msgid "current task state"
+msgstr "praegune ülesande olek"
+
+msgid "Not started"
+msgstr "Alustamata"
+
+msgid "Workflow state"
+msgstr "Töövoo olek"
+
+msgid "Workflow states"
+msgstr "Töövoo olekud"
+
+msgid "Rejected"
+msgstr "Tagasi lükatud"
+
+msgid "Skipped"
+msgstr "Jäeti vahele"
+
+msgid "workflow state"
+msgstr "töövoo olek"
+
+msgid "started at"
+msgstr "algas kell"
+
+msgid "finished at"
+msgstr "valmis kell"
+
+msgid "finished by"
+msgstr "valmis"
+
+msgid "Task state"
+msgstr "Ülesande olek"
+
+msgid "Task states"
+msgstr "Ülesande seisud"
+
+msgid "page log entry"
+msgstr "lehelogi kirje"
+
+msgid "page log entries"
+msgstr "lehelogi kirjed"
+
+msgid "Draft saved"
+msgstr "Mustand on salvestatud"
+
+msgid "timestamp (UTC)"
+msgstr "ajatempel (UTC)"
+
+msgid "log entry"
+msgstr "logikanne"
+
+msgid "log entries"
+msgstr "logikirjed"
+
+msgid "system"
+msgstr "süsteemi"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tundmatu %(action)s"
+
+msgid "collection"
+msgstr "kollektsioon"
+
+msgid "collection view restriction"
+msgstr "kogu vaatamise piirang"
+
+msgid "collection view restrictions"
+msgstr "kogu vaatamise piirangud"
+
+msgid "collections"
+msgstr "kollektsioonid"
+
+msgid "group collection permission"
+msgstr "grupi kogumise luba"
+
+msgid "group collection permissions"
+msgstr "grupikogude load"
+
+msgid "hostname"
+msgstr "hostinimi"
+
+msgid "port"
+msgstr "sadam"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Kui vajate URL-ides kuvamiseks konkreetset pordinumbrit (nt pordi 8000 "
+"arendus), määrake see millekski muuks kui 80. See ei mõjuta päringute "
+"käsitlemist (nii et pordi edastamine töötab endiselt)."
+
+msgid "site name"
+msgstr "saidi nimi"
+
+msgid "Human-readable name for the site."
+msgstr "Inimloetav saidi nimi."
+
+msgid "root page"
+msgstr "juurleht"
+
+msgid "is default site"
+msgstr "on vaikesait"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Kui see on tõsi, käsitleb see sait taotlusi kõigi teiste hostinimede kohta, "
+"millel pole oma saidikirjet"
+
+msgid "site"
+msgstr "sait"
+
+msgid "sites"
+msgstr "saite"
+
+msgid "default"
+msgstr "vaikimisi"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s on juba vaikesaidina konfigureeritud. Enne selle saidi "
+"vaikesalvestamist peate selle tühistama."
+
+msgid "Public"
+msgstr "Avalik"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privaatne, juurdepääsetav sisseloginud kasutajatele"
+
+msgid "Private, accessible with the following password"
+msgstr "Privaatne, juurdepääsetav järgmise parooliga"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privaatne, juurdepääsetav teatud gruppide kasutajatele"
+
+msgid "password"
+msgstr "parool"
+
+msgid "view restriction"
+msgstr "vaatamise piiramine"
+
+msgid "view restrictions"
+msgstr "vaatamise piirangud"
+
+msgid "Log in"
+msgstr "Logi sisse"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Teie kasutajanimi ja parool ei klappinud. Palun proovi uuesti."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Teie kontol pole juurdepääsu sellele lehele. Jätkamiseks logige sisse "
+"kontoga, millel on juurdepääs."
+
+msgid "Password required"
+msgstr "Nõutav parool"
+
+msgid "You need a password to access this page."
+msgstr "Sellele lehele pääsemiseks vajate parooli."
+
+msgid "Continue"
+msgstr "Jätka"
+
+msgid "Create"
+msgstr "Loo"
+
+msgid "Created"
+msgstr "Loodud"
+
+msgid "Edited"
+msgstr "Redigeeritud"
+
+msgid "Deleted"
+msgstr "Kustutatud"
+
+msgid "Published"
+msgstr "Avaldatud"
+
+msgid "Publish scheduled draft"
+msgstr "Ajakava mustandi avaldamine"
+
+msgid "Published scheduled draft"
+msgstr "Avaldatud kavandatud mustand"
+
+msgid "Unpublish"
+msgstr "Tühista avaldamine"
+
+msgid "Unpublished"
+msgstr "Avaldamata"
+
+msgid "Unpublish scheduled draft"
+msgstr "Ajastatud mustandi avaldamise tühistamine"
+
+msgid "Unpublished scheduled draft"
+msgstr "Ajakavandi avaldamata avaldamine"
+
+msgid "Reject"
+msgstr "Keeldu"
+
+msgid "Rename"
+msgstr "Nimeta ümber"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Nimetati '%(old)s' ümber '%(new)s'"
+
+msgid "Renamed"
+msgstr "Ümbernimetatud"
+
+msgid "Revert"
+msgstr "Tagasi"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Tagasi eelmisele versioonile lülitumine, mille ID on %(revision_id)sloodud "
+"%(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Tagasi eelmise redaktsiooni juurde"
+
+msgid "Copy"
+msgstr "Kopeeri"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopeeritud asukohast %(title)s"
+
+msgid "Copied"
+msgstr "Kopeeritud"
+
+msgid "Move"
+msgstr "Liiguta"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Teisaldatud kaustast '%(old_parent)s' kausta '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Liigutatud"
+
+msgid "Schedule publication"
+msgstr "Ajakava avaldamine"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Versiooni %(revision_id)s plaaniline %(created_at)s avaldamine "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Lehe avaldamine on kavandatud kell %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Lehe avaldamine on kavandatud"
+
+msgid "Unschedule publication"
+msgstr "Väljaandmise ajagraafik"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Versiooni %(revision_id)s  plaaniväline %(created_at)s avaldamine "
+"%(go_live_at)s asemel."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Lehe avaldamine on ajakavas %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Lehe avaldamine on ajastatud"
+
+msgid "Add view restrictions"
+msgstr "Lisage vaate piirangud"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Lisati vaatamise piirang '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Lisatud vaatamispiirang"
+
+msgid "Update view restrictions"
+msgstr "Vaate piirangute värskendamine"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Vaatamispiirang värskendati väärtusele '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Uuendatud vaatamispiirang"
+
+msgid "Remove view restrictions"
+msgstr "Eemaldage vaate piirangud"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Eemaldas vaatamise piirangu '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Vaatamispiirang on eemaldatud"
+
+msgid "Workflow: start"
+msgstr "Töövoog: algus"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' algas. Järgmine samm '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Töövoog algas"
+
+msgid "Workflow: approve task"
+msgstr "Töövoog: kinnitage ülesanne"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Heaks kiidetud '%(task)s'. Järgmine samm '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Kinnitatud \"%(task)s\". \"%(workflow)s\" lõpetatud."
+
+msgid "Workflow task approved"
+msgstr "Töövoo ülesanne on kinnitatud"
+
+msgid "Workflow: reject task"
+msgstr "Töövoog: lükake ülesanne tagasi"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Tagasi lükatud ''%(task)s\". Nõutud on muudatusi"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Töövoo ülesanne lükati tagasi. Töövoog on lõpule viidud"
+
+msgid "Workflow: resume task"
+msgstr "Töövoog: ülesande jätkamine"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Töövoo ülesanne on uuesti esitatud. Töövoog jätkus"
+
+msgid "Workflow: cancel"
+msgstr "Töövoog: tühista"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Tühistatud \"%(workflow)s\" \"%(task)s\" "
+
+msgid "Workflow cancelled"
+msgstr "Töövoog on tühistatud"

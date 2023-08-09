@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
+"Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Choose"
+msgstr "Избери"
+
+msgid "Yes, delete"
+msgstr "Да, изтрий го"
+
+msgid "Popular tags"
+msgstr "Популярни тагове"
+
+msgid "New"
+msgstr "Ново"
+
+msgid "Latest images"
+msgstr "Последни изображения"
+
+msgid "Choose a format"
+msgstr "Избери формат"
+
+msgid "Insert image"
+msgstr "Вмъкни Изображение"
+
+msgid "Add an image"
+msgstr "Добави Изображение"
+
+msgid "Add image"
+msgstr "Добави Изображение"
+
+msgid "Save"
+msgstr "Запази"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Редакция на %(title)s"
+
+msgid "Editing"
+msgstr "Редактиране"
+
+msgid "Delete image"
+msgstr "Изтрий Изображение"
+
+msgid "Images"
+msgstr "Изображения"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Преглед"
+
+msgid "Tags"
+msgstr "Тагове"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Upload"
+msgstr "Качване"
+
+msgid "Choose an image"
+msgstr "Изберете изображение"
+
+msgid "Choose another image"
+msgstr "Избери друго Изображение"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Изображение '%(image_title)s' обновено."
+
+msgid "The image could not be saved due to errors."
+msgstr "Изображението не можеше да бъде запазено поради грешки."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Изображение '%(image_title)s' изтрито."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Изображение '%(image_title)s' добавено."
+
+msgid "The image could not be created due to errors."
+msgstr "Изображението не можеше да бъде създадено поради грешки."

@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Forms" %}{% endblock %}
+{% block content %}
+    {% trans "Forms" as forms_str %}
+    {% trans "Pages" as select_form_str %}
+    {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=forms_str subtitle=select_form_str icon="form" %}
+
+    <div class="nice-padding">
+        <div id="form-results" class="forms">
+            {% include "wagtailforms/results_forms.html" %}
+        </div>
+    </div>
+{% endblock %}

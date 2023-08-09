@@ -1,0 +1,38 @@
+{% load wagtailadmin_tags %}
+<section
+    id="tab-{{ view.creation_tab_id }}"
+    class="w-tabs__panel"
+    role="tabpanel"
+    hidden
+    aria-labelledby="tab-label-{{ view.creation_tab_id }}"
+>
+    {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
+    <form data-chooser-modal-creation-form action="{{ create_action_url }}" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
+        {% csrf_token %}
+        {% for field in creation_form.hidden_fields %}{{ field }}{% endfor %}
+
+        <ul class="fields">
+            {% for field in creation_form.visible_fields %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" with field=field %}
+                </li>
+            {% endfor %}
+            <li>
+                {% if create_action_clicked_label %}
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{{ create_action_clicked_label }}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{{ create_action_label }}</em>
+                    </button>
+                {% else %}
+                    <button type="submit" class="button">{{ create_action_label }}</button>
+                {% endif %}
+            </li>
+        </ul>
+    </form>
+</section>

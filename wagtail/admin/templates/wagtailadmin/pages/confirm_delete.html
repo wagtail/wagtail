@@ -1,0 +1,99 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Delete" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        {% include "wagtailadmin/shared/usage_summary.html" %}
+        {% if not is_protected %}
+            <p>
+                {% trans 'Are you sure you want to delete this page?' %}
+
+                {% if descendant_count %}
+                    {% blocktrans trimmed count counter=descendant_count %}
+                        Deleting this page will also delete {{ descendant_count }} child page.
+                    {% plural %}
+                        Deleting this page will also delete {{ descendant_count }} more child pages.
+                    {% endblocktrans %}
+
+                    {% if translation_count %} {# has translations #}
+                        {% if translation_descendant_count %} {# has translations with descendants #}
+                            {% if translation_count == 1 %}
+                                {% blocktrans trimmed count counter=translation_descendant_count %}
+                                    It will also delete 1 translation and its combined {{ translation_descendant_count }} translated child page.
+                                {% plural %}
+                                    It will also delete 1 translation and its combined {{ translation_descendant_count }} translated child pages.
+                                {% endblocktrans %}
+                            {% else %}
+                                {% blocktrans trimmed count counter=translation_descendant_count %}
+                                    It will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child page.
+                                {% plural %}
+                                    It will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child pages.
+                                {% endblocktrans %}
+                            {% endif %}
+                        {% else %}
+                            {% blocktrans trimmed count counter=translation_count %}
+                                It will also delete {{ translation_count }} translation.
+                            {% plural %}
+                                It will also delete {{ translation_count }} translations.
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% endif %}
+                {% elif translation_count %} {# no descendants #}
+                    {% if translation_descendant_count %} {# has translations with descendants #}
+                        {% if translation_count == 1 %}
+                            {% blocktrans trimmed count counter=translation_descendant_count %}
+                                Deleting this page will also delete 1 translation and its combined {{ translation_descendant_count }} translated child page.
+                            {% plural %}
+                                Deleting this page will also delete 1 translation and its combined {{ translation_descendant_count }} translated child pages.
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans trimmed count counter=translation_descendant_count %}
+                                Deleting this page will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child page.
+                            {% plural %}
+                                Deleting this page will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child pages.
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% else %}
+                        {% blocktrans trimmed count counter=translation_count %}
+                            Deleting this page will also delete {{ translation_count }} translation of this page.
+                        {% plural %}
+                            This will also delete {{ descendant_count }} more child pages.
+                            Deleting this page will also delete {{ translation_count }} translations of this page.
+                        {% endblocktrans %}
+                    {% endif %}
+                {% endif %}
+            </p>
+
+            <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
+                {% csrf_token %}
+                {% if confirm_before_delete %}
+                    <p id="id_confirm_site_name-warning" class="status-msg warning">
+                        {% blocktrans trimmed with total_pages=descendant_count|add:1 %}
+                            This action will delete total <b>{{ total_pages }}</b> pages.
+                        {% endblocktrans %}
+                    </p>
+                    <label class="w-label-3" for="id_confirm_site_name">
+                        {% blocktrans trimmed %}
+                            Please type <b>{{ wagtail_site_name }}</b> to confirm.
+                        {% endblocktrans %}
+                    </label>
+                    <input type="text" name="confirm_site_name" class="w-mb-4"
+                        id="id_confirm_site_name" aria-describedby="id_confirm_site_name-warning" required>
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
+                <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete it" %}</a>
+            </form>
+        {% endif %}
+
+        {% page_permissions page as page_perms %}
+        {% if page_perms.can_unpublish %}
+            {% url 'wagtailadmin_pages:unpublish' page.id as unpublish_url %}
+            <p style="margin-top: 1em">{% blocktrans trimmed %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
+        {% endif %}
+    </div>
+{% endblock %}

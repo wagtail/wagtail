@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yeh Yen-Ke <yyken@outlook.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
+"Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail embeds"
+msgstr "Wagtail 內嵌元素"
+
+msgid "Cannot find an embed for this URL."
+msgstr "在這個URL中沒有找到內嵌元素。"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Please enter a valid URL"
+msgstr "請輸入一個有效的URL"
+
+msgid "embed"
+msgstr "內嵌元素"
+
+msgid "embeds"
+msgstr "內嵌元素"
+
+msgid "Insert embed"
+msgstr "插入內嵌元素"
+
+msgid "Insert"
+msgstr "插入"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr "內嵌元素API的Key可能有問題，請檢查設置。"
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr "在將內嵌元素嵌入到此URL時出現錯誤，請稍後再試。"
+
+msgid "Embed"
+msgstr "內嵌"

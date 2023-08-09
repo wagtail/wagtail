@@ -1,0 +1,67 @@
+{% load i18n wagtailadmin_tags %}
+{% load l10n %}
+
+<table class="listing">
+    <thead>
+        <tr>
+            <th>
+                {% trans 'Status' %}
+            </th>
+            <th>
+                {% trans 'Tasks' %}
+            </th>
+            <th>
+                {% trans 'Requested by' %}
+            </th>
+            <th>
+                {% trans 'Started at' %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if workflow_states %}
+            {% for workflow_state in workflow_states %}
+                <tr>
+                    <td>
+                        {% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id as status_url %}
+                        {% status workflow_state.get_status_display url=status_url classname="w-status--primary" %}
+                    </td>
+                    <td class="title">
+                        <h2>
+                            <a href="{% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id %}">
+                                {{ workflow_state.workflow.name }}
+                            </a>
+                        </h2>
+                        {% trans 'Approved task' as approved_title %}
+                        {% trans 'Incomplete task' as incomplete_title %}
+                        {% for task in workflow_state.all_tasks_with_status %}
+                            <span tabindex="0" data-tippy-content="{{ task.name }}: {{ task.status_display }}">
+                                {% if task.status == 'approved' %}
+                                    {% icon "success" title=approved_title classname="initial" %}
+                                {% else %}
+                                    {% icon "radio-empty" title=incomplete_title classname="initial" %}
+                                {% endif %}
+                            </span>
+                        {% endfor %}
+                    </td>
+                    <td>{{ workflow_state.requested_by|user_display_name }}</td>
+                    <td>{% human_readable_date workflow_state.created_at %}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}
+                <tr><td class="no-results-message">
+                    <p>
+                        {% if page %}
+                            {% trans "This page hasn't been submitted for moderation yet" %}
+                        {% else %}
+                            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                                This {{ model_name }} hasn't been submitted for moderation yet
+                            {% endblocktrans %}
+                        {% endif %}
+                    </p>
+                </td></tr>
+            {% endblock %}
+        {% endif %}
+    </tbody>
+</table>

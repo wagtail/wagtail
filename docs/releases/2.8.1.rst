@@ -1,0 +1,12 @@
+===========================
+Wagtail 2.8.1 release notes
+===========================
+
+*April 14, 2020*
+
+CVE-2020-11001: Possible XSS attack via page revision comparison view
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses a cross-site scripting (XSS) vulnerability on the page revision comparison view within the Wagtail admin interface. A user with a limited-permission editor account for the Wagtail admin could potentially craft a page revision history that, when viewed by a user with higher privileges, could perform actions with that user's credentials. The vulnerability is not exploitable by an ordinary site visitor without access to the Wagtail admin.
+
+Many thanks to Vlad Gerasimenko for reporting this issue.

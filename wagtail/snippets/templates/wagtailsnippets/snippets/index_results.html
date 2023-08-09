@@ -1,0 +1,30 @@
+{% load i18n %}
+{% if object_list %}
+    {% if is_searching or is_filtering %}
+        <h2 role="alert">
+            {% blocktrans trimmed count counter=page_obj.paginator.count %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
+        </h2>
+    {% endif %}
+
+    {% include "wagtailsnippets/snippets/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+{% else %}
+    {% if is_searching or is_filtering %}
+        <p role="alert">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural %}Sorry, no {{ snippet_type_name_plural }} match your query{% endblocktrans %}</p>
+    {% else %}
+        {% url view.add_url_name as wagtailsnippets_create_url %}
+
+        {# NOTE: The two strings in the following messages are exactly the same #}
+        {# The difference is that the first variant appends '?locale={{ locale.language_code}}' to 'wagtailsnippets_create_url' #}
+        {% if locale %}
+            <p class="no-results-message">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural wagtailsnippets_create_url=wagtailsnippets_create_url|add:'?locale='|add:locale.language_code %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p class="no-results-message">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+        {% endif %}
+    {% endif %}
+{% endif %}

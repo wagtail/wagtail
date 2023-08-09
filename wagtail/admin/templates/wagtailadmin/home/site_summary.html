@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+{% if summary_items %}
+    <section class="w-summary" aria-labelledby="header-title">
+        <h2 class="visuallyhidden">{% trans "Site summary" %}</h2>
+        <ul class="w-summary__list">
+            {% for item in summary_items %}
+                {% component item %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

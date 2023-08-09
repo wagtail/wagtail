@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/shared/field.html" %}
+{% load i18n wagtailadmin_tags wagtailimages_tags %}
+{% block form_field %}
+    {% image image original as original_image %}
+
+    <a href="{{ original_image.url }}">{% icon name="image" classname="default" %}{{ image.filename }}</a> ({{ original_image.width }}x{{ original_image.height}})<br /><br />
+
+    {% trans "Change image file:" %}
+    {{ field }}
+{% endblock %}

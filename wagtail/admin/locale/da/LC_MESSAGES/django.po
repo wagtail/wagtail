@@ -1,0 +1,715 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Asger Sørensen <asger.soerensen@live.com>, 2016
+# Benjamin Bach <benjaoming@gmail.com>, 2022
+# Mads Kronborg <madskronborg99@gmail.com>, 2018
+# MRostgaard <Mrostgaard@gmail.com>, 2019
+# MRostgaard <Mrostgaard@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
+"Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Udgiv"
+
+msgid "Submit for moderation"
+msgstr "Indsend til moderation"
+
+msgid "Cancel workflow "
+msgstr "Annuller arbejdsgang"
+
+msgid "Unpublish"
+msgstr "Afpublicer"
+
+msgid "Save Draft"
+msgstr "Gem skitse"
+
+msgid "Page locked"
+msgstr "Siden er låst"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s og Publicér"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Beklager, du har ikke rettigheder til at tilgå dette område"
+
+msgid "You do not have permission to access the admin"
+msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
+
+msgid "None"
+msgstr "Intet"
+
+msgid "Date from"
+msgstr "Dato fra"
+
+msgid "Date to"
+msgstr "Dato til"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Preferred language"
+msgstr "Foretrukket sprog"
+
+msgid "Current time zone"
+msgstr "Nuværende tidszone"
+
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Efternavn"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Upload a profile picture"
+msgstr "Upload et profilbillede"
+
+msgid "Enter password"
+msgstr "Skriv adgangskode"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Skriv din %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Skriv din email addresse for at genindstille din adgangskode"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Søge term"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Parent"
+msgstr "Forældre"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Du har ikke mulighed for at have flere tilladelser på den samme samling."
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
+
+msgid "New title"
+msgstr "Ny titel"
+
+msgid "New slug"
+msgstr "Ny slug"
+
+msgid "New parent page"
+msgstr "Ny forældre side"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Denne kopi vil blive en underside af den givne forældre side."
+
+msgid "Copy subpages"
+msgstr "Kopier undersider"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Dette vil kopiere %(count)s underside."
+msgstr[1] "Dette vil kopiere %(count)s undersider."
+
+msgid "Publish copied page"
+msgstr "Udgiv koipieret side"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Denne side er udgivet. Vil du gerne udgive dens kopi også?"
+
+msgid "Publish copies"
+msgstr "Udgiv kopier"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)saf siderne du har kopieret er live. Vil du udgive deres kopier?"
+msgstr[1] ""
+"%(count)s af siderne du har kopieret er live. Vil du udgive deres kopier?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Du har ikke tilladelse til at kopiere til side \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Dette slug er allerede i brug inden for konteksten af forældresiden "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan ikke kopiere en side til sig selv når du kopierer undersider"
+
+msgid "Visibility"
+msgstr "Synlighed"
+
+msgid "This field is required."
+msgstr "Dette felt er påkrævet."
+
+msgid "Please select at least one group."
+msgstr "Vælg venligst mindst én gruppe."
+
+msgid "For search engines"
+msgstr "Til søgemaskiner"
+
+msgid "For site menus"
+msgstr "For site-menuer"
+
+msgid "Content"
+msgstr "Indhold"
+
+msgid "Promote"
+msgstr "Promover"
+
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Error 404: Page not found"
+msgstr "Fejl 404: Side ikke fundet"
+
+msgid "Error 404"
+msgstr "Fejl 404"
+
+msgid "The requested page could not be found."
+msgstr "Den anmodede side kunne ikke findes."
+
+msgid "Go to Wagtail admin"
+msgstr "Gå til Wagtail admin"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Reset password"
+msgstr "Genindstil adgangskode"
+
+msgid "Password change successful"
+msgstr "Adgangskoden blev ændret succesfuldt"
+
+msgid "Login"
+msgstr "Log Ind"
+
+msgid "Set your new password"
+msgstr "Angiv din nye adgangskode"
+
+msgid "Invalid password reset link"
+msgstr "Udløbet password reset link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Ugyldigt password reset link, formentligt fordi det allerede er blevet brugt."
+
+msgid "Request a new password reset"
+msgstr "Anmod om et password reset"
+
+msgid "Check your email"
+msgstr "Check din email"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Et link til at gendanne dit kodeord er blevet sendt til ding email, hvis en "
+"konto for den email eksisterer."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Følg linket herunder for at gendanne dit kodeord:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Dit brugernavn (i tilfælde af at du har glemt det):"
+
+msgid "Password reset"
+msgstr "Gendan kodeord"
+
+msgid "Reset your password"
+msgstr "Gendan dit kodeord"
+
+msgid "Internal link"
+msgstr "Internt link"
+
+msgid "External link"
+msgstr "Eksternt link"
+
+msgid "Email link"
+msgstr "Email link"
+
+msgid "Choose"
+msgstr "Vælg"
+
+msgid "Choose a page"
+msgstr "Vælg en side"
+
+msgid "Add an email link"
+msgstr "Tilføj et email link"
+
+msgid "Insert link"
+msgstr "Indsæt link"
+
+msgid "Add an external link"
+msgstr "Tilføj et eksternt link"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Udforsk undersider af '%(title)s'?"
+
+msgid "Explore"
+msgstr "Udforsk"
+
+msgid "Collection privacy"
+msgstr "Indsamling af privatfølsomme data"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Denne samling er blevet gjort privat af en forældre samling."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan sætte opdatere dine konto indstillinger her:"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne "
+"side."
+
+msgid "Privacy"
+msgstr "Privatliv"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Afpublicer %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, afpublicer den"
+
+msgid "No, don't unpublish"
+msgstr "Nej, afpublicer den ikke"
+
+msgid "Update"
+msgstr "Opdater"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Sammenligner %(title)s"
+
+msgid "Comparing"
+msgstr "Sammenligner"
+
+msgid "Fields"
+msgstr "Felter"
+
+msgid "Changes"
+msgstr "Ændringer"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Velkommen til %(site_name)s Wagtail CMS"
+
+msgid "Edit this page"
+msgstr "Rediger denne side"
+
+msgid "Unlock"
+msgstr "Lås op"
+
+msgid "Draft"
+msgstr "Skitse"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Edited"
+msgstr "Redigeret"
+
+msgid "Approve"
+msgstr "Godkend"
+
+msgid "Reject"
+msgstr "Afvis"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+msgid "Your most recent edits"
+msgstr "Dine seneste redigeringer"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Site summary"
+msgstr "Side opsummering"
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "Sign in"
+msgstr "Log Ind"
+
+msgid "Sign in to Wagtail"
+msgstr "Log ind i Wagtail"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Dit %(username_field)s og adgangskode matcher ikke. Prøv venligst igen."
+
+msgid "Signing in…"
+msgstr "Logger ind..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Siden \"%(title)s\" er blevet godkendt."
+
+msgid "You can view the page here:"
+msgstr "Du kan se denne side her:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Siden \"%(title)s\" er blevet godkendt."
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hej %(username)s,"
+
+msgid "You can edit the page here:"
+msgstr "Du kan redigere siden her:"
+
+msgid "You can preview the page here:"
+msgstr "Du kan få en forhåndsvisning af siden her:"
+
+msgid "Page privacy"
+msgstr "Side privatliv"
+
+msgid "This page has been made private by a parent page."
+msgstr "Denne side er blevet lavet privat af en forældreside."
+
+msgid "Publishing…"
+msgstr "Udgiver..."
+
+msgid "Saving…"
+msgstr "Gemmer..."
+
+msgid "Replace current draft"
+msgstr "Udskift nuværende skitse"
+
+msgid "Save draft"
+msgstr "Gem skitse"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Lav en side i %(title)s"
+
+msgid "Create a page in"
+msgstr "Lav en side i"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Vælg hvilken type side du gerne vil lave."
+
+msgid "Move"
+msgstr "Flyt"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Slet %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Er du sikker på, at du vil slette denne side?"
+
+msgid "Yes, delete it"
+msgstr "Ja, slet den"
+
+msgid "No, don't delete it"
+msgstr "Nej, slet den ikke"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Flyt %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Er du sikker på, at du vil flytte denne side til '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Er du sikker på, at du vil flytte denne side og alle dens undersider til "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Ja, flyt denne side"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Er du sikker på, at du vil afpublicere denne side?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopier %(title)s"
+
+msgid "Copy"
+msgstr "Kopi"
+
+msgid "Copy this page"
+msgstr "Kopier denne side"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Ny %(page_type)s"
+
+msgid "This page has unsaved changes."
+msgstr "Denne side har ugemte ændringer."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Redigerer %(page_type)s: %(title)s"
+
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "Nuværende skitse"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Udforsker %(title)s"
+
+msgid "Configure a site now."
+msgstr "Konfigurer en side nu."
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Udforsk undersider af '%(title)s'?"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Tilføj en underside til '%(title)s'"
+
+msgid "Drag"
+msgstr "Træk"
+
+msgid "Disable ordering of child pages"
+msgstr "Deaktiver arrangering af undersider"
+
+msgid "Enable ordering of child pages"
+msgstr "Aktiver arrangering af undersider"
+
+msgid "Sites menu"
+msgstr "Sidemenu"
+
+msgid "Previous"
+msgstr "Forrige"
+
+msgid "Next"
+msgstr "Næste"
+
+msgid "This page is protected from public view"
+msgstr "Denne side er beskyttet mod offentlig skue"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tilføj %(label)s"
+
+msgid "Move up"
+msgstr "Bevæg op"
+
+msgid "Move down"
+msgstr "Bevæg ned"
+
+msgid "Updated"
+msgstr "Opdateret"
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Edit this item"
+msgstr "Rediger denne enhed"
+
+msgid "Root"
+msgstr "Rod"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Add a child page"
+msgstr "Tilføj en underside"
+
+msgid "Show in Explorer"
+msgstr "Vis i Udforsker"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "More"
+msgstr "Mere"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Log out"
+msgstr "Log ud"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Earliest"
+msgstr "Tidligste"
+
+msgid "Latest"
+msgstr "Seneste"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "SIde '%(page_title)s' og %(subpages_count)s undersider blev kopieret."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "SIde '%(page_title)s' kopieret."
+
+msgid "View draft"
+msgstr "Vis skitse"
+
+msgid "View live"
+msgstr "Vis live"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Side  '%(page_title)s' lavet."
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Side '%(page_title)s' slettet."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Side '%(page_title)s' er blevet opdateret."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Side '%(page_title)s' er blevet udgivet."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Side '%(page_title)s' er blivet indsendt til moderation."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "SIde '%(page_title)s' flyttet."
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "SIde '%(page_title)s' afpubliceret."
+
+msgid "Pages using"
+msgstr "Sider der bruger"
+
+msgid "Pages"
+msgstr "Sider"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Rediger '%(title)s'"
+
+msgid "Add child page"
+msgstr "Tilføj en underside"
+
+msgid "Bulleted list"
+msgstr "Liste med prikker"
+
+msgid "Numbered list"
+msgstr "Liste med numre"
+
+msgid "Bold"
+msgstr "Fed"
+
+msgid "Italic"
+msgstr "Skråskrift"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Choose an item"
+msgstr "Vælg en enhed"
+
+msgid "Choose another item"
+msgstr "Vælg en til enhed"
+
+msgid "Clear choice"
+msgstr "Nulstil valg"
+
+msgid "Choose another page"
+msgstr "Vælg en anden side"

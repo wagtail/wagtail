@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+
+    <div class="nice-padding">
+        {% if warning_message %}
+            <p>{{ warning_message }}</p>
+        {% endif %}
+        <p>{% trans 'Are you sure you want to disable this task?' %}</p>
+        <form action="{{ view.get_delete_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, disable' %}" class="button serious" />
+            <a class="button button-secondary" href="{{ view.get_edit_url }}">{% trans 'No' %}</a>
+        </form>
+    </div>
+{% endblock %}

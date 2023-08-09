@@ -1,0 +1,66 @@
+{% load i18n wagtailadmin_tags %}
+<h2>{% trans "Assigned pages" %}</h2>
+
+{{ formset.management_form }}
+
+{% if formset.non_form_errors %}
+    <p class="error-message">
+        {% for error in formset.non_form_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
+<table class="listing">
+    <col />
+    <col />
+    <thead>
+        <tr>
+            <th>{% trans "Page" %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="id_{{ formset.prefix }}-FORMS">
+        {% for form in formset.forms %}
+            <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+                {% if form.non_field_errors %}
+                    <p class="error-message">
+                        {% for error in form.non_field_errors %}
+                            <span>{{ error|escape }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=form only %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    {% escapescript %}
+        <tr id="inline_child_{{ formset.empty_form.prefix }}">
+        {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=formset.empty_form only %}
+        </tr>
+    {% endescapescript %}
+</script>
+
+<p class="add">
+    <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button">{% icon name="plus" wrapped=1 %}{% trans "Assign to another page" %}</button>
+</p>
+
+
+<script>
+    $(function() {
+        buildExpandingFormset('id_{{ formset.prefix|escapejs }}', {
+            onInit: function(index) {
+                var deleteInputId = 'id_{{ formset.prefix|escapejs }}-' + index + '-DELETE';
+                var childId = 'inline_child_{{ formset.prefix|escapejs }}-' + index;
+                $('#' + deleteInputId + '-button').on('click', function() {
+                    /* set 'deleted' form field to true */
+                    $('#' + deleteInputId).val('1');
+                    $('#' + childId).fadeOut();
+                });
+            }
+        });
+    });
+</script>

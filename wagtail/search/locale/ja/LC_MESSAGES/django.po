@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail検索"
+
+msgid "Query Daily Hits"
+msgstr "人気の検索クエリ"
+
+msgid "Popular search terms"
+msgstr "人気の検索ワード"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Terms"
+msgstr "語句"
+
+msgid "Views (past week)"
+msgstr "閲覧数（一週間）"
+
+msgid "No results found"
+msgstr "結果は見つかりませんでした。"
+
+msgid "Choose from popular search terms"
+msgstr "人気の検索ワードから選択"

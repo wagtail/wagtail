@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Formularios de Wagtail"
+
+msgid "Date from"
+msgstr "Data dende"
+
+msgid "Date to"
+msgstr "Data ata"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "Hai outro campo ca etiqueta %(label_name)s, por favor cambia un deles."
+
+msgid "Single line text"
+msgstr "Liña de texto simple"
+
+msgid "Multi-line text"
+msgstr "Texto de múltiples liñas"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Casilla de verificación"
+
+msgid "Checkboxes"
+msgstr "Casillas de verificación"
+
+msgid "Drop down"
+msgstr "Desplegable"
+
+msgid "Multiple select"
+msgstr "Selección múltiple"
+
+msgid "Radio buttons"
+msgstr "Botóns de opción"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/hora"
+
+msgid "Hidden field"
+msgstr "Campo oculto"
+
+msgid "submit time"
+msgstr "Hora de envío"
+
+msgid "form submission"
+msgstr "formulario de envío"
+
+msgid "form submissions"
+msgstr "formularios de envío"
+
+msgid "name"
+msgstr "nome"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Nome seguro do campo do formulario, a etiqueta converteuse a ascii_snake_case"
+
+msgid "label"
+msgstr "etiqueta"
+
+msgid "The label of the form field"
+msgstr "A etiqueta do campo do formulario"
+
+msgid "field type"
+msgstr "tipo de campo"
+
+msgid "required"
+msgstr "obligatorio"
+
+msgid "choices"
+msgstr "seleccións"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Lista de opcións separadas por comas ou liñas. So se pode aplicar en caixas "
+"de opción única, de opción múltiple, e desplegables."
+
+msgid "default value"
+msgstr "valor por defecto"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valor por defecto. Valores separados por comas ou liñas, válido para caixas "
+"de opción múltiple."
+
+msgid "help text"
+msgstr "texto de axuda"
+
+msgid "Submission date"
+msgstr "Data de envío"
+
+msgid "Form"
+msgstr "Formulario"
+
+msgid "Landing page"
+msgstr "Páxina de entrada"
+
+msgid "to address"
+msgstr "á dirección"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opcional - os formularios enviados enviaránse a estas direccións. Separa con "
+"comas as direccións múltiples."
+
+msgid "from address"
+msgstr "dende a dirección"
+
+msgid "subject"
+msgstr "Asunto"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s envíos"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Eliminar datos do formulario %(title)s"
+
+msgid "Delete form data"
+msgstr "Eliminar datos do formulario"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Seguro que queres eliminar este envío de formulario?"
+msgstr[1] "Seguro que queres eliminar estes envíos de formulario?"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Forms"
+msgstr "Formularios"
+
+msgid "Pages"
+msgstr "Páxinas"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Orixe"
+
+msgid "Delete selected submissions"
+msgstr "Eliminar os envíos seleccionados"
+
+msgid "Total submissions"
+msgstr "Envíos totales"
+
+msgid "Latest submission"
+msgstr "Último envío"
+
+msgid "No form pages have been created."
+msgstr "Non foi creada ningunha páxina de formulario."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Envíos de %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non houbo envíos do formulario '%(title)s'."
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Eliminouse un envío"
+msgstr[1] "Elimináronse %(count)d envíos"
+
+msgid "Form data"
+msgstr "Datos de formulario"

@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Adam Hughes <adamhughes31@gmail.com>, 2020
+# Philip Crisp, 2022
+# Philip Crisp, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Wagtail style guide"
+msgstr "Canllaw arddull Wagtail"
+
+msgid "Styleguide"
+msgstr "Canllaw arddull"
+
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Delete image"
+msgstr "Dileu delwedd"
+
+msgid "Search something"
+msgstr "Chwilio am rywbeth"
+
+msgid "Success message"
+msgstr "Neges llwyddiant"
+
+msgid "View live"
+msgstr "Gweld in fyw"
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Warning message"
+msgstr "Neges rhybuddio"
+
+msgid "Error message"
+msgstr "Neges gwall"

@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022-2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
+"Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "ModelAdmin de Wagtail"
+
+msgid "Parent page"
+msgstr "Páxina pai"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "Engadir %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "Engadir unha nova %(object)s"
+
+msgid "Inspect"
+msgstr "Inspeccionar"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "Inspeccionar esta %(object)s"
+
+msgid "Edit"
+msgstr "Editar"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "Eliminar esta %(object)s"
+
+msgid "Unpublish"
+msgstr "Non publicar"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "Non publicar esta %(object)s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "Copiar esta %(object)s"
+
+msgid "image"
+msgstr "Imaxe"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Retornar á lista %(model_name)s"
+
+msgid "Choose a parent page"
+msgstr "Selecciona unha páxina pai"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s poden ser engadidas a máis dun lugar no teu sitio web. ¿Cal das "
+"seguintes gustaríache que fose o pai da túa nova páxina?"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Saving…"
+msgstr "Gardando…"
+
+msgid "Save"
+msgstr "Gardar"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s non puideron ser eliminadas"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' é actualmente referenciada por outros obxectos, e non "
+"pode ser eliminada sen por en perigo a integridade dos datos. Para eliminala "
+"satisfactoriamente, primeiro elimina as referencias dende os seguintes "
+"obxectos, entón téntao de novo:"
+
+msgid "Go back to listing"
+msgstr "Retorna ao listado"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
+msgid "No, don't delete"
+msgstr "Non, non eliminar."
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Por %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Actualizado por última vez"
+
+msgid "History"
+msgstr "Historial"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s de %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "Síntoo, non hai %(name)s que coincidan cos teus parámetros de procura."
+
+msgid "Search for"
+msgstr "Procurar por"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Procura %(name)s"
+
+msgid "Search"
+msgstr "Procurar"
+
+msgid "Filter"
+msgstr "Filtro"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Non foron aínda creados %(name)s. Un dos seguintes deben ser creados antes "
+"de que podas engadir calquera %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Non foron aínda creados %(name)s."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "¿Por qué non <a href=\"%(url)s\">engadir unha</a>?"
+
+msgid "Pagination"
+msgstr "Paxinación"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Páxina %(current_page)s de %(num_pages)s."
+
+msgid "Previous"
+msgstr "Previa"
+
+msgid "Next"
+msgstr "Seguinte"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' creada."
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "A %(object)s non puido ser creada debido a erros."
+
+msgid "New"
+msgstr "Nova"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "Crear nova %(object)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Editando %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' actualizada."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "A %(object)s non puido ser gardada debido a erros."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmar eliminación de %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"¿Seguro que queres eliminar esta %(object)s? Se outras cosas no teu sitio "
+"web fan referencia a ela, poderían tamén verse afectadas."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' eliminada"
+
+msgid "Inspecting"
+msgstr "Inspeccionando"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "Inspeccionando %(object)s"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Date"
+msgstr "Data"

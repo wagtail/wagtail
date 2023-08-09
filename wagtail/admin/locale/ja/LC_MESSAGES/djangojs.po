@@ -1,0 +1,145 @@
+#
+# Translators:
+# 小口英昭 <oguchi@bluff-lab.com>, 2022
+# umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
+# 溝江 智徳 <tomo.mizoe@gmail.com>, 2022
+# Daigo Shitara <stain.witness@gmail.com>, 2022
+# Tri Minh <minh.nguyentri.95@gmail.com>, 2022
+# shuhei hirota, 2022
+# kojikojikojikoji, 2022
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add a comment"
+msgstr "コメントを追加"
+
+msgid "Alt text"
+msgstr "Alt 属性に記載するテキスト"
+
+msgid "Are you sure?"
+msgstr "本当によろしいですか？"
+
+msgid "Broken link"
+msgstr "壊れたリンク"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Decorative image"
+msgstr "装飾画像"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Delete error"
+msgstr "削除エラー"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s'を編集します"
+
+msgid "Edit your account"
+msgstr "アカウント変更"
+
+msgid "Focus comment"
+msgstr "コメントにフォーカス"
+
+msgid "Horizontal line"
+msgstr "横線"
+
+msgid "Line break"
+msgstr "改行"
+
+msgid "Loading…"
+msgstr "読み込み中"
+
+msgid "Missing document"
+msgstr "失われたドキュメント"
+
+msgid "More actions"
+msgstr "他のアクション"
+
+msgid "No results"
+msgstr "結果なし"
+
+msgid "Page"
+msgstr "ページ"
+
+msgid "Page explorer"
+msgstr "ページ探索"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Reload saved content"
+msgstr "保存した内容をリロードします"
+
+msgid "Reload the page"
+msgstr "ページをリロードします"
+
+msgid "Reply"
+msgstr "返信"
+
+msgid "Resolve"
+msgstr "解決"
+
+msgid "Retry"
+msgstr "リトライ"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save error"
+msgstr "保存失敗"
+
+msgid "Saving..."
+msgstr "保存中"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "See all"
+msgstr "全部表示"
+
+msgid "Server Error"
+msgstr "サーバーエラー"
+
+msgid "Show error"
+msgstr "エラーを表示します"
+
+msgid "Show latest content"
+msgstr "新着内容を表示します"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
+"す。"
+
+msgid "This field is required."
+msgstr "この項目は必須です。"
+
+msgid "Unfocus comment"
+msgstr "コメントをアンフォーカス"
+
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s'の子ページを閲覧する"

@@ -1,0 +1,188 @@
+#
+# Translators:
+# Stefano Marchetto <airbatum@gmail.com>, 2022
+# Alessio Di Stasio <aledista@gmail.com>, 2022
+# Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
+# giammi <gian-maria.daffre@giammi.org>, 2022
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
+# gcm, 2022
+# Loic Teixeira, 2022
+# Marco Badan <marco.badan@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2023\n"
+"Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Add a comment"
+msgstr "Aggiungi un commento"
+
+msgid "Alt text"
+msgstr "Testo alternativo"
+
+msgid "Are you sure?"
+msgstr "Sei sicuro/a?"
+
+msgid "Blocks"
+msgstr "Blocchi"
+
+msgid "Broken link"
+msgstr "Link non funzionante"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Character count:"
+msgstr "Conteggio caratteri:"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Comment"
+msgstr "Commenta"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Decorative image"
+msgstr "Immagine decorativa"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Delete error"
+msgstr "Errore eliminazione"
+
+msgid "Deleting"
+msgstr "Eliminazione in corso"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit '%(title)s'"
+msgstr "Modifica '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Modifica il tuo account"
+
+msgid "Enter your comments..."
+msgstr "Inserisci i tuoi commenti..."
+
+msgid "Focus comment"
+msgstr "Evidenzia commento"
+
+msgid "Horizontal line"
+msgstr "Linea orizzontale"
+
+msgid "Insert a block"
+msgstr "Inserisci un blocco"
+
+msgid "Line break"
+msgstr "Interruzione di linea"
+
+msgid "Loading…"
+msgstr "Caricamento..."
+
+msgid "Main menu"
+msgstr "Menu principale"
+
+msgid "Missing document"
+msgstr "Documento non trovato"
+
+msgid "More actions"
+msgstr "Altre azioni"
+
+msgid "No results"
+msgstr "Nessun risultato"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Page explorer"
+msgstr "Esplora pagine"
+
+msgid "Pages"
+msgstr "Pagine"
+
+msgid "Reload saved content"
+msgstr "Ricarica il contenuto salvato"
+
+msgid "Reload the page"
+msgstr "Ricarica la pagina"
+
+msgid "Reply"
+msgstr "Rispondi"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Segnala questo errore all'amministratore del tuo sito web con le seguenti "
+"informazioni:"
+
+msgid "Resolve"
+msgstr "Risolvi"
+
+msgid "Retry"
+msgstr "Riprova"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Save error"
+msgstr "Salva errore"
+
+msgid "Save the page to add this comment"
+msgstr "Salva la pagina per aggiungere questo commento"
+
+msgid "Save the page to save this comment"
+msgstr "Salva la pagina per salvare questo commento"
+
+msgid "Save the page to save this reply"
+msgstr "Salva la pagina per salvare questa risposta"
+
+msgid "Saving..."
+msgstr "Salvataggio in corso..."
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "See all"
+msgstr "Vedi tutto"
+
+msgid "Server Error"
+msgstr "Errore del server"
+
+msgid "Show error"
+msgstr "Mostra errore"
+
+msgid "Show latest content"
+msgstr "Mostra gli ultimi contenuti"
+
+msgid "Split block"
+msgstr "Dividi blocco"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L'editor è appena andato in crash. Il contenuto è stato reimpostato "
+"sull'ultima versione salvata."
+
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio."
+
+msgid "Toggle side panel"
+msgstr "Attiva/disattiva barra laterale"
+
+msgid "Toggle sidebar"
+msgstr "Attiva/disattiva barra laterale"
+
+msgid "Unfocus comment"
+msgstr "Deseleziona commento"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Mostra sotto-pagine di '%(title)s'"

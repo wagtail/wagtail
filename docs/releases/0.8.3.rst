@@ -1,0 +1,39 @@
+===========================
+Wagtail 0.8.3 release notes
+===========================
+
+*November 18, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Bug fixes
+~~~~~~~~~
+
+* Added missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
+* Page system check for on_delete actions of ForeignKeys was throwing false positives when page class descends from an abstract class (Alejandro Giacometti)
+* Page system check for on_delete actions of ForeignKeys now only raises warnings, not errors
+* Fixed a regression where form builder submissions containing a number field would fail with a JSON serialisation error
+* Resizing an image with a focal point equal to the image size would result in a divide-by-zero error
+* Focal point indicator would sometimes be positioned incorrectly for small or thin images
+* Fix: Focal point chooser background colour changed to grey to make working with transparent images easier
+* Elasticsearch configuration now supports specifying HTTP authentication parameters as part of the URL, and defaults to ports 80 (HTTP) and 443 (HTTPS) if port number not specified
+* Fixed a TypeError when previewing pages that use RoutablePageMixin
+* Rendering image with missing file in rich text no longer crashes the entire page
+* IOErrors thrown by underlying image libraries that are not reporting a missing image file are no longer caught
+* Fix: Minimum Pillow version bumped to 2.6.1 to work around a crash when using images with transparency
+* Fix: Images with transparency are now handled better when being used in feature detection
+
+Upgrade considerations
+======================
+
+Port number must be specified when running Elasticsearch on port 9200
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions, an Elasticsearch connection URL in ``WAGTAILSEARCH_BACKENDS`` without an explicit port number (e.g. ``http://localhost/``) would be treated as port 9200 (the Elasticsearch default) whereas the correct behaviour would be to use the default http/https port of 80/443. This behaviour has now been fixed, so sites running Elasticsearch on port 9200 must now specify this explicitly - e.g. ``http://localhost:9200``. (Projects using the default settings, or the settings given in the Wagtail documentation, are unaffected.)

@@ -1,0 +1,69 @@
+.w-summary {
+  // set up responsive font size for icon and number as local custom property
+  --w-summary-item-font-size: clamp(
+    theme('fontSize.30') * 1.5,
+    6.5vw,
+    calc(theme('fontSize.30') * 3)
+  );
+
+  color: theme('colors.text-link-default');
+  margin-bottom: theme('spacing.8');
+  padding-top: theme('spacing.8');
+
+  .w-summary__list {
+    @include unlist();
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  /* Summary item */
+  li {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    margin-bottom: theme('spacing.6');
+  }
+
+  /* Summary icon */
+  .icon {
+    font-size: var(--w-summary-item-font-size);
+    height: 1em;
+    margin-inline-end: 0.15em;
+    width: 1em;
+  }
+
+  /* Summary label (a link, use parent colours ) */
+  a {
+    color: inherit;
+    text-align: start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: theme('spacing.[1.5]');
+
+    @include media-breakpoint-up(sm) {
+      font-size: theme('fontSize.18');
+    }
+
+    /* Summary big number */
+    > span {
+      display: block;
+      font-size: calc(var(--w-summary-item-font-size) * 0.6);
+      font-weight: theme('fontWeight.bold');
+      line-height: 0.9em; // label underneath to come in tight against the number
+    }
+  }
+}
+
+// Media for Windows High Contrast Mode
+@media (forced-colors: active) {
+  .w-summary {
+    .icon {
+      color: LinkText;
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" id="main">
+        <h1>{% trans "Reset your password" %}</h1>
+
+        {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+        {% block above_form %}{% endblock %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% field field=form.email %}{% endfield %}
+
+            {% block extra_fields %}
+                {% for field_name, field in form.extra_fields %}
+                    {% field field=field %}{% endfield %}
+                {% endfor %}
+            {% endblock extra_fields %}
+
+            <footer class="form-actions">
+                {% block submit_buttons %}
+                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                {% endblock %}
+            </footer>
+        </form>
+
+        {% block below_form %}{% endblock %}
+    </main>
+{% endblock %}

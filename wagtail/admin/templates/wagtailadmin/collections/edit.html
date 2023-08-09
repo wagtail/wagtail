@@ -1,0 +1,12 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load wagtailadmin_tags %}
+
+{% block before_form %}
+    {% include "wagtailadmin/collections/_privacy_switch.html" with collection=object collection_perms=collection_perms only %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+{% endblock %}

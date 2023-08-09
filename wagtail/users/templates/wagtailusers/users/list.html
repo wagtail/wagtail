@@ -1,0 +1,61 @@
+{% load i18n l10n wagtailusers_tags wagtailadmin_tags %}
+<table class="listing">
+    <thead>
+        <tr>
+            {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' %}
+            <th class="name">
+                {% if ordering == "name" %}
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Name" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after">
+                        {% trans "Name" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="username">
+                {% if ordering == "username" %}
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Username" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after">
+                        {% trans "Username" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="level">{% trans "Access level" %}</th>
+            <th class="status">{% trans "Status" %}</th>
+            <th class="last-login">{% trans "Last Login" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
+                <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
+                    <div class="title-wrapper">
+                        {% avatar user=user size="small" %}
+                        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+                    </div>
+                    <ul class="actions">
+                        {% user_listing_buttons user %}
+                    </ul>
+                </td>
+                <td class="username" valign="top">{{ user.get_username }}</td>
+                <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
+                <td class="status" valign="top">
+                    {% if user.is_active %}
+                        {% trans "Active" as status_label %}
+                        {% status status_label classname="w-status--primary" %}
+                    {% else %}
+                        {% trans "Inactive" as status_label %}
+                        {% status status_label %}
+                    {% endif %}
+                </td>
+                <td>{% if user.last_login %}{% human_readable_date user.last_login %}{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

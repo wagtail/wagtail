@@ -1,0 +1,18 @@
+============================
+Wagtail 1.11.1 release notes
+============================
+
+*July 7, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Custom display page titles defined with ``get_admin_display_title`` are now shown within the page explorer menu (Matt Westcott, Janneke Janssen)

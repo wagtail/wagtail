@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Vachagan <vache.grg40@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Vachagan <vache.grg40@gmail.com>, 2019\n"
+"Language-Team: Armenian (http://app.transifex.com/torchbox/wagtail/language/"
+"hy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hy\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail-ի օգտագործողներ"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Այս արժեքը կարող է պարունակել միայն տառեր, թվեր և @/./+/-/_  նիշերը."
+
+msgid "A user with that username already exists."
+msgstr "Տվյալ օգտագործողի անունը արդեն գոյություն ունի."
+
+msgid "The two password fields didn't match."
+msgstr "Երկու գաղտնաբառի դաշտերը չեն համապատասխանում"
+
+msgid "Email"
+msgstr "Էլ. հասցե"
+
+msgid "First Name"
+msgstr "Անուն"
+
+msgid "Last Name"
+msgstr "Ազգանուն"
+
+msgid "Password"
+msgstr "Գաղտնաբառ"
+
+msgid "Leave blank if not changing."
+msgstr "Թողեք դատարկ, եթե չեք փոխելու."
+
+msgid "Password confirmation"
+msgstr "Գաղտնաբառի հաստատում"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Մուտքագրել նույն գաղտնաբառը վերևում, նույնականացման համար."
+
+msgid "Administrator"
+msgstr "Ադմինիստրատոր"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Ադմինիստրատորը ունի լիարժեք հնարավորություն՝ ցանկացած օբյեկտ և կարգավորում "
+"կառավարելու համար."
+
+msgid "A group with that name already exists."
+msgstr "Տվյալ անունով խումբ արդեն գոյություն ունի."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Նույն էջում չեք կարող ունենալ բազմակի թույլտվության գրառում."
+
+msgid "submitted notifications"
+msgstr "Ներկայացնել ծանուցումները"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Ստանալ ծանուցում, երբ էջը ներկայացվում է չափավորության համար."
+
+msgid "approved notifications"
+msgstr "հաստատված ծանուցումներ"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Ստանալ ծանուցում, երբ ձեր էջի խմբագրումը հաստատված է"
+
+msgid "rejected notifications"
+msgstr "մերժված ծանուցումները"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Ստանալ ծանուցում, երբ ձեր էջի խմբագրումը մերժվում է"
+
+msgid "preferred language"
+msgstr "նախընտրելի լեզու"

@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Jose Lourenco <jose@lourenco.ws>, 2016
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2016,2022\n"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail style guide"
+msgstr "Guia de estilo do Wagtail"
+
+msgid "Styleguide"
+msgstr "Guia de Estilo"
+
+msgid "Save"
+msgstr "Gravar"
+
+msgid "Delete image"
+msgstr "Apagar imagem"
+
+msgid "Search something"
+msgstr "Pesquisar algo"
+
+msgid "Success message"
+msgstr "Mensagem de sucesso"
+
+msgid "View live"
+msgstr "Ver publicado"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Warning message"
+msgstr "Mensagem de alerta"
+
+msgid "Error message"
+msgstr "Mensagem de erro"

@@ -1,0 +1,199 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
+"Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail forms"
+msgstr "Moduli Wagtail"
+
+msgid "Date from"
+msgstr "Data dal"
+
+msgid "Date to"
+msgstr "Data al"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "C'è un altro campo con l'etichetta %(label_name)s."
+
+msgid "Single line text"
+msgstr "Testo linea singola"
+
+msgid "Multi-line text"
+msgstr "Testo multi-linea"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Number"
+msgstr "Numero"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "Checkboxes"
+msgstr "Checkboxes"
+
+msgid "Drop down"
+msgstr "Drop down"
+
+msgid "Multiple select"
+msgstr "Selezione multipla"
+
+msgid "Radio buttons"
+msgstr "Radio buttons"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/ora"
+
+msgid "Hidden field"
+msgstr "Campo nascosto"
+
+msgid "submit time"
+msgstr "ora di invio"
+
+msgid "form submission"
+msgstr "invio form"
+
+msgid "form submissions"
+msgstr "invii form"
+
+msgid "name"
+msgstr "nome"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Nome sicuro del campo del form, label convertita in ascii_snake_case"
+
+msgid "label"
+msgstr "etichetta"
+
+msgid "The label of the form field"
+msgstr "Etichetta per il campo del form"
+
+msgid "field type"
+msgstr "tipo di campo"
+
+msgid "required"
+msgstr "richiesto"
+
+msgid "choices"
+msgstr "voci"
+
+msgid "default value"
+msgstr "valore di default"
+
+msgid "help text"
+msgstr "testo di aiuto"
+
+msgid "Submission date"
+msgstr "Data di invio"
+
+msgid "Form"
+msgstr "Modulo"
+
+msgid "Landing page"
+msgstr "Pagina di destinazione"
+
+msgid "to address"
+msgstr "indirizzo destinazione"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Optional - il form sarà inviato per email a questi indirizzi. Separa la "
+"lista con la virgola per inserire più indirizzi."
+
+msgid "from address"
+msgstr "indirizzo mittente"
+
+msgid "subject"
+msgstr "oggetto"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s invii"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Elimina dati form %(title)s"
+
+msgid "Delete form data"
+msgstr "Elimina dati form"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Forms"
+msgstr "Modulistica"
+
+msgid "Pages"
+msgstr "Pagine"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Delete selected submissions"
+msgstr "Elimina invii selezionati"
+
+msgid "Total submissions"
+msgstr "Invii totali"
+
+msgid "Latest submission"
+msgstr "Ultimi invii"
+
+msgid "No form pages have been created."
+msgstr "Nessuna pagina form è stata creata."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Invio di %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non ci sono invii del form '%(title)s' "
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Applica filtri"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Un invio è stato eliminato."
+msgstr[1] "%(count)d invii sono stati eliminati."
+msgstr[2] "%(count)d invii sono stati eliminati."

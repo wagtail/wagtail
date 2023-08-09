@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageExplorer renders 1`] = `
+<PageExplorer
+  currentPageId={null}
+  depth={0}
+  gotoPage={[Function]}
+  nodes={{}}
+  store={
+    {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+/>
+`;
+
+exports[`PageExplorer renders 2`] = `<Connect(PageExplorer) />`;
+
+exports[`PageExplorer visible 1`] = `
+<PageExplorer
+  currentPageId={1}
+  depth={0}
+  gotoPage={[Function]}
+  nodes={
+    {
+      "1": {
+        "children": {
+          "count": 0,
+          "items": [],
+        },
+        "id": 0,
+        "isError": false,
+        "isFetchingChildren": true,
+        "isFetchingTranslations": false,
+        "meta": {
+          "children": {},
+          "parent": null,
+          "status": {
+            "has_unpublished_changes": true,
+            "live": false,
+            "status": "",
+          },
+        },
+      },
+    }
+  }
+  store={
+    {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+/>
+`;
+
+exports[`PageExplorer visible 2`] = `""`;

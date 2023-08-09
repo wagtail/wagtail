@@ -1,0 +1,483 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
+# Goto Hayato <habita.gh@gmail.com>, 2021
+# shuhei hirota, 2019
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# shuhei hirota, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail コア"
+
+msgid "Add Comment"
+msgstr "コメントを追加"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "項目の最小数は%(min_num)dです。"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "項目の最大数は%(max_num)dです。"
+
+msgid "Move up"
+msgstr "上に移動"
+
+msgid "Move down"
+msgstr "下に移動"
+
+msgid "Duplicate"
+msgstr "複製"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "This block has no options."
+msgstr "このブロックはオプションがありません。"
+
+msgid "This field is required."
+msgstr "この項目は必須です。"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "入力されたパスワードは正しくありませんでした。再度試してください。"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "Locked"
+msgstr "ロックあり"
+
+msgid "Unlocked"
+msgstr "ロックなし"
+
+msgid "live"
+msgstr "公開"
+
+msgid "has unpublished changes"
+msgstr "変更が適用されていません"
+
+msgid "first published at"
+msgstr "最初の公開日時"
+
+msgid "last published at"
+msgstr "最終の公開日時"
+
+msgid "go live date/time"
+msgstr "公開予定日時"
+
+msgid "expiry date/time"
+msgstr "有効期限"
+
+msgid "expired"
+msgstr "失効"
+
+msgid "scheduled"
+msgstr "予定日"
+
+msgid "draft"
+msgstr "下書き"
+
+msgid "live + scheduled"
+msgstr "公開 + 予定日"
+
+msgid "live + draft"
+msgstr "公開 + 下書き"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "locked"
+msgstr "ロックされています"
+
+msgid "locked at"
+msgstr "ロック日時"
+
+msgid "Add/edit pages you own"
+msgstr "自分のページを追加/編集"
+
+msgid "Bulk delete"
+msgstr "一括削除"
+
+msgid "Delete pages with children"
+msgstr "子要素と共にページを削除します。"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit any page"
+msgstr "ページを編集"
+
+msgid "Lock"
+msgstr "ロックあり"
+
+msgid "Publish"
+msgstr "公開"
+
+msgid "Publish any page"
+msgstr "ページを公開"
+
+msgid "Unlock"
+msgstr "ロックを解除"
+
+msgid "title"
+msgstr "タイトル"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "一般公開のもとで表示したいページタイトル"
+
+msgid "slug"
+msgstr "スラッグ"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slug]/）"
+
+msgid "content type"
+msgstr "コンテンツの種類"
+
+msgid "URL path"
+msgstr "URLパス"
+
+msgid "owner"
+msgstr "オーナー"
+
+msgid "title tag"
+msgstr "title タグ"
+
+msgid "show in menus"
+msgstr "メニューに表示"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "このページへのリンクを自動生成されたメニューに表示しますか？"
+
+msgid "meta description"
+msgstr "meta description"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "検索エンジンの検索結果でヘッドラインの下に表示される説明テキスト。"
+
+msgid "latest revision created at"
+msgstr "最終更新日時"
+
+msgid "page"
+msgstr "ページ"
+
+msgid "pages"
+msgstr "ページ"
+
+msgid "submitted for moderation"
+msgstr "承認リクエストを送信しました。"
+
+msgid "created at"
+msgstr "作成日"
+
+msgid "user"
+msgstr "ユーザ"
+
+msgid "content JSON"
+msgstr "JSONコンテンツ"
+
+msgid "approved go live at"
+msgstr "承認済み・公開予定："
+
+msgid "group"
+msgstr "グループ"
+
+msgid "permission"
+msgstr "権限"
+
+msgid "permission type"
+msgstr "権限"
+
+msgid "group page permission"
+msgstr "グループページの権限"
+
+msgid "group page permissions"
+msgstr "グループページの権限"
+
+msgid "page view restriction"
+msgstr "ページ閲覧の権限"
+
+msgid "page view restrictions"
+msgstr "ページ閲覧の権限"
+
+msgid "workflow"
+msgstr "ワークフロー"
+
+msgid "workflow page"
+msgstr "ワークフローページ"
+
+msgid "workflow pages"
+msgstr "ワークフローページ"
+
+msgid "task"
+msgstr "タスク"
+
+msgid "name"
+msgstr "名前"
+
+msgid "tasks"
+msgstr "タスク"
+
+msgid "workflows"
+msgstr "ワークフロー"
+
+msgid "groups"
+msgstr "グループ"
+
+msgid "Request changes"
+msgstr "変更をリクエスト"
+
+msgid "Approve"
+msgstr "承認"
+
+msgid "Approve with comment"
+msgstr "コメントを付けて承認"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "選択された Wagtail グループのメンバーがこのタスクを承認できます"
+
+msgid "In progress"
+msgstr "作業中"
+
+msgid "Approved"
+msgstr "承認済み"
+
+msgid "Needs changes"
+msgstr "要変更"
+
+msgid "Cancelled"
+msgstr "キャンセル済み"
+
+msgid "status"
+msgstr "ステータス"
+
+msgid "current task state"
+msgstr "現在のタスクの状態"
+
+msgid "Workflow state"
+msgstr "ワークフローの状態"
+
+msgid "Workflow states"
+msgstr "ワークフローの状態"
+
+msgid "Task state"
+msgstr "タスクの状態"
+
+msgid "Task states"
+msgstr "タスクの状態"
+
+msgid "page log entry"
+msgstr "ページログエントリー"
+
+msgid "page log entries"
+msgstr "ページログエントリー"
+
+msgid "comment"
+msgstr "コメント"
+
+msgid "comments"
+msgstr "コメント"
+
+msgid "comment reply"
+msgstr "コメント返信"
+
+msgid "comment replies"
+msgstr "コメント返信"
+
+msgid "timestamp (UTC)"
+msgstr "タイムスタンプ（ UTC ）"
+
+msgid "log entry"
+msgstr "ログエントリー"
+
+msgid "log entries"
+msgstr "ログエントリー"
+
+msgid "system"
+msgstr "システム"
+
+msgid "collection"
+msgstr "コレクション"
+
+msgid "collection view restriction"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "collection view restrictions"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "collections"
+msgstr "コレクション"
+
+msgid "group collection permission"
+msgstr "グループコレクションの権限"
+
+msgid "group collection permissions"
+msgstr "グループコレクションの権限"
+
+msgid "hostname"
+msgstr "ホスト名"
+
+msgid "port"
+msgstr "ポート番号"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください"
+"（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディ"
+"ングはこれまで通り機能します）。"
+
+msgid "site name"
+msgstr "サイト名"
+
+msgid "Human-readable name for the site."
+msgstr "わかりやすいサイト名"
+
+msgid "root page"
+msgstr "ルートページ"
+
+msgid "is default site"
+msgstr "デフォルトのサイトです"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"はい >> このサイトはサイトエントリーのないホスト名のもとでのリクエストをも処"
+"理します。"
+
+msgid "site"
+msgstr "サイト"
+
+msgid "sites"
+msgstr "サイト一覧"
+
+msgid "default"
+msgstr "デフォルト"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してから"
+"このサイトをデフォルトに設定してください。"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private, accessible to logged-in users"
+msgstr "限定公開、ログインユーザのみアクセス可能"
+
+msgid "Private, accessible with the following password"
+msgstr "限定公開、次のパスワードによりアクセス可能"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
+
+msgid "password"
+msgstr "パスワード"
+
+msgid "view restriction"
+msgstr "閲覧権限"
+
+msgid "view restrictions"
+msgstr "閲覧権限"
+
+msgid "Log in"
+msgstr "ログイン"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "ユーザネームとパスワードが一致しませんでした。再度試してください。"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"あなたのアカウントにはこのページへのアクセス権限がありません。進めるには、ア"
+"クセス権限のあるアカウントにログインしてください。"
+
+msgid "Password required"
+msgstr "パスワードが必要です。"
+
+msgid "You need a password to access this page."
+msgstr "このページへアクセスするためにはパスワードが必要です。"
+
+msgid "Continue"
+msgstr "続ける"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "Created"
+msgstr "作成"
+
+msgid "Edited"
+msgstr "編集"
+
+msgid "Unpublish"
+msgstr "非公開"
+
+msgid "Reject"
+msgstr "拒否"
+
+msgid "Rename"
+msgstr "名前を変更"
+
+msgid "Revert"
+msgstr "戻す"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Create alias"
+msgstr "エイリアスを作成"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "Reorder"
+msgstr "並べ替え"
+
+msgid "Schedule publication"
+msgstr "公開をスケジュール"
+
+msgid "Unschedule publication"
+msgstr "公開スケジュールを解除"
+
+msgid "Add comment"
+msgstr "コメントを追加"

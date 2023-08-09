@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
+# Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail jednotná úprava vzhledu"
+
+msgid "Styleguide"
+msgstr "Jednotná úprava vzhledu"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Delete image"
+msgstr "Smazat obrázek"
+
+msgid "Search something"
+msgstr "Hledat ..."
+
+msgid "Success message"
+msgstr "Úspěch"
+
+msgid "View live"
+msgstr "Zobrazit publikovanou verzi"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Warning message"
+msgstr "Varování"
+
+msgid "Error message"
+msgstr "Chyba"

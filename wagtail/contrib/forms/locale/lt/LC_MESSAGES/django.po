@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
+# Naglis Jonaitis, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Date from"
+msgstr "Data nuo"
+
+msgid "Date to"
+msgstr "Data iki"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Yra kitas laukas su etikete %(label_name)s, prašome pakeisti vieną iš jų."
+
+msgid "Single line text"
+msgstr "Vienos linijos tekstas"
+
+msgid "Multi-line text"
+msgstr "Daugybinių linijų tekstas"
+
+msgid "Email"
+msgstr "Elektroninis paštas"
+
+msgid "Number"
+msgstr "Numeris"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Žymimasis langelis"
+
+msgid "Checkboxes"
+msgstr "Žymimieji langeliai"
+
+msgid "Drop down"
+msgstr "Išsiskleidžiantis sąrašas"
+
+msgid "Multiple select"
+msgstr "Daugybinis pasirinkimas"
+
+msgid "Radio buttons"
+msgstr "Vieno pasirinkimo langeliai"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/laikas"
+
+msgid "Hidden field"
+msgstr "Paslėptas laukas"
+
+msgid "submit time"
+msgstr "pateikimo laikas"
+
+msgid "form submission"
+msgstr "formos pateikimas"
+
+msgid "name"
+msgstr "pavadinimas"
+
+msgid "label"
+msgstr "etiketė"
+
+msgid "The label of the form field"
+msgstr "Formos lauko etiketė"
+
+msgid "field type"
+msgstr "lauko tipas"
+
+msgid "required"
+msgstr "būtinas"
+
+msgid "choices"
+msgstr "pasirinkimai"
+
+msgid "default value"
+msgstr "numatytoji reikšmė"
+
+msgid "help text"
+msgstr "pagalbinis tekstas"
+
+msgid "Submission date"
+msgstr "Pateikimo data"
+
+msgid "Form"
+msgstr "Forma"
+
+msgid "to address"
+msgstr "adresui"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Nebūtina - formos pateikimai bus persiųsti šiais elektroninio pašto "
+"adresais. Atskirkite daugybinius adresus kableliais."
+
+msgid "from address"
+msgstr "nuo adreso"
+
+msgid "subject"
+msgstr "tema"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s pateikimas"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Ištrinti formos duomenis %(title)s"
+
+msgid "Delete form data"
+msgstr "Ištrinti formos duomenis"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Forms"
+msgstr "Formos"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "Origin"
+msgstr "Kilmė"
+
+msgid "Delete selected submissions"
+msgstr "Ištrinti pasirinktus pateikimus"
+
+msgid "Total submissions"
+msgstr "Viso pateikimų"
+
+msgid "Latest submission"
+msgstr "Paskutinis pateikimas"
+
+msgid "No form pages have been created."
+msgstr "Jokie formų puslapiai nebuvo sukurti."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s pateikimai"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
+
+msgid "Filter"
+msgstr "Filtras"
+
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Vienas pateikimas buvo ištrintas."
+msgstr[1] "%(count)d pateikimai buvo ištrinti"
+msgstr[2] "%(count)d pateikimų buvo ištrinta."
+msgstr[3] "%(count)d pateikimų buvo ištrinta."

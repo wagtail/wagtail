@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portal #children 1`] = `
+<Portal
+  closeOnClick={false}
+  closeOnResize={false}
+  closeOnType={false}
+  node={
+    <body>
+      <div>
+        Test!
+      </div>
+    </body>
+  }
+  onClose={[Function]}
+>
+  <Portal
+    containerInfo={
+      <div>
+        Test!
+      </div>
+    }
+  >
+    Test!
+  </Portal>
+</Portal>
+`;
+
+exports[`Portal component lifecycle 1`] = `"<div>Test!</div>"`;
+
+exports[`Portal empty 1`] = `
+<Portal
+  closeOnClick={false}
+  closeOnResize={false}
+  closeOnType={false}
+  node={
+    <body>
+      <div />
+    </body>
+  }
+  onClose={[Function]}
+>
+  <Portal
+    containerInfo={<div />}
+  />
+</Portal>
+`;

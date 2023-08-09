@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
+
+{% block extra_js %}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'SNIPPET';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% fragment as breadcrumb %}{% include 'wagtailsnippets/snippets/headers/list_header.html' %}{% endfragment %}
+    {% fragment as base_action_locale %}{% if locale %}{% include 'wagtailadmin/shared/locale_selector.html' with theme="large" %}{% endif %}{% endfragment %}
+    {% fragment as action_url_add_snippet %}{% if can_add_snippet %}{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}{% endif %}{% endfragment %}
+    {% fragment as action_text_snippet %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}{% endfragment %}
+    {% fragment as extra_actions %}
+        {% if view.list_export %}
+            {% include view.export_buttons_template_name %}
+        {% endif %}
+    {% endfragment %}
+    {% include 'wagtailadmin/shared/header.html' with breadcrumb=breadcrumb title=model_opts.verbose_name_plural|capfirst icon=header_icon search_url=search_url base_actions=base_action_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet extra_actions=extra_actions search_results_url=index_results_url %}
+    <div class="nice-padding{% if filters %} filterable{% endif %}">
+        <div id="listing-results" class="snippets">
+            {% include "wagtailsnippets/snippets/index_results.html" %}
+        </div>
+        {% if filters %}
+            {% include "wagtailadmin/shared/filters.html" %}
+        {% endif %}
+        {% trans "Select all snippets in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=page_obj %}
+    </div>
+{% endblock %}

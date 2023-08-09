@@ -1,0 +1,29 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment "text/markdown" %}
+    Reusable dropdown menu component built with Tippy.js.
+
+    - `classname` (string?) - more classes for parent element
+    - `attrs` (string?) - more attributes for parent element
+    - `toggle_icon` (string?) - toggle icon identifier
+    - `toggle_label` (string?) - Visible label for the toggle button
+    - `toggle_aria_label` (string?) - aria-label for the toggle button
+    - `toggle_describedby` (string?) - aria-describedby for the toggle button
+    - `toggle_classname` (string?) - additional toggle classes
+    - `toggle_tippy_offset` (string?) - Tippy.js offset prop
+    - `hide_on_click` (boolean?) - Whether or not the tooltip should hide when clicking inside
+    - `children` - Dropdown contents (`a` and `button` elements only)
+{% endcomment %}
+
+<div data-controller="w-dropdown" class="{% classnames 'w-dropdown' classname %}" {{ attrs }} {% if hide_on_click %}data-w-dropdown-hide-on-click-value="true"{% endif %}>
+    <button type="button" class="{% classnames 'w-dropdown__toggle' toggle_label|yesno:',w-dropdown__toggle--icon' toggle_classname %}" data-w-dropdown-target="toggle"{% if toggle_aria_label %} aria-label="{{ toggle_aria_label }}"{% endif %}{% if toggle_describedby %} aria-describedby="{{ toggle_describedby }}"{% endif %}{% if toggle_tippy_offset %} data-tippy-offset="{{ toggle_tippy_offset }}"{% endif %}>
+        {{ toggle_label }}
+        {% if toggle_icon %}
+            {% icon name=toggle_icon classname="w-dropdown__toggle-icon" %}
+        {% endif %}
+    </button>
+
+    <div data-w-dropdown-target="content" class="w-dropdown__content" hidden>
+        {{ children }}
+    </div>
+</div>

@@ -1,0 +1,1027 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023\n"
+"Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Nucli de Wagtail"
+
+msgid "Add Comment"
+msgstr "Afegir comentari"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El nombre mínim d'elements és %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El nombre màxim d'elements és %(max_num)d"
+
+msgid "Move up"
+msgstr "Puja"
+
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Add"
+msgstr "Afegir"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: aquest bloc no té opcions."
+
+msgid "This block has no options."
+msgstr "Aquest bloc no té opcions."
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
+
+msgid "Unknown content type"
+msgstr "Tipus de contingut desconegut"
+
+msgid "Password"
+msgstr "Contrasenya"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La contrasenya que heu introduït és incorrecta. Torneu-ho a provar."
+
+msgid "Comment"
+msgstr "Commentari"
+
+msgid "Locked"
+msgstr "Bloquejada"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Ningú pot fer modificacions mentre el/la %(model_name)s està bloquejat/da"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' va ser bloquejada</b> per <b>vós</b> el <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' està bloquejada</b> per <b>vós</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' va ser bloquejada</b> per <b>{user}</b> el <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' està bloquejada</b>."
+
+msgid "Locked by you"
+msgstr "Bloquejat/da per tu"
+
+msgid "Locked by another user"
+msgstr "Bloquejat per un altre usuari"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Només tu pots fer modificacions mentre el/la %(model_name)s està bloquejat/da"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Només %(user)s pot fer modificacions mentre el/la %(model_name)s està "
+"bloquejat/da"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Aquest/a %(model_name)s està en espera de moderació."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Aquest {model_name} està esperant <b>'{task_name}'</b> al fluxe de treball "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Només els revisar d'aquesta tasca poden editar el/la %(model_name)s."
+
+msgid "Unlocked"
+msgstr "Desbloquejat"
+
+msgid "Locked by workflow"
+msgstr "Bloquejat/da pel fluxe de treball"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Els revisors poden editar aquest/a %(model_name)s – bloquegeu-lo/la per "
+"evitar que altres revisors pugin editar-lo/la"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Només els revisors poden editar i aprovar el/la %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' està bloquedat/da i ha estat programat/da per anar a "
+"En viu el {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Bloquejat/da per programació de publicació"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Actualment bloquejat i passarà a En viu en la data programada"
+
+msgid "latest revision"
+msgstr "última revisió"
+
+msgid "live"
+msgstr "en viu"
+
+msgid "has unpublished changes"
+msgstr "té canvis no publicats"
+
+msgid "first published at"
+msgstr "primera publicació el "
+
+msgid "last published at"
+msgstr "última publicació el"
+
+msgid "live revision"
+msgstr "Revisió en viu"
+
+msgid "go live date/time"
+msgstr "data/hora de pas a en viu"
+
+msgid "expiry date/time"
+msgstr "Data/hora d'expiració"
+
+msgid "expired"
+msgstr "expirat"
+
+msgid "scheduled"
+msgstr "programat"
+
+msgid "draft"
+msgstr "esborrany"
+
+msgid "live + scheduled"
+msgstr "en viu + programada"
+
+msgid "live + draft"
+msgstr "en viu + esborrany"
+
+msgid "Default"
+msgstr "Per defecte?"
+
+msgid "locked"
+msgstr "bloquejat"
+
+msgid "locked at"
+msgstr "bloquejada el"
+
+msgid "locked by"
+msgstr "bloquejada per"
+
+msgid "in moderation"
+msgstr "en moderació"
+
+msgid "live + in moderation"
+msgstr "en viu + en moderació"
+
+msgid "Add/edit pages you own"
+msgstr "Afegir/editar pàgines pròpies"
+
+msgid "Bulk delete"
+msgstr "Eliminació en massa"
+
+msgid "Delete pages with children"
+msgstr "Eliminar pàgines amb pàgines filles"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any page"
+msgstr "Editar una pàgina"
+
+msgid "Lock"
+msgstr "Bloquejar"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloqueig i desbloqueig de pàgines que he bloquejat"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar una pàgina"
+
+msgid "Unlock"
+msgstr "Desbloquejar"
+
+msgid "Unlock any page"
+msgstr "Desbloquejar alguna pàgina"
+
+msgid "title"
+msgstr "títol"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "El títol de la pàgina que vols que sigui vist pel públic"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"El nom de la pàgina que apareixerà en la URL. Per exemple: http://domini.com/"
+"blog/[nom]/"
+
+msgid "content type"
+msgstr "tipus de contingut"
+
+msgid "URL path"
+msgstr "ruta URL"
+
+msgid "owner"
+msgstr "propietari"
+
+msgid "title tag"
+msgstr "etiqueta de títol"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"El nom de la pàgina que es mostra als resultats del motor de cerca com a "
+"títol on es pot fer clic."
+
+msgid "show in menus"
+msgstr "mostrar als menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
+
+msgid "meta description"
+msgstr "descripció meta"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"El text descriptiu que es mostra sota un títol als resultats del motor de "
+"cerca."
+
+msgid "latest revision created at"
+msgstr "última revisió creada el"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"El llimac '%(page_slug)s' ja està en ún a la pàgina pare a "
+"'%(parent_url_path)s'"
+
+msgid "page"
+msgstr "pàgina"
+
+msgid "pages"
+msgstr "pàgines"
+
+msgid "object id"
+msgstr "id d'objecte"
+
+msgid "submitted for moderation"
+msgstr "enviat a moderació"
+
+msgid "created at"
+msgstr "creat el"
+
+msgid "user"
+msgstr "usuari"
+
+msgid "content JSON"
+msgstr "contingut JSON"
+
+msgid "approved go live at"
+msgstr "aprovat l'en viu el"
+
+msgid "revision"
+msgstr "revisió"
+
+msgid "revisions"
+msgstr "revisions"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "permís"
+
+msgid "permission type"
+msgstr "tipus de permís"
+
+msgid "group page permission"
+msgstr "permís de pàgina de grup"
+
+msgid "group page permissions"
+msgstr "permisos de pàgina de grup"
+
+msgid "page view restriction"
+msgstr "restrició de visualització de pàgina"
+
+msgid "page view restrictions"
+msgstr "restriccions de visualització de pàgina"
+
+msgid "workflow"
+msgstr "fluxe de treball"
+
+msgid "workflow page"
+msgstr "pàgina de fluxe de treball"
+
+msgid "workflow pages"
+msgstr "pàgines de fluxes de treball"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "tasca"
+
+msgid "workflow task order"
+msgstr "ordre de tasques de fluxe de treball"
+
+msgid "workflow task orders"
+msgstr "ordres de tasques de fluxe de treball"
+
+msgid "name"
+msgstr "nom"
+
+msgid "active"
+msgstr "actiu"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Les tasques actives poden ser afegides als fluxes de treball. Desactivar una "
+"tasca no l'esborra de fluxes de treball existents."
+
+msgid "tasks"
+msgstr "tasques"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Els fluxos de treball actius es poden afegir a les pàgines/fragments. La "
+"desactivació d'un flux de treball no l'elimina de les pàgines o fragments "
+"existents."
+
+msgid "workflows"
+msgstr "fluxes de treball"
+
+msgid "groups"
+msgstr "grups"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Les pàgines/fragments d'aquest pas d'un flux de treball seran moderades o "
+"aprovades per aquests grups d'usuaris"
+
+msgid "Request changes"
+msgstr "Sol·licitar canvis"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "Approve with comment"
+msgstr "Aprovar amb comentari"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Els membres dels Wagtail Groups triats poden aprovar aquesta tasca"
+
+msgid "Group approval task"
+msgstr "Tasca d'aprovació de grup"
+
+msgid "Group approval tasks"
+msgstr "Tasques d'aprovació de grup"
+
+msgid "In progress"
+msgstr "En progrés"
+
+msgid "Approved"
+msgstr "Aprovat"
+
+msgid "Needs changes"
+msgstr "Es necessiten canvis"
+
+msgid "Cancelled"
+msgstr "Cancel·lat"
+
+msgid "status"
+msgstr "estat"
+
+msgid "requested by"
+msgstr "sol·licitat per"
+
+msgid "current task state"
+msgstr "estat de la tasca actual"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"És possible que només n'hi hagi un en curs o que necessiti canvis d'estat "
+"del flux de treball per pàgina/fragment."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Fluxe de treball '%(workflow_name)s' a %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "No iniciat"
+
+msgid "Workflow state"
+msgstr "Estat del fluxe de treball"
+
+msgid "Workflow states"
+msgstr "Estats de fluxe de treball"
+
+msgid "Rejected"
+msgstr "Rebutjat"
+
+msgid "Skipped"
+msgstr "Omesos"
+
+msgid "workflow state"
+msgstr "estat del fluxe de treball"
+
+msgid "started at"
+msgstr "iniciat el"
+
+msgid "finished at"
+msgstr "finalitzat el"
+
+msgid "finished by"
+msgstr "finalitzat per"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Taca '%(task_name)s' a la Revisió '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Estat de la tasca"
+
+msgid "Task states"
+msgstr "Estat de les tasques"
+
+msgid "page log entry"
+msgstr "entrada de registre de pàgina"
+
+msgid "page log entries"
+msgstr "entrades de registre de pàgina"
+
+msgid "Draft saved"
+msgstr "S'ha desat l'esborrany"
+
+msgid "comment"
+msgstr "comentari"
+
+msgid "comments"
+msgstr "comentaris"
+
+msgid "comment reply"
+msgstr "resposta de comentari"
+
+msgid "comment replies"
+msgstr "respostes de comentaris"
+
+msgid "timestamp (UTC)"
+msgstr "marca de temps (UTC)"
+
+msgid "log entry"
+msgstr "entrada de registre"
+
+msgid "log entries"
+msgstr "entrades de registre"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "L'acció de registre '%(action_name)s' no ha estat registrada."
+
+msgid "system"
+msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Desconegut/da %(action)s"
+
+msgid "model log entry"
+msgstr "entrada de registre de model"
+
+msgid "model log entries"
+msgstr "entrades de registre de models"
+
+msgid "collection"
+msgstr "col·lecció"
+
+msgid "collection view restriction"
+msgstr "Restricció de visualització de col·lecció"
+
+msgid "collection view restrictions"
+msgstr "Restriccions de visualitzacions de col·leccions"
+
+msgid "collections"
+msgstr "col·leccions"
+
+msgid "group collection permission"
+msgstr "permís de col·lecció de grups"
+
+msgid "group collection permissions"
+msgstr "permisos de col·leccions de grups"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "el/la %(model_name)s serà també esborrat/da"
+
+msgid "prevents deletion"
+msgstr "evita l'esborrat"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "serà establert al %(model_name)s per defecte"
+
+msgid "will do nothing"
+msgstr "no farà res"
+
+msgid "may prevent deletion"
+msgstr "pot evitar l'esborrat"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "serà establert a un/a %(model_name)s especificat/da pel sistema"
+
+msgid "will unset the reference"
+msgstr "anul·larà la referència"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Canvia això per un número diferent de 80 si necessites que aparegui un port "
+"específic en les URLs (per ex: port de desenvolupament al 8000). No afecta a "
+"la petició actual (el port de reenviament encara funciona)."
+
+msgid "site name"
+msgstr "nom del lloc"
+
+msgid "Human-readable name for the site."
+msgstr "Nom del lloc llegible per humans"
+
+msgid "root page"
+msgstr "pàgina arrel"
+
+msgid "is default site"
+msgstr "és el lloc predeterminat"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si és cert, aquest lloc s'encarregarà de les peticions de totes les altres "
+"màquines que no tenen un lloc establert."
+
+msgid "site"
+msgstr "lloc"
+
+msgid "sites"
+msgstr "llocs"
+
+msgid "default"
+msgstr "per defecte"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s ja està configurat com a lloc predeterminat. Heu de treure "
+"aquesta configuració abans de desar aquest lloc com a predeterminat."
+
+msgid "Public"
+msgstr "Pública"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privada, accessible a usuaris identificats"
+
+msgid "Private, accessible with the following password"
+msgstr "Privada, accessible amb la contrasenya següent"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privada, accessible a usuaris de grups específics"
+
+msgid "password"
+msgstr "contrasenya"
+
+msgid "view restriction"
+msgstr "restricció de visualització"
+
+msgid "view restrictions"
+msgstr "restriccions de visualització"
+
+msgid "Log in"
+msgstr "Iniciar sessió"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "El vostre nom d'usuari i contrasenya no concorden. Torneu-ho a provar."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"El vostre compte no té accés a aquesta pàgina. Per procedir, inicieu sessió "
+"amb un compte que hi tingui accés."
+
+msgid "Password required"
+msgstr "Es requereix contrsenya"
+
+msgid "You need a password to access this page."
+msgstr "Necessiteu una contrasenya per accedir a aquesta pàgina."
+
+msgid "Continue"
+msgstr "Continuar"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s col·lecció descendent"
+msgstr[1] "%(count)s col·leccions descendents"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Created"
+msgstr "Creada"
+
+msgid "Edited"
+msgstr "Editat"
+
+msgid "Deleted"
+msgstr "Suprimida"
+
+msgid "Published"
+msgstr "Publicada"
+
+msgid "Publish scheduled draft"
+msgstr "Publicar esborrany programat"
+
+msgid "Published scheduled draft"
+msgstr "S'ha publicat l'esborrany programat"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Unpublished"
+msgstr "Despublicada"
+
+msgid "Unpublish scheduled draft"
+msgstr "Anul·lar publicació d'esborrany programat"
+
+msgid "Unpublished scheduled draft"
+msgstr "S'ha anul·lat la publicació de l'esborrany programat"
+
+msgid "Reject"
+msgstr "Rebutjar"
+
+msgid "Rename"
+msgstr "Reanomenar"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Reanomentat de '%(old)s' a '%(new)s'"
+
+msgid "Renamed"
+msgstr "Reanomenat"
+
+msgid "Revert"
+msgstr "Revertir"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"S'ha revertit a la versió anterior amb id %(revision_id)s de %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "S'ha revertit a la revisió anterior"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "S'ha copiat de %(title)s"
+
+msgid "Copied"
+msgstr "Copiat"
+
+msgid "Copy for translation"
+msgstr "Copiar per a traducció"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiat per a traducció des de %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "S'ha copiat per a traducció"
+
+msgid "Create alias"
+msgstr "Crear àlies"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "S'ha creat un àlies de %(title)s"
+
+msgid "Created an alias"
+msgstr "S'ha creat un àlies"
+
+msgid "Convert alias into ordinary page"
+msgstr "Convertir un àlies en una pàgina ordinària"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "S'ha convertit l'àlies '%(title)s' en una pàgina ordinària"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "S'ha convertit un àlies en una pàgina ordinària"
+
+msgid "Move"
+msgstr "Mou"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "S'ha mogut de '%(old_parent)s' a '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Mogut"
+
+msgid "Reorder"
+msgstr "Reordenar"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Reordenat sota '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Reordenat"
+
+msgid "Schedule publication"
+msgstr "Programar la publicació"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"La revisió %(revision_id)s del %(created_at)s ha estat programada per "
+"publicar el %(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "S'ha programat la publicació pel %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "S'ha programat la publicació de la pàgina"
+
+msgid "Unschedule publication"
+msgstr "Anul·lar la programació de la publicació"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"La revisió %(revision_id)s del %(created_at)s ha estat desprogramada per "
+"publicar el %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr ""
+"S'ha anul·lat la programació de publicació de la pàgina pel %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "S'ha anul·lat la programació de la publicació de la pàgina"
+
+msgid "Add view restrictions"
+msgstr "Afegir restriccions de visualització"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "S'ha afegit '%(restriction)s' restricció de visualització"
+
+msgid "Added view restriction"
+msgstr "S'ha afegit una restricció de visualització"
+
+msgid "Update view restrictions"
+msgstr "Actualitzar restriccions de visualització"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr ""
+"S'ha actualitzat la restricció de visualitzatció de to '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "S'ha actualitzat la restricció de visualització"
+
+msgid "Remove view restrictions"
+msgstr "Esborrar restriccions de visualització"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "S'ha esborrat la restricció de visualització de '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "S'ha esborrat al restricció de visualització"
+
+msgid "Add comment"
+msgstr "Afegir comentari"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha afegit un comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "S'ha afegit un comentari"
+
+msgid "Edit comment"
+msgstr "Editar comentari"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha editat un comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "S'ha editat un comentari"
+
+msgid "Delete comment"
+msgstr "Esborrar comentari"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha esborrat un comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "S'ha esborrat un comentari"
+
+msgid "Resolve comment"
+msgstr "Resoldre un comentari"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha resolt un comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "S'ha resolt un comentari"
+
+msgid "Reply to comment"
+msgstr "Respondre a un comentari"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha respost a un comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "S'ha respost a un comentari"
+
+msgid "Edit reply to comment"
+msgstr "Editar resposta de comentari"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "S'ha editat una resposta a comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "S'ha editat una resposta"
+
+msgid "Delete reply to comment"
+msgstr "Esborrar resposta a comentari"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"S'ha esborrat una resposta a comentari del camp %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Esborrar una resposta"
+
+msgid "Workflow: start"
+msgstr "Fluxe de treball: inicia"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' iniciat. Següent pas '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Fluxe de treball iniciat"
+
+msgid "Workflow: approve task"
+msgstr "Fluxe de treball: aprova la tasca"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprovat a '%(task)s'. Següent pas '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Aprovat a '%(task)s'. '%(workflow)s' complert"
+
+msgid "Workflow task approved"
+msgstr "S'ha aprovat la tasca de fluxe de treball"
+
+msgid "Workflow: reject task"
+msgstr "Fluxe de treball: rebutja la tasca"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rebutjat a '%(task)s'. Canvis demanats"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Tasca de fluxe de treball rebutjada. Fluxe de treball complert"
+
+msgid "Workflow: resume task"
+msgstr "Fluxe de treball: reprèn la tasca"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Reenviat '%(task)s'. Fluxe de treball reprès"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Tasca de fluxe de treball reenviada. Fluxe de treball reprès"
+
+msgid "Workflow: cancel"
+msgstr "Fluxe de treball: cancel·la"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Cancel·lat '%(workflow)s' a '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "S'ha cancel·lat el fluxe de treball"

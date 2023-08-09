@@ -1,0 +1,152 @@
+=========================
+Wagtail 1.6 release notes
+=========================
+
+*August 15, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Django 1.10 support
+~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 1.10. Thanks to Mikalai Radchuk and Paul J Stevens for developing this, and to Tim Graham for reviewing and additional Django core assistance.
+
+
+``{% include_block %}`` tag for improved StreamField template inclusion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, the standard way of rendering the HTML content of a StreamField was through a simple variable template tag, such as ``{{ page.body }}``. This had the drawback that any templates used in the StreamField rendering would not inherit variables from the parent template's context, such as ``page`` and ``request``. To address this, a new template tag ``{% include_block page.body %}`` has been introduced as the new recommended way of outputting Streamfield content - this replicates the behaviour of Django's ``{% include %}`` tag, passing on the full template context by default. For full documentation, see :ref:`streamfield_template_rendering`. This feature was developed by Matt Westcott, and additionally ported to Jinja2 (see: :doc:`/reference/jinja2`) by Mikalai Radchuk.
+
+
+Unicode page slugs
+~~~~~~~~~~~~~~~~~~
+
+Page URL slugs can now contain Unicode characters, when using Django 1.9 or above. This feature was developed by Behzad Nategh.
+
+
+Permission-limited explorer menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The explorer sidebar menu now limits the displayed pages to the ones the logged-in user has permission for. For example, if a user has permission over the pages MegaCorp / Departments / Finance and MegaCorp / Departments / HR, then their menu will begin at "Departments". This reduces the amount of "drilling-down" the user has to do, and is an initial step towards supporting fully independent sites on the same Wagtail installation. This feature was developed by Matt Westcott and Robert Rollins, California Institute of Technology.
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+* Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
+* oEmbed URL for audioBoom was updated (Janneke Janssen)
+* Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
+* ``FieldRowPanel`` now creates equal-width columns automatically if ``col*`` classnames are not specified (Chris Rogers)
+* Form builder now validates against multiple fields with the same name (Richard McMillan)
+* The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
+* Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
+* Added new EmailBlock and IntegerBlock (Oktay Altay)
+* Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
+* Wagtail version number is now shown on the settings menu (Chris Rogers)
+* Added a system check to validate that fields listed in ``search_fields`` are defined on the model (Josh Schneier)
+* Added formal APIs for customising the display of StructBlock forms within the page editor - see :ref:`custom_editing_interfaces_for_structblock` (Matt Westcott)
+* ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
+* Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
+* Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
+* Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
+* Recognise Flickr embed URLs using HTTPS (Danielle Madeley)
+* Success message when publishing a page now correctly respects custom URLs defined on the specific page class (Chris Darko)
+* Required blocks inside StreamField are now indicated with asterisks (Stephen Rice)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Email templates and document uploader now support custom ``STATICFILES_STORAGE`` (Jonny Scholes)
+* Removed alignment options (deprecated in HTML and not rendered by Wagtail) from ``TableBlock`` context menu (Moritz Pfeiffer)
+* Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
+* Prevent empty redirect by overnormalisation
+* "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
+* ``RichText`` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
+* wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
+* Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
+* StreamField can now be used in an InlinePanel (Gagaro)
+* StreamField block renderings using templates no longer undergo double escaping when using Jinja2 (Aymeric Augustin)
+* RichText objects no longer undergo double escaping when using Jinja2 (Aymeric Augustin, Matt Westcott)
+* Saving a page by pressing enter key no longer triggers a "Changes may not be saved message" (Sean Muck, Matt Westcott)
+* RoutablePageMixin no longer breaks in the presence of instance-only attributes such as those generated by FileFields (Fábio Macêdo Mendes)
+* The ``--schema-only`` flag on update_index no longer expects an argument (Karl Hobley)
+* Added file handling to support custom user add/edit forms with images/files (Eraldo Energy)
+* Placeholder text in modeladmin search now uses the correct template variable (Adriaan Tijsseling)
+* Fixed bad SQL syntax for updating URL paths on Microsoft SQL Server (Jesse Legg)
+* Added workaround for Django 1.10 bug https://code.djangoproject.com/ticket/27037 causing forms with file upload fields to fail validation (Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+Form builder ``FormField`` models require a migration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are some changes in the ``wagtailforms.models.AbstractFormField`` model:
+
+* The ``choices`` field has been changed from a ``CharField`` to a ``TextField``, to allow it to be of unlimited length;
+* The help text for the ``to_address`` field has been changed: it now gives more information on how to specify multiple addresses.
+
+These changes require migration. If you are using the ``wagtailforms`` module in your project, you will need to run ``python manage.py makemigrations`` and ``python manage.py migrate`` after upgrading, in order to apply changes to your form page models.
+
+``TagSearchable`` needs removing from custom image / document model migrations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The mixin class ``wagtail.wagtailadmin.taggable.TagSearchable``, used internally by image and document models, has been deprecated. If you are using custom image or document models in your project, the migration(s) which created them will contain frozen references to ``wagtail.wagtailadmin.taggable.TagSearchable``, which must now be removed. The line:
+
+.. code-block:: python
+
+    import wagtail.wagtailadmin.taggable
+
+should be replaced by:
+
+.. code-block:: python
+
+    import wagtail.wagtailsearch.index
+
+and the line:
+
+.. code-block:: python
+
+    bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+
+should be updated to:
+
+.. code-block:: python
+
+    bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+
+``render`` and ``render_basic`` methods on StreamField blocks now accept a ``context`` keyword argument
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``render`` and ``render_basic`` methods on ``wagtail.wagtailcore.blocks.Block`` have been updated to accept an optional ``context`` keyword argument, a template context to use when rendering the block. If you have defined any custom StreamField blocks that override either of these methods, the method signature now needs to be updated to include this keyword argument:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def render(self, value):
+            ...
+
+        def render_basic(self, value):
+            ...
+
+should now become:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def render(self, value, context=None):
+            ...
+
+        def render_basic(self, value, context=None):
+            ...

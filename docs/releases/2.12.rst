@@ -1,0 +1,72 @@
+==========================
+Wagtail 2.12 release notes
+==========================
+
+*February 2, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Image / document choose permission
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Images and documents now support a distinct 'choose' permission type, to control the set of items displayed in the chooser interfaces when inserting images and documents into a page, and allow setting up collections that are only available for use by specific user groups. This feature was developed by Robert Rollins.
+
+
+In-place StreamField updating
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField values now formally support being updated in-place from Python code, allowing blocks to be inserted, modified and deleted rather than having to assign a new list of blocks to the field. For further details, see :ref:`modifying_streamfield_data`. This feature was developed by Matt Westcott.
+
+Admin colour themes
+~~~~~~~~~~~~~~~~~~~
+
+Wagtail’s admin now uses CSS custom properties for its primary teal colour. Applying brand colours for the whole user interface only takes a few lines of CSS, and third-party extensions can reuse Wagtail’s CSS variables to support the same degree of customisation. Read on :ref:`custom_user_interface_colours`. This feature was developed by Joshua Marantz.
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added support for Python 3.9
+* Added ``WAGTAILIMAGES_IMAGE_FORM_BASE`` and ``WAGTAILDOCS_DOCUMENT_FORM_BASE`` settings to customise the forms for images and documents (Dan Braghis)
+* Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
+* Added string representation to image Format class (Andreas Nüßlein)
+* Support returning None from ``register_page_action_menu_item`` and ``register_snippet_action_menu_item`` to skip registering an item (Vadim Karpenko)
+* Fields on a custom image model can now be defined as required / ``blank=False`` (Matt Westcott)
+* Add combined index for Postgres search backend (Will Giddens)
+* Add ``Page.specific_deferred`` property for accessing specific page instance without up-front database queries (Andy Babic)
+* Add hash lookup to embeds to support URLs longer than 255 characters (Coen van der Kamp)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
+* Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
+* Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
+* Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
+* Reinstate chevron on collection dropdown (Mike Brown)
+* Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
+* Move labels above the form field in the image format chooser, to avoid styling issues at tablet size (Helen Chapman)
+* ``{% include_block with context %}`` now passes local variables into the block template (Jonny Scholes)
+
+
+Upgrade considerations
+======================
+
+Removed support for Elasticsearch 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Elasticsearch version 2 is no longer supported as of this release; please upgrade to Elasticsearch 5 or above before upgrading Wagtail.
+
+
+``stream_data`` on StreamField values is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``stream_data`` property of StreamValue is commonly used to access the underlying data of a StreamField. However, this is discouraged, as it is an undocumented internal attribute and has different data representations depending on whether the value originated from the database or in memory, typically leading to errors on preview if this has not been properly accounted for. As such, ``stream_data`` is now deprecated.
+
+The recommended alternative is to index the StreamField value directly as a list; for example, ``page.body[0].block_type`` and ``page.body[0].value`` instead of ``page.body.stream_data[0]['type']`` and ``page.body.stream_data[0]['value']``. This has the advantage that it will return the same Python objects as when the StreamField is used in template code (such as Page instances for ``PageChooserBlock``). However, in most cases, existing code using ``stream_data`` is written to expect the raw JSON-like representation of the data, and for this the new property ``raw_data`` (added in Wagtail 2.12) can be used as a drop-in replacement for ``stream_data``.

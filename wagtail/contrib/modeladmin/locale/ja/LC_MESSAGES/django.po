@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# shuhei hirota, 2019
+# Safu9 <safu9.dev@gmail.com>, 2019
+# Safu9 <safu9.dev@gmail.com>, 2019
+# shuhei hirota, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail モデル管理"
+
+msgid "Parent page"
+msgstr "親ページ"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "%(object)s を追加"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "%(object)s を新規追加"
+
+msgid "Inspect"
+msgstr "詳細"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "%(object)sの詳細"
+
+msgid "Edit"
+msgstr "編集"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
+
+msgid "Delete"
+msgstr "削除"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "%(object)sを削除"
+
+msgid "Unpublish"
+msgstr "非公開"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "%(object)sを非公開"
+
+msgid "Copy"
+msgstr "複製"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "%(object)sを複製"
+
+msgid "image"
+msgstr "画像"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)sリストに戻る"
+
+msgid "Choose a parent page"
+msgstr "親ページを選択"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)sはサイト内の複数の場所に追加できます。 次のうち、新しいページの親に"
+"なりたいものはどれですか？"
+
+msgid "Continue"
+msgstr "続ける"
+
+msgid "Saving…"
+msgstr "保存中..."
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)sは削除できませんでした"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"現在'%(instance_name)s'は他のオブジェクトによって参照されているため、データの"
+"整合性を危険にさらすことなく削除できません。 正常に削除するためには、次のオブ"
+"ジェクトから参照を削除してから行ってください。"
+
+msgid "Go back to listing"
+msgstr "リストに戻る"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
+msgid "History"
+msgstr "履歴"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "検索パラメータに一致する%(name)sはありませんでした。"
+
+msgid "Search for"
+msgstr "を検索する"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "%(name)sを検索"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Filter"
+msgstr "フィルター"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"%(name)sはまだ作成されていせん。%(name)sを追加する前に、次のいずれかを作成す"
+"る必要があります:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "まだ%(name)sは作成されていません。"
+
+msgid "Pagination"
+msgstr "ページネーション"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "%(num_pages)sページ中%(current_page)sページ目"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Next"
+msgstr "次へ"
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "%(object)sはエラーにより作成されませんでした。"
+
+msgid "New"
+msgstr "新規作成"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "%(object)sを新規作成"
+
+msgid "Editing"
+msgstr "編集"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "%(object)sを編集中"
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "%(object)sはエラーにより保存されませんでした。"
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "%(object)sの削除確認"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"%(object)sを削除してもよいですか？サイトの他の要素がこれに関連している場合"
+"は、それらも影響を受ける可能性があります。"
+
+msgid "Inspecting"
+msgstr "詳細"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "%(object)sの詳細"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Date"
+msgstr "日付"

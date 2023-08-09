@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail simple translation"
+msgstr "Traducción simple de Wagtail"
+
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+msgid "Locales"
+msgstr "Regiones"
+
+msgid "All child pages will be created."
+msgstr "Todas las páginas hijas serán creadas."
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Una región está deshabilitada porque una página padre no está traducida."
+msgstr[1] ""
+"Algunas regiones están deshabilitadas porque algunas páginas padre no están "
+"traducidas."
+msgstr[2] ""
+"Algunas regiones están deshabilitadas porque algunas páginas padre no están "
+"traducidas."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduce la página padre."
+msgstr[1] "Traduce las páginas padre."
+msgstr[2] "Traduce las páginas padre."
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Translate"
+msgstr "Traducir"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s regiones"
+
+msgid "Translate page"
+msgstr "Traducir página"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "La página '%(page_title)s' fue creada con éxito en %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Traducir %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Creado con éxito %(locales)s para %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Traducir esta página"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traducir '%(title)s'"

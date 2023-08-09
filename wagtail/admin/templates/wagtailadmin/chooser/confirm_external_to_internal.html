@@ -1,0 +1,21 @@
+{% load i18n wagtailadmin_tags %}
+{% trans "Convert to internal link" as convert_str %}
+{% include "wagtailadmin/shared/header.html" with title=convert_str %}
+
+<div class="nice-padding">
+    <p>
+        {% blocktrans trimmed %}
+            The URL you entered, <a target="_blank" rel="noreferrer" href="{{ submitted_url }}">{{ submitted_url }}</a>,
+            looks like it matches the internal page {{ page }}, which has the URL
+            <a target="_blank" rel="noreferrer" href="{{ internal_url }}">{{ internal_url }}</a>.
+        {% endblocktrans %}
+    </p>
+    <p>
+        {% blocktrans trimmed %}
+            Converting this to an internal link to {{ page }} would make the link automatically update if the underlying page changes its URL.
+            Would you like to do this?
+        {% endblocktrans %}
+    </p>
+    <button type="button" data-action-confirm class="button button-primary">{% trans 'Convert to internal link' %}</button>
+    <button type="button" data-action-deny class="button button-secondary">{% trans 'Use external link' %}</button>
+</div>

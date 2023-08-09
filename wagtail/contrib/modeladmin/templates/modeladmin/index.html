@@ -1,0 +1,97 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n modeladmin_tags wagtailadmin_tags %}
+
+{% block bodyclass %}modeladmin{% endblock %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% fragment as breadcrumb %}{% block breadcrumb %}{% endblock %}{% endfragment %}
+        {% fragment as heading %}{% block h1 %}{% endblock %}{% endfragment %}
+        {% fragment as description %}{% include 'modeladmin/includes/result_count.html' %}{% endfragment %}
+        {% fragment as extra_actions %}
+            {% block header_extra %}
+                {% if view.list_export or user_can_create %}
+                    <div class="actionbutton">
+                        {% if user_can_create %}
+                            {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
+                        {% endif %}
+                        {% if view.list_export %}
+                            {% include view.export_buttons_template_name %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        {% endfragment %}
+        {% fragment as search %}{% block search %}{% search_form %}{% endblock %}{% endfragment %}
+        {% fragment as extra_rows %}{% block extra_rows %}{% endblock %}{% endfragment %}
+        {% include 'wagtailadmin/shared/header.html' with classname="w-header--hasform" breadcrumb=breadcrumb heading=heading title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon description=description search=search extra_actions=extra_actions extra_rows=extra_rows %}
+    {% endblock %}
+
+    {% block content_main %}
+        <div class="main-content">
+            <div class="row">
+                {% block content_cols %}
+
+                    {% block filters %}
+                        {% if view.has_filters and all_count %}
+                            <div class="changelist-filter col3">
+                                <h2>{% trans 'Filter' %}</h2>
+                                {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+
+                    <div class="result-list {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                        {% block result_list %}
+                            {% if not all_count %}
+                                <div class="nice-padding" style="margin-top:30px;">
+                                    {% if no_valid_parents %}
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <ul>
+                                            {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                            {% if user_can_create %}
+                                                {% blocktrans trimmed with view.create_url as url %}
+                                                    Why not <a href="{{ url }}">add one</a>?
+                                                {% endblocktrans %}
+                                            {% endif %}</p>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                {% result_list %}
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+
+                    {% block pagination %}
+                        <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
+                            <p>{% blocktrans trimmed with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
+                            {% if paginator.num_pages > 1 %}
+                                <ul>
+                                    {% pagination_link_previous page_obj view %}
+                                    {% pagination_link_next page_obj view %}
+                                </ul>
+                            {% endif %}
+                        </nav>
+                    {% endblock %}
+
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

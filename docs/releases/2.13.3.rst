@@ -1,0 +1,22 @@
+============================
+Wagtail 2.13.3 release notes
+============================
+
+*July 5, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
+ * Include form media on account settings page (Matt Westcott)
+ * Avoid error when rendering validation error messages on ListBlock children (Matt Westcott)
+ * Prevent comments CSS from overriding admin UI colour customisations (Matt Westcott)
+ * Avoid validation error when editing rich text content preceding a comment (Jacob Topp-Mugglestone)

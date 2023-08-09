@@ -1,0 +1,10 @@
+{% load i18n wagtailadmin_tags %}
+<td class="ord">
+    <div class="handle" tabindex="0" aria-live="polite" data-order-handle>
+        {% icon name="grip" classname="default" %}
+        <span class="w-sr-only">
+            {% trans 'Drag' %}
+            <span data-order-label>Item {{ row.index|add:1 }} of {{ table.row_count }}</span>
+        </span>
+    </div>
+</td>

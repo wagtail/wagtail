@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>, 2018\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail stilguide"
+
+msgid "Styleguide"
+msgstr "Stilguide"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Delete image"
+msgstr "Radera bild"
+
+msgid "Search something"
+msgstr "Sök någonting"
+
+msgid "Success message"
+msgstr "OK-meddelande"
+
+msgid "View live"
+msgstr "Visa publicerad"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Warning message"
+msgstr "Varningsmeddelande"
+
+msgid "Error message"
+msgstr "Felmeddelande"

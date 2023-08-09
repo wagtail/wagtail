@@ -1,0 +1,221 @@
+#
+# Translators:
+# Aarni Koskela, 2022
+# Valter Maasalo <vmaasalo@gmail.com>, 2022
+# Loic Teixeira, 2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2023\n"
+"Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s uutta kohdetta tässä valikossa)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 uusi kohde tässä valikossa)"
+
+msgid "(New)"
+msgstr "(Uusi)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s virhe"
+msgstr[1] "%(num)s virhettä"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pikseli"
+msgstr[1] "%(num)s pikseliä"
+
+msgid "Add a comment"
+msgstr "Lisää kommentti"
+
+msgid "Alt text"
+msgstr "Vaihtoehtoinen teksti"
+
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+msgid "Blocks"
+msgstr "Lohkot"
+
+msgid "Broken link"
+msgstr "Särkynyt linkki"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Character count:"
+msgstr "Merkkimäärä:"
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "Collapse all"
+msgstr "Supista kaikki"
+
+msgid "Comment"
+msgstr "Kommentti"
+
+msgid "Dashboard"
+msgstr "Kojelauta"
+
+msgid "Decorative image"
+msgstr "Koristeellinen kuva"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Delete error"
+msgstr "Poistamisvirhe"
+
+msgid "Deleting"
+msgstr "Poistetaan"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit '%(title)s'"
+msgstr "Muokkaa '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Muokkaa tiliäsi"
+
+msgid "Enter your comments..."
+msgstr "Kirjoita kommentit..."
+
+msgid "Enter your reply..."
+msgstr "Kirjoita vastaus..."
+
+msgid "Error while sending preview data."
+msgstr "Virhe lähettäessä esikatseludataa."
+
+msgid "Expand all"
+msgstr "Laajenna kaikki"
+
+msgid "Focus comment"
+msgstr "Kohdista kommentti"
+
+msgid "Horizontal line"
+msgstr "Vaakaviiva"
+
+msgid "Insert a block"
+msgstr "Lisää lohko"
+
+msgid "Line break"
+msgstr "Rivinvaihto"
+
+msgid "Loading…"
+msgstr "Ladataan…"
+
+msgid "Main menu"
+msgstr "Päävalikko"
+
+msgid "Missing document"
+msgstr "Puuttuva asiakirja"
+
+msgid "More actions"
+msgstr "Lisää toimintoja"
+
+msgid "No results"
+msgstr "Ei tuloksia"
+
+msgid "Page"
+msgstr "Sivu"
+
+msgid "Page explorer"
+msgstr "Sivuselain"
+
+msgid "Pages"
+msgstr "Sivut"
+
+msgid "Pin toolbar"
+msgstr "Kiinnitä työkalupalkki"
+
+msgid "Reload saved content"
+msgstr "Lataa tallennettu sisältö"
+
+msgid "Reload the page"
+msgstr "Lataa sivu uudestaan"
+
+msgid "Reply"
+msgstr "Vastaa"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+
+msgid "Resolve"
+msgstr "Selvitä"
+
+msgid "Retry"
+msgstr "Yritä uudelleen"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Save error"
+msgstr "Tallennusvirhe"
+
+msgid "Save the page to add this comment"
+msgstr "Tallenna sivu lisätäksesi tämän kommentin"
+
+msgid "Save the page to save this comment"
+msgstr "Tallenna sivu tallentaaksesi tämän kommentin"
+
+msgid "Save the page to save this reply"
+msgstr "Tallenna sivu tallentaaksesi tämän vastauksen"
+
+msgid "Saving..."
+msgstr "Tallennetaan..."
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "See all"
+msgstr "Katso kaikki"
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Show error"
+msgstr "Näytä virheilmoitus"
+
+msgid "Show latest content"
+msgstr "Näytä viimeisin sisältö"
+
+msgid "Split block"
+msgstr "Jaa lohko"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
+"tallennettu versio. "
+
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
+msgid "Toggle side panel"
+msgstr "Sivupaneeli päälle/pois"
+
+msgid "Toggle sidebar"
+msgstr "Sivupalkki päälle/pois"
+
+msgid "Unfocus comment"
+msgstr "Poista kommentin kohdistus"
+
+msgid "Unpin toolbar"
+msgstr "Poista työkalupalkin kiinnitys"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Näytä sivun '%(title)s' alasivut"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Kirjoita jotain tai kirjoita ‘/’ lisätäksesi lohkon"

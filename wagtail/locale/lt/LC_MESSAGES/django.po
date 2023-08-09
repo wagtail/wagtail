@@ -1,0 +1,473 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2020-2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Naglis Jonaitis, 2020-2022\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail branduolys"
+
+msgid "Add Comment"
+msgstr "Pridėti komentarą"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Mažiausias vienetų kiekis %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Didžiausias vienetų kiekis %(max_num)d"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Duplicate"
+msgstr "Dubliuoti"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "This block has no options."
+msgstr "Šis blokas neturi jokių nustatymų."
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+msgid "Password"
+msgstr "Slaptažodis"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Slaptažodis kurį suvedėte yra neteisingas. Bandykite dar kartą."
+
+msgid "Comment"
+msgstr "Komentaras"
+
+msgid "Locked"
+msgstr "Užrakinta"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
+
+msgid "live"
+msgstr "veikiantis"
+
+msgid "has unpublished changes"
+msgstr "turi nebepublikuojamų pakeitimų"
+
+msgid "first published at"
+msgstr "pirmą kartą publikuotas"
+
+msgid "last published at"
+msgstr "paskutinį kartą publikuota"
+
+msgid "go live date/time"
+msgstr "veikimo įjungimo data/laikas"
+
+msgid "expiry date/time"
+msgstr "galiojimo pabaigos data/laikas"
+
+msgid "expired"
+msgstr "baigė galioti"
+
+msgid "scheduled"
+msgstr "planuotas"
+
+msgid "draft"
+msgstr "juodraštis"
+
+msgid "live + scheduled"
+msgstr "veikiantis + suplanuotas"
+
+msgid "live + draft"
+msgstr "veikiantis + juodraštis"
+
+msgid "Default"
+msgstr "Numatytasis"
+
+msgid "locked"
+msgstr "Užrakintas"
+
+msgid "Add/edit pages you own"
+msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
+
+msgid "Bulk delete"
+msgstr "Masinis trynimas"
+
+msgid "Delete pages with children"
+msgstr "Trinti puslapius su vidiniais puslapiais"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit any page"
+msgstr "Redaguoti bet kurį puslapį"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
+msgid "Publish any page"
+msgstr "Publikuoti bet kurį puslapį"
+
+msgid "Unlock"
+msgstr "Atrakinti"
+
+msgid "Unlock any page"
+msgstr "Atrakinti bet kurį puslapį"
+
+msgid "title"
+msgstr "pavadinimas"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Puslapio pavadinimas kuris bus atvaizduojamas viešai"
+
+msgid "slug"
+msgstr "Adreso trumpinys"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Puslapio pavadinimas, kuris bus atvaizduojamas URL, pvz. http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "turinio tipas"
+
+msgid "URL path"
+msgstr "URL kelias"
+
+msgid "owner"
+msgstr "valdytojas"
+
+msgid "title tag"
+msgstr "pavadinimo žymė"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Puslapio pavadinimas, atvaizduojamas paieškos variklių rezultatuose kaip "
+"antraštė, kurią galima paspausti."
+
+msgid "show in menus"
+msgstr "rodyti meniu elementuose"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ar nuoroda į šį puslapį bus atvaizduojama automatiškai sugeneruotose meniu"
+
+msgid "meta description"
+msgstr "metaduomenų aprašymas"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Aprašymo tekstas, atvaizduojamas po paieškos variklio rezultatų antrašte."
+
+msgid "latest revision created at"
+msgstr "paskutinė revizija sukurta"
+
+msgid "page"
+msgstr "puslapis"
+
+msgid "pages"
+msgstr "puslapiai"
+
+msgid "submitted for moderation"
+msgstr "pateikta moderavimui"
+
+msgid "created at"
+msgstr "sukurta"
+
+msgid "user"
+msgstr "vartotojas"
+
+msgid "content JSON"
+msgstr "turinys JSON"
+
+msgid "approved go live at"
+msgstr "patvirtintas įjungimas"
+
+msgid "group"
+msgstr "grupė"
+
+msgid "permission"
+msgstr "leidimai"
+
+msgid "permission type"
+msgstr "leidimo tipas"
+
+msgid "group page permission"
+msgstr "grupės puslapio leidimas"
+
+msgid "group page permissions"
+msgstr "grupės puslapio leidimai"
+
+msgid "page view restriction"
+msgstr "puslapio peržiūros apribojimas"
+
+msgid "page view restrictions"
+msgstr "puslapio peržiūros apribojimai"
+
+msgid "name"
+msgstr "pavadinimas"
+
+msgid "groups"
+msgstr "grupės"
+
+msgid "Approve"
+msgstr "Patvirtinti"
+
+msgid "Approve with comment"
+msgstr "Patvirtinti su komentaru"
+
+msgid "current task state"
+msgstr "dabartinė užduoties būsena"
+
+msgid "Draft saved"
+msgstr "Juodraštis išsaugotas"
+
+msgid "comment"
+msgstr "komentaras"
+
+msgid "comments"
+msgstr "komentarai"
+
+msgid "collection"
+msgstr "kolekcija"
+
+msgid "collection view restriction"
+msgstr "žiūrėti kolekcijos apribojimą"
+
+msgid "collection view restrictions"
+msgstr "žiūrėti kolekcijos apribojimus"
+
+msgid "collections"
+msgstr "kolekcijos"
+
+msgid "group collection permission"
+msgstr "grupės kolekcijos leidimas"
+
+msgid "hostname"
+msgstr "svetainės kompiuterio vardas"
+
+msgid "port"
+msgstr "prievadas"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nustatykite į ką nors kitko nei 80 jei reikia specifinio prievado numerio, "
+"kuris būtų atvaizduojamas URLs (pvz. vystymas 8000 prievade). Neįtakoja "
+"užklausų apdorojimo (prievadų peradresavimas vis dar veikia)."
+
+msgid "site name"
+msgstr "tinklalapio pavadinimas"
+
+msgid "Human-readable name for the site."
+msgstr "Skaitymui/atvaizdavimui skirtas tinklalapio pavadinimas."
+
+msgid "root page"
+msgstr "šakninis puslapis"
+
+msgid "is default site"
+msgstr "yra numatytasis tinklalapis"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Jei taip, šis tinklalapis apdoros visų kitų svetainės kompiuterio vardų "
+"užklausas kurios turi suvestus tinklalapius"
+
+msgid "site"
+msgstr "tinklalapis"
+
+msgid "sites"
+msgstr "tinklalapiai"
+
+msgid "default"
+msgstr "numatytasis"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s jau nustatytas kaip numatytasis tinklalapis. Reikia panaikinti "
+"tą nustatymą kad galėtumėte išsaugoti ši tinklalapį kaip numatytąjį."
+
+msgid "Public"
+msgstr "Viešas"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privatu, pasiekiama tik prisijungusiems vartotojams"
+
+msgid "Private, accessible with the following password"
+msgstr "Privatu, pasiekiama su žemiau pateiktu slaptažodžiu"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
+
+msgid "password"
+msgstr "slaptažodis"
+
+msgid "view restriction"
+msgstr "žiūrėti apribojimą"
+
+msgid "view restrictions"
+msgstr "žiūrėti apribojimus"
+
+msgid "Log in"
+msgstr "Prisijungti"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Jūsų vartotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar kartą."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Jūsų vartotojas neturi leidimo pasiekti šio puslapio. Kad tęsti, prašome "
+"prisijungti su vartotoju kuris turi priėjimo teisę."
+
+msgid "Password required"
+msgstr "Reikalingas slaptažodis"
+
+msgid "You need a password to access this page."
+msgstr "Jums reikia slaptažodžio kad pasiekti šį puslapį."
+
+msgid "Continue"
+msgstr "Tęsti"
+
+msgid "Create"
+msgstr "Sukurti"
+
+msgid "Created"
+msgstr "Sukurtas"
+
+msgid "Edited"
+msgstr "Redaguotas"
+
+msgid "Published"
+msgstr "Publikuotas"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Reject"
+msgstr "Atmesti"
+
+msgid "Rename"
+msgstr "Pervadinti"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Move"
+msgstr "Perkelti"
+
+msgid "Add comment"
+msgstr "Pridėti komentarą"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Pridėjo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Pridėjo komentarą"
+
+msgid "Edit comment"
+msgstr "Redaguoti komentarą"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Redagavo komentarą"
+
+msgid "Delete comment"
+msgstr "Ištrinti komentarą"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Ištrynė komentarą"
+
+msgid "Resolve comment"
+msgstr "Išspręsti komentarą"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
+
+msgid "Resolved a comment"
+msgstr "Išsprendė komentarą"
+
+msgid "Reply to comment"
+msgstr "Atsakyti į komentarą"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Atsakė į %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Atsakė į komentarą"
+
+msgid "Edit reply to comment"
+msgstr "Redaguoti atsakymą į komentarą"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Redagavo atsakymą"
+
+msgid "Delete reply to comment"
+msgstr "Ištrinti atsakymą į komentarą"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Ištrynė atsakymą"

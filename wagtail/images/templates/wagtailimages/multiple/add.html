@@ -1,0 +1,109 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% load wagtailadmin_tags wagtailimages_tags %}
+{% block titletag %}{% trans "Add multiple images" %}{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+
+    {{ form_media.css }}
+{% endblock %}
+
+{% block content %}
+    {% trans "Add images" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
+
+    <div class="nice-padding">
+        <div class="drop-zone">
+            <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
+            <p>{{ help_text }}</p>
+
+            <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
+                <div class="replace-file-input">
+                    <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
+                    <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
+                </div>
+                {% csrf_token %}
+                {% if collections %}
+                    {% trans "Add to collection:" as label_text %}
+                    {% field label_text=label_text id_for_label="id_addimage_collection" classname="w-mx-auto w-mt-4 w-grid w-justify-center" %}
+                        <select id="id_addimage_collection" name="collection">
+                            {% for pk, display_name in collections.get_indented_choices %}
+                                <option value="{{ pk|unlocalize }}"{% if pk|unlocalize == selected_collection_id %} selected{% endif %} >
+                                    {{ display_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    {% endfield %}
+                {% endif %}
+            </form>
+        </div>
+
+        <div id="overall-progress" class="progress progress-secondary">
+            <div class="bar" style="width: 0%;">0%</div>
+        </div>
+
+        <ul id="upload-list" class="upload-list multiple"></ul>
+    </div>
+
+    <template id="upload-list-item">
+        <li class="row">
+            <div class="left col3">
+                <div class="preview">
+                    <div class="thumb">
+                        {% icon name="image" %}
+                    </div>
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right col9">
+                <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
+                <p class="status-msg warning">
+                    {% trans "Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
+                </p>
+                <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
+                <p class="status-msg server-error">
+                    <strong>{% trans "Server Error" %}</strong>
+                    {% trans "Report this error to your website administrator with the following information:"%}
+                    <br /><span class="error-text"></span> - <span class="error-code"></span>
+                </p>
+                <p class="status-msg update-success">{% trans "Image updated." %}</p>
+                <p class="status-msg failure error_messages"></p>
+            </div>
+        </li>
+    </template>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form_media.js }}
+
+    <!-- this exact order of plugins is vital -->
+    <script src="{% versioned_static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+
+    <!-- Main script -->
+    <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
+
+    <script>
+        window.fileupload_opts = {
+            simple_upload_url: "{% url 'wagtailimages:add' %}",
+            accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
+            max_file_size: {{ max_filesize|stringformat:"s"|default:"null" }}, //numeric format
+            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
+            errormessages: {
+                max_file_size: "{{ error_max_file_size|escapejs }}",
+                accepted_file_types: "{{ error_accepted_file_types|escapejs }}"
+            }
+        }
+    </script>
+{% endblock %}

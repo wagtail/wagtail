@@ -1,0 +1,59 @@
+@use 'sass:color';
+
+.w-status {
+  border-radius: 2px;
+  text-align: center;
+  display: inline-block;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+  padding: 0 0.5em;
+  border: 1px solid theme('colors.border-furniture');
+  color: theme('colors.text-context');
+  -webkit-font-smoothing: auto;
+  line-height: 19px;
+  font-size: 0.8em;
+  margin: 0 0.5em 0.5em;
+  background: theme('colors.surface-page')
+    url('#{$images-root}bg-dark-diag.svg');
+
+  &.w-status--primary {
+    color: theme('colors.text-meta');
+    border: 1px solid theme('colors.text-meta');
+    background: theme('colors.surface-page');
+  }
+
+  &.w-status--disabled,
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  &--label {
+    color: theme('colors.text-context');
+    background: theme('colors.border-button-small-outline-default');
+    border: theme('colors.border-button-small-outline-default');
+    font-weight: 500;
+  }
+}
+
+.listing .index .w-status--label {
+  border: 1px solid;
+}
+
+button.w-status:hover,
+a.w-status:hover,
+a.w-status.w-status--primary:hover {
+  border-color: theme('colors.border-button-outline-default');
+  color: theme('colors.text-button-outline-default');
+}
+
+button.w-status:hover {
+  border-color: theme('colors.border-button-outline-default');
+  background-color: theme('colors.surface-button-hover');
+  color: theme('colors.surface-page');
+}
+
+// Special case for text-transform: uppercase.
+.page-status-tag {
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+}

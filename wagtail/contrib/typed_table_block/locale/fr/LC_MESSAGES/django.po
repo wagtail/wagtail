@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Renaud Kern <renaud.kern@gmail.com>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Renaud Kern <renaud.kern@gmail.com>, 2021\n"
+"Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Add column"
+msgstr "Ajouter une colonne"
+
+msgid "Add row"
+msgstr "Ajouter une ligne"
+
+msgid "Column heading"
+msgstr "En-tête de colonne"
+
+msgid "Insert column"
+msgstr "Insérer une colonne"
+
+msgid "Delete column"
+msgstr "Supprimer la colonne"
+
+msgid "Insert row"
+msgstr "Insérer une ligne"
+
+msgid "Delete row"
+msgstr "Supprimer la ligne"

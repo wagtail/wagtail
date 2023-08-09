@@ -1,0 +1,14 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %} {% if page %}
+{% blocktrans trimmed with title=page.get_admin_display_title|safe task=task.name|safe %}The page "{{ title }}" has been rejected in moderation stage "{{ task }}".{% endblocktrans %}
+{% trans "You can edit the page here:"%} {{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %} {% else %} {% latest_str object as title %} {% admin_edit_url object user as edit_url %}
+{% blocktrans trimmed with title=title|safe task=task.name|safe model_name=model_name|safe asvar message %}
+    The {{ model_name }} "{{ title }}" has been rejected in moderation stage "{{ task }}".
+{% endblocktrans %}{{ message|capfirst|safe }}
+{% if edit_url %}{% blocktrans trimmed with model_name=model_name|safe asvar edit_message %}
+    You can edit the {{ model_name }} here:
+{% endblocktrans %}{{ edit_message|capfirst|safe }} {{ base_url }}{{ edit_url }}{% endif %}{% endif %}
+{% endblock %}

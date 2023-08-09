@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2021\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail style guide"
+
+msgid "Styleguide"
+msgstr "Guia de estilo"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Delete image"
+msgstr "Remover imagem"
+
+msgid "Search something"
+msgstr "Pesquisar algo"
+
+msgid "Success message"
+msgstr "Mensagem de sucesso"
+
+msgid "View live"
+msgstr "Ver ao vivo"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Warning message"
+msgstr "Mensagem de aviso"
+
+msgid "Error message"
+msgstr "Mensagem de erro"

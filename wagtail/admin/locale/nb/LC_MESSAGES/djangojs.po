@@ -1,0 +1,100 @@
+#
+# Translators:
+# Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
+# Eirik Krogstad <eirikkr@gmail.com>, 2022
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Norwegian Bokmål (https://app.transifex.com/torchbox/"
+"teams/8009/nb/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
+
+msgid "Broken link"
+msgstr "Brutt lenke"
+
+msgid "Close"
+msgstr "Lukk"
+
+msgid "Dashboard"
+msgstr "Kontrollpanel"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit '%(title)s'"
+msgstr "Endre '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Endre din konto"
+
+msgid "Horizontal line"
+msgstr "Horisontal linje"
+
+msgid "Line break"
+msgstr "Linjeskift"
+
+msgid "Loading…"
+msgstr "Laster..."
+
+msgid "Missing document"
+msgstr "Manglende dokument"
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Page explorer"
+msgstr "Sideutforsker"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Reload saved content"
+msgstr "Oppdater lagret innhold"
+
+msgid "Reload the page"
+msgstr "Oppdater siden"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Saving..."
+msgstr "Lagrer..."
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Show error"
+msgstr "Vis feil"
+
+msgid "Show latest content"
+msgstr "Vis siste innhold"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editoren krasjet. Innholdet er tilbakestilt til sist lagrede versjon."
+
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
+
+msgid "View child pages of '%(title)s'"
+msgstr "Vis undersider av «%(title)s»"

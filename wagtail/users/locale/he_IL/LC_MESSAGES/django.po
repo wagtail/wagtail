@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# lior abazon <abazon@v15.org.il>, 2015
+# yossi lalum <lyosefh@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
+"Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
+"language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "ערך זה יכול להכיל אותיות, ספרות והתווים @/./+/-/_  בלבד"
+
+msgid "A user with that username already exists."
+msgstr "שם משתמש קיים במערכת"
+
+msgid "The two password fields didn't match."
+msgstr "שתי הסיסמאות לא מתאימות"
+
+msgid "Email"
+msgstr "דואר אלקטרוני"
+
+msgid "First Name"
+msgstr "שם פרטי"
+
+msgid "Last Name"
+msgstr "שם משפחה"
+
+msgid "Password"
+msgstr "סיסמא"
+
+msgid "Leave blank if not changing."
+msgstr "השאירו ריק אם לא משנים"
+
+msgid "Password confirmation"
+msgstr "אישור סיסמא"
+
+msgid "Enter the same password as above, for verification."
+msgstr "הכניסו אותה סיסמא שוב, עבור וידוא"
+
+msgid "Administrator"
+msgstr "מנהל"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "למנהלים יש גישה מלאה לניהול כל אובייקט או הגדרה"
+
+msgid "A group with that name already exists."
+msgstr "קבוצה בשם זה כבר קיימת"
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "לא יכולה להיות לך יותר מרשומה אחת של הרשאות לאותו הדף"
+
+msgid "submitted notifications"
+msgstr "הודעות שנשלחו"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "קבלו התראה כשהעמוד הוזן לעריכה"
+
+msgid "approved notifications"
+msgstr "הודעות שאושרו"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "קבלו התראה כשעריכת העמוד אושרה"
+
+msgid "rejected notifications"
+msgstr "הודעות שנדחו"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "קבלו התראה כשעריכת העמוד נדחית"
+
+msgid "user profile"
+msgstr "פרופיל משתמש"
+
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
+
+msgid "Delete group"
+msgstr "מחק קבוצה"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "מחיקת קבוצה זו תשלול את ההרשאות עבור כל חבריה"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "האם אתם בטוחים כי ברצונכם למחוק קבוצה זו?"
+
+msgid "Add group"
+msgstr "הוסף קבוצה"
+
+msgid "Editing"
+msgstr "עריכה"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Object permissions"
+msgstr "הרשאות אובייקט"
+
+msgid "Name"
+msgstr "שם"
+
+msgid "Add"
+msgstr "הוסף"
+
+msgid "Change"
+msgstr "שנה"
+
+msgid "Publish"
+msgstr "פרסם"
+
+msgid "Other permissions"
+msgstr "הרשאות אחרות "
+
+msgid "Page permissions"
+msgstr "הרשאות עמוד "
+
+msgid "Page"
+msgstr "עמוד"
+
+msgid "Add a page permission"
+msgstr "הוספת הרשאת עמוד"
+
+msgid "Delete user"
+msgstr "מחק משתמש"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "האם אתה בטוח שברצונך למחוק משתמש זה?"
+
+msgid "Add user"
+msgstr "הוספת משתמש"
+
+msgid "Account"
+msgstr "חשבון"
+
+msgid "Roles"
+msgstr "תפקידים"
+
+msgid "Users"
+msgstr "משתמשים"
+
+msgid "Add a user"
+msgstr "הוספת משתמש"
+
+msgid "Username"
+msgstr "שם משתמש"
+
+msgid "Status"
+msgstr "מצב"
+
+msgid "Admin"
+msgstr "מנהל"
+
+msgid "Active"
+msgstr "מופעל"
+
+msgid "Inactive"
+msgstr "כבוי"
+
+msgid "Groups"
+msgstr "קבוצות "
+
+msgid "Add a group"
+msgstr "הוספת קבוצה"
+
+msgid "Search groups"
+msgstr "חיפוש קבוצות"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "קבוצה '%(object)s' נוצרה"
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "קבוצה '%(object)s' עודכנה"
+
+msgid "The group could not be saved due to errors."
+msgstr "לא ניתן לשמור את הקבוצה עקב שגיאות"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "קבוצה '%(object)s' נמחקה"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "משתמש '%(object)s' עודכן "
+
+msgid "The user could not be saved due to errors."
+msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "Edit this user"
+msgstr "ערוך משתמש זה"
+
+msgid "Delete this user"
+msgstr "מחק משתמש זה"

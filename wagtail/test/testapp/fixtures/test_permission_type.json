@@ -1,0 +1,30 @@
+[
+  {
+    "pk": 10,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 12,
+      "permission_type": "bulk_delete"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event moderators"],
+      "page": 12,
+      "permission": ["change_page", "wagtailcore", "page"],
+      "permission_type": "edit"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event editors"],
+      "page": 12,
+      "permission_type": "edit"
+    }
+  }
+]

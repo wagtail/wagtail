@@ -1,0 +1,19 @@
+===========================
+Wagtail 1.6.3 release notes
+===========================
+
+*September 30, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
+* Edits to StreamFields are no longer ignored in page edits on Django >=1.10.1 when a default value exists (Matt Westcott)

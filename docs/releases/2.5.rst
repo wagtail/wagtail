@@ -1,0 +1,160 @@
+=========================
+Wagtail 2.5 release notes
+=========================
+
+*April 24, 2019*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Django 2.2 support
+~~~~~~~~~~~~~~~~~~
+
+This release is compatible with Django 2.2.  Compatibility fixes were contributed by Matt Westcott and Andy Babic.
+
+
+New Markdown shortcuts in rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail’s rich text editor now supports using Markdown shortcuts for inline formatting:
+
+* ``**`` for bold
+* ``_`` for italic
+* ``~`` for strikethrough (if enabled)
+* ````` for code (if enabled)
+
+To learn other shortcuts, have a look at the `keyboard shortcuts <https://www.draftail.org/docs/keyboard-shortcuts>`_ reference.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added support for customising EditHandler-based forms on a per-request basis (Bertrand Bordage)
+* Added more informative error message when ``|richtext`` filter is applied to a non-string value (mukesh5)
+* Automatic search indexing can now be disabled on a per-model basis via the ``search_auto_update`` attribute (Karl Hobley)
+* Improved diffing of StreamFields when comparing page revisions (Karl Hobley)
+* Highlight broken links to pages and missing documents in rich text (Brady Moe)
+* Preserve links when copy-pasting rich text content from Wagtail to other tools (Thibaud Colas)
+* Rich text to contentstate conversion now prioritises more specific rules, to accommodate ``<p>`` and ``<br>`` elements with attributes (Matt Westcott)
+* Added limit image upload size by number of pixels (Thomas Elliott)
+* Added ``manage.py wagtail_update_index`` alias to avoid clashes with ``update_index`` commands from other packages (Matt Westcott)
+* Renamed ``target_model`` argument on ``PageChooserBlock`` to ``page_type`` (Loic Teixeira)
+* ``edit_handler`` and ``panels`` can now be defined on a ``ModelAdmin`` definition (Thomas Kremmel)
+* Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
+* Add a Django setting ``TAG_LIMIT`` to limit number of tags that can be added to any taggit model (Mani)
+* Added instructions on how to generate urls for ``ModelAdmin`` to documentation (LB (Ben Johnston), Andy Babic)
+* Added option to specify a fallback URL on ``{% pageurl %}`` (Arthur Holzner)
+* Add support for more rich text formats, disabled by default: ``blockquote``, ``superscript``, ``subscript``, ``strikethrough``, ``code`` (Md Arifin Ibne Matin)
+* Added ``max_count_per_parent`` option on page models to limit the number of pages of a given type that can be created under one parent page (Wesley van Lee)
+* ``StreamField`` field blocks now accept a ``validators`` argument (Tom Usher)
+* Added edit / delete buttons to snippet index and "don't delete" option to confirmation screen, for consistency with pages (Kevin Howbrook)
+* Added name attributes to all built-in page action menu items (LB (Ben Johnston))
+* Added validation on the filter string to the Jinja2 image template tag (Jonny Scholes)
+* Changed the pages reordering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
+* Added support for rich text link rewrite handlers for ``external`` and ``email`` links (Md Arifin Ibne Matin)
+* Clarify installation instructions in documentation, especially regarding virtual environments. (Naomi Morduch Toubman)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Set ``SERVER_PORT`` to 443 in ``Page.dummy_request()`` for HTTPS sites (Sergey Fedoseev)
+* Include port number in ``Host`` header of ``Page.dummy_request()`` (Sergey Fedoseev)
+* Validation error messages in ``InlinePanel`` no longer count towards ``max_num`` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
+* Rich text to contentstate conversion now ignores stray closing tags (frmdstryr)
+* Escape backslashes in ``postgres_search`` queries (Hammy Goonan)
+* Parent page link in page chooser search results no longer navigates away (Asanka Lihiniyagoda, Sævar Öfjörð Magnússon)
+* ``routablepageurl`` tag now correctly omits domain part when multiple sites exist at the same root (Gassan Gousseinov)
+* Added missing collection column specifier on document listing template (Sergey Fedoseev)
+* Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
+* Admin HTML header now includes correct language code (Matt Westcott)
+* Unclear error message when saving image after focal point edit (Hugo van den Berg)
+* Increase max length on ``Embed.thumbnail_url`` to 255 characters (Kevin Howbrook)
+* ``send_mail`` now correctly uses the ``html_message`` kwarg for HTML messages (Tiago Requeijo)
+* Page copying no longer allowed if page model has reached its ``max_count`` (Andy Babic)
+* Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
+* Make sure page chooser search results correspond to the latest search by cancelling previous requests (Esper Kuijs)
+* Inform user when moving a page from one parent to another where there is an already existing page with the same slug (Casper Timmers)
+* User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
+* Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
+* Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
+* Prevent crash when logging HTTP errors on Cloudflare cache purging (Kevin Howbrook)
+* Prevent rich text editor crash when filtering copy-pasted content and the last block is to be removed, e.g. unsupported image (Thibaud Colas)
+* Removing rich text links / documents now also works when the text selection is backwards (Thibaud Colas)
+* Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
+* Page chooser now respects custom ``get_admin_display_title`` methods on parent page and breadcrumb (Haydn Greatnews)
+* Added consistent whitespace around sortable table headings (Matt Westcott)
+* Moved locale names for Chinese (Simplified) and Chinese (Traditional) to ``zh_Hans`` and ``zh_Hant`` (Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+``EditHandler.bind_to_model`` and ``EditHandler.bind_to_instance`` deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal ``EditHandler`` methods ``bind_to_model`` and ``bind_to_instance`` have been deprecated, in favour of a new combined ``bind_to`` method which accepts ``model``, ``instance``, ``request`` and ``form`` as optional keyword arguments. Any user code which calls ``EditHandler.bind_to_model(model)`` should be updated to use ``EditHandler.bind_to(model=model)`` instead; any user code which calls ``EditHandler.bind_to_instance(instance, request, form)`` should be updated to use ``EditHandler.bind_to(instance=instance, request=request, form=form)``.
+
+
+Changes to admin pagination helpers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A number of changes have been made to pagination handling within the Wagtail admin; these are internal API changes, but may affect applications and third-party packages that add new paginated object listings, including chooser modals, to the admin. The ``paginate`` function in ``wagtail.utils.pagination`` has been deprecated in favour of the ``django.core.paginator.Paginator.get_page`` method introduced in Django 2.0 - a call such as:
+
+.. code-block:: python
+
+  from wagtail.utils.pagination import paginate
+
+  paginator, page = paginate(request, object_list, per_page=25)
+
+should be replaced with:
+
+.. code-block:: python
+
+  from django.core.paginator import Paginator
+
+  paginator = Paginator(object_list, per_page=25)
+  page = paginator.get_page(request.GET.get('p'))
+
+Additionally, the ``is_ajax`` flag on the template ``wagtailadmin/shared/pagination_nav.html`` has been deprecated in favour of a new template ``wagtailadmin/shared/ajax_pagination_nav.html``:
+
+.. code-block:: html+django
+
+  {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj is_ajax=1 %}
+
+should become:
+
+.. code-block:: html+django
+
+  {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=page_obj %}
+
+
+New rich text formats
+~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now has built-in support for new rich text formats, disabled by default:
+
+* ``blockquote``, using the ``blockquote`` Draft.js block type, saved as a ``<blockquote>`` tag.
+* ``superscript``, using the ``SUPERSCRIPT`` Draft.js inline style, saved as a ``<sup>`` tag.
+* ``subscript``, using the ``SUBSCRIPT`` Draft.js inline style, saved as a ``<sub>`` tag.
+* ``strikethrough``, using the ``STRIKETHROUGH`` Draft.js inline style, saved as a ``<s>`` tag.
+* ``code``, using the ``CODE`` Draft.js inline style, saved as a ``<code>`` tag.
+
+Projects already using those exact Draft.js type and HTML tag combinations can safely replace their feature definitions with the new built-ins. Projects that use the same feature identifier can keep their existing feature definitions as overrides. Finally, if the Draft.js types / HTML tags are used but with a different combination, do not enable the new feature definitions to avoid conflicts in storage or editor behaviour.
+
+
+``register_link_type`` and ``register_embed_type`` methods for rich text tag rewriting have changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``FeatureRegistry.register_link_type`` and ``FeatureRegistry.register_embed_type`` methods, which define how links and embedded media in rich text are converted to HTML, now accept a handler class. Previously, they were passed an identifier string and a rewrite function. For details of updating your code to the new convention, see :ref:`rich_text_rewrite_handlers`.
+
+
+Chinese language locales changed to ``zh_Hans`` and ``zh_Hant``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The translations for Chinese (Simplified) and Chinese (Traditional) are now available under the locale names ``zh_Hans`` and ``zh_Hant`` respectively, rather than ``zh_CN`` and ``zh_TW``. Projects that currently use the old names for the ``LANGUAGE_CODE`` setting may need to update the settings file to use the new names.

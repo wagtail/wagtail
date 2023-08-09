@@ -1,0 +1,125 @@
+.sidebar-menu-item {
+  $root: &;
+  @include transition(border-color $menu-transition-duration ease);
+  position: relative;
+
+  &__link {
+    @apply w-text-14 w-leading-none w-transition;
+    @include transition(
+      border-color $menu-transition-duration ease,
+      background-color $menu-transition-duration ease
+    );
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    border-inline-start: 3px solid transparent;
+    border-inline-end: 3px solid transparent;
+    -webkit-font-smoothing: auto;
+    border: 0;
+    background: transparent;
+    text-align: start;
+    color: theme('colors.text-label-menus-default');
+    padding: 13px 15px 13px 20px;
+    font-weight: 400;
+    overflow: visible;
+
+    // Note, font-weights lower than normal,
+    // and font-size smaller than 1em (80% ~= 12.8px),
+    // makes the strokes thinner than 1px on non-retina screens
+    // making the text semi-transparent
+    &:hover,
+    &:focus {
+      color: theme('colors.text-label-menus-active');
+      text-shadow: -1px -1px 0 theme('colors.black-35');
+    }
+
+    &:before {
+      width: 1rem;
+      height: 1rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+      margin: 0.046875rem 0;
+    }
+
+    // only really used for spinners and settings menu
+    &:after {
+      font-size: 1.5em;
+      margin: 0;
+      position: absolute;
+      inset-inline-end: 0.5em;
+      top: 0.5em;
+    }
+  }
+
+  &--in-sub-menu {
+    #{$root}__link,
+    .menuitem-label {
+      @apply w-leading-tight;
+      // Links inside a submenu should have normal wrapping
+      white-space: normal;
+      align-items: flex-start;
+    }
+  }
+
+  &--active {
+    @apply w-bg-surface-menu-item-active;
+    text-shadow: -1px -1px 0 theme('colors.black-35');
+
+    > a {
+      color: theme('colors.text-label-menus-active');
+    }
+  }
+
+  .w-dismissible-badge--count {
+    @apply w-absolute w-top-1 w-left-7;
+    text-shadow: none;
+  }
+}
+
+.menuitem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.menuitem-label {
+  @include transition(opacity $menu-transition-duration ease);
+  margin-inline-start: 0.875rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar--slim {
+  .sidebar-menu-item {
+    .menuitem-label {
+      @apply w-sr-only;
+    }
+  }
+
+  .sidebar-menu-item__link {
+    margin-inline-start: auto;
+    display: inline-flex;
+
+    .sidebar-sub-menu-trigger-icon {
+      margin-inline-start: 0;
+    }
+  }
+
+  .sidebar-menu-item--in-sub-menu {
+    .menuitem-label {
+      @apply w-not-sr-only;
+      margin-inline-start: 1rem;
+    }
+
+    .sidebar-menu-item__link {
+      justify-content: flex-start;
+    }
+  }
+}

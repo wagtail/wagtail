@@ -1,0 +1,25 @@
+.filterable {
+  display: grid;
+  grid-template-columns: 1fr minmax(theme('spacing.48'), theme('spacing.64'));
+  grid-column-gap: theme('spacing.12');
+
+  &__filters {
+    button[type='submit'] {
+      display: block;
+      margin-bottom: theme('spacing.6');
+    }
+
+    input[type='checkbox'] {
+      display: block;
+      margin-bottom: theme('spacing.3');
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    grid-template-columns: auto;
+
+    &__filters {
+      grid-row: 1;
+    }
+  }
+}

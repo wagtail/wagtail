@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
+"my/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: my\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Date from"
+msgstr "နေ့စွဲမှ"
+
+msgid "Date to"
+msgstr "နေ့စွဲသို့"
+
+msgid "Preferred language"
+msgstr "နှစ်သက်သည့်ဘာသာစကား"
+
+msgid "Current time zone"
+msgstr "လက်ရှိစံတော်ချိန်"
+
+msgid "First Name"
+msgstr "အမည်ပထမစာလုံး"
+
+msgid "Last Name"
+msgstr "မျိုးနွယ်အမည်"
+
+msgid "Email"
+msgstr "အီးမေးလ်"
+
+msgid "Upload a profile picture"
+msgstr "ပရိုဖိုင်းပုံတင်ပါ"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search"
+msgstr "ရှာဖွေရေး"
+
+msgid "Add"
+msgstr "ထည့်ပါ"
+
+msgid "Edit"
+msgstr "ပြင်ဆင်ပါ"
+
+msgid "Delete"
+msgstr "ဖျက်သိမ်းပါ"
+
+msgid "Settings"
+msgstr "ဆက်တင်များ"
+
+msgid "Title"
+msgstr "ခေါင်းစဥ်"
+
+msgid "Account"
+msgstr "အကောင့်"
+
+msgid "Save"
+msgstr "သိမ်းဆည်းပါ"
+
+msgid "Name"
+msgstr "အမည်"
+
+msgid "Yes, delete"
+msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
+
+msgid "Status"
+msgstr "အခြေအနေ"
+
+msgid "Date"
+msgstr "နေ့စွဲ"
+
+msgid "Saving…"
+msgstr "သိမ်းဆည်းနေသည်..."
+
+msgid "Download CSV"
+msgstr "CSV ဒေါင်းပါ"
+
+msgid "Filter"
+msgstr "စစ်ထုတ်ပါ"
+
+msgid "Page"
+msgstr "စာမျက်နှာ"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "လွန်ခဲ့သော %(time_period)sက"
+
+msgid "Password"
+msgstr "စကားဝှက်"
+
+msgid "Editing"
+msgstr "ပြင်ဆင်နေသည်"
+
+msgid "View live"
+msgstr "တိုက်ရိုက်ကြည့်ပါ"
+
+msgid "Pages"
+msgstr "စာမျက်နှာများ"

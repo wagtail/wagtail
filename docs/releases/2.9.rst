@@ -1,0 +1,134 @@
+=========================
+Wagtail 2.9 release notes
+=========================
+
+*May 4, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Report data exports
+~~~~~~~~~~~~~~~~~~~
+
+Data from reports, form submissions and ModelAdmin can now be exported to both XLSX and CSV format. For ModelAdmin, this is enabled by specifying a ``list_export`` attribute on the ModelAdmin class. This feature was developed by Jacob Topp-Mugglestone and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
+CVE-2020-11037: Potential timing attack on password-protected private pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses a potential timing attack on pages or documents that have been protected with a shared password through Wagtail's "Privacy" controls. This password check is performed through a character-by-character string comparison, and so an attacker who is able to measure the time taken by this check to a high degree of accuracy could potentially use timing differences to gain knowledge of the password. (This is `understood to be feasible on a local network, but not on the public internet <https://groups.google.com/d/msg/django-developers/iAaq0pvHXuA/fpUuwjK3i2wJ>`_.)
+
+Many thanks to Thibaud Colas for reporting this issue.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added support for creating custom reports (Jacob Topp-Mugglestone)
+* Skip page validation when unpublishing a page (Samir Shah)
+* Added :ref:`MultipleChoiceBlock <streamfield_multiplechoiceblock>` block type for StreamField (James O'Toole)
+* ChoiceBlock now accepts a ``widget`` keyword argument (James O'Toole)
+* Reduced contrast of rich text toolbar (Jack Paine)
+* Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
+* Server-side page slug generation now respects ``WAGTAIL_ALLOW_UNICODE_SLUGS`` (Arkadiusz Michał Ryś)
+* Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
+* Tag field autocompletion now handles custom tag models (Matt Westcott)
+* ``wagtail_serve`` URL route can now be omitted for headless sites (Storm Heg)
+* Allow free tagging to be disabled on custom tag models (Matt Westcott)
+* Allow disabling page preview by setting ``preview_modes`` to an empty list (Casper Timmers)
+* Add Vidyard to oEmbed provider list (Steve Lyall)
+* Optimise compiling media definitions for complex StreamBlocks (pimarc)
+* FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
+* Replaced deprecated ``ugettext`` / ``ungettext`` calls with ``gettext`` / ``ngettext`` (Mohamed Feddad)
+* ListBlocks now call child block ``bulk_to_python`` if defined (Andy Chosak)
+* Site settings are now identifiable/cacheable by request as well as site (Andy Babic)
+* Added ``select_related`` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
+* Add caching of image renditions (Tom Dyson, Tim Kamanin)
+* Add documentation for reporting security issues and internationalisation (Matt Westcott)
+* Fields on a custom image model can now be defined as required ``blank=False`` (Matt Westcott)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Added ARIA alert role to live search forms in the admin (Casper Timmers)
+* Reordered login form elements to match expected tab order (Kjartan Sverrisson)
+* Re-added 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
+* Added a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
+* Improved Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
+* Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
+* Rendering of non field errors for InlinePanel items (Storm Heg)
+* ``{% image ... as var %}`` now clears the context variable when passed None as an image (Maylon Pedroso)
+* ``refresh_index`` method on Elasticsearch no longer fails (Lars van de Kerkhof)
+* Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
+* Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
+* Remove excess margin when editing snippets (Quadric)
+* Added ``scope`` attribute to table headers in TableBlock output (Quadric)
+* Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
+* Hide empty 'view live' links (Karran Besen)
+* Mark up a few strings for translation (Luiz Boaretto)
+* Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
+* No longer expose the ``.delete()`` method on the default Page.objects manager (Nick Smith)
+* ``exclude_fields_in_copy`` on Page models will now work for for modelcluster parental / many to many relations (LB (Ben Johnston))
+* Response header (content disposition) now correctly handles filenames with non-ascii characters when using a storage backend (Rich Brennan)
+* Improved accessibility fixes for ``main``, ``header`` and ``footer`` elements in the admin page layout (Mitchel Cabuloy)
+* Prevent version number from obscuring long settings menus (Naomi Morduch Toubman)
+* Admin views using TemplateResponse now respect the user's language setting (Jacob Topp-Mugglestone)
+* Fixed incorrect language code for Japanese in language setting dropdown (Tomonori Tanabe)
+
+
+Upgrade considerations
+======================
+
+Removed support for Django 2.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.1 is no longer supported as of this release; please upgrade to Django 2.2 or above before upgrading Wagtail.
+
+
+``SiteMiddleware`` and ``request.site`` deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's :class:`~wagtail.core.middleware.SiteMiddleware`, which makes the current site object available as the property ``request.site``, is now deprecated as it clashes with Django's sites framework and makes unnecessary database queries on non-Wagtail views. References to ``request.site`` in your code should be removed; the recommended way of retrieving the current site is ``Site.find_for_request(request)`` in Python code, and the ``{% wagtail_site %}`` tag within Django templates.
+
+For example:
+
+.. code-block:: python
+
+    # old version
+
+    def get_menu_items(request):
+        return request.site.root_page.get_children().live()
+
+    # new version
+
+    from wagtail.core.models import Site
+
+    def get_menu_items(request):
+        return Site.find_for_request(request).root_page.get_children().live()
+
+.. code-block:: html+django
+
+    {# old version #}
+
+    <h1>Welcome to the {{ request.site.site_name }} website!</h1>
+
+
+    {# new version #}
+    {% load wagtailcore_tags %}
+    {% wagtail_site as current_site %}
+
+    <h1>Welcome to the {{ current_site.site_name }} website!</h1>
+
+
+Once these are removed, ``'wagtail.core.middleware.SiteMiddleware'`` can be removed from your project's ``MIDDLEWARE`` setting.
+
+Page / Collection managers no longer expose a ``delete`` method
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For `consistency with standard Django models <https://docs.djangoproject.com/en/stable/topics/db/queries/#deleting-objects>`_, the ``delete()`` method is no longer available on the default Page and Collection managers. Code such as ``Page.objects.delete()`` should be changed to ``Page.objects.all().delete()``.

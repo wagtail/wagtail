@@ -1,0 +1,213 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% blocktrans trimmed with title=parent_page.get_admin_display_title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
+
+{% block content %}
+    {% page_permissions parent_page as parent_page_perms %}
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
+        {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
+    </div>
+    <form id="page-reorder-form">
+        {% csrf_token %}
+
+        {% if parent_page %}
+            {% if parent_page.is_root %}
+                <div class="nice-padding">
+                    <div class="help-block help-info">
+                        {% icon name='help' %}
+                        {% if perms.wagtailcore.add_site %}
+                            {% url 'wagtailsites:index' as wagtailsites_index_url %}
+                            <p>
+                                {% blocktrans trimmed %}
+                                    The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.
+                                {% endblocktrans %}
+                                {% if wagtailsites_index_url %}
+                                    <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                                {% endif %}
+                            </p>
+                            <p>
+                                {% blocktrans trimmed %}
+                                    If you just want to add pages to an existing site, create them as children of the homepage instead.
+                                {% endblocktrans %}
+                            </p>
+                        {% else %}
+                            {% blocktrans trimmed %}
+                                Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.
+                            {% endblocktrans %}
+                        {% endif %}
+                    </div>
+                </div>
+                {# get_url_parts will return None is the page has no site #}
+            {% elif not parent_page.get_url_parts %}
+                <div class="nice-padding">
+                    <div class="help-block help-warning">
+                        {% icon name='warning' %}
+                        {% if perms.wagtailcore.add_site %}
+                            {% url 'wagtailsites:index' as wagtailsites_index_url %}
+                            {% blocktrans trimmed %}
+                                There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.
+                            {% endblocktrans %}
+                            {% if wagtailsites_index_url %}
+                                <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                            {% endif %}
+                        {% else %}
+                            {% blocktrans trimmed %}
+                                There is no site record for this location. Pages created here will not be accessible at any URL.
+                            {% endblocktrans %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% component table %}
+
+        {% if is_paginated %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+        {% endif %}
+        {% trans "Select all pages in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
+    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+
+    {% comment %}
+    The first column will display checkboxes only if ordering is not being carried out, in which case
+    that column will have the drag and drop buttons to enable ordering
+    {% endcomment %}
+    {% if not show_ordering_column %}
+        <script>
+            window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'PAGE';
+        </script>
+        <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript">
+        {% if ordering == 'ord' %}
+            $(function() {
+                var currentlySelected;
+                var currentPosition;
+                var movedPageId;
+                var moveNTimesDirection = 0;
+                var reorderCount = 0;
+                var orderform = $('#page-reorder-form');
+
+                $('.listing tbody').sortable({
+                    cursor: "move",
+                    tolerance: "pointer",
+                    containment: "parent",
+                    handle: ".handle",
+                    items: "> tr",
+                    axis: "y",
+                    placeholder: "dropzone",
+                    start: function(){
+                        $(this).parent().addClass('sorting');
+                    },
+                    stop: function(event, ui){
+                        $(this).parent().removeClass('sorting');
+
+                        // Work out what page moved and where it moved to
+                        var movedElement = ui.item[0];
+                        var movedPageId = movedElement.id.substring(5);
+                        var newPosition = $(movedElement).prevAll().length;
+
+                        // If position is last element, don't set position variable
+                        if ($(movedElement).nextAll().length == 0) {
+                            newPosition = null;
+                        }
+
+                        // Build url
+                        // TODO: Find better way to inject movedPageId
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', movedPageId);
+                        if (newPosition != null) {
+                            url += '?position=' + newPosition;
+                        }
+
+                        // Get CSRF token
+                        var CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
+
+                        // Post
+                        $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
+                            const text = `"${$(movedElement).data('page-title')}" has been moved successfully.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text,  type: 'success' } });
+                            document.dispatchEvent(event);
+                        })
+                    }
+                });
+                $('.listing tbody').disableSelection();
+                $("[data-order-handle]").on("keydown", function(e) {
+                    let keyCodes = {
+                        enter: 13,
+                        upArrow: 38,
+                        downArrow: 40,
+                        escape: 27
+                    }
+
+                    if (currentlySelected) {
+                        // We want to prevent default key actions (like scrolling) when we have an object selected
+                        e.preventDefault();
+                    }
+
+                    var children = $('.listing tbody').children();
+
+                    let moveElement = function() {
+                        var index = currentPosition + moveNTimesDirection;
+                        if (index < 0) {
+                            index = 0
+                        } else if (index > children.length - 1) {
+                            index = children.length - 1
+                        }
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', currentlySelected.id.substring(5));
+                        url += `?position=${(index)}`;
+                        let CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
+                        $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
+                            const text = `"${$(currentlySelected).data('page-title')}" has been moved successfully from ${currentPosition + 1} to ${index + 1}.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text, type: 'success' } });
+                            document.dispatchEvent(event);
+                        }).done(function() {
+                            currentlySelected = undefined;
+                        })
+                        if (moveNTimesDirection > 0) {
+                            $(currentlySelected).insertAfter($(children[index]));
+                        } else {
+                            $(currentlySelected).insertBefore($(children[index]));
+                        }
+                    }
+
+                    if(!currentlySelected && e.which == keyCodes.enter) {
+                        moveNTimesDirection = 0;
+                        currentlySelected = $(this).parents('tr')[0]
+                        children.toArray().forEach(function(item, index) {
+                            if (item === currentlySelected) {
+                                currentPosition = index;
+                            }
+                        })
+                    }
+                    if (currentlySelected && e.which == keyCodes.enter) {
+                        if (moveNTimesDirection != 0) {
+                            moveElement();
+                        }
+                    }
+
+                    if (currentlySelected && e.which == keyCodes.upArrow && children.first()[0] !== currentlySelected) {
+                        moveNTimesDirection--;
+                    };
+                    if (currentlySelected && e.which == keyCodes.downArrow && children.last()[0] !== currentlySelected) {
+                        moveNTimesDirection++;
+                    };
+                    if (currentlySelected && e.which == keyCodes.escape) {
+                        currentlySelected = undefined;
+                    }
+
+                })
+            })
+        {% endif %}
+    </script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+
+{% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Generating URL" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
+
+    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
+        <form class="w-mb-10">
+            {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
+            {% field_row max_content=True %}
+                {% include "wagtailadmin/shared/field.html" with field=form.width %}
+                {% include "wagtailadmin/shared/field.html" with field=form.height %}
+                {% include "wagtailadmin/shared/field.html" with field=form.closeness %}
+            {% endfield_row %}
+        </form>
+
+        {% trans "URL" as heading %}
+        {% panel id="url" icon="link" heading=heading %}
+            <textarea id="result-url" rows="1"></textarea>
+        {% endpanel %}
+
+        {% trans "Preview" as heading %}
+        {% panel id="preview" icon="view" heading=heading %}
+            <div>
+                <div class="loading-mask inline-block">
+                    <img class="preview" src="" alt="{% trans 'Preview' %}" />
+                </div>
+            </div>
+            <p id="note-size" class="help-block help-warning">{% icon name='warning' %}{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+        {% endpanel %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/image-url-generator.js' %}"></script>
+{% endblock %}

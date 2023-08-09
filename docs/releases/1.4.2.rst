@@ -1,0 +1,22 @@
+===========================
+Wagtail 1.4.2 release notes
+===========================
+
+*March 1, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Streamfields no longer break on validation error
+* Number of validation errors in each tab in the editor is now correctly reported again
+* Userbar now opens on devices with both touch and mouse (Josh Barr)
+* ``wagtail.wagtailadmin.wagtail_hooks`` no longer calls ``static`` during app load, so you can use ``ManifestStaticFilesStorage`` without calling the ``collectstatic`` command
+* Fixed crash on page save when a custom ``Page`` edit handler has been specified using the ``edit_handler`` attribute (Tim Heap)

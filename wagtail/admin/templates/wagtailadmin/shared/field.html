@@ -1,0 +1,85 @@
+{% load wagtailadmin_tags i18n %}
+{% comment "text/markdown" %}
+
+    The field template is very flexible to cater for a wide range of use cases. It has three main attributes that support different use cases:
+
+    1. `field` when using the template as an `include` anywhere in the CMS.
+    2. `rendered_field` and `show_label=False` are only used inside forms with edit handlers / panels (`FieldPanel`).
+    3. `children` allows fully custom rendering of the Django widget, or usage with arbitrary HTML, as a `{% field %}<select>[…]</select>{% endfield %}` template tag.
+
+    A unified template for all three use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
+
+
+    - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
+    - `show_label` - Hide the label if it is rendered outside of the field.
+    - `id_for_label` - Manually set this this if the field’s HTML isn’t rendered by Django (for example hard-coded in HTML).
+    - `sr_only_label` - Make the label invisible for all but screen reader users. Use this if the field is displayed without a label.
+    - `icon` - Some fields have an icon, though this is generally a legacy pattern.
+    - `help_text` - Manually set this if the field’s HTML is hard-coded.
+    - `help_text_id` - The help text’s id, necessary so it can be attached to the field with `aria-describedby`.
+    - `show_add_comment_button` - Display a comment control within Wagtail forms.
+
+{% endcomment %}
+
+{% firstof id_for_label field.id_for_label as label_for %}
+{% fragment as label_id %}{{ label_for }}-label{% endfragment %}
+
+<div class="w-field__wrapper {{ classname }}" data-field-wrapper>
+
+    {# Render custom label attributes if provided, or the bound field’s label attributes otherwise. #}
+    {% if show_label|default_if_none:True %}
+        {# Add an id to the label so we can use it as a descriptor for the "Add comment" button. #}
+        <label class="w-field__label{% if sr_only_label %} w-sr-only{% endif %}" for="{{ label_for }}" id="{{ label_id }}">
+            {% firstof label_text field.label %}{% if field.field.required %}<span class="w-required-mark">*</span>{% endif %}
+        </label>
+    {% endif %}
+
+    {# It’s possible to customise the fields’ layout based on widget type. #}
+    {# Customising fields based on the field type is only supported for backwards compatibility. #}
+    <div class="w-field{% if field %} w-field--{{ field|fieldtype }} w-field--{{ field|widgettype }}{% endif %}{% if field.errors %} w-field--error{% endif %}{% if show_add_comment_button %} w-field--commentable{% endif %}" data-field data-contentpath="{{ field.name }}">
+
+        {# Always associate a wrapping div with the field, so JS error rendering knows where to put error messages. #}
+        <div class="w-field__errors" data-field-errors {% if error_message_id %}id="{{ error_message_id }}"{% endif %}>
+            {# Avoid rendering errors here if the widget itself is taking responsibility for its error rendering. #}
+            {% if field and field|has_unrendered_errors %}
+                {% icon name="warning" classname="w-field__errors-icon" %}
+                <p class="error-message">
+                    {% for error in field.errors %}{{ error|escape }} {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+
+        {# If help_text_id is in the context, use it. #}
+        {# Otherwise, if the field has help_text and id_for_label, automatically generate the id with that. #}
+        <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% elif field.help_text and field.id_for_label %}id="{{ field.id_for_label }}-helptext"{% endif %} data-field-help>
+            {% firstof help_text field.help_text as help_text_value %}
+            {% if help_text_value %}
+                <div class="help">{{ help_text_value }}</div>
+            {% endif %}
+        </div>
+
+        {# Separate container for the widget with prefix icon and suffix comment button #}
+        <div class="w-field__input" data-field-input>
+            {% if icon %}
+                {% icon name=icon classname="w-field__icon" %}
+            {% endif %}
+
+            {% block form_field %}
+                {% if rendered_field %}
+                    {{ rendered_field }}
+                {% elif field %}
+                    {{ field|render_with_errors }}
+                {% elif children %}
+                    {{ children }}
+                {% endif %}
+            {% endblock %}
+
+            {% if show_add_comment_button %}
+                <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_for %}aria-describedby="{{ label_id }}"{% endif %}>
+                    {% icon name="comment-add" %}
+                    {% icon name="comment-add-reversed" %}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>

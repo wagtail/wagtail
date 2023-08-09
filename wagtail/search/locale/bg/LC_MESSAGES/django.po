@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
+"Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Popular search terms"
+msgstr "Популярни думи за търсене"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Terms"
+msgstr "Думи"
+
+msgid "Views (past week)"
+msgstr "Преглед (последната седмица)"
+
+msgid "No results found"
+msgstr "Не са намерени резултати"

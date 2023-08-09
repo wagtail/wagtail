@@ -1,0 +1,76 @@
+{% load i18n wagtailadmin_tags %}
+{% if page_revisions_for_moderation %}
+    {% trans "Pages awaiting moderation" as heading %}
+    {% panel id="awaiting-moderation" heading=heading %}
+        <table class="listing">
+            <col />
+            <col width="30%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <thead class="w-sr-only">
+                <tr>
+                    <th class="title">{% trans "Title" %}</th>
+                    <th>{% trans "Parent" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Edited" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for revision in page_revisions_for_moderation %}
+                    {% page_permissions revision.content_object as page_perms %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <div class="title-wrapper">
+                                {% if page_perms.can_edit %}
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" title="{% trans 'Edit this page' %}">{{ revision.content_object.specific_deferred.get_admin_display_title }}</a>
+                                {% elif revision.content_object.is_previewable %}
+                                    <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.content_object.specific_deferred.get_admin_display_title }}</a>
+                                {% else %}
+                                    {{ revision.content_object.specific_deferred.get_admin_display_title }}
+                                {% endif %}
+
+                                {% i18n_enabled as show_locale_labels %}
+                                {% if show_locale_labels and revision.content_object.locale_id %}
+                                    {% locale_label_from_id revision.content_object.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
+                                {% endif %}
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.content_object %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.content_object %}
+                            </div>
+                            <ul class="actions">
+                                <li>
+                                    <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
+                                    </form>
+                                </li>
+                                <li class="no-border">
+                                    <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" class="button button-small no" value="{% trans 'Reject' %}">
+                                    </form>
+                                </li>
+                                {% if page_perms.can_edit %}
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                {% endif %}
+                                {% if revision.content_object.is_previewable %}
+                                    <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td valign="top">
+                            <a href="{% url 'wagtailadmin_explore' revision.content_object.get_parent.id %}">{{ revision.content_object.get_parent.specific_deferred.get_admin_display_title }}</a>
+                        </td>
+                        <td class="type" valign="top">
+                            {{ revision.content_object.page_type_display_name }}
+                        </td>
+                        <td valign="top">
+                            {% blocktrans with name=revision.user|user_display_name asvar description %}by {{ name }}{% endblocktrans %}
+                            {% human_readable_date revision.created_at description %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpanel %}
+{% endif %}

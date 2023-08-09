@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
+# Storm Heg <storm@stormbase.digital>, 2021
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail zoeken"
+
+msgid "Query Daily Hits"
+msgstr "Aantal dagelijkse zoekopdrachten"
+
+msgid "index entry"
+msgstr "index vermelding"
+
+msgid "index entries"
+msgstr "index vermeldingen"
+
+msgid "Popular search terms"
+msgstr "Populaire zoektermen"
+
+msgid "Search"
+msgstr "Zoek"
+
+msgid "Terms"
+msgstr "Termen"
+
+msgid "Views (past week)"
+msgstr "Weergaves (afgelopen week)"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Choose from popular search terms"
+msgstr "Kies uit populaire zoektermen"

@@ -1,0 +1,263 @@
+[
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 3,
+      "name": "Root"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Root",
+      "draft_title": "Root",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 1,
+      "content_type": ["wagtailcore", "page"],
+      "path": "0001",
+      "url_path": "/",
+      "slug": "root"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to the Wagtail test site!",
+      "draft_title": "Welcome to the Wagtail test site!",
+      "numchild": 5,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["wagtailcore", "page"],
+      "path": "00010001",
+      "url_path": "/home/",
+      "slug": "home"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Events",
+      "draft_title": "Events",
+      "numchild": 4,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventindex"],
+      "path": "000100010001",
+      "url_path": "/home/events/",
+      "slug": "events"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.eventindex",
+    "fields": {
+      "intro": "Look at our lovely events."
+    }
+  },
+
+  {
+    "pk": 4,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Christmas",
+      "draft_title": "Christmas",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010001",
+      "url_path": "/home/events/christmas/",
+      "slug": "christmas",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Chestnuts roasting on an open fire</p>",
+      "cost": "Free",
+      "feed_image": 1
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "wagtailimages.image",
+    "fields": {
+      "title": "A missing image",
+      "file": "original_images/missing.jpg",
+      "width": 1000,
+      "height": 1000,
+      "created_at": "2014-01-01T12:00:00.000Z"
+    }
+  },
+
+  {
+    "pk": 5,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Tentative Unpublished Event",
+      "draft_title": "Tentative Unpublished Event",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010002",
+      "url_path": "/home/events/tentative-unpublished-event/",
+      "slug": "tentative-unpublished-event",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "public",
+      "location": "The moon",
+      "body": "<p>I haven't worked out the details yet, but it's going to have cake and ponies</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 6,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Someone Else's Event",
+      "draft_title": "Someone Else's Event",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": false,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100010003",
+      "url_path": "/home/events/someone-elses-event/",
+      "slug": "someone-elses-event",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "private",
+      "location": "The moon",
+      "body": "<p>your name's not down, you're not coming in</p>",
+      "cost": "Free (but not for you)"
+    }
+  },
+
+  {
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "About us",
+      "draft_title": "About us",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010002",
+      "url_path": "/home/about-us/",
+      "slug": "about-us"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>We are really good.</p>"
+    }
+  },
+
+  {
+    "pk": 11,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Other events",
+      "draft_title": "Other events",
+      "numchild": 1,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "simplepage"],
+      "path": "000100010005",
+      "url_path": "/home/other/",
+      "slug": "other"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "tests.simplepage",
+    "fields": {
+      "content": "<p>Other events</p>"
+    }
+  },
+
+  {
+    "pk": 12,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Special event",
+      "draft_title": "Special event",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000100050001",
+      "url_path": "/home/other/special-event/",
+      "slug": "special-event"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2015-07-04",
+      "audience": "public",
+      "location": "Hobart",
+      "body": "<p>Party time</p>",
+      "cost": "free"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 2,
+      "hostname": "localhost",
+      "port": 80,
+      "is_default_site": true
+    }
+  }
+]

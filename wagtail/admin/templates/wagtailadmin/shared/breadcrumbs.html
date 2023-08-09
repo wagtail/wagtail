@@ -1,0 +1,99 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+    The breadcrumb component is reused across all of Wagtail’s headers when the page tree context is needed.
+    Variables this template accepts:
+
+    `pages` - A list of wagtail page objects
+    `trailing_breadcrumb_title` (string?) - use this for a non linkable last breadcrumb
+    `classname` - Modifier classes
+{% endcomment %}
+{% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold' icon_classes='w-w-4 w-h-4 w-ml-3' %}
+    {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
+    <div class="w-breadcrumb w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin {{ classname }} {% if is_expanded %} w-pl-3{% endif %}" data-breadcrumb-next{% if not pages %} hidden{% endif %}>
+        {% if not is_expanded %}
+            <button
+                type="button"
+                data-toggle-breadcrumbs
+                class="w-flex w-items-center w-justify-center w-box-border w-ml-0 w-mr-2.5 w-w-slim-header w-h-slim-header w-bg-transparent w-text-text-meta w-transition hover:w-scale-110 hover:w-text-text-label w-outline-offset-inside"
+                aria-label="{% trans 'Toggle breadcrumbs' %}"
+                aria-expanded="false"
+            >
+                {% icon name="breadcrumb-expand" classname="w-w-4 w-h-4" %}
+            </button>
+        {% endif %}
+        <div class="w-relative w-h-slim-header w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
+            <nav class="w-flex w-items-center w-flex-row w-h-full"
+                aria-label="{% trans 'Breadcrumb' %}">
+                <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
+                    {% for page in pages %}
+                        {% if page.is_root and url_root_name %}
+                            {% url url_root_name as breadcrumb_url %}
+                        {% else %}
+                            {% url url_name page.id as breadcrumb_url %}
+                        {% endif %}
+                        {% if page.is_root %}
+                            <li
+                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
+                                data-breadcrumb-item
+                                {% if not is_expanded %}hidden{% endif %}
+                            >
+                                <a
+                                    class="{{ breadcrumb_link_classes }}"
+                                    href="{{ breadcrumb_url }}{{ querystring_value }}"
+                                >
+                                    {% trans "Root" %}
+                                </a>
+                                {% icon name="arrow-right" classname=icon_classes %}
+                            </li>
+                        {% elif forloop.first %}
+                            {# For limited-permission users whose breadcrumb starts further down from the root #}
+                            <li
+                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
+                                data-breadcrumb-item
+                                {% if not is_expanded %}hidden{% endif %}
+                            >
+                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
+                                    {% trans "Root" %}
+                                </a>
+                                {% icon name="arrow-right" classname=icon_classes %}
+                            </li>
+                        {% elif forloop.last %}
+                            <li
+                                class="{{ breadcrumb_item_classes }}"
+                                {% if trailing_breadcrumb_title or is_expanded %}data-breadcrumb-item{% endif %}
+                                {% if trailing_breadcrumb_title and not is_expanded %}hidden{% endif %}
+                            >
+                                <a class="{{ breadcrumb_link_classes }}"
+                                    href="{{ breadcrumb_url }}{{ querystring_value }}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                                {% if trailing_breadcrumb_title %}
+                                    {% icon name="arrow-right" classname=icon_classes %}
+                                {% endif %}
+                            </li>
+                        {% else %}
+                            <li
+                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
+                                data-breadcrumb-item
+                                {% if not is_expanded %}hidden{% endif %}
+                            >
+                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                                {% icon name="arrow-right" classname=icon_classes %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if trailing_breadcrumb_title %}
+                        <li class="{{ breadcrumb_item_classes }}">
+                            <div class="w-flex w-justify-start w-items-center">
+                                {{ trailing_breadcrumb_title }}
+                            </div>
+                        </li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endwith %}
+

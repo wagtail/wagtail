@@ -1,0 +1,458 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
+# Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
+# Fabio Santos <f4bio.sa@gmail.com>, 2023
+# Gladson <gladsonbrito@gmail.com>, 2014
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
+# Iuri L. Machado, 2021
+# Iuri L. Machado, 2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2021
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
+# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail users"
+msgstr "Usuários Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Requeridos. Apenas letras, dígitos e @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Este valor pode conter somente letras, números e os caracteres @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Um usuário com este nome já existe."
+
+msgid "The two password fields didn't match."
+msgstr "Os dois campos de senha não coincidem."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Primeiro nome"
+
+msgid "Last Name"
+msgstr "Último nome"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Leave blank if not changing."
+msgstr "Deixe em branco se não estiver alterando."
+
+msgid "Password confirmation"
+msgstr "Confirmação de senha"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Digite a mesma senha como acima, para verificação."
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Os administradores têm acesso completo para gerenciar qualquer objeto ou "
+"ambiente."
+
+msgid "A group with that name already exists."
+msgstr "Um grupo com este nome já existe."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Você não pode ter vários registros de permissão para a mesma página."
+
+msgid "submitted notifications"
+msgstr "notificações enviadas"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Receber uma notificação quando uma página é enviada para a moderação"
+
+msgid "approved notifications"
+msgstr "notificações aprovadas"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Receber uma notificação quando a edição da sua página for aprovada"
+
+msgid "rejected notifications"
+msgstr "notificações rejeitadas"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Receber uma notificação quando a edição da sua página é rejeitada"
+
+msgid "updated comments notifications"
+msgstr "notificações de comentários atualizados"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Receba notificações quando comentários forem criados, resolvidos ou "
+"excluídos em uma página que você assinou para receber notificações de "
+"comentários"
+
+msgid "preferred language"
+msgstr "idioma preferido"
+
+msgid "Select language for the admin"
+msgstr "Selecione o idioma para o administrador"
+
+msgid "current time zone"
+msgstr "fuso horário atual"
+
+msgid "Select your current time zone"
+msgstr "Selecione seu fuso horário atual"
+
+msgid "profile picture"
+msgstr "foto do perfil"
+
+msgid "admin theme"
+msgstr "Tema admin"
+
+msgid "user profile"
+msgstr "Perfil de usuário"
+
+msgid "user profiles"
+msgstr "perfis de usuário"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Atribuir função a 1 usuário"
+msgstr[1] "Atribuir funções aos %(counter)s usuários"
+msgstr[2] "Atribuir funções aos %(counter)s usuários"
+
+msgid "Assign role"
+msgstr "Atribuir função"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Você tem certeza que atribuir essas funções a estes usuários?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Você não tem permissão para editar este usuário"
+msgstr[1] "Você não tem permissão para editar estes usuários"
+msgstr[2] "Você não tem permissão para editar estes usuários"
+
+msgid "Yes, assign"
+msgstr "Atribuir"
+
+msgid "No, don't assign"
+msgstr "Não atribuir"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Excluir 1 usuário"
+msgstr[1] "Excluir %(counter)s usuários"
+msgstr[2] "Excluir %(counter)s usuários"
+
+msgid "Delete"
+msgstr "Remover"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Você tem certeza que deseja excluir estes usuários?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Você não tem permissão para excluir este usuário"
+msgstr[1] "Você não tem permissão para excluir estes usuários"
+msgstr[2] "Você não tem permissão para excluir estes usuários"
+
+msgid "Yes, delete"
+msgstr "Sim, remova"
+
+msgid "No, don't delete"
+msgstr "Não, não apague"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Alterar o estado ativo para 1 usuário"
+msgstr[1] "Alterar o estado ativo para %(counter)s usuários"
+msgstr[2] "Alterar o estado ativo para %(counter)s usuários"
+
+msgid "Set active state"
+msgstr "Ativar estado"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Tem certeza de que deseja alterar o estado ativo para estes usuários?"
+
+msgid "You cannot change your own active status"
+msgstr "Você não pode alterar seu próprio status ativo"
+
+msgid "Yes, change state"
+msgstr "Alterar estado"
+
+msgid "No, don't change state"
+msgstr "Não alterar estado"
+
+msgid "Delete group"
+msgstr "Remover grupo"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"O grupo '%(group_name)s' possui <strong>%(group_user_count)s</strong> "
+"usuários."
+msgstr[1] ""
+"O grupo '%(group_name)s' possui <strong>%(group_user_count)s</strong> "
+"usuários."
+msgstr[2] ""
+"O grupo '%(group_name)s' possui <strong>%(group_user_count)s</strong> "
+"usuários."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Remover este grupo irá revogar as permissões a este grupo de todos os "
+"usuários membros."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Você tem certeza que quer remover este grupo?"
+
+msgid "Add group"
+msgstr "Adicionar grupo"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "View users in this group"
+msgstr "Ver usuários neste grupo"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Object permissions"
+msgstr "Permissões de objetos"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Change"
+msgstr "Alterar"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Lock"
+msgstr "Travar"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Custom permissions"
+msgstr "Permissões personalizadas"
+
+msgid "Other permissions"
+msgstr "Outras permissões"
+
+msgid "Page permissions"
+msgstr "Permissões de página"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Add a page permission"
+msgstr "Adicionar uma permissão de página"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Desculpe, nenhum grupo coincide com \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Não há grupos configurados. Por que não  <a href="
+"\"%(wagtailusers_create_group_url)s\">adicionar alguns</a>?"
+
+msgid "Delete user"
+msgstr "Excluir usuário"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Tem certeza que deseja excluir este usuário?"
+
+msgid "Add user"
+msgstr "Adicionar usuário"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Roles"
+msgstr "Papéis"
+
+msgid "Users"
+msgstr "Usuários"
+
+msgid "Add a user"
+msgstr "Adicionar um usuário"
+
+msgid "Select all users in listing"
+msgstr "Selecionar todos os usuários da lista"
+
+msgid "Username"
+msgstr "Nome de usuário"
+
+msgid "Access level"
+msgstr "Nível de acesso"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Last Login"
+msgstr "Último login"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Ativo"
+
+msgid "Inactive"
+msgstr "Inativo"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrados %(counter)s resultados"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum usuário coincide com \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"O grupo %(group_name)s não tem usuários configurados. Por que não <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Não há usuários configurados. Por que não <a href=\"%(wagtailusers_add_url)s"
+"\">adicionar alguns</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "usuário%(id)s(excluído)"
+
+msgid "Assign role to selected users"
+msgstr "Atribuir função aos usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)dusuário foi adicionado a %(role)s"
+msgstr[1] "%(num_parent_objects)dusuários foram adicionados a%(role)s"
+msgstr[2] "%(num_parent_objects)dusuários foram adicionados a%(role)s"
+
+msgid "Delete selected users"
+msgstr "Excluir usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)dusuário foi excluído"
+msgstr[1] "%(num_parent_objects)dusuários foram excluídos"
+msgstr[2] "%(num_parent_objects)dusuários foram excluídos"
+
+msgid "Change the active state for selected users"
+msgstr "Alterar o estado ativo para os usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)dusuário foi marcado como ativo"
+msgstr[1] "%(num_parent_objects)dusuários foram marcados como ativos"
+msgstr[2] "%(num_parent_objects)dusuários foram marcados como ativos"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)dusuário foi marcado como inativo"
+msgstr[1] "%(num_parent_objects)dusuários foram marcados como inativos"
+msgstr[2] "%(num_parent_objects)dusuários foram marcados como inativos"
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "Add a group"
+msgstr "Adicionar um grupo"
+
+msgid "Search groups"
+msgstr "Grupos de busca"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Grupo '%(object)s' criado."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Grupo '%(object)s' atualizado."
+
+msgid "The group could not be saved due to errors."
+msgstr "O grupo não pôde ser salvo por conter erros."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Grupo '%(object)s' removido."
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Usuário '%(object)s' atualizado."
+
+msgid "The user could not be saved due to errors."
+msgstr "O usuário não pôde ser salvo devido à erros."
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Editando %(object)s"
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Usuário '%(object)s' removido."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit this user"
+msgstr "Editar este usuário"
+
+msgid "Delete this user"
+msgstr "Deletar este usuário"

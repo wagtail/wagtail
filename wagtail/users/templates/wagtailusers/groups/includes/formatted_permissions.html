@@ -1,0 +1,138 @@
+{% load i18n wagtailadmin_tags %}
+
+{% trans "Object permissions" as heading %}
+{% panel id="object-permissions" heading=heading %}
+    <fieldset>
+        <legend class="w-sr-only">{% trans "Object permissions" %}</legend>
+
+        <table class="listing">
+            <colgroup>
+                <col />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                {% if extra_perms_exist.publish %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.lock %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.unlock %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.custom %}
+                    <col width="25%" />
+                {% endif %}
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Add" %}</th>
+                    <th>{% trans "Change" %}</th>
+                    <th>{% trans "Delete" %}</th>
+                    {% if extra_perms_exist.publish %}
+                        <th>{% trans "Publish" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.lock %}
+                        <th>{% trans "Lock" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.unlock %}
+                        <th>{% trans "Unlock" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.custom %}
+                        <th>{% trans "Custom permissions" %}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for content_perms_dict in object_perms %}
+                    <tr>
+                        <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
+                        <td>
+                            {% if content_perms_dict.add %}
+                                <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.add.perm.name }}</label>
+                                {{ content_perms_dict.add.checkbox.tag }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if content_perms_dict.change %}
+                                <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.change.perm.name }}</label>
+                                {{ content_perms_dict.change.checkbox.tag }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if content_perms_dict.delete %}
+                                <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.delete.perm.name }}</label>
+                                {{ content_perms_dict.delete.checkbox.tag }}
+                            {% endif %}
+                        </td>
+                        {% if extra_perms_exist.publish %}
+                            <td>
+                                {% if content_perms_dict.publish %}
+                                    <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.publish.perm.name }}</label>
+                                    {{ content_perms_dict.publish.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.lock %}
+                            <td>
+                                {% if content_perms_dict.lock %}
+                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.lock.perm.name }}</label>
+                                    {{ content_perms_dict.lock.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.unlock %}
+                            <td>
+                                {% if content_perms_dict.unlock %}
+                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.unlock.perm.name }}</label>
+                                    {{ content_perms_dict.unlock.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.custom %}
+                            <td>
+                                {% if content_perms_dict.custom %}
+                                    <fieldset class="w-p-0">
+                                        <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
+                                        {% for custom_perm in content_perms_dict.custom %}
+                                            {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="permissions" value=custom_perm.perm.id checked=custom_perm.selected text=custom_perm.name %}
+                                        {% endfor %}
+                                    </fieldset>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+{% endpanel %}
+
+{% trans "Other permissions" as heading %}
+{% panel id="other-permissions" heading=heading %}
+    <fieldset>
+        <legend class="w-sr-only">{% trans "Other permissions" %}</legend>
+
+        <table class="listing">
+            <col />
+            <col width="45%" />
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for perm_tuple in other_perms %}
+                    <tr>
+                        <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{{ perm_tuple.0.name }}</label></td>
+                        <td>
+                            {{ perm_tuple.1.tag }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+{% endpanel %}

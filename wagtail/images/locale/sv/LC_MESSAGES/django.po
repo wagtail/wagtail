@@ -1,0 +1,611 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020-2023
+# Matt Westcott <matthew@torchbox.com>, 2022
+# Oscar Fröberg <oscfr657@gmail.com>, 2020
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2023\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail bilder"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Format som stöds: %(supported_formats)s. Maximal filstorlek: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format som stöds: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Bildformatet stöds inte. Format som stöds: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Inte en giltig .%(extension)s bild. Denna filändelse matchar inte "
+"filformatet (%(image_format)s)"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Filen är för stor (%(file_size)s). Maximal filstorlek %(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Filen har för hög upplösning (%(num_pixels)s). Maximal upplösning: "
+"%(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Filen är för stor. Maximal filstorlek %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Full bredd"
+
+msgid "Left-aligned"
+msgstr "Vänsterjusterad"
+
+msgid "Right-aligned"
+msgstr "Högerjusterad"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Bilden är dekorativ"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Vänligen lägg till alternativ text för din bild eller markera den som "
+"dekorativ"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Original size"
+msgstr "Originalstorlek"
+
+msgid "Resize to width"
+msgstr "Ändra storlek till bredden"
+
+msgid "Resize to height"
+msgstr "Ändra storleken till höjden"
+
+msgid "Resize to min"
+msgstr "Ändra storlek till min"
+
+msgid "Resize to max"
+msgstr "Ändra storleken till max"
+
+msgid "Resize to fill"
+msgstr "Ändra storleken till att fylla"
+
+msgid "Width"
+msgstr "Bredd"
+
+msgid "Height"
+msgstr "Höjd"
+
+msgid "Closeness"
+msgstr "Närhet"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add/edit images you own"
+msgstr "Lägg till/redigera bilder du äger"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit any image"
+msgstr "Redigera alla bilder"
+
+msgid "Choose"
+msgstr "Välj"
+
+msgid "Select images in choosers"
+msgstr "Markera bilder i väljare"
+
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "width"
+msgstr "bredd"
+
+msgid "height"
+msgstr "höjd"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "uploaded by user"
+msgstr "uppladdad av användare"
+
+msgid "tags"
+msgstr "taggar"
+
+msgid "image"
+msgstr "bild"
+
+msgid "images"
+msgstr "bilder"
+
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Lägg till taggar på 1 bild"
+msgstr[1] "Lägg till taggar på %(counter)s bilder"
+
+msgid "Add tags to images"
+msgstr "Lägg till taggar på bilder"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Är du säker på att du vill lägga till tagg på följande bild?"
+msgstr[1] "Är du säker på att du vill lägga till tagg på följande bilder?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Du saknar rättigheter att lägga till taggar på denna bild"
+msgstr[1] "Du saknar rättigheter att lägga till taggar på dessa bilder"
+
+msgid "Yes, add"
+msgstr "Ja, lägg till"
+
+msgid "No, don't add"
+msgstr "Nej, lägg inte till"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Lägg till 1 bild till ny samling"
+msgstr[1] "Lägg till %(counter)sbilder till ny samling"
+
+msgid "Add images to collection"
+msgstr "Lägg till bilder i samling"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"Är du säker på att du vill lägga till följande bild i den valda samlingen?"
+msgstr[1] ""
+"Är du säker på att du vill lägga till följande bilder i den valda samlingen?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "Du saknar rättigheter att lägga till denna bild till samling"
+msgstr[1] "Du saknar rättigheter att lägga till dessa bilder till samling"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Radera 1 bild"
+msgstr[1] "Radera %(counter)s bilder"
+
+msgid "Delete images"
+msgstr "Radera bilder"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Är du säker på att du vill radera denna bild?"
+msgstr[1] "Är du säker på att du vill radera dessa bilder?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "Du saknar rättigheter att radera denna bild"
+msgstr[1] "Du saknar rättigheter att radera dessa bilder"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
+
+msgid "Popular tags"
+msgstr "Populära taggar"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Uppladdning lyckades. Din nya bild verkar dock vara en dubblett av denna "
+"befintliga bild. Du kan radera den om den inte krävs."
+
+msgid "Existing"
+msgstr "Existerande"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Use new image"
+msgstr "Använd ny bild"
+
+msgid "Use existing and delete new"
+msgstr "Använd existerande och radera ny"
+
+msgid "Latest images"
+msgstr "Senaste bilder"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Välj %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Du har inte laddat upp några bilder i denna samling"
+
+msgid "You haven't uploaded any images."
+msgstr "Du har inte laddat upp några bilder."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ladda upp en nu</a>?"
+
+msgid "Choose a format"
+msgstr "Välj ett format"
+
+msgid "Insert image"
+msgstr "Lägg in bild"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> bild <span class=\"visuallyhidden\">skapades i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> bilder <span class=\"visuallyhidden\">skapades i "
+"%(site_name)s</span>"
+
+msgid "Change image file:"
+msgstr "Byt bildfil:"
+
+msgid "Add an image"
+msgstr "Lägg till en bild"
+
+msgid "Add image"
+msgstr "Lägg till bild"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Keep new image"
+msgstr "Behåll ny bild"
+
+msgid "Delete new image"
+msgstr "Radera ny bild"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Redigerar bild %(title)s"
+
+msgid "Editing"
+msgstr "Redigerar"
+
+msgid "Delete image"
+msgstr "Radera bild"
+
+msgid "Image focal point"
+msgstr "Bildens brännpunkt"
+
+msgid "URL Generator"
+msgstr "URL-Generator"
+
+msgid "Focal point"
+msgstr "Brännpunkt"
+
+msgid "(optional)"
+msgstr "(valfritt)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"För att definiera den här bildens viktigaste område, dra en ruta över bilden "
+"ovan."
+
+msgid "Current focal point shown"
+msgstr "Den nuvarande brännpunkten visas"
+
+msgid "Remove focal area"
+msgstr "Ta bort brännpunkt"
+
+msgid "Max dimensions"
+msgstr "Maximala dimensioner"
+
+msgid "Filesize"
+msgstr "Filstorlek"
+
+msgid "File not found"
+msgstr "Filen hittades inte"
+
+msgid "Usage"
+msgstr "Användning"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Entries per page"
+msgstr "Poster per sida"
+
+msgid "Popular Tags:"
+msgstr "Populära Taggar:"
+
+msgid "Clear"
+msgstr "Rensa"
+
+msgid "Select all images in listing"
+msgstr "Välj alla bilder i listan"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
+msgid "Select image"
+msgstr "Välj bild"
+
+msgid "pixels"
+msgstr "pixlar"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga bilder matchar <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några bilder till den här samlingen. Varför inte <a "
+"href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några bilder  Varför inte <a href="
+"\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
+
+msgid "Generating URL"
+msgstr "Genererar URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Notera att de genererade bilder som är större än skärmen kommer visas mindre "
+"när de förhandsgranskas här, så att de får plats på skärmen."
+
+msgid "Add multiple images"
+msgstr "Lägg till flera bilder"
+
+msgid "Add images"
+msgstr "Lägg till bilder"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dra och släpp bilder inom det här området för att ladda upp direkt."
+
+msgid "Or choose from your computer"
+msgstr "Eller välj från din dator"
+
+msgid "Add to collection:"
+msgstr "Lägg till i samling:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Uppladdningen lyckades. Vänligen uppdatera den här bilden med en mer lämplig "
+"titel, om nödvändigt. Du kan också ta bort bilden helt och hållet om "
+"uppladdningen inte var nödvändig."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Uppladdning lyckades. Din nya bild verkar dock vara en dubblett av denna "
+"befintliga bild. Du kan radera den om den inte krävs."
+
+msgid "Sorry, upload failed."
+msgstr "Ledsen, uppladdningen misslyckades."
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Rapportera detta fel till din webbplatsadministratör med följande "
+"information:"
+
+msgid "Image updated."
+msgstr "Bilden uppdaterades."
+
+msgid "Image permissions"
+msgstr "Bildrättigheter"
+
+msgid "Add an image permission"
+msgstr "Lägg till en bildrättighet"
+
+msgid "Tags"
+msgstr "Taggar"
+
+msgid "Tag"
+msgstr "Tagg"
+
+msgid "Add tags to the selected images"
+msgstr "Lägg till taggar på valda bilder"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "Nya taggar har lags till %(num_parent_objects)d bild"
+msgstr[1] "Nya taggar har lagts till %(num_parent_objects)d bilder"
+
+msgid "Add to collection"
+msgstr "Lägg till i samling"
+
+msgid "Add selected images to collection"
+msgstr "Lägg till valda bilder till samling"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d bilder har lagts till %(collection)s"
+msgstr[1] "%(num_parent_objects)d bilder har lagts till %(collection)s"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Delete selected images"
+msgstr "Radera valda bilder"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] "%(num_parent_objects)d bild har raderats"
+msgstr[1] "%(num_parent_objects)d bilder har raderats"
+
+msgid "Upload"
+msgstr "Ladda upp"
+
+msgid "Uploading…"
+msgstr "Laddar upp…"
+
+msgid "Choose an image"
+msgstr "Välj en bild"
+
+msgid "Choose another image"
+msgstr "Välj en annan bild"
+
+msgid "Edit this image"
+msgstr "Redigera denna bild"
+
+msgid "Newest"
+msgstr "Senaste"
+
+msgid "Oldest"
+msgstr "Äldsta"
+
+msgid "Title: (A -> Z)"
+msgstr "Titel: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titel: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Filstorlek: (låg till hög)"
+
+msgid "File size: (high to low)"
+msgstr "Filstorlek: (hög till låg)"
+
+msgid "Search images"
+msgstr "Sök bilder"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Bild '%(image_title)s' uppdaterades."
+
+msgid "Edit again"
+msgstr "Redigera igen"
+
+msgid "The image could not be saved due to errors."
+msgstr "Bilden kunde inte sparas p.g.a. fel."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
+"bort bilden."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Bild '%(image_title)s' raderad."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Bild '%(image_title)s' lades till."
+
+msgid "The image could not be created due to errors."
+msgstr "Bilden kunde inte skapas p.g.a. fel."
+
+msgid "Image"
+msgstr "Bild"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s bild"
+msgstr[1] "%(count)s bilder"
+
+msgid "Change image"
+msgstr "Ändra bild"

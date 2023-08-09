@@ -1,0 +1,17 @@
+.redirects .listing-with-x-scroll {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.redirects header .right {
+  display: flex;
+}
+
+.redirects header .right .actionbutton {
+  margin-inline-start: 10px;
+}
+
+.redirects header .right .dropdown {
+  margin-inline-start: 10px;
+}

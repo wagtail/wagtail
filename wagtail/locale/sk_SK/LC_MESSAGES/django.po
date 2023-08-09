@@ -1,0 +1,332 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
+"Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimálne množstvo je %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximálne množstvo je %(max_num)d"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "This block has no options."
+msgstr "Tento odstavec nemá žiadne voľby."
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Heslo, ktoré ste zadali, nie je správne. Prosím skúste znovu."
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "obsahuje nepublikované zmeny"
+
+msgid "first published at"
+msgstr "prvýkrát publikované"
+
+msgid "last published at"
+msgstr "publikované naposledy"
+
+msgid "go live date/time"
+msgstr "dátum a čas publikácie"
+
+msgid "expiry date/time"
+msgstr "dátum a čas expirácie"
+
+msgid "expired"
+msgstr "expirované"
+
+msgid "scheduled"
+msgstr "naplánované"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
+
+msgid "Default"
+msgstr "Predvolené"
+
+msgid "locked"
+msgstr "zamknuté"
+
+msgid "Add/edit pages you own"
+msgstr "Pridať/upraviť stránky ktoré vlastníte"
+
+msgid "Bulk delete"
+msgstr "Hromadne vymazať"
+
+msgid "Delete pages with children"
+msgstr "Vymazať stránky s potomkami"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Edit any page"
+msgstr "Upraviť stránku"
+
+msgid "Lock"
+msgstr "Zamknúť"
+
+msgid "Publish"
+msgstr "Publikovať"
+
+msgid "Publish any page"
+msgstr "Publikovať akúkoľvek stránku"
+
+msgid "title"
+msgstr "titulok"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titulok stránky ktorý budú vidieť ostatní návštevníci"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Názov ktorý sa bude zobrazovať v adrese URL napríklad.  http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "typ obsahu"
+
+msgid "URL path"
+msgstr "URL cesta"
+
+msgid "owner"
+msgstr "vlastník"
+
+msgid "show in menus"
+msgstr "zobraziť v menu"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
+
+msgid "latest revision created at"
+msgstr "posledná revízia vytvorená"
+
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
+msgid "submitted for moderation"
+msgstr "odoslané na moderáciu"
+
+msgid "created at"
+msgstr "vytvorené"
+
+msgid "user"
+msgstr "používateľ"
+
+msgid "content JSON"
+msgstr "obsah JSON"
+
+msgid "approved go live at"
+msgstr "schválené na zverejnenie"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnenie"
+
+msgid "permission type"
+msgstr "typ oprávnenia"
+
+msgid "group page permission"
+msgstr "skupinové oprávnenie stránky"
+
+msgid "group page permissions"
+msgstr "skupinové oprávnenia stránky"
+
+msgid "page view restriction"
+msgstr "obmedzenie zobrazenia stránky"
+
+msgid "page view restrictions"
+msgstr "obmedzenia zobrazenia stránky"
+
+msgid "name"
+msgstr "názov"
+
+msgid "groups"
+msgstr "skupiny"
+
+msgid "Approve"
+msgstr "Schváliť"
+
+msgid "collection"
+msgstr "kolekcia"
+
+msgid "collection view restriction"
+msgstr "obmedzenie zobrazenia kolekcie"
+
+msgid "collection view restrictions"
+msgstr "obmedzenia zobrazenia kolekcie"
+
+msgid "collections"
+msgstr "kolekcie"
+
+msgid "group collection permission"
+msgstr "oprávnenia skupiny ku kolekcii"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nastavte na niečo iné ako 80, ak potrebujete špecifický port v URL (napr. "
+"8000 pre vývoj). Neovplyvní request handling (port forwarding bude fungovať "
+"aj naďalej)."
+
+msgid "site name"
+msgstr "názov sídla"
+
+msgid "Human-readable name for the site."
+msgstr "Názov sídla viditeľný pre verejnosť."
+
+msgid "root page"
+msgstr "koreňová stránka"
+
+msgid "is default site"
+msgstr "je predvolené sídlo"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ak áno, toto sídlo bude spracovávať žiadosti pre všetky ostatné hostiteľské "
+"názvy, ktoré nemajú vlastný záznam o lokalite."
+
+msgid "site"
+msgstr "stránka"
+
+msgid "sites"
+msgstr "stránky"
+
+msgid "default"
+msgstr "predvolené"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je už nastavené ako predvolené sídlo. Toto nastavenie musíte "
+"zrušiť predtým, než nastavíte toto sídlo ako predvolené."
+
+msgid "Public"
+msgstr "Verejná"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Súkromné, prístupné prihláseným používateľom"
+
+msgid "Private, accessible with the following password"
+msgstr "Súkromná, dostupná s nasledujúcim heslom"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Súkromné, prístupné používateľom v špecifických skupinách"
+
+msgid "password"
+msgstr "heslo"
+
+msgid "view restriction"
+msgstr "zobraziť obmedzenie"
+
+msgid "view restrictions"
+msgstr "zobraziť obmedzenia"
+
+msgid "Log in"
+msgstr "Prihlásiť"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Váš login a heslo sa nezhoduje. Prosím skúste znovu."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Váš účet nemá oprávnenie k tejto stránke. Pokúste sa prihlásiť iným účtom "
+"alebo požiadajte o zmenu oprávnení."
+
+msgid "Password required"
+msgstr "Heslo je povinné"
+
+msgid "You need a password to access this page."
+msgstr "K prístupu na túto stránku potrebujete heslo."
+
+msgid "Continue"
+msgstr "Pokračovať"
+
+msgid "Edited"
+msgstr "Upravené"
+
+msgid "Unpublish"
+msgstr "Odpublikovať"
+
+msgid "Reject"
+msgstr "Odmietnuť"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Move"
+msgstr "Presunúť"

@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017\n"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Query Daily Hits"
+msgstr "تعداد جستجوی روزانه"
+
+msgid "Popular search terms"
+msgstr "عناوین منتخب جستجو‌شده"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Terms"
+msgstr "عنوان"
+
+msgid "Views (past week)"
+msgstr "نمایش (هفته گذشته)"
+
+msgid "No results found"
+msgstr "هیچ موردی پیدا نشد"
+
+msgid "Choose from popular search terms"
+msgstr "از عناوین منتخب جستجو شده انتخاب کنید"

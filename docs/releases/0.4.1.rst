@@ -1,0 +1,11 @@
+===========================
+Wagtail 0.4.1 release notes
+===========================
+
+*July 14, 2014*
+
+Bug fixes
+~~~~~~~~~
+
+* Elasticsearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
+* Documentation fixes

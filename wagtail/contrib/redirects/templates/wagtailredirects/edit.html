@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=redirect.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title icon="redirect" %}
+
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+    <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% for field in form.visible_fields %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
+            {% endfor %}
+
+            <li>
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
+                {% if user_can_delete %}
+                    <a href="{% url 'wagtailredirects:delete' redirect.id %}" class="button no">{% trans "Delete redirect" %}</a>
+                {% endif %}
+            </li>
+        </ul>
+    </form>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}

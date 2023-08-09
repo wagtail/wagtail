@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+<button
+    type="submit"
+    name="action-publish"
+    value="action-publish"
+    class="button button-longrunning {% if is_revision %}warning{% endif %}"
+    data-controller="w-progress"
+    data-action="w-progress#activate"
+    data-w-progress-active-value="{% trans 'Publishing…' %}"
+>
+    {% if icon_name %}{% icon name=icon_name classname="button-longrunning__icon" %}{% endif %}
+    {% icon name="spinner" %}
+    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+</button>

@@ -1,0 +1,22 @@
+============================
+Wagtail 2.10.2 release notes
+============================
+
+*September 25, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Avoid use of ``icon`` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
+* Prevent focused button labels from displaying as white on white (Karran Bessen)
+* Avoid showing preview button on moderation dashboard for page types with preview disabled (Dino Perovic)
+* Prevent oversized buttons in moderation dashboard panel (Dan Braghis)
+* ``create_log_entries_from_revisions`` now handles revisions that cannot be restored due to foreign key constraints (Matt Westcott)

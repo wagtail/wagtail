@@ -1,0 +1,85 @@
+=========================
+Wagtail 2.4 release notes
+=========================
+
+*December 19, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+New "Welcome to your Wagtail site" Starter Page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using the ``wagtail start`` command to make a new site, users will now be greeted with a proper starter page. Thanks to Timothy Allen and Scott Cranfill for pulling this off!
+
+   .. figure:: ../_static/images/tutorial/tutorial_1.png
+      :alt: Wagtail welcome message
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added support for Python 3.7 (Matt Westcott)
+* Added ``max_count`` option on page models to limit the number of pages of a particular type that can be created (Dan Braghis)
+* Document and image choosers now show the document / image's collection (Alejandro Garza, Janneke Janssen)
+* New ``image_url`` template tag allows to generate dynamic image URLs, so image renditions are being created outside the main request which improves performance. Requires extra configuration, see :doc:`/advanced_topics/images/image_serve_view` (Yannick Chabbert, Dan Braghis).
+* Added ability to run individual tests through tox (Benjamin Bach)
+* Collection listings are now ordered by name (Seb Brown)
+* Added ``file_hash`` field to documents (Karl Hobley, Dan Braghis)
+* Added last login to the user overview (Noah B Johnson)
+* Changed design of image editing page (Janneke Janssen, Ben Enright)
+* Added Slovak character map for JavaScript slug generation (Andy Chosak)
+* Make documentation links on welcome page work for prereleases (Matt Westcott)
+* Allow overridden ``copy()`` methods in ``Page`` subclasses to be called from the page copy view (Robert Rollins)
+* Users without a preferred language set on their profile now use language selected by Django's ``LocaleMiddleware`` (Benjamin Bach)
+* Added hooks to customise the actions menu on the page create/edit views (Matt Westcott)
+* Cleanup: Use ``functools.partial()`` instead of ``django.utils.functional.curry()`` (Sergey Fedoseev)
+* Added ``before_move_page`` and ``after_move_page`` hooks (Maylon Pedroso)
+* Bulk deletion button for snippets is now hidden until items are selected (Karl Hobley)
+
+Bug fixes
+~~~~~~~~~
+
+* Query objects returned from ``PageQuerySet.type_q`` can now be merged with ``|`` (Brady Moe)
+* Add ``rel="noopener noreferrer"`` to target blank links (Anselm Bradford)
+* Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
+* Help text does not overflow when using a combination of BooleanField and FieldPanel in page model (Dzianis Sheka)
+* Document chooser now displays more useful help message when there are no documents in Wagtail document library (gmmoraes, Stas Rudakou)
+* Allow custom logos of any height in the admin menu (Meteor0id)
+* Allow nav menu to take up all available space instead of scrolling (Meteor0id)
+* Users without the edit permission no longer see "Edit" links in list of pages waiting for moderation (Justin Focus, Fedor Selitsky)
+* Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
+* Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
+* Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
+* Page titles consisting only of stopwords now generate a non-empty default slug (Andy Chosak, Janneke Janssen)
+* Sitemap generator now allows passing a sitemap instance in the URL configuration (Mitchel Cabuloy, Dan Braghis)
+
+
+Upgrade considerations
+======================
+
+Removed support for Django 1.11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 1.11 is no longer supported in this release; please upgrade your project to Django 2.0 or 2.1 before upgrading to Wagtail 2.4.
+
+
+Custom image model migrations created on Wagtail <1.8 may fail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Projects with a custom image model (see :ref:`custom_image_model`) created on Wagtail 1.7 or earlier are likely to have one or more migrations that refer to the (now-deleted) ``wagtailimages.Filter`` model. In Wagtail 2.4, the migrations that defined this model have been squashed, which may result in the error ``ValueError: Related model 'wagtailimages.Filter' cannot be resolved`` when bringing up a new instance of the database. To rectify this, check your project's migrations for ``ForeignKey`` references to ``wagtailimages.Filter``, and change them to ``IntegerField`` definitions. For example, the line:
+
+.. code-block:: python
+
+  ('filter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter')),
+
+should become:
+
+.. code-block:: python
+
+  ('filter', models.IntegerField(blank=True, null=True)),

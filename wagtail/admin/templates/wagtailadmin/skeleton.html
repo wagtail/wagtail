@@ -1,0 +1,38 @@
+<!doctype html>
+{% load wagtailadmin_tags i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="{% admin_theme_classname %}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block titletag %}{% endblock %} - {% block branding_title %}Wagtail{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
+
+        {% block css %}{% endblock %}
+
+        {% block branding_favicon %}{% endblock %}
+    </head>
+    {% sidebar_collapsed as sidebar_collapsed %}
+    <body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if sidebar_collapsed %}sidebar-collapsed{% endif %} {% if messages %}has-messages{% endif %}">
+        <div data-sprite></div>
+
+        <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% url 'wagtailadmin_sprite' %}"></script>
+
+        <noscript class="capabilitymessage">
+            {% blocktrans trimmed %}
+                JavaScript is required to use Wagtail, but it is currently disabled.<br />
+                Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noreferrer">instructions how to enable JavaScript in your web browser</a>.
+            {% endblocktrans %}
+        </noscript>
+
+        {% block js %}{% endblock %}
+
+        <a class="skiplink button" href="#main" data-controller="w-skip-link" data-action="w-skip-link#skip">{% trans 'Skip to main content' %}</a>
+
+        <div class="wrapper">
+            {% block furniture %}{% endblock %}
+        </div>
+    </body>
+</html>

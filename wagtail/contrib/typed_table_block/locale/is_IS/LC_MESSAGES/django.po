@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# saevarom <saevar@saevar.is>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2021\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Add column"
+msgstr "Nýr dálkur"
+
+msgid "Add row"
+msgstr "Ný lína"
+
+msgid "Column heading"
+msgstr "Heiti dálks"
+
+msgid "Insert column"
+msgstr "Setja inn dálk"
+
+msgid "Delete column"
+msgstr "Eyða dálk"
+
+msgid "Insert row"
+msgstr "Setja inn línu"
+
+msgid "Delete row"
+msgstr "Eyða línu"

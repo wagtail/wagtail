@@ -1,0 +1,4 @@
+{% load i18n %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <input type="checkbox" id="chooser-modal-select-{{ value }}" data-multiple-choice-select name="id" value="{{ value }}" title="{% blocktrans trimmed with title=instance %}Select {{ title }}{% endblocktrans %}">
+</td>

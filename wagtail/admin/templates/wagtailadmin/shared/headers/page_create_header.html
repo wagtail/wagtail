@@ -1,0 +1,15 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block header_content %}
+    {% blocktrans trimmed asvar title with model_name=content_type.model_class.get_verbose_name %}New: {{ model_name }}{% endblocktrans %}
+    {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' include_self=True trailing_breadcrumb_title=title %}
+
+    <h1 class="w-sr-only">
+        {{ title }}
+    </h1>
+{% endblock %}
+
+{% block actions %}
+    {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+{% endblock %}

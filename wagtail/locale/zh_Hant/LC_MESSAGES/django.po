@@ -1,0 +1,695 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Chih Wang <ihcgno@icloud.com>, 2020,2022
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
+"Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail 核心組件"
+
+msgid "Add Comment"
+msgstr "新增評論"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "條目的最小數是%(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "條目的最大數是%(max_num)d"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Duplicate"
+msgstr "副本"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Add"
+msgstr "新增"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s：此區塊沒有選項"
+
+msgid "This block has no options."
+msgstr "這個區塊沒有選項"
+
+msgid "This field is required."
+msgstr "必需欄位。"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "密碼錯誤，請重新輸入"
+
+msgid "Comment"
+msgstr "評論"
+
+msgid "Locked"
+msgstr "已鎖定"
+
+msgid "Unlocked"
+msgstr "已解鎖"
+
+msgid "latest revision"
+msgstr "最新版本"
+
+msgid "live"
+msgstr "在用"
+
+msgid "has unpublished changes"
+msgstr "有未發佈的變更"
+
+msgid "first published at"
+msgstr "第一次發佈於"
+
+msgid "last published at"
+msgstr "最後發佈於"
+
+msgid "live revision"
+msgstr "上線版本"
+
+msgid "go live date/time"
+msgstr "上線日期/時間"
+
+msgid "expiry date/time"
+msgstr "過期日期/時間"
+
+msgid "expired"
+msgstr "已過期"
+
+msgid "scheduled"
+msgstr "已計劃"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + scheduled"
+msgstr "在用 + 已預定"
+
+msgid "live + draft"
+msgstr "發佈+草稿"
+
+msgid "Default"
+msgstr "預設"
+
+msgid "locked"
+msgstr "已鎖定"
+
+msgid "locked at"
+msgstr "鎖定於"
+
+msgid "in moderation"
+msgstr "審核中"
+
+msgid "live + in moderation"
+msgstr "上線 + 審核中"
+
+msgid "Add/edit pages you own"
+msgstr "新增/編輯所屬的頁面"
+
+msgid "Bulk delete"
+msgstr "批量刪除"
+
+msgid "Delete pages with children"
+msgstr "刪除頁面及其子頁面"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit any page"
+msgstr "編輯任意頁面"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "鎖定/解鎖頁面"
+
+msgid "Publish"
+msgstr "發佈"
+
+msgid "Publish any page"
+msgstr "發佈任意頁面"
+
+msgid "Unlock"
+msgstr "解鎖"
+
+msgid "Unlock any page"
+msgstr "解鎖作何頁面"
+
+msgid "title"
+msgstr "標題"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "你想公開的頁面標題"
+
+msgid "slug"
+msgstr "縮略名"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "用於URL的頁面名稱，如http://domain.com/work/[my-work]/"
+
+msgid "content type"
+msgstr "內容類型"
+
+msgid "URL path"
+msgstr "URL路徑"
+
+msgid "owner"
+msgstr "所有者"
+
+msgid "title tag"
+msgstr "標題標籤"
+
+msgid "show in menus"
+msgstr "在選單中顯示"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
+
+msgid "latest revision created at"
+msgstr "最近修訂版本創建於"
+
+msgid "page"
+msgstr "頁面"
+
+msgid "pages"
+msgstr "頁面"
+
+msgid "submitted for moderation"
+msgstr "已提交審核"
+
+msgid "created at"
+msgstr "創建時間"
+
+msgid "user"
+msgstr "用戶"
+
+msgid "content JSON"
+msgstr "內容JSON"
+
+msgid "approved go live at"
+msgstr "批準上線時間"
+
+msgid "revision"
+msgstr "修訂版本"
+
+msgid "revisions"
+msgstr "修訂版本"
+
+msgid "group"
+msgstr "群組"
+
+msgid "permission"
+msgstr "權限"
+
+msgid "permission type"
+msgstr "權限類型"
+
+msgid "group page permission"
+msgstr "群組頁面權限"
+
+msgid "group page permissions"
+msgstr "群組頁面權限"
+
+msgid "page view restriction"
+msgstr "查看頁面限制"
+
+msgid "page view restrictions"
+msgstr "查看頁面限制"
+
+msgid "workflow"
+msgstr "工作流程"
+
+msgid "workflow page"
+msgstr "工作流程頁面"
+
+msgid "workflow pages"
+msgstr "工作流程頁面"
+
+msgid "workflow_tasks"
+msgstr "工作流程作業"
+
+msgid "task"
+msgstr "作業"
+
+msgid "workflow task order"
+msgstr "工作流程作業順序"
+
+msgid "workflow task orders"
+msgstr "工作流程作業順序"
+
+msgid "name"
+msgstr "名稱"
+
+msgid "active"
+msgstr "啟用"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr "啟用中的作業可添加至工作流程。停用作業不會將其由現有工作流程中移除。"
+
+msgid "tasks"
+msgstr "作業"
+
+msgid "workflows"
+msgstr "工作流程"
+
+msgid "groups"
+msgstr "組"
+
+msgid "Request changes"
+msgstr "變更請求"
+
+msgid "Approve"
+msgstr "核准"
+
+msgid "Approve with comment"
+msgstr "評論並核准"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "選擇的群組成員可核准此項作業"
+
+msgid "Group approval task"
+msgstr "群組審核作業"
+
+msgid "Group approval tasks"
+msgstr "群組審核作業"
+
+msgid "In progress"
+msgstr "進行中"
+
+msgid "Approved"
+msgstr "己核准"
+
+msgid "Needs changes"
+msgstr "需要修訂"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "status"
+msgstr "狀態"
+
+msgid "requested by"
+msgstr "要求者"
+
+msgid "current task state"
+msgstr "目前作業狀態"
+
+msgid "Not started"
+msgstr "尚未開始"
+
+msgid "Workflow state"
+msgstr "工作流程狀態"
+
+msgid "Workflow states"
+msgstr "工作流程狀態"
+
+msgid "Rejected"
+msgstr "已拒絕"
+
+msgid "Skipped"
+msgstr "已略過"
+
+msgid "workflow state"
+msgstr "工作流程狀態"
+
+msgid "started at"
+msgstr "開始於"
+
+msgid "finished at"
+msgstr "完成於"
+
+msgid "Task state"
+msgstr "作業狀態"
+
+msgid "Task states"
+msgstr "作業狀態"
+
+msgid "Draft saved"
+msgstr "已儲存草稿"
+
+msgid "comment"
+msgstr "評論"
+
+msgid "comments"
+msgstr "評論"
+
+msgid "comment reply"
+msgstr "評論回覆"
+
+msgid "comment replies"
+msgstr "評論回覆"
+
+msgid "timestamp (UTC)"
+msgstr "時間標記 (UTC)"
+
+msgid "system"
+msgstr "系統"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知 %(action)s"
+
+msgid "collection"
+msgstr "集合"
+
+msgid "collection view restriction"
+msgstr "集合檢視限制"
+
+msgid "collection view restrictions"
+msgstr "集合檢視限制"
+
+msgid "collections"
+msgstr "集合"
+
+msgid "group collection permission"
+msgstr "群組集合權限"
+
+msgid "group collection permissions"
+msgstr "群組集合權限"
+
+msgid "hostname"
+msgstr "主機名稱"
+
+msgid "port"
+msgstr "埠號"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"將此處設置為一個非80的值，如果你需要指定顯示在URL中的埠（如8000）。不影響請求"
+"處理（埠轉發依舊有效）。"
+
+msgid "site name"
+msgstr "站點名稱"
+
+msgid "Human-readable name for the site."
+msgstr "此站點的可讀名稱"
+
+msgid "root page"
+msgstr "根頁面"
+
+msgid "is default site"
+msgstr "是預設站點"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "如果勾選，此站點將處理通過其它主機名訪問的，尚沒有站點內容的請求。"
+
+msgid "site"
+msgstr "站點"
+
+msgid "sites"
+msgstr "站點"
+
+msgid "default"
+msgstr "預設"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s已被配置為預設站點。在您將此站點設置為預設前，您必須取消原來的預"
+"設站點。"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private, accessible to logged-in users"
+msgstr "私有，登錄用戶可訪問"
+
+msgid "Private, accessible with the following password"
+msgstr "私有，使用下列的密碼訪問："
+
+msgid "Private, accessible to users in specific groups"
+msgstr "私有，特定用戶組中的用戶可訪問"
+
+msgid "password"
+msgstr "密碼"
+
+msgid "view restriction"
+msgstr "查看限制"
+
+msgid "view restrictions"
+msgstr "查看限制"
+
+msgid "Log in"
+msgstr "登入"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "用戶密碼不符，請重試"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "你的帳號無權訪問該頁面。若要繼續訪問，請使用有訪問權限的帳號登錄。"
+
+msgid "Password required"
+msgstr "需要密碼"
+
+msgid "You need a password to access this page."
+msgstr "你需要訪問該頁面的密碼。"
+
+msgid "Continue"
+msgstr "繼續"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "Created"
+msgstr "已建立"
+
+msgid "Edited"
+msgstr "已編輯"
+
+msgid "Deleted"
+msgstr "已刪除"
+
+msgid "Published"
+msgstr "已發佈"
+
+msgid "Publish scheduled draft"
+msgstr "發佈已預定的草稿"
+
+msgid "Published scheduled draft"
+msgstr "已發佈預定的草稿"
+
+msgid "Unpublish"
+msgstr "取消發佈"
+
+msgid "Unpublished"
+msgstr "取消發佈"
+
+msgid "Unpublish scheduled draft"
+msgstr "取消發佈預定的草稿"
+
+msgid "Unpublished scheduled draft"
+msgstr "已取消發佈預定的草稿"
+
+msgid "Reject"
+msgstr "駁回"
+
+msgid "Rename"
+msgstr "重新命名"
+
+msgid "Renamed"
+msgstr "已更名"
+
+msgid "Revert"
+msgstr "復原"
+
+msgid "Reverted to previous revision"
+msgstr "已還原至前版本"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Copied"
+msgstr "已複製"
+
+msgid "Create alias"
+msgstr "建立別名"
+
+msgid "Created an alias"
+msgstr "建立別名"
+
+msgid "Move"
+msgstr "移動"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "已搬移"
+
+msgid "Reorder"
+msgstr "重新排序"
+
+msgid "Reordered"
+msgstr "已重新排序"
+
+msgid "Schedule publication"
+msgstr "預定發佈"
+
+msgid "Page scheduled for publishing"
+msgstr "頁面已預定發佈排程"
+
+msgid "Unschedule publication"
+msgstr "取消預定發佈"
+
+msgid "Page unscheduled from publishing"
+msgstr "頁面已取消發佈排程"
+
+msgid "Add view restrictions"
+msgstr "新增檢視限制"
+
+msgid "Added view restriction"
+msgstr "新增檢視限制"
+
+msgid "Update view restrictions"
+msgstr "更新檢視限制"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "更新檢視限制為 '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "已更新檢視限制"
+
+msgid "Remove view restrictions"
+msgstr "移除檢視限制"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "移除檢視限制 '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "已移除檢視限制"
+
+msgid "Add comment"
+msgstr "新增評論"
+
+msgid "Added a comment"
+msgstr "已新增評論"
+
+msgid "Edit comment"
+msgstr "編輯評論"
+
+msgid "Edited a comment"
+msgstr "已編輯評論"
+
+msgid "Delete comment"
+msgstr "刪除評論"
+
+msgid "Deleted a comment"
+msgstr "已刪除評論"
+
+msgid "Resolve comment"
+msgstr "解決評論"
+
+msgid "Resolved a comment"
+msgstr "已解決評論"
+
+msgid "Reply to comment"
+msgstr "回覆評論"
+
+msgid "Replied to a comment"
+msgstr "已回覆評論"
+
+msgid "Edit reply to comment"
+msgstr "編輯回覆"
+
+msgid "Edited a reply"
+msgstr "已編輯回覆"
+
+msgid "Delete reply to comment"
+msgstr "刪除回覆"
+
+msgid "Deleted a reply"
+msgstr "已刪除回覆"
+
+msgid "Workflow: start"
+msgstr "工作流程：開始"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "已開始 '%(workflow)s' ，下一步驟 '%(task)s'"
+
+msgid "Workflow started"
+msgstr "已開始工作流程"
+
+msgid "Workflow: approve task"
+msgstr "工作流程：核准作業"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "已核准 '%(task)s' ，下一步驟 '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "已核准 '%(task)s' ，'%(workflow)s' 完成"
+
+msgid "Workflow task approved"
+msgstr "已核准工作流程作業"
+
+msgid "Workflow: reject task"
+msgstr "工作流程：駁回作業"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "已駁回 '%(task)s' ，需進行變更"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "已駁回工作流程作業。工作流程完成"
+
+msgid "Workflow: resume task"
+msgstr "工作流程：繼續作業"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "重新提交工作流程作業，已繼續工作流程"
+
+msgid "Workflow: cancel"
+msgstr "工作流程：取消"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "已取消 '%(workflow)s' 於 '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "已取消工作流程"

@@ -1,0 +1,329 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:8
+msgid "Wagtail redirects"
+msgstr ""
+
+#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:437
+msgid "Type"
+msgstr ""
+
+#: filters.py:15
+msgid "Permanent"
+msgstr ""
+
+#: filters.py:16
+msgid "Temporary"
+msgstr ""
+
+#: filters.py:18
+msgid "All"
+msgstr ""
+
+#: forms.py:12 forms.py:111
+msgid "From site"
+msgstr ""
+
+#: forms.py:15 forms.py:114
+msgid "All sites"
+msgstr ""
+
+#: forms.py:45
+msgid "A redirect with this path already exists."
+msgstr ""
+
+#: forms.py:55
+msgid "File to import"
+msgstr ""
+
+#: forms.py:66
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr ""
+
+#: forms.py:103
+msgid "From field"
+msgstr ""
+
+#: forms.py:107
+msgid "To field"
+msgstr ""
+
+#: models.py:12
+msgid "redirect from"
+msgstr ""
+
+#: models.py:16
+msgid "site"
+msgstr ""
+
+#: models.py:24 models.py:84
+msgid "permanent"
+msgstr ""
+
+#: models.py:27
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+
+#: models.py:33
+msgid "redirect to a page"
+msgstr ""
+
+#: models.py:39
+msgid "target page route"
+msgstr ""
+
+#: models.py:41
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+
+#: models.py:48
+msgid "redirect to any URL"
+msgstr ""
+
+#: models.py:51
+msgid "automatically created"
+msgstr ""
+
+#: models.py:56
+msgid "created at"
+msgstr ""
+
+#: models.py:86
+msgid "temporary"
+msgstr ""
+
+#: models.py:203
+msgid "redirect"
+msgstr ""
+
+#: models.py:204
+msgid "redirects"
+msgstr ""
+
+#: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:5
+#: templates/wagtailredirects/index.html:14
+msgid "Add redirect"
+msgstr ""
+
+#: templates/wagtailredirects/add.html:21
+#: templates/wagtailredirects/edit.html:21
+msgid "Save"
+msgstr ""
+
+#: templates/wagtailredirects/choose_import_file.html:3
+#: templates/wagtailredirects/index.html:7
+#: templates/wagtailredirects/index.html:10 wagtail_hooks.py:34
+msgid "Redirects"
+msgstr ""
+
+#: templates/wagtailredirects/choose_import_file.html:6
+#: templates/wagtailredirects/confirm_import.html:6
+#: templates/wagtailredirects/import_summary.html:5
+#: templates/wagtailredirects/index.html:17
+msgid "Import redirects"
+msgstr ""
+
+#: templates/wagtailredirects/choose_import_file.html:12
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+
+#: templates/wagtailredirects/choose_import_file.html:32
+msgid "Import"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_delete.html:3
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_delete.html:5
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_delete.html:9
+msgid "Are you sure you want to delete this redirect?"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_delete.html:12
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_import.html:4
+#: templates/wagtailredirects/confirm_import.html:7
+msgid "Confirm import"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_import.html:25
+msgid "Confirm"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_import.html:27
+msgid "Cancel"
+msgstr ""
+
+#: templates/wagtailredirects/confirm_import.html:32
+msgid "Preview"
+msgstr ""
+
+#: templates/wagtailredirects/edit.html:3
+#, python-format
+msgid "Editing %(title)s"
+msgstr ""
+
+#: templates/wagtailredirects/edit.html:5
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtailredirects/edit.html:23
+msgid "Delete redirect"
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:3
+#: templates/wagtailredirects/import_summary.html:6
+msgid "Summary"
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:11
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:17
+#: templates/wagtailredirects/list.html:12
+#: templates/wagtailredirects/list.html:15 views.py:434
+msgid "From"
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:18
+#: templates/wagtailredirects/list.html:19 views.py:436
+msgid "To"
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:19
+msgid "Error"
+msgstr ""
+
+#: templates/wagtailredirects/import_summary.html:33
+msgid "Continue"
+msgstr ""
+
+#: templates/wagtailredirects/index.html:18
+msgid "Export redirects"
+msgstr ""
+
+#: templates/wagtailredirects/list.html:18 views.py:435
+msgid "Site"
+msgstr ""
+
+#: templates/wagtailredirects/list.html:27
+msgid "Edit this redirect"
+msgstr ""
+
+#: templates/wagtailredirects/reports/redirects_report.html:8
+#: templates/wagtailredirects/reports/redirects_report.html:13
+msgid "No redirects found."
+msgstr ""
+
+#: templates/wagtailredirects/results.html:5
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailredirects/results.html:18
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtailredirects/results.html:21
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+
+#: views.py:92 views.py:237
+msgid "Search redirects"
+msgstr ""
+
+#: views.py:118
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr ""
+
+#: views.py:123 views.py:191
+msgid "Edit"
+msgstr ""
+
+#: views.py:129
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+
+#: views.py:161
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr ""
+
+#: views.py:186
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr ""
+
+#: views.py:198
+msgid "The redirect could not be created due to errors."
+msgstr ""
+
+#: views.py:251
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr ""
+
+#: views.py:268
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr ""
+
+#: views.py:275
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr ""
+
+#: views.py:366
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views.py:422
+msgid "Export Redirects"
+msgstr ""

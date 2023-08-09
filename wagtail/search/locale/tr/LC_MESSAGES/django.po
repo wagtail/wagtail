@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Basitlik İyidir, 2017
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Basitlik İyidir, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Basitlik İyidir, 2017\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail arama"
+
+msgid "Query Daily Hits"
+msgstr "Sorgu Günlük Tıklanması"
+
+msgid "Popular search terms"
+msgstr "Yaygın arama terimleri"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Terms"
+msgstr "Terimler"
+
+msgid "Views (past week)"
+msgstr "Görüntüleme (geçen hafta)"
+
+msgid "No results found"
+msgstr "Sonuç bulunamadı"
+
+msgid "Choose from popular search terms"
+msgstr "Yaygın arama terimlerinden seçin"

@@ -1,0 +1,96 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailadmin_tags wagtailimages_tags %}
+{% load i18n %}
+{% block content %}
+
+    {% trans "Add user" as add_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 icon="user" %}
+
+    <div class="w-tabs" data-tabs>
+        <div class="w-tabs__wrapper">
+            <div role="tablist" class="w-tabs__list">
+                {% trans "Account" as account_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
+                {% trans "Roles" as roles_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='roles' title=roles_text %}
+            </div>
+        </div>
+
+        <form action="{% url 'wagtailusers_users:add' %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <div class="tab-content">
+                {% csrf_token %}
+                <section
+                    id="tab-account"
+                    class="w-tabs__panel"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-account"
+                >
+                    <ul class="fields">
+                        {% block fields %}
+                            {% if form.separate_username_field %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.username_field %}
+                                </li>
+                            {% endif %}
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.email %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.first_name %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.last_name %}
+                            </li>
+                            {% block extra_fields %}{% endblock extra_fields %}
+                            {% if form.password1 %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.password1 %}
+                                </li>
+                            {% endif %}
+                            {% if form.password2 %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.password2 %}
+                                </li>
+                            {% endif %}
+                        {% endblock fields %}
+
+                        <li>
+                            <a href="#tab-roles" data-tab-trigger class="button">
+                                {% trans "Roles" %}
+                                {% icon name="arrow-right" classname="default" %}
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section
+                    id="tab-roles"
+                    class="w-tabs__panel"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-roles"
+                >
+                    <ul class="fields">
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" with field=form.is_superuser %}
+                        </li>
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" with field=form.groups %}
+                        </li>
+                        <li><button class="button">{% trans "Add user" %}</button></li>
+                    </ul>
+                </section>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}

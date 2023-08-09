@@ -1,0 +1,69 @@
+{% load i18n wagtailadmin_tags %}
+{% include "wagtailadmin/shared/header.html" with title=page_title merged=1 subtitle=page_subtitle icon=header_icon %}
+
+{% if creation_form %}
+    {{ creation_form.media.js }}
+    {{ creation_form.media.css }}
+{% endif %}
+
+{% comment %} Do not attach JavaScript behaviour (data-tabs) below if there are no actual tabs used {% endcomment %}
+<div class="w-tabs" {% if creation_form %}data-tabs data-tabs-disable-url{% endif %}>
+    {% if creation_form %}
+        <div class="w-tabs__wrapper w-overflow-hidden">
+            <div role="tablist" class="w-tabs__list w-w-full">
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=view.creation_tab_id title=creation_tab_label %}
+            </div>
+        </div>
+    {% else %}
+        {% comment %} Ensure layout still works as expected (gap under header from tabs wrapper) even if no tabs used {% endcomment %}
+        <div class="w-tabs__wrapper"></div>
+    {% endif %}
+
+    <div class="tab-content">
+        <section
+            id="tab-search"
+            class="w-tabs__panel"
+            role="tabpanel"
+            aria-labelledby="tab-label-search"
+        >
+
+            {% block filter_form %}
+                {% if filter_form.fields %}
+                    <form data-chooser-modal-search action="{{ results_url }}" method="GET" novalidate>
+                        {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
+
+                        {% if filter_form.visible_fields %}
+                            <ul class="fields">
+                                {% for field in filter_form.visible_fields %}
+                                    <li>
+                                        {% include "wagtailadmin/shared/field.html" with field=field %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </form>
+                {% endif %}
+            {% endblock %}
+
+            {% if is_multiple_choice %}
+                <form action="{{ chosen_multiple_url }}" method="GET" data-multiple-choice-form>
+
+                    <div id="search-results" class="listing">
+                        {% include view.results_template_name %}
+                    </div>
+
+                    <input type="submit" data-multiple-choice-submit value="{% trans 'Confirm selection' %}" class="button" />
+                </form>
+            {% else %}
+                <div id="search-results" class="listing">
+                    {% include view.results_template_name %}
+                </div>
+            {% endif %}
+        </section>
+
+        {% if creation_form %}
+            {% include view.creation_form_template_name %}
+        {% endif %}
+    </div>
+</div>

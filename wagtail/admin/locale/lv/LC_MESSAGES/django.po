@@ -1,0 +1,903 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Submit for moderation"
+msgstr "Iesniegt moderācijai"
+
+msgid "Restart workflow "
+msgstr "Restartēt darbplūsmu"
+
+msgid "Cancel workflow "
+msgstr "Atcelt darbplūsmu"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Save Draft"
+msgstr "Saglabāt melnrakstu"
+
+msgid "Page locked"
+msgstr "Lapa slēgta"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administrācija"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
+
+msgid "You do not have permission to access the admin"
+msgstr "Jums nav tiesību pieklūt administrācijas videi"
+
+msgid "None"
+msgstr "Nav"
+
+msgid "Date from"
+msgstr "Datums no"
+
+msgid "Date to"
+msgstr "Datums līdz"
+
+msgid "All"
+msgstr "Viss"
+
+msgid "First Name"
+msgstr "Vārds"
+
+msgid "Last Name"
+msgstr "Uzvārds"
+
+msgid "Email"
+msgstr "E-pasts"
+
+msgid "Enter password"
+msgstr "Ievadīt paroli"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Ievadiet jūsu %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
+
+msgid "URL"
+msgstr "Adrese"
+
+msgid "Search term"
+msgstr "Meklēšanas termins"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "All collections"
+msgstr "Visas kolekcijas"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Parent"
+msgstr "Augstāka līmeņa vienība"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Atlasīt hierarhisko pozīciju. Piezīme: kolekcija nevar piederēt pati sev vai "
+"kādai no tās apakšpozīcijām."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Beigu datumam/laikam jābūt nākotnē"
+
+msgid "New title"
+msgstr "Jauns virsraksts"
+
+msgid "New slug"
+msgstr "Jauns tekstuālais identifikators"
+
+msgid "New parent page"
+msgstr "Jauna augstāka līmeņa lapa"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Šī kopija būs bērnelements šai augstāka līmeņa lapai."
+
+msgid "Copy subpages"
+msgstr "Kopēt apakšlapas"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Darbība nokopēs %(count)s apakšlapas."
+msgstr[1] "Darbība nokopēs %(count)s apakšlapu."
+msgstr[2] "Darbība nokopēs %(count)s apakšlapas."
+
+msgid "Publish copied page"
+msgstr "Publicēt kopēto lapu"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Šī lapa ir publicēta. Vai vēlaties publicēt arī tās kopijas?"
+
+msgid "Publish copies"
+msgstr "Publicēt kopijas"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s lapas kopijas ir publicētas. Vai vēlaties publicēt arī tās kopijas?"
+msgstr[1] ""
+"%(count)s lapas kopijas ir publicētas. Vai vēlaties publicēt arī tās kopiju?"
+msgstr[2] ""
+"%(count)s lapas kopijas ir publicētas. Vai vēlaties publicēt arī tās kopijas?"
+
+msgid "Alias"
+msgstr "Aizstājējlapa"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Uzturiet jauno lapu atjaunināšanu ar turpmākajām izmaiņām"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Jums nav tiesību kopēt uz lapu \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Šis tekstuālais identifikators jau lietots kontekstā ar augstāka līmeņa lapu "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
+
+msgid "Visibility"
+msgstr "Redzamība"
+
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
+
+msgid "Please select at least one group."
+msgstr "Lūdzu izvēlieties vismaz vienu grupu"
+
+msgid "All types"
+msgstr "Visi tipi"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Šai lapai jau ir piešķirta darbplūsma '%(workflow_name)s'"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Nav iespējams piešķirt darbplūsmu vienai un tai pašai lapai vairākas reizes."
+
+msgid "Give your workflow a name"
+msgstr "Piešķir darbplūsmai nosaukumu"
+
+msgid "Add tasks to your workflow"
+msgstr "Pievieno uzdevumus savai darbplūsmai "
+
+msgid "Task"
+msgstr "Uzdevums"
+
+msgid "Content"
+msgstr "Saturs"
+
+msgid "Promote"
+msgstr "Veicināšana"
+
+msgid "Settings"
+msgstr "Iestatījumi"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "Page title"
+msgstr "Lapas virsraksts"
+
+msgid "Error 404: Page not found"
+msgstr "Kļūda 404: lapa nav atrasta"
+
+msgid "Error 404"
+msgstr "Kļūda 404"
+
+msgid "The requested page could not be found."
+msgstr "Pieprasīto lapu nav iespējams atrast"
+
+msgid "Go to Wagtail admin"
+msgstr "Doties uz Wagtail administrāciju"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Reset password"
+msgstr "Mainīt paroli"
+
+msgid "Password change successful"
+msgstr "Paroles maiņa izdevusies"
+
+msgid "Login"
+msgstr "Lietotājvārds"
+
+msgid "Set your new password"
+msgstr "Izvēlieties jaunu paroli"
+
+msgid "Invalid password reset link"
+msgstr "Nederīga paroles atiestatīšanas saite"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Paroles atiestatīšanas saite nav derīga; iespējams, jau izmantota."
+
+msgid "Request a new password reset"
+msgstr "Pieprasīt jaunu paroles atiestatīšanu"
+
+msgid "Check your email"
+msgstr "Pārbaudiet savu e-pastu"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ja šai adresei ir izveidots konts, jums tika nosūtīta saite paroles "
+"atiestatīšanai."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Jūsu lietotājvārds (ja gadījumā to esat aizmirsis/-usi):"
+
+msgid "Password reset"
+msgstr "Atjaunot paroli"
+
+msgid "Reset your password"
+msgstr "Atjaunot paroli"
+
+msgid "Internal link"
+msgstr "Iekšēja saite"
+
+msgid "External link"
+msgstr "Ārēja saite"
+
+msgid "Email link"
+msgstr "E-pasta saite"
+
+msgid "Phone link"
+msgstr "Tālruņa saite"
+
+msgid "Anchor link"
+msgstr "Enkura saite"
+
+msgid "Add an anchor link"
+msgstr "Pievienot enkura saiti"
+
+msgid "Insert anchor"
+msgstr "Pievienot enkuru"
+
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "Choose a page"
+msgstr "Izvēlēties lapu"
+
+msgid "Add an email link"
+msgstr "Pievienot e-pasta saiti"
+
+msgid "Insert link"
+msgstr "Pievienot saiti"
+
+msgid "Add an external link"
+msgstr "Pievienot ārēju saiti"
+
+msgid "Add a phone link"
+msgstr "Pievienot tālruņa saiti"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Pārlūkot '%(title)s' apakšlapas"
+
+msgid "Explore"
+msgstr "Pārlūkot"
+
+msgid "Collection privacy"
+msgstr "Kolekcijas privātums"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Mainīt privātuma iestatījumus:"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Privātuma iestatījumi nosaka, kurš var skatīt šajā kolekcijā esošos "
+"dokumentus."
+
+msgid "Privacy"
+msgstr "Privātums"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Publisks"
+
+msgid "Public"
+msgstr "Publisks"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Privāts"
+
+msgid "Private"
+msgstr "Privāts"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Atsaukt %(title)s publicēšanu"
+
+msgid "Yes, unpublish it"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Update"
+msgstr "Atjaunot"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Sveicināti %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
+"saturu ko esat izveidojis."
+
+msgid "Your locked pages"
+msgstr "Jūsu slēgtās lapas"
+
+msgid "Locked at"
+msgstr "Slēgta plkst."
+
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Unlock"
+msgstr "Atslēgt"
+
+msgid "Draft"
+msgstr "Melnraksts"
+
+msgid "Live"
+msgstr "Aktīva"
+
+msgid "Pages awaiting moderation"
+msgstr "Lapām nepieciešama moderācija"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Edited"
+msgstr "Labots"
+
+msgid "Preview this page"
+msgstr "Priekšskatīt šo lapu"
+
+msgid "Approve"
+msgstr "Apstiprināt"
+
+msgid "Reject"
+msgstr "Noraidīt"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
+
+msgid "Your most recent edits"
+msgstr "Neseni labojumi"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Date"
+msgstr "Datums"
+
+msgid "Site summary"
+msgstr "Kopsavilkums"
+
+msgid "Task started"
+msgstr "Uzdevums uzsākts"
+
+msgid "Changes requested at"
+msgstr "Pieprasītās izmaiņas"
+
+msgid "Awaiting"
+msgstr "Gaida"
+
+msgid "Close"
+msgstr "Aizvērt"
+
+msgid "Awaiting your review"
+msgstr "Gaida jūsu pārbaudi"
+
+msgid "Tasks"
+msgstr "Uzdevumi"
+
+msgid "Sign in"
+msgstr "Ieiet"
+
+msgid "Sign in to Wagtail"
+msgstr "Ieet Wagtail"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Lietotājvārds %(username_field)s neatbilda parole. Lūdzu mēģiniet vēlreiz."
+
+msgid "Signing in…"
+msgstr "Notiek pierakstīšanās..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Lapa \"%(title)s\" tika apstiprināta"
+
+msgid "You can view the page here:"
+msgstr "Apskatiet lapu šeit:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Lapa \"%(title)s\" tika apstiprināta"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Sveiki %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Labot paziņojumu iestatījumus:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Lapa \"%(title)s\" tika noraidīta"
+
+msgid "You can edit the page here:"
+msgstr "Labot lapu:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Lapa \"%(title)s\" tika noraidīta"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "%(editor)s iesniedzis lapu \"%(page)s\" moderācijai."
+
+msgid "You can preview the page here:"
+msgstr "Priekšskatīt lapu:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Lapa \"%(page)s\" tika iesniegta moderācijai"
+
+msgid "Page privacy"
+msgstr "Lapas privātuma iestatījumi"
+
+msgid "Saving…"
+msgstr "Saglabā..."
+
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Izveidot lapu %(title)s"
+
+msgid "Create a page in"
+msgstr "Izveidot lapu"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Izvēlieties lapas veidu."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Lapas, kas lieto %(page_type)s"
+
+msgid "Move"
+msgstr "Pārvietot"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Dzēst %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Dzēst lapu?"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Pārvietot %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Pārvietot lapu uz '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Pārvietot šo lapu"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Atsaukt lapas publicēšanu?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopēt %(title)s"
+
+msgid "Copy"
+msgstr "Kopēt"
+
+msgid "Copy this page"
+msgstr "Kopēt šo lapu"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Jauns %(page_type)s"
+
+msgid "Actions"
+msgstr "Darbības"
+
+msgid "This page has unsaved changes."
+msgstr "Šai lapai ir nesaglabātas izmaiņas"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Labo %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "Lietotājs"
+
+msgid "Comment"
+msgstr "Komentārs"
+
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Pārlūko %(title)s"
+
+msgid "Configure a site now."
+msgstr "Konfigurēt vietni"
+
+msgid "This page is locked to further editing"
+msgstr "Lapa ir slēgta labojumiem"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
+
+msgid "Drag"
+msgstr "Pārvilkt"
+
+msgid "Disable ordering of child pages"
+msgstr "Atspējot apakšlapu kārtošanu"
+
+msgid "Enable ordering of child pages"
+msgstr "Iespējot apakšlapu kārtošanu"
+
+msgid "Previous"
+msgstr "Iepriekšējais"
+
+msgid "Next"
+msgstr "Nākamais"
+
+msgid "This page is protected from public view"
+msgstr "Lapa nav publiski pieejama"
+
+msgid "Enter a search term above"
+msgstr "Lūdzu ievadiet meklēšanas terminu"
+
+msgid "No pages use"
+msgstr "Neviena lapa nelieto"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pievienot %(label)s"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Updated"
+msgstr "Atjaunots"
+
+msgid "Locked"
+msgstr "Slēgts"
+
+msgid "Edit this item"
+msgstr "Rediģēt šo vienību"
+
+msgid "Workflow"
+msgstr "Darbplūsma"
+
+msgid "Started at"
+msgstr "Sākās plkst."
+
+msgid "Completed at"
+msgstr "Pabeigts plkst."
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
+
+msgid "Download CSV"
+msgstr "Lejupielādēt CSV failu"
+
+msgid "Filter"
+msgstr "Atsijāt"
+
+msgid "Other searches"
+msgstr "Citi meklējumi"
+
+msgid "Unlocked"
+msgstr "Atslēgts"
+
+msgid "Lock"
+msgstr "Slēgt"
+
+msgid "Add a child page"
+msgstr "Pievienot apakšlapu"
+
+msgid "Show in Explorer"
+msgstr "Parādīt pārlūkā"
+
+msgid "No"
+msgstr "Nē"
+
+msgid "Page"
+msgstr "Lapa"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "More"
+msgstr "Vairāk"
+
+msgid "Log out"
+msgstr "Iziet"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "You have been successfully logged out."
+msgstr "Jūs esat veiksmīgi izgājis no sistēmas."
+
+msgid "Collections"
+msgstr "Kolekcijas"
+
+msgid "Add a collection"
+msgstr "Pievienot kolekciju"
+
+msgid "Add collection"
+msgstr "Pievienot kolekciju"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kolekcija '%(object)s' izveidota."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kolekcija '%(object)s' atjaunota."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Kļūdu dēļ šo kolekciju nebija iespējams saglabāt."
+
+msgid "Delete collection"
+msgstr "Dzēst kolekciju"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kolekcija '%(object)s' dzēsta."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
+
+msgid "Editing"
+msgstr "Labo"
+
+msgid "Usage of"
+msgstr "Lietojums"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Labot šo %(object)s"
+
+msgid "Dashboard"
+msgstr "Informācijas panelis"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Lapa '%(page_title)s' un apakšlapas %(subpages_count)s kopētas."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Lapa '%(page_title)s' kopēta."
+
+msgid "View draft"
+msgstr "Skatīt melnrakstu"
+
+msgid "View live"
+msgstr "Skatīt tekošo versiju"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Lapa '%(page_title)s' izveidota."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "'%(page_title)s' lapa izveidota un plānota publicēšanai."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Lapa '%(page_title)s' izveidota un publicēta."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Lapa '%(page_title)s' izveidota un iesniegta moderācijai."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Lapa '%(page_title)s' dzēsta."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Šī lapa gaida moderāciju"
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Lapa '%(page_title)s' ir atjaunota."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Lapa '%(page_title)s' ir ieplānota publicēšanai."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Lapa '%(page_title)s' ir publicēta."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Lapa '%(page_title)s' ir nosūtīta moderācijai."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Lapu nav iespējams saglabāt jo tā ir bloķēta"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Lapa '%(page_title)s ir atbloķēta."
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Lapa '%(page_title)s' negaida moderāciju."
+
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "Lapa '%(page_title)s publicēta'."
+
+msgid "Failed to send approval notifications"
+msgstr "Neizdevās nosūtīt apstiprinājuma paziņojumus"
+
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Lapas '%(page_title)s' publicēšana noraidīta."
+
+msgid "Failed to send rejection notifications"
+msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Lapa '%(page_title)s' pārvietota."
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Page '%(page_title)s' unpublished."
+
+msgid "Pages using"
+msgstr "Lapas, kas lieto"
+
+msgid "Show"
+msgstr "Rādīt"
+
+msgid "Awaiting my review"
+msgstr "Gaida manu pārbaudi"
+
+msgid "Pages"
+msgstr "Lapas"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Rediģēt '%(title)s'"
+
+msgid "Add child page"
+msgstr "Pievienot apakšlapu"
+
+msgid "Yes"
+msgstr "Jā"
+
+msgid "Choose an item"
+msgstr "Izvēlies vienību"
+
+msgid "Choose another item"
+msgstr "Izvēlēties citu vienību"
+
+msgid "Clear choice"
+msgstr "Atcelt izvēli"
+
+msgid "Choose another page"
+msgstr "Izvēlēties citu lapu"
+
+msgid "Choose another task"
+msgstr "Izvēlēties citu uzdevumu"
+
+msgid "Edit this task"
+msgstr "Labot šo uzdevumu"

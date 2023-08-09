@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Bram <bram2w@live.nl>, 2015
+# Franklin Kingma <franklin@statix.net>, 2015
+# Storm Heg <storm@stormbase.digital>, 2022-2023
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2023\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail formulieren"
+
+msgid "Date from"
+msgstr "Datum vanaf"
+
+msgid "Date to"
+msgstr "Datum tot"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Er is al een ander veld met het label %(label_name)s. Wijzig een van beide "
+"velden."
+
+msgid "Single line text"
+msgstr "Enkele regel tekst"
+
+msgid "Multi-line text"
+msgstr "Meerdere regels tekst"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "Checkboxes"
+msgstr "Checkboxen"
+
+msgid "Drop down"
+msgstr "Dropdown"
+
+msgid "Multiple select"
+msgstr "Multi select"
+
+msgid "Radio buttons"
+msgstr "Radiobuttons"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Datum/tijd"
+
+msgid "Hidden field"
+msgstr "Verborgen veld"
+
+msgid "submit time"
+msgstr "inzendtijd"
+
+msgid "form submission"
+msgstr "formulierinzending"
+
+msgid "form submissions"
+msgstr "formulier inzendingen"
+
+msgid "name"
+msgstr "naam"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Naam van het veld, het label omgezet naar ascii_snake_case"
+
+msgid "label"
+msgstr "label"
+
+msgid "The label of the form field"
+msgstr "Het label van het formulierveld"
+
+msgid "field type"
+msgstr "veldtype"
+
+msgid "required"
+msgstr "verplicht"
+
+msgid "choices"
+msgstr "keuzes"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Door komma's gescheiden lijst met opties. Alleen van toepassing op "
+"checkboxes, radiobuttons en dropdowns."
+
+msgid "default value"
+msgstr "standaardwaarde"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Standaardwaarde. Voor checkboxes kun je door komma's gescheiden "
+"standaardwaarden invullen."
+
+msgid "help text"
+msgstr "hulptekst"
+
+msgid "Submission date"
+msgstr "Datum van inzending"
+
+msgid "Form"
+msgstr "Formulier"
+
+msgid "Landing page"
+msgstr "Landingspagina"
+
+msgid "to address"
+msgstr "e-mailadres ontvanger"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Optioneel - formulierinzendingen zullen naar deze adressen verstuurd worden. "
+"Vul meerdere adressen gescheiden door een komma in."
+
+msgid "from address"
+msgstr "e-mail afzender"
+
+msgid "subject"
+msgstr "onderwerp"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s inzendingen"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Verwijder formuliergegevens van %(title)s"
+
+msgid "Delete form data"
+msgstr "Formuliergegevens verwijderen"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Weet je zeker dat je deze inzending wilt verwijderen?"
+msgstr[1] "Weet je zeker dat je deze inzendingen wilt verwijderen?"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Forms"
+msgstr "Formulieren"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Herkomst"
+
+msgid "Delete selected submissions"
+msgstr "Verwijder geselecteerde inzendingen"
+
+msgid "Total submissions"
+msgstr "Totaal aantal inzendingen"
+
+msgid "Latest submission"
+msgstr "Laatste inzending"
+
+msgid "No form pages have been created."
+msgstr "Er zijn nog geen pagina's met een formulier aangemaakt."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Inzendingen van %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Er zijn geen inzendingen van het '%(title)s' formulier."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filters toepassen"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Inzending verwijderd."
+msgstr[1] "%(count)d inzendingen verwijderd."
+
+msgid "Form data"
+msgstr "Formulier data"

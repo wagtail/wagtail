@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Add redirect" %}{% endblock %}
+{% block content %}
+    {% trans "Add redirect" as add_red_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_red_str icon="redirect" %}
+
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+    <form action="{% url 'wagtailredirects:add' %}" method="POST" class="nice-padding" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% for field in form.visible_fields %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
+            {% endfor %}
+
+            <li>
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
+            </li>
+        </ul>
+    </form>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}

@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# MRostgaard <Mrostgaard@gmail.com>, 2019
+# MRostgaard <Mrostgaard@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
+"Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumentation"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Add/edit documents you own"
+msgstr "Tilføj/rediger dokumenterne selv"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit any document"
+msgstr "Rediger et hvilket somhelst dokument"
+
+msgid "Choose"
+msgstr "Vælg"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "file"
+msgstr "Fil"
+
+msgid "created at"
+msgstr "oprettet"
+
+msgid "uploaded by user"
+msgstr "uploaded af en bruger"
+
+msgid "tags"
+msgstr "tags"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "documents"
+msgstr "dokumenter"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+msgid "Uploading…"
+msgstr "Uploading..."
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Choose a document"
+msgstr "Vælg et dokument"

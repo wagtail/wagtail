@@ -1,0 +1,11 @@
+{% load i18n modeladmin_tags %}
+{{ item }}{% if add_action_buttons %}
+    {% if action_buttons %}
+        <ul class="actions">
+            {% for button in action_buttons %}
+                <li>{% include 'modeladmin/includes/button.html' %}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {{ closing_tag }}
+{% endif %}

@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n modeladmin_tags wagtailadmin_tags %}
+
+{% block bodyclass %}modeladmin{% endblock %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}
+
+
+{% block content %}
+
+    {% block header %}
+        {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% endblock %}
+
+    <div>
+        <div class="nice-padding">
+            <p class="back">
+                <a href="{{ view.index_url }}">
+                    {% icon name="arrow-left" classname="default" %}
+                    {% blocktrans trimmed with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}
+                </a>
+            </p>
+            <h2>{% blocktrans trimmed %}Choose a parent page{% endblocktrans %}</h2>
+            <p>{% blocktrans trimmed with view.verbose_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
+
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+
+                {% include "wagtailadmin/shared/field.html" with field=form.parent_page %}
+                <button class="button" type="submit">{% trans 'Continue' %}</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

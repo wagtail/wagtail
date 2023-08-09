@@ -1,0 +1,67 @@
+=========================
+Wagtail 0.6 release notes
+=========================
+
+*September 11, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Project template and start project command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now has a basic project template built in to make starting new projects much easier.
+
+To use it, install ``wagtail`` onto your machine and run ``wagtail start project_name``.
+
+Django 1.7 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail can now be used with Django 1.7.
+
+
+Minor features
+~~~~~~~~~~~~~~
+* A new template tag has been added for reversing URLs inside routable pages. See :ref:`routablepageurl_template_tag`.
+* RoutablePage can now be used as a mixin. See :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin`.
+* MenuItems can now have bundled JavaScript
+* Added the ``register_admin_menu_item`` hook for registering menu items at startup. See :ref:`admin_hooks`
+* Added a version indicator into the admin interface (hover over the wagtail to see it)
+* Added Russian translation
+
+
+Bug fixes
+~~~~~~~~~
+
+* Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+* Search results in the page chooser now respect the page_type parameter on PageChooserPanel.
+* Rendition filenames are now prevented from going over 60 chars, even with a large focal_point_key.
+* Child relations that are defined on a model's superclass (such as the base Page model) are now picked up correctly by the page editing form, page copy operations and the replace_text management command.
+* Tags on images and documents are now committed to the search index immediately on saving.
+
+
+Upgrade considerations
+======================
+
+All features deprecated in 0.4 have been removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+See: :ref:`04_deprecated_features`
+
+
+Search signal handlers have been moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have an import in your ``urls.py`` file like ``from wagtail.wagtailsearch import register_signal_handlers``, this must now be changed to ``from wagtail.wagtailsearch.signal_handlers import register_signal_handlers``
+
+
+Deprecated features
+===================
+
+* The ``wagtail.wagtailsearch.indexed`` module has been renamed to ``wagtail.wagtailsearch.index``
+

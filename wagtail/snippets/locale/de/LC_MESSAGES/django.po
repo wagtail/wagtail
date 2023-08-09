@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Bohreromir, 2019
+# Oliver Engel <codeangel@posteo.de>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# Florian Vogt <flori@vorlif.org>, 2022
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel <codeangel@posteo.de>, 2021
+# Jannis, 2015
+# jnns, 2015
+# jnns, 2015
+# Bohreromir, 2019
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# Matti Borchers, 2022
+# Matti Borchers, 2022
+# Matt Westcott <matthew@torchbox.com>, 2022
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
+# Oliver Engel <codeangel@posteo.de>, 2021-2022
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Raphael Stolt <raphael.stolt@gmail.com>, 2016
+# Scriptim <Scriptim@gmx.de>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Scriptim <Scriptim@gmx.de>, 2020
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Submit for moderation"
+msgstr "Zur Moderation einreichen"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Erneut in %(task_name)s einreichen"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "In %(workflow_name)s einreichen"
+
+msgid "Restart workflow "
+msgstr "Workflow neustarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow abbrechen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s und Veröffentlichen"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail Schnipsel"
+
+msgid "Delete selected snippets"
+msgstr "Ausgewählte Schnipsel löschen"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' gelöscht."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d „%(model_name)s“-Objekt gelöscht."
+msgstr[1] "%(count)d „%(model_name)s“-Objekte gelöscht."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Lösche %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Löschen "
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr ""
+"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
+"wollen?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Sind Sie sicher, dass Sie %(count)s %(snippet_type_name)s löschen möchten?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr ""
+"Sie haben nicht die Berechtigung, dieses „%(snippet_type_name)s“-Objekt zu "
+"löschen."
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+"Sie haben nicht die Berechtigung, diese %(snippet_plural_name)s zu löschen"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Es gibt leider keine Schnipsel zum Suchbegriff \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">ein neues erstellen</a>?"
+
+msgid "Publishing…"
+msgstr "Veröffentlichen..."
+
+msgid "Publish this version"
+msgstr "Diese Version veröffentlichen"
+
+msgid "Saving…"
+msgstr "Speichern…"
+
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Replace current revision"
+msgstr "Aktuelle Revision ersetzen"
+
+msgid "Save draft"
+msgstr "Entwurf speichern"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s erstellen"
+
+msgid "New"
+msgstr "Erstellen"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Bearbeite %(snippet_type_name)s - %(object)s"
+
+msgid "Toggle breadcrumbs"
+msgstr "Breadcrumbs ein-/ausblenden"
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+msgid "Snippets"
+msgstr "Schnipsel"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Neu: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Bearbeite %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Usage"
+msgstr "Benutzung"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Schnipsel-Historie für %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Dieses Schnipsel bearbeiten"
+
+msgid "No log entries found."
+msgstr "Keine Protokoll-Einträge gefunden."
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Schnipsel %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s hinzufügen"
+
+msgid "Select all snippets in listing"
+msgstr "Alle Schnipsel in der Aufzählung auswählen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Es gibt leider keine %(snippet_type_name_plural)s zu Ihrer Abfrage"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Sie haben noch keine „%(snippet_type_name_plural)s“ Schnipsel erstellt. <a "
+"href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins.</a>"
+
+msgid "Live version"
+msgstr "Live-Version"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Review this version"
+msgstr "Diese Version überprüfen"
+
+msgid "Compare with previous version"
+msgstr "Mit vorheriger Version vergleichen"
+
+msgid "Compare with current version"
+msgstr "Mit der aktuellen Version vergleichen"
+
+msgid "Cancel scheduled publish"
+msgstr "Geplante Veröffentlichung aufheben"
+
+msgid "Choose"
+msgstr "Auswählen"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Instances"
+msgstr "Instanzen"
+
+msgid "The snippet could not be created due to errors."
+msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "User"
+msgstr "Benutzer"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Snippet history"
+msgstr "Schnipselhistorie"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Dieses „%(model_name)s“-Objekt bearbeiten"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s-Historie"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' bearbeiten"
+
+msgid "Inspect"
+msgstr "Ansehen"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "'%(title)s' ansehen"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "'%(title)s' löschen"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Auswählen %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Andere/n/s %(object)s auswählen"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s bearbeiten"

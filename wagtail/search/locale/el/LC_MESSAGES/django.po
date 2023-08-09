@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
+# serafeim <serafeim@torchbox.com>, 2014
+# serafeim <serafeim@torchbox.com>, 2014
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Query Daily Hits"
+msgstr "Καθημερινές Εμφανίσεις Ερωτημάτων"
+
+msgid "Popular search terms"
+msgstr "Δημοφιλείς όροι αναζήτησης"
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "Terms"
+msgstr "Όροι"
+
+msgid "Views (past week)"
+msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
+
+msgid "No results found"
+msgstr "Δε βρέθηκαν αποτελέσματα"
+
+msgid "Choose from popular search terms"
+msgstr "Επιλέξτε από δημοφιλείς όρους αναζήτησης"

@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
+"zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Submit for moderation"
+msgstr "提交审核"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "你确定你想要删除这个%(snippet_type_name)s吗？"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
+
+msgid "Saving…"
+msgstr "正在保存"
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "新的%(snippet_type_name)s"
+
+msgid "New"
+msgstr "新建"
+
+msgid "Snippets"
+msgstr "片段"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s片段"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "添加%(snippet_type_name)s"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"没有任何%(snippet_type_name_plural)s片段。为什么不<a href="
+"\"%(wagtailsnippets_create_url)s\">创建一个</a>?"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "Name"
+msgstr "名字"
+
+msgid "The snippet could not be created due to errors."
+msgstr "多个错误导致这个片段无法创建。"
+
+msgid "The snippet could not be saved due to errors."
+msgstr "多个错误导致这个片段无法保存"
+
+msgid "Date"
+msgstr "日期"

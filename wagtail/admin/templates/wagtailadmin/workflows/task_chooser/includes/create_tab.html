@@ -1,0 +1,5 @@
+{% if create_form %}
+    {% include "wagtailadmin/workflows/task_chooser/includes/create_form.html" %}
+{% else %}
+    {% include "wagtailadmin/workflows/task_chooser/includes/select_task_type.html" %}
+{% endif %}

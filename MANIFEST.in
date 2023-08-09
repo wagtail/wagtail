@@ -1,0 +1,10 @@
+include LICENSE *.rst *.txt *.md
+graft wagtail
+prune **/__pycache__
+prune **/static_src
+global-exclude *.py[co]
+global-exclude *.stories.js
+global-exclude *.stories.tsx
+recursive-exclude wagtail/ *.md
+global-exclude .gitignore
+global-exclude wagtail-icomoon.json

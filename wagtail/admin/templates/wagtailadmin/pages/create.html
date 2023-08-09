@@ -1,0 +1,97 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans trimmed with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailadmin/shared/headers/page_create_header.html' %}
+        {% include "wagtailadmin/shared/side_panels.html" %}
+    </div>
+
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if parent_page.is_root %}
+            {# The user is allowed to set a different locale for pages created at the root #}
+            {# If they've done this, make sure their chosen locale is passed in the form #}
+            <input type="hidden" name="locale" value="{{ locale.language_code }}">
+        {% endif %}
+
+        {{ edit_handler.render_form_content }}
+
+        <footer class="footer">
+            <ul>
+                <li class="footer__container">
+                    <nav aria-label="{% trans 'Actions' %}">
+                        <ul>
+                            <li class="actions actions--primary">
+                                <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                                    {{ action_menu.render_html }}
+                                </div>
+                            </li>
+
+                            {% block extra_footer_actions %}
+                            {% endblock %}
+                        </ul>
+                    </nav>
+                </li>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {% comment %}
+        Additional js from widgets media. Allows for custom widgets in admin panel.
+    {% endcomment %}
+    {{ media.js }}
+
+    <script>
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+
+        $(function(){
+            $('#page-edit-form .tab-content section.active input').first().trigger('focus');
+
+            /* Make user confirm before leaving the editor if there are unsaved changes */
+            {% trans "This page has unsaved changes." as confirmation_message %}
+            enableDirtyFormCheck(
+                '#page-edit-form',
+                {
+                    confirmationMessage: '{{ confirmation_message|escapejs }}',
+
+                    {% if has_unsaved_changes %}
+                        alwaysDirty: true,
+                    {% endif %}
+                    commentApp: window.comments.commentApp,
+                    callback: window.updateFooterSaveWarning
+                }
+            );
+
+            {% get_comments_enabled as comments_enabled %}
+            {% if comments_enabled %}
+                // Initialise comments UI
+                window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
+            {% endif %}
+        });
+    </script>
+{% endblock %}

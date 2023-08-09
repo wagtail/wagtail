@@ -1,0 +1,13 @@
+<td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
+    <div class="title-wrapper">
+        {% block title %}
+            {% if link_url %}
+                <a {% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ value }}</a>
+            {% elif label_id %}
+                <label for="{{ label_id }}">{{ value }}</label>
+            {% else %}
+                {{ value }}
+            {% endif %}
+        {% endblock %}
+    </div>
+</td>

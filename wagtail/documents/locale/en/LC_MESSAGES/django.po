@@ -1,0 +1,465 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:11
+msgid "Wagtail documents"
+msgstr ""
+
+#: forms.py:24 templates/wagtaildocs/documents/list.html:24
+#: views/bulk_actions/add_to_collection.py:13 views/chooser.py:101
+msgid "Collection"
+msgstr ""
+
+#: forms.py:138
+msgid "Add"
+msgstr ""
+
+#: forms.py:138
+msgid "Add/edit documents you own"
+msgstr ""
+
+#: forms.py:139 views/documents.py:148 views/documents.py:198
+msgid "Edit"
+msgstr ""
+
+#: forms.py:139
+msgid "Edit any document"
+msgstr ""
+
+#: forms.py:140
+msgid "Choose"
+msgstr ""
+
+#: forms.py:140
+msgid "Select documents in choosers"
+msgstr ""
+
+#: models.py:25
+msgid "title"
+msgstr ""
+
+#: models.py:26
+msgid "file"
+msgstr ""
+
+#: models.py:27
+msgid "created at"
+msgstr ""
+
+#: models.py:30 models.py:231
+msgid "uploaded by user"
+msgstr ""
+
+#: models.py:38
+msgid "tags"
+msgstr ""
+
+#: models.py:203
+msgid "document"
+msgstr ""
+
+#: models.py:204
+msgid "documents"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:4
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:7
+msgid "Add tags to documents"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:14
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:32
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:39
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:39
+msgid "Yes, add"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_tags.html:40
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:40
+msgid "No, don't add"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:4
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:7
+msgid "Add documents to collection"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:14
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html:32
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:3
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:6
+msgid "Delete documents"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:13
+#: views/documents.py:263
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:23
+#: templates/wagtaildocs/documents/edit.html:58
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:32
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:39
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:40
+msgid "No, don't delete"
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:4
+msgid "Latest documents"
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:7
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:13
+msgid "You haven't uploaded any documents in this collection."
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:15
+msgid "You haven't uploaded any documents."
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:18
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+
+#: templates/wagtaildocs/documents/_file_field.html:5
+msgid "Change document:"
+msgstr ""
+
+#: templates/wagtaildocs/documents/add.html:4
+#: templates/wagtaildocs/documents/index.html:16
+msgid "Add a document"
+msgstr ""
+
+#: templates/wagtaildocs/documents/add.html:48
+msgid "Add document"
+msgstr ""
+
+#: templates/wagtaildocs/documents/add.html:71 views/chooser.py:195
+msgid "Uploading…"
+msgstr ""
+
+#: templates/wagtaildocs/documents/add.html:74 views/chooser.py:194
+msgid "Upload"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:4
+#, python-format
+msgid "Editing %(title)s"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:18
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:41
+msgid "Save"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:43 views/documents.py:251
+msgid "Delete document"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:52
+msgid "Filesize"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:53
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:56
+msgid "Usage"
+msgstr ""
+
+#: templates/wagtaildocs/documents/index.html:13 wagtail_hooks.py:59
+#: wagtail_hooks.py:141
+msgid "Documents"
+msgstr ""
+
+#: templates/wagtaildocs/documents/index.html:37
+msgid "Select all documents in listing"
+msgstr ""
+
+#: templates/wagtaildocs/documents/list.html:16
+#: templates/wagtaildocs/documents/list.html:19
+msgid "Title"
+msgstr ""
+
+#: templates/wagtaildocs/documents/list.html:22 views/chooser.py:96
+msgid "File"
+msgstr ""
+
+#: templates/wagtaildocs/documents/list.html:29
+#: templates/wagtaildocs/documents/list.html:32 views/chooser.py:97
+msgid "Created"
+msgstr ""
+
+#: templates/wagtaildocs/documents/list.html:38
+msgid "Select document"
+msgstr ""
+
+#: templates/wagtaildocs/documents/results.html:5
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/documents/results.html:20
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtaildocs/documents/results.html:27
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+
+#: templates/wagtaildocs/documents/results.html:29
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+
+#: templates/wagtaildocs/homepage/site_summary_documents.html:6
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtaildocs/multiple/add.html:5
+msgid "Add multiple documents"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:13
+msgid "Add documents"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:18
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:23
+msgid "Or choose from your computer"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:28
+msgid "Add to collection:"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:59
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:60
+msgid "Sorry, upload failed."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:61
+msgid "Document updated."
+msgstr ""
+
+#: templates/wagtaildocs/password_required.html:5
+msgid "You need a password to access this document."
+msgstr ""
+
+#: templates/wagtaildocs/permissions/includes/document_permissions_formset.html:5
+msgid "Document permissions"
+msgstr ""
+
+#: templates/wagtaildocs/permissions/includes/document_permissions_formset.html:6
+msgid "Add a document permission"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:10
+msgid "Tags"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:14
+msgid "Tag"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:16
+msgid "Add tags to the selected documents"
+msgstr ""
+
+#: views/bulk_actions/add_tags.py:41
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/add_to_collection.py:21
+msgid "Add to collection"
+msgstr ""
+
+#: views/bulk_actions/add_to_collection.py:23
+msgid "Add selected documents to collection"
+msgstr ""
+
+#: views/bulk_actions/add_to_collection.py:54
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/delete.py:8 views/documents.py:222
+msgid "Delete"
+msgstr ""
+
+#: views/bulk_actions/delete.py:10
+msgid "Delete selected documents"
+msgstr ""
+
+#: views/bulk_actions/delete.py:30
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/chooser.py:193
+msgid "Choose a document"
+msgstr ""
+
+#: views/chooser.py:196
+msgid "Choose another document"
+msgstr ""
+
+#: views/chooser.py:197
+msgid "Edit this document"
+msgstr ""
+
+#: views/documents.py:65 views/documents.py:72
+msgid "Search documents"
+msgstr ""
+
+#: views/documents.py:144
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr ""
+
+#: views/documents.py:154 views/documents.py:202
+msgid "The document could not be saved due to errors."
+msgstr ""
+
+#: views/documents.py:196
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr ""
+
+#: views/documents.py:218
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+
+#: views/documents.py:269
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr ""
+
+#: wagtail_hooks.py:90
+msgid "Document"
+msgstr ""
+
+#: wagtail_hooks.py:162
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] ""
+msgstr[1] ""

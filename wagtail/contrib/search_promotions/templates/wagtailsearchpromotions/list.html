@@ -1,0 +1,44 @@
+{% load i18n %}
+<table class="listing">
+    <col width="40%" />
+    <col width="40%"/>
+    <col />
+    <thead>
+        <tr>
+            <th class="title">
+                {% trans "Search term(s)" %}
+                {% if "query_string" in ordering %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering={% if '-' not in ordering %}-{% endif %}query_string" class="icon icon-arrow-{% if '-' in ordering %}up{% else %}down{% endif %}-after teal" aria-label="{% if '-' in ordering %}{% trans 'Order by search term alphabetically' %}{% else %}{% trans 'Order by search term reverse alphabetically' %}{% endif %}"></a>
+                {% else %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering=query_string" class="icon icon-arrow-down-after" aria-label="{% trans 'Order by search term alphabetically' %}"></a>
+                {% endif %}
+            </th>
+            <th>{% trans "Promoted results" %}</th>
+            <th>
+                {% trans "Views (past week)" %}
+                {% if "views" in ordering %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering={% if '-' not in ordering %}-{% endif %}views" class="icon icon-arrow-{% if '-' in ordering %}up{% else %}down{% endif %}-after teal" aria-label="{% if '-' in ordering %}{% trans 'Order by views (lowest first)' %}{% else %}{% trans 'Order by views (highest first)' %}{% endif %}"></a>
+                {% else %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering=views" class="icon icon-arrow-down-after" aria-label="{% trans 'Order by views (lowest first)' %}"></a>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for query in queries %}
+            <tr>
+                <td class="title">
+                    <div class="title-wrapper"><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this promotion' %}">{{ query.query_string }}</a></div>
+                </td>
+                <td>
+                    {% for searchpick in query.editors_picks.all %}
+                        <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        {% trans "None" %}
+                    {% endfor %}
+                </td>
+                <td>{{ query.hits }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

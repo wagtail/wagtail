@@ -1,0 +1,19 @@
+============================
+Wagtail 1.13.3 release notes
+============================
+
+*August 13, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Pin django-taggit to <0.23 to restore Django 1.8 compatibility (Matt Westcott)
+* Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)

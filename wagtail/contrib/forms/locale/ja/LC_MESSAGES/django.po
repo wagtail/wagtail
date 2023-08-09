@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# shuhei hirota, 2019
+# Sangmin Ahn <gijigae@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# shuhei hirota, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail フォーム"
+
+msgid "Date from"
+msgstr "開始日入力フォーム"
+
+msgid "Date to"
+msgstr "終了日入力フォーム"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"ラベルが%(label_name)sの別のフィールドがあります。いずれか1つを変更してくださ"
+"い。"
+
+msgid "Single line text"
+msgstr "一行テキスト"
+
+msgid "Multi-line text"
+msgstr "複数行テキスト"
+
+msgid "Email"
+msgstr "Eメール"
+
+msgid "Number"
+msgstr "数値"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "チェックボックス"
+
+msgid "Checkboxes"
+msgstr " 複数のチェックボックス"
+
+msgid "Drop down"
+msgstr "セレクトボックス"
+
+msgid "Multiple select"
+msgstr "複数セレクター"
+
+msgid "Radio buttons"
+msgstr "ラジオボタン"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Date/time"
+msgstr "日時"
+
+msgid "Hidden field"
+msgstr "非表示フィールド"
+
+msgid "submit time"
+msgstr "送信時刻"
+
+msgid "form submission"
+msgstr "フォームを送信"
+
+msgid "name"
+msgstr "名前"
+
+msgid "label"
+msgstr "ラベル"
+
+msgid "The label of the form field"
+msgstr "フォームフィールドのラベル"
+
+msgid "field type"
+msgstr "フィールド種別"
+
+msgid "required"
+msgstr "必須"
+
+msgid "choices"
+msgstr "選択肢"
+
+msgid "default value"
+msgstr "デフォルト値"
+
+msgid "help text"
+msgstr "説明文"
+
+msgid "Submission date"
+msgstr "送信日"
+
+msgid "to address"
+msgstr "送信先"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"オプション - フォームで送信された内容が指定したメールアドレスに送信されます。"
+"複数のアドレスはカンマで区切ります。"
+
+msgid "from address"
+msgstr "送信元"
+
+msgid "subject"
+msgstr "件名"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)sの送信"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "データ%(title)sから削除"
+
+msgid "Delete form data"
+msgstr "データから削除する"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Forms"
+msgstr "フォーム"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Origin"
+msgstr "出身"
+
+msgid "Delete selected submissions"
+msgstr "選択した送信を削除します"
+
+msgid "Total submissions"
+msgstr "合計送信数"
+
+msgid "Latest submission"
+msgstr "最新の送信"
+
+msgid "No form pages have been created."
+msgstr "まだフォームページはありません。"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)sを送信"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "「%(title)s」のフォームには、送信されたデータがありません。"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Apply filters"
+msgstr "フィルターを適用"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d件の送信が削除されました。"

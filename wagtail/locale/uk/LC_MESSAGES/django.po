@@ -1,0 +1,887 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Anastasiia La, 2021
+# Anastasiia La, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2023
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Zoriana Zaiats, 2018
+# Zoriana Zaiats, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2023\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail "
+
+msgid "Add Comment"
+msgstr "Додати коментар"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальна кількість елементів: %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальна кількість елементів: %(max_num)d"
+
+msgid "Move up"
+msgstr "Перемістити нагору"
+
+msgid "Move down"
+msgstr "Перемістити вниз"
+
+msgid "Duplicate"
+msgstr "Дублювати"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Add"
+msgstr "Додати"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: для цього блоку немає опцій."
+
+msgid "This block has no options."
+msgstr "Для цього блоку немає опцій."
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити."
+
+msgid "Wagtail frontend cache"
+msgstr "Фронт-енд кеш Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Карти сайту Wagtail"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Пароль. який ви ввели, не є коректним. Будь ласка, спробуйте ще."
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Locked"
+msgstr "Заблоковано"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+msgid "latest revision"
+msgstr "остання ревізія"
+
+msgid "live"
+msgstr "наживо"
+
+msgid "has unpublished changes"
+msgstr "має неопубліковані зміни"
+
+msgid "first published at"
+msgstr "вперше опубліковано о"
+
+msgid "last published at"
+msgstr "востаннє опубліковано о"
+
+msgid "live revision"
+msgstr "опублікована ревізія"
+
+msgid "go live date/time"
+msgstr "дата/час початку живої публікації"
+
+msgid "expiry date/time"
+msgstr "буде доступним до дати/часу"
+
+msgid "expired"
+msgstr "більше не доступне"
+
+msgid "scheduled"
+msgstr "заплановано"
+
+msgid "draft"
+msgstr "чернетка"
+
+msgid "live + scheduled"
+msgstr "наживо + заплановано"
+
+msgid "live + draft"
+msgstr "наживо + чернетка"
+
+msgid "Default"
+msgstr "Типовий"
+
+msgid "locked"
+msgstr "заблоковано"
+
+msgid "locked at"
+msgstr "заблоковано в"
+
+msgid "locked by"
+msgstr "заблокований"
+
+msgid "in moderation"
+msgstr "на модерації"
+
+msgid "live + in moderation"
+msgstr "наживо + на модерації"
+
+msgid "Add/edit pages you own"
+msgstr "Додавати/редагувати сторінки, які належать вам"
+
+msgid "Bulk delete"
+msgstr "Масове видалення"
+
+msgid "Delete pages with children"
+msgstr "Видаляти сторінки разом з дочірніми"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Edit any page"
+msgstr "Редагувати будь-яку сторінку"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Заблокувати/розблокувати сторінки, які ви заблокували"
+
+msgid "Publish"
+msgstr "Опублікувати"
+
+msgid "Publish any page"
+msgstr "Публікувати будь-яку сторінку"
+
+msgid "Unlock"
+msgstr "Розблокувати"
+
+msgid "Unlock any page"
+msgstr "Розблокувати будь-яку сторінку"
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заголовок сторінки, який міг би зацікавити публіку"
+
+msgid "slug"
+msgstr "коротка назва для URL"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Назва сторінки, що з'явиться в URLs (краще латиницею), наприклад: http://"
+"domain.com/blog/[nazva_storinky]/"
+
+msgid "content type"
+msgstr "тип вмісту"
+
+msgid "URL path"
+msgstr "рядок URL"
+
+msgid "owner"
+msgstr "власник"
+
+msgid "title tag"
+msgstr "тег title"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Клікабельна назва сторінки, що відображається в результатах пошукової "
+"системи у вигляді заголовка. "
+
+msgid "show in menus"
+msgstr "показати у меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Чи буде посилання на цю сторінку з'являтися в автоматично згенерованих меню"
+
+msgid "meta description"
+msgstr "мета опис"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Описовий текст, що відображається під заголовком у результатах пошукової "
+"системи."
+
+msgid "latest revision created at"
+msgstr "останню ревізію створено о"
+
+msgid "page"
+msgstr "сторінка"
+
+msgid "pages"
+msgstr "сторінки"
+
+msgid "object id"
+msgstr "ID об'єкту"
+
+msgid "submitted for moderation"
+msgstr "надіслано на модерацію"
+
+msgid "created at"
+msgstr "створено о"
+
+msgid "user"
+msgstr "користувач"
+
+msgid "content JSON"
+msgstr "вміст JSON"
+
+msgid "approved go live at"
+msgstr "схвалено до публікації наживо о"
+
+msgid "revision"
+msgstr "ревізія"
+
+msgid "revisions"
+msgstr "ревізії"
+
+msgid "group"
+msgstr "група"
+
+msgid "permission"
+msgstr "дозвіл"
+
+msgid "permission type"
+msgstr "тип дозволу"
+
+msgid "group page permission"
+msgstr "дозвіл для групи сторінок "
+
+msgid "group page permissions"
+msgstr "дозволи для групи сторінок "
+
+msgid "page view restriction"
+msgstr "обмеження показу сторінки"
+
+msgid "page view restrictions"
+msgstr "обмеження показу сторінки"
+
+msgid "workflow"
+msgstr "робочий процес"
+
+msgid "workflow page"
+msgstr "сторінка робочого процесу"
+
+msgid "workflow pages"
+msgstr "сторінки робочого процесу"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "завдання"
+
+msgid "workflow task order"
+msgstr "порядок завдань робочого процесу"
+
+msgid "workflow task orders"
+msgstr "порядки завдань робочого процесу"
+
+msgid "name"
+msgstr "ім'я"
+
+msgid "active"
+msgstr "активний"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Активні завдання можуть бути додані в робочий процес. Неактивне завдання не "
+"видаляється з існуючого робочого процесу. "
+
+msgid "tasks"
+msgstr "завдання"
+
+msgid "workflows"
+msgstr "робочі процеси"
+
+msgid "groups"
+msgstr "групи"
+
+msgid "Request changes"
+msgstr "Запит на зміни"
+
+msgid "Approve"
+msgstr "Схвалити"
+
+msgid "Approve with comment"
+msgstr "Схвалити з коментарем"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Члени вибраних груп можуть схвалити це завдання "
+
+msgid "Group approval task"
+msgstr "Група схвалення завдання"
+
+msgid "Group approval tasks"
+msgstr "Група схвалення завдань"
+
+msgid "In progress"
+msgstr "В процесі"
+
+msgid "Approved"
+msgstr "Схвалено"
+
+msgid "Needs changes"
+msgstr "Потребує змін"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid "status"
+msgstr "статус"
+
+msgid "requested by"
+msgstr "за вимогою"
+
+msgid "current task state"
+msgstr "поточний стан завдання"
+
+msgid "Not started"
+msgstr "Не запущено"
+
+msgid "Workflow state"
+msgstr "Стан робочого процесу"
+
+msgid "Workflow states"
+msgstr "Стани робочого процесу"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "workflow state"
+msgstr "стан робочого процесу"
+
+msgid "started at"
+msgstr "запущено о"
+
+msgid "finished at"
+msgstr "завершено о"
+
+msgid "finished by"
+msgstr "завершено"
+
+msgid "Task state"
+msgstr "Стан завдання"
+
+msgid "Task states"
+msgstr "Стани завдань"
+
+msgid "page log entry"
+msgstr "сторінка запису журналу"
+
+msgid "page log entries"
+msgstr "сторінка записів журналу"
+
+msgid "Draft saved"
+msgstr "Чернетку збережено"
+
+msgid "comment"
+msgstr "коментар"
+
+msgid "comments"
+msgstr "коментарі"
+
+msgid "comment reply"
+msgstr "відповідь на коментар"
+
+msgid "comment replies"
+msgstr "відповіді на коментар"
+
+msgid "timestamp (UTC)"
+msgstr "мітка часу (UTC) "
+
+msgid "log entry"
+msgstr "запис журналу"
+
+msgid "log entries"
+msgstr "записи журналу"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Дію журналу \"%(action_name)s\" не зареєстровано."
+
+msgid "system"
+msgstr "система"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Невідомо %(action)s"
+
+msgid "model log entry"
+msgstr "запис журналу моделі"
+
+msgid "model log entries"
+msgstr "записи журналу моделі"
+
+msgid "collection"
+msgstr "колекція"
+
+msgid "collection view restriction"
+msgstr "обмеження показу колекції"
+
+msgid "collection view restrictions"
+msgstr "обмеження показу колекції"
+
+msgid "collections"
+msgstr "колекції"
+
+msgid "group collection permission"
+msgstr "дозволи для групи колекцій "
+
+msgid "group collection permissions"
+msgstr "дозвіл для групи колекцій "
+
+msgid "hostname"
+msgstr "ім'я хоста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Задайте порт, відмінний від 80, якщо потрібно, щоб його було вказано у URL "
+"(наприклад, для розробки на порту 8000). Не впливає на обробку запитів "
+"(перенаправлення портів буде працювати)."
+
+msgid "site name"
+msgstr "Назва сайту"
+
+msgid "Human-readable name for the site."
+msgstr "Ім'я сайту, зручне для людини"
+
+msgid "root page"
+msgstr "коренева сторінка"
+
+msgid "is default site"
+msgstr "є типовим сайтом"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
+"не мають своїх окремих налаштувань"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайти"
+
+msgid "default"
+msgstr "за замовчуванням"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s вже налаштовано, як типовий сайт. Якщо хочете зберегти цей сайт "
+"як типовий, спочатку приберіть цей атрибут."
+
+msgid "Public"
+msgstr "Загальнодоступний"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватний, доступна для користувачів, що здійснили вхід"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватний, доступний з паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватний, доступний для користувачів визначених груп"
+
+msgid "password"
+msgstr "пароль"
+
+msgid "view restriction"
+msgstr "обмеження показу"
+
+msgid "view restrictions"
+msgstr "обмеження показу"
+
+msgid "Log in"
+msgstr "Увійдіть"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваші ім'я користувача та пароль не відповідають один одному. Будь ласка, "
+"спробуйте ще."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш акканут не має доступу до цієї сторінки. Щоб продовжити, увійдіть із "
+"аккаунтом, що має такий доступ. "
+
+msgid "Password required"
+msgstr "Пароль обов'язковий"
+
+msgid "You need a password to access this page."
+msgstr "Для доступу до цієї сторінки необхідний пароль"
+
+msgid "Continue"
+msgstr "Продовжити"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s колекція нащадків"
+msgstr[1] " %(count)s колекцій нащадків"
+msgstr[2] "%(count)s колекцій нащадків"
+msgstr[3] "%(count)s колекцій нащадків"
+
+msgid "Create"
+msgstr "Створити"
+
+msgid "Created"
+msgstr "Створено"
+
+msgid "Edited"
+msgstr "Відредаговано"
+
+msgid "Deleted"
+msgstr "Видалено"
+
+msgid "Published"
+msgstr "Опубліковано"
+
+msgid "Publish scheduled draft"
+msgstr "Опублікувати заплановану чернетку"
+
+msgid "Published scheduled draft"
+msgstr "Опубліковано заплановану чернетку"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+msgid "Unpublished"
+msgstr "Знято з публікації"
+
+msgid "Unpublish scheduled draft"
+msgstr "Зняти з публікації заплановану чернетку"
+
+msgid "Unpublished scheduled draft"
+msgstr "Знято з публікації заплановану чернетку"
+
+msgid "Reject"
+msgstr "Відхилити"
+
+msgid "Rename"
+msgstr "Перейменувати"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Перейменовано з '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Перейменовано"
+
+msgid "Revert"
+msgstr "Повернути"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Повернуто до попередньої ревізії з ідентифікатором %(revision_id)s від "
+"%(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Повернуто до попередньої ревізії"
+
+msgid "Copy"
+msgstr "Копіювати"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Скопійовано з %(title)s"
+
+msgid "Copied"
+msgstr "Скопійовано"
+
+msgid "Copy for translation"
+msgstr "Скопіювати для перекладу"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Скопіювано для перекладу з %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Скопійовано для перекладу"
+
+msgid "Create alias"
+msgstr "Створити псевдонім"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Створено псевдонім %(title)s"
+
+msgid "Created an alias"
+msgstr "Створено псевдонім"
+
+msgid "Convert alias into ordinary page"
+msgstr "Конвертувати псевдонім на звичайну сторінку"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Конвертовано псевдонім '%(title)s' на звичайну сторінку"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Конвертовано псевдонім на звичайну сторінку"
+
+msgid "Move"
+msgstr "Перемістити"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Переміщено з '%(old_parent)s' до '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Переміщено"
+
+msgid "Reorder"
+msgstr "Змінити порядок"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Порядок змінено під '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Порядок змінено"
+
+msgid "Schedule publication"
+msgstr "Запланована публікація "
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Ревізія %(revision_id)s від %(created_at)s заплановано для публікації о "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Сторінку заплановано для публікації о %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Сторінку заплановано для публікації"
+
+msgid "Unschedule publication"
+msgstr "Відмінити заплановану публікацію"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Ревізія %(revision_id)s від %(created_at)s знята з розкладу для публікації о "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Сторінку знято з розкладу для публікації о %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Сторінку знято з розкладу для публікації"
+
+msgid "Add view restrictions"
+msgstr "Додати обмеження показу"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Додано обмеження показу '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Додано обмеження показу"
+
+msgid "Update view restrictions"
+msgstr "Оновити обмеження показу"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Оновлено обмеження показу до '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Оновлено обмеження показу"
+
+msgid "Remove view restrictions"
+msgstr "Видалити обмеження показу"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Видалено обмеження показу '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Видалено обмеження показу"
+
+msgid "Add comment"
+msgstr "Додати коментар"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Додано коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Додано коментар"
+
+msgid "Edit comment"
+msgstr "Оновити коментар"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Відредаговано коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Відредаговано коментар"
+
+msgid "Delete comment"
+msgstr "Видалити коментар"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Видалено коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Видалено коментар"
+
+msgid "Resolve comment"
+msgstr "Вирішити коментар"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Вирішено коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Вирішено коментар"
+
+msgid "Reply to comment"
+msgstr "Відповісти на коментар"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Дано відповідь на коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Дано відповідь на коментар"
+
+msgid "Edit reply to comment"
+msgstr "Редагувати відповідь на коментар"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Відредаговано відповідь на коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Відредаговано відповідь"
+
+msgid "Delete reply to comment"
+msgstr "Видалити відповідь на коментар"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Видалено відповідь на коментар у полі %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Видалено відповідь"
+
+msgid "Workflow: start"
+msgstr "Робочий процес: запустити"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' запущено. Наступний крок '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Робочий процес запущений"
+
+msgid "Workflow: approve task"
+msgstr "Робочий процес: схвалити завдання"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Схвалено о '%(task)s'. Наступний крок '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Схвалено о '%(task)s'. '%(workflow)s' завершено"
+
+msgid "Workflow task approved"
+msgstr "Завдання робочого процесу схвалено"
+
+msgid "Workflow: reject task"
+msgstr "Робочий процес: відхилити завдання"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Відхилено на '%(task)s'. Вимагаються зміни"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Завдання робочого процесу відхилено. Процес завершено"
+
+msgid "Workflow: resume task"
+msgstr "Робочий процес: відновити завдання"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Завдання '%(task)s' надіслано ще раз. Робочий процес відновлено"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Завдання надіслано ще раз. Робочий процес відновлено"
+
+msgid "Workflow: cancel"
+msgstr "Робочий процес: скасувати"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Скасовано '%(workflow)s' в '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Робочий процес скасовано"

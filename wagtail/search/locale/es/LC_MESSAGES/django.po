@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015,2018
+# Mauricio Baeza <python@amigos.email>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Mauricio Baeza <python@amigos.email>, 2015\n"
+"Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail search"
+msgstr "Búsqueda Wagtail"
+
+msgid "Query Daily Hits"
+msgstr "Consultas de acceso diarias"
+
+msgid "index entry"
+msgstr "entrada de índice"
+
+msgid "index entries"
+msgstr "entradas de índice"
+
+msgid "Popular search terms"
+msgstr "Términos de búsqueda popular"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Terms"
+msgstr "Términos"
+
+msgid "Views (past week)"
+msgstr "Vistas (semana pasada)"
+
+msgid "No results found"
+msgstr "No se encontraron resultados"
+
+msgid "Choose from popular search terms"
+msgstr "Escoger de los términos de búsqueda populares"

@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/shared/field.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block form_field %}
+    <a href="{{ document.url }}">{% icon name="doc-full-inverse" classname="default" %}{{ document.filename }}</a><br /><br />
+    {% trans "Change document:" %}
+    {{ field }}
+{% endblock %}

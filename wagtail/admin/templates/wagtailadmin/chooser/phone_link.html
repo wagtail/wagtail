@@ -1,0 +1,19 @@
+{% load i18n wagtailadmin_tags %}
+{% trans "Add a phone link" as phone_str %}
+{% include "wagtailadmin/shared/header.html" with title=phone_str %}
+
+<div class="nice-padding">
+    {% include 'wagtailadmin/chooser/_link_types.html' with current='phone' %}
+
+    <form action="{% url 'wagtailadmin_choose_page_phone_link' %}{% querystring %}" method="post" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {% for field in form %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
+            {% endfor %}
+            <li><input type="submit" value="{% trans 'Insert link' %}"  class="button" /></li>
+        </ul>
+    </form>
+</div>

@@ -1,0 +1,216 @@
+#
+# Translators:
+# Andreas Lans <andreas.lans@gmail.com>, 2022
+# Philip Andersen <renegadevi@codeofmagi.net>, 2022
+# Thomas Kunambi <kunambi@gmail.com>, 2022
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
+# Loic Teixeira, 2022
+# Martin Sandström <martin@marteinn.se>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nya objekt i denna meny"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nytt objekt i denna meny)"
+
+msgid "(New)"
+msgstr "(Ny)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s fel"
+msgstr[1] "%(num)s fel"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixlar"
+
+msgid "Add a comment"
+msgstr "Lägg till kommentar"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Are you sure?"
+msgstr "Är du säker?"
+
+msgid "Broken link"
+msgstr "Bruten länk"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Character count:"
+msgstr "Antal tecken:"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Collapse all"
+msgstr "Expandera alla"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Dashboard"
+msgstr "Instrumentpanel"
+
+msgid "Decorative image"
+msgstr "Dekorativ bild"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Delete error"
+msgstr "Raderingsfel"
+
+msgid "Deleting"
+msgstr "Raderar"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit '%(title)s'"
+msgstr "Redigera '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Redigera ditt konto"
+
+msgid "Enter your comments..."
+msgstr "Skriva dina kommentarer..."
+
+msgid "Enter your reply..."
+msgstr "Skriv ditt svar..."
+
+msgid "Error while sending preview data."
+msgstr "Fel vid skickande av förhandsgranskningdata"
+
+msgid "Expand all"
+msgstr "Kollapsa alla"
+
+msgid "Focus comment"
+msgstr "Fokusera kommentar"
+
+msgid "Horizontal line"
+msgstr "Horisontell linje"
+
+msgid "Insert a block"
+msgstr "Lägg till ett block"
+
+msgid "Line break"
+msgstr "Linjebrytning"
+
+msgid "Loading…"
+msgstr "Laddar..."
+
+msgid "Main menu"
+msgstr "Huvudmeny"
+
+msgid "Missing document"
+msgstr "Dokument saknas"
+
+msgid "More actions"
+msgstr "Fler åtgärder"
+
+msgid "No results"
+msgstr "Inga resultat funna"
+
+msgid "Page"
+msgstr "Sida"
+
+msgid "Page explorer"
+msgstr "Sidutforskare"
+
+msgid "Pages"
+msgstr "Sidor"
+
+msgid "Reload saved content"
+msgstr "Ladda om sparat innehåll"
+
+msgid "Reload the page"
+msgstr "Ladda om sidan"
+
+msgid "Reply"
+msgstr "Svara"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Rapportera detta fel till din webbplatsadministratör med följande "
+"information:"
+
+msgid "Resolve"
+msgstr "Lös"
+
+msgid "Retry"
+msgstr "Försök igen"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Save error"
+msgstr "Fel vid sparande"
+
+msgid "Save the page to add this comment"
+msgstr "Spara sidan för att lägga till denna kommentar"
+
+msgid "Save the page to save this comment"
+msgstr "Spara sidan för att spara denna kommentar"
+
+msgid "Save the page to save this reply"
+msgstr "Spara sidan för att spara detta svar"
+
+msgid "Saving..."
+msgstr "Sparar..."
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "See all"
+msgstr "Visa alla"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "Show error"
+msgstr "Visa fel"
+
+msgid "Show latest content"
+msgstr "Visa senaste innehållet"
+
+msgid "Split block"
+msgstr "Dela block"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Textredigeraren kraschade. Innehållet har återställts till den senaste "
+"sparade versionen."
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
+msgid "Toggle side panel"
+msgstr "Växla sidopanel"
+
+msgid "Toggle sidebar"
+msgstr "Växla sidorad"
+
+msgid "Unfocus comment"
+msgstr "Avfokusera kommentar"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Visa undersidor av '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Skriv något eller tryck på ‘/’ för att lägga till ett block"

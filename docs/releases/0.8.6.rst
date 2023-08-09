@@ -1,0 +1,43 @@
+===========================
+Wagtail 0.8.6 release notes
+===========================
+
+*March 10, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+
+* Translations updated, including new translations for Czech, Italian and Japanese
+* The "fixtree" command can now delete orphaned pages
+
+
+Bug fixes
+~~~~~~~~~
+
+* django-taggit library updated to 0.12.3, to fix a bug with migrations on SQLite on Django 1.7.2 and above (https://github.com/alex/django-taggit/issues/285)
+* Fixed a bug that caused children of a deleted page to not be deleted if they had a different type
+
+
+Upgrade considerations
+======================
+
+Orphaned pages may need deleting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release fixes a bug with page deletion introduced in 0.8, where deleting a page with child pages will result in those child pages being left behind in the database (unless the child pages are of the same type as the parent). This may cause errors later on when creating new pages in the same position. To identify and delete these orphaned pages, it is recommended that you run the following command (from the project root) after upgrading to 0.8.6:
+
+.. code-block:: console
+
+    $ ./manage.py fixtree
+
+This will output a list of any orphaned pages found, and request confirmation before deleting them.
+
+Since this now makes ``fixtree`` an interactive command, a ``./manage.py fixtree --noinput`` option has been added to restore the previous non-interactive behaviour. With this option enabled, deleting orphaned pages is always skipped.

@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016
+# Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtailin hakuehdotukset"
+
+msgid "Search term(s)/phrase"
+msgstr "Hakutermit/-lause"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Syötä täydellinen hakumerkkijono, jota vasten täsmätään. Täydellinen täsmäys "
+"vaaditaan promootiotulosten näyttämiseen; jokerimerkit eivät ole sallittuja."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Ole hyvä ja määrittele ainakin yksi suositus tälle hakutermille."
+
+msgid "Query Daily Hits"
+msgstr "Kyselyn päivittäiset vastaukset"
+
+msgid "page"
+msgstr "sivu"
+
+msgid "description"
+msgstr "kuvaus"
+
+msgid "search promotion"
+msgstr "hakupromootio"
+
+msgid "Add search promotion"
+msgstr "Lisää hakupromootio"
+
+msgid "Add search pick"
+msgstr "Lisää hakuvalinta"
+
+msgid "Save"
+msgstr "Tallenna"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Poista %(query)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Muokataan %(query)s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Recommended page"
+msgstr "Suositeltu sivu"
+
+msgid "Promoted search results"
+msgstr "Nostetut hakutulokset"
+
+msgid "Add recommended page"
+msgstr "Lisää suositeltu sivu"
+
+msgid "Search Terms"
+msgstr "Hakutermit"
+
+msgid "Add new promoted result"
+msgstr "Lisää uusi nostettu tulos"
+
+msgid "Search term(s)"
+msgstr "Hakutermi(t)"
+
+msgid "Order by search term alphabetically"
+msgstr "Järjestä hakutermin perusteella aakkosjärjestykseen"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Järjestä hakutermin perusteella käänteiseen aakkosjärjestykseen"
+
+msgid "Promoted results"
+msgstr "Nostetut tulokset"
+
+msgid "Views (past week)"
+msgstr "Näytöt (kuluva viikko)"
+
+msgid "Order by views (lowest first)"
+msgstr "Järjestä näyttöjen mukaan (vähiten ensin)"
+
+msgid "Order by views (highest first)"
+msgstr "Järjestä näyttöjen mukaan (eniten ensin)"
+
+msgid "Edit this promotion"
+msgstr "Muokkaa nostoa"
+
+msgid "None"
+msgstr "Ei mitään"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
+
+msgid "Search promoted results"
+msgstr "Etsi nostettuja tuloksia"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' luotu."
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' päivitetty."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Suosituksia ei voitu tallentaa virheiden vuoksi."
+
+msgid "Editor's picks deleted."
+msgstr "Toimituksen valinnat poistettu."

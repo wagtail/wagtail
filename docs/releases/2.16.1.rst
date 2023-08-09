@@ -1,0 +1,23 @@
+============================
+Wagtail 2.16.1 release notes
+============================
+
+*February 11, 2022*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
+ * Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix issue where bulk actions would not work for object IDs greater than 999 when ``USE_THOUSAND_SEPARATOR`` (Dennis McGregor)
+ * Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
+ * Prevent error on creating automatic redirects for sites with non-standard ports (Matt Westcott)
+ * Restore ability to customise admin UI colours via CSS (LB (Ben Johnston))

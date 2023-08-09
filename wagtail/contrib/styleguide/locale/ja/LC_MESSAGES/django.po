@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# shuhei hirota, 2019
+# shuhei hirota, 2019
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtailスタイルガイド"
+
+msgid "Styleguide"
+msgstr "スタイルガイド"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Delete image"
+msgstr "画像を削除"
+
+msgid "Search something"
+msgstr "何かを検索"
+
+msgid "Success message"
+msgstr "成功メッセージ"
+
+msgid "View live"
+msgstr "閲覧"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Warning message"
+msgstr "警告メッセージ"
+
+msgid "Error message"
+msgstr "エラーメッセージ"

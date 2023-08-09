@@ -1,0 +1,248 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
+# Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020-2022
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+# Tom Dyson <tom@torchbox.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "ModelAdmin Wagtail"
+
+msgid "Parent page"
+msgstr "Page parente"
+
+#, python-format
+msgid "Add %(object)s"
+msgstr "Ajouter un(e) %(object)s"
+
+#, python-format
+msgid "Add a new %(object)s"
+msgstr "Ajouter un(e) autre %(object)s"
+
+msgid "Inspect"
+msgstr "Inspecter"
+
+#, python-format
+msgid "Inspect this %(object)s"
+msgstr "Inspecter ce/cette %(object)s"
+
+msgid "Edit"
+msgstr "Modifier"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifier ce/cette %(object)s"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+#, python-format
+msgid "Delete this %(object)s"
+msgstr "Supprimer ce/cette %(object)s"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+#, python-format
+msgid "Unpublish this %(object)s"
+msgstr "Dépublier ce/cette %(object)s"
+
+msgid "Copy"
+msgstr "Copier"
+
+#, python-format
+msgid "Copy this %(object)s"
+msgstr "Copier ce/cette %(object)s"
+
+msgid "image"
+msgstr "image"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Retourner à la liste de %(model_name)s"
+
+msgid "Choose a parent page"
+msgstr "Choisir une page parente"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s peut être ajouté à plusieurs endroits de votre site. Laquelle des "
+"pages suivantes souhaitez vous avoir comme parente de votre nouvelle page ?"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Saving…"
+msgstr "Enregistrement…"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s ne peut pas être supprimé"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"« %(instance_name)s » est actuellement référencé par d'autres objets, et ne "
+"peut être supprimé sans compromettre l'intégrité des données. Pour le "
+"supprimer avec succès, retirez en premier les références depuis les objets "
+"suivants, puis essayez à nouveau :"
+
+msgid "Go back to listing"
+msgstr "Retourner à la liste"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Par %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Dernière mise à jour"
+
+msgid "History"
+msgstr "Historique"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s sur %(all_count)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Désolé, il n'y a aucun(e) %(name)s correspondant à vos paramètres de "
+"recherche."
+
+msgid "Search for"
+msgstr "Rechercher"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Rechercher %(name)s"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Aucun(e) %(name)s n'a été créé(e) pour l'instant. Au moins un des éléments "
+"suivants doit être créé avant de pouvoir ajouter un(e) %(name)s :"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Aucun(e) %(name)s n'a été créé(e) pour l'instant."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Pourquoi ne pas en <a href=\"%(url)s\">ajouter un(e)</a> ?"
+
+msgid "Pagination"
+msgstr "Pagination"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Page %(current_page)s sur %(num_pages)s."
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s « %(object)s » créé(e)."
+
+#, python-format
+msgid "The %(object)s could not be created due to errors."
+msgstr "Le/la %(object)s ne peut être créé(e) du fait d'erreurs."
+
+msgid "New"
+msgstr "Nouveau"
+
+#, python-format
+msgid "Create new %(object)s"
+msgstr "Créer un(e) autre %(object)s"
+
+msgid "Editing"
+msgstr "Modification"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Modification de %(object)s"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s « %(object)s » modifié(e)."
+
+#, python-format
+msgid "The %(object)s could not be saved due to errors."
+msgstr "Le/la %(object)s ne peut être enregistré(e) du fait d'erreurs."
+
+#, python-format
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmer la suppression de %(object)s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr ""
+"Êtes-vous sûr(e) de vouloir supprimer ce/cette %(object)s ? Si d'autres "
+"éléments de votre site y sont liés, il se peut qu'ils soient également "
+"affectés."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s « %(object)s » supprimé(e)."
+
+msgid "Inspecting"
+msgstr "Inspection"
+
+#, python-format
+msgid "Inspecting %(object)s"
+msgstr "Inspection de ce/cette %(object)s"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Date"
+msgstr "Date"

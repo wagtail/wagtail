@@ -1,0 +1,32 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Move {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Move" as header_title %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=page_to_move.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_pages:move' page_to_move.id %}" method="POST" novalidate>
+            {% csrf_token %}
+
+            <ul class="fields">
+                <li>
+                    {% include "wagtailadmin/shared/field.html" with field=move_form.new_parent_page %}
+                </li>
+            </ul>
+
+            <input type="submit" value="{% trans 'Confirm' %}" class="button">
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ move_form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ move_form.media.css }}
+{% endblock %}

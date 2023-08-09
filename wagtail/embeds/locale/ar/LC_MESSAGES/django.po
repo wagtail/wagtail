@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail embeds"
+msgstr "Wagtail مضمنة"
+
+msgid "Cannot find an embed for this URL."
+msgstr "لا يمكن العثور على تضمين لعنوان URL هذا."
+
+msgid "URL"
+msgstr "الرابط"
+
+msgid "Please enter a valid URL"
+msgstr "أدخل رابط صحيح من فضلك"
+
+msgid "embed"
+msgstr "تضمين"
+
+msgid "embeds"
+msgstr "التضمينات"
+
+msgid "Insert embed"
+msgstr "أدخل راسخا"
+
+msgid "Insert"
+msgstr "أدخل"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"يبدو أن هناك مشكلة في مفتاح واجهة برمجة التطبيقات المضمَّن. يرجى التحقق من "
+"الإعدادات الخاصة بك."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"يبدو أن هناك خطأ في Embedly أثناء محاولة تضمين عنوان URL هذا. الرجاء معاودة "
+"المحاولة في وقت لاحق."
+
+msgid "Embed"
+msgstr "تضمين"

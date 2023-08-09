@@ -1,0 +1,359 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Ole Kristian Losvik <ole@losol.no>, 2020
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
+"Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail-kjernen"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "De må være minst %(min_num)d elementer"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "De må være maks %(max_num)d elementer"
+
+msgid "Move up"
+msgstr "Flytt opp"
+
+msgid "Move down"
+msgstr "Flytt ned"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Add"
+msgstr "Legg til"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: denne blokken har ingen alternativer."
+
+msgid "This block has no options."
+msgstr "Denne blokken har ingen alternativer."
+
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
+
+msgid "Password"
+msgstr "Passord"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Passordet du har skrevet inn er feil. Prøv igjen."
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "live"
+msgstr "publisert"
+
+msgid "has unpublished changes"
+msgstr "har upubliserte endringer"
+
+msgid "first published at"
+msgstr "først publisert"
+
+msgid "last published at"
+msgstr "Sist publisert"
+
+msgid "go live date/time"
+msgstr "publiseringsdato"
+
+msgid "expiry date/time"
+msgstr "avpubliseringsdato"
+
+msgid "expired"
+msgstr "avpublisert"
+
+msgid "scheduled"
+msgstr "planlagt"
+
+msgid "draft"
+msgstr "kladd"
+
+msgid "live + scheduled"
+msgstr "publisert + planlagt"
+
+msgid "live + draft"
+msgstr "publisert + kladd"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "locked at"
+msgstr "låst den"
+
+msgid "locked by"
+msgstr "låst av"
+
+msgid "Add/edit pages you own"
+msgstr "Legg til/rediger sider du eier"
+
+msgid "Bulk delete"
+msgstr "Massesletting"
+
+msgid "Delete pages with children"
+msgstr "Slett sider med undersider"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit any page"
+msgstr "Rediger enhver side"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås opp sider som du har låst"
+
+msgid "Publish"
+msgstr "Publiser"
+
+msgid "Publish any page"
+msgstr "Publiser enhver side"
+
+msgid "Unlock"
+msgstr "Lås opp"
+
+msgid "Unlock any page"
+msgstr "Lås opp hvilken som helst side"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Tiittel på siden slik den vises offentlig"
+
+msgid "slug"
+msgstr "permalenke"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Navnet på siden slik det vil vises i URLer, feks. http://domene.no/blogg/min-"
+"slug/"
+
+msgid "content type"
+msgstr "innholdstype"
+
+msgid "URL path"
+msgstr "URL-sti"
+
+msgid "owner"
+msgstr "eier"
+
+msgid "show in menus"
+msgstr "vis i menyer"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
+
+msgid "latest revision created at"
+msgstr "siste utgave opprettet"
+
+msgid "page"
+msgstr "side"
+
+msgid "pages"
+msgstr "sider"
+
+msgid "submitted for moderation"
+msgstr "sendt til godkjenning"
+
+msgid "created at"
+msgstr "opprettet"
+
+msgid "user"
+msgstr "bruker"
+
+msgid "content JSON"
+msgstr "JSON for innhold"
+
+msgid "approved go live at"
+msgstr "godkjent for publisering"
+
+msgid "group"
+msgstr "gruppe"
+
+msgid "permission"
+msgstr "tillatelse"
+
+msgid "permission type"
+msgstr "tillatelsestype"
+
+msgid "group page permission"
+msgstr "gruppetillatelse for side"
+
+msgid "group page permissions"
+msgstr "gruppetillatelser for sider"
+
+msgid "page view restriction"
+msgstr "visningsbegrensning for side"
+
+msgid "page view restrictions"
+msgstr "visningsbegrensninger for sider"
+
+msgid "name"
+msgstr "navn"
+
+msgid "groups"
+msgstr "grupper"
+
+msgid "Approve"
+msgstr "Godkjenn"
+
+msgid "collection"
+msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsbegrensning for samling"
+
+msgid "collection view restrictions"
+msgstr "visningsbegrensninger for samling"
+
+msgid "collections"
+msgstr "samlinger"
+
+msgid "group collection permission"
+msgstr "gruppetillatelse for samling"
+
+msgid "group collection permissions"
+msgstr "gruppetillatelser for samling"
+
+msgid "hostname"
+msgstr "vertsnavn"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Sett denne til noe annet enn 80 dersom du har behov for at en spesifikk port "
+"vises i URLer (feks. utvikling på port 8000). Dette påvirker ikke håndtering "
+"av forespørsler (så port forwarding fungerer fortsatt)."
+
+msgid "site name"
+msgstr "nettstedsnavn"
+
+msgid "Human-readable name for the site."
+msgstr "Lesbart navn for nettstedet"
+
+msgid "root page"
+msgstr "rotside"
+
+msgid "is default site"
+msgstr "er standard nettsted"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Hvis merket vil denne siden håndtere forespørsler for alle andre vertsnavn "
+"som ikke har noen egen nettstedsoppføring."
+
+msgid "site"
+msgstr "nettsted"
+
+msgid "sites"
+msgstr "nettsteder"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s er allerede satt opp som standard nettsted. Du må endre det før "
+"du kan konfigurere dette nettstedet som standard."
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, tilgjengelig kun for innloggede brukere"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, tilgjengelig med følgende passord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, tilgjengelig kun for brukere i spesifikke grupper"
+
+msgid "password"
+msgstr "passord"
+
+msgid "view restriction"
+msgstr "visningsbegrensning"
+
+msgid "view restrictions"
+msgstr "visningsbegrensninger"
+
+msgid "Log in"
+msgstr "Logg inn"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ditt brukernavn og passord stemmer ikke overens. Vennligst prøv igjen."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Din brukerkonto har ikke tilgang på denne siden. For å fortsette må du logge "
+"inn med en konto som har tilgang."
+
+msgid "Password required"
+msgstr "Passord påkrevd"
+
+msgid "You need a password to access this page."
+msgstr "Du må oppgi et passord for å se denne siden."
+
+msgid "Continue"
+msgstr "Fortsett"
+
+msgid "Created"
+msgstr "Opprettet"
+
+msgid "Edited"
+msgstr "Redigert"
+
+msgid "Unpublish"
+msgstr "Avpublisér"
+
+msgid "Reject"
+msgstr "Avslå"
+
+msgid "Copy"
+msgstr "Kopier"
+
+msgid "Move"
+msgstr "Flytt"

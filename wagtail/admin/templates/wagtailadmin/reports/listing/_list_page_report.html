@@ -1,0 +1,58 @@
+{% load i18n wagtailadmin_tags %}
+<table class="listing {% block table_classname %}{% endblock %}">
+    <col />
+    <col width="12%" />
+    <col width="12%" />
+    <col width="12%" />
+    <col width="10%" />
+    <thead>
+        {% block post_parent_page_headers %}
+            <tr class="table-headers">
+                <th class="title">
+                    {% trans 'Title' %}
+                </th>
+                <th class="updated">
+                    {% trans 'Updated' %}
+                </th>
+                <th class="type">
+                    {% trans 'Type' %}
+                </th>
+                <th class="status">
+                    {% trans 'Status' %}
+                </th>
+                {% block extra_columns %}
+                {% endblock %}
+            </tr>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% if pages %}
+            {% for page in pages %}
+                {% page_permissions page as page_perms %}
+                <tr class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
+                    <td class="title" valign="top" data-listing-page-title>
+                        {% block page_title %}
+                            {% i18n_enabled as show_locale_labels %}
+                            {% include "wagtailadmin/pages/listing/_page_title_explore.html" with show_locale_labels=show_locale_labels %}
+                        {% endblock %}
+                    </td>
+                    <td class="updated" valign="top">
+                        {% if page.latest_revision_created_at %}
+                            {% human_readable_date page.latest_revision_created_at %}
+                        {% endif %}
+                    </td>
+                    <td class="type" valign="top">{{ page.page_type_display_name }}</td>
+                    <td class="status" valign="top">
+                        {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                    </td>
+                    {% block extra_page_data %}
+                    {% endblock %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}
+                <p>{% trans "No pages found." %}</p>
+            {% endblock %}
+        {% endif %}
+    </tbody>
+</table>

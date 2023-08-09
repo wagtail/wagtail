@@ -1,0 +1,4 @@
+{% load i18n %}
+{% block result_count %}
+    <span class="result-count">{% blocktrans trimmed %}{{ result_count }} out of {{ all_count }}{% endblocktrans %}</span>
+{% endblock %}

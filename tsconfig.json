@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["ES2021", "DOM", "DOM.iterable"],
+    "moduleResolution": "node",
+    "noImplicitAny": false, // TODO: Enable once all existing code is typed
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "target": "ES2021" // Since lowest browser support is for Safari 14
+  },
+  "files": [
+    "client/src/index.ts",
+    "client/src/custom.d.ts",
+    "client/storybook/stories.d.ts"
+  ],
+  "include": ["src", "wagtail"],
+  "exclude": [
+    "node_modules",
+    "static",
+    // Files with template syntax.
+    "wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js"
+  ]
+}

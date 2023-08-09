@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail forms"
+msgstr "نماذج Wagtail"
+
+msgid "Date from"
+msgstr "التاريخ من"
+
+msgid "Date to"
+msgstr "تاريخ لـ"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "هناك حقل آخر مع العلامة %(label_name)s، يرجى تغيير واحد منهم."
+
+msgid "Single line text"
+msgstr "نص ذو سطر واحد"
+
+msgid "Multi-line text"
+msgstr "نص متعدد الأسطر"
+
+msgid "Email"
+msgstr "بريد إلكتروني "
+
+msgid "Number"
+msgstr "عدد"
+
+msgid "URL"
+msgstr "الرابط"
+
+msgid "Checkbox"
+msgstr "خانة الاختيار"
+
+msgid "Checkboxes"
+msgstr "خانات الاختيار"
+
+msgid "Drop down"
+msgstr "اسقاط"
+
+msgid "Multiple select"
+msgstr "اختيار متعددة"
+
+msgid "Radio buttons"
+msgstr "أزرار راديو"
+
+msgid "Date"
+msgstr "تاريخ"
+
+msgid "Date/time"
+msgstr "تاريخ وقت"
+
+msgid "Hidden field"
+msgstr "حقل مخفي"
+
+msgid "submit time"
+msgstr "تاريخ النشر"
+
+msgid "form submission"
+msgstr "نشر النموذج"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "label"
+msgstr "بطاقة"
+
+msgid "The label of the form field"
+msgstr "بظاقة حقل النوع"
+
+msgid "field type"
+msgstr "نوع الحقل"
+
+msgid "required"
+msgstr "مطلوب"
+
+msgid "choices"
+msgstr "خيارات"
+
+msgid "default value"
+msgstr "القيمة الإفتراضية"
+
+msgid "help text"
+msgstr "نص للمساعدة"
+
+msgid "Submission date"
+msgstr "تاريخ التقديم"
+
+msgid "Form"
+msgstr "نموذج"
+
+msgid "Landing page"
+msgstr "صفحة هبوط"
+
+msgid "to address"
+msgstr "إلى العنوان"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"اختياري - سيتم إرسال رسائل عبر البريد الإلكتروني إلى هذه العناوين. افصل بين "
+"عدة عناوين بفاصلة."
+
+msgid "from address"
+msgstr "من العنوان"
+
+msgid "subject"
+msgstr "موضوع"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)sالمقدمة "
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "حذف من بيانات%(title)s"
+
+msgid "Delete form data"
+msgstr "حذف بيانات النموذج"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Forms"
+msgstr "نماذج"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Origin"
+msgstr "أصل"
+
+msgid "Delete selected submissions"
+msgstr "حذف التقديمات المحددة"
+
+msgid "Total submissions"
+msgstr "مجموع التقديمات"
+
+msgid "Latest submission"
+msgstr "أحدث التقديم"
+
+msgid "No form pages have been created."
+msgstr "لم تنشئ أي  نماذج."
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "لم تكن هناك أي مساهمات من '%(title)s' النموذج."
+
+msgid "Filter"
+msgstr "فلتر"

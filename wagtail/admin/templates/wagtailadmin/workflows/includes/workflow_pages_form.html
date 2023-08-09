@@ -1,0 +1,9 @@
+{% load i18n %}
+<td>
+    {% include "wagtailadmin/shared/field.html" with field=form.page sr_only_label=True only %}
+    {{ form.DELETE }}
+</td>
+
+<td>
+    <button class="button button-small no" type="button" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
+</td>

@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dzikri Hakim <dzikers@gmail.com>, 2018
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail formulir"
+
+msgid "Date from"
+msgstr "dari tanggal"
+
+msgid "Date to"
+msgstr "sampai tanggal"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Terdapat isian lain dengan label %(label_name)s, mohon untuk mengganti salah "
+"satu."
+
+msgid "Single line text"
+msgstr "Teks satu baris"
+
+msgid "Multi-line text"
+msgstr "Teks multi-baris"
+
+msgid "Email"
+msgstr "Surel"
+
+msgid "Number"
+msgstr "Angka"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Kotak centang"
+
+msgid "Checkboxes"
+msgstr "Kotak centang"
+
+msgid "Drop down"
+msgstr "Drop down"
+
+msgid "Multiple select"
+msgstr "Pilih banyak"
+
+msgid "Radio buttons"
+msgstr "Tombol Radio"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Date/time"
+msgstr "Tanggal/waktu"
+
+msgid "Hidden field"
+msgstr "Isian tersembunyi"
+
+msgid "submit time"
+msgstr "waktu selesai"
+
+msgid "form submission"
+msgstr "hasil formulir"
+
+msgid "name"
+msgstr "nama"
+
+msgid "label"
+msgstr "label"
+
+msgid "The label of the form field"
+msgstr "Label pada isian formulir"
+
+msgid "field type"
+msgstr "tipe isian"
+
+msgid "required"
+msgstr "wajib"
+
+msgid "choices"
+msgstr "pilihan"
+
+msgid "default value"
+msgstr "isi awal"
+
+msgid "help text"
+msgstr "teks bantuan"
+
+msgid "Submission date"
+msgstr "Tanggal pengiriman"
+
+msgid "to address"
+msgstr "dari alamat"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opsional - hasil formulir akan dikirimkan dengan surel ke alamat ini. "
+"Pisahkan beberapa alamat dengan koma."
+
+msgid "from address"
+msgstr "kepada alamat"
+
+msgid "subject"
+msgstr "subyek"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s hasil."
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Hapus data formulir %(title)s"
+
+msgid "Delete form data"
+msgstr "Hapus data formulir"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Forms"
+msgstr "Formulir"
+
+msgid "Pages"
+msgstr "Halaman"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Origin"
+msgstr "Asal"
+
+msgid "Delete selected submissions"
+msgstr "Hapus hasil terpilih"
+
+msgid "Total submissions"
+msgstr "Total hasil"
+
+msgid "Latest submission"
+msgstr "Hasil terakhir"
+
+msgid "No form pages have been created."
+msgstr "Tidak ada halaman formulir yang dibuat."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Hasil dari %(form_title)s"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Tidak terdapat hasil untuk formulir '%(title)s'."
+
+msgid "Filter"
+msgstr "Saring"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)dhasil telah dihapus."

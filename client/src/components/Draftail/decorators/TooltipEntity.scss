@@ -1,0 +1,20 @@
+$icon-size: 1em;
+
+.TooltipEntity {
+  cursor: pointer;
+
+  &:hover {
+    color: theme('colors.surface-button-default');
+  }
+
+  .icon-warning {
+    color: theme('colors.critical.200');
+  }
+
+  .icon {
+    width: $icon-size;
+    height: $icon-size;
+    margin-inline-end: 0.2em;
+    vertical-align: middle;
+  }
+}

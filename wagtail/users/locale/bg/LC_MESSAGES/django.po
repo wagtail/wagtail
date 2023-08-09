@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
+"Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Това поле може да съдържа само букви, числа и символите  @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Потребител с това име вече съществува."
+
+msgid "The two password fields didn't match."
+msgstr "Паролите не съвпадат."
+
+msgid "Email"
+msgstr "Имейл"
+
+msgid "First Name"
+msgstr "Първо Име"
+
+msgid "Last Name"
+msgstr "Последно Име"
+
+msgid "Password"
+msgstr "Парола"
+
+msgid "Leave blank if not changing."
+msgstr "Остави празно, ако няма да се променя."
+
+msgid "Password confirmation"
+msgstr "Подвърждение на парола"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Въведете същата парола, като по-горе, за проверка."
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Yes, delete"
+msgstr "Да, изтрий го"
+
+msgid "Editing"
+msgstr "Редактиране"
+
+msgid "Save"
+msgstr "Запази"
+
+msgid "Name"
+msgstr "Име"
+
+msgid "Publish"
+msgstr "Публикувай"
+
+msgid "Add user"
+msgstr "Добави потребител"
+
+msgid "Account"
+msgstr "Потребителски профил"
+
+msgid "Roles"
+msgstr "Роля"
+
+msgid "Users"
+msgstr "Потребители"
+
+msgid "Add a user"
+msgstr "Добави потребител"
+
+msgid "Username"
+msgstr "Потребителско име"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Active"
+msgstr "Активен"
+
+msgid "Inactive"
+msgstr "Неактивен"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Потребител '%(object)s' обновен."
+
+msgid "The user could not be saved due to errors."
+msgstr "Потребителя не можеше да бъде запазен заради грешки."
+
+msgid "Edit"
+msgstr "Редакция"

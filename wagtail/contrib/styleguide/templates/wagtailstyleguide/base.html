@@ -1,0 +1,607 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    {{ example_form.media.css }}
+{% endblock %}
+
+{% block titletag %}{% trans 'Styleguide' %}{% endblock %}
+{% block bodyclass %}styleguide{% endblock %}
+
+{% block content %}
+    <div class="w-sticky w-top-0 w-z-header">
+        <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
+    </div>
+
+    {% trans "Styleguide" as title_trans %}
+    {% include "wagtailadmin/shared/header.html" with title=title_trans icon='image' %}
+
+    <div class="nice-padding">
+        {% panel id="typography" heading="Typography" %}
+            <h1>This is an h1</h1>
+            <h2>This is an h2</h2>
+            <h3>This is an h3</h3>
+            <h4>This is an h4</h4>
+            <h5>This is an h5</h5>
+            <p>This is a paragraph</p>
+
+            <ul>
+                <li>These are</li>
+                <li>items in an</li>
+                <li>unordered list</li>
+            </ul>
+
+            <ol>
+                <li>These are</li>
+                <li>items in an</li>
+                <li>ordered list</li>
+            </ol>
+
+            <code>This is an example of code</code>
+
+        {% endpanel %}
+
+        {% panel id="help" heading="Help text" %}
+
+            <p>
+                Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+            </p>
+
+            {% help_block status="info" %}
+                <p>This is help text that might be just for <a href="#help">information</a>, explaining what happens next, or drawing the user's attention to something they're about to do</p>
+                <p>It could be multiple lines</p>
+            {% endhelp_block %}
+
+            {% help_block status="warning" %}
+                A warning message might be output in cases where a user's action could have serious <a href="#help">consequences</a>.
+            {% endhelp_block %}
+
+            {% help_block status="critical" %}
+                A critical message would probably be rare, in cases where a particularly brittle or <a href="#help">dangerously destructive action</a> could be performed and needs to be warned about.
+            {% endhelp_block %}
+
+        {% endpanel %}
+
+        {% panel id="listings" heading="Listings" %}
+
+            <h3><code>table</code> listing</h3>
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                    <tr class="unpublished">
+                        <td class="title">
+                            <h2><a href="">Unpublished TD with title class</a></h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>ul</code> listing</h3>
+            <ul class="listing">
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+            </ul>
+
+
+            <h3><code>ul</code> listings with multiple columns</h3>
+            <ul class="listing">
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6 title">
+                            <h2><a href="">Something here</a></h2>
+                        </div>
+
+                        <small class="col6" style="text-align:end">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:end">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:end">Something else</small>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Listings used for choosing a list item</h3>
+            <table class="listing chooser">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="#">TD with title class</a></h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                    <tr class="disabled">
+                        <td class="title">
+                            <h2>Disabled TD with title class</h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endpanel %}
+
+        {% panel id="pagination" heading="Pagination" %}
+            {% paginate example_page %}
+        {% endpanel %}
+
+        {% panel id="buttons" heading="Buttons" %}
+            <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons across browsers.</p>
+            <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor.</p>
+
+            <h3>Basic buttons</h3>
+
+            <a href="#" class="button">button link</a>
+            <button class="button" type="button">button element</button>
+
+            <h4>Basic buttons <small>(small)</small></h4>
+
+            <a href="#" class="button button-small">button link</a>
+            <button class="button button-small" type="button">button element</button>
+
+            <h3>Secondary buttons</h3>
+
+            <a href="#" class="button button-secondary">button link</a>
+            <button class="button button-secondary" type="button">button element</button>
+
+            <h4>Secondary buttons <small>(small)</small></h4>
+            <a href="#" class="button button-small button-secondary">button link</a>
+            <button class="button button-small button-secondary" type="button">button element</button>
+
+            <h3>Disabled buttons</h3>
+            <p><strong>Important</strong>: Adding <code>disabled</code> as a class should be avoided on buttons, instead use the disabled attribute. Some examples below use classes to validate existing styling still works.</p>
+
+            <a href="#" class="button disabled">button link</a>
+            <button class="button disabled" type="button">button element</button>
+            <button class="button button-secondary disabled" type="button">button secondary</button>
+
+            <h4>Disabled buttons <small>(small)</small></h4>
+
+            <a href="#" class="button button-small disabled">button link</a>
+            <button class="button button-small" disabled type="button">button element</button>
+            <button class="button button-small button-secondary" disabled type="button">button secondary</button>
+
+            <h3>Bi-color icon buttons with text</h3>
+            <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
+
+            <a href="#" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button bicolor button--icon" type="button">{% icon name="plus" wrapped=1 %}button element</button>
+            <button class="button bicolor button--icon" disabled type="button">{% icon name="plus" wrapped=1 %}button disabled</button>
+
+            <h4>Bi-color secondary icon buttons with text</h4>
+            <a href="#" class="button bicolor button--icon button-secondary">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button bicolor button--icon button-secondary" type="button">{% icon name="plus" wrapped=1 %}button element</button>
+            <button class="button bicolor button--icon button-secondary" disabled type="button">{% icon name="plus" wrapped=1 %}button disabled</button>
+
+            <h4>Bi-color icon buttons with text <small>(small)</small></h4>
+
+            <a href="#" class="button button-small bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button button-small bicolor button--icon" type="button">{% icon name="plus" wrapped=1 %}button element</button>
+            <button class="button button-small bicolor button--icon" disabled type="button">{% icon name="plus" wrapped=1 %}button disabled</button>
+
+            <h4>Bi-color secondary icon buttons with text <small>(small)</small></h4>
+            <a href="#" class="button button-small bicolor button--icon button-secondary">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button button-small bicolor button--icon button-secondary" type="button">{% icon name="plus" wrapped=1 %}button element</button>
+            <button class="button button-small bicolor button--icon button-secondary" disabled type="button">{% icon name="plus" wrapped=1 %}button disabled</button>
+
+            <h3>Icon buttons without text</h3>
+
+            <a href="#" class="button text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button text-replace button--icon" type="button">{% icon name="cog" %}button element</button>
+
+            <h4>Icon buttons without text <small>(small)</small></h4>
+
+            <a href="#" class="button button-small text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button button-small text-replace button--icon" type="button">{% icon name="cog" %}button element</button>
+
+            <h3>Negative</h3>
+            <p>Should not be used with <code>.button-secondary</code> on the same element.</p>
+
+            <a href="#" class="button no">No link</a>
+            <button class="button no" type="button">No button</button>
+            <button class="button no" disabled type="button">No disabled</button>
+
+            <h4>Negative <small>(small)</small></h4>
+
+            <a href="#" class="button button-small no">No</a>
+            <button class="button button-small no" type="button">No</button>
+            <button class="button button-small no" disabled type="button">Disabled</button>
+
+            <h3>Buttons with internal loading indicators</h3>
+            <p>Currently only <code>button</code> elements are supported.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+
+            <button
+                class="button button-longrunning"
+                type="button"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-duration-value="5000"
+            >
+                {% icon name="spinner" %}Click me 5s
+            </button>
+            <button
+                class="button button-longrunning"
+                type="button"
+                data-controller="w-progress"
+                data-action="readystatechange@document->w-progress#activate:once"
+                data-w-progress-duration-value="20000"
+                disabled
+            >
+                Disabled until 20s after load
+            </button>
+            <button
+                class="button button-secondary button-longrunning"
+                type="button"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-duration-value="5000"
+            >
+                {% icon name="spinner" %}Click me 5s
+            </button>
+            <button
+                class="button button-small button-longrunning"
+                type="button"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-duration-value="5000"
+            >
+                {% icon name="spinner" %}Click me 5s
+            </button>
+
+            <h4>Buttons where the text is replaced on click</h4>
+            <button
+                class="button button-longrunning"
+                type="button"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-active-value="Test"
+                data-w-progress-duration-value="5000"
+            >
+                {% icon name="spinner" %}
+                <em data-w-progress-target="label">Click me 5s</em>
+            </button>
+
+            <h3>Mixtures</h3>
+
+            <button class="button button--icon text-replace" type="button">{% icon name="check" %}A proper button</button>
+            <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+            <a href="#" class="button button--icon bicolor disabled">{% icon name="check" wrapped=1 %}button link</a>
+        {% endpanel %}
+
+        {% panel id="dropdowns" heading="Dropdown buttons" %}
+
+            <div class="row">
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <button type="button" class="button">drop down</button>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropdown-button">
+                        <button type="button" class="button">drop down</button>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a href="#">Items in this list do not match button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button type="button" class="button">drop up</button>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                        <ul>
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button value="drop up" class="button">{% icon name="view" %}icon dropup</button>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                        <ul>
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="#" class="button" value="drop down">Link button</a>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <button class="button">button for comparison of height</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+
+                <p>
+                    Inline dropdown components.
+                </p>
+
+                {% dropdown classname="w-inline-block" toggle_icon="arrow-down" toggle_classname="button button-secondary button-small" toggle_label="More" %}
+                    <a href="/admin/pages/2/move/">{% icon name="arrow-right-full" %} Move</a>
+                    <a href="/admin/pages/2/copy/">{% icon name="copy" %} Copy</a>
+                    <a href="/admin/pages/2/delete/">{% icon name="bin" %} Delete</a>
+                    <a href="/admin/pages/2/unpublish/">{% icon name="resubmit" %} Unpublish</a>
+                {% enddropdown %}
+
+                {% dropdown classname="w-inline-block" toggle_icon="dots-horizontal" toggle_aria_label="Actions" %}
+                    <a href="/admin/pages/2/move/">{% icon name="arrow-right-full" %} Move</a>
+                {% enddropdown %}
+            </div>
+        {% endpanel %}
+
+        {% panel id="dialog" heading="Dialogs" %}
+
+            <div class="w-flex w-gap-4">
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-1' text='Simple dialog' %}
+
+                    {% dialog icon_name="doc-full-inverse" id="dialog-1" title="Simple dialog" subtitle="This is as simple as it gets 😀" %}
+                        <p class="w-base-text">This is an example of a simple dialog with an icon_name, title and subtitle passed to the dialog tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-2' text='Dialog with info' %}
+
+                    {% dialog icon_name="globe" title="Dialog with info" id="dialog-2" subtitle="This is a testing subtitle" message_status="info" message_heading="Here is some info on the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=info as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-3' text='Dialog with success' %}
+
+                    {% dialog icon_name="globe" title="Dialog with success" id="dialog-3" subtitle="This is a testing subtitle" message_status="success" message_heading="Success! You've done the thing"  %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=success as well as message_heading to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-4' text='Dialog with warning' %}
+
+                    {% dialog icon_name="globe" title="Dialog with warning" id="dialog-4" subtitle="This is a testing subtitle" message_status="warning" message_heading="There was an issue with the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=warning as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-5' text='Dialog with error' %}
+
+                    {% dialog icon_name="globe" title="Dialog with critical error" id="dialog-5" subtitle="This is a testing subtitle" message_status="critical" message_heading="There was an issue with the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=critical as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle classname='button button-primary' dialog_id='dialog-6' text='Floating dialog' %}
+
+                    {% dialog theme="floating" icon_name="doc-full-inverse" id="dialog-6" title="Floating dialog" subtitle="This is a testing subtitle" %}
+                        <p class="w-base-text">This dialog allows other page content to be seen</p>
+                    {% enddialog %}
+                </div>
+            </div>
+        {% endpanel %}
+
+        {% panel id="header" heading="Header" %}
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans %}
+
+            {% url "wagtailstyleguide" as add_link %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
+            <div id="listing-results" style="display: none;">{% comment %} Not implemented, hide content to avoid confusion {% endcomment %}</div>
+        {% endpanel %}
+
+        {% panel id="forms" heading="Forms" %}
+
+            <form>
+                <ul class="fields">
+                    {% for field in example_form %}
+                        {% if field.name == 'file' %}
+                            {% include "wagtailimages/images/_file_field.html" %}
+                        {% else %}
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button no">{% trans "Delete image" %}</a></li>
+                </ul>
+            </form>
+        {% endpanel %}
+
+        {% panel id="editor" heading="Page editor" %}
+            <h3>Tabs</h3>
+
+            <div class="w-tabs" data-tabs>
+                <div role="tablist" class="w-tabs__list">
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-1' title='Tab 1' %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-2' title='Tab 2' %}
+                </div>
+            </div>
+
+            <p>Tabs can also indicate errors:</p>
+
+            <div class="w-tabs" data-tabs>
+                <div role="tablist" class="w-tabs__list">
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' errors_count='5' %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
+                </div>
+            </div>
+        {% endpanel %}
+
+        {% panel id="progress" heading="Progress indicators" %}
+            <div id="progress-example" class="progress active">
+                <div class="bar">60%</div>
+            </div>
+
+            <p>&nbsp;</p>
+
+            <div id="progress-example2" class="progress active">
+                <div class="bar" style="width: 50%;">50%</div>
+            </div>
+        {% endpanel %}
+
+        {% panel id="misc" heading="Misc formatters" %}
+            <h3>Avatar icons</h3>
+
+            <p>{% avatar %} Avatar normal</p>
+            <p>{% avatar size="square" %} Avatar square</p>
+            <p>{% avatar size="small" %} Avatar small</p>
+
+            <h3>Status tags</h3>
+            <div>{% status "status tag primary" classname="w-status--primary" %}</div>
+            <div>{% status "status tag secondary" %}</div>
+            <div>{% status "status tag label" classname="w-status--label" %}</div>
+            <div>{% status "status tag link" url="https://wagtail.org/" title="wagtail.org" hidden_label="current status" classname="w-status--primary" %}</div>
+
+            <h3>Loading mask</h3>
+            <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
+            <p>Remove the "loading" class to disable the effect</p>
+            <div class="loading-mask loading" style="width:200px">
+                {% include "wagtailadmin/logo.html"%}
+            </div>
+
+            <h3>Image transparency</h3>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> or <code>svg</code> tag thus:</p>
+            <div style="width:200px">
+                {% include "wagtailadmin/logo.html" with classname="show-transparency" %}
+            </div>
+        {% endpanel %}
+
+        {% panel id="icons" heading="Icons" %}
+
+            {% for folder, icons in all_icons %}
+                {% if folder == "wagtailadmin/icons" %}
+                    {# Bespoke copy script with good line breaks to review icon update diffs in git. #}
+                    <!-- Copy this section to update the `icons.md` documentation (wagtail_icons.html file). -->
+                    <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t')) -->
+                {% endif %}
+                <div class="w-mb-10" data-icons-table="{{ folder }}">
+                    <!-- Auto-generated with Wagtail’s styleguide. -->
+                    <table class="w-w-full">
+                        <caption><code>register_icons</code> entries from <code>{{ folder }}</code></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Visual</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Source</th>
+                                <th scope="col">File path</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in icons %}
+                                <tr>
+                                    {# Renders the icon’s SVG within a SVG element, #}
+                                    {# so we fully control the rendering without changing the icon’s markup. #}
+                                    {# Icons are loaded with render_to_string, so need |safe. #}
+                                    <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
+                                    <td><code>{{ item.name }}</code></td>
+                                    <td>{{ item.source }}</td>
+                                    <td><code>{{ item.file_path }}</code></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% endpanel %}
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {{ example_form.media.js}}
+
+    <script>
+        $(function(){
+            (function runprogress(){
+                var to = setTimeout(function(){
+                    runprogress();
+                    clearTimeout(to);
+                    setTimeout(function(){
+                        $('#progress-example .bar').css('width', '20%');
+                    }, 2000);
+                }, 3000);
+                $('#progress-example .bar').css('width', '80%');
+            })();
+        })
+    </script>
+{% endblock %}

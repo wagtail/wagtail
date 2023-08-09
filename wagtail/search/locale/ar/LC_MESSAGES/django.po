@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016,2018
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail search"
+msgstr "بحث"
+
+msgid "Query Daily Hits"
+msgstr "استعلام الزيارات اليومية"
+
+msgid "Popular search terms"
+msgstr "مصطلحات البحث الاكثر شعبية"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Terms"
+msgstr "مصطلحات"
+
+msgid "Views (past week)"
+msgstr "المواقع المبحوثة (في الأسبوع الماضي)"
+
+msgid "No results found"
+msgstr "لاتوجد نتائج"
+
+msgid "Choose from popular search terms"
+msgstr "احتر من المصطلخات الأكثر شعبية"

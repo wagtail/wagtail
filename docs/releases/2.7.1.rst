@@ -1,0 +1,18 @@
+===========================
+Wagtail 2.7.1 release notes
+===========================
+
+*January 8, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Management command startup checks under ``ManifestStaticFilesStorage`` no longer fail if ``collectstatic`` has not been run first (Alex Tomkins)

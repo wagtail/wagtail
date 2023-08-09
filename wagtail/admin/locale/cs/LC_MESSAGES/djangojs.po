@@ -1,0 +1,145 @@
+#
+# Translators:
+# Jiri Stepanek <stepiiicz@gmail.com>, 2022
+# Martin Galda <martingalda9@gmail.com>, 2022
+# IT Management <hudan@itmanagement.cz>, 2022
+# Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
+# Marek Turnovec <aesculap@gmail.com>, 2022
+# Mirek Zvolský <zvolsky@seznam.cz>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Add a comment"
+msgstr "Přidej komentář"
+
+msgid "Alt text"
+msgstr "Alternativní text"
+
+msgid "Are you sure?"
+msgstr "Jste si jist(a)?"
+
+msgid "Broken link"
+msgstr "Nefunkční odkaz"
+
+msgid "Cancel"
+msgstr "Storno"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Comment"
+msgstr "Komentář"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Decorative image"
+msgstr "Dekorační obrázek"
+
+msgid "Delete"
+msgstr "Zrušit"
+
+msgid "Delete error"
+msgstr "Chyba při rušení"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Edit '%(title)s'"
+msgstr "Editovat '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Upravte svůj účet"
+
+msgid "Focus comment"
+msgstr "Zvýraznit komentář"
+
+msgid "Horizontal line"
+msgstr "Horizontální linie"
+
+msgid "Line break"
+msgstr "Nový řádek"
+
+msgid "Loading…"
+msgstr "Načítání..."
+
+msgid "Missing document"
+msgstr "Chybějící dokument"
+
+msgid "More actions"
+msgstr "Další akce"
+
+msgid "No results"
+msgstr "Žádné výsledky"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Page explorer"
+msgstr "Explorer"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Reload saved content"
+msgstr "Znovu načíst uložený obsah"
+
+msgid "Reload the page"
+msgstr "Znovu načíst stránku"
+
+msgid "Reply"
+msgstr "Odpovědět"
+
+msgid "Resolve"
+msgstr "Odsouhlasit"
+
+msgid "Retry"
+msgstr "Zkusit znova"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Save error"
+msgstr "Chyba při ukládání"
+
+msgid "Saving..."
+msgstr "Ukládám ..."
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "See all"
+msgstr "Zobrazit vše"
+
+msgid "Server Error"
+msgstr "Chyba serveru"
+
+msgid "Show error"
+msgstr "Zobrazit chyby"
+
+msgid "Show latest content"
+msgstr "Zobrazit aktuální obsah"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
+
+msgid "This field is required."
+msgstr "Toto pole je vyžadováno."
+
+msgid "Toggle side panel"
+msgstr "Přepnout postranní panel"
+
+msgid "Unfocus comment"
+msgstr "Nezvýrazňovat komentář"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Ukázat podstránky '%(title)s'"

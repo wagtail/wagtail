@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ object.text }} (Default Preview)</title>
+    </head>
+    <body>
+        <h1>{{ object.text }}</h1>
+        <ul>
+            {% for category in object.categories.all %}
+                <li>{{ category.name }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

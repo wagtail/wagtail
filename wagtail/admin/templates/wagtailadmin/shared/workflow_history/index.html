@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% latest_str object as object_str %}{% blocktrans trimmed with title=object_str %}Workflow history for {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% latest_str object as object_str %}
+    {% trans "Workflow history for" as workflow_history_str %}
+    {% include "wagtailadmin/shared/header.html" with title=workflow_history_str subtitle=object_str icon=header_icon %}
+
+    <div class="nice-padding">
+        <p style="margin-bottom: 30px;">
+            <a href="{% admin_edit_url object %}" class="button button-small button-secondary">{% trans "Edit" %}</a>
+        </p>
+
+        {% include "wagtailadmin/shared/workflow_history/results.html" %}
+    </div>
+{% endblock %}

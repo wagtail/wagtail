@@ -1,0 +1,28 @@
+{% load i18n wagtailadmin_tags %}
+<button
+    type="submit"
+    class="button action-save button-longrunning{% if is_revision %} warning{% endif %}"
+    data-controller="w-progress"
+    data-action="w-progress#activate"
+    data-w-progress-active-value="{% trans 'Saving…' %}"
+>
+    {% if draftstate_enabled %}
+        {% icon name="draft" classname="button-longrunning__icon" %}
+    {% else %}
+        {% icon name=icon_name classname="button-longrunning__icon" %}
+    {% endif %}
+    {% icon name="spinner" %}
+    <em data-w-progress-target="label">
+        {% if is_revision %}
+            {% if draftstate_enabled %}
+                {% trans 'Replace current draft' %}
+            {% else %}
+                {% trans 'Replace current revision' %}
+            {% endif %}
+        {% elif draftstate_enabled %}
+            {% trans 'Save draft' %}
+        {% else %}
+            {% trans 'Save' %}
+        {% endif %}
+    </em>
+</button>

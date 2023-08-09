@@ -1,0 +1,4 @@
+{% load l10n %}
+<td id="page_{{ instance.pk|unlocalize }}_title" {% if column.classname %}class="{{ column.classname }}"{% endif %} data-listing-page-title>
+    {% include "wagtailadmin/pages/listing/_page_title_explore.html" with page=instance show_locale_labels=show_locale_labels %}
+</td>

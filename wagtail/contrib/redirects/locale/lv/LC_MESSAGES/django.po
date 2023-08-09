@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Permanent"
+msgstr "Pastāvīgs"
+
+msgid "All"
+msgstr "Viss"
+
+msgid "From site"
+msgstr "No vietnes"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Atbalstītie formāti: %(supported_formats)s."
+
+msgid "site"
+msgstr "vietne"
+
+msgid "Add redirect"
+msgstr "Pievienot novirzījumu"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Redirects"
+msgstr "Novirzījumi"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Dzēst novirzījumu %(title)s"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Labo %(title)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Delete redirect"
+msgstr "Dzēst novirzījumu"
+
+msgid "From"
+msgstr "No"
+
+msgid "To"
+msgstr "Līdz"
+
+msgid "Site"
+msgstr "Vietne"
+
+msgid "Edit this redirect"
+msgstr "Labot šo novirzījumu"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
+
+msgid "Search redirects"
+msgstr "Meklēt novirzījumus"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Novirzījums '%(redirect_title)s' atjaunots."
+
+msgid "Edit"
+msgstr "Labot"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Novirzījums '%(redirect_title)s' dzēsts."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Novirzījums '%(redirect_title)s' pievienots."

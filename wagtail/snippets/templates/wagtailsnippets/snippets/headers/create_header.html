@@ -1,0 +1,26 @@
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }}">
+        <div class="w-flex w-justify-start w-items-center">
+            {{ title }}
+        </div>
+    </li>
+{% endblock %}
+
+{% block header_content %}
+    {% with model_opts.verbose_name|capfirst as model_name %}
+        {% blocktrans trimmed asvar title %}New: {{ model_name }}{% endblocktrans %}
+        {{ block.super }}
+
+        <h1 class="w-sr-only">
+            {{ title }}
+        </h1>
+    {% endwith %}
+{% endblock %}
+
+{% block actions %}
+    {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+{% endblock %}

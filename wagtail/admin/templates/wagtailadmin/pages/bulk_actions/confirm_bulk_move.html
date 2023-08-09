@@ -1,0 +1,64 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans trimmed count counter=items|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
+{% endblock %}
+
+{% block header %}
+    {% trans "Move" as move_str %}
+    {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
+{% endblock header %}
+
+{% block items_with_access %}
+    {% if items %}
+        <p>{% trans "Are you sure you want to move these pages?" %}</p>
+        <ul>
+            {% for page in items %}
+                <li>
+                    <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
+                    {% if not page.item.is_leaf %}
+                        <p>
+                            {% blocktrans trimmed count counter=page.child_pages %}
+                                This page has one child page
+                            {% plural %}
+                                This page has {{ counter }} child pages
+                            {% endblocktrans %}
+                        </p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock items_with_access %}
+
+{% block items_with_no_access %}
+
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}
+    {% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
+
+    {% blocktrans trimmed asvar no_access_msg with dest_title=destination.title count counter=items_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}
+    {% include './list_items_with_no_access.html' with items=pages_without_destination_access no_access_msg=no_access_msg %}
+
+    {% blocktrans trimmed asvar no_access_msg count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}
+    {% include './list_items_with_no_access.html' with items=pages_with_duplicate_slugs no_access_msg=no_access_msg %}
+
+    {% trans "There is no valid destination page for these pages" as no_access_msg %}
+    {% include './list_items_with_no_access.html' with items=pages_without_common_parent_page no_access_msg=no_access_msg %}
+
+{% endblock items_with_no_access %}
+
+{% block form_section %}
+    {% if items %}
+        {% trans 'Yes, move these pages' as action_button_text %}
+        {% trans "No, don't move" as no_action_button_text %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+    {% endif %}
+{% endblock form_section %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}

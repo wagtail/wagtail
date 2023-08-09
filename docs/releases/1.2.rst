@@ -1,0 +1,194 @@
+=========================
+Wagtail 1.2 release notes
+=========================
+
+*November 12, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Site settings module
+~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now includes a contrib module (previously available as the `wagtailsettings <https://pypi.python.org/pypi/wagtailsettings/>`_ package) to allow administrators to edit site-specific settings.
+
+See: :doc:`/reference/contrib/settings`
+
+
+Jinja2 support
+~~~~~~~~~~~~~~
+
+The core templatetags (``pageurl``, ``slugurl``, ``image``, ``richtext`` and ``wagtailuserbar``) are now compatible with Jinja2 so it's now possible to use Jinja2 as the template engine for your Wagtail site.
+
+Note that the variable name ``self`` is reserved in Jinja2, and so Wagtail now provides alternative variable names where ``self`` was previously used: ``page`` to refer to page objects, and ``value`` to refer to StreamField blocks. All code examples in this documentation have now been updated to use the new variable names, for compatibility with Jinja2; however, users of the default Django template engine can continue to use ``self``.
+
+See: :doc:`/reference/jinja2`
+
+
+Site-specific redirects
+~~~~~~~~~~~~~~~~~~~~~~~
+
+You can now create redirects for a particular site using the admin interface.
+
+
+Search API improvements
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets. In addition, search methods now accept two new keyword arguments:
+
+* ``operator``, to determine whether multiple search terms will be treated as 'or' (any term may match) or 'and' (all terms must match);
+* ``order_by_relevance``, set to True (the default) to order by relevance or False to preserve the QuerySet's original ordering.
+
+See: :ref:`wagtailsearch_searching`
+
+
+``max_num`` and ``min_num`` parameters on inline panels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Inline panels now accept the optional parameters ``max_num`` and ``min_num``, to specify the maximum / minimum number of child items that must exist in order for the page to be valid.
+
+See: :ref:`inline_panels`
+
+
+``get_context`` on StreamField blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField blocks now :ref:`provide a get_context method <streamfield_get_context>` that can be overridden to pass additional variables to the block's template.
+
+
+Browsable API
+~~~~~~~~~~~~~
+
+The Wagtail API now incorporates the browsable front-end provided by Django REST Framework. Note that this must be enabled by adding ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting.
+
+
+Python 3.5 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports Python 3.5 when run in conjunction with Django 1.8.6 or later.
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+* WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it
+* Order of URL parameters now ignored by redirect middleware
+* Added SQL Server compatibility to image migration
+* Added ``class`` attributes to Wagtail rich text editor buttons to aid custom styling
+* Simplified body_class in default homepage template
+* page_published signal now called with the revision object that was published
+* Added a favicon to the admin interface, customisable by overriding the ``branding_favicon`` block (see :ref:`custom_branding`).
+* Added spinner animations to long-running form submissions
+* The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY
+* StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)
+* The ``first_published_at`` and ``latest_revision_created_at`` fields on page models are now available as filter fields on search queries
+* Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
+* Rich text fields now strip out HTML comments
+* Page editor form now sets ``enctype="multipart/form-data"`` as appropriate, allowing FileField to be used on page models (Petr Vacha)
+* Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
+* Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
+* Added a system check to warn if Pillow is compiled without JPEG / PNG support
+* Page chooser now prevents users from selecting the root node where this would be invalid
+* New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
+
+Bug fixes
+~~~~~~~~~
+
+* Page slugs are no longer auto-updated from the page title if the page is already published
+* Deleting a page permission from the groups admin UI does not immediately submit the form
+* Wagtail userbar is shown on pages that do not pass a ``page`` variable to the template (e.g. because they override the ``serve`` method)
+* ``request.site`` now set correctly on page preview when the page is not in the default site
+* Project template no longer raises a deprecation warning (Maximilian Stauss)
+* ``PageManager.sibling_of(page)`` and ``PageManager.not_sibling_of(page)`` now default to inclusive (i.e. ``page`` is considered a sibling of itself), for consistency with other sibling methods
+* The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
+* API endpoints now accept and ignore the ``_`` query parameter used by jQuery for cache-busting
+* Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
+* Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
+* Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
+* Removed jitter when hovering over StreamField blocks (Alex Gleason)
+* Non-ASCII email addresses no longer throw errors when generating Gravatar URLs (Denis Voskvitsov, Kyle Stratis)
+* Dropdown for ``ForeignKey`` s are now styled consistently (Ashia Zawaduk)
+* Date choosers now appear on top of StreamField menus (Sergey Nikitin)
+* Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
+* :meth:`Page.copy() <wagtail.core.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
+* Validation errors when inserting an embed into a rich text area are now reported back to the editor
+
+Upgrade considerations
+======================
+
+``PageManager.sibling_of(page)`` and ``PageManager.not_sibling_of(page)`` have changed behaviour
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, the ``sibling_of`` and ``not_sibling_of`` methods behaved inconsistently depending on whether they were called on a manager (e.g. ``Page.objects.sibling_of(some_page)`` or ``EventPage.objects.sibling_of(some_page)``) or a QuerySet (e.g. ``Page.objects.all().sibling_of(some_page)`` or ``EventPage.objects.live().sibling_of(some_page)``).
+
+Previously, the manager methods behaved as *exclusive* by default; that is, they did not count the passed-in page object as a sibling of itself:
+
+.. code-block:: python
+
+    >>> event_1 = EventPage.objects.get(title='Event 1')
+    >>> EventPage.objects.sibling_of(event_1)
+    [<EventPage: Event 2>]  # OLD behaviour: Event 1 is not considered a sibling of itself
+
+
+This has now been changed to be *inclusive* by default; that is, the page is counted as a sibling of itself:
+
+.. code-block:: python
+
+    >>> event_1 = EventPage.objects.get(title='Event 1')
+    >>> EventPage.objects.sibling_of(event_1)
+    [<EventPage: Event 1>, <EventPage: Event 2>]  # NEW behaviour: Event 1 is considered a sibling of itself
+
+
+If the call to ``sibling_of`` or ``not_sibling_of`` is chained after another QuerySet method - such as ``all()``, ``filter()`` or ``live()`` - behaviour is unchanged; this behaves as *inclusive*, as it did in previous versions:
+
+.. code-block:: python
+
+    >>> event_1 = EventPage.objects.get(title='Event 1')
+    >>> EventPage.objects.all().sibling_of(event_1)
+    [<EventPage: Event 1>, <EventPage: Event 2>]  # OLD and NEW behaviour
+
+
+If your project includes queries that rely on the old (exclusive) behaviour, this behaviour can be restored by adding the keyword argument ``inclusive=False``:
+
+.. code-block:: python
+
+    >>> event_1 = EventPage.objects.get(title='Event 1')
+    >>> EventPage.objects.sibling_of(event_1, inclusive=False)
+    [<EventPage: Event 2>]  # passing inclusive=False restores the OLD behaviour
+
+
+``Image.search`` and ``Document.search`` methods are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Image.search`` and ``Document.search`` methods have been deprecated in favour of the new QuerySet-based search mechanism - see :ref:`wagtailsearch_images_documents_custom_models`. Code using the old ``search`` methods should be updated to search on QuerySets instead; for example:
+
+.. code-block:: python
+
+    Image.search("Hello", filters={'uploaded_by_user': user})
+
+can be rewritten as:
+
+.. code-block:: python
+
+    Image.objects.filter(uploaded_by_user=user).search("Hello")
+
+
+Wagtail API requires adding ``rest_framework`` to INSTALLED_APPS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have the Wagtail API (``wagtail.contrib.wagtailapi``) enabled, you must now add ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting. In the current version the API will continue to function without this app, but the browsable front-end will not be available; this ability will be dropped in a future release.
+
+
+:meth:`Page.get_latest_revision_as_page() <wagtail.core.models.Page.get_latest_revision_as_page>` now returns live page object when there are no draft changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have any application code that makes direct updates to page data, at the model or database level, be aware that the way these edits are reflected in the page editor has changed.
+
+Previously, the ``get_latest_revision_as_page`` method - used by the page editor to return the current page revision for editing - always retrieved data from the page's revision history. Now, it will only do so if the page has unpublished changes (i.e. the page is in ``live + draft`` state) - pages which have received no draft edits since being published will return the page's live data instead.
+
+As a result, any changes made directly to a live page object will be immediately reflected in the editor without needing to update the latest revision record (but note, the old behaviour is still used for pages in ``live + draft`` state).

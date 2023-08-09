@@ -1,0 +1,56 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% blocktrans trimmed with instance=instance|capfirst %}Editing {{ instance }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-settings{% endblock %}
+
+{% block content %}
+    {% fragment as editing_actions %}
+        {% if site_switcher %}
+            <form method="get" id="settings-site-switch" novalidate>
+                <label for="{{ site_switcher.site.id_for_label }}">
+                    {% trans "Site" %}:
+                </label>
+                {{ site_switcher.site }}
+            </form>
+        {% endif %}
+    {% endfragment %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str icon="cogs" subtitle=setting_type_name|capfirst merged=1 extra_actions=editing_actions %}
+
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name form_id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+
+        <div class="nice-padding">
+            {{ edit_handler.render_form_content }}
+        </div>
+
+        <footer class="footer">
+            <ul>
+                <li class="actions dropdown dropup match-width footer__container">
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{% trans 'Saving…' %}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Save' %}</em>
+                    </button>
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ media.js }}
+{% endblock %}

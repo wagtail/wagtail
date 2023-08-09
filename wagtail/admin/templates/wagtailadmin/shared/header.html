@@ -1,0 +1,91 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `classname` - if present, adds classname to the header class list
+    - `title` - Displayed as `h1`
+    - `subtitle` - Within the `h1` tag but smaller
+    - `description` - if present, displayed as a small text below the `h1` tag title
+    - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
+    - `search_form` - form object for the search form. Required if search_url is passed
+    - `search_results_url` - URL to be used for async requests to search results, if not provided, the form's action URL will be used
+    - `search_target` - A selector string to be used as the target for teh search results to be swapped into. Defaults to '#results'
+    - `search_disable_async` - If True, the default header async search functionality will not be used
+    - `query_parameters` - a query string (without the '?') to be placed after the search URL
+    - `icon` - name of an icon to place against the title
+    - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
+    - `merged` - if true, add the classname 'w-header--merged'
+    - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
+    - `action_text` - text for the 'action' button
+    - `action_icon` - icon for the 'action' button, default is 'plus'
+    - `base_actions` - base actions to appear before the main action
+    - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
+    - `breadcrumb` - Custom breadcrumbs content as a variable, displayed in place of breadcrumb block before the header content
+    - `heading` - Replaces the header `h1` completely with custom variable content
+    - `search` - An alternative search content variable displayed if provided and search_url url is not present
+    - `extra_rows` - Shown at the end of the header container
+
+{% endcomment %}
+<header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
+    {% block breadcrumb %}{{ breadcrumb }}{% endblock %}
+    <div class="row">
+        <div class="left">
+            <div class="col">
+                {% if heading %}
+                    {{ heading }}
+                {% else %}
+                    <h1 class="w-header__title" id="header-title">
+                        {% if icon %}
+                            {% icon classname="w-header__glyph" name=icon %}
+                        {% elif avatar %}
+                            <div class="w-header__glyph avatar large"><img src="{{ avatar }}" alt="" /></div>
+                        {% endif %}
+                        {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
+                    </h1>
+                {% endif %}
+                {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
+            </div>
+            {% if search_url %}
+                <form
+                    class="col search-form"
+                    action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}"
+                    method="get"
+                    novalidate
+                    role="search"
+                    {% if not search_disable_async %}
+                        data-controller="w-swap"
+                        data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                        {% if search_results_url %}data-w-swap-src-value="{{ search_results_url }}"{% endif %}
+                        {% if search_target %}data-w-swap-target-value="{{ search_target }}"{% endif %}
+                    {% endif %}
+                >
+                    {% for field in search_form %}
+                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                    {% endfor %}
+                    {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                    <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
+                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
+                </form>
+            {% elif search %}
+                {{ search }}
+            {% endif %}
+        </div>
+        <div class="{% block right_column_classname %}right{% endblock %}">
+            {% block right_column %}
+                {% if action_url %}
+                    <div class="actionbutton">
+                        {{ base_actions }}
+                        {% with action_icon|default:'plus' as action_icon_name %}
+                            <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
+                        {% endwith %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+            {% if extra_actions %}
+                {{ extra_actions }}
+            {% endif %}
+        </div>
+    </div>
+    {% block extra_rows %}{{ extra_rows }}{% endblock %}
+</header>

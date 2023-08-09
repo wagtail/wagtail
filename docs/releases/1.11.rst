@@ -1,0 +1,137 @@
+==========================
+Wagtail 1.11 release notes
+==========================
+
+*June 30, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Explorer menu built with the admin API and React
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After more than a year of work, the new explorer menu has finally landed! It comes with the following improvements:
+
+* View all pages - not just the ones with child pages.
+* Better performance, no matter the number of pages or levels in the hierarchy.
+* Navigate the menu via keyboard.
+* View Draft pages, and go to page editing, directly from the menu.
+
+Beyond features, the explorer is built with the new admin API and React components.
+This will facilitate further evolutions to make it even faster and user-friendly.
+This work is the product of ``4`` Wagtail sprints, and the efforts of ``16`` people, listed here by order of first involvement:
+
+* Karl Hobley (Cape town sprint, admin API)
+* Josh Barr (Cape town sprint, prototype UI)
+* Thibaud Colas (Ede sprint, Reykjavík sprint)
+* Janneke Janssen (Ede sprint, Reykjavík sprint, Wagtail Space sprint)
+* Rob Moorman (Ede sprint, eslint-config-wagtail, ES6+React+Redux styleguide)
+* Maurice Bartnig (Ede sprint, i18n and bug fixes)
+* Jonny Scholes (code review)
+* Matt Westcott (Reykjavík sprint, refactorings)
+* Sævar Öfjörð Magnússon (Reykjavík sprint)
+* Eirikur Ingi Magnusson (Reykjavík sprint)
+* Harris Lapiroff (Reykjavík sprint, tab-accessible navigation)
+* Hugo van den Berg (testing, Wagtail Space sprint)
+* Olly Willans (UI, UX, Wagtail Space sprint)
+* Andy Babic (UI, UX)
+* Ben Enright (UI, UX)
+* Bertrand Bordage (testing, documentation)
+
+Privacy settings on documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Privacy settings can now be configured on collections, to restrict access to documents either by shared password or by user account. See: :ref:`private_pages`.
+
+This feature was developed by Ulrich Wagner and Matt Westcott. Thank you to `Wharton Research Data Services <https://www.WhartonWRDS.com/>`_ of `The Wharton School <https://www.wharton.upenn.edu>`_ for sponsoring this feature.
+
+Other features
+~~~~~~~~~~~~~~
+
+* Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
+* The current live version of a page is now tracked on the revision listing view (Matheus Bratfisch)
+* Each block created in a ``StreamField`` is now assigned a globally unique identifier (Matt Westcott)
+* Mixcloud oEmbed pattern has been updated (Alice Rose)
+* Added ``last_published_at`` field to the Page model (Matt Westcott)
+* Added ``show_in_menus_default`` flag on page models, to allow "show in menus" to be checked by default (LB (Ben Johnston))
+* "Copy page" form now validates against copying to a destination where the user does not have permission (Henk-Jan van Hasselaar)
+* Allows reverse relations in ``RelatedFields`` for elasticsearch & PostgreSQL search backends (Lucas Moeskops, Bertrand Bordage)
+* Added oEmbed support for Facebook (Mikalai Radchuk)
+* Added oEmbed support for Tumblr (Mikalai Radchuk)
+
+Bug fixes
+~~~~~~~~~
+
+* Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+* ``TableBlock`` options ``afterChange``, ``afterCreateCol``, ``afterCreateRow``, ``afterRemoveCol``, ``afterRemoveRow`` and ``contextMenu`` can now be overridden (Loic Teixeira)
+* The lastmod field returned by wagtailsitemaps now shows the last published date rather than the date of the last draft edit (Matt Westcott)
+* Document chooser upload form no longer renders container elements for hidden fields (Jeffrey Chau)
+* Prevented exception when visiting a preview URL without initiating the preview (Paul Kamp)
+
+
+Upgrade considerations
+======================
+
+Browser requirements for the new explorer menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The new explorer menu does not support IE8, IE9, and IE10. The fallback experience is a link pointing to the explorer pages.
+
+
+Caching of site-level URL information throughout the request cycle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``get_url_parts`` and ``relative_url`` methods on ``Page`` now accept an optional ``request`` keyword argument.
+Additionally, two new methods have been added, ``get_url`` (analogous to the ``url`` property) and ``get_full_url``
+(analogous to the ``full_url``) property. Whenever possible, these methods should be used instead of the property
+versions, and the request passed to each method. For example:
+
+.. code-block:: python
+
+    page_url = my_page.url
+
+would become:
+
+.. code-block:: python
+
+    page_url = my_page.get_url(request=request)
+
+This enables caching of underlying site-level URL information throughout the request cycle, thereby significantly
+reducing the number of cache or SQL queries your site will generate for a given page load. A common use case for these
+methods is any custom template tag your project may include for generating navigation menus. For more information,
+please refer to :ref:`page_urls`.
+
+Furthermore, if you have overridden ``get_url_parts`` or ``relative_url`` on any of your page models, you will need to
+update the method signature to support this keyword argument; most likely, this will involve changing the line:
+
+.. code-block:: python
+
+    def get_url_parts(self):
+
+to:
+
+.. code-block:: python
+
+    def get_url_parts(self, *args, **kwargs):
+
+and passing those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
+
+See also: :meth:`wagtail.core.models.Page.get_url_parts`, :meth:`wagtail.core.models.Page.get_url`,
+:meth:`wagtail.core.models.Page.get_full_url`, and :meth:`wagtail.core.models.Page.relative_url`
+
+
+"Password required" template for documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release adds the ability to password-protect documents as well as pages. The template used for the "password required" form is distinct from the one used for pages; if you have previously overridden the default template through the ``PASSWORD_REQUIRED_TEMPLATE`` setting, you may wish to provide a corresponding template for documents through the setting ``DOCUMENT_PASSWORD_REQUIRED_TEMPLATE``. See: :ref:`private_pages`
+
+
+Elasticsearch 5.4 is incompatible with ``ATOMIC_REBUILD``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While not specific to Wagtail 1.11, users of Elasticsearch should be aware that the ``ATOMIC_REBUILD`` option is not compatible with Elasticsearch 5.4.x due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_. If you wish to use this feature, please use Elasticsearch 5.3.x or 5.5.x (when available).

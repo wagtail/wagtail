@@ -1,0 +1,51 @@
+================================
+Wagtail 1.13 (LTS) release notes
+================================
+
+*October 16, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 1.13 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months). Please note that Wagtail 1.13 will be the last LTS release to support Python 2.
+
+
+What's new
+==========
+
+
+New features
+~~~~~~~~~~~~
+
+* Front-end cache invalidator now supports purging URLs as a batch - see :ref:`frontend_cache_invalidating_urls` (Karl Hobley)
+* :doc:`Custom document model </advanced_topics/documents/custom_document_model>` is now documented (Emily Horsman)
+* Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
+* Wagtailforms serve view now passes ``request.FILES``, for use in custom form handlers (LB (Ben Johnston))
+* Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
+* Added custom 404 page for admin interface (Jack Paine)
+* Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
+* Wagtail now uses React 15.6.2 and above, released under the MIT license (Janneke Janssen)
+* User search in the Wagtail admin UI now works across multiple fields (Will Giddens)
+* ``Page.last_published_at`` is now a filterable field for search (Mikalai Radchuk)
+* Page search results and usage listings now include navigation links (Matt Westcott)
+
+Bug fixes
+~~~~~~~~~
+
+* "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
+* Using ``order_by_relevance=False`` when searching with PostgreSQL now works (Mitchel Cabuloy)
+* Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
+* ``WAGTAILAPI_LIMIT_MAX`` now accepts None to disable limiting (jcronyn)
+* In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
+* Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
+* Fixed avatar position in footer on mobile (Jack Paine)
+* Custom document models no longer require their own post-delete signal handler (Gordon Pendleton)
+* Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
+* Fixed Node build scripts to work on Windows (Mikalai Radchuk)
+* Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
+* Prevent ``USE_THOUSAND_SEPARATOR = True`` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
+* Removed deprecated ``SessionAuthenticationMiddleware`` from project template (Samir Shah)
+* Custom display page titles defined with ``get_admin_display_title`` are now shown in search results (Ben Sturmfels, Matt Westcott)
+* Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)

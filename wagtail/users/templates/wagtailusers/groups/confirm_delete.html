@@ -1,0 +1,29 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Delete group" %}{% endblock %}
+
+{% block content %}
+    {% trans "Delete group" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=group.name icon="group" %}
+
+    <div class="nice-padding">
+        <p>
+            {% blocktrans trimmed with group_name=group.name count group_user_count=group.user_set.count %}
+                The group '{{ group_name }}' has <strong>{{ group_user_count }}</strong> member.
+            {% plural %}
+                The group '{{ group_name }}' has <strong>{{ group_user_count }}</strong> members.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% if group.user_set.count %}
+                {% trans "Deleting this group will revoke this group's permissions from all member users." %}
+            {% endif %}
+        </p>
+
+        <p>{% trans "Are you sure you want to delete this group?" %}</p>
+        <form action="{% url 'wagtailusers_groups:delete' group.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Whakarerekē i tēnei %(object)s"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
+msgid "image"
+msgstr "whakaahua"
+
+msgid "Continue"
+msgstr "Tonu"
+
+msgid "Saving…"
+msgstr "pupuru ana..."
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "Filter"
+msgstr "Tātari"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' kua hangaia."
+
+msgid "New"
+msgstr "Hou"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' kua whakahou."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' kua muku."
+
+msgid "Date"
+msgstr "Rā"

@@ -1,0 +1,592 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Submit for moderation"
+msgstr "Tukungia hei whakaōrite"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Tukungia anō ki %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Tukungia ki %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Tīmata ano te mahi pūheke"
+
+msgid "Cancel workflow "
+msgstr "Whakakore te mahi pūheke"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
+msgid "Save Draft"
+msgstr "Puritia te tuhinga hukihuki"
+
+msgid "Page locked"
+msgstr "Kua raka te whārangi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s me perehi"
+
+msgid "Wagtail admin"
+msgstr "Te kaiwhakahaere ō Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Aroha mai, ehara koe e whakaae ki roto i tēnei wāhi."
+
+msgid "You do not have permission to access the admin"
+msgstr "Ehara koe e whakaae ki te kai whakahaere"
+
+msgid "None"
+msgstr "Kore"
+
+msgid "Date from"
+msgstr "Te rā mai ia"
+
+msgid "Date to"
+msgstr "Te rā ki"
+
+msgid "All"
+msgstr "Katoa"
+
+msgid "Preferred language"
+msgstr "Te reo mariu"
+
+msgid "Current time zone"
+msgstr "Te rohe wā o nāianei"
+
+msgid "First Name"
+msgstr "Ingoa tuatahi"
+
+msgid "Last Name"
+msgstr "Ingoa tuarua"
+
+msgid "Email"
+msgstr "Īmera"
+
+msgid "Upload a profile picture"
+msgstr "Tukuatu he whakaahua kōtaha"
+
+msgid "Enter password"
+msgstr "Tāuru tō kupu muna"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Tāuru tō %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Tāuru tō īmera i roto kia tautuhi anō tō kupu muna"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Haha-a-karangatanga"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "Collection"
+msgstr "Kohikohinga"
+
+msgid "Parent"
+msgstr "Mātua"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Kōwhiri he nohonga whakarārangi. Tuhituhi: Ehara ka taea he kohikohinga ki "
+"te whakataitamaiti, tuhanga rānei."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Kāore koe ka taea ngā rekoata–whakaae e nui ake ki te kotahi anake, ki roto "
+"ī te kohikohinga ōrite."
+
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Me haere mataora rā/taima i mua te mōnehu rā/taima"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Me haere te mōnehu rā/taima ki roto ī te wāheke."
+
+msgid "New title"
+msgstr "Taitara hou"
+
+msgid "New slug"
+msgstr "Ngata hou"
+
+msgid "New parent page"
+msgstr "He matua whārangi hou"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ka whakataitamaiti tēnei kape ō tōna whārangi mātua."
+
+msgid "Copy subpages"
+msgstr "Kape ngā whārangi kōaro"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Ka kape tēnei %(count)s  whārangi kōaro."
+msgstr[1] "Ka kape tēnei %(count)s ngā whārangi kōaro."
+
+msgid "Publish copied page"
+msgstr "Perehi te whārangi kua kapetia"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Kei te mataora tenei whārangi. Kei te pirangi koe kī te perehi tōna kape?"
+
+msgid "Publish copies"
+msgstr "Perehi ngā kape"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s ō nga whārangi e kape he mataora. Kei te pirangi koe ki te perehi "
+"tōna kape?"
+msgstr[1] ""
+"%(count)s ō nga whārangi e kape he mataora. Kei te pirangi koe ki te perehi "
+"ēnei kape?"
+
+msgid "Alias"
+msgstr "Ingoa kē"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Rūnā ngā whārangi hou me ngā whakarerekētanga wāheke."
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Ehara koe e whakaae ki te kape a whārangi \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Kei te mahi tonu tenei ngata ki roto i te horopaki ō tōna whārangi matua "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Ehara koe ka taea ki te kape he whārangi ki roto i a ia mēna kei te kape koe "
+"i ngā wharangi kōaro."
+
+msgid "Visibility"
+msgstr "Kitenga"
+
+msgid "This field is required."
+msgstr "Hiahiatia ana tēnei whīra"
+
+msgid "Please select at least one group."
+msgstr "Kōwhiri koa he rōpū kōtahi."
+
+msgid "All types"
+msgstr "Ngā momo katoa"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Kua whakarite a mahi pūheke '%(workflow_name)s' ki te whārangi nei."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Ehara koe ka taea ki te whakarite tēnei mahi pūheke ki te whārangi ōrite nui "
+"ake ki te taima kōtahi."
+
+msgid "Give your workflow a name"
+msgstr "Hoatu he ingoa ki to mahi pūheke"
+
+msgid "Add tasks to your workflow"
+msgstr "Tāpiri waitara ki ō mahi pūheke"
+
+msgid "Content"
+msgstr "Rārangi take"
+
+msgid "Promote"
+msgstr "Whakatuarā"
+
+msgid "Settings"
+msgstr "Tautuhinga"
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "Error 404: Page not found"
+msgstr "Hē 404: Kua ngaro te whārangi"
+
+msgid "Error 404"
+msgstr "Hē 404"
+
+msgid "The requested page could not be found."
+msgstr "Kāhore ka taea te kimihia te whārangi nei."
+
+msgid "Go to Wagtail admin"
+msgstr "Haere ki whakahaere tikanga-a-Wagtail"
+
+msgid "Account"
+msgstr "Rongorua"
+
+msgid "Reset password"
+msgstr "Tautuhi anō tō kupu muna"
+
+msgid "Password change successful"
+msgstr "Kua momoho te panonitia ō tōu kupu muna"
+
+msgid "Login"
+msgstr "Takiuru"
+
+msgid "Set your new password"
+msgstr "Tatūnga tō kupu muna hou"
+
+msgid "Invalid password reset link"
+msgstr "He kupu muna hauā, tautuhi anō te hono"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "He hē te kupu muna hauā, tērā pea e mahi i te wā nei."
+
+msgid "Request a new password reset"
+msgstr "Tonongia he kupu muna hou hei tautahi anō"
+
+msgid "Check your email"
+msgstr "Tirohia ki tō Īmera"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Kua tonoa ki īmera he hono hei tautuhi anō tō kupu muna mēna ka tauoranga he "
+"rongorua mō tēnei mahi noho."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Whaiwhai te hono ki raro nei kia tautuhi tō kupu muna:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Tō ingoa kaiwhakamahi (mēna i wareware koe):"
+
+msgid "Password reset"
+msgstr "Kupu muna kia tautuhi anō"
+
+msgid "Reset your password"
+msgstr "Tautuhi anō tō kupu muna"
+
+msgid "Internal link"
+msgstr "Hono taiwhenua"
+
+msgid "External link"
+msgstr "Hono mōwaho"
+
+msgid "Email link"
+msgstr "Hono Īmera"
+
+msgid "Phone link"
+msgstr "Hono waea"
+
+msgid "Anchor link"
+msgstr "Hono punga"
+
+msgid "Add an anchor link"
+msgstr "Tāpiri he hono punga"
+
+msgid "Insert anchor"
+msgstr "Komotanga he punga"
+
+msgid "Choose"
+msgstr "Kōhiti"
+
+msgid "Choose a page"
+msgstr "Kōhiti he whārangi"
+
+msgid "Add an email link"
+msgstr "Tāpiri he hono Īmera"
+
+msgid "Insert link"
+msgstr "Komo he hono"
+
+msgid "Add an external link"
+msgstr "Tāpiri he hono mōwaho"
+
+msgid "Add a phone link"
+msgstr "Tāpiri he hono waea"
+
+msgid "Collection privacy"
+msgstr "Kohikohinga noho matatapu"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Ka taea e koe ki te whakarerekē ngā tautuhinga paraiweti ki:"
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Privacy"
+msgstr "Noho matatapu"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Mārakerake"
+
+msgid "Public"
+msgstr "Marea"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Matatapu"
+
+msgid "Private"
+msgstr "Matatapu"
+
+msgid "Name"
+msgstr "Ingoa"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Update"
+msgstr "Whakahou"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Naumai kī te %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Koinei tō papatohu. I konei ka taea e koe te tirohia ki ngā pārongo āwhina."
+
+msgid "Edit this page"
+msgstr "Whakarerekē i tēnei whārangi"
+
+msgid "Unlock"
+msgstr "Iriti"
+
+msgid "Pages awaiting moderation"
+msgstr "Ngā whārangi e tatari ana hei whakaōrite"
+
+msgid "Type"
+msgstr "Momo"
+
+msgid "Edited"
+msgstr "Kua whakarerekē"
+
+msgid "Approve"
+msgstr "Whakamiha"
+
+msgid "Reject"
+msgstr "Parahako"
+
+msgid "Preview"
+msgstr "Titiro"
+
+msgid "Your most recent edits"
+msgstr "Ou whakarerekē hou"
+
+msgid "Status"
+msgstr "Tūnga"
+
+msgid "Date"
+msgstr "Rā"
+
+msgid "Site summary"
+msgstr "Te pae whakarāpopototanga"
+
+msgid "Close"
+msgstr "Kōpani"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Kua whakamiha te whārangi \"%(title)s\""
+
+msgid "You can view the page here:"
+msgstr "Ka taea e koe te titiro kī te whārangi ki konei:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Kua whakamiha te whārangi \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Kua parahako te whārangi \"%(title)s\""
+
+msgid "You can edit the page here:"
+msgstr "Ka taea e koe kī te whakarerekē ī te whārangi ki konei:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Kua parahako te whārangi \"%(title)s\""
+
+msgid "You can preview the page here:"
+msgstr "Ka taea e koe te titiro kī te whārangi ki konei:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Kua tuohu te whārangi \"%(page)s\" hei whakaōrite"
+
+msgid "This page has been made private by a parent page."
+msgstr "He paraiweti tēnei whārangi mai i he matua whārangi."
+
+msgid "Saving…"
+msgstr "pupuru ana..."
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Hangaia he whārangi ki %(title)s"
+
+msgid "Create a page in"
+msgstr "Hangaia he whārangi ki "
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Kōwhiri he whārangi kei te pirangi koe ki te hanga."
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Muku %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
+
+msgid "Actions"
+msgstr "Hohenga"
+
+msgid "Comment"
+msgstr "Tākupu"
+
+msgid "Move up"
+msgstr "Mū ki runga"
+
+msgid "Move down"
+msgstr "Mū ki raro"
+
+msgid "Workflow"
+msgstr "Mahi pūheke"
+
+msgid "Started at"
+msgstr "Tīmata ki"
+
+msgid "Completed at"
+msgstr "I whakatutuki ki"
+
+msgid "Filter"
+msgstr "Tātari"
+
+msgid "Lock"
+msgstr "Raka"
+
+msgid "Usage"
+msgstr "Whakamahi"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)s taima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
+msgid "Page"
+msgstr "Whārangi"
+
+msgid "New"
+msgstr "Hou"
+
+msgid "Not started"
+msgstr "Kāhore ē timata"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s mai rā anō"
+
+msgid "Password"
+msgstr "Kupu muna"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' kua whakahou."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' kua hangaia."
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "Usage of"
+msgstr "Te whakamahi ō "
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Whakarerekē i tēnei %(object)s"
+
+msgid "Dashboard"
+msgstr "Papatohu"
+
+msgid "View live"
+msgstr "Mātaki mataora"
+
+msgid "Show"
+msgstr "Whakakite"
+
+msgid "Awaiting my review"
+msgstr "E tatari ana mō tōku arotake"
+
+msgid "Pages"
+msgstr "Ngā whārangi"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Whakarerekē '%(title)s'"
+
+msgid "Choose an item"
+msgstr "Kōwhiri he tūemi"
+
+msgid "Choose another item"
+msgstr "Kōwhiri anō he tūemi"
+
+msgid "Clear choice"
+msgstr "Kōwhiri whakapara"
+
+msgid "Choose another page"
+msgstr "Kōwhiri anō he whārangi"

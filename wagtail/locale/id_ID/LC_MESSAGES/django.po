@@ -1,0 +1,354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# Ronggo Radityo <radityo3000@yahoo.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail inti"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Jumlah isi minimum adalah %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Jumlah isi maksimum adalah %(max_num)d"
+
+msgid "Move up"
+msgstr "Geser ke atas"
+
+msgid "Move down"
+msgstr "Geser ke bawah"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "This block has no options."
+msgstr "Tidak ada pilihan untuk blok ini."
+
+msgid "This field is required."
+msgstr "Kolom ini harus diisi."
+
+msgid "Password"
+msgstr "Kata Sandi"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Locked"
+msgstr "Terkunci"
+
+msgid "Unlocked"
+msgstr "Kunci terbuka"
+
+msgid "live"
+msgstr "aktif"
+
+msgid "has unpublished changes"
+msgstr "memiliki perubahan yang belum dipublikasi"
+
+msgid "first published at"
+msgstr "pertama kali dipublikasi"
+
+msgid "last published at"
+msgstr "terakhir kali dipublikasi"
+
+msgid "go live date/time"
+msgstr "tanggal/jam aktif"
+
+msgid "expiry date/time"
+msgstr "tanggal/jam kadaluarsa"
+
+msgid "expired"
+msgstr "kadaluarsa"
+
+msgid "scheduled"
+msgstr "terjadwalkan"
+
+msgid "draft"
+msgstr "konsep"
+
+msgid "live + scheduled"
+msgstr "akitf + terjadwal"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
+
+msgid "Default"
+msgstr "Utama"
+
+msgid "locked"
+msgstr "terkunci"
+
+msgid "locked at"
+msgstr "Terkunci pada"
+
+msgid "locked by"
+msgstr "Dikunci oleh"
+
+msgid "in moderation"
+msgstr "dalam moderasi"
+
+msgid "Add/edit pages you own"
+msgstr "Tambah/ubah halaman anda sendiri"
+
+msgid "Bulk delete"
+msgstr "Hapus dalam jumlah besar"
+
+msgid "Delete pages with children"
+msgstr "Hapus halaman dan turunannya"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Edit any page"
+msgstr "Ubah halaman apapun"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Publish"
+msgstr "Publikasi"
+
+msgid "Publish any page"
+msgstr "Publikasi halaman manapun"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
+msgid "title"
+msgstr "judul"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Judul halaman yang ingin Anda tampilkan ke publik."
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Nama halaman ini yang akan tampil dalam URL, contoh http://namasitus.com/"
+"blog/[judul-slug]/"
+
+msgid "content type"
+msgstr "tipe konten"
+
+msgid "URL path"
+msgstr "jalur URL"
+
+msgid "owner"
+msgstr "pemilik"
+
+msgid "show in menus"
+msgstr "tampilkan dalam menu"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
+"otomatis"
+
+msgid "latest revision created at"
+msgstr "revisi terakhir dibuat pada"
+
+msgid "page"
+msgstr "halaman"
+
+msgid "pages"
+msgstr "halaman-halaman"
+
+msgid "submitted for moderation"
+msgstr "telah dikirim untuk moderasi"
+
+msgid "created at"
+msgstr "dibuat pada"
+
+msgid "user"
+msgstr "pemakai"
+
+msgid "content JSON"
+msgstr "JSON konten"
+
+msgid "approved go live at"
+msgstr "disetujui untuk tampil aktif pada"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "permission type"
+msgstr "jenis izin"
+
+msgid "group page permission"
+msgstr "izin grup halaman"
+
+msgid "group page permissions"
+msgstr "izin-izin grup halaman"
+
+msgid "page view restriction"
+msgstr "batasan penampilan halaman"
+
+msgid "page view restrictions"
+msgstr "semua batasan penampilan halaman"
+
+msgid "name"
+msgstr "nama"
+
+msgid "groups"
+msgstr "grup"
+
+msgid "Approve"
+msgstr "Menyetujui"
+
+msgid "collection"
+msgstr "koleksi"
+
+msgid "collection view restriction"
+msgstr "batasan penampilan koleksi"
+
+msgid "collection view restrictions"
+msgstr "semua batasan penampilan koleksi"
+
+msgid "collections"
+msgstr "koleksi-koleksi"
+
+msgid "group collection permission"
+msgstr "izin grup koleksi"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Aturlah ke selain 80 bila Anda perlu menampilkan nomor port dalam URL "
+"(contoh: pengembangan menggunakan port 8000). Hal ini tidak mempengaruhi "
+"penanganan permintaan (sehingga port forwarding tetap berfungsi)."
+
+msgid "site name"
+msgstr "Nama Situs"
+
+msgid "Human-readable name for the site."
+msgstr "Nama situs yang mudah dibaca manusia."
+
+msgid "root page"
+msgstr "halaman akar"
+
+msgid "is default site"
+msgstr "adalah situs utama"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Bila dipilih, situs ini akan menangani semua permintaan untuk hostname lain "
+"yang tidak memiliki pintu masuk sendiri."
+
+msgid "site"
+msgstr "situs"
+
+msgid "sites"
+msgstr "situs-situs"
+
+msgid "default"
+msgstr "default"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s telah diatur sebagai situs utama. Anda harus menghilangkan "
+"pengaturan tersebut sebelum Anda dapat menyimpan situs ini sebagai yang "
+"utama."
+
+msgid "Public"
+msgstr "Publik"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Pribadi, dapat diakses oleh pengguna yang telah masuk"
+
+msgid "Private, accessible with the following password"
+msgstr "Pribadi, dapat diakses menggunakan kata sandi berikut"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Pribadi, dapat diakses oleh pengguna dalam grup tertentu"
+
+msgid "password"
+msgstr "kata sandi"
+
+msgid "view restriction"
+msgstr "tampilkan batasan"
+
+msgid "view restrictions"
+msgstr "tampilkan semua batasan"
+
+msgid "Log in"
+msgstr "Masuk"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Nama pengguna dan kata sandi tidak cocok. Silahkan coba lagi."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Akun anda tidak dapat mengakses halaman ini. Untuk melanjutkan, harap masuk "
+"dengan akun lain yang memiliki hak akses."
+
+msgid "Password required"
+msgstr "Perlu kata sandi"
+
+msgid "You need a password to access this page."
+msgstr "Anda perlu kata sandi untuk mengakses halaman ini."
+
+msgid "Continue"
+msgstr "Lanjut"
+
+msgid "Edited"
+msgstr "Telah diubah"
+
+msgid "Unpublish"
+msgstr "Batal Publikasi"
+
+msgid "Reject"
+msgstr "Tolak"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Move"
+msgstr "Pindahkan"

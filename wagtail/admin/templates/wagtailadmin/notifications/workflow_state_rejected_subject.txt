@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags i18n %}
+
+{% if page %}
+    {% blocktrans trimmed with title=page.get_admin_display_title|safe workflow=workflow.name|safe %}The page "{{ title }}" has been rejected during "{{ workflow }}".{% endblocktrans %}
+{% else %}
+    {% latest_str object as title %}
+    {% blocktrans trimmed with title=title|safe workflow=workflow.name|safe model_name=model_name|safe asvar message %}
+        The {{ model_name }} "{{ title }}" has been rejected during "{{ workflow }}".
+    {% endblocktrans %}
+    {{ message|capfirst|safe }}
+{% endif %}

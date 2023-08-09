@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" id="main">
+        <h1>{% trans "Password change successful" %}</h1>
+        <footer class="form-actions">
+            <a href="{% url 'wagtailadmin_login' %}" class="button button-primary">{% trans "Login" %}</a>
+        </footer>
+    </main>
+{% endblock %}
