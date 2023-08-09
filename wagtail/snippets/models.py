@@ -96,7 +96,7 @@ def _register_snippet_immediately(registerable, viewset=None):
         # @register_snippet on class CustomViewSetGroup
         viewset_group = registerable()
         for admin_viewset in viewset_group.registerables:
-            register_snippet_viewset(admin_viewset)
+            viewsets.register(admin_viewset)
         viewset_group.on_register()
         return
 
@@ -113,16 +113,7 @@ def _register_snippet_immediately(registerable, viewset=None):
             viewset = SnippetViewSet
         admin_viewset = viewset(model=registerable)
 
-    register_snippet_viewset(admin_viewset)
-
-
-def register_snippet_viewset(viewset):
-    model = viewset.model
-    if model in SNIPPET_MODELS:
-        # Do not create duplicate registrations of the same model
-        return
-
-    viewsets.register(viewset)
+    viewsets.register(admin_viewset)
 
 
 def register_deferred_snippets():

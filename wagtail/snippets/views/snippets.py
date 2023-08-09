@@ -1537,6 +1537,10 @@ class SnippetViewSet(ModelViewSet):
 
     def register_snippet_model(self):
         snippet_models = get_snippet_models()
+        if self.model in snippet_models:
+            raise ImproperlyConfigured(
+                f"The {self.model.__name__} model is already registered as a snippet"
+            )
         snippet_models.append(self.model)
         snippet_models.sort(key=lambda x: x._meta.verbose_name)
 
