@@ -109,7 +109,7 @@ class FieldPanel(Panel):
         if not isinstance(choices, ModelChoiceIterator) and choices:
             labels = dict(choices)
             display_values = [
-                labels.get(v, v)  # Use raw value if no match found
+                str(labels.get(v, v))  # Use raw value if no match found
                 for v in (
                     # Account for single AND multiple choice fields
                     tuple(value)

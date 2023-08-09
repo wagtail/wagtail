@@ -22,6 +22,7 @@ Changelog
 
  * Introduce `wagtail.admin.ui.tables.BooleanColumn` to display boolean values as icons (Sage Abdullah)
  * Fix: Show not-`None` falsy values instead of blank in generic table cell template (Sage Abdullah)
+ * Fix: Fix `read_only` panels for fields with translatable choice labels (Florent Lebreton)
 
 
 5.1 (01.08.2023)
