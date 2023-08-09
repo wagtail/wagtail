@@ -1,15 +1,19 @@
+import calendar
+
 from django import forms
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template.response import TemplateResponse
+from django.urls import path
+from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
+from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
-
-from .models import ModelWithStringTypePrimaryKey
+from wagtail.test.testapp.models import ModelWithStringTypePrimaryKey
 
 
 def user_is_called_bob(user):
@@ -81,3 +85,70 @@ class TestDeleteView(DeleteView):
     delete_url_name = "testapp_generic_delete"
     success_message = gettext_lazy("User '%(object)s' updated.")
     page_title = gettext_lazy("test delete view")
+
+
+class CalendarViewSet(ViewSet):
+    menu_label = "The Calendar"
+    icon = "date"
+    name = "calendar"
+    template_name = "tests/misc/calendar.html"
+
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.now = timezone.now()
+
+    def index(self, request):
+        calendar_html = calendar.HTMLCalendar().formatyear(self.now.year)
+        return render(
+            request,
+            self.template_name,
+            {
+                "calendar_html": calendar_html,
+                "page_title": f"{self.now.year} calendar",
+                "header_icon": self.icon,
+            },
+        )
+
+    def month(self, request):
+        calendar_html = calendar.HTMLCalendar().formatmonth(
+            self.now.year, self.now.month
+        )
+        return render(
+            request,
+            self.template_name,
+            {
+                "calendar_html": calendar_html,
+                "page_title": f"{self.now.year}/{self.now.month} calendar",
+                "header_icon": self.icon,
+            },
+        )
+
+    def get_urlpatterns(self):
+        return [
+            path("", self.index, name="index"),
+            path("month/", self.month, name="month"),
+        ]
+
+
+class GreetingsViewSet(ViewSet):
+    menu_label = "The Greetings"
+    icon = "user"
+    url_namespace = "greetings"
+    url_prefix = "greetingz"
+
+    def index(self, request):
+        return render(
+            request,
+            "tests/misc/greetings.html",
+            {"page_title": "Greetings", "header_icon": self.icon},
+        )
+
+    def get_urlpatterns(self):
+        return [
+            path("", self.index, name="index"),
+        ]
+
+
+class MiscellaneousViewSetGroup(ViewSetGroup):
+    items = (CalendarViewSet, GreetingsViewSet)
+    menu_label = "Miscellaneous"

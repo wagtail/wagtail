@@ -30,6 +30,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     VariousOnDeleteModel,
 )
+from wagtail.test.testapp.views import MiscellaneousViewSetGroup
 
 from .forms import FavouriteColourForm
 
@@ -240,6 +241,11 @@ class BrokenLinksSummaryItem(SummaryItem):
 @hooks.register("construct_homepage_summary_items")
 def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
+
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return MiscellaneousViewSetGroup()
 
 
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
