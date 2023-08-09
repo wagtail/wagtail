@@ -1525,6 +1525,9 @@ class SnippetViewSet(ModelViewSet):
     def get_form_class(self, for_update=False):
         return self._edit_handler.get_form_class()
 
+    def register_chooser_viewset(self):
+        viewsets.register(self.chooser_viewset)
+
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
             return check_panels_in_model(self.model, "snippets")
@@ -1536,7 +1539,7 @@ class SnippetViewSet(ModelViewSet):
         # For convenience, attach viewset to the model class to allow accessing
         # the configuration of a given model.
         self.model.snippet_viewset = self
-        viewsets.register(self.chooser_viewset)
+        self.register_chooser_viewset()
         self.register_model_check()
 
 
