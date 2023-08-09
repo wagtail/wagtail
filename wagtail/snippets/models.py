@@ -4,7 +4,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.db import DEFAULT_DB_ALIAS
+from django.db import DEFAULT_DB_ALIAS, models
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
@@ -83,37 +83,30 @@ def register_snippet(registerable, viewset=None):
 def _register_snippet_immediately(registerable, viewset=None):
     # Register the viewset and formfield for this snippet model,
     # skipping the check for whether models are loaded
-
-    from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+    from wagtail.snippets.views.snippets import SnippetViewSet
 
     if isinstance(registerable, str):
         registerable = import_string(registerable)
     if isinstance(viewset, str):
         viewset = import_string(viewset)
 
-    if issubclass(registerable, SnippetViewSetGroup):
-        # register_snippet(CustomViewSetGroup) or
-        # @register_snippet on class CustomViewSetGroup
-        viewset_group = registerable()
-        for admin_viewset in viewset_group.registerables:
-            viewsets.register(admin_viewset)
-        viewset_group.on_register()
-        return
-
-    if issubclass(registerable, SnippetViewSet):
-        # register_snippet(CustomViewSet) or
-        # @register_snippet on class CustomViewSet
-        # Note: the viewset class must define a `model` attribute
-        admin_viewset = registerable()
-    else:
+    if isinstance(registerable, type) and issubclass(registerable, models.Model):
+        # Legacy-style registration, using a model class as the `registerable`
         # register_snippet(SnippetModel, viewset=CustomViewSet) or
         # register_snippet(SnippetModel) or
         # @register_snippet on class SnippetModel
         if viewset is None:
             viewset = SnippetViewSet
-        admin_viewset = viewset(model=registerable)
+        registerable = viewset(model=registerable)
 
-    viewsets.register(admin_viewset)
+    if callable(registerable):
+        # The registerable is likely a ViewSet/ViewSetGroup class with all the
+        # options configured on the class, but it may also be a function that
+        # returns a ViewSet/ViewSetGroup instance.
+        registerable = registerable()
+
+    # Registerable has been resolved to a ViewSet/ViewSetGroup instance
+    viewsets.register(registerable)
 
 
 def register_deferred_snippets():
