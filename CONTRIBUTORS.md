@@ -722,6 +722,7 @@
 * Henry Harutyunyan
 * Alex Morega
 * Scott Foster
+* Florent Lebreton
 
 ## Translators
 

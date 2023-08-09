@@ -81,8 +81,8 @@ from wagtail.snippets.models import register_snippet
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
-    ("public", "Public"),
-    ("private", "Private"),
+    ("public", _("Public")),
+    ("private", _("Private")),
 )
 
 
