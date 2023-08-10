@@ -8,6 +8,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.views import generic
+from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
 
 from .base import ViewSet, ViewSetGroup
@@ -183,6 +184,9 @@ class ModelViewSet(ViewSet):
     def register_admin_url_finder(self):
         register_admin_url_finder(self.model, self.url_finder_class)
 
+    def register_reference_index(self):
+        ReferenceIndex.register_model(self.model)
+
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path("", self.index_view, name="index"),
@@ -195,6 +199,7 @@ class ModelViewSet(ViewSet):
     def on_register(self):
         super().on_register()
         self.register_admin_url_finder()
+        self.register_reference_index()
 
 
 class ModelViewSetGroup(ViewSetGroup):
