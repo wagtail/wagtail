@@ -53,8 +53,6 @@ class PermissionPanelFormsMixin:
 
 
 class IndexView(generic.IndexView):
-    template_name = "wagtailusers/groups/index.html"
-    results_template_name = "wagtailusers/groups/results.html"
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")
@@ -77,7 +75,6 @@ class IndexView(generic.IndexView):
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '%(object)s' created.")
-    template_name = "wagtailusers/groups/create.html"
 
     def post(self, request, *args, **kwargs):
         """
@@ -116,7 +113,6 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
     error_message = _("The group could not be saved due to errors.")
     delete_item_label = _("Delete group")
     context_object_name = "group"
-    template_name = "wagtailusers/groups/edit.html"
 
     def post(self, request, *args, **kwargs):
         """
@@ -153,7 +149,6 @@ class DeleteView(generic.DeleteView):
     success_message = _("Group '%(object)s' deleted.")
     page_title = _("Delete group")
     confirmation_message = _("Are you sure you want to delete this group?")
-    template_name = "wagtailusers/groups/confirm_delete.html"
 
 
 class GroupViewSet(ModelViewSet):
@@ -165,6 +160,11 @@ class GroupViewSet(ModelViewSet):
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
+
+    template_prefix = "wagtailusers/groups/"
+    # ModelViewSet looks for listing_results.html within the template prefix,
+    # so we need to override it.
+    index_results_template_name = "wagtailusers/groups/results.html"
 
     @property
     def users_view(self):

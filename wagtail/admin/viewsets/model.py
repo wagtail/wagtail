@@ -39,7 +39,7 @@ class ModelViewSet(ViewSet):
     delete_view_class = generic.DeleteView
 
     #: The prefix of template names to look for when rendering the admin views.
-    template_prefix = ""
+    template_prefix = "wagtailadmin/generic/"
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
