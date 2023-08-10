@@ -75,12 +75,12 @@ def format_permissions(permission_bound_field):
         content_perms_dict = {}
         custom_perms = []
 
-        if content_perms[0].content_type.name == "admin":
-            perm = content_perms[0]
-            other_perms.append((perm, checkboxes_by_id[perm.id]))
-            continue
-
         for perm in content_perms:
+            # All 'wagtailadmin.admin' perms should be separate rows
+            if perm.content_type.name == "admin":
+                other_perms.append((perm, checkboxes_by_id[perm.id]))
+                continue
+
             content_perms_dict["object"] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
             # identify the main categories of permission, and assign to
