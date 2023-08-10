@@ -131,6 +131,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
     def get_template_names(self):
         if self.results_only:
+            if isinstance(self.results_template_name, (list, tuple)):
+                return self.results_template_name
             return [self.results_template_name]
         else:
             return super().get_template_names()
