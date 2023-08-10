@@ -73,6 +73,37 @@ class ModelViewSet(ViewSet):
             "header_icon": self.icon,
         }
 
+    def get_add_view_kwargs(self):
+        return {
+            "model": self.model,
+            "permission_policy": self.permission_policy,
+            "form_class": self.get_form_class(),
+            "index_url_name": self.get_url_name("index"),
+            "add_url_name": self.get_url_name("add"),
+            "edit_url_name": self.get_url_name("edit"),
+            "header_icon": self.icon,
+        }
+
+    def get_edit_view_kwargs(self):
+        return {
+            "model": self.model,
+            "permission_policy": self.permission_policy,
+            "form_class": self.get_form_class(for_update=True),
+            "index_url_name": self.get_url_name("index"),
+            "edit_url_name": self.get_url_name("edit"),
+            "delete_url_name": self.get_url_name("delete"),
+            "header_icon": self.icon,
+        }
+
+    def get_delete_view_kwargs(self):
+        return {
+            "model": self.model,
+            "permission_policy": self.permission_policy,
+            "index_url_name": self.get_url_name("index"),
+            "delete_url_name": self.get_url_name("delete"),
+            "header_icon": self.icon,
+        }
+
     @property
     def index_view(self):
         return self.index_view_class.as_view(
@@ -89,35 +120,19 @@ class ModelViewSet(ViewSet):
     @property
     def add_view(self):
         return self.add_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            form_class=self.get_form_class(),
-            index_url_name=self.get_url_name("index"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            header_icon=self.icon,
+            **self.get_add_view_kwargs(),
         )
 
     @property
     def edit_view(self):
         return self.edit_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            form_class=self.get_form_class(for_update=True),
-            index_url_name=self.get_url_name("index"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            header_icon=self.icon,
+            **self.get_edit_view_kwargs(),
         )
 
     @property
     def delete_view(self):
         return self.delete_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("index"),
-            delete_url_name=self.get_url_name("delete"),
-            header_icon=self.icon,
+            **self.get_delete_view_kwargs(),
         )
 
     @cached_property
