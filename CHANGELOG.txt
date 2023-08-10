@@ -16,6 +16,13 @@ Changelog
  * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
 
 
+5.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Introduce `wagtail.admin.ui.tables.BooleanColumn` to display boolean values as icons (Sage Abdullah)
+ * Fix: Show not-`None` falsy values instead of blank in generic table cell template (Sage Abdullah)
+
+
 5.1 (01.08.2023)
 ~~~~~~~~~~~~~~~~
 
