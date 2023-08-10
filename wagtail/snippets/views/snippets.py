@@ -862,19 +862,14 @@ class SnippetViewSet(ModelViewSet):
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
-    @property
-    def index_view(self):
-        return self.index_view_class.as_view(
-            model=self.model,
+    def get_index_view_kwargs(self, **kwargs):
+        return super().get_index_view_kwargs(
             queryset=self.get_queryset,
             template_name=self.get_index_template(),
-            header_icon=self.icon,
+            results_template_name=self.get_index_results_template(),
             filterset_class=self.filterset_class,
-            permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             list_display=self.list_display,
             list_filter=self.list_filter,
@@ -884,60 +879,23 @@ class SnippetViewSet(ModelViewSet):
             default_ordering=self.ordering,
             search_fields=self.search_fields,
             search_backend_name=self.search_backend_name,
+            **kwargs,
         )
 
-    @property
-    def index_results_view(self):
-        return self.index_view_class.as_view(
-            model=self.model,
-            queryset=self.get_queryset,
-            template_name=self.get_index_results_template(),
-            header_icon=self.icon,
-            filterset_class=self.filterset_class,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            index_results_url_name=self.get_url_name("list_results"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
-            list_filter=self.list_filter,
-            list_export=self.list_export,
-            export_filename=self.get_export_filename(),
-            paginate_by=self.list_per_page,
-            default_ordering=self.ordering,
-            search_fields=self.search_fields,
-            search_backend_name=self.search_backend_name,
-        )
-
-    @property
-    def add_view(self):
-        return self.add_view_class.as_view(
-            model=self.model,
+    def get_add_view_kwargs(self, **kwargs):
+        return super().get_add_view_kwargs(
             template_name=self.get_create_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
             panel=self._edit_handler,
-            form_class=self.get_form_class(),
             index_url_name=self.get_url_name("list"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
             preview_url_name=self.get_url_name("preview_on_add"),
+            **kwargs,
         )
 
-    @property
-    def edit_view(self):
-        # Any parameters passed here must also be passed in revisions_revert_view.
-        return self.edit_view_class.as_view(
-            model=self.model,
+    def get_edit_view_kwargs(self, **kwargs):
+        return super().get_edit_view_kwargs(
             template_name=self.get_edit_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
             panel=self._edit_handler,
-            form_class=self.get_form_class(for_update=True),
             index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
             lock_url_name=self.get_url_name("lock"),
@@ -949,18 +907,15 @@ class SnippetViewSet(ModelViewSet):
             confirm_workflow_cancellation_url_name=self.get_url_name(
                 "confirm_workflow_cancellation"
             ),
+            **kwargs,
         )
 
-    @property
-    def delete_view(self):
-        return self.delete_view_class.as_view(
-            model=self.model,
+    def get_delete_view_kwargs(self, **kwargs):
+        return super().get_delete_view_kwargs(
             template_name=self.get_delete_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
-            delete_url_name=self.get_url_name("delete"),
             usage_url_name=self.get_url_name("usage"),
+            **kwargs,
         )
 
     @property
@@ -1012,27 +967,8 @@ class SnippetViewSet(ModelViewSet):
     @property
     def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
-            model=self.model,
-            template_name=self.get_edit_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            panel=self._edit_handler,
-            form_class=self.get_form_class(for_update=True),
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            history_url_name=self.get_url_name("history"),
-            preview_url_name=self.get_url_name("preview_on_edit"),
-            lock_url_name=self.get_url_name("lock"),
-            unlock_url_name=self.get_url_name("unlock"),
-            usage_url_name=self.get_url_name("usage"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
+            **self.get_edit_view_kwargs(),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
-            workflow_history_url_name=self.get_url_name("workflow_history"),
-            confirm_workflow_cancellation_url_name=self.get_url_name(
-                "confirm_workflow_cancellation"
-            ),
         )
 
     @property
