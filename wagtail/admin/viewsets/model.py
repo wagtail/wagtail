@@ -62,7 +62,7 @@ class ModelViewSet(ViewSet):
         """
         return self.model_name
 
-    def get_index_view_kwargs(self):
+    def get_index_view_kwargs(self, **kwargs):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
@@ -71,9 +71,10 @@ class ModelViewSet(ViewSet):
             "add_url_name": self.get_url_name("add"),
             "edit_url_name": self.get_url_name("edit"),
             "header_icon": self.icon,
+            **kwargs,
         }
 
-    def get_add_view_kwargs(self):
+    def get_add_view_kwargs(self, **kwargs):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
@@ -82,9 +83,10 @@ class ModelViewSet(ViewSet):
             "add_url_name": self.get_url_name("add"),
             "edit_url_name": self.get_url_name("edit"),
             "header_icon": self.icon,
+            **kwargs,
         }
 
-    def get_edit_view_kwargs(self):
+    def get_edit_view_kwargs(self, **kwargs):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
@@ -93,15 +95,17 @@ class ModelViewSet(ViewSet):
             "edit_url_name": self.get_url_name("edit"),
             "delete_url_name": self.get_url_name("delete"),
             "header_icon": self.icon,
+            **kwargs,
         }
 
-    def get_delete_view_kwargs(self):
+    def get_delete_view_kwargs(self, **kwargs):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
             "index_url_name": self.get_url_name("index"),
             "delete_url_name": self.get_url_name("delete"),
             "header_icon": self.icon,
+            **kwargs,
         }
 
     @property
