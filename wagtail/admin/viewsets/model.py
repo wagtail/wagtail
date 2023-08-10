@@ -38,6 +38,9 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
 
+    #: The prefix of template names to look for when rendering the admin views.
+    template_prefix = ""
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -66,6 +69,8 @@ class ModelViewSet(ViewSet):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
+            "template_name": self.index_template_name,
+            "results_template_name": self.index_results_template_name,
             "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
             "add_url_name": self.get_url_name("add"),
@@ -79,6 +84,7 @@ class ModelViewSet(ViewSet):
             "model": self.model,
             "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(),
+            "template_name": self.create_template_name,
             "index_url_name": self.get_url_name("index"),
             "add_url_name": self.get_url_name("add"),
             "edit_url_name": self.get_url_name("edit"),
@@ -91,6 +97,7 @@ class ModelViewSet(ViewSet):
             "model": self.model,
             "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(for_update=True),
+            "template_name": self.edit_template_name,
             "index_url_name": self.get_url_name("index"),
             "edit_url_name": self.get_url_name("edit"),
             "delete_url_name": self.get_url_name("delete"),
@@ -102,6 +109,7 @@ class ModelViewSet(ViewSet):
         return {
             "model": self.model,
             "permission_policy": self.permission_policy,
+            "template_name": self.delete_template_name,
             "index_url_name": self.get_url_name("index"),
             "delete_url_name": self.get_url_name("delete"),
             "header_icon": self.icon,
@@ -137,6 +145,98 @@ class ModelViewSet(ViewSet):
     def delete_view(self):
         return self.delete_view_class.as_view(
             **self.get_delete_view_kwargs(),
+        )
+
+    def get_templates(self, action="index", fallback=""):
+        """
+        Utility function that provides a list of templates to try for a given
+        view, when the template isn't overridden by one of the template
+        attributes on the class.
+        """
+        if not self.template_prefix:
+            return [fallback]
+        templates = [
+            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
+            f"{self.template_prefix}{self.app_label}/{action}.html",
+            f"{self.template_prefix}{action}.html",
+        ]
+        if fallback:
+            templates.append(fallback)
+        return templates
+
+    @cached_property
+    def index_template_name(self):
+        """
+        A template to be used when rendering ``index_view``.
+
+        Default: if :attr:`template_prefix` is specified, an ``index.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``index_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "index",
+            fallback=self.index_view_class.template_name,
+        )
+
+    @cached_property
+    def index_results_template_name(self):
+        """
+        A template to be used when rendering ``index_results_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``index_results.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``index_view_class.results_template_name`` will be used.
+        """
+        return self.get_templates(
+            "index_results",
+            fallback=self.index_view_class.results_template_name,
+        )
+
+    @cached_property
+    def create_template_name(self):
+        """
+        A template to be used when rendering ``create_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``create.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``add_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "create",
+            fallback=self.add_view_class.template_name,
+        )
+
+    @cached_property
+    def edit_template_name(self):
+        """
+        A template to be used when rendering ``edit_view``.
+
+        Default: if :attr:`template_prefix` is specified, an ``edit.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``edit_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "edit",
+            fallback=self.edit_view_class.template_name,
+        )
+
+    @cached_property
+    def delete_template_name(self):
+        """
+        A template to be used when rendering ``delete_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``delete.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``delete_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "delete",
+            fallback=self.delete_view_class.template_name,
         )
 
     @cached_property

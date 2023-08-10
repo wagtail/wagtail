@@ -777,27 +777,6 @@ class SnippetViewSet(ModelViewSet):
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = "wagtailsnippets/snippets/"
 
-    #: The template to use for the index view.
-    index_template_name = ""
-
-    #: The template to use for the results in the index view.
-    index_results_template_name = ""
-
-    #: The template to use for the create view.
-    create_template_name = ""
-
-    #: The template to use for the edit view.
-    edit_template_name = ""
-
-    #: The template to use for the delete view.
-    delete_template_name = ""
-
-    #: The template to use for the history view.
-    history_template_name = ""
-
-    #: The template to use for the inspect view.
-    inspect_template_name = ""
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -865,8 +844,6 @@ class SnippetViewSet(ModelViewSet):
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(
             queryset=self.get_queryset,
-            template_name=self.get_index_template(),
-            results_template_name=self.get_index_results_template(),
             filterset_class=self.filterset_class,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
@@ -884,7 +861,6 @@ class SnippetViewSet(ModelViewSet):
 
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
-            template_name=self.get_create_template(),
             panel=self._edit_handler,
             index_url_name=self.get_url_name("list"),
             preview_url_name=self.get_url_name("preview_on_add"),
@@ -893,7 +869,6 @@ class SnippetViewSet(ModelViewSet):
 
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
-            template_name=self.get_edit_template(),
             panel=self._edit_handler,
             index_url_name=self.get_url_name("list"),
             history_url_name=self.get_url_name("history"),
@@ -912,7 +887,6 @@ class SnippetViewSet(ModelViewSet):
 
     def get_delete_view_kwargs(self, **kwargs):
         return super().get_delete_view_kwargs(
-            template_name=self.get_delete_template(),
             index_url_name=self.get_url_name("list"),
             usage_url_name=self.get_url_name("usage"),
             **kwargs,
@@ -1205,76 +1179,119 @@ class SnippetViewSet(ModelViewSet):
     def get_export_filename(self):
         return self.export_filename or self.model_opts.db_table
 
-    def get_templates(self, action="index", fallback=""):
-        """
-        Utility function that provides a list of templates to try for a given
-        view, when the template isn't overridden by one of the template
-        attributes on the class.
-        """
-        templates = [
-            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
-            f"{self.template_prefix}{self.app_label}/{action}.html",
-            f"{self.template_prefix}{action}.html",
-        ]
-        if fallback:
-            templates.append(fallback)
-        return templates
+    @cached_property
+    def index_template_name(self):
+        return self.get_index_template()
 
     def get_index_template(self):
         """
         Returns a template to be used when rendering ``index_view``. If a
         template is specified by the ``index_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``index_template_name`` property.
         """
-        return self.index_template_name or self.get_templates("index")
+        return self.get_templates("index")
+
+    @cached_property
+    def index_results_template_name(self):
+        return self.get_index_results_template()
 
     def get_index_results_template(self):
         """
         Returns a template to be used when rendering ``index_results_view``. If a
         template is specified by the ``index_results_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``index_results_template_name`` property.
         """
-        return self.index_results_template_name or self.get_templates("index_results")
+        return self.get_templates("index_results")
+
+    @cached_property
+    def create_template_name(self):
+        return self.get_create_template()
 
     def get_create_template(self):
         """
         Returns a template to be used when rendering ``create_view``. If a
         template is specified by the ``create_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``create_template_name`` property.
         """
-        return self.create_template_name or self.get_templates("create")
+        return self.get_templates("create")
+
+    @cached_property
+    def edit_template_name(self):
+        return self.get_edit_template()
 
     def get_edit_template(self):
         """
         Returns a template to be used when rendering ``edit_view``. If a
         template is specified by the ``edit_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``edit_template_name`` property.
         """
-        return self.edit_template_name or self.get_templates("edit")
+        return self.get_templates("edit")
+
+    @cached_property
+    def delete_template_name(self):
+        return self.get_delete_template()
 
     def get_delete_template(self):
         """
         Returns a template to be used when rendering ``delete_view``. If a
         template is specified by the ``delete_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``delete_template_name`` property.
         """
-        return self.delete_template_name or self.get_templates("delete")
+        return self.get_templates("delete")
+
+    @cached_property
+    def history_template_name(self):
+        """
+        A template to be used when rendering ``history_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``history.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``history_view_class.template_name`` will be used.
+        """
+        return self.get_history_template()
 
     def get_history_template(self):
         """
         Returns a template to be used when rendering ``history_view``. If a
         template is specified by the ``history_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``history_template_name`` property.
         """
-        return self.history_template_name or self.get_templates("history")
+        return self.get_templates("history")
+
+    @cached_property
+    def inspect_template_name(self):
+        """
+        A template to be used when rendering ``inspect_view``.
+
+        Default: if :attr:`template_prefix` is specified, an ``inspect.html``
+        template in the prefix directory and its app_label/model_name
+        subdirectories will be used. Otherwise, the
+        ``inspect_view_class.template_name`` will be used.
+        """
+        return self.get_inspect_template()
 
     def get_inspect_template(self):
         """
         Returns a template to be used when rendering ``inspect_view``. If a
         template is specified by the ``inspect_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``inspect_template_name`` property.
         """
-        return self.inspect_template_name or self.get_templates(
+        return self.get_templates(
             "inspect", fallback=self.inspect_view_class.template_name
         )
 
