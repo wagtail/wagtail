@@ -40,23 +40,20 @@ class ModelViewSet(ViewSet):
     delete_view_class = generic.DeleteView
 
     def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs)
         if not self.model:
             raise ImproperlyConfigured(
-                f"ModelViewSet subclass {repr(self)} must define a model attribute"
+                f"ModelViewSet subclass {repr(self)} must define "
+                "a model attribute or pass a model argument"
             )
 
-        # Set these before calling super().__init__() so they can be used
-        # in get_admin_url_namespace() and get_admin_base_path(), which are
-        # called by super().__init__().
         self.model_opts = self.model._meta
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
 
-        super().__init__(
-            name=name or self.get_admin_url_namespace(),
-            url_prefix=kwargs.pop("url_prefix", self.get_admin_base_path()),
-            **kwargs,
-        )
+        # Allow the URL namespace and prefix to be overridden via these methods.
+        self.name = self.name or self.get_admin_url_namespace()
+        self.url_prefix = self.url_prefix or self.get_admin_base_path()
 
     @property
     def permission_policy(self):

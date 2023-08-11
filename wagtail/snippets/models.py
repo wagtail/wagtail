@@ -111,14 +111,7 @@ def _register_snippet_immediately(registerable, viewset=None):
         # @register_snippet on class SnippetModel
         if viewset is None:
             viewset = SnippetViewSet
-        # The viewset class may be reusable, so create a new class with the
-        # model attribute set to the model being registered
-        viewset = type(
-            f"{registerable.__name__}ViewSet",
-            (viewset,),
-            {"model": registerable},
-        )
-        admin_viewset = viewset()
+        admin_viewset = viewset(model=registerable)
 
     register_snippet_viewset(admin_viewset)
 
