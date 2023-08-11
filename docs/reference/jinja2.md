@@ -70,18 +70,37 @@ See [](slugurl_tag) for more information
 
 ### `image()`
 
-Resize an image, and print an `<img>` tag:
+Resize an image, and render an `<img>` tag:
 
 ```html+jinja
-{# Print an image tag #}
 {{ image(page.header_image, "fill-1024x200", class="header-image") }}
+```
 
-{# Resize an image #}
+Or resize an image and retrieve the resized image object (rendition) for more bespoke use:
+
+```html+jinja
 {% set background=image(page.background_image, "max-1024x1024") %}
-<div class="wrapper" style="background-image: url({{ background.url }});">
+<div class="wrapper" style="background-image: url({{ background.url }});"></div>
 ```
 
 See [](image_tag) for more information
+
+### `srcset_image()`
+
+Resize an image, and render an `<img>` tag including `srcset` with multiple sizes.
+Browsers will select the most appropriate image to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+The `sizes` attribute is mandatory unless you store the output of `srcset_image` for later use.
+
+```html+jinja
+{{ srcset_image(page.header_image, "fill-{512x100,1024x200}", sizes="100vw", class="header-image") }}
+```
+
+Or resize an image and retrieve the renditions for more bespoke use:
+
+```html+jinja
+{% set bg=srcset_image(page.background_image, "max-{512x512,1024x1024}") %}
+<div class="wrapper" style="background-image: image-set(url({{ bg.renditions[0].url }}) 1x, url({{ bg.renditions[1].url }}) 2x);"></div>
+```
 
 ### `|richtext`
 

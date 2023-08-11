@@ -7,13 +7,14 @@ from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
 from wagtail.images.models import (
     Filter,
     Rendition,
+    ResponsiveImage,
     SourceImageIOError,
     get_rendition_storage,
 )
@@ -26,7 +27,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils, override_settings
 
-from .utils import Image, get_test_image_file
+from .utils import Image, get_test_image_file, get_test_image_filename
 
 
 class CustomStorage(Storage):
@@ -236,6 +237,147 @@ class TestImagePermissions(WagtailTestUtils, TestCase):
         self.assertFalse(self.image.is_editable_by_user(self.user))
 
 
+class TestFilters(SimpleTestCase):
+    def test_expand_spec_single(self):
+        self.assertEqual(Filter.expand_spec("width-100"), ["width-100"])
+
+    def test_expand_spec_flat(self):
+        self.assertEqual(
+            Filter.expand_spec("width-100 jpegquality-20"), ["width-100|jpegquality-20"]
+        )
+
+    def test_expand_spec_pipe(self):
+        self.assertEqual(
+            Filter.expand_spec("width-100|jpegquality-20"), ["width-100|jpegquality-20"]
+        )
+
+    def test_expand_spec_list(self):
+        self.assertEqual(
+            Filter.expand_spec(["width-100", "jpegquality-20"]),
+            ["width-100|jpegquality-20"],
+        )
+
+    def test_expand_spec_braced(self):
+        self.assertEqual(
+            Filter.expand_spec("width-{100,200}"), ["width-100", "width-200"]
+        )
+
+    def test_expand_spec_mixed(self):
+        self.assertEqual(
+            Filter.expand_spec("width-{100,200} jpegquality-40"),
+            ["width-100|jpegquality-40", "width-200|jpegquality-40"],
+        )
+
+    def test_expand_spec_mixed_pipe(self):
+        self.assertEqual(
+            Filter.expand_spec("width-{100,200}|jpegquality-40"),
+            ["width-100|jpegquality-40", "width-200|jpegquality-40"],
+        )
+
+    def test_expand_spec_multiple_braces(self):
+        self.assertEqual(
+            Filter.expand_spec("width-{100,200} jpegquality-{40,80} grayscale"),
+            [
+                "width-100|jpegquality-40|grayscale",
+                "width-100|jpegquality-80|grayscale",
+                "width-200|jpegquality-40|grayscale",
+                "width-200|jpegquality-80|grayscale",
+            ],
+        )
+
+
+class TestResponsiveImage(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.rendition_10 = self.image.get_rendition("width-10")
+
+    def test_construct_empty(self):
+        img = ResponsiveImage({})
+        self.assertEqual(img.renditions, [])
+        self.assertEqual(img.attrs, None)
+
+    def test_construct_with_renditions(self):
+        renditions = {"a": self.rendition_10}
+        img = ResponsiveImage(renditions)
+        self.assertEqual(img.renditions, [self.rendition_10])
+
+    def test_evaluate_value(self):
+        self.assertFalse(ResponsiveImage({}))
+        self.assertFalse(ResponsiveImage({}, {"sizes": "100vw"}))
+
+        renditions = {"a": self.rendition_10}
+        self.assertTrue(ResponsiveImage(renditions))
+
+    def test_compare_value(self):
+        renditions = {"a": self.rendition_10}
+        value1 = ResponsiveImage(renditions)
+        value2 = ResponsiveImage(renditions)
+        value3 = ResponsiveImage({"a": self.image.get_rendition("width-15")})
+        value4 = ResponsiveImage(renditions, {"sizes": "100vw"})
+        self.assertNotEqual(value1, value3)
+        self.assertNotEqual(value1, 12345)
+        self.assertEqual(value1, value2)
+        self.assertNotEqual(value1, value4)
+
+    def test_get_width_srcset(self):
+        renditions = {
+            "width-10": self.rendition_10,
+            "width-90": self.image.get_rendition("width-90"),
+        }
+        filenames = [
+            get_test_image_filename(self.image, "width-10"),
+            get_test_image_filename(self.image, "width-90"),
+        ]
+        self.assertEqual(
+            ResponsiveImage.get_width_srcset(list(renditions.values())),
+            f"{filenames[0]} 10w, {filenames[1]} 90w",
+        )
+
+    def test_get_width_srcset_single_rendition(self):
+        renditions = {"width-10": self.rendition_10}
+        self.assertEqual(
+            ResponsiveImage.get_width_srcset(list(renditions.values())),
+            get_test_image_filename(self.image, "width-10"),
+        )
+
+    def test_render(self):
+        renditions = {
+            "width-10": self.rendition_10,
+            "width-90": self.image.get_rendition("width-90"),
+        }
+        img = ResponsiveImage(renditions)
+        filenames = [
+            get_test_image_filename(self.image, "width-10"),
+            get_test_image_filename(self.image, "width-90"),
+        ]
+        self.assertHTMLEqual(
+            img.__html__(),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{filenames[0]}"
+                    srcset="{filenames[0]} 10w, {filenames[1]} 90w"
+                    width="10"
+                    height="7"
+                >
+            """,
+        )
+
+    def test_render_single_image_same_as_img_tag(self):
+        renditions = {
+            "width-10": self.rendition_10,
+        }
+        img = ResponsiveImage(renditions)
+        self.assertHTMLEqual(
+            img.__html__(),
+            self.rendition_10.img_tag(),
+        )
+
+
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 )
@@ -288,6 +430,14 @@ class TestRenditions(TestCase):
         # Get two renditions with the same filter
         first_rendition = self.image.get_rendition("width-400")
         second_rendition = self.image.get_rendition("width-400")
+
+        # Check that they are the same object
+        self.assertEqual(first_rendition, second_rendition)
+
+    def test_get_with_filter_instance(self):
+        # Get two renditions with the same filter
+        first_rendition = self.image.get_rendition("width-400")
+        second_rendition = self.image.get_rendition(Filter("width-400"))
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
@@ -363,6 +513,21 @@ class TestRenditions(TestCase):
             third_rendition = image.get_rendition("height-66")
 
         self.assertIs(second_rendition, third_rendition)
+
+    def test_get_renditions_with_filter_instance(self):
+        # Get two renditions with the same filter
+        first = list(self.image.get_renditions("width-400").values())
+        second = list(self.image.get_renditions(Filter("width-400")).values())
+
+        # Check that they are the same object
+        self.assertEqual(first[0], second[0])
+
+    def test_get_renditions_key_order(self):
+        # Fetch one of the renditions so it exists before the other two.
+        self.image.get_rendition("width-40")
+        specs = ["width-30", "width-40", "width-50"]
+        renditions_keys = list(self.image.get_renditions(*specs).keys())
+        self.assertEqual(renditions_keys, specs)
 
     def _test_get_renditions_performance(
         self,

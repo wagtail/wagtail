@@ -38,13 +38,13 @@ See also: [](image_tag)
 
 ## Generating multiple renditions for an image
 
-You can generate multiple renditions of the same image from Python using the native `get_renditions()` method. It will accept any number of 'specification' strings, and will generate a set of matching renditions much more efficiently than generating each one individually. For example:
+You can generate multiple renditions of the same image from Python using the native `get_renditions()` method. It will accept any number of 'specification' strings or `Filter instances`, and will generate a set of matching renditions much more efficiently than generating each one individually. For example:
 
 ```python
 image.get_renditions('width-600', 'height-400', 'fill-300x186|jpegquality-60')
 ```
 
-The return value is a dictionary of renditions keyed by the specification strings that were provided to the method. The return value from the above example would look something like this:
+The return value is a dictionary of renditions keyed by the specifications that were provided to the method. The return value from the above example would look something like this:
 
 ```python
 {
