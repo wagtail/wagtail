@@ -1,19 +1,20 @@
-import os
 import unittest.mock
 
-from django import template
 from django.apps import apps
-from django.conf import settings
-from django.core import serializers
-from django.template import engines
+from django.template import TemplateSyntaxError, engines
 from django.test import TestCase
 
 from wagtail.models import Site
 
-from .utils import Image, get_test_image_file
+from .utils import (
+    Image,
+    get_test_bad_image,
+    get_test_image_file,
+    get_test_image_filename,
+)
 
 
-class TestImagesJinja(TestCase):
+class JinjaImagesTestCase(TestCase):
     def setUp(self):
         self.engine = engines["jinja2"]
 
@@ -22,24 +23,7 @@ class TestImagesJinja(TestCase):
             file=get_test_image_file(),
         )
 
-        # Create an image with a missing file, by deserializing fom a python object
-        # (which bypasses FileField's attempt to read the file)
-        self.bad_image = list(
-            serializers.deserialize(
-                "python",
-                [
-                    {
-                        "fields": {
-                            "title": "missing image",
-                            "height": 100,
-                            "file": "original_images/missing-image.jpg",
-                            "width": 100,
-                        },
-                        "model": "wagtailimages.image",
-                    }
-                ],
-            )
-        )[0].object
+        self.bad_image = get_test_bad_image()
         self.bad_image.save()
 
     def render(self, string, context=None, request_context=True):
@@ -55,18 +39,13 @@ class TestImagesJinja(TestCase):
         template = self.engine.from_string(string)
         return template.render(context)
 
-    def get_image_filename(self, image, filterspec):
-        """
-        Get the generated filename for a resized image
-        """
-        name, ext = os.path.splitext(os.path.basename(image.file.name))
-        return f"{settings.MEDIA_URL}images/{name}.{filterspec}{ext}"
 
+class TestImageJinja(JinjaImagesTestCase):
     def test_image(self):
         self.assertHTMLEqual(
             self.render('{{ image(myimage, "width-200") }}', {"myimage": self.image}),
             '<img alt="Test image" src="{}" width="200" height="150">'.format(
-                self.get_image_filename(self.image, "width-200")
+                get_test_image_filename(self.image, "width-200")
             ),
         )
 
@@ -77,17 +56,28 @@ class TestImagesJinja(TestCase):
                 {"myimage": self.image},
             ),
             '<img alt="alternate" src="{}" width="200" height="150" class="test">'.format(
-                self.get_image_filename(self.image, "width-200")
+                get_test_image_filename(self.image, "width-200")
             ),
         )
 
     def test_image_assignment(self):
         template = (
-            '{% set background=image(myimage, "width-200") %}'
-            "width: {{ background.width }}, url: {{ background.url }}"
+            '{% set bg=image(myimage, "width-200") %}'
+            "width: {{ bg.width }}, url: {{ bg.url }}"
         )
-        output = "width: 200, url: " + self.get_image_filename(self.image, "width-200")
+        output = "width: 200, url: " + get_test_image_filename(self.image, "width-200")
         self.assertHTMLEqual(self.render(template, {"myimage": self.image}), output)
+
+    def test_image_assignment_render_as_is(self):
+        self.assertHTMLEqual(
+            self.render(
+                '{% set bg=image(myimage, "width-200") %}{{ bg }}',
+                {"myimage": self.image},
+            ),
+            '<img alt="Test image" src="{}" width="200" height="150">'.format(
+                get_test_image_filename(self.image, "width-200")
+            ),
+        )
 
     def test_missing_image(self):
         self.assertHTMLEqual(
@@ -98,7 +88,9 @@ class TestImagesJinja(TestCase):
         )
 
     def test_invalid_character(self):
-        with self.assertRaises(template.TemplateSyntaxError):
+        with self.assertRaisesRegex(
+            TemplateSyntaxError, "filter specs in 'image' tag may only"
+        ):
             self.render('{{ image(myimage, "fill-200×200") }}', {"myimage": self.image})
 
     def test_custom_default_attrs(self):
@@ -121,10 +113,12 @@ class TestImagesJinja(TestCase):
                 {"myimage": self.image},
             ),
             '<img alt="Test image" src="{}" width="200" height="150">'.format(
-                self.get_image_filename(self.image, "width-200.jpegquality-40")
+                get_test_image_filename(self.image, "width-200.jpegquality-40")
             ),
         )
 
+
+class TestImageURLJinja(JinjaImagesTestCase):
     def test_image_url(self):
         self.assertRegex(
             self.render(
@@ -143,3 +137,138 @@ class TestImagesJinja(TestCase):
                 self.image.file.name.split("/")[-1]
             ),
         )
+
+
+class TestSrcsetImageJinja(JinjaImagesTestCase):
+    def test_srcset_image(self):
+        filename_200 = get_test_image_filename(self.image, "width-200")
+        filename_400 = get_test_image_filename(self.image, "width-400")
+        rendered = self.render(
+            '{{ srcset_image(myimage, "width-{200,400}", sizes="100vw") }}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <img
+                sizes="100vw"
+                src="{filename_200}"
+                srcset="{filename_200} 200w, {filename_400} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_srcset_output_single_image(self):
+        self.assertHTMLEqual(
+            self.render(
+                '{{ srcset_image(myimage, "width-200") }}',
+                {"myimage": self.image},
+            ),
+            self.render(
+                '{{ image(myimage, "width-200") }}',
+                {"myimage": self.image},
+            ),
+        )
+
+    def test_srcset_image_assignment(self):
+        template = (
+            '{% set bg=srcset_image(myimage, "width-{200,400}") %}'
+            "width: {{ bg.renditions[0].width }}, url: {{ bg.renditions[0].url }} "
+            "width: {{ bg.renditions[1].width }}, url: {{ bg.renditions[1].url }} "
+        )
+        rendered = self.render(template, {"myimage": self.image})
+        expected = f"""
+            width: 200, url: {get_test_image_filename(self.image, "width-200")}
+            width: 400, url: {get_test_image_filename(self.image, "width-400")}
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_srcset_image_assignment_render_as_is(self):
+        filename_200 = get_test_image_filename(self.image, "width-200")
+        filename_400 = get_test_image_filename(self.image, "width-400")
+        rendered = self.render(
+            '{% set bg=srcset_image(myimage, "width-{200,400}") %}{{ bg }}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <img
+                src="{filename_200}"
+                srcset="{filename_200} 200w, {filename_400} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_missing_srcset_image(self):
+        rendered = self.render(
+            '{{ srcset_image(myimage, "width-{200,400}", sizes="100vw") }}',
+            {"myimage": self.bad_image},
+        )
+        expected = """
+            <img
+                sizes="100vw"
+                src="/media/not-found"
+                srcset="/media/not-found 0w, /media/not-found 0w"
+                alt="missing image"
+                width="0"
+                height="0"
+            >
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_invalid_character(self):
+        with self.assertRaisesRegex(
+            TemplateSyntaxError, "filter specs in 'srcset_image' tag may only"
+        ):
+            self.render(
+                '{{ srcset_image(myimage, "fill-{20×20,40×40}", sizes="100vw") }}',
+                {"myimage": self.image},
+            )
+
+    def test_custom_default_attrs(self):
+        with unittest.mock.patch.object(
+            apps.get_app_config("wagtailimages"),
+            "default_attrs",
+            new={"decoding": "async", "loading": "lazy"},
+        ):
+            rendered = self.render(
+                '{{ srcset_image(myimage, "width-{20,40}", sizes="100vw") }}',
+                {"myimage": self.bad_image},
+            )
+            expected = """
+                <img
+                    sizes="100vw"
+                    src="/media/not-found"
+                    srcset="/media/not-found 0w, /media/not-found 0w"
+                    alt="missing image"
+                    width="0"
+                    height="0"
+                    decoding="async"
+                    loading="lazy"
+                >
+            """
+            self.assertHTMLEqual(rendered, expected)
+
+    def test_chaining_filterspecs(self):
+        filenames = [
+            get_test_image_filename(self.image, "width-200.jpegquality-40"),
+            get_test_image_filename(self.image, "width-400.jpegquality-40"),
+        ]
+        rendered = self.render(
+            '{{ srcset_image(myimage, "width-{200,400}|jpegquality-40", sizes="100vw") }}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <img
+                sizes="100vw"
+                src="{filenames[0]}"
+                srcset="{filenames[0]} 200w, {filenames[1]} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+        """
+        self.assertHTMLEqual(rendered, expected)

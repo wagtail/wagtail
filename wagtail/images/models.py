@@ -1,13 +1,15 @@
 import hashlib
+import itertools
 import logging
 import os.path
+import re
 import time
 from collections import OrderedDict, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Dict, Iterable, List, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import willow
 from django.apps import apps
@@ -496,16 +498,20 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
         return rendition
 
-    def get_renditions(self, *filter_specs: str) -> Dict[str, "AbstractRendition"]:
+    def get_renditions(
+        self, *filters: Union["Filter", str]
+    ) -> Dict[str, "AbstractRendition"]:
         """
         Returns a ``dict`` of ``Rendition`` instances with image files reflecting
-        the supplied ``filter_specs``, keyed by the relevant ``filter_spec`` string.
+        the supplied ``filters``, keyed by filter spec patterns.
 
         Note: If using custom image models, instances of the custom rendition
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        filters = [Filter(spec) for spec in dict.fromkeys(filter_specs).keys()]
+        # We don’t support providing mixed Filter and string arguments in the same call.
+        if isinstance(filters[0], str):
+            filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
@@ -528,8 +534,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         if cache_additions:
             Rendition.cache_backend.set_many(cache_additions)
 
-        # Return a dict in the expected format
-        return {filter.spec: rendition for filter, rendition in renditions.items()}
+        # Make sure key insertion order matches the input order.
+        return {filter.spec: renditions[filter] for filter in filters}
 
     def find_existing_renditions(
         self, *filters: "Filter"
@@ -822,9 +828,44 @@ class Filter:
     but could potentially involve colour processing, etc.
     """
 
+    spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
+    pipe_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.\|]+$")
+    expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},]+$")
+    pipe_expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},\|]+$")
+
     def __init__(self, spec=None):
         # The spec pattern is operation1-var1-var2|operation2-var1
         self.spec = spec
+
+    @classmethod
+    def expand_spec(self, spec: Union["str", Iterable["str"]]) -> List["str"]:
+        """
+        Converts a spec pattern with brace-expansions, into a list of spec patterns.
+        For example, "width-{100,200}" becomes ["width-100", "width-200"].
+
+        Supports providing filter specs already split, or pipe or space-separated.
+        """
+        if isinstance(spec, str):
+            separator = "|" if "|" in spec else " "
+            spec = spec.split(separator)
+
+        expanded_segments = []
+        for segment in spec:
+            # Check if segment has braces to expand
+            if "{" in segment and "}" in segment:
+                prefix, options_suffixed = segment.split("{")
+                options_pattern, suffix = options_suffixed.split("}")
+                options = options_pattern.split(",")
+                expanded_segments.append(
+                    [prefix + option + suffix for option in options]
+                )
+            else:
+                expanded_segments.append([segment])
+
+        # Cartesian product of all expanded segments (equivalent to nested for loops).
+        combinations = itertools.product(*expanded_segments)
+
+        return ["|".join(combination) for combination in combinations]
 
     @cached_property
     def operations(self):
@@ -1000,6 +1041,51 @@ class Filter:
             return ""
 
         return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+
+
+class ResponsiveImage:
+    """
+    A custom object used to represent a collection of renditions.
+    Provides a 'renditions' property to access the renditions,
+    and renders to the front-end HTML.
+    """
+
+    def __init__(
+        self,
+        renditions: Dict[str, "AbstractRendition"],
+        attrs: Optional[Dict[str, Any]] = None,
+    ):
+        self.renditions = list(renditions.values())
+        self.attrs = attrs
+
+    @classmethod
+    def get_width_srcset(cls, renditions_list: List["AbstractRendition"]):
+        if len(renditions_list) == 1:
+            # No point in using width descriptors if there is a single image.
+            return renditions_list[0].url
+
+        return ", ".join([f"{r.url} {r.width}w" for r in renditions_list])
+
+    def __html__(self):
+        attrs = self.attrs or {}
+
+        # No point in adding a srcset if there is a single image.
+        if len(self.renditions) > 1:
+            attrs["srcset"] = self.get_width_srcset(self.renditions)
+
+        # The first rendition is the "base" / "fallback" image.
+        return self.renditions[0].img_tag(attrs)
+
+    def __str__(self):
+        return mark_safe(self.__html__())
+
+    def __bool__(self):
+        return bool(self.renditions)
+
+    def __eq__(self, other: "ResponsiveImage"):
+        if isinstance(other, ResponsiveImage):
+            return self.renditions == other.renditions and self.attrs == other.attrs
+        return False
 
 
 class AbstractRendition(ImageFileMixin, models.Model):

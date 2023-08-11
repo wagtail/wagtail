@@ -29,6 +29,21 @@ In the above syntax example `[image]` is the Django object referring to the imag
 
 Note that a space separates `[image]` and `[resize-rule]`, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the `fill` rule is used, which may result in some pixels being cropped.
 
+(responsive_images)=
+
+## Responsive images
+
+In addition to `image`, Wagtail also provides a `srcset_image` template tag which generates an `<img>` tag with a `srcset` attribute. This allows browsers to select the most appropriate image file to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+
+The syntax for `srcset_image` is the same as `image, with two exceptions:
+
+```html+django
+{% srcset_image [image] [resize-rule-with-brace-expansion] sizes="100vw" %}
+```
+
+- The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule.
+- The `sizes` attribute is mandatory. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+
 (available_resizing_methods)=
 
 ## Available resizing methods
@@ -177,7 +192,7 @@ You can also add default attributes to all images (a default class or data attri
 
 ### 2. Generating the image "as foo" to access individual properties
 
-Wagtail can assign the image data to another variable using Django's `as` syntax:
+Wagtail can assign the image data to another variable using Django's `as` syntax, to access the underlying image Rendition (`tmp_photo`):
 
 ```html+django
 {% image page.photo width-400 as tmp_photo %}
@@ -186,11 +201,36 @@ Wagtail can assign the image data to another variable using Django's `as` syntax
     height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 ```
 
+This is also possible with the `srcset_image` tag, to retrieve multiple size renditions:
+
+```html+django
+{% srcset_image page.photo width-{200,400} as tmp_photo %}
+
+<img
+    src="{{ tmp_photo.renditions.0.url }}"
+    width="{{ tmp_photo.renditions.0.width }}"
+    height="{{ tmp_photo.renditions.0.height }}"
+    alt="{{ tmp_photo.renditions.0.alt }}"
+    srcset="{{ tmp_photo.renditions.0.url }} 200w, {{ tmp_photo.renditions.1.url }} 400w"
+    sizes="100vw"
+    class="my-custom-class"
+/>
+```
+
+And with the picture tag, to retrieve multiple formats:
+
+```html+django
+{% picture page.photo format-{avif,jpeg} as tmp_photo %}
+
+{{ tmp_photo.avif.0.url }}
+{{ tmp_photo.jpeg.0.url }}
+```
+
 ```{note}
 The image property used for the `src` attribute is `image.url`, not `image.src`.
 ```
 
-This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, dimensions, and source URL. The following properties are available:
+Renditions contain the information specific to the way you've requested to format the image using the resize-rule, dimensions, and source URL. The following properties are available:
 
 ### `url`
 
