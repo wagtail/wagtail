@@ -9,10 +9,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
-   .. autoattribute:: admin_url_namespace
-   .. autoattribute:: base_url_path
-   .. automethod:: get_admin_url_namespace
-   .. automethod:: get_admin_base_path
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
@@ -36,6 +32,11 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    Used in place of ``form_fields`` to indicate that all of the model's fields except the ones listed here should appear in the create / edit forms. Either ``form_fields`` or ``exclude_form_fields`` must be supplied (unless ``get_form_class`` is being overridden).
 
    .. automethod:: get_form_class
+
+   .. autoattribute:: admin_url_namespace
+   .. autoattribute:: base_url_path
+   .. automethod:: get_admin_url_namespace
+   .. automethod:: get_admin_base_path
 
    .. autoattribute:: icon
    .. autoattribute:: index_view_class

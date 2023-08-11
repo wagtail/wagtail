@@ -19,6 +19,12 @@ class ModelViewSet(ViewSet):
     All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet` are available.
     """
 
+    #: The URL namespace to use for the admin views.
+    admin_url_namespace = ""
+
+    #: The base URL path to use for the admin views.
+    base_url_path = ""
+
     icon = ""  #: The icon to use to represent the model within this viewset.
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
@@ -46,7 +52,11 @@ class ModelViewSet(ViewSet):
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
 
-        super().__init__(name=name, **kwargs)
+        super().__init__(
+            name=name or self.get_admin_url_namespace(),
+            url_prefix=kwargs.pop("url_prefix", self.get_admin_base_path()),
+            **kwargs,
+        )
 
     @property
     def permission_policy(self):
@@ -144,6 +154,17 @@ class ModelViewSet(ViewSet):
         Returns a list or tuple of field names to be excluded from the create / edit forms.
         """
         return getattr(self, "exclude_form_fields", None)
+
+    def get_admin_url_namespace(self):
+        """Returns the URL namespace for the admin URLs for this viewset."""
+        return self.admin_url_namespace
+
+    def get_admin_base_path(self):
+        """
+        Returns the base path for the admin URLs for this viewset.
+        The returned string must not begin or end with a slash.
+        """
+        return self.base_url_path.strip().strip("/")
 
     @property
     def url_finder_class(self):
