@@ -1,6 +1,7 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 from django.urls import path
+from django.utils.functional import cached_property
 
 from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
@@ -34,6 +35,14 @@ class ModelViewSet(ViewSet):
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
+
+    @cached_property
+    def name(self):
+        """
+        Viewset name, to use as the URL prefix and namespace.
+        Defaults to the model name (downcased, with no word separators).
+        """
+        return self.model._meta.model_name
 
     def get_index_view_kwargs(self):
         return {

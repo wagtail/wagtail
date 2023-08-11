@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -715,10 +716,14 @@ class SnippetViewSet(ModelViewSet):
 
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
+    #:
+    #: **Deprecated** - the preferred attribute to customise is ``url_namespace``.
     admin_url_namespace = None
 
     #: The base URL path to use for the admin views.
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
+    #:
+    #: **Deprecated** - the preferred attribute to customise is ``url_prefix``.
     base_url_path = None
 
     #: The URL namespace to use for the chooser admin views.
@@ -819,9 +824,8 @@ class SnippetViewSet(ModelViewSet):
     #: The template to use for the inspect view.
     inspect_template_name = ""
 
-    def __init__(self, model=None, **kwargs):
-        # Allow model to be defined on the class, or passed in via the constructor
-        self.model = model or self.model
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
         if self.model is None:
             raise ImproperlyConfigured(
@@ -842,12 +846,6 @@ class SnippetViewSet(ModelViewSet):
             self.add_to_admin_menu or self.add_to_settings_menu
         )
 
-        super().__init__(
-            name=self.get_admin_url_namespace(),
-            url_prefix=self.get_admin_base_path(),
-            **kwargs,
-        )
-
         if not self.list_display:
             self.list_display = self.index_view_class.list_display.copy()
             if self.draftstate_enabled:
@@ -855,6 +853,19 @@ class SnippetViewSet(ModelViewSet):
 
         # This edit handler has been bound to the model and is used for the views.
         self._edit_handler = self.get_edit_handler()
+
+    @cached_property
+    def url_prefix(self):
+        # SnippetViewSet historically allows overriding the URL prefix via the
+        # get_admin_base_path method or the admin_base_path attribute, so preserve that here
+        return self.get_admin_base_path()
+
+    @cached_property
+    def url_namespace(self):
+        # SnippetViewSet historically allows overriding the URL namespace via the
+        # get_admin_url_namespace method or the admin_url_namespace attribute,
+        # so preserve that here
+        return self.get_admin_url_namespace()
 
     @property
     def revisions_revert_view_class(self):
@@ -1346,7 +1357,11 @@ class SnippetViewSet(ModelViewSet):
         )
 
     def get_admin_url_namespace(self):
-        """Returns the URL namespace for the admin URLs for this model."""
+        """
+        Returns the URL namespace for the admin URLs for this model.
+
+        **Deprecated** - the preferred way to customise this is to define a ``url_namespace`` property.
+        """
         if self.admin_url_namespace:
             return self.admin_url_namespace
         return f"wagtailsnippets_{self.app_label}_{self.model_name}"
@@ -1355,6 +1370,8 @@ class SnippetViewSet(ModelViewSet):
         """
         Returns the base path for the admin URLs for this model.
         The returned string must not begin or end with a slash.
+
+        **Deprecated** - the preferred way to customise this is to define a ``url_prefix`` property.
         """
         if self.base_url_path:
             return self.base_url_path.strip().strip("/")

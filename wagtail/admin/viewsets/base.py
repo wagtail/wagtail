@@ -1,20 +1,57 @@
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.functional import cached_property
+
+
 class ViewSet:
     """
     Defines a viewset to be registered with the Wagtail admin.
 
-    :param name: A name for this viewset, used as the URL namespace.
-    :param url_prefix: A URL path element, given as a string, that the URLs for this viewset
-        will be found under. Defaults to the same as ``name``.
-
-    All other keyword arguments will be set as attributes on the instance.
+    All properties of the viewset can be defined as class-level attributes, or passed as
+    keyword arguments to the constructor (in which case they will override any class-level
+    attributes). Additionally, the `name` property can be passed as the first positional
+    argument to the constructor.
     """
 
-    def __init__(self, name, **kwargs):
-        self.name = name
-        self.url_prefix = kwargs.pop("url_prefix", self.name)
+    #: A name for this viewset, used as the default URL prefix and namespace.
+    name = None
+
+    def __init__(self, name=None, **kwargs):
+        if name:
+            self.__dict__["name"] = name
 
         for key, value in kwargs.items():
-            setattr(self, key, value)
+            self.__dict__[key] = value
+
+    @cached_property
+    def url_prefix(self):
+        """
+        The preferred URL prefix for views within this viewset. When registered through
+        Wagtail's ``register_admin_viewset`` hook, this will be used as the URL path component
+        following ``/admin/``. Other URL registration mechanisms (e.g. editing urls.py manually)
+        may disregard this and use a prefix of their own choosing.
+
+        Defaults to the viewset's name.
+        """
+        if not self.name:
+            raise ImproperlyConfigured(
+                "ViewSet %r must provide a `name` property" % self
+            )
+        return self.name
+
+    @cached_property
+    def url_namespace(self):
+        """
+        The URL namespace for views within this viewset. Will be used internally as the
+        application namespace for the viewset's URLs, and generally be the instance namespace
+        too.
+
+        Defaults to the viewset's name.
+        """
+        if not self.name:
+            raise ImproperlyConfigured(
+                "ViewSet %r must provide a `name` property" % self
+            )
+        return self.name
 
     def on_register(self):
         """
@@ -32,4 +69,4 @@ class ViewSet:
         """
         Returns the namespaced URL name for the given view.
         """
-        return self.name + ":" + view_name
+        return self.url_namespace + ":" + view_name

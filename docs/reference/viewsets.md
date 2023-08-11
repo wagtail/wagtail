@@ -9,6 +9,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
+   .. autoattribute:: name
+   .. autoattribute:: url_prefix
+   .. autoattribute:: url_namespace
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
@@ -21,7 +24,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with.
+   Required; the model class that this viewset will work with. This model name (downcased) will be used
+   as the URL prefix and namespace, unless these are specified explicitly via the ``name``, ``url_prefix`` or
+   ``url_namespace`` attributes.
 
    .. attribute:: form_fields
 
