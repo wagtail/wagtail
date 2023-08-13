@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block breadcrumb_items %}
-    <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
+    <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-w-breadcrumbs-target="content" hidden>
         <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailsnippets:index' %}">
             {% trans "Snippets" %}
         </a>

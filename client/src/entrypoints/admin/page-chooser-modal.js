@@ -84,7 +84,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       /* pagination links within search results should be AJAX-fetched
       and the result loaded into .page-results (and ajaxified) */
       $(
-        '.page-results a.navigate-pages, .page-results [data-breadcrumb-item] a',
+        '.page-results a.navigate-pages, .page-results [data-w-breadcrumbs-target~="content"] a',
         modal.body,
       ).on('click', function handleLinkClick() {
         $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
@@ -111,7 +111,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     function ajaxifyBrowseResults() {
       /* Set up page navigation links to open in the modal */
       $(
-        '.page-results a.navigate-pages, .page-results [data-breadcrumb-item] a',
+        '.page-results a.navigate-pages, .page-results [data-w-breadcrumbs-target~="content"] a',
         modal.body,
       ).on('click', function handleLinkClick() {
         modal.loadUrl(this.href);

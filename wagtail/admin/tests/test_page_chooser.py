@@ -257,7 +257,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
         # Look for a link element in the breadcrumbs with the admin title
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold " data-breadcrumb-item>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold " data-w-breadcrumbs-target="content">
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/choose-page/{page_id}/?">
                     {page_title}
                 </a>
