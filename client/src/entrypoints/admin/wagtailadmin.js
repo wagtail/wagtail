@@ -1,7 +1,6 @@
 import { Icon, Portal } from '../..';
 import { initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
-import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
@@ -21,7 +20,6 @@ window.wagtail.components = {
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initTabs();
-  initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
 });

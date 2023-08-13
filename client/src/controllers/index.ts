@@ -10,6 +10,7 @@ import { DismissibleController } from './DismissibleController';
 import { DropdownController } from './DropdownController';
 import { MessagesController } from './MessagesController';
 import { ProgressController } from './ProgressController';
+import { RevealController } from './RevealController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
@@ -34,6 +35,8 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: MessagesController, identifier: 'w-messages' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
+  { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
+  { controllerConstructor: RevealController, identifier: 'w-reveal' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
