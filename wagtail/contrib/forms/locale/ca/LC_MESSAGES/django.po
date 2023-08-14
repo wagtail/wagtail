@@ -151,7 +151,7 @@ msgstr "assumpte"
 
 #, python-format
 msgid "%(model_name)s submissions"
-msgstr "%(model_name)s enviaments"
+msgstr "%(model_name)s enviats"
 
 #, python-format
 msgid "Delete form data %(title)s"

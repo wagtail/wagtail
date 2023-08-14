@@ -1154,11 +1154,15 @@ msgstr "Меню сайтів"
 msgid "Pagination"
 msgstr "Пагінація"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Сторінка %(page_number)s з %(num_pages)s."
+
 msgid "Previous"
-msgstr "Попередній"
+msgstr "Попередня"
 
 msgid "Next"
-msgstr "Наступний"
+msgstr "Наступна"
 
 msgid "This page is protected from public view"
 msgstr "Ця сторінка захищена від публічного перегляду"
@@ -1337,6 +1341,9 @@ msgstr[0] "Використано %(usage_count)s раз"
 msgstr[1] "Використано %(usage_count)s рази"
 msgstr[2] "Використано %(usage_count)s разів"
 msgstr[3] "Використано %(usage_count)s разів"
+
+msgid "View history"
+msgstr "Переглянути історію"
 
 msgid "First published "
 msgstr "Вперше опубліковано "
