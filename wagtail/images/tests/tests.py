@@ -13,7 +13,12 @@ from willow.image import ImageFile as WillowImageFile
 
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
-from wagtail.images.formats import Format, get_image_format, register_image_format
+from wagtail.images.formats import (
+    Format,
+    get_image_format,
+    register_image_format,
+    unregister_image_format,
+)
 from wagtail.images.forms import get_image_form
 from wagtail.images.models import Image as WagtailImage
 from wagtail.images.permissions import update_permission_policy
@@ -296,6 +301,21 @@ class TestFormat(WagtailTestUtils, TestCase):
         register_image_format(self.format)
         result = get_image_format("test name")
         self.assertEqual(result, self.format)
+
+    def test_get_image_format_fallback(self):
+        register_image_format(self.format, is_fallback=True)
+
+        # calling get_image_format with an unavailable format and a fallback format
+        # should return the fallback format and raise a warning
+        with self.assertWarns(UserWarning):
+            result = get_image_format("unavailable_format")
+            self.assertEqual(result, self.format)
+
+        # calling get_image_format with an unavailable format and no fallback
+        # format should raise a KeyError
+        unregister_image_format(self.format)
+        with self.assertRaises(KeyError):
+            get_image_format("unavailable_format")
 
 
 class TestSignatureGeneration(TestCase):
