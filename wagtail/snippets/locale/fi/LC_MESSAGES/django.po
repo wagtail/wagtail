@@ -8,6 +8,7 @@
 # Eetu Häivälä, 2016
 # Eetu Häivälä, 2016
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
+# Timo Tuominen, 2023
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
+"Last-Translator: Timo Tuominen, 2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +69,7 @@ msgstr "Poista valitut pätkät"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
-msgstr "%(model_name)s-pätkä '%(object)s' poistettu."
+msgstr "%(model_name)s '%(object)s' poistettu."
 
 #, python-format
 msgid "%(count)d %(model_name)s deleted."

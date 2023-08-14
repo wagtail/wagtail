@@ -104,6 +104,9 @@ msgstr "Ponovno učitaj stranicu"
 msgid "Save"
 msgstr "Spremi"
 
+msgid "Saving..."
+msgstr "Spremanje..."
+
 msgid "Search"
 msgstr "Pretraži"
 

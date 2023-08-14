@@ -186,6 +186,7 @@ Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Niklas Jerva <niklas.jerva.gmail.com>
 Rauli Laine <rauli.laine.iki.fi>
+Timo Tuominen
 Valter Maasalo <vmaasalo.gmail.com>
 
 French - fr

@@ -2098,7 +2098,7 @@ msgid "Preview mode"
 msgstr "Mode de previsualització"
 
 msgid "First published "
-msgstr "Primera publicació"
+msgstr "Primera publicació "
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."

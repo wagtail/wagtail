@@ -103,8 +103,15 @@ msgstr "Zaključao drugi korisnik"
 msgid "Only you can make changes while the %(model_name)s is locked"
 msgstr "Samo vi možete napraviti promjene dok je %(model_name)s zaključano"
 
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Samo %(user)s može napraviti promjene dok je %(model_name)s zaključano"
+
 msgid "Unlocked"
 msgstr "Otključano"
+
+msgid "Locked by workflow"
+msgstr "Zaključao tijek rada"
 
 msgid "live"
 msgstr "uživo"
@@ -268,6 +275,12 @@ msgstr "sadržaj JSON"
 
 msgid "approved go live at"
 msgstr "odobreno uživo u"
+
+msgid "revision"
+msgstr "verzija"
+
+msgid "revisions"
+msgstr "verzije"
 
 msgid "group"
 msgstr "grupa"
@@ -714,6 +727,9 @@ msgstr "Uklonjeno je ograničenje pogleda"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"
+
+msgid "Edit comment"
+msgstr "Uredi komentar"
 
 msgid "Delete comment"
 msgstr "Izbriši komentar"
