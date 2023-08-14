@@ -301,6 +301,7 @@ class TestFormat(WagtailTestUtils, TestCase):
         register_image_format(self.format)
         result = get_image_format("test name")
         self.assertEqual(result, self.format)
+        unregister_image_format(self.format)
 
     def test_get_image_format_fallback(self):
         register_image_format(self.format, is_fallback=True)
@@ -310,10 +311,10 @@ class TestFormat(WagtailTestUtils, TestCase):
         with self.assertWarns(UserWarning):
             result = get_image_format("unavailable_format")
             self.assertEqual(result, self.format)
+        unregister_image_format(self.format)
 
         # calling get_image_format with an unavailable format and no fallback
         # format should raise a KeyError
-        unregister_image_format(self.format)
         with self.assertRaises(KeyError):
             get_image_format("unavailable_format")
 
