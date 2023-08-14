@@ -16,6 +16,9 @@ from .base import ViewSet, ViewSetGroup
 class ModelViewSet(ViewSet):
     """
     A viewset to allow listing, creating, editing and deleting model instances.
+
+    All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet`
+    are available.
     """
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
@@ -195,6 +198,14 @@ class ModelViewSet(ViewSet):
 
 
 class ModelViewSetGroup(ViewSetGroup):
+    """
+    A container for grouping together multiple
+    :class:`~wagtail.admin.viewsets.model.ModelViewSet` instances.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.base.ViewSetGroup` are available.
+    """
+
     def get_app_label_from_subitems(self):
         for instance in self.registerables:
             if app_label := getattr(instance, "app_label", ""):

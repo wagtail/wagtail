@@ -204,7 +204,7 @@ class WagtailMenuRegisterable:
         with the Wagtail admin.
 
         The ``order`` parameter allows the method to be called from the outside
-        (e.g. a ``WagtailMenuRegisterableGroup``) to create a sub menu item with
+        (e.g. a ``ViewSetGroup``) to create a sub menu item with
         the correct order.
         """
         return self.menu_item_class(

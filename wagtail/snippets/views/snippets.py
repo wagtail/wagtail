@@ -1542,8 +1542,11 @@ class SnippetViewSet(ModelViewSet):
 
 class SnippetViewSetGroup(ModelViewSetGroup):
     """
-    A container for grouping together multiple SnippetViewSet instances. Creates
-    a menu item with a submenu for accessing the listing pages of those instances.
+    A container for grouping together multiple
+    :class:`~wagtail.snippets.views.snippets.SnippetViewSet` instances.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.model.ModelViewSetGroup` are available.
     """
 
     def __init__(self):

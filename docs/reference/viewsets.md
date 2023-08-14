@@ -15,6 +15,42 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
+   .. autoattribute:: icon
+   .. autoattribute:: menu_icon
+
+      Defaults to :attr:`icon`.
+
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
+   .. autoattribute:: menu_url
+
+      Defaults to the first URL returned by :meth:`get_urlpatterns`.
+
+   .. autoattribute:: menu_item_class
+   .. autoattribute:: menu_hook
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: add_to_settings_menu
+   .. automethod:: get_menu_item
+```
+
+## ViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.base.ViewSetGroup
+
+   .. attribute:: items
+      :value: ()
+
+      A list or tuple of :class:`~wagtail.admin.viewsets.base.ViewSet` classes or instances to be grouped together.
+
+   .. autoattribute:: menu_icon
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
+   .. autoattribute:: menu_item_class
+   .. autoattribute:: add_to_admin_menu
+   .. automethod:: get_menu_item
 ```
 
 ## ModelViewSet
@@ -38,11 +74,26 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. automethod:: get_form_class
 
-   .. autoattribute:: icon
+   .. autoattribute:: menu_label
+
+      Defaults to the title-cased version of the model's
+      :attr:`~django.db.models.Options.verbose_name_plural`.
+
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
+```
+
+## ModelViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.model.ModelViewSetGroup
+
+   .. autoattribute:: menu_label
+
+      If unset, defaults to the title-cased version of the model's
+      :attr:`~django.db.models.Options.app_label` from the first viewset.
 ```
 
 ## ChooserViewSet
@@ -87,12 +138,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
    .. autoattribute:: model
-   .. autoattribute:: icon
-   .. autoattribute:: add_to_admin_menu
-   .. autoattribute:: add_to_settings_menu
-   .. autoattribute:: menu_label
-   .. autoattribute:: menu_name
-   .. autoattribute:: menu_order
    .. autoattribute:: list_display
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
@@ -134,11 +179,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_template_name
    .. autoattribute:: delete_template_name
    .. autoattribute:: history_template_name
-   .. automethod:: get_menu_label
-   .. automethod:: get_menu_name
-   .. automethod:: get_menu_icon
-   .. automethod:: get_menu_order
-   .. automethod:: get_menu_item
    .. automethod:: get_queryset
    .. automethod:: get_edit_handler
    .. automethod:: get_form_class
@@ -160,15 +200,4 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSetGroup
 
-   .. autoattribute:: items
-   .. autoattribute:: add_to_admin_menu
-   .. autoattribute:: menu_label
-   .. autoattribute:: menu_name
-   .. autoattribute:: menu_icon
-   .. autoattribute:: menu_order
-   .. automethod:: get_menu_label
-   .. automethod:: get_menu_name
-   .. automethod:: get_menu_icon
-   .. automethod:: get_menu_order
-   .. automethod:: get_menu_item
 ```
