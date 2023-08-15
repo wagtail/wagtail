@@ -15,6 +15,7 @@ Changelog
  * Maintenance: Add support for options/attrs in Telepath widgets so that attrs render on the created DOM (Storm Heg)
  * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
  * Maintenance: Add `WagtailTestUtils.get_soup()` method to get a `BeautifulSoup` object from an `HttpResponse` object (Storm Heg)
+ * Maintenance: Allow `ViewSet` subclasses to customise `url_prefix` and `url_namespace` logic (Matt Westcott)
 
 
 5.1.1 (14.08.2023)
