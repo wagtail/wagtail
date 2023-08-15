@@ -40,7 +40,7 @@ class ModelViewSet(ViewSet):
     def name(self):
         """
         Viewset name, to use as the URL prefix and namespace.
-        Defaults to the model name (downcased, with no word separators).
+        Defaults to the :attr:`~django.db.models.Options.model_name`.
         """
         return self.model._meta.model_name
 

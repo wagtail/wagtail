@@ -24,7 +24,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with. This model name (downcased) will be used
+   Required; the model class that this viewset will work with. The :attr:`~django.db.models.Options.model_name` will be used
    as the URL prefix and namespace, unless these are specified explicitly via the ``name``, ``url_prefix`` or
    ``url_namespace`` attributes.
 
