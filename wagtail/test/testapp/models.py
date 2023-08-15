@@ -2135,3 +2135,8 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
         ContentType, on_delete=models.SET_NULL, null=True, blank=True
     )
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
+
+
+# Models to be registered with a ModelViewSet
+class FeatureCompleteToy(models.Model):
+    name = models.CharField(max_length=255)

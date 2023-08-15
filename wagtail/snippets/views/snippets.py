@@ -1213,7 +1213,7 @@ class SnippetViewSet(ModelViewSet):
 
     def get_create_template(self):
         """
-        Returns a template to be used when rendering ``create_view``. If a
+        Returns a template to be used when rendering ``add_view``. If a
         template is specified by the ``create_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
 
@@ -1255,8 +1255,8 @@ class SnippetViewSet(ModelViewSet):
         A template to be used when rendering ``history_view``.
 
         Default: if :attr:`template_prefix` is specified, a ``history.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``history_view_class.template_name`` will be used.
         """
         return self.get_history_template()
@@ -1277,8 +1277,8 @@ class SnippetViewSet(ModelViewSet):
         A template to be used when rendering ``inspect_view``.
 
         Default: if :attr:`template_prefix` is specified, an ``inspect.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``inspect_view_class.template_name`` will be used.
         """
         return self.get_inspect_template()

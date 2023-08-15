@@ -15,6 +15,7 @@ from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
+    FeatureCompleteToy,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
@@ -190,3 +191,15 @@ class JSONModelViewSetGroup(ModelViewSetGroup):
             menu_label="JSON BlockCounts StreamModel",
         ),
     )
+
+
+class FeatureCompleteToyViewSet(ModelViewSet):
+    model = FeatureCompleteToy
+    url_namespace = "feature_complete_toy"
+    url_prefix = "feature-complete-toy"
+    menu_label = "Feature Complete Toys"
+    icon = "media"
+    exclude_form_fields = ()
+    add_to_admin_menu = True
+    template_prefix = "customprefix/"
+    index_template_name = "tests/fctoy_index.html"

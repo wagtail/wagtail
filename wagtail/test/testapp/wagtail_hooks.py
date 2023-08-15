@@ -30,7 +30,11 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.testapp.views import JSONModelViewSetGroup, MiscellaneousViewSetGroup
+from wagtail.test.testapp.views import (
+    FeatureCompleteToyViewSet,
+    JSONModelViewSetGroup,
+    MiscellaneousViewSetGroup,
+)
 
 from .forms import FavouriteColourForm
 
@@ -251,6 +255,11 @@ def register_viewsets():
 @hooks.register("register_admin_viewset")
 def register_json_model_viewsets():
     return JSONModelViewSetGroup()
+
+
+@hooks.register("register_admin_viewset")
+def register_toy_viewset():
+    return FeatureCompleteToyViewSet()
 
 
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):

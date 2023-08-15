@@ -170,8 +170,8 @@ class ModelViewSet(ViewSet):
         A template to be used when rendering ``index_view``.
 
         Default: if :attr:`template_prefix` is specified, an ``index.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``index_view_class.template_name`` will be used.
         """
         return self.get_templates(
@@ -185,8 +185,8 @@ class ModelViewSet(ViewSet):
         A template to be used when rendering ``index_results_view``.
 
         Default: if :attr:`template_prefix` is specified, a ``index_results.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``index_view_class.results_template_name`` will be used.
         """
         return self.get_templates(
@@ -197,11 +197,11 @@ class ModelViewSet(ViewSet):
     @cached_property
     def create_template_name(self):
         """
-        A template to be used when rendering ``create_view``.
+        A template to be used when rendering ``add_view``.
 
         Default: if :attr:`template_prefix` is specified, a ``create.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``add_view_class.template_name`` will be used.
         """
         return self.get_templates(
@@ -215,8 +215,8 @@ class ModelViewSet(ViewSet):
         A template to be used when rendering ``edit_view``.
 
         Default: if :attr:`template_prefix` is specified, an ``edit.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``edit_view_class.template_name`` will be used.
         """
         return self.get_templates(
@@ -230,8 +230,8 @@ class ModelViewSet(ViewSet):
         A template to be used when rendering ``delete_view``.
 
         Default: if :attr:`template_prefix` is specified, a ``delete.html``
-        template in the prefix directory and its app_label/model_name
-        subdirectories will be used. Otherwise, the
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``delete_view_class.template_name`` will be used.
         """
         return self.get_templates(
