@@ -18,8 +18,6 @@ class ModelViewSet(ViewSet):
     A viewset to allow listing, creating, editing and deleting model instances.
     """
 
-    icon = ""  #: The icon to use to represent the model within this viewset.
-
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
     index_view_class = generic.IndexView
 

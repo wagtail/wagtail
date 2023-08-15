@@ -18,6 +18,9 @@ class ViewSet(WagtailMenuRegisterable):
     #: A name for this viewset, used as the default URL prefix and namespace.
     name = None
 
+    #: The icon to use across the views.
+    icon = ""
+
     def __init__(self, name=None, **kwargs):
         if name:
             self.__dict__["name"] = name
@@ -73,6 +76,10 @@ class ViewSet(WagtailMenuRegisterable):
         Returns the namespaced URL name for the given view.
         """
         return self.url_namespace + ":" + view_name
+
+    @cached_property
+    def menu_icon(self):
+        return self.icon
 
     @cached_property
     def menu_url(self):
