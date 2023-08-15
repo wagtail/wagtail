@@ -9,7 +9,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -43,15 +43,18 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestIncorrectRegistration(TestCase):
+class TestIncorrectRegistration(SimpleTestCase):
     def test_no_model_set_or_passed(self):
         # The base SnippetViewSet class has no `model` attribute set,
         # so using it directly should raise an error
-        with self.assertRaisesMessage(
-            ImproperlyConfigured,
-            "SnippetViewSet must be passed a model or define a model attribute.",
-        ):
+        with self.assertRaises(ImproperlyConfigured) as cm:
             register_snippet(SnippetViewSet)
+        message = str(cm.exception)
+        self.assertIn("ModelViewSet", message)
+        self.assertIn(
+            "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):

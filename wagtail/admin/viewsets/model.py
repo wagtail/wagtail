@@ -30,6 +30,14 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
 
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs)
+        if not self.model:
+            raise ImproperlyConfigured(
+                "ModelViewSet %r must define a `model` attribute or pass a `model` argument"
+                % self
+            )
+
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
