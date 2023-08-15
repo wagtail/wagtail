@@ -12,8 +12,14 @@ from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
+from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.test.testapp.models import ModelWithStringTypePrimaryKey
+from wagtail.test.testapp.models import (
+    JSONBlockCountsStreamModel,
+    JSONMinMaxCountStreamModel,
+    JSONStreamModel,
+    ModelWithStringTypePrimaryKey,
+)
 
 
 def user_is_called_bob(user):
@@ -152,3 +158,35 @@ class GreetingsViewSet(ViewSet):
 class MiscellaneousViewSetGroup(ViewSetGroup):
     items = (CalendarViewSet, GreetingsViewSet)
     menu_label = "Miscellaneous"
+
+
+class JSONStreamModelViewSet(ModelViewSet):
+    name = "streammodel"
+    model = JSONStreamModel
+    exclude_form_fields = []
+    icon = "rotate"
+
+
+class JSONMinMaxCountStreamModelViewSet(ModelViewSet):
+    url_namespace = "minmaxcount_streammodel"
+    url_prefix = "minmaxcount-streammodel"
+    model = JSONMinMaxCountStreamModel
+    form_fields = ("body",)
+    icon = "reset"
+    menu_label = "JSON MinMaxCount StreamModel"
+
+
+class JSONModelViewSetGroup(ModelViewSetGroup):
+    items = (
+        JSONStreamModelViewSet,
+        JSONMinMaxCountStreamModelViewSet,
+        # Can be an instance instead of class
+        ModelViewSet(
+            model=JSONBlockCountsStreamModel,
+            exclude_form_fields=(),
+            icon="resubmit",
+            url_namespace="blockcounts_streammodel",
+            url_prefix="blockcounts/streammodel",
+            menu_label="JSON BlockCounts StreamModel",
+        ),
+    )

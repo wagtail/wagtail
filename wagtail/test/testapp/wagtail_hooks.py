@@ -30,7 +30,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.testapp.views import MiscellaneousViewSetGroup
+from wagtail.test.testapp.views import JSONModelViewSetGroup, MiscellaneousViewSetGroup
 
 from .forms import FavouriteColourForm
 
@@ -246,6 +246,11 @@ def add_broken_links_summary_item(request, items):
 @hooks.register("register_admin_viewset")
 def register_viewsets():
     return MiscellaneousViewSetGroup()
+
+
+@hooks.register("register_admin_viewset")
+def register_json_model_viewsets():
+    return JSONModelViewSetGroup()
 
 
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
