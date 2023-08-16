@@ -171,6 +171,7 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
     from django.conf import settings
 
     errors = []
+    WAGTAILADMIN_BASE_URL="https://wagtail.org/"
 
     if getattr(settings, "WAGTAILADMIN_BASE_URL", None) is None:
         errors.append(
