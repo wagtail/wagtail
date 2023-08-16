@@ -1,5 +1,9 @@
+import warnings
+
 from django.apps import AppConfig, apps
 from django.utils.translation import gettext_lazy as _
+
+from wagtail.utils.deprecation import removed_in_next_version_warning
 
 
 class WagtailAppConfig(AppConfig):
@@ -21,3 +25,5 @@ class WagtailAppConfig(AppConfig):
         register_signal_handlers()
 
         from wagtail import widget_adapters  # noqa: F401
+
+        warnings.simplefilter("default", removed_in_next_version_warning)
