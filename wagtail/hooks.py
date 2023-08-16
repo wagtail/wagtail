@@ -1,7 +1,7 @@
 from contextlib import ContextDecorator
 from operator import itemgetter
 
-from wagtail.utils.apps import get_app_submodules
+from wagtail.utils.app import get_app_submodules
 
 _hooks = {}
 
