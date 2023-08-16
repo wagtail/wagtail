@@ -22,6 +22,10 @@ class ModelViewSet(ViewSet):
     are available.
     """
 
+    #: Register the model to the reference index to track its usage.
+    #: For more details, see :ref:`managing_the_reference_index`.
+    add_to_reference_index = True
+
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
     index_view_class = generic.IndexView
 
@@ -185,7 +189,8 @@ class ModelViewSet(ViewSet):
         register_admin_url_finder(self.model, self.url_finder_class)
 
     def register_reference_index(self):
-        ReferenceIndex.register_model(self.model)
+        if self.add_to_reference_index:
+            ReferenceIndex.register_model(self.model)
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [

@@ -79,6 +79,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       Defaults to the title-cased version of the model's
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
+   .. autoattribute:: add_to_reference_index
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
