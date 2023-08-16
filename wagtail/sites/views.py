@@ -53,6 +53,7 @@ class SiteViewSet(ModelViewSet):
     icon = "site"
     model = Site
     permission_policy = site_permission_policy
+    add_to_reference_index = False
 
     index_view_class = IndexView
     add_view_class = CreateView

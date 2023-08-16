@@ -100,6 +100,7 @@ class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
     permission_policy = locale_permission_policy
+    add_to_reference_index = False
 
     index_view_class = IndexView
     add_view_class = CreateView

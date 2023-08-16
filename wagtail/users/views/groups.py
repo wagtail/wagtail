@@ -159,6 +159,7 @@ class DeleteView(generic.DeleteView):
 class GroupViewSet(ModelViewSet):
     icon = "group"
     model = Group
+    add_to_reference_index = False
 
     index_view_class = IndexView
     add_view_class = CreateView
