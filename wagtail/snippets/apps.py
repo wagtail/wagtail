@@ -7,6 +7,7 @@ class WagtailSnippetsAppConfig(AppConfig):
     name = "wagtail.snippets"
     label = "wagtailsnippets"
     verbose_name = _("Wagtail snippets")
+    default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
         from .models import create_extra_permissions, register_deferred_snippets

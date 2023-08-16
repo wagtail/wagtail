@@ -8,6 +8,7 @@ class WagtailAPIV2AppConfig(AppConfig):
     name = "wagtail.api.v2"
     label = "wagtailapi_v2"
     verbose_name = _("Wagtail API v2")
+    default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
         # Install cache purging signal handlers

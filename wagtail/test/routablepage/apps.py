@@ -6,3 +6,4 @@ class WagtailRoutablePageTestsAppConfig(AppConfig):
     name = "wagtail.test.routablepage"
     label = "routablepagetests"
     verbose_name = _("Wagtail routable page tests")
+    default_auto_field = "django.db.models.AutoField"

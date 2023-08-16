@@ -6,3 +6,4 @@ class WagtailLocalesAppConfig(AppConfig):
     name = "wagtail.locales"
     label = "wagtaillocales"
     verbose_name = _("Wagtail locales")
+    default_auto_field = "django.db.models.AutoField"

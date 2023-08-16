@@ -8,6 +8,7 @@ class WagtailFrontendCacheAppConfig(AppConfig):
     name = "wagtail.contrib.frontend_cache"
     label = "wagtailfrontendcache"
     verbose_name = _("Wagtail frontend cache")
+    default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
         register_signal_handlers()

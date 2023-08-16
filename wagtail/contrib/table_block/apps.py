@@ -6,3 +6,4 @@ class WagtailTableBlockAppConfig(AppConfig):
     name = "wagtail.contrib.table_block"
     label = "wagtailtableblock"
     verbose_name = _("Wagtail table block")
+    default_auto_field = "django.db.models.AutoField"
