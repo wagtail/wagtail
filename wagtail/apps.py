@@ -8,7 +8,7 @@ from wagtail.utils.deprecation import removed_in_next_version_warning
 
 class WagtailAppConfig(AppConfig):
     name = "wagtail"
-    label = "wagtail"
+    label = "wagtailcore"
     verbose_name = _("Wagtail core")
     default_auto_field = "django.db.models.AutoField"
 
