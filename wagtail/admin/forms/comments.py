@@ -1,6 +1,7 @@
 from django.forms import BooleanField, ValidationError
 from django.utils.timezone import now
 from django.utils.translation import gettext as _
+from modelcluster.forms import BaseChildFormSet
 
 from .models import WagtailAdminModelForm
 
@@ -73,3 +74,14 @@ class CommentForm(WagtailAdminModelForm):
             self.instance.resolved_by = None
             self.instance.resolved_at = None
         return super().save(*args, **kwargs)
+
+
+class CommentFormSet(BaseChildFormSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        valid_comment_ids = [
+            comment.id
+            for comment in self.queryset
+            if comment.has_valid_contentpath(self.instance)
+        ]
+        self.queryset = self.queryset.filter(id__in=valid_comment_ids)

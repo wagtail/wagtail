@@ -1651,7 +1651,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
             page=self.event_page,
             text="test",
             user=self.other_user,
-            contentpath="test_contentpath",
+            contentpath="location",
         )
         self.reply_1 = CommentReply.objects.create(
             comment=self.comment, text="reply_1", user=self.other_user
