@@ -365,6 +365,22 @@ class BaseStreamBlock(Block):
                 )
                 yield model, object_id, model_path, content_path
 
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        if path_elements:
+            id, *remaining_elements = path_elements
+            for child in value:
+                if child.id == id:
+                    return child.block.get_block_by_content_path(
+                        child.value, remaining_elements
+                    )
+        else:
+            # an empty path refers to the stream as a whole
+            return self.bind(value)
+
     def deconstruct(self):
         """
         Always deconstruct StreamBlock instances as if they were plain StreamBlocks with all of the
