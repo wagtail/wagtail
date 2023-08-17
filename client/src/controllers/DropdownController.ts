@@ -71,10 +71,7 @@ export class DropdownController extends Controller<HTMLElement> {
     }
 
     const onShown = () => {
-      this.dispatch('shown', {
-        // work around for target type bug https://github.com/hotwired/stimulus/issues/642
-        target: ((key = 'document') => window[key])(),
-      });
+      this.dispatch('shown', { target: window.document });
     };
 
     return {
