@@ -364,7 +364,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        soup = self.get_soup(response)
+        soup = self.get_soup(response.content)
 
         # Check the private privacy indicator is visible
         private_indicator = soup.select_one("[data-privacy-sidebar-private]")

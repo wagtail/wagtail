@@ -18,7 +18,7 @@ Changelog
  * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
  * Maintenance: Add support for options/attrs in Telepath widgets so that attrs render on the created DOM (Storm Heg)
  * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
- * Maintenance: Add `WagtailTestUtils.get_soup()` method to get a `BeautifulSoup` object from an `HttpResponse` object (Storm Heg)
+ * Maintenance: Add `WagtailTestUtils.get_soup()` method for testing HTML content (Storm Heg, Sage Abdullah)
  * Maintenance: Allow `ViewSet` subclasses to customise `url_prefix` and `url_namespace` logic (Matt Westcott)
  * Maintenance: Simplify `SnippetViewSet` registration code (Sage Abdullah)
 
