@@ -90,8 +90,6 @@ export class SwapController extends Controller<
   searchLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to submit the serialised form and then replace the DOM */
   submitLazy?: { (...args: any[]): void; cancel(): void };
-  /** Element that receives the fetch result HTML output */
-  targetElement?: HTMLElement;
 
   /**
    * Ensure we have backwards compatibility with setting window.headerSearch
@@ -139,7 +137,7 @@ export class SwapController extends Controller<
       : this.element;
     this.srcValue =
       this.srcValue || formContainer?.getAttribute('action') || '';
-    this.targetElement = this.getTarget(this.targetValue);
+    const target = this.target;
 
     // set up icons
     this.iconElement = null;
@@ -159,10 +157,14 @@ export class SwapController extends Controller<
     this.submitLazy = debounce(this.submit.bind(this), this.waitValue);
 
     // dispatch event for any initial action usage
-    this.dispatch('ready', { cancelable: false });
+    this.dispatch('ready', { cancelable: false, target });
   }
 
-  getTarget(targetValue = this.targetValue) {
+  /**
+   * Element that receives the fetch result HTML output
+   */
+  get target() {
+    const targetValue = this.targetValue;
     const targetElement = document.querySelector(targetValue);
 
     const foundTarget = targetElement && targetElement instanceof HTMLElement;
@@ -189,12 +191,13 @@ export class SwapController extends Controller<
    * Toggle the visual spinner icon if available and ensure content about
    * to be replaced is flagged as busy.
    */
-  loadingValueChanged(isLoading: boolean) {
+  loadingValueChanged(isLoading: boolean, isLoadingPrevious) {
+    const target = isLoadingPrevious === undefined ? null : this.target; // ensure we avoid DOM interaction before connect
     if (isLoading) {
-      this.targetElement?.setAttribute('aria-busy', 'true');
+      target?.setAttribute('aria-busy', 'true');
       this.iconElement?.setAttribute('href', '#icon-spinner');
     } else {
-      this.targetElement?.removeAttribute('aria-busy');
+      target?.removeAttribute('aria-busy');
       this.iconElement?.setAttribute('href', this.iconValue);
     }
   }
@@ -282,6 +285,7 @@ export class SwapController extends Controller<
       | string
       | (CustomEvent<{ url: string }> & { params?: { url?: string } }),
   ) {
+    const target = this.target;
     /** Parse a request URL from the supplied param, as a string or inside a custom event */
     const requestUrl =
       (typeof data === 'string'
@@ -297,8 +301,7 @@ export class SwapController extends Controller<
     const beginEvent = this.dispatch('begin', {
       cancelable: true,
       detail: { requestUrl },
-      // Stimulus dispatch target element type issue https://github.com/hotwired/stimulus/issues/642
-      target: this.targetElement as HTMLInputElement,
+      target: this.target,
     }) as CustomEvent<{ requestUrl: string }>;
 
     if (beginEvent.defaultPrevented) return Promise.resolve();
@@ -314,13 +317,11 @@ export class SwapController extends Controller<
         return response.text();
       })
       .then((results) => {
-        const targetElement = this.targetElement as HTMLElement;
-        targetElement.innerHTML = results;
+        target.innerHTML = results;
         this.dispatch('success', {
           cancelable: false,
           detail: { requestUrl, results },
-          // Stimulus dispatch target element type issue https://github.com/hotwired/stimulus/issues/642
-          target: targetElement as HTMLInputElement,
+          target,
         });
         return results;
       })
@@ -329,8 +330,7 @@ export class SwapController extends Controller<
         this.dispatch('error', {
           cancelable: false,
           detail: { error, requestUrl },
-          // Stimulus dispatch target element type issue https://github.com/hotwired/stimulus/issues/642
-          target: this.targetElement as HTMLInputElement,
+          target,
         });
         // eslint-disable-next-line no-console
         console.error(`Error fetching ${requestUrl}`, error);
