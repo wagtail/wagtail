@@ -115,3 +115,40 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                 self.assertContains(
                     response, "<p>Some extra custom content</p>", html=True
                 )
+
+
+class TestCustomColumns(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        FeatureCompleteToy.objects.create(name="Racecar")
+        FeatureCompleteToy.objects.create(name="level")
+        FeatureCompleteToy.objects.create(name="Lotso")
+
+    def test_list_display(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(index_url)
+        # "name" column
+        self.assertContains(response, "Racecar")
+        self.assertContains(response, "level")
+        self.assertContains(response, "Lotso")
+        # BooleanColumn("is_cool")
+        soup = self.get_soup(response.content)
+
+        help = soup.select_one("td:has(svg.icon-help)")
+        self.assertIsNotNone(help)
+        self.assertEqual(help.text.strip(), "None")
+
+        success = soup.select_one("td:has(svg.icon-success.w-text-positive-100)")
+        self.assertIsNotNone(success)
+        self.assertEqual(success.text.strip(), "True")
+
+        error = soup.select_one("td:has(svg.icon-error.w-text-critical-100)")
+        self.assertIsNotNone(error)
+        self.assertEqual(error.text.strip(), "False")
+
+        updated_at = soup.select("th a")[-1]
+        self.assertEqual(updated_at.text.strip(), "Updated")
+        self.assertEqual(updated_at["href"], f"{index_url}?ordering=_updated_at")

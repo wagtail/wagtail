@@ -624,21 +624,6 @@ class SnippetViewSet(ModelViewSet):
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = None
 
-    #: A list or tuple, where each item is either:
-    #:
-    #: - The name of a field on the model;
-    #: - The name of a callable or property on the model that accepts a single parameter for the model instance; or
-    #: - An instance of the ``wagtail.admin.ui.tables.Column`` class.
-    #:
-    #: If the name refers to a database field, the ability to sort the listing by the database column will be offerred and the field's verbose name will be used as the column header.
-    #:
-    #: If the name refers to a callable or property, a ``admin_order_field`` attribute can be defined on it to point to the database column for sorting.
-    #: A ``short_description`` attribute can also be defined on the callable or property to be used as the column header.
-    #:
-    #: This list will be passed to the ``list_display`` attribute of the index view.
-    #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
-    list_display = None
-
     #: A list or tuple, where each item is the name of model fields of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``, ``IntegerField`` or ``ForeignKey``.
     #: Alternatively, it can also be a dictionary that maps a field name to a list of lookup expressions.
     #: This will be passed as django-filter's ``FilterSet.Meta.fields`` attribute. See `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_ for more details.
@@ -799,11 +784,6 @@ class SnippetViewSet(ModelViewSet):
             self, "menu_item_is_registered", bool(self.menu_hook)
         )
 
-        if not self.list_display:
-            self.list_display = self.index_view_class.list_display.copy()
-            if self.draftstate_enabled:
-                self.list_display += [LiveStatusTagColumn()]
-
         # This edit handler has been bound to the model and is used for the views.
         self._edit_handler = self.get_edit_handler()
 
@@ -848,7 +828,6 @@ class SnippetViewSet(ModelViewSet):
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
             list_filter=self.list_filter,
             list_export=self.list_export,
             export_filename=self.get_export_filename(),
@@ -1103,6 +1082,13 @@ class SnippetViewSet(ModelViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
+
+    @cached_property
+    def list_display(self):
+        list_display = super().list_display.copy()
+        if self.draftstate_enabled:
+            list_display.append(LiveStatusTagColumn())
+        return list_display
 
     @cached_property
     def icon(self):

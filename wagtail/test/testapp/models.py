@@ -2140,3 +2140,10 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
 # Models to be registered with a ModelViewSet
 class FeatureCompleteToy(models.Model):
     name = models.CharField(max_length=255)
+
+    def is_cool(self):
+        if self.name == self.name[::-1]:
+            return True
+        if (lowered := self.name.lower()) == lowered[::-1]:
+            return None
+        return False

@@ -76,6 +76,7 @@ class ModelViewSet(ViewSet):
             "add_url_name": self.get_url_name("add"),
             "edit_url_name": self.get_url_name("edit"),
             "header_icon": self.icon,
+            "list_display": self.list_display,
             **kwargs,
         }
 
@@ -238,6 +239,32 @@ class ModelViewSet(ViewSet):
             "confirm_delete",
             fallback=self.delete_view_class.template_name,
         )
+
+    @cached_property
+    def list_display(self):
+        """
+        A list or tuple, where each item is either:
+
+        - The name of a field on the model;
+        - The name of a callable or property on the model that accepts a single
+          parameter for the model instance; or
+        - An instance of the ``wagtail.admin.ui.tables.Column`` class.
+
+        If the name refers to a database field, the ability to sort the listing
+        by the database column will be offerred and the field's verbose name
+        will be used as the column header.
+
+        If the name refers to a callable or property, an ``admin_order_field``
+        attribute can be defined on it to point to the database column for
+        sorting. A ``short_description`` attribute can also be defined on the
+        callable or property to be used as the column header.
+
+        This list will be passed to the ``list_display`` attribute of the index
+        view. If left unset, the ``list_display`` attribute of the index view
+        will be used instead, which by default is defined as
+        ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+        """
+        return self.index_view_class.list_display
 
     @cached_property
     def menu_label(self):
