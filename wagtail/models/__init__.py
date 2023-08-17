@@ -24,6 +24,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
+    FieldDoesNotExist,
     ImproperlyConfigured,
     PermissionDenied,
     ValidationError,
@@ -4779,6 +4780,30 @@ class Comment(ClusterableModel):
 
     def log_delete(self, **kwargs):
         self._log("wagtail.comments.delete", **kwargs)
+
+    def has_valid_contentpath(self, page):
+        """
+        Return True if this comment's contentpath corresponds to a valid field or
+        StreamField block on the given page object
+        """
+        field_name, *remainder = self.contentpath.split(".")
+        try:
+            field = page._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            return False
+
+        if not remainder:
+            # comment applies to the field as a whole
+            return True
+
+        if not isinstance(field, StreamField):
+            # only StreamField supports content paths that are deeper than one level
+            return False
+
+        stream_value = getattr(page, field_name)
+        block = field.get_block_by_content_path(stream_value, remainder)
+        # content path is valid if this returns a BoundBlock rather than None
+        return bool(block)
 
 
 class CommentReply(models.Model):
