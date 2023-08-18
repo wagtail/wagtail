@@ -2,6 +2,8 @@ import os
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
+from storages.backends.s3boto3 import S3Boto3Storage
+
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
@@ -259,3 +261,9 @@ MESSAGE_TAGS = {
     message_constants.WARNING: "my-custom-tag",
     message_constants.ERROR: "my-custom-tag",
 }
+class WagtailImagesPublicMediaStorage(S3Boto3Storage):
+    location = '/my/custom/wagtail/image/path'
+    default_acl = 'public-read'
+    file_overwrite = True
+
+    WAGTAILIMAGES_RENDITION_STORAGE = 'cos_django.storage_backends.WagtailImagesPublicMediaStorage'

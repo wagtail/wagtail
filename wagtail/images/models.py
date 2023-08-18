@@ -1,3 +1,5 @@
+import os
+import django
 import hashlib
 import logging
 import os.path
@@ -8,6 +10,9 @@ from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
 from typing import Dict, Iterable, List, Union
+
+from wagtail.images.models import AbstractImage, AbstractRendition
+from django.conf import settings
 
 import willow
 from django.apps import apps
@@ -27,7 +32,8 @@ from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
-
+from wagtail.images.models import AbstractImage, AbstractRendition
+from taggit.managers import TaggableManager
 from wagtail import hooks
 from wagtail.coreutils import string_to_ascii
 from wagtail.images.exceptions import (
@@ -45,6 +51,8 @@ from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 from wagtail.utils.file import hash_filelike
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", ".customImage.settings")
+django.setup()
 logger = logging.getLogger("wagtail.images")
 
 
@@ -814,7 +822,11 @@ class Image(AbstractImage):
             ("choose_image", "Can choose image"),
         ]
 
+class CustomWagtailImage(AbstractImage):
+    def get_upload_to(self, filename):
+        return os.path.join(settings.WAGTAIL_BLOG_IMAGES_PATH, filename)
 
+    admin_form_fields = Image.admin_form_fields + ()
 class Filter:
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
