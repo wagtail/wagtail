@@ -211,10 +211,10 @@ class CreatePageAliasAction:
             'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
         )
 
+        from wagtail.models import Page, PageViewRestriction
+
         # Copy child pages
         if recursive:
-            from wagtail.models import Page
-
             numchild = 0
 
             for child_page in page.get_children().specific().iterator():
@@ -239,6 +239,23 @@ class CreatePageAliasAction:
             if numchild > 0:
                 alias.numchild = numchild
                 alias.save(clean=False, update_fields=["numchild"])
+
+        # Copy across any view restrictions defined directly on the page,
+        # unless the destination page already has view restrictions defined
+        if parent:
+            parent_page_restriction = parent.get_view_restrictions()
+        else:
+            parent_page_restriction = page.get_parent().get_view_restrictions()
+
+        if not parent_page_restriction.exists():
+            for view_restriction in page.view_restrictions.all():
+                view_restriction_copy = PageViewRestriction(
+                    restriction_type=view_restriction.restriction_type,
+                    password=view_restriction.password,
+                    page=alias,
+                )
+                view_restriction_copy.save(user=self.user)
+                view_restriction_copy.groups.set(view_restriction.groups.all())
 
         return alias
 
