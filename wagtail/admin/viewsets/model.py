@@ -8,17 +8,23 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.views import generic
+from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
 
-from .base import ViewSet
+from .base import ViewSet, ViewSetGroup
 
 
 class ModelViewSet(ViewSet):
     """
     A viewset to allow listing, creating, editing and deleting model instances.
+
+    All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet`
+    are available.
     """
 
-    icon = ""  #: The icon to use to represent the model within this viewset.
+    #: Register the model to the reference index to track its usage.
+    #: For more details, see :ref:`managing_the_reference_index`.
+    add_to_reference_index = True
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
     index_view_class = generic.IndexView
@@ -32,6 +38,18 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
 
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs)
+        if not self.model:
+            raise ImproperlyConfigured(
+                "ModelViewSet %r must define a `model` attribute or pass a `model` argument"
+                % self
+            )
+
+        self.model_opts = self.model._meta
+        self.app_label = self.model_opts.app_label
+        self.model_name = self.model_opts.model_name
+
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
@@ -42,7 +60,7 @@ class ModelViewSet(ViewSet):
         Viewset name, to use as the URL prefix and namespace.
         Defaults to the :attr:`~django.db.models.Options.model_name`.
         """
-        return self.model._meta.model_name
+        return self.model_name
 
     def get_index_view_kwargs(self):
         return {
@@ -102,6 +120,25 @@ class ModelViewSet(ViewSet):
             header_icon=self.icon,
         )
 
+    @cached_property
+    def menu_label(self):
+        return self.model_opts.verbose_name_plural.title()
+
+    @cached_property
+    def menu_item_class(self):
+        from wagtail.admin.menu import MenuItem
+
+        def is_shown(_self, request):
+            return self.permission_policy.user_has_any_permission(
+                request.user, ("add", "change", "delete")
+            )
+
+        return type(
+            f"{self.model.__name__}MenuItem",
+            (MenuItem,),
+            {"is_shown": is_shown},
+        )
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         return db_field.formfield(**kwargs)
 
@@ -151,6 +188,10 @@ class ModelViewSet(ViewSet):
     def register_admin_url_finder(self):
         register_admin_url_finder(self.model, self.url_finder_class)
 
+    def register_reference_index(self):
+        if self.add_to_reference_index:
+            ReferenceIndex.register_model(self.model)
+
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path("", self.index_view, name="index"),
@@ -163,3 +204,24 @@ class ModelViewSet(ViewSet):
     def on_register(self):
         super().on_register()
         self.register_admin_url_finder()
+        self.register_reference_index()
+
+
+class ModelViewSetGroup(ViewSetGroup):
+    """
+    A container for grouping together multiple
+    :class:`~wagtail.admin.viewsets.model.ModelViewSet` instances.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.base.ViewSetGroup` are available.
+    """
+
+    def get_app_label_from_subitems(self):
+        for instance in self.registerables:
+            if app_label := getattr(instance, "app_label", ""):
+                return app_label.title()
+        return ""
+
+    @cached_property
+    def menu_label(self):
+        return self.get_app_label_from_subitems()

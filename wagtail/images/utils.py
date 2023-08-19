@@ -1,14 +1,22 @@
 import base64
 import hashlib
 import hmac
+import logging
+
 
 from django.conf import settings
 from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_str
-
+from wagtail.images.formats import get_image_format
+from django.conf import settings
 
 # Helper functions for migrating the Rendition.filter foreign key to the filter_spec field,
 # and the corresponding reverse migration
+
+logger = logging.getLogger(__name__)
+def process_image_with_unavailable_format(image_url, format_name):
+    logger.warning("Image with unavailable format found. Format: %s, URL: %s", format_name, image_url)
+    # Create a new rendition using the default (original size) format as fallback if there is no available alternative
 def get_fill_filter_spec_migrations(app_name, rendition_model_name):
     def fill_filter_spec_forward(apps, schema_editor):
         # Populate Rendition.filter_spec with the spec string of the corresponding Filter object
@@ -132,3 +140,13 @@ def to_svg_safe_spec(filter_specs):
         if any(x.startswith(prefix) for prefix in svg_preserving_specs)
     ]
     return "|".join(safe_specs)
+
+def get_image_format_with_fallback(format_name):
+    format_data = settings.WAGTAIL_IMAGE_FORMATS.get(format_name)
+    
+    if format_data:
+        return get_image_format(format_name)
+    elif format_data and 'fallback_format' in format_data:
+        return get_image_format(format_data['fallback_format'])
+    else:
+        return None

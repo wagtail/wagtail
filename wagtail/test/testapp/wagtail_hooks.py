@@ -30,6 +30,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     VariousOnDeleteModel,
 )
+from wagtail.test.testapp.views import MiscellaneousViewSetGroup
 
 from .forms import FavouriteColourForm
 
@@ -242,6 +243,11 @@ def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
 
 
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return MiscellaneousViewSetGroup()
+
+
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
     class Meta:
         model = FullFeaturedSnippet
@@ -313,7 +319,8 @@ class RevisableChildModelViewSet(SnippetViewSet):
 
 
 class RevisableViewSetGroup(SnippetViewSetGroup):
-    items = (RevisableModelViewSet, RevisableChildModelViewSet)
+    # Works with both classes and instances
+    items = (RevisableModelViewSet, RevisableChildModelViewSet())
     menu_label = "Revisables"
     menu_icon = "tasks"
 
@@ -357,6 +364,7 @@ class VariousOnDeleteModelViewSet(SnippetViewSet):
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
-register_snippet(ModeratedModelViewSet)
+# Works with both classes and instances
+register_snippet(ModeratedModelViewSet())
 register_snippet(RevisableViewSetGroup)
 register_snippet(VariousOnDeleteModelViewSet)

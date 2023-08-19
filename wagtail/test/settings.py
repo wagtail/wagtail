@@ -267,3 +267,12 @@ class WagtailImagesPublicMediaStorage(S3Boto3Storage):
     file_overwrite = True
 
     WAGTAILIMAGES_RENDITION_STORAGE = 'cos_django.storage_backends.WagtailImagesPublicMediaStorage'
+
+WAGTAIL_IMAGE_FORMATS = {
+    'fullwidth': {
+        'verbose_name': 'Full Width',
+        'width': 1200,
+        'height': 0,
+        'fallback_format': 'default',  
+    },
+}

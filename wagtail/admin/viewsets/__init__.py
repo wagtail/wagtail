@@ -1,6 +1,7 @@
 from django.urls import include, path
 
 from wagtail import hooks
+from wagtail.admin.viewsets.base import ViewSetGroup
 
 
 class ViewSetRegistry:
@@ -10,13 +11,17 @@ class ViewSetRegistry:
     def populate(self):
         for fn in hooks.get_hooks("register_admin_viewset"):
             viewset = fn()
-            if isinstance(viewset, (list, tuple)):
-                for vs in viewset:
-                    self.register(vs)
-            else:
-                self.register(viewset)
+            self.register(viewset)
 
     def register(self, viewset):
+        # Allow registering a ViewSetGroup, which will register all of its
+        # registerables.
+        if isinstance(viewset, ViewSetGroup):
+            for vs in viewset.registerables:
+                self.register(vs)
+            viewset.on_register()
+            return
+
         self.viewsets.append(viewset)
         viewset.on_register()
         return viewset

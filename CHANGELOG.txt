@@ -6,6 +6,8 @@ Changelog
 
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
+ * Move `SnippetViewSet` menu registration mechanism to base `ViewSet` class (Sage Abdullah)
+ * Enable reference index tracking for models registered with `ModelViewSet` (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier & Jest npm packages (LB (Ben) Johnston)
@@ -16,6 +18,7 @@ Changelog
  * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
  * Maintenance: Add `WagtailTestUtils.get_soup()` method to get a `BeautifulSoup` object from an `HttpResponse` object (Storm Heg)
  * Maintenance: Allow `ViewSet` subclasses to customise `url_prefix` and `url_namespace` logic (Matt Westcott)
+ * Maintenance: Simplify `SnippetViewSet` registration code (Sage Abdullah)
 
 
 5.1.1 (14.08.2023)
