@@ -10,50 +10,56 @@ repos:
         args: ['--target-version', 'py38']
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.0.272'
+    rev: 'v0.0.285'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.1
+    rev: ''  # Use the sha / tag you want to point at
     hooks:
       - id: prettier
-        types_or: [css, scss, javascript, ts, tsx, json, yaml]
+        types_or: [css, scss, javascript]
         additional_dependencies:
           # Keep in sync with package.json
-          - prettier@3.0.1
+          - prettier@2.1.2
+          - '@prettier/plugin-xml@0.12.0'
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.8.0
+    rev: ''  # Use the sha / tag you want to point at
     hooks:
       - id: eslint
         types: [file]
-        files: \.(js|ts|tsx)$
+        files:  \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
         args: [--report-unused-disable-directives]
         additional_dependencies:
           # Keep in sync with package.json
-          - eslint@8.46
-          - '@typescript-eslint/eslint-plugin@6.2.1'
-          - '@typescript-eslint/parser@6.2.1'
-          - '@wagtail/eslint-config-wagtail@0.4.0'
+          - eslint@4.15.0
+          -  eslint-config-google@0.7.1
+          -  eslint-loader@1.6.1
+          -  eslint-plugin-react@6.10.3
+          -  babel-eslint@6.1.2
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v14.2.0
+    rev: v14.4.0
     hooks:
       - id: stylelint
-        files: \.scss$
+        files: \.(scss|vue)$
+        args: [--report-needless-disables, --report-invalid-scope-disables]
         additional_dependencies:
-          # Keep in sync with package.json
-          - stylelint@14.2.0
-          - '@wagtail/stylelint-config-wagtail@0.5.0'
+          - stylelint@14.4.0
+          - stylelint-config-standard-scss@3.0.0
+          - "@scope/my-awesome-plugin@0.12.0"
   - repo: https://github.com/thibaudcolas/curlylint
     rev: v0.13.1
     hooks:
       - id: curlylint
         args: ['--parse-only']
   - repo: https://github.com/rtts/djhtml
-    rev: v1.5.2
+    rev: 'main'  # replace with the latest tag on GitHub
     hooks:
       - id: djhtml
+      - id: djcss
+      - id: djjs
+    
   - repo: https://github.com/returntocorp/semgrep
     rev: v1.3.0
     hooks:
