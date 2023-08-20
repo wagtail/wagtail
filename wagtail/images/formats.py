@@ -83,7 +83,7 @@ def get_image_formats():
 
 def get_image_format(name):
     search_for_image_formats()
-    return FORMATS_BY_NAME[name]
+    return FORMATS_BY_NAME.get(name, FORMATS_BY_NAME['fullwidth'])
 
 
 _searched_for_image_formats = False
