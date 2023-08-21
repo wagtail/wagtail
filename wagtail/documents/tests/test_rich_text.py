@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.documents import get_document_model
@@ -9,13 +8,14 @@ from wagtail.documents.rich_text.editor_html import (
     DocumentLinkHandler as EditorHtmlDocumentLinkHandler,
 )
 from wagtail.fields import RichTextField
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestEditorHtmlDocumentLinkHandler(TestCase):
+class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup('<a data-id="test-id">foo</a>', "html5lib")
+        soup = self.get_soup('<a data-id="test-id">foo</a>')
         tag = soup.a
         result = EditorHtmlDocumentLinkHandler.get_db_attributes(tag)
         self.assertEqual(result, {"id": "test-id"})

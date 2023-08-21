@@ -1,22 +1,22 @@
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestDbWhitelisterMethods(TestCase):
+class TestDbWhitelisterMethods(WagtailTestUtils, TestCase):
     def setUp(self):
         self.whitelister = EditorHTMLConverter().whitelister
 
     def test_clean_tag_node_div(self):
-        soup = BeautifulSoup("<div>foo</div>", "html5lib")
+        soup = self.get_soup("<div>foo</div>", "html5lib")
         tag = soup.div
         self.assertEqual(tag.name, "div")
         self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(tag.name, "p")
 
     def test_clean_tag_node_with_data_embedtype(self):
-        soup = BeautifulSoup(
+        soup = self.get_soup(
             '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>',
             "html5lib",
         )
@@ -27,7 +27,7 @@ class TestDbWhitelisterMethods(TestCase):
         )
 
     def test_clean_tag_node_with_data_linktype(self):
-        soup = BeautifulSoup(
+        soup = self.get_soup(
             '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>',
             "html5lib",
         )
@@ -36,13 +36,13 @@ class TestDbWhitelisterMethods(TestCase):
         self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
 
     def test_clean_tag_node(self):
-        soup = BeautifulSoup('<a irrelevant="baz">foo</a>', "html5lib")
+        soup = self.get_soup('<a irrelevant="baz">foo</a>', "html5lib")
         tag = soup.a
         self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), "<a>foo</a>")
 
 
-class TestDbWhitelister(TestCase):
+class TestDbWhitelister(WagtailTestUtils, TestCase):
     def setUp(self):
         self.whitelister = EditorHTMLConverter().whitelister
 
@@ -52,7 +52,7 @@ class TestDbWhitelister(TestCase):
         (necessary because we can't guarantee the order that attributes are output in)
         """
         self.assertEqual(
-            BeautifulSoup(str1, "html5lib"), BeautifulSoup(str2, "html5lib")
+            self.get_soup(str1, "html5lib"), self.get_soup(str2, "html5lib")
         )
 
     def test_page_link_is_rewritten(self):

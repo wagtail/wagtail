@@ -1,6 +1,5 @@
 import json
 
-from bs4 import BeautifulSoup
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase
@@ -193,7 +192,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
     def get_script(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(Context({"request": self.request}))
-        soup = BeautifulSoup(content, "html.parser")
+        soup = self.get_soup(content)
 
         # Should include the configuration as a JSON script with the specific id
         return soup.find("script", id="accessibility-axe-configuration")

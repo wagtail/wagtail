@@ -3,7 +3,6 @@ from functools import wraps
 from typing import Any, List, Mapping, Optional
 from unittest import mock
 
-from bs4 import BeautifulSoup
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -2223,7 +2222,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
             instance=instance,
         )
         html = bound_edit_handler.render_form_content()
-        return BeautifulSoup(html, "html5lib")
+        return self.get_soup(html)
 
     @clear_edit_handler(Page)
     def test_default_page_content_panels_uses_title_field(self):
