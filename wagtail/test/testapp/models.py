@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 import os
 import uuid
@@ -2140,6 +2141,7 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
 # Models to be registered with a ModelViewSet
 class FeatureCompleteToy(models.Model):
     name = models.CharField(max_length=255)
+    release_date = models.DateField(default=datetime.date.today)
 
     def is_cool(self):
         if self.name == self.name[::-1]:

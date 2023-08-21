@@ -621,15 +621,6 @@ class SnippetViewSet(ModelViewSet):
     #: The model class to be registered as a snippet with this viewset.
     model = None
 
-    #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
-    filterset_class = None
-
-    #: A list or tuple, where each item is the name of model fields of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``, ``IntegerField`` or ``ForeignKey``.
-    #: Alternatively, it can also be a dictionary that maps a field name to a list of lookup expressions.
-    #: This will be passed as django-filter's ``FilterSet.Meta.fields`` attribute. See `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_ for more details.
-    #: If ``filterset_class`` is set, this attribute will be ignored.
-    list_filter = None
-
     #: A list or tuple, where each item is the name of a field, an attribute, or a single-argument callable on the model.
     list_export = []
 
@@ -824,11 +815,9 @@ class SnippetViewSet(ModelViewSet):
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(
             queryset=self.get_queryset,
-            filterset_class=self.filterset_class,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             delete_url_name=self.get_url_name("delete"),
-            list_filter=self.list_filter,
             list_export=self.list_export,
             export_filename=self.get_export_filename(),
             paginate_by=self.list_per_page,

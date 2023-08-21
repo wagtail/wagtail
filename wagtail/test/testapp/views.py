@@ -205,3 +205,4 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     template_prefix = "customprefix/"
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
+    list_filter = ["name", "release_date"]

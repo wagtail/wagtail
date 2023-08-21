@@ -77,6 +77,8 @@ class ModelViewSet(ViewSet):
             "edit_url_name": self.get_url_name("edit"),
             "header_icon": self.icon,
             "list_display": self.list_display,
+            "list_filter": self.list_filter,
+            "filterset_class": self.filterset_class,
             **kwargs,
         }
 
@@ -265,6 +267,31 @@ class ModelViewSet(ViewSet):
         ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
         """
         return self.index_view_class.list_display
+
+    @cached_property
+    def list_filter(self):
+        """
+        A list or tuple, where each item is the name of model fields of type
+        ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``,
+        ``IntegerField`` or ``ForeignKey``.
+        Alternatively, it can also be a dictionary that maps a field name to a
+        list of lookup expressions.
+        This will be passed as django-filter's ``FilterSet.Meta.fields``
+        attribute. See
+        `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_
+        for more details.
+        If ``filterset_class`` is set, this attribute will be ignored.
+        """
+        return self.index_view_class.list_filter
+
+    @cached_property
+    def filterset_class(self):
+        """
+        A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a
+        subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
+        This will be passed to the ``filterset_class`` attribute of the index view.
+        """
+        return self.index_view_class.filterset_class
 
     @cached_property
     def menu_label(self):

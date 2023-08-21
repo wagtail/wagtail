@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
@@ -152,3 +154,106 @@ class TestCustomColumns(WagtailTestUtils, TestCase):
         updated_at = soup.select("th a")[-1]
         self.assertEqual(updated_at.text.strip(), "Updated")
         self.assertEqual(updated_at["href"], f"{index_url}?ordering=_updated_at")
+
+
+class TestListFilter(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params=None):
+        return self.client.get(reverse("feature_complete_toy:index"), params)
+
+    @classmethod
+    def setUpTestData(cls):
+        FeatureCompleteToy.objects.create(
+            name="Buzz Lightyear",
+            release_date=datetime.date(1995, 11, 19),
+        )
+        FeatureCompleteToy.objects.create(
+            name="Forky",
+            release_date=datetime.date(2019, 6, 11),
+        )
+
+    def test_unfiltered_no_results(self):
+        FeatureCompleteToy.objects.all().delete()
+        response = self.get()
+        self.assertContains(response, "There are no feature complete toys to display")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="release_date" autocomplete="off" id="id_release_date">',
+            html=True,
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+
+    def test_unfiltered_with_results(self):
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Buzz Lightyear")
+        self.assertContains(response, "Forky")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="release_date" autocomplete="off" id="id_release_date">',
+            html=True,
+        )
+
+    def test_empty_filter_with_results(self):
+        response = self.get({"release_date": ""})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Buzz Lightyear")
+        self.assertContains(response, "Forky")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="release_date" value="" autocomplete="off" id="id_release_date">',
+            html=True,
+        )
+
+    def test_filtered_no_results(self):
+        response = self.get({"release_date": "1970-01-01"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(
+            response,
+            "No feature complete toys match your query",
+        )
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="release_date" value="1970-01-01" autocomplete="off" id="id_release_date">',
+            html=True,
+        )
+
+    def test_filtered_with_results(self):
+        response = self.get({"release_date": "1995-11-19"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Buzz Lightyear")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<input type="text" name="release_date" value="1995-11-19" autocomplete="off" id="id_release_date">',
+            html=True,
+        )
