@@ -4,3 +4,14 @@
 {% block header %}
     {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
 {% endblock %}
+
+{% block listing %}
+    <div class="nice-padding{% if filters %} filterable{% endif %}">
+        <div id="listing-results">
+            {% include view.results_template_name|default:"wagtailadmin/generic/listing_results.html" %}
+        </div>
+        {% if filters %}
+            {% include "wagtailadmin/shared/filters.html" %}
+        {% endif %}
+    </div>
+{% endblock %}
