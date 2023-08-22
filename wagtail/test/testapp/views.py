@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
@@ -201,8 +202,39 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     menu_label = "Feature Complete Toys"
     icon = "media"
     exclude_form_fields = ()
-    add_to_admin_menu = True
     template_prefix = "customprefix/"
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
     list_filter = ["name", "release_date"]
+
+
+class FCToyAlt1ViewSet(ModelViewSet):
+    model = FeatureCompleteToy
+    icon = "media"
+    list_filter = {"name": ["icontains"]}
+    form_fields = ["name"]
+    menu_label = "FC Toys Alt 1"
+
+
+class FCToyCustomFilterSet(WagtailFilterSet):
+    class Meta:
+        model = FeatureCompleteToy
+        fields = {"release_date": ["year__lte"]}
+
+
+class ToyViewSetGroup(ModelViewSetGroup):
+    menu_label = "Toys"
+    menu_icon = "media"
+
+    items = (
+        FeatureCompleteToyViewSet,
+        FCToyAlt1ViewSet(name="fctoy_alt1"),
+        ModelViewSet(
+            name="fctoy-alt2",
+            menu_label="FC Toys Alt 2",
+            model=FeatureCompleteToy,
+            icon="media",
+            filterset_class=FCToyCustomFilterSet,
+            exclude_form_fields=(),
+        ),
+    )

@@ -157,11 +157,21 @@ class TestCustomColumns(WagtailTestUtils, TestCase):
 
 
 class TestListFilter(WagtailTestUtils, TestCase):
+    cases = {
+        "list": ("feature_complete_toy", "release_date", "Release date"),
+        "dict": ("fctoy_alt1", "name__icontains", "Name contains"),
+        "filterset_class": (
+            "fctoy-alt2",
+            "release_date__year__lte",
+            "Release date year is less than or equal to",
+        ),
+    }
+
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params=None):
-        return self.client.get(reverse("feature_complete_toy:index"), params)
+    def get(self, url_namespace, params=None):
+        return self.client.get(reverse(f"{url_namespace}:index"), params)
 
     @classmethod
     def setUpTestData(cls):
@@ -176,84 +186,123 @@ class TestListFilter(WagtailTestUtils, TestCase):
 
     def test_unfiltered_no_results(self):
         FeatureCompleteToy.objects.all().delete()
-        response = self.get()
-        self.assertContains(response, "There are no feature complete toys to display")
-        self.assertContains(
-            response,
-            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<input type="text" name="release_date" autocomplete="off" id="id_release_date">',
-            html=True,
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        for case, (url_namespace, lookup, label_text) in self.cases.items():
+            with self.subTest(case=case):
+                response = self.get(url_namespace)
+                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+                self.assertContains(
+                    response,
+                    "There are no feature complete toys to display",
+                )
+                self.assertNotContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertNotContains(response, "Forky")
+
+                soup = self.get_soup(response.content)
+                label = soup.select_one(f"label#id_{lookup}-label")
+                self.assertIsNotNone(label)
+                self.assertEqual(label.text.strip(), label_text)
+                input = soup.select_one(f"input#id_{lookup}")
+                self.assertIsNotNone(input)
 
     def test_unfiltered_with_results(self):
-        response = self.get()
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "Buzz Lightyear")
-        self.assertContains(response, "Forky")
-        self.assertNotContains(response, "There are 2 matches")
-        self.assertContains(
-            response,
-            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<input type="text" name="release_date" autocomplete="off" id="id_release_date">',
-            html=True,
-        )
+        for case, (url_namespace, lookup, label_text) in self.cases.items():
+            with self.subTest(case=case):
+                response = self.get(url_namespace)
+                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+                self.assertContains(response, "Buzz Lightyear")
+                self.assertContains(response, "Forky")
+                self.assertNotContains(response, "There are 2 matches")
+                self.assertNotContains(
+                    response,
+                    "There are no feature complete toys to display",
+                )
+                self.assertNotContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+
+                soup = self.get_soup(response.content)
+                label = soup.select_one(f"label#id_{lookup}-label")
+                self.assertIsNotNone(label)
+                self.assertEqual(label.text.strip(), label_text)
+                input = soup.select_one(f"input#id_{lookup}")
+                self.assertIsNotNone(input)
 
     def test_empty_filter_with_results(self):
-        response = self.get({"release_date": ""})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "Buzz Lightyear")
-        self.assertContains(response, "Forky")
-        self.assertNotContains(response, "There are 2 matches")
-        self.assertContains(
-            response,
-            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<input type="text" name="release_date" value="" autocomplete="off" id="id_release_date">',
-            html=True,
-        )
+        for case, (url_namespace, lookup, label_text) in self.cases.items():
+            with self.subTest(case=case):
+                response = self.get(url_namespace, {lookup: ""})
+                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+                self.assertContains(response, "Buzz Lightyear")
+                self.assertContains(response, "Forky")
+                self.assertNotContains(response, "There are 2 matches")
+                self.assertNotContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+
+                soup = self.get_soup(response.content)
+                label = soup.select_one(f"label#id_{lookup}-label")
+                self.assertIsNotNone(label)
+                self.assertEqual(label.text.strip(), label_text)
+                input = soup.select_one(f"input#id_{lookup}")
+                self.assertIsNotNone(input)
+                self.assertFalse(input.attrs.get("value"))
 
     def test_filtered_no_results(self):
-        response = self.get({"release_date": "1970-01-01"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(
-            response,
-            "No feature complete toys match your query",
-        )
-        self.assertContains(
-            response,
-            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<input type="text" name="release_date" value="1970-01-01" autocomplete="off" id="id_release_date">',
-            html=True,
-        )
+        lookup_values = {
+            "release_date": "1999-09-09",
+            "name__icontains": "Woody",
+            "release_date__year__lte": "1990",
+        }
+        for case, (url_namespace, lookup, label_text) in self.cases.items():
+            with self.subTest(case=case):
+                value = lookup_values[lookup]
+                response = self.get(url_namespace, {lookup: value})
+                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+                self.assertContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertNotContains(response, "Forky")
+                self.assertNotContains(response, "There are 2 matches")
+
+                soup = self.get_soup(response.content)
+                label = soup.select_one(f"label#id_{lookup}-label")
+                self.assertIsNotNone(label)
+                self.assertEqual(label.text.strip(), label_text)
+                input = soup.select_one(f"input#id_{lookup}")
+                self.assertIsNotNone(input)
+                self.assertEqual(input.attrs.get("value"), value)
 
     def test_filtered_with_results(self):
-        response = self.get({"release_date": "1995-11-19"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
-        self.assertContains(response, "Buzz Lightyear")
-        self.assertContains(response, "There is 1 match")
-        self.assertContains(
-            response,
-            '<label class="w-field__label" for="id_release_date" id="id_release_date-label">Release date</label>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<input type="text" name="release_date" value="1995-11-19" autocomplete="off" id="id_release_date">',
-            html=True,
-        )
+        lookup_values = {
+            "release_date": "1995-11-19",
+            "name__icontains": "Ightyear",
+            "release_date__year__lte": "2017",
+        }
+        for case, (url_namespace, lookup, label_text) in self.cases.items():
+            with self.subTest(case=case):
+                value = lookup_values[lookup]
+                response = self.get(url_namespace, {lookup: value})
+                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+                self.assertContains(response, "Buzz Lightyear")
+                self.assertContains(response, "There is 1 match")
+                self.assertNotContains(response, "Forky")
+                self.assertNotContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+
+                soup = self.get_soup(response.content)
+                label = soup.select_one(f"label#id_{lookup}-label")
+                self.assertIsNotNone(label)
+                self.assertEqual(label.text.strip(), label_text)
+                input = soup.select_one(f"input#id_{lookup}")
+                self.assertIsNotNone(input)
+                self.assertEqual(input.attrs.get("value"), value)

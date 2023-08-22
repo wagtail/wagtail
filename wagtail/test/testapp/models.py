@@ -2149,3 +2149,6 @@ class FeatureCompleteToy(models.Model):
         if (lowered := self.name.lower()) == lowered[::-1]:
             return None
         return False
+
+    def __str__(self):
+        return f"{self.name} ({self.release_date})"
