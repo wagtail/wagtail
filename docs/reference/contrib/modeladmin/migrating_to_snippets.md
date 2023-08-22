@@ -46,12 +46,12 @@ There are a few attributes of `ModelAdmin` that need to be renamed/adjusted for 
 
 | `ModelAdmin` attribute | `SnippetViewSet` attribute | Notes |
 | ---------------------- | -------------------------- | ----- |
-| `add_to_admin_menu`    | {attr}`~SnippetViewSet.add_to_admin_menu`        | Same attribute name, but the value defaults to `False` instead of `True`. Set to `True` to add a top-level menu item for the model. |
-| `menu_icon`            | {attr}`~SnippetViewSet.icon`                     | Same value, but different attribute name, as the icon is used throughout the admin and not just in the menu. |
+| `add_to_admin_menu`    | {attr}`~wagtail.admin.viewsets.base.ViewSet.add_to_admin_menu`        | Same attribute name, but the value defaults to `False` instead of `True`. Set to `True` to add a top-level menu item for the model. |
+| `menu_icon`            | {attr}`~wagtail.admin.viewsets.base.ViewSet.icon`                     | Same value, but different attribute name, as the icon is used throughout the admin and not just in the menu. |
 | `list_display`         | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_display`             | Same attribute name, but the list/tuple of strings must refer to existing attributes or methods on the model, not the `SnippetViewSet` class. If you have specified a string that refers to an attribute or method on the `ModelAdmin` class, you need to move it to the model. In addition, `list_display` now also supports instances of the `wagtail.admin.ui.tables.Column` component class. |
-| `list_filter`          | {attr}`~SnippetViewSet.list_filter`              | Same attribute name and value, but filtering is built on top of the django-filter package under the hood, which behaves differently to ModelAdmin's filters. See documentation for `SnippetViewSet.list_filter` and {attr}`~SnippetViewSet.filterset_class` for more details. |
+| `list_filter`          | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_filter`              | Same attribute name and value, but filtering is built on top of the django-filter package under the hood, which behaves differently to ModelAdmin's filters. See documentation for `SnippetViewSet.list_filter` and {attr}`~SnippetViewSet.filterset_class` for more details. |
 | `form_fields_exclude`  | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.exclude_form_fields`           | Same value, but different attribute name to better align with `ModelViewSet`. |
-| - | {attr}`~SnippetViewSet.template_prefix` | New attribute. Set to the name of a template directory to override the `"wagtailsnippets/snippets/"` default. If set to `"modeladmin/"`, the template directory structure will be equal to what ModelAdmin uses. Make sure any custom templates are placed in the correct directory according to this prefix. See [](wagtailsnippets_templates) for more details. |
+| - | {attr}`~wagtail.admin.viewsets.model.ModelViewSet.template_prefix` | New attribute. Set to the name of a template directory to override the `"wagtailsnippets/snippets/"` default. If set to `"modeladmin/"`, the template directory structure will be equal to what ModelAdmin uses. Make sure any custom templates are placed in the correct directory according to this prefix. See [](wagtailsnippets_templates) for more details. |
 
 ### Boolean properties in `list_display`
 
