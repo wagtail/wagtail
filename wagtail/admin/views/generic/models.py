@@ -82,6 +82,7 @@ else:
 class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
     model = None
     template_name = "wagtailadmin/generic/index.html"
+    results_template_name = "wagtailadmin/generic/index_results.html"
     index_results_url_name = None
     add_url_name = None
     add_item_label = gettext_lazy("Add")
