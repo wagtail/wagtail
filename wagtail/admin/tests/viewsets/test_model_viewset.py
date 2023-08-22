@@ -105,7 +105,7 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
             "without app label and model name": (
                 "delete",
                 [pk],
-                "customprefix/delete.html",
+                "customprefix/confirm_delete.html",
             ),
         }
         for case, (view_name, args, template_name) in cases.items():

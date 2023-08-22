@@ -229,13 +229,13 @@ class ModelViewSet(ViewSet):
         """
         A template to be used when rendering ``delete_view``.
 
-        Default: if :attr:`template_prefix` is specified, a ``delete.html``
+        Default: if :attr:`template_prefix` is specified, a ``confirm_delete.html``
         template in the prefix directory and its ``{app_label}/{model_name}/``
         or ``{app_label}/`` subdirectories will be used. Otherwise, the
         ``delete_view_class.template_name`` will be used.
         """
         return self.get_templates(
-            "delete",
+            "confirm_delete",
             fallback=self.delete_view_class.template_name,
         )
 
