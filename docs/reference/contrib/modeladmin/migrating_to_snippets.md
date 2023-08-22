@@ -161,7 +161,7 @@ Helper classes encapsulate the logic that is commonly used across views in Model
 
 - `ModelAdmin.search_handler_class`
 
-  When searching snippets, Wagtail's default search backend is used. To use a different backend, the {attr}`~SnippetViewSet.search_backend_name` attribute can be overridden. If the attribute is set to `None`, the search uses the Django ORM instead.
+  When searching snippets, Wagtail's default search backend is used. To use a different backend, the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.search_backend_name` attribute can be overridden. If the attribute is set to `None`, the search uses the Django ORM instead.
 
   As the `search_handler_class` attribute is not supported in snippets, the `ModelAdmin.extra_search_kwargs` attribute is also not supported.
 

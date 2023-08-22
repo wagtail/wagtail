@@ -206,6 +206,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
     list_filter = ["name", "release_date"]
+    # search_fields derived from the model
 
 
 class FCToyAlt1ViewSet(ModelViewSet):
@@ -214,6 +215,9 @@ class FCToyAlt1ViewSet(ModelViewSet):
     list_filter = {"name": ["icontains"]}
     form_fields = ["name"]
     menu_label = "FC Toys Alt 1"
+
+    def get_index_view_kwargs(self, **kwargs):
+        return super().get_index_view_kwargs(is_searchable=False, **kwargs)
 
 
 class FCToyCustomFilterSet(WagtailFilterSet):
@@ -236,5 +240,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             icon="media",
             filterset_class=FCToyCustomFilterSet,
             exclude_form_fields=(),
+            search_fields=["name"],
+            search_backend_name=None,
         ),
     )

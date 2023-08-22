@@ -306,3 +306,105 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
+
+
+class TestSearchIndexView(WagtailTestUtils, TestCase):
+    url_name = "index"
+    cases = {
+        # With the default search backend
+        "default": ("feature_complete_toy", "release_date"),
+        # With Django ORM
+        None: ("fctoy-alt2", "release_date__year__lte"),
+    }
+
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        FeatureCompleteToy.objects.create(
+            name="Buzz Lightyear",
+            release_date=datetime.date(1995, 11, 19),
+        )
+        FeatureCompleteToy.objects.create(
+            name="Forky",
+            release_date=datetime.date(2019, 6, 11),
+        )
+
+    def assertInputRendered(self, response, search_q):
+        soup = self.get_soup(response.content)
+        input = soup.select_one("input#id_q")
+        self.assertIsNotNone(input)
+        self.assertEqual(input.attrs.get("value"), search_q)
+
+    def get(self, url_namespace, params=None):
+        return self.client.get(reverse(f"{url_namespace}:{self.url_name}"), params)
+
+    def test_search_disabled(self):
+        response = self.get("fctoy_alt1", {"q": "ork"})
+        self.assertContains(response, "Forky")
+        self.assertContains(response, "Buzz Lightyear")
+        self.assertNotContains(response, "There are 2 matches")
+        soup = self.get_soup(response.content)
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+
+    def test_search_no_results(self):
+        for backend, (url_namespace, _) in self.cases.items():
+            with self.subTest(backend=backend):
+                response = self.get(url_namespace, {"q": "Woody"})
+                self.assertContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertNotContains(response, "Forky")
+                self.assertInputRendered(response, "Woody")
+
+    def test_search_with_results(self):
+        for backend, (url_namespace, _) in self.cases.items():
+            with self.subTest(backend=backend):
+                response = self.get(url_namespace, {"q": "ork"})
+                self.assertContains(response, "Forky")
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertContains(response, "There is 1 match")
+                self.assertInputRendered(response, "ork")
+
+    def test_filtered_searched_no_results(self):
+        lookup_values = {
+            "release_date": "2019-06-11",
+            "release_date__year__lte": "2023",
+        }
+        for backend, (url_namespace, lookup) in self.cases.items():
+            with self.subTest(backend=backend):
+                value = lookup_values[lookup]
+                response = self.get(url_namespace, {"q": "Woody", lookup: value})
+                self.assertContains(
+                    response,
+                    "No feature complete toys match your query",
+                )
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertNotContains(response, "Forky")
+                self.assertInputRendered(response, "Woody")
+
+    def test_filtered_searched_with_results(self):
+        lookup_values = {
+            "release_date": "2019-06-11",
+            "release_date__year__lte": "2023",
+        }
+        for backend, (url_namespace, lookup) in self.cases.items():
+            with self.subTest(backend=backend):
+                value = lookup_values[lookup]
+                response = self.get(url_namespace, {"q": "ork", lookup: value})
+                self.assertContains(response, "Forky")
+                self.assertNotContains(response, "Buzz Lightyear")
+                self.assertContains(response, "There is 1 match")
+                self.assertInputRendered(response, "ork")
+
+
+class TestSearchIndexResultsView(TestSearchIndexView):
+    url_name = "index_results"
+
+    def assertInputRendered(self, response, search_q):
+        # index_results view doesn't render the search input
+        pass

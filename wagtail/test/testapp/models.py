@@ -2139,9 +2139,16 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
 
 
 # Models to be registered with a ModelViewSet
-class FeatureCompleteToy(models.Model):
+class FeatureCompleteToy(index.Indexed, models.Model):
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
+
+    search_fields = [
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
+        index.FilterField("name"),
+        index.FilterField("release_date"),
+    ]
 
     def is_cool(self):
         if self.name == self.name[::-1]:

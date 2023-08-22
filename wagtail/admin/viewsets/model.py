@@ -79,6 +79,8 @@ class ModelViewSet(ViewSet):
             "list_display": self.list_display,
             "list_filter": self.list_filter,
             "filterset_class": self.filterset_class,
+            "search_fields": self.search_fields,
+            "search_backend_name": self.search_backend_name,
             **kwargs,
         }
 
@@ -292,6 +294,23 @@ class ModelViewSet(ViewSet):
         This will be passed to the ``filterset_class`` attribute of the index view.
         """
         return self.index_view_class.filterset_class
+
+    @cached_property
+    def search_fields(self):
+        """
+        The fields to use for the search in the index view.
+        If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
+        the ``search_fields`` attribute of the model will be used instead.
+        """
+        return self.index_view_class.search_fields
+
+    @cached_property
+    def search_backend_name(self):
+        """
+        The name of the Wagtail search backend to use for the search in the index view.
+        If set to a falsy value, the search will fall back to use Django's QuerySet API.
+        """
+        return self.index_view_class.search_backend_name
 
     @cached_property
     def menu_label(self):
