@@ -147,7 +147,7 @@ class ModelViewSet(ViewSet):
             **self.get_delete_view_kwargs(),
         )
 
-    def get_templates(self, action="index", fallback=""):
+    def get_templates(self, name="index", fallback=""):
         """
         Utility function that provides a list of templates to try for a given
         view, when the template isn't overridden by one of the template
@@ -156,9 +156,9 @@ class ModelViewSet(ViewSet):
         if not self.template_prefix:
             return [fallback]
         templates = [
-            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
-            f"{self.template_prefix}{self.app_label}/{action}.html",
-            f"{self.template_prefix}{action}.html",
+            f"{self.template_prefix}{self.app_label}/{self.model_name}/{name}.html",
+            f"{self.template_prefix}{self.app_label}/{name}.html",
+            f"{self.template_prefix}{name}.html",
         ]
         if fallback:
             templates.append(fallback)
