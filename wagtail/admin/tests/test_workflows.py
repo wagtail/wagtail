@@ -23,6 +23,7 @@ from wagtail.admin.utils import (
 from wagtail.models import (
     GroupApprovalTask,
     Page,
+    PageViewRestriction,
     Task,
     TaskState,
     Workflow,
@@ -3510,3 +3511,31 @@ class TestSnippetWorkflowStatusNotLockable(TestSnippetWorkflowStatus):
         response = self.client.get(self.get_url("edit"))
         self.assertNotContains(response, needle)
         self.assertContains(response, "Save draft")
+
+
+class TestDashboardWithSnippets(BaseSnippetWorkflowTests):
+    def setUp(self):
+        super().setUp()
+        # Ensure that the presence of private pages doesn't break the dashboard -
+        # https://github.com/wagtail/wagtail/issues/10819
+        homepage = Page.objects.filter(depth=2).first()
+        PageViewRestriction.objects.create(
+            page=homepage, restriction_type=PageViewRestriction.LOGIN
+        )
+
+    def test_dashboard_for_submitter(self):
+        self.login(self.submitter)
+        self.post("submit")
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Your pages and snippets in a workflow")
+
+    def test_dashboard_for_moderator(self):
+        self.login(self.submitter)
+        self.post("submit")
+
+        self.login(self.moderator)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Awaiting your review")
