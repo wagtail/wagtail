@@ -85,6 +85,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
+   .. autoattribute:: export_headings
    .. autoattribute:: export_filename
    .. autoattribute:: search_fields
    .. autoattribute:: search_backend_name

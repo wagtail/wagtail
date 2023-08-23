@@ -87,6 +87,7 @@ class ModelViewSet(ViewSet):
             "list_display": self.list_display,
             "list_filter": self.list_filter,
             "list_export": self.list_export,
+            "export_headings": self.export_headings,
             "export_filename": self.export_filename,
             "filterset_class": self.filterset_class,
             "search_fields": self.search_fields,
@@ -331,6 +332,14 @@ class ModelViewSet(ViewSet):
         or a single-argument callable on the model to be exported.
         """
         return self.index_view_class.list_export
+
+    @cached_property
+    def export_headings(self):
+        """
+        A dictionary of export column heading overrides in the format
+        ``{field_name: heading}``.
+        """
+        return self.index_view_class.export_headings
 
     @cached_property
     def export_filename(self):
