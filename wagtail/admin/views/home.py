@@ -186,24 +186,35 @@ class WorkflowObjectsToModeratePanel(Component):
 
             workflow_action_url_name = "wagtailadmin_pages:workflow_action"
             workflow_preview_url_name = "wagtailadmin_pages:workflow_preview"
+            revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
 
             # Snippets can also have workflows
             if not isinstance(obj, Page):
                 viewset = obj.snippet_viewset
                 workflow_action_url_name = viewset.get_url_name("workflow_action")
                 workflow_preview_url_name = viewset.get_url_name("workflow_preview")
+                revisions_compare_url_name = viewset.get_url_name("revisions_compare")
 
             if not getattr(obj, "is_previewable", False):
                 workflow_preview_url_name = None
 
+            try:
+                previous_revision = state.revision.get_previous()
+            except Revision.DoesNotExist:
+                previous_revision = None
+
             context["states"].append(
                 {
                     "obj": obj,
+                    "revision": state.revision,
+                    "previous_revision": previous_revision,
+                    "live_revision": obj.live_revision,
                     "task_state": state,
                     "actions": actions,
                     "workflow_tasks": workflow_tasks,
                     "workflow_action_url_name": workflow_action_url_name,
                     "workflow_preview_url_name": workflow_preview_url_name,
+                    "revisions_compare_url_name": revisions_compare_url_name,
                 }
             )
 

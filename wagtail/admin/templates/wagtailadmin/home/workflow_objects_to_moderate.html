@@ -59,6 +59,16 @@
                                                 <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
                                             </li>
                                         {% endif %}
+                                        {% if state.live_revision %}
+                                            <li>
+                                                <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}" class="button button-small button-secondary">{% trans "Compare with live version" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if state.previous_revision %}
+                                            <li>
+                                                <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans "Compare with previous version" %}</a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 {% endif %}
                             </td>
