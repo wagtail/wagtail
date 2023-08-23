@@ -16,6 +16,7 @@ Changelog
  * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
+ * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)

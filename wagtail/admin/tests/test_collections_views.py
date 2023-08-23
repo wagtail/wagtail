@@ -600,6 +600,12 @@ class TestDeleteCollectionAsSuperuser(WagtailTestUtils, TestCase):
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
+        # Check the message content
+        self.assertEqual(
+            response.context["message"],
+            "Collection 'Holiday snaps' deleted.",
+        )
+
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
             Collection.objects.get(id=self.collection.id)
