@@ -182,6 +182,6 @@ class Delete(DeleteView):
             # collection is non-empty; refuse to delete it
             return HttpResponseForbidden()
 
+        messages.success(request, self.get_success_message())
         self.object.delete()
-        messages.success(request, self.success_message.format(self.object))
         return redirect(self.index_url_name)
