@@ -290,6 +290,7 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
         "country_code",
         "get_foo_country_code",
         "some_date",
+        "some_number",
         "first_published_at",
     ]
     export_filename = "all-fullfeatured-snippets"

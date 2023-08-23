@@ -749,6 +749,7 @@ class TestListExport(BaseSnippetViewSetTests):
             text="Indomie",
             country_code="ID",
             first_published_at=cls.first_published_at,
+            some_number=1,
         )
         # Refresh so the first_published_at becomes a datetime object
         obj.refresh_from_db()
@@ -774,15 +775,15 @@ class TestListExport(BaseSnippetViewSetTests):
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
             data_lines[0],
-            "Text,Country code,Custom FOO column,Some date,First published at\r",
+            "Text,Country code,Custom FOO column,Some date,Some number,First published at\r",
         )
         self.assertEqual(
             data_lines[1],
-            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},{self.first_published_at.isoformat(sep=' ')}\r",
+            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},1,{self.first_published_at.isoformat(sep=' ')}\r",
         )
         self.assertEqual(
             data_lines[2],
-            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},None\r",
+            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},0,\r",
         )
 
     def test_xlsx_export(self):
@@ -804,6 +805,7 @@ class TestListExport(BaseSnippetViewSetTests):
                 "Country code",
                 "Custom FOO column",
                 "Some date",
+                "Some number",
                 "First published at",
             ],
         )
@@ -814,16 +816,17 @@ class TestListExport(BaseSnippetViewSetTests):
                 "ID",
                 "Foo ID",
                 self.some_date,
+                1,
                 datetime(2023, 7, 1, 13, 12, 11, 100000),
             ],
         )
         self.assertEqual(
             cell_array[2],
-            ["Pot Noodle", "UK", "Foo UK", self.some_date, "None"],
+            ["Pot Noodle", "UK", "Foo UK", self.some_date, 0, None],
         )
         self.assertEqual(len(cell_array), 3)
 
-        self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
+        self.assertEqual(worksheet["F2"].number_format, ExcelDateFormatter().get())
 
 
 class TestCustomTemplates(BaseSnippetViewSetTests):

@@ -509,7 +509,7 @@ class TestListExport(WagtailTestUtils, TestCase):
         self.assertEqual(data_lines[0], "Name,Launch date,Is cool")
         self.assertEqual(data_lines[1], "Catso,2010-06-18,False")
         self.assertEqual(data_lines[2], "LEVEL,2010-06-18,True")
-        self.assertEqual(data_lines[3], "Racecar,1995-11-19,None")
+        self.assertEqual(data_lines[3], "Racecar,1995-11-19,")
         self.assertEqual(len(data_lines), 4)
 
     def test_csv_export_filtered(self):
@@ -545,11 +545,9 @@ class TestListExport(WagtailTestUtils, TestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data)).active
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ["Name", "Launch date", "Is cool"])
-        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), "False"])
-        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), "True"])
-        self.assertEqual(
-            cell_array[3], ["Racecar", datetime.date(1995, 11, 19), "None"]
-        )
+        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), False])
+        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), True])
+        self.assertEqual(cell_array[3], ["Racecar", datetime.date(1995, 11, 19), None])
         self.assertEqual(len(cell_array), 4)
 
     def test_xlsx_export_filtered(self):
@@ -569,8 +567,8 @@ class TestListExport(WagtailTestUtils, TestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data)).active
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ["Name", "Launch date", "Is cool"])
-        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), "False"])
-        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), "True"])
+        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), False])
+        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), True])
         self.assertEqual(len(cell_array), 3)
 
 
