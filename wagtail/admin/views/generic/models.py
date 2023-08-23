@@ -328,6 +328,11 @@ class IndexView(
         if self.add_url_name:
             return reverse(self.add_url_name)
 
+    def get_page_title(self):
+        if not self.page_title and self.model:
+            return capfirst(self.model._meta.verbose_name_plural)
+        return self.page_title
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)

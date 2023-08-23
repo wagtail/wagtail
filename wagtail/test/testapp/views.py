@@ -61,7 +61,6 @@ class TestIndexView(IndexView):
     template_name = "tests/generic_view_templates/index.html"
     paginate_by = 20
     context_object_name = "test_object"
-    page_title = gettext_lazy("test index view")
 
 
 class CustomModelEditForm(forms.ModelForm):
