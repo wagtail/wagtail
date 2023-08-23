@@ -37,7 +37,9 @@
                                         {% locale_label_from_id obj.locale_id as locale_label %}
                                         {% status locale_label classname="w-status--label" %}
                                     {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                    {% if is_page %}
+                                        {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                    {% endif %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
                                 </div>
                             </td>
