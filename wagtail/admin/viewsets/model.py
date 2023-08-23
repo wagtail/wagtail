@@ -78,6 +78,8 @@ class ModelViewSet(ViewSet):
             "header_icon": self.icon,
             "list_display": self.list_display,
             "list_filter": self.list_filter,
+            "list_export": self.list_export,
+            "export_filename": self.export_filename,
             "filterset_class": self.filterset_class,
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
@@ -311,6 +313,23 @@ class ModelViewSet(ViewSet):
         If set to a falsy value, the search will fall back to use Django's QuerySet API.
         """
         return self.index_view_class.search_backend_name
+
+    @cached_property
+    def list_export(self):
+        """
+        A list or tuple, where each item is the name of a field, an attribute,
+        or a single-argument callable on the model to be exported.
+        """
+        return self.index_view_class.list_export
+
+    @cached_property
+    def export_filename(self):
+        """
+        The base file name for the exported listing, without extensions.
+        If unset, the model's :attr:`~django.db.models.Options.db_table` will be
+        used instead.
+        """
+        return self.model._meta.db_table
 
     @cached_property
     def menu_label(self):

@@ -206,6 +206,8 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
     list_filter = ["name", "release_date"]
+    list_export = ["name", "release_date", "is_cool"]
+    export_filename = "feature-complete-toys"
     # search_fields derived from the model
 
 

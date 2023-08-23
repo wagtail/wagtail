@@ -94,7 +94,7 @@ You can add the ability to filter the listing view by defining a {attr}`~wagtail
 
 If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
-You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
 
 ```{versionadded} 5.1
 The ability to export the listing view was added.

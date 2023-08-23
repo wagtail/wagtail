@@ -1,8 +1,10 @@
 import datetime
+from io import BytesIO
 
 from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
+from openpyxl import load_workbook
 
 from wagtail.test.testapp.models import FeatureCompleteToy, JSONStreamModel
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
@@ -408,3 +410,139 @@ class TestSearchIndexResultsView(TestSearchIndexView):
     def assertInputRendered(self, response, search_q):
         # index_results view doesn't render the search input
         pass
+
+
+class TestListExport(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        FeatureCompleteToy.objects.create(
+            name="Racecar",
+            release_date=datetime.date(1995, 11, 19),
+        )
+        FeatureCompleteToy.objects.create(
+            name="level",
+            release_date=datetime.date(2010, 6, 18),
+        )
+        FeatureCompleteToy.objects.create(
+            name="Lotso",
+            release_date=datetime.date(2010, 6, 18),
+        )
+
+    def test_export_disabled(self):
+        index_url = reverse("fctoy_alt1:index")
+        response = self.client.get(index_url)
+        soup = self.get_soup(response.content)
+
+        csv_link = soup.select_one(f"a[href='{index_url}?export=csv']")
+        self.assertIsNone(csv_link)
+        xlsx_link = soup.select_one(f"a[href='{index_url}?export=xlsx']")
+        self.assertIsNone(xlsx_link)
+
+    def test_get_not_export_shows_export_buttons(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(index_url)
+        soup = self.get_soup(response.content)
+
+        csv_link = soup.select_one(f"a[href='{index_url}?export=csv']")
+        self.assertIsNotNone(csv_link)
+        self.assertEqual(csv_link.text.strip(), "Download CSV")
+        xlsx_link = soup.select_one(f"a[href='{index_url}?export=xlsx']")
+        self.assertIsNotNone(xlsx_link)
+        self.assertEqual(xlsx_link.text.strip(), "Download XLSX")
+
+    def test_get_filtered_shows_export_buttons_with_filters(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(index_url, {"release_date": "2010-06-18"})
+        soup = self.get_soup(response.content)
+
+        csv_link = soup.select_one(
+            f"a[href='{index_url}?release_date=2010-06-18&export=csv']"
+        )
+        self.assertIsNotNone(csv_link)
+        self.assertEqual(csv_link.text.strip(), "Download CSV")
+        xlsx_link = soup.select_one(
+            f"a[href='{index_url}?release_date=2010-06-18&export=xlsx']"
+        )
+        self.assertIsNotNone(xlsx_link)
+        self.assertEqual(xlsx_link.text.strip(), "Download XLSX")
+
+    def test_csv_export(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(index_url, {"export": "csv"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="feature-complete-toys.csv"',
+        )
+
+        data_lines = response.getvalue().decode().strip().split("\r\n")
+        self.assertEqual(data_lines[0], "Name,Release Date,is_cool")
+        self.assertEqual(data_lines[1], "Lotso,2010-06-18,False")
+        self.assertEqual(data_lines[2], "level,2010-06-18,True")
+        self.assertEqual(data_lines[3], "Racecar,1995-11-19,None")
+        self.assertEqual(len(data_lines), 4)
+
+    def test_csv_export_filtered(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(
+            index_url,
+            {"release_date": "2010-06-18", "export": "csv"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="feature-complete-toys.csv"',
+        )
+
+        data_lines = response.getvalue().decode().strip().split("\r\n")
+        self.assertEqual(data_lines[0], "Name,Release Date,is_cool")
+        self.assertEqual(data_lines[1], "Lotso,2010-06-18,False")
+        self.assertEqual(data_lines[2], "level,2010-06-18,True")
+        self.assertEqual(len(data_lines), 3)
+
+    def test_xlsx_export(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(index_url, {"export": "xlsx"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="feature-complete-toys.xlsx"',
+        )
+
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data)).active
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(cell_array[0], ["Name", "Release Date", "is_cool"])
+        self.assertEqual(cell_array[1], ["Lotso", datetime.date(2010, 6, 18), "False"])
+        self.assertEqual(cell_array[2], ["level", datetime.date(2010, 6, 18), "True"])
+        self.assertEqual(
+            cell_array[3], ["Racecar", datetime.date(1995, 11, 19), "None"]
+        )
+        self.assertEqual(len(cell_array), 4)
+
+    def test_xlsx_export_filtered(self):
+        index_url = reverse("feature_complete_toy:index")
+        response = self.client.get(
+            index_url,
+            {"release_date": "2010-06-18", "export": "xlsx"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get("Content-Disposition"),
+            'attachment; filename="feature-complete-toys.xlsx"',
+        )
+
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data)).active
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(cell_array[0], ["Name", "Release Date", "is_cool"])
+        self.assertEqual(cell_array[1], ["Lotso", datetime.date(2010, 6, 18), "False"])
+        self.assertEqual(cell_array[2], ["level", datetime.date(2010, 6, 18), "True"])
+        self.assertEqual(len(cell_array), 3)
