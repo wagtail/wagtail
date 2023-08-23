@@ -771,7 +771,7 @@ class TestListExport(BaseSnippetViewSetTests):
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
             data_lines[0],
-            "Text,Country Code,get_foo_country_code,Some Date,First Published At\r",
+            "Text,Country Code,Custom Foo Column,Some Date,First Published At\r",
         )
         self.assertEqual(
             data_lines[1],
@@ -799,7 +799,7 @@ class TestListExport(BaseSnippetViewSetTests):
             [
                 "Text",
                 "Country Code",
-                "get_foo_country_code",
+                "Custom Foo Column",
                 "Some Date",
                 "First Published At",
             ],

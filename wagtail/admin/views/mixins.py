@@ -3,6 +3,7 @@ import datetime
 from collections import OrderedDict
 from io import BytesIO
 
+from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import FieldDoesNotExist
 from django.http import FileResponse, StreamingHttpResponse
 from django.utils import timezone
@@ -224,7 +225,7 @@ class SpreadsheetExportMixin:
         if heading_override:
             return force_str(heading_override)
         try:
-            return force_str(queryset.model._meta.get_field(field).verbose_name.title())
+            return force_str(label_for_field(field, queryset.model)).title()
         except (AttributeError, FieldDoesNotExist):
             return force_str(field)
 
