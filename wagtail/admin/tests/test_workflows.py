@@ -996,6 +996,7 @@ class TestEditTaskView(WagtailTestUtils, TestCase):
 
 class BasePageWorkflowTests(WagtailTestUtils, TestCase):
     model_name = "page"
+    comparison_url_name = "wagtailadmin_pages:revisions_compare"
 
     def setUp(self):
         delete_existing_workflows()
@@ -1120,6 +1121,10 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
     @property
     def model_name(self):
         return self.model._meta.verbose_name
+
+    @property
+    def comparison_url_name(self):
+        return self.model.snippet_viewset.get_url_name("revisions_compare")
 
     def setup_object(self):
         self.object = self.model.objects.create(
@@ -3513,7 +3518,7 @@ class TestSnippetWorkflowStatusNotLockable(TestSnippetWorkflowStatus):
         self.assertContains(response, "Save draft")
 
 
-class TestDashboardWithSnippets(BaseSnippetWorkflowTests):
+class TestDashboardWithPages(BasePageWorkflowTests):
     def setUp(self):
         super().setUp()
         # Ensure that the presence of private pages doesn't break the dashboard -
@@ -3539,3 +3544,52 @@ class TestDashboardWithSnippets(BaseSnippetWorkflowTests):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Awaiting your review")
+
+        # object had no previous revisions
+        self.assertNotContains(response, "Compare with live version")
+        self.assertNotContains(response, "Compare with previous version")
+
+    def test_dashboard_for_moderator_with_previous_revisions(self):
+        live_revision = self.object.save_revision()
+        self.object.publish(live_revision)
+        previous_revision = self.object.save_revision()
+
+        self.login(self.submitter)
+        self.post("submit")
+        self.object.refresh_from_db()
+        latest_revision = self.object.latest_revision
+
+        self.login(self.moderator)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Awaiting your review")
+
+        soup = self.get_soup(response.content)
+        links = soup.find_all("a")
+        compare_with_live_link = None
+        compare_with_previous_link = None
+        for link in links:
+            if link.string == "Compare with live version":
+                compare_with_live_link = link
+            elif link.string == "Compare with previous version":
+                compare_with_previous_link = link
+
+        self.assertIsNotNone(compare_with_live_link)
+        expected_compare_with_live_url = reverse(
+            self.comparison_url_name,
+            args=(self.object.id, "live", latest_revision.id),
+        )
+        self.assertEqual(compare_with_live_link["href"], expected_compare_with_live_url)
+
+        self.assertIsNotNone(compare_with_previous_link)
+        expected_compare_with_previous_url = reverse(
+            self.comparison_url_name,
+            args=(self.object.id, previous_revision.id, latest_revision.id),
+        )
+        self.assertEqual(
+            compare_with_previous_link["href"], expected_compare_with_previous_url
+        )
+
+
+class TestDashboardWithSnippets(TestDashboardWithPages, BaseSnippetWorkflowTests):
+    pass
