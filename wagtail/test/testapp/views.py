@@ -209,6 +209,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     list_export = ["name", "release_date", "is_cool"]
     export_filename = "feature-complete-toys"
     list_per_page = 5
+    ordering = ["name", "-release_date"]
     # search_fields derived from the model
 
 

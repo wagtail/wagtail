@@ -612,9 +612,6 @@ class SnippetViewSet(ModelViewSet):
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
-    #: The default ordering to use for the index view. Can be a string or a list/tuple in the same format as Django's :attr:`~django.db.models.Options.ordering`.
-    ordering = None
-
     #: Whether to enable the inspect view. Defaults to ``False``.
     inspect_view_enabled = False
 
@@ -788,7 +785,6 @@ class SnippetViewSet(ModelViewSet):
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             delete_url_name=self.get_url_name("delete"),
-            default_ordering=self.ordering,
             **kwargs,
         )
 

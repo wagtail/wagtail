@@ -44,6 +44,11 @@ class ModelViewSet(ViewSet):
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
+    #: The default ordering to use for the index view.
+    #: Can be a string or a list/tuple in the same format as Django's
+    #: :attr:`~django.db.models.Options.ordering`.
+    ordering = None
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -87,6 +92,7 @@ class ModelViewSet(ViewSet):
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
+            "default_ordering": self.ordering,
             **kwargs,
         }
 

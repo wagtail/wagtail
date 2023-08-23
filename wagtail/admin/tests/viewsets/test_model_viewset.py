@@ -423,11 +423,11 @@ class TestListExport(WagtailTestUtils, TestCase):
             release_date=datetime.date(1995, 11, 19),
         )
         FeatureCompleteToy.objects.create(
-            name="level",
+            name="LEVEL",
             release_date=datetime.date(2010, 6, 18),
         )
         FeatureCompleteToy.objects.create(
-            name="Lotso",
+            name="Catso",
             release_date=datetime.date(2010, 6, 18),
         )
 
@@ -481,8 +481,8 @@ class TestListExport(WagtailTestUtils, TestCase):
 
         data_lines = response.getvalue().decode().strip().split("\r\n")
         self.assertEqual(data_lines[0], "Name,Release Date,is_cool")
-        self.assertEqual(data_lines[1], "Lotso,2010-06-18,False")
-        self.assertEqual(data_lines[2], "level,2010-06-18,True")
+        self.assertEqual(data_lines[1], "Catso,2010-06-18,False")
+        self.assertEqual(data_lines[2], "LEVEL,2010-06-18,True")
         self.assertEqual(data_lines[3], "Racecar,1995-11-19,None")
         self.assertEqual(len(data_lines), 4)
 
@@ -501,8 +501,8 @@ class TestListExport(WagtailTestUtils, TestCase):
 
         data_lines = response.getvalue().decode().strip().split("\r\n")
         self.assertEqual(data_lines[0], "Name,Release Date,is_cool")
-        self.assertEqual(data_lines[1], "Lotso,2010-06-18,False")
-        self.assertEqual(data_lines[2], "level,2010-06-18,True")
+        self.assertEqual(data_lines[1], "Catso,2010-06-18,False")
+        self.assertEqual(data_lines[2], "LEVEL,2010-06-18,True")
         self.assertEqual(len(data_lines), 3)
 
     def test_xlsx_export(self):
@@ -519,8 +519,8 @@ class TestListExport(WagtailTestUtils, TestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data)).active
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ["Name", "Release Date", "is_cool"])
-        self.assertEqual(cell_array[1], ["Lotso", datetime.date(2010, 6, 18), "False"])
-        self.assertEqual(cell_array[2], ["level", datetime.date(2010, 6, 18), "True"])
+        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), "False"])
+        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), "True"])
         self.assertEqual(
             cell_array[3], ["Racecar", datetime.date(1995, 11, 19), "None"]
         )
@@ -543,8 +543,8 @@ class TestListExport(WagtailTestUtils, TestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data)).active
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ["Name", "Release Date", "is_cool"])
-        self.assertEqual(cell_array[1], ["Lotso", datetime.date(2010, 6, 18), "False"])
-        self.assertEqual(cell_array[2], ["level", datetime.date(2010, 6, 18), "True"])
+        self.assertEqual(cell_array[1], ["Catso", datetime.date(2010, 6, 18), "False"])
+        self.assertEqual(cell_array[2], ["LEVEL", datetime.date(2010, 6, 18), "True"])
         self.assertEqual(len(cell_array), 3)
 
 
@@ -576,3 +576,46 @@ class TestPagination(WagtailTestUtils, TestCase):
         self.assertContains(response, "Page 1 of 7")
         self.assertContains(response, "Next")
         self.assertContains(response, list_url + "?p=2")
+
+
+class TestOrdering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        objects = [
+            FeatureCompleteToy(name="CCCCCCCCCC"),
+            FeatureCompleteToy(name="AAAAAAAAAA"),
+            FeatureCompleteToy(name="DDDDDDDDDD"),
+            FeatureCompleteToy(name="BBBBBBBBBB"),
+        ]
+        FeatureCompleteToy.objects.bulk_create(objects)
+
+    def test_default_order(self):
+        response = self.client.get(reverse("fctoy_alt1:index"))
+        # Without ordering on the model, should be ordered descending by pk
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "BBBBBBBBBB",
+                "DDDDDDDDDD",
+                "AAAAAAAAAA",
+                "CCCCCCCCCC",
+            ],
+        )
+
+    def test_custom_order(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        # Should respect the viewset's ordering
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "AAAAAAAAAA",
+                "BBBBBBBBBB",
+                "CCCCCCCCCC",
+                "DDDDDDDDDD",
+            ],
+        )
