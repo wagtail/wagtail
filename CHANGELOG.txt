@@ -12,6 +12,8 @@ Changelog
  * Support pickling of StreamField values (pySilver)
  * Move `SnippetViewSet` template override mechanism to `ModelViewSet` (Sage Abdullah)
  * Move `SnippetViewSet.list_display` to `ModelViewSet` (Sage Abdullah)
+ * Remove `wagtail.publish` log action on aliases when they are created from live source pages or the source page is published (Dan Braghis)
+ * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
