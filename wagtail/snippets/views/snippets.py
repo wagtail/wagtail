@@ -32,7 +32,6 @@ from wagtail.admin.views.generic.preview import (
     PreviewOnEdit,
     PreviewRevision,
 )
-from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
@@ -154,11 +153,7 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(
-    SpreadsheetExportMixin,
-    generic.IndexViewOptionalFeaturesMixin,
-    generic.IndexView,
-):
+class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -206,13 +201,6 @@ class IndexView(
             ]
 
         return context
-
-    def render_to_response(self, context, **response_kwargs):
-        if self.is_export:
-            return self.as_spreadsheet(
-                context["object_list"], self.request.GET.get("export")
-            )
-        return super().render_to_response(context, **response_kwargs)
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):

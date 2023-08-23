@@ -34,6 +34,7 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, ReferenceIndex
@@ -79,7 +80,12 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
+class IndexView(
+    SpreadsheetExportMixin,
+    LocaleMixin,
+    PermissionCheckedMixin,
+    BaseListingView,
+):
     model = None
     template_name = "wagtailadmin/generic/index.html"
     results_template_name = "wagtailadmin/generic/index_results.html"
@@ -351,6 +357,13 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         context["query_string"] = self.search_query
         context["model_opts"] = self.model and self.model._meta
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
 
 
 class CreateView(
