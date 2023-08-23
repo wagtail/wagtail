@@ -562,7 +562,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 data_lines[2],
-                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
@@ -571,7 +571,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 data_lines[2],
-                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_xlsx_export(self):
@@ -603,7 +603,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
                 datetime.datetime(2014, 1, 1, 12, 0),
                 "new@example.com",
                 "this is a fairly new message",
-                "None",
+                None,
             ],
         )
         self.assertEqual(len(cell_array), 3)
@@ -659,7 +659,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 data_lines[2],
-                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
@@ -668,7 +668,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 data_lines[2],
-                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
         with self.register_hook(
@@ -698,12 +698,12 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
@@ -746,12 +746,12 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
@@ -868,20 +868,20 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r",
+                "user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,\r",
             )
             self.assertEqual(
                 data_lines[2],
-                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,None\r",
+                "user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,\r",
             )
             self.assertEqual(
                 data_lines[2],
-                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
@@ -901,12 +901,12 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
@@ -926,12 +926,12 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r",
+                "user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,None\r",
+                "user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,\r",
             )
 
     def test_list_submissions_csv_export_with_range_filtering(self):
@@ -951,12 +951,12 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r",
+                "user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,\r",
             )
 
     def test_list_submissions_csv_export_with_unicode_in_submission(self):

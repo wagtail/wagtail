@@ -1116,6 +1116,7 @@ class FullFeaturedSnippet(
         blank=True,
     )
     some_date = models.DateField(auto_now=True)
+    some_number = models.IntegerField(default=0, blank=True)
 
     some_attribute = "some value"
 

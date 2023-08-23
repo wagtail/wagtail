@@ -1,6 +1,7 @@
 import csv
 import datetime
 from collections import OrderedDict
+from functools import partial
 from io import BytesIO
 
 from django.contrib.admin.utils import label_for_field
@@ -192,7 +193,7 @@ class SpreadsheetExportMixin:
                 return format_dict[export_format]
 
         # Finally resort to force_str to prevent encoding errors
-        return force_str
+        return partial(force_str, strings_only=True)
 
     def preprocess_field_value(self, field, value, export_format):
         """Preprocesses a field value before writing it to the spreadsheet"""
