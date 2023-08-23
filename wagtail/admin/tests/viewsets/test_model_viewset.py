@@ -546,3 +546,33 @@ class TestListExport(WagtailTestUtils, TestCase):
         self.assertEqual(cell_array[1], ["Lotso", datetime.date(2010, 6, 18), "False"])
         self.assertEqual(cell_array[2], ["level", datetime.date(2010, 6, 18), "True"])
         self.assertEqual(len(cell_array), 3)
+
+
+class TestPagination(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        objects = [FeatureCompleteToy(name=f"Frisbee {i}") for i in range(32)]
+        FeatureCompleteToy.objects.bulk_create(objects)
+
+    def test_default_list_pagination(self):
+        list_url = reverse("fctoy_alt1:index")
+        response = self.client.get(list_url)
+
+        # Default is 20 per page
+        self.assertEqual(FeatureCompleteToy.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, "Next")
+        self.assertContains(response, list_url + "?p=2")
+
+    def test_custom_list_pagination(self):
+        list_url = reverse("feature_complete_toy:index")
+        response = self.client.get(list_url)
+
+        # Custom is set to display 5 per page
+        self.assertEqual(FeatureCompleteToy.objects.all().count(), 32)
+        self.assertContains(response, "Page 1 of 7")
+        self.assertContains(response, "Next")
+        self.assertContains(response, list_url + "?p=2")

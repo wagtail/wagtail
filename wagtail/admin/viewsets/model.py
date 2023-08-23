@@ -41,6 +41,9 @@ class ModelViewSet(ViewSet):
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
 
+    #: The number of items to display per page in the index view. Defaults to 20.
+    list_per_page = 20
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -83,6 +86,7 @@ class ModelViewSet(ViewSet):
             "filterset_class": self.filterset_class,
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
+            "paginate_by": self.list_per_page,
             **kwargs,
         }
 

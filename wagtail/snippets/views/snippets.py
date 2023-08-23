@@ -609,9 +609,6 @@ class SnippetViewSet(ModelViewSet):
     #: The model class to be registered as a snippet with this viewset.
     model = None
 
-    #: The number of items to display per page in the index view. Defaults to 20.
-    list_per_page = 20
-
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
@@ -791,7 +788,6 @@ class SnippetViewSet(ModelViewSet):
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
             delete_url_name=self.get_url_name("delete"),
-            paginate_by=self.list_per_page,
             default_ordering=self.ordering,
             **kwargs,
         )

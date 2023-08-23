@@ -86,7 +86,7 @@ Similar URL customisations are also possible for the snippet chooser views throu
 
 ## Listing view
 
-The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing).
+The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_per_page` attribute (or {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.chooser_per_page` for the chooser listing).
 
 To customise the base queryset for the listing view, you could override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_queryset` method. Additionally, the {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
 

@@ -80,6 +80,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
    .. autoattribute:: add_to_reference_index
+   .. autoattribute:: list_per_page
    .. autoattribute:: list_display
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
@@ -152,7 +153,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
    .. autoattribute:: model
-   .. autoattribute:: list_per_page
    .. autoattribute:: chooser_per_page
    .. autoattribute:: ordering
    .. autoattribute:: inspect_view_enabled
