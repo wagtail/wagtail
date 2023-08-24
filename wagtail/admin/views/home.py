@@ -177,6 +177,11 @@ class WorkflowObjectsToModeratePanel(Component):
                 "task",
                 "revision__user",
             )
+            .prefetch_related(
+                "revision__content_object",
+                "revision__content_object__latest_revision",
+                "revision__content_object__live_revision",
+            )
             .order_by("-started_at")
         )
         for state in states:
