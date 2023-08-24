@@ -996,7 +996,6 @@ class TestEditTaskView(WagtailTestUtils, TestCase):
 
 class BasePageWorkflowTests(WagtailTestUtils, TestCase):
     model_name = "page"
-    comparison_url_name = "wagtailadmin_pages:revisions_compare"
 
     def setUp(self):
         delete_existing_workflows()
@@ -1121,10 +1120,6 @@ class BaseSnippetWorkflowTests(BasePageWorkflowTests):
     @property
     def model_name(self):
         return self.model._meta.verbose_name
-
-    @property
-    def comparison_url_name(self):
-        return self.model.snippet_viewset.get_url_name("revisions_compare")
 
     def setup_object(self):
         self.object = self.model.objects.create(
@@ -3565,29 +3560,29 @@ class TestDashboardWithPages(BasePageWorkflowTests):
         self.assertContains(response, "Awaiting your review")
 
         soup = self.get_soup(response.content)
-        links = soup.find_all("a")
-        compare_with_live_link = None
-        compare_with_previous_link = None
-        for link in links:
-            if link.string == "Compare with live version":
-                compare_with_live_link = link
-            elif link.string == "Compare with previous version":
-                compare_with_previous_link = link
+        compare_with_live_url = self.get_url(
+            "revisions_compare",
+            args=(self.object.pk, "live", latest_revision.id),
+        )
+        compare_with_previous_url = self.get_url(
+            "revisions_compare",
+            args=(self.object.pk, previous_revision.id, latest_revision.id),
+        )
 
+        compare_with_live_link = soup.select_one(f"a[href='{compare_with_live_url}']")
         self.assertIsNotNone(compare_with_live_link)
-        expected_compare_with_live_url = reverse(
-            self.comparison_url_name,
-            args=(self.object.id, "live", latest_revision.id),
-        )
-        self.assertEqual(compare_with_live_link["href"], expected_compare_with_live_url)
-
-        self.assertIsNotNone(compare_with_previous_link)
-        expected_compare_with_previous_url = reverse(
-            self.comparison_url_name,
-            args=(self.object.id, previous_revision.id, latest_revision.id),
-        )
         self.assertEqual(
-            compare_with_previous_link["href"], expected_compare_with_previous_url
+            compare_with_live_link.text.strip(),
+            "Compare with live version",
+        )
+
+        compare_with_previous_link = soup.select_one(
+            f"a[href='{compare_with_previous_url}']"
+        )
+        self.assertIsNotNone(compare_with_previous_link)
+        self.assertEqual(
+            compare_with_previous_link.text.strip(),
+            "Compare with previous version",
         )
 
 
