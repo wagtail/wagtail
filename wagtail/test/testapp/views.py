@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
@@ -206,7 +207,6 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     url_prefix = "feature-complete-toy"
     menu_label = "Feature Complete Toys"
     icon = "media"
-    exclude_form_fields = ()
     template_prefix = "customprefix/"
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
@@ -219,6 +219,11 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     # search_fields derived from the model
     inspect_view_enabled = True
     inspect_view_fields = ["strid", "release_date"]
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("release_date"),
+    ]
 
 
 class FCToyAlt1ViewSet(ModelViewSet):

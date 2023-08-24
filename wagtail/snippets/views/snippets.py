@@ -13,8 +13,7 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.panels.group import ObjectList
-from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import PreviewSidePanel
 from wagtail.admin.ui.tables import (
@@ -548,6 +547,12 @@ class WorkflowHistoryDetailView(
 class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.model.ModelViewSet` are available.
+
+    For more information on how to use this class,
+    see :ref:`wagtailsnippets_custom_admin_views`.
     """
 
     #: The model class to be registered as a snippet with this viewset.
@@ -667,9 +672,6 @@ class SnippetViewSet(ModelViewSet):
             self, "menu_item_is_registered", bool(self.menu_hook)
         )
 
-        # This edit handler has been bound to the model and is used for the views.
-        self._edit_handler = self.get_edit_handler()
-
     @cached_property
     def url_prefix(self):
         # SnippetViewSet historically allows overriding the URL prefix via the
@@ -731,14 +733,12 @@ class SnippetViewSet(ModelViewSet):
 
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
-            panel=self._edit_handler,
             preview_url_name=self.get_url_name("preview_on_add"),
             **kwargs,
         )
 
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
-            panel=self._edit_handler,
             preview_url_name=self.get_url_name("preview_on_edit"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
             confirm_workflow_cancellation_url_name=self.get_url_name(
@@ -1257,31 +1257,19 @@ class SnippetViewSet(ModelViewSet):
 
     def get_edit_handler(self):
         """
-        Returns the appropriate edit handler for this ``SnippetViewSet`` class.
-        It can be defined either on the model itself or on the ``SnippetViewSet``,
-        as the ``edit_handler`` or ``panels`` properties. Falls back to
-        extracting panel / edit handler definitions from the model class.
+        Like :meth:`ModelViewSet.get_edit_handler()
+        <wagtail.admin.viewsets.model.ModelViewSet.get_edit_handler>`,
+        but falls back to extracting panel definitions from the model class
+        if no edit handler is defined.
         """
-        if hasattr(self, "edit_handler"):
-            edit_handler = self.edit_handler
-        elif hasattr(self, "panels"):
-            panels = self.panels
-            edit_handler = ObjectList(panels)
-        elif hasattr(self.model, "edit_handler"):
-            edit_handler = self.model.edit_handler
-        elif hasattr(self.model, "panels"):
-            panels = self.model.panels
-            edit_handler = ObjectList(panels)
-        else:
-            exclude = self.get_exclude_form_fields()
-            panels = extract_panel_definitions_from_model_class(
-                self.model, exclude=exclude
-            )
-            edit_handler = ObjectList(panels)
-        return edit_handler.bind_to_model(self.model)
+        edit_handler = super().get_edit_handler()
+        if edit_handler:
+            return edit_handler
 
-    def get_form_class(self, for_update=False):
-        return self._edit_handler.get_form_class()
+        exclude = self.get_exclude_form_fields()
+        panels = extract_panel_definitions_from_model_class(self.model, exclude=exclude)
+        edit_handler = ObjectList(panels)
+        return edit_handler.bind_to_model(self.model)
 
     def register_chooser_viewset(self):
         viewsets.register(self.chooser_viewset)
