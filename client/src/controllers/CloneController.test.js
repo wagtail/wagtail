@@ -1,9 +1,9 @@
 import { Application } from '@hotwired/stimulus';
-import { MessagesController } from './MessagesController';
+import { CloneController } from './CloneController';
 
 jest.useFakeTimers();
 
-describe('MessagesController', () => {
+describe('CloneController', () => {
   let application;
 
   afterEach(() => {
@@ -13,24 +13,24 @@ describe('MessagesController', () => {
   describe('default behaviour', () => {
     const addedListener = jest.fn();
 
-    document.addEventListener('w-messages:added', addedListener);
+    document.addEventListener('w-clone:added', addedListener);
 
     beforeAll(() => {
       application?.stop();
       document.body.innerHTML = `
     <div
       class="messages"
-      data-controller="w-messages"
-      data-action="w-messages:add@document->w-messages#add"
+      data-controller="w-clone"
+      data-action="w-clone:add@document->w-clone#add"
     >
-      <ul data-w-messages-target="container"></ul>
-      <template data-w-messages-target="template">
+      <ul data-w-clone-target="container"></ul>
+      <template data-w-clone-target="template">
         <li class="success"><span></span></li>
       </template>
     </div>`;
 
       application = Application.start();
-      application.register('w-messages', MessagesController);
+      application.register('w-clone', CloneController);
     });
 
     it('should not add elements when connected by default', () => {
@@ -42,7 +42,7 @@ describe('MessagesController', () => {
       const text = 'first message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', { detail: { text } }),
+        new CustomEvent('w-clone:add', { detail: { text } }),
       );
 
       // the item should be added
@@ -60,7 +60,7 @@ describe('MessagesController', () => {
       const text = 'second message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', { detail: { text } }),
+        new CustomEvent('w-clone:add', { detail: { text } }),
       );
 
       expect(document.querySelectorAll('li')).toHaveLength(2);
@@ -78,7 +78,7 @@ describe('MessagesController', () => {
       expect(document.querySelectorAll('li')).toHaveLength(2);
       const text = 'third message text';
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', {
+        new CustomEvent('w-clone:add', {
           detail: { text, type: 'invalid' },
         }),
       );
@@ -95,25 +95,25 @@ describe('MessagesController', () => {
       document.body.innerHTML = `
     <div
       class="messages"
-      data-controller="w-messages"
-      data-action="w-messages:add@document->w-messages#add"
-      data-w-messages-added-class="new"
-      data-w-messages-show-class="appear"
+      data-controller="w-clone"
+      data-action="w-clone:add@document->w-clone#add"
+      data-w-clone-added-class="new"
+      data-w-clone-show-class="appear"
     >
-      <ul data-w-messages-target="container"></ul>
-      <template data-w-messages-target="template" data-type="success">
+      <ul data-w-clone-target="container"></ul>
+      <template data-w-clone-target="template" data-type="success">
         <li class="success"><span></span></li>
       </template>
-      <template data-w-messages-target="template" data-type="error">
+      <template data-w-clone-target="template" data-type="error">
         <li class="error"><strong></strong></li>
       </template>
-      <template data-w-messages-target="template" data-type="warning">
+      <template data-w-clone-target="template" data-type="warning">
         <li class="warning"><span></span></li>
       </template>
     </div>`;
 
       application = Application.start();
-      application.register('w-messages', MessagesController);
+      application.register('w-clone', CloneController);
     });
 
     it('should not add any classes when connected by default', () => {
@@ -128,7 +128,7 @@ describe('MessagesController', () => {
       const text = 'first message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', { detail: { text } }),
+        new CustomEvent('w-clone:add', { detail: { text } }),
       );
 
       // set the new class on the container
@@ -156,7 +156,7 @@ describe('MessagesController', () => {
       const text = 'second message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', {
+        new CustomEvent('w-clone:add', {
           detail: { text, type: 'warning' },
         }),
       );
@@ -176,7 +176,7 @@ describe('MessagesController', () => {
       const text = 'third message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', {
+        new CustomEvent('w-clone:add', {
           detail: { text, type: 'error' },
         }),
       );
@@ -197,7 +197,7 @@ describe('MessagesController', () => {
       const text = 'new message text';
 
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', {
+        new CustomEvent('w-clone:add', {
           detail: { clear: true, text, type: 'warning' },
         }),
       );
@@ -213,7 +213,7 @@ describe('MessagesController', () => {
 
     it('should not allow HTML to be added unescaped to any content', () => {
       document.dispatchEvent(
-        new CustomEvent('w-messages:add', {
+        new CustomEvent('w-clone:add', {
           detail: {
             clear: true,
             text: '<script>window.alert("Secure?");</script>',

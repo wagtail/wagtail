@@ -5,7 +5,7 @@ import { Controller } from '@hotwired/stimulus';
  * and then clone that element, adding it to the container.
  * Additionally, it will allow for clearing all previously added elements.
  *
- * @example
+ * @example - Using with the w-messages identifier
  * <div
  *   data-controller="w-messages"
  *   data-action="w-messages:add@document->w-messages#add"
@@ -18,7 +18,7 @@ import { Controller } from '@hotwired/stimulus';
  *  </template>
  * </div>
  */
-export class MessagesController extends Controller<HTMLElement> {
+export class CloneController extends Controller<HTMLElement> {
   static classes = ['added', 'show'];
   static targets = ['container', 'template'];
   static values = {
