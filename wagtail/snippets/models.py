@@ -121,25 +121,36 @@ def register_deferred_snippets():
 
 
 def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
-    def get_permission(model, content_type, name):
-        return Permission(
-            content_type=content_type,
-            codename=get_permission_codename(name, model._meta),
-            name=f"Can {name} {model._meta.verbose_name_raw}",
-        )
-
     model_cts = ContentType.objects.get_for_models(
         *get_snippet_models(), for_concrete_models=False
     )
 
+    all_perms = set(
+        Permission.objects.using(using)
+        .filter(content_type__in=model_cts.values())
+        .values_list("content_type", "codename")
+    )
+
     permissions = []
+
+    def add_permission(model, content_type, name):
+        codename = get_permission_codename(name, model._meta)
+        if (content_type.pk, codename) in all_perms:
+            return
+
+        permissions.append(
+            Permission(
+                content_type=content_type,
+                codename=codename,
+                name=f"Can {name} {model._meta.verbose_name_raw}",
+            )
+        )
+
     for model, ct in model_cts.items():
         if issubclass(model, DraftStateMixin):
-            permissions.append(get_permission(model, ct, "publish"))
+            add_permission(model, ct, "publish")
         if issubclass(model, LockableMixin):
-            permissions.append(get_permission(model, ct, "lock"))
-            permissions.append(get_permission(model, ct, "unlock"))
+            add_permission(model, ct, "lock")
+            add_permission(model, ct, "unlock")
 
-    # Use bulk_create with ignore_conflicts instead of checking for existence
-    # prior to creation to avoid additional database query.
-    Permission.objects.using(using).bulk_create(permissions, ignore_conflicts=True)
+    Permission.objects.using(using).bulk_create(permissions)
