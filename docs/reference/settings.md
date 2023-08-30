@@ -664,6 +664,18 @@ If you'd rather users not have the ability to use [password protected pages](pri
 WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY = False
 ```
 
+### `WAGTAIL_AUTH_PASSWORD_VALIDATORS`
+
+Customize (or disable) the password validators used for [password protected pages](private_pages).
+
+```python
+WAGTAIL_AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    }
+]
+```
+
 ## Tags
 
 ### `TAGGIT_CASE_INSENSITIVE`
