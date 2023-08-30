@@ -120,6 +120,32 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     response, "<p>Some extra custom content</p>", html=True
                 )
 
+    def test_wagtail_admin_template_mixin_variables(self):
+        pk = quote(self.custom.pk)
+        cases = {
+            "index": ([], "Feature complete toys", None),
+            "add": ([], "New", "Feature complete toy"),
+            "edit": ([pk], "Editing", str(self.custom)),
+            "delete": ([pk], "Delete", str(self.custom)),
+        }
+        for view_name, (args, title, subtitle) in cases.items():
+            with self.subTest(view_name=view_name):
+                response = self.client.get(self.get_custom_url(view_name, args=args))
+                soup = self.get_soup(response.content)
+                h1 = soup.select_one("h1")
+                self.assertIsNotNone(h1)
+                self.assertEqual(
+                    "".join(h1.find_all(string=True, recursive=False)).strip(), title
+                )
+                subtitle_el = h1.select_one("span")
+                if subtitle:
+                    self.assertIsNotNone(subtitle_el)
+                    self.assertEqual(subtitle_el.string, subtitle)
+                else:
+                    self.assertIsNone(subtitle_el)
+                icon = h1.select_one("svg use[href='#icon-media']")
+                self.assertIsNotNone(icon)
+
 
 class TestCustomColumns(WagtailTestUtils, TestCase):
     def setUp(self):

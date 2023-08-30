@@ -385,6 +385,7 @@ class CreateView(
     add_url_name = None
     edit_url_name = None
     template_name = "wagtailadmin/generic/create.html"
+    page_title = gettext_lazy("New")
     permission_required = "add"
     success_message = None
     error_message = None
@@ -403,6 +404,11 @@ class CreateView(
 
     def get_available_actions(self):
         return self.actions
+
+    def get_page_subtitle(self):
+        if not self.page_subtitle and self.model:
+            return capfirst(self.model._meta.verbose_name)
+        return self.page_subtitle
 
     def get_add_url(self):
         if not self.add_url_name:
