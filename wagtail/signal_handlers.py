@@ -2,6 +2,7 @@ import logging
 from contextlib import contextmanager
 
 from asgiref.local import Local
+from django.core.cache import cache
 from django.db import transaction
 from django.db.models.signals import (
     post_delete,
@@ -12,7 +13,6 @@ from django.db.models.signals import (
 )
 from modelcluster.fields import ParentalKey
 
-from wagtail.coreutils import get_locales_display_names
 from wagtail.models import Locale, Page, ReferenceIndex, Site
 
 logger = logging.getLogger("wagtail")
@@ -39,7 +39,7 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
 
 
 def reset_locales_display_names_cache(sender, instance, **kwargs):
-    get_locales_display_names.cache_clear()
+    cache.delete("wagtail_locales_display_name")
 
 
 reference_index_auto_update_disabled = Local()

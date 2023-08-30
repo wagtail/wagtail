@@ -11,6 +11,7 @@ from anyascii import anyascii
 from django.apps import apps
 from django.conf import settings
 from django.conf.locale import LANG_INFO
+from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.signals import setting_changed
@@ -334,17 +335,21 @@ def get_supported_content_language_variant(lang_code, strict=False):
     raise LookupError(lang_code)
 
 
-@functools.lru_cache
 def get_locales_display_names() -> dict:
     """
     Cache of the locale id -> locale display name mapping
     """
     from wagtail.models import Locale  # inlined to avoid circular imports
 
-    locales_map = {
-        locale.pk: locale.get_display_name() for locale in Locale.objects.all()
-    }
-    return locales_map
+    cached_map = cache.get("wagtail_locales_display_name")
+
+    if cached_map is None:
+        cached_map = {
+            locale.pk: locale.get_display_name() for locale in Locale.objects.all()
+        }
+        cache.set("wagtail_locales_display_name", cached_map)
+
+    return cached_map
 
 
 @receiver(setting_changed)
