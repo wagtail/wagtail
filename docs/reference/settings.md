@@ -656,6 +656,14 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
+### `WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY`
+
+If you'd rather users not have the ability to use [password protected pages](private_pages) ("Accessible with the following password"), you can disable it with this setting:
+
+```python
+WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY = False
+```
+
 ## Tags
 
 ### `TAGGIT_CASE_INSENSITIVE`

@@ -34,21 +34,31 @@ class BaseViewRestrictionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        if not getattr(settings, "WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY", True):
+            self.fields["restriction_type"].choices = (
+                choice
+                for choice in BaseViewRestriction.RESTRICTION_CHOICES
+                if choice[0] != BaseViewRestriction.PASSWORD
+            )
+
+            del self.fields["password"]
+
+        else:
+            self.fields["password"].help_text = mark_safe(
+                "<ul>"
+                + format_html_join(
+                    "\n",
+                    "<li>{}</li>",
+                    [
+                        [validator.get_help_text()]
+                        for validator in get_wagtail_password_validators()
+                    ],
+                )
+                + "</ul>"
+            )
+
         self.fields["groups"].widget = forms.CheckboxSelectMultiple()
         self.fields["groups"].queryset = Group.objects.all()
-
-        self.fields["password"].help_text = mark_safe(
-            "<ul>"
-            + format_html_join(
-                "\n",
-                "<li>{}</li>",
-                [
-                    [validator.get_help_text()]
-                    for validator in get_wagtail_password_validators()
-                ],
-            )
-            + "</ul>"
-        )
 
     def clean_password(self):
         password = self.cleaned_data.get("password")

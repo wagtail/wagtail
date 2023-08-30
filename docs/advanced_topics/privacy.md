@@ -10,6 +10,13 @@ Users with publish permission on a page can set it to be private by clicking the
 
 ```{warning}
 Shared passwords should not be used to protect sensitive content, as the password is shared between all users, and stored in plain text in the database. Where possible, it's recommended to require users log in to access private page content.
+
+You can disable password protected pages using `WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY`:
+
+```python
+WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY = False
+```
+
 ```
 
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).

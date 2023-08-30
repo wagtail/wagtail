@@ -178,6 +178,17 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
             ["This password is too common."],
         )
 
+    @override_settings(
+        WAGTAIL_ALLOW_PASSWORD_PAGE_PRIVACY=False,
+    )
+    def test_disable_password_restriction(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("password", response.context["form"].fields)
+        self.assertFalse(response.context["form"].fields["restriction_type"].valid_value(PageViewRestriction.PASSWORD))
+
     def test_set_password_restriction_password_unset(self):
         """
         This tests that the password field on the form is validated correctly
