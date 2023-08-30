@@ -8,6 +8,8 @@ from django.contrib.auth.password_validation import (
     password_changed,
     validate_password,
 )
+from django.utils.html import format_html_join
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
@@ -34,6 +36,19 @@ class BaseViewRestrictionForm(forms.ModelForm):
 
         self.fields["groups"].widget = forms.CheckboxSelectMultiple()
         self.fields["groups"].queryset = Group.objects.all()
+
+        self.fields["password"].help_text = mark_safe(
+            "<ul>"
+            + format_html_join(
+                "\n",
+                "<li>{}</li>",
+                [
+                    [validator.get_help_text()]
+                    for validator in get_wagtail_password_validators()
+                ],
+            )
+            + "</ul>"
+        )
 
     def clean_password(self):
         password = self.cleaned_data.get("password")

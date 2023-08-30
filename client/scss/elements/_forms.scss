@@ -13,6 +13,14 @@ form {
     margin: 0;
     padding: 0;
   }
+
+  .help ul {
+    padding-left: 1em;
+
+    li {
+      list-style-type: initial;
+    }
+  }
 }
 
 fieldset {
