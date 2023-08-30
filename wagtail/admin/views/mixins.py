@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.utils.dateformat import Formatter
 from django.utils.encoding import force_str
 from django.utils.formats import get_format
+from django.utils.text import capfirst
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
 
@@ -225,7 +226,7 @@ class SpreadsheetExportMixin:
         if heading_override:
             return force_str(heading_override)
         try:
-            return force_str(label_for_field(field, queryset.model)).title()
+            return capfirst(force_str(label_for_field(field, queryset.model)))
         except (AttributeError, FieldDoesNotExist):
             return force_str(field)
 
