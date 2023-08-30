@@ -19,7 +19,7 @@ features = FeatureRegistry()
 # with the feature registry
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=None)
 def get_rewriter():
     embed_rules = features.get_embed_types()
     link_rules = features.get_link_types()

@@ -256,7 +256,7 @@ def find_available_slug(parent, requested_slug, ignore_page_id=None):
     return slug
 
 
-@functools.lru_cache
+@functools.lru_cache(maxsize=None)
 def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
