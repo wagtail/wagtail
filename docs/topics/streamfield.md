@@ -49,7 +49,6 @@ You can find the complete list of available block types in the [](streamfield_bl
    While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
 ```
 
-
 (streamfield_template_rendering)=
 
 ## Template rendering
