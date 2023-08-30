@@ -45,6 +45,11 @@ You can find the complete list of available block types in the [](streamfield_bl
    StreamField is not a direct replacement for other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to [](streamfield_migrating_richtext).
 ```
 
+```{note}
+   While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
+```
+
+
 (streamfield_template_rendering)=
 
 ## Template rendering
