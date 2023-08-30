@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags %}
 
-<div class="help-block help-{{ status }}" {% if id %}id="{{ id }}"{% endif %}>
+<div class="help-block help-{{ status }}">
     {% if status == 'info' %}
         {% icon name='help' %}
     {% else %}

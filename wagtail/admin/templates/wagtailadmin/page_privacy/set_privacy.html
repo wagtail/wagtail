@@ -8,9 +8,11 @@
         {% include "wagtailadmin/shared/field.html" with field=form.groups %}
     </div>
 
-    {% help_block status="warning" id="password-warning" %}
-        <p>Shared passwords should not be used to protect sensitive content.</p>
-    {% endhelp_block %}
+    <div id="password-warning">
+        {% help_block status="warning" id="password-warning" %}
+            <p>Shared passwords should not be used to protect sensitive content.</p>
+        {% endhelp_block %}
+    </div>
 
     <input type="submit" value="{% trans "Save" %}" class="button" />
 </form>
