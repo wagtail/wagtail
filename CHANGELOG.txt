@@ -18,6 +18,8 @@ Changelog
  * Add the ability to use filters and to export listings in generic `IndexView` (Sage Abdullah)
  * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah)
  * Add default header titles to generic `IndexView` and `CreateView` (Sage Abdullah)
+ * Allow overriding `IndexView.export_headings` via `ModelViewSet` (Christer Jensen, Sage Abdullah)
+ * Change spreadsheet export headings to match listing view column headings (Christer Jensen, Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
