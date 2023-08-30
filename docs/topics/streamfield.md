@@ -49,6 +49,10 @@ You can find the complete list of available block types in the [](streamfield_bl
 The `use_json_field=True` argument is required. `use_json_field=False` is only permitted within migrations created before Wagtail 5.0. This is a temporary measure to ensure that all existing StreamFields are upgraded to the database's native JSONField support; it will be removed in a future release.
 ```
 
+```{note}
+   While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
+```
+
 (streamfield_template_rendering)=
 
 ## Template rendering

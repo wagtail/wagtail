@@ -4,6 +4,10 @@
 
 This document details the block types provided by Wagtail for use in [StreamField](streamfield), and how they can be combined into new block types.
 
+```{note}
+   While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
+```
+
 ```{eval-rst}
 .. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
