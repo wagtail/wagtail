@@ -86,7 +86,6 @@ jobs:
             parallel: '--parallel'
           - python: '3.11'
             django: 'Django>=4.2,<4.3'
-            postgres: 'postgres:12'
             notz: notz
             experimental: false
             parallel: '--parallel'
@@ -98,11 +97,9 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@stable/4.2.x#egg=Django'
             experimental: true
-            postgres: 'postgres:12'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
-            postgres: 'postgres:12'
             parallel: '--parallel'
             install_extras: |
               pip uninstall -y django-modelcluster
@@ -111,7 +108,7 @@ jobs:
 
     services:
       postgres:
-        image: ${{ matrix.postgres || 'postgres:11' }}
+        image: ${{ matrix.postgres || 'postgres:12' }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
