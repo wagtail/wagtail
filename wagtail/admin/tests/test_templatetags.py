@@ -312,7 +312,8 @@ class TestComponentTag(SimpleTestCase):
         ("fr", "French"),
         ("ro", "Romanian"),
         ("ru", "Russian"),
-    ]
+    ],
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}},
 )
 class TestInternationalisationTags(TestCase):
     def setUp(self):
