@@ -28,6 +28,26 @@ class ViewSet(WagtailMenuRegisterable):
         for key, value in kwargs.items():
             self.__dict__[key] = value
 
+    def get_common_view_kwargs(self, **kwargs):
+        """
+        Returns a dictionary of keyword arguments to be passed to all views within this viewset.
+        """
+        return kwargs
+
+    def construct_view(self, view_class, **kwargs):
+        """
+        Wrapper for view_class.as_view() which passes the kwargs returned from get_common_view_kwargs
+        in addition to any kwargs passed to this method. Items from get_common_view_kwargs will be
+        filtered to only include those that are valid for the given view_class.
+        """
+        filtered_kwargs = {
+            key: value
+            for key, value in self.get_common_view_kwargs().items()
+            if hasattr(view_class, key)
+        }
+        filtered_kwargs.update(kwargs)
+        return view_class.as_view(**filtered_kwargs)
+
     @cached_property
     def url_prefix(self):
         """
