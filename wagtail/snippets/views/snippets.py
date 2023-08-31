@@ -779,19 +779,35 @@ class SnippetViewSet(ModelViewSet):
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "index_url_name": self.get_url_name("list"),
+                "index_results_url_name": self.get_url_name("list_results"),
+                "usage_url_name": self.get_url_name("usage"),
+                "history_url_name": self.get_url_name("history"),
+                "lock_url_name": self.get_url_name("lock"),
+                "unlock_url_name": self.get_url_name("unlock"),
+                "revisions_view_url_name": self.get_url_name("revisions_view"),
+                "revisions_revert_url_name": self.get_url_name("revisions_revert"),
+                "revisions_compare_url_name": self.get_url_name("revisions_compare"),
+                "revisions_unschedule_url_name": self.get_url_name(
+                    "revisions_unschedule"
+                ),
+                "unpublish_url_name": self.get_url_name("unpublish"),
+                **kwargs,
+            }
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(
             queryset=self.get_queryset,
-            index_url_name=self.get_url_name("list"),
-            index_results_url_name=self.get_url_name("list_results"),
-            delete_url_name=self.get_url_name("delete"),
             **kwargs,
         )
 
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
             panel=self._edit_handler,
-            index_url_name=self.get_url_name("list"),
             preview_url_name=self.get_url_name("preview_on_add"),
             **kwargs,
         )
@@ -799,25 +815,11 @@ class SnippetViewSet(ModelViewSet):
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
             panel=self._edit_handler,
-            index_url_name=self.get_url_name("list"),
-            history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
-            lock_url_name=self.get_url_name("lock"),
-            unlock_url_name=self.get_url_name("unlock"),
-            usage_url_name=self.get_url_name("usage"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
             confirm_workflow_cancellation_url_name=self.get_url_name(
                 "confirm_workflow_cancellation"
             ),
-            **kwargs,
-        )
-
-    def get_delete_view_kwargs(self, **kwargs):
-        return super().get_delete_view_kwargs(
-            index_url_name=self.get_url_name("list"),
-            usage_url_name=self.get_url_name("usage"),
             **kwargs,
         )
 
@@ -828,8 +830,6 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_templates(
                 "usage", fallback=self.usage_view_class.template_name
             ),
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
         )
 
     @property
@@ -838,12 +838,6 @@ class SnippetViewSet(ModelViewSet):
             self.history_view_class,
             template_name=self.get_history_template(),
             header_icon="history",
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            revisions_view_url_name=self.get_url_name("revisions_view"),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -851,8 +845,6 @@ class SnippetViewSet(ModelViewSet):
         return self.construct_view(
             self.inspect_view_class,
             template_name=self.get_inspect_template(),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
             fields=self.inspect_view_fields,
             fields_exclude=self.inspect_view_fields_exclude,
         )
@@ -866,7 +858,6 @@ class SnippetViewSet(ModelViewSet):
         return self.construct_view(
             self.revisions_revert_view_class,
             **self.get_edit_view_kwargs(),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
     @property
@@ -878,8 +869,6 @@ class SnippetViewSet(ModelViewSet):
                 "revisions_compare",
                 fallback=self.revisions_compare_view_class.template_name,
             ),
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
         )
 
     @property
@@ -890,9 +879,6 @@ class SnippetViewSet(ModelViewSet):
                 "revisions_unschedule",
                 fallback=self.revisions_unschedule_view_class.template_name,
             ),
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -902,10 +888,6 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_templates(
                 "unpublish", fallback=self.unpublish_view_class.template_name
             ),
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            unpublish_url_name=self.get_url_name("unpublish"),
-            usage_url_name=self.get_url_name("usage"),
         )
 
     @property

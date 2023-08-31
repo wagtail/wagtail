@@ -75,15 +75,17 @@ class ModelViewSet(ViewSet):
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("index"),
-            index_results_url_name=self.get_url_name("index_results"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            header_icon=self.icon,
-            **kwargs,
+            **{
+                "model": self.model,
+                "permission_policy": self.permission_policy,
+                "index_url_name": self.get_url_name("index"),
+                "index_results_url_name": self.get_url_name("index_results"),
+                "add_url_name": self.get_url_name("add"),
+                "edit_url_name": self.get_url_name("edit"),
+                "delete_url_name": self.get_url_name("delete"),
+                "header_icon": self.icon,
+                **kwargs,
+            }
         )
 
     def get_index_view_kwargs(self, **kwargs):
