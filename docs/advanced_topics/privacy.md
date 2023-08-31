@@ -107,10 +107,10 @@ class VideoPage(Page):
 
 Users often choose poor passwords. Wagtail leverages [Django's password validators](django.contrib.auth.password_validation) to ensure provided passwords are strong.
 
-To customize the validators used, set `WAGTAIL_AUTH_PASSWORD_VALIDATORS`:
+To customize the validators used, set `WAGTAIL_PRIVATE_PAGES_PASSWORD_VALIDATORS`:
 
 ```python
-WAGTAIL_AUTH_PASSWORD_VALIDATORS = [
+WAGTAIL_PRIVATE_PAGES_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     }
@@ -120,5 +120,5 @@ WAGTAIL_AUTH_PASSWORD_VALIDATORS = [
 To disable strength validation for page protection, don't provide any validators:
 
 ```python
-WAGTAIL_AUTH_PASSWORD_VALIDATORS = []
+WAGTAIL_PRIVATE_PAGES_PASSWORD_VALIDATORS = []
 ```
