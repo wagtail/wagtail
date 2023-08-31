@@ -15,8 +15,8 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
-    PagePreviewSidePanel,
     PageStatusSidePanel,
+    PreviewSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
@@ -324,6 +324,16 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def get_preview_url(self):
+        return reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=[
+                self.page_content_type.app_label,
+                self.page_content_type.model,
+                self.parent_page.id,
+            ],
+        )
+
     def get_side_panels(self):
         side_panels = [
             PageStatusSidePanel(
@@ -334,7 +344,11 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             ),
         ]
         if self.page.is_previewable():
-            side_panels.append(PagePreviewSidePanel(self.page, self.request))
+            side_panels.append(
+                PreviewSidePanel(
+                    self.page, self.request, preview_url=self.get_preview_url()
+                )
+            )
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return side_panels

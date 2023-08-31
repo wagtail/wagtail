@@ -3,6 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -13,8 +14,8 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
-    PagePreviewSidePanel,
     PageStatusSidePanel,
+    PreviewSidePanel,
 )
 from wagtail.admin.views.generic.models import (
     RevisionsCompareView,
@@ -51,6 +52,7 @@ def revisions_revert(request, page_id, revision_id):
         instance=revision_page, request=request, form=form
     )
 
+    preview_url = reverse("wagtailadmin_pages:preview_on_edit", args=[page.id])
     lock = page.get_lock()
 
     action_menu = PageActionMenu(
@@ -71,7 +73,7 @@ def revisions_revert(request, page_id, revision_id):
         ),
     ]
     if page.is_previewable():
-        side_panels.append(PagePreviewSidePanel(page, request))
+        side_panels.append(PreviewSidePanel(page, request, preview_url=preview_url))
     if form.show_comments_toggle:
         side_panels.append(CommentsSidePanel(page, request))
 

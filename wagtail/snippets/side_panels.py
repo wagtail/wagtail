@@ -1,10 +1,4 @@
-from django.contrib.admin.utils import quote
-from django.urls import reverse
-
-from wagtail.admin.ui.side_panels import (
-    BasePreviewSidePanel,
-    BaseStatusSidePanel,
-)
+from wagtail.admin.ui.side_panels import BaseStatusSidePanel
 
 
 class SnippetStatusSidePanel(BaseStatusSidePanel):
@@ -33,18 +27,4 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
             context["translations_total"] = len(context["translations"]) + 1
 
         context["status_templates"] = self.get_status_templates(context)
-        return context
-
-
-class SnippetPreviewSidePanel(BasePreviewSidePanel):
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        view = parent_context["view"]
-
-        if self.object.pk:
-            context["preview_url"] = reverse(
-                view.preview_url_name, args=[quote(self.object.pk)]
-            )
-        else:
-            context["preview_url"] = reverse(view.preview_url_name)
         return context

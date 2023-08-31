@@ -15,6 +15,7 @@ from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.ui.side_panels import PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -50,7 +51,7 @@ from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
-from wagtail.snippets.side_panels import SnippetPreviewSidePanel, SnippetStatusSidePanel
+from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 
 
@@ -265,7 +266,9 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         ]
         if self.preview_enabled and self.form.instance.is_previewable():
             side_panels.append(
-                SnippetPreviewSidePanel(self.form.instance, self.request)
+                PreviewSidePanel(
+                    self.form.instance, self.request, preview_url=self.get_preview_url()
+                )
             )
         return side_panels
 
@@ -347,7 +350,11 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
             )
         ]
         if self.preview_enabled and self.object.is_previewable():
-            side_panels.append(SnippetPreviewSidePanel(self.object, self.request))
+            side_panels.append(
+                PreviewSidePanel(
+                    self.object, self.request, preview_url=self.get_preview_url()
+                )
+            )
         return side_panels
 
     def get_context_data(self, **kwargs):
