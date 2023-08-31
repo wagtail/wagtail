@@ -4,7 +4,6 @@ import jinja2
 from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
-
 # Settings are cached per template context, to prevent excessive database
 # lookups. The cached settings are disposed of once the template context is no
 # longer used.
@@ -35,8 +34,8 @@ class Setting(dict):
         Get the settings instance and store it for later
         """
         from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting
-        from wagtail.models import Site
         from wagtail.contrib.settings.registry import registry
+        from wagtail.models import Site
 
         try:
             app_label, model_name = key.split(".", 1)
