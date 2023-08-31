@@ -187,7 +187,11 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotIn("password", response.context["form"].fields)
-        self.assertFalse(response.context["form"].fields["restriction_type"].valid_value(PageViewRestriction.PASSWORD))
+        self.assertFalse(
+            response.context["form"]
+            .fields["restriction_type"]
+            .valid_value(PageViewRestriction.PASSWORD)
+        )
 
     def test_set_password_restriction_password_unset(self):
         """

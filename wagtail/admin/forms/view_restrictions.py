@@ -19,7 +19,9 @@ from wagtail.models import BaseViewRestriction
 @lru_cache(maxsize=None)
 def get_wagtail_password_validators():
     wagtail_password_validators = getattr(
-        settings, "WAGTAIL_PRIVATE_PAGES_PASSWORD_VALIDATORS", settings.AUTH_PASSWORD_VALIDATORS
+        settings,
+        "WAGTAIL_PRIVATE_PAGES_PASSWORD_VALIDATORS",
+        settings.AUTH_PASSWORD_VALIDATORS,
     )
     return get_password_validators(wagtail_password_validators)
 
