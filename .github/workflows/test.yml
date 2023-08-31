@@ -84,11 +84,22 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
             parallel: '--parallel'
+          - python: '3.8'
+            django: 'Django>=3.2,<3.3'
+            experimental: false
+            parallel: '--parallel'
+            postgres: 'postgres:15'
           - python: '3.11'
             django: 'Django>=4.2,<4.3'
             notz: notz
             experimental: false
             parallel: '--parallel'
+          - python: '3.11'
+            django: 'Django>=4.2,<4.3'
+            notz: notz
+            experimental: false
+            parallel: '--parallel'
+            postgres: 'postgres:15'
           - python: '3.10'
             django: 'Django>=4.1,<4.2'
             experimental: false
@@ -158,10 +169,19 @@ jobs:
             django: 'Django>=4.2,<4.3'
             experimental: false
             parallel: '--parallel'
+          - python: '3.8'
+            django: 'Django>=3.2,<3.3'
+            experimental: false
+            mysql: 'mysql:8.1'
+          - python: '3.10'
+            django: 'Django>=4.2,<4.3'
+            experimental: false
+            parallel: '--parallel'
+            mysql: 'mysql:8.1'
 
     services:
       mysql:
-        image: mysql:8.0
+        image: ${{ matrix.mysql || 'mysql:8.0' }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
