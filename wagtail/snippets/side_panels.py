@@ -1,10 +1,7 @@
-from django.contrib.admin.utils import quote
-from django.urls import reverse
-
 from wagtail.admin.ui.side_panels import (
-    BasePreviewSidePanel,
     BaseSidePanels,
     BaseStatusSidePanel,
+    PreviewSidePanel,
 )
 from wagtail.models import PreviewableMixin
 
@@ -38,20 +35,6 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
         return context
 
 
-class SnippetPreviewSidePanel(BasePreviewSidePanel):
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        view = parent_context["view"]
-
-        if self.object.pk:
-            context["preview_url"] = reverse(
-                view.preview_url_name, args=[quote(self.object.pk)]
-            )
-        else:
-            context["preview_url"] = reverse(view.preview_url_name)
-        return context
-
-
 class SnippetSidePanels(BaseSidePanels):
     def __init__(
         self,
@@ -77,5 +60,5 @@ class SnippetSidePanels(BaseSidePanels):
 
         if isinstance(object, PreviewableMixin) and object.is_previewable():
             self.side_panels += [
-                SnippetPreviewSidePanel(object, request),
+                PreviewSidePanel(object, request),
             ]

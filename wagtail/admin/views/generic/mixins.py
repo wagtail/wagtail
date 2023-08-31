@@ -26,6 +26,7 @@ from wagtail.models import (
     DraftStateMixin,
     Locale,
     LockableMixin,
+    PreviewableMixin,
     RevisionMixin,
     TranslatableMixin,
     WorkflowMixin,
@@ -220,6 +221,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.args = args
         self.kwargs = kwargs
 
+        self.preview_enabled = self.model and issubclass(self.model, PreviewableMixin)
         self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
         self.locking_enabled = (
@@ -365,6 +367,12 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locking_enabled or not self.unlock_url_name:
             return None
         return reverse(self.unlock_url_name, args=[quote(self.object.pk)])
+
+    def get_preview_url(self):
+        if not self.preview_enabled or not self.preview_url_name:
+            return None
+        args = [] if self.view_name == "create" else [quote(self.object.pk)]
+        return reverse(self.preview_url_name, args=args)
 
     def get_workflow_history_url(self):
         if not self.workflow_enabled or not self.workflow_history_url_name:
@@ -658,6 +666,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["live_last_updated_info"] = self.get_live_last_updated_info()
+        context["preview_url"] = self.get_preview_url()
         context["workflow_history_url"] = self.get_workflow_history_url()
         context[
             "confirm_workflow_cancellation_url"

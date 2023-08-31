@@ -842,6 +842,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def get_preview_url(self):
+        return reverse("wagtailadmin_pages:preview_on_edit", args=[self.page.id])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_perms = self.page.permissions_for_user(self.request.user)
@@ -876,6 +879,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
+                "preview_url": self.get_preview_url(),
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "page_locked": self.locked_for_user,
                 "workflow_state": self.workflow_state

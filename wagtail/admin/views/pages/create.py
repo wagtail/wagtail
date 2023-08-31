@@ -320,6 +320,16 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def get_preview_url(self):
+        return reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=[
+                self.page_content_type.app_label,
+                self.page_content_type.model,
+                self.parent_page.id,
+            ],
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bound_panel = self.edit_handler.get_bound_panel(
@@ -350,6 +360,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
+                "preview_url": self.get_preview_url(),
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": None,
                 "translations": [],
