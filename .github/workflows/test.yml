@@ -323,7 +323,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -381,7 +381,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
         ports:
