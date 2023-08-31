@@ -869,7 +869,8 @@ class SnippetViewSet(ModelViewSet):
 
     @property
     def revisions_revert_view(self):
-        return self.revisions_revert_view_class.as_view(
+        return self.construct_view(
+            self.revisions_revert_view_class,
             **self.get_edit_view_kwargs(),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )

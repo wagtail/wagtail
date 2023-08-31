@@ -73,17 +73,23 @@ class ModelViewSet(ViewSet):
         """
         return self.model_name
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("index"),
+            index_results_url_name=self.get_url_name("index_results"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
+            header_icon=self.icon,
+            **kwargs,
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "template_name": self.index_template_name,
             "results_template_name": self.index_results_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "index_results_url_name": self.get_url_name("index_results"),
-            "add_url_name": self.get_url_name("add"),
-            "edit_url_name": self.get_url_name("edit"),
-            "header_icon": self.icon,
             "list_display": self.list_display,
             "list_filter": self.list_filter,
             "list_export": self.list_export,
@@ -99,70 +105,48 @@ class ModelViewSet(ViewSet):
 
     def get_add_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "add_url_name": self.get_url_name("add"),
-            "edit_url_name": self.get_url_name("edit"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(for_update=True),
             "template_name": self.edit_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "edit_url_name": self.get_url_name("edit"),
-            "delete_url_name": self.get_url_name("delete"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     def get_delete_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "template_name": self.delete_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "delete_url_name": self.get_url_name("delete"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     @property
     def index_view(self):
-        return self.index_view_class.as_view(
-            **self.get_index_view_kwargs(),
+        return self.construct_view(
+            self.index_view_class, **self.get_index_view_kwargs()
         )
 
     @property
     def index_results_view(self):
-        return self.index_view_class.as_view(
-            **self.get_index_view_kwargs(),
-            results_only=True,
+        return self.construct_view(
+            self.index_view_class, **self.get_index_view_kwargs(), results_only=True
         )
 
     @property
     def add_view(self):
-        return self.add_view_class.as_view(
-            **self.get_add_view_kwargs(),
-        )
+        return self.construct_view(self.add_view_class, **self.get_add_view_kwargs())
 
     @property
     def edit_view(self):
-        return self.edit_view_class.as_view(
-            **self.get_edit_view_kwargs(),
-        )
+        return self.construct_view(self.edit_view_class, **self.get_edit_view_kwargs())
 
     @property
     def delete_view(self):
-        return self.delete_view_class.as_view(
-            **self.get_delete_view_kwargs(),
+        return self.construct_view(
+            self.delete_view_class, **self.get_delete_view_kwargs()
         )
 
     def get_templates(self, name="index", fallback=""):
