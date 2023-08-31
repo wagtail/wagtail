@@ -729,6 +729,7 @@
 * Gareth Palmer
 * Hatim Makki Hoho
 * Hussain Saherwala
+* Faishal Manzar
 
 ## Translators
 
