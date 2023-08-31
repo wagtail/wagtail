@@ -20,17 +20,17 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 3.2, python 3.8, postgres, parallel
-# - django 3.2, python 3.8, mysql
+# - django 3.2, python 3.8, postgres:12, parallel
+# - django 3.2, python 3.8, mysql:8.0
 # - django 4.1, python 3.9, sqlite
-# - django 4.2, python 3.10, mysql, parallel
-# - django 4.1, python 3.10, postgres, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 4.2, python 3.11, postgres, parallel, DISABLE_TIMEZONE=yes
+# - django 4.2, python 3.10, mysql:8.1, parallel
+# - django 4.1, python 3.10, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 4.2, python 3.11, postgres:15, parallel, DISABLE_TIMEZONE=yes
 # - django stable/4.2.x, python 3.10, postgres (allow failures)
-# - django main, python 3.10, postgres, parallel (allow failures)
+# - django main, python 3.10, postgres:latest, parallel (allow failures)
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
-# - elasticsearch 6, django 3.2, python 3.8, postgres
-# - elasticsearch 7, django 4.1, python 3.8, postgres
+# - elasticsearch 6, django 3.2, python 3.8, postgres:latest
+# - elasticsearch 7, django 4.1, python 3.8, postgres:latest
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -84,16 +84,6 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
             parallel: '--parallel'
-          - python: '3.8'
-            django: 'Django>=3.2,<3.3'
-            experimental: false
-            parallel: '--parallel'
-            postgres: 'postgres:15'
-          - python: '3.11'
-            django: 'Django>=4.2,<4.3'
-            notz: notz
-            experimental: false
-            parallel: '--parallel'
           - python: '3.11'
             django: 'Django>=4.2,<4.3'
             notz: notz
@@ -112,6 +102,7 @@ jobs:
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
             parallel: '--parallel'
+            postgres: 'postgres:latest'
             install_extras: |
               pip uninstall -y django-modelcluster
               pip install \
@@ -169,16 +160,7 @@ jobs:
             django: 'Django>=4.2,<4.3'
             experimental: false
             parallel: '--parallel'
-          - python: '3.8'
-            django: 'Django>=3.2,<3.3'
-            experimental: false
             mysql: 'mysql:8.1'
-          - python: '3.10'
-            django: 'Django>=4.2,<4.3'
-            experimental: false
-            parallel: '--parallel'
-            mysql: 'mysql:8.1'
-
     services:
       mysql:
         image: ${{ matrix.mysql || 'mysql:8.0' }}
