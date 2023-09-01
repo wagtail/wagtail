@@ -847,7 +847,7 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    authors = ParentalManyToManyField('blog.BlogCategory', blank=True)
+    authors = ParentalManyToManyField('blog.Author', blank=True)
 
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
