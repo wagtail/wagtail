@@ -95,22 +95,62 @@ class SearchPromotion(models.Model):
         Query, db_index=True, related_name="editors_picks", on_delete=models.CASCADE
     )
     page = models.ForeignKey(
-        "wagtailcore.Page", verbose_name=_("page"), on_delete=models.CASCADE
+        "wagtailcore.Page",
+        verbose_name=_("page"),
+        help_text=_("Choose an internal page for this promotion"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    external_link_url = models.URLField(
+        _("External link URL"),
+        help_text=_("Alternatively, use an external link for this promotion"),
+        blank=True,
+    )
+    external_link_text = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(
+        verbose_name=_("description"),
+        help_text=_("Applies to internal page or external link"),
+        blank=True,
     )
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
-    description = models.TextField(verbose_name=_("description"), blank=True)
+
+    @property
+    def title(self):
+        if self.page:
+            prop = self.page.title
+        else:
+            prop = self.external_link_text
+        return prop
+
+    @property
+    def link(self):
+        if self.page:
+            prop = self.page
+        else:
+            prop = self.external_link_url
+        return prop
 
     def __repr__(self):
+        if self.page:
+            label = "page"
+        else:
+            label = "external link"
+
         return (
             'SearchPromotion(query="'
             + self.query.query_string
-            + '", page="'
-            + self.page.title
+            + f'", {label}="'
+            + self.title
             + '")'
         )
 
     def __str__(self):
-        return f"{self.query.query_string} - {self.page.title}"
+        return f"{self.query.query_string} - {self.title}"
 
     class Meta:
         ordering = ("sort_order",)

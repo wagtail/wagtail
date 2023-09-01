@@ -10,7 +10,7 @@
         <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button>
     {% endfragment %}
 
-    {% trans "Recommended page" as heading %}
+    {% trans "Recommended search result" as heading %}
     {% panel id=panel_id heading=heading heading_size="label" header_controls=header_controls %}
         {% if form.non_field_errors %}
             <ul>
@@ -23,6 +23,8 @@
         {% endif %}
 
         {% include "wagtailadmin/shared/field.html" with field=form.page only %}
+        {% include "wagtailadmin/shared/field.html" with field=form.external_link_url only %}
+        {% include "wagtailadmin/shared/field.html" with field=form.external_link_text only %}
         {% include "wagtailadmin/shared/field.html" with field=form.description only %}
     {% endpanel %}
 
