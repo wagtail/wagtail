@@ -874,6 +874,13 @@ class AgingPagesReportMenuItem(MenuItem):
         )
 
 
+class PageTypesReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
+
+
 @hooks.register("register_reports_menu_item")
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
@@ -926,6 +933,17 @@ def register_aging_pages_report_menu_item():
         name="aging-pages",
         icon_name="time",
         order=1100,
+    )
+
+
+@hooks.register("register_reports_menu_item")
+def register_page_types_report_menu_item():
+    return PageTypesReportMenuItem(
+        _("Page types usage"),
+        reverse("wagtailadmin_reports:page_types_usage"),
+        name="page-types-usage",
+        icon_name="doc-empty-inverse",
+        order=1200,
     )
 
 
