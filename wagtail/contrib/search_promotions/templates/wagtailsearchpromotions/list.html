@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <table class="listing">
     <col width="40%" />
     <col width="40%"/>
@@ -32,7 +32,14 @@
                 </td>
                 <td>
                     {% for searchpick in query.editors_picks.all %}
-                        <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>{% if not forloop.last %}, {% endif %}
+                        {% if searchpick.page %}
+                            <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.title }}</a>
+                        {% else %}
+                            <a href="{{ searchpick.external_link_url }}" class="nolink" target="_blank" rel="noreferrer">
+                                {{ searchpick.title }} {% icon classname="initial" name="link-external" title=_("External link") %}
+                            </a>
+                        {% endif %}
+                        {% if not forloop.last %}, {% endif %}
                     {% empty %}
                         {% trans "None" %}
                     {% endfor %}

@@ -31,9 +31,24 @@ class TestSearchPromotions(TestCase):
         self.assertEqual(Query.get("root page").editors_picks.count(), 1)
         self.assertEqual(Query.get("root page").editors_picks.first().page_id, 1)
 
-    def test_search_pick_ordering(self):
+    def test_search_pick_link_create(self):
         # Add 3 search picks in a different order to their sort_order values
         # They should be ordered by their sort order values and not their insertion order
+        SearchPromotion.objects.create(
+            query=Query.get("root page"),
+            external_link_url="https://wagtail.org",
+            sort_order=0,
+            description="First search promotion",
+        )
+
+        # Check
+        self.assertEqual(Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(
+            Query.get("root page").editors_picks.first().external_link_url,
+            "https://wagtail.org",
+        )
+
+    def test_search_pick_ordering(self):
         SearchPromotion.objects.create(
             query=Query.get("root page"),
             page_id=1,
@@ -48,7 +63,7 @@ class TestSearchPromotions(TestCase):
         )
         SearchPromotion.objects.create(
             query=Query.get("root page"),
-            page_id=1,
+            external_link_url="https://wagtail.org",
             sort_order=1,
             description="Middle search pick",
         )
@@ -106,6 +121,31 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
+        self.assertContains(
+            response,
+            'Sorry, no promoted results match "<em>Hello</em>"',
+        )
+
+    def test_search_with_results(self):
+        SearchPromotion.objects.create(
+            query=Query.get("search promotion query"),
+            page_id=1,
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("search promotion query"),
+            external_link_url="https://wagtail.org",
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:index"), {"q": "search promotion query"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "search promotion query")
+        self.assertContains(response, '<a href="/admin/pages/1/edit/" class="nolink">')
+        self.assertContains(
+            response,
+            '<a href="https://wagtail.org" class="nolink" target="_blank" rel="noreferrer">',
+        )
 
     def make_search_picks(self):
         for i in range(50):
@@ -260,6 +300,31 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
 
+    def test_post_with_external_link(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        self.assertTrue(
+            Query.get("test")
+            .editors_picks.filter(external_link_url="https://wagtail.org")
+            .exists()
+        )
+
     def test_post_without_recommendations(self):
         # Submit
         post_data = {
@@ -280,6 +345,75 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
             "Please specify at least one recommendation for this search term.",
         )
 
+    def test_post_with_page_and_external_link(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "Please only select a page OR enter an external link.",
+        )
+
+    def test_post_missing_recommendation(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "You must recommend a page OR an external link.",
+        )
+
+    def test_post_missing_external_text(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "You must enter an external link text if you enter an external link URL.",
+        )
+
 
 class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -288,10 +422,10 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         # Create an search pick to edit
         self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(
-            page_id=1, description="Root page"
+            page_id=1, sort_order=0, description="Root page"
         )
         self.search_pick_2 = self.query.editors_picks.create(
-            page_id=2, description="Homepage"
+            page_id=2, sort_order=1, description="Homepage"
         )
 
     def test_simple(self):
