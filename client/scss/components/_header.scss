@@ -52,7 +52,7 @@
     padding-inline-end: theme('spacing.5');
   }
 
-  &.w-header--merged .w-breadcrumb {
+  &.w-header--merged .w-breadcrumbs {
     padding-inline-start: $mobile-nav-indent;
   }
 
@@ -121,7 +121,7 @@
       padding-top: theme('spacing.10');
     }
 
-    &.w-header--merged .w-breadcrumb {
+    &.w-header--merged .w-breadcrumbs {
       padding-inline-start: 0;
     }
 
