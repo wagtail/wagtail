@@ -48,6 +48,29 @@ class ViewSet(WagtailMenuRegisterable):
         filtered_kwargs.update(kwargs)
         return view_class.as_view(**filtered_kwargs)
 
+    def inject_view_methods(self, view_class, method_names):
+        """
+        Check for the presence of any of the named methods on this viewset. If any are found,
+        create a subclass of view_class that overrides those methods to call the implementation
+        on this viewset instead. Otherwise, return view_class unmodified.
+        """
+        viewset = self
+        overrides = {}
+        for method_name in method_names:
+            viewset_method = getattr(viewset, method_name, None)
+            if viewset_method:
+
+                def view_method(self, *args, **kwargs):
+                    return viewset_method(*args, **kwargs)
+
+                view_method.__name__ = method_name
+                overrides[method_name] = view_method
+
+        if overrides:
+            return type(view_class.__name__, (view_class,), overrides)
+        else:
+            return view_class
+
     @cached_property
     def url_prefix(self):
         """

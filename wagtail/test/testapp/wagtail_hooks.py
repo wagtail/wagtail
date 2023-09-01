@@ -34,6 +34,7 @@ from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
     MiscellaneousViewSetGroup,
     ToyViewSetGroup,
+    animated_advert_chooser_viewset,
 )
 
 from .forms import FavouriteColourForm
@@ -383,3 +384,8 @@ register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModelViewSet())
 register_snippet(RevisableViewSetGroup)
 register_snippet(VariousOnDeleteModelViewSet)
+
+
+@hooks.register("register_admin_viewset")
+def register_animated_advert_chooser_viewset():
+    return animated_advert_chooser_viewset

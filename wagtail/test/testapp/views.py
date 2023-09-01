@@ -14,9 +14,11 @@ from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
+    Advert,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
@@ -248,3 +250,16 @@ class ToyViewSetGroup(ModelViewSetGroup):
             search_backend_name=None,
         ),
     )
+
+
+class AnimatedAdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False  # don't make this the registered widget for Advert
+
+    def get_object_list(self):
+        return Advert.objects.filter(tags__name="animated")
+
+
+animated_advert_chooser_viewset = AnimatedAdvertChooserViewSet(
+    "animated_advert_chooser"
+)

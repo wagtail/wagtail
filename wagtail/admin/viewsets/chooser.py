@@ -109,8 +109,12 @@ class ChooserViewSet(ViewSet):
 
     @property
     def choose_view(self):
+        view_class = self.inject_view_methods(
+            self.choose_view_class, ["get_object_list"]
+        )
+
         return self.construct_view(
-            self.choose_view_class,
+            view_class,
             icon=self.icon,
             page_title=self.page_title,
             search_tab_label=self.search_tab_label,
@@ -119,7 +123,10 @@ class ChooserViewSet(ViewSet):
 
     @property
     def choose_results_view(self):
-        return self.construct_view(self.choose_results_view_class)
+        view_class = self.inject_view_methods(
+            self.choose_results_view_class, ["get_object_list"]
+        )
+        return self.construct_view(view_class)
 
     @property
     def chosen_view(self):
