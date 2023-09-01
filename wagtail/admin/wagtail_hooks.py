@@ -933,6 +933,11 @@ class AgingPagesReportMenuItem(MenuItem):
         return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True)
 
 
+class PageTypesReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return getattr(settings, "WAGTAIL_PAGE_TYPES_ENABLED", True)
+
+
 @hooks.register("register_reports_menu_item")
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
@@ -985,6 +990,17 @@ def register_aging_pages_report_menu_item():
         name="aging-pages",
         icon_name="time",
         order=1100,
+    )
+
+
+@hooks.register("register_reports_menu_item")
+def register_page_types_report_menu_item():
+    return PageTypesReportMenuItem(
+        _("Page types"),
+        reverse("wagtailadmin_reports:page_types"),
+        name="page-types",
+        icon_name="doc-empty-inverse",
+        order=1200,
     )
 
 
