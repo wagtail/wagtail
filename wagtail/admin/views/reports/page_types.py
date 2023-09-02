@@ -1,4 +1,5 @@
 import django_filters
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db.models import Count, OuterRef, Q, Subquery
@@ -19,26 +20,40 @@ def _get_locale_choices():
     return choices
 
 
+def _annotate_last_edit_info(queryset):
+    latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk")).order_by(
+        "-timestamp", "-pk"
+    )
+
+    queryset = queryset.annotate(
+        count=Count("pages"),
+        last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
+        last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
+    )
+
+    return queryset
+
+
+def _annotate_last_edit_info_by_locale(queryset, language_code):
+    latest_edit_log = PageLogEntry.objects.filter(
+        content_type=OuterRef("pk"), page__locale__language_code=language_code
+    ).order_by("-timestamp", "-pk")
+
+    queryset = queryset.annotate(
+        count=Count("pages", filter=Q(pages__locale__language_code=language_code)),
+        last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
+        last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
+    )
+
+    return queryset
+
+
 class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, value):
         if value and value != self.null_value:
-            latest_edit_log = PageLogEntry.objects.filter(
-                content_type=OuterRef("pk"), page__locale__language_code=value
-            )
-            count_qs = Count("pages", filter=Q(pages__locale__language_code=value))
+            return _annotate_last_edit_info_by_locale(qs, value)
         else:
-            latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk"))
-            count_qs = Count("pages")
-
-        latest_edit_log = latest_edit_log.order_by("-timestamp", "-pk")
-
-        qs = qs.annotate(
-            count=count_qs,
-            last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
-            last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
-        )
-
-        return qs
+            return _annotate_last_edit_info(qs)
 
 
 class PageTypesReportFilterSet(WagtailFilterSet):
@@ -59,12 +74,17 @@ class PageTypesReportView(ReportView):
     template_name = "wagtailadmin/reports/page_types.html"
     title = _("Page types")
     header_icon = "doc-empty-inverse"
-    filterset_class = PageTypesReportFilterSet
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.user_model = get_user_model()
         self.page_models = [model.__name__.lower() for model in get_page_models()]
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
+    def get_filterset_class(self):
+        if self.i18n_enabled:
+            self.filterset_class = PageTypesReportFilterSet
+        return super().get_filterset_class()
 
     def user_id_to_python(self, user_id):
         return self.user_model._meta.pk.to_python(user_id)
@@ -111,10 +131,12 @@ class PageTypesReportView(ReportView):
         queryset = ContentType.objects.filter(model__in=self.page_models)
         self.queryset = queryset
 
-        self.filters, queryset = self.filter_queryset(queryset)
-
-        # 'updated_at' is handled at the filter level, since ContentType itself does not
-        # have a locale to filter on
+        # 'edited at' info is handled at the filter level, since ContentType itself does
+        # not have a locale to filter on
+        if self.i18n_enabled:
+            self.filters, queryset = self.filter_queryset(queryset)
+        else:
+            queryset = _annotate_last_edit_info(queryset)
 
         queryset = queryset.order_by("-count", "app_label", "model")
 

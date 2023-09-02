@@ -649,7 +649,7 @@ class PageTypesReportViewQuerysetTests(WagtailTestUtils, TestCase):
         self.assertEqual(queryset[0].last_edited_by_user, user_b.get_username())
 
 
-@override_settings(LANGUAGE_CODE="en")
+@override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)
 class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
@@ -712,7 +712,6 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         self.assertEqual(simple_page_row.last_edited_page.locale, self.fr_locale)
 
     @override_settings(
-        LANGUAGE_CODE="en",
         WAGTAIL_CONTENT_LANGUAGES=[
             ("en", "English"),
             ("de", "German"),
