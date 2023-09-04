@@ -15,7 +15,7 @@ from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
-from wagtail.admin.ui.side_panels import BaseSidePanels
+from wagtail.admin.ui.side_panels import SidePanels
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -257,7 +257,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
         form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = BaseSidePanels(
+        side_panels = SidePanels(
             self.request,
             self.model(),
             show_schedule_publishing_toggle=getattr(
@@ -327,7 +327,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
         form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = BaseSidePanels(
+        side_panels = SidePanels(
             self.request,
             self.object,
             show_schedule_publishing_toggle=getattr(

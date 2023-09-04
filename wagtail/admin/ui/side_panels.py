@@ -51,7 +51,7 @@ class BaseSidePanel(Component):
         return context
 
 
-class BaseStatusSidePanel(BaseSidePanel):
+class StatusSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle status")
         icon_name = "info-circle"
@@ -249,7 +249,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         return context
 
 
-class PageStatusSidePanel(BaseStatusSidePanel):
+class PageStatusSidePanel(StatusSidePanel):
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
         templates.insert(
@@ -337,7 +337,7 @@ class PreviewSidePanel(BaseSidePanel):
         return context
 
 
-class BaseSidePanels:
+class SidePanels:
     def __init__(
         self,
         request,
@@ -355,7 +355,7 @@ class BaseSidePanels:
         self.scheduled_object = scheduled_object
 
         self.side_panels = [
-            BaseStatusSidePanel(
+            StatusSidePanel(
                 self.object,
                 self.request,
                 show_schedule_publishing_toggle=self.show_schedule_publishing_toggle,
@@ -378,7 +378,7 @@ class BaseSidePanels:
         return media
 
 
-class PageSidePanels(BaseSidePanels):
+class PageSidePanels(SidePanels):
     def __init__(
         self,
         request,

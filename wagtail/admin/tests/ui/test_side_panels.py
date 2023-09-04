@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from wagtail.admin.ui.side_panels import BaseSidePanel, BaseSidePanels
+from wagtail.admin.ui.side_panels import BaseSidePanel, SidePanels
 
 
 class SidePanelA(BaseSidePanel):
@@ -15,7 +15,7 @@ class SidePanelC(BaseSidePanel):
     order = 400
 
 
-class MySidePanels(BaseSidePanels):
+class MySidePanels(SidePanels):
     def __init__(self, request, object):
         super().__init__(request, object)
         self.side_panels = [
