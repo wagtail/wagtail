@@ -80,9 +80,7 @@ class StatusSidePanel(BaseSidePanel):
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.show_schedule_publishing_toggle = (
-            show_schedule_publishing_toggle and not in_explorer
-        )
+        self.show_schedule_publishing_toggle = show_schedule_publishing_toggle
         self.live_object = live_object
         self.scheduled_object = scheduled_object
         self.in_explorer = in_explorer
@@ -276,9 +274,6 @@ class PageStatusSidePanel(StatusSidePanel):
         if page.id:
             context.update(
                 {
-                    "in_explorer": self.in_explorer,
-                    "live_object": self.live_object,
-                    "scheduled_object": self.scheduled_object,
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
@@ -346,6 +341,7 @@ class SidePanels:
         show_schedule_publishing_toggle=False,
         live_object=None,
         scheduled_object=None,
+        in_explorer=False,
         **kwargs,
     ):
         self.request = request
@@ -353,6 +349,7 @@ class SidePanels:
         self.show_schedule_publishing_toggle = show_schedule_publishing_toggle
         self.live_object = live_object
         self.scheduled_object = scheduled_object
+        self.in_explorer = in_explorer
 
         self.side_panels = [
             StatusSidePanel(
@@ -361,6 +358,7 @@ class SidePanels:
                 show_schedule_publishing_toggle=self.show_schedule_publishing_toggle,
                 live_object=self.live_object,
                 scheduled_object=self.scheduled_object,
+                in_explorer=self.in_explorer,
             ),
         ]
 
@@ -384,11 +382,11 @@ class PageSidePanels(SidePanels):
         request,
         object,
         *,
-        comments_enabled,
-        show_schedule_publishing_toggle,
+        show_schedule_publishing_toggle=False,
         live_object=None,
         scheduled_object=None,
         in_explorer=False,
+        comments_enabled=True,
         **kwargs,
     ):
         super().__init__(
@@ -396,10 +394,10 @@ class PageSidePanels(SidePanels):
             object,
             show_schedule_publishing_toggle=show_schedule_publishing_toggle,
             live_object=live_object,
+            in_explorer=in_explorer,
             scheduled_object=scheduled_object,
         )
         self.comments_enabled = comments_enabled
-        self.in_explorer = in_explorer
 
         self.side_panels[0] = PageStatusSidePanel(
             object,
@@ -407,7 +405,6 @@ class PageSidePanels(SidePanels):
             show_schedule_publishing_toggle=self.show_schedule_publishing_toggle,
             live_object=self.live_object,
             scheduled_object=self.scheduled_object,
-            in_explorer=self.in_explorer,
         )
 
         if self.comments_enabled:
