@@ -146,6 +146,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: create_action_clicked_label
    .. autoattribute:: creation_tab_label
    .. autoattribute:: search_tab_label
+   .. method:: get_object_list
+
+      Returns a queryset of objects that are available to be chosen. By default, all instances of ``model`` are returned.
 ```
 
 ## SnippetViewSet
