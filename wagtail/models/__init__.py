@@ -2389,7 +2389,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # a check of the property at the class level indicates that preview_modes has been
         # overridden from whatever type we're currently in.
         page = self
-        if page.specific_class.preview_modes != type(page).preview_modes:
+        if (
+            page.specific_class
+            and page.specific_class.preview_modes != type(page).preview_modes
+        ):
             page = page.specific
 
         return bool(page.preview_modes)
