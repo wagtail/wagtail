@@ -219,6 +219,16 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        inherit = [
+            "view",
+            "history_url",
+            "workflow_history_url",
+            "revisions_compare_url_name",
+            "live_last_updated_info",
+            "lock_url",
+            "unlock_url",
+        ]
+        context.update({k: parent_context.get(k) for k in inherit})
 
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]

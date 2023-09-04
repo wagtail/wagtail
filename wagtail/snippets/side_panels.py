@@ -6,28 +6,6 @@ from wagtail.admin.ui.side_panels import (
 from wagtail.models import PreviewableMixin
 
 
-class SnippetStatusSidePanel(BaseStatusSidePanel):
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        inherit = [
-            "view",
-            "history_url",
-            "workflow_history_url",
-            "revisions_compare_url_name",
-            "revision_enabled",
-            "draftstate_enabled",
-            "live_last_updated_info",
-            "lock_url",
-            "unlock_url",
-            "user_can_lock",
-            "user_can_unlock",
-        ]
-        context.update({k: parent_context.get(k) for k in inherit})
-
-        context["status_templates"] = self.get_status_templates(context)
-        return context
-
-
 class SnippetSidePanels(BaseSidePanels):
     def __init__(
         self,
@@ -42,7 +20,7 @@ class SnippetSidePanels(BaseSidePanels):
         self.side_panels = []
         if object.pk or view.locale or show_schedule_publishing_toggle:
             self.side_panels += [
-                SnippetStatusSidePanel(
+                BaseStatusSidePanel(
                     object,
                     request,
                     show_schedule_publishing_toggle=show_schedule_publishing_toggle,
