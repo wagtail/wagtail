@@ -39,6 +39,7 @@ Changelog
  * Maintenance: Simplify `SnippetViewSet` registration code (Sage Abdullah)
  * Maintenance: Rename groups `IndexView.results_template_name` to `results.html` (Sage Abdullah)
  * Maintenance: Migrate form submission listing checkbox toggling to the shared `w-bulk` Stimulus implementation (LB (Ben) Johnston)
+ * Maintenance: Allow viewsets to define a common set of view kwargs (Matt Westcott)
 
 
 5.1.1 (14.08.2023)
