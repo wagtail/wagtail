@@ -130,6 +130,7 @@ class BaseChooseView(
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
+    url_filter_parameters = []
 
     def get_object_list(self):
         return self.model_class.objects.all()
@@ -174,6 +175,15 @@ class BaseChooseView(
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects):
+        filters = {}
+        for filter in self.url_filter_parameters:
+            try:
+                filters[filter] = self.request.GET[filter]
+            except KeyError:
+                pass
+        if filters:
+            objects = objects.filter(**filters)
+
         if self.construct_queryset_hook_name:
             # allow hooks to modify the queryset
             for hook in hooks.get_hooks(self.construct_queryset_hook_name):

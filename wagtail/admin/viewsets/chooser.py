@@ -35,6 +35,10 @@ class ChooserViewSet(ViewSet):
     #: form submissions within the chooser modal workflow.
     preserve_url_parameters = ["multiple"]
 
+    #: A list of URL query parameters that, if present in the url, should be applied as filters to the queryset.
+    #: (These should also be listed in `preserve_url_parameters`.)
+    url_filter_parameters = []
+
     #: The view class to use for the overall chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseView``.
     choose_view_class = chooser_views.ChooseView
 
@@ -93,6 +97,7 @@ class ChooserViewSet(ViewSet):
                 "model": self.model,
                 "permission_policy": self.permission_policy,
                 "preserve_url_parameters": self.preserve_url_parameters,
+                "url_filter_parameters": self.url_filter_parameters,
                 "create_action_label": self.create_action_label,
                 "create_action_clicked_label": self.create_action_clicked_label,
                 "creation_form_class": self.creation_form_class,
