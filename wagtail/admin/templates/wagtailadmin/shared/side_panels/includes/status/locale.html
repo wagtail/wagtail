@@ -2,11 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
-    {% if page %}
-        {% trans 'Page Locale: ' as screen_reader_title_prefix %}
-    {% else %}
-        {% trans 'Locale: ' as screen_reader_title_prefix %}
-    {% endif %}
+    {% trans 'Locale: ' as screen_reader_title_prefix %}
 
     {% if object.pk and translations %}
         {% blocktrans trimmed asvar help_text %}
