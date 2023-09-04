@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.forms import Media
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -210,17 +209,26 @@ class BaseStatusSidePanel(BaseSidePanel):
             "usage_url": parent_context.get("usage_url"),
         }
 
+    def get_locale_context(self, parent_context):
+        context = {
+            "locale": parent_context.get("locale"),
+            "translations": parent_context.get("translations", []),
+        }
+        context["translations_total"] = len(context["translations"]) + 1
+        return context
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
 
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
-        context["status_templates"] = self.get_status_templates(context)
 
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
+        context.update(self.get_locale_context(parent_context))
         if self.object.pk:
             context.update(self.get_usage_context(parent_context))
+        context["status_templates"] = self.get_status_templates(context)
 
         return context
 
@@ -264,40 +272,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-        else:
-            context.update(
-                {
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            url_name = "wagtailadmin_pages:edit"
-            if self.in_explorer:
-                url_name = "wagtailadmin_explore"
-
-            context.update(
-                {
-                    "locale": page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(url_name, args=[translation.id]),
-                        }
-                        for translation in page.get_translations()
-                        .only("id", "locale", "depth")
-                        .select_related("locale")
-                        if translation.permissions_for_user(
-                            self.request.user
-                        ).can_edit()
-                    ],
-                    # The sum of translated pages plus 1 to account for the current page
-                    "translations_total": page.get_translations().count() + 1,
                 }
             )
 
