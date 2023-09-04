@@ -345,7 +345,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         side_panels = PageSidePanels(
             self.request,
             self.page,
-            preview_enabled=True,
             comments_enabled=self.form.show_comments_toggle,
             show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
         )

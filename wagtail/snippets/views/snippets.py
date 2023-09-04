@@ -15,6 +15,7 @@ from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.ui.side_panels import BaseSidePanels
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -49,7 +50,6 @@ from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
-from wagtail.snippets.side_panels import SnippetSidePanels
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 
 
@@ -257,10 +257,9 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
         form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
+        side_panels = BaseSidePanels(
             self.request,
             self.model(),
-            self,
             show_schedule_publishing_toggle=getattr(
                 form, "show_schedule_publishing_toggle", False
             ),
@@ -328,10 +327,9 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
         form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
+        side_panels = BaseSidePanels(
             self.request,
             self.object,
-            self,
             show_schedule_publishing_toggle=getattr(
                 form, "show_schedule_publishing_toggle", False
             ),

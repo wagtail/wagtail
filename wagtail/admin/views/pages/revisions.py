@@ -57,7 +57,6 @@ def revisions_revert(request, page_id, revision_id):
     side_panels = PageSidePanels(
         request,
         page,
-        preview_enabled=True,
         comments_enabled=form.show_comments_toggle,
         show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
     )

@@ -192,10 +192,9 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             self.request,
             self.parent_page.get_latest_revision_as_object(),
             show_schedule_publishing_toggle=False,
-            live_page=self.parent_page,
-            scheduled_page=self.parent_page.get_scheduled_revision_as_object(),
+            live_object=self.parent_page,
+            scheduled_object=self.parent_page.get_scheduled_revision_as_object(),
             in_explorer=True,
-            preview_enabled=False,
             comments_enabled=False,
         )
 

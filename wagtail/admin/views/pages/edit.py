@@ -861,9 +861,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         side_panels = PageSidePanels(
             self.request,
             self.page,
-            live_page=self.real_page_record,
-            scheduled_page=self.scheduled_page,
-            preview_enabled=True,
+            live_object=self.real_page_record,
+            scheduled_object=self.scheduled_page,
             comments_enabled=self.form.show_comments_toggle,
             show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
         )

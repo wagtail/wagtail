@@ -5,7 +5,13 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
+from wagtail.models import (
+    DraftStateMixin,
+    LockableMixin,
+    Page,
+    PreviewableMixin,
+    ReferenceIndex,
+)
 
 
 class BaseSidePanel(Component):
@@ -332,13 +338,34 @@ class PreviewSidePanel(BaseSidePanel):
 
 
 class BaseSidePanels:
-    def __init__(self, request, object):
+    def __init__(
+        self,
+        request,
+        object,
+        *,
+        show_schedule_publishing_toggle=False,
+        live_object=None,
+        scheduled_object=None,
+        **kwargs,
+    ):
         self.request = request
         self.object = object
+        self.show_schedule_publishing_toggle = show_schedule_publishing_toggle
+        self.live_object = live_object
+        self.scheduled_object = scheduled_object
 
         self.side_panels = [
-            BaseStatusSidePanel(object, self.request),
+            BaseStatusSidePanel(
+                self.object,
+                self.request,
+                show_schedule_publishing_toggle=self.show_schedule_publishing_toggle,
+                live_object=self.live_object,
+                scheduled_object=self.scheduled_object,
+            ),
         ]
+
+        if isinstance(self.object, PreviewableMixin) and self.object.is_previewable():
+            self.side_panels.append(PreviewSidePanel(self.object, self.request))
 
     def __iter__(self):
         return iter(sorted(self.side_panels, key=lambda p: p.order))
@@ -355,34 +382,33 @@ class PageSidePanels(BaseSidePanels):
     def __init__(
         self,
         request,
-        page,
+        object,
         *,
-        preview_enabled,
         comments_enabled,
         show_schedule_publishing_toggle,
-        live_page=None,
-        scheduled_page=None,
+        live_object=None,
+        scheduled_object=None,
         in_explorer=False,
+        **kwargs,
     ):
-        super().__init__(request, page)
+        super().__init__(
+            request,
+            object,
+            show_schedule_publishing_toggle=show_schedule_publishing_toggle,
+            live_object=live_object,
+            scheduled_object=scheduled_object,
+        )
+        self.comments_enabled = comments_enabled
+        self.in_explorer = in_explorer
 
-        self.side_panels = [
-            PageStatusSidePanel(
-                page,
-                self.request,
-                show_schedule_publishing_toggle=show_schedule_publishing_toggle,
-                live_object=live_page,
-                scheduled_object=scheduled_page,
-                in_explorer=in_explorer,
-            ),
-        ]
+        self.side_panels[0] = PageStatusSidePanel(
+            object,
+            request,
+            show_schedule_publishing_toggle=self.show_schedule_publishing_toggle,
+            live_object=self.live_object,
+            scheduled_object=self.scheduled_object,
+            in_explorer=self.in_explorer,
+        )
 
-        if preview_enabled and page.is_previewable():
-            self.side_panels += [
-                PreviewSidePanel(page, self.request),
-            ]
-
-        if comments_enabled:
-            self.side_panels += [
-                CommentsSidePanel(page, self.request),
-            ]
+        if self.comments_enabled:
+            self.side_panels.append(CommentsSidePanel(object, request))
