@@ -202,23 +202,26 @@ class BaseStatusSidePanel(BaseSidePanel):
             "lock_context": lock_context,
         }
 
-    def get_usage_context(self):
+    def get_usage_context(self, parent_context):
         return {
-            "usage_count": ReferenceIndex.get_references_to(self.object)
-            .group_by_source_object()
-            .count(),
-            "usage_url": getattr(self.object, "usage_url", None),
+            "usage_count": ReferenceIndex.get_grouped_references_to(
+                self.object
+            ).count(),
+            "usage_url": parent_context.get("usage_url"),
         }
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
         context["status_templates"] = self.get_status_templates(context)
+
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
         if self.object.pk:
-            context.update(self.get_usage_context())
+            context.update(self.get_usage_context(parent_context))
+
         return context
 
 
@@ -230,8 +233,8 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         )
         return templates
 
-    def get_usage_context(self):
-        context = super().get_usage_context()
+    def get_usage_context(self, parent_context):
+        context = super().get_usage_context(parent_context)
         context["usage_url"] = reverse(
             "wagtailadmin_pages:usage", args=(self.object.id,)
         )
