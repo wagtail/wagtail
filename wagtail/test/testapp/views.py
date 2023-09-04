@@ -255,6 +255,8 @@ class ToyViewSetGroup(ModelViewSetGroup):
 class AnimatedAdvertChooserViewSet(ChooserViewSet):
     model = Advert
     register_widget = False  # don't make this the registered widget for Advert
+    url_filter_parameters = ["url"]
+    preserve_url_parameters = ["multiple", "url"]
 
     def get_object_list(self):
         return Advert.objects.filter(tags__name="animated")
