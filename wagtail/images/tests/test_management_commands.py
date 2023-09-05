@@ -5,6 +5,7 @@ from io import StringIO
 from django.core import management
 from django.test import TestCase, override_settings
 
+from ..management.commands.wagtail_update_image_renditions import progress_bar
 from .utils import Image, get_test_image_file
 
 # note .utils.Image already does get_image_model()
@@ -49,6 +50,29 @@ class TestUpdateImageRenditions(TestCase):
 
         return output
 
+    def test_progress_bar(self):
+        total_rendition = 10
+        out = StringIO()
+        for current in range(1, total_rendition + 1):
+            progress_bar_output = progress_bar(current, total_rendition)[0]
+            out.write(progress_bar_output)
+        out.seek(0)
+        expected_output = "".join(
+            [
+                "Progress: [---->                                             ] 10%",
+                "Progress: [--------->                                        ] 20%",
+                "Progress: [-------------->                                   ] 30%",
+                "Progress: [------------------->                              ] 40%",
+                "Progress: [------------------------>                         ] 50%",
+                "Progress: [----------------------------->                    ] 60%",
+                "Progress: [---------------------------------->               ] 70%",
+                "Progress: [--------------------------------------->          ] 80%",
+                "Progress: [-------------------------------------------->     ] 90%",
+                "Progress: [------------------------------------------------->] 100%",
+            ]
+        )
+        self.assertIn(expected_output, out.getvalue())
+
     def test_exits_early_for_no_renditions(self):
         self.delete_renditions()
         # checking when command is called without any arguments
@@ -70,6 +94,7 @@ class TestUpdateImageRenditions(TestCase):
         self.assertEqual(
             output_string,
             f"Regenerating {total_renditions} rendition(s)\n"
+            f"Progress: [------------------------------------------------->] 100%\n"
             f"Successfully processed {total_renditions} rendition(s)\n",
         )
 
@@ -87,6 +112,7 @@ class TestUpdateImageRenditions(TestCase):
         self.assertEqual(
             output_string,
             f"Purging {total_renditions} rendition(s)\n"
+            f"Progress: [------------------------------------------------->] 100%\n"
             f"Successfully processed {total_renditions} rendition(s)\n",
         )
 

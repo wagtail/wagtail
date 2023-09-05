@@ -37,6 +37,7 @@ Changelog
  * Extract generic `HistoryView` from snippets and add it to `ModelViewSet` (Sage Abdullah)
  * Add generic `UsageView` to `ModelViewSet` (Sage Abdullah)
  * Add the ability to define listing buttons on generic `IndexView` (Sage Abdullah)
+ * Add a visual progress bar to the output of the `wagtail_update_image_renditions` management command (Faishal Manzar)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
