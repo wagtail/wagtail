@@ -143,6 +143,7 @@ def format_permissions(permission_bound_field):
         for perm in content_perms:
             content_perms_dict["object"] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
+            attrs = {"data-action": "w-bulk#toggle", "data-w-bulk-target": "item"}
             # identify the main categories of permission, and assign to
             # the relevant dict key, else bung in the 'custom_perms' list
             permission_action = perm.codename.split("_")[0]
@@ -154,16 +155,19 @@ def format_permissions(permission_bound_field):
             if is_known:
                 if permission_action in extra_perms_exist:
                     extra_perms_exist[permission_action] = True
+                checkbox.data["attrs"].update(attrs)
+                checkbox.data["attrs"]["data-w-bulk-group-param"] = permission_action
                 content_perms_dict[permission_action] = {
                     "perm": perm,
                     "checkbox": checkbox,
                 }
             else:
                 extra_perms_exist["custom"] = True
+                attrs["data-w-bulk-group-param"] = "custom"
                 perm_name = normalize_permission_label(perm)
-
                 custom_perms.append(
                     {
+                        "attrs": attrs,
                         "perm": perm,
                         "name": perm_name,
                         "selected": checkbox.data["selected"],
