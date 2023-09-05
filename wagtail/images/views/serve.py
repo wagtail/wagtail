@@ -1,4 +1,3 @@
-import imghdr
 from wsgiref.util import FileWrapper
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
@@ -64,11 +63,13 @@ class ServeView(View):
         return getattr(self, self.action)(rendition)
 
     def serve(self, rendition):
+        with rendition.get_willow_image() as willow_image:
+            mime_type = willow_image.mime_type
+
         # Open and serve the file
         rendition.file.open("rb")
-        image_format = imghdr.what(rendition.file)
         return StreamingHttpResponse(
-            FileWrapper(rendition.file), content_type="image/" + image_format
+            FileWrapper(rendition.file), content_type=mime_type
         )
 
     def redirect(self, rendition):
