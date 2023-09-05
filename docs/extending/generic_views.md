@@ -102,6 +102,58 @@ PersonChooserBlock = person_chooser_viewset.get_block_class(
 )
 ```
 
+## Limiting choices via linked fields
+
+Chooser viewsets provide a mechanism for limiting the options displayed in the chooser according to another input field on the calling page. For example, suppose the person model has a country field - we can then set up a page model with a country dropdown and a person chooser, where an editor first selects a country from the dropdown and then opens the person chooser to be presented with a list of people from that country.
+
+To set this up, define a `url_filter_parameters` attribute on the ChooserViewSet. This specifies a list of URL parameters that will be recognised for filtering the results - whenever these are passed in the URL, a `filter` clause on the correspondingly-named field will be applied to the queryset. These parameters should also be listed in the `preserve_url_parameters` attribute, so that they are preserved in the URL when navigating through the chooser (such as when following pagination links). The following definition will allow the person chooser to be filtered by country:
+
+```python
+class PersonChooserViewSet(ChooserViewSet):
+    model = "myapp.Person"
+    url_filter_parameters = ["country"]
+    preserve_url_parameters = ["multiple", "country"]
+```
+
+The chooser widget now needs to be configured to pass these URL parameters when opening the modal. This is done by passing a `linked_fields` dictionary to the widget's constructor, where the keys are the names of the URL parameters to be passed, and the values are CSS selectors for the corresponding input fields on the calling page. For example, suppose we have a page model with a country dropdown and a person chooser:
+
+```python
+class BlogPage(Page):
+    country = models.ForeignKey(Country, null=True, blank=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('country'),
+        FieldPanel('person', widget=PersonChooserWidget(linked_fields={
+            # pass the country selected in the id_country input to the person chooser
+            # as a URL parameter `country`
+            'country': '#id_country',
+        })),
+    ]
+```
+
+A number of other lookup mechanisms are available:
+```python
+PersonChooserWidget(linked_fields={
+    'country': {'selector': '#id_country'}  # equivalent to 'country': '#id_country'
+})
+
+# Look up by ID
+PersonChooserWidget(linked_fields={
+    'country': {'id': 'id_country'}
+})
+
+# Regexp match, for use in StreamFields and InlinePanels where IDs are dynamic:
+# 1) Match the ID of the current widget's form element (the PersonChooserWidget)
+#      against the regexp '^id_blog_person_relationship-\d+-'
+# 2) Append 'country' to the matched substring
+# 3) Retrieve the input field with that ID
+PersonChooserWidget(linked_fields={
+    'country': {'match': r'^id_blog_person_relationship-\d+-', 'append': 'country'},
+})
+```
+
+
 ## Chooser viewsets for non-model datasources
 
 While the generic chooser views are primarily designed to use Django models as the data source, choosers based on other sources such as REST API endpoints can be implemented by overriding the individual methods that deal with data retrieval.
