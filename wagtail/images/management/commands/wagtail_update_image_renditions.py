@@ -8,6 +8,17 @@ from wagtail.images import get_image_model
 logger = logging.getLogger(__name__)
 
 
+def progress_bar(current, total, bar_length=50):
+    fraction = current / total
+
+    arrow = int(fraction * bar_length - 1) * "-" + ">"
+    padding = int(bar_length - len(arrow)) * " "
+
+    ending = "\n" if current == total else "\r"
+
+    return (f"Progress: [{arrow}{padding}] {int(fraction*100)}%", ending)
+
+
 class Command(BaseCommand):
     """Command to create missing image renditions with the option to remove (purge) any existing ones."""
 
@@ -49,6 +60,7 @@ class Command(BaseCommand):
                 self.style.HTTP_INFO(f"Regenerating {num_renditions} rendition(s)")
             )
 
+        progress_bar_current = 1
         for rendition in (
             # Pre-calculate the ids of the renditions to change,
             # otherwise `.iterator` never ends.
@@ -63,6 +75,10 @@ class Command(BaseCommand):
 
                     # Delete the existing rendition
                     rendition.delete()
+
+                    _progress_bar = progress_bar(progress_bar_current, num_renditions)
+                    self.stdout.write(_progress_bar[0], ending=_progress_bar[1])
+                    progress_bar_current = progress_bar_current + 1
 
                     if not purge_only:
                         # Create a new one
