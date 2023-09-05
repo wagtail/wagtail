@@ -297,7 +297,7 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif issubclass(self.model_class, Model):
+        elif self.model_class and issubclass(self.model_class, Model):
             return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
