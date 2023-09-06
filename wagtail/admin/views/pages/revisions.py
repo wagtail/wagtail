@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
@@ -44,6 +45,22 @@ def revisions_revert(request, page_id, revision_id):
     content_type = ContentType.objects.get_for_model(page)
     page_class = content_type.model_class()
 
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        locale = page.locale
+        translations = [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_pages:edit", args=[translation.id]),
+            }
+            for translation in page.get_translations()
+            .only("id", "locale", "depth")
+            .select_related("locale")
+            if translation.permissions_for_user(request.user).can_edit()
+        ]
+    else:
+        locale = None
+        translations = []
+
     edit_handler = page_class.get_edit_handler()
     form_class = edit_handler.get_form_class()
 
@@ -70,6 +87,8 @@ def revisions_revert(request, page_id, revision_id):
             live_object=page,
             scheduled_object=scheduled_page,
             in_explorer=False,
+            locale=locale,
+            translations=translations,
         ),
     ]
     if page.is_previewable():

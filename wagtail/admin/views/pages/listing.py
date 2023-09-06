@@ -93,6 +93,16 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
 
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and not self.parent_page.is_root()
+        ):
+            self.locale = self.parent_page.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
+
         return super().get(request)
 
     def get_ordering(self):
@@ -191,6 +201,8 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 live_object=self.parent_page,
                 scheduled_object=self.scheduled_page,
                 in_explorer=True,
+                locale=self.locale,
+                translations=self.translations,
             ),
         ]
         return side_panels
@@ -209,28 +221,19 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
                 "side_panels": self.get_side_panels(),
-                "locale": None,
-                "translations": [],
                 "index_url": self.get_index_url(),
             }
         )
 
-        if self.i18n_enabled and not self.parent_page.is_root():
-            context.update(
-                {
-                    "locale": self.parent_page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailadmin_explore", args=[translation.id]
-                            ),
-                        }
-                        for translation in self.parent_page.get_translations()
-                        .only("id", "locale")
-                        .select_related("locale")
-                    ],
-                }
-            )
-
         return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_explore", args=[translation.id]),
+            }
+            for translation in self.parent_page.get_translations()
+            .only("id", "locale")
+            .select_related("locale")
+        ]

@@ -99,17 +99,25 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return response
 
         self.locale = self.parent_page.locale
-
-        # If the parent page is the root page. The user may specify any locale they like
-        if self.parent_page.is_root():
-            selected_locale = request.GET.get("locale", None) or request.POST.get(
-                "locale", None
-            )
-            if selected_locale:
-                self.locale = get_object_or_404(Locale, language_code=selected_locale)
-
         self.page = self.page_class(owner=self.request.user)
         self.page.locale = self.locale
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            # If the parent page is the root page. The user may specify any locale they like
+            if self.parent_page.is_root():
+                selected_locale = request.GET.get("locale", None) or request.POST.get(
+                    "locale", None
+                )
+                if selected_locale:
+                    self.locale = get_object_or_404(
+                        Locale, language_code=selected_locale
+                    )
+            self.page.locale = self.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
+
         self.edit_handler = self.page_class.get_edit_handler()
         self.form_class = self.edit_handler.get_form_class()
 
@@ -341,6 +349,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 self.request,
                 show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
                 in_explorer=False,
+                locale=self.locale,
+                translations=self.translations,
             ),
         ]
         if self.page.is_previewable():
@@ -377,61 +387,50 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
-                "locale": None,
-                "translations": [],
                 "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            # Pages can be created in any language at the root level
-            if self.parent_page.is_root():
-                translations = [
-                    {
-                        "locale": locale,
-                        "url": reverse(
-                            "wagtailadmin_pages:add",
-                            args=[
-                                self.page_content_type.app_label,
-                                self.page_content_type.model,
-                                self.parent_page.id,
-                            ],
-                        )
-                        + "?"
-                        + urlencode({"locale": locale.language_code}),
-                    }
-                    for locale in Locale.objects.all()
-                ]
-
-            else:
-                translations = [
-                    {
-                        "locale": translation.locale,
-                        "url": reverse(
-                            "wagtailadmin_pages:add",
-                            args=[
-                                self.page_content_type.app_label,
-                                self.page_content_type.model,
-                                translation.id,
-                            ],
-                        ),
-                    }
-                    for translation in self.parent_page.get_translations()
-                    .only("id", "locale")
-                    .select_related("locale")
-                    if translation.permissions_for_user(
-                        self.request.user
-                    ).can_add_subpage()
-                    and self.page_class
-                    in translation.specific_class.creatable_subpage_models()
-                    and self.page_class.can_create_at(translation)
-                ]
-
-            context.update(
-                {
-                    "locale": self.locale,
-                    "translations": translations,
-                }
-            )
-
         return context
+
+    def get_translations(self):
+        # Pages can be created in any language at the root level
+        if self.parent_page.is_root():
+            return [
+                {
+                    "locale": locale,
+                    "url": reverse(
+                        "wagtailadmin_pages:add",
+                        args=[
+                            self.page_content_type.app_label,
+                            self.page_content_type.model,
+                            self.parent_page.id,
+                        ],
+                    )
+                    + "?"
+                    + urlencode({"locale": locale.language_code}),
+                }
+                for locale in Locale.objects.all()
+            ]
+
+        else:
+            return [
+                {
+                    "locale": translation.locale,
+                    "url": reverse(
+                        "wagtailadmin_pages:add",
+                        args=[
+                            self.page_content_type.app_label,
+                            self.page_content_type.model,
+                            translation.id,
+                        ],
+                    ),
+                }
+                for translation in self.parent_page.get_translations()
+                .only("id", "locale")
+                .select_related("locale")
+                if translation.permissions_for_user(self.request.user).can_add_subpage()
+                and self.page_class
+                in translation.specific_class.creatable_subpage_models()
+                and self.page_class.can_create_at(translation)
+            ]

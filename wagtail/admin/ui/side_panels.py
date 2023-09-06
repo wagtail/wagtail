@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
@@ -70,6 +69,8 @@ class BaseStatusSidePanel(BaseSidePanel):
         live_object=None,
         scheduled_object=None,
         in_explorer=False,
+        locale=None,
+        translations=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -79,12 +80,14 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.live_object = live_object
         self.scheduled_object = scheduled_object
         self.in_explorer = in_explorer
+        self.locale = locale
+        self.translations = translations
         self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
         templates = ["wagtailadmin/shared/side_panels/includes/status/workflow.html"]
 
-        if context.get("locale"):
+        if self.locale:
             templates.append(
                 "wagtailadmin/shared/side_panels/includes/status/locale.html"
             )
@@ -210,6 +213,10 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        context["locale"] = self.locale
+        context["translations"] = self.translations
+        if self.translations:
+            context["translations_total"] = len(self.translations) + 1
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
         context["status_templates"] = self.get_status_templates(context)
@@ -259,40 +266,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-        else:
-            context.update(
-                {
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            url_name = "wagtailadmin_pages:edit"
-            if self.in_explorer:
-                url_name = "wagtailadmin_explore"
-
-            context.update(
-                {
-                    "locale": page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(url_name, args=[translation.id]),
-                        }
-                        for translation in page.get_translations()
-                        .only("id", "locale", "depth")
-                        .select_related("locale")
-                        if translation.permissions_for_user(
-                            self.request.user
-                        ).can_edit()
-                    ],
-                    # The sum of translated pages plus 1 to account for the current page
-                    "translations_total": page.get_translations().count() + 1,
                 }
             )
 

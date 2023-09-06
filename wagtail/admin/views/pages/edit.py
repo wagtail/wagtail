@@ -380,6 +380,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         else:
             self.workflow_state = None
 
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            self.locale = self.page.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
+
         if self.workflow_state:
             self.workflow_tasks = self.workflow_state.all_tasks_with_status()
         else:
@@ -858,6 +865,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 live_object=self.real_page_record,
                 scheduled_object=self.scheduled_page,
                 in_explorer=False,
+                locale=self.locale,
+                translations=self.translations,
             ),
         ]
         if self.page.is_previewable():
@@ -911,31 +920,20 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and user_perms.can_lock(),
                 "user_can_unlock": isinstance(self.lock, BasicLock)
                 and user_perms.can_unlock(),
-                "locale": None,
-                "translations": [],
                 "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            context.update(
-                {
-                    "locale": self.page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailadmin_pages:edit", args=[translation.id]
-                            ),
-                        }
-                        for translation in self.page.get_translations()
-                        .only("id", "locale", "depth")
-                        .select_related("locale")
-                        if translation.permissions_for_user(
-                            self.request.user
-                        ).can_edit()
-                    ],
-                }
-            )
-
         return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_pages:edit", args=[translation.id]),
+            }
+            for translation in self.page.get_translations()
+            .only("id", "locale", "depth")
+            .select_related("locale")
+            if translation.permissions_for_user(self.request.user).can_edit()
+        ]
