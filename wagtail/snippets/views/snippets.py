@@ -50,7 +50,7 @@ from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
-from wagtail.snippets.side_panels import SnippetSidePanels
+from wagtail.snippets.side_panels import SnippetPreviewSidePanel, SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 
 
@@ -253,26 +253,34 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
             "for_user": self.request.user,
         }
 
+    def get_side_panels(self):
+        side_panels = [
+            SnippetStatusSidePanel(
+                self.form.instance,
+                self.request,
+                show_schedule_publishing_toggle=getattr(
+                    self.form, "show_schedule_publishing_toggle", False
+                ),
+            )
+        ]
+        if self.preview_enabled and self.form.instance.is_previewable():
+            side_panels.append(
+                SnippetPreviewSidePanel(self.form.instance, self.request)
+            )
+        return side_panels
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
+        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
-            self.request,
-            self.model(),
-            self,
-            show_schedule_publishing_toggle=getattr(
-                form, "show_schedule_publishing_toggle", False
-            ),
-        )
-        media = context.get("media") + action_menu.media + side_panels.media
+        media = context.get("media") + action_menu.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "side_panels": side_panels,
+                "side_panels": self.get_side_panels(),
                 "media": media,
             }
         )
@@ -324,30 +332,36 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
+    def get_side_panels(self):
+        side_panels = [
+            SnippetStatusSidePanel(
+                self.object,
+                self.request,
+                show_schedule_publishing_toggle=getattr(
+                    self.form, "show_schedule_publishing_toggle", False
+                ),
+                live_object=self.live_object,
+                scheduled_object=self.live_object.get_scheduled_revision_as_object()
+                if self.draftstate_enabled
+                else None,
+            )
+        ]
+        if self.preview_enabled and self.object.is_previewable():
+            side_panels.append(SnippetPreviewSidePanel(self.object, self.request))
+        return side_panels
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
+        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
-            self.request,
-            self.object,
-            self,
-            show_schedule_publishing_toggle=getattr(
-                form, "show_schedule_publishing_toggle", False
-            ),
-            live_object=self.live_object,
-            scheduled_object=self.live_object.get_scheduled_revision_as_object()
-            if self.draftstate_enabled
-            else None,
-        )
-        media = context.get("media") + action_menu.media + side_panels.media
+        media = context.get("media") + action_menu.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "side_panels": side_panels,
+                "side_panels": self.get_side_panels(),
                 "history_url": self.get_history_url(),
                 "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,

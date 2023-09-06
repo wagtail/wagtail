@@ -26,6 +26,7 @@ from wagtail.models import (
     DraftStateMixin,
     Locale,
     LockableMixin,
+    PreviewableMixin,
     RevisionMixin,
     TranslatableMixin,
     WorkflowMixin,
@@ -220,6 +221,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.args = args
         self.kwargs = kwargs
 
+        self.preview_enabled = self.model and issubclass(self.model, PreviewableMixin)
         self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
         self.locking_enabled = (
