@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.0.3 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
+
+
 5.0.2 (21.06.2023)
 ~~~~~~~~~~~~~~~~~~
 
