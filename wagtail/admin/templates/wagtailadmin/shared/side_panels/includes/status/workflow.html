@@ -9,11 +9,7 @@
 {% block content %}
     {% if object.pk %}
         <div class="w-space-y-3">
-            {% if page %}
-                {% trans 'Page status: ' as screen_reader_title_prefix %}
-            {% else %}
-                {% trans 'Status: ' as screen_reader_title_prefix %}
-            {% endif %}
+            {% trans 'Status: ' as screen_reader_title_prefix %}
 
             {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision live_revision=object.live_revision %}
 
@@ -36,9 +32,6 @@
                         {% endif %}
                     {% endwith %}
                     {% if has_live_publishing_schedule %}
-                        {% if page %}
-                            {% page_permissions object as page_perms %}
-                        {% endif %}
                         <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3 w-border w-border-transparent">
                             {% icon name='calendar-check' classname='w-w-4 w-h-4 w-text-info-100' %}
                             <div class="w-flex w-flex-1 w-items-start w-justify-between">
@@ -118,9 +111,6 @@
 
 {% block bottom %}
     {# Workflow Status #}
-    {% if page %}
-        {% page_permissions object as page_perms %}
-    {% endif %}
     {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision %}
         {% if workflow_state %}
             <div class="w-flex w-space-x-4">

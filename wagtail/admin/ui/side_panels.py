@@ -250,8 +250,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
-                    "live_object": self.live_object,
-                    "scheduled_object": self.scheduled_object,
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
