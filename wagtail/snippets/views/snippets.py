@@ -193,15 +193,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             }
         )
 
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": locale,
-                    "url": self.get_index_url() + "?locale=" + locale.language_code,
-                }
-                for locale in Locale.objects.all().exclude(id=self.locale.id)
-            ]
-
         return context
 
 
@@ -262,6 +253,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 show_schedule_publishing_toggle=getattr(
                     self.form, "show_schedule_publishing_toggle", False
                 ),
+                locale=self.locale,
+                translations=self.translations,
             )
         ]
         if self.preview_enabled and self.form.instance.is_previewable():
@@ -287,17 +280,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 "media": media,
             }
         )
-
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": locale,
-                    "url": reverse(self.add_url_name)
-                    + "?locale="
-                    + locale.language_code,
-                }
-                for locale in Locale.objects.all().exclude(id=self.locale.id)
-            ]
 
         return context
 
@@ -347,6 +329,8 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 scheduled_object=self.live_object.get_scheduled_revision_as_object()
                 if self.draftstate_enabled
                 else None,
+                locale=self.locale,
+                translations=self.translations,
             )
         ]
         if self.preview_enabled and self.object.is_previewable():
@@ -375,20 +359,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 "media": media,
             }
         )
-
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": translation.locale,
-                    "url": reverse(
-                        self.edit_url_name,
-                        args=[quote(translation.pk)],
-                    ),
-                }
-                for translation in self.object.get_translations().select_related(
-                    "locale"
-                )
-            ]
 
         return context
 

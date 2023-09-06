@@ -104,6 +104,7 @@ class LocaleMixin:
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.locale = self.get_locale()
+        self.translations = self.get_translations() if self.locale else []
 
     def get_locale(self):
         i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
@@ -121,12 +122,17 @@ class LocaleMixin:
             return get_object_or_404(Locale, language_code=selected_locale)
         return Locale.get_default()
 
+    def get_translations(self):
+        # Return a list of {"locale": Locale, "url": str} objects for available locales
+        return []
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if not self.locale:
             return context
 
         context["locale"] = self.locale
+        context["translations"] = self.translations
         return context
 
 

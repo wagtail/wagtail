@@ -39,7 +39,7 @@ from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, ReferenceIndex
+from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -362,6 +362,18 @@ class IndexView(
             {"label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
+    def get_translations(self):
+        index_url = self.get_index_url()
+        if not index_url:
+            return []
+        return [
+            {
+                "locale": locale,
+                "url": index_url + "?locale=" + locale.language_code,
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -501,6 +513,15 @@ class CreateView(
         context["submit_button_label"] = self.submit_button_label
         return context
 
+    def get_translations(self):
+        return [
+            {
+                "locale": locale,
+                "url": self.get_add_url() + "?locale=" + locale.language_code,
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
     def save_instance(self):
         """
         Called after the form is successfully validated - saves the object to the db
@@ -620,6 +641,17 @@ class EditView(
                 "index_url_name attribute or a get_success_url method"
             )
         return reverse(self.index_url_name)
+
+    def get_translations(self):
+        if not self.edit_url_name:
+            return []
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse(self.edit_url_name, args=[quote(translation.pk)]),
+            }
+            for translation in self.object.get_translations().select_related("locale")
+        ]
 
     def save_instance(self):
         """
