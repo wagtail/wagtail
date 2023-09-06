@@ -265,3 +265,5 @@ class AnimatedAdvertChooserViewSet(ChooserViewSet):
 animated_advert_chooser_viewset = AnimatedAdvertChooserViewSet(
     "animated_advert_chooser"
 )
+
+AdvertChooserWidget = animated_advert_chooser_viewset.widget_class
