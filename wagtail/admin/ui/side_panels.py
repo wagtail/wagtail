@@ -1,7 +1,5 @@
 from django.conf import settings
-from django.forms import Media
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
@@ -358,23 +356,3 @@ class PagePreviewSidePanel(BasePreviewSidePanel):
                 args=[content_type.app_label, content_type.model, parent_page.id],
             )
         return context
-
-
-class BaseSidePanels:
-    def __init__(self, request, object):
-        self.request = request
-        self.object = object
-
-        self.side_panels = [
-            BaseStatusSidePanel(object, self.request),
-        ]
-
-    def __iter__(self):
-        return iter(sorted(self.side_panels, key=lambda p: p.order))
-
-    @cached_property
-    def media(self):
-        media = Media()
-        for panel in self:
-            media += panel.media
-        return media
