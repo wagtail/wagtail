@@ -44,6 +44,12 @@ Changelog
  * Maintenance: Allow viewsets to define a common set of view kwargs (Matt Westcott)
 
 
+5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
+
+
 5.1.1 (14.08.2023)
 ~~~~~~~~~~~~~~~~~~
 
