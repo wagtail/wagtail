@@ -17,7 +17,11 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
-from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.side_panels import (
+    CommentsSidePanel,
+    PagePreviewSidePanel,
+    PageStatusSidePanel,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.exceptions import PageClassNotFoundError
@@ -842,6 +846,23 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def get_side_panels(self):
+        side_panels = [
+            PageStatusSidePanel(
+                self.page,
+                self.request,
+                show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
+                live_object=self.real_page_record,
+                scheduled_object=self.scheduled_page,
+                in_explorer=False,
+            ),
+        ]
+        if self.page.is_previewable():
+            side_panels.append(PagePreviewSidePanel(self.page, self.request))
+        if self.form.show_comments_toggle:
+            side_panels.append(CommentsSidePanel(self.page, self.request))
+        return side_panels
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_perms = self.page.permissions_for_user(self.request.user)
@@ -855,15 +876,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             lock=self.lock,
             locked_for_user=self.locked_for_user,
         )
-        side_panels = PageSidePanels(
-            self.request,
-            self.page,
-            live_page=self.real_page_record,
-            scheduled_page=self.scheduled_page,
-            preview_enabled=True,
-            comments_enabled=self.form.show_comments_toggle,
-            show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
-        )
 
         context.update(
             {
@@ -873,7 +885,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
-                "side_panels": side_panels,
+                "side_panels": self.get_side_panels(),
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
@@ -894,10 +906,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and user_perms.can_unlock(),
                 "locale": None,
                 "translations": [],
-                "media": bound_panel.media
-                + self.form.media
-                + action_menu.media
-                + side_panels.media,
+                "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 

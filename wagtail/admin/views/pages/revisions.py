@@ -11,7 +11,11 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.side_panels import (
+    CommentsSidePanel,
+    PagePreviewSidePanel,
+    PageStatusSidePanel,
+)
 from wagtail.admin.views.generic.models import (
     RevisionsCompareView,
     RevisionsUnscheduleView,
@@ -34,6 +38,8 @@ def revisions_revert(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_object()
 
+    scheduled_page = page.get_scheduled_revision_as_object()
+
     content_type = ContentType.objects.get_for_model(page)
     page_class = content_type.model_class()
 
@@ -54,13 +60,20 @@ def revisions_revert(request, page_id, revision_id):
         lock=lock,
         locked_for_user=lock is not None and lock.for_user(request.user),
     )
-    side_panels = PageSidePanels(
-        request,
-        page,
-        preview_enabled=True,
-        comments_enabled=form.show_comments_toggle,
-        show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
-    )
+    side_panels = [
+        PageStatusSidePanel(
+            revision_page,
+            request,
+            show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
+            live_object=page,
+            scheduled_object=scheduled_page,
+            in_explorer=False,
+        ),
+    ]
+    if page.is_previewable():
+        side_panels.append(PagePreviewSidePanel(page, request))
+    if form.show_comments_toggle:
+        side_panels.append(CommentsSidePanel(page, request))
 
     user_avatar = render_to_string(
         "wagtailadmin/shared/user_avatar.html", {"user": revision.user}
@@ -92,10 +105,7 @@ def revisions_revert(request, page_id, revision_id):
             "action_menu": action_menu,
             "side_panels": side_panels,
             "form": form,  # Used in unit tests
-            "media": edit_handler.media
-            + form.media
-            + action_menu.media
-            + side_panels.media,
+            "media": edit_handler.media + form.media + action_menu.media,
         },
     )
 

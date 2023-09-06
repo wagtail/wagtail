@@ -13,7 +13,11 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
-from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.side_panels import (
+    CommentsSidePanel,
+    PagePreviewSidePanel,
+    PageStatusSidePanel,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.models import Locale, Page, PageSubscription
@@ -320,6 +324,21 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def get_side_panels(self):
+        side_panels = [
+            PageStatusSidePanel(
+                self.page,
+                self.request,
+                show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
+                in_explorer=False,
+            ),
+        ]
+        if self.page.is_previewable():
+            side_panels.append(PagePreviewSidePanel(self.page, self.request))
+        if self.form.show_comments_toggle:
+            side_panels.append(CommentsSidePanel(self.page, self.request))
+        return side_panels
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bound_panel = self.edit_handler.get_bound_panel(
@@ -332,13 +351,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             lock=None,
             locked_for_user=False,
         )
-        side_panels = PageSidePanels(
-            self.request,
-            self.page,
-            preview_enabled=True,
-            comments_enabled=self.form.show_comments_toggle,
-            show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
-        )
 
         context.update(
             {
@@ -347,16 +359,13 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "parent_page": self.parent_page,
                 "edit_handler": bound_panel,
                 "action_menu": action_menu,
-                "side_panels": side_panels,
+                "side_panels": self.get_side_panels(),
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": None,
                 "translations": [],
-                "media": bound_panel.media
-                + self.form.media
-                + action_menu.media
-                + side_panels.media,
+                "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 
