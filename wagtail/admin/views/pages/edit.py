@@ -864,7 +864,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
                 live_object=self.real_page_record,
                 scheduled_object=self.scheduled_page,
-                in_explorer=False,
                 locale=self.locale,
                 translations=self.translations,
             ),

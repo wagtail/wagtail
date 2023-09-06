@@ -348,7 +348,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 self.page,
                 self.request,
                 show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
-                in_explorer=False,
                 locale=self.locale,
                 translations=self.translations,
             ),

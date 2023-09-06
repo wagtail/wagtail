@@ -68,18 +68,14 @@ class BaseStatusSidePanel(BaseSidePanel):
         show_schedule_publishing_toggle=None,
         live_object=None,
         scheduled_object=None,
-        in_explorer=False,
         locale=None,
         translations=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.show_schedule_publishing_toggle = (
-            show_schedule_publishing_toggle and not in_explorer
-        )
+        self.show_schedule_publishing_toggle = show_schedule_publishing_toggle
         self.live_object = live_object
         self.scheduled_object = scheduled_object
-        self.in_explorer = in_explorer
         self.locale = locale
         self.translations = translations
         self.locking_enabled = isinstance(self.object, LockableMixin)
@@ -254,7 +250,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
-                    "in_explorer": self.in_explorer,
                     "live_object": self.live_object,
                     "scheduled_object": self.scheduled_object,
                     "history_url": reverse(

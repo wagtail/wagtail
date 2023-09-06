@@ -86,7 +86,6 @@ def revisions_revert(request, page_id, revision_id):
             show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
             live_object=page,
             scheduled_object=scheduled_page,
-            in_explorer=False,
             locale=locale,
             translations=translations,
         ),

@@ -200,7 +200,6 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 show_schedule_publishing_toggle=False,
                 live_object=self.parent_page,
                 scheduled_object=self.scheduled_page,
-                in_explorer=True,
                 locale=self.locale,
                 translations=self.translations,
             ),
