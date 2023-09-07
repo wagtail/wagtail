@@ -12,7 +12,9 @@
 {% endblock %}
 
 {% block content %}
-    {% fragment as breadcrumb %}{% include 'wagtailsnippets/snippets/headers/list_header.html' %}{% endfragment %}
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailadmin/shared/headers/slim_header.html' %}
+    </div>
     {% fragment as base_action_locale %}{% if locale %}{% include 'wagtailadmin/shared/locale_selector.html' with theme="large" %}{% endif %}{% endfragment %}
     {% fragment as action_url_add_snippet %}{% if can_add_snippet %}{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}{% endif %}{% endfragment %}
     {% fragment as action_text_snippet %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}{% endfragment %}
@@ -21,7 +23,7 @@
             {% include view.export_buttons_template_name %}
         {% endif %}
     {% endfragment %}
-    {% include 'wagtailadmin/shared/header.html' with breadcrumb=breadcrumb title=model_opts.verbose_name_plural|capfirst icon=header_icon search_url=search_url base_actions=base_action_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet extra_actions=extra_actions search_results_url=index_results_url %}
+    {% include 'wagtailadmin/shared/header.html' with title=model_opts.verbose_name_plural|capfirst icon=header_icon search_url=search_url base_actions=base_action_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet extra_actions=extra_actions search_results_url=index_results_url %}
     <div class="nice-padding{% if filters %} filterable{% endif %}">
         <div id="listing-results" class="snippets">
             {% include "wagtailsnippets/snippets/index_results.html" %}

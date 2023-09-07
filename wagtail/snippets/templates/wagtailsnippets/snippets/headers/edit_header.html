@@ -1,22 +1,5 @@
-{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
 {% load wagtailadmin_tags i18n %}
-
-{% block breadcrumbs_items %}
-    {{ block.super }}
-    <li class="{{ breadcrumb_item_classes }}">
-        <a class="{{ breadcrumb_link_classes }}" href="{% url view.edit_url_name object.pk|admin_urlquote %}">
-            {{ object }}
-        </a>
-    </li>
-{% endblock %}
-
-{% block header_content %}
-    {{ block.super }}
-
-    <h1 class="w-sr-only">
-        {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
-    </h1>
-{% endblock %}
 
 {% block actions %}
     {% include "wagtailadmin/shared/side_panel_toggles.html" %}
