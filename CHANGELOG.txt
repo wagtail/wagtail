@@ -49,6 +49,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
+ * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
 
 
 5.1.1 (14.08.2023)
