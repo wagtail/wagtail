@@ -620,12 +620,9 @@ class TestPurgeRevisionsCommandForPages(TestCase):
     base_options = {}
 
     def setUp(self):
-        self.object = self.get_object()
-
-    def get_object(self):
-        # Find root page
+        # Create a page and its revision
         self.root_page = Page.objects.get(id=2)
-        self.page = SimplePage(
+        self.page = Page(
             title="Hello world!",
             slug="hello-world",
             content="hello",
@@ -633,8 +630,16 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         )
         self.root_page.add_child(instance=self.page)
         self.page.refresh_from_db()
-        return self.page
 
+        self.revision = Revision.objects.create(revision=1, page=self.page)
+        self.revision.user = self.user
+        self.revision.save()
+
+    def test_purge_revisions_protected_error(self):
+        # Run the purge_revisions command
+        with self.assertRaises(SystemExit):
+            self.call_command('purge_revisions', '--force')
+            
     def assertRevisionNotExists(self, revision):
         self.assertFalse(Revision.objects.filter(id=revision.id).exists())
 
