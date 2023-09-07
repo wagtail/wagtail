@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block breadcrumbs_items %}
-    {% for page in pages %}
+    {% for page in items %}
         {% if page.is_root and url_root_name %}
             {% url url_root_name as breadcrumb_url %}
         {% else %}

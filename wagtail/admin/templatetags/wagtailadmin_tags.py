@@ -84,10 +84,10 @@ def page_breadcrumbs(
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
     cca = PagePermissionPolicy().explorable_root_instance(user)
     if not cca:
-        return {"pages": Page.objects.none()}
+        return {"items": Page.objects.none()}
 
     return {
-        "pages": page.get_ancestors(inclusive=include_self)
+        "items": page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
         .specific(),
         "current_page": page,
