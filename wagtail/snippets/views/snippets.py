@@ -422,6 +422,16 @@ class DeleteView(generic.DeleteView):
             "object": self.object,
         }
 
+    def get_breadcrumbs_items(self):
+        return [
+            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {"url": self.get_delete_url(), "label": _("Delete")},
+        ]
+
 
 class UsageView(generic.UsageView):
     view_name = "usage"

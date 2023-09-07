@@ -1,1 +1,6 @@
 {% extends "wagtailadmin/generic/confirm_delete.html" %}
+
+{% block content %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
+    {{ block.super }}
+{% endblock %}

@@ -3751,7 +3751,7 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
             + "?describe_on_delete=1",
         )
         self.assertNotContains(response, "Yes, delete")
-        self.assertNotContains(response, delete_url)
+        self.assertNotContains(response, f'<form action="{delete_url}" method="POST">')
 
     def test_delete_post_with_limited_permissions(self):
         self.user.is_superuser = False
