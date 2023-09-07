@@ -65,6 +65,11 @@ register.filter("intcomma", intcomma)
 register.filter("naturaltime", naturaltime)
 
 
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
+def breadcrumbs(items, classname=None):
+    return {"items": items, "classname": classname}
+
+
 @register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
 def page_breadcrumbs(
     context,

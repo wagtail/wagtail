@@ -1,10 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 {% comment "text/markdown" %}
-    The breadcrumb component is reused across all of Wagtail’s headers when the page tree context is needed.
+    The breadcrumb component is reused across most of Wagtail's headers.
     Variables this template accepts:
 
-    `items` - A list of wagtail page objects
-    `trailing_breadcrumb_title` (string?) - use this for a non linkable last breadcrumb
+    `items` - A list of {"url": Union[str, None], "label": str} dicts
     `classname` - Modifier classes
 {% endcomment %}
 {% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold' icon_classes='w-w-4 w-h-4 w-ml-3' %}
@@ -38,6 +37,30 @@
                 aria-label="{% trans 'Breadcrumb' %}">
                 <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
                     {% block breadcrumbs_items %}
+                        {% for item in items %}
+                            <li
+                                class="{{ breadcrumb_item_classes }} {% if not is_expanded and not forloop.last %}w-max-w-0{% endif %}"
+                                {% if not is_expanded and not forloop.last %}
+                                    hidden
+                                {% endif %}
+                                {% if is_expanded or not forloop.last %}
+                                    data-w-breadcrumbs-target="content"
+                                {% endif %}
+                            >
+                                {% if item.url %}
+                                    <a class="{{ breadcrumb_link_classes }}" href="{{ item.url }}">
+                                        {{ item.label }}
+                                    </a>
+                                {% else %}
+                                    <div class="w-flex w-justify-start w-items-center">
+                                        {{ item.label }}
+                                    </div>
+                                {% endif %}
+                                {% if not forloop.last %}
+                                    {% icon name="arrow-right" classname=icon_classes %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
                     {% endblock %}
                 </ol>
             </nav>

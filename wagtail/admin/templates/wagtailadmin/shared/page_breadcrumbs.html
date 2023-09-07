@@ -1,6 +1,15 @@
 {% extends "wagtailadmin/shared/breadcrumbs.html" %}
 {% load i18n wagtailadmin_tags %}
 
+{% comment "text/markdown" %}
+    The breadcrumb component is reused across all of Wagtail’s headers when the page tree context is needed.
+    Variables this template accepts:
+
+    `items` - A list of wagtail page objects
+    `trailing_breadcrumb_title` (string?) - use this for a non linkable last breadcrumb
+    `classname` - Modifier classes
+{% endcomment %}
+
 {% block breadcrumbs_items %}
     {% for page in items %}
         {% if page.is_root and url_root_name %}
