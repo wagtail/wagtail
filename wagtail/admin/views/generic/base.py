@@ -22,6 +22,7 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     page_title = ""
     page_subtitle = ""
     header_icon = ""
+    breadcrumbs_items = []
     template_name = "wagtailadmin/generic/base.html"
 
     def get_page_title(self):
@@ -33,11 +34,15 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     def get_header_icon(self):
         return self.header_icon
 
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = self.get_page_title()
         context["page_subtitle"] = self.get_page_subtitle()
         context["header_icon"] = self.get_header_icon()
+        context["breadcrumbs_items"] = self.get_breadcrumbs_items()
         return context
 
     def get_template_names(self):
