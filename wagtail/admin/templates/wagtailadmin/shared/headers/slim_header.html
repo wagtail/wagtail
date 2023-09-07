@@ -9,12 +9,18 @@
     <div class="w-pl-slim-header sm:w-pl-5 w-min-h-slim-header sm:w-pr-2 w-w-full w-flex-1 w-overflow-x-auto w-box-border">
         <div class="w-flex w-flex-1 w-items-center w-overflow-hidden">
             {% block header_content %}
+                {% if breadcrumbs_items %}
+                    {% breadcrumbs breadcrumbs_items %}
+                {% endif %}
             {% endblock %}
         </div>
     </div>
 
     <div class="w-w-full sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 sm:w-pr-4 sm:w-justify-end">
         {% block actions %}
+            {% if side_panels %}
+                {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+            {% endif %}
         {% endblock %}
     </div>
 </header>
