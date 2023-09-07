@@ -1,7 +1,7 @@
 {% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
-{% block breadcrumb_items %}
+{% block breadcrumbs_items %}
     <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-w-breadcrumbs-target="content" hidden>
         <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailsnippets:index' %}">
             {% trans "Snippets" %}
@@ -13,4 +13,4 @@
             {{ model_opts.verbose_name_plural|capfirst }}
         </a>
     </li>
-{% endblock breadcrumb_items %}
+{% endblock breadcrumbs_items %}

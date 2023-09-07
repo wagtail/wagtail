@@ -37,75 +37,10 @@
             <nav class="w-flex w-items-center w-flex-row w-h-full"
                 aria-label="{% trans 'Breadcrumb' %}">
                 <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
-                    {% for page in pages %}
-                        {% if page.is_root and url_root_name %}
-                            {% url url_root_name as breadcrumb_url %}
-                        {% else %}
-                            {% url url_name page.id as breadcrumb_url %}
-                        {% endif %}
-                        {% if page.is_root %}
-                            <li
-                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
-                                {% if not is_expanded %}hidden{% endif %}
-                                data-w-breadcrumbs-target="content"
-                            >
-                                <a
-                                    class="{{ breadcrumb_link_classes }}"
-                                    href="{{ breadcrumb_url }}{{ querystring_value }}"
-                                >
-                                    {% trans "Root" %}
-                                </a>
-                                {% icon name="arrow-right" classname=icon_classes %}
-                            </li>
-                        {% elif forloop.first %}
-                            {# For limited-permission users whose breadcrumb starts further down from the root #}
-                            <li
-                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
-                                {% if not is_expanded %}hidden{% endif %}
-                                data-w-breadcrumbs-target="content"
-                            >
-                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
-                                    {% trans "Root" %}
-                                </a>
-                                {% icon name="arrow-right" classname=icon_classes %}
-                            </li>
-                        {% elif forloop.last %}
-                            <li
-                                class="{{ breadcrumb_item_classes }}"
-                                {% if trailing_breadcrumb_title and not is_expanded %}hidden{% endif %}
-                                {% if trailing_breadcrumb_title or is_expanded %}data-w-breadcrumbs-target="content"{% endif %}
-                            >
-                                <a class="{{ breadcrumb_link_classes }}"
-                                    href="{{ breadcrumb_url }}{{ querystring_value }}">
-                                    {{ page.get_admin_display_title }}
-                                </a>
-                                {% if trailing_breadcrumb_title %}
-                                    {% icon name="arrow-right" classname=icon_classes %}
-                                {% endif %}
-                            </li>
-                        {% else %}
-                            <li
-                                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
-                                {% if not is_expanded %}hidden{% endif %}
-                                data-w-breadcrumbs-target="content"
-                            >
-                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
-                                    {{ page.get_admin_display_title }}
-                                </a>
-                                {% icon name="arrow-right" classname=icon_classes %}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    {% if trailing_breadcrumb_title %}
-                        <li class="{{ breadcrumb_item_classes }}">
-                            <div class="w-flex w-justify-start w-items-center">
-                                {{ trailing_breadcrumb_title }}
-                            </div>
-                        </li>
-                    {% endif %}
+                    {% block breadcrumbs_items %}
+                    {% endblock %}
                 </ol>
             </nav>
         </div>
     </div>
 {% endwith %}
-

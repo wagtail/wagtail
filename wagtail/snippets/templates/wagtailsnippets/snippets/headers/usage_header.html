@@ -1,7 +1,7 @@
 {% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
-{% block breadcrumb_items %}
+{% block breadcrumbs_items %}
     {{ block.super }}
     <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-w-breadcrumbs-target="content" hidden>
         <a class="{{ breadcrumb_link_classes }}" href="{% url view.edit_url_name object.pk|admin_urlquote %}">

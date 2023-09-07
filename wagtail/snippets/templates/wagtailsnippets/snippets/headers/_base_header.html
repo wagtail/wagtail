@@ -31,7 +31,7 @@
                 <nav class="w-flex w-items-center w-flex-row w-h-full"
                     aria-label="{% trans 'Breadcrumb' %}">
                     <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
-                        {% block breadcrumb_items %}
+                        {% block breadcrumbs_items %}
                             <li class="{{ breadcrumb_item_classes }} w-max-w-0" hidden data-w-breadcrumbs-target="content">
                                 <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailsnippets:index' %}">
                                     {% trans "Snippets" %}
