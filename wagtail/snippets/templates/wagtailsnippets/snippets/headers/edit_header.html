@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block actions %}
-    {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+    {{ block.super }}
 
     {# Object history #}
     <a href="{{ view.get_history_url }}"

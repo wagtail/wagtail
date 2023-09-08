@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block actions %}
-    {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+    {{ block.super }}
 
     {# Page history #}
     {% if page.get_latest_revision %}
