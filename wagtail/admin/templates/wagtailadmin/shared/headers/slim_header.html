@@ -24,3 +24,9 @@
         {% endblock %}
     </div>
 </header>
+
+{% block side_panels %}
+    {% if side_panels %}
+        {% include "wagtailadmin/shared/side_panels.html" %}
+    {% endif %}
+{% endblock %}

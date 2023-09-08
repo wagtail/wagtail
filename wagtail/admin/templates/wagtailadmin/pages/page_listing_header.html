@@ -32,3 +32,7 @@
         {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
     {% endif %}
 {% endblock %}
+
+{% block side_panels %}
+    {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
+{% endblock side_panels %}
