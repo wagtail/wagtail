@@ -4,7 +4,7 @@ from unittest import mock
 
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 from django.utils.html import format_html
@@ -65,7 +65,7 @@ class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
         self.assertIn("custom-avatar", url)
 
 
-class TestNotificationStaticTemplateTag(TestCase):
+class TestNotificationStaticTemplateTag(SimpleTestCase):
     @override_settings(STATIC_URL="/static/")
     def test_local_notification_static(self):
         url = notification_static("wagtailadmin/images/email-header.jpg")
@@ -97,7 +97,7 @@ class TestNotificationStaticTemplateTag(TestCase):
         )
 
 
-class TestVersionedStatic(TestCase):
+class TestVersionedStatic(SimpleTestCase):
     def test_versioned_static(self):
         result = versioned_static("wagtailadmin/js/core.js")
         self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w+)$")
@@ -119,7 +119,7 @@ class TestVersionedStatic(TestCase):
 
 
 @freeze_time("2020-07-01 12:00:00")
-class TestTimesinceTags(TestCase):
+class TestTimesinceTags(SimpleTestCase):
     def test_timesince_simple(self):
         now = timezone.now()
         ts = timesince_simple(now)
@@ -208,7 +208,7 @@ class TestTimesinceTags(TestCase):
         self.assertIn("1\xa0hour ago", html)
 
 
-class TestComponentTag(TestCase):
+class TestComponentTag(SimpleTestCase):
     def test_passing_context_to_component(self):
         class MyComponent(Component):
             def render_html(self, parent_context):
@@ -292,7 +292,7 @@ class TestInternationalisationTags(TestCase):
             self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
 
 
-class ComponentTest(TestCase):
+class ComponentTest(SimpleTestCase):
     def test_render_block_component(self):
         template = """
             {% load wagtailadmin_tags %}
@@ -362,7 +362,7 @@ class ComponentTest(TestCase):
         self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
-class FragmentTagTest(TestCase):
+class FragmentTagTest(SimpleTestCase):
     def test_basic(self):
         context = Context({})
 
@@ -414,7 +414,7 @@ class FragmentTagTest(TestCase):
         self.assertHTMLEqual(expected, Template(template).render(context))
 
 
-class ClassnamesTagTest(TestCase):
+class ClassnamesTagTest(SimpleTestCase):
     def test_with_single_arg(self):
         template = """
             {% load wagtailadmin_tags %}
@@ -484,7 +484,7 @@ class ClassnamesTagTest(TestCase):
         self.assertEqual(expected.strip(), actual.strip())
 
 
-class IconTagTest(TestCase):
+class IconTagTest(SimpleTestCase):
     def test_basic(self):
         template = """
             {% load wagtailadmin_tags %}
@@ -580,7 +580,7 @@ class IconTagTest(TestCase):
             self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
-class StatusTagTest(TestCase):
+class StatusTagTest(SimpleTestCase):
     def test_render_block_component_span_variations(self):
         template = """
             {% load wagtailadmin_tags i18n %}
