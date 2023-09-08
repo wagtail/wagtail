@@ -23,7 +23,12 @@ from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
 
-from .utils import Image, get_test_image_file
+from .utils import (
+    Image,
+    get_test_image_file,
+    get_test_image_file_avif,
+    get_test_image_file_svg,
+)
 
 try:
     import sendfile  # noqa: F401
@@ -346,6 +351,39 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+
+    def test_get_svg(self):
+        image = Image.objects.create(title="Test SVG", file=get_test_image_file_svg())
+
+        # Generate signature
+        signature = generate_signature(image.id, "fill-800x600")
+
+        # Get the image
+        response = self.client.get(
+            reverse("wagtailimages_serve", args=(signature, image.id, "fill-800x600"))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response["Content-Type"], "image/svg+xml")
+
+    @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"avif": "avif"})
+    def test_get_avif(self):
+        image = Image.objects.create(title="Test AVIF", file=get_test_image_file_avif())
+
+        # Generate signature
+        signature = generate_signature(image.id, "fill-800x600")
+
+        # Get the image
+        response = self.client.get(
+            reverse("wagtailimages_serve", args=(signature, image.id, "fill-800x600"))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response["Content-Type"], "image/avif")
 
     def test_get_with_extra_component(self):
         """
