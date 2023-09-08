@@ -652,3 +652,90 @@ class StatusTagTest(SimpleTestCase):
         """
 
         self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+
+class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
+    template = """
+        {% load wagtailadmin_tags %}
+        {% breadcrumbs items %}
+    """
+
+    def assertItemsRendered(self, items, soup):
+        rendered_items = soup.select("ol > li")
+        arrows = soup.select("ol > li > svg")
+        self.assertEqual(len(rendered_items), len(items))
+        self.assertEqual(len(arrows), len(items) - 1)
+
+        for item, rendered_item in zip(items, rendered_items):
+            if item.get("url"):
+                element = rendered_item.select_one("a")
+                self.assertIsNotNone(element)
+                self.assertEqual(element["href"], item["url"])
+            else:
+                element = rendered_item.select_one("div")
+                self.assertIsNotNone(element)
+            self.assertEqual(element.text.strip(), item["label"])
+
+    def test_single_item(self):
+        items = [{"label": "Home", "url": "/admin/"}]
+        rendered = Template(self.template).render(Context({"items": items}))
+        soup = self.get_soup(rendered)
+        self.assertItemsRendered(items, soup)
+
+    def test_trailing_no_url(self):
+        items = [
+            {"label": "Snippets", "url": "/admin/snippets/"},
+            {"label": "People", "url": "/admin/snippets/people/"},
+            {"label": "New: Person"},
+        ]
+        rendered = Template(self.template).render(Context({"items": items}))
+        soup = self.get_soup(rendered)
+        self.assertItemsRendered(items, soup)
+
+    def test_not_is_expanded(self):
+        items = [
+            {"label": "Snippets", "url": "/admin/snippets/"},
+            {"label": "People", "url": "/admin/snippets/people/"},
+            {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
+        ]
+        rendered = Template(self.template).render(Context({"items": items}))
+        soup = self.get_soup(rendered)
+        self.assertItemsRendered(items, soup)
+
+        controller = soup.select_one('[data-controller="w-breadcrumbs"]')
+        toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
+        self.assertIsNotNone(controller)
+        self.assertIsNotNone(toggle_button)
+
+    def test_is_expanded(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% breadcrumbs items is_expanded=True %}
+        """
+        items = [
+            {"label": "Snippets", "url": "/admin/snippets/"},
+            {"label": "People", "url": "/admin/snippets/people/"},
+            {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
+        ]
+        rendered = Template(template).render(Context({"items": items}))
+        soup = self.get_soup(rendered)
+        self.assertItemsRendered(items, soup)
+
+        controller = soup.select_one('[data-controller="w-breadcrumbs"]')
+        toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
+        self.assertIsNone(controller)
+        self.assertIsNone(toggle_button)
+
+    def test_classname(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% breadcrumbs items classname="my-class" %}
+        """
+        items = [{"label": "Home", "url": "/admin/"}]
+        rendered = Template(template).render(Context({"items": items}))
+        soup = self.get_soup(rendered)
+        self.assertItemsRendered(items, soup)
+
+        div = soup.select_one("div.w-breadcrumbs")
+        self.assertIsNotNone(div)
+        self.assertIn("my-class", div["class"])
