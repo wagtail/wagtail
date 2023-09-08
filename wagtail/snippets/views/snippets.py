@@ -5,7 +5,7 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import path, re_path, reverse
+from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -181,8 +181,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         ]
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": self.get_index_url(),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -263,8 +262,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         }
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": reverse(self.index_url_name),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -347,8 +345,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": reverse(self.index_url_name),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -423,8 +420,7 @@ class DeleteView(generic.DeleteView):
         }
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": reverse(self.index_url_name),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -440,8 +436,7 @@ class UsageView(generic.UsageView):
     edit_url_name = None
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": reverse(self.index_url_name),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -537,8 +532,7 @@ class HistoryView(ReportView):
         ]
 
     def get_breadcrumbs_items(self):
-        return [
-            {"url": reverse("wagtailsnippets:index"), "label": _("Snippets")},
+        return self.breadcrumbs_items + [
             {
                 "url": reverse(self.index_url_name),
                 "label": capfirst(self.model._meta.verbose_name_plural),
@@ -866,6 +860,7 @@ class SnippetViewSet(ModelViewSet):
                     "revisions_unschedule"
                 ),
                 "unpublish_url_name": self.get_url_name("unpublish"),
+                "breadcrumbs_items": self.breadcrumbs_items,
                 **kwargs,
             }
         )
@@ -1141,6 +1136,14 @@ class SnippetViewSet(ModelViewSet):
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
+
+    @cached_property
+    def breadcrumbs_items(self):
+        # Use reverse_lazy instead of reverse
+        # because this will be passed to the view classes at startup
+        return [
+            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+        ]
 
     def get_queryset(self, request):
         """
