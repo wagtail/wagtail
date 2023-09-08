@@ -20,12 +20,17 @@ export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
   static values = {
     hideOnClick: { default: false, type: Boolean },
+    offset: Array,
   };
 
-  declare readonly toggleTarget: HTMLButtonElement;
+  declare hideOnClickValue: boolean;
+  declare offsetValue: [number, number];
+
   declare readonly contentTarget: HTMLDivElement;
-  declare readonly hideOnClickValue: boolean;
   declare readonly hasContentTarget: boolean;
+  declare readonly hasOffsetValue: boolean;
+  declare readonly toggleTarget: HTMLButtonElement;
+
   tippy?: Instance<Props>;
 
   connect() {
@@ -81,6 +86,7 @@ export class DropdownController extends Controller<HTMLElement> {
       trigger: 'click',
       interactive: true,
       theme: 'dropdown',
+      ...(this.hasOffsetValue && { offset: this.offsetValue }),
       placement: 'bottom',
       plugins,
       onShow() {
