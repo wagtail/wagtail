@@ -5,6 +5,7 @@
 
     `items` - A list of {"url": Union[str, None], "label": str} dicts
     `classname` - Modifier classes
+    `is_expanded` - Whether the breadcrumbs are always expanded or not, if True the breadcrumbs will not be collapsible
 {% endcomment %}
 {% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold' icon_classes='w-w-4 w-h-4 w-ml-3' %}
     {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
