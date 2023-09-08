@@ -4,7 +4,7 @@ import { Pattern, generateDocs } from 'storybook-django/src/react';
 import { StimulusWrapper } from '../../../../../client/storybook/StimulusWrapper';
 import { RevealController } from '../../../../../client/src/controllers/RevealController';
 
-import template from './breadcrumbs.html';
+import template from './page_breadcrumbs.html';
 
 const { docs, argTypes } = generateDocs(template);
 
@@ -30,7 +30,7 @@ export const Base = Template.bind({});
 Base.args = {
   url_root_name: 'wagtailadmin_explore_root',
   url_name: 'wagtailadmin_explore',
-  pages: [
+  items: [
     {
       is_root: true,
       id: 2,
@@ -48,7 +48,7 @@ export const WithTrailingTitle = Template.bind({});
 WithTrailingTitle.args = {
   url_root_name: 'wagtailadmin_explore_root',
   url_name: 'wagtailadmin_explore',
-  pages: [
+  items: [
     {
       is_root: true,
       id: 2,
@@ -75,7 +75,7 @@ export const MultipleItems = Template.bind({});
 MultipleItems.args = {
   url_root_name: 'wagtailadmin_explore_root',
   url_name: 'wagtailadmin_explore',
-  pages: [
+  items: [
     {
       is_root: true,
       id: 2,
@@ -110,7 +110,7 @@ Expanded.args = {
   url_root_name: 'wagtailadmin_explore_root',
   url_name: 'wagtailadmin_explore',
   is_expanded: 'True',
-  pages: [
+  items: [
     {
       is_root: true,
       id: 2,
