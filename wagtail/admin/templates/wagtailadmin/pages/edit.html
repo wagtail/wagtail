@@ -8,9 +8,7 @@
 {% block content %}
     {% page_permissions page as page_perms %}
 
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
-    </div>
+    {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
     {% block form %}
 

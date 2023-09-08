@@ -2,9 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailadmin/shared/headers/slim_header.html' %}
-    </div>
+    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
 
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon=header_icon merged=1 only %}

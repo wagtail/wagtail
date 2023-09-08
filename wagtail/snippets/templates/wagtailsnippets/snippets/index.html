@@ -12,9 +12,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailadmin/shared/headers/slim_header.html' %}
-    </div>
+    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
     {% fragment as base_action_locale %}{% if locale %}{% include 'wagtailadmin/shared/locale_selector.html' with theme="large" %}{% endif %}{% endfragment %}
     {% fragment as action_url_add_snippet %}{% if can_add_snippet %}{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}{% endif %}{% endfragment %}
     {% fragment as action_text_snippet %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}{% endfragment %}

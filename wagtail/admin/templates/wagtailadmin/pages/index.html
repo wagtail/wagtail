@@ -5,9 +5,7 @@
 
 {% block content %}
     {% page_permissions parent_page as parent_page_perms %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
-    </div>
+    {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
     <form id="page-reorder-form">
         {% csrf_token %}
 
