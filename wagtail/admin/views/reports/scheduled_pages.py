@@ -7,7 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.reports.base import PageReportView
 from wagtail.admin.views.scheduled_pages import get_scheduled_pages_for_user
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 class ScheduledPagesReportFilterSet(WagtailFilterSet):
@@ -33,6 +34,6 @@ class ScheduledPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not UserPagePermissionsProxy(request.user).can_publish_pages():
+        if not PagePermissionPolicy().instances_user_has_permission_for(request.user, "publish").exists():
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
