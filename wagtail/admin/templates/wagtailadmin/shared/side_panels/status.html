@@ -16,7 +16,7 @@
         </div>
         {% if object.first_published_at %}
             <div class="w-help-text">
-                {% trans 'First published ' %}{% timesince_last_update object.first_published_at use_shorthand=True %}
+                {% trans 'First published' %} {% human_readable_date object.first_published_at position="bottom" %}
             </div>
         {% endif %}
     </div>
