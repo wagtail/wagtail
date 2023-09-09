@@ -34,6 +34,10 @@ class ScheduledPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().instances_user_has_permission_for(request.user, "publish").exists():
+        if (
+            not PagePermissionPolicy()
+            .instances_user_has_permission_for(request.user, "publish")
+            .exists()
+        ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

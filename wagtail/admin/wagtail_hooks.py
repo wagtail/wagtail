@@ -936,7 +936,11 @@ class AgingPagesReportMenuItem(MenuItem):
 
 class ScheduledPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return PagePermissionPolicy().instances_user_has_permission_for(request.user, "publish").exists()
+        return (
+            PagePermissionPolicy()
+            .instances_user_has_permission_for(request.user, "publish")
+            .exists()
+        )
 
 
 @hooks.register("register_reports_menu_item")

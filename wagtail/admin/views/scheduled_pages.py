@@ -10,12 +10,14 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin import messages
 from wagtail.admin.ui.components import Component
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page
 from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 def get_scheduled_pages_for_user(request):
-    user_pages = PagePermissionPolicy().instances_user_has_permission_for(request.user, "publish")
+    user_pages = PagePermissionPolicy().instances_user_has_permission_for(
+        request.user, "publish"
+    )
     pages = (
         Page.objects.annotate_approved_schedule()
         .filter(_approved_schedule=True)
