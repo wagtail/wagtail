@@ -356,6 +356,42 @@ class TestPageEditHandlers(TestCase):
         self.assertIn("request=None", bound_handler_repr)
         self.assertIn("form=None", bound_handler_repr)
 
+    def test_check_invalid_field_name_in_snippet_edit_handler(self):
+        """
+        Check that the correct warning is raised.
+        """
+
+        invalid_edit_handler = checks.Warning(
+            "Advert does not have a field named 'not_a_field', but a FieldPanel is pointing to it.",
+            hint="Check whether the field exists on the model or whether there is a spelling issue.",
+            obj=Advert,
+            id="wagtailadmin.W005",
+        )
+
+        with mock.patch.object(Advert, "panels", new=[FieldPanel("not_a_field")]):
+            checks_result = checks.run_checks(tags=["panels"])
+
+            # Only look at warnings for Advert
+            warning = [warning for warning in checks_result if warning.obj == Advert]
+
+            self.assertEqual(warning, [invalid_edit_handler])
+
+    def test_check_valid_field_name_in_multi_field_panel_edit_handler(self):
+        """
+        Check that no warning is raised.
+        """
+        valid_edit_handler = []
+
+        with mock.patch.object(
+            Advert, "panels", new=[MultiFieldPanel([FieldPanel("url")])]
+        ):
+            checks_result = checks.run_checks(tags=["panels"])
+
+            # Only look at warnings for Advert
+            warning = [warning for warning in checks_result if warning.obj == Advert]
+
+            self.assertEqual(warning, valid_edit_handler)
+
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
     def test_can_extract_panel_property(self):
