@@ -33,6 +33,18 @@ $preview-size: 2.625rem; // 42px
   }
 }
 
+.button.chooser__choose-button, .button.chooser__choose-button:visited {
+  align-items: center;
+  border-color: #0000;
+  color: var(--w-color-text-label);
+  color: var(--w-color-text-button-outline-default);
+  display: flex;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  padding: .375rem;
+}
+
 .chosen {
   display: flex;
   gap: theme('spacing.4');
