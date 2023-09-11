@@ -24,9 +24,9 @@ attribute on the rendition to position the rendition based on the focal point in
 You can access the focal point in the template by accessing the `.focal_point` attribute of a rendition:
 
 ```html+django
-{% load wagtailimages %}
+{% load wagtailimages_tags %}
 
-{% image myimage width-800 as myrendition %}
+{% image page.image width-800 as myrendition %}
 
 <img
     src="{{ myrendition.url }}"

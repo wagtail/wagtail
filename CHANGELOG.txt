@@ -29,6 +29,7 @@ Changelog
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
+ * Docs: Fix incorrect tag library import on focal points example (Hatim Makki Hoho)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier, Jest, a11y-dialog, axe-core and js-cookie npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)

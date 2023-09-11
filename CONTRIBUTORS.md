@@ -727,6 +727,7 @@
 * Sandeep Choudhary
 * Antoni Martyniuk
 * Gareth Palmer
+* Hatim Makki Hoho
 
 ## Translators
 
