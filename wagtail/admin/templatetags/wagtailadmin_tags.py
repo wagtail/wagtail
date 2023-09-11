@@ -76,7 +76,7 @@ def breadcrumbs(items, is_expanded=False, classname=None, icon_name=None):
     }
 
 
-@register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html", takes_context=True)
 def page_breadcrumbs(
     context,
     page,
@@ -85,7 +85,7 @@ def page_breadcrumbs(
     include_self=True,
     is_expanded=False,
     page_perms=None,
-    querystring_value=None,
+    querystring_value="",
     trailing_breadcrumb_title=None,
     classname=None,
 ):
@@ -97,24 +97,29 @@ def page_breadcrumbs(
     if not cca:
         return {"items": Page.objects.none()}
 
-    items = (
+    pages = (
         page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
         .specific()
     )
+
+    items = []
+    for page in pages:
+        if page.is_root() and url_root_name:
+            url = reverse(url_root_name)
+        else:
+            url = reverse(url_name, args=(page.id,))
+        items.append({"url": url + querystring_value, "label": get_latest_str(page)})
+
+    if trailing_breadcrumb_title:
+        items.append({"label": trailing_breadcrumb_title})
 
     if len(items) == 1:
         is_expanded = True
 
     return {
         "items": items,
-        "current_page": page,
         "is_expanded": is_expanded,
-        "page_perms": page_perms,
-        "querystring_value": querystring_value or "",
-        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
-        "url_name": url_name,
-        "url_root_name": url_root_name,
         "classname": classname,
     }
 
