@@ -84,7 +84,6 @@ def page_breadcrumbs(
     url_root_name=None,
     include_self=True,
     is_expanded=False,
-    page_perms=None,
     querystring_value="",
     trailing_breadcrumb_title=None,
     classname=None,
