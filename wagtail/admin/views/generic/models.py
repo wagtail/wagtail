@@ -35,7 +35,7 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -355,6 +355,16 @@ class IndexView(
             return capfirst(self.model._meta.verbose_name_plural)
         return self.page_title
 
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        return self.breadcrumbs_items + [
+            {
+                "url": self.get_index_url(),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+        ]
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -431,6 +441,25 @@ class CreateView(
         if not self.page_subtitle and self.model:
             return capfirst(self.model._meta.verbose_name)
         return self.page_subtitle
+
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append(
+            {
+                "label": _("New: %(model_name)s")
+                % {"model_name": capfirst(self.model._meta.verbose_name)},
+            }
+        )
+        return self.breadcrumbs_items + items
 
     def get_add_url(self):
         if not self.add_url_name:
@@ -561,6 +590,20 @@ class EditView(
     def get_page_subtitle(self):
         return str(self.object)
 
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append({"url": self.get_edit_url(), "label": get_latest_str(self.object)})
+        return self.breadcrumbs_items + items
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -670,6 +713,7 @@ class DeleteView(
 ):
     model = None
     index_url_name = None
+    edit_url_name = None
     delete_url_name = None
     usage_url_name = None
     template_name = "wagtailadmin/generic/confirm_delete.html"
@@ -713,6 +757,9 @@ class DeleteView(
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        return []
 
     def get_delete_url(self):
         if not self.delete_url_name:

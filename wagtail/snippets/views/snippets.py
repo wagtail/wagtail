@@ -180,14 +180,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             *super().get_columns(),
         ]
 
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": self.get_index_url(),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-        ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -261,18 +253,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
             "for_user": self.request.user,
         }
 
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {
-                "label": _("New: %(model_name)s")
-                % {"model_name": capfirst(self.model._meta.verbose_name)},
-            },
-        ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -343,15 +323,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {"url": self.get_edit_url(), "label": get_latest_str(self.object)},
-        ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -424,20 +395,6 @@ class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
-    edit_url_name = None
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {
-                "url": reverse(self.edit_url_name, args=[quote(self.object.pk)]),
-                "label": get_latest_str(self.object),
-            },
-            {"label": _("Usage")},
-        ]
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
