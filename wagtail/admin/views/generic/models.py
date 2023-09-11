@@ -1,3 +1,5 @@
+import warnings
+
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
@@ -269,9 +271,21 @@ class IndexView(
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
-            return search_backend.autocomplete(
-                self.search_query, queryset, fields=self.search_fields
-            )
+            if queryset.model.get_autocomplete_search_fields():
+                return search_backend.autocomplete(
+                    self.search_query, queryset, fields=self.search_fields
+                )
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{queryset.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the admin will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+                return search_backend.search(
+                    self.search_query, queryset, fields=self.search_fields
+                )
 
         filters = {
             field + "__icontains": self.search_query
