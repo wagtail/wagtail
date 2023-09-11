@@ -1196,8 +1196,9 @@ def workflow_status_with_date(workflow_state):
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
-def human_readable_date(date, description=None):
+def human_readable_date(date, description=None, position="top"):
     return {
         "date": date,
         "description": description,
+        "position": position,
     }

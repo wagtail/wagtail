@@ -730,6 +730,7 @@
 * Hatim Makki Hoho
 * Hussain Saherwala
 * Faishal Manzar
+* Rohit Sharma
 
 ## Translators
 
