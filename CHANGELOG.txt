@@ -51,6 +51,7 @@ Changelog
  * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
  * Fix: Change spreadsheet export headings to match listing view column headings (Christer Jensen, Sage Abdullah)
  * Fix: Fix numbers, booleans, and `None` from being exported as strings (Christer Jensen)
+ * Fix: Restore fallback on full-word search for snippet choosers and generic index views (Matt Westcott)
 
 
 5.1.1 (14.08.2023)
