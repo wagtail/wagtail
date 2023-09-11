@@ -155,7 +155,7 @@ class TestSiteCreateView(WagtailTestUtils, TestCase):
                 Site with this Hostname and Port already exists.
             </div>
         """
-        self.assertTagInHTML(expected_html, str(response.content))
+        self.assertTagInHTML(expected_html, response.content.decode())
 
 
 class TestSiteEditView(WagtailTestUtils, TestCase):
@@ -317,7 +317,7 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
                 Site with this Hostname and Port already exists.
             </div>
         """
-        self.assertTagInHTML(expected_html, str(response.content))
+        self.assertTagInHTML(expected_html, response.content.decode())
 
 
 class TestSiteDeleteView(WagtailTestUtils, TestCase):

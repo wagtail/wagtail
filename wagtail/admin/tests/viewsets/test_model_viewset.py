@@ -643,3 +643,76 @@ class TestOrdering(WagtailTestUtils, TestCase):
                 "DDDDDDDDDD",
             ],
         )
+
+
+class TestBreadcrumbs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def assertItemsRendered(self, items, response):
+        soup = self.get_soup(response.content)
+        breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
+        rendered_items = breadcrumbs.select("ol > li")
+        arrows = soup.select("ol > li > svg")
+        self.assertEqual(len(rendered_items), len(items))
+        self.assertEqual(len(arrows), len(items) - 1)
+
+        for item, rendered_item in zip(items, rendered_items):
+            if item.get("url"):
+                element = rendered_item.select_one("a")
+                self.assertIsNotNone(element)
+                self.assertEqual(element["href"], item["url"])
+            else:
+                element = rendered_item.select_one("div")
+                self.assertIsNotNone(element)
+            self.assertEqual(element.text.strip(), item["label"])
+
+    def test_index_view(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            }
+        ]
+        self.assertItemsRendered(items, response)
+
+    def test_add_view(self):
+        response = self.client.get(reverse("feature_complete_toy:add"))
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "label": "New: Feature complete toy",
+            },
+        ]
+        self.assertItemsRendered(items, response)
+
+    def test_edit_view(self):
+        edit_url = reverse("feature_complete_toy:edit", args=(self.object.pk,))
+        response = self.client.get(edit_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": edit_url,
+                "label": str(self.object),
+            },
+        ]
+        self.assertItemsRendered(items, response)
+
+    def test_delete_view(self):
+        delete_url = reverse("feature_complete_toy:delete", args=(self.object.pk,))
+        response = self.client.get(delete_url)
+        soup = self.get_soup(response.content)
+        breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
+        # Delete view shouldn't render breadcrumbs
+        self.assertIsNone(breadcrumbs)

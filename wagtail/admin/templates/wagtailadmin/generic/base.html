@@ -5,7 +5,14 @@
 {% block content %}
 
     {% block header %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
+        {% block slim_header %}
+            {% if breadcrumbs_items %}
+                {% include "wagtailadmin/shared/headers/slim_header.html" %}
+            {% endif %}
+        {% endblock %}
+        {% block main_header %}
+            {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
+        {% endblock %}
     {% endblock %}
 
     <div class="nice-padding">

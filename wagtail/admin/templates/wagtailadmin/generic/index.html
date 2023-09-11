@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/generic/listing.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block header %}
+{% block main_header %}
     {% fragment as extra_actions %}
         {% if view.list_export %}
             {% include view.export_buttons_template_name %}

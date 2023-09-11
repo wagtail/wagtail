@@ -1,11 +1,13 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n %}
 
-{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+{% block main_header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label icon=header_icon only %}
+{% endblock %}
 
 {% block content %}
     {% block header %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label icon=header_icon only %}
+        {{ block.super }}
     {% endblock %}
 
     {% block listing %}
