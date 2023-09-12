@@ -9,20 +9,19 @@ describe('ProgressController', () => {
 
   beforeEach(() => {
     document.body.innerHTML = `
-      <form id="form">
-        <button
-          id="button"
-          type="submit"
-          class="button button-longrunning"
-          data-controller="w-progress"
-          data-action="w-progress#activate"
-          data-w-progress-active-value="Loading"
-        >
-          <svg>...</svg>
-          <em data-w-progress-target="label" id="em-el">Sign in</em>
-        </button>
-      </form>
-    `;
+    <form id="form">
+      <button
+        id="button"
+        type="submit"
+        class="button button-longrunning"
+        data-controller="w-progress"
+        data-action="w-progress#activate"
+        data-w-progress-active-value="Loading"
+      >
+        <svg>...</svg>
+        <em data-w-progress-target="label" id="em-el">Sign in</em>
+      </button>
+    </form>`;
 
     document.getElementById('form').addEventListener('submit', mockSubmit);
 

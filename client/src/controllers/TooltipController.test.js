@@ -25,7 +25,7 @@ describe('TooltipController', () => {
   >
     CONTENT
   </button>
-</section`;
+</section>`;
 
     application = Application.start();
     application.register('w-tooltip', TooltipController);

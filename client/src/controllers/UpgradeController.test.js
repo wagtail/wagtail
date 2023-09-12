@@ -22,8 +22,7 @@ describe('UpgradeController', () => {
         New version: <strong id="latest-version" data-w-upgrade-target="latestVersion">_</strong>.
         <a href="" id="link" data-w-upgrade-target="link">Release notes</a>
       </div>
-    </div>
-    `;
+    </div>`;
   });
 
   afterEach(() => {
