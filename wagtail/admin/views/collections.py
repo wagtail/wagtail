@@ -29,6 +29,7 @@ class Index(IndexView):
 
 class Create(CreateView):
     permission_policy = collection_permission_policy
+    model = Collection
     form_class = CollectionForm
     page_title = gettext_lazy("Add collection")
     success_message = gettext_lazy("Collection '%(object)s' created.")
