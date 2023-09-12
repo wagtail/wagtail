@@ -74,6 +74,8 @@ class Index(IndexView):
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(User)
     model = User
+    header_icon = "user"
+    add_item_label = _("Add a user")
     context_object_name = "users"
     index_url_name = "wagtailusers_users:index"
     add_url_name = "wagtailusers_users:add"
