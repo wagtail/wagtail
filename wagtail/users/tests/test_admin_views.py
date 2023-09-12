@@ -1487,12 +1487,12 @@ class TestGroupCreateView(WagtailTestUtils, TestCase):
 
         response = self.get()
 
-        self.assertInHTML("Custom permissions", str(response.content), count=0)
+        self.assertInHTML("Custom permissions", response.content.decode(), count=0)
 
     def test_custom_permissions_shown(self):
         response = self.get()
 
-        self.assertInHTML("Custom permissions", str(response.content))
+        self.assertInHTML("Custom permissions", response.content.decode())
 
     def test_show_publish_permissions(self):
         response = self.get()
@@ -1760,7 +1760,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         self.assertTagInHTML(
             '<input name="permissions" type="checkbox" checked value="%s">'
             % self.existing_permission.id,
-            str(response.content),
+            response.content.decode(),
             allow_extra_attrs=True,
         )
 
@@ -1931,7 +1931,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         self.assertTagInHTML(
             '<input type="checkbox" name="permissions" value="%s" checked>'
             % custom_permission.id,
-            str(response.content),
+            response.content.decode(),
         )
 
     def test_show_publish_permissions(self):
