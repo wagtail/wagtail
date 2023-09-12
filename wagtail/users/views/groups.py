@@ -76,6 +76,9 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '%(object)s' created.")
 
+    def get_page_subtitle(self):
+        return ""
+
     def post(self, request, *args, **kwargs):
         """
         Handle POST requests: instantiate a form instance with the passed
