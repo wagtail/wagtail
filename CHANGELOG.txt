@@ -47,6 +47,7 @@ Changelog
  * Maintenance: Allow viewsets to define a common set of view kwargs (Matt Westcott)
  * Maintenance: Migrate the editor unsaved messages popup to be driven by Stimulus using the shared `w-message` controller (LB (Ben) Johnston, Hussain Saherwala)
  * Maintenance: Add support for tooltip position in `human_readable_date` tooltip (Rohit Sharma)
+ * Maintenance: Do not use jest inside `stubs.js` to prevent Storybook from crashing (LB (Ben) Johnston)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
