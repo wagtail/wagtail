@@ -12,7 +12,8 @@ $preview-size: 2.625rem; // 42px
 
 // Very subdued button style specifically for choosers, as there can be a lot of
 // chooser fields left unused on a page editing form.
-.button.chooser__choose-button, .button.chooser__choose-button:visited  {
+.button.chooser__choose-button,
+.button.chooser__choose-button:visited {
   @apply w-label-3;
   display: flex;
   align-items: center;
