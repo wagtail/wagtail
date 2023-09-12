@@ -247,6 +247,7 @@ class Delete(DeleteView):
     model = User
     template_name = "wagtailusers/users/confirm_delete.html"
     delete_url_name = "wagtailusers_users:delete"
+    edit_url_name = "wagtailusers_users:edit"
     index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
     context_object_name = "user"
