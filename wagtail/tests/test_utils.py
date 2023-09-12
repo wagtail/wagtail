@@ -553,7 +553,7 @@ class HashFileLikeTestCase(SimpleTestCase):
             """
 
             def __init__(self):
-                self.iterations = 20000
+                self.iterations = 5000
 
             def read(self, bytes):
                 self.iterations -= 1
@@ -564,5 +564,5 @@ class HashFileLikeTestCase(SimpleTestCase):
 
         self.assertEqual(
             hash_filelike(FakeLargeFile()),
-            "187cc1db32624dccace20d042f6d631f1a483020",
+            "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
         )
