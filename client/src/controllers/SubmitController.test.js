@@ -10,8 +10,7 @@ describe('SubmitController', () => {
       <option value="A-Z" selected>A to Z</option>
       <option value="Z-A">Z to A</option>
     </select>
-  </form>
-  `;
+  </form>`;
 
     Application.start().register('w-submit', SubmitController);
   });
