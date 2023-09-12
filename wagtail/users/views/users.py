@@ -179,6 +179,7 @@ class Edit(EditView):
     model = User
     permission_policy = ModelPermissionPolicy(User)
     form_class = get_user_edit_form()
+    header_icon = "user"
     template_name = "wagtailusers/users/edit.html"
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
@@ -186,12 +187,6 @@ class Edit(EditView):
     success_message = gettext_lazy("User '%(object)s' updated.")
     context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
-
-    def get_page_title(self):
-        return _("Editing %(object)s") % {"object": self.object.get_username()}
-
-    def get_page_subtitle(self):
-        return ""
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
