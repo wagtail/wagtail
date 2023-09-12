@@ -728,6 +728,7 @@
 * Antoni Martyniuk
 * Gareth Palmer
 * Hatim Makki Hoho
+* Hussain Saherwala
 
 ## Translators
 
