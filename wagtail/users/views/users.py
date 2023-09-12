@@ -146,8 +146,10 @@ class Create(CreateView):
 
     permission_policy = ModelPermissionPolicy(User)
     permission_required = "add"
+    model = User
     form_class = get_user_creation_form()
     template_name = "wagtailusers/users/create.html"
+    header_icon = "user"
     add_url_name = "wagtailusers_users:add"
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
