@@ -7,6 +7,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents.models import Document
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class CollectionInstanceTestUtils:
@@ -42,7 +43,9 @@ class CollectionInstanceTestUtils:
         self.marketing_user.groups.add(self.marketing_group)
 
 
-class TestCollectionsIndexViewAsSuperuser(WagtailTestUtils, TestCase):
+class TestCollectionsIndexViewAsSuperuser(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     def setUp(self):
         self.login()
 
@@ -67,6 +70,9 @@ class TestCollectionsIndexViewAsSuperuser(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
+        self.assertBreadcrumbsItemsRendered(
+            [{"label": "Collections"}], response.content
+        )
 
     def test_ordering(self):
         root_collection = Collection.get_first_root_node()
@@ -186,7 +192,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, Te
         self.assertContains(response, "Add a collection")
 
 
-class TestAddCollectionAsSuperuser(WagtailTestUtils, TestCase):
+class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -201,6 +207,13 @@ class TestAddCollectionAsSuperuser(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.root_collection.name)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Collections", "url": "/admin/collections/"},
+                {"label": "New: Collection"},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         response = self.post(
@@ -288,7 +301,7 @@ class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase)
         )
 
 
-class TestEditCollectionAsSuperuser(WagtailTestUtils, TestCase):
+class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -319,6 +332,13 @@ class TestEditCollectionAsSuperuser(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Delete collection")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/collections/", "label": "Collections"},
+                {"label": str(self.collection)},
+            ],
+            response.content,
+        )
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -539,7 +559,9 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         self.assertContains(response, "Delete collection")
 
 
-class TestDeleteCollectionAsSuperuser(WagtailTestUtils, TestCase):
+class TestDeleteCollectionAsSuperuser(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -567,6 +589,7 @@ class TestDeleteCollectionAsSuperuser(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
