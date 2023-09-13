@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.text import capfirst
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -22,6 +23,7 @@ from wagtail.models import (
     Page,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
@@ -31,6 +33,8 @@ from wagtail.users.wagtail_hooks import get_group_viewset_cls
 
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
+
+User = get_user_model()
 
 
 def test_avatar_provider(user, default, size=50):
@@ -85,7 +89,7 @@ class TestUserFormHelpers(TestCase):
         self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
-class TestGroupUsersView(WagtailTestUtils, TestCase):
+class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -114,6 +118,10 @@ class TestGroupUsersView(WagtailTestUtils, TestCase):
         self.assertContains(response, "testuser")
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
+        self.assertBreadcrumbsItemsRendered(
+            [{"label": capfirst(User._meta.verbose_name_plural)}],
+            response.content,
+        )
 
     def test_inexisting_group(self):
         response = self.get(group_id=9999)
@@ -177,7 +185,7 @@ class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Add a user")
 
 
-class TestUserIndexView(WagtailTestUtils, TestCase):
+class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -199,6 +207,10 @@ class TestUserIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "testuser")
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
+        self.assertBreadcrumbsItemsRendered(
+            [{"label": capfirst(User._meta.verbose_name_plural)}],
+            response.content,
+        )
 
     @unittest.skipIf(
         settings.AUTH_USER_MODEL == "emailuser.EmailUser", "Negative UUID not possible"
@@ -284,7 +296,7 @@ class TestUserIndexResultsView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Add a user")
 
 
-class TestUserCreateView(WagtailTestUtils, TestCase):
+class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -302,6 +314,16 @@ class TestUserCreateView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/users/",
+                    "label": capfirst(User._meta.verbose_name_plural),
+                },
+                {"label": f"New: {capfirst(User._meta.verbose_name)}"},
+            ],
+            response.content,
+        )
 
     def test_create(self):
         response = self.post(
@@ -597,7 +619,7 @@ class TestUserCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(response.content, b"Overridden!")
 
 
-class TestUserDeleteView(WagtailTestUtils, TestCase):
+class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -627,6 +649,7 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_delete(self):
         response = self.post(follow=True)
@@ -719,7 +742,9 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.content, b"Overridden!")
 
 
-class TestUserDeleteViewForNonSuperuser(WagtailTestUtils, TestCase):
+class TestUserDeleteViewForNonSuperuser(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -747,6 +772,7 @@ class TestUserDeleteViewForNonSuperuser(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_delete(self):
         response = self.client.post(
@@ -783,7 +809,7 @@ class TestUserDeleteViewForNonSuperuser(WagtailTestUtils, TestCase):
         self.assertTrue(get_user_model().objects.filter(pk=self.superuser.pk).exists())
 
 
-class TestUserEditView(WagtailTestUtils, TestCase):
+class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a user to edit
         self.test_user = self.create_user(
@@ -816,6 +842,16 @@ class TestUserEditView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/users/",
+                    "label": capfirst(User._meta.verbose_name_plural),
+                },
+                {"label": str(self.test_user)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.current_user)
         expected_url = "/admin/users/%s/" % self.test_user.pk
@@ -1295,7 +1331,7 @@ class TestUserEditViewForNonSuperuser(WagtailTestUtils, TestCase):
         self.assertIs(user.is_superuser, False)
 
 
-class TestGroupIndexView(WagtailTestUtils, TestCase):
+class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1309,6 +1345,8 @@ class TestGroupIndexView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
         # response should contain page furniture, including the "Add a group" button
         self.assertContains(response, "Add a group")
+
+        self.assertBreadcrumbsItemsRendered([{"label": "Groups"}], response.content)
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -1336,7 +1374,7 @@ class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["search_form"]["q"].value(), "Hello")
 
 
-class TestGroupCreateView(WagtailTestUtils, TestCase):
+class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.add_doc_permission = Permission.objects.get(
@@ -1372,6 +1410,13 @@ class TestGroupCreateView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/groups/", "label": "Groups"},
+                {"label": "New: Group"},
+            ],
+            response.content,
+        )
 
     def test_create_group(self):
         response = self.post({"name": "test group"})
@@ -1526,7 +1571,7 @@ class TestGroupCreateView(WagtailTestUtils, TestCase):
         self.assertNotInHTML("Can publish advert", html)
 
 
-class TestGroupEditView(WagtailTestUtils, TestCase):
+class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a group to edit
         self.test_group = Group.objects.create(name="test group")
@@ -1613,6 +1658,16 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/edit.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/groups/",
+                    "label": "Groups",
+                },
+                {"label": str(self.test_group)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
