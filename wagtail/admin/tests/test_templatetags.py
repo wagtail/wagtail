@@ -206,6 +206,21 @@ class TestTimesinceTags(SimpleTestCase):
             Context({"date": now - timedelta(hours=1, minutes=10)})
         )
         self.assertIn("1\xa0hour ago", html)
+        self.assertIn('data-tippy-placement="top"', html)
+
+    def test_human_readable_date_with_args(self):
+        now = timezone.now()
+        template = """
+            {% load wagtailadmin_tags %}
+            {% human_readable_date date "The clock ticked" "bottom" %}
+        """
+
+        html = Template(template).render(Context({"date": now}))
+        self.assertIn(
+            '<span class="w-human-readable-date__description">The clock ticked</span>',
+            html,
+        )
+        self.assertIn('data-tippy-placement="bottom"', html)
 
 
 class TestComponentTag(SimpleTestCase):
