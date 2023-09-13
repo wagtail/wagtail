@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { initTabs } from './tabs';
-import { initTooltips } from './initTooltips';
 import { gettext } from '../utils/gettext';
 
 const validateCreationForm = (form) => {
@@ -230,9 +229,6 @@ class ChooserModalOnloadHandlerFactory {
 
     // Reinitialize tabs to hook up tab event listeners in the modal
     if (this.modalHasTabs(modal)) initTabs();
-
-    // Reinitialise any tooltips
-    initTooltips();
 
     this.updateMultipleChoiceSubmitEnabledState(modal);
     $('[data-multiple-choice-select]', containerElement).on('change', () => {

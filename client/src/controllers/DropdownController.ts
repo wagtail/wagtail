@@ -1,11 +1,82 @@
 import { Controller } from '@hotwired/stimulus';
 import tippy, { Content, Props, Instance } from 'tippy.js';
-import {
-  hideTooltipOnBreadcrumbExpandAndCollapse,
-  hideTooltipOnClickInside,
-  hideTooltipOnEsc,
-  rotateToggleIcon,
-} from '../includes/initTooltips';
+import { hideTooltipOnEsc } from './TooltipController';
+
+/**
+ * Prevents the tooltip from staying open when the breadcrumbs
+ * expand and push the toggle button in the layout.
+ */
+const hideTooltipOnBreadcrumbsChange = {
+  name: 'hideTooltipOnBreadcrumbAndCollapse',
+  fn({ hide }: Instance) {
+    function onBreadcrumbExpandAndCollapse() {
+      hide();
+    }
+
+    return {
+      onShow() {
+        document.addEventListener(
+          'w-breadcrumbs:opened',
+          onBreadcrumbExpandAndCollapse,
+        );
+        document.addEventListener(
+          'w-breadcrumbs:closed',
+          onBreadcrumbExpandAndCollapse,
+        );
+      },
+      onHide() {
+        document.removeEventListener(
+          'w-breadcrumbs:closed',
+          onBreadcrumbExpandAndCollapse,
+        );
+        document.removeEventListener(
+          'w-breadcrumbs:opened',
+          onBreadcrumbExpandAndCollapse,
+        );
+      },
+    };
+  },
+};
+
+/**
+ * Hides tooltip when clicking inside.
+ */
+const hideTooltipOnClickInside = {
+  name: 'hideTooltipOnClickInside',
+  defaultValue: true,
+  fn(instance: Instance) {
+    const onClick = () => instance.hide();
+
+    return {
+      onShow() {
+        instance.popper.addEventListener('click', onClick);
+      },
+      onHide() {
+        instance.popper.removeEventListener('click', onClick);
+      },
+    };
+  },
+};
+
+/**
+ * If the toggle button has a toggle arrow,
+ * rotate it when open and closed.
+ */
+const rotateToggleIcon = {
+  name: 'rotateToggleIcon',
+  fn(instance: Instance) {
+    const dropdownIcon = instance.reference.querySelector('.icon-arrow-down');
+
+    if (!dropdownIcon) {
+      return {};
+    }
+
+    return {
+      onShow: () => dropdownIcon.classList.add('w-rotate-180'),
+      onHide: () => dropdownIcon.classList.remove('w-rotate-180'),
+    };
+  },
+};
 
 /**
  * A Tippy.js tooltip with interactive "dropdown" options.
@@ -65,16 +136,6 @@ export class DropdownController extends Controller<HTMLElement> {
       });
     }
 
-    const plugins = [
-      hideTooltipOnEsc,
-      hideTooltipOnBreadcrumbExpandAndCollapse,
-      rotateToggleIcon,
-    ];
-
-    if (this.hideOnClickValue) {
-      plugins.push(hideTooltipOnClickInside);
-    }
-
     const onShown = () => {
       this.dispatch('shown');
     };
@@ -88,7 +149,7 @@ export class DropdownController extends Controller<HTMLElement> {
       theme: 'dropdown',
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       placement: 'bottom',
-      plugins,
+      plugins: this.plugins,
       onShow() {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.disable();
@@ -103,5 +164,13 @@ export class DropdownController extends Controller<HTMLElement> {
         }
       },
     };
+  }
+
+  get plugins() {
+    return [
+      hideTooltipOnBreadcrumbsChange,
+      hideTooltipOnEsc,
+      rotateToggleIcon,
+    ].concat(this.hideOnClickValue ? [hideTooltipOnClickInside] : []);
   }
 }
