@@ -7,10 +7,10 @@
     {# Object history #}
     <a href="{{ view.get_history_url }}"
         class="{{ nav_icon_button_classes }}"
-        data-tippy-content="{% trans 'History' %}"
-        data-tippy-offset="[0, 0]"
-        data-tippy-placement="bottom"
         aria-label="{% trans 'History' %}"
+        data-controller="w-tooltip"
+        data-w-tooltip-content-value="{% trans 'History' %}"
+        data-w-tooltip-offset-value="[0, 0]"
     >
         {% icon name="history" classname=nav_icon_classes %}
     </a>
