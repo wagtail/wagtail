@@ -72,7 +72,7 @@ class PageTypesReportFilterSet(WagtailFilterSet):
 
 class PageTypesReportView(ReportView):
     template_name = "wagtailadmin/reports/page_types.html"
-    title = _("Page types")
+    title = _("Page types usage")
     header_icon = "doc-empty-inverse"
 
     def __init__(self, **kwargs):
