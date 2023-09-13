@@ -7,6 +7,7 @@ from django.urls import reverse
 from openpyxl import load_workbook
 
 from wagtail.test.testapp.models import FeatureCompleteToy, JSONStreamModel
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
@@ -646,32 +647,13 @@ class TestOrdering(WagtailTestUtils, TestCase):
         )
 
 
-class TestBreadcrumbs(WagtailTestUtils, TestCase):
+class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
     @classmethod
     def setUpTestData(cls):
         cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
-
-    def assertItemsRendered(self, items, response):
-        items = [{"label": "Home", "url": "/admin/"}] + items
-        soup = self.get_soup(response.content)
-        breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
-        rendered_items = breadcrumbs.select("ol > li")
-        arrows = soup.select("ol > li > svg")
-        self.assertEqual(len(rendered_items), len(items))
-        self.assertEqual(len(arrows), len(items) - 1)
-
-        for item, rendered_item in zip(items, rendered_items):
-            if item.get("url"):
-                element = rendered_item.select_one("a")
-                self.assertIsNotNone(element)
-                self.assertEqual(element["href"], item["url"])
-            else:
-                element = rendered_item.select_one("div")
-                self.assertIsNotNone(element)
-            self.assertEqual(element.text.strip(), item["label"])
 
     def test_index_view(self):
         response = self.client.get(reverse("feature_complete_toy:index"))
@@ -680,7 +662,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
                 "label": "Feature complete toys",
             }
         ]
-        self.assertItemsRendered(items, response)
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_add_view(self):
         response = self.client.get(reverse("feature_complete_toy:add"))
@@ -693,7 +675,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
                 "label": "New: Feature complete toy",
             },
         ]
-        self.assertItemsRendered(items, response)
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_edit_view(self):
         edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
@@ -707,7 +689,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
                 "label": str(self.object),
             },
         ]
-        self.assertItemsRendered(items, response)
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_delete_view(self):
         delete_url = reverse(
@@ -715,10 +697,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
             args=(quote(self.object.pk),),
         )
         response = self.client.get(delete_url)
-        soup = self.get_soup(response.content)
-        breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
-        # Delete view shouldn't render breadcrumbs
-        self.assertIsNone(breadcrumbs)
+        self.assertBreadcrumbsNotRendered(response.content)
 
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
