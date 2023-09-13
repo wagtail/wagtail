@@ -731,6 +731,7 @@
 * Hussain Saherwala
 * Faishal Manzar
 * Rohit Sharma
+* Subhajit Ghosh
 
 ## Translators
 
