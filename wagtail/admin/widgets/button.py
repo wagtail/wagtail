@@ -92,6 +92,7 @@ class BaseDropdownMenuButton(Button):
             "label": self.label,
             "title": self.attrs.get("title"),
             "classes": self.classes,
+            "icon_name": self.icon_name,
         }
 
     def render(self):

@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags %}
 {% fragment as toggle_classname %}{{ classes|join:' ' }} {{ button_classes|join:' ' }}{% endfragment %}
 
-{% dropdown attrs=self.attrs toggle_icon="arrow-down" toggle_label=label toggle_aria_label=title toggle_classname=toggle_classname %}
+{% dropdown attrs=self.attrs toggle_icon=icon_name|default:"arrow-down" toggle_label=label toggle_aria_label=title toggle_classname=toggle_classname %}
     {% include "wagtailadmin/pages/listing/_dropdown_items.html" with buttons=buttons only %}
 {% enddropdown %}

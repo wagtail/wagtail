@@ -266,12 +266,12 @@ def page_listing_buttons(page, page_perms, next_url=None):
         )
 
     yield ButtonWithDropdownFromHook(
-        _("More"),
+        "",
         hook_name="register_page_listing_more_buttons",
         page=page,
         page_perms=page_perms,
         next_url=next_url,
-        classes={"button", "button-secondary", "button-small"},
+        icon_name="dots-horizontal",
         attrs={
             "target": "_blank",
             "rel": "noreferrer",
