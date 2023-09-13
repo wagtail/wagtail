@@ -996,9 +996,9 @@ def register_aging_pages_report_menu_item():
 @hooks.register("register_reports_menu_item")
 def register_page_types_report_menu_item():
     return PageTypesReportMenuItem(
-        _("Page types"),
-        reverse("wagtailadmin_reports:page_types"),
-        name="page-types",
+        _("Page types usage"),
+        reverse("wagtailadmin_reports:page_types_usage"),
+        name="page-types-usage",
         icon_name="doc-empty-inverse",
         order=1200,
     )

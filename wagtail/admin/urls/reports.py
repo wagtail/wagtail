@@ -13,5 +13,5 @@ urlpatterns = [
     path("workflow_tasks/", WorkflowTasksView.as_view(), name="workflow_tasks"),
     path("site-history/", LogEntriesView.as_view(), name="site_history"),
     path("aging-pages/", AgingPagesView.as_view(), name="aging_pages"),
-    path("page-types/", PageTypesReportView.as_view(), name="page_types"),
+    path("page-types-usage/", PageTypesReportView.as_view(), name="page_types_usage"),
 ]
