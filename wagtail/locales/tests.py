@@ -6,9 +6,10 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestLocaleIndexView(WagtailTestUtils, TestCase):
+class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -19,9 +20,10 @@ class TestLocaleIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertBreadcrumbsItemsRendered([{"label": "Locales"}], response.content)
 
 
-class TestLocaleCreateView(WagtailTestUtils, TestCase):
+class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.english = Locale.objects.get()
@@ -41,6 +43,13 @@ class TestLocaleCreateView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaillocales/create.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Locales", "url": "/admin/locales/"},
+                {"label": "New: Locale"},
+            ],
+            response.content,
+        )
 
         self.assertEqual(
             response.context["form"].fields["language_code"].choices, [("fr", "French")]
@@ -92,7 +101,7 @@ class TestLocaleCreateView(WagtailTestUtils, TestCase):
         )
 
 
-class TestLocaleEditView(WagtailTestUtils, TestCase):
+class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.english = Locale.objects.get()
@@ -115,6 +124,13 @@ class TestLocaleEditView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaillocales/edit.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/locales/", "label": "Locales"},
+                {"label": str(self.english)},
+            ],
+            response.content,
+        )
 
         self.assertEqual(
             response.context["form"].fields["language_code"].choices,
@@ -200,7 +216,7 @@ class TestLocaleEditView(WagtailTestUtils, TestCase):
         )
 
 
-class TestLocaleDeleteView(WagtailTestUtils, TestCase):
+class TestLocaleDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.english = Locale.objects.get()
@@ -221,6 +237,7 @@ class TestLocaleDeleteView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_delete_locale(self):
         french = Locale.objects.create(language_code="fr")
