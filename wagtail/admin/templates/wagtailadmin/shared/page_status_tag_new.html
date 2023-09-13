@@ -32,10 +32,11 @@
             hover:w-border-surface-menus
             hover:w-text-text-label
             w-transition"
-        data-tippy-offset="[0, 13]"
         aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private. Visit the live page' %}{% endif %}"
-        data-tippy-content="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private' %}{% endif %}"
-        data-tippy-placement="bottom">
+        data-controller="w-tooltip"
+        data-w-tooltip-content-value="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private' %}{% endif %}"
+        data-w-tooltip-offset-value="[0, 13]"
+    >
 
         {% with icon_classes='privacy-indicator-icon w-w-4 w-h-4 w-mr-1' %}
             {% if is_public %}

@@ -4035,7 +4035,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         self.assertContains(response, '<td class="title">Created</td>', html=True)
         self.assertContains(
             response,
-            'data-tippy-content="Sept. 30, 2021, 10:01 a.m."',
+            'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
         )
 
     def test_filters(self):

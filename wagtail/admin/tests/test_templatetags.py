@@ -206,7 +206,7 @@ class TestTimesinceTags(SimpleTestCase):
             Context({"date": now - timedelta(hours=1, minutes=10)})
         )
         self.assertIn("1\xa0hour ago", html)
-        self.assertIn('data-tippy-placement="top"', html)
+        self.assertIn('data-w-tooltip-placement-value="top"', html)
 
     def test_human_readable_date_with_args(self):
         now = timezone.now()
@@ -220,7 +220,7 @@ class TestTimesinceTags(SimpleTestCase):
             '<span class="w-human-readable-date__description">The clock ticked</span>',
             html,
         )
-        self.assertIn('data-tippy-placement="bottom"', html)
+        self.assertIn('data-w-tooltip-placement-value="bottom"', html)
 
 
 class TestComponentTag(SimpleTestCase):
