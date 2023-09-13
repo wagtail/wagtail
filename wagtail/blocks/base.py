@@ -1,4 +1,5 @@
 import collections
+import importlib
 import itertools
 import json
 import re
@@ -93,6 +94,10 @@ class Block(metaclass=BaseBlock):
         self.definition_prefix = "blockdef-%d" % self.creation_counter
 
         self.label = self.meta.label or ""
+
+    def __reduce__(self):
+        path, args, kwargs = self.deconstruct()
+        return blocks_unreduce, (path, (args, kwargs))
 
     def set_name(self, name):
         self.name = name
@@ -647,6 +652,19 @@ def get_error_list_json_data(error_list):
     but not block_errors)
     """
     return list(itertools.chain(*(err.messages for err in error_list.as_data())))
+
+
+def blocks_unreduce(path, args_and_kwargs=None):
+    path_part = path.rsplit(".", 1)
+    module = importlib.import_module(path_part[0])
+    cls = getattr(module, path_part[1])
+    args = ()
+    kwargs = {}
+    if args_and_kwargs:
+        args = args_and_kwargs[0]
+        if len(args_and_kwargs) > 1:
+            kwargs = args_and_kwargs[1]
+    return cls(*args, **kwargs)
 
 
 DECONSTRUCT_ALIASES = {

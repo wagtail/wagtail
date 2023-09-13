@@ -2,6 +2,7 @@ import base64
 import collections
 import copy
 import json
+import pickle
 import unittest
 from decimal import Decimal
 
@@ -50,6 +51,15 @@ class ContextCharBlock(blocks.CharBlock):
 
 
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
+    def test_pickling_blocks(self):
+        block = blocks.CharBlock(help_text="some help")
+        dumped_block = pickle.dumps(block)
+        block_rebirth = pickle.loads(dumped_block)
+        self.assertEqual(block_rebirth.field.help_text, "some help")
+        self.assertEqual(dumped_block, pickle.dumps(block_rebirth))
+        self.assertEqual(block_rebirth, block)
+        self.assertIsNot(block_rebirth, block)
+
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
