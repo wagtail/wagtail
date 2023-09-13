@@ -5,14 +5,7 @@
 
     {% dropdown toggle_icon=icon_name toggle_aria_label=title toggle_classname=toggle_classname toggle_tooltip_offset="[0, -2]" %}
         {% block content %}
-            {% for button in buttons %}
-                <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="{{ button.classes|join:' ' }}">
-                    {% if button.icon_name %}
-                        {% icon name=button.icon_name %}
-                    {% endif %}
-                    {{ button.label }}
-                </a>
-            {% endfor %}
+            {% include "wagtailadmin/pages/listing/_dropdown_items.html" with buttons=buttons only %}
         {% endblock %}
     {% enddropdown %}
 </nav>
