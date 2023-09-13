@@ -51,6 +51,8 @@ Changelog
  * Maintenance: Do not use jest inside `stubs.js` to prevent Storybook from crashing (LB (Ben) Johnston)
  * Maintenance: Refactor snippets templates to reuse the shared `slim_header.html` template (Sage Abdullah)
  * Maintenance: Refactor `slim_header.html` template to reduce code duplication (Sage Abdullah)
+ * Maintenance: Upgrade Willow to v1.6.2 to support MIME type data without reliance on `imghdr` (Jake Howard)
+ * Maintenance: Replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
