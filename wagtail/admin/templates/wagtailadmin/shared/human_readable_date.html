@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<button type="button" class="w-human-readable-date" data-tippy-content="{{ date|date:"DATETIME_FORMAT" }}" data-tippy-placement="{{ position }}">
+<button type="button" class="w-human-readable-date" data-tippy-content="{{ date|date:"DATETIME_FORMAT" }}" data-tippy-placement="{{ placement }}">
     <time class="w-human-readable-date__date" datetime="{{ date|date:"c" }}">
         {{ date|timesince_simple|capfirst }}
     </time>
