@@ -43,7 +43,7 @@
                         {% endblock page_type %}
                     </td>
                     <td class="app-label" valign="top">
-                        {{ page_type.app_label }}
+                        {{ page_type.app_label }}.{{ page_type.model }}
                     </td>
                     <td class="count" valign="top">
                         {% if page_type.count > 0 %}
