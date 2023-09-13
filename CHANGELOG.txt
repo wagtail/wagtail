@@ -24,6 +24,7 @@ Changelog
  * Add support for merging cells within `TableBlock` with the `mergedCells` option (Gareth Palmer)
  * When adding a panel within `InlinePanel`, focus will now shift to that content similar to `StreamField` (Faishal Manzar)
  * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
+ * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
@@ -48,6 +49,8 @@ Changelog
  * Maintenance: Migrate the editor unsaved messages popup to be driven by Stimulus using the shared `w-message` controller (LB (Ben) Johnston, Hussain Saherwala)
  * Maintenance: Add support for tooltip position in `human_readable_date` tooltip (Rohit Sharma)
  * Maintenance: Do not use jest inside `stubs.js` to prevent Storybook from crashing (LB (Ben) Johnston)
+ * Maintenance: Refactor snippets templates to reuse the shared `slim_header.html` template (Sage Abdullah)
+ * Maintenance: Refactor `slim_header.html` template to reduce code duplication (Sage Abdullah)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
