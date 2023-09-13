@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
@@ -500,6 +501,20 @@ class CreateTask(CreateView):
             },
         )
 
+    def get_breadcrumbs_items(self):
+        # Use the base Task class instead of the specific class for the index view
+        items = [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(Task._meta.verbose_name_plural),
+            },
+            {
+                "label": _("New: %(model_name)s")
+                % {"model_name": capfirst(self.model._meta.verbose_name)}
+            },
+        ]
+        return self.breadcrumbs_items + items
+
 
 class EditTask(EditView):
     permission_policy = task_permission_policy
@@ -535,6 +550,17 @@ class EditTask(EditView):
 
     def get_form_class(self):
         return get_task_form_class(self.model, for_edit=True)
+
+    def get_breadcrumbs_items(self):
+        # Use the base Task class instead of the specific class
+        items = [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(Task._meta.verbose_name_plural),
+            },
+            {"label": str(self.object)},
+        ]
+        return self.breadcrumbs_items + items
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
