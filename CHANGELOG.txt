@@ -100,6 +100,7 @@ Changelog
  * Maintenance: Upgrade sphinxcontrib-spelling to 7.x for Python 3.12 compatibility (Matt Westcott)
  * Maintenance: Move logic for django-filters filtering into `BaseListingView` (Matt Westcott)
  * Maintenance: Refactor listing views to share more queryset ordering logic (Matt Westcott)
+ * Maintenance: Remove `initTooltips` in favour of Stimulus controller (LB (Ben) Johnston)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
