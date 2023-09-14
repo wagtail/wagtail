@@ -654,6 +654,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
         cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
 
     def assertItemsRendered(self, items, response):
+        items = [{"label": "Home", "url": "/admin/"}] + items
         soup = self.get_soup(response.content)
         breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
         rendered_items = breadcrumbs.select("ol > li")
