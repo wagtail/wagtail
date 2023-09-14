@@ -25,7 +25,7 @@ ul.listing {
 
   td,
   th {
-    padding: 1em;
+    padding: 1.2em 1em;
 
     &.no-padding {
       padding: 0;
@@ -35,6 +35,15 @@ ul.listing {
   &.small td,
   th {
     padding: 0.6em 1em;
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  td.title {
+    padding: 1em;
+    line-height: 2rem;
   }
 
   thead {
@@ -104,12 +113,6 @@ ul.listing {
 
   &.full-width tbody {
     border: 0;
-  }
-
-  &.align-top td,
-  td.align-top {
-    vertical-align: top;
-    line-height: 2rem;
   }
 
   &.chooser {
@@ -234,6 +237,7 @@ ul.listing {
     > li {
       float: left;
       padding: 0 0.5em 0 0;
+      vertical-align: middle;
     }
   }
 
@@ -296,6 +300,7 @@ ul.listing {
     color: theme('colors.text-button-outline-default');
     display: block;
     text-align: center;
+    line-height: 3rem;
 
     .icon {
       width: 1.5rem;

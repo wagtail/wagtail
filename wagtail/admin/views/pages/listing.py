@@ -47,14 +47,13 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             "title",
             label=_("Title"),
             sort_key="title",
-            classname="align-top title",
+            classname="title",
         ),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
             width="12%",
-            classname="align-top",
         ),
         Column(
             "type",
@@ -62,14 +61,12 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             accessor="page_type_display_name",
             sort_key="content_type",
             width="12%",
-            classname="align-top",
         ),
         PageStatusColumn(
             "status",
             label=_("Status"),
             sort_key="live",
             width="12%",
-            classname="align-top",
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]
