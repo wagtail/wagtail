@@ -232,38 +232,6 @@ def page_listing_buttons(page, page_perms, next_url=None):
             },
             priority=10,
         )
-    if page.has_unpublished_changes and page.is_previewable():
-        yield PageListingButton(
-            _("View draft"),
-            reverse("wagtailadmin_pages:view_draft", args=[page.id]),
-            attrs={
-                "aria-label": _("Preview draft version of '%(title)s'")
-                % {"title": page.get_admin_display_title()},
-                "rel": "noreferrer",
-            },
-            priority=20,
-        )
-    if page.live and page.url:
-        yield PageListingButton(
-            _("View live"),
-            page.url,
-            attrs={
-                "rel": "noreferrer",
-                "aria-label": _("View live version of '%(title)s'")
-                % {"title": page.get_admin_display_title()},
-            },
-            priority=30,
-        )
-    if page_perms.can_add_subpage():
-        yield PageListingButton(
-            _("Add child page"),
-            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-            attrs={
-                "aria-label": _("Add a child page to '%(title)s' ")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=40,
-        )
 
     yield ButtonWithDropdownFromHook(
         "",
@@ -284,6 +252,42 @@ def page_listing_buttons(page, page_perms, next_url=None):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
+    if page.has_unpublished_changes and page.is_previewable():
+        yield Button(
+            _("View draft"),
+            reverse("wagtailadmin_pages:view_draft", args=[page.id]),
+            icon_name="draft",
+            attrs={
+                "aria-label": _("Preview draft version of '%(title)s'")
+                % {"title": page.get_admin_display_title()},
+                "rel": "noreferrer",
+            },
+            priority=4,
+        )
+    if page.live and page.url:
+        yield Button(
+            _("View live"),
+            page.url,
+            icon_name="doc-empty",
+            attrs={
+                "rel": "noreferrer",
+                "aria-label": _("View live version of '%(title)s'")
+                % {"title": page.get_admin_display_title()},
+            },
+            priority=6,
+        )
+    if page_perms.can_add_subpage():
+        yield Button(
+            _("Add child page"),
+            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            icon_name="circle-plus",
+            attrs={
+                "aria-label": _("Add a child page to '%(title)s' ")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=8,
+        )
+
     if page_perms.can_move():
         yield Button(
             _("Move"),
