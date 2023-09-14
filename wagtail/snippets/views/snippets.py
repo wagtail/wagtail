@@ -419,15 +419,6 @@ class DeleteView(generic.DeleteView):
             "object": self.object,
         }
 
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {"url": self.get_delete_url(), "label": _("Delete")},
-        ]
-
 
 class UsageView(generic.UsageView):
     view_name = "usage"
