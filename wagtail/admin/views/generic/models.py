@@ -359,10 +359,7 @@ class IndexView(
         if not self.model:
             return self.breadcrumbs_items
         return self.breadcrumbs_items + [
-            {
-                "url": self.get_index_url(),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
+            {"label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -601,7 +598,7 @@ class EditView(
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
-        items.append({"url": self.get_edit_url(), "label": get_latest_str(self.object)})
+        items.append({"label": get_latest_str(self.object)})
         return self.breadcrumbs_items + items
 
     def get_edit_url(self):

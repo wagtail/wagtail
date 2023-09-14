@@ -675,7 +675,6 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("feature_complete_toy:index"))
         items = [
             {
-                "url": reverse("feature_complete_toy:index"),
                 "label": "Feature complete toys",
             }
         ]
@@ -703,7 +702,6 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
                 "label": "Feature complete toys",
             },
             {
-                "url": edit_url,
                 "label": str(self.object),
             },
         ]
