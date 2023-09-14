@@ -25,14 +25,14 @@ class ContentTypeUseView(BaseListingView):
     page_kwarg = "p"
     paginate_by = 50
     columns = [
-        PageTitleColumn("title", label=_("Title")),
+        PageTitleColumn("title", classname="title", label=_("Title")),
         ParentPageColumn("parent", label=_("Parent")),
         DateColumn("latest_revision_created_at", label=_("Updated"), width="12%"),
         Column("type", label=_("Type"), accessor="page_type_display_name", width="12%"),
         PageStatusColumn("status", label=_("Status"), width="12%"),
     ]
     table_class = PageTable
-    table_classname = "listing align-top"
+    table_classname = "listing"
 
     def get(self, request, *, content_type_app_name, content_type_model_name):
         try:
