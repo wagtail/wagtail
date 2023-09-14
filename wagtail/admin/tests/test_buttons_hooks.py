@@ -172,9 +172,8 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         next_url = "a/random/url/"
         full_url = base_url + "?" + urlencode({"next": next_url})
 
-        delete_button = next(
-            page_listing_more_buttons(page, page_perms, next_url=next_url)
-        )
+        buttons = page_listing_more_buttons(page, page_perms, next_url=next_url)
+        delete_button = next(button for button in buttons if button.label == "Delete")
 
         self.assertEqual(delete_button.url, full_url)
 
@@ -185,7 +184,6 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         As the page is now deleted and cannot be edited.
         """
 
-        # permissions should yield two buttons, delete and unpublish
         page_perms = DeleteAndUnpublishPagePerms()
         page = self.root_page
 
@@ -194,14 +192,16 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         buttons = page_listing_more_buttons(page, page_perms, next_url=next_url)
 
-        delete_button = next(buttons)
+        delete_button = next(button for button in buttons if button.label == "Delete")
 
         # check that the next_url is NOT included as it will not be available after deletion
         self.assertEqual(delete_button.url, base_url)
 
-        # check that any buttons after do correctly still include the next_url
+        # check that the unpublish button does correctly still include the next_url
         unpublish_base_url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
-        unpublish_button = next(buttons)
+        unpublish_button = next(
+            button for button in buttons if button.label == "Unpublish"
+        )
         full_url = unpublish_base_url + "?" + urlencode({"next": next_url})
         self.assertEqual(unpublish_button.url, full_url)
 
@@ -211,11 +211,16 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         # no button returned
         buttons = page_listing_more_buttons(page, page_perms)
-        self.assertEqual(len(list(buttons)), 0)
+        self.assertEqual(
+            len([button for button in buttons if button.label == "Sort menu order"]), 0
+        )
 
         page_perms = ReorderOnlyPagePerms()
         # page_listing_more_button generator yields only `Sort menu order button`
-        reorder_button = next(page_listing_more_buttons(page, page_perms))
+        buttons = page_listing_more_buttons(page, page_perms)
+        reorder_button = next(
+            button for button in buttons if button.label == "Sort menu order"
+        )
 
         self.assertEqual(reorder_button.url, "?ordering=ord")
 
@@ -254,7 +259,8 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         next_url = "a/random/url/"
         full_url = base_url + "?" + urlencode({"next": next_url})
 
-        delete_button = next(page_header_buttons(page, page_perms, next_url=next_url))
+        buttons = page_header_buttons(page, page_perms, next_url=next_url)
+        delete_button = next(button for button in buttons if button.label == "Delete")
 
         self.assertEqual(delete_button.url, full_url)
 
@@ -274,7 +280,7 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
 
         buttons = page_header_buttons(page, page_perms, next_url=next_url)
 
-        delete_button = next(buttons)
+        delete_button = next(button for button in buttons if button.label == "Delete")
 
         # check that the next_url is NOT included as it will not be available after deletion (page listing)
         self.assertEqual(delete_button.url, base_url)
@@ -284,14 +290,16 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
 
         buttons = page_header_buttons(page, page_perms, next_url=next_url)
 
-        delete_button = next(buttons)
+        delete_button = next(button for button in buttons if button.label == "Delete")
 
         # check that the next_url is NOT included as it will not be available after deletion (edit page)
         self.assertEqual(delete_button.url, base_url)
 
         # check that any buttons after do correctly still include the next_url
         unpublish_base_url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
-        unpublish_button = next(buttons)
+        unpublish_button = next(
+            button for button in buttons if button.label == "Unpublish"
+        )
         full_url = unpublish_base_url + "?" + urlencode({"next": next_url})
         self.assertEqual(unpublish_button.url, full_url)
 
