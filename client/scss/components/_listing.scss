@@ -211,6 +211,7 @@ ul.listing {
     .title-wrapper,
     h2 {
       @apply w-label-1;
+      display: inline;
       margin: 0;
       vertical-align: middle;
 
