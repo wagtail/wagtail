@@ -25,7 +25,7 @@ ul.listing {
 
   td,
   th {
-    padding: 1.2em 1em;
+    padding: 1em;
 
     &.no-padding {
       padding: 0;
@@ -109,6 +109,7 @@ ul.listing {
   &.align-top td,
   td.align-top {
     vertical-align: top;
+    line-height: 2rem;
   }
 
   &.chooser {
@@ -222,10 +223,9 @@ ul.listing {
   }
 
   .actions {
-    @include clearfix();
-    margin-top: 0.8em;
-    margin-bottom: -0.5em;
+    float: right;
     font-size: 0.8rem;
+    margin: 0;
 
     a {
       text-decoration: none;
@@ -234,9 +234,6 @@ ul.listing {
     > li {
       float: left;
       padding: 0 0.5em 0 0;
-      margin: 0 0 0.5em;
-
-      // line-height: 1em;
     }
   }
 
@@ -280,7 +277,7 @@ ul.listing {
 
     a {
       display: block;
-      padding: 2em 0;
+      padding: 0;
     }
   }
 
@@ -558,16 +555,16 @@ table.listing {
       }
     }
 
-    .actions {
+    .actions .button {
       visibility: hidden;
     }
 
-    .index .actions {
+    .index .actions .button {
       visibility: visible;
     }
 
-    td:hover .actions,
-    td:focus-within .actions {
+    td:hover .actions .button,
+    td:focus-within .actions .button {
       visibility: visible;
     }
 
