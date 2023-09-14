@@ -212,6 +212,7 @@ ul.listing {
     h2 {
       @apply w-label-1;
       margin: 0;
+      vertical-align: middle;
 
       a {
         color: inherit;
@@ -222,6 +223,11 @@ ul.listing {
           color: theme('colors.text-link-default');
         }
       }
+    }
+
+    .icon.initial {
+      margin: 5px 0.3em 0 0;
+      vertical-align: top;
     }
   }
 

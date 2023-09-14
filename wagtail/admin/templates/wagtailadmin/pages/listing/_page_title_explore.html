@@ -10,8 +10,12 @@
     {% endif %}
 
     {% if page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
+            {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial w-align-text-top" %}{% endif %}
+            {{ page.get_admin_display_title }}
+        </a>
     {% else %}
+        {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial w-align-text-top" %}{% endif %}
         {{ page.get_admin_display_title }}
     {% endif %}
 
