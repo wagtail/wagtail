@@ -112,17 +112,13 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
 
     def __init__(self, *args, **kwargs):
         self.button_classes = kwargs.pop("button_classes", set())
-        self.buttons_data = kwargs.pop("buttons_data", [])
+        self.dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
 
     def get_context_data(self):
         context = super().get_context_data()
         context["button_classes"] = self.button_classes
         return context
-
-    @cached_property
-    def dropdown_buttons(self):
-        return [Button(**button) for button in self.buttons_data]
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
