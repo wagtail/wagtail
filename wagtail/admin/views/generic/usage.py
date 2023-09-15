@@ -48,7 +48,7 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             items.append(
                 {
                     "url": reverse(self.index_url_name),
-                    "label": self.object._meta.verbose_name_plural,
+                    "label": capfirst(self.object._meta.verbose_name_plural),
                 }
             )
         if self.edit_url_name:
