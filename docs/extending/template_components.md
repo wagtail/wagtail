@@ -115,6 +115,26 @@ the `my_app/welcome.html` template could render the panels as follows:
 {% endfor %}
 ```
 
+You can pass additional context variables to the component using the keyword `with`:
+
+```html+django
+{% component panel with username=request.user.username %}
+```
+
+To render the component with only the variables provided (and no others from the calling template's context), use `only`:
+
+```html+django
+{% component panel with username=request.user.username only %}
+```
+
+To store the component's rendered output in a variable rather than outputting it immediately, use `as` followed by the variable name:
+
+```html+django
+{% component panel as panel_html %}
+
+{{ panel_html }}
+```
+
 Note that it is your template's responsibility to output any media declarations defined on the components. For a Wagtail admin view, this is best done by constructing a media object for the whole page within the view, passing this to the template, and outputting it via the base template's `extra_js` and `extra_css` blocks:
 
 ```python

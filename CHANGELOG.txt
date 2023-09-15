@@ -28,6 +28,7 @@ Changelog
  * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
  * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
  * Add breadcrumbs to generic model views (Sage Abdullah)
+ * Support passing extra context variables via the `{% component %}` tag (Matt Westcott)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
