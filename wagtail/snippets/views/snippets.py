@@ -978,20 +978,6 @@ class SnippetViewSet(ModelViewSet):
         )
 
     @property
-    def redirect_to_edit_view(self):
-        def redirect_to_edit(request, pk):
-            return redirect(self.get_url_name("edit"), pk, permanent=True)
-
-        return redirect_to_edit
-
-    @property
-    def redirect_to_delete_view(self):
-        def redirect_to_delete(request, pk):
-            return redirect(self.get_url_name("delete"), pk, permanent=True)
-
-        return redirect_to_delete
-
-    @property
     def redirect_to_usage_view(self):
         def redirect_to_usage(request, pk):
             return redirect(self.get_url_name("usage"), pk, permanent=True)
@@ -1357,15 +1343,17 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
-        legacy_redirects = [
+        return urlpatterns + self._legacy_urlpatterns
+
+    @cached_property
+    def _legacy_urlpatterns(self):
+        return [
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),
             path("<str:pk>/delete/", self.redirect_to_delete_view),
             path("<str:pk>/usage/", self.redirect_to_usage_view),
         ]
-
-        return urlpatterns + legacy_redirects
 
     def get_edit_handler(self):
         """

@@ -1,5 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
+from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
 
@@ -150,6 +151,20 @@ class ModelViewSet(ViewSet):
         return self.construct_view(
             self.delete_view_class, **self.get_delete_view_kwargs()
         )
+
+    @property
+    def redirect_to_edit_view(self):
+        def redirect_to_edit(request, pk):
+            return redirect(self.get_url_name("edit"), pk, permanent=True)
+
+        return redirect_to_edit
+
+    @property
+    def redirect_to_delete_view(self):
+        def redirect_to_delete(request, pk):
+            return redirect(self.get_url_name("delete"), pk, permanent=True)
+
+        return redirect_to_delete
 
     def get_templates(self, name="index", fallback=""):
         """
@@ -415,6 +430,13 @@ class ModelViewSet(ViewSet):
             path("new/", self.add_view, name="add"),
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
+        ] + self._legacy_urlpatterns
+
+    @cached_property
+    def _legacy_urlpatterns(self):
+        return [
+            path("<int:pk>/", self.redirect_to_edit_view),
+            path("<int:pk>/delete/", self.redirect_to_delete_view),
         ]
 
     def on_register(self):
