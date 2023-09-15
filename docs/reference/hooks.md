@@ -244,8 +244,12 @@ Add an item to the Wagtail admin menu. The callable passed to this hook must ret
 
 -   `name` - an internal name used to identify the menu item; defaults to the slugified form of the label.
 -   `icon_name` - icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
--   `classnames` - additional classnames applied to the link
--   `order` - an integer which determines the item's position in the menu
+-   `classname` - additional classes applied to the link.
+-   `order` - an integer which determines the item's position in the menu.
+
+```{versionchanged} 5.2
+Use `classname` as the `classnames` keyword argument is deprecated and will be removed in a future release.
+```
 
 For menu items that are only available to superusers, the subclass `wagtail.admin.menu.AdminOnlyMenuItem` can be used in place of `MenuItem`.
 
@@ -337,10 +341,14 @@ Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook
 -   `label` - text displayed in the "Other Searches" option box.
 -   `name` - an internal name used to identify the search option; defaults to the slugified form of the label.
 -   `url` - the URL of the target search page.
--   `classnames` - arbitrary CSS classnames applied to the link
+-   `classname` - additional CSS classes applied to the link.
 -   `icon_name` - icon to display next to the label.
 -   `attrs` - additional HTML attributes to apply to the link.
 -   `order` - an integer which determines the item's position in the list of options.
+
+```{versionchanged} 5.2
+Use `classname` as the `classnames` keyword argument is deprecated and will be removed in a future release.
+```
 
 Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
 

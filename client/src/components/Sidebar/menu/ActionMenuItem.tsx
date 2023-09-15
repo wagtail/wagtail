@@ -83,7 +83,7 @@ export class ActionMenuItemDefinition implements MenuItemDefinition {
     action,
     attrs,
     icon_name: iconName = null,
-    classnames = undefined,
+    classname = undefined,
     method = 'POST',
   }) {
     this.name = name;
@@ -91,7 +91,7 @@ export class ActionMenuItemDefinition implements MenuItemDefinition {
     this.action = action;
     this.attrs = attrs;
     this.iconName = iconName;
-    this.classNames = classnames;
+    this.classNames = classname;
     this.method = method;
   }
 

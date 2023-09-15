@@ -14,6 +14,7 @@ from wagtail.admin.ui.sidebar import (
 )
 from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestAdaptLinkMenuItem(TestCase):
@@ -26,7 +27,7 @@ class TestAdaptLinkMenuItem(TestCase):
                 "_type": "wagtail.sidebar.LinkMenuItem",
                 "_args": [
                     {
-                        "classnames": "",
+                        "classname": "",
                         "icon_name": "",
                         "label": "Link",
                         "name": "link",
@@ -44,7 +45,7 @@ class TestAdaptLinkMenuItem(TestCase):
                 "Link",
                 "/link/",
                 icon_name="link-icon",
-                classnames="some classes",
+                classname="some classes",
                 attrs={"data-is-custom": "true"},
             )
         )
@@ -55,12 +56,39 @@ class TestAdaptLinkMenuItem(TestCase):
                 "_type": "wagtail.sidebar.LinkMenuItem",
                 "_args": [
                     {
-                        "classnames": "some classes",
+                        "classname": "some classes",
                         "icon_name": "link-icon",
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
                         "attrs": {"data-is-custom": "true"},
+                    }
+                ],
+            },
+        )
+
+    def test_adapt_with_deprecated_classnames(self):
+
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
+        ):
+            packed = JSContext().pack(
+                LinkMenuItem("link", "Link", "/link/", classnames="legacy-classes")
+            )
+
+        self.assertEqual(
+            packed,
+            {
+                "_type": "wagtail.sidebar.LinkMenuItem",
+                "_args": [
+                    {
+                        "classname": "legacy-classes",  # mapped to new name but raises warning
+                        "icon_name": "",
+                        "label": "Link",
+                        "name": "link",
+                        "url": "/link/",
+                        "attrs": {},
                     }
                 ],
             },
@@ -89,7 +117,7 @@ class TestAdaptSubMenuItem(TestCase):
                         "name": "sub-menu",
                         "label": "Sub menu",
                         "icon_name": "",
-                        "classnames": "",
+                        "classname": "",
                         "footer_text": "Footer text",
                         "attrs": {},
                     },
@@ -101,7 +129,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "name": "link",
                                     "label": "Link",
                                     "icon_name": "link-icon",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/link/",
                                     "attrs": {},
                                 }
@@ -132,7 +160,7 @@ class TestAdaptSubMenuItem(TestCase):
                         "name": "sub-menu",
                         "label": "Sub menu",
                         "icon_name": "",
-                        "classnames": "",
+                        "classname": "",
                         "footer_text": "",
                         "attrs": {},
                     },
@@ -144,7 +172,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "name": "link",
                                     "label": "Link",
                                     "icon_name": "link-icon",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/link/",
                                     "attrs": {},
                                 }
@@ -167,7 +195,7 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                 "_args": [
                     {
                         "attrs": {},
-                        "classnames": "",
+                        "classname": "",
                         "icon_name": "",
                         "label": "Pages",
                         "name": "pages",
@@ -218,7 +246,7 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
                                     "name": "pages",
                                     "label": "Pages",
                                     "icon_name": "",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/pages/",
                                     "attrs": {},
                                 }
@@ -233,7 +261,7 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
                                     "name": "account",
                                     "label": "Account",
                                     "icon_name": "user",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": reverse("wagtailadmin_account"),
                                     "attrs": {},
                                 }
@@ -246,7 +274,7 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
                                     "name": "logout",
                                     "label": "Logout",
                                     "icon_name": "logout",
-                                    "classnames": "",
+                                    "classname": "",
                                     "action": reverse("wagtailadmin_logout"),
                                     "method": "POST",
                                     "attrs": {},
