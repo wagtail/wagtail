@@ -69,6 +69,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -5269,9 +5270,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_edit(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/",
@@ -5279,9 +5284,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_delete(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/",
@@ -5289,9 +5298,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_usage(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "`/<pk>/usage/` usage view URL pattern has been deprecated in favour of /usage/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/",

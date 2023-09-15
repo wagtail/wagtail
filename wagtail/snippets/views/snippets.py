@@ -1,3 +1,5 @@
+from warnings import warn
+
 import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
@@ -54,6 +56,7 @@ from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 # == Helper functions ==
@@ -980,6 +983,14 @@ class SnippetViewSet(ModelViewSet):
     @property
     def redirect_to_usage_view(self):
         def redirect_to_usage(request, pk):
+            warn(
+                (
+                    "%s's `/<pk>/usage/` usage view URL pattern has been "
+                    "deprecated in favour of /usage/<pk>/."
+                )
+                % (self.__class__.__name__),
+                category=RemovedInWagtail60Warning,
+            )
             return redirect(self.get_url_name("usage"), pk, permanent=True)
 
         return redirect_to_usage
@@ -1343,11 +1354,13 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         return urlpatterns + self._legacy_urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
         return [
+            # RemovedInWagtail60Warning: Remove legacy URL patterns
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),
