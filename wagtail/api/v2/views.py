@@ -555,20 +555,24 @@ class PagesAPIViewSet(BaseAPIViewSet):
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(
-                request.GET.get("type", "wagtailcore.Page")
-            )
+            models_type = request.GET.get("type", None)
+            models = models_type and page_models_from_string(models_type) or []
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
         if not models:
-            return self.get_base_queryset()
+            if self.model == Page:
+                return self.get_base_queryset()
+            else:
+                return self.model.objects.filter(
+                    pk__in=self.get_base_queryset().values_list("pk", flat=True)
+                )
 
         elif len(models) == 1:
             # If a single page type has been specified, swap out the Page-based queryset for one based on
             # the specific page model so that we can filter on any custom APIFields defined on that model
             return models[0].objects.filter(
-                id__in=self.get_base_queryset().values_list("id", flat=True)
+                pk__in=self.get_base_queryset().values_list("pk", flat=True)
             )
 
         else:  # len(models) > 1
