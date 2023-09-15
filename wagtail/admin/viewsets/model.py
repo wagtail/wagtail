@@ -409,7 +409,7 @@ class ModelViewSet(ViewSet):
             ReferenceIndex.register_model(self.model)
 
     def get_urlpatterns(self):
-        return super().get_urlpatterns() + [
+        return [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
             path("new/", self.add_view, name="add"),

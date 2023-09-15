@@ -1255,7 +1255,7 @@ class SnippetViewSet(ModelViewSet):
         )
 
     def get_urlpatterns(self):
-        urlpatterns = super().get_urlpatterns() + [
+        urlpatterns = [
             path("", self.index_view, name="list"),
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
