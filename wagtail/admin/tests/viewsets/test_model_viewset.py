@@ -718,3 +718,28 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
         breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
         # Delete view shouldn't render breadcrumbs
         self.assertIsNone(breadcrumbs)
+
+
+class TestLegacyPatterns(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = JSONStreamModel.objects.create(
+            body='[{"type": "text", "value": "foo"}]',
+        )
+
+    def test_legacy_edit(self):
+        edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
+        legacy_edit_url = "/admin/streammodel/1/"
+        response = self.client.get(legacy_edit_url)
+        self.assertEqual(edit_url, "/admin/streammodel/edit/1/")
+        self.assertRedirects(response, edit_url, 301)
+
+    def test_legacy_delete(self):
+        delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
+        legacy_delete_url = "/admin/streammodel/1/delete/"
+        response = self.client.get(legacy_delete_url)
+        self.assertEqual(delete_url, "/admin/streammodel/delete/1/")
+        self.assertRedirects(response, delete_url, 301)
