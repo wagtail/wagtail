@@ -546,7 +546,7 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
         self.user = self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types"), params)
+        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     def test_simple(self):
         response = self.get()
@@ -574,7 +574,7 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         super().setUp()
         self.view = page_types_usage.PageTypesUsageReportView()
         self.view.request = RequestFactory().get(
-            reverse("wagtailadmin_reports:page_types")
+            reverse("wagtailadmin_reports:page_types_usage")
         )
         self.root = Page.objects.first()
         self.home = Page.objects.get(slug="home")
@@ -657,7 +657,7 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         self.fr_locale, _ = Locale.objects.get_or_create(language_code="fr")
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types"), params)
+        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     def test_locale_filtering(self):
         # Create a product page in default locale
