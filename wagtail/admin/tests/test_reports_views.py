@@ -12,6 +12,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
+from wagtail.admin.views.reports import page_types_usage
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -21,7 +22,6 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import EventPage, EventPageSpeaker, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.wagtail.admin.views.reports import page_types_usage
 
 
 class TestLockedPagesView(WagtailTestUtils, TestCase):
