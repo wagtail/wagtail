@@ -105,6 +105,9 @@ class ModelIndexView(generic.IndexView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [{"label": _("Snippets")}]
+
     def get_list_url(self, type):
         return reverse(type["model"].snippet_viewset.get_url_name("list"))
 

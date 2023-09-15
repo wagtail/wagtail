@@ -68,12 +68,13 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
-class TestSnippetIndexView(WagtailTestUtils, TestCase):
+class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -96,6 +97,7 @@ class TestSnippetIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertBreadcrumbsItemsRendered([{"label": "Snippets"}], response.content)
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
