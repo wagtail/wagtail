@@ -1349,11 +1349,13 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         return urlpatterns + self._legacy_urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
         return [
+            # RemovedInWagtail60Warning: Remove legacy URL patterns
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),

@@ -154,6 +154,7 @@ class ModelViewSet(ViewSet):
 
     @property
     def redirect_to_edit_view(self):
+        # RemovedInWagtail60Warning: Remove legacy redirects
         def redirect_to_edit(request, pk):
             return redirect(self.get_url_name("edit"), pk, permanent=True)
 
@@ -161,6 +162,7 @@ class ModelViewSet(ViewSet):
 
     @property
     def redirect_to_delete_view(self):
+        # RemovedInWagtail60Warning: Remove legacy redirects
         def redirect_to_delete(request, pk):
             return redirect(self.get_url_name("delete"), pk, permanent=True)
 
@@ -430,10 +432,12 @@ class ModelViewSet(ViewSet):
             path("new/", self.add_view, name="add"),
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
+            # RemovedInWagtail60Warning: Remove legacy URL patterns
         ] + self._legacy_urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         return [
             path("<int:pk>/", self.redirect_to_edit_view),
             path("<int:pk>/delete/", self.redirect_to_delete_view),

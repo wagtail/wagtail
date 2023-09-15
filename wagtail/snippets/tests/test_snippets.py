@@ -5269,6 +5269,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_edit(self):
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         response = self.client.get(
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
         )
@@ -5279,6 +5280,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_delete(self):
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         response = self.client.get(
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
         )
@@ -5289,6 +5291,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_usage(self):
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
         response = self.client.get(
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
         )

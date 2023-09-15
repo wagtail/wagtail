@@ -721,6 +721,8 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
 
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
+
     def setUp(self):
         self.user = self.login()
 
