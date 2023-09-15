@@ -1105,6 +1105,14 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
         self.assertEqual(set(page_id_list), {16, 18, 19})
 
+    def test_search_with_invalid_type(self):
+        # Check that a 400 error is returned when the type doesn't exist
+        response = self.get_response(type="demosite.InvalidPageType", search="blog")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {"message": "type doesn't exist"})
+
     def test_search_with_filter(self):
         response = self.get_response(
             title="Another blog post", search="blog", order="title"
@@ -1808,3 +1816,13 @@ class TestPageCacheInvalidation(TestCase):
         Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()
+
+
+class TestPageViewSetSubclassing(PagesAPIViewSet):
+    model = models.BlogEntryPage
+
+    def test_get_queryset(self):
+        self.assertEqual(
+            self.get_queryset().model,
+            models.BlogEntryPage,
+        )
