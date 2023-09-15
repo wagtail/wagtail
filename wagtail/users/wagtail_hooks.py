@@ -14,6 +14,7 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
+from wagtail.admin.utils import get_user_display_name
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
@@ -148,7 +149,10 @@ def user_listing_buttons(context, user):
         _("Edit"),
         reverse("wagtailusers_users:edit", args=[user.pk]),
         classes={"button-secondary"},
-        attrs={"title": _("Edit this user")},
+        attrs={
+            "aria-label": _("Edit user '%(name)s'")
+            % {"name": get_user_display_name(user)}
+        },
         priority=10,
     )
     if user_can_delete_user(context.request.user, user):
@@ -156,7 +160,10 @@ def user_listing_buttons(context, user):
             _("Delete"),
             reverse("wagtailusers_users:delete", args=[user.pk]),
             classes={"no"},
-            attrs={"title": _("Delete this user")},
+            attrs={
+                "aria-label": _("Delete user '%(name)s'")
+                % {"name": get_user_display_name(user)}
+            },
             priority=20,
         )
 

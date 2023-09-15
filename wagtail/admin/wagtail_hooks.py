@@ -243,7 +243,7 @@ def page_listing_buttons(page, page_perms, next_url=None):
         attrs={
             "target": "_blank",
             "rel": "noreferrer",
-            "title": _("More options for '%(title)s'")
+            "aria-label": _("More options for '%(title)s'")
             % {"title": page.get_admin_display_title()},
         },
         priority=50,
@@ -294,7 +294,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             reverse("wagtailadmin_pages:move", args=[page.id]),
             icon_name="arrow-right-full",
             attrs={
-                "title": _("Move page '%(title)s'")
+                "aria-label": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=10,
@@ -309,7 +309,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url,
             icon_name="copy",
             attrs={
-                "title": _("Copy page '%(title)s'")
+                "aria-label": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=20,
@@ -330,7 +330,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url,
             icon_name="bin",
             attrs={
-                "title": _("Delete page '%(title)s'")
+                "aria-label": _("Delete page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=30,
@@ -345,7 +345,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url,
             icon_name="resubmit",
             attrs={
-                "title": _("Unpublish page '%(title)s'")
+                "aria-label": _("Unpublish page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=40,
@@ -356,7 +356,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             reverse("wagtailadmin_pages:history", args=[page.id]),
             icon_name="history",
             attrs={
-                "title": _("View page history for '%(title)s'")
+                "aria-label": _("View page history for '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=50,
@@ -368,7 +368,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             "?ordering=ord",
             icon_name="list-ul",
             attrs={
-                "title": _("Change ordering of child pages of '%(title)s'")
+                "aria-label": _("Change ordering of child pages of '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=60,
@@ -383,7 +383,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             reverse("wagtailadmin_pages:edit", args=[page.id]),
             icon_name="edit",
             attrs={
-                "title": _("Edit '%(title)s'")
+                "aria-label": _("Edit '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=10,
@@ -394,7 +394,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             reverse("wagtailadmin_pages:move", args=[page.id]),
             icon_name="arrow-right-full",
             attrs={
-                "title": _("Move page '%(title)s'")
+                "aria-label": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=20,
@@ -409,7 +409,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             url,
             icon_name="copy",
             attrs={
-                "title": _("Copy page '%(title)s'")
+                "aria-label": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=30,
@@ -445,7 +445,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             url,
             icon_name="bin",
             attrs={
-                "title": _("Delete page '%(title)s'")
+                "aria-label": _("Delete page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=50,
@@ -460,7 +460,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             url,
             icon_name="download",
             attrs={
-                "title": _("Unpublish page '%(title)s'")
+                "aria-label": _("Unpublish page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=60,
@@ -473,7 +473,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             url,
             icon_name="list-ul",
             attrs={
-                "title": _("Change ordering of child pages of '%(title)s'")
+                "aria-label": _("Change ordering of child pages of '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=70,
