@@ -1615,7 +1615,7 @@ class TestGroupEditView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/groups/edit.html")
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/groups/%d/" % self.test_group.id
+        expected_url = "/admin/groups/edit/%d/" % self.test_group.id
         self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
 
     def test_nonexistant_group_redirect(self):
