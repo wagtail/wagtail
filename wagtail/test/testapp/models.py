@@ -1,6 +1,8 @@
 import datetime
 import hashlib
 import os
+import random
+import string
 import uuid
 
 from django import forms
@@ -2139,8 +2141,19 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
 
 
+def random_quotable_pk():
+    quote_chrs = '":/_#?;@&=+$,"[]<>%\n\\'
+    components = (quote_chrs, string.ascii_letters, string.digits)
+    return "".join(random.choice(components[i % len(components)]) for i in range(10))
+
+
 # Models to be registered with a ModelViewSet
 class FeatureCompleteToy(index.Indexed, models.Model):
+    strid = models.CharField(
+        max_length=255,
+        primary_key=True,
+        default=random_quotable_pk,
+    )
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
 
