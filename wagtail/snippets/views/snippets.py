@@ -1090,6 +1090,7 @@ class SnippetViewSet(ModelViewSet):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
         return [
+            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
             {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
         ]
 

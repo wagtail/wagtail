@@ -1,7 +1,7 @@
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -22,7 +22,7 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     page_title = ""
     page_subtitle = ""
     header_icon = ""
-    breadcrumbs_items = []
+    breadcrumbs_items = [{"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")}]
     template_name = "wagtailadmin/generic/base.html"
 
     def get_page_title(self):

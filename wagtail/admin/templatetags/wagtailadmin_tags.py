@@ -67,8 +67,6 @@ register.filter("naturaltime", naturaltime)
 
 @register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
 def breadcrumbs(items, is_expanded=False, classname=None):
-    # Prepend the Home item to link to the admin dashboard
-    items = [{"url": reverse("wagtailadmin_home"), "label": _("Home")}] + items
     return {"items": items, "is_expanded": is_expanded, "classname": classname}
 
 

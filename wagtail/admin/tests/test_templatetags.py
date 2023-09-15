@@ -676,7 +676,6 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
     """
 
     def assertItemsRendered(self, items, soup):
-        items = [{"label": "Home", "url": "/admin/"}] + items
         rendered_items = soup.select("ol > li")
         arrows = soup.select("ol > li > svg")
         self.assertEqual(len(rendered_items), len(items))
