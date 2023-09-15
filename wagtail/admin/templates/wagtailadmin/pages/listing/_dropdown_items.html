@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags %}
 
 {% for button in buttons %}
-    <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="{{ button.classes|join:' ' }}">
+    <a href="{{ button.url }}" aria-label="{{ button.aria_label }}" class="{{ button.classes|join:' ' }}">
         {% if button.icon_name %}
             {% icon name=button.icon_name %}
         {% endif %}

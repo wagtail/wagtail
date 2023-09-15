@@ -17,16 +17,24 @@ class Button:
         self.classes = classes
         self.icon_name = icon_name
         self.attrs = attrs.copy()
+        # if a 'title' attribute has been passed, correct that to aria-label
+        # as that's what will be picked up in renderings that don't use button.render
+        # directly (e.g. _dropdown_items.html)
+        if "title" in self.attrs and "aria-label" not in self.attrs:
+            self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
 
     def render(self):
         attrs = {
             "href": self.url,
             "class": " ".join(sorted(self.classes)),
-            "title": self.label,
         }
         attrs.update(self.attrs)
         return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
+
+    @property
+    def aria_label(self):
+        return self.attrs.get("aria-label", "")
 
     def __str__(self):
         return self.render()
@@ -90,7 +98,7 @@ class BaseDropdownMenuButton(Button):
         return {
             "buttons": self.dropdown_buttons,
             "label": self.label,
-            "title": self.attrs.get("title"),
+            "title": self.aria_label,
             "classes": self.classes,
             "icon_name": self.icon_name,
         }
