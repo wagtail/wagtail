@@ -60,7 +60,7 @@
                             {% i18n_enabled as show_locale_labels %}
                             {% if show_locale_labels %}
                                 {% locale_label_from_id page_type.last_edited_page.locale_id as locale_label %}
-                                <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                {% status locale_label classname="w-status--label" %}
                             {% endif %}
                         {% else %}
                             -
