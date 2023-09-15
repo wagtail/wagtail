@@ -413,8 +413,8 @@ class ModelViewSet(ViewSet):
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
             path("new/", self.add_view, name="add"),
-            path("<int:pk>/", self.edit_view, name="edit"),
-            path("<int:pk>/delete/", self.delete_view, name="delete"),
+            path("edit/<str:pk>/", self.edit_view, name="edit"),
+            path("delete/<str:pk>/", self.delete_view, name="delete"),
         ]
 
     def on_register(self):

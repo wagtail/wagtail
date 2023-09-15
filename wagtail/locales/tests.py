@@ -128,7 +128,7 @@ class TestLocaleEditView(WagtailTestUtils, TestCase):
         )
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/locales/%d/" % self.english.id
+        expected_url = "/admin/locales/edit/%d/" % self.english.id
         self.assertEqual(url_finder.get_edit_url(self.english), expected_url)
 
     def test_invalid_language(self):

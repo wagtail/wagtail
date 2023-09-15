@@ -196,7 +196,7 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailsites/edit.html")
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/sites/%d/" % self.localhost.id
+        expected_url = "/admin/sites/edit/%d/" % self.localhost.id
         self.assertEqual(url_finder.get_edit_url(self.localhost), expected_url)
 
     def test_nonexistant_redirect(self):
