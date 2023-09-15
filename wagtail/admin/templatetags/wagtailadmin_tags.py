@@ -487,20 +487,7 @@ def page_header_buttons(context, page, page_perms):
 
     buttons.sort()
     return {
-        "page": page,
         "buttons": buttons,
-        "title": _("Actions"),
-        "icon_name": "dots-horizontal",
-        "button_classes": [
-            "w-p-0",
-            "w-w-12",
-            "w-h-slim-header",
-            "hover:w-scale-110",
-            "w-transition",
-            "w-outline-offset-inside",
-            "w-relative",
-            "w-z-30",
-        ],
     }
 
 

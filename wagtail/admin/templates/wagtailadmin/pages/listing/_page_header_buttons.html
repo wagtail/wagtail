@@ -1,9 +1,8 @@
 {% load wagtailadmin_tags i18n %}
 
+{% trans "Actions" as title %}
 <nav aria-label="{{ title }}">
-    {% fragment as toggle_classname %}{{ button_classes|join:' ' }}{% endfragment %}
-
-    {% dropdown toggle_icon=icon_name toggle_aria_label=title toggle_classname=toggle_classname toggle_tooltip_offset="[0, -2]" %}
+    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=title toggle_classname="w-p-0 w-w-12 w-h-slim-header hover:w-scale-110 w-transition w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
         {% block content %}
             {% include "wagtailadmin/pages/listing/_dropdown_items.html" with buttons=buttons only %}
         {% endblock %}
