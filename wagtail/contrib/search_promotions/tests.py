@@ -78,6 +78,69 @@ class TestSearchPromotions(TestCase):
             Query.get("root page").editors_picks.last().description, "Last search pick"
         )
 
+    def test_get_most_popular(self):
+        popularQuery = Query.get("popular")
+        for i in range(5):
+            popularQuery.add_hit()
+        SearchPromotion.objects.create(
+            query=Query.get("popular"),
+            page_id=2,
+            sort_order=0,
+            description="Popular search pick",
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("uninteresting"),
+            page_id=1,
+            sort_order=2,
+            description="Uninteresting search pick",
+        )
+
+        # Check
+        self.assertEqual(Query.get_most_popular().count(), 1)
+        popular_picks = Query.get("popular").editors_picks.first()
+        self.assertEqual(
+            popular_picks.description,
+            "Popular search pick",
+        )
+        self.assertEqual(popular_picks.query.hits, 5)
+
+    def test_get_most_popular_since(self):
+        TODAY = date.today()
+        TWO_DAYS_AGO = TODAY - timedelta(days=2)
+        FIVE_DAYS_AGO = TODAY - timedelta(days=5)
+
+        popularQuery = Query.get("popular")
+        for i in range(5):
+            popularQuery.add_hit(date=FIVE_DAYS_AGO)
+
+        surpriseQuery = Query.get("surprise")
+        surpriseQuery.add_hit(date=TODAY)
+        surpriseQuery.add_hit(date=TWO_DAYS_AGO)
+        surpriseQuery.add_hit(date=FIVE_DAYS_AGO)
+        SearchPromotion.objects.create(
+            query=Query.get("popular"),
+            page_id=2,
+            sort_order=0,
+            description="Popular search pick",
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("surprise"),
+            page_id=2,
+            sort_order=2,
+            description="Surprising search pick",
+        )
+
+        # Check
+        most_popular_queries = Query.get_most_popular(date_since=TWO_DAYS_AGO)
+        self.assertEqual(most_popular_queries.count(), 1)
+        editors_picks = Query.get("surprise").editors_picks
+        surprise_picks = editors_picks.first()
+        self.assertEqual(
+            surprise_picks.description,
+            "Surprising search pick",
+        )
+        self.assertEqual(surprise_picks.query.hits, 3)
+
 
 class TestGetSearchPromotionsTemplateTag(TestCase):
     def test_get_search_promotions_template_tag(self):

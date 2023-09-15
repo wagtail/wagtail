@@ -56,10 +56,13 @@ class Query(models.Model):
 
     @classmethod
     def get_most_popular(cls, date_since=None):
-        # TODO: Implement date_since
+        objects = cls.objects.filter(daily_hits__isnull=False)
+
+        if date_since:
+            objects = objects.filter(daily_hits__date__gte=date_since)
+
         return (
-            cls.objects.filter(daily_hits__isnull=False)
-            .annotate(_hits=models.Sum("daily_hits__hits"))
+            objects.annotate(_hits=models.Sum("daily_hits__hits"))
             .distinct()
             .order_by("-_hits")
         )
