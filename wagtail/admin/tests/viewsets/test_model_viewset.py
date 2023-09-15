@@ -609,10 +609,10 @@ class TestOrdering(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         objects = [
-            FeatureCompleteToy(name="CCCCCCCCCC"),
-            FeatureCompleteToy(name="AAAAAAAAAA"),
-            FeatureCompleteToy(name="DDDDDDDDDD"),
-            FeatureCompleteToy(name="BBBBBBBBBB"),
+            FeatureCompleteToy(name="CCCCCCCCCC", strid="1"),
+            FeatureCompleteToy(name="AAAAAAAAAA", strid="2"),
+            FeatureCompleteToy(name="DDDDDDDDDD", strid="3"),
+            FeatureCompleteToy(name="BBBBBBBBBB", strid="4"),
         ]
         FeatureCompleteToy.objects.bulk_create(objects)
 
@@ -695,7 +695,7 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
         self.assertItemsRendered(items, response)
 
     def test_edit_view(self):
-        edit_url = reverse("feature_complete_toy:edit", args=(self.object.pk,))
+        edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
         response = self.client.get(edit_url)
         items = [
             {
@@ -709,7 +709,10 @@ class TestBreadcrumbs(WagtailTestUtils, TestCase):
         self.assertItemsRendered(items, response)
 
     def test_delete_view(self):
-        delete_url = reverse("feature_complete_toy:delete", args=(self.object.pk,))
+        delete_url = reverse(
+            "feature_complete_toy:delete",
+            args=(quote(self.object.pk),),
+        )
         response = self.client.get(delete_url)
         soup = self.get_soup(response.content)
         breadcrumbs = soup.select_one('[data-controller="w-breadcrumbs"]')
