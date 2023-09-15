@@ -39,7 +39,7 @@ from wagtail.admin.utils import (
     get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
-from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
     camelcase_to_underscore,
     escape_script,
@@ -540,19 +540,19 @@ def bulk_action_choices(context, app_label, model_name):
             label=_("More"),
             attrs={"title": _("More bulk actions")},
             button_classes={"button", "button-secondary", "button-small"},
-            buttons_data=[
-                {
-                    "label": action.display_name,
-                    "url": reverse(
+            buttons=[
+                Button(
+                    label=action.display_name,
+                    url=reverse(
                         "wagtail_bulk_action",
                         args=[app_label, model_name, action.action_type],
                     )
                     + "?"
                     + urlencode({"next": next_url}),
-                    "attrs": {"aria-label": action.aria_label},
-                    "priority": action.action_priority,
-                    "classes": {"bulk-action-btn"},
-                }
+                    attrs={"aria-label": action.aria_label},
+                    priority=action.action_priority,
+                    classes={"bulk-action-btn"},
+                )
                 for action in bulk_action_more_list
             ],
         )
