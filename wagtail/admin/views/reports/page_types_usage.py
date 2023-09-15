@@ -56,7 +56,7 @@ class LocaleFilter(django_filters.ChoiceFilter):
             return _annotate_last_edit_info(qs)
 
 
-class PageTypesReportFilterSet(WagtailFilterSet):
+class PageTypesUsageReportFilterSet(WagtailFilterSet):
     page_locale = LocaleFilter(
         label=_("Locale"),
         choices=_get_locale_choices,
@@ -70,7 +70,7 @@ class PageTypesReportFilterSet(WagtailFilterSet):
         fields = ["page_locale"]
 
 
-class PageTypesReportView(ReportView):
+class PageTypesUsageReportView(ReportView):
     template_name = "wagtailadmin/reports/page_types.html"
     title = _("Page types usage")
     header_icon = "doc-empty-inverse"
@@ -83,7 +83,7 @@ class PageTypesReportView(ReportView):
 
     def get_filterset_class(self):
         if self.i18n_enabled:
-            self.filterset_class = PageTypesReportFilterSet
+            self.filterset_class = PageTypesUsageReportFilterSet
         return super().get_filterset_class()
 
     def user_id_to_python(self, user_id):

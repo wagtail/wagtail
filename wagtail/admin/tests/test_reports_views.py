@@ -12,7 +12,6 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.admin.views.reports import page_types
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -22,6 +21,7 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import EventPage, EventPageSpeaker, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.wagtail.admin.views.reports import page_types_usage
 
 
 class TestLockedPagesView(WagtailTestUtils, TestCase):
@@ -539,7 +539,7 @@ class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, self.home_page.title)
 
 
-class PageTypesReportViewTest(WagtailTestUtils, TestCase):
+class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -569,10 +569,10 @@ class PageTypesReportViewTest(WagtailTestUtils, TestCase):
         )
 
 
-class PageTypesReportViewQuerysetTests(WagtailTestUtils, TestCase):
+class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
-        self.view = page_types.PageTypesReportView()
+        self.view = page_types_usage.PageTypesUsageReportView()
         self.view.request = RequestFactory().get(
             reverse("wagtailadmin_reports:page_types")
         )
@@ -719,7 +719,7 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         ],
     )
     def test_get_locale_choices(self):
-        choices = page_types._get_locale_choices()
+        choices = page_types_usage._get_locale_choices()
 
         expected_choices = [
             ("en", "English"),
