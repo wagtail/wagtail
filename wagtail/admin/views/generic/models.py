@@ -816,6 +816,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
+    index_url_name = None
     edit_url_name = None
     delete_url_name = None
     fields = []
@@ -833,6 +834,21 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        edit_url = self.get_edit_url()
+        if edit_url:
+            items.append({"url": edit_url, "label": get_latest_str(self.object)})
+        items.append({"label": _("Inspect")})
+        return self.breadcrumbs_items + items
 
     def get_fields(self):
         fields = self.fields or [
