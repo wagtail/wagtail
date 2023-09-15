@@ -26,6 +26,7 @@ Changelog
  * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
  * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
  * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
+ * Add breadcrumbs to generic model views (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
