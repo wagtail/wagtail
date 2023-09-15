@@ -456,7 +456,6 @@ class HistoryView(history.HistoryView):
 
 class InspectView(generic.InspectView):
     view_name = "inspect"
-    any_permission_required = ["add", "change", "delete"]
 
 
 class PreviewOnCreateView(PreviewOnCreate):
@@ -573,25 +572,6 @@ class SnippetViewSet(ModelViewSet):
 
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
-
-    #: Whether to enable the inspect view. Defaults to ``False``.
-    inspect_view_enabled = False
-
-    #: The model fields or attributes to display in the inspect view.
-    #:
-    #: If the field has a corresponding :meth:`~django.db.models.Model.get_FOO_display`
-    #: method on the model, the method's return value will be used instead.
-    #:
-    #: If you have ``wagtail.images`` installed, and the field's value is an instance of
-    #: ``wagtail.images.models.AbstractImage``, a thumbnail of that image will be rendered.
-    #:
-    #: If you have ``wagtail.documents`` installed, and the field's value is an instance of
-    #: ``wagtail.docs.models.AbstractDocument``, a link to that document will be rendered,
-    #: along with the document title, file extension and size.
-    inspect_view_fields = []
-
-    #: The fields to exclude from the inspect view.
-    inspect_view_fields_exclude = []
 
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
@@ -791,15 +771,6 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_templates(
                 "usage", fallback=self.usage_view_class.template_name
             ),
-        )
-
-    @property
-    def inspect_view(self):
-        return self.construct_view(
-            self.inspect_view_class,
-            template_name=self.get_inspect_template(),
-            fields=self.inspect_view_fields,
-            fields_exclude=self.inspect_view_fields_exclude,
         )
 
     @property
