@@ -137,7 +137,7 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         if not issubclass(model, TranslatableMixin):
             raise Http404
 
-        object = get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
+        object = get_object_or_404(model, pk=unquote(str(self.kwargs["pk"])))
         if isinstance(object, DraftStateMixin):
             object = object.get_latest_revision_as_object()
 

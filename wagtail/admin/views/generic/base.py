@@ -67,10 +67,7 @@ class BaseObjectMixin:
         self.model_opts = self.object._meta
 
     def get_pk(self):
-        pk = self.kwargs[self.pk_url_kwarg]
-        if isinstance(pk, str):
-            return unquote(pk)
-        return pk
+        return unquote(str(self.kwargs[self.pk_url_kwarg]))
 
     def get_object(self):
         if not self.model:

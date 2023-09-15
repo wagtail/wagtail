@@ -49,7 +49,7 @@ class PreviewOnEdit(View):
         return f"{self.session_key_prefix}{unique_key}"
 
     def get_object(self):
-        obj = get_object_or_404(self.model, pk=unquote(self.kwargs["pk"]))
+        obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
         if isinstance(obj, RevisionMixin):
             obj = obj.get_latest_revision_as_object()
         return obj
@@ -148,7 +148,7 @@ class PreviewRevision(View):
     def get_object(self):
         if not issubclass(self.model, RevisionMixin):
             raise Http404
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_revision_object(self):
         revision = get_object_or_404(self.object.revisions, id=self.revision_id)
