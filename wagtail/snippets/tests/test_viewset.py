@@ -41,6 +41,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestIncorrectRegistration(SimpleTestCase):
@@ -1354,3 +1355,90 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         self.assertContains(response, "Test document")
         self.assertContains(response, "TXT")
         self.assertContains(response, f"{document.file.size}\xa0bytes")
+
+
+class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
+        {"label": "Snippets", "url": "/admin/snippets/"},
+    ]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Hello World")
+
+    def test_index_view(self):
+        response = self.client.get(self.get_url("list"))
+        items = [{"label": "Full-featured snippets"}]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_add_view(self):
+        response = self.client.get(self.get_url("add"))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"label": "New: Full-featured snippet"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_edit_view(self):
+        response = self.client.get(self.get_url("edit", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"label": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_delete_view(self):
+        response = self.client.get(self.get_url("delete", args=(self.object.pk,)))
+        self.assertBreadcrumbsNotRendered(response.content)
+
+    def test_history_view(self):
+        response = self.client.get(self.get_url("history", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"label": "History"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view(self):
+        response = self.client.get(self.get_url("usage", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"label": "Usage"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_inspect_view(self):
+        response = self.client.get(self.get_url("inspect", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"label": "Inspect"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)

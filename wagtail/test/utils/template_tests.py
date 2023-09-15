@@ -6,6 +6,8 @@ from .wagtail_tests import WagtailTestUtils
 
 
 class AdminTemplateTestUtils:
+    base_breadcrumb_items = [{"label": "Home", "url": "/admin/"}]
+
     def assertBreadcrumbsItemsRendered(
         self: Union[WagtailTestUtils, SimpleTestCase],
         items: List[Dict[str, str]],
@@ -21,7 +23,7 @@ class AdminTemplateTestUtils:
             1,
             f"Expected one breadcrumbs component to be rendered, found {num_breadcrumbs}",
         )
-        items = [{"label": "Home", "url": "/admin/"}] + items
+        items = self.base_breadcrumb_items + items
         rendered_items = breadcrumbs[0].select("ol > li")
         num_rendered_items = len(rendered_items)
         num_items = len(items)
