@@ -90,7 +90,7 @@ class ExplorerMenuItem(MenuItem):
                 self.url,
                 start_page.id,
                 icon_name=self.icon_name,
-                classnames=self.classnames,
+                classname=self.classname,
             )
         else:
             return super().render_component(request)
@@ -114,7 +114,7 @@ class SettingsMenuItem(SubmenuMenuItem):
             self.label,
             self.menu.render_component(request),
             icon_name=self.icon_name,
-            classnames=self.classnames,
+            classname=self.classname,
             footer_text="Wagtail v" + __version__,
         )
 

@@ -73,7 +73,7 @@ def register_kittens_menu_item():
     return KittensMenuItem(
         "Kittens!",
         "http://www.tomroyal.com/teaandkittens/",
-        classnames="kitten--test",
+        classname="kitten--test",
         name="kittens",
         icon_name="kitten",
         attrs={"data-is-custom": "true"},
@@ -95,7 +95,7 @@ def register_custom_search_area():
     return MyCustomSearchArea(
         "My Search",
         "/customsearch/",
-        classnames="search--custom-class",
+        classname="search--custom-class",
         icon_name="custom",
         attrs={"is-custom": "true"},
         order=10000,
