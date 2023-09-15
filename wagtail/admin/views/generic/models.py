@@ -862,7 +862,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         self.object = self.get_object()
 
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_page_subtitle(self):
         return str(self.object)
@@ -985,7 +985,7 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         self.object = self.get_object()
 
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_edit_handler(self):
         if self.edit_handler:
@@ -1092,7 +1092,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     def get_object(self, queryset=None):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_usage(self):
         return ReferenceIndex.get_grouped_references_to(self.object)
@@ -1198,7 +1198,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
     def get_object(self, queryset=None):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_revision(self):
         return get_object_or_404(self.object.revisions, id=self.revision_id)

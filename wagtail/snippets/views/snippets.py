@@ -452,7 +452,7 @@ class HistoryView(ReportView):
         super().setup(request, *args, **kwargs)
 
     def get_object(self):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
+        object = get_object_or_404(self.model, pk=unquote(str(self.pk)))
         if isinstance(object, DraftStateMixin):
             return object.get_latest_revision_as_object()
         return object
