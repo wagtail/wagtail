@@ -57,6 +57,7 @@ Changelog
  * Maintenance: Replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
  * Maintenance: Migrate all other `data-tippy` HTML attribute usage to the Stimulus data-*-value attributes for w-tooltip & w-dropdown (Subhajit Ghosh, LB (Ben) Johnston)
  * Maintenance: Replace `@total_ordering` usage with comparison functions implementation (Virag Jain)
+ * Maintenance: Replace `<script type="text/django-form-template"><-/script>` template approach with HTML `template` elements in InlinePanel and expanding formset (Mansi Gundre, Subhajit Ghosh, LB (Ben) Johnston)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
