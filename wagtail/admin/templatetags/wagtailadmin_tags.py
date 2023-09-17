@@ -223,7 +223,15 @@ def classnames(*classes):
     Usage <div class="{% classnames "w-base" classname active|yesno:"w-base--active," any_other_var %}"></div>
     Returns any args as a space-separated joined string for using in HTML class names.
     """
-    return " ".join([classname.strip() for classname in classes if classname])
+
+    flattened = []
+    for classname in classes:
+        if isinstance(classname, str):
+            flattened.append(classname)
+        elif hasattr(classname, "__iter__"):
+            flattened.extend(classname)
+
+    return " ".join([classname.strip() for classname in flattened if classname])
 
 
 @register.simple_tag(takes_context=True)
