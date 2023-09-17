@@ -5,6 +5,7 @@ import re
 import unicodedata
 from hashlib import md5
 from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
+from warnings import warn
 
 from anyascii import anyascii
 from django.apps import apps
@@ -22,6 +23,8 @@ from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
+
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -98,6 +101,10 @@ def escape_script(text):
     accidentally closing it. A '-' character will be inserted for each time it is escaped:
     `<-/script>`, `<--/script>` etc.
     """
+    warn(
+        "The `escape_script` hook is deprecated - use `template` elements instead.",
+        category=RemovedInWagtail60Warning,
+    )
     return SCRIPT_RE.sub(r"<-\1/script>", text)
 
 

@@ -314,6 +314,10 @@ class EscapeScriptNode(template.Node):
 
     def __init__(self, nodelist):
         super().__init__()
+        warn(
+            "The `escapescript` template tag is deprecated - use `template` elements instead.",
+            category=RemovedInWagtail60Warning,
+        )
         self.nodelist = nodelist
 
     def render(self, context):
