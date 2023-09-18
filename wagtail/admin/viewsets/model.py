@@ -52,6 +52,9 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the inspect view; must be a subclass of ``wagtail.admin.views.generic.InspectView``.
     inspect_view_class = generic.InspectView
 
+    # Breadcrumbs can be turned off until we have a design that can be consistently applied
+    _show_breadcrumbs = True
+
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
 
@@ -119,6 +122,7 @@ class ModelViewSet(ViewSet):
                 "edit_url_name": self.get_url_name("edit"),
                 "delete_url_name": self.get_url_name("delete"),
                 "header_icon": self.icon,
+                "_show_breadcrumbs": self._show_breadcrumbs,
                 **kwargs,
             }
         )
