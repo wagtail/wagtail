@@ -31,6 +31,7 @@ concurrency:
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
 # - elasticsearch 6, django 3.2, python 3.8, postgres
 # - elasticsearch 7, django 4.1, python 3.8, postgres
+# - opensearch 2, django 4.1, python 3.9, sqlite
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -410,6 +411,51 @@ jobs:
           name: coverage-data
           path: .coverage.*
 
+  test-sqlite-opensearch2:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        include:
+          - python: '3.9'
+            django: 'Django>=4.1,<4.2'
+            experimental: false
+
+    steps:
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - uses: ankane/setup-opensearch@v1
+        with:
+          opensearch-version: 2
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[testing]' --config-settings editable_mode=strict
+          pip install "${{ matrix.django }}"
+          pip install "elasticsearch==7.13.4"
+          pip install certifi
+      - name: Test
+        run: |
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+        env:
+          DATABASE_ENGINE: django.db.backends.sqlite3
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
   coverage:
     needs:
       - test-sqlite
@@ -419,6 +465,7 @@ jobs:
       - test-sqlite-elasticsearch8
       - test-postgres-elasticsearch6
       - test-postgres-elasticsearch7
+      - test-sqlite-opensearch2
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
