@@ -724,7 +724,6 @@ class SnippetViewSet(ModelViewSet):
                 "index_url_name": self.get_url_name("list"),
                 "index_results_url_name": self.get_url_name("list_results"),
                 "usage_url_name": self.get_url_name("usage"),
-                "history_url_name": self.get_url_name("history"),
                 "lock_url_name": self.get_url_name("lock"),
                 "unlock_url_name": self.get_url_name("unlock"),
                 "revisions_view_url_name": self.get_url_name("revisions_view"),
@@ -770,14 +769,6 @@ class SnippetViewSet(ModelViewSet):
             template_name=self.get_templates(
                 "usage", fallback=self.usage_view_class.template_name
             ),
-        )
-
-    @property
-    def history_view(self):
-        return self.construct_view(
-            self.history_view_class,
-            template_name=self.get_history_template(),
-            header_icon="history",
         )
 
     @property

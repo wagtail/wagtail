@@ -11,6 +11,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic import history
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -41,6 +42,9 @@ class ModelViewSet(ViewSet):
 
     #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
+
+    #: The view class to use for the history view; must be a subclass of ``wagtail.admin.views.generic.history.HistoryView``.
+    history_view_class = history.HistoryView
 
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
@@ -84,6 +88,7 @@ class ModelViewSet(ViewSet):
                 "permission_policy": self.permission_policy,
                 "index_url_name": self.get_url_name("index"),
                 "index_results_url_name": self.get_url_name("index_results"),
+                "history_url_name": self.get_url_name("history"),
                 "add_url_name": self.get_url_name("add"),
                 "edit_url_name": self.get_url_name("edit"),
                 "delete_url_name": self.get_url_name("delete"),
@@ -126,6 +131,13 @@ class ModelViewSet(ViewSet):
     def get_delete_view_kwargs(self, **kwargs):
         return {
             "template_name": self.delete_template_name,
+            **kwargs,
+        }
+
+    def get_history_view_kwargs(self, **kwargs):
+        return {
+            "template_name": self.history_template_name,
+            "header_icon": "history",
             **kwargs,
         }
 
@@ -184,6 +196,12 @@ class ModelViewSet(ViewSet):
             return redirect(self.get_url_name("delete"), pk, permanent=True)
 
         return redirect_to_delete
+
+    @property
+    def history_view(self):
+        return self.construct_view(
+            self.history_view_class, **self.get_history_view_kwargs()
+        )
 
     def get_templates(self, name="index", fallback=""):
         """
@@ -275,6 +293,21 @@ class ModelViewSet(ViewSet):
         return self.get_templates(
             "confirm_delete",
             fallback=self.delete_view_class.template_name,
+        )
+
+    @cached_property
+    def history_template_name(self):
+        """
+        A template to be used when rendering ``history_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``history.html``
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
+        ``history_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "history",
+            fallback=self.history_view_class.template_name,
         )
 
     @cached_property
@@ -449,6 +482,7 @@ class ModelViewSet(ViewSet):
             path("new/", self.add_view, name="add"),
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
+            path("history/<str:pk>/", self.history_view, name="history"),
             # RemovedInWagtail60Warning: Remove legacy URL patterns
         ] + self._legacy_urlpatterns
 
