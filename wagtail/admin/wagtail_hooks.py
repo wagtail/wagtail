@@ -51,7 +51,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import (
@@ -222,17 +222,6 @@ def register_workflow_tasks_menu_item():
 
 @hooks.register("register_page_listing_buttons")
 def page_listing_buttons(page, page_perms, next_url=None):
-    if page_perms.can_edit():
-        yield PageListingButton(
-            _("Edit"),
-            reverse("wagtailadmin_pages:edit", args=[page.id]),
-            attrs={
-                "aria-label": _("Edit '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=10,
-        )
-
     yield ButtonWithDropdownFromHook(
         "",
         hook_name="register_page_listing_more_buttons",
@@ -252,6 +241,18 @@ def page_listing_buttons(page, page_perms, next_url=None):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
+    if page_perms.can_edit():
+        yield Button(
+            _("Edit"),
+            reverse("wagtailadmin_pages:edit", args=[page.id]),
+            icon_name="edit",
+            attrs={
+                "aria-label": _("Edit '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=2,
+        )
+
     if page.has_unpublished_changes and page.is_previewable():
         yield Button(
             _("View draft"),
