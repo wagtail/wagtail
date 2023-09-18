@@ -555,6 +555,7 @@ class EditView(
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
+    history_url_name = None
     page_title = gettext_lazy("Editing")
     context_object_name = None
     template_name = "wagtailadmin/generic/edit.html"
@@ -612,6 +613,10 @@ class EditView(
     def get_delete_url(self):
         if self.delete_url_name:
             return reverse(self.delete_url_name, args=(quote(self.object.pk),))
+
+    def get_history_url(self):
+        if self.history_url_name:
+            return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get_success_url(self):
         if not self.index_url_name:
@@ -689,6 +694,7 @@ class EditView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["action_url"] = self.get_edit_url()
+        context["history_url"] = self.get_history_url()
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
