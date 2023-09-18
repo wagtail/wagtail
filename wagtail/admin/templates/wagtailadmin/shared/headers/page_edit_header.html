@@ -19,15 +19,8 @@
 
     {# Page history #}
     {% if page.get_latest_revision %}
-        <a href="{% url 'wagtailadmin_pages:history' page.id %}"
-            class="{{ nav_icon_button_classes }}"
-            aria-label="{% trans 'History' %}"
-            data-controller="w-tooltip"
-            data-w-tooltip-content-value="{% trans 'History' %}"
-            data-w-tooltip-offset-value="[0, 0]"
-        >
-            {% icon name="history" classname=nav_icon_classes %}
-        </a>
+        {% url 'wagtailadmin_pages:history' page.id as history_url %}
+        {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
     {% endif %}
 
     {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page_for_status %}
