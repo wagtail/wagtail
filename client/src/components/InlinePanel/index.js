@@ -209,6 +209,29 @@ export class InlinePanel extends ExpandingFormset {
     );
   }
 
+  /**
+   * Add tabindex -1 into newly created form if attr not present and
+   * remove attr from old forms on blur event, if not present previously.
+   * Always scroll and then focus on the element.
+   */
+  initialFocus($node) {
+    if (!$node || !$node.length) return;
+
+    // If element does not already have tabindex, set it
+    // then ensure we remove after blur (when it loses focus).
+    if (!$node.attr('tabindex')) {
+      $node.attr('tabindex', -1);
+      $node.one('blur', () => {
+        if ($node.attr('tabindex') === '-1') {
+          $node.removeAttr('tabindex');
+        }
+      });
+    }
+
+    $node[0].scrollIntoView({ behavior: 'smooth' });
+    $node.focus();
+  }
+
   addForm(opts = {}) {
     /*
     Supported opts:
@@ -243,5 +266,7 @@ export class InlinePanel extends ExpandingFormset {
       if (this.opts.onAdd) this.opts.onAdd(formIndex);
       if (this.opts.onInit) this.opts.onInit(formIndex);
     }
+
+    this.initialFocus($(`#inline_child_${newChildPrefix}-panel-content`));
   }
 }

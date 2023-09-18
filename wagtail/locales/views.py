@@ -49,7 +49,6 @@ class IndexView(generic.IndexView):
 class CreateView(generic.CreateView):
     page_title = gettext_lazy("Add locale")
     success_message = gettext_lazy("Locale '%(object)s' created.")
-    template_name = "wagtaillocales/create.html"
 
 
 class EditView(generic.EditView):
@@ -57,7 +56,6 @@ class EditView(generic.EditView):
     error_message = gettext_lazy("The locale could not be saved due to errors.")
     delete_item_label = gettext_lazy("Delete locale")
     context_object_name = "locale"
-    template_name = "wagtaillocales/edit.html"
     queryset = Locale.all_objects.all()
 
 
@@ -65,7 +63,6 @@ class DeleteView(generic.DeleteView):
     success_message = gettext_lazy("Locale '%(object)s' deleted.")
     page_title = gettext_lazy("Delete locale")
     confirmation_message = gettext_lazy("Are you sure you want to delete this locale?")
-    template_name = "wagtaillocales/confirm_delete.html"
     queryset = Locale.all_objects.all()
 
     def can_delete(self, locale):
@@ -100,11 +97,14 @@ class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
     permission_policy = locale_permission_policy
+    add_to_reference_index = False
 
     index_view_class = IndexView
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
+
+    template_prefix = "wagtaillocales/"
 
     def get_form_class(self, for_update=False):
         return LocaleForm

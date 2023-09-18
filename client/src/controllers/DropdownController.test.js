@@ -16,7 +16,7 @@ describe('DropdownController', () => {
     application = Application.start();
     application.register('w-dropdown', DropdownController);
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     // set all animation durations to 0 so that tests can ignore animation delays
     // Tippy relies on transitionend which is not yet supported in JSDom
@@ -84,5 +84,25 @@ describe('DropdownController', () => {
     dropdownElement.dispatchEvent(new CustomEvent('custom:hide'));
 
     expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+  });
+
+  it('should support an offset value passed to tippy.js', async () => {
+    application?.stop();
+    document
+      .querySelector('div')
+      .setAttribute('data-w-dropdown-offset-value', '[12,24]');
+
+    application = Application.start();
+    application = Application.start();
+    application.register('w-dropdown', DropdownController);
+
+    await Promise.resolve();
+
+    const tippy = application.getControllerForElementAndIdentifier(
+      document.querySelector('div'),
+      'w-dropdown',
+    ).tippy;
+
+    expect(tippy.props).toHaveProperty('offset', [12, 24]);
   });
 });

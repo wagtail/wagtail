@@ -21,14 +21,12 @@
     - `action_icon` - icon for the 'action' button, default is 'plus'
     - `base_actions` - base actions to appear before the main action
     - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
-    - `breadcrumb` - Custom breadcrumbs content as a variable, displayed in place of breadcrumb block before the header content
     - `heading` - Replaces the header `h1` completely with custom variable content
     - `search` - An alternative search content variable displayed if provided and search_url url is not present
     - `extra_rows` - Shown at the end of the header container
 
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
-    {% block breadcrumb %}{{ breadcrumb }}{% endblock %}
     <div class="row">
         <div class="left">
             <div class="col">

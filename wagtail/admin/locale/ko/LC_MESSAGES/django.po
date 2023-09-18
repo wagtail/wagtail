@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -327,9 +327,6 @@ msgstr "이 화면 안의 모든 %(objects)s 물건이 선택됨"
 msgid "All items in listing selected"
 msgstr "목록 안의 모든 물건이 선택됨"
 
-msgid "Page title"
-msgstr "페이지 제목"
-
 msgid "For search engines"
 msgstr "엔진을 검색하기 위해"
 
@@ -344,6 +341,12 @@ msgstr "홍보"
 
 msgid "Settings"
 msgstr "설정"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Page title"
+msgstr "페이지 제목"
 
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"
@@ -621,9 +624,6 @@ msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 
 
 msgid "Your locked pages"
 msgstr "잠긴 페이지"
-
-msgid "Title"
-msgstr "제목"
 
 msgid "Locked at"
 msgstr "잠긴 시간:"
@@ -1135,13 +1135,6 @@ msgid "Would you still like to publish this page?"
 msgstr "여전히 이 페이지를 게시하길 원하십니까?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "사용 중인 페이지들: %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "사용한 페이지들"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "%(title)s 복사"
 
@@ -1203,15 +1196,6 @@ msgstr "기록 입장이 확인되지 않음"
 msgid "Exploring %(title)s"
 msgstr "%(title)s 탐색"
 
-msgid "Select all pages in listing"
-msgstr "목록의 모든 페이지를 선택하시오."
-
-msgid "Select page"
-msgstr "페이지 선택"
-
-msgid "Drag"
-msgstr "끌기"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1251,12 +1235,8 @@ msgstr ""
 "이 위치에 대한 사이트 항목이 없습니다. 여기에 생성되는 페이지들은 어떤 URL로"
 "도 접근할 수 없습니다."
 
-msgid "No pages have been created at this location."
-msgstr "해당 위치에 생성된 페이지가 없습니다."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">만들어</a> 보는 건 어떠신가요?"
+msgid "Select all pages in listing"
+msgstr "목록의 모든 페이지를 선택하시오."
 
 msgid "This page is locked to further editing"
 msgstr "이 페이지는 추가 수정을 위해 잠겼습니다"
@@ -1268,6 +1248,18 @@ msgstr "'%(title)s' 의 하위 페이지 탐색"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' 에 대한 하위 페이지 추가"
+
+msgid "Drag"
+msgstr "끌기"
+
+msgid "Disable ordering of child pages"
+msgstr "하위 페이지들 순서 변경 기능 비활성화"
+
+msgid "Sort"
+msgstr "정렬"
+
+msgid "Enable ordering of child pages"
+msgstr "하위 페이지들 순서 변경 기능 활성화"
 
 msgid "Sites menu"
 msgstr "사이트 메뉴"
@@ -1287,18 +1279,6 @@ msgstr "다음"
 
 msgid "This page is protected from public view"
 msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니다"
-
-msgid "Disable ordering of child pages"
-msgstr "하위 페이지들 순서 변경 기능 비활성화"
-
-msgid "Sort"
-msgstr "정렬"
-
-msgid "Enable ordering of child pages"
-msgstr "하위 페이지들 순서 변경 기능 활성화"
-
-msgid "Updated"
-msgstr "업데이트됨"
 
 msgid "History"
 msgstr "자취"
@@ -1343,9 +1323,6 @@ msgstr "위로 이동"
 msgid "Move down"
 msgstr "아래로 이동"
 
-msgid "Comment notifications"
-msgstr "댓글 알림"
-
 msgid "Collection management permissions"
 msgstr "수집 관리 권한"
 
@@ -1364,11 +1341,8 @@ msgstr "찾은 페이지 없음."
 msgid "No pages match this report's criteria."
 msgstr "리포트 조건에 맞는 페이지가 없습니다."
 
-msgid "Download XLSX"
-msgstr "XLSX 다운로드"
-
-msgid "Download CSV"
-msgstr "CSV 다운로드"
+msgid "Updated"
+msgstr "업데이트됨"
 
 msgid "Locking status"
 msgstr "잠금 상태"
@@ -1428,6 +1402,12 @@ msgstr "브레드크럼"
 msgid "Root"
 msgstr "기본"
 
+msgid "Download XLSX"
+msgstr "XLSX 다운로드"
+
+msgid "Download CSV"
+msgstr "CSV 다운로드"
+
 msgid "Add comment"
 msgstr "댓글 추가"
 
@@ -1477,6 +1457,9 @@ msgstr "다른 검색결과들"
 
 msgid "Toggle side panel"
 msgstr "사이드 패널 전환"
+
+msgid "Comment notifications"
+msgstr "댓글 알림"
 
 msgid "Page Locale: "
 msgstr "현장 페이지"
@@ -1651,6 +1634,11 @@ msgstr "해당 활성 작업에 사용됨"
 msgid "Not used"
 msgstr "사용되지 않음"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "%(counter)s 추가"
+
 msgid "Assigned pages"
 msgstr "할당된 페이지"
 
@@ -1677,11 +1665,6 @@ msgstr[0] "%(counter)s페이지"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "%(step_number)s단계"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "%(counter)s 추가"
 
 #, python-format
 msgid ""
@@ -1779,6 +1762,34 @@ msgstr "모든 자취 보기"
 msgid "Compare with live version"
 msgstr "라이브 버전과 비교"
 
+msgid "More"
+msgstr "더 보기"
+
+msgid "0 minutes"
+msgstr "0분"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+msgid "Log out"
+msgstr "로그아웃"
+
+msgid "Toggle status"
+msgstr "상황이 오락가락하다"
+
+msgid "Toggle comments"
+msgstr "댓글이 오락가락하다"
+
+msgid "Comments"
+msgstr "댓글"
+
+msgid "Toggle preview"
+msgstr "미리보기가 오락가락하다"
+
+msgid "Select page"
+msgstr "페이지 선택"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1794,34 +1805,6 @@ msgid ""
 msgstr ""
 "'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 내림차순으로 정"
 "렬합니다."
-
-msgid "More"
-msgstr "더 보기"
-
-msgid "View more bulk actions"
-msgstr "대부분의 행동 보기"
-
-msgid "0 minutes"
-msgstr "0분"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
-
-msgid "Log out"
-msgstr "로그아웃"
-
-msgid "Toggle status"
-msgstr "상황이 오락가락하다"
-
-msgid "Comments"
-msgstr "댓글"
-
-msgid "Toggle comments"
-msgstr "댓글이 오락가락하다"
-
-msgid "Toggle preview"
-msgstr "미리보기가 오락가락하다"
 
 msgid "Profile"
 msgstr "프로필"
@@ -1890,6 +1873,9 @@ msgstr "%(model_name)s '%(object)s' 생성됨."
 
 msgid "Editing"
 msgstr "수정"
+
+msgid "Inspecting"
+msgstr "분석"
 
 msgid "Earliest"
 msgstr "최초"
@@ -2147,6 +2133,9 @@ msgstr "당신은 <b>%(created_at)s</b>의 이전 버전을 %(user)s에서 보�
 msgid "Page '%(page_title)s' unpublished."
 msgstr "'%(page_title)s' 페이지의 게시가 해제 되었습니다"
 
+msgid "Pages using"
+msgstr "사용한 페이지들"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -2282,10 +2271,6 @@ msgstr "하위 페이지 추가"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "'%(title)s' 페이지에 하위 페이지 추가"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr " '%(title)s'에 대한 옵션 더 보기"
 
 #, python-format
 msgid "Move page '%(title)s'"

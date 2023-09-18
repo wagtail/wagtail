@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,12 +141,6 @@ msgstr "%(name)sを検索"
 
 msgid "Search"
 msgstr "検索"
-
-msgid "Download XLSX"
-msgstr "XLSXファイルをダウンロード"
-
-msgid "Download CSV"
-msgstr "CSVをダウンロードする"
 
 msgid "Filter"
 msgstr "フィルター"

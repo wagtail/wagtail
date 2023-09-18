@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -138,6 +138,39 @@ msgstr "probíhá schvalování"
 msgid "live + in moderation"
 msgstr "publikováno + probíhá schvalování"
 
+msgid "Add/edit pages you own"
+msgstr "Přidat/Editovat vámi vlastněné stránky"
+
+msgid "Bulk delete"
+msgstr "Hromadné zrušení"
+
+msgid "Delete pages with children"
+msgstr "Rušit stránky s podstránkami"
+
+msgid "Edit"
+msgstr "Editovat"
+
+msgid "Edit any page"
+msgstr "Editovat jakoukoliv stránku"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Uzamknout/odemknout vámi uzamčené stránky"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Publish any page"
+msgstr "Možnost publikovat jakoukoliv stránku"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Unlock any page"
+msgstr "Odemknout jakoukoliv stránku"
+
 msgid "title"
 msgstr "titulek"
 
@@ -210,41 +243,11 @@ msgstr "obsah JSON"
 msgid "approved go live at"
 msgstr "povoleno publikovat:"
 
-msgid "Add/edit pages you own"
-msgstr "Přidat/Editovat vámi vlastněné stránky"
-
-msgid "Edit"
-msgstr "Editovat"
-
-msgid "Edit any page"
-msgstr "Editovat jakoukoliv stránku"
-
-msgid "Publish"
-msgstr "Publikovat"
-
-msgid "Publish any page"
-msgstr "Možnost publikovat jakoukoliv stránku"
-
-msgid "Bulk delete"
-msgstr "Hromadné zrušení"
-
-msgid "Delete pages with children"
-msgstr "Rušit stránky s podstránkami"
-
-msgid "Lock"
-msgstr "Uzamknout"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Uzamknout/odemknout vámi uzamčené stránky"
-
-msgid "Unlock"
-msgstr "Odemknout"
-
-msgid "Unlock any page"
-msgstr "Odemknout jakoukoliv stránku"
-
 msgid "group"
 msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnění"
 
 msgid "permission type"
 msgstr "typ oprávnění"
@@ -428,9 +431,6 @@ msgstr "omezení zobrazení kolekcí"
 
 msgid "collections"
 msgstr "kolekce"
-
-msgid "permission"
-msgstr "oprávnění"
 
 msgid "group collection permission"
 msgstr "skupinové oprávnění pro kolekci"

@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 from unittest import mock
 
@@ -39,6 +40,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     SingleEventPage,
     StandardIndex,
+    StreamPage,
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -1888,6 +1890,21 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # publish button should be present, but not in a <li>
         self.assertContains(response, publish_button, html=True)
         self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
+
+    def test_override_publish_action_menu_item_label(self):
+        def hook_func(menu_items, request, context):
+            for item in menu_items:
+                if item.name == "action-publish":
+                    item.label = "Foobar"
+                    break
+
+        with self.register_hook("construct_page_action_menu", hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
+            )
+
+        # publish button should have another label
+        self.assertContains(response, "Foobar")
 
     def test_edit_alias_page(self):
         alias_page = self.event_page.create_alias(update_slug="new-event-page")
@@ -3806,3 +3823,67 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # No emails should be submitted because subscriber is inactive
         self.assertEqual(len(mail.outbox), 0)
+
+
+class TestCommentOutput(WagtailTestUtils, TestCase):
+    """
+    Test that the correct set of comments is output on the edit page view
+    """
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = StreamPage(
+            title="Hello world!",
+            body=[
+                {
+                    "id": "234",
+                    "type": "product",
+                    "value": {"name": "Cuddly toy", "price": "$9.95"},
+                },
+            ],
+        )
+        self.root_page.add_child(instance=self.child_page)
+        self.child_page.save_revision().publish()
+
+        # Login
+        self.user = self.login()
+
+    def test_only_comments_with_valid_paths_are_shown(self):
+        # add some comments on self.child_page
+        Comment.objects.create(
+            user=self.user,
+            page=self.child_page,
+            text="A test comment",
+            contentpath="title",
+        )
+        Comment.objects.create(
+            user=self.user,
+            page=self.child_page,
+            text="A comment on a field that doesn't exist",
+            contentpath="sillytitle",
+        )
+        Comment.objects.create(
+            user=self.user,
+            page=self.child_page,
+            text="This is quite expensive",
+            contentpath="body.234.price",
+        )
+        Comment.objects.create(
+            user=self.user,
+            page=self.child_page,
+            text="A comment on a block that doesn't exist",
+            contentpath="body.234.colour",
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
+        )
+        soup = self.get_soup(response.content)
+        comments_data_json = soup.select_one("#comments-data").string
+        comments_data = json.loads(comments_data_json)
+        comment_text = [comment["text"] for comment in comments_data["comments"]]
+        comment_text.sort()
+        self.assertEqual(comment_text, ["A test comment", "This is quite expensive"])

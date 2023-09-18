@@ -2,8 +2,8 @@ import datetime
 from decimal import Decimal
 
 from django import forms
+from django.db.models import Model
 from django.db.models.fields import BLANK_CHOICE_DASH
-from django.forms.fields import CallableChoiceIterator
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -22,6 +22,12 @@ from wagtail.rich_text import (
 from wagtail.telepath import Adapter, register
 
 from .base import Block
+
+try:
+    from django.utils.choices import CallableChoiceIterator
+except ImportError:
+    # DJANGO_VERSION < 5.0
+    from django.forms.fields import CallableChoiceIterator
 
 
 class FieldBlock(Block):
@@ -831,7 +837,7 @@ class ChooserBlock(FieldBlock):
         return super().clean(value)
 
     def extract_references(self, value):
-        if value is not None:
+        if value is not None and issubclass(self.model_class, Model):
             yield self.model_class, str(value.pk), "", ""
 
     class Meta:

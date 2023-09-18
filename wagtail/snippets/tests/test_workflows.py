@@ -283,26 +283,6 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestWorkflowStatus(BaseWorkflowsTestCase):
-    def setUp(self):
-        super().setUp()
-        self.object.text = "Edited!"
-        self.object.save_revision()
-        self.workflow_state = self.workflow.start(self.object, self.user)
-
-    def test_get_workflow_status(self):
-        response = self.client.get(self.get_url("workflow_status"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/workflows/workflow_status.html")
-
-        # Should show link to workflow history page
-        self.assertContains(response, self.get_url("workflow_history"))
-
-        # Should show the currently in progress workflow
-        self.assertContains(response, "Moderators approval")
-        self.assertContains(response, "In progress")
-
-
 class TestConfirmWorkflowCancellation(BaseWorkflowsTestCase):
     def setUp(self):
         super().setUp()

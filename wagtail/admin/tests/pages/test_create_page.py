@@ -2,7 +2,6 @@ import datetime
 import unittest
 from unittest import mock
 
-from bs4 import BeautifulSoup
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
@@ -1022,7 +1021,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             )
         )
 
-        html = BeautifulSoup(response.content, "html5lib")
+        html = self.get_soup(response.content)
 
         actual_attrs = html.find("input", {"name": "title"}).attrs
 

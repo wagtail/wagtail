@@ -8,7 +8,14 @@ window.comments = {
 };
 
 // Define some callbacks in global scope that can be mocked in tests
-let constructor = (_widgetName, _name, _id, _initialState) => {};
+let constructor = (
+  _widgetName,
+  _name,
+  _id,
+  _initialState,
+  _parentCapabilities,
+  _options,
+) => {};
 let setState = (_widgetName, _state) => {};
 let getState = (_widgetName) => {};
 let getValue = (_widgetName) => {};
@@ -20,13 +27,19 @@ class DummyWidgetDefinition {
     this.throwErrorOnRender = throwErrorOnRender;
   }
 
-  render(placeholder, name, id, initialState) {
+  render(placeholder, name, id, initialState, parentCapabilities, options) {
     if (this.throwErrorOnRender) {
       throw new Error('Mock rendering error');
     }
 
     const widgetName = this.widgetName;
-    constructor(widgetName, { name, id, initialState });
+    constructor(widgetName, {
+      name,
+      id,
+      initialState,
+      parentCapabilities,
+      options,
+    });
 
     $(placeholder).replaceWith(
       `<p name="${name}" id="${id}">${widgetName}</p>`,
@@ -100,6 +113,24 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
       name: 'the-prefix',
       id: 'the-prefix',
       initialState: 'Test initial state',
+      options: {
+        // Options should have been passed to the block definition
+        attributes: {
+          'aria-describedby': 'the-prefix-helptext',
+          'required': '',
+        },
+      },
+      parentCapabilities: new Map(),
+    });
+  });
+
+  test('getAttributes() returns aria-describedby and required attributes', () => {
+    const attributes = boundBlock.getAttributes();
+    expect(attributes).toEqual({
+      // Added because FieldBlockDefinition has a helpText in its meta options
+      'aria-describedby': 'the-prefix-helptext',
+      // Added because FieldBlockDefinition has required set in its meta options
+      'required': '',
     });
   });
 

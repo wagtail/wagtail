@@ -30,7 +30,7 @@ install_requires = [
     "Pillow>=9.1.0,<11.0.0",
     "beautifulsoup4>=4.8,<4.12",
     "html5lib>=0.999,<2",
-    "Willow[heif]>=1.6,<1.7",
+    "Willow[heif]>=1.6.2,<1.7",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
@@ -60,10 +60,12 @@ testing_extras = [
     "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.5.2",
-    # for validating string formats in .po translation files
+    # For validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
     "factory-boy>=3.2",
+    # For running tests in parallel
+    "tblib>=2.0,<3.0",
 ]
 
 # Documentation dependencies
@@ -72,7 +74,7 @@ documentation_extras = [
     "sphinxcontrib-spelling>=5.4.0,<6",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==6.0.0",
+    "sphinx-wagtail-theme==6.1.1",
     "myst_parser==0.18.1",
     "sphinx_copybutton>=0.5,<1.0",
 ]

@@ -10,6 +10,7 @@ from anyascii import anyascii
 from django.apps import apps
 from django.conf import settings
 from django.conf.locale import LANG_INFO
+from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.signals import setting_changed
 from django.db.models import Model
@@ -81,7 +82,7 @@ def resolve_model_string(model_string, default_app=None):
 
         return apps.get_model(app_label, model_name)
 
-    elif isinstance(model_string, type) and issubclass(model_string, Model):
+    elif isinstance(model_string, type):
         return model_string
 
     else:
@@ -560,3 +561,14 @@ class BatchCreator(BatchProcessor):
     def get_summary(self):
         opts = self.model._meta
         return f"{self.created_count}/{self.added_count} {opts.verbose_name_plural} were created successfully."
+
+
+def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
+    """
+    A modified version of `make_template_fragment_key` which varies on page and
+    site for use with `{% wagtailpagecache %}`.
+    """
+    if vary_on is None:
+        vary_on = []
+    vary_on.extend([page.cache_key, site.id])
+    return make_template_fragment_key(fragment_name, vary_on)

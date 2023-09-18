@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -363,9 +363,6 @@ msgstr "Seleccionados os %(objects)s ítems desta pantalla"
 msgid "All items in listing selected"
 msgstr "Seleccionados tódolos ítems do listado"
 
-msgid "Page title"
-msgstr "Título da páxina"
-
 msgid "For search engines"
 msgstr "Para os motores de busca"
 
@@ -380,6 +377,12 @@ msgstr "Promocionar"
 
 msgid "Settings"
 msgstr "Propiedades"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Page title"
+msgstr "Título da páxina"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: páxina non atopada"
@@ -737,9 +740,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Páxinas que bloqueaches"
-
-msgid "Title"
-msgstr "Título"
 
 msgid "Locked at"
 msgstr "Bloqueadas en"
@@ -1572,13 +1572,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Aínda quererías publicar esta páxina?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Páxinas usando %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Páxinas usando"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Copiar %(title)s"
 
@@ -1640,23 +1633,6 @@ msgstr "Non se atoparon entradas no rexistro."
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
 
-msgid "Select all pages in listing"
-msgstr "Seleccionar tódalas páxinas no listado"
-
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Pulsa intro para seleccionar un elemento, usa as flechas arriba e abaixo "
-"para mover o elemento, pulsa intro para completar o movemento ou escape para "
-"cancelar o movemento actual."
-
-msgid "Select page"
-msgstr "Seleccionar páxina"
-
-msgid "Drag"
-msgstr "Levar"
-
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
 "Pages created here will not be accessible at any URL until they are "
@@ -1698,12 +1674,8 @@ msgstr ""
 "Non hai ningún sitio para esta localización. As páxinas creadas aquí non "
 "serán accesibles en ningunha URL."
 
-msgid "No pages have been created at this location."
-msgstr "Ningunha páxina foi creada nesta localización."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "¿Por que non <a href=\"%(add_page_url)s\">crear unha</a>?"
+msgid "Select all pages in listing"
+msgstr "Seleccionar tódalas páxinas no listado"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Esta páxina está bloqueada, por ti, para seguir editando."
@@ -1718,6 +1690,18 @@ msgstr "Explorar páxinas fillas de '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Engadir páxina filla a '%(title)s'"
+
+msgid "Drag"
+msgstr "Levar"
+
+msgid "Disable ordering of child pages"
+msgstr "Deshabilitar organización de páxinas fillas"
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "Enable ordering of child pages"
+msgstr "Habilitar organización de páxinas fillas"
 
 msgid "Sites menu"
 msgstr "Menú de sitios"
@@ -1737,18 +1721,6 @@ msgstr "Seguinte"
 
 msgid "This page is protected from public view"
 msgstr "Esta páxina está protexida da vista pública"
-
-msgid "Disable ordering of child pages"
-msgstr "Deshabilitar organización de páxinas fillas"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Habilitar organización de páxinas fillas"
-
-msgid "Updated"
-msgstr "Actualizada"
 
 msgid "Confirm"
 msgstr "Confirmar"
@@ -1800,12 +1772,19 @@ msgstr "Baixar"
 msgid "Set publishing schedule"
 msgstr "Axustar adiamento de publicación"
 
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr "Elixe cando debe estar en vivo e/ou caducar este %(model_name)s"
+
 msgid "Choose when this page should go live and/or expire"
 msgstr "Escolle cándo debería esta páxina verse en vivo e/ou caducar"
 
-msgid "This publishing schedule will only take effect after you have published"
+msgid ""
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
-"Este adiamento de publicación solo será efectivo despóis de que publiques"
+"Este adiamento de publicación so terá efectos despóis de que selecciones a "
+"opción \"Publicar\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Calquera con permisos de edición pode crear adiamentos"
@@ -1815,9 +1794,6 @@ msgstr "Pero so os que teñan permisos de publicación poden facelos efectivos."
 
 msgid "Save schedule"
 msgstr "Gardar adiamento"
-
-msgid "Comment notifications"
-msgstr "Notificacións de comentario"
 
 msgid "Collection management permissions"
 msgstr "Permisos para manexo de colección"
@@ -1837,11 +1813,8 @@ msgstr "Non se atoparon páxinas."
 msgid "No pages match this report's criteria."
 msgstr "Ningunha páxina coincide cos criterios deste informe."
 
-msgid "Download XLSX"
-msgstr "Descargar XLSX"
-
-msgid "Download CSV"
-msgstr "Descargar CSV"
+msgid "Updated"
+msgstr "Actualizada"
 
 msgid "Locking status"
 msgstr "Estado de bloqueo"
@@ -1910,6 +1883,12 @@ msgstr "Raíz"
 msgid "Close dialog"
 msgstr "Pechar diálogo"
 
+msgid "Download XLSX"
+msgstr "Descargar XLSX"
+
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
 msgid "Add comment"
 msgstr "Engadir comentario"
 
@@ -1975,6 +1954,9 @@ msgstr "Permutar panel lateral"
 
 msgid "Side panel width"
 msgstr "Ancho do panel lateral"
+
+msgid "Comment notifications"
+msgstr "Notificacións de comentario"
 
 msgid "Page Locale: "
 msgstr "Rexión da páxina:"
@@ -2061,6 +2043,9 @@ msgstr "por %(user)s"
 
 msgid "View history"
 msgstr "Ver historial"
+
+msgid "Invalid schedule"
+msgstr "Adiamento inválido"
 
 msgid "Go-live:"
 msgstr "Verse en vivo:"
@@ -2272,6 +2257,15 @@ msgstr "Usado nos seguintes fluxos de traballo activos"
 msgid "Not used"
 msgstr "Non usado"
 
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s máis"
+msgstr[1] "+%(counter)s máis"
+
 msgid "Assigned pages"
 msgstr "Páxinas asignadas"
 
@@ -2290,9 +2284,6 @@ msgstr "Amosar fluxos de traballo inactivados"
 msgid "Used by"
 msgstr "Usado por"
 
-msgid "Disabled"
-msgstr "Deshabilitado"
-
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
@@ -2308,12 +2299,6 @@ msgstr[1] "%(counter)s tipos de fragmentos"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Paso %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s máis"
-msgstr[1] "+%(counter)s máis"
 
 #, python-format
 msgid ""
@@ -2416,27 +2401,11 @@ msgstr "Ver historial completo"
 msgid "Compare with live version"
 msgstr "Comparar ca versión en vivo"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
-"crecente."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
-"decrecente."
-
 msgid "More"
 msgstr "Máis"
 
-msgid "View more bulk actions"
-msgstr "Ver máis accións en masa"
+msgid "More bulk actions"
+msgstr "Máis accións en masa"
 
 msgid "0 minutes"
 msgstr "0 minutos"
@@ -2492,14 +2461,41 @@ msgid_plural "Referenced %(count)s times"
 msgstr[0] "Referenciado %(count)s vez"
 msgstr[1] "Referenciado %(count)s veces"
 
-msgid "Comments"
-msgstr "Comentarios"
-
 msgid "Toggle comments"
 msgstr "Permutar comentarios"
 
+msgid "Comments"
+msgstr "Comentarios"
+
 msgid "Toggle preview"
 msgstr "Permutar previsualización"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "Ordear por '%(label)s' en orde ascendente"
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "Ordear por '%(label)s' por orde descendente"
+
+msgid "Select page"
+msgstr "Seleccionar páxina"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
+"crecente."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
+"decrecente."
 
 msgid "Button text is empty. Use meaningful text for screen reader users."
 msgstr ""
@@ -2698,6 +2694,9 @@ msgstr "Editando"
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Seguro que queres borar este %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Inspeccionando"
 
 msgid "Earliest"
 msgstr "Primeira"
@@ -2960,6 +2959,14 @@ msgstr "Agachar accións de comentarios"
 msgid "Page history"
 msgstr "Historial da páxina"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Pulsa intro para seleccionar un elemento, usa as flechas arriba e abaixo "
+"para mover o elemento, pulsa intro para completar o movemento ou escape para "
+"cancelar o movemento actual."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "A páxina '%(page_title)s' está agora desbloqueada."
@@ -3005,6 +3012,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Páxina '%(page_title)s' non publicada."
+
+msgid "Pages using"
+msgstr "Páxinas usando"
 
 #, python-format
 msgid ""
@@ -3191,8 +3201,8 @@ msgid "Add a child page to '%(title)s' "
 msgstr "Engadir unha páxina filla a '%(title)s'"
 
 #, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Ver máis opcións para '%(title)s'"
+msgid "More options for '%(title)s'"
+msgstr "Máis opcións para '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

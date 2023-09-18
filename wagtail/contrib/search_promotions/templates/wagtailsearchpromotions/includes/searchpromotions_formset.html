@@ -16,8 +16,6 @@
     </div>
 {% endpanel %}
 
-<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% escapescript %}
-        {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=formset.empty_form only %}
-    {% endescapescript %}
-</script>
+<template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=formset.empty_form only %}
+</template>

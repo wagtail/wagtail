@@ -5,15 +5,14 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import path, re_path, reverse
+from django.urls import path, re_path, reverse, reverse_lazy
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import (
@@ -25,6 +24,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
     UserColumn,
 )
+from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
@@ -33,10 +33,9 @@ from wagtail.admin.views.generic.preview import (
     PreviewOnEdit,
     PreviewRevision,
 )
-from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -155,11 +154,7 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(
-    SpreadsheetExportMixin,
-    generic.IndexViewOptionalFeaturesMixin,
-    generic.IndexView,
-):
+class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
     delete_url_name = None
@@ -207,13 +202,6 @@ class IndexView(
             ]
 
         return context
-
-    def render_to_response(self, context, **response_kwargs):
-        if self.is_export:
-            return self.as_spreadsheet(
-                context["object_list"], self.request.GET.get("export")
-            )
-        return super().render_to_response(context, **response_kwargs)
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
@@ -407,7 +395,6 @@ class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
-    edit_url_name = None
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
@@ -490,6 +477,19 @@ class HistoryView(ReportView):
             ),
             UserColumn("user", blank_display_name="system"),
             DateColumn("timestamp", label=_("Date")),
+        ]
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {
+                "url": self.get_edit_url(self.object),
+                "label": get_latest_str(self.object),
+            },
+            {"label": _("History")},
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -600,10 +600,6 @@ class ConfirmWorkflowCancellationView(workflow.ConfirmWorkflowCancellation):
     pass
 
 
-class WorkflowStatusView(PermissionCheckedMixin, workflow.WorkflowStatus):
-    permission_required = "change"
-
-
 class WorkflowPreviewView(workflow.PreviewRevisionForTask):
     pass
 
@@ -626,77 +622,8 @@ class SnippetViewSet(ModelViewSet):
     #: The model class to be registered as a snippet with this viewset.
     model = None
 
-    #: The icon to use across the admin for this snippet type.
-    icon = "snippet"
-
-    #: Register a custom menu item for this snippet type in the admin's main menu.
-    add_to_admin_menu = False
-
-    #: Register a custom menu item for this snippet type in the admin's "Settings" menu.
-    #: This takes precedence if both ``add_to_admin_menu`` and ``add_to_settings_menu`` are set to ``True``.
-    add_to_settings_menu = False
-
-    #: The displayed label used for the menu item that appears in Wagtail's sidebar.
-    #: If unset, the title-cased version of the model's :attr:`~django.db.models.Options.verbose_name_plural` will be used.
-    menu_label = None
-
-    #: The ``name`` argument passed to the ``MenuItem`` constructor, becoming the ``name`` attribute value for that instance.
-    #: This can be useful when manipulating the menu items in a custom menu hook, e.g. :ref:`construct_main_menu`.
-    #: If unset, a slugified version of the label is used.
-    menu_name = None
-
-    #: An integer determining the order of the menu item, 0 being the first place.
-    #: If the viewset is registered within a :class:`SnippetViewSetGroup`,
-    #: this is ignored and the menu item order is determined by the order of :attr:`~SnippetViewSetGroup.items`.
-    menu_order = None
-
-    #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
-    filterset_class = None
-
-    #: A list or tuple, where each item is either:
-    #:
-    #: - The name of a field on the model;
-    #: - The name of a callable or property on the model that accepts a single parameter for the model instance; or
-    #: - An instance of the ``wagtail.admin.ui.tables.Column`` class.
-    #:
-    #: If the name refers to a database field, the ability to sort the listing by the database column will be offerred and the field's verbose name will be used as the column header.
-    #:
-    #: If the name refers to a callable or property, a ``admin_order_field`` attribute can be defined on it to point to the database column for sorting.
-    #: A ``short_description`` attribute can also be defined on the callable or property to be used as the column header.
-    #:
-    #: This list will be passed to the ``list_display`` attribute of the index view.
-    #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
-    list_display = None
-
-    #: A list or tuple, where each item is the name of model fields of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``, ``IntegerField`` or ``ForeignKey``.
-    #: Alternatively, it can also be a dictionary that maps a field name to a list of lookup expressions.
-    #: This will be passed as django-filter's ``FilterSet.Meta.fields`` attribute. See `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_ for more details.
-    #: If ``filterset_class`` is set, this attribute will be ignored.
-    list_filter = None
-
-    #: A list or tuple, where each item is the name of a field, an attribute, or a single-argument callable on the model.
-    list_export = []
-
-    #: The base file name for the exported listing, without extensions. If unset, the model's :attr:`~django.db.models.Options.db_table` will be used instead.
-    export_filename = None
-
-    #: The number of items to display per page in the index view. Defaults to 20.
-    list_per_page = 20
-
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
-
-    #: The default ordering to use for the index view. Can be a string or a list/tuple in the same format as Django's :attr:`~django.db.models.Options.ordering`.
-    ordering = None
-
-    #: The fields to use for the search in the index view.
-    #: If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
-    #: the ``search_fields`` attribute of the model will be used instead.
-    search_fields = None
-
-    #: The name of the Wagtail search backend to use for the search in the index view.
-    #: If set to a falsy value, the search will fall back to use Django's QuerySet API.
-    search_backend_name = "default"
 
     #: Whether to enable the inspect view. Defaults to ``False``.
     inspect_view_enabled = False
@@ -719,10 +646,14 @@ class SnippetViewSet(ModelViewSet):
 
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
+    #:
+    #: **Deprecated** - the preferred attribute to customise is ``url_namespace``.
     admin_url_namespace = None
 
     #: The base URL path to use for the admin views.
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
+    #:
+    #: **Deprecated** - the preferred attribute to customise is ``url_prefix``.
     base_url_path = None
 
     #: The URL namespace to use for the chooser admin views.
@@ -787,9 +718,6 @@ class SnippetViewSet(ModelViewSet):
     #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippet.views.snippets.ConfirmWorkflowCancellationView``.
     confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
 
-    #: The view class to use for rendering the workflow status modal; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowStatusView``.
-    workflow_status_view_class = WorkflowStatusView
-
     #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
     workflow_preview_view_class = WorkflowPreviewView
 
@@ -805,30 +733,8 @@ class SnippetViewSet(ModelViewSet):
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = "wagtailsnippets/snippets/"
 
-    #: The template to use for the index view.
-    index_template_name = ""
-
-    #: The template to use for the results in the index view.
-    index_results_template_name = ""
-
-    #: The template to use for the create view.
-    create_template_name = ""
-
-    #: The template to use for the edit view.
-    edit_template_name = ""
-
-    #: The template to use for the delete view.
-    delete_template_name = ""
-
-    #: The template to use for the history view.
-    history_template_name = ""
-
-    #: The template to use for the inspect view.
-    inspect_template_name = ""
-
-    def __init__(self, model=None, **kwargs):
-        # Allow model to be defined on the class, or passed in via the constructor
-        self.model = model or self.model
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
         if self.model is None:
             raise ImproperlyConfigured(
@@ -845,23 +751,25 @@ class SnippetViewSet(ModelViewSet):
         self.workflow_enabled = issubclass(self.model, WorkflowMixin)
         self.locking_enabled = issubclass(self.model, LockableMixin)
 
-        self.menu_item_is_registered = (
-            self.add_to_admin_menu or self.add_to_settings_menu
+        self.menu_item_is_registered = getattr(
+            self, "menu_item_is_registered", bool(self.menu_hook)
         )
-
-        super().__init__(
-            name=self.get_admin_url_namespace(),
-            url_prefix=self.get_admin_base_path(),
-            **kwargs,
-        )
-
-        if not self.list_display:
-            self.list_display = self.index_view_class.list_display.copy()
-            if self.draftstate_enabled:
-                self.list_display += [LiveStatusTagColumn()]
 
         # This edit handler has been bound to the model and is used for the views.
         self._edit_handler = self.get_edit_handler()
+
+    @cached_property
+    def url_prefix(self):
+        # SnippetViewSet historically allows overriding the URL prefix via the
+        # get_admin_base_path method or the admin_base_path attribute, so preserve that here
+        return self.get_admin_base_path()
+
+    @cached_property
+    def url_namespace(self):
+        # SnippetViewSet historically allows overriding the URL namespace via the
+        # get_admin_url_namespace method or the admin_url_namespace attribute,
+        # so preserve that here
+        return self.get_admin_url_namespace()
 
     @property
     def revisions_revert_view_class(self):
@@ -884,297 +792,178 @@ class SnippetViewSet(ModelViewSet):
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
-    @property
-    def index_view(self):
-        return self.index_view_class.as_view(
-            model=self.model,
-            queryset=self.get_queryset,
-            template_name=self.get_index_template(),
-            header_icon=self.icon,
-            filterset_class=self.filterset_class,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            index_results_url_name=self.get_url_name("list_results"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
-            list_filter=self.list_filter,
-            list_export=self.list_export,
-            export_filename=self.get_export_filename(),
-            paginate_by=self.list_per_page,
-            default_ordering=self.ordering,
-            search_fields=self.search_fields,
-            search_backend_name=self.search_backend_name,
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "index_url_name": self.get_url_name("list"),
+                "index_results_url_name": self.get_url_name("list_results"),
+                "usage_url_name": self.get_url_name("usage"),
+                "history_url_name": self.get_url_name("history"),
+                "lock_url_name": self.get_url_name("lock"),
+                "unlock_url_name": self.get_url_name("unlock"),
+                "revisions_view_url_name": self.get_url_name("revisions_view"),
+                "revisions_revert_url_name": self.get_url_name("revisions_revert"),
+                "revisions_compare_url_name": self.get_url_name("revisions_compare"),
+                "revisions_unschedule_url_name": self.get_url_name(
+                    "revisions_unschedule"
+                ),
+                "unpublish_url_name": self.get_url_name("unpublish"),
+                "breadcrumbs_items": self.breadcrumbs_items,
+                **kwargs,
+            }
         )
 
-    @property
-    def index_results_view(self):
-        return self.index_view_class.as_view(
-            model=self.model,
+    def get_index_view_kwargs(self, **kwargs):
+        return super().get_index_view_kwargs(
             queryset=self.get_queryset,
-            template_name=self.get_index_results_template(),
-            header_icon=self.icon,
-            filterset_class=self.filterset_class,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            index_results_url_name=self.get_url_name("list_results"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            list_display=self.list_display,
-            list_filter=self.list_filter,
-            list_export=self.list_export,
-            export_filename=self.get_export_filename(),
-            paginate_by=self.list_per_page,
-            default_ordering=self.ordering,
-            search_fields=self.search_fields,
-            search_backend_name=self.search_backend_name,
+            **kwargs,
         )
 
-    @property
-    def add_view(self):
-        return self.add_view_class.as_view(
-            model=self.model,
-            template_name=self.get_create_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
+    def get_add_view_kwargs(self, **kwargs):
+        return super().get_add_view_kwargs(
             panel=self._edit_handler,
-            form_class=self.get_form_class(),
-            index_url_name=self.get_url_name("list"),
-            add_url_name=self.get_url_name("add"),
-            edit_url_name=self.get_url_name("edit"),
             preview_url_name=self.get_url_name("preview_on_add"),
+            **kwargs,
         )
 
-    @property
-    def edit_view(self):
-        # Any parameters passed here must also be passed in revisions_revert_view.
-        return self.edit_view_class.as_view(
-            model=self.model,
-            template_name=self.get_edit_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
+    def get_edit_view_kwargs(self, **kwargs):
+        return super().get_edit_view_kwargs(
             panel=self._edit_handler,
-            form_class=self.get_form_class(for_update=True),
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
-            lock_url_name=self.get_url_name("lock"),
-            unlock_url_name=self.get_url_name("unlock"),
-            usage_url_name=self.get_url_name("usage"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
             confirm_workflow_cancellation_url_name=self.get_url_name(
                 "confirm_workflow_cancellation"
             ),
-        )
-
-    @property
-    def delete_view(self):
-        return self.delete_view_class.as_view(
-            model=self.model,
-            template_name=self.get_delete_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            delete_url_name=self.get_url_name("delete"),
-            usage_url_name=self.get_url_name("usage"),
+            **kwargs,
         )
 
     @property
     def usage_view(self):
-        return self.usage_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.usage_view_class,
             template_name=self.get_templates(
                 "usage", fallback=self.usage_view_class.template_name
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
         )
 
     @property
     def history_view(self):
-        return self.history_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.history_view_class,
             template_name=self.get_history_template(),
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            revisions_view_url_name=self.get_url_name("revisions_view"),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
+            header_icon="history",
         )
 
     @property
     def inspect_view(self):
-        return self.inspect_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.inspect_view_class,
             template_name=self.get_inspect_template(),
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
             fields=self.inspect_view_fields,
             fields_exclude=self.inspect_view_fields_exclude,
         )
 
     @property
     def revisions_view(self):
-        return self.revisions_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-        )
+        return self.construct_view(self.revisions_view_class)
 
     @property
     def revisions_revert_view(self):
-        return self.revisions_revert_view_class.as_view(
-            model=self.model,
-            template_name=self.get_edit_template(),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            panel=self._edit_handler,
-            form_class=self.get_form_class(for_update=True),
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            history_url_name=self.get_url_name("history"),
-            preview_url_name=self.get_url_name("preview_on_edit"),
-            lock_url_name=self.get_url_name("lock"),
-            unlock_url_name=self.get_url_name("unlock"),
-            usage_url_name=self.get_url_name("usage"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
-            workflow_history_url_name=self.get_url_name("workflow_history"),
-            confirm_workflow_cancellation_url_name=self.get_url_name(
-                "confirm_workflow_cancellation"
-            ),
+        return self.construct_view(
+            self.revisions_revert_view_class,
+            **self.get_edit_view_kwargs(),
         )
 
     @property
     def revisions_compare_view(self):
-        return self.revisions_compare_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.revisions_compare_view_class,
             edit_handler=self._edit_handler,
             template_name=self.get_templates(
                 "revisions_compare",
                 fallback=self.revisions_compare_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
         )
 
     @property
     def revisions_unschedule_view(self):
-        return self.revisions_unschedule_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.revisions_unschedule_view_class,
             template_name=self.get_templates(
                 "revisions_unschedule",
                 fallback=self.revisions_unschedule_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
     def unpublish_view(self):
-        return self.unpublish_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.unpublish_view_class,
             template_name=self.get_templates(
                 "unpublish", fallback=self.unpublish_view_class.template_name
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            unpublish_url_name=self.get_url_name("unpublish"),
-            usage_url_name=self.get_url_name("usage"),
         )
 
     @property
     def preview_on_add_view(self):
-        return self.preview_on_add_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.preview_on_add_view_class,
             form_class=self.get_form_class(),
         )
 
     @property
     def preview_on_edit_view(self):
-        return self.preview_on_edit_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.preview_on_edit_view_class,
             form_class=self.get_form_class(for_update=True),
         )
 
     @property
     def lock_view(self):
-        return self.lock_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
+        return self.construct_view(
+            self.lock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
 
     @property
     def unlock_view(self):
-        return self.unlock_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
+        return self.construct_view(
+            self.unlock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
 
     @property
     def workflow_action_view(self):
-        return self.workflow_action_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_action_view_class,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("workflow_action"),
         )
 
     @property
     def collect_workflow_action_data_view(self):
-        return self.collect_workflow_action_data_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.collect_workflow_action_data_view_class,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("collect_workflow_action_data"),
         )
 
     @property
     def confirm_workflow_cancellation_view(self):
-        return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
-
-    @property
-    def workflow_status_view(self):
-        return self.workflow_status_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-            workflow_history_url_name=self.get_url_name("workflow_history"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-        )
+        return self.construct_view(self.confirm_workflow_cancellation_view_class)
 
     @property
     def workflow_preview_view(self):
-        return self.workflow_preview_view_class.as_view(model=self.model)
+        return self.construct_view(self.workflow_preview_view_class)
 
     @property
     def workflow_history_view(self):
-        return self.workflow_history_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_history_view_class,
             template_name=self.get_templates(
                 "workflow_history/index",
                 fallback=self.workflow_history_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
@@ -1183,14 +972,14 @@ class SnippetViewSet(ModelViewSet):
 
     @property
     def workflow_history_detail_view(self):
-        return self.workflow_history_detail_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_history_detail_view_class,
             template_name=self.get_templates(
                 "workflow_history/detail",
                 fallback=self.workflow_history_detail_view_class.template_name,
             ),
             object_icon=self.icon,
-            permission_policy=self.permission_policy,
+            header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
         )
 
@@ -1225,57 +1014,85 @@ class SnippetViewSet(ModelViewSet):
             per_page=self.chooser_per_page,
         )
 
-    def get_icon(self):
-        """Returns the icon to be used for the admin views."""
-        return self.icon
+    @cached_property
+    def list_display(self):
+        list_display = super().list_display.copy()
+        if self.draftstate_enabled:
+            list_display.append(LiveStatusTagColumn())
+        return list_display
 
-    def get_menu_label(self):
-        """Returns the label text to be used for the menu item."""
-        return self.menu_label or self.model_opts.verbose_name_plural.title()
-
-    def get_menu_name(self):
-        """Returns the name to be used for the menu item."""
-        return self.menu_name
-
-    def get_menu_icon(self):
-        """Returns the icon to be used for the menu item."""
+    @cached_property
+    def icon(self):
         return self.get_icon()
 
+    def get_icon(self):
+        """
+        Returns the icon to be used for the admin views.
+
+        **Deprecated** - the preferred way to customise this is to define an ``icon`` property.
+        """
+        return "snippet"
+
+    @cached_property
+    def menu_label(self):
+        return self.get_menu_label()
+
+    def get_menu_label(self):
+        """
+        Returns the label text to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_label`` property.
+        """
+        return self.model_opts.verbose_name_plural.title()
+
+    @cached_property
+    def menu_name(self):
+        return self.get_menu_name()
+
+    def get_menu_name(self):
+        """
+        Returns the name to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_name`` property.
+        """
+        return ""
+
+    @cached_property
+    def menu_icon(self):
+        return self.get_menu_icon()
+
+    def get_menu_icon(self):
+        """
+        Returns the icon to be used for the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_icon`` property.
+        """
+        return self.icon
+
+    @cached_property
+    def menu_order(self):
+        return self.get_menu_order()
+
     def get_menu_order(self):
-        """Returns the ordering number to be applied to the menu item."""
+        """
+        Returns the ordering number to be applied to the menu item.
+
+        **Deprecated** - the preferred way to customise this is to define a ``menu_order`` property.
+        """
         # By default, put it at the last item before Reports, whose order is 9000.
-        return self.menu_order or 8999
-
-    @property
-    def menu_item_class(self):
-        def is_shown(_self, request):
-            return self.permission_policy.user_has_any_permission(
-                request.user, ("add", "change", "delete")
-            )
-
-        return type(
-            f"{self.model.__name__}MenuItem",
-            (MenuItem,),
-            {"is_shown": is_shown},
-        )
-
-    def get_menu_item(self, order=None):
-        """
-        Returns a ``MenuItem`` instance to be registered with the Wagtail admin.
-
-        The ``order`` parameter allows the method to be called from the outside (e.g.
-        :class:`SnippetViewSetGroup`) to create a sub menu item with the correct order.
-        """
-        return self.menu_item_class(
-            label=self.get_menu_label(),
-            url=reverse(self.get_url_name("index")),
-            name=self.get_menu_name(),
-            icon_name=self.get_menu_icon(),
-            order=order or self.get_menu_order(),
-        )
+        return 8999
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
+
+    @cached_property
+    def breadcrumbs_items(self):
+        # Use reverse_lazy instead of reverse
+        # because this will be passed to the view classes at startup
+        return [
+            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
+            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+        ]
 
     def get_queryset(self, request):
         """
@@ -1285,84 +1102,128 @@ class SnippetViewSet(ModelViewSet):
         """
         return None
 
-    def get_export_filename(self):
-        return self.export_filename or self.model_opts.db_table
-
-    def get_templates(self, action="index", fallback=""):
-        """
-        Utility function that provides a list of templates to try for a given
-        view, when the template isn't overridden by one of the template
-        attributes on the class.
-        """
-        templates = [
-            f"{self.template_prefix}{self.app_label}/{self.model_name}/{action}.html",
-            f"{self.template_prefix}{self.app_label}/{action}.html",
-            f"{self.template_prefix}{action}.html",
-        ]
-        if fallback:
-            templates.append(fallback)
-        return templates
+    @cached_property
+    def index_template_name(self):
+        return self.get_index_template()
 
     def get_index_template(self):
         """
         Returns a template to be used when rendering ``index_view``. If a
         template is specified by the ``index_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``index_template_name`` property.
         """
-        return self.index_template_name or self.get_templates("index")
+        return self.get_templates("index")
+
+    @cached_property
+    def index_results_template_name(self):
+        return self.get_index_results_template()
 
     def get_index_results_template(self):
         """
         Returns a template to be used when rendering ``index_results_view``. If a
         template is specified by the ``index_results_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``index_results_template_name`` property.
         """
-        return self.index_results_template_name or self.get_templates("index_results")
+        return self.get_templates("index_results")
+
+    @cached_property
+    def create_template_name(self):
+        return self.get_create_template()
 
     def get_create_template(self):
         """
-        Returns a template to be used when rendering ``create_view``. If a
+        Returns a template to be used when rendering ``add_view``. If a
         template is specified by the ``create_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``create_template_name`` property.
         """
-        return self.create_template_name or self.get_templates("create")
+        return self.get_templates("create")
+
+    @cached_property
+    def edit_template_name(self):
+        return self.get_edit_template()
 
     def get_edit_template(self):
         """
         Returns a template to be used when rendering ``edit_view``. If a
         template is specified by the ``edit_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``edit_template_name`` property.
         """
-        return self.edit_template_name or self.get_templates("edit")
+        return self.get_templates("edit")
+
+    @cached_property
+    def delete_template_name(self):
+        return self.get_delete_template()
 
     def get_delete_template(self):
         """
         Returns a template to be used when rendering ``delete_view``. If a
         template is specified by the ``delete_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``delete_template_name`` property.
         """
-        return self.delete_template_name or self.get_templates("delete")
+        return self.get_templates("delete")
+
+    @cached_property
+    def history_template_name(self):
+        """
+        A template to be used when rendering ``history_view``.
+
+        Default: if :attr:`template_prefix` is specified, a ``history.html``
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
+        ``history_view_class.template_name`` will be used.
+        """
+        return self.get_history_template()
 
     def get_history_template(self):
         """
         Returns a template to be used when rendering ``history_view``. If a
         template is specified by the ``history_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define a ``history_template_name`` property.
         """
-        return self.history_template_name or self.get_templates("history")
+        return self.get_templates("history")
+
+    @cached_property
+    def inspect_template_name(self):
+        """
+        A template to be used when rendering ``inspect_view``.
+
+        Default: if :attr:`template_prefix` is specified, an ``inspect.html``
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
+        ``inspect_view_class.template_name`` will be used.
+        """
+        return self.get_inspect_template()
 
     def get_inspect_template(self):
         """
         Returns a template to be used when rendering ``inspect_view``. If a
         template is specified by the ``inspect_template_name`` attribute, that will
         be used. Otherwise, a list of preferred template names are returned.
+
+        **Deprecated** - the preferred way to customise this is to define an ``inspect_template_name`` property.
         """
-        return self.inspect_template_name or self.get_templates(
+        return self.get_templates(
             "inspect", fallback=self.inspect_view_class.template_name
         )
 
     def get_admin_url_namespace(self):
-        """Returns the URL namespace for the admin URLs for this model."""
+        """
+        Returns the URL namespace for the admin URLs for this model.
+
+        **Deprecated** - the preferred way to customise this is to define a ``url_namespace`` property.
+        """
         if self.admin_url_namespace:
             return self.admin_url_namespace
         return f"wagtailsnippets_{self.app_label}_{self.model_name}"
@@ -1371,6 +1232,8 @@ class SnippetViewSet(ModelViewSet):
         """
         Returns the base path for the admin URLs for this model.
         The returned string must not begin or end with a slash.
+
+        **Deprecated** - the preferred way to customise this is to define a ``url_prefix`` property.
         """
         if self.base_url_path:
             return self.base_url_path.strip().strip("/")
@@ -1480,11 +1343,6 @@ class SnippetViewSet(ModelViewSet):
                     name="confirm_workflow_cancellation",
                 ),
                 path(
-                    "workflow/status/<str:pk>/",
-                    self.workflow_status_view,
-                    name="workflow_status",
-                ),
-                path(
                     "workflow_history/<str:pk>/",
                     self.workflow_history_view,
                     name="workflow_history",
@@ -1543,115 +1401,52 @@ class SnippetViewSet(ModelViewSet):
     def get_form_class(self, for_update=False):
         return self._edit_handler.get_form_class()
 
+    def register_chooser_viewset(self):
+        viewsets.register(self.chooser_viewset)
+
     def register_model_check(self):
         def snippets_model_check(app_configs, **kwargs):
             return check_panels_in_model(self.model, "snippets")
 
         checks.register(snippets_model_check, "panels")
 
-    def register_menu_item(self):
-        if self.add_to_settings_menu:
-            hooks.register("register_settings_menu_item", self.get_menu_item)
-        elif self.add_to_admin_menu:
-            hooks.register("register_admin_menu_item", self.get_menu_item)
+    def register_snippet_model(self):
+        snippet_models = get_snippet_models()
+        if self.model in snippet_models:
+            raise ImproperlyConfigured(
+                f"The {self.model.__name__} model is already registered as a snippet"
+            )
+        snippet_models.append(self.model)
+        snippet_models.sort(key=lambda x: x._meta.verbose_name)
 
     def on_register(self):
         super().on_register()
         # For convenience, attach viewset to the model class to allow accessing
         # the configuration of a given model.
         self.model.snippet_viewset = self
-        viewsets.register(self.chooser_viewset)
+        self.register_chooser_viewset()
         self.register_model_check()
-        self.register_menu_item()
+        self.register_snippet_model()
 
 
-class SnippetViewSetGroup:
+class SnippetViewSetGroup(ModelViewSetGroup):
     """
-    A container for grouping together multiple SnippetViewSet instances. Creates
-    a menu item with a submenu for accessing the listing pages of those instances.
+    A container for grouping together multiple
+    :class:`~wagtail.snippets.views.snippets.SnippetViewSet` instances.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.model.ModelViewSetGroup` are available.
     """
-
-    #: A list or tuple of :class:`SnippetViewSet` classes to be grouped together
-    items = ()
-
-    #: Register a custom menu item for the group in the admin's main menu.
-    add_to_admin_menu = True
-
-    # Undocumented for now, but it is technically possible to register the group's
-    # menu item in the Settings menu instead of the main menu.
-    add_to_settings_menu = False
-
-    #: The icon used for the menu item that appears in Wagtail's sidebar.
-    menu_icon = None
-
-    #: The displayed label used for the menu item.
-    #: If unset, the title-cased version of the first model's :attr:`~django.db.models.Options.app_label` will be used.
-    menu_label = None
-
-    #: The ``name`` argument passed to the ``MenuItem`` constructor, becoming the ``name`` attribute value for that instance.
-    #: This can be useful when manipulating the menu items in a custom menu hook, e.g. :ref:`construct_main_menu`.
-    #: If unset, a slugified version of the label is used.
-    menu_name = None
-
-    #: An integer determining the order of the menu item, 0 being the first place.
-    menu_order = None
 
     def __init__(self):
-        """
-        When initialising, instantiate the classes within 'items', and assign
-        the instances to a ``viewsets`` attribute.
-        """
-        self.viewsets = [
-            viewset_class(menu_item_is_registered=True) for viewset_class in self.items
-        ]
-
-    def get_app_label_from_subitems(self):
-        for instance in self.viewsets:
-            return instance.app_label.title()
-        return ""
-
-    def get_menu_label(self):
-        """Returns the label text to be used for the menu item."""
-        return self.menu_label or self.get_app_label_from_subitems()
-
-    def get_menu_name(self):
-        """Returns the name to be used for the menu item."""
-        return self.menu_name
-
-    def get_menu_icon(self):
-        """Returns the icon to be used for the menu item."""
-        return self.menu_icon or "folder-open-inverse"
-
-    def get_menu_order(self):
-        """Returns the ordering number to be applied to the menu item."""
-        return self.menu_order or 8999
-
-    def get_submenu_items(self):
-        menu_items = []
-        item_order = 1
-        for viewset in self.viewsets:
-            menu_items.append(viewset.get_menu_item(order=item_order))
-            item_order += 1
-        return menu_items
-
-    def get_menu_item(self):
-        """Returns a ``MenuItem`` instance to be registered with the Wagtail admin."""
-        if not self.viewsets:
-            return None
-        submenu = Menu(items=self.get_submenu_items())
-        return SubmenuMenuItem(
-            label=self.get_menu_label(),
-            menu=submenu,
-            name=self.get_menu_name(),
-            icon_name=self.get_menu_icon(),
-            order=self.get_menu_order(),
+        menu_item_is_registered = getattr(
+            self, "menu_item_is_registered", bool(self.menu_hook)
         )
+        # If the menu item is registered, mark all viewsets as such so that we can
+        # hide the "Snippets" menu item if all snippets have their own menu items.
+        for item in self.items:
+            item.menu_item_is_registered = menu_item_is_registered
 
-    def register_menu_item(self):
-        if self.add_to_settings_menu:
-            hooks.register("register_settings_menu_item", self.get_menu_item)
-        elif self.add_to_admin_menu:
-            hooks.register("register_admin_menu_item", self.get_menu_item)
-
-    def on_register(self):
-        self.register_menu_item()
+        # Call super() after setting menu_item_is_registered so that nested groups
+        # can inherit the value.
+        super().__init__()

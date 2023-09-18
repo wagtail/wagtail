@@ -56,6 +56,14 @@ Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the 
 WAGTAIL_SITE_NAME = 'My Example Site'
 ```
 
+Add a `WAGTAILADMIN_BASE_URL` - this is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails:
+
+```python
+WAGTAILADMIN_BASE_URL = 'http://example.com'
+```
+
+If this setting is not present, Wagtail will fall back to `request.site.root_url` or to the hostname of the request. Although this setting is not strictly required, it is highly recommended because leaving it out may produce unusable URLs in notification emails.
+
 Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
 
 ## URL configuration

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -174,12 +174,6 @@ msgstr "Старонак з формамі не было створана."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Запоўненыя %(form_title)s"
-
-msgid "Download XLSX"
-msgstr "Спампаваць XLSX"
-
-msgid "Download CSV"
-msgstr "Спампаваць CSV"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."

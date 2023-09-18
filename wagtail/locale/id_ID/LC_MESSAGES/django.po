@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -113,6 +113,33 @@ msgstr "Dikunci oleh"
 msgid "in moderation"
 msgstr "dalam moderasi"
 
+msgid "Add/edit pages you own"
+msgstr "Tambah/ubah halaman anda sendiri"
+
+msgid "Bulk delete"
+msgstr "Hapus dalam jumlah besar"
+
+msgid "Delete pages with children"
+msgstr "Hapus halaman dan turunannya"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Edit any page"
+msgstr "Ubah halaman apapun"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Publish"
+msgstr "Publikasi"
+
+msgid "Publish any page"
+msgstr "Publikasi halaman manapun"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
 msgid "title"
 msgstr "judul"
 
@@ -171,35 +198,11 @@ msgstr "JSON konten"
 msgid "approved go live at"
 msgstr "disetujui untuk tampil aktif pada"
 
-msgid "Add/edit pages you own"
-msgstr "Tambah/ubah halaman anda sendiri"
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Edit any page"
-msgstr "Ubah halaman apapun"
-
-msgid "Publish"
-msgstr "Publikasi"
-
-msgid "Publish any page"
-msgstr "Publikasi halaman manapun"
-
-msgid "Bulk delete"
-msgstr "Hapus dalam jumlah besar"
-
-msgid "Delete pages with children"
-msgstr "Hapus halaman dan turunannya"
-
-msgid "Lock"
-msgstr "Kunci"
-
-msgid "Unlock"
-msgstr "Buka kunci"
-
 msgid "group"
 msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
 
 msgid "permission type"
 msgstr "jenis izin"
@@ -236,9 +239,6 @@ msgstr "semua batasan penampilan koleksi"
 
 msgid "collections"
 msgstr "koleksi-koleksi"
-
-msgid "permission"
-msgstr "izin"
 
 msgid "group collection permission"
 msgstr "izin grup koleksi"

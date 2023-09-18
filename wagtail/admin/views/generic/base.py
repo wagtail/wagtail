@@ -1,7 +1,7 @@
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -22,6 +22,7 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     page_title = ""
     page_subtitle = ""
     header_icon = ""
+    breadcrumbs_items = [{"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")}]
     template_name = "wagtailadmin/generic/base.html"
 
     def get_page_title(self):
@@ -33,11 +34,15 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     def get_header_icon(self):
         return self.header_icon
 
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = self.get_page_title()
         context["page_subtitle"] = self.get_page_subtitle()
         context["header_icon"] = self.get_header_icon()
+        context["breadcrumbs_items"] = self.get_breadcrumbs_items()
         return context
 
     def get_template_names(self):
@@ -131,6 +136,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
     def get_template_names(self):
         if self.results_only:
+            if isinstance(self.results_template_name, (list, tuple)):
+                return self.results_template_name
             return [self.results_template_name]
         else:
             return super().get_template_names()
@@ -181,5 +188,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         # always consider a listing to be paginated if pagination is applied. This ensures
         # that we output "Page 1 of 1" as is standard in Wagtail.
         context["is_paginated"] = context["page_obj"] is not None
+
+        if context["is_paginated"]:
+            context["items_count"] = context["paginator"].count
+        else:
+            context["items_count"] = len(context["object_list"])
 
         return context

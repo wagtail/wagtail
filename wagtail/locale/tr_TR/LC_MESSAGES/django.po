@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -111,6 +111,33 @@ msgstr "Varsayılan"
 msgid "locked"
 msgstr "kilitlendi"
 
+msgid "Add/edit pages you own"
+msgstr "Sahip olduğun sayfalara ekle/düzenle"
+
+msgid "Bulk delete"
+msgstr "Toplu sil"
+
+msgid "Delete pages with children"
+msgstr "Alt sayfası olan sayfaları sil"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit any page"
+msgstr "Herhangi bir sayfayı düzenle"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Publish any page"
+msgstr "Herhangi bir sayfayı yayınla"
+
+msgid "Unlock"
+msgstr "Kilidi kaldır"
+
 msgid "title"
 msgstr "başlık"
 
@@ -167,35 +194,11 @@ msgstr "JSON içerik"
 msgid "approved go live at"
 msgstr "onaylandı, canlısı"
 
-msgid "Add/edit pages you own"
-msgstr "Sahip olduğun sayfalara ekle/düzenle"
-
-msgid "Edit"
-msgstr "Düzenle"
-
-msgid "Edit any page"
-msgstr "Herhangi bir sayfayı düzenle"
-
-msgid "Publish"
-msgstr "Yayınla"
-
-msgid "Publish any page"
-msgstr "Herhangi bir sayfayı yayınla"
-
-msgid "Bulk delete"
-msgstr "Toplu sil"
-
-msgid "Delete pages with children"
-msgstr "Alt sayfası olan sayfaları sil"
-
-msgid "Lock"
-msgstr "Kilitle"
-
-msgid "Unlock"
-msgstr "Kilidi kaldır"
-
 msgid "group"
 msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
 
 msgid "permission type"
 msgstr "izin türü"
@@ -232,9 +235,6 @@ msgstr "koleksiyon görme kısıtları"
 
 msgid "collections"
 msgstr "koleksiyonlar"
-
-msgid "permission"
-msgstr "izin"
 
 msgid "group collection permission"
 msgstr "grup koleksiyon izni"

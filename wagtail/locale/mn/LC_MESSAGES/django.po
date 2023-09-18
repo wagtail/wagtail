@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -107,6 +107,33 @@ msgstr "Өгөгдмөл"
 msgid "locked"
 msgstr "түгжигдсэн"
 
+msgid "Add/edit pages you own"
+msgstr "Өөрийн хуудсаа нэмэх/засах"
+
+msgid "Bulk delete"
+msgstr "Бөөнөөр нь устгах"
+
+msgid "Delete pages with children"
+msgstr "Дэд хуудсуудтай нь устгах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Edit any page"
+msgstr "Ямар ч хуудсыг засах"
+
+msgid "Lock"
+msgstr "Түгжих"
+
+msgid "Publish"
+msgstr "Нийтлэх"
+
+msgid "Publish any page"
+msgstr "Ямар ч хуудсыг нийтлэх"
+
+msgid "Unlock"
+msgstr "Түгжээг тайлах"
+
 msgid "title"
 msgstr "гарчиг"
 
@@ -152,35 +179,11 @@ msgstr "контент JSON"
 msgid "approved go live at"
 msgstr "нийтлэхээр зөвшөөрөгдсөн"
 
-msgid "Add/edit pages you own"
-msgstr "Өөрийн хуудсаа нэмэх/засах"
-
-msgid "Edit"
-msgstr "Засах"
-
-msgid "Edit any page"
-msgstr "Ямар ч хуудсыг засах"
-
-msgid "Publish"
-msgstr "Нийтлэх"
-
-msgid "Publish any page"
-msgstr "Ямар ч хуудсыг нийтлэх"
-
-msgid "Bulk delete"
-msgstr "Бөөнөөр нь устгах"
-
-msgid "Delete pages with children"
-msgstr "Дэд хуудсуудтай нь устгах"
-
-msgid "Lock"
-msgstr "Түгжих"
-
-msgid "Unlock"
-msgstr "Түгжээг тайлах"
-
 msgid "group"
 msgstr "бүлэг"
+
+msgid "permission"
+msgstr "эрх"
 
 msgid "permission type"
 msgstr "эрхийн төрөл"
@@ -211,9 +214,6 @@ msgstr "цуглуулга харах хязгаарлалтууд"
 
 msgid "collections"
 msgstr "цуглуулгууд"
-
-msgid "permission"
-msgstr "эрх"
 
 msgid "group collection permission"
 msgstr "бүлэг цуглуулгын эрх"

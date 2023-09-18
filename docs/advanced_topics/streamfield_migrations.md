@@ -301,7 +301,7 @@ Instead, we have a `migrate_operation.MigrateStreamData` operation which will ha
 ```python
 from django.db import migrations
 
-from from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
+from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
 class Migration(migrations.Migration):
 

@@ -9,9 +9,48 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
+   .. autoattribute:: name
+   .. autoattribute:: url_prefix
+   .. autoattribute:: url_namespace
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
+   .. autoattribute:: icon
+   .. autoattribute:: menu_icon
+
+      Defaults to :attr:`icon`.
+
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
+   .. autoattribute:: menu_url
+
+      Defaults to the first URL returned by :meth:`get_urlpatterns`.
+
+   .. autoattribute:: menu_item_class
+   .. autoattribute:: menu_hook
+   .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: add_to_settings_menu
+   .. automethod:: get_menu_item
+```
+
+## ViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.base.ViewSetGroup
+
+   .. attribute:: items
+      :value: ()
+
+      A list or tuple of :class:`~wagtail.admin.viewsets.base.ViewSet` classes or instances to be grouped together.
+
+   .. autoattribute:: menu_icon
+   .. autoattribute:: menu_label
+   .. autoattribute:: menu_name
+   .. autoattribute:: menu_order
+   .. autoattribute:: menu_item_class
+   .. autoattribute:: add_to_admin_menu
+   .. automethod:: get_menu_item
 ```
 
 ## ModelViewSet
@@ -21,7 +60,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with.
+   Required; the model class that this viewset will work with. The :attr:`~django.db.models.Options.model_name` will be used
+   as the URL prefix and namespace, unless these are specified explicitly via the ``name``, ``url_prefix`` or
+   ``url_namespace`` attributes.
 
    .. attribute:: form_fields
 
@@ -33,11 +74,42 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. automethod:: get_form_class
 
-   .. autoattribute:: icon
+   .. autoattribute:: menu_label
+
+      Defaults to the title-cased version of the model's
+      :attr:`~django.db.models.Options.verbose_name_plural`.
+
+   .. autoattribute:: add_to_reference_index
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_display
+   .. autoattribute:: list_export
+   .. autoattribute:: list_filter
+   .. autoattribute:: filterset_class
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+   .. autoattribute:: search_fields
+   .. autoattribute:: search_backend_name
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
+   .. autoattribute:: template_prefix
+   .. autoattribute:: index_template_name
+   .. autoattribute:: index_results_template_name
+   .. autoattribute:: create_template_name
+   .. autoattribute:: edit_template_name
+   .. autoattribute:: delete_template_name
+```
+
+## ModelViewSetGroup
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.model.ModelViewSetGroup
+
+   .. autoattribute:: menu_label
+
+      If unset, defaults to the title-cased version of the model's
+      :attr:`~django.db.models.Options.app_label` from the first viewset.
 ```
 
 ## ChooserViewSet
@@ -56,6 +128,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_item_text
    .. autoattribute:: per_page
    .. autoattribute:: preserve_url_parameters
+   .. autoattribute:: url_filter_parameters
    .. autoattribute:: choose_view_class
    .. autoattribute:: choose_results_view_class
    .. autoattribute:: chosen_view_class
@@ -74,6 +147,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: create_action_clicked_label
    .. autoattribute:: creation_tab_label
    .. autoattribute:: search_tab_label
+   .. method:: get_object_list
+
+      Returns a queryset of objects that are available to be chosen. By default, all instances of ``model`` are returned.
 ```
 
 ## SnippetViewSet
@@ -82,21 +158,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
    .. autoattribute:: model
-   .. autoattribute:: icon
-   .. autoattribute:: add_to_admin_menu
-   .. autoattribute:: add_to_settings_menu
-   .. autoattribute:: menu_label
-   .. autoattribute:: menu_name
-   .. autoattribute:: menu_order
-   .. autoattribute:: list_display
-   .. autoattribute:: list_export
-   .. autoattribute:: list_filter
-   .. autoattribute:: filterset_class
-   .. autoattribute:: search_fields
-   .. autoattribute:: search_backend_name
-   .. autoattribute:: list_per_page
    .. autoattribute:: chooser_per_page
-   .. autoattribute:: export_filename
    .. autoattribute:: ordering
    .. autoattribute:: inspect_view_enabled
    .. autoattribute:: inspect_view_fields
@@ -122,18 +184,8 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: lock_view_class
    .. autoattribute:: unlock_view_class
    .. autoattribute:: chooser_viewset_class
-   .. autoattribute:: template_prefix
-   .. autoattribute:: index_template_name
-   .. autoattribute:: index_results_template_name
-   .. autoattribute:: create_template_name
-   .. autoattribute:: edit_template_name
-   .. autoattribute:: delete_template_name
    .. autoattribute:: history_template_name
-   .. automethod:: get_menu_label
-   .. automethod:: get_menu_name
-   .. automethod:: get_menu_icon
-   .. automethod:: get_menu_order
-   .. automethod:: get_menu_item
+   .. autoattribute:: inspect_template_name
    .. automethod:: get_queryset
    .. automethod:: get_edit_handler
    .. automethod:: get_form_class
@@ -155,15 +207,4 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSetGroup
 
-   .. autoattribute:: items
-   .. autoattribute:: add_to_admin_menu
-   .. autoattribute:: menu_label
-   .. autoattribute:: menu_name
-   .. autoattribute:: menu_icon
-   .. autoattribute:: menu_order
-   .. automethod:: get_menu_label
-   .. automethod:: get_menu_name
-   .. automethod:: get_menu_icon
-   .. automethod:: get_menu_order
-   .. automethod:: get_menu_item
 ```

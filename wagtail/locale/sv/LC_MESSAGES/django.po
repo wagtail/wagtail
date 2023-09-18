@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -185,6 +185,39 @@ msgstr "under moderering"
 msgid "live + in moderation"
 msgstr "publicerad + under moderering"
 
+msgid "Add/edit pages you own"
+msgstr "Skapa/redigera sidor du äger"
+
+msgid "Bulk delete"
+msgstr "Massradera"
+
+msgid "Delete pages with children"
+msgstr "Radera sidor med undersidor"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit any page"
+msgstr "Redigera alla sidor"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås upp sidor du låst"
+
+msgid "Publish"
+msgstr "Publicera"
+
+msgid "Publish any page"
+msgstr "Publicera alla sidor"
+
+msgid "Unlock"
+msgstr "Lås upp"
+
+msgid "Unlock any page"
+msgstr "Lås upp valfri sida"
+
 msgid "title"
 msgstr "titel"
 
@@ -278,41 +311,11 @@ msgstr "revision"
 msgid "revisions"
 msgstr "revisioner"
 
-msgid "Add/edit pages you own"
-msgstr "Skapa/redigera sidor du äger"
-
-msgid "Edit"
-msgstr "Redigera"
-
-msgid "Edit any page"
-msgstr "Redigera alla sidor"
-
-msgid "Publish"
-msgstr "Publicera"
-
-msgid "Publish any page"
-msgstr "Publicera alla sidor"
-
-msgid "Bulk delete"
-msgstr "Massradera"
-
-msgid "Delete pages with children"
-msgstr "Radera sidor med undersidor"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Lås/lås upp sidor du låst"
-
-msgid "Unlock"
-msgstr "Lås upp"
-
-msgid "Unlock any page"
-msgstr "Lås upp valfri sida"
-
 msgid "group"
 msgstr "grupp"
+
+msgid "permission"
+msgstr "rättighet"
 
 msgid "permission type"
 msgstr "rättighetstyp"
@@ -518,9 +521,6 @@ msgstr "visningsrestriktioner för samling"
 
 msgid "collections"
 msgstr "samlingar"
-
-msgid "permission"
-msgstr "rättighet"
 
 msgid "group collection permission"
 msgstr "gruppsamlingsrättighet"

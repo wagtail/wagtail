@@ -10,6 +10,8 @@ from django.http import QueryDict
 
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 
+from .wagtail_tests import WagtailTestUtils
+
 
 def _nested_form_data(data):
     if isinstance(data, dict):
@@ -186,7 +188,7 @@ def _querydict_from_form(form: bs4.Tag, exclude_csrf: bool = True) -> QueryDict:
 def querydict_from_html(
     html: str, form_id: str = None, form_index: int = 0, exclude_csrf: bool = True
 ) -> QueryDict:
-    soup = bs4.BeautifulSoup(html, "html5lib")
+    soup = WagtailTestUtils.get_soup(html)
     if form_id is not None:
         form = soup.find("form", attrs={"id": form_id})
         if form is None:

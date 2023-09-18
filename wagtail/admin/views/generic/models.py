@@ -1,3 +1,5 @@
+import warnings
+
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
@@ -33,7 +35,8 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, ReferenceIndex
@@ -79,9 +82,15 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
+class IndexView(
+    SpreadsheetExportMixin,
+    LocaleMixin,
+    PermissionCheckedMixin,
+    BaseListingView,
+):
     model = None
     template_name = "wagtailadmin/generic/index.html"
+    results_template_name = "wagtailadmin/generic/index_results.html"
     index_results_url_name = None
     add_url_name = None
     add_item_label = gettext_lazy("Add")
@@ -212,7 +221,12 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        queryset = self._annotate_queryset_updated_at(queryset)
+        has_updated_at_column = any(
+            getattr(column, "accessor", None) == "_updated_at"
+            for column in self.columns
+        )
+        if has_updated_at_column:
+            queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -229,9 +243,12 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by(
-                models.F("_updated_at").desc(nulls_last=True), "-pk"
-            )
+            if has_updated_at_column:
+                queryset = queryset.order_by(
+                    models.F("_updated_at").desc(nulls_last=True), "-pk"
+                )
+            else:
+                queryset = queryset.order_by("-pk")
 
         return queryset
 
@@ -254,9 +271,21 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
-            return search_backend.autocomplete(
-                self.search_query, queryset, fields=self.search_fields
-            )
+            if queryset.model.get_autocomplete_search_fields():
+                return search_backend.autocomplete(
+                    self.search_query, queryset, fields=self.search_fields
+                )
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{queryset.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the admin will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+                return search_backend.search(
+                    self.search_query, queryset, fields=self.search_fields
+                )
 
         filters = {
             field + "__icontains": self.search_query
@@ -321,6 +350,18 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         if self.add_url_name:
             return reverse(self.add_url_name)
 
+    def get_page_title(self):
+        if not self.page_title and self.model:
+            return capfirst(self.model._meta.verbose_name_plural)
+        return self.page_title
+
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        return self.breadcrumbs_items + [
+            {"label": capfirst(self.model._meta.verbose_name_plural)},
+        ]
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -351,6 +392,13 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         context["model_opts"] = self.model and self.model._meta
         return context
 
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
+
 
 class CreateView(
     LocaleMixin,
@@ -366,6 +414,7 @@ class CreateView(
     add_url_name = None
     edit_url_name = None
     template_name = "wagtailadmin/generic/create.html"
+    page_title = gettext_lazy("New")
     permission_required = "add"
     success_message = None
     error_message = None
@@ -384,6 +433,30 @@ class CreateView(
 
     def get_available_actions(self):
         return self.actions
+
+    def get_page_subtitle(self):
+        if not self.page_subtitle and self.model:
+            return capfirst(self.model._meta.verbose_name)
+        return self.page_subtitle
+
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append(
+            {
+                "label": _("New: %(model_name)s")
+                % {"model_name": capfirst(self.model._meta.verbose_name)},
+            }
+        )
+        return self.breadcrumbs_items + items
 
     def get_add_url(self):
         if not self.add_url_name:
@@ -514,6 +587,20 @@ class EditView(
     def get_page_subtitle(self):
         return str(self.object)
 
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append({"label": get_latest_str(self.object)})
+        return self.breadcrumbs_items + items
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -623,6 +710,7 @@ class DeleteView(
 ):
     model = None
     index_url_name = None
+    edit_url_name = None
     delete_url_name = None
     usage_url_name = None
     template_name = "wagtailadmin/generic/confirm_delete.html"
@@ -666,6 +754,9 @@ class DeleteView(
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        return []
 
     def get_delete_url(self):
         if not self.delete_url_name:
@@ -725,6 +816,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
+    index_url_name = None
     edit_url_name = None
     delete_url_name = None
     fields = []
@@ -742,6 +834,21 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        edit_url = self.get_edit_url()
+        if edit_url:
+            items.append({"url": edit_url, "label": get_latest_str(self.object)})
+        items.append({"label": _("Inspect")})
+        return self.breadcrumbs_items + items
 
     def get_fields(self):
         fields = self.fields or [

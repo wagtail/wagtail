@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -317,9 +317,6 @@ msgstr "Všechny %(objects)s obrázky na této obrazovce vybrány"
 msgid "1 user selected"
 msgstr "1 uživatel vybrán"
 
-msgid "Page title"
-msgstr "Název stránky"
-
 msgid "For search engines"
 msgstr "Pro vyhledávače"
 
@@ -334,6 +331,12 @@ msgstr "Propagovat"
 
 msgid "Settings"
 msgstr "Nastavení"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Page title"
+msgstr "Název stránky"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
@@ -566,9 +569,6 @@ msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
-
-msgid "Title"
-msgstr "Název"
 
 msgid "Locked at"
 msgstr "Uzamčeno: "
@@ -945,13 +945,6 @@ msgid "Would you still like to publish this page?"
 msgstr "Opravdu chcete zveřejnit tuto stránku?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Stránky, které používají %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Stránky typu"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopírovat %(title)s"
 
@@ -1010,18 +1003,8 @@ msgstr "Nenalezeny žádné záznamy v logu."
 msgid "Exploring %(title)s"
 msgstr "Obsah pod %(title)s"
 
-msgid "Drag"
-msgstr "Přetáhnout myší"
-
 msgid "Configure a site now."
 msgstr "Nyní zkonfigurujte web"
-
-msgid "No pages have been created at this location."
-msgstr "V tomto umístění nebyly zatím vytvořeny žádné stránky."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">Založit</a> novou stránku."
 
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
@@ -1033,6 +1016,18 @@ msgstr "Zobrazit podstránky \"%(title)s\""
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
+
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Disable ordering of child pages"
+msgstr "Vypnout řazení podstránek"
+
+msgid "Sort"
+msgstr "Třídění"
+
+msgid "Enable ordering of child pages"
+msgstr "Zapnout řazení podstránek"
 
 msgid "Sites menu"
 msgstr "Seznam webů"
@@ -1048,18 +1043,6 @@ msgstr "Následující"
 
 msgid "This page is protected from public view"
 msgstr "Tato stránka není veřejně viditelná"
-
-msgid "Disable ordering of child pages"
-msgstr "Vypnout řazení podstránek"
-
-msgid "Sort"
-msgstr "Třídění"
-
-msgid "Enable ordering of child pages"
-msgstr "Zapnout řazení podstránek"
-
-msgid "Updated"
-msgstr "Uloženo"
 
 msgid "Confirm"
 msgstr "Potvrdit"
@@ -1102,9 +1085,6 @@ msgstr "Posunout nahoru"
 msgid "Move down"
 msgstr "Posunout dolů"
 
-msgid "Comment notifications"
-msgstr "Notifikace o komentářích"
-
 msgid "Last published"
 msgstr "Naposledy publikováno"
 
@@ -1114,11 +1094,8 @@ msgstr "Nebyla nalezena žádná stránka."
 msgid "No pages match this report's criteria."
 msgstr "Žádná stránka neodpovídá parametrům výkazu."
 
-msgid "Download XLSX"
-msgstr "Stáhnout XLSX"
-
-msgid "Download CSV"
-msgstr "Stáhnout CSV"
+msgid "Updated"
+msgstr "Uloženo"
 
 msgid "Locking status"
 msgstr "Stav uzamčení"
@@ -1163,6 +1140,12 @@ msgstr "Drobečková navigace"
 msgid "Root"
 msgstr "Počátek"
 
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
 msgid "Add comment"
 msgstr "Přidat komentář"
 
@@ -1205,6 +1188,9 @@ msgstr "Postranní panely"
 
 msgid "Toggle side panel"
 msgstr "Přepnout postranní panel"
+
+msgid "Comment notifications"
+msgstr "Notifikace o komentářích"
 
 msgid "Unlocked"
 msgstr "Odemčeno"
@@ -1320,6 +1306,14 @@ msgstr "Použito na následujících aktivních postupech."
 msgid "Not used"
 msgstr "Nepoužito"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s navíc"
+msgstr[1] "+%(counter)s navíc"
+msgstr[2] "+%(counter)s navíc"
+msgstr[3] "+%(counter)s navíc"
+
 msgid "Assigned pages"
 msgstr "Přiřazené stránky"
 
@@ -1341,14 +1335,6 @@ msgstr "Použito (kým)"
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Krok %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s navíc"
-msgstr[1] "+%(counter)s navíc"
-msgstr[2] "+%(counter)s navíc"
-msgstr[3] "+%(counter)s navíc"
 
 #, python-format
 msgid ""
@@ -1443,20 +1429,6 @@ msgstr "Zobraz celou historii"
 msgid "Compare with live version"
 msgstr "Porovnat s publikovánou verzí"
 
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"ascending order."
-msgstr ""
-"Seřadit podstránky z '%(parent)s' podle '%(label)s' ve vzestupném pořadí."
-
-#, python-format
-msgid ""
-"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
-"descending order."
-msgstr ""
-"Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
-
 msgid "More"
 msgstr "Více"
 
@@ -1472,6 +1444,20 @@ msgstr "Odhlásit"
 
 msgid "Comments"
 msgstr "Komentáře"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' ve vzestupném pořadí."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
 
 msgid "Profile"
 msgstr "Profil"
@@ -1540,6 +1526,9 @@ msgstr "%(model_name)s '%(object)s' vytvořeno."
 
 msgid "Editing"
 msgstr "Úprava"
+
+msgid "Inspecting"
+msgstr "Prohlíží se.."
 
 msgid "Earliest"
 msgstr "Nejstarší"
@@ -1707,6 +1696,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stránce '%(page_title)s' byla zrušena publikace."
 
+msgid "Pages using"
+msgstr "Stránky typu"
+
 #, python-format
 msgid ""
 "The page '%(page_title)s' is not currently awaiting moderation in task "
@@ -1833,10 +1825,6 @@ msgstr "Přidat podstránku"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Přidat podstránku k '%(title)s' "
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Zobrazit další možnosti pro '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

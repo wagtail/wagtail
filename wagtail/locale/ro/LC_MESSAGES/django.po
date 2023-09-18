@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -231,6 +231,39 @@ msgstr "în moderare"
 msgid "live + in moderation"
 msgstr "live + în moderare"
 
+msgid "Add/edit pages you own"
+msgstr "Adaugă/editeaza pagini deținute"
+
+msgid "Bulk delete"
+msgstr "Șterge în masă"
+
+msgid "Delete pages with children"
+msgstr "Șterge pagini cu descendenți"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit any page"
+msgstr "Editează orice pagină"
+
+msgid "Lock"
+msgstr "Încuie"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Blochează/deblochează paginile tale blocate"
+
+msgid "Publish"
+msgstr "Publică"
+
+msgid "Publish any page"
+msgstr "Publică orice pagină"
+
+msgid "Unlock"
+msgstr "Deblochează"
+
+msgid "Unlock any page"
+msgstr "Deblochează orice pagină"
+
 msgid "title"
 msgstr "titlu"
 
@@ -325,41 +358,11 @@ msgstr "revizie"
 msgid "revisions"
 msgstr "reviziuni"
 
-msgid "Add/edit pages you own"
-msgstr "Adaugă/editeaza pagini deținute"
-
-msgid "Edit"
-msgstr "Editează"
-
-msgid "Edit any page"
-msgstr "Editează orice pagină"
-
-msgid "Publish"
-msgstr "Publică"
-
-msgid "Publish any page"
-msgstr "Publică orice pagină"
-
-msgid "Bulk delete"
-msgstr "Șterge în masă"
-
-msgid "Delete pages with children"
-msgstr "Șterge pagini cu descendenți"
-
-msgid "Lock"
-msgstr "Încuie"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Blochează/deblochează paginile tale blocate"
-
-msgid "Unlock"
-msgstr "Deblochează"
-
-msgid "Unlock any page"
-msgstr "Deblochează orice pagină"
-
 msgid "group"
 msgstr "grup"
+
+msgid "permission"
+msgstr "permisiune"
 
 msgid "permission type"
 msgstr "tip permisiune"
@@ -580,9 +583,6 @@ msgstr "restricție de vizualizare colecții"
 
 msgid "collections"
 msgstr "colecții"
-
-msgid "permission"
-msgstr "permisiune"
 
 msgid "group collection permission"
 msgstr "permisiune grup colecție"

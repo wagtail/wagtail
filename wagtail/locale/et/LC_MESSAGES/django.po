@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -130,6 +130,39 @@ msgstr "mõõdukalt"
 msgid "live + in moderation"
 msgstr "live + mõõdukalt"
 
+msgid "Add/edit pages you own"
+msgstr "Lisage / muutke omatavaid lehti"
+
+msgid "Bulk delete"
+msgstr "Hulgi kustutamine"
+
+msgid "Delete pages with children"
+msgstr "Kustutage lastega lehed"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Edit any page"
+msgstr "Muutke suvalist lehte"
+
+msgid "Lock"
+msgstr "Lukusta"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lukustage / avage lukustatud lehed"
+
+msgid "Publish"
+msgstr "Avalda"
+
+msgid "Publish any page"
+msgstr "Avaldage mis tahes leht"
+
+msgid "Unlock"
+msgstr "Ava"
+
+msgid "Unlock any page"
+msgstr "Avage mis tahes leht"
+
 msgid "title"
 msgstr "pealkiri"
 
@@ -192,41 +225,11 @@ msgstr "redaktsioon"
 msgid "revisions"
 msgstr "redaktsioonid"
 
-msgid "Add/edit pages you own"
-msgstr "Lisage / muutke omatavaid lehti"
-
-msgid "Edit"
-msgstr "Muuda"
-
-msgid "Edit any page"
-msgstr "Muutke suvalist lehte"
-
-msgid "Publish"
-msgstr "Avalda"
-
-msgid "Publish any page"
-msgstr "Avaldage mis tahes leht"
-
-msgid "Bulk delete"
-msgstr "Hulgi kustutamine"
-
-msgid "Delete pages with children"
-msgstr "Kustutage lastega lehed"
-
-msgid "Lock"
-msgstr "Lukusta"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Lukustage / avage lukustatud lehed"
-
-msgid "Unlock"
-msgstr "Ava"
-
-msgid "Unlock any page"
-msgstr "Avage mis tahes leht"
-
 msgid "group"
 msgstr "Grupp"
+
+msgid "permission"
+msgstr "luba"
 
 msgid "permission type"
 msgstr "loa tüüp"
@@ -394,9 +397,6 @@ msgstr "kogu vaatamise piirangud"
 
 msgid "collections"
 msgstr "kollektsioonid"
-
-msgid "permission"
-msgstr "luba"
 
 msgid "group collection permission"
 msgstr "grupi kogumise luba"

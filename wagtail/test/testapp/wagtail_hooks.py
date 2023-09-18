@@ -17,7 +17,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElement
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
-from wagtail.admin.ui.tables import UpdatedAtColumn
+from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
@@ -29,6 +29,12 @@ from wagtail.test.testapp.models import (
     RevisableChildModel,
     RevisableModel,
     VariousOnDeleteModel,
+)
+from wagtail.test.testapp.views import (
+    JSONModelViewSetGroup,
+    MiscellaneousViewSetGroup,
+    ToyViewSetGroup,
+    animated_advert_chooser_viewset,
 )
 
 from .forms import FavouriteColourForm
@@ -242,6 +248,21 @@ def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
 
 
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return MiscellaneousViewSetGroup()
+
+
+@hooks.register("register_admin_viewset")
+def register_json_model_viewsets():
+    return JSONModelViewSetGroup()
+
+
+@hooks.register("register_admin_viewset")
+def register_toy_viewset():
+    return ToyViewSetGroup()
+
+
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
     class Meta:
         model = FullFeaturedSnippet
@@ -257,12 +278,20 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     list_per_page = 5
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
-    list_display = ["text", "country_code", "get_foo_country_code", UpdatedAtColumn()]
+    list_display = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        UpdatedAtColumn(),
+        "modulo_two",
+        BooleanColumn("tristate"),
+    ]
     list_export = [
         "text",
         "country_code",
         "get_foo_country_code",
         "some_date",
+        "some_number",
         "first_published_at",
     ]
     export_filename = "all-fullfeatured-snippets"
@@ -306,7 +335,8 @@ class RevisableChildModelViewSet(SnippetViewSet):
 
 
 class RevisableViewSetGroup(SnippetViewSetGroup):
-    items = (RevisableModelViewSet, RevisableChildModelViewSet)
+    # Works with both classes and instances
+    items = (RevisableModelViewSet, RevisableChildModelViewSet())
     menu_label = "Revisables"
     menu_icon = "tasks"
 
@@ -350,6 +380,12 @@ class VariousOnDeleteModelViewSet(SnippetViewSet):
 
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
-register_snippet(ModeratedModelViewSet)
+# Works with both classes and instances
+register_snippet(ModeratedModelViewSet())
 register_snippet(RevisableViewSetGroup)
 register_snippet(VariousOnDeleteModelViewSet)
+
+
+@hooks.register("register_admin_viewset")
+def register_animated_advert_chooser_viewset():
+    return animated_advert_chooser_viewset

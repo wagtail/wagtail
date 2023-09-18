@@ -25,12 +25,12 @@ describe('TooltipController', () => {
   >
     CONTENT
   </button>
-</section`;
+</section>`;
 
     application = Application.start();
     application.register('w-tooltip', TooltipController);
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     // set all animation durations to 0 so that tests can ignore animation delays
     // Tippy relies on transitionend which is not yet supported in JSDom
@@ -56,7 +56,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.dispatchEvent(new Event('mouseenter'));
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(1);
     const tooltip = document.querySelector('[role="tooltip"]');
@@ -74,7 +74,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.dispatchEvent(new Event('mouseenter'));
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     const tooltip = document.querySelector('[role="tooltip"]');
 
@@ -96,7 +96,7 @@ describe('TooltipController', () => {
 
     tooltipTrigger.removeAttribute('data-controller');
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(controller.tippy.destroy).toHaveBeenCalled();
   });
@@ -129,8 +129,31 @@ describe('TooltipController', () => {
     // change the content value
     tooltipTrigger.setAttribute('data-w-tooltip-content-value', 'NEW content!');
 
-    await Promise.resolve(requestAnimationFrame);
+    await Promise.resolve();
 
     expect(tooltip.textContent).toEqual('NEW content!');
+  });
+
+  it('should support passing the offset value', async () => {
+    document.body.innerHTML = `
+    <section>
+      <button
+        id="button"
+        type="button"
+        data-controller="w-tooltip"
+        data-w-tooltip-offset-value="[10, 20]"
+      >
+        CONTENT
+      </button>
+    </section>`;
+
+    await Promise.resolve(requestAnimationFrame);
+
+    const tippy = application.getControllerForElementAndIdentifier(
+      document.getElementById('button'),
+      'w-tooltip',
+    ).tippy;
+
+    expect(tippy.props).toHaveProperty('offset', [10, 20]);
   });
 });

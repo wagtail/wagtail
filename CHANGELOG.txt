@@ -4,10 +4,82 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
+ * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
+ * Move `SnippetViewSet` menu registration mechanism to base `ViewSet` class (Sage Abdullah)
+ * Enable reference index tracking for models registered with `ModelViewSet` (Sage Abdullah)
+ * When copying a page or creating an alias, copy its view restrictions to the destination (Sandeep Choudhary, Suyash Singh)
+ * Support pickling of StreamField values (pySilver)
+ * Move `SnippetViewSet` template override mechanism to `ModelViewSet` (Sage Abdullah)
+ * Move `SnippetViewSet.list_display` to `ModelViewSet` (Sage Abdullah)
+ * Remove `wagtail.publish` log action on aliases when they are created from live source pages or the source page is published (Dan Braghis)
+ * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
+ * Add compare buttons to workflow dashboard panel (Matt Westcott)
+ * Add the ability to use filters and to export listings in generic `IndexView` (Sage Abdullah)
+ * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah)
+ * Add default header titles to generic `IndexView` and `CreateView` (Sage Abdullah)
+ * Allow overriding `IndexView.export_headings` via `ModelViewSet` (Christer Jensen, Sage Abdullah)
+ * Support specifying a `get_object_list` method on `ChooserViewSet` (Matt Westcott)
+ * Add `linked_fields` mechanism on chooser widgets to allow choices to be limited by fields on the calling page (Matt Westcott)
+ * Add support for merging cells within `TableBlock` with the `mergedCells` option (Gareth Palmer)
+ * When adding a panel within `InlinePanel`, focus will now shift to that content similar to `StreamField` (Faishal Manzar)
+ * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
+ * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
+ * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
+ * Add breadcrumbs to generic model views (Sage Abdullah)
+ * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
+ * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
+ * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
+ * Fix: Filter out comments on Page editing counts that do not correspond to a valid field / block path on the page such as when a field has been removed (Matt Westcott)
+ * Fix: Allow `PublishMenuItem` to more easily support overriding its label via `construct_page_action_menu` (Sébastien Corbin)
+ * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
+ * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
+ * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
+ * Docs: Fix incorrect tag library import on focal points example (Hatim Makki Hoho)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
+ * Maintenance: Update Eslint, Prettier, Jest, a11y-dialog, axe-core and js-cookie npm packages (LB (Ben) Johnston)
+ * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
+ * Maintenance: Run tests in parallel in some of the CI setup (Sage Abdullah)
+ * Maintenance: Remove unused WorkflowStatus view, urlpattern, and workflow-status.js (Storm Heg)
+ * Maintenance: Add support for options/attrs in Telepath widgets so that attrs render on the created DOM (Storm Heg)
+ * Maintenance: Update pre-commit hooks to be in sync with latest changes to Eslint & Prettier for client-side changes (Storm Heg)
+ * Maintenance: Add `WagtailTestUtils.get_soup()` method for testing HTML content (Storm Heg, Sage Abdullah)
+ * Maintenance: Allow `ViewSet` subclasses to customise `url_prefix` and `url_namespace` logic (Matt Westcott)
+ * Maintenance: Simplify `SnippetViewSet` registration code (Sage Abdullah)
+ * Maintenance: Rename groups `IndexView.results_template_name` to `results.html` (Sage Abdullah)
+ * Maintenance: Migrate form submission listing checkbox toggling to the shared `w-bulk` Stimulus implementation (LB (Ben) Johnston)
+ * Maintenance: Allow viewsets to define a common set of view kwargs (Matt Westcott)
+ * Maintenance: Migrate the editor unsaved messages popup to be driven by Stimulus using the shared `w-message` controller (LB (Ben) Johnston, Hussain Saherwala)
+ * Maintenance: Do not use jest inside `stubs.js` to prevent Storybook from crashing (LB (Ben) Johnston)
+ * Maintenance: Refactor snippets templates to reuse the shared `slim_header.html` template (Sage Abdullah)
+ * Maintenance: Refactor `slim_header.html` template to reduce code duplication (Sage Abdullah)
+ * Maintenance: Upgrade Willow to v1.6.2 to support MIME type data without reliance on `imghdr` (Jake Howard)
+ * Maintenance: Replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
+ * Maintenance: Migrate all other `data-tippy` HTML attribute usage to the Stimulus data-*-value attributes for w-tooltip & w-dropdown (Subhajit Ghosh, LB (Ben) Johnston)
+ * Maintenance: Replace `@total_ordering` usage with comparison functions implementation (Virag Jain)
+ * Maintenance: Replace `<script type="text/django-form-template"><-/script>` template approach with HTML `template` elements in InlinePanel and expanding formset (Mansi Gundre, Subhajit Ghosh, LB (Ben) Johnston)
 
 
-5.1 (xx.xx.xxxx) - IN DEVELOPMENT
+5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
+ * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
+ * Fix: Change spreadsheet export headings to match listing view column headings (Christer Jensen, Sage Abdullah)
+ * Fix: Fix numbers, booleans, and `None` from being exported as strings (Christer Jensen)
+ * Fix: Restore fallback on full-word search for snippet choosers and generic index views (Matt Westcott)
+ * Maintenance: For Python 3.13 support - upgrade Willow to v1.6.2, replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
+
+
+5.1.1 (14.08.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Introduce `wagtail.admin.ui.tables.BooleanColumn` to display boolean values as icons (Sage Abdullah)
+ * Fix: Show not-`None` falsy values instead of blank in generic table cell template (Sage Abdullah)
+ * Fix: Fix `read_only` panels for fields with translatable choice labels (Florent Lebreton)
+
+
+5.1 (01.08.2023)
 ~~~~~~~~~~~~~~~~
 
  * Add support for read-only FieldPanels (Andy Babic)
@@ -70,6 +142,11 @@ Changelog
  * Fix: Use a theme-agnostic color token for read-only panels support in dark mode (Thibaud Colas)
  * Fix: Ensure collapsible StreamBlocks expand as necessary to show validation errors (Storm Heg)
  * Fix: Ensure userbar dialog can sit above other website content (LB (Ben) Johnston)
+ * Fix: Fix preview panel loading issues (Sage Abdullah)
+ * Fix: Fix `search_promotions` `0004_copy_queries` migration for long-lived Wagtail instances (Sage Abdullah)
+ * Fix: Guard against `TypeError` in `0088_fix_log_entry_json_timestamps` migration (Sage Abdullah)
+ * Fix: Add migration to replace JSON null values with empty objects in log entries' data (Sage Abdullah)
+ * Fix: Typo in the `page_header_buttons` template tag when accessing the context's request object (Robert Rollins)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
@@ -85,6 +162,7 @@ Changelog
  * Docs: Update the deployment documentation page and remove outdated information (Jake Howard)
  * Docs: Add more items to performance page regarding pre-fetching images and frontend caching (Jake Howard)
  * Docs: Add docs for managing stored queries in `searchpromotions` (Scott Foster)
+ * Docs: Add docs for migrating from ModelAdmin to Snippets (Sage Abdullah)
  * Maintenance: Removed support for Python 3.7 (Dan Braghis)
  * Maintenance: Switch to ruff for flake8 / isort code checking (Oliver Parker)
  * Maintenance: Deprecate `insert_editor_css` in favour of `insert_global_admin_css` (Ester Beltrami)
@@ -115,6 +193,15 @@ Changelog
  * Maintenance: Support dialog template cloning using a new `w-teleport` Stimulus controller (Loveth Omokaro, LB (Ben) Johnston)
  * Maintenance: Migrate away from using the `"wagtailadmin/shared/field_as_li.html"` template include (Storm Heg)
  * Maintenance: Deprecate `wagtail.contrib.modeladmin` (Sage Abdullah)
+ * Maintenance: Upgrade documentation theme `sphinx_wagtail_theme` to v6.1.1 which includes multiple styling fixes and always visible code copy buttons (LB (Ben) Johnston)
+ * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
+
+
+5.0.3 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
+ * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
 
 
 5.0.2 (21.06.2023)

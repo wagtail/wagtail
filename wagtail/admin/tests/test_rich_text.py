@@ -1,6 +1,5 @@
 import unittest
 
-from bs4 import BeautifulSoup
 from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
@@ -431,11 +430,11 @@ class TestDraftailWithAdditionalFeatures(
         self.assertNotContains(response, '"type": "ITALIC"')
 
 
-class TestPageLinkHandler(TestCase):
+class TestPageLinkHandler(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup('<a data-id="test-id">foo</a>', "html5lib")
+        soup = self.get_soup('<a data-id="test-id">foo</a>')
         tag = soup.a
         result = PageLinkHandler.get_db_attributes(tag)
         self.assertEqual(result, {"id": "test-id"})

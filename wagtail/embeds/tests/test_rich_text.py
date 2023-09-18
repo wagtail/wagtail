@@ -1,6 +1,5 @@
 from unittest.mock import patch
 
-from bs4 import BeautifulSoup
 from django.test import TestCase, override_settings
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
@@ -10,11 +9,12 @@ from wagtail.embeds.rich_text.editor_html import (
     MediaEmbedHandler as EditorHtmlMediaEmbedHandler,
 )
 from wagtail.rich_text import expand_db_html
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestEditorHtmlMediaEmbedHandler(TestCase):
+class TestEditorHtmlMediaEmbedHandler(WagtailTestUtils, TestCase):
     def test_get_db_attributes(self):
-        soup = BeautifulSoup('<b data-url="test-url">foo</b>', "html5lib")
+        soup = self.get_soup('<b data-url="test-url">foo</b>')
         tag = soup.b
         result = EditorHtmlMediaEmbedHandler.get_db_attributes(tag)
         self.assertEqual(result, {"url": "test-url"})

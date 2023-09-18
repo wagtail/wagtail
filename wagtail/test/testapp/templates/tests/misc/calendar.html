@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/generic/base.html" %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        table.month {
+            margin: 20px;
+        }
+        table.month td, table.month th {
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block main_content %}
+    {{ calendar_html|safe }}
+{% endblock %}

@@ -49,7 +49,9 @@
             {% endif %}
         </div>
 
-        <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% endif %} data-field-help>
+        {# If help_text_id is in the context, use it. #}
+        {# Otherwise, if the field has help_text and id_for_label, automatically generate the id with that. #}
+        <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% elif field.help_text and field.id_for_label %}id="{{ field.id_for_label }}-helptext"{% endif %} data-field-help>
             {% firstof help_text field.help_text as help_text_value %}
             {% if help_text_value %}
                 <div class="help">{{ help_text_value }}</div>

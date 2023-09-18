@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -129,6 +129,39 @@ msgstr "審核中"
 msgid "live + in moderation"
 msgstr "上線 + 審核中"
 
+msgid "Add/edit pages you own"
+msgstr "新增/編輯所屬的頁面"
+
+msgid "Bulk delete"
+msgstr "批量刪除"
+
+msgid "Delete pages with children"
+msgstr "刪除頁面及其子頁面"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit any page"
+msgstr "編輯任意頁面"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "鎖定/解鎖頁面"
+
+msgid "Publish"
+msgstr "發佈"
+
+msgid "Publish any page"
+msgstr "發佈任意頁面"
+
+msgid "Unlock"
+msgstr "解鎖"
+
+msgid "Unlock any page"
+msgstr "解鎖作何頁面"
+
 msgid "title"
 msgstr "標題"
 
@@ -192,41 +225,11 @@ msgstr "修訂版本"
 msgid "revisions"
 msgstr "修訂版本"
 
-msgid "Add/edit pages you own"
-msgstr "新增/編輯所屬的頁面"
-
-msgid "Edit"
-msgstr "編輯"
-
-msgid "Edit any page"
-msgstr "編輯任意頁面"
-
-msgid "Publish"
-msgstr "發佈"
-
-msgid "Publish any page"
-msgstr "發佈任意頁面"
-
-msgid "Bulk delete"
-msgstr "批量刪除"
-
-msgid "Delete pages with children"
-msgstr "刪除頁面及其子頁面"
-
-msgid "Lock"
-msgstr "鎖定"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "鎖定/解鎖頁面"
-
-msgid "Unlock"
-msgstr "解鎖"
-
-msgid "Unlock any page"
-msgstr "解鎖作何頁面"
-
 msgid "group"
 msgstr "群組"
+
+msgid "permission"
+msgstr "權限"
 
 msgid "permission type"
 msgstr "權限類型"
@@ -389,9 +392,6 @@ msgstr "集合檢視限制"
 
 msgid "collections"
 msgstr "集合"
-
-msgid "permission"
-msgstr "權限"
 
 msgid "group collection permission"
 msgstr "群組集合權限"

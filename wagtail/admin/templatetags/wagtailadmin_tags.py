@@ -65,8 +65,13 @@ register.filter("intcomma", intcomma)
 register.filter("naturaltime", naturaltime)
 
 
-@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html", takes_context=True)
-def breadcrumbs(
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
+def breadcrumbs(items, is_expanded=False, classname=None):
+    return {"items": items, "is_expanded": is_expanded, "classname": classname}
+
+
+@register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
+def page_breadcrumbs(
     context,
     page,
     url_name,
@@ -84,10 +89,10 @@ def breadcrumbs(
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
     cca = PagePermissionPolicy().explorable_root_instance(user)
     if not cca:
-        return {"pages": Page.objects.none()}
+        return {"items": Page.objects.none()}
 
     return {
-        "pages": page.get_ancestors(inclusive=include_self)
+        "items": page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
         .specific(),
         "current_page": page,
@@ -343,7 +348,23 @@ def render_with_errors(bound_field):
             errors=bound_field.errors,
         )
     else:
-        return bound_field.as_widget()
+        attrs = {}
+        # If the widget doesn't have an aria-describedby attribute,
+        # and the field has help text, and the field has an id,
+        # add an aria-describedby attribute pointing to the help text.
+        # In this case, the corresponding help text element's id is set in the
+        # wagtailadmin/shared/field.html template.
+
+        # In Django 5.0 and up, this is done automatically, but we want to keep
+        # this code because we use a different convention for the help text id
+        # (we use -helptext suffix instead of Django's _helptext).
+        if (
+            not bound_field.field.widget.attrs.get("aria-describedby")
+            and bound_field.field.help_text
+            and bound_field.id_for_label
+        ):
+            attrs["aria-describedby"] = f"{bound_field.id_for_label}-helptext"
+        return bound_field.as_widget(attrs=attrs)
 
 
 @register.filter
@@ -457,7 +478,7 @@ def page_listing_buttons(context, page, page_perms):
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
-    next_url = context.request.path
+    next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
     buttons = []
@@ -1180,8 +1201,9 @@ def workflow_status_with_date(workflow_state):
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
-def human_readable_date(date, description=None):
+def human_readable_date(date, description=None, placement="top"):
     return {
         "date": date,
         "description": description,
+        "placement": placement,
     }

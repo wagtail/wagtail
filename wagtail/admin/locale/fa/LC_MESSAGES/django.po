@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022-2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -325,9 +325,6 @@ msgstr "همه %(objects)s آیتم این صفحه انتخاب شدند"
 msgid "All items in listing selected"
 msgstr "همه آیتم های فهرست انتخاب شدند"
 
-msgid "Page title"
-msgstr "عنوان صفحه"
-
 msgid "For search engines"
 msgstr "برای موتور های جست و جو"
 
@@ -342,6 +339,12 @@ msgstr "ترویج"
 
 msgid "Settings"
 msgstr "تنظیمات"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Page title"
+msgstr "عنوان صفحه"
 
 msgid "Error 404: Page not found"
 msgstr "ارور 404: صفحه یافت نشد"
@@ -657,9 +660,6 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "صفحات قفل شده"
-
-msgid "Title"
-msgstr "عنوان"
 
 msgid "Locked at"
 msgstr "قفل شده در"
@@ -994,13 +994,6 @@ msgid "Would you still like to publish this page?"
 msgstr "آیا هنوز مایل به انتشار این صفحه هستید؟"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "صفحه های %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "صفحه های"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "کپی %(title)s"
 
@@ -1034,18 +1027,8 @@ msgstr "پیشنویس فعلی"
 msgid "Exploring %(title)s"
 msgstr "درحال کاوش %(title)s"
 
-msgid "Drag"
-msgstr "کشیدن"
-
 msgid "Configure a site now."
 msgstr "پیکربندی یک سایت"
-
-msgid "No pages have been created at this location."
-msgstr "هیچ صفحه ای در این موقعیت ایجاد نشده است."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "چرا یکی <a href=\"%(add_page_url)s\">ایجاد</a> نمیکنید؟"
 
 msgid "This page is locked to further editing"
 msgstr "این صفحه برای ویرایش در آینده قفل شده"
@@ -1057,6 +1040,18 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "افزودن زیرصفحه به «%(title)s»"
+
+msgid "Drag"
+msgstr "کشیدن"
+
+msgid "Disable ordering of child pages"
+msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
+
+msgid "Sort"
+msgstr "مرتب‌سازی"
+
+msgid "Enable ordering of child pages"
+msgstr "فعال سازی ترتیب زیرصفحه ها"
 
 msgid "Sites menu"
 msgstr "منوی سایت‌ها"
@@ -1072,18 +1067,6 @@ msgstr "بعدی"
 
 msgid "This page is protected from public view"
 msgstr "این صفحه از دید عمومی پنهان شده است"
-
-msgid "Disable ordering of child pages"
-msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
-
-msgid "Sort"
-msgstr "مرتب‌سازی"
-
-msgid "Enable ordering of child pages"
-msgstr "فعال سازی ترتیب زیرصفحه ها"
-
-msgid "Updated"
-msgstr "بروزرسانی شده"
 
 msgid "Confirm"
 msgstr "تایید"
@@ -1128,11 +1111,8 @@ msgstr "صفحه‌ای یافت نشد"
 msgid "No pages match this report's criteria."
 msgstr "هیچ صفحه‌ای با نیازهای این گزارش همخوانی ندارد."
 
-msgid "Download XLSX"
-msgstr "دانلود XLSX"
-
-msgid "Download CSV"
-msgstr "دانلود CSV"
+msgid "Updated"
+msgstr "بروزرسانی شده"
 
 msgid "Locking status"
 msgstr "وضعیت قفل"
@@ -1164,6 +1144,12 @@ msgstr "خرده نان"
 
 msgid "Root"
 msgstr "ریشه"
+
+msgid "Download XLSX"
+msgstr "دانلود XLSX"
+
+msgid "Download CSV"
+msgstr "دانلود CSV"
 
 msgid "Add comment"
 msgstr "افزودن نظر"
@@ -1296,6 +1282,19 @@ msgstr "مشاهده‌ی تاریخچه‌ی کامل"
 msgid "Compare with live version"
 msgstr "مقایسه با نسخه منتشر شده"
 
+msgid "More"
+msgstr "بیشتر"
+
+msgid "0 minutes"
+msgstr "0 دقیقه"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s پیش"
+
+msgid "Log out"
+msgstr "خروج"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1307,22 +1306,6 @@ msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "descending order."
 msgstr "صفحه‌های فرزند درون %(parent)s توسط %(label)s به ترتیب نزولی مرتب کن."
-
-msgid "More"
-msgstr "بیشتر"
-
-msgid "View more bulk actions"
-msgstr "مشاهده اعمال جمعی بیشتر"
-
-msgid "0 minutes"
-msgstr "0 دقیقه"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
-
-msgid "Log out"
-msgstr "خروج"
 
 msgid "Profile"
 msgstr "پروفایل"
@@ -1449,6 +1432,9 @@ msgstr "جستجوی %(model_name)s"
 
 msgid "Editing"
 msgstr "ویرایش"
+
+msgid "Inspecting"
+msgstr "بازرسی"
 
 msgid "Earliest"
 msgstr "اولین"
@@ -1721,6 +1707,9 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr "صفحه '%(page_title)s' لغو انتشار شد."
 
+msgid "Pages using"
+msgstr "صفحه های"
+
 msgid "Aging pages"
 msgstr "صفحات سالخورده"
 
@@ -1760,10 +1749,6 @@ msgstr "افزودن زیرصفحه"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "افزودن صفحه‌ی فرزند به «%(title)s»"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "دیدن گزینه های بیشتر برای %(title)s"
 
 #, python-format
 msgid "Move page '%(title)s'"

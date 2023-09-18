@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.fields import RichTextField
@@ -13,9 +12,8 @@ from .utils import Image, get_test_image_file
 
 class TestEditorHtmlImageEmbedHandler(WagtailTestUtils, TestCase):
     def test_get_db_attributes(self):
-        soup = BeautifulSoup(
+        soup = self.get_soup(
             '<b data-id="test-id" data-format="test-format" data-alt="test-alt">foo</b>',
-            "html5lib",
         )
         tag = soup.b
         result = EditorHtmlImageEmbedHandler.get_db_attributes(tag)

@@ -65,7 +65,7 @@ class TestRedirectReport(WagtailTestUtils, TestCase):
 
         self.assertEqual(csv_header, "From,To,Type,Site\r")
         self.assertEqual(len(csv_entries), 1)
-        self.assertEqual(csv_entries[0], "/from,/to,temporary,None\r")
+        self.assertEqual(csv_entries[0], "/from,/to,temporary,\r")
 
     def test_xlsx_export(self):
         Redirect.add_redirect("/from", "/to", True)
@@ -79,4 +79,4 @@ class TestRedirectReport(WagtailTestUtils, TestCase):
 
         self.assertEqual(cell_array[0], ["From", "To", "Type", "Site"])
         self.assertEqual(len(cell_array), 2)
-        self.assertEqual(cell_array[1], ["/from", "/to", "permanent", "None"])
+        self.assertEqual(cell_array[1], ["/from", "/to", "permanent", None])

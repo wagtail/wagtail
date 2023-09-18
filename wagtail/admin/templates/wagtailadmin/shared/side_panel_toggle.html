@@ -3,11 +3,11 @@
 <button type="button"
     class="{{ nav_icon_button_classes }}"
     aria-label="{{ toggle.aria_label }}"
-    data-tippy-content="{{ panel.title }}"
-    data-tippy-offset="[0,0]"
-    data-tippy-placement="bottom"
-    data-side-panel-toggle="{{ panel.name }}"
     aria-expanded="false"
+    data-controller="w-tooltip"
+    data-side-panel-toggle="{{ panel.name }}"
+    data-w-tooltip-content-value="{{ panel.title }}"
+    data-w-tooltip-offset-value="[0, 0]"
 >
     {% icon name=toggle.icon_name classname=nav_icon_classes %}
     {% if toggle.has_counter %}

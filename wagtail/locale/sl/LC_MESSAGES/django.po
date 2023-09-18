@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,6 +78,9 @@ msgstr "Wagtail usmerjevalna stran"
 msgid "Wagtail sitemaps"
 msgstr "Zemljevidi strani Wagtail"
 
+msgid "Unknown content type"
+msgstr "Neznana vrsta vsebine"
+
 msgid "Password"
 msgstr "Geslo"
 
@@ -98,6 +101,12 @@ msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' je zaklenjen</b>."
 
+msgid "Locked by you"
+msgstr "Zaklenjeno s vaše strani"
+
+msgid "Locked by another user"
+msgstr "Zaklenil drug uporabnik"
+
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "%(model_name)s trenutno čaka moderiranje"
@@ -111,6 +120,19 @@ msgstr "Odklenjeno"
 
 msgid "Locked by workflow"
 msgstr "Zaklenjeni poteki dela"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' je zaklenjen in je načrtovan za začetek ob {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Zaklenjeno po urniku"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Trenutno zaklenjeno in bo objavljeno na načrtovani datum"
 
 msgid "latest revision"
 msgstr "zadnja revizija"
@@ -168,6 +190,39 @@ msgstr "v pregledu"
 
 msgid "live + in moderation"
 msgstr "objavljeno + v pregledu"
+
+msgid "Add/edit pages you own"
+msgstr "Dodaj/uredi strani v vaši lasti"
+
+msgid "Bulk delete"
+msgstr "Množično brisanje"
+
+msgid "Delete pages with children"
+msgstr "Izbrišite strani z otroki"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit any page"
+msgstr "Uredi katerokoli stran"
+
+msgid "Lock"
+msgstr "Zakleni"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Zaklenite/odklenite strani, ki ste jih zaklenili"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Publish any page"
+msgstr "Objavi katerokoli stran"
+
+msgid "Unlock"
+msgstr "Odkleni"
+
+msgid "Unlock any page"
+msgstr "Odklenite katero koli stran"
 
 msgid "title"
 msgstr "naziv"
@@ -262,41 +317,11 @@ msgstr "revizija"
 msgid "revisions"
 msgstr "revizije"
 
-msgid "Add/edit pages you own"
-msgstr "Dodaj/uredi strani v vaši lasti"
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "Edit any page"
-msgstr "Uredi katerokoli stran"
-
-msgid "Publish"
-msgstr "Objavi"
-
-msgid "Publish any page"
-msgstr "Objavi katerokoli stran"
-
-msgid "Bulk delete"
-msgstr "Množično brisanje"
-
-msgid "Delete pages with children"
-msgstr "Izbrišite strani z otroki"
-
-msgid "Lock"
-msgstr "Zakleni"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Zaklenite/odklenite strani, ki ste jih zaklenili"
-
-msgid "Unlock"
-msgstr "Odkleni"
-
-msgid "Unlock any page"
-msgstr "Odklenite katero koli stran"
-
 msgid "group"
 msgstr "skupina"
+
+msgid "permission"
+msgstr "dovoljenje"
 
 msgid "permission type"
 msgstr "tip dovoljenja"
@@ -409,6 +434,13 @@ msgstr "zahtevano od"
 msgid "current task state"
 msgstr "trenutno stanje naloge"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Morda je samo eden v teku ali pa je potrebno spremeniti stanje poteka dela "
+"na strani/delcih."
+
 msgid "Not started"
 msgstr "Ni začeto"
 
@@ -497,14 +529,25 @@ msgstr "omejitve ogledov zbirke"
 msgid "collections"
 msgstr "zbirke"
 
-msgid "permission"
-msgstr "dovoljenje"
-
 msgid "group collection permission"
 msgstr "dovoljenje za skupinsko zbiranje"
 
 msgid "group collection permissions"
 msgstr "dovoljenja za zbirke skupin"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "tudi %(model_name)s bo izbrisan"
+
+msgid "prevents deletion"
+msgstr "preprečuje brisanje"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "bo nastavljen na privzet %(model_name)s"
+
+msgid "will do nothing"
+msgstr "ne bo naredil nič"
 
 msgid "hostname"
 msgstr "ime strežnika"
@@ -860,6 +903,10 @@ msgstr "Naloga poteka dela zavrnjena. Potek dela končan"
 
 msgid "Workflow: resume task"
 msgstr "Potek dela: nadaljuj nalogo"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr ""
+"Opravilo poteka dela je bilo ponovno poslano. Potek dela se je nadaljeval"
 
 msgid "Workflow: cancel"
 msgstr "Potek dela: prekliči"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -65,16 +65,6 @@ msgstr "לייב + טיוטה"
 msgid "Default"
 msgstr "ברירת מחדל"
 
-msgid "The page title as you'd like it to be seen by the public"
-msgstr "כותרת העמוד כפי שתרצו שתוצג בציבור"
-
-msgid "URL path"
-msgstr "כתובת URL"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "האם קישור לעמוד זה יופיע בתפריטים המיוצרים אוטומטית"
-
 msgid "Add/edit pages you own"
 msgstr "הוספת/עריכת דפים שאתה הבעלים שלהם"
 
@@ -86,6 +76,16 @@ msgstr "פרסם"
 
 msgid "Publish any page"
 msgstr "פרסום כל עמוד"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "כותרת העמוד כפי שתרצו שתוצג בציבור"
+
+msgid "URL path"
+msgstr "כתובת URL"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "האם קישור לעמוד זה יופיע בתפריטים המיוצרים אוטומטית"
 
 msgid "groups"
 msgstr "קבוצות"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -61,6 +61,9 @@ msgstr "Редакция"
 
 msgid "Delete"
 msgstr "Изтрий"
+
+msgid "Title"
+msgstr "Заглавие"
 
 msgid "Page title"
 msgstr "Заглавие на Страница"
@@ -142,9 +145,6 @@ msgid ""
 msgstr ""
 "Това е вашето работно табло, където ще бъде показана полезна информация за "
 "контент, който сте създали."
-
-msgid "Title"
-msgstr "Заглавие"
 
 msgid "Edit this page"
 msgstr "Редактирайте тази страница"
@@ -260,9 +260,6 @@ msgstr "Да, премести тази страница"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Сигурен ли сте, че искате да отмените публикуването на тази страница?"
 
-msgid "Pages using"
-msgstr "Страници използващи"
-
 #, python-format
 msgid "New %(page_type)s"
 msgstr "Нова %(page_type)s"
@@ -271,24 +268,24 @@ msgstr "Нова %(page_type)s"
 msgid "Exploring %(title)s"
 msgstr "Преглед на %(title)s"
 
-msgid "Drag"
-msgstr "Плъзнете"
-
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
-msgid "Previous"
-msgstr "Предишно"
-
-msgid "Next"
-msgstr "Следващо"
+msgid "Drag"
+msgstr "Плъзнете"
 
 msgid "Disable ordering of child pages"
 msgstr "Отменете подредбата на дъщерни страници"
 
 msgid "Enable ordering of child pages"
 msgstr "Позволете подредба на дъщерни страници"
+
+msgid "Previous"
+msgstr "Предишно"
+
+msgid "Next"
+msgstr "Следващо"
 
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
@@ -360,6 +357,9 @@ msgstr "Страница '%(page_title)s' преместена."
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Страница '%(page_title)s' отменена от публикуване."
+
+msgid "Pages using"
+msgstr "Страници използващи"
 
 msgid "Add child page"
 msgstr "Добави дъщерна страница"

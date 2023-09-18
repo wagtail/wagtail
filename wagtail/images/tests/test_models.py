@@ -785,7 +785,7 @@ class TestIssue573(TestCase):
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(
-                "thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png"
+                "thisisaverylongfilename-cdefghijklmnopqrstuvwxyzab-supercalifragilisticexpialidocious.png"
             ),
             focal_point_x=1000,
             focal_point_y=1000,
@@ -931,14 +931,14 @@ class TestFilenameReduction(TestCase):
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(
-                "thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong"
+                "thisisaverylongfilename-defghijklmnopqrstuvwxyzabc-supercalifragilisticexpialidocioussuperlong"
             ),
         )
 
         # Saving file will result in infinite loop when bug is present
         image.save()
         self.assertEqual(
-            "original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali",
+            "original_images/thisisaverylongfilename-defghijklmnopqrstuvwxyzabc-supercalifragilisticexpiali",
             image.file.name,
         )
 
@@ -948,13 +948,13 @@ class TestFilenameReduction(TestCase):
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(
-                "thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong.png"
+                "thisisaverylongfilename-efghijklmnopqrstuvwxyzabcd-supercalifragilisticexpialidocioussuperlong.png"
             ),
         )
 
         image.save()
         self.assertEqual(
-            "original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png",
+            "original_images/thisisaverylongfilename-efghijklmnopqrstuvwxyzabcd-supercalifragilisticexp.png",
             image.file.name,
         )
 

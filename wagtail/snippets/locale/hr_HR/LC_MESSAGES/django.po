@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -124,12 +124,6 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">stvorite jedan</a>?"
 
-msgid "Last updated"
-msgstr "Zadnji put ažurirano"
-
-msgid "History"
-msgstr "Povijest"
-
 msgid "Publishing…"
 msgstr "Objava u tijeku..."
 
@@ -141,6 +135,9 @@ msgstr "Spremanje..."
 
 msgid "Replace current draft"
 msgstr "Zamijeni trenutnu skicu"
+
+msgid "Replace current revision"
+msgstr "Zamijeni trenutnu verziju"
 
 msgid "Save draft"
 msgstr "Spremi skicu"
@@ -155,11 +152,39 @@ msgstr "Novi"
 msgid "Actions"
 msgstr "Postupci"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Uređivanje %(snippet_type_name)s - %(object)s"
+
+msgid "Toggle breadcrumbs"
+msgstr "Prikaži/sakrij navigacijsku traku"
+
+msgid "Breadcrumb"
+msgstr "Navigacijska traka"
+
 msgid "Snippets"
 msgstr "Izresci"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Novi: %(model_name)s"
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Uređivanje %(snippet_type)s %(title)s"
+
+msgid "History"
+msgstr "Povijest"
+
 msgid "Usage"
 msgstr "Upotreba"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Povijest izreska %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Uredi ovaj izrezak"
 
 msgid "No log entries found."
 msgstr "Nema pronađenih zapisa."
@@ -172,12 +197,19 @@ msgstr "Izresci %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Dodaj %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Odaberi sve izreske iz popisa"
+
 #, python-format
 msgid "There is %(counter)s match"
 msgid_plural "There are %(counter)s matches"
 msgstr[0] "Pronađen je %(counter)s rezultat"
 msgstr[1] "Pronađeno je %(counter)s"
 msgstr[2] "Pronađeno je %(counter)s rezultata"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Nažalost niti jedan %(snippet_type_name_plural)s ne odgovara upitu"
 
 #, python-format
 msgid ""
@@ -208,11 +240,17 @@ msgstr "Usporedi sa prijašnjom verzijom"
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
 
+msgid "Cancel scheduled publish"
+msgstr "Otkaži zakazano objavljivanje"
+
 msgid "Choose"
 msgstr "Odaberi"
 
 msgid "Name"
 msgstr "Naziv"
+
+msgid "Instances"
+msgstr "Broj instanci"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Nije moguće stvoriti izrezak zbog grešaka."
@@ -233,8 +271,23 @@ msgid "Snippet history"
 msgstr "Povijest izreska"
 
 #, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Uredi ovaj %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Povijest %(model_name)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
+
+msgid "Inspect"
+msgstr "Pregledaj"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Pregledaj '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"

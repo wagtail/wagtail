@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -119,6 +119,9 @@ msgstr "Dátum"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Upraviť '%(title)s'"
+
+msgid "Inspect"
+msgstr "Skontrolovať"
 
 #, python-format
 msgid "Choose %(object)s"

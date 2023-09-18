@@ -44,6 +44,7 @@ from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
+    NonAutocompleteSearchableSnippet,
     RegisterDecorator,
     RegisterFunction,
     SearchableSnippet,
@@ -505,6 +506,45 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         items = list(response.context["page_obj"].object_list)
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+
+class TestSnippetListViewWithNonAutocompleteSearchableSnippet(
+    WagtailTestUtils, TransactionTestCase
+):
+    """
+    Test that searchable snippets with no AutocompleteFields defined can still be searched using
+    full words
+    """
+
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = NonAutocompleteSearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = NonAutocompleteSearchableSnippet.objects.create(text="World")
+        self.snippet_c = NonAutocompleteSearchableSnippet.objects.create(
+            text="Hello World"
+        )
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse(
+                "wagtailsnippets_snippetstests_nonautocompletesearchablesnippet:list"
+            ),
+            params,
+        )
+
+    def test_search_hello(self):
+        with self.assertWarnsRegex(
+            RuntimeWarning, "does not specify any AutocompleteFields"
+        ):
+            response = self.get({"q": "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context["page_obj"].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 
 
@@ -3995,7 +4035,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         self.assertContains(response, '<td class="title">Created</td>', html=True)
         self.assertContains(
             response,
-            'data-tippy-content="Sept. 30, 2021, 10:01 a.m."',
+            'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
         )
 
     def test_filters(self):
@@ -4728,6 +4768,45 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCa
         # should perform partial matching and return "Hello World"
         items = list(response.context["results"].object_list)
         self.assertNotIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+
+class TestSnippetChooseWithNonAutocompleteSearchableSnippet(
+    WagtailTestUtils, TransactionTestCase
+):
+    """
+    Test that searchable snippets with no AutocompleteFields defined can still be searched using
+    full words
+    """
+
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = NonAutocompleteSearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = NonAutocompleteSearchableSnippet.objects.create(text="World")
+        self.snippet_c = NonAutocompleteSearchableSnippet.objects.create(
+            text="Hello World"
+        )
+
+    def get(self, params=None):
+        return self.client.get(
+            reverse(
+                "wagtailsnippetchoosers_snippetstests_nonautocompletesearchablesnippet:choose"
+            ),
+            params or {},
+        )
+
+    def test_search_hello(self):
+        with self.assertWarnsRegex(
+            RuntimeWarning, "does not specify any AutocompleteFields"
+        ):
+            response = self.get({"q": "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context["results"].object_list)
+        self.assertIn(self.snippet_a, items)
         self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 

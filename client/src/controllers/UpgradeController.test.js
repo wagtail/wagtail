@@ -22,8 +22,7 @@ describe('UpgradeController', () => {
         New version: <strong id="latest-version" data-w-upgrade-target="latestVersion">_</strong>.
         <a href="" id="link" data-w-upgrade-target="link">Release notes</a>
       </div>
-    </div>
-    `;
+    </div>`;
   });
 
   afterEach(() => {
@@ -52,7 +51,7 @@ describe('UpgradeController', () => {
     application.register('w-upgrade', UpgradeController);
 
     // trigger next browser render cycle
-    await Promise.resolve(true);
+    await Promise.resolve();
 
     expect(global.fetch).toHaveBeenCalledWith(
       'https://releases.wagtail.org/mock.txt',
@@ -102,7 +101,7 @@ describe('UpgradeController', () => {
     application.register('w-upgrade', UpgradeController);
 
     // trigger next browser render cycle
-    await Promise.resolve(true);
+    await Promise.resolve();
 
     expect(
       document.getElementById('panel').classList.contains('w-hidden'),

@@ -1,17 +1,17 @@
 {% load i18n %}
 <div class="overflow">
-    <table class="listing">
+    <table class="listing" data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible">
         <col />
         <col />
         <col />
         <thead>
             <tr>
                 <th colspan="{{ data_headings|length|add:1 }}">
-                    <button class="button no" id="delete-submissions" style="visibility: hidden">{% trans "Delete selected submissions" %}</button>
+                    <button class="button no w-invisible" data-w-bulk-target="action">{% trans "Delete selected submissions" %}</button>
                 </th>
             </tr>
             <tr>
-                <th><input type="checkbox" id="select-all" /></th>
+                <th><input type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" /></th>
                 {% for heading in data_headings %}
                     <th id="{{ heading.name }}" class="{% if heading.order %}ordered icon {% if heading.order == 'ascending' %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}{% endif %}">
                         {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
@@ -23,7 +23,7 @@
             {% for row in data_rows %}
                 <tr>
                     <td>
-                        <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" />
+                        <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" data-action="w-bulk#toggle" data-w-bulk-target="item" />
                     </td>
                     {% for cell in row.fields %}
                         <td>

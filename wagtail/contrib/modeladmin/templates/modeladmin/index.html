@@ -17,7 +17,6 @@
 
 {% block content %}
     {% block header %}
-        {% fragment as breadcrumb %}{% block breadcrumb %}{% endblock %}{% endfragment %}
         {% fragment as heading %}{% block h1 %}{% endblock %}{% endfragment %}
         {% fragment as description %}{% include 'modeladmin/includes/result_count.html' %}{% endfragment %}
         {% fragment as extra_actions %}
@@ -36,7 +35,7 @@
         {% endfragment %}
         {% fragment as search %}{% block search %}{% search_form %}{% endblock %}{% endfragment %}
         {% fragment as extra_rows %}{% block extra_rows %}{% endblock %}{% endfragment %}
-        {% include 'wagtailadmin/shared/header.html' with classname="w-header--hasform" breadcrumb=breadcrumb heading=heading title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon description=description search=search extra_actions=extra_actions extra_rows=extra_rows %}
+        {% include 'wagtailadmin/shared/header.html' with classname="w-header--hasform" heading=heading title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon description=description search=search extra_actions=extra_actions extra_rows=extra_rows %}
     {% endblock %}
 
     {% block content_main %}

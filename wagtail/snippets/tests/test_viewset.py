@@ -9,7 +9,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -43,15 +43,18 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestIncorrectRegistration(TestCase):
+class TestIncorrectRegistration(SimpleTestCase):
     def test_no_model_set_or_passed(self):
         # The base SnippetViewSet class has no `model` attribute set,
         # so using it directly should raise an error
-        with self.assertRaisesMessage(
-            ImproperlyConfigured,
-            "SnippetViewSet must be passed a model or define a model attribute.",
-        ):
+        with self.assertRaises(ImproperlyConfigured) as cm:
             register_snippet(SnippetViewSet)
+        message = str(cm.exception)
+        self.assertIn("ModelViewSet", message)
+        self.assertIn(
+            "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
 
 
 class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
@@ -666,6 +669,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         self.assertContains(response, "Country code")
         self.assertContains(response, "Custom FOO column")
         self.assertContains(response, "Updated")
+        self.assertContains(response, "Modulo two")
+        self.assertContains(response, "Tristate")
 
         self.assertContains(response, "Foo UK")
 
@@ -677,8 +682,56 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
 
         html = response.content.decode()
 
-        # The bulk actions column plus 4 columns defined in FullFeaturedSnippetViewSet
-        self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+        # The bulk actions column plus 6 columns defined in FullFeaturedSnippetViewSet
+        self.assertTagInHTML("<th>", html, count=7, allow_extra_attrs=True)
+
+    def test_falsy_value(self):
+        # https://github.com/wagtail/wagtail/issues/10765
+        response = self.get()
+        self.assertContains(response, "<td>0</td>", html=True, count=1)
+
+    def test_boolean_column(self):
+        self.model.objects.create(text="Another one")
+        response = self.get()
+        self.assertContains(
+            response,
+            """
+            <td>
+                <svg class="icon icon-success default w-text-positive-100" aria-hidden="true">
+                    <use href="#icon-success"></use>
+                </svg>
+                <span class="visuallyhidden">True</span>
+            </td>
+            """,
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            """
+            <td>
+                <svg class="icon icon-error default w-text-critical-100" aria-hidden="true">
+                    <use href="#icon-error"></use>
+                </svg>
+                <span class="visuallyhidden">False</span>
+            </td>
+            """,
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            """
+            <td>
+                <svg class="icon icon-help default" aria-hidden="true">
+                    <use href="#icon-help"></use>
+                </svg>
+                <span class="visuallyhidden">None</span>
+            </td>
+            """,
+            html=True,
+            count=1,
+        )
 
 
 class TestListExport(BaseSnippetViewSetTests):
@@ -696,6 +749,7 @@ class TestListExport(BaseSnippetViewSetTests):
             text="Indomie",
             country_code="ID",
             first_published_at=cls.first_published_at,
+            some_number=1,
         )
         # Refresh so the first_published_at becomes a datetime object
         obj.refresh_from_db()
@@ -721,15 +775,15 @@ class TestListExport(BaseSnippetViewSetTests):
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
             data_lines[0],
-            "Text,Country Code,get_foo_country_code,Some Date,First Published At\r",
+            "Text,Country code,Custom FOO column,Some date,Some number,First published at\r",
         )
         self.assertEqual(
             data_lines[1],
-            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},{self.first_published_at.isoformat(sep=' ')}\r",
+            f"Indomie,ID,Foo ID,{self.some_date.isoformat()},1,{self.first_published_at.isoformat(sep=' ')}\r",
         )
         self.assertEqual(
             data_lines[2],
-            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},None\r",
+            f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},0,\r",
         )
 
     def test_xlsx_export(self):
@@ -748,10 +802,11 @@ class TestListExport(BaseSnippetViewSetTests):
             cell_array[0],
             [
                 "Text",
-                "Country Code",
-                "get_foo_country_code",
-                "Some Date",
-                "First Published At",
+                "Country code",
+                "Custom FOO column",
+                "Some date",
+                "Some number",
+                "First published at",
             ],
         )
         self.assertEqual(
@@ -761,16 +816,17 @@ class TestListExport(BaseSnippetViewSetTests):
                 "ID",
                 "Foo ID",
                 self.some_date,
+                1,
                 datetime(2023, 7, 1, 13, 12, 11, 100000),
             ],
         )
         self.assertEqual(
             cell_array[2],
-            ["Pot Noodle", "UK", "Foo UK", self.some_date, "None"],
+            ["Pot Noodle", "UK", "Foo UK", self.some_date, 0, None],
         )
         self.assertEqual(len(cell_array), 3)
 
-        self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
+        self.assertEqual(worksheet["F2"].number_format, ExcelDateFormatter().get())
 
 
 class TestCustomTemplates(BaseSnippetViewSetTests):

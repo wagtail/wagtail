@@ -32,7 +32,6 @@ class IndexView(generic.IndexView):
 class CreateView(generic.CreateView):
     page_title = _("Add site")
     success_message = _("Site '%(object)s' created.")
-    template_name = "wagtailsites/create.html"
 
 
 class EditView(generic.EditView):
@@ -40,7 +39,6 @@ class EditView(generic.EditView):
     error_message = _("The site could not be saved due to errors.")
     delete_item_label = _("Delete site")
     context_object_name = "site"
-    template_name = "wagtailsites/edit.html"
 
 
 class DeleteView(generic.DeleteView):
@@ -53,11 +51,14 @@ class SiteViewSet(ModelViewSet):
     icon = "site"
     model = Site
     permission_policy = site_permission_policy
+    add_to_reference_index = False
 
     index_view_class = IndexView
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
+
+    template_prefix = "wagtailsites/"
 
     def get_form_class(self, for_update=False):
         return SiteForm

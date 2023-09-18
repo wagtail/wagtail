@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021-2022\n"
@@ -150,12 +150,6 @@ msgstr "Pesquisa %(name)s"
 
 msgid "Search"
 msgstr "Busca"
-
-msgid "Download XLSX"
-msgstr "Baixar XLSX"
-
-msgid "Download CSV"
-msgstr "Baixar CSV"
 
 msgid "Filter"
 msgstr "Filtro"

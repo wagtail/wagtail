@@ -19,6 +19,10 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response_object_count, 3)
         self.assertContains(response, "first modelwithstringtypeprimarykey model")
         self.assertContains(response, "second modelwithstringtypeprimarykey model")
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertIsNotNone(h1)
+        self.assertEqual(h1.text.strip(), "Model with string type primary keys")
 
 
 class TestGenericEditView(WagtailTestUtils, TestCase):

@@ -32,8 +32,7 @@ describe('ActionController', () => {
       data-w-action-url-value="https://www.github.com"
     >
       Enable
-    </button>
-    `;
+    </button>`;
 
       app = Application.start();
       app.register('w-action', ActionController);
@@ -64,8 +63,7 @@ describe('ActionController', () => {
         data-action="some-event->w-action#click"
       >
         Button
-      </button>
-      `;
+      </button>`;
 
       app = Application.start();
       app.register('w-action', ActionController);
@@ -91,8 +89,7 @@ describe('ActionController', () => {
       <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
         <option value="http://localhost/place?option=1">1</option>
         <option value="http://localhost/place?option=2" selected>2</option>
-      </select>
-      `;
+      </select>`;
 
       app = Application.start();
       app.register('w-action', ActionController);

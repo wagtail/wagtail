@@ -11,7 +11,8 @@ By default, the index will store references between objects managed within the W
 -   all Page types
 -   Images
 -   Documents
--   models registered as Snippets
+-   models registered as [Snippets](snippets)
+-   models registered with [`ModelViewSet`](../extending/generic_views)
 -   models registered with ModelAdmin
 
 The reference index does not require any further configuration. However there are circumstances where it may be necessary to add or remove models from the index.

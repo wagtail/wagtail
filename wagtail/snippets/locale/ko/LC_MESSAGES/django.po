@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -102,12 +102,6 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">새로 생성</a>하는 것은 어떤가요?"
 
-msgid "Last updated"
-msgstr "마지막으로 업로드된"
-
-msgid "History"
-msgstr "자취"
-
 msgid "Publishing…"
 msgstr "게시 중..."
 
@@ -141,6 +135,9 @@ msgstr "브레드크럼"
 
 msgid "Snippets"
 msgstr "스니펫"
+
+msgid "History"
+msgstr "자취"
 
 msgid "Usage"
 msgstr "사용"
@@ -220,6 +217,9 @@ msgstr "정보 자취"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' 수정"
+
+msgid "Inspect"
+msgstr "검사"
 
 #, python-format
 msgid "Delete '%(title)s'"

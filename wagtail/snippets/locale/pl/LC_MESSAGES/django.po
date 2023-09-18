@@ -5,6 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023
 # Łukasz Bołdys (Lukasz Boldys), 2014,2021
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -67,10 +68,10 @@ msgid "%(label)s and Publish"
 msgstr "%(label)s i Opublikuj"
 
 msgid "Wagtail snippets"
-msgstr "Snippety Wagtail"
+msgstr "Skrawki Wagtail"
 
 msgid "Delete selected snippets"
-msgstr "Usuń wybrane snippety"
+msgstr "Usuń wybrane skrawki"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -124,7 +125,7 @@ msgstr "Nie usuwaj"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Przepraszamy, żaden snippet nie pasuje do \"<em>%(search_query)s</em>\""
+"Przepraszamy, żaden skrawek nie pasuje do \"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
@@ -135,12 +136,6 @@ msgstr ""
 "Nie utworzyłeś żadnego snippetu %(snippet_type_name)s. Dlaczego nie <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">utworzyć jednego teraz</a>?"
-
-msgid "Last updated"
-msgstr "Ostatnio zaktualizowany"
-
-msgid "History"
-msgstr "Historia"
 
 msgid "Publishing…"
 msgstr "Publikowanie..."
@@ -191,15 +186,18 @@ msgstr "Nowy: %(model_name)s"
 msgid "Editing %(snippet_type)s %(title)s"
 msgstr "Edycja %(snippet_type)s %(title)s"
 
+msgid "History"
+msgstr "Historia"
+
 msgid "Usage"
 msgstr "Użycie"
 
 #, python-format
 msgid "Snippet history for %(subtitle)s"
-msgstr "Historia snippetu dla %(subtitle)s"
+msgstr "Historia skrawki dla %(subtitle)s"
 
 msgid "Edit this snippet"
-msgstr "Edytuj snippet"
+msgstr "Edytuj skrawkę"
 
 msgid "No log entries found."
 msgstr "Brak wpisów w logu."
@@ -213,7 +211,7 @@ msgid "Add %(snippet_type_name)s"
 msgstr "Dodaj %(snippet_type_name)s"
 
 msgid "Select all snippets in listing"
-msgstr "Zaznacz wszystkie snippety na liście"
+msgstr "Zaznacz wszystkie skrawki na liście"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -286,7 +284,7 @@ msgid "Date"
 msgstr "Data"
 
 msgid "Snippet history"
-msgstr "Historia snippetu"
+msgstr "Historia skrawki"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -299,6 +297,13 @@ msgstr "Historia %(model_name)s "
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Edytuj '%(title)s'"
+
+msgid "Inspect"
+msgstr "Sprawdź"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Podejrzyj '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"

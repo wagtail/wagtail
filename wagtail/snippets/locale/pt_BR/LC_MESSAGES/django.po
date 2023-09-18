@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021\n"
@@ -98,12 +98,6 @@ msgstr "Sim, exclua"
 msgid "No, don't delete"
 msgstr "Não, não apague"
 
-msgid "Last updated"
-msgstr "Última atualização"
-
-msgid "History"
-msgstr "Histórico"
-
 msgid "Publishing…"
 msgstr "Publicando..."
 
@@ -134,6 +128,9 @@ msgstr "Breadcrumb"
 
 msgid "Snippets"
 msgstr "Fragmentos"
+
+msgid "History"
+msgstr "Histórico"
 
 msgid "Usage"
 msgstr "Uso"
@@ -215,6 +212,9 @@ msgstr "Trecho de história"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspecionar"
 
 #, python-format
 msgid "Delete '%(title)s'"

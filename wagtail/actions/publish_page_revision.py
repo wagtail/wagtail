@@ -32,7 +32,7 @@ class PublishPageRevisionAction(PublishRevisionAction):
     :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
     """
 
-    def check(self, skip_permission_checks=False):
+    def check(self, skip_permission_checks: bool = False):
         if (
             self.user
             and not skip_permission_checks
@@ -59,5 +59,5 @@ class PublishPageRevisionAction(PublishRevisionAction):
         super()._after_publish()
 
         self.object.update_aliases(
-            revision=self.revision, user=self.user, _content=self.revision.content
+            revision=self.revision, _content=self.revision.content
         )

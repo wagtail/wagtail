@@ -24,6 +24,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
+    FieldDoesNotExist,
     ImproperlyConfigured,
     PermissionDenied,
     ValidationError,
@@ -42,7 +43,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
@@ -70,6 +71,7 @@ from wagtail.coreutils import (
     get_content_type_label,
     get_supported_content_language_variant,
     resolve_model_string,
+    safe_md5,
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
@@ -1735,18 +1737,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.specific
 
-    def update_aliases(
-        self, *, revision=None, user=None, _content=None, _updated_ids=None
-    ):
+    def update_aliases(self, *, revision=None, _content=None, _updated_ids=None):
         """
         Publishes all aliases that follow this page with the latest content from this page.
 
         This is called by Wagtail whenever a page with aliases is published.
 
-        :param revision: The revision of the original page that we are updating to (used for logging purposes).
-        :type revision: Revision, optional
-        :param user: The user who is publishing (used for logging purposes).
-        :type user: User, optional
+        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :type revision: PageRevision, optional
         """
         specific_self = self.specific
 
@@ -1835,13 +1833,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 instance=alias_updated,
                 revision=revision,
                 alias=True,
-            )
-
-            # Log the publish of the alias
-            log(
-                instance=alias_updated,
-                action="wagtail.publish",
-                user=user,
             )
 
             # Update any aliases of that alias
@@ -2429,6 +2420,34 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ["/"]
 
+    def get_cache_key_components(self):
+        """
+        The components of a :class:`Page` which make up the :attr:`cache_key`. Any change to a
+        page should be reflected in a change to at least one of these components.
+        """
+
+        return [
+            self.id,
+            self.url_path,
+            self.last_published_at.isoformat() if self.last_published_at else None,
+        ]
+
+    @property
+    def cache_key(self):
+        """
+        A generic cache key to identify a page in its current state.
+        Should the page change, so will the key.
+
+        Customizations to the cache key should be made in :attr:`get_cache_key_components`.
+        """
+
+        hasher = safe_md5()
+
+        for component in self.get_cache_key_components():
+            hasher.update(force_bytes(component))
+
+        return hasher.hexdigest()
+
     def get_sitemap_urls(self, request=None):
         return [
             {
@@ -3012,7 +3031,7 @@ class GroupPagePermission(models.Model):
                     hint=(
                         "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
                         "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
-                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission."
+                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission. "
                         "The `permission_type` field will be removed in Wagtail 6.0."
                     ),
                     obj=cls,
@@ -4761,6 +4780,30 @@ class Comment(ClusterableModel):
 
     def log_delete(self, **kwargs):
         self._log("wagtail.comments.delete", **kwargs)
+
+    def has_valid_contentpath(self, page):
+        """
+        Return True if this comment's contentpath corresponds to a valid field or
+        StreamField block on the given page object
+        """
+        field_name, *remainder = self.contentpath.split(".")
+        try:
+            field = page._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            return False
+
+        if not remainder:
+            # comment applies to the field as a whole
+            return True
+
+        if not isinstance(field, StreamField):
+            # only StreamField supports content paths that are deeper than one level
+            return False
+
+        stream_value = getattr(page, field_name)
+        block = field.get_block_by_content_path(stream_value, remainder)
+        # content path is valid if this returns a BoundBlock rather than None
+        return bool(block)
 
 
 class CommentReply(models.Model):

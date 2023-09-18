@@ -23,6 +23,7 @@ from wagtail.admin.utils import (
 from wagtail.models import (
     GroupApprovalTask,
     Page,
+    PageViewRestriction,
     Task,
     TaskState,
     Workflow,
@@ -3510,3 +3511,80 @@ class TestSnippetWorkflowStatusNotLockable(TestSnippetWorkflowStatus):
         response = self.client.get(self.get_url("edit"))
         self.assertNotContains(response, needle)
         self.assertContains(response, "Save draft")
+
+
+class TestDashboardWithPages(BasePageWorkflowTests):
+    def setUp(self):
+        super().setUp()
+        # Ensure that the presence of private pages doesn't break the dashboard -
+        # https://github.com/wagtail/wagtail/issues/10819
+        homepage = Page.objects.filter(depth=2).first()
+        PageViewRestriction.objects.create(
+            page=homepage, restriction_type=PageViewRestriction.LOGIN
+        )
+
+    def test_dashboard_for_submitter(self):
+        self.login(self.submitter)
+        self.post("submit")
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Your pages and snippets in a workflow")
+
+    def test_dashboard_for_moderator(self):
+        self.login(self.submitter)
+        self.post("submit")
+
+        self.login(self.moderator)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Awaiting your review")
+
+        # object had no previous revisions
+        self.assertNotContains(response, "Compare with live version")
+        self.assertNotContains(response, "Compare with previous version")
+
+    def test_dashboard_for_moderator_with_previous_revisions(self):
+        live_revision = self.object.save_revision()
+        self.object.publish(live_revision)
+        previous_revision = self.object.save_revision()
+
+        self.login(self.submitter)
+        self.post("submit")
+        self.object.refresh_from_db()
+        latest_revision = self.object.latest_revision
+
+        self.login(self.moderator)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Awaiting your review")
+
+        soup = self.get_soup(response.content)
+        compare_with_live_url = self.get_url(
+            "revisions_compare",
+            args=(self.object.pk, "live", latest_revision.id),
+        )
+        compare_with_previous_url = self.get_url(
+            "revisions_compare",
+            args=(self.object.pk, previous_revision.id, latest_revision.id),
+        )
+
+        compare_with_live_link = soup.select_one(f"a[href='{compare_with_live_url}']")
+        self.assertIsNotNone(compare_with_live_link)
+        self.assertEqual(
+            compare_with_live_link.text.strip(),
+            "Compare with live version",
+        )
+
+        compare_with_previous_link = soup.select_one(
+            f"a[href='{compare_with_previous_url}']"
+        )
+        self.assertIsNotNone(compare_with_previous_link)
+        self.assertEqual(
+            compare_with_previous_link.text.strip(),
+            "Compare with previous version",
+        )
+
+
+class TestDashboardWithSnippets(TestDashboardWithPages, BaseSnippetWorkflowTests):
+    pass

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 11:47+0100\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, "
 "2015\n"
@@ -191,9 +191,6 @@ msgstr "Dette feltet er påkrevet."
 msgid "Please select at least one group."
 msgstr "Velg minst en gruppe."
 
-msgid "Page title"
-msgstr "Sidetittel"
-
 msgid "Content"
 msgstr "Innhold"
 
@@ -202,6 +199,12 @@ msgstr "Fremming"
 
 msgid "Settings"
 msgstr "Innstillinger"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "Page title"
+msgstr "Sidetittel"
 
 msgid "Error 404: Page not found"
 msgstr "404 Feil: Fant ikke siden"
@@ -405,9 +408,6 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Dine låste sider"
 
-msgid "Title"
-msgstr "Tittel"
-
 msgid "Locked at"
 msgstr "Låst den"
 
@@ -594,13 +594,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
 
 #, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sider som bruker %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Sider som bruker"
-
-#, python-format
 msgid "Copy %(title)s"
 msgstr "Kopier %(title)s"
 
@@ -637,18 +630,8 @@ msgstr "Nåværende kladd"
 msgid "Exploring %(title)s"
 msgstr "Utforsker %(title)s"
 
-msgid "Drag"
-msgstr "Dra"
-
 msgid "Configure a site now."
 msgstr "Konfigurer et nettsted nå."
-
-msgid "No pages have been created at this location."
-msgstr "Ingen sider har blitt opprettet på denne plasseringen."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Hvorfor ikke <a href=\"%(add_page_url)s\">opprette en</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Denne siden er låst for videre redigering"
@@ -660,6 +643,18 @@ msgstr "Utforsk undersider av \"%(title)s\""
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
+
+msgid "Drag"
+msgstr "Dra"
+
+msgid "Disable ordering of child pages"
+msgstr "Skru av rekkefølge på undersider"
+
+msgid "Sort"
+msgstr "Sorter"
+
+msgid "Enable ordering of child pages"
+msgstr "Skru på rekkefølge på undersider"
 
 msgid "Sites menu"
 msgstr "Nettsteder-meny"
@@ -675,18 +670,6 @@ msgstr "Neste"
 
 msgid "This page is protected from public view"
 msgstr "Denne siden er unntatt offentlig visning"
-
-msgid "Disable ordering of child pages"
-msgstr "Skru av rekkefølge på undersider"
-
-msgid "Sort"
-msgstr "Sorter"
-
-msgid "Enable ordering of child pages"
-msgstr "Skru på rekkefølge på undersider"
-
-msgid "Updated"
-msgstr "Oppdatert"
 
 msgid "Cancel scheduled publish"
 msgstr "Avbryt planlagt publisering"
@@ -716,11 +699,8 @@ msgstr "Ingen sider funnet."
 msgid "No pages match this report's criteria."
 msgstr "Ingen sider passer med denne rapportens kriterier."
 
-msgid "Download XLSX"
-msgstr "Last ned XLSX"
-
-msgid "Download CSV"
-msgstr "Last ned CSV"
+msgid "Updated"
+msgstr "Oppdatert"
 
 msgid "Locking status"
 msgstr "Låsestatus"
@@ -743,6 +723,12 @@ msgstr "Brødsmuler"
 
 msgid "Root"
 msgstr "Rot"
+
+msgid "Download XLSX"
+msgstr "Last ned XLSX"
+
+msgid "Download CSV"
+msgstr "Last ned CSV"
 
 msgid "Filter"
 msgstr "Filter"
@@ -807,6 +793,16 @@ msgstr "Ny"
 msgid "Compare with live version"
 msgstr "Sammenlign med publisert versjon"
 
+msgid "More"
+msgstr "Mer"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Log out"
+msgstr "Logg ut"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -822,16 +818,6 @@ msgid ""
 msgstr ""
 "Sorter rekkefølgen av undersidene under «%(parent)s» på «%(label)s» i "
 "synkende rekkefølge."
-
-msgid "More"
-msgstr "Mer"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
-
-msgid "Log out"
-msgstr "Logg ut"
 
 msgid "Password"
 msgstr "Passord"
@@ -879,6 +865,9 @@ msgstr "%(model_name)s «%(object)s» opprettet."
 
 msgid "Editing"
 msgstr "Redigerer"
+
+msgid "Inspecting"
+msgstr "Inspiserer"
 
 msgid "Earliest"
 msgstr "Tidligste"
@@ -996,6 +985,9 @@ msgstr "Siden \"%(page_title)s\" er flyttet."
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Siden \"%(page_title)s\" er avpublisert."
 
+msgid "Pages using"
+msgstr "Sider som bruker"
+
 msgid "Pages"
 msgstr "Sider"
 
@@ -1017,10 +1009,6 @@ msgstr "Legg til underside"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Legg en underside til «%(title)s»"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Vis flere valgmuligheter for «%(title)s»"
 
 #, python-format
 msgid "Move page '%(title)s'"

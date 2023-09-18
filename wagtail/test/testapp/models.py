@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 import os
 import uuid
@@ -81,8 +82,8 @@ from wagtail.snippets.models import register_snippet
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
-    ("public", "Public"),
-    ("private", "Private"),
+    ("public", _("Public")),
+    ("private", _("Private")),
 )
 
 
@@ -1116,6 +1117,7 @@ class FullFeaturedSnippet(
         blank=True,
     )
     some_date = models.DateField(auto_now=True)
+    some_number = models.IntegerField(default=0, blank=True)
 
     some_attribute = "some value"
 
@@ -1128,6 +1130,12 @@ class FullFeaturedSnippet(
 
     def __str__(self):
         return self.text
+
+    def modulo_two(self):
+        return self.pk % 2
+
+    def tristate(self):
+        return (None, True, False)[self.pk % 3]
 
     def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
@@ -2129,3 +2137,26 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
         ContentType, on_delete=models.SET_NULL, null=True, blank=True
     )
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
+
+
+# Models to be registered with a ModelViewSet
+class FeatureCompleteToy(index.Indexed, models.Model):
+    name = models.CharField(max_length=255)
+    release_date = models.DateField(default=datetime.date.today)
+
+    search_fields = [
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
+        index.FilterField("name"),
+        index.FilterField("release_date"),
+    ]
+
+    def is_cool(self):
+        if self.name == self.name[::-1]:
+            return True
+        if (lowered := self.name.lower()) == lowered[::-1]:
+            return None
+        return False
+
+    def __str__(self):
+        return f"{self.name} ({self.release_date})"
