@@ -158,6 +158,7 @@ class GroupViewSet(ModelViewSet):
     icon = "group"
     model = Group
     add_to_reference_index = False
+    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView

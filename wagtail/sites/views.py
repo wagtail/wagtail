@@ -52,6 +52,7 @@ class SiteViewSet(ModelViewSet):
     model = Site
     permission_policy = site_permission_policy
     add_to_reference_index = False
+    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
