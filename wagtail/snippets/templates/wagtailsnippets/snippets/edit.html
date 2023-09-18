@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ object }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}{% if locked_for_user %}content-locked{% endif %}{% endblock %}
 {% block content %}
-    {% include 'wagtailsnippets/snippets/headers/edit_header.html' %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
 
     {% include "wagtailadmin/shared/header.html" with title=object icon=header_icon merged=1 only %}
 
