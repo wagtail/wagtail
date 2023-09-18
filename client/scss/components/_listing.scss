@@ -567,19 +567,6 @@ table.listing {
       }
     }
 
-    .actions .button {
-      visibility: hidden;
-    }
-
-    .index .actions .button {
-      visibility: visible;
-    }
-
-    td:hover .actions .button,
-    td:focus-within .actions .button {
-      visibility: visible;
-    }
-
     .bulk-action-checkbox {
       opacity: 0;
 
