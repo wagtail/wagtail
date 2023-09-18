@@ -7,7 +7,7 @@
             {% include view.export_buttons_template_name %}
         {% endif %}
     {% endfragment %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label extra_actions=extra_actions icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label action_icon=header_action_icon extra_actions=extra_actions icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
 {% endblock %}
 
 {% block listing %}
