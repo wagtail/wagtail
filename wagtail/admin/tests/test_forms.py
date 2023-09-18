@@ -7,6 +7,12 @@ from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 class CustomLoginForm(LoginForm):
     captcha = CharField(label="Captcha", help_text="should be in extra_fields()")
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get("captcha") == "solved":
+            self.add_error(None, "Captcha is invalid")
+        return cleaned_data
+
 
 class CustomPasswordResetForm(PasswordResetForm):
     captcha = CharField(label="Captcha", help_text="should be in extra_fields()")

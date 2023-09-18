@@ -37,6 +37,7 @@ Changelog
  * Fix: Filter out comments on Page editing counts that do not correspond to a valid field / block path on the page such as when a field has been removed (Matt Westcott)
  * Fix: Allow `PublishMenuItem` to more easily support overriding its label via `construct_page_action_menu` (Sébastien Corbin)
  * Fix: Allow locale selection when creating a page at the root level (Sage Abdullah)
+ * Fix: Ensure the admin login template correctly displays all `non_fields_errors` for any custom form validation (Sébastien Corbin)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
