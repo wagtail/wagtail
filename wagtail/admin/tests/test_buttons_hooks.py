@@ -251,7 +251,6 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         Ensure that the built in delete button supports a next_url provided.
         """
 
-        # page_listing_more_button generator yields only `Delete button` with this permission set
         page_perms = DeleteOnlyPagePerms()
         page = self.root_page
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
@@ -271,7 +270,6 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         As the page is now deleted and cannot be edited.
         """
 
-        # permissions should yield two buttons, delete and unpublish
         page_perms = DeleteAndUnpublishPagePerms()
         page = self.root_page
 
