@@ -288,7 +288,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
-    history_url_name = None
     preview_url_name = None
     revisions_compare_url_name = None
     usage_url_name = None
@@ -301,9 +300,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
-
-    def get_history_url(self):
-        return reverse(self.history_url_name, args=[quote(self.object.pk)])
 
     def get_usage_url(self):
         return reverse(self.usage_url_name, args=[quote(self.object.pk)])
@@ -356,7 +352,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "history_url": self.get_history_url(),
                 "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,
                 "media": media,
