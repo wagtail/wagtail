@@ -202,6 +202,7 @@ Changelog
 
  * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
  * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
+ * Fix: Update Pillow dependency to 9.1.0 (Daniel Kirkham)
 
 
 5.0.2 (21.06.2023)
