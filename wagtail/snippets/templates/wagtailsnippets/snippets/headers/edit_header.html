@@ -5,13 +5,5 @@
     {{ block.super }}
 
     {# Object history #}
-    <a href="{{ view.get_history_url }}"
-        class="{{ nav_icon_button_classes }}"
-        aria-label="{% trans 'History' %}"
-        data-controller="w-tooltip"
-        data-w-tooltip-content-value="{% trans 'History' %}"
-        data-w-tooltip-offset-value="[0, 0]"
-    >
-        {% icon name="history" classname=nav_icon_classes %}
-    </a>
+    {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
 {% endblock %}
