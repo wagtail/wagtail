@@ -50,10 +50,8 @@ def _annotate_last_edit_info_by_locale(queryset, language_code):
 
 class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, value):
-        if value and value != self.null_value:
-            return _annotate_last_edit_info_by_locale(qs, value)
-        else:
-            return _annotate_last_edit_info(qs)
+        # The filtering is handled in the filter_queryset method
+        return qs
 
 
 class PageTypesUsageReportFilterSet(WagtailFilterSet):
@@ -68,6 +66,18 @@ class PageTypesUsageReportFilterSet(WagtailFilterSet):
     class Meta:
         model = ContentType
         fields = ["page_locale"]
+
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+
+        locale = self.form.cleaned_data["page_locale"]
+
+        if locale and locale != self.filters["page_locale"].null_value:
+            queryset = _annotate_last_edit_info_by_locale(queryset, locale)
+        else:
+            queryset = _annotate_last_edit_info(queryset)
+
+        return queryset
 
 
 class PageTypesUsageReportView(ReportView):
