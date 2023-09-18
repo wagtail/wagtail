@@ -389,6 +389,17 @@ def page_header_buttons(page, page_perms, next_url=None):
             },
             priority=10,
         )
+    if page_perms.can_add_subpage():
+        yield Button(
+            _("Add child page"),
+            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            icon_name="circle-plus",
+            attrs={
+                "aria-label": _("Add a child page to '%(title)s' ")
+                % {"title": page.get_admin_display_title()},
+            },
+            priority=15,
+        )
     if page_perms.can_move():
         yield Button(
             _("Move"),
@@ -414,17 +425,6 @@ def page_header_buttons(page, page_perms, next_url=None):
                 % {"title": page.get_admin_display_title()}
             },
             priority=30,
-        )
-    if page_perms.can_add_subpage():
-        yield Button(
-            _("Add child page"),
-            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-            icon_name="circle-plus",
-            attrs={
-                "aria-label": _("Add a child page to '%(title)s' ")
-                % {"title": page.get_admin_display_title()},
-            },
-            priority=40,
         )
     if page_perms.can_delete():
         url = reverse("wagtailadmin_pages:delete", args=[page.id])
@@ -465,6 +465,17 @@ def page_header_buttons(page, page_perms, next_url=None):
                 % {"title": page.get_admin_display_title()}
             },
             priority=60,
+        )
+    if page_perms.can_view_revisions():
+        yield Button(
+            _("History"),
+            reverse("wagtailadmin_pages:history", args=[page.id]),
+            icon_name="history",
+            attrs={
+                "aria-label": _("View page history for '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=65,
         )
     if page_perms.can_reorder_children():
         url = reverse("wagtailadmin_explore", args=[page.id])
