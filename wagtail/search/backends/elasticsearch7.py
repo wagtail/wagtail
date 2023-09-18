@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
@@ -13,6 +14,8 @@ from wagtail.search.backends.elasticsearch6 import (
 )
 from wagtail.search.index import class_is_indexed
 
+use_new_elasticsearch_api = ELASTICSEARCH_VERSION >= (7, 15)
+
 
 class Elasticsearch7Mapping(Elasticsearch6Mapping):
     def get_mapping(self):
@@ -21,17 +24,19 @@ class Elasticsearch7Mapping(Elasticsearch6Mapping):
 
 
 class Elasticsearch7Index(Elasticsearch6Index):
-    def put(self):
-        self.es.indices.create(index=self.name, **self.backend.settings)
+    if use_new_elasticsearch_api:
 
-    def delete(self):
-        try:
-            self.es.indices.delete(index=self.name)
-        except NotFoundError:
-            pass
+        def put(self):
+            self.es.indices.create(index=self.name, **self.backend.settings)
 
-    def refresh(self):
-        self.es.indices.refresh(index=self.name)
+        def delete(self):
+            try:
+                self.es.indices.delete(index=self.name)
+            except NotFoundError:
+                pass
+
+        def refresh(self):
+            self.es.indices.refresh(index=self.name)
 
     def add_model(self, model):
         # Get mapping
@@ -40,20 +45,36 @@ class Elasticsearch7Index(Elasticsearch6Index):
         # Put mapping
         self.es.indices.put_mapping(index=self.name, body=mapping.get_mapping())
 
-    def add_item(self, item):
-        # Make sure the object can be indexed
-        if not class_is_indexed(item.__class__):
-            return
+    if use_new_elasticsearch_api:
 
-        # Get mapping
-        mapping = self.mapping_class(item.__class__)
+        def add_item(self, item):
+            # Make sure the object can be indexed
+            if not class_is_indexed(item.__class__):
+                return
 
-        # Add document to index
-        self.es.index(
-            index=self.name,
-            document=mapping.get_document(item),
-            id=mapping.get_document_id(item),
-        )
+            # Get mapping
+            mapping = self.mapping_class(item.__class__)
+
+            # Add document to index
+            self.es.index(
+                index=self.name,
+                document=mapping.get_document(item),
+                id=mapping.get_document_id(item),
+            )
+
+    else:
+
+        def add_item(self, item):
+            # Make sure the object can be indexed
+            if not class_is_indexed(item.__class__):
+                return
+            # Get mapping
+            mapping = self.mapping_class(item.__class__)
+
+            # Add document to index
+            self.es.index(
+                self.name, mapping.get_document(item), id=mapping.get_document_id(item)
+            )
 
     def add_items(self, model, items):
         if not class_is_indexed(model):
@@ -93,10 +114,12 @@ class Elasticsearch7SearchQueryCompiler(Elasticsearch6SearchQueryCompiler):
 
 
 class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
-    def _backend_do_search(self, body, **kwargs):
-        # As of Elasticsearch 7, the 'body' parameter is deprecated; instead, the top-level
-        # keys of the body dict are now kwargs in their own right
-        return self.backend.es.search(**body, **kwargs)
+    if use_new_elasticsearch_api:
+
+        def _backend_do_search(self, body, **kwargs):
+            # As of Elasticsearch 7.15, the 'body' parameter is deprecated; instead, the top-level
+            # keys of the body dict are now kwargs in their own right
+            return self.backend.es.search(**body, **kwargs)
 
 
 class Elasticsearch7AutocompleteQueryCompiler(
