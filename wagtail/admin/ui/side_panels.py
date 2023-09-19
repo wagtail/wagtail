@@ -71,6 +71,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         locale=None,
         translations=None,
         usage_url=None,
+        history_url=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -80,6 +81,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.locale = locale
         self.translations = translations
         self.usage_url = usage_url
+        self.history_url = history_url
         self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
@@ -218,6 +220,7 @@ class BaseStatusSidePanel(BaseSidePanel):
             context["translations_total"] = len(self.translations) + 1
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
+        context["history_url"] = self.history_url
         context["status_templates"] = self.get_status_templates(context)
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
@@ -231,6 +234,9 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         super().__init__(*args, **kwargs)
         if self.object.pk:
             self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
+            self.history_url = reverse(
+                "wagtailadmin_pages:history", args=(self.object.pk,)
+            )
 
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
@@ -255,9 +261,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
-                    "history_url": reverse(
-                        "wagtailadmin_pages:history", args=(page.id,)
-                    ),
                     "workflow_history_url": reverse(
                         "wagtailadmin_pages:workflow_history", args=(page.id,)
                     ),

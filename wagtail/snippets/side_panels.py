@@ -6,7 +6,6 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
         context = super().get_context_data(parent_context)
         inherit = [
             "view",
-            "history_url",
             "workflow_history_url",
             "revisions_compare_url_name",
             "revision_enabled",

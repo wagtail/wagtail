@@ -330,6 +330,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 locale=self.locale,
                 translations=self.translations,
                 usage_url=self.get_usage_url(),
+                history_url=self.get_history_url(),
             )
         ]
         if self.preview_enabled and self.object.is_previewable():
