@@ -43,7 +43,7 @@ class BaseSidePanel(Component):
         return context
 
 
-class BaseStatusSidePanel(BaseSidePanel):
+class StatusSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle status")
         icon_name = "info-circle"
@@ -232,7 +232,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         return context
 
 
-class PageStatusSidePanel(BaseStatusSidePanel):
+class PageStatusSidePanel(StatusSidePanel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.object.pk:

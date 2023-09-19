@@ -1,7 +1,7 @@
-from wagtail.admin.ui.side_panels import BaseStatusSidePanel
+from wagtail.admin.ui.side_panels import StatusSidePanel
 
 
-class SnippetStatusSidePanel(BaseStatusSidePanel):
+class SnippetStatusSidePanel(StatusSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         inherit = [
