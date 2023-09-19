@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags i18n %}
 
 {% if object_list %}
     {% block results %}
@@ -8,5 +8,5 @@
         {% endif %}
     {% endblock %}
 {% else %}
-    {% block no_results_message %}{% endblock %}
+    {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
 {% endif %}
