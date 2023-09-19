@@ -1,7 +1,6 @@
 from warnings import warn
 
 from django.apps import apps
-from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
@@ -290,7 +289,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     preview_url_name = None
     revisions_compare_url_name = None
-    usage_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
@@ -300,9 +298,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
-
-    def get_usage_url(self):
-        return reverse(self.usage_url_name, args=[quote(self.object.pk)])
 
     def _get_action_menu(self):
         return SnippetActionMenu(
