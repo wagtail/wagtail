@@ -4,6 +4,7 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support OpenSearch as an alternative to Elasticsearch
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
  * Move `SnippetViewSet` menu registration mechanism to base `ViewSet` class (Sage Abdullah)
