@@ -32,8 +32,9 @@ from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
+from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
@@ -625,6 +626,19 @@ class EditView(
         items.append({"url": "", "label": get_latest_str(self.object)})
         return self.breadcrumbs_items + items
 
+    def get_side_panels(self):
+        side_panels = [
+            StatusSidePanel(
+                self.object,
+                self.request,
+                locale=self.locale,
+                translations=self.translations,
+                usage_url=self.get_usage_url(),
+                history_url=self.get_history_url(),
+            )
+        ]
+        return MediaContainer(side_panels)
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -731,8 +745,13 @@ class EditView(
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.form = context.get("form")
+        side_panels = self.get_side_panels()
+        media = context.get("media") + side_panels.media
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
+        context["side_panels"] = side_panels
+        context["media"] = media
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
