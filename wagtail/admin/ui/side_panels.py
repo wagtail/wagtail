@@ -70,6 +70,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         scheduled_object=None,
         locale=None,
         translations=None,
+        usage_url=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -78,6 +79,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.scheduled_object = scheduled_object
         self.locale = locale
         self.translations = translations
+        self.usage_url = usage_url
         self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
@@ -94,9 +96,10 @@ class BaseStatusSidePanel(BaseSidePanel):
                     "wagtailadmin/shared/side_panels/includes/status/locked.html"
                 )
 
-            templates.append(
-                "wagtailadmin/shared/side_panels/includes/status/usage.html"
-            )
+            if self.usage_url:
+                templates.append(
+                    "wagtailadmin/shared/side_panels/includes/status/usage.html"
+                )
 
         return templates
 
@@ -201,10 +204,10 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_usage_context(self):
         return {
-            "usage_count": ReferenceIndex.get_references_to(self.object)
-            .group_by_source_object()
-            .count(),
-            "usage_url": getattr(self.object, "usage_url", None),
+            "usage_count": ReferenceIndex.get_grouped_references_to(
+                self.object
+            ).count(),
+            "usage_url": self.usage_url,
         }
 
     def get_context_data(self, parent_context):
@@ -224,6 +227,11 @@ class BaseStatusSidePanel(BaseSidePanel):
 
 
 class PageStatusSidePanel(BaseStatusSidePanel):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.object.pk:
+            self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
+
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
         templates.insert(
@@ -233,9 +241,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
 
     def get_usage_context(self):
         context = super().get_usage_context()
-        context["usage_url"] = reverse(
-            "wagtailadmin_pages:usage", args=(self.object.id,)
-        )
         context["usage_url_text"] = ngettext(
             "Referenced %(count)s time",
             "Referenced %(count)s times",

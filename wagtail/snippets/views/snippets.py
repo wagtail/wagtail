@@ -329,6 +329,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 else None,
                 locale=self.locale,
                 translations=self.translations,
+                usage_url=self.get_usage_url(),
             )
         ]
         if self.preview_enabled and self.object.is_previewable():
@@ -352,7 +353,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,
                 "media": media,
             }
