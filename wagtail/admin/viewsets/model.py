@@ -11,7 +11,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic import history
+from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -45,6 +45,9 @@ class ModelViewSet(ViewSet):
 
     #: The view class to use for the history view; must be a subclass of ``wagtail.admin.views.generic.history.HistoryView``.
     history_view_class = history.HistoryView
+
+    #: The view class to use for the usage view; must be a subclass of ``wagtail.admin.views.generic.usage.UsageView``.
+    usage_view_class = usage.UsageView
 
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
@@ -89,6 +92,7 @@ class ModelViewSet(ViewSet):
                 "index_url_name": self.get_url_name("index"),
                 "index_results_url_name": self.get_url_name("index_results"),
                 "history_url_name": self.get_url_name("history"),
+                "usage_url_name": self.get_url_name("usage"),
                 "add_url_name": self.get_url_name("add"),
                 "edit_url_name": self.get_url_name("edit"),
                 "delete_url_name": self.get_url_name("delete"),
@@ -140,6 +144,9 @@ class ModelViewSet(ViewSet):
             "header_icon": "history",
             **kwargs,
         }
+
+    def get_usage_view_kwargs(self, **kwargs):
+        return {**kwargs}
 
     @property
     def index_view(self):
@@ -201,6 +208,12 @@ class ModelViewSet(ViewSet):
     def history_view(self):
         return self.construct_view(
             self.history_view_class, **self.get_history_view_kwargs()
+        )
+
+    @property
+    def usage_view(self):
+        return self.construct_view(
+            self.usage_view_class, **self.get_usage_view_kwargs()
         )
 
     def get_templates(self, name="index", fallback=""):
@@ -483,6 +496,7 @@ class ModelViewSet(ViewSet):
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path("usage/<str:pk>/", self.usage_view, name="usage"),
             # RemovedInWagtail60Warning: Remove legacy URL patterns
         ] + self._legacy_urlpatterns
 

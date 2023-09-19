@@ -380,7 +380,6 @@ class DeleteView(generic.DeleteView):
 class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
-    permission_required = "change"
 
 
 class ActionColumn(Column):
@@ -715,7 +714,6 @@ class SnippetViewSet(ModelViewSet):
             **{
                 "index_url_name": self.get_url_name("list"),
                 "index_results_url_name": self.get_url_name("list_results"),
-                "usage_url_name": self.get_url_name("usage"),
                 "lock_url_name": self.get_url_name("lock"),
                 "unlock_url_name": self.get_url_name("unlock"),
                 "revisions_view_url_name": self.get_url_name("revisions_view"),

@@ -24,6 +24,7 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     page_title = gettext_lazy("Usage of")
     index_url_name = None
     edit_url_name = None
+    permission_required = "change"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
