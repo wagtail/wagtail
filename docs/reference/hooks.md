@@ -182,7 +182,7 @@ Called when Wagtail needs to find out what objects exist in a collection, if any
 
 Registers a new settings panel class to add to the "Account" view in the admin.
 
-This hook can be added to a sub-class of `BaseSettingsPanel`. For example:
+This hook can be added to a subclass of `BaseSettingsPanel`. For example:
 
 ```python
 from wagtail.admin.views.account import BaseSettingsPanel
@@ -1327,7 +1327,7 @@ Hooks for registering and customising bulk actions. See [](custom_bulk_actions) 
 
 Registers a new bulk action to add to the list of bulk actions in the explorer
 
-This hook must be registered with a sub-class of `BulkAction` . For example:
+This hook must be registered with a subclass of `BulkAction` . For example:
 
 ```python
 from wagtail.admin.views.bulk_action import BulkAction
