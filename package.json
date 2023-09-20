@@ -94,7 +94,7 @@
     "sass": "^1.45.1",
     "sass-loader": "^12.4.0",
     "storybook-django": "^0.5.1",
-    "stylelint": "^14.2.0",
+    "stylelint": "^15.10.0",
     "tailwindcss": "^3.1.5",
     "tailwindcss-vanilla-rtl": "^0.2.0",
     "ts-jest": "^29.1.0",
