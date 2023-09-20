@@ -635,9 +635,13 @@ class EditView(
                 translations=self.translations,
                 usage_url=self.get_usage_url(),
                 history_url=self.get_history_url(),
+                last_updated_info=self.get_last_updated_info(),
             )
         ]
         return MediaContainer(side_panels)
+
+    def get_last_updated_info(self):
+        return log_registry.get_logs_for_instance(self.object).first()
 
     def get_edit_url(self):
         if not self.edit_url_name:
