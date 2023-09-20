@@ -593,6 +593,7 @@ Changelog
  * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
  * Docs: Add documentation for the reference index mechanism (Daniel Kirkham)
  * Docs: Remove confusing `SettingsPanel` reference in the page editing `TabbedInterface` example as `SettingsPanel` no longer shows anything as of 4.1 (Kenny Wolf, Julian Bigler)
+ * Docs: Add more extensive documentation for the `permission` kwarg support in Panels (LB (Ben) Johnston)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
