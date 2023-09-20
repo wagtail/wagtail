@@ -108,14 +108,8 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
     template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
-        self.button_classes = kwargs.pop("button_classes", set())
         self.dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
-
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        context["button_classes"] = self.button_classes
-        return context
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
