@@ -87,6 +87,8 @@ class PageListingButton(ListingButton):
 
 
 class BaseDropdownMenuButton(Button):
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, url=None, **kwargs)
 
@@ -99,22 +101,18 @@ class BaseDropdownMenuButton(Button):
             "buttons": self.dropdown_buttons,
             "label": self.label,
             "title": self.aria_label,
-            "classes": self.classes,
+            "toggle_classname": " ".join(self.classes),
             "icon_name": self.icon_name,
         }
 
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
-    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
-
     def __init__(self, *args, **kwargs):
         self.dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
-    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
-
     def __init__(self, label, hook_name, page, page_perms, next_url=None, **kwargs):
         self.hook_name = hook_name
         self.page = page
