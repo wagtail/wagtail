@@ -80,7 +80,6 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
     if viewset.inspect_view_enabled and permission_policy.user_has_any_permission(
         user, viewset.inspect_view_class.any_permission_required
     ):
-
         yield SnippetListingButton(
             _("Inspect"),
             reverse(
@@ -100,7 +99,7 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             ),
             attrs={"aria-label": _("Delete '%(title)s'") % {"title": str(snippet)}},
             priority=30,
-            classes=["no"],
+            classname="no",
         )
 
 

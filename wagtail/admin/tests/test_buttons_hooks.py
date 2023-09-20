@@ -307,16 +307,16 @@ class ButtonComparisonTestCase(SimpleTestCase):
 
     def setUp(self):
         self.button1 = Button(
-            "Label 1", "/url1", classes={"class1", "class2"}, priority=100
+            "Label 1", "/url1", classname="class1 class2", priority=100
         )
         self.button2 = Button(
-            "Label 2", "/url2", classes={"class2", "class3"}, priority=200
+            "Label 2", "/url2", classname="class2 class3", priority=200
         )
         self.button3 = Button(
-            "Label 1", "/url3", classes={"class1", "class2"}, priority=300
+            "Label 1", "/url3", classname="class1 class2", priority=300
         )
         self.button4 = Button(
-            "Label 1", "/url1", classes={"class1", "class2"}, priority=100
+            "Label 1", "/url1", classname="class1 class2", priority=100
         )
 
     def test_eq(self):

@@ -515,7 +515,7 @@ def bulk_action_choices(context, app_label, model_name):
             + urlencode({"next": next_url}),
             attrs={"aria-label": action.aria_label},
             priority=action.action_priority,
-            classes=action.classes | {"bulk-action-btn"},
+            classname=" ".join(action.classes | {"bulk-action-btn"}),
         )
         for action in bulk_actions_list
     ]
@@ -524,7 +524,7 @@ def bulk_action_choices(context, app_label, model_name):
         more_button = ButtonWithDropdown(
             label=_("More"),
             attrs={"title": _("More bulk actions")},
-            classes={"button", "button-secondary", "button-small"},
+            classname="button button-secondary button-small",
             buttons=[
                 Button(
                     label=action.display_name,
@@ -536,7 +536,7 @@ def bulk_action_choices(context, app_label, model_name):
                     + urlencode({"next": next_url}),
                     attrs={"aria-label": action.aria_label},
                     priority=action.action_priority,
-                    classes={"bulk-action-btn"},
+                    classname="bulk-action-btn",
                 )
                 for action in bulk_action_more_list
             ],
