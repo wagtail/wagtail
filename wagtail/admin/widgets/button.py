@@ -10,11 +10,11 @@ class Button(Component):
     show = True
 
     def __init__(
-        self, label, url, classes=set(), icon_name=None, attrs={}, priority=1000
+        self, label, url, classname="", icon_name=None, attrs={}, priority=1000
     ):
         self.label = label
         self.url = url
-        self.classes = classes
+        self.classname = classname
         self.icon_name = icon_name
         self.attrs = attrs.copy()
         # if a 'title' attribute has been passed, correct that to aria-label
@@ -30,7 +30,7 @@ class Button(Component):
         else:
             attrs = {
                 "href": self.url,
-                "class": " ".join(sorted(self.classes)),
+                "class": self.classname,
             }
             attrs.update(self.attrs)
             return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
@@ -68,7 +68,7 @@ class Button(Component):
         return (
             self.label == other.label
             and self.url == other.url
-            and self.classes == other.classes
+            and self.classname == other.classname
             and self.attrs == other.attrs
             and self.priority == other.priority
         )
@@ -77,9 +77,13 @@ class Button(Component):
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
 class ListingButton(Button):
-    def __init__(self, label, url, classes=set(), **kwargs):
-        classes = {"button", "button-small", "button-secondary"} | set(classes)
-        super().__init__(label, url, classes=classes, **kwargs)
+    def __init__(self, label, url, classname="", **kwargs):
+        if classname:
+            classname += " button button-small button-secondary"
+        else:
+            classname = "button button-small button-secondary"
+
+        super().__init__(label, url, classname=classname, **kwargs)
 
 
 class PageListingButton(ListingButton):
@@ -101,7 +105,7 @@ class BaseDropdownMenuButton(Button):
             "buttons": self.dropdown_buttons,
             "label": self.label,
             "title": self.aria_label,
-            "toggle_classname": " ".join(self.classes),
+            "toggle_classname": self.classname,
             "icon_name": self.icon_name,
         }
 

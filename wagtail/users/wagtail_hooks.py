@@ -148,7 +148,7 @@ def user_listing_buttons(context, user):
     yield UserListingButton(
         _("Edit"),
         reverse("wagtailusers_users:edit", args=[user.pk]),
-        classes={"button-secondary"},
+        classname="button-secondary",
         attrs={
             "aria-label": _("Edit user '%(name)s'")
             % {"name": get_user_display_name(user)}
@@ -159,7 +159,7 @@ def user_listing_buttons(context, user):
         yield UserListingButton(
             _("Delete"),
             reverse("wagtailusers_users:delete", args=[user.pk]),
-            classes={"no"},
+            classname="no",
             attrs={
                 "aria-label": _("Delete user '%(name)s'")
                 % {"name": get_user_display_name(user)}
