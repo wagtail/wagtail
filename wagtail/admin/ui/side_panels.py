@@ -72,6 +72,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         translations=None,
         usage_url=None,
         history_url=None,
+        live_last_updated_info=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -82,6 +83,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.translations = translations
         self.usage_url = usage_url
         self.history_url = history_url
+        self.live_last_updated_info = live_last_updated_info
         self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
@@ -222,6 +224,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         context["base_model_name"] = context["model_name"]
         context["history_url"] = self.history_url
         context["status_templates"] = self.get_status_templates(context)
+        context["live_last_updated_info"] = self.live_last_updated_info
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
         if self.object.pk:

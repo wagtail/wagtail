@@ -10,7 +10,6 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
             "revisions_compare_url_name",
             "revision_enabled",
             "draftstate_enabled",
-            "live_last_updated_info",
             "lock_url",
             "unlock_url",
             "user_can_lock",
