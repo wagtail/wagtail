@@ -347,6 +347,31 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 
 Without a top-level panel definition, a `FieldPanel` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
 
+(panels_permissions)=
+
+### Permissions
+
+Most panels can accept a `permission` kwarg, allowing the set of panels or specific panels to be restricted to a set permissions.
+See [](permissions_overview) for details about working with permissions in Wagtail.
+
+In this example, 'notes' will be visible to all editors, 'cost' and 'details' will only be visible to those with the `submit` permission, 'budget approval' will be visible to super users only. Note that super users will have access to all fields.
+
+```python
+    content_panels = [
+        FieldPanel("notes"),
+        MultiFieldPanel(
+            [
+                FieldPanel("cost"),
+                FieldPanel("details"),
+            ],
+            heading="Budget details",
+            classname="collapsed",
+            permission="submit"
+        ),
+        FieldPanel("budget_approval", permission="superuser"),
+    ]
+```
+
 (panels_attrs)=
 
 ### Additional HTML attributes
