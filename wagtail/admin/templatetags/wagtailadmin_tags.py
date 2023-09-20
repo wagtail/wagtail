@@ -498,10 +498,8 @@ def bulk_action_choices(context, app_label, model_name):
     )
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
-    bulk_action_more_list = []
-    if len(bulk_actions_list) > 4:
-        bulk_action_more_list = bulk_actions_list[4:]
-        bulk_actions_list = bulk_actions_list[:4]
+    bulk_action_more_list = bulk_actions_list[4:]
+    bulk_actions_list = bulk_actions_list[:4]
 
     next_url = get_valid_next_url_from_request(context["request"])
     if not next_url:
