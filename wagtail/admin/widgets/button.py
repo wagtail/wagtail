@@ -1,12 +1,12 @@
 from django.forms.utils import flatatt
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 
 from wagtail import hooks
+from wagtail.admin.ui.components import Component
 
 
-class Button:
+class Button(Component):
     show = True
 
     def __init__(
@@ -24,20 +24,20 @@ class Button:
             self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
 
-    def render(self):
-        attrs = {
-            "href": self.url,
-            "class": " ".join(sorted(self.classes)),
-        }
-        attrs.update(self.attrs)
-        return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
+    def render_html(self, parent_context=None):
+        if hasattr(self, "template_name"):
+            return super().render_html(parent_context)
+        else:
+            attrs = {
+                "href": self.url,
+                "class": " ".join(sorted(self.classes)),
+            }
+            attrs.update(self.attrs)
+            return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
 
     @property
     def aria_label(self):
         return self.attrs.get("aria-label", "")
-
-    def __str__(self):
-        return self.render()
 
     def __repr__(self):
         return f"<Button: {self.label}>"
@@ -94,7 +94,7 @@ class BaseDropdownMenuButton(Button):
     def dropdown_buttons(self):
         raise NotImplementedError
 
-    def get_context_data(self):
+    def get_context_data(self, parent_context):
         return {
             "buttons": self.dropdown_buttons,
             "label": self.label,
@@ -102,9 +102,6 @@ class BaseDropdownMenuButton(Button):
             "classes": self.classes,
             "icon_name": self.icon_name,
         }
-
-    def render(self):
-        return render_to_string(self.template_name, self.get_context_data())
 
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
@@ -115,8 +112,8 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
         self.dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
 
-    def get_context_data(self):
-        context = super().get_context_data()
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
         context["button_classes"] = self.button_classes
         return context
 
