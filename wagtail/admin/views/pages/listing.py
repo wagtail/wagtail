@@ -6,6 +6,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
@@ -204,7 +205,7 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 translations=self.translations,
             ),
         ]
-        return side_panels
+        return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
@@ -214,12 +215,14 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         context = super().get_context_data(**kwargs)
+        side_panels = self.get_side_panels()
 
         context.update(
             {
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
-                "side_panels": self.get_side_panels(),
+                "side_panels": side_panels,
+                "media": side_panels.media,
                 "index_url": self.get_index_url(),
             }
         )

@@ -13,6 +13,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
     PageStatusSidePanel,
@@ -360,7 +361,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
-        return side_panels
+        return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -374,6 +375,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             lock=None,
             locked_for_user=False,
         )
+        side_panels = self.get_side_panels()
+
+        media = MediaContainer([bound_panel, self.form, action_menu, side_panels]).media
 
         context.update(
             {
@@ -382,11 +386,11 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "parent_page": self.parent_page,
                 "edit_handler": bound_panel,
                 "action_menu": action_menu,
-                "side_panels": self.get_side_panels(),
+                "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
-                "media": bound_panel.media + self.form.media + action_menu.media,
+                "media": media,
             }
         )
 

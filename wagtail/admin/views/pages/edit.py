@@ -17,6 +17,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
+from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
     PageStatusSidePanel,
@@ -876,7 +877,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
-        return side_panels
+        return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -891,6 +892,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             lock=self.lock,
             locked_for_user=self.locked_for_user,
         )
+        side_panels = self.get_side_panels()
+
+        media = MediaContainer([bound_panel, self.form, action_menu, side_panels]).media
 
         context.update(
             {
@@ -900,7 +904,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
-                "side_panels": self.get_side_panels(),
+                "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
@@ -919,7 +923,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and user_perms.can_lock(),
                 "user_can_unlock": isinstance(self.lock, BasicLock)
                 and user_perms.can_unlock(),
-                "media": bound_panel.media + self.form.media + action_menu.media,
+                "media": media,
             }
         )
 

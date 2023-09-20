@@ -15,6 +15,7 @@ from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -263,20 +264,21 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                     self.form.instance, self.request, preview_url=self.get_preview_url()
                 )
             )
-        return side_panels
+        return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         self.form = context.get("form")
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
+        side_panels = self.get_side_panels()
+        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "side_panels": self.get_side_panels(),
+                "side_panels": side_panels,
                 "media": media,
             }
         )
@@ -339,20 +341,21 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.object, self.request, preview_url=self.get_preview_url()
                 )
             )
-        return side_panels
+        return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         self.form = context.get("form")
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
+        side_panels = self.get_side_panels()
+        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "side_panels": self.get_side_panels(),
+                "side_panels": side_panels,
                 "history_url": self.get_history_url(),
                 "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,

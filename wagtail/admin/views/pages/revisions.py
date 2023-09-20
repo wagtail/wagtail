@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
     PageStatusSidePanel,
@@ -94,6 +95,9 @@ def revisions_revert(request, page_id, revision_id):
         side_panels.append(PreviewSidePanel(page, request, preview_url=preview_url))
     if form.show_comments_toggle:
         side_panels.append(CommentsSidePanel(page, request))
+    side_panels = MediaContainer(side_panels)
+
+    media = MediaContainer([edit_handler, form, action_menu, side_panels]).media
 
     user_avatar = render_to_string(
         "wagtailadmin/shared/user_avatar.html", {"user": revision.user}
@@ -125,7 +129,7 @@ def revisions_revert(request, page_id, revision_id):
             "action_menu": action_menu,
             "side_panels": side_panels,
             "form": form,  # Used in unit tests
-            "media": edit_handler.media + form.media + action_menu.media,
+            "media": media,
         },
     )
 
