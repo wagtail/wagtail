@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
-from django.test import RequestFactory, TestCase, TransactionTestCase, override_settings
+from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
@@ -29,7 +29,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils, override_settings
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 

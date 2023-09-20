@@ -4,8 +4,35 @@ from typing import Union
 
 from bs4 import BeautifulSoup
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.test import override_settings as django_override_settings
 from django.test.testcases import assert_and_parse_html
+
+
+def override_settings(**kwargs):
+    """
+    Decorator that temporarily overrides Django settings,
+    with compatibility shims for old and newer Django versions.
+    """
+    DEFAULT_FILE_STORAGE = kwargs.get("DEFAULT_FILE_STORAGE")
+    storages = settings.STORAGES
+    if DEFAULT_FILE_STORAGE is not None and DJANGO_VERSION >= (4, 2):
+        kwargs.pop("DEFAULT_FILE_STORAGE")
+        kwargs["STORAGES"] = {
+            **storages,
+            "default": {"BACKEND": DEFAULT_FILE_STORAGE},
+        }
+
+    STATICFILES_STORAGE = kwargs.get("STATICFILES_STORAGE")
+    if STATICFILES_STORAGE is not None and DJANGO_VERSION >= (4, 2):
+        kwargs.pop("STATICFILES_STORAGE")
+        kwargs["STORAGES"] = {
+            **storages,
+            "staticfiles": {"BACKEND": STATICFILES_STORAGE},
+        }
+
+    return django_override_settings(**kwargs)
 
 
 class WagtailTestUtils:
