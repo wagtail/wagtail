@@ -54,7 +54,23 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+# Default storage settings
+# https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
+    STORAGES["staticfiles"][
+        "BACKEND"
+    ] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
+    # DJANGO_VERSION < 4.2
     STATICFILES_STORAGE = (
         "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
     )
