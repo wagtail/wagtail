@@ -210,14 +210,22 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         page_perms = BasePagePerms()
 
         # no button returned
-        buttons = page_listing_more_buttons(page, page_perms)
+        buttons = [
+            button
+            for button in page_listing_more_buttons(page, page_perms)
+            if button.show
+        ]
         self.assertEqual(
             len([button for button in buttons if button.label == "Sort menu order"]), 0
         )
 
         page_perms = ReorderOnlyPagePerms()
         # page_listing_more_button generator yields only `Sort menu order button`
-        buttons = page_listing_more_buttons(page, page_perms)
+        buttons = [
+            button
+            for button in page_listing_more_buttons(page, page_perms)
+            if button.show
+        ]
         reorder_button = next(
             button for button in buttons if button.label == "Sort menu order"
         )
