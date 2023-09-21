@@ -51,7 +51,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook
+from wagtail.admin.widgets import ButtonWithDropdownFromHook, PageListingButton
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import (
@@ -242,7 +242,7 @@ def page_listing_buttons(page, page_perms, next_url=None):
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
-        yield Button(
+        yield PageListingButton(
             _("Edit"),
             reverse("wagtailadmin_pages:edit", args=[page.id]),
             icon_name="edit",
@@ -254,7 +254,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         )
 
     if page.has_unpublished_changes and page.is_previewable():
-        yield Button(
+        yield PageListingButton(
             _("View draft"),
             reverse("wagtailadmin_pages:view_draft", args=[page.id]),
             icon_name="draft",
@@ -266,7 +266,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             priority=4,
         )
     if page.live and page.url:
-        yield Button(
+        yield PageListingButton(
             _("View live"),
             page.url,
             icon_name="doc-empty",
@@ -278,7 +278,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             priority=6,
         )
     if page_perms.can_add_subpage():
-        yield Button(
+        yield PageListingButton(
             _("Add child page"),
             reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
             icon_name="circle-plus",
@@ -290,7 +290,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         )
 
     if page_perms.can_move():
-        yield Button(
+        yield PageListingButton(
             _("Move"),
             reverse("wagtailadmin_pages:move", args=[page.id]),
             icon_name="arrow-right-full",
@@ -305,7 +305,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         if next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Copy"),
             url,
             icon_name="copy",
@@ -326,7 +326,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         if next_url and include_next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Delete"),
             url,
             icon_name="bin",
@@ -341,7 +341,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         if next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Unpublish"),
             url,
             icon_name="resubmit",
@@ -352,7 +352,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             priority=40,
         )
     if page_perms.can_view_revisions():
-        yield Button(
+        yield PageListingButton(
             _("History"),
             reverse("wagtailadmin_pages:history", args=[page.id]),
             icon_name="history",
@@ -364,7 +364,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         )
 
     if page_perms.can_reorder_children():
-        yield Button(
+        yield PageListingButton(
             _("Sort menu order"),
             "?ordering=ord",
             icon_name="list-ul",
@@ -379,7 +379,7 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
-        yield Button(
+        yield PageListingButton(
             _("Edit"),
             reverse("wagtailadmin_pages:edit", args=[page.id]),
             icon_name="edit",
@@ -390,7 +390,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             priority=10,
         )
     if page_perms.can_add_subpage():
-        yield Button(
+        yield PageListingButton(
             _("Add child page"),
             reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
             icon_name="circle-plus",
@@ -401,7 +401,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             priority=15,
         )
     if page_perms.can_move():
-        yield Button(
+        yield PageListingButton(
             _("Move"),
             reverse("wagtailadmin_pages:move", args=[page.id]),
             icon_name="arrow-right-full",
@@ -416,7 +416,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         if next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Copy"),
             url,
             icon_name="copy",
@@ -441,7 +441,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         if next_url and include_next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Delete"),
             url,
             icon_name="bin",
@@ -456,7 +456,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         if next_url:
             url += "?" + urlencode({"next": next_url})
 
-        yield Button(
+        yield PageListingButton(
             _("Unpublish"),
             url,
             icon_name="download",
@@ -467,7 +467,7 @@ def page_header_buttons(page, page_perms, next_url=None):
             priority=60,
         )
     if page_perms.can_view_revisions():
-        yield Button(
+        yield PageListingButton(
             _("History"),
             reverse("wagtailadmin_pages:history", args=[page.id]),
             icon_name="history",
@@ -480,7 +480,7 @@ def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_reorder_children():
         url = reverse("wagtailadmin_explore", args=[page.id])
         url += "?ordering=ord"
-        yield Button(
+        yield PageListingButton(
             _("Sort menu order"),
             url,
             icon_name="list-ul",
