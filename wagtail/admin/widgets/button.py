@@ -13,6 +13,7 @@ class Button(Component):
     label = ""
     icon_name = None
     url = None
+    attrs = {}
 
     def __init__(
         self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
@@ -28,7 +29,9 @@ class Button(Component):
         if icon_name:
             self.icon_name = icon_name
 
-        self.attrs = attrs.copy()
+        self.attrs = self.attrs.copy()
+        self.attrs.update(attrs)
+
         # if a 'title' attribute has been passed, correct that to aria-label
         # as that's what will be picked up in renderings that don't use button.render
         # directly (e.g. _dropdown_items.html)

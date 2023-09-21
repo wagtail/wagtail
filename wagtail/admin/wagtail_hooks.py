@@ -250,12 +250,14 @@ class PageListingViewDraftButton(PageListingButton):
     icon_name = "draft"
     aria_label_format = _("Preview draft version of '%(title)s'")
     url_name = "wagtailadmin_pages:view_draft"
+    attrs = {"rel": "noreferrer"}
 
 
 class PageListingViewLiveButton(PageListingButton):
     label = _("View live")
     icon_name = "doc-empty"
     aria_label_format = _("View live version of '%(title)s'")
+    attrs = {"rel": "noreferrer"}
 
 
 class PageListingAddChildPageButton(PageListingButton):
@@ -317,18 +319,12 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
     if page.has_unpublished_changes and page.is_previewable():
         yield PageListingViewDraftButton(
             page=page,
-            attrs={
-                "rel": "noreferrer",
-            },
             priority=4,
         )
     if page.live and page.url:
         yield PageListingViewLiveButton(
             page=page,
             url=page.url,
-            attrs={
-                "rel": "noreferrer",
-            },
             priority=6,
         )
     if page_perms.can_add_subpage():
