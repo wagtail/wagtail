@@ -1,6 +1,8 @@
 from django.forms.utils import flatatt
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import format_html
+from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
@@ -10,6 +12,7 @@ class Button(Component):
     show = True
     label = ""
     icon_name = None
+    url = None
 
     def __init__(
         self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
@@ -17,7 +20,9 @@ class Button(Component):
         if label:
             self.label = label
 
-        self.url = url
+        if url:
+            self.url = url
+
         self.classname = classname
 
         if icon_name:
@@ -95,14 +100,30 @@ class ListingButton(Button):
 
 class PageListingButton(ListingButton):
     aria_label_format = None
+    url_name = None
 
-    def __init__(self, *args, page=None, attrs={}, **kwargs):
+    def __init__(self, *args, page=None, next_url=None, attrs={}, **kwargs):
+        self.page = page
+        self.next_url = next_url
+
         attrs = attrs.copy()
-        if page and self.aria_label_format is not None and "aria-label" not in attrs:
+        if (
+            self.page
+            and self.aria_label_format is not None
+            and "aria-label" not in attrs
+        ):
             attrs["aria-label"] = self.aria_label_format % {
-                "title": page.get_admin_display_title()
+                "title": self.page.get_admin_display_title()
             }
         super().__init__(*args, attrs=attrs, **kwargs)
+
+    @cached_property
+    def url(self):
+        if self.page and self.url_name is not None:
+            url = reverse(self.url_name, args=[self.page.id])
+            if self.next_url:
+                url += "?" + urlencode({"next": self.next_url})
+            return url
 
 
 class BaseDropdownMenuButton(Button):
