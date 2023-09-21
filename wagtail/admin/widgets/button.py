@@ -8,14 +8,21 @@ from wagtail.admin.ui.components import Component
 
 class Button(Component):
     show = True
+    label = ""
+    icon_name = None
 
     def __init__(
-        self, label, url, classname="", icon_name=None, attrs={}, priority=1000
+        self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
     ):
-        self.label = label
+        if label:
+            self.label = label
+
         self.url = url
         self.classname = classname
-        self.icon_name = icon_name
+
+        if icon_name:
+            self.icon_name = icon_name
+
         self.attrs = attrs.copy()
         # if a 'title' attribute has been passed, correct that to aria-label
         # as that's what will be picked up in renderings that don't use button.render
@@ -77,13 +84,13 @@ class Button(Component):
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
 class ListingButton(Button):
-    def __init__(self, label, url, classname="", **kwargs):
+    def __init__(self, label="", url=None, classname="", **kwargs):
         if classname:
             classname += " button button-small button-secondary"
         else:
             classname = "button button-small button-secondary"
 
-        super().__init__(label, url, classname=classname, **kwargs)
+        super().__init__(label=label, url=url, classname=classname, **kwargs)
 
 
 class PageListingButton(ListingButton):
