@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.http import urlencode
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
@@ -285,7 +287,26 @@ class PageListingDeleteButton(PageListingButton):
     label = _("Delete")
     icon_name = "bin"
     aria_label_format = _("Delete page '%(title)s'")
-    url_name = "wagtailadmin_pages:delete"
+
+    @cached_property
+    def url(self):
+        if self.page:
+            url = reverse("wagtailadmin_pages:delete", args=[self.page.id])
+            if self.next_url:
+                if self.next_url == reverse(
+                    "wagtailadmin_explore", args=[self.page.id]
+                ):
+                    # cannot redirect to the explore view after deleting the page
+                    pass
+                elif self.next_url == reverse(
+                    "wagtailadmin_pages:edit", args=[self.page.id]
+                ):
+                    # cannot redirect to the edit view after deleting the page
+                    pass
+                else:
+                    # OK to add the 'next' parameter
+                    url += "?" + urlencode({"next": self.next_url})
+            return url
 
 
 class PageListingUnpublishButton(PageListingButton):
@@ -345,15 +366,9 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             priority=20,
         )
     if page_perms.can_delete():
-        include_next_url = True
-
-        # After deleting the page, it is impossible to redirect to it.
-        if next_url == reverse("wagtailadmin_explore", args=[page.id]):
-            include_next_url = False
-
         yield PageListingDeleteButton(
             page=page,
-            next_url=next_url if include_next_url else None,
+            next_url=next_url,
             priority=30,
         )
     if page_perms.can_unpublish():
@@ -400,18 +415,9 @@ def page_header_buttons(page, page_perms, next_url=None):
             priority=30,
         )
     if page_perms.can_delete():
-        include_next_url = True
-
-        # After deleting the page, it is impossible to redirect to it.
-        if next_url == reverse("wagtailadmin_explore", args=[page.id]):
-            include_next_url = False
-
-        if next_url == reverse("wagtailadmin_pages:edit", args=[page.id]):
-            include_next_url = False
-
         yield PageListingDeleteButton(
             page=page,
-            next_url=next_url if include_next_url else None,
+            next_url=next_url,
             priority=50,
         )
     if page_perms.can_unpublish():
