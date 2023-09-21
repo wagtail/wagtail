@@ -174,6 +174,13 @@ class GroupViewSet(ModelViewSet):
     def users_results_view(self):
         return Index.as_view(results_only=True)
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            history_url_name=None,
+            usage_url_name=None,
+            **kwargs,
+        )
+
     def get_form_class(self, for_update=False):
         return GroupForm
 

@@ -627,17 +627,21 @@ class EditView(
         return self.breadcrumbs_items + items
 
     def get_side_panels(self):
-        side_panels = [
-            StatusSidePanel(
-                self.object,
-                self.request,
-                locale=self.locale,
-                translations=self.translations,
-                usage_url=self.get_usage_url(),
-                history_url=self.get_history_url(),
-                last_updated_info=self.get_last_updated_info(),
+        side_panels = []
+        usage_url = self.get_usage_url()
+        history_url = self.get_history_url()
+        if usage_url or history_url:
+            side_panels.append(
+                StatusSidePanel(
+                    self.object,
+                    self.request,
+                    locale=self.locale,
+                    translations=self.translations,
+                    usage_url=usage_url,
+                    history_url=history_url,
+                    last_updated_info=self.get_last_updated_info(),
+                )
             )
-        ]
         return MediaContainer(side_panels)
 
     def get_last_updated_info(self):
