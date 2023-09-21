@@ -368,6 +368,10 @@ class PageListingSortMenuOrderButton(PageListingButton):
     def show(self):
         return self.page_perms.can_reorder_children()
 
+    @cached_property
+    def url(self):
+        return reverse("wagtailadmin_explore", args=[self.page.id]) + "?ordering=ord"
+
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
@@ -432,7 +436,6 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
     yield PageListingSortMenuOrderButton(
         page=page,
         page_perms=page_perms,
-        url="?ordering=ord",
         priority=60,
     )
 
@@ -487,7 +490,6 @@ def page_header_buttons(page, page_perms, next_url=None):
     yield PageListingSortMenuOrderButton(
         page=page,
         page_perms=page_perms,
-        url=reverse("wagtailadmin_explore", args=[page.id]) + "?ordering=ord",
         priority=70,
     )
 
