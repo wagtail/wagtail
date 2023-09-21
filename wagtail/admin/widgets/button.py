@@ -94,7 +94,15 @@ class ListingButton(Button):
 
 
 class PageListingButton(ListingButton):
-    pass
+    aria_label_format = None
+
+    def __init__(self, *args, page=None, attrs={}, **kwargs):
+        attrs = attrs.copy()
+        if page and self.aria_label_format is not None and "aria-label" not in attrs:
+            attrs["aria-label"] = self.aria_label_format % {
+                "title": page.get_admin_display_title()
+            }
+        super().__init__(*args, attrs=attrs, **kwargs)
 
 
 class BaseDropdownMenuButton(Button):
