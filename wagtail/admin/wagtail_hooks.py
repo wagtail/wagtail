@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.http import urlencode
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
@@ -243,12 +242,14 @@ class PageListingEditButton(PageListingButton):
     label = _("Edit")
     icon_name = "edit"
     aria_label_format = _("Edit '%(title)s'")
+    url_name = "wagtailadmin_pages:edit"
 
 
 class PageListingViewDraftButton(PageListingButton):
     label = _("View draft")
     icon_name = "draft"
     aria_label_format = _("Preview draft version of '%(title)s'")
+    url_name = "wagtailadmin_pages:view_draft"
 
 
 class PageListingViewLiveButton(PageListingButton):
@@ -261,36 +262,42 @@ class PageListingAddChildPageButton(PageListingButton):
     label = _("Add child page")
     icon_name = "circle-plus"
     aria_label_format = _("Add a child page to '%(title)s'")
+    url_name = "wagtailadmin_pages:add_subpage"
 
 
 class PageListingMoveButton(PageListingButton):
     label = _("Move")
     icon_name = "arrow-right-full"
     aria_label_format = _("Move page '%(title)s'")
+    url_name = "wagtailadmin_pages:move"
 
 
 class PageListingCopyButton(PageListingButton):
     label = _("Copy")
     icon_name = "copy"
     aria_label_format = _("Copy page '%(title)s'")
+    url_name = "wagtailadmin_pages:copy"
 
 
 class PageListingDeleteButton(PageListingButton):
     label = _("Delete")
     icon_name = "bin"
     aria_label_format = _("Delete page '%(title)s'")
+    url_name = "wagtailadmin_pages:delete"
 
 
 class PageListingUnpublishButton(PageListingButton):
     label = _("Unpublish")
     icon_name = "download"
     aria_label_format = _("Unpublish page '%(title)s'")
+    url_name = "wagtailadmin_pages:unpublish"
 
 
 class PageListingHistoryButton(PageListingButton):
     label = _("History")
     icon_name = "history"
     aria_label_format = _("View page history for '%(title)s'")
+    url_name = "wagtailadmin_pages:history"
 
 
 class PageListingSortMenuOrderButton(PageListingButton):
@@ -304,14 +311,12 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingEditButton(
             page=page,
-            url=reverse("wagtailadmin_pages:edit", args=[page.id]),
             priority=2,
         )
 
     if page.has_unpublished_changes and page.is_previewable():
         yield PageListingViewDraftButton(
             page=page,
-            url=reverse("wagtailadmin_pages:view_draft", args=[page.id]),
             attrs={
                 "rel": "noreferrer",
             },
@@ -329,56 +334,41 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_add_subpage():
         yield PageListingAddChildPageButton(
             page=page,
-            url=reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
             priority=8,
         )
 
     if page_perms.can_move():
         yield PageListingMoveButton(
             page=page,
-            url=reverse("wagtailadmin_pages:move", args=[page.id]),
             priority=10,
         )
     if page_perms.can_copy():
-        url = reverse("wagtailadmin_pages:copy", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingCopyButton(
             page=page,
-            url=url,
+            next_url=next_url,
             priority=20,
         )
     if page_perms.can_delete():
-        url = reverse("wagtailadmin_pages:delete", args=[page.id])
         include_next_url = True
 
         # After deleting the page, it is impossible to redirect to it.
         if next_url == reverse("wagtailadmin_explore", args=[page.id]):
             include_next_url = False
 
-        if next_url and include_next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingDeleteButton(
             page=page,
-            url=url,
+            next_url=next_url if include_next_url else None,
             priority=30,
         )
     if page_perms.can_unpublish():
-        url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingUnpublishButton(
             page=page,
-            url=url,
+            next_url=next_url,
             priority=40,
         )
     if page_perms.can_view_revisions():
         yield PageListingHistoryButton(
             page=page,
-            url=reverse("wagtailadmin_pages:history", args=[page.id]),
             priority=50,
         )
 
@@ -395,34 +385,25 @@ def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingEditButton(
             page=page,
-            url=reverse("wagtailadmin_pages:edit", args=[page.id]),
             priority=10,
         )
     if page_perms.can_add_subpage():
         yield PageListingAddChildPageButton(
             page=page,
-            url=reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
             priority=15,
         )
     if page_perms.can_move():
         yield PageListingMoveButton(
             page=page,
-            url=reverse("wagtailadmin_pages:move", args=[page.id]),
             priority=20,
         )
     if page_perms.can_copy():
-        url = reverse("wagtailadmin_pages:copy", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingCopyButton(
             page=page,
-            url=url,
+            next_url=next_url,
             priority=30,
         )
     if page_perms.can_delete():
-        url = reverse("wagtailadmin_pages:delete", args=[page.id])
-
         include_next_url = True
 
         # After deleting the page, it is impossible to redirect to it.
@@ -432,28 +413,20 @@ def page_header_buttons(page, page_perms, next_url=None):
         if next_url == reverse("wagtailadmin_pages:edit", args=[page.id]):
             include_next_url = False
 
-        if next_url and include_next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingDeleteButton(
             page=page,
-            url=url,
+            next_url=next_url if include_next_url else None,
             priority=50,
         )
     if page_perms.can_unpublish():
-        url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
         yield PageListingUnpublishButton(
             page=page,
-            url=url,
+            next_url=next_url,
             priority=60,
         )
     if page_perms.can_view_revisions():
         yield PageListingHistoryButton(
             page=page,
-            url=reverse("wagtailadmin_pages:history", args=[page.id]),
             priority=65,
         )
     if page_perms.can_reorder_children():
