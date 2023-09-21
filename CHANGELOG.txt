@@ -30,6 +30,7 @@ Changelog
  * Add breadcrumbs to generic model views (Sage Abdullah)
  * Support passing extra context variables via the `{% component %}` tag (Matt Westcott)
  * Allow subclasses of `PagesAPIViewSet` override default Page model via the `model` attribute (Neeraj Yetheendran, Herbert Poul)
+ * Allow `ModelViewSet` to be used with models that have non-integer primary keys (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
@@ -63,6 +64,7 @@ Changelog
  * Maintenance: Replace `@total_ordering` usage with comparison functions implementation (Virag Jain)
  * Maintenance: Replace `<script type="text/django-form-template"><-/script>` template approach with HTML `template` elements in InlinePanel and expanding formset (Mansi Gundre, Subhajit Ghosh, LB (Ben) Johnston)
  * Maintenance: Refactor side panels code for better reuse in pages and snippets (Sage Abdullah)
+ * Maintenance: Deprecate legacy URL redirects in `ModelViewSet` and `SnippetViewSet` (Sage Abdullah)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
