@@ -1,6 +1,9 @@
 <h1 align="center">
-    <img width="343" src=".github/wagtail.svg#gh-light-mode-only" alt="Wagtail">
-    <img width="343" src=".github/wagtail-inverse.svg#gh-dark-mode-only" alt="Wagtail">
+    <picture>
+        <source media="(prefers-color-scheme: light)" srcset=".github/wagtail.svg">
+        <source media="(prefers-color-scheme: dark)" srcset=".github/wagtail-inverse.svg">
+        <img width="343" src=".github/wagtail.svg" alt="Wagtail">
+    </picture>
 </h1>
 <p align="center">
     <br>
