@@ -230,7 +230,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             button for button in buttons if button.label == "Sort menu order"
         )
 
-        self.assertEqual(reorder_button.url, "?ordering=ord")
+        self.assertEqual(reorder_button.url, "/admin/pages/%d/?ordering=ord" % page.id)
 
 
 class TestPageHeaderButtonsHooks(TestButtonsHooks):
