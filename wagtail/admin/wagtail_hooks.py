@@ -246,6 +246,10 @@ class PageListingEditButton(PageListingButton):
     aria_label_format = _("Edit '%(title)s'")
     url_name = "wagtailadmin_pages:edit"
 
+    @property
+    def show(self):
+        return self.page_perms.can_edit()
+
 
 class PageListingViewDraftButton(PageListingButton):
     label = _("View draft")
@@ -254,12 +258,20 @@ class PageListingViewDraftButton(PageListingButton):
     url_name = "wagtailadmin_pages:view_draft"
     attrs = {"rel": "noreferrer"}
 
+    @property
+    def show(self):
+        return self.page.has_unpublished_changes and self.page.is_previewable()
+
 
 class PageListingViewLiveButton(PageListingButton):
     label = _("View live")
     icon_name = "doc-empty"
     aria_label_format = _("View live version of '%(title)s'")
     attrs = {"rel": "noreferrer"}
+
+    @property
+    def show(self):
+        return self.page.live and self.page.url
 
 
 class PageListingAddChildPageButton(PageListingButton):
@@ -268,6 +280,10 @@ class PageListingAddChildPageButton(PageListingButton):
     aria_label_format = _("Add a child page to '%(title)s'")
     url_name = "wagtailadmin_pages:add_subpage"
 
+    @property
+    def show(self):
+        return self.page_perms.can_add_subpage()
+
 
 class PageListingMoveButton(PageListingButton):
     label = _("Move")
@@ -275,12 +291,20 @@ class PageListingMoveButton(PageListingButton):
     aria_label_format = _("Move page '%(title)s'")
     url_name = "wagtailadmin_pages:move"
 
+    @property
+    def show(self):
+        return self.page_perms.can_move()
+
 
 class PageListingCopyButton(PageListingButton):
     label = _("Copy")
     icon_name = "copy"
     aria_label_format = _("Copy page '%(title)s'")
     url_name = "wagtailadmin_pages:copy"
+
+    @property
+    def show(self):
+        return self.page_perms.can_copy()
 
 
 class PageListingDeleteButton(PageListingButton):
@@ -308,12 +332,20 @@ class PageListingDeleteButton(PageListingButton):
                     url += "?" + urlencode({"next": self.next_url})
             return url
 
+    @property
+    def show(self):
+        return self.page_perms.can_delete()
+
 
 class PageListingUnpublishButton(PageListingButton):
     label = _("Unpublish")
     icon_name = "download"
     aria_label_format = _("Unpublish page '%(title)s'")
     url_name = "wagtailadmin_pages:unpublish"
+
+    @property
+    def show(self):
+        return self.page_perms.can_unpublish()
 
 
 class PageListingHistoryButton(PageListingButton):
@@ -322,123 +354,142 @@ class PageListingHistoryButton(PageListingButton):
     aria_label_format = _("View page history for '%(title)s'")
     url_name = "wagtailadmin_pages:history"
 
+    @property
+    def show(self):
+        return self.page_perms.can_view_revisions()
+
 
 class PageListingSortMenuOrderButton(PageListingButton):
     label = _("Sort menu order")
     icon_name = "list-ul"
     aria_label_format = _("Change ordering of child pages of '%(title)s'")
 
+    @property
+    def show(self):
+        return self.page_perms.can_reorder_children()
+
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
-    if page_perms.can_edit():
-        yield PageListingEditButton(
-            page=page,
-            priority=2,
-        )
+    yield PageListingEditButton(
+        page=page,
+        page_perms=page_perms,
+        priority=2,
+    )
 
-    if page.has_unpublished_changes and page.is_previewable():
-        yield PageListingViewDraftButton(
-            page=page,
-            priority=4,
-        )
-    if page.live and page.url:
-        yield PageListingViewLiveButton(
-            page=page,
-            url=page.url,
-            priority=6,
-        )
-    if page_perms.can_add_subpage():
-        yield PageListingAddChildPageButton(
-            page=page,
-            priority=8,
-        )
+    yield PageListingViewDraftButton(
+        page=page,
+        page_perms=page_perms,
+        priority=4,
+    )
 
-    if page_perms.can_move():
-        yield PageListingMoveButton(
-            page=page,
-            priority=10,
-        )
-    if page_perms.can_copy():
-        yield PageListingCopyButton(
-            page=page,
-            next_url=next_url,
-            priority=20,
-        )
-    if page_perms.can_delete():
-        yield PageListingDeleteButton(
-            page=page,
-            next_url=next_url,
-            priority=30,
-        )
-    if page_perms.can_unpublish():
-        yield PageListingUnpublishButton(
-            page=page,
-            next_url=next_url,
-            priority=40,
-        )
-    if page_perms.can_view_revisions():
-        yield PageListingHistoryButton(
-            page=page,
-            priority=50,
-        )
+    yield PageListingViewLiveButton(
+        page=page,
+        page_perms=page_perms,
+        url=page.url,
+        priority=6,
+    )
 
-    if page_perms.can_reorder_children():
-        yield PageListingSortMenuOrderButton(
-            page=page,
-            url="?ordering=ord",
-            priority=60,
-        )
+    yield PageListingAddChildPageButton(
+        page=page,
+        page_perms=page_perms,
+        priority=8,
+    )
+
+    yield PageListingMoveButton(
+        page=page,
+        page_perms=page_perms,
+        priority=10,
+    )
+
+    yield PageListingCopyButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=20,
+    )
+
+    yield PageListingDeleteButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=30,
+    )
+
+    yield PageListingUnpublishButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=40,
+    )
+
+    yield PageListingHistoryButton(
+        page=page,
+        page_perms=page_perms,
+        priority=50,
+    )
+
+    yield PageListingSortMenuOrderButton(
+        page=page,
+        page_perms=page_perms,
+        url="?ordering=ord",
+        priority=60,
+    )
 
 
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, page_perms, next_url=None):
-    if page_perms.can_edit():
-        yield PageListingEditButton(
-            page=page,
-            priority=10,
-        )
-    if page_perms.can_add_subpage():
-        yield PageListingAddChildPageButton(
-            page=page,
-            priority=15,
-        )
-    if page_perms.can_move():
-        yield PageListingMoveButton(
-            page=page,
-            priority=20,
-        )
-    if page_perms.can_copy():
-        yield PageListingCopyButton(
-            page=page,
-            next_url=next_url,
-            priority=30,
-        )
-    if page_perms.can_delete():
-        yield PageListingDeleteButton(
-            page=page,
-            next_url=next_url,
-            priority=50,
-        )
-    if page_perms.can_unpublish():
-        yield PageListingUnpublishButton(
-            page=page,
-            next_url=next_url,
-            priority=60,
-        )
-    if page_perms.can_view_revisions():
-        yield PageListingHistoryButton(
-            page=page,
-            priority=65,
-        )
-    if page_perms.can_reorder_children():
-        url = reverse("wagtailadmin_explore", args=[page.id])
-        url += "?ordering=ord"
-        yield PageListingSortMenuOrderButton(
-            page=page,
-            url=url,
-            priority=70,
-        )
+    yield PageListingEditButton(
+        page=page,
+        page_perms=page_perms,
+        priority=10,
+    )
+
+    yield PageListingAddChildPageButton(
+        page=page,
+        page_perms=page_perms,
+        priority=15,
+    )
+
+    yield PageListingMoveButton(
+        page=page,
+        page_perms=page_perms,
+        priority=20,
+    )
+
+    yield PageListingCopyButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=30,
+    )
+
+    yield PageListingDeleteButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=50,
+    )
+
+    yield PageListingUnpublishButton(
+        page=page,
+        page_perms=page_perms,
+        next_url=next_url,
+        priority=60,
+    )
+
+    yield PageListingHistoryButton(
+        page=page,
+        page_perms=page_perms,
+        priority=65,
+    )
+
+    yield PageListingSortMenuOrderButton(
+        page=page,
+        page_perms=page_perms,
+        url=reverse("wagtailadmin_explore", args=[page.id]) + "?ordering=ord",
+        priority=70,
+    )
 
 
 @hooks.register("register_admin_urls")

@@ -485,6 +485,7 @@ def page_header_buttons(context, page, page_perms):
     for hook in button_hooks:
         buttons.extend(hook(page, page_perms, next_url))
 
+    buttons = [b for b in buttons if b.show]
     buttons.sort()
     return {
         "buttons": buttons,

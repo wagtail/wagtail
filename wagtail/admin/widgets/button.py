@@ -113,8 +113,11 @@ class PageListingButton(ListingButton):
     aria_label_format = None
     url_name = None
 
-    def __init__(self, *args, page=None, next_url=None, attrs={}, **kwargs):
+    def __init__(
+        self, *args, page=None, next_url=None, attrs={}, page_perms=None, **kwargs
+    ):
         self.page = page
+        self.page_perms = page_perms
         self.next_url = next_url
 
         attrs = attrs.copy()
@@ -183,6 +186,8 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
         buttons = []
         for hook in button_hooks:
             buttons.extend(hook(self.page, self.page_perms, self.next_url))
+
+        buttons = [b for b in buttons if b.show]
 
         buttons.sort()
         return buttons
