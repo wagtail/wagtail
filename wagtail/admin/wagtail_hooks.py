@@ -242,102 +242,101 @@ def page_listing_buttons(page, page_perms, next_url=None):
 class PageListingEditButton(PageListingButton):
     label = _("Edit")
     icon_name = "edit"
+    aria_label_format = _("Edit '%(title)s'")
 
 
 class PageListingViewDraftButton(PageListingButton):
     label = _("View draft")
     icon_name = "draft"
+    aria_label_format = _("Preview draft version of '%(title)s'")
 
 
 class PageListingViewLiveButton(PageListingButton):
     label = _("View live")
     icon_name = "doc-empty"
+    aria_label_format = _("View live version of '%(title)s'")
 
 
 class PageListingAddChildPageButton(PageListingButton):
     label = _("Add child page")
     icon_name = "circle-plus"
+    aria_label_format = _("Add a child page to '%(title)s'")
 
 
 class PageListingMoveButton(PageListingButton):
     label = _("Move")
     icon_name = "arrow-right-full"
+    aria_label_format = _("Move page '%(title)s'")
 
 
 class PageListingCopyButton(PageListingButton):
     label = _("Copy")
     icon_name = "copy"
+    aria_label_format = _("Copy page '%(title)s'")
 
 
 class PageListingDeleteButton(PageListingButton):
     label = _("Delete")
     icon_name = "bin"
+    aria_label_format = _("Delete page '%(title)s'")
 
 
 class PageListingUnpublishButton(PageListingButton):
     label = _("Unpublish")
     icon_name = "download"
+    aria_label_format = _("Unpublish page '%(title)s'")
 
 
 class PageListingHistoryButton(PageListingButton):
     label = _("History")
     icon_name = "history"
+    aria_label_format = _("View page history for '%(title)s'")
 
 
 class PageListingSortMenuOrderButton(PageListingButton):
     label = _("Sort menu order")
     icon_name = "list-ul"
+    aria_label_format = _("Change ordering of child pages of '%(title)s'")
 
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingEditButton(
+            page=page,
             url=reverse("wagtailadmin_pages:edit", args=[page.id]),
-            attrs={
-                "aria-label": _("Edit '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=2,
         )
 
     if page.has_unpublished_changes and page.is_previewable():
         yield PageListingViewDraftButton(
+            page=page,
             url=reverse("wagtailadmin_pages:view_draft", args=[page.id]),
             attrs={
-                "aria-label": _("Preview draft version of '%(title)s'")
-                % {"title": page.get_admin_display_title()},
                 "rel": "noreferrer",
             },
             priority=4,
         )
     if page.live and page.url:
         yield PageListingViewLiveButton(
+            page=page,
             url=page.url,
             attrs={
                 "rel": "noreferrer",
-                "aria-label": _("View live version of '%(title)s'")
-                % {"title": page.get_admin_display_title()},
             },
             priority=6,
         )
     if page_perms.can_add_subpage():
         yield PageListingAddChildPageButton(
+            page=page,
             url=reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-            attrs={
-                "aria-label": _("Add a child page to '%(title)s' ")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=8,
         )
 
     if page_perms.can_move():
         yield PageListingMoveButton(
+            page=page,
             url=reverse("wagtailadmin_pages:move", args=[page.id]),
-            attrs={
-                "aria-label": _("Move page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=10,
         )
     if page_perms.can_copy():
@@ -346,11 +345,8 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingCopyButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Copy page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=20,
         )
     if page_perms.can_delete():
@@ -365,11 +361,8 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingDeleteButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Delete page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=30,
         )
     if page_perms.can_unpublish():
@@ -378,30 +371,21 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingUnpublishButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Unpublish page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=40,
         )
     if page_perms.can_view_revisions():
         yield PageListingHistoryButton(
+            page=page,
             url=reverse("wagtailadmin_pages:history", args=[page.id]),
-            attrs={
-                "aria-label": _("View page history for '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=50,
         )
 
     if page_perms.can_reorder_children():
         yield PageListingSortMenuOrderButton(
+            page=page,
             url="?ordering=ord",
-            attrs={
-                "aria-label": _("Change ordering of child pages of '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=60,
         )
 
@@ -410,29 +394,20 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
 def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingEditButton(
+            page=page,
             url=reverse("wagtailadmin_pages:edit", args=[page.id]),
-            attrs={
-                "aria-label": _("Edit '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=10,
         )
     if page_perms.can_add_subpage():
         yield PageListingAddChildPageButton(
+            page=page,
             url=reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-            attrs={
-                "aria-label": _("Add a child page to '%(title)s' ")
-                % {"title": page.get_admin_display_title()},
-            },
             priority=15,
         )
     if page_perms.can_move():
         yield PageListingMoveButton(
+            page=page,
             url=reverse("wagtailadmin_pages:move", args=[page.id]),
-            attrs={
-                "aria-label": _("Move page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=20,
         )
     if page_perms.can_copy():
@@ -441,11 +416,8 @@ def page_header_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingCopyButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Copy page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=30,
         )
     if page_perms.can_delete():
@@ -464,11 +436,8 @@ def page_header_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingDeleteButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Delete page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=50,
         )
     if page_perms.can_unpublish():
@@ -477,31 +446,22 @@ def page_header_buttons(page, page_perms, next_url=None):
             url += "?" + urlencode({"next": next_url})
 
         yield PageListingUnpublishButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Unpublish page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=60,
         )
     if page_perms.can_view_revisions():
         yield PageListingHistoryButton(
+            page=page,
             url=reverse("wagtailadmin_pages:history", args=[page.id]),
-            attrs={
-                "aria-label": _("View page history for '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=65,
         )
     if page_perms.can_reorder_children():
         url = reverse("wagtailadmin_explore", args=[page.id])
         url += "?ordering=ord"
         yield PageListingSortMenuOrderButton(
+            page=page,
             url=url,
-            attrs={
-                "aria-label": _("Change ordering of child pages of '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
             priority=70,
         )
 
