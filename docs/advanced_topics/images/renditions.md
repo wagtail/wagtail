@@ -82,7 +82,7 @@ def get_images_uploaded_by_user(user):
 The above can be modified slightly to prefetch the renditions of the images returned:
 
 ```python
-def get_images_uploaded_by_user(user)::
+def get_images_uploaded_by_user(user):
     return ImageModel.objects.filter(uploaded_by_user=user).prefetch_renditions()
 ```
 
