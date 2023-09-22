@@ -101,11 +101,7 @@ class Button(Component):
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
 class ListingButton(Button):
     def __init__(self, label="", url=None, classname="", **kwargs):
-        if classname:
-            classname += " button button-small button-secondary"
-        else:
-            classname = "button button-small button-secondary"
-
+        classname = f"{classname} button button-small button-secondary".strip()
         super().__init__(label=label, url=url, classname=classname, **kwargs)
 
 
