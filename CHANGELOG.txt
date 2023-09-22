@@ -66,6 +66,7 @@ Changelog
  * Maintenance: Replace `<script type="text/django-form-template"><-/script>` template approach with HTML `template` elements in InlinePanel and expanding formset (Mansi Gundre, Subhajit Ghosh, LB (Ben) Johnston)
  * Maintenance: Refactor side panels code for better reuse in pages and snippets (Sage Abdullah)
  * Maintenance: Deprecate legacy URL redirects in `ModelViewSet` and `SnippetViewSet` (Sage Abdullah)
+ * Maintenance: Simplify code for registering page listing action buttons (Matt Westcott)
 
 
 5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
