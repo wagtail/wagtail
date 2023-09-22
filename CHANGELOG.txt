@@ -78,6 +78,7 @@ Changelog
  * Fix: Fix numbers, booleans, and `None` from being exported as strings (Christer Jensen)
  * Fix: Restore fallback on full-word search for snippet choosers and generic index views (Matt Westcott)
  * Fix: Restore compatibility with pre-7.15 versions of the Elasticsearch Python library, allowing use of Opensearch (Matt Westcott)
+ * Fix: Fix error when pickling BaseSiteSetting instances (Matt Westcott)
  * Maintenance: For Python 3.13 support - upgrade Willow to v1.6.2, replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
 
 
