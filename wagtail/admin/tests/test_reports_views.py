@@ -19,6 +19,7 @@ from wagtail.models import (
     ModelLogEntry,
     Page,
     PageLogEntry,
+    Site,
 )
 from wagtail.test.testapp.models import EventPage, EventPageSpeaker, SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -660,7 +661,7 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     def test_locale_filtering(self):
-        # Create a product page in default locale
+        # Create pages in default locale
         page = Page(title="My Page")
         simple_page = SimplePage(title="Simple Page", content="hello")
         Page.get_first_root_node().add_child(instance=page)
@@ -669,7 +670,7 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         page.copy_for_translation(self.fr_locale)
         simple_page.copy_for_translation(self.fr_locale)
 
-        # Edit the product page in English to make sure that it's the latest
+        # Edit the simple page in English to make sure that it's the latest
         simple_page.title = "Updated Simple Page English title"
         revision = simple_page.save_revision()
         simple_page.publish(revision)
@@ -707,9 +708,68 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         # There should be 1 of each page (only the French locale ones)
         self.assertEqual(page_row.count, 1)
         self.assertEqual(simple_page_row.count, 1)
-        # The last edited page should be the French version (even though product page was later edited in English)
+        # The last edited page should be the French version (even though page was later edited in English)
         self.assertEqual(page_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(simple_page_row.last_edited_page.locale, self.fr_locale)
+
+    def test_site_filtering_with_single_site(self):
+        """Asserts that the site filter is not displayed when there is only one site."""
+        sites = Site.objects.all()
+        self.assertEqual(sites.count(), 1)
+
+        response = self.get()
+        filterset = response.context["filters"]
+
+        # Assert that the filterset does not have the site field
+        self.assertNotIn("site", filterset.form.fields)
+        self.assertNotIn("site", filterset.filters.keys())
+        self.assertFalse(filterset.sites_filter_enabled)
+
+    def test_site_filtering_with_multiple_sites(self):
+        root_page = Page.get_first_root_node()
+        # Create pages in default locale
+        page = Page(title="My Page")
+        simple_page = SimplePage(title="Simple Page", content="hello")
+        root_page.add_child(instance=page)
+        root_page.add_child(instance=simple_page)
+
+        # Create a new site and add the pages to it
+        simple_page_site = Site.objects.create(
+            hostname="example.com", root_page=simple_page, is_default_site=False
+        )
+        self.assertEqual(Site.objects.count(), 2)
+
+        response = self.get()
+        page_types = {
+            content_type.id: content_type
+            for content_type in response.context["object_list"]
+        }
+
+        page_row = page_types.get(ContentType.objects.get_for_model(Page).pk)
+        simple_page_row = page_types.get(
+            ContentType.objects.get_for_model(SimplePage).pk
+        )
+
+        self.assertEqual(
+            page_row.count, 3
+        )  # Root + Homepage (create in migration) + My Page
+        self.assertEqual(simple_page_row.count, 1)
+
+        # Filter by the simple_page_site
+        response = self.get({"site": simple_page_site.pk})
+        page_types = {
+            content_type.id: content_type
+            for content_type in response.context["object_list"]
+        }
+
+        simple_page_row = page_types.get(
+            ContentType.objects.get_for_model(SimplePage).pk
+        )
+
+        # There should be 1 SimplePage
+        self.assertEqual(simple_page_row.count, 1)
+        # There shouldn't be a regular Page
+        self.assertFalse(ContentType.objects.get_for_model(Page).pk in page_types)
 
     @override_settings(
         WAGTAIL_CONTENT_LANGUAGES=[

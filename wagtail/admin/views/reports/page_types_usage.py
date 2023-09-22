@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
-from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
+from wagtail.models import ContentType, Page, PageLogEntry, Site, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
 
 
@@ -17,6 +17,11 @@ def _get_locale_choices():
         (language_code, display_name)
         for language_code, display_name in get_content_languages().items()
     ]
+    return choices
+
+
+def _get_site_choices():
+    choices = [(site.pk, str(site)) for site in Site.objects.all()]
     return choices
 
 
@@ -54,6 +59,12 @@ class LocaleFilter(django_filters.ChoiceFilter):
         return qs
 
 
+class SiteFilter(django_filters.ChoiceFilter):
+    def filter(self, qs, value):
+        # The filtering is handled in the filter_queryset method
+        return qs
+
+
 class PageTypesUsageReportFilterSet(WagtailFilterSet):
     page_locale = LocaleFilter(
         label=_("Locale"),
@@ -62,13 +73,40 @@ class PageTypesUsageReportFilterSet(WagtailFilterSet):
         null_label=_("All"),
         null_value="all",
     )
+    site = SiteFilter(
+        label=_("Site"),
+        choices=_get_site_choices,
+        empty_label=None,
+        null_label=_("All"),
+        null_value="all",
+    )
 
     class Meta:
         model = ContentType
-        fields = ["page_locale"]
+        fields = ["page_locale", "site"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sites = {
+            site.pk: site for site in Site.objects.all().prefetch_related("root_page")
+        }
+        self.sites_filter_enabled = True
+        if len(self.sites) == 1:
+            # If there is only one site, we don't need to show the site filter
+            self.sites_filter_enabled = False
+            del self.filters["site"]
 
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
+
+        if self.sites_filter_enabled:
+            site = self.form.cleaned_data["site"]
+
+            if site and site != self.filters["site"].null_value:
+                site_obj = self.sites[int(site)]
+                queryset = queryset.filter(
+                    pages__path__startswith=site_obj.root_page.path
+                )
 
         locale = self.form.cleaned_data["page_locale"]
 
