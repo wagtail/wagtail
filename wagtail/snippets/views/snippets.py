@@ -326,7 +326,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 translations=self.translations,
                 usage_url=self.get_usage_url(),
                 history_url=self.get_history_url(),
-                live_last_updated_info=self.get_live_last_updated_info(),
+                last_updated_info=self.get_last_updated_info(),
             )
         ]
         if self.preview_enabled and self.object.is_previewable():

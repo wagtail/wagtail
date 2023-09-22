@@ -18,8 +18,8 @@
                     {% trans 'Live' as title %}
                     {% if live_revision %}
                         {% timesince_last_update live_revision.created_at user_display_name=live_revision.user|user_display_name use_shorthand=True as help_text %}
-                    {% elif live_last_updated_info %}
-                        {% timesince_last_update live_last_updated_info.timestamp user_display_name=live_last_updated_info.user_display_name use_shorthand=True as help_text %}
+                    {% elif last_updated_info %}
+                        {% timesince_last_update last_updated_info.timestamp user_display_name=last_updated_info.user_display_name use_shorthand=True as help_text %}
                     {% endif %}
 
                     {% with icon_name='doc-full-inverse' %}

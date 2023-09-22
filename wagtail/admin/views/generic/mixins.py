@@ -580,7 +580,7 @@ class CreateEditViewOptionalFeaturesMixin:
             self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
         return super().form_invalid(form)
 
-    def get_live_last_updated_info(self):
+    def get_last_updated_info(self):
         # Create view doesn't have last updated info
         if self.view_name == "create":
             return None
