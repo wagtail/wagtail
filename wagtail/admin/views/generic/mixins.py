@@ -672,7 +672,6 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["live_last_updated_info"] = self.get_live_last_updated_info()
-        context["preview_url"] = self.get_preview_url()
         context["workflow_history_url"] = self.get_workflow_history_url()
         context[
             "confirm_workflow_cancellation_url"
