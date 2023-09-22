@@ -22,4 +22,11 @@ class SiteSettingsTestMixin:
     def get_request(self, site=None):
         if site is None:
             site = self.default_site
-        return get_dummy_request(site=site)
+        request = get_dummy_request(site=site)
+
+        # Requests in general can't be pickled, but dummy requests can. Add an
+        # arbitrary lambda function to the request to make it fail loudly if
+        # someone tries to pickle it.
+        request._fn = lambda: None
+
+        return request

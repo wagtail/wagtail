@@ -44,6 +44,13 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
                     for i in range(4):
                         TestSiteSetting.for_request(request)
 
+    def test_pickle_after_lookup_via_for_request(self):
+        request = self.get_request()
+        settings = TestSiteSetting.for_request(request)
+        pickled = pickle.dumps(settings)
+        unpickled = pickle.loads(pickled)
+        self.assertEqual(unpickled.title, "Site title")
+
     def _create_importantpagessitesetting_object(self):
         site = self.default_site
         return ImportantPagesSiteSetting.objects.create(
