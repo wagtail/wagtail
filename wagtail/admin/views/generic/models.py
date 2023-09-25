@@ -35,9 +35,15 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.side_panels import StatusSidePanel
-from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
+from wagtail.admin.ui.tables import (
+    ButtonsColumnMixin,
+    Column,
+    TitleColumn,
+    UpdatedAtColumn,
+)
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.admin.widgets.button import ButtonWithDropdown, ListingButton
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -295,6 +301,12 @@ class IndexView(
         return queryset.filter(**filters)
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        if not issubclass(column_class, ButtonsColumnMixin):
+            column_class = type(
+                column_class.__name__,
+                (ButtonsColumnMixin, column_class),
+                {"get_buttons": self.get_list_buttons},
+            )
         if not self.model:
             return column_class(
                 "name",
@@ -373,6 +385,36 @@ class IndexView(
                 "url": index_url + "?locale=" + locale.language_code,
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
+    def get_list_buttons(self, instance, parent_context):
+        buttons = []
+        edit_url = self.get_edit_url(instance)
+        can_edit = (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "change")
+        )
+        if edit_url and can_edit:
+            buttons.append(
+                ListingButton(
+                    _("Edit"),
+                    url=self.get_edit_url(instance),
+                    icon_name="edit",
+                    attrs={
+                        "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=10,
+                )
+            )
+        return [
+            ButtonWithDropdown(
+                buttons=buttons,
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):
