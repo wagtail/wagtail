@@ -148,7 +148,7 @@ class BaseDropdownMenuButton(Button):
 
     def get_context_data(self, parent_context):
         return {
-            "buttons": self.dropdown_buttons,
+            "buttons": sorted(self.dropdown_buttons),
             "label": self.label,
             "title": self.aria_label,
             "toggle_classname": self.classname,
@@ -184,6 +184,4 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
             buttons.extend(hook(self.page, self.page_perms, self.next_url))
 
         buttons = [b for b in buttons if b.show]
-
-        buttons.sort()
         return buttons
