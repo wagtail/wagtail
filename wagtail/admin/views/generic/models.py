@@ -102,6 +102,7 @@ class IndexView(
     add_url_name = None
     add_item_label = gettext_lazy("Add")
     edit_url_name = None
+    delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
     search_fields = None
     search_backend_name = "default"
@@ -359,6 +360,10 @@ class IndexView(
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
+    def get_delete_url(self, instance):
+        if self.delete_url_name:
+            return reverse(self.delete_url_name, args=(quote(instance.pk),))
+
     def get_add_url(self):
         if self.add_url_name:
             return reverse(self.add_url_name)
@@ -404,6 +409,23 @@ class IndexView(
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
                     },
                     priority=10,
+                )
+            )
+        delete_url = self.get_delete_url(instance)
+        can_delete = (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "delete")
+        )
+        if delete_url and can_delete:
+            buttons.append(
+                ListingButton(
+                    _("Delete"),
+                    url=delete_url,
+                    icon_name="bin",
+                    attrs={
+                        "aria-label": _("Delete '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=30,
                 )
             )
         return [
