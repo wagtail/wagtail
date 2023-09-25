@@ -87,7 +87,7 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
-        self.assertTemplateUsed(response, "wagtailadmin/pages/listing/_buttons.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
         self.assertContains(response, "Another useless page listing button")
 
@@ -112,7 +112,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
-        self.assertTemplateUsed(response, "wagtailadmin/pages/listing/_buttons.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
         self.assertContains(
             response, "Another useless button in default &quot;More&quot; dropdown"
@@ -151,7 +151,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
-        self.assertTemplateUsed(response, "wagtailadmin/pages/listing/_buttons.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
         self.assertContains(response, "One more more button")
         self.assertContains(
