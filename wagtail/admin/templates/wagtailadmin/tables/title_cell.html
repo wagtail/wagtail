@@ -1,3 +1,5 @@
+{% load wagtailadmin_tags %}
+
 <td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
     <div class="title-wrapper">
         {% block title %}
@@ -10,4 +12,15 @@
             {% endif %}
         {% endblock %}
     </div>
+    {% if buttons %}
+        <ul class="actions">
+            {% block buttons %}
+                {% for button in buttons %}
+                    {% if button.show %}
+                        <li>{% component button %}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+        </ul>
+    {% endif %}
 </td>
