@@ -107,7 +107,7 @@ class ModelViewSet(ViewSet):
         return self.model_name
 
     def get_common_view_kwargs(self, **kwargs):
-        return super().get_common_view_kwargs(
+        view_kwargs = super().get_common_view_kwargs(
             **{
                 "model": self.model,
                 "permission_policy": self.permission_policy,
@@ -122,6 +122,9 @@ class ModelViewSet(ViewSet):
                 **kwargs,
             }
         )
+        if self.inspect_view_enabled:
+            view_kwargs["inspect_url_name"] = self.get_url_name("inspect")
+        return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
         return {
