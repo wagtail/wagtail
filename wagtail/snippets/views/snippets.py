@@ -11,6 +11,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
@@ -151,10 +152,6 @@ class ModelIndexView(generic.IndexView):
         ]
 
 
-class SnippetTitleColumn(TitleColumn):
-    cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
-
-
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
@@ -170,16 +167,24 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.queryset = self.queryset(self.request)
         return super().get_base_queryset()
 
-    def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
-        # Use SnippetTitleColumn class to use custom template
-        # so that buttons from snippet_listing_buttons hook can be rendered
-        return super()._get_title_column(field_name, column_class, **kwargs)
-
     def get_columns(self):
         return [
             BulkActionsCheckboxColumn("checkbox", accessor=lambda obj: obj),
             *super().get_columns(),
         ]
+
+    def get_list_dropdown_buttons(self, instance, parent_context):
+        buttons = super().get_list_dropdown_buttons(instance, parent_context)
+        next_url = self.request.path
+        button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
+
+        for hook in button_hooks:
+            buttons.extend(hook(instance, self.request.user, next_url))
+
+        for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
+            hook(buttons, instance, self.request.user, parent_context)
+
+        return buttons
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
