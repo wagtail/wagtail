@@ -1,4 +1,3 @@
-from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
@@ -11,7 +10,6 @@ from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippets
 from wagtail.snippets.views import snippets as snippet_views
-from wagtail.snippets.widgets import SnippetListingButton
 
 
 @hooks.register("register_admin_urls")
@@ -55,26 +53,6 @@ def register_snippets_menu_item():
 def register_permissions():
     content_types = ContentType.objects.get_for_models(*get_snippet_models()).values()
     return Permission.objects.filter(content_type__in=content_types)
-
-
-@hooks.register("register_snippet_listing_buttons")
-def register_snippet_listing_buttons(snippet, user, next_url=None):
-    model = type(snippet)
-    viewset = model.snippet_viewset
-    permission_policy = viewset.permission_policy
-
-    if viewset.inspect_view_enabled and permission_policy.user_has_any_permission(
-        user, viewset.inspect_view_class.any_permission_required
-    ):
-        yield SnippetListingButton(
-            _("Inspect"),
-            reverse(
-                viewset.get_url_name("inspect"),
-                args=[quote(snippet.pk)],
-            ),
-            attrs={"aria-label": _("Inspect '%(title)s'") % {"title": str(snippet)}},
-            priority=20,
-        )
 
 
 hooks.register("register_bulk_action", DeleteBulkAction)
