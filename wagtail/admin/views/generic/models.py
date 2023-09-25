@@ -392,7 +392,7 @@ class IndexView(
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
 
-    def get_list_buttons(self, instance, parent_context):
+    def get_list_dropdown_buttons(self, instance, parent_context):
         buttons = []
         edit_url = self.get_edit_url(instance)
         can_edit = (
@@ -428,6 +428,10 @@ class IndexView(
                     priority=30,
                 )
             )
+        return buttons
+
+    def get_list_buttons(self, instance, parent_context):
+        buttons = self.get_list_dropdown_buttons(instance, parent_context)
         return [
             ButtonWithDropdown(
                 buttons=buttons,
