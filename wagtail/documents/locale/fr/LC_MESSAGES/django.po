@@ -271,19 +271,19 @@ msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Vous n’avez pas encore transféré de document dans cette collection. Pourquoi "
 "ne pas <a href=\"%(wagtaildocs_add_document_url)s\">en transférer un</a> ?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n'avez pas encore transféré de document. Pourquoi ne pas <a href="
-"\"%(wagtaildocs_add_document_url)s\">en transférer un maintenant</a> ?"
+"Vous n'avez pas encore transféré de document. Pourquoi ne pas <a "
+"href=\"%(wagtaildocs_add_document_url)s\">en transférer un maintenant</a> ?"
 
 #, python-format
 msgid ""

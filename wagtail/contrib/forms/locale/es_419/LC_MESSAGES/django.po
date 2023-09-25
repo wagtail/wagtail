@@ -33,3 +33,6 @@ msgstr "URL"
 
 msgid "Delete"
 msgstr "Borrar"
+
+msgid "Title"
+msgstr "Título"

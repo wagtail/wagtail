@@ -40,6 +40,7 @@ Basque - eu
 
 Belarusian - be
 -----
+Andrei Satsevich
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Stas Rudakou <stas.garage22.net>
@@ -123,6 +124,7 @@ Ales Dvorak <mail.alesdvorak.cz>
 Eva Mikesova <eva.mikesova.tul.cz>
 IT Management <hudan.itmanagement.cz>
 Ivan Pomykacz <mist.alastify.cz>
+Jan Feřtek
 Jiri Stepanek <stepiiicz.gmail.com>
 Kryštof Pilnáček <krystof.pilnacek.rossum.ai>
 Loic Teixeira
@@ -166,6 +168,11 @@ Storm Heg <storm.stormbase.digital>
 Thijs Kramer <thijskramer.gmail.com>
 benny_AT_it_digin.com <benny.it-digin.com>
 mahulst
+
+English (India) - en_IN
+-----
+Apoorv Saini
+Neeraj PY
 
 Estonian - et
 -----
@@ -298,6 +305,10 @@ Oleg Sverdlov <oleg.sverdlov.gmail.com>
 lior abazon <abazon.v15.org.il>
 yossi lalum <lyosefh.gmail.com>
 
+Hindi - hi
+-----
+Apoorv Saini
+
 Hungarian - hu
 -----
 B N <biczoxd.gmail.com>
@@ -366,6 +377,7 @@ Tri Minh <minh.nguyentri.95.gmail.com>
 Yudai Kobayashi <yudai.kobayashi.miraidenshi.gmail.com>
 bayside kent
 kojikojikojikoji
+okosama star
 shuhei hirota
 umepon0626 <ryuichi-astrona.ymobile.ne.jp>
 小口英昭 <oguchi.bluff-lab.com>
@@ -431,6 +443,7 @@ Mohammad Sharif Shokouhi <m.sh.shokouhi.outlook.com>
 Mohammad reza Jelveh <mrj.eleven.gmail.com>
 Mohsen Hassani <hassani.unicore.ir>
 Mostafa Heidarian <tabvar.gmail.com>
+Salar Yazdani
 pyzenberg <pyzenberg.gmail.com>
 
 Polish - pl
@@ -505,11 +518,13 @@ zerolab
 
 Russian - ru
 -----
+2a01ec1f91c141c338f53ad8cc23abc6_8deca2d
 Alexander Penshin <apenshin.gmail.com>
 Alexandr <alexromantsov.gmail.com>
 Alexey Sveshnikov
 Alexey Trofimov <funkindy.gmail.com>
 Anatoly <pandorinpan.gmail.com>
+Andrei Satsevich
 Andrey <talkerbox.live.com>
 Arseni M <arseni+transifex.mouchinski.com>
 Daniil <fleepd.gmail.com>
@@ -519,6 +534,7 @@ Matt Westcott <matthew.torchbox.com>
 Mikalai Radchuk <radchuk.m.gmail.com>
 Mikhail Sidorov <pevzi23.gmail.com>
 Nikita Tonkoshkur <humapen.gmail.com>
+Paul Bid (Павел Бид) <paulbid.protonmail.com>
 Rustam Mirzaev <mirus.2x2.pw>
 Sergey Khalymon <sergiykhalimon.gmail.com>
 Sergey Komarov <sjkomarov.gmail.com>
@@ -532,6 +548,7 @@ sergeybe <sergeybe.gmail.com>
 Виктор Виктор <spam.vitek.gmail.com>
 Виталий Чекрыжев
 Влад <integration.into.society.gmail.com>
+Дмитрий Костелянец
 Мирон Левицкий <miron200504.gmail.com>
 Михаил Герасимов
 Никита Викторович <hnknta.gmail.com>
@@ -639,6 +656,7 @@ Basitlik İyidir
 Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
 Fatih Koç koç <fatihinemaili.gmail.com>
 Halim Turan <halim_turan_61.hotmail.com>
+Halit Çelik
 José Luis <alagunajs.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
@@ -651,8 +669,8 @@ suayip uzulmez <suayip.541.gmail.com>
 
 Turkish (Turkey) - tr_TR
 -----
+A S <basitlikiyidir.gmail.com>
 Ahmet Serdar Karadeniz <ahmetserdarkaradeniz.rayinformatics.com>
-Aydın Zafer Cengiz <basitlikiyidir.gmail.com>
 Basitlik İyidir
 Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
 Fatih Koç koç <fatihinemaili.gmail.com>
@@ -695,3 +713,4 @@ Adam Hughes <adamhughes31.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Philip Crisp
+
