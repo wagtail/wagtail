@@ -208,7 +208,7 @@ Changelog
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
 
 
-5.0.3 (xx.xx.20xx) - IN DEVELOPMENT
+5.0.3 (25.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
