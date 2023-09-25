@@ -157,6 +157,20 @@ class Column(BaseColumn):
         return context
 
 
+class ButtonsColumnMixin:
+    """A mixin for columns that contain buttons"""
+
+    buttons = []
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["buttons"] = self.get_buttons(instance, parent_context)
+        return context
+
+    def get_buttons(self, instance, parent_context):
+        return self.buttons
+
+
 class TitleColumn(Column):
     """A column where data is styled as a title and wrapped in a link or <label>"""
 
