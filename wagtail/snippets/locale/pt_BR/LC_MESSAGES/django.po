@@ -155,11 +155,11 @@ msgstr[2] "Existem %(counter)s correspondências"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a href="
-"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
+"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a "
+"href=\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
 
 msgid "Live version"
 msgstr "Versão publicada"

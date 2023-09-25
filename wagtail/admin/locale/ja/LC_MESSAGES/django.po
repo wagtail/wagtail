@@ -13,6 +13,7 @@
 # kojikojikojikoji, 2021
 # Matt Westcott <matthew@torchbox.com>, 2023
 # kojikojikojikoji, 2021
+# okosama star, 2023
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # shuhei hirota, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2023\n"
+"Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -128,7 +129,7 @@ msgid "Search"
 msgstr "検索"
 
 msgid "All collections"
-msgstr "全部コレクション"
+msgstr "全てのコレクション"
 
 msgid "Collection"
 msgstr "コレクション"
@@ -436,8 +437,8 @@ msgstr "名前"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>し"
 "ますか？"

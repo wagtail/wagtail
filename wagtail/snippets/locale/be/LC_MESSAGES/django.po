@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Апублікаваць"
@@ -117,6 +117,9 @@ msgstr "Шлях па сайту"
 msgid "Snippets"
 msgstr "Фрагменты"
 
+msgid "History"
+msgstr "Гісторыя"
+
 msgid "Usage"
 msgstr "Выкарыстанне"
 
@@ -129,12 +132,20 @@ msgid "Add %(snippet_type_name)s"
 msgstr "Дадаць %(snippet_type_name)s"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Ёсць %(counter)s супадзенне"
+msgstr[1] "Ёсць %(counter)s супадзенняў"
+msgstr[2] "Ёсць %(counter)s супадзенняў"
+msgstr[3] "Ёсць %(counter)s супадзенняў"
+
+#, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"%(snippet_type_name_plural)s яшчэ не былі створаны. Давай <a href="
-"\"%(wagtailsnippets_create_url)s\">дададзім адзін</a>?"
+"%(snippet_type_name_plural)s яшчэ не былі створаны. Давай <a "
+"href=\"%(wagtailsnippets_create_url)s\">дададзім адзін</a>?"
 
 msgid "Live version"
 msgstr "Апублікаваная версія"
@@ -162,6 +173,9 @@ msgstr "Фрагмент кода не можа быць створана з-з�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент кода не можа быць захавана з-за памылкі."
+
+msgid "User"
+msgstr "Карыстальнік"
 
 msgid "Date"
 msgstr "Дата"

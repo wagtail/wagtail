@@ -18,6 +18,9 @@ msgstr "Borrar"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "More actions"
+msgstr "Más acciones"
+
 msgid "Save"
 msgstr "Guardar"
 

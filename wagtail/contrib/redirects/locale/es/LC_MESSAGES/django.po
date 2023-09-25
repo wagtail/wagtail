@@ -224,16 +224,16 @@ msgstr[2] "Hay %(counter)s coincidencias"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Lo sentimos, no hay coincidencias en las redirecciones \"<em>"
-"%(query_string)s</em>\""
+"Lo sentimos, no hay coincidencias en las redirecciones "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"No se han creado redirecciones. ¿Por qué no <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">añadir una</a>?"
+"No se han creado redirecciones. ¿Por qué no <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">añadir una</a>?"
 
 msgid "Search redirects"
 msgstr "Buscar redirecciones"

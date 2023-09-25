@@ -1,0 +1,15 @@
+#
+# Translators:
+# Neeraj PY, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Neeraj PY, 2023\n"
+"Language-Team: English (India) (https://app.transifex.com/torchbox/"
+"teams/8009/en_IN/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Save"
+msgstr "Save"

@@ -243,19 +243,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato alcun documento in questa raccolta. Perché non <a href="
-"\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+"Non hai caricato alcun documento in questa raccolta. Perché non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato alcun documento. Perché non <a href="
-"\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+"Non hai caricato alcun documento. Perché non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"

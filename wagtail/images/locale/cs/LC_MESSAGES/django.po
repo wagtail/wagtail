@@ -6,6 +6,7 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
+# Jan Feřtek, 2023
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Jan Feřtek, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -256,6 +257,12 @@ msgstr "Použití"
 msgid "Images"
 msgstr "Obrázky"
 
+msgid "Sort by"
+msgstr "Řadit podle"
+
+msgid "Entries per page"
+msgstr "Počet položek na stránce"
+
 msgid "Popular Tags:"
 msgstr "Oblíbené štítky"
 
@@ -269,19 +276,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
-"\"%(wagtailimages_add_image_url)s\">zde</a>."
+"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
+"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
-"\"%(wagtailimages_add_image_url)s\">zde</a>."
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
+"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 msgid "Generating URL"
 msgstr "Generuji URL"
@@ -358,6 +365,24 @@ msgstr "Zvolit jiný obrázek"
 
 msgid "Edit this image"
 msgstr "Upravit tento obrázek"
+
+msgid "Newest"
+msgstr "Nejnovější"
+
+msgid "Oldest"
+msgstr "Nejstarší"
+
+msgid "Title: (A -> Z)"
+msgstr "Název: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Název: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Velikost souboru (vzestupně)"
+
+msgid "File size: (high to low)"
+msgstr "Velikost souboru (sestupně)"
 
 msgid "Search images"
 msgstr "Hledat obrázky"

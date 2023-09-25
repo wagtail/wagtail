@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 msgid ""
 msgstr ""
@@ -10,16 +11,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail table block"
 msgstr "Блакаванне табліцы Wagtail"
@@ -35,3 +36,16 @@ msgstr "Загаловак слупка"
 
 msgid "Display the first column as a header."
 msgstr "Адлюстроўваць першы слупок у якасці загалоўка."
+
+msgid "Table caption"
+msgstr "Апісанне табліцы"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Загаловак, які вызначае агульную тэму Табліцы і карысны для карыстальнікаў "
+"праграм чытання з экрана"
+
+msgid "Table"
+msgstr "Табліца"

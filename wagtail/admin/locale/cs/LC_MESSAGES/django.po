@@ -5,7 +5,7 @@
 # Translators:
 # Eva Mikesova <eva.mikesova@tul.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2018
-# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2023
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -511,11 +511,11 @@ msgstr "Jméno"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a href="
-"\"%(add_collection_url)s\">zde</a>."
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a "
+"href=\"%(add_collection_url)s\">zde</a>."
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -919,7 +919,7 @@ msgstr "Přesunout %(title)s"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
-msgstr "Opravdu chcete přesunout tuto stránku pod \"%(title)s\"?"
+msgstr "Opravdu chcete přesunout tuto stránku pod '%(title)s'?"
 
 #, python-format
 msgid ""
@@ -927,7 +927,7 @@ msgid ""
 "'%(title)s'?"
 msgstr ""
 "Opravdu chcete přesunout tuto stránku a všechny její podstránky pod "
-"\"%(title)s\"?"
+"'%(title)s'?"
 
 msgid "Yes, move this page"
 msgstr "Ano, přesunout stránku"
@@ -1011,11 +1011,11 @@ msgstr "Tato stránka je uzamčena pro další úpravy"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "Zobrazit podstránky \"%(title)s\""
+msgstr "Zobrazit podstránky '%(title)s'"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Přidat podstránku pod \"%(title)s\""
+msgstr "Přidat podstránku pod '%(title)s'"
 
 msgid "Drag"
 msgstr "Přetáhnout myší"
@@ -1290,12 +1290,14 @@ msgstr "Vytvořit"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Postupy se uplatní i pro podstránky. Vyberete-li nyní nadřazenou stránku, i "
-"její podřízené stránky použijí tento postup. Zobrazit <a href="
-"\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento postup."
+"její podřízené stránky použijí tento postup. Zobrazit <a "
+"href=\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento "
+"postup."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Tento postup není povolen. Nelze ho proto přiřazovat ke stránkám."
