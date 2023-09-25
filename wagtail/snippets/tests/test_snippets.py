@@ -176,9 +176,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/listing_buttons.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
         self.assertContains(response, "Another useless snippet listing button")
 
@@ -190,9 +188,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         # to '/dummy-button'
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/listing_buttons.html"
-        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
         self.assertContains(response, "Dummy Button")
         self.assertContains(response, "/dummy-button")
 

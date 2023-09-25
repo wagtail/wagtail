@@ -5,9 +5,7 @@ from wagtail import hooks
 register = template.Library()
 
 
-@register.inclusion_tag(
-    "wagtailsnippets/snippets/listing_buttons.html", takes_context=True
-)
+@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def snippet_listing_buttons(context, snippet):
     next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
