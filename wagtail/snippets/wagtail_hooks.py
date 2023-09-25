@@ -9,10 +9,7 @@ from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
 from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import (
-    user_can_edit_snippet_type,
-    user_can_edit_snippets,
-)
+from wagtail.snippets.permissions import user_can_edit_snippets
 from wagtail.snippets.views import snippets as snippet_views
 from wagtail.snippets.widgets import SnippetListingButton
 
@@ -66,17 +63,6 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
     viewset = model.snippet_viewset
     permission_policy = viewset.permission_policy
 
-    if user_can_edit_snippet_type(user, model):
-        yield SnippetListingButton(
-            _("Edit"),
-            reverse(
-                viewset.get_url_name("edit"),
-                args=[quote(snippet.pk)],
-            ),
-            attrs={"aria-label": _("Edit '%(title)s'") % {"title": str(snippet)}},
-            priority=10,
-        )
-
     if viewset.inspect_view_enabled and permission_policy.user_has_any_permission(
         user, viewset.inspect_view_class.any_permission_required
     ):
@@ -88,18 +74,6 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             ),
             attrs={"aria-label": _("Inspect '%(title)s'") % {"title": str(snippet)}},
             priority=20,
-        )
-
-    if permission_policy.user_has_permission(user, "delete"):
-        yield SnippetListingButton(
-            _("Delete"),
-            reverse(
-                viewset.get_url_name("delete"),
-                args=[quote(snippet.pk)],
-            ),
-            attrs={"aria-label": _("Delete '%(title)s'") % {"title": str(snippet)}},
-            priority=30,
-            classname="no",
         )
 
 
