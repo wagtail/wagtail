@@ -109,6 +109,50 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 ```
 
+(inline_panel_events)=
+
+#### JavaScript DOM events
+
+You may want to execute some JavaScript when `InlinePanel` items are ready, added or removed. The `w-formset:ready`, `w-formset:added` and `w-formset:removed` events allow this.
+
+For example, given a child model that provides a relationship between Blog and Person on `BlogPage`.
+
+```python
+class CustomInlinePanel(InlinePanel):
+    class BoundPanel(InlinePanel.BoundPanel):
+        class Media:
+            js = ["js/inline-panel.js"]
+
+
+class BlogPage(Page):
+        # .. fields
+
+        content_panels = Page.content_panels + [
+               CustomInlinePanel("blog_person_relationship"),
+              # ... other panels
+        ]
+```
+
+Using the JavaScript as follows.
+
+```javascript
+// static/js/inline-panel.js
+
+document.addEventListener('w-formset:ready', function (event) {
+    console.info('ready', event);
+});
+
+document.addEventListener('w-formset:added', function (event) {
+    console.info('added', event);
+});
+
+document.addEventListener('w-formset:removed', function (event) {
+    console.info('removed', event);
+});
+```
+
+Events will be dispatched and can trigger custom JavaScript logic such as setting up a custom widget.
+
 (multiple_chooser_panel)=
 
 ### MultipleChooserPanel
