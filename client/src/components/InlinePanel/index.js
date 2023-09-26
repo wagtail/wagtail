@@ -28,6 +28,16 @@ export class InlinePanel extends ExpandingFormset {
     }
 
     this.updateControlStates();
+    // dispatch event for form ready
+    setTimeout(() => {
+      this.formsElt.get(0)?.dispatchEvent(
+        new CustomEvent('w-formset:ready', {
+          bubbles: true,
+          cancelable: false,
+          detail: { ...opts },
+        }),
+      );
+    });
   }
 
   updateControlStates() {
@@ -47,9 +57,20 @@ export class InlinePanel extends ExpandingFormset {
 
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
-      $('#' + deleteInputId).val('1');
+      $('#' + deleteInputId)
+        .val('1')
+        .get(0)
+        .dispatchEvent(new Event('change', { bubbles: true }));
       currentChild.addClass('deleted').slideUp(() => {
         this.updateControlStates();
+        // dispatch event for deleting form
+        currentChild.get(0).dispatchEvent(
+          new CustomEvent('w-formset:removed', {
+            bubbles: true,
+            cancelable: false,
+            detail: { ...this.opts },
+          }),
+        );
       });
     });
 
@@ -252,7 +273,10 @@ export class InlinePanel extends ExpandingFormset {
     this.initChildControls(newChildPrefix);
     if (this.opts.canOrder) {
       /* ORDER values are 1-based, so need to add 1 to formIndex */
-      $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
+      $('#id_' + newChildPrefix + '-ORDER')
+        .val(formIndex + 1)
+        .get(0)
+        .dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     this.updateControlStates();
@@ -268,5 +292,17 @@ export class InlinePanel extends ExpandingFormset {
     }
 
     this.initialFocus($(`#inline_child_${newChildPrefix}-panel-content`));
+
+    const newChild = this.formsElt.children().last().get(0);
+    if (!newChild) return;
+
+    // dispatch event for initialising a form
+    newChild.dispatchEvent(
+      new CustomEvent('w-formset:added', {
+        bubbles: true,
+        cancelable: false,
+        detail: { formIndex, ...this.opts },
+      }),
+    );
   }
 }
