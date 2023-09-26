@@ -3,6 +3,7 @@ from io import BytesIO
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
@@ -10,8 +11,13 @@ from django.utils.formats import date_format
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import ModelLogEntry
-from wagtail.test.testapp.models import FeatureCompleteToy, JSONStreamModel
+from wagtail.test.testapp.models import (
+    FeatureCompleteToy,
+    JSONStreamModel,
+    VariousOnDeleteModel,
+)
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -731,6 +737,30 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
+    def test_usage_view(self):
+        usage_url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(usage_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": reverse(
+                    "feature_complete_toy:edit", args=(quote(self.object.pk),)
+                ),
+                "label": str(self.object),
+            },
+            {
+                "url": "",
+                "label": "Usage",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
     # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
@@ -862,3 +892,145 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         header = soup.select_one(".w-slim-header")
         history_link = header.find("a", attrs={"href": self.url})
         self.assertIsNotNone(history_link)
+
+
+class TestUsageView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = cls.create_test_user()
+        cls.object = FeatureCompleteToy.objects.create(name="Buzz")
+        cls.url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(cls.object.pk),),
+        )
+        cls.tbx = VariousOnDeleteModel.objects.create(
+            text="Toybox", cascading_toy=cls.object
+        )
+
+    def setUp(self):
+        self.user = self.login(self.user)
+
+    def test_simple(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), str(self.tbx))
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(tds[2].text.strip(), "Cascading toy")
+
+        tbx_edit_url = AdminURLFinder(self.user).get_edit_url(self.tbx)
+
+        # Link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+
+        # Link to referrer's edit view with parameters for the specific field
+        link = tds[2].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+    def test_usage_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_usage_without_permission_on_referrer(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        toy_edit_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_featurecompletetoy"
+        )
+        self.user.user_permissions.add(admin_permission, toy_edit_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), "(Private various on delete model)")
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(tds[2].text.strip(), "Cascading toy")
+
+        # Not link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNone(link)
+
+        # Not link to referrer's edit view
+        link = tds[2].select_one("a")
+        self.assertIsNone(link)
+
+    def test_usage_with_describe_on_delete(self):
+        response = self.client.get(self.url + "?describe_on_delete=1")
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), str(self.tbx))
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(
+            tds[2].text.strip(),
+            "Cascading toy: the various on delete model will also be deleted",
+        )
+
+        tbx_edit_url = AdminURLFinder(self.user).get_edit_url(self.tbx)
+
+        # Link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+
+        # Link to referrer's edit view with parameters for the specific field
+        link = tds[2].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+    def test_empty(self):
+        self.tbx.delete()
+        response = self.client.get(self.url)
+        soup = self.get_soup(response.content)
+        results = soup.select_one("#listing-results")
+        table = soup.select_one("table")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(results)
+        self.assertEqual(results.text.strip(), "There are no results.")
+        self.assertIsNone(table)
+
+    def test_edit_view_links_to_usage_view(self):
+        edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        soup = self.get_soup(response.content)
+        side_panel = soup.select_one("[data-side-panel='status']")
+        usage_link = side_panel.find("a", attrs={"href": self.url})
+        self.assertIsNotNone(usage_link)
+
+    def test_delete_view_links_to_usage_view(self):
+        edit_url = reverse("feature_complete_toy:delete", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        soup = self.get_soup(response.content)
+        usage_link = soup.find("a", attrs={"href": self.url + "?describe_on_delete=1"})
+        self.assertIsNotNone(usage_link)

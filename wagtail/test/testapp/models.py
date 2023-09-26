@@ -1205,6 +1205,14 @@ class VariousOnDeleteModel(models.Model):
         related_name="+",
     )
 
+    cascading_toy = models.ForeignKey(
+        "tests.FeatureCompleteToy",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, null=True, blank=True
     )
