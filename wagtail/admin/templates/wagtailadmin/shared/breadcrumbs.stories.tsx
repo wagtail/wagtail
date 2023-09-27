@@ -1,14 +1,12 @@
 import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
 
-import initCollapsibleBreadcrumbs from '../../../../../client/src/includes/breadcrumbs';
+import { StimulusWrapper } from '../../../../../client/storybook/StimulusWrapper';
+import { RevealController } from '../../../../../client/src/controllers/RevealController';
+
 import template from './breadcrumbs.html';
 
 const { docs, argTypes } = generateDocs(template);
-
-document.addEventListener('DOMContentLoaded', () => {
-  initCollapsibleBreadcrumbs();
-});
 
 export default {
   parameters: { docs },
@@ -16,9 +14,15 @@ export default {
 };
 
 const Template = (args) => (
-  <header>
-    <Pattern filename={__filename} context={args} />
-  </header>
+  <StimulusWrapper
+    definitions={[
+      { identifier: 'w-breadcrumbs', controllerConstructor: RevealController },
+    ]}
+  >
+    <header>
+      <Pattern filename={__filename} context={args} />
+    </header>
+  </StimulusWrapper>
 );
 
 export const Base = Template.bind({});

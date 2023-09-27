@@ -80,7 +80,15 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
    .. autoattribute:: add_to_reference_index
+   .. autoattribute:: list_per_page
    .. autoattribute:: list_display
+   .. autoattribute:: list_export
+   .. autoattribute:: list_filter
+   .. autoattribute:: filterset_class
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+   .. autoattribute:: search_fields
+   .. autoattribute:: search_backend_name
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
@@ -120,6 +128,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_item_text
    .. autoattribute:: per_page
    .. autoattribute:: preserve_url_parameters
+   .. autoattribute:: url_filter_parameters
    .. autoattribute:: choose_view_class
    .. autoattribute:: choose_results_view_class
    .. autoattribute:: chosen_view_class
@@ -138,6 +147,9 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: create_action_clicked_label
    .. autoattribute:: creation_tab_label
    .. autoattribute:: search_tab_label
+   .. method:: get_object_list
+
+      Returns a queryset of objects that are available to be chosen. By default, all instances of ``model`` are returned.
 ```
 
 ## SnippetViewSet
@@ -146,14 +158,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
    .. autoattribute:: model
-   .. autoattribute:: list_export
-   .. autoattribute:: list_filter
-   .. autoattribute:: filterset_class
-   .. autoattribute:: search_fields
-   .. autoattribute:: search_backend_name
-   .. autoattribute:: list_per_page
    .. autoattribute:: chooser_per_page
-   .. autoattribute:: export_filename
    .. autoattribute:: ordering
    .. autoattribute:: inspect_view_enabled
    .. autoattribute:: inspect_view_fields

@@ -625,3 +625,64 @@ class TestStreamFieldPickleSupport(TestCase):
         # check that page data is not corrupted
         self.assertEqual(stream_page.body, deserialized.body)
         self.assertEqual(stream_page.body, deserialized2.body)
+
+
+class TestGetBlockByContentPath(TestCase):
+    def setUp(self):
+        self.page = StreamPage(
+            title="Test page",
+            body=[
+                {"id": "123", "type": "text", "value": "Hello world"},
+                {
+                    "id": "234",
+                    "type": "product",
+                    "value": {"name": "Cuddly toy", "price": "$9.95"},
+                },
+                {
+                    "id": "345",
+                    "type": "books",
+                    "value": [
+                        {"id": "111", "type": "author", "value": "Charles Dickens"},
+                        {"id": "222", "type": "title", "value": "Great Expectations"},
+                    ],
+                },
+                {
+                    "id": "456",
+                    "type": "title_list",
+                    "value": [
+                        {"id": "111", "type": "item", "value": "Barnaby Rudge"},
+                        {"id": "222", "type": "item", "value": "A Tale of Two Cities"},
+                    ],
+                },
+            ],
+        )
+
+    def test_get_block_by_content_path(self):
+        field = self.page._meta.get_field("body")
+
+        # top-level blocks
+        bound_block = field.get_block_by_content_path(self.page.body, ["123"])
+        self.assertEqual(bound_block.value, "Hello world")
+        self.assertEqual(bound_block.block.name, "text")
+        bound_block = field.get_block_by_content_path(self.page.body, ["234"])
+        self.assertEqual(bound_block.block.name, "product")
+        bound_block = field.get_block_by_content_path(self.page.body, ["999"])
+        self.assertIsNone(bound_block)
+
+        # StructBlock children
+        bound_block = field.get_block_by_content_path(self.page.body, ["234", "name"])
+        self.assertEqual(bound_block.value, "Cuddly toy")
+        bound_block = field.get_block_by_content_path(self.page.body, ["234", "colour"])
+        self.assertIsNone(bound_block)
+
+        # StreamBlock children
+        bound_block = field.get_block_by_content_path(self.page.body, ["345", "111"])
+        self.assertEqual(bound_block.value, "Charles Dickens")
+        bound_block = field.get_block_by_content_path(self.page.body, ["345", "999"])
+        self.assertIsNone(bound_block)
+
+        # ListBlock children
+        bound_block = field.get_block_by_content_path(self.page.body, ["456", "111"])
+        self.assertEqual(bound_block.value, "Barnaby Rudge")
+        bound_block = field.get_block_by_content_path(self.page.body, ["456", "999"])
+        self.assertIsNone(bound_block)

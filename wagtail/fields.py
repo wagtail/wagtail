@@ -257,6 +257,13 @@ class StreamField(models.Field):
     def extract_references(self, value):
         yield from self.stream_block.extract_references(value)
 
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        return self.stream_block.get_block_by_content_path(value, path_elements)
+
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))

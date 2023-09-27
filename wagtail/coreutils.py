@@ -82,7 +82,7 @@ def resolve_model_string(model_string, default_app=None):
 
         return apps.get_model(app_label, model_name)
 
-    elif isinstance(model_string, type) and issubclass(model_string, Model):
+    elif isinstance(model_string, type):
         return model_string
 
     else:

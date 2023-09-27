@@ -34,6 +34,7 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, ReferenceIndex
@@ -79,7 +80,12 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
+class IndexView(
+    SpreadsheetExportMixin,
+    LocaleMixin,
+    PermissionCheckedMixin,
+    BaseListingView,
+):
     model = None
     template_name = "wagtailadmin/generic/index.html"
     results_template_name = "wagtailadmin/generic/index_results.html"
@@ -213,7 +219,12 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        queryset = self._annotate_queryset_updated_at(queryset)
+        has_updated_at_column = any(
+            getattr(column, "accessor", None) == "_updated_at"
+            for column in self.columns
+        )
+        if has_updated_at_column:
+            queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -230,9 +241,12 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by(
-                models.F("_updated_at").desc(nulls_last=True), "-pk"
-            )
+            if has_updated_at_column:
+                queryset = queryset.order_by(
+                    models.F("_updated_at").desc(nulls_last=True), "-pk"
+                )
+            else:
+                queryset = queryset.order_by("-pk")
 
         return queryset
 
@@ -322,6 +336,11 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         if self.add_url_name:
             return reverse(self.add_url_name)
 
+    def get_page_title(self):
+        if not self.page_title and self.model:
+            return capfirst(self.model._meta.verbose_name_plural)
+        return self.page_title
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -352,6 +371,13 @@ class IndexView(LocaleMixin, PermissionCheckedMixin, BaseListingView):
         context["model_opts"] = self.model and self.model._meta
         return context
 
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
+
 
 class CreateView(
     LocaleMixin,
@@ -367,6 +393,7 @@ class CreateView(
     add_url_name = None
     edit_url_name = None
     template_name = "wagtailadmin/generic/create.html"
+    page_title = gettext_lazy("New")
     permission_required = "add"
     success_message = None
     error_message = None
@@ -385,6 +412,11 @@ class CreateView(
 
     def get_available_actions(self):
         return self.actions
+
+    def get_page_subtitle(self):
+        if not self.page_subtitle and self.model:
+            return capfirst(self.model._meta.verbose_name)
+        return self.page_subtitle
 
     def get_add_url(self):
         if not self.add_url_name:

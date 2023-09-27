@@ -184,4 +184,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         # that we output "Page 1 of 1" as is standard in Wagtail.
         context["is_paginated"] = context["page_obj"] is not None
 
+        if context["is_paginated"]:
+            context["items_count"] = context["paginator"].count
+        else:
+            context["items_count"] = len(context["object_list"])
+
         return context

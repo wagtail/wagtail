@@ -10,12 +10,15 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
+    Advert,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
@@ -60,7 +63,6 @@ class TestIndexView(IndexView):
     template_name = "tests/generic_view_templates/index.html"
     paginate_by = 20
     context_object_name = "test_object"
-    page_title = gettext_lazy("test index view")
 
 
 class CustomModelEditForm(forms.ModelForm):
@@ -201,7 +203,67 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     menu_label = "Feature Complete Toys"
     icon = "media"
     exclude_form_fields = ()
-    add_to_admin_menu = True
     template_prefix = "customprefix/"
     index_template_name = "tests/fctoy_index.html"
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
+    list_filter = ["name", "release_date"]
+    list_export = ["name", "release_date", "is_cool"]
+    export_filename = "feature-complete-toys"
+    export_headings = {"release_date": "Launch date"}
+    list_per_page = 5
+    ordering = ["name", "-release_date"]
+    # search_fields derived from the model
+
+
+class FCToyAlt1ViewSet(ModelViewSet):
+    model = FeatureCompleteToy
+    icon = "media"
+    list_filter = {"name": ["icontains"]}
+    form_fields = ["name"]
+    menu_label = "FC Toys Alt 1"
+
+    def get_index_view_kwargs(self, **kwargs):
+        return super().get_index_view_kwargs(is_searchable=False, **kwargs)
+
+
+class FCToyCustomFilterSet(WagtailFilterSet):
+    class Meta:
+        model = FeatureCompleteToy
+        fields = {"release_date": ["year__lte"]}
+
+
+class ToyViewSetGroup(ModelViewSetGroup):
+    menu_label = "Toys"
+    menu_icon = "media"
+
+    items = (
+        FeatureCompleteToyViewSet,
+        FCToyAlt1ViewSet(name="fctoy_alt1"),
+        ModelViewSet(
+            name="fctoy-alt2",
+            menu_label="FC Toys Alt 2",
+            model=FeatureCompleteToy,
+            icon="media",
+            filterset_class=FCToyCustomFilterSet,
+            exclude_form_fields=(),
+            search_fields=["name"],
+            search_backend_name=None,
+        ),
+    )
+
+
+class AnimatedAdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False  # don't make this the registered widget for Advert
+    url_filter_parameters = ["url"]
+    preserve_url_parameters = ["multiple", "url"]
+
+    def get_object_list(self):
+        return Advert.objects.filter(tags__name="animated")
+
+
+animated_advert_chooser_viewset = AnimatedAdvertChooserViewSet(
+    "animated_advert_chooser"
+)
+
+AdvertChooserWidget = animated_advert_chooser_viewset.widget_class

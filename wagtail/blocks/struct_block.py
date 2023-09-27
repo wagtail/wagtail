@@ -271,6 +271,26 @@ class BaseStructBlock(Block):
                 content_path = f"{name}.{content_path}" if content_path else name
                 yield model, object_id, model_path, content_path
 
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        if path_elements:
+            name, *remaining_elements = path_elements
+            try:
+                child_block = self.child_blocks[name]
+            except KeyError:
+                return None
+
+            child_value = value.get(name, child_block.get_default())
+            return child_block.get_block_by_content_path(
+                child_value, remaining_elements
+            )
+        else:
+            # an empty path refers to the struct as a whole
+            return self.bind(value)
+
     def deconstruct(self):
         """
         Always deconstruct StructBlock instances as if they were plain StructBlocks with all of the

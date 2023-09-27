@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 import os
 import uuid
@@ -1116,6 +1117,7 @@ class FullFeaturedSnippet(
         blank=True,
     )
     some_date = models.DateField(auto_now=True)
+    some_number = models.IntegerField(default=0, blank=True)
 
     some_attribute = "some value"
 
@@ -2138,8 +2140,16 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
 
 
 # Models to be registered with a ModelViewSet
-class FeatureCompleteToy(models.Model):
+class FeatureCompleteToy(index.Indexed, models.Model):
     name = models.CharField(max_length=255)
+    release_date = models.DateField(default=datetime.date.today)
+
+    search_fields = [
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
+        index.FilterField("name"),
+        index.FilterField("release_date"),
+    ]
 
     def is_cool(self):
         if self.name == self.name[::-1]:
@@ -2147,3 +2157,6 @@ class FeatureCompleteToy(models.Model):
         if (lowered := self.name.lower()) == lowered[::-1]:
             return None
         return False
+
+    def __str__(self):
+        return f"{self.name} ({self.release_date})"

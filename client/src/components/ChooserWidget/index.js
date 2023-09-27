@@ -127,6 +127,34 @@ export class Chooser {
   }
 
   getModalOptions() {
+    const filters = {};
+    if (this.opts.linkedFields) {
+      for (const [param, lookup] of Object.entries(this.opts.linkedFields)) {
+        let val;
+        if (typeof lookup === 'string') {
+          val = document.querySelector(lookup).value;
+        } else if (lookup.id) {
+          val = document.getElementById(lookup.id).value;
+        } else if (lookup.selector) {
+          val = document.querySelector(lookup.selector).value;
+        } else if (lookup.match && this.chooserElement.id) {
+          const match = this.chooserElement.id.match(new RegExp(lookup.match));
+          if (match) {
+            let id = match[0];
+            if (lookup.append) {
+              id += lookup.append;
+            }
+            val = document.getElementById(id).value;
+          }
+        }
+        if (val) {
+          filters[param] = val;
+        }
+      }
+    }
+    if (Object.keys(filters).length) {
+      return { linkedFieldFilters: filters };
+    }
     return null;
   }
 

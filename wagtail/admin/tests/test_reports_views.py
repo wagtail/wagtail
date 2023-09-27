@@ -126,7 +126,7 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
-            data_lines[0], "Title,Updated,Status,Type,Locked At,Locked By\r"
+            data_lines[0], "Title,Updated,Status,Type,Locked at,Locked by\r"
         )
         if settings.USE_TZ:
             self.assertEqual(
@@ -163,7 +163,7 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(
             cell_array[0],
-            ["Title", "Updated", "Status", "Type", "Locked At", "Locked By"],
+            ["Title", "Updated", "Status", "Type", "Locked at", "Locked by"],
         )
         self.assertEqual(
             cell_array[1],

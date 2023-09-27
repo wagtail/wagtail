@@ -9,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.core.paginator import InvalidPage, Paginator
+from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template.loader import render_to_string
@@ -129,6 +130,7 @@ class BaseChooseView(
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
+    url_filter_parameters = []
 
     def get_object_list(self):
         return self.model_class.objects.all()
@@ -173,6 +175,15 @@ class BaseChooseView(
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects):
+        filters = {}
+        for filter in self.url_filter_parameters:
+            try:
+                filters[filter] = self.request.GET[filter]
+            except KeyError:
+                pass
+        if filters:
+            objects = objects.filter(**filters)
+
         if self.construct_queryset_hook_name:
             # allow hooks to modify the queryset
             for hook in hooks.get_hooks(self.construct_queryset_hook_name):
@@ -296,7 +307,7 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif self.model_class:
+        elif self.model_class and issubclass(self.model_class, Model):
             return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)

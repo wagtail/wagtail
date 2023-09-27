@@ -1,14 +1,17 @@
 import csv
 import datetime
 from collections import OrderedDict
+from functools import partial
 from io import BytesIO
 
+from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import FieldDoesNotExist
 from django.http import FileResponse, StreamingHttpResponse
 from django.utils import timezone
 from django.utils.dateformat import Formatter
 from django.utils.encoding import force_str
 from django.utils.formats import get_format
+from django.utils.text import capfirst
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
 
@@ -190,7 +193,7 @@ class SpreadsheetExportMixin:
                 return format_dict[export_format]
 
         # Finally resort to force_str to prevent encoding errors
-        return force_str
+        return partial(force_str, strings_only=True)
 
     def preprocess_field_value(self, field, value, export_format):
         """Preprocesses a field value before writing it to the spreadsheet"""
@@ -224,7 +227,7 @@ class SpreadsheetExportMixin:
         if heading_override:
             return force_str(heading_override)
         try:
-            return force_str(queryset.model._meta.get_field(field).verbose_name.title())
+            return capfirst(force_str(label_for_field(field, queryset.model)))
         except (AttributeError, FieldDoesNotExist):
             return force_str(field)
 

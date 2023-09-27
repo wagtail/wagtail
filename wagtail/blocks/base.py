@@ -253,6 +253,18 @@ class Block(metaclass=BaseBlock):
     def extract_references(self, value):
         return []
 
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        # In the base case, where a block has no concept of children, the only valid path is
+        # the empty one (which refers to the current block).
+        if path_elements:
+            return None
+        else:
+            return self.bind(value)
+
     def check(self, **kwargs):
         """
         Hook for the Django system checks framework -

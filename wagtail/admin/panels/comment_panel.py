@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from modelcluster.models import get_serializable_data_for_fields
 
-from wagtail.admin.forms.comments import CommentForm
+from wagtail.admin.forms.comments import CommentForm, CommentFormSet
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.models import COMMENTS_RELATION_NAME
 
@@ -17,6 +17,7 @@ class CommentPanel(Panel):
             "fields": ["comment_notifications"],
             "formsets": {
                 COMMENTS_RELATION_NAME: {
+                    "formset": CommentFormSet,
                     "form": CommentForm,
                     "fields": ["text", "contentpath", "position"],
                     "formset_name": "comments",

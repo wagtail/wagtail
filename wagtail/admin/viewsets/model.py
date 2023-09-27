@@ -41,6 +41,14 @@ class ModelViewSet(ViewSet):
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
 
+    #: The number of items to display per page in the index view. Defaults to 20.
+    list_per_page = 20
+
+    #: The default ordering to use for the index view.
+    #: Can be a string or a list/tuple in the same format as Django's
+    #: :attr:`~django.db.models.Options.ordering`.
+    ordering = None
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -65,87 +73,82 @@ class ModelViewSet(ViewSet):
         """
         return self.model_name
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "model": self.model,
+                "permission_policy": self.permission_policy,
+                "index_url_name": self.get_url_name("index"),
+                "index_results_url_name": self.get_url_name("index_results"),
+                "add_url_name": self.get_url_name("add"),
+                "edit_url_name": self.get_url_name("edit"),
+                "delete_url_name": self.get_url_name("delete"),
+                "header_icon": self.icon,
+                **kwargs,
+            }
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "template_name": self.index_template_name,
             "results_template_name": self.index_results_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "index_results_url_name": self.get_url_name("index_results"),
-            "add_url_name": self.get_url_name("add"),
-            "edit_url_name": self.get_url_name("edit"),
-            "header_icon": self.icon,
             "list_display": self.list_display,
+            "list_filter": self.list_filter,
+            "list_export": self.list_export,
+            "export_headings": self.export_headings,
+            "export_filename": self.export_filename,
+            "filterset_class": self.filterset_class,
+            "search_fields": self.search_fields,
+            "search_backend_name": self.search_backend_name,
+            "paginate_by": self.list_per_page,
+            "default_ordering": self.ordering,
             **kwargs,
         }
 
     def get_add_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "add_url_name": self.get_url_name("add"),
-            "edit_url_name": self.get_url_name("edit"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "form_class": self.get_form_class(for_update=True),
             "template_name": self.edit_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "edit_url_name": self.get_url_name("edit"),
-            "delete_url_name": self.get_url_name("delete"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     def get_delete_view_kwargs(self, **kwargs):
         return {
-            "model": self.model,
-            "permission_policy": self.permission_policy,
             "template_name": self.delete_template_name,
-            "index_url_name": self.get_url_name("index"),
-            "delete_url_name": self.get_url_name("delete"),
-            "header_icon": self.icon,
             **kwargs,
         }
 
     @property
     def index_view(self):
-        return self.index_view_class.as_view(
-            **self.get_index_view_kwargs(),
+        return self.construct_view(
+            self.index_view_class, **self.get_index_view_kwargs()
         )
 
     @property
     def index_results_view(self):
-        return self.index_view_class.as_view(
-            **self.get_index_view_kwargs(),
-            results_only=True,
+        return self.construct_view(
+            self.index_view_class, **self.get_index_view_kwargs(), results_only=True
         )
 
     @property
     def add_view(self):
-        return self.add_view_class.as_view(
-            **self.get_add_view_kwargs(),
-        )
+        return self.construct_view(self.add_view_class, **self.get_add_view_kwargs())
 
     @property
     def edit_view(self):
-        return self.edit_view_class.as_view(
-            **self.get_edit_view_kwargs(),
-        )
+        return self.construct_view(self.edit_view_class, **self.get_edit_view_kwargs())
 
     @property
     def delete_view(self):
-        return self.delete_view_class.as_view(
-            **self.get_delete_view_kwargs(),
+        return self.construct_view(
+            self.delete_view_class, **self.get_delete_view_kwargs()
         )
 
     def get_templates(self, name="index", fallback=""):
@@ -265,6 +268,73 @@ class ModelViewSet(ViewSet):
         ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
         """
         return self.index_view_class.list_display
+
+    @cached_property
+    def list_filter(self):
+        """
+        A list or tuple, where each item is the name of model fields of type
+        ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``,
+        ``IntegerField`` or ``ForeignKey``.
+        Alternatively, it can also be a dictionary that maps a field name to a
+        list of lookup expressions.
+        This will be passed as django-filter's ``FilterSet.Meta.fields``
+        attribute. See
+        `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_
+        for more details.
+        If ``filterset_class`` is set, this attribute will be ignored.
+        """
+        return self.index_view_class.list_filter
+
+    @cached_property
+    def filterset_class(self):
+        """
+        A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a
+        subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
+        This will be passed to the ``filterset_class`` attribute of the index view.
+        """
+        return self.index_view_class.filterset_class
+
+    @cached_property
+    def search_fields(self):
+        """
+        The fields to use for the search in the index view.
+        If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
+        the ``search_fields`` attribute of the model will be used instead.
+        """
+        return self.index_view_class.search_fields
+
+    @cached_property
+    def search_backend_name(self):
+        """
+        The name of the Wagtail search backend to use for the search in the index view.
+        If set to a falsy value, the search will fall back to use Django's QuerySet API.
+        """
+        return self.index_view_class.search_backend_name
+
+    @cached_property
+    def list_export(self):
+        """
+        A list or tuple, where each item is the name of a field, an attribute,
+        or a single-argument callable on the model to be exported.
+        """
+        return self.index_view_class.list_export
+
+    @cached_property
+    def export_headings(self):
+        """
+        A dictionary of export column heading overrides in the format
+        ``{field_name: heading}``.
+        """
+        return self.index_view_class.export_headings
+
+    @cached_property
+    def export_filename(self):
+        """
+        The base file name for the exported listing, without extensions.
+        If unset, the model's :attr:`~django.db.models.Options.db_table` will be
+        used instead.
+        """
+        return self.model._meta.db_table
 
     @cached_property
     def menu_label(self):
