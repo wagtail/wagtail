@@ -1,7 +1,3 @@
-import datetime
-import json
-from io import StringIO
-
 from django.core import management
 from django.test import SimpleTestCase, TestCase
 
@@ -13,7 +9,6 @@ from wagtail.search.utils import (
     parse_query_string,
     separate_filters_from_query,
 )
-from wagtail.test.utils import WagtailTestUtils
 
 
 class TestHitCounter(TestCase):
@@ -155,33 +150,6 @@ class TestGarbageCollectCommand(TestCase):
             ).count(),
             10,
         )
-
-
-class TestQueryChooserView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-    def get(self, params={}):
-        return self.client.get("/admin/search/queries/chooser/", params)
-
-    def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsearch/queries/chooser/chooser.html")
-        response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
-
-    def test_search(self):
-        response = self.get({"q": "Hello"})
-        self.assertEqual(response.status_code, 200)
-
-    def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
 
 
 class TestSeparateFiltersFromQuery(SimpleTestCase):

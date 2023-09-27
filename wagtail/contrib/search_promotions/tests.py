@@ -1,3 +1,4 @@
+import json
 from datetime import date, datetime, timedelta
 from io import StringIO
 
@@ -767,3 +768,32 @@ class TestCopyDailyHitsFromWagtailSearchManagementCommand(TestCase):
 
         # Check daily hits
         self.assertEqual(new_query.hits, 3)
+
+
+class TestQueryChooserView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get("/admin/searchpicks/queries/chooser/", params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailsearchpromotions/queries/chooser/chooser.html"
+        )
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chooser")
+
+    def test_search(self):
+        response = self.get({"q": "Hello"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_pagination(self):
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)

@@ -3,7 +3,7 @@ function createQueryChooser(id) {
   var input = $('#' + id);
 
   chooserElement.on('click', function () {
-    var initialUrl = '{% url "wagtailsearch_admin:queries_chooser" %}';
+    var initialUrl = '{% url "wagtailsearchpromotions:chooser" %}';
 
     ModalWorkflow({
       url: initialUrl,
