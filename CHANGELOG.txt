@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.1.8 (28.09.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Additionally update Pillow dependency to allow use of versions with security fixes (Dan Braghis)
+
+
 4.1.7 (27.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
