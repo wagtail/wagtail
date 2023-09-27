@@ -303,10 +303,14 @@ class IndexView(
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not issubclass(column_class, ButtonsColumnMixin):
+
+            def get_buttons(column, *args, **kwargs):
+                return self.get_list_buttons(*args, **kwargs)
+
             column_class = type(
                 column_class.__name__,
                 (ButtonsColumnMixin, column_class),
-                {"get_buttons": self.get_list_buttons},
+                {"get_buttons": get_buttons},
             )
         if not self.model:
             return column_class(
