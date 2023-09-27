@@ -737,6 +737,7 @@
 * Sandra Ashipala
 * Omkar Jadhav
 * Charlie Sue
+* Dhrűv
 
 ## Translators
 
