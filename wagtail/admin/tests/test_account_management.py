@@ -274,7 +274,7 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertContains(response, "vendor/colorpicker.js")
 
         # Check if the default title exists
-        self.assertContains(response, 'Name and Email')
+        self.assertContains(response, "Name and Email")
 
     def test_change_name_post(self):
         response = self.post_form(
@@ -334,8 +334,8 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/account/account.html")
         self.assertNotContains(response, "id_name_email-email")
-        
-        # Check if the default title does not exist, Check alternative title "Name" 
+
+        # Check if the default title does not exist, Check alternative title "Name"
         self.assertNotContains(response, "Name and Email")
         self.assertContains(response, "Name")
 
