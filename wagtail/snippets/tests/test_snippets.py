@@ -25,6 +25,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
+from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
@@ -191,6 +192,46 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             "Another useless snippet listing button",
         )
 
+    def test_register_snippet_listing_buttons_hook_with_dropdown(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def snippet_listing_buttons(snippet, user, next_url=None):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
+            yield ButtonWithDropdown(
+                label="Moar pls!",
+                buttons=[SnippetListingButton("Alrighty", "/cheers", priority=10)],
+            )
+
+        with hooks.register_temporarily(
+            "register_snippet_listing_buttons", snippet_listing_buttons
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        nested_dropdown = actions.select_one(
+            "li [data-controller='w-dropdown'] [data-controller='w-dropdown']"
+        )
+        self.assertIsNone(nested_dropdown)
+        dropdown_buttons = actions.select("li > [data-controller='w-dropdown']")
+        # Default "More" button and the custom "Moar pls!" button
+        self.assertEqual(len(dropdown_buttons), 2)
+        custom_dropdown = None
+        for button in dropdown_buttons:
+            if "Moar pls!" in button.text.strip():
+                custom_dropdown = button
+        self.assertIsNotNone(custom_dropdown)
+        self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        # Should contain the custom button inside the custom dropdown
+        custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
+        self.assertIsNotNone(custom_button)
+        self.assertEqual(custom_button.text.strip(), "Alrighty")
+
     def test_construct_snippet_listing_buttons_hook(self):
         Advert.objects.create(text="My Lovely advert")
 
@@ -208,6 +249,26 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(dummy_button)
         self.assertEqual(dummy_button.text.strip(), "Dummy Button")
+
+    def test_construct_snippet_listing_buttons_hook_deprecated_context(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def register_snippet_listing_button_item(buttons, snippet, user, context):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(context, {})
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            register_snippet_listing_button_item,
+        ), self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "construct_snippet_listing_buttons hook no longer accepts a context argument",
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
