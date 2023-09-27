@@ -1317,12 +1317,16 @@ The `priority` argument controls the order the buttons are displayed in. Buttons
 
 ### `construct_snippet_listing_buttons`
 
-Modify the final list of snippet listing buttons. The callable passed to this hook receives a list of `SnippetListingButton` objects, a user, and a context dictionary as per `register_snippet_listing_buttons`, and should modify the list of menu items in-place.
+Modify the final list of snippet listing buttons. The callable passed to this hook receives a list of `SnippetListingButton` objects, the snippet object and a user, and should modify the list of menu items in-place.
 
 ```python
 @hooks.register('construct_snippet_listing_buttons')
-def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
+def remove_snippet_listing_button_item(buttons, snippet, user):
     buttons.pop()  # Removes the 'delete' button
+```
+
+```{versionchanged} 5.2
+The `context` argument has been removed from this hook.
 ```
 
 ## Bulk actions
