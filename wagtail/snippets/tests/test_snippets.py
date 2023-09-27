@@ -161,7 +161,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
 
-        def page_listing_buttons(snippet, user, next_url=None):
+        def snippet_listing_buttons(snippet, user, next_url=None):
             self.assertEqual(snippet, advert)
             self.assertEqual(user, self.user)
             self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
@@ -171,26 +171,43 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             )
 
         with hooks.register_temporarily(
-            "register_snippet_listing_buttons", page_listing_buttons
+            "register_snippet_listing_buttons", snippet_listing_buttons
         ):
             response = self.get()
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
-        self.assertContains(response, "Another useless snippet listing button")
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        top_level_custom_button = actions.select_one("li > a[href='/custom-url']")
+        self.assertIsNone(top_level_custom_button)
+        custom_button = actions.select_one(
+            "li [data-controller='w-dropdown'] a[href='/custom-url']"
+        )
+        self.assertIsNotNone(custom_button)
+        self.assertEqual(
+            custom_button.text.strip(),
+            "Another useless snippet listing button",
+        )
 
     def test_construct_snippet_listing_buttons_hook(self):
         Advert.objects.create(text="My Lovely advert")
 
         # testapp implements a construct_snippetlisting_buttons hook
         # that add's an dummy button with the label 'Dummy Button' which points
-        # to '/dummy-button'
+        # to '/dummy-button' and is placed as a top-level button instead of
+        # put inside the default "More" dropdown button
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-        self.assertContains(response, "Dummy Button")
-        self.assertContains(response, "/dummy-button")
+
+        soup = self.get_soup(response.content)
+        dummy_button = soup.select_one(
+            "tbody tr td ul.actions > li > a[href='/dummy-button']"
+        )
+        self.assertIsNotNone(dummy_button)
+        self.assertEqual(dummy_button.text.strip(), "Dummy Button")
 
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
