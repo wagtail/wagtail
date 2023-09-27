@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from functools import cached_property
 
 from django.conf import settings
 from django.contrib import messages
@@ -138,9 +139,16 @@ class BaseSettingsPanel:
 
 class NameEmailSettingsPanel(BaseSettingsPanel):
     name = "name_email"
-    title = gettext_lazy("Name and Email")
     order = 100
     form_class = NameEmailForm
+
+    @cached_property
+    def title(self):
+        from wagtail.admin.views.account import email_management_enabled
+
+        if email_management_enabled():
+            return _("Name and Email")
+        return _("Name")
 
 
 class AvatarSettingsPanel(BaseSettingsPanel):

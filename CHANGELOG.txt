@@ -41,6 +41,7 @@ Changelog
  * Fix: Allow locale selection when creating a page at the root level (Sage Abdullah)
  * Fix: Ensure the admin login template correctly displays all `non_fields_errors` for any custom form validation (Sébastien Corbin)
  * Fix: Ensure 'mark as active' label in workflow bulk action set active form can be translated (Rohit Sharma)
+ * Fix: Ensure the panel title for a user's settings correctly reflects the `WAGTAIL_EMAIL_MANAGEMENT_ENABLED` setting by not showing 'email' if disabled (Omkar Jadhav)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
