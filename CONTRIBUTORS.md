@@ -736,6 +736,7 @@
 * TopDevPros
 * Sandra Ashipala
 * Omkar Jadhav
+* Charlie Sue
 
 ## Translators
 
