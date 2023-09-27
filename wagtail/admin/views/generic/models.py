@@ -304,8 +304,8 @@ class IndexView(
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not issubclass(column_class, ButtonsColumnMixin):
 
-            def get_buttons(column, *args, **kwargs):
-                return self.get_list_buttons(*args, **kwargs)
+            def get_buttons(column, instance, *args, **kwargs):
+                return self.get_list_buttons(instance)
 
             column_class = type(
                 column_class.__name__,
@@ -396,7 +396,7 @@ class IndexView(
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
 
-    def get_list_dropdown_buttons(self, instance, parent_context):
+    def get_list_dropdown_buttons(self, instance):
         buttons = []
         edit_url = self.get_edit_url(instance)
         can_edit = (
@@ -434,8 +434,8 @@ class IndexView(
             )
         return buttons
 
-    def get_list_buttons(self, instance, parent_context):
-        buttons = self.get_list_dropdown_buttons(instance, parent_context)
+    def get_list_buttons(self, instance):
+        buttons = self.get_list_dropdown_buttons(instance)
         return [
             ButtonWithDropdown(
                 buttons=buttons,

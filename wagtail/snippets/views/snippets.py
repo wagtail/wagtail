@@ -174,8 +174,8 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             *super().get_columns(),
         ]
 
-    def get_list_buttons(self, instance, parent_context):
-        more_buttons = self.get_list_dropdown_buttons(instance, parent_context)
+    def get_list_buttons(self, instance):
+        more_buttons = self.get_list_dropdown_buttons(instance)
         next_url = self.request.path
         button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
         list_buttons = []
@@ -205,7 +205,15 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         # Pass the top-level buttons to the hooks, so top-level non-dropdown
         # buttons can still be added.
         for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
-            hook(list_buttons, instance, self.request.user, parent_context)
+            try:
+                hook(list_buttons, instance, self.request.user)
+            except TypeError:
+                warn(
+                    "construct_snippet_listing_buttons hook no longer accepts a context argument",
+                    RemovedInWagtail60Warning,
+                    stacklevel=2,
+                )
+                hook(list_buttons, instance, self.request.user, {})
 
         return list_buttons
 
