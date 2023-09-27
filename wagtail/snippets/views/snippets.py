@@ -36,6 +36,7 @@ from wagtail.admin.views.generic.preview import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
+from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
 from wagtail.models import (
     DraftStateMixin,
     Locale,
@@ -173,18 +174,40 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             *super().get_columns(),
         ]
 
-    def get_list_dropdown_buttons(self, instance, parent_context):
-        buttons = super().get_list_dropdown_buttons(instance, parent_context)
+    def get_list_buttons(self, instance, parent_context):
+        more_buttons = self.get_list_dropdown_buttons(instance, parent_context)
         next_url = self.request.path
         button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
+        list_buttons = []
 
         for hook in button_hooks:
-            buttons.extend(hook(instance, self.request.user, next_url))
+            hook_buttons = hook(instance, self.request.user, next_url)
+            for button in hook_buttons:
+                if isinstance(button, BaseDropdownMenuButton):
+                    # If the button is a dropdown menu, add it to the top-level
+                    # because we do not support nested dropdowns
+                    list_buttons.append(button)
+                else:
+                    # Otherwise, add it to the default "More" dropdown
+                    more_buttons.append(button)
 
+        list_buttons.append(
+            ButtonWithDropdown(
+                buttons=more_buttons,
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
+        )
+
+        # Pass the top-level buttons to the hooks, so top-level non-dropdown
+        # buttons can still be added.
         for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
-            hook(buttons, instance, self.request.user, parent_context)
+            hook(list_buttons, instance, self.request.user, parent_context)
 
-        return buttons
+        return list_buttons
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
