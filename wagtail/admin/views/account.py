@@ -139,14 +139,17 @@ class BaseSettingsPanel:
 
 class NameEmailSettingsPanel(BaseSettingsPanel):
     name = "name_email"
+    # title = gettext_lazy("Name and Email")
     order = 100
     form_class = NameEmailForm
 
-    @cached_property
+    @property
     def title(self):
+        from wagtail.admin.views.account import email_management_enabled
+
         if email_management_enabled():
-            return _("Name and Email")
-        return _("Name")
+            return gettext_lazy("Name and Email")
+        return gettext_lazy("Name")
 
 
 class AvatarSettingsPanel(BaseSettingsPanel):
