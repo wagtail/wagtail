@@ -1034,3 +1034,51 @@ class TestUsageView(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         usage_link = soup.find("a", attrs={"href": self.url + "?describe_on_delete=1"})
         self.assertIsNotNone(usage_link)
+
+
+class TestListingButtons(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def test_simple(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
+        self.assertIsNotNone(more_dropdown)
+        more_button = more_dropdown.select_one("button")
+        self.assertEqual(
+            more_button.attrs.get("aria-label").strip(),
+            f"More options for '{self.object}'",
+        )
+
+        expected_buttons = [
+            (
+                "Edit",
+                f"Edit '{self.object}'",
+                reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Delete",
+                f"Delete '{self.object}'",
+                reverse("feature_complete_toy:delete", args=[quote(self.object.pk)]),
+            ),
+        ]
+
+        rendered_buttons = more_dropdown.select("a")
+        self.assertEqual(len(rendered_buttons), len(expected_buttons))
+
+        for rendered_button, (label, aria_label, url) in zip(
+            rendered_buttons, expected_buttons
+        ):
+            self.assertEqual(rendered_button.text.strip(), label)
+            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
+            self.assertEqual(rendered_button.attrs.get("href"), url)
