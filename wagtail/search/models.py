@@ -22,6 +22,11 @@ from .utils import get_descendants_content_types_pks
 
 
 class Query(models.Model):
+    """
+    Deprecated - This model has been moved to `wagtail.contrib.search_promotions`.
+    This legacy model will be removed in Wagtail 6.0
+    """
+
     query_string = models.CharField(max_length=MAX_QUERY_STRING_LENGTH, unique=True)
 
     wagtail_reference_index_ignore = True
@@ -87,6 +92,11 @@ class Query(models.Model):
 
 
 class QueryDailyHits(models.Model):
+    """
+    Deprecated - This model has been moved to `wagtail.contrib.search_promotions`.
+    This legacy model will be removed in Wagtail 6.0
+    """
+
     query = models.ForeignKey(
         Query, db_index=True, related_name="daily_hits", on_delete=models.CASCADE
     )
@@ -98,6 +108,14 @@ class QueryDailyHits(models.Model):
         """
         Deletes all QueryDailyHits records that are older than a set number of days
         """
+
+        warnings.warn(
+            "The wagtailsearch.QueryDailyHits model has been moved to wagtail.contrib.search_promotions. "
+            "Please update your code to use the Query model from that app instead.",
+            RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
+
         days = (
             getattr(settings, "WAGTAILSEARCH_HITS_MAX_AGE", 7) if days is None else days
         )
