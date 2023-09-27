@@ -175,7 +175,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         ]
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_dropdown_buttons(instance)
+        more_buttons = self.get_list_more_buttons(instance)
         next_url = self.request.path
         button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
         list_buttons = []
