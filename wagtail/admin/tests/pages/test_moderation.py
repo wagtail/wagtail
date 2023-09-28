@@ -14,6 +14,7 @@ from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestApproveRejectModeration(WagtailTestUtils, TestCase):
@@ -189,11 +190,20 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_preview_for_moderation(self):
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:preview_for_moderation", args=(self.revision.id,)
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "The simple page 'Hello world! (simple page)' is undergoing moderation "
+            "in the legacy moderation system. Complete the moderation of this page "
+            "before upgrading Wagtail. Support for the legacy moderation system will "
+            "be completely removed in a future release. For more details, refer to "
+            "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
+        ):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:preview_for_moderation",
+                    args=(self.revision.id,),
+                )
             )
-        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
