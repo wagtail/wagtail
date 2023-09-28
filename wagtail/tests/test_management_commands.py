@@ -724,8 +724,6 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
     def test_purge_revisions_protected_error(self):
         revision = self.object.save_revision()
-        # Create foreign key in the object to the revision object and set on_delete=MODELS.PROTECT
-        # to prevent deletion of the revision object
         PurgeRevisionsProtectedTestModel.objects.create(revision=revision)
         self.run_command()
         # revision should not be deleted, as it is protected
