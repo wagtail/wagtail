@@ -1,4 +1,5 @@
 import json
+import warnings
 from urllib.parse import quote
 
 from django.conf import settings
@@ -35,6 +36,7 @@ from wagtail.models import (
     PageSubscription,
     WorkflowState,
 )
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -58,6 +60,20 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 self.request,
                 _("This page is currently awaiting moderation"),
                 buttons=buttons,
+            )
+
+            page_type = self.page._meta.verbose_name
+            page_title = self.page.get_admin_display_title()
+
+            warnings.warn(
+                f"The {page_type} '{page_title}' is undergoing moderation in "
+                "the legacy moderation system. Complete the moderation of this page "
+                "before upgrading Wagtail. Support for the legacy moderation system "
+                "will be completely removed in a future release. For more details, "
+                "refer to "
+                "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
+                RemovedInWagtail60Warning,
+                stacklevel=2,
             )
 
     def add_save_confirmation_message(self):
