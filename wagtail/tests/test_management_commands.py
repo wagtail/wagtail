@@ -24,6 +24,7 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     EventPage,
     FullFeaturedSnippet,
+    PurgeRevisionsProtectedTestModel,
     SecretPage,
     SimplePage,
 )
@@ -167,7 +168,6 @@ class TestMovePagesCommand(TestCase):
 
 
 class TestSetUrlPathsCommand(TestCase):
-
     fixtures = ["test.json"]
 
     def run_command(self):
@@ -721,6 +721,15 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         # revision is now older than 30 days, so should be deleted
         self.assertRevisionNotExists(old_revision)
+
+    def test_purge_revisions_protected_error(self):
+        revision = self.object.save_revision()
+        # Create foreign key in the object to the revision object and set on_delete=MODELS.PROTECT
+        # to prevent deletion of the revision object
+        PurgeRevisionsProtectedTestModel.objects.create(revision=revision)
+        self.run_command()
+        # revision should not be deleted, as it is protected
+        self.assertRevisionExists(revision)
 
 
 class TestPurgeRevisionsCommandForSnippets(TestPurgeRevisionsCommandForPages):
