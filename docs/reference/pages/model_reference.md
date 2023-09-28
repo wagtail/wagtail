@@ -716,6 +716,11 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
 
         ``True`` if this revision is in moderation.
 
+        .. versionchanged:: 5.2
+
+            This field is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
+
+
     .. attribute:: created_at
 
         (date/time)
@@ -771,6 +776,10 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
         .. code-block:: python
 
             Revision.submitted_revisions.all()
+
+        .. versionchanged:: 5.2
+
+            This manager is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
 ```
 
 ### Methods and properties

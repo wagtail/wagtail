@@ -44,7 +44,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property
+from django.utils.functional import Promise, cached_property, classproperty
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -380,7 +380,7 @@ class RevisionMixin(models.Model):
         Creates and saves a revision.
 
         :param user: The user performing the action.
-        :param submitted_for_moderation: Indicates whether the object was submitted for moderation.
+        :param submitted_for_moderation: **Deprecated** – Indicates whether the object was submitted for moderation.
         :param approved_go_live_at: The date and time the revision is approved to go live.
         :param changed: Indicates whether there were any content changes.
         :param log_action: Flag for logging the action. Pass ``True`` to also create a log entry. Can be passed an action string.
@@ -2745,7 +2745,7 @@ class Revision(models.Model):
 
     objects = RevisionsManager()
     page_revisions = PageRevisionsManager()
-    submitted_revisions = SubmittedRevisionsManager()
+    _submitted_revisions = SubmittedRevisionsManager()
 
     content_object = GenericForeignKey(
         "content_type", "object_id", for_concrete_model=False
@@ -2756,6 +2756,14 @@ class Revision(models.Model):
     @cached_property
     def base_content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
+
+    @classproperty
+    def submitted_revisions(self):
+        warnings.warn(
+            "SubmittedRevisionsManager is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+        )
+        return self._submitted_revisions
 
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
