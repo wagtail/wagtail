@@ -829,8 +829,6 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
         This property returns the object this revision belongs to as an instance of the base class.
 ```
 
-
-
 ## `GroupPagePermission`
 
 ### Database fields
