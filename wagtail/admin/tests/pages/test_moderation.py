@@ -50,12 +50,17 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
         page_published.connect(mock_handler)
 
         try:
-            # Post
-            response = self.client.post(
-                reverse(
-                    "wagtailadmin_pages:approve_moderation", args=(self.revision.id,)
+            with self.assertWarnsMessage(
+                RemovedInWagtail60Warning,
+                "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+            ):
+                # Post
+                response = self.client.post(
+                    reverse(
+                        "wagtailadmin_pages:approve_moderation",
+                        args=(self.revision.id,),
+                    )
                 )
-            )
 
             # Check that the user was redirected to the dashboard
             self.assertRedirects(response, reverse("wagtailadmin_home"))
@@ -85,9 +90,15 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
         self.page.title = "Goodbye world!"
         self.page.save_revision(user=self.submitter, submitted_for_moderation=False)
 
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
-        )
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:approve_moderation", args=(self.revision.id,)
+                )
+            )
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse("wagtailadmin_home"))
@@ -140,10 +151,16 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
         """
         This posts to the reject moderation view and checks that the page was rejected
         """
-        # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:reject_moderation", args=(self.revision.id,))
-        )
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
+        ):
+            # Post
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:reject_moderation", args=(self.revision.id,)
+                )
+            )
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse("wagtailadmin_home"))
@@ -288,8 +305,13 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
     def test_approved_notifications(self):
         # Set up the page version
         self.silent_submit()
-        # Approve
-        self.approve()
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            # Approve
+            self.approve()
 
         # Submitter must receive an approved email
         self.assertEqual(len(mail.outbox), 1)
@@ -306,8 +328,13 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
 
         # Set up the page version
         self.silent_submit()
-        # Approve
-        self.approve()
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            # Approve
+            self.approve()
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
@@ -315,8 +342,13 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
     def test_rejected_notifications(self):
         # Set up the page version
         self.silent_submit()
-        # Reject
-        self.reject()
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
+        ):
+            # Reject
+            self.reject()
 
         # Submitter must receive a rejected email
         self.assertEqual(len(mail.outbox), 1)
@@ -333,8 +365,13 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
 
         # Set up the page version
         self.silent_submit()
-        # Reject
-        self.reject()
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
+        ):
+            # Reject
+            self.reject()
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
@@ -364,7 +401,11 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
         logging.disable(logging.CRITICAL)
         # Approve
         self.silent_submit()
-        response = self.approve()
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            response = self.approve()
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
@@ -423,12 +464,17 @@ class TestApproveRejectModerationWithoutUser(WagtailTestUtils, TestCase):
         page_published.connect(mock_handler)
 
         try:
-            # Post
-            response = self.client.post(
-                reverse(
-                    "wagtailadmin_pages:approve_moderation", args=(self.revision.id,)
+            with self.assertWarnsMessage(
+                RemovedInWagtail60Warning,
+                "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+            ):
+                # Post
+                response = self.client.post(
+                    reverse(
+                        "wagtailadmin_pages:approve_moderation",
+                        args=(self.revision.id,),
+                    )
                 )
-            )
 
             # Check that the user was redirected to the dashboard
             self.assertRedirects(response, reverse("wagtailadmin_home"))

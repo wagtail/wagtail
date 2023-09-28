@@ -2807,6 +2807,11 @@ class Revision(models.Model):
         return self.content_object.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
+        warnings.warn(
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
@@ -2823,6 +2828,11 @@ class Revision(models.Model):
             self.publish()
 
     def reject_moderation(self, user=None):
+        warnings.warn(
+            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',

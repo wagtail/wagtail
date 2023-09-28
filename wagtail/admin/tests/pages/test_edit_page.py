@@ -47,6 +47,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -2542,10 +2543,14 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         revision = Revision.page_revisions.get(object_id=page.id)
         revision.submitted_for_moderation = True
         revision.save()
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
-            follow=True,
-        )
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            response = self.client.post(
+                reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
+                follow=True,
+            )
         page = SimplePage.objects.get()
         self.assertTrue(page.live)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
