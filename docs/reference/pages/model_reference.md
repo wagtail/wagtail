@@ -736,13 +736,13 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
 
     Note: Purging Stale Revisions
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Stale revisions are revisions that are no longer associated with any live objects. These revisions can accumulate         over time as content is updated and new revisions are created. To manage database size and improve performance,           administrators can use the `purge_revisions` management command to remove stale revisions from the database.
-    Please exercise caution when running the `purge_revisions` command, as it will permanently delete stale revisions         that are no longer referenced by any live content. Make sure to back up important revisions or consider using a           ForeignKey with `on_delete=models.PROTECT` if there are specific revisions that you want to preserve and prevent from     being deleted.
+    Stale revisions are revisions that are no longer associated with any live objects. These revisions can accumulate over time as content is updated and new revisions are created. To manage database size and improve performance, administrators can use the `purge_revisions` management command to remove stale revisions from the database.
+    Please exercise caution when running the `purge_revisions` command, as it will permanently delete stale revisions that are no longer referenced by any live content. Make sure to back up important revisions or consider using a ForeignKey with `on_delete=models.PROTECT` if there are specific revisions that you want to preserve and prevent from being deleted.
     Using ForeignKey with `on_delete=models.PROTECT`
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Wagtail implementors may want to use a `ForeignKey` field with `on_delete=models.PROTECT` when referring to a             specific revision they don't want to be deleted. By doing so, the revision will be protected from deletion as long as     it is referenced by any other live objects in the system.
+    Wagtail implementors may want to use a `ForeignKey` field with `on_delete=models.PROTECT` when referring to a specific revision they don't want to be deleted. By doing so, the revision will be protected from deletion as long as it is referenced by any other live objects in the system.
     Stale revisions are revisions that are no longer associated with any live objects. These revisions can accumulate over time as content is updated and new revisions are created. To manage database size and improve performance, administrators can use the `purge_revisions` management command to remove stale revisions from the database.
-    Please exercise caution when running the `purge_revisions` command, as it will permanently delete stale revisions that are no longer referenced by any live content. Make sure to back up important revisions or consider using a ForeignKey with `on_delete=models.PROTECT` if there are specific revisions that you want to preserve and prevent from     being deleted.
+    Please exercise caution when running the `purge_revisions` command, as it will permanently delete stale revisions that are no longer referenced by any live content. Make sure to back up important revisions or consider using a ForeignKey with `on_delete=models.PROTECT` if there are specific revisions that you want to preserve and prevent from being deleted.
     Using ForeignKey with `on_delete=models.PROTECT`
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Wagtail implementors may want to use a `ForeignKey` field with `on_delete=models.PROTECT` when referring to a specific revision they don't want to be deleted. By doing so, the revision will be protected from deletion as long as it is referenced by any other live objects in the system.
@@ -757,7 +757,7 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
                 on_delete=models.PROTECT,
                 )
             # Add other fields for your model
-    With this setup, when a `Revision` instance is referenced by the `revision` field of `MyModel`, the `purge_revisions`     command will not delete that particular revision, ensuring its preservation even if it becomes stale.
+    With this setup, when a `Revision` instance is referenced by the `revision` field of `MyModel`, the `purge_revisions` command will not delete that particular revision, ensuring its preservation even if it becomes stale.
 ```
 
 ### Managers
