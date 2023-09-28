@@ -1,5 +1,6 @@
 import itertools
 import re
+import warnings
 from typing import Any, Mapping, Union
 
 from django.conf import settings
@@ -27,6 +28,7 @@ from wagtail.models import (
     get_default_page_content_type,
 )
 from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 User = get_user_model()
 
@@ -100,12 +102,22 @@ class PagesForModerationPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        context["page_revisions_for_moderation"] = (
+        revisions = (
             PagePermissionPolicy()
             .revisions_for_moderation(request.user)
             .select_related("user")
             .order_by("-created_at")
         )
+        if revisions:
+            warnings.warn(
+                "You have pages undergoing moderation in the legacy moderation system. "
+                "Complete the moderation of these pages before upgrading Wagtail. "
+                "Support for the legacy moderation system will be completely removed "
+                "in a future release. For more details, refer to "
+                "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
+                RemovedInWagtail60Warning,
+            )
+        context["page_revisions_for_moderation"] = revisions
         context["request"] = request
         context["csrf_token"] = parent_context["csrf_token"]
         return context

@@ -5,10 +5,17 @@ from django.urls import reverse
 from wagtail.models import GroupPagePermission, Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestModerationList(WagtailTestUtils, TestCase):
     """Test moderation list rendered by `wagtailadmin_home` view"""
+
+    # RemovedInWagtail60Warning
+    # Remove this test class when the deprecation period for the legacy
+    # moderation system ends.
+    # For workflows, this has been covered in
+    # wagtail.admin.tests.test_workflows.TestDashboardWithPages
 
     def setUp(self):
         # Create a submitter
@@ -70,7 +77,15 @@ class TestModerationList(WagtailTestUtils, TestCase):
         self.login(moderator)
 
     def get(self):
-        return self.client.get(reverse("wagtailadmin_home"))
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "You have pages undergoing moderation in the legacy moderation system. "
+            "Complete the moderation of these pages before upgrading Wagtail. "
+            "Support for the legacy moderation system will be completely removed "
+            "in a future release. For more details, refer to "
+            "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
+        ):
+            return self.client.get(reverse("wagtailadmin_home"))
 
     def test_edit_page(self):
         # Login as moderator
