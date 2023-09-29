@@ -11,6 +11,7 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -61,7 +62,12 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 "request": self.dummy_request(self.user, revision_id=revision.id),
             }
         )
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(7), self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "ModerationEditPageItem is deprecated\. "
+            "If you explicitly use this in your code, "
+            "remove it from your construct_wagtail_userbar hook\.",
+        ):
             content = template.render(context)
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
@@ -436,6 +442,12 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
 
 
 class TestUserbarModeration(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning
+    # Remove this test class when the deprecation period for the legacy
+    # moderation system ends.
+    # The userbar is yet to support workflows:
+    # https://github.com/wagtail/wagtail/issues/9106
+
     def setUp(self):
         self.user = self.login()
         self.request = get_dummy_request(site=Site.objects.first())
@@ -450,7 +462,13 @@ class TestUserbarModeration(WagtailTestUtils, TestCase):
 
     def test_userbar_moderation(self):
         response = self.page.serve(self.request)
-        response.render()
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "ModerationEditPageItem is deprecated\. "
+            "If you explicitly use this in your code, "
+            "remove it from your construct_wagtail_userbar hook\.",
+        ):
+            response.render()
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<template id="wagtail-userbar-template">')
