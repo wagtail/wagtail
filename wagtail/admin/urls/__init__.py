@@ -17,7 +17,7 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, chooser, dismissibles, home, tags, userbar
+from wagtail.admin.views import account, chooser, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -132,18 +132,6 @@ def get_sprite_hash():
 urlpatterns += [
     path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
     path("login/", account.LoginView.as_view(), name="wagtailadmin_login"),
-    # These two URLs have the "permission_required" decorator applied directly
-    # as they need to fail with a 403 error rather than redirect to the login page
-    path(
-        "userbar/<int:page_id>/",
-        userbar.for_frontend,
-        name="wagtailadmin_userbar_frontend",
-    ),
-    path(
-        "userbar/moderation/<int:revision_id>/",
-        userbar.for_moderation,
-        name="wagtailadmin_userbar_moderation",
-    ),
     # Password reset
     path("password_reset/", include(wagtailadmin_password_reset_urls)),
     # JS translation catalog
