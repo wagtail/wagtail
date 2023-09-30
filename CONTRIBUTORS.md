@@ -725,6 +725,7 @@
 * Florent Lebreton
 * Sandro Rodrigues
 * claudobahn
+* Sandra Ashipala
 
 ## Translators
 
