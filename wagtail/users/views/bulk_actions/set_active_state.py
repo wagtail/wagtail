@@ -9,6 +9,7 @@ from wagtail.users.views.users import change_user_perm
 class ActivityForm(forms.Form):
     mark_as_active = forms.TypedChoiceField(
         choices=((True, _("Active")), (False, _("Inactive"))),
+        label=_("Mark as active"),
         widget=forms.RadioSelect,
         coerce=lambda x: x == "True",
     )
