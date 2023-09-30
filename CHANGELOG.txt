@@ -40,6 +40,7 @@ Changelog
  * Fix: Allow `PublishMenuItem` to more easily support overriding its label via `construct_page_action_menu` (Sébastien Corbin)
  * Fix: Allow locale selection when creating a page at the root level (Sage Abdullah)
  * Fix: Ensure the admin login template correctly displays all `non_fields_errors` for any custom form validation (Sébastien Corbin)
+ * Fix: Ensure 'mark as active' label in workflow bulk action set active form can be translated (Rohit Sharma)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
