@@ -924,7 +924,7 @@ Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
 a QuerySet from its `get_context()` method.
 
-Migrate this by running `python manage.py makemigrations` and then `python manage.py`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface.
+Migrate this by running `python manage.py makemigrations` and then `python manage.py migrate`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface.
 
 Access `/tags` and Django will tell you what you probably already knew.
 You need to create the template, `blog/templates/blog/blog_tag_index_page.html` and add the following content to it:

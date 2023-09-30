@@ -734,6 +734,7 @@
 * Subhajit Ghosh
 * Neeraj Yetheendran
 * TopDevPros
+* Sandra Ashipala
 
 ## Translators
 
