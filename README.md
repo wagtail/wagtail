@@ -48,7 +48,7 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-To get started with using Wagtail, run the following in a virtual environment:
+To get started with using Wagtail, run the following in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
 
 ![Installing Wagtail](.github/install-animation.gif)
 
