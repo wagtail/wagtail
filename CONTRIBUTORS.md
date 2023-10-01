@@ -744,6 +744,7 @@
 * Damilola Oladele
 * Olumide Micheal
 * Chiemezuo Akujobi
+* Krish Soni
 
 ## Translators
 
