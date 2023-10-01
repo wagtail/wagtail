@@ -337,7 +337,7 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         # Check if the default title does not exist
         self.assertNotContains(response, "Name and Email")
-        # When WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False, Check if title is "Name" 
+        # When WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False, Check if title is "Name"
         self.assertContains(response, "Name")
 
         # Check if the default title does not exist

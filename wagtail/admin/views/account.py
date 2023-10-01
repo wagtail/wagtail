@@ -139,7 +139,6 @@ class BaseSettingsPanel:
 
 class NameEmailSettingsPanel(BaseSettingsPanel):
     name = "name_email"
-    # title = gettext_lazy("Name and Email")
     order = 100
     form_class = NameEmailForm
 
