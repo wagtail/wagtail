@@ -70,6 +70,7 @@ Changelog
  * Maintenance: Refactor side panels code for better reuse in pages and snippets (Sage Abdullah)
  * Maintenance: Deprecate legacy URL redirects in `ModelViewSet` and `SnippetViewSet` (Sage Abdullah)
  * Maintenance: Simplify code for registering page listing action buttons (Matt Westcott)
+ * Maintenance: Removed the unused, legacy, Wagtail userbar views set up for an old iframe approach (Sage Abdullah)
 
 
 5.1.2 (25.09.2023)
