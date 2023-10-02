@@ -104,7 +104,7 @@ class PagesForModerationPanel(Component):
         context = super().get_context_data(parent_context)
         revisions = (
             PagePermissionPolicy()
-            .revisions_for_moderation(request.user)
+            ._revisions_for_moderation(request.user)
             .select_related("user")
             .order_by("-created_at")
         )
