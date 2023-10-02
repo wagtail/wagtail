@@ -53,6 +53,9 @@ def purge_revisions(days=None, pages=True, non_pages=True):
         objects = Revision.objects.not_page_revisions()
 
     # exclude revisions which have been submitted for moderation in the old system
+    # RemovedInWagtail60Warning
+    # Remove this when the deprecation period for the legacy
+    # moderation system ends.
     purgeable_revisions = objects.exclude(submitted_for_moderation=True).exclude(
         # and exclude revisions with an approved_go_live_at date
         approved_go_live_at__isnull=False

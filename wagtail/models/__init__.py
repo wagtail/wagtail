@@ -369,7 +369,7 @@ class RevisionMixin(models.Model):
     def save_revision(
         self,
         user=None,
-        submitted_for_moderation=False,
+        submitted_for_moderation=False,  # RemovedInWagtail60Warning
         approved_go_live_at=None,
         changed=True,
         log_action=False,
@@ -2685,6 +2685,9 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def submitted(self):
+        # RemovedInWagtail60Warning
+        # Remove this when the deprecation period for the legacy
+        # moderation system ends.
         return self.filter(submitted_for_moderation=True)
 
     def for_instance(self, instance):
@@ -2723,6 +2726,7 @@ class Revision(models.Model):
         max_length=255,
         verbose_name=_("object id"),
     )
+    # RemovedInWagtail60Warning
     submitted_for_moderation = models.BooleanField(
         verbose_name=_("submitted for moderation"), default=False, db_index=True
     )
