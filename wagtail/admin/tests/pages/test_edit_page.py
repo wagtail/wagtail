@@ -2528,6 +2528,10 @@ class TestIssue3982(WagtailTestUtils, TestCase):
             )
         )
 
+    # RemovedInWagtail60Warning
+    # Remove the following tests when the deprecation period for the legacy
+    # moderation system ends.
+
     def _approve_page(self, parent):
         self.client.post(
             reverse("wagtailadmin_pages:add", args=("tests", "simplepage", parent.pk)),

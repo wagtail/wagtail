@@ -18,6 +18,10 @@ from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestApproveRejectModeration(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning
+    # Remove this test class when the deprecation period for the legacy
+    # moderation system ends.
+
     def setUp(self):
         self.submitter = self.create_superuser(
             username="submitter",
@@ -229,6 +233,11 @@ class TestApproveRejectModeration(WagtailTestUtils, TestCase):
 
 
 class TestNotificationPreferences(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning
+    # Remove this test class when the deprecation period for the legacy
+    # moderation system ends. This test has been replaced by
+    # wagtail.admin.tests.test_workflows.TestPageNotificationPreferences.
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -431,6 +440,12 @@ class TestNotificationPreferences(WagtailTestUtils, TestCase):
 
 
 class TestApproveRejectModerationWithoutUser(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning
+    # Remove this test class when the deprecation period for the legacy
+    # moderation system ends.
+    # This test works similarly to TestApproveRejectModeration, but it
+    # doesn't specify the user when saving the revision.
+
     def setUp(self):
         self.submitter = self.create_superuser(
             username="submitter",
