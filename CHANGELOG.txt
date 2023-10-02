@@ -509,6 +509,7 @@ Changelog
  * Delay hiding the contents of the side panels when closing, so the animation is smoother (Thibaud Colas)
  * ListBlock now shows item-by-item differences when comparing versions (Tidiane Dia)
  * Implement a new design for chooser buttons with better accessibility (Thibaud Colas)
+ * API ordering now supports multiple fields (Rohit Sharma, Jake Howard)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
