@@ -63,8 +63,8 @@ class FieldsFilter(BaseFilterBackend):
 class OrderingFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         """
-        This applies ordering to the result set
-        Eg: ?order=title
+        This applies ordering to the result set with support for multiple fields.
+        Eg: ?order=title or ?order=title,created_at
 
         It also supports reverse ordering
         Eg: ?order=-title
@@ -73,10 +73,14 @@ class OrderingFilter(BaseFilterBackend):
         Eg: ?order=random
         """
         if "order" in request.GET:
-            order_by = request.GET["order"]
+            order_by_list = request.GET["order"].split(",")
 
             # Random ordering
-            if order_by == "random":
+            if "random" in order_by_list:
+                if len(order_by_list) > 1:
+                    raise BadRequestError(
+                        "random ordering cannot be combined with other fields"
+                    )
                 # Prevent ordering by random with offset
                 if "offset" in request.GET:
                     raise BadRequestError(
@@ -85,21 +89,28 @@ class OrderingFilter(BaseFilterBackend):
 
                 return queryset.order_by("?")
 
-            # Check if reverse ordering is set
-            if order_by.startswith("-"):
-                reverse_order = True
-                order_by = order_by[1:]
-            else:
-                reverse_order = False
+            order_by_fields = []
+            for order_by in order_by_list:
+                # Check if reverse ordering is set
+                if order_by.startswith("-"):
+                    reverse_order = True
+                    order_by = order_by[1:]
+                else:
+                    reverse_order = False
 
-            # Add ordering
-            if order_by in view.get_available_fields(queryset.model):
-                queryset = queryset.order_by(order_by)
-            else:
-                # Unknown field
-                raise BadRequestError("cannot order by '%s' (unknown field)" % order_by)
+                # Add ordering
+                if order_by in view.get_available_fields(queryset.model):
+                    order_by_fields.append(order_by)
+                else:
+                    # Unknown field
+                    raise BadRequestError(
+                        "cannot order by '%s' (unknown field)" % order_by
+                    )
 
-            # Reverse order
+            # Apply ordering to the queryset
+            queryset = queryset.order_by(*order_by_fields)
+
+            # Reverse order if needed
             if reverse_order:
                 queryset = queryset.reverse()
 
