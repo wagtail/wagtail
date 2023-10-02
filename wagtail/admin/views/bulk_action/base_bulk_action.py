@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from django import forms
 from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
+from django.utils.functional import classproperty
 from django.views.generic import FormView
 
 from wagtail import hooks
@@ -28,7 +29,6 @@ class BulkAction(ABC, FormView):
 
     extras = {}
     action_priority = 100
-    models = []
     classes = set()
 
     form_class = forms.Form
@@ -41,7 +41,7 @@ class BulkAction(ABC, FormView):
             next_url = request.path
         self.next_url = next_url
         self.num_parent_objects = self.num_child_objects = 0
-        if model in self.get_models():
+        if model in self.models:
             self.model = model
         else:
             raise Exception(
@@ -50,9 +50,9 @@ class BulkAction(ABC, FormView):
                 )
             )
 
-    @classmethod
-    def get_models(cls):
-        return cls.models
+    @classproperty
+    def models(cls):
+        return []
 
     @classmethod
     def get_queryset(cls, model, object_ids):
@@ -73,7 +73,7 @@ class BulkAction(ABC, FormView):
 
     @classmethod
     def get_default_model(cls):
-        models = cls.get_models()
+        models = cls.models
         if len(models) == 1:
             return models[0]
         raise Exception(

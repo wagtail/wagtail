@@ -16,7 +16,7 @@ class BulkActionRegistry:
                             action_class.__name__, BulkAction.__name__
                         )
                     )
-                for model in action_class.get_models():
+                for model in action_class.models:
                     self.actions.setdefault(model._meta.app_label, {})
                     self.actions[model._meta.app_label].setdefault(
                         model._meta.model_name, {}
