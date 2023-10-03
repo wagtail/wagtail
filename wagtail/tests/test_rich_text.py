@@ -153,6 +153,24 @@ class TestFeatureRegistry(TestCase):
         self.assertIsNone(features.get_editor_plugin("made_up_editor", "blockquote"))
         self.assertIsNone(features.get_editor_plugin("draftail", "made_up_feature"))
 
+    def test_rewriters_registry(self):
+        # testapp/wagtail_hooks.py defines a rich text feature and rewriter for
+        # each "green" and "embedoverlapping" - test that it comes back in the
+        # list, and is in the correct order
+        features = FeatureRegistry()
+
+        rewriters = features.get_frontend_rewriters()
+        # Expect only the two added rewriters -- Link and Embed are added later
+        self.assertEqual(len(rewriters), 2)
+
+        embed_overlapping_rewriter = rewriters[0]
+        self.assertEqual(
+            embed_overlapping_rewriter.__class__.__name__,
+            "EmbedOverlappingRewriter",
+        )
+        green_rewriter = rewriters[-1]
+        self.assertEqual(green_rewriter.__class__.__name__, "GreenRewriter")
+
 
 class TestLinkRewriterTagReplacing(TestCase):
     def test_should_follow_default_behaviour(self):
@@ -317,3 +335,28 @@ class TestRichTextMaxLengthValidator(TestCase):
         self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
         # Counts symbols with zero-width joiners.
         self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)
+
+
+class TestCustomRichTextRewriter(TestCase):
+    def test_custom_tag_replacement(self):
+        expanded = expand_db_html("<green>traffic light</green>")
+        self.assertNotIn("<green>", expanded)
+        self.assertEqual(expanded, '<span class="make-me-green">traffic light</span>')
+
+    def test_ordering_expecting_replacement(self):
+        url = "https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg"
+        expanded = expand_db_html(
+            '<embed audio_source="{}" embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>'.format(
+                url
+            )
+        )
+        self.assertIn("", expanded)
+        self.assertIn('<audio controls src="{}"></audio>'.format(url), expanded)
+        self.assertNotIn("dQw4w9WgXcQ", expanded)
+
+    def test_ordering_expecting_fallthrough(self):
+        expanded = expand_db_html(
+            '<embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>'
+        )
+        self.assertIn("dQw4w9WgXcQ", expanded)
+        self.assertNotIn("audio controls", expanded)
