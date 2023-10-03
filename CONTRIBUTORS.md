@@ -738,6 +738,7 @@
 * Omkar Jadhav
 * Charlie Sue
 * Dhrűv
+* Sandro Rodrigues
 
 ## Translators
 
