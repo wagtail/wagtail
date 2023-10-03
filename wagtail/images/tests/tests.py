@@ -22,6 +22,7 @@ from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 from .utils import (
     Image,
@@ -237,7 +238,7 @@ class TestMissingImage(TestCase):
 class TestFormat(WagtailTestUtils, TestCase):
     def setUp(self):
         # test format
-        self.format = Format("test name", "test label", "test classnames", "original")
+        self.format = Format("test name", "test label", "test is-primary", "original")
         # test image
         self.image = Image.objects.create(
             title="Test image",
@@ -260,7 +261,7 @@ class TestFormat(WagtailTestUtils, TestCase):
         result = self.format.image_to_editor_html(self.image, "test alt text")
         self.assertTagInHTML(
             '<img data-embedtype="image" data-id="%d" data-format="test name" '
-            'data-alt="test alt text" class="test classnames" '
+            'data-alt="test alt text" class="test is-primary" '
             'width="640" height="480" alt="test alt text" >' % self.image.pk,
             result,
             allow_extra_attrs=True,
@@ -272,26 +273,28 @@ class TestFormat(WagtailTestUtils, TestCase):
         )
         expected_html = (
             '<img data-embedtype="image" data-id="%d" data-format="test name" '
-            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" '
+            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test is-primary" '
             'width="640" height="480" alt="Arthur &quot;two sheds&quot; Jackson" >'
             % self.image.pk
         )
         self.assertTagInHTML(expected_html, result, allow_extra_attrs=True)
 
     def test_image_to_html_no_classnames(self):
-        self.format.classnames = None
+        self.format.classname = None
         result = self.format.image_to_html(self.image, "test alt text")
         self.assertTagInHTML(
             '<img width="640" height="480" alt="test alt text">',
             result,
             allow_extra_attrs=True,
         )
-        self.format.classnames = "test classnames"
+        self.format.classname = (
+            "test is-primary"  # reset to original value for other tests
+        )
 
     def test_image_to_html_with_quoting(self):
         result = self.format.image_to_html(self.image, 'Arthur "two sheds" Jackson')
         self.assertTagInHTML(
-            '<img class="test classnames" width="640" height="480" '
+            '<img class="test is-primary" width="640" height="480" '
             'alt="Arthur &quot;two sheds&quot; Jackson">',
             result,
             allow_extra_attrs=True,
@@ -301,6 +304,11 @@ class TestFormat(WagtailTestUtils, TestCase):
         register_image_format(self.format)
         result = get_image_format("test name")
         self.assertEqual(result, self.format)
+
+    def test_deprecated_classnames_property_access(self):
+        with self.assertWarns(RemovedInWagtail60Warning):
+            classname = self.format.classnames
+        self.assertEqual(classname, "test is-primary")
 
 
 class TestSignatureGeneration(TestCase):
