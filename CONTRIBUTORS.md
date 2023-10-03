@@ -723,6 +723,7 @@
 * Alex Morega
 * Scott Foster
 * Florent Lebreton
+* Sandro Rodrigues
 
 ## Translators
 
