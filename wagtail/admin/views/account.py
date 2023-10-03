@@ -144,8 +144,6 @@ class NameEmailSettingsPanel(BaseSettingsPanel):
 
     @cached_property
     def title(self):
-        from wagtail.admin.views.account import email_management_enabled
-
         if email_management_enabled():
             return _("Name and Email")
         return _("Name")
