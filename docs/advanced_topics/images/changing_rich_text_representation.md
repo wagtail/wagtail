@@ -25,7 +25,7 @@ class SubclassedImageFormat(Format):
 
 
 register_image_format(
-    SubclassedImageFormat('subclassed_format', 'Subclassed Format', classnames, filter_spec)
+    SubclassedImageFormat('subclassed_format', 'Subclassed Format', 'image-classes object-contain', filter_spec)
 )
 ```
 

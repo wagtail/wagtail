@@ -82,6 +82,7 @@ Changelog
  * Maintenance: Implement `date_since` in `get_most_popular` inside `search_promotions.models.Query` (TopDevPros)
  * Maintenance: Refactor generic view subclasses to better reuse the generic templates and breadcrumbs (Sage Abdullah)
  * Maintenance: Adopt consistent `classname` (not `classnames`) attributes for all `MenuItem` usage, including deprecation warnings (LB (Ben) Johnston)
+ * Maintenance: Adopt consistent `classname` (not `classnames`) attribute within the `wagtail.images.formats.Format` instance, including deprecation warnings (LB (Ben) Johnston)
  * Maintenance: Deprecate `context` argument of `construct_snippet_listing_buttons` hook (Sage Abdullah)
  * Maintenance: Deprecate legacy moderation system (Sage Abdullah)
 
