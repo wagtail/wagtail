@@ -659,6 +659,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.client.get(reverse("feature_complete_toy:index"))
         items = [
             {
+                "url": "",
                 "label": "Feature complete toys",
             }
         ]
@@ -672,6 +673,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 "label": "Feature complete toys",
             },
             {
+                "url": "",
                 "label": "New: Feature complete toy",
             },
         ]
@@ -686,6 +688,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 "label": "Feature complete toys",
             },
             {
+                "url": "",
                 "label": str(self.object),
             },
         ]

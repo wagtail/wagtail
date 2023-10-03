@@ -359,7 +359,7 @@ class IndexView(
         if not self.model:
             return self.breadcrumbs_items
         return self.breadcrumbs_items + [
-            {"label": capfirst(self.model._meta.verbose_name_plural)},
+            {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
     def get_translations(self):
@@ -464,6 +464,7 @@ class CreateView(
             )
         items.append(
             {
+                "url": "",
                 "label": _("New: %(model_name)s")
                 % {"model_name": capfirst(self.model._meta.verbose_name)},
             }
@@ -619,7 +620,7 @@ class EditView(
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
-        items.append({"label": get_latest_str(self.object)})
+        items.append({"url": "", "label": get_latest_str(self.object)})
         return self.breadcrumbs_items + items
 
     def get_edit_url(self):
@@ -879,7 +880,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         edit_url = self.get_edit_url()
         if edit_url:
             items.append({"url": edit_url, "label": get_latest_str(self.object)})
-        items.append({"label": _("Inspect")})
+        items.append({"url": "", "label": _("Inspect")})
         return self.breadcrumbs_items + items
 
     def get_fields(self):

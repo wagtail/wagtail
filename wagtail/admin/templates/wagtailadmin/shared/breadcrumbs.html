@@ -48,7 +48,7 @@
                                     data-w-breadcrumbs-target="content"
                                 {% endif %}
                             >
-                                {% if item.url %}
+                                {% if item.url is not None %}
                                     <a class="{{ breadcrumb_link_classes }}" href="{{ item.url }}">
                                         {{ item.label }}
                                     </a>

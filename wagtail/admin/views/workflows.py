@@ -509,8 +509,9 @@ class CreateTask(CreateView):
                 "label": capfirst(Task._meta.verbose_name_plural),
             },
             {
+                "url": "",
                 "label": _("New: %(model_name)s")
-                % {"model_name": capfirst(self.model._meta.verbose_name)}
+                % {"model_name": capfirst(self.model._meta.verbose_name)},
             },
         ]
         return self.breadcrumbs_items + items
@@ -558,7 +559,7 @@ class EditTask(EditView):
                 "url": reverse(self.index_url_name),
                 "label": capfirst(Task._meta.verbose_name_plural),
             },
-            {"label": str(self.object)},
+            {"url": "", "label": str(self.object)},
         ]
         return self.breadcrumbs_items + items
 

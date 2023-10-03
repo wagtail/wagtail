@@ -119,7 +119,7 @@ class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
         self.assertBreadcrumbsItemsRendered(
-            [{"label": capfirst(User._meta.verbose_name_plural)}],
+            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
             response.content,
         )
 
@@ -208,7 +208,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
         self.assertBreadcrumbsItemsRendered(
-            [{"label": capfirst(User._meta.verbose_name_plural)}],
+            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
             response.content,
         )
 
@@ -320,7 +320,7 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     "url": "/admin/users/",
                     "label": capfirst(User._meta.verbose_name_plural),
                 },
-                {"label": f"New: {capfirst(User._meta.verbose_name)}"},
+                {"url": "", "label": f"New: {capfirst(User._meta.verbose_name)}"},
             ],
             response.content,
         )
@@ -848,7 +848,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     "url": "/admin/users/",
                     "label": capfirst(User._meta.verbose_name_plural),
                 },
-                {"label": str(self.test_user)},
+                {"url": "", "label": str(self.test_user)},
             ],
             response.content,
         )
@@ -1346,7 +1346,9 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # response should contain page furniture, including the "Add a group" button
         self.assertContains(response, "Add a group")
 
-        self.assertBreadcrumbsItemsRendered([{"label": "Groups"}], response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Groups"}], response.content
+        )
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -1413,7 +1415,7 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/groups/", "label": "Groups"},
-                {"label": "New: Group"},
+                {"url": "", "label": "New: Group"},
             ],
             response.content,
         )
@@ -1664,7 +1666,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     "url": "/admin/groups/",
                     "label": "Groups",
                 },
-                {"label": str(self.test_group)},
+                {"url": "", "label": str(self.test_group)},
             ],
             response.content,
         )

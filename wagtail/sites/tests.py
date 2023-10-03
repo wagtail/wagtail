@@ -20,7 +20,10 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
-        self.assertBreadcrumbsItemsRendered([{"label": "Sites"}], response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Sites"}],
+            response.content,
+        )
 
 
 class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -60,7 +63,7 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"label": "Sites", "url": "/admin/sites/"},
-                {"label": "New: Site"},
+                {"label": "New: Site", "url": ""},
             ],
             response.content,
         )
@@ -206,7 +209,7 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/sites/", "label": "Sites"},
-                {"label": str(self.localhost)},
+                {"url": "", "label": str(self.localhost)},
             ],
             response.content,
         )

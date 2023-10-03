@@ -20,7 +20,10 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
-        self.assertBreadcrumbsItemsRendered([{"label": "Locales"}], response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Locales"}],
+            response.content,
+        )
 
 
 class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -46,7 +49,7 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"label": "Locales", "url": "/admin/locales/"},
-                {"label": "New: Locale"},
+                {"label": "New: Locale", "url": ""},
             ],
             response.content,
         )
@@ -127,7 +130,7 @@ class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/locales/", "label": "Locales"},
-                {"label": str(self.english)},
+                {"url": "", "label": str(self.english)},
             ],
             response.content,
         )

@@ -71,7 +71,7 @@ class TestCollectionsIndexViewAsSuperuser(
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
         self.assertBreadcrumbsItemsRendered(
-            [{"label": "Collections"}], response.content
+            [{"url": "", "label": "Collections"}], response.content
         )
 
     def test_ordering(self):
@@ -210,7 +210,7 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertBreadcrumbsItemsRendered(
             [
                 {"label": "Collections", "url": "/admin/collections/"},
-                {"label": "New: Collection"},
+                {"label": "New: Collection", "url": ""},
             ],
             response.content,
         )
@@ -335,7 +335,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/collections/", "label": "Collections"},
-                {"label": str(self.collection)},
+                {"url": "", "label": str(self.collection)},
             ],
             response.content,
         )

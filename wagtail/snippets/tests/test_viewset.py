@@ -1369,7 +1369,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
 
     def test_index_view(self):
         response = self.client.get(self.get_url("list"))
-        items = [{"label": "Full-featured snippets"}]
+        items = [{"url": "", "label": "Full-featured snippets"}]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_add_view(self):
@@ -1379,7 +1379,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("list"),
                 "label": "Full-featured snippets",
             },
-            {"label": "New: Full-featured snippet"},
+            {"url": "", "label": "New: Full-featured snippet"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1390,7 +1390,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("list"),
                 "label": "Full-featured snippets",
             },
-            {"label": str(self.object)},
+            {"url": "", "label": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1409,7 +1409,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"label": "History"},
+            {"url": "", "label": "History"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1424,7 +1424,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"label": "Usage"},
+            {"url": "", "label": "Usage"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1439,6 +1439,6 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"label": "Inspect"},
+            {"url": "", "label": "Inspect"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)

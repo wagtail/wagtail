@@ -41,7 +41,7 @@ class AdminTemplateTestUtils:
         )
 
         for item, rendered_item in zip(items, rendered_items):
-            if item.get("url"):
+            if item.get("url") is not None:
                 element = rendered_item.select_one("a")
                 self.assertIsNotNone(
                     element,
@@ -50,7 +50,7 @@ class AdminTemplateTestUtils:
                 self.assertEqual(
                     element["href"],
                     item["url"],
-                    f"Expected '{item['label']}' breadcrumbs item to link to {item['url']}",
+                    f"Expected '{item['label']}' breadcrumbs item to link to '{item['url']}'",
                 )
             else:
                 element = rendered_item.select_one("div")

@@ -116,7 +116,10 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
-        self.assertBreadcrumbsItemsRendered([{"label": "Workflows"}], response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -207,7 +210,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
         self.assertBreadcrumbsItemsRendered(
             [
                 {"label": "Workflows", "url": "/admin/workflows/list/"},
-                {"label": "New: Workflow"},
+                {"label": "New: Workflow", "url": ""},
             ],
             response.content,
         )
@@ -437,7 +440,7 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/workflows/list/", "label": "Workflows"},
-                {"label": str(self.workflow)},
+                {"url": "", "label": str(self.workflow)},
             ],
             response.content,
         )
@@ -753,7 +756,10 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
-        self.assertBreadcrumbsItemsRendered([{"label": "Tasks"}], response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Tasks"}],
+            response.content,
+        )
 
         # Initially there should be no tasks listed
         self.assertContains(response, "There are no enabled tasks")
@@ -851,7 +857,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"label": "Tasks", "url": "/admin/workflows/tasks/index/"},
-                {"label": "New: Simple task"},
+                {"label": "New: Simple task", "url": ""},
             ],
             response.content,
         )
@@ -975,7 +981,7 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/workflows/tasks/index/", "label": "Tasks"},
-                {"label": str(self.task)},
+                {"url": "", "label": str(self.task)},
             ],
             response.content,
         )

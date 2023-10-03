@@ -106,7 +106,7 @@ class ModelIndexView(generic.IndexView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"label": _("Snippets")}]
+        return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
 
     def get_list_url(self, type):
         return reverse(type["model"].snippet_viewset.get_url_name("list"))
@@ -489,7 +489,7 @@ class HistoryView(ReportView):
                 "url": self.get_edit_url(self.object),
                 "label": get_latest_str(self.object),
             },
-            {"label": _("History")},
+            {"url": "", "label": _("History")},
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):
