@@ -26,7 +26,7 @@ concurrency:
 # - django 4.2, python 3.11, mysql, parallel
 # - django 4.1, python 3.11, postgres, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 4.2, python 3.12, postgres, parallel, DISABLE_TIMEZONE=yes
-# - django stable/4.2.x, python 3.10, postgres (allow failures)
+# - django stable/5.0.x, python 3.10, postgres (allow failures)
 # - django main, python 3.10, postgres, parallel (allow failures)
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
 # - elasticsearch 6, django 3.2, python 3.8, postgres
@@ -97,7 +97,7 @@ jobs:
             emailuser: emailuser
             parallel: '--parallel'
           - python: '3.10'
-            django: 'git+https://github.com/django/django.git@stable/4.2.x#egg=Django'
+            django: 'git+https://github.com/django/django.git@stable/5.0.x#egg=Django'
             experimental: true
             postgres: 'postgres:12'
           - python: '3.10'
