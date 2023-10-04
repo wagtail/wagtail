@@ -147,30 +147,32 @@ class TestPageMove(WagtailTestUtils, TestCase):
             pre_page_move.disconnect(pre_moved_handler)
             post_page_move.disconnect(post_moved_handler)
 
+        # parent_page_before returns the non-specific page type, and that's OK
+        nonspecific_section_a = Page.objects.get(pk=self.section_a.pk)
+
         # Check that the pre_page_move signal was fired
         self.assertEqual(pre_moved_handler.call_count, 1)
-        self.assertTrue(
-            pre_moved_handler.called_with(
-                sender=self.test_page_a.specific_class,
-                instance=self.test_page_a,
-                parent_page_before=self.section_a,
-                parent_page_after=self.section_b,
-                url_path_before="/home/section-a/hello-world/",
-                url_path_after="/home/section-b/hello-world/",
-            )
+        pre_moved_handler.assert_called_with(
+            signal=mock.ANY,
+            sender=self.test_page_a.specific_class,
+            instance=self.test_page_a,
+            parent_page_before=nonspecific_section_a,
+            parent_page_after=self.section_b,
+            url_path_before="/home/section-a/hello-world/",
+            url_path_after="/home/section-b/hello-world/",
         )
 
         # Check that the post_page_move signal was fired
         self.assertEqual(post_moved_handler.call_count, 1)
-        self.assertTrue(
-            post_moved_handler.called_with(
-                sender=self.test_page_a.specific_class,
-                instance=self.test_page_a,
-                parent_page_before=self.section_a,
-                parent_page_after=self.section_b,
-                url_path_before="/home/section-a/hello-world/",
-                url_path_after="/home/section-b/hello-world/",
-            )
+        post_moved_handler.assert_called_with(
+            signal=mock.ANY,
+            sender=self.test_page_a.specific_class,
+            # during the move operation, we reloaded the page as a non-specific instance
+            instance=Page.objects.get(pk=self.test_page_a.pk),
+            parent_page_before=nonspecific_section_a,
+            parent_page_after=self.section_b,
+            url_path_before="/home/section-a/hello-world/",
+            url_path_after="/home/section-b/hello-world/",
         )
 
     def test_before_move_page_hook(self):
