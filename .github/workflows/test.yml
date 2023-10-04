@@ -106,9 +106,8 @@ jobs:
             postgres: 'postgres:13'
             parallel: '--parallel'
             install_extras: |
-              pip uninstall -y django-modelcluster django-taggit
+              pip uninstall -y django-taggit
               pip install \
-                git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster \
                 git+https://github.com/laymonage/django-taggit.git@django-5.1#egg=django-taggit
 
     services:
