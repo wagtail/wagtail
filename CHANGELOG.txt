@@ -34,6 +34,7 @@ Changelog
  * Add the ability to set an external link/text for promoted search result entries (TopDevPros, Brad Busenius)
  * Add support for subject and body in the Email link chooser form (TopDevPros, Alexandre Joly)
  * Extract generic `HistoryView` from snippets and add it to `ModelViewSet` (Sage Abdullah)
+ * Add generic `UsageView` to `ModelViewSet` (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
