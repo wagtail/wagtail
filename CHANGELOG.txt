@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.0.4 (04.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Relax Willow / Pillow dependency to allow use of current Pillow versions with security fixes (Dan Braghis)
+
+
 5.0.3 (25.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
