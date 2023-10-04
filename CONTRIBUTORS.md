@@ -763,6 +763,7 @@
 * Marcel Kornblum
 * Cameron Lamb
 * Sam Dudley
+* Varun Kumar
 
 ## Translators
 

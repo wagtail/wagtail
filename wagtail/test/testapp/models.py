@@ -2177,3 +2177,15 @@ class PurgeRevisionsProtectedTestModel(models.Model):
     revision = models.OneToOneField(
         "wagtailcore.Revision", on_delete=models.PROTECT, related_name="+"
     )
+
+
+class SearchTestModel(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("body"),
+    ]
+
+    def __str__(self):
+        return self.title
