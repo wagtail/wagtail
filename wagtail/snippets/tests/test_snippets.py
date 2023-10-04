@@ -235,20 +235,44 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
     def test_construct_snippet_listing_buttons_hook(self):
         Advert.objects.create(text="My Lovely advert")
 
-        # testapp implements a construct_snippetlisting_buttons hook
-        # that add's an dummy button with the label 'Dummy Button' which points
-        # to '/dummy-button' and is placed as a top-level button instead of
-        # put inside the default "More" dropdown button
+        # testapp implements a construct_snippet_listing_buttons hook
+        # that adds a dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button' and is placed inside the default "More" dropdown button
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
         soup = self.get_soup(response.content)
-        dummy_button = soup.select_one(
-            "tbody tr td ul.actions > li > a[href='/dummy-button']"
+        dropdowns = soup.select(
+            "tbody tr td ul.actions > li > [data-controller='w-dropdown']"
         )
+        self.assertEqual(len(dropdowns), 1)
+        more_dropdown = dropdowns[0]
+        dummy_button = more_dropdown.find("a", attrs={"href": "/dummy-button"})
         self.assertIsNotNone(dummy_button)
         self.assertEqual(dummy_button.text.strip(), "Dummy Button")
+
+    def test_construct_snippet_listing_buttons_hook_contains_default_buttons(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete", args=[quote(advert.pk)]
+        )
+
+        def hide_delete_button_for_lovely_advert(buttons, snippet, user):
+            # Edit, delete, dummy button
+            self.assertEqual(len(buttons), 3)
+            buttons[:] = [button for button in buttons if button.url != delete_url]
+            self.assertEqual(len(buttons), 2)
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            hide_delete_button_for_lovely_advert,
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+        self.assertNotContains(response, delete_url)
 
     def test_construct_snippet_listing_buttons_hook_deprecated_context(self):
         advert = Advert.objects.create(text="My Lovely advert")

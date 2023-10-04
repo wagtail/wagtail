@@ -177,10 +177,9 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     def get_list_buttons(self, instance):
         more_buttons = self.get_list_more_buttons(instance)
         next_url = self.request.path
-        button_hooks = hooks.get_hooks("register_snippet_listing_buttons")
         list_buttons = []
 
-        for hook in button_hooks:
+        for hook in hooks.get_hooks("register_snippet_listing_buttons"):
             hook_buttons = hook(instance, self.request.user, next_url)
             for button in hook_buttons:
                 if isinstance(button, BaseDropdownMenuButton):
@@ -190,6 +189,19 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 else:
                     # Otherwise, add it to the default "More" dropdown
                     more_buttons.append(button)
+
+        # Pass the more_buttons to the construct hooks, as that's what contains
+        # the default buttons and most buttons added via register_snippet_listing_buttons
+        for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
+            try:
+                hook(more_buttons, instance, self.request.user)
+            except TypeError:
+                warn(
+                    "construct_snippet_listing_buttons hook no longer accepts a context argument",
+                    RemovedInWagtail60Warning,
+                    stacklevel=2,
+                )
+                hook(more_buttons, instance, self.request.user, {})
 
         list_buttons.append(
             ButtonWithDropdown(
@@ -201,19 +213,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 },
             )
         )
-
-        # Pass the top-level buttons to the hooks, so top-level non-dropdown
-        # buttons can still be added.
-        for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
-            try:
-                hook(list_buttons, instance, self.request.user)
-            except TypeError:
-                warn(
-                    "construct_snippet_listing_buttons hook no longer accepts a context argument",
-                    RemovedInWagtail60Warning,
-                    stacklevel=2,
-                )
-                hook(list_buttons, instance, self.request.user, {})
 
         return list_buttons
 
