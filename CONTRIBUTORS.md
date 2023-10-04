@@ -739,6 +739,7 @@
 * Charlie Sue
 * Dhrűv
 * Sandro Rodrigues
+* Brian Mugo
 
 ## Translators
 
