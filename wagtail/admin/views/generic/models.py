@@ -9,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.db import models, transaction
+from django.db.models import Q
 from django.db.models.functions import Cast
 from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
@@ -295,12 +296,10 @@ class IndexView(
                 return search_backend.search(
                     self.search_query, queryset, fields=self.search_fields
                 )
-
-        filters = {
-            field + "__icontains": self.search_query
-            for field in self.search_fields or []
-        }
-        return queryset.filter(**filters)
+        query = Q()
+        for field in self.search_fields or []:
+            query |= Q(**{field + "__icontains": self.search_query})
+        return queryset.filter(query)
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not issubclass(column_class, ButtonsColumnMixin):

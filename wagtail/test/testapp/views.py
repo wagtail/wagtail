@@ -24,6 +24,7 @@ from wagtail.test.testapp.models import (
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
     ModelWithStringTypePrimaryKey,
+    SearchTestModel,
 )
 
 
@@ -194,6 +195,12 @@ class JSONModelViewSetGroup(ModelViewSetGroup):
             menu_label="JSON BlockCounts StreamModel",
         ),
     )
+
+
+class SearchTestModelViewSet(ModelViewSet):
+    model = SearchTestModel
+    search_fields = ["title", "body"]
+    form_fields = ["title", "body"]
 
 
 class FeatureCompleteToyViewSet(ModelViewSet):

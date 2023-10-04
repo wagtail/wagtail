@@ -754,6 +754,7 @@
 * Meghana Reddy
 * Chinedu Ihedioha
 * Ian Price
+* Varun Kumar
 
 ## Translators
 
