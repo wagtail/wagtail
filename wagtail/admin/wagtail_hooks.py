@@ -227,7 +227,7 @@ def page_listing_buttons(page, user, next_url=None):
         "",
         hook_name="register_page_listing_more_buttons",
         page=page,
-        page_perms=page.permissions_for_user(user),
+        user=user,
         next_url=next_url,
         icon_name="dots-horizontal",
         attrs={
@@ -374,7 +374,8 @@ class PageListingSortMenuOrderButton(PageListingButton):
 
 
 @hooks.register("register_page_listing_more_buttons")
-def page_listing_more_buttons(page, page_perms, next_url=None):
+def page_listing_more_buttons(page, user, next_url=None):
+    page_perms = page.permissions_for_user(user)
     yield PageListingEditButton(
         page=page,
         page_perms=page_perms,

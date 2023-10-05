@@ -1042,7 +1042,7 @@ This example will add a simple button to the dropdown menu:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, next_url=None):
+def page_listing_more_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A dropdown button',
         '/goes/to/a/url/',
@@ -1053,10 +1053,14 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
 The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
+-   `user` - the logged-in user
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 #### Buttons with dropdown lists
 
@@ -1065,7 +1069,7 @@ The admin widgets also provide `ButtonWithDropdownFromHook`, which allows you to
 Creating a button with a dropdown menu involves two steps. Firstly, you add your button to the `register_page_listing_buttons` hook, just like the example above.
 Secondly, you register a new hook that yields the contents of the dropdown menu.
 
-This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the `page_perms`:
+This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by testing the user's permission with `page.permissions_for_user`:
 
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
@@ -1076,13 +1080,14 @@ def page_custom_listing_buttons(page, user, next_url=None):
         'More actions',
         hook_name='my_button_dropdown_hook',
         page=page,
-        page_perms=page.permissions_for_user(user),
+        user=user,
         next_url=next_url,
         priority=50
     )
 
 @hooks.register('my_button_dropdown_hook')
-def page_custom_listing_more_buttons(page, page_perms, next_url=None):
+def page_custom_listing_more_buttons(page, user, next_url=None):
+    page_perms = page.permissions_for_user(user)
     if page_perms.can_move():
         yield wagtailadmin_widgets.Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
     if page_perms.can_delete():
@@ -1092,6 +1097,10 @@ def page_custom_listing_more_buttons(page, page_perms, next_url=None):
 ```
 
 The template for the dropdown button can be customised by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. Make sure to leave the dropdown UI component itself as-is.
+
+```{versionchanged} 5.2
+The `ButtonWithDropdownFromHook` constructor, and the corresponding hook function, now receive a `user` argument instead of a `page_perms` argument.
+```
 
 (construct_page_listing_buttons)=
 
