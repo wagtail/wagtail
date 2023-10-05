@@ -79,8 +79,39 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
 
 
 class TestPageListingMoreButtonsHooks(TestButtonsHooks):
-    def test_register_page_listing_more_buttons(self):
+    def test_register_page_listing_more_buttons_with_old_signature(self):
         def page_listing_more_buttons(page, page_perms, next_url=None):
+            yield wagtailadmin_widgets.Button(
+                'Another useless button in default "More" dropdown',
+                "/custom-url",
+                priority=10,
+            )
+
+        with hooks.register_temporarily(
+            "register_page_listing_more_buttons", page_listing_more_buttons
+        ), self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "`register_page_listing_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        self.assertContains(
+            response, "Another useless button in default &quot;More&quot; dropdown"
+        )
+
+    def test_register_page_listing_more_buttons_with_new_signature(self):
+        def page_listing_more_buttons(page, user, next_url=None):
+            if not isinstance(user, AbstractBaseUser):
+                raise TypeError("expected a user instance")
+
             yield wagtailadmin_widgets.Button(
                 'Another useless button in default "More" dropdown',
                 "/custom-url",
@@ -104,19 +135,85 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             response, "Another useless button in default &quot;More&quot; dropdown"
         )
 
-    def test_custom_button_with_dropdown(self):
+    def test_button_with_dropdown_from_hook_accepts_page_perms_argument(self):
+        page = self.root_page
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
+        ):
+            button = wagtailadmin_widgets.ButtonWithDropdownFromHook(
+                "One more more button",
+                hook_name="register_page_listing_one_more_more_buttons",
+                page=page,
+                page_perms=page.permissions_for_user(self.user),
+                next_url="/custom-url",
+                attrs={"target": "_blank", "rel": "noreferrer"},
+                priority=50,
+            )
+
+        self.assertEqual(button.user, self.user)
+
+    def test_custom_button_with_dropdown_with_old_signature(self):
         def page_custom_listing_buttons(page, user, next_url=None):
             yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
                 "One more more button",
                 hook_name="register_page_listing_one_more_more_buttons",
                 page=page,
-                page_perms=page.permissions_for_user(user),
+                user=user,
                 next_url=next_url,
                 attrs={"target": "_blank", "rel": "noreferrer"},
                 priority=50,
             )
 
         def page_custom_listing_more_buttons(page, page_perms, next_url=None):
+            yield wagtailadmin_widgets.Button(
+                'Another useless dropdown button in "One more more button" dropdown',
+                "/custom-url",
+                priority=10,
+            )
+
+        with hooks.register_temporarily(
+            "register_page_listing_buttons", page_custom_listing_buttons
+        ), hooks.register_temporarily(
+            "register_page_listing_one_more_more_buttons",
+            page_custom_listing_more_buttons,
+        ), self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "`register_page_listing_one_more_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        self.assertContains(response, "One more more button")
+        self.assertContains(
+            response,
+            "Another useless dropdown button in &quot;One more more button&quot; dropdown",
+        )
+
+    def test_custom_button_with_dropdown_with_new_signature(self):
+        def page_custom_listing_buttons(page, user, next_url=None):
+            yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
+                "One more more button",
+                hook_name="register_page_listing_one_more_more_buttons",
+                page=page,
+                user=user,
+                next_url=next_url,
+                attrs={"target": "_blank", "rel": "noreferrer"},
+                priority=50,
+            )
+
+        def page_custom_listing_more_buttons(page, user, next_url=None):
+            if not isinstance(user, AbstractBaseUser):
+                raise TypeError("expected a user instance")
+
             yield wagtailadmin_widgets.Button(
                 'Another useless dropdown button in "One more more button" dropdown',
                 "/custom-url",
@@ -152,13 +249,12 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         # page_listing_more_button generator yields only `Delete button` with this permission set
         page = self.root_page
-        page_perms = page.permissions_for_user(self.user)
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
         next_url = "a/random/url/"
         full_url = base_url + "?" + urlencode({"next": next_url})
 
-        buttons = page_listing_more_buttons(page, page_perms, next_url=next_url)
+        buttons = page_listing_more_buttons(page, user=self.user, next_url=next_url)
         delete_button = next(button for button in buttons if button.label == "Delete")
 
         self.assertEqual(delete_button.url, full_url)
@@ -171,12 +267,11 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         """
 
         page = self.root_page
-        page_perms = page.permissions_for_user(self.user)
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
         next_url = reverse("wagtailadmin_explore", args=[page.id])
 
-        buttons = page_listing_more_buttons(page, page_perms, next_url=next_url)
+        buttons = page_listing_more_buttons(page, user=self.user, next_url=next_url)
 
         delete_button = next(button for button in buttons if button.label == "Delete")
 
@@ -197,12 +292,11 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         # Test with a user with no publish permission (and thus no ability to reorder)
         editor = self.create_user(username="editor", password="password")
         editor.groups.add(Group.objects.get(name="Editors"))
-        page_perms = page.permissions_for_user(editor)
 
         # no button returned
         buttons = [
             button
-            for button in page_listing_more_buttons(page, page_perms)
+            for button in page_listing_more_buttons(page, user=editor)
             if button.show
         ]
         self.assertEqual(
@@ -212,12 +306,11 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         # Test with a user with publish permission
         publisher = self.create_user(username="publisher", password="password")
         publisher.groups.add(Group.objects.get(name="Moderators"))
-        page_perms = page.permissions_for_user(publisher)
 
         # page_listing_more_button generator yields `Sort menu order button`
         buttons = [
             button
-            for button in page_listing_more_buttons(page, page_perms)
+            for button in page_listing_more_buttons(page, user=publisher)
             if button.show
         ]
         reorder_button = next(
