@@ -467,4 +467,8 @@ class RedirectsReportView(ReportView):
     }
 
     def get_queryset(self):
-        return models.Redirect.objects.all().order_by("old_path")
+        return (
+            models.Redirect.objects.all()
+            .order_by("old_path")
+            .select_related("site", "redirect_page")
+        )
