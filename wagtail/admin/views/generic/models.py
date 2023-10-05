@@ -1078,7 +1078,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.edit_url_name, args=(quote(self.pk),))
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
         if not self.delete_url_name or (
@@ -1088,7 +1088,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.delete_url_name, args=(quote(self.pk),))
+        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
