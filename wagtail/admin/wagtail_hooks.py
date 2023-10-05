@@ -222,12 +222,12 @@ def register_workflow_tasks_menu_item():
 
 
 @hooks.register("register_page_listing_buttons")
-def page_listing_buttons(page, page_perms, next_url=None):
+def page_listing_buttons(page, user, next_url=None):
     yield ButtonWithDropdownFromHook(
         "",
         hook_name="register_page_listing_more_buttons",
         page=page,
-        page_perms=page_perms,
+        page_perms=page.permissions_for_user(user),
         next_url=next_url,
         icon_name="dots-horizontal",
         attrs={
