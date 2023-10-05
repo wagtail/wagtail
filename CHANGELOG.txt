@@ -89,6 +89,7 @@ Changelog
  * Maintenance: Adopt consistent `classname` (not `classnames`) attribute within the `wagtail.images.formats.Format` instance, including deprecation warnings (LB (Ben) Johnston)
  * Maintenance: Deprecate `context` argument of `construct_snippet_listing_buttons` hook (Sage Abdullah)
  * Maintenance: Deprecate legacy moderation system (Sage Abdullah)
+ * Maintenance: Update CI database versions (Jake Howard)
 
 
 5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
