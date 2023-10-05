@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, Group
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -13,53 +13,9 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
-class BasePagePerms:
-    def can_move(self):
-        return False
-
-    def can_copy(self):
-        return False
-
-    def can_edit(self):
-        return False
-
-    def can_delete(self):
-        return False
-
-    def can_unpublish(self):
-        return False
-
-    def can_view_revisions(self):
-        return False
-
-    def can_reorder_children(self):
-        return False
-
-    def can_add_subpage(self):
-        return False
-
-
-class DeleteOnlyPagePerms(BasePagePerms):
-    def can_delete(self):
-        return True
-
-
-class DeleteAndUnpublishPagePerms(BasePagePerms):
-    def can_delete(self):
-        return True
-
-    def can_unpublish(self):
-        return True
-
-
-class ReorderOnlyPagePerms(BasePagePerms):
-    def can_reorder_children(self):
-        return True
-
-
 class TestButtonsHooks(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         self.root_page = Page.objects.get(id=2)
         self.child_page = self.root_page.add_child(
@@ -195,8 +151,8 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         """
 
         # page_listing_more_button generator yields only `Delete button` with this permission set
-        page_perms = DeleteOnlyPagePerms()
         page = self.root_page
+        page_perms = page.permissions_for_user(self.user)
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
         next_url = "a/random/url/"
@@ -214,8 +170,8 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         As the page is now deleted and cannot be edited.
         """
 
-        page_perms = DeleteAndUnpublishPagePerms()
         page = self.root_page
+        page_perms = page.permissions_for_user(self.user)
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
         next_url = reverse("wagtailadmin_explore", args=[page.id])
@@ -237,7 +193,11 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
     def test_reorder_button_visibility(self):
         page = self.root_page
-        page_perms = BasePagePerms()
+
+        # Test with a user with no publish permission (and thus no ability to reorder)
+        editor = self.create_user(username="editor", password="password")
+        editor.groups.add(Group.objects.get(name="Editors"))
+        page_perms = page.permissions_for_user(editor)
 
         # no button returned
         buttons = [
@@ -249,8 +209,12 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             len([button for button in buttons if button.label == "Sort menu order"]), 0
         )
 
-        page_perms = ReorderOnlyPagePerms()
-        # page_listing_more_button generator yields only `Sort menu order button`
+        # Test with a user with publish permission
+        publisher = self.create_user(username="publisher", password="password")
+        publisher.groups.add(Group.objects.get(name="Moderators"))
+        page_perms = page.permissions_for_user(publisher)
+
+        # page_listing_more_button generator yields `Sort menu order button`
         buttons = [
             button
             for button in page_listing_more_buttons(page, page_perms)
@@ -289,8 +253,8 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         Ensure that the built in delete button supports a next_url provided.
         """
 
-        page_perms = DeleteOnlyPagePerms()
         page = self.root_page
+        page_perms = page.permissions_for_user(self.user)
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
         next_url = "a/random/url/"
@@ -308,8 +272,8 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         As the page is now deleted and cannot be edited.
         """
 
-        page_perms = DeleteAndUnpublishPagePerms()
         page = self.root_page
+        page_perms = page.permissions_for_user(self.user)
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
         next_url = reverse("wagtailadmin_explore", args=[page.id])
