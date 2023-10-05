@@ -765,15 +765,6 @@ class SnippetViewSet(ModelViewSet):
         )
 
     @property
-    def usage_view(self):
-        return self.construct_view(
-            self.usage_view_class,
-            template_name=self.get_templates(
-                "usage", fallback=self.usage_view_class.template_name
-            ),
-        )
-
-    @property
     def revisions_view(self):
         return self.construct_view(self.revisions_view_class)
 
