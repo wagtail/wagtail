@@ -837,13 +837,17 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_page_listing_buttons`
 
-Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a page perms object, and a context dictionary as per `register_page_listing_buttons`, and should modify the list of listing items in-place.
+Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
 
 ```python
 @hooks.register('construct_page_listing_buttons')
-def remove_page_listing_button_item(buttons, page, page_perms, context=None):
+def remove_page_listing_button_item(buttons, page, user, context=None):
     if page.is_root:
         buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
+```
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
 ```
 
 (construct_wagtail_userbar)=

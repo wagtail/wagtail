@@ -486,7 +486,18 @@ def page_listing_buttons(context, page, user):
 
     page_perms = page.permissions_for_user(user)
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        hook(buttons, page, page_perms, context)
+        if accepts_kwarg(hook, "user"):
+            hook(buttons, page=page, user=user, context=context)
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            hook(buttons, page, page_perms, context)
 
     return {"page": page, "buttons": buttons}
 
