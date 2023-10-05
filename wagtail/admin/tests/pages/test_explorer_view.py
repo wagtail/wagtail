@@ -1,14 +1,16 @@
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import paginator
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail import hooks
+from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -179,13 +181,47 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
         )
 
-    def test_construct_page_listing_buttons_hook(self):
-        # testapp implements a construct_page_listing_buttons hook
-        # that add's an dummy button with the label 'Dummy Button' which points
-        # to '/dummy-button'
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-        )
+    def test_construct_page_listing_buttons_hook_with_old_signature(self):
+        def add_dummy_button(buttons, page, page_perms, context=None):
+            item = Button(
+                label="Dummy Button",
+                url="/dummy-button",
+                priority=10,
+            )
+            buttons.append(item)
+
+        with hooks.register_temporarily(
+            "construct_page_listing_buttons", add_dummy_button
+        ):
+            with self.assertWarnsMessage(
+                RemovedInWagtail60Warning,
+                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+            ):
+                response = self.client.get(
+                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+        self.assertContains(response, "Dummy Button")
+        self.assertContains(response, "/dummy-button")
+
+    def test_construct_page_listing_buttons_hook_with_new_signature(self):
+        def add_dummy_button(buttons, page, user, context=None):
+            if not isinstance(user, AbstractBaseUser):
+                raise TypeError("expected a user instance")
+            item = Button(
+                label="Dummy Button",
+                url="/dummy-button",
+                priority=10,
+            )
+            buttons.append(item)
+
+        with hooks.register_temporarily(
+            "construct_page_listing_buttons", add_dummy_button
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertContains(response, "Dummy Button")

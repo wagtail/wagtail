@@ -189,16 +189,6 @@ def register_relax_menu_item(menu_items, request, context):
     menu_items.append(RelaxMenuItem())
 
 
-@hooks.register("construct_page_listing_buttons")
-def register_page_listing_button_item(buttons, page, page_perms, context=None):
-    item = Button(
-        label="Dummy Button",
-        url="/dummy-button",
-        priority=10,
-    )
-    buttons.append(item)
-
-
 @hooks.register("construct_snippet_listing_buttons")
 def register_snippet_listing_button_item(buttons, snippet, user, context=None):
     item = Button(
