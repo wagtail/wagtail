@@ -1345,6 +1345,7 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         )
         response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
 
+        self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
             f"<dt>Protected image</dt> <dd>{image.get_rendition('max-400x400').img_tag()}</dd>",
@@ -1355,6 +1356,23 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         self.assertContains(response, "Test document")
         self.assertContains(response, "TXT")
         self.assertContains(response, f"{document.file.size}\xa0bytes")
+
+    def test_image_and_document_fields_none_values(self):
+        self.model = VariousOnDeleteModel
+        object = self.model.objects.create()
+        response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "<dt>Protected image</dt> <dd>None</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Protected document</dt> <dd>None</dd>",
+            html=True,
+        )
 
 
 class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
