@@ -41,6 +41,7 @@ from wagtail.admin.utils import (
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
+    accepts_kwarg,
     camelcase_to_underscore,
     escape_script,
     get_content_type_label,
@@ -462,16 +463,28 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 
 
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
-def page_listing_buttons(context, page, page_perms):
+def page_listing_buttons(context, page, user):
     next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, next_url))
+        if accepts_kwarg(hook, "user"):
+            buttons.extend(hook(page=page, next_url=next_url, user=user))
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            buttons.extend(hook(page, page_perms, next_url))
 
     buttons.sort()
 
+    page_perms = page.permissions_for_user(user)
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
         hook(buttons, page, page_perms, context)
 
