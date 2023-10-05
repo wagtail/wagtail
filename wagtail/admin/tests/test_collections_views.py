@@ -70,9 +70,7 @@ class TestCollectionsIndexViewAsSuperuser(
         self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": "Collections"}], response.content
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_ordering(self):
         root_collection = Collection.get_first_root_node()
@@ -207,13 +205,7 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.root_collection.name)
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"label": "Collections", "url": "/admin/collections/"},
-                {"label": "New: Collection", "url": ""},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         response = self.post(
@@ -332,13 +324,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Delete collection")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"url": "/admin/collections/", "label": "Collections"},
-                {"url": "", "label": str(self.collection)},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
