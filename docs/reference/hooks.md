@@ -1023,7 +1023,7 @@ This example will add a simple button to the listing:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, next_url=None):
+def page_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.PageListingButton(
         'A page listing button',
         '/goes/to/a/url/',
@@ -1034,10 +1034,14 @@ def page_listing_buttons(page, page_perms, next_url=None):
 The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
+-   `user` - the logged-in user
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 (register_page_listing_more_buttons)=
 
@@ -1080,12 +1084,12 @@ This example shows how Wagtail's default admin dropdown is implemented. You can 
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_custom_listing_buttons(page, page_perms, next_url=None):
+def page_custom_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
         'More actions',
         hook_name='my_button_dropdown_hook',
         page=page,
-        page_perms=page_perms,
+        page_perms=page.permissions_for_user(user),
         next_url=next_url,
         priority=50
     )
