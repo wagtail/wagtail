@@ -11,7 +11,6 @@ from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.utils.text import capfirst
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -118,10 +117,7 @@ class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "testuser")
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_inexisting_group(self):
         response = self.get(group_id=9999)
@@ -207,10 +203,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "testuser")
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     @unittest.skipIf(
         settings.AUTH_USER_MODEL == "emailuser.EmailUser", "Negative UUID not possible"
@@ -314,16 +307,7 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {
-                    "url": "/admin/users/",
-                    "label": capfirst(User._meta.verbose_name_plural),
-                },
-                {"url": "", "label": f"New: {capfirst(User._meta.verbose_name)}"},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_create(self):
         response = self.post(
@@ -842,16 +826,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {
-                    "url": "/admin/users/",
-                    "label": capfirst(User._meta.verbose_name_plural),
-                },
-                {"url": "", "label": str(self.test_user)},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         url_finder = AdminURLFinder(self.current_user)
         expected_url = "/admin/users/%s/" % self.test_user.pk
@@ -1345,10 +1320,7 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
         # response should contain page furniture, including the "Add a group" button
         self.assertContains(response, "Add a group")
-
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": "Groups"}], response.content
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -1412,13 +1384,7 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"url": "/admin/groups/", "label": "Groups"},
-                {"url": "", "label": "New: Group"},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_create_group(self):
         response = self.post({"name": "test group"})
@@ -1660,16 +1626,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/edit.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {
-                    "url": "/admin/groups/",
-                    "label": "Groups",
-                },
-                {"url": "", "label": str(self.test_group)},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
