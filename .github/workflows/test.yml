@@ -20,17 +20,17 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 3.2, python 3.8, postgres, parallel
-# - django 3.2, python 3.9, mysql
+# - django 3.2, python 3.8, postgres:12, parallel
+# - django 3.2, python 3.9, mysql:8.0
 # - django 4.1, python 3.10, sqlite
-# - django 4.2, python 3.11, mysql, parallel
-# - django 4.1, python 3.11, postgres, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 4.2, python 3.12, postgres, parallel, DISABLE_TIMEZONE=yes
+# - django 4.2, python 3.11, mysql:8.1, parallel
+# - django 4.1, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 4.2, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.0.x, python 3.10, postgres (allow failures)
-# - django main, python 3.10, postgres, parallel (allow failures)
+# - django main, python 3.10, postgres:latest, parallel (allow failures)
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
-# - elasticsearch 6, django 3.2, python 3.8, postgres
-# - elasticsearch 7, django 4.1, python 3.8, postgres
+# - elasticsearch 6, django 3.2, python 3.8, postgres:latest
+# - elasticsearch 7, django 4.1, python 3.8, postgres:latest
 # - opensearch 2, django 4.1, python 3.9, sqlite
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
@@ -85,25 +85,24 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
             parallel: '--parallel'
-          - python: '3.12'
-            django: 'Django>=4.2,<4.3'
-            postgres: 'postgres:12'
-            notz: notz
-            experimental: false
-            parallel: '--parallel'
           - python: '3.11'
             django: 'Django>=4.1,<4.2'
             experimental: false
             emailuser: emailuser
             parallel: '--parallel'
+          - python: '3.12'
+            django: 'Django>=4.2,<4.3'
+            postgres: 'postgres:15'
+            notz: notz
+            experimental: false
+            parallel: '--parallel'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@stable/5.0.x#egg=Django'
             experimental: true
-            postgres: 'postgres:12'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
-            postgres: 'postgres:13'
+            postgres: 'postgres:latest'
             parallel: '--parallel'
             install_extras: |
               pip uninstall -y django-taggit
@@ -112,7 +111,7 @@ jobs:
 
     services:
       postgres:
-        image: ${{ matrix.postgres || 'postgres:11' }}
+        image: ${{ matrix.postgres || 'postgres:12' }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -162,10 +161,10 @@ jobs:
             django: 'Django>=4.2,<4.3'
             experimental: false
             parallel: '--parallel'
-
+            mysql: 'mysql:8.1'
     services:
       mysql:
-        image: mysql:8.0.23
+        image: ${{ matrix.mysql || 'mysql:8.0' }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
@@ -307,7 +306,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -365,7 +364,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
         ports:
