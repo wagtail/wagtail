@@ -171,7 +171,12 @@ class ModelViewSet(ViewSet):
         }
 
     def get_usage_view_kwargs(self, **kwargs):
-        return {**kwargs}
+        return {
+            "template_name": self.get_templates(
+                "usage", fallback=self.usage_view_class.template_name
+            ),
+            **kwargs,
+        }
 
     def get_inspect_view_kwargs(self, **kwargs):
         return {
