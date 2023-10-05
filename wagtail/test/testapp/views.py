@@ -213,6 +213,8 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     list_per_page = 5
     ordering = ["name", "-release_date"]
     # search_fields derived from the model
+    inspect_view_enabled = True
+    inspect_view_fields = ["strid", "release_date"]
 
 
 class FCToyAlt1ViewSet(ModelViewSet):
@@ -221,6 +223,8 @@ class FCToyAlt1ViewSet(ModelViewSet):
     list_filter = {"name": ["icontains"]}
     form_fields = ["name"]
     menu_label = "FC Toys Alt 1"
+    inspect_view_enabled = True
+    inspect_view_fields_exclude = ["strid", "release_date"]
 
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(is_searchable=False, **kwargs)

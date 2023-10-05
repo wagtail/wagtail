@@ -89,12 +89,16 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: export_filename
    .. autoattribute:: search_fields
    .. autoattribute:: search_backend_name
+   .. autoattribute:: inspect_view_enabled
+   .. autoattribute:: inspect_view_fields
+   .. autoattribute:: inspect_view_fields_exclude
    .. autoattribute:: index_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
-   .. autoattribute:: history_view_class
    .. autoattribute:: usage_view_class
+   .. autoattribute:: history_view_class
+   .. autoattribute:: inspect_view_class
    .. autoattribute:: template_prefix
    .. autoattribute:: index_template_name
    .. autoattribute:: index_results_template_name
@@ -102,6 +106,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: edit_template_name
    .. autoattribute:: delete_template_name
    .. autoattribute:: history_template_name
+   .. autoattribute:: inspect_template_name
 ```
 
 ## ModelViewSetGroup
@@ -163,9 +168,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: model
    .. autoattribute:: chooser_per_page
    .. autoattribute:: ordering
-   .. autoattribute:: inspect_view_enabled
-   .. autoattribute:: inspect_view_fields
-   .. autoattribute:: inspect_view_fields_exclude
    .. autoattribute:: admin_url_namespace
    .. autoattribute:: base_url_path
    .. autoattribute:: chooser_admin_url_namespace
@@ -187,7 +189,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: lock_view_class
    .. autoattribute:: unlock_view_class
    .. autoattribute:: chooser_viewset_class
-   .. autoattribute:: inspect_template_name
    .. automethod:: get_queryset
    .. automethod:: get_edit_handler
    .. automethod:: get_form_class

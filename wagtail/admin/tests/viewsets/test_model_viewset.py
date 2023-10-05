@@ -3,11 +3,12 @@ from io import BytesIO
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
-from django.urls import reverse
-from django.utils.formats import date_format
+from django.urls import NoReverseMatch, reverse
+from django.utils.formats import date_format, localize
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
@@ -761,6 +762,30 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
+    def test_inspect_view(self):
+        inspect_url = reverse(
+            "feature_complete_toy:inspect",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(inspect_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": reverse(
+                    "feature_complete_toy:edit", args=(quote(self.object.pk),)
+                ),
+                "label": str(self.object),
+            },
+            {
+                "url": "",
+                "label": "Inspect",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
     # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
@@ -1036,6 +1061,105 @@ class TestUsageView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(usage_link)
 
 
+class TestInspectView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.url = reverse("feature_complete_toy:inspect", args=(quote(cls.object.pk),))
+        cls.edit_url = reverse(
+            "feature_complete_toy:edit", args=(quote(cls.object.pk),)
+        )
+        cls.delete_url = reverse(
+            "feature_complete_toy:delete", args=(quote(cls.object.pk),)
+        )
+
+    def test_simple(self):
+        response = self.client.get(self.url)
+        expected_fields = ["Strid", "Release date"]
+        expected_values = [
+            # The pk may contain whitespace at the start/end, it's hard to
+            # distinguish from the whitespace in the HTML so just strip it
+            self.object.pk.strip(),
+            localize(self.object.release_date),
+        ]
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
+        soup = self.get_soup(response.content)
+        fields = [dt.text.strip() for dt in soup.select("dt")]
+        values = [dd.text.strip() for dd in soup.select("dd")]
+        self.assertEqual(fields, expected_fields)
+        self.assertEqual(values, expected_values)
+        # One in the breadcrumb, one at the bottom
+        self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 2)
+        self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 1)
+
+    def test_inspect_view_fields(self):
+        # The alt1 viewset has a custom inspect_view_fields and inspect_view_fields_exclude
+        response = self.client.get(
+            reverse("fctoy_alt1:inspect", args=(quote(self.object.pk),))
+        )
+        expected_fields = ["Name"]
+        expected_values = ["Test Toy"]
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
+        soup = self.get_soup(response.content)
+        fields = [dt.text.strip() for dt in soup.select("dt")]
+        values = [dd.text.strip() for dd in soup.select("dd")]
+        self.assertEqual(fields, expected_fields)
+        self.assertEqual(values, expected_values)
+
+    def test_disabled(self):
+        # An alternate viewset for the same model without inspect_view_enabled = True
+        with self.assertRaises(NoReverseMatch):
+            reverse("fctoy-alt2:inspect", args=(quote(self.object.pk),))
+
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_only_add_permission(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=self.object._meta.app_label,
+                codename=get_permission_codename("add", self.object._meta),
+            ),
+        )
+        self.user.save()
+
+        response = self.client.get(self.url)
+        expected_fields = ["Strid", "Release date"]
+        expected_values = [
+            # The pk may contain whitespace at the start/end, it's hard to
+            # distinguish from the whitespace in the HTML so just strip it
+            self.object.pk.strip(),
+            localize(self.object.release_date),
+        ]
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
+        soup = self.get_soup(response.content)
+        fields = [dt.text.strip() for dt in soup.select("dt")]
+        values = [dd.text.strip() for dd in soup.select("dd")]
+        self.assertEqual(fields, expected_fields)
+        self.assertEqual(values, expected_values)
+        self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 0)
+        self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 0)
+
+
 class TestListingButtons(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
@@ -1065,6 +1189,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
                 "Edit",
                 f"Edit '{self.object}'",
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Inspect",
+                f"Inspect '{self.object}'",
+                reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
