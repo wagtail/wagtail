@@ -505,7 +505,7 @@ def page_listing_buttons(context, page, user):
 @register.inclusion_tag(
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
-def page_header_buttons(context, page, user):
+def page_header_buttons(context, page, user, view_name):
     next_url = context["request"].path
     page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
@@ -513,7 +513,9 @@ def page_header_buttons(context, page, user):
     buttons = []
     for hook in button_hooks:
         if accepts_kwarg(hook, "user"):
-            buttons.extend(hook(page=page, user=user, next_url=next_url))
+            buttons.extend(
+                hook(page=page, user=user, next_url=next_url, view_name=view_name)
+            )
         else:
             # old-style hook that accepts page_perms instead of user
             warn(

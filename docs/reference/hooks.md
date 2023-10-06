@@ -551,7 +551,7 @@ This example will add a simple button to the secondary dropdown menu:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_header_buttons')
-def page_header_buttons(page, user, next_url=None):
+def page_header_buttons(page, user, view_name, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A dropdown button',
         '/goes/to/a/url/',
@@ -563,12 +563,13 @@ The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
 -   `user` - the logged-in user
+-   `view_name` - either `index` or `edit`, depending on whether the button is being generated for the page listing or edit view
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
 
 ```{versionchanged} 5.2
-The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+The hook function now receives a `user` argument instead of a `page_perms` argument, and a `view_name` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
 ```
 
 ## Editor workflow
