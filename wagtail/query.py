@@ -167,6 +167,16 @@ class SpecificQuerySetMixin:
             clone._iterable_class = SpecificIterable
         return clone
 
+    @property
+    def is_specific(self):
+        """
+        Returns True if this queryset is already specific, False otherwise.
+        """
+        return issubclass(
+            self._iterable_class,
+            (SpecificIterable, DeferredSpecificIterable),
+        )
+
 
 class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet):
     def live_q(self):
@@ -455,9 +465,13 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
             "current_task_state__task"
         )
 
+        relation = "_workflow_states"
+        if self.is_specific:
+            relation = "_specific_workflow_states"
+
         return self.prefetch_related(
             Prefetch(
-                "_workflow_states",
+                relation,
                 queryset=workflow_states,
                 to_attr="_current_workflow_states",
             )
