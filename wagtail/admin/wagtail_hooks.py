@@ -392,7 +392,11 @@ def page_listing_more_buttons(page, user, next_url=None):
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, user, view_name, next_url=None):
     yield PageListingEditButton(page=page, user=user, priority=10)
-    yield PageListingAddChildPageButton(page=page, user=user, priority=15)
+
+    # "add child" is a separate primary action on the index page
+    if view_name != "index":
+        yield PageListingAddChildPageButton(page=page, user=user, priority=15)
+
     yield PageListingMoveButton(page=page, user=user, priority=20)
     yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=30)
     yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=50)
