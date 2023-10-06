@@ -796,7 +796,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(50):
+        with self.assertNumQueries(47):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
