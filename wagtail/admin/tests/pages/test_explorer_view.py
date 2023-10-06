@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail import hooks
-from wagtail.models import GroupPagePermission, Locale, Page
+from wagtail.models import GroupPagePermission, Locale, Page, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
@@ -769,3 +769,43 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
             count=0,
         )
+
+
+class TestInWorkflowStatus(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.event_index = Page.objects.get(url_path="/home/events/")
+        cls.christmas = Page.objects.get(url_path="/home/events/christmas/").specific
+        cls.saint_patrick = Page.objects.get(
+            url_path="/home/events/saint-patrick/"
+        ).specific
+        cls.christmas.save_revision()
+        cls.saint_patrick.save_revision()
+        cls.url = reverse("wagtailadmin_explore", args=[cls.event_index.pk])
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_in_workflow_status(self):
+        workflow = Workflow.objects.first()
+        workflow.start(self.christmas, self.user)
+        workflow.start(self.saint_patrick, self.user)
+
+        # Warm up cache
+        self.client.get(self.url)
+
+        with self.assertNumQueries(50):
+            response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        for page in [self.christmas, self.saint_patrick]:
+            status = soup.select_one(f'a.w-status[href="{page.url}"]')
+            self.assertIsNotNone(status)
+            self.assertEqual(
+                status.text.strip(), "Current page status: live + in moderation"
+            )
+            self.assertEqual(page.status_string, "live + in moderation")
