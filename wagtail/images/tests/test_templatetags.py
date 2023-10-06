@@ -159,7 +159,7 @@ class ImageTagTestCase(ImagesTestCase):
         )
 
     def test_none(self):
-        rendered = self.render("{% image myimage width-200 %}", {"myimage": None})
+        rendered = self.render("{% image myimage width-2 %}", {"myimage": None})
         self.assertEqual(rendered, "")
 
     def test_missing_image(self):
@@ -259,6 +259,10 @@ class SrcsetImageTagTestCase(ImagesTestCase):
             ),
         )
 
+    def test_none(self):
+        rendered = self.render("{% srcset_image myimage width-2 %}", {"myimage": None})
+        self.assertEqual(rendered, "")
+
     def test_invalid_character(self):
         with self.assertRaisesRegex(
             TemplateSyntaxError, "filter specs in image tags may only contain"
@@ -314,5 +318,163 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 width="0"
                 height="0"
             >
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+
+class PictureTagTestCase(ImagesTestCase):
+    def test_picture_formats_multi_sizes(self):
+        filenames = [
+            get_test_image_filename(self.image, "width-200.format-jpeg"),
+            get_test_image_filename(self.image, "width-400.format-jpeg"),
+            get_test_image_filename(self.image, "width-200.format-webp"),
+            get_test_image_filename(self.image, "width-400.format-webp"),
+            get_test_image_filename(self.image, "width-200.format-gif"),
+            get_test_image_filename(self.image, "width-400.format-gif"),
+        ]
+
+        rendered = self.render(
+            '{% picture myimage width-{200,400} format-{jpeg,webp,gif} sizes="100vw" %}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filenames[2]} 200w, {filenames[3]} 400w" sizes="100vw" type="image/webp">
+            <source srcset="{filenames[0]} 200w, {filenames[1]} 400w" sizes="100vw" type="image/jpeg">
+            <img
+                sizes="100vw"
+                src="{filenames[4]}"
+                srcset="{filenames[4]} 200w, {filenames[5]} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_formats_only(self):
+        filename_jpeg = get_test_image_filename(self.image, "format-jpeg")
+        filename_webp = get_test_image_filename(self.image, "format-webp")
+
+        rendered = self.render(
+            "{% picture myimage format-{jpeg,webp} %}",
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filename_webp}" type="image/webp">
+            <img
+                src="{filename_jpeg}"
+                alt="Test image"
+                width="640"
+                height="480"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_sizes_only(self):
+        rendered = self.render(
+            '{% picture myimage width-{350,450} sizes="100vw" %}',
+            {"myimage": self.image},
+        )
+        expected = self.render(
+            '<picture>{% srcset_image myimage width-{350,450} sizes="100vw" %}</picture>',
+            {"myimage": self.image},
+        )
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_single_format(self):
+        rendered = self.render(
+            "{% picture myimage format-jpeg %}",
+            {"myimage": self.image},
+        )
+        expected = self.render(
+            "<picture>{% image myimage format-jpeg %}</picture>",
+            {"myimage": self.image},
+        )
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_none(self):
+        rendered = self.render("{% picture myimage width-2 %}", {"myimage": None})
+        self.assertEqual(rendered, "")
+
+    def test_picture_assignment(self):
+        template = (
+            "{% picture myimage width-{550,600} format-{jpeg,webp} as bg %}"
+            "width: {{ bg.formats.jpeg.0.width }}, url: {{ bg.formats.jpeg.0.url }} "
+            "width: {{ bg.formats.jpeg.1.width }}, url: {{ bg.formats.jpeg.1.url }} "
+            "width: {{ bg.formats.webp.0.width }}, url: {{ bg.formats.webp.0.url }} "
+            "width: {{ bg.formats.webp.1.width }}, url: {{ bg.formats.webp.1.url }} "
+        )
+        rendered = self.render(template, {"myimage": self.image})
+        expected = f"""
+            width: 550, url: {get_test_image_filename(self.image, "width-550.format-jpeg")}
+            width: 600, url: {get_test_image_filename(self.image, "width-600.format-jpeg")}
+            width: 550, url: {get_test_image_filename(self.image, "width-550.format-webp")}
+            width: 600, url: {get_test_image_filename(self.image, "width-600.format-webp")}
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_assignment_render_as_is(self):
+        rendered = self.render(
+            "{% picture myimage width-{2000,4000} format-{jpeg,webp} as bg %}{{ bg }}",
+            {"myimage": self.image},
+        )
+        expected = self.render(
+            "{% picture myimage width-{2000,4000} format-{jpeg,webp} %}",
+            {"myimage": self.image},
+        )
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_missing_picture(self):
+        rendered = self.render(
+            "{% picture myimage width-{200,400} %}",
+            {"myimage": self.bad_image},
+        )
+        expected = """
+            <picture>
+                <img
+                    src="/media/not-found"
+                    srcset="/media/not-found 0w, /media/not-found 0w"
+                    alt="missing image"
+                    width="0"
+                    height="0"
+                >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_invalid_character(self):
+        with self.assertRaisesRegex(
+            TemplateSyntaxError, "filter specs in image tags may only"
+        ):
+            self.render(
+                '{% picture myimage fill-{20×20,40×40} sizes="100vw" %}',
+                {"myimage": self.image},
+            )
+
+    def test_chaining_filterspecs(self):
+        filename_jpeg = get_test_image_filename(
+            self.image, "format-jpeg.jpegquality-40.webpquality-40"
+        )
+        filename_webp = get_test_image_filename(
+            self.image, "format-webp.jpegquality-40.webpquality-40"
+        )
+        rendered = self.render(
+            "{% picture myimage format-{jpeg,webp} jpegquality-40 webpquality-40 %}",
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filename_webp}" type="image/webp">
+            <img
+                src="{filename_jpeg}"
+                alt="Test image"
+                width="640"
+                height="480"
+            >
+            </picture>
         """
         self.assertHTMLEqual(rendered, expected)

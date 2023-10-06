@@ -36,8 +36,10 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
+from wagtail.images.fields import image_format_name_to_content_type
 from wagtail.images.image_operations import (
     FilterOperation,
+    FormatOperation,
     ImageTransform,
     TransformOperation,
 )
@@ -1086,6 +1088,76 @@ class ResponsiveImage:
         if isinstance(other, ResponsiveImage):
             return self.renditions == other.renditions and self.attrs == other.attrs
         return False
+
+
+class Picture(ResponsiveImage):
+    # Keep this separate from FormatOperation.supported_formats,
+    # as the order our formats are defined in is essential for the picture tag.
+    # Defines the order of <source> elements in the tag when format operations
+    # are in use, and the priority order to identify the "fallback" format.
+    # The browser will pick the first supported format in this list.
+    source_format_order = ["avif", "webp", "jpeg", "png", "gif"]
+
+    def __init__(
+        self,
+        renditions: Dict[str, "AbstractRendition"],
+        attrs: Optional[Dict[str, Any]] = None,
+    ):
+        super().__init__(renditions, attrs)
+        # Store renditions grouped by format separately for access from templates.
+        self.formats = self.get_formats(renditions)
+
+    def get_formats(
+        self, renditions: Dict[str, "AbstractRendition"]
+    ) -> Dict[str, List["AbstractRendition"]]:
+        """
+        Group renditions by the format they are for, if any.
+        If there is only one format, no grouping is required.
+        """
+        formats = defaultdict(list)
+        for spec, rendition in renditions.items():
+            for fmt in FormatOperation.supported_formats:
+                # Identify the spec’s format (if any).
+                if f"format-{fmt}" in spec:
+                    formats[fmt].append(rendition)
+                    break
+        # Avoid the split by format if there is only one.
+        if len(formats.keys()) < 2:
+            return {}
+
+        return formats
+
+    def get_fallback_format(self):
+        for fmt in reversed(self.source_format_order):
+            if fmt in self.formats:
+                return fmt
+
+    def __html__(self):
+        # If there aren’t multiple formats, render a vanilla img tag with srcset.
+        if not self.formats:
+            return mark_safe(f"<picture>{super().__html__()}</picture>")
+
+        attrs = self.attrs or {}
+
+        sizes = f'sizes="{attrs["sizes"]}" ' if "sizes" in attrs else ""
+        fallback_format = self.get_fallback_format()
+        fallback_renditions = self.formats[fallback_format]
+
+        sources = []
+
+        for fmt in self.source_format_order:
+            if fmt != fallback_format and fmt in self.formats:
+                srcset = self.get_width_srcset(self.formats[fmt])
+                mime = image_format_name_to_content_type(fmt)
+                sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
+
+        if len(fallback_renditions) > 1:
+            attrs["srcset"] = self.get_width_srcset(fallback_renditions)
+
+        # The first rendition is the "base" / "fallback" image.
+        fallback = fallback_renditions[0].img_tag(attrs)
+
+        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")
 
 
 class AbstractRendition(ImageFileMixin, models.Model):

@@ -2,7 +2,7 @@ from django import template
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
 
-from wagtail.images.models import Filter, ResponsiveImage
+from wagtail.images.models import Filter, Picture, ResponsiveImage
 from wagtail.images.shortcuts import (
     get_rendition_or_not_found,
     get_renditions_or_not_found,
@@ -76,14 +76,11 @@ def image(parser, token):
         # there must always be at least one filter spec provided
         error_messages.append("Image tags must be used with at least one filter spec")
 
-    if len(bits) == 0:
-        # no resize rule provided eg. {% image page.image %}
-        error_messages.append("No resize rule provided")
-
     if len(error_messages) == 0:
         Node = {
             "image": ImageNode,
             "srcset_image": SrcsetImageNode,
+            "picture": PictureNode,
         }
         return Node[tag_name](
             image_expr,
@@ -103,6 +100,7 @@ def image(parser, token):
 
 register.tag("image", image)
 register.tag("srcset_image", image)
+register.tag("picture", image)
 
 
 class ImageNode(template.Node):
@@ -193,6 +191,31 @@ class SrcsetImageNode(ImageNode):
             resolved_attrs[key] = self.attrs[key].resolve(context)
 
         return ResponsiveImage(renditions, resolved_attrs).__html__()
+
+
+class PictureNode(SrcsetImageNode):
+    def render(self, context):
+        image = self.validate_image(context)
+
+        if not image:
+            return ""
+
+        renditions = get_renditions_or_not_found(
+            image,
+            self.get_filters(preserve_svg=self.preserve_svg and image.is_svg()),
+        )
+
+        if self.output_var_name:
+            # Wrap the renditions in Picture object, to support both
+            # rendering as-is and access to the data.
+            context[self.output_var_name] = Picture(renditions)
+            return ""
+
+        resolved_attrs = {}
+        for key in self.attrs:
+            resolved_attrs[key] = self.attrs[key].resolve(context)
+
+        return Picture(renditions, resolved_attrs).__html__()
 
 
 @register.simple_tag()
