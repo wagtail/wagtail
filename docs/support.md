@@ -10,13 +10,11 @@ If you have any problems or questions about working with Wagtail, you are invite
 
 ## Mailing list
 
-For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups.google.com/d/forum/wagtail](https://groups.google.com/g/wagtail).
-
-(slack)=
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups google](https://groups.google.com/g/wagtail).
 
 ## Slack
 
-The Wagtail Slack workspace is open to all users and developers of Wagtail. To join, head to: [https://wagtail.org/slack/](https://wagtail.org/slack/)
+The Wagtail Slack workspace is open to all users and developers of Wagtail. To join, head to: [slack](https://wagtail.org/slack/)
 
 Please use the **#support** channel for support questions. Support is provided by members of the Wagtail community on a voluntary basis, and we cannot guarantee that questions will be answered quickly (or at all). If you want to see this resource succeed, please consider sticking around to help out! Also, please keep in mind that many of Wagtail's core and expert developers prefer to handle support queries on a non-realtime basis through Stack Overflow, and questions asked there may well get a better response.
 
@@ -26,7 +24,7 @@ Our [GitHub discussion boards](https://github.com/wagtail/wagtail/discussions) a
 
 ## Issues
 
-If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at [github.com/wagtail/wagtail/issues](https://github.com/wagtail/wagtail/issues). If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
+If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at [issues](https://github.com/wagtail/wagtail/issues). If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
 
 If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](../contributing/security).
 
