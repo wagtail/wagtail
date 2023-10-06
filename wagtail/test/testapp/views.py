@@ -273,6 +273,11 @@ class FeatureCompleteToyViewSet(ModelViewSet):
         FieldPanel("release_date", permission="tests.can_set_release_date"),
     ]
 
+    def get_base_queryset(self, request):
+        if not request.user.is_superuser:
+            return self.model._default_manager.exclude(name__startswith="[HIDDEN]")
+        return self.model._default_manager.all()
+
 
 class FCToyAlt1InspectView(InspectView):
     def get_name_display_value(self):
