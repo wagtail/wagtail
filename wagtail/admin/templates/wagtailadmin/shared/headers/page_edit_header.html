@@ -11,7 +11,7 @@
     {# Actions divider #}
     <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
     {# Page actions dropdown #}
-    {% page_header_buttons page user=request.user %}
+    {% page_header_buttons page user=request.user view_name="edit" %}
 {% endblock %}
 
 {% block actions %}
