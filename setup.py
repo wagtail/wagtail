@@ -87,6 +87,7 @@ setup(
     author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url="https://wagtail.org/",
     project_urls={
+        "Changelog": "https://github.com/wagtail/wagtail/blob/main/CHANGELOG.txt",
         "Documentation": "https://docs.wagtail.org",
         "Source": "https://github.com/wagtail/wagtail",
     },
