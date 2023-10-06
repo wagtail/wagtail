@@ -409,13 +409,15 @@ class WebPQualityOperation(FilterOperation):
 
 
 class FormatOperation(FilterOperation):
+    supported_formats = ["jpeg", "png", "gif", "webp", "avif"]
+
     def construct(self, format, *options):
         self.format = format
         self.options = options
 
-        if self.format not in ["jpeg", "png", "gif", "webp", "avif"]:
+        if self.format not in self.supported_formats:
             raise ValueError(
-                "Format must be either 'jpeg', 'png', 'gif', 'webp' or 'avif'"
+                f"Format must be one of: {', '.join(self.supported_formats)}. Got: {self.format}"
             )
 
     def run(self, willow, image, env):

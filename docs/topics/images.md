@@ -29,11 +29,25 @@ In the above syntax example `[image]` is the Django object referring to the imag
 
 Note that a space separates `[image]` and `[resize-rule]`, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the `fill` rule is used, which may result in some pixels being cropped.
 
+(multiple_formats)=
+
+## Multiple formats
+
+To render an image in multiple formats, you can use the `picture` tag:
+
+```html+django
+{% picture page.photo width-400 format-{avif,jpeg} %}
+```
+
+Compared to `image`, this will render a `<picture>` element with one `<source>` element per format. The browser [picks the first format it supports](https://web.dev/learn/design/picture-element/#source), or defaults to a fallback `<img>` element.
+
+`picture` can also be used with responsive image resize rules.
+
 (responsive_images)=
 
 ## Responsive images
 
-In addition to `image`, Wagtail also provides a `srcset_image` template tag which generates an `<img>` tag with a `srcset` attribute. This allows browsers to select the most appropriate image file to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+Wagtail provides `picture` and `srcset_image` template tags which can generate an `<img>` tag with a `srcset` attribute. This allows browsers to select the most appropriate image file to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
 The syntax for `srcset_image` is the same as `image, with two exceptions:
 
@@ -42,7 +56,15 @@ The syntax for `srcset_image` is the same as `image, with two exceptions:
 ```
 
 - The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule.
-- The `sizes` attribute is mandatory. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+- The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+
+Here is an example with the `picture` tag:
+
+```html+django
+{% picture page.photo fill-{512x100,1024x200} format-{avif,jpeg} sizes="100vw" %}
+```
+
+This will generate a `<picture>` element with one `<source>` for AVIF and one fallback `<img>` with JPEG. Both the source and fallback image will have the `sizes` attribute, and a `srcset` with two URLs each.
 
 (available_resizing_methods)=
 

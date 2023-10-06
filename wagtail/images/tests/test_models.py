@@ -13,6 +13,7 @@ from willow.image import Image as WillowImage
 
 from wagtail.images.models import (
     Filter,
+    Picture,
     Rendition,
     ResponsiveImage,
     SourceImageIOError,
@@ -368,13 +369,99 @@ class TestResponsiveImage(TestCase):
         )
 
     def test_render_single_image_same_as_img_tag(self):
+        img = ResponsiveImage({"width-10": self.rendition_10})
+        self.assertHTMLEqual(img.__html__(), self.rendition_10.img_tag())
+
+
+class TestPicture(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.rendition_10 = self.image.get_rendition("width-10")
+
+    def test_formats(self):
         renditions = {
-            "width-10": self.rendition_10,
+            "format-jpeg": self.rendition_10,
+            "format-webp": self.rendition_10,
         }
-        img = ResponsiveImage(renditions)
+        img = Picture(renditions)
+        self.assertEqual(
+            img.formats, {"jpeg": [self.rendition_10], "webp": [self.rendition_10]}
+        )
+
+    def test_single_format(self):
+        renditions = {"format-jpeg": self.rendition_10}
+        img = Picture(renditions)
+        self.assertEqual(img.formats, {})
+
+    def test_mixed_format(self):
+        renditions = {
+            "format-jpeg": self.rendition_10,
+            "format-webp": self.rendition_10,
+            "format-webp-lossless": self.rendition_10,
+        }
+        img = Picture(renditions)
+        self.assertEqual(
+            img.formats,
+            {
+                "jpeg": [self.rendition_10],
+                "webp": [self.rendition_10, self.rendition_10],
+            },
+        )
+
+    def test_fallback_format(self):
+        avif = {"format-avif": self.rendition_10}
+        webp = {"format-webp": self.rendition_10}
+        jpeg = {"format-jpeg": self.rendition_10}
+        png = {"format-png": self.rendition_10}
+        gif = {"format-gif": self.rendition_10}
+        fallbacks = {
+            "gif": {**avif, **webp, **jpeg, **png, **gif},
+            "png": {**avif, **webp, **jpeg, **png},
+            "jpeg": {**avif, **webp, **jpeg},
+            "webp": {**avif, **webp},
+        }
+        for fmt, renditions in fallbacks.items():
+            self.assertEqual(Picture(renditions).get_fallback_format(), fmt)
+
+    def test_render_multi_format_sizes(self):
+        renditions = {
+            "format-jpeg|width-10": self.image.get_rendition("format-jpeg|width-10"),
+            "format-jpeg|width-90": self.image.get_rendition("format-jpeg|width-90"),
+            "format-webp|width-10": self.image.get_rendition("format-webp|width-10"),
+            "format-webp|width-90": self.image.get_rendition("format-webp|width-90"),
+        }
+        img = Picture(renditions, {"sizes": "100vw"})
+        filenames = [
+            get_test_image_filename(self.image, "format-jpeg.width-10"),
+            get_test_image_filename(self.image, "format-jpeg.width-90"),
+            get_test_image_filename(self.image, "format-webp.width-10"),
+            get_test_image_filename(self.image, "format-webp.width-90"),
+        ]
         self.assertHTMLEqual(
             img.__html__(),
-            self.rendition_10.img_tag(),
+            f"""
+                <picture>
+                    <source srcset="{filenames[2]} 10w, {filenames[3]} 90w" sizes="100vw" type="image/webp">
+                    <img
+                        alt="Test image"
+                        sizes="100vw"
+                        src="{filenames[0]}"
+                        srcset="{filenames[0]} 10w, {filenames[1]} 90w"
+                        width="10"
+                        height="7"
+                    >
+                </picture>
+            """,
+        )
+
+    def test_render_single_image_same_as_img_tag(self):
+        img = Picture({"width-10": self.rendition_10})
+        self.assertHTMLEqual(
+            img.__html__(), f"<picture>{self.rendition_10.img_tag()}</picture>"
         )
 
 

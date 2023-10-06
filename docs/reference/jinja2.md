@@ -89,7 +89,7 @@ See [](image_tag) for more information
 
 Resize an image, and render an `<img>` tag including `srcset` with multiple sizes.
 Browsers will select the most appropriate image to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
-The `sizes` attribute is mandatory unless you store the output of `srcset_image` for later use.
+The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential unless you store the output of `srcset_image` for later use.
 
 ```html+jinja
 {{ srcset_image(page.header_image, "fill-{512x100,1024x200}", sizes="100vw", class="header-image") }}
@@ -100,6 +100,30 @@ Or resize an image and retrieve the renditions for more bespoke use:
 ```html+jinja
 {% set bg=srcset_image(page.background_image, "max-{512x512,1024x1024}") %}
 <div class="wrapper" style="background-image: image-set(url({{ bg.renditions[0].url }}) 1x, url({{ bg.renditions[1].url }}) 2x);"></div>
+```
+
+### `picture()`
+
+Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes.
+Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image-formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+
+`picture` can render an image in multiple formats:
+
+```html+jinja
+{{ picture(page.header_image, "format-{avif,jpeg}") }}
+```
+
+Or render multiple formats and multiple sizes like `srcset_image` does. The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential when the picture tag renders images in multiple sizes:
+
+```html+jinja
+{{ picture(page.header_image, "format-{avif,jpeg}|fill-{512x100,1024x200}", sizes="100vw") }}
+```
+
+Or resize an image and retrieve the renditions for more bespoke use:
+
+```html+jinja
+{% set bg=picture(page.background_image, "format-{avif,jpeg}|max-{512x512,1024x1024}") %}
+<div class="wrapper" style="background-image: image-set(url({{ bg.formats['avif'][0].url }}) 1x type('image/avif'), url({{ bg.formats['avif'][1].url }}) 2x type('image/avif'), url({{ bg.formats['jpeg'][0].url }}) 1x type('image/jpeg'), url({{ bg.formats['jpeg'][1].url }}) 2x type('image/jpeg'));"></div>
 ```
 
 ### `|richtext`

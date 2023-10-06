@@ -16,6 +16,11 @@ def get_test_image_filename(image, filterspec):
     Get the generated filename for a resized image
     """
     name, ext = os.path.splitext(os.path.basename(image.file.name))
+    # Use the correct extension if the filterspec is a format operation.
+    if "format-" in filterspec:
+        ext = "." + filterspec.split("format-")[1].split("-")[0].split(".")[0].replace(
+            "jpeg", "jpg"
+        )
     return f"{settings.MEDIA_URL}images/{name}.{filterspec}{ext}"
 
 
