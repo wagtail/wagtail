@@ -73,7 +73,9 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
-            self.parent_page = get_object_or_404(Page, id=parent_page_id)
+            self.parent_page = get_object_or_404(
+                Page.objects.all().prefetch_workflow_states(), id=parent_page_id
+            )
         else:
             self.parent_page = Page.get_first_root_node()
 
