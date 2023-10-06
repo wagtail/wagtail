@@ -321,8 +321,34 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
 
 class TestPageHeaderButtonsHooks(TestButtonsHooks):
-    def test_register_page_header_buttons(self):
+    def test_register_page_header_buttons_old_signature(self):
         def custom_page_header_buttons(page, page_perms, next_url=None):
+            yield wagtailadmin_widgets.Button(
+                "Another useless header button", "/custom-url", priority=10
+            )
+
+        with hooks.register_temporarily(
+            "register_page_header_buttons", custom_page_header_buttons
+        ), self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.root_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/listing/_page_header_buttons.html"
+        )
+
+        self.assertContains(response, "Another useless header button")
+
+    def test_register_page_header_buttons_new_signature(self):
+        def custom_page_header_buttons(page, user, next_url=None):
+            if not isinstance(user, AbstractBaseUser):
+                raise TypeError("expected a user instance")
+
             yield wagtailadmin_widgets.Button(
                 "Another useless header button", "/custom-url", priority=10
             )
@@ -347,13 +373,12 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         """
 
         page = self.root_page
-        page_perms = page.permissions_for_user(self.user)
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
         next_url = "a/random/url/"
         full_url = base_url + "?" + urlencode({"next": next_url})
 
-        buttons = page_header_buttons(page, page_perms, next_url=next_url)
+        buttons = page_header_buttons(page, self.user, next_url=next_url)
         delete_button = next(button for button in buttons if button.label == "Delete")
 
         self.assertEqual(delete_button.url, full_url)
@@ -366,12 +391,11 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         """
 
         page = self.root_page
-        page_perms = page.permissions_for_user(self.user)
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
         next_url = reverse("wagtailadmin_explore", args=[page.id])
 
-        buttons = page_header_buttons(page, page_perms, next_url=next_url)
+        buttons = page_header_buttons(page, self.user, next_url=next_url)
 
         delete_button = next(button for button in buttons if button.label == "Delete")
 
@@ -381,7 +405,7 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
         next_url = reverse("wagtailadmin_pages:edit", args=[page.id])
 
-        buttons = page_header_buttons(page, page_perms, next_url=next_url)
+        buttons = page_header_buttons(page, self.user, next_url=next_url)
 
         delete_button = next(button for button in buttons if button.label == "Delete")
 
