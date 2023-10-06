@@ -1,8 +1,5 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n wagtailadmin_tags %}
-
-{% block titletag %}{% blocktrans trimmed with instance=instance|capfirst %}Editing {{ instance }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-settings{% endblock %}
 
 {% block content %}
     {% fragment as editing_actions %}
@@ -16,9 +13,9 @@
         {% endif %}
     {% endfragment %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str icon="cogs" subtitle=setting_type_name|capfirst merged=1 extra_actions=editing_actions %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str icon="cogs" subtitle=setting_type_name|capfirst merged=1 extra_actions=editing_actions only %}
 
-    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name form_id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{{ action_url }}" method="POST" novalidate {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
 
         <div class="nice-padding">
@@ -28,13 +25,7 @@
         <footer class="footer">
             <ul>
                 <li class="actions dropdown dropup match-width footer__container">
-                    <button
-                        type="submit"
-                        class="button button-longrunning"
-                        data-controller="w-progress"
-                        data-action="w-progress#activate"
-                        data-w-progress-active-value="{% trans 'Saving…' %}"
-                    >
+                    <button type="submit" class="button button-longrunning" data-controller="w-progress" data-action="w-progress#activate" data-w-progress-active-value="{% trans 'Saving…' %}">
                         {% icon name="spinner" %}
                         <em data-w-progress-target="label">{% trans 'Save' %}</em>
                     </button>
