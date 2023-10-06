@@ -27,7 +27,6 @@ describe('InlinePanel', () => {
       onAdd: onAdd,
     };
 
-    // eslint-disable-next-line no-new
     new InlinePanel(options);
 
     expect(onAdd).not.toHaveBeenCalled();
