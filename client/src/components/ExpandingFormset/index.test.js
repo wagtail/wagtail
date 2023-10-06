@@ -46,7 +46,6 @@ describe('ExpandingFormset', () => {
     expect(onInit).not.toHaveBeenCalled();
 
     // initialise expanding formset
-    // eslint-disable-next-line no-new
     new ExpandingFormset(prefix, { onInit, onAdd });
 
     // check that init calls only were made for existing items
@@ -130,7 +129,6 @@ describe('ExpandingFormset', () => {
     expect(onInit).not.toHaveBeenCalled();
 
     // initialise expanding formset
-    // eslint-disable-next-line no-new
     new ExpandingFormset(prefix, { onInit, onAdd });
 
     // check that init calls only were made for existing items
@@ -215,7 +213,6 @@ describe('ExpandingFormset', () => {
     expect(onInit).not.toHaveBeenCalled();
 
     // initialise expanding formset
-    // eslint-disable-next-line no-new
     new ExpandingFormset(prefix, { onInit, onAdd });
 
     // check that init calls only were made for existing items
