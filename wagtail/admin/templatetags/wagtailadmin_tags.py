@@ -505,13 +505,25 @@ def page_listing_buttons(context, page, user):
 @register.inclusion_tag(
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
-def page_header_buttons(context, page, page_perms):
+def page_header_buttons(context, page, user):
     next_url = context["request"].path
+    page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, next_url))
+        if accepts_kwarg(hook, "user"):
+            buttons.extend(hook(page=page, user=user, next_url=next_url))
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            buttons.extend(hook(page, page_perms, next_url))
 
     buttons = [b for b in buttons if b.show]
     buttons.sort()
