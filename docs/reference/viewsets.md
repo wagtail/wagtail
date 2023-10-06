@@ -64,6 +64,8 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    as the URL prefix and namespace, unless these are specified explicitly via the ``name``, ``url_prefix`` or
    ``url_namespace`` attributes.
 
+   .. automethod:: get_base_queryset
+
    .. attribute:: form_fields
 
    A list of model field names that should be included in the create / edit forms.

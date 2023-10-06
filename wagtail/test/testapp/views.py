@@ -214,6 +214,11 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     ordering = ["name", "-release_date"]
     # search_fields derived from the model
 
+    def get_base_queryset(self, request):
+        if not request.user.is_superuser:
+            return self.model._default_manager.exclude(name__startswith="[HIDDEN]")
+        return self.model._default_manager.all()
+
 
 class FCToyAlt1ViewSet(ModelViewSet):
     model = FeatureCompleteToy

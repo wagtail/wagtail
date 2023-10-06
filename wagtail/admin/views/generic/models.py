@@ -202,6 +202,10 @@ class IndexView(
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
     def get_base_queryset(self):
+        # Allow the queryset to be a callable that takes a request
+        # so that it can be evaluated in the context of the request
+        if callable(self.queryset):
+            self.queryset = self.queryset(self.request)
         if self.queryset is not None:
             queryset = self.queryset
             if isinstance(queryset, models.QuerySet):

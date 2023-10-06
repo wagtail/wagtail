@@ -115,6 +115,7 @@ class ModelViewSet(ViewSet):
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
             "default_ordering": self.ordering,
+            "queryset": self.get_base_queryset,
             **kwargs,
         }
 
@@ -434,6 +435,14 @@ class ModelViewSet(ViewSet):
             (MenuItem,),
             {"is_shown": is_shown},
         )
+
+    def get_base_queryset(self, request):
+        """
+        Returns a QuerySet of all model instances to be shown on the index view.
+        If ``None`` is returned (the default), the logic in
+        ``index_view.get_base_queryset()`` will be used instead.
+        """
+        return None
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         return db_field.formfield(**kwargs)
