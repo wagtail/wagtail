@@ -442,7 +442,7 @@ def page_listing_more_buttons(page, user, next_url=None):
 
 
 @hooks.register("register_page_header_buttons")
-def page_header_buttons(page, user, next_url=None):
+def page_header_buttons(page, user, view_name, next_url=None):
     page_perms = page.permissions_for_user(user)
     yield PageListingEditButton(
         page=page,
