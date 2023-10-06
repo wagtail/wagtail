@@ -10,6 +10,12 @@
     {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-3 lg:w-py-7' %}
     {# Actions divider #}
     <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
+
+    {% page_permissions parent_page as parent_page_perms %}
+    {% if parent_page_perms.can_add_subpage %}
+        <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="button button-small bicolor button--icon button-secondary w-ml-3">{% icon name="plus" wrapped=1 %}{% trans "Add child page" %}</a>
+    {% endif %}
+
     {# Page actions dropdown #}
     {% page_header_buttons parent_page user=request.user view_name="index" %}
 {% endblock %}
