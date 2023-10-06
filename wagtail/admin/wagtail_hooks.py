@@ -375,125 +375,32 @@ class PageListingSortMenuOrderButton(PageListingButton):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
-    page_perms = page.permissions_for_user(user)
-    yield PageListingEditButton(
-        page=page,
-        page_perms=page_perms,
-        priority=2,
-    )
-
-    yield PageListingViewDraftButton(
-        page=page,
-        page_perms=page_perms,
-        priority=4,
-    )
-
-    yield PageListingViewLiveButton(
-        page=page,
-        page_perms=page_perms,
-        url=page.url,
-        priority=6,
-    )
-
-    yield PageListingAddChildPageButton(
-        page=page,
-        page_perms=page_perms,
-        priority=8,
-    )
-
-    yield PageListingMoveButton(
-        page=page,
-        page_perms=page_perms,
-        priority=10,
-    )
-
-    yield PageListingCopyButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=20,
-    )
-
-    yield PageListingDeleteButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=30,
-    )
-
+    yield PageListingEditButton(page=page, user=user, priority=2)
+    yield PageListingViewDraftButton(page=page, user=user, priority=4)
+    yield PageListingViewLiveButton(page=page, user=user, url=page.url, priority=6)
+    yield PageListingAddChildPageButton(page=page, user=user, priority=8)
+    yield PageListingMoveButton(page=page, user=user, priority=10)
+    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=20)
+    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=30)
     yield PageListingUnpublishButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=40,
+        page=page, user=user, next_url=next_url, priority=40
     )
-
-    yield PageListingHistoryButton(
-        page=page,
-        page_perms=page_perms,
-        priority=50,
-    )
-
-    yield PageListingSortMenuOrderButton(
-        page=page,
-        page_perms=page_perms,
-        priority=60,
-    )
+    yield PageListingHistoryButton(page=page, user=user, priority=50)
+    yield PageListingSortMenuOrderButton(page=page, user=user, priority=60)
 
 
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, user, view_name, next_url=None):
-    page_perms = page.permissions_for_user(user)
-    yield PageListingEditButton(
-        page=page,
-        page_perms=page_perms,
-        priority=10,
-    )
-
-    yield PageListingAddChildPageButton(
-        page=page,
-        page_perms=page_perms,
-        priority=15,
-    )
-
-    yield PageListingMoveButton(
-        page=page,
-        page_perms=page_perms,
-        priority=20,
-    )
-
-    yield PageListingCopyButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=30,
-    )
-
-    yield PageListingDeleteButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=50,
-    )
-
+    yield PageListingEditButton(page=page, user=user, priority=10)
+    yield PageListingAddChildPageButton(page=page, user=user, priority=15)
+    yield PageListingMoveButton(page=page, user=user, priority=20)
+    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=30)
+    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=50)
     yield PageListingUnpublishButton(
-        page=page,
-        page_perms=page_perms,
-        next_url=next_url,
-        priority=60,
+        page=page, user=user, next_url=next_url, priority=60
     )
-
-    yield PageListingHistoryButton(
-        page=page,
-        page_perms=page_perms,
-        priority=65,
-    )
-
-    yield PageListingSortMenuOrderButton(
-        page=page,
-        page_perms=page_perms,
-        priority=70,
-    )
+    yield PageListingHistoryButton(page=page, user=user, priority=65)
+    yield PageListingSortMenuOrderButton(page=page, user=user, priority=70)
 
 
 @hooks.register("register_admin_urls")
