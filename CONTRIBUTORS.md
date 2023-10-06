@@ -740,6 +740,7 @@
 * Dhrűv
 * Sandro Rodrigues
 * Brian Mugo
+* Panagiotis H.M. Issaris
 
 ## Translators
 

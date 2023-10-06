@@ -90,6 +90,7 @@ setup(
         "Changelog": "https://github.com/wagtail/wagtail/blob/main/CHANGELOG.txt",
         "Documentation": "https://docs.wagtail.org",
         "Source": "https://github.com/wagtail/wagtail",
+        "Tracker": "https://github.com/wagtail/wagtail/issues",
     },
     packages=find_packages(),
     include_package_data=True,
