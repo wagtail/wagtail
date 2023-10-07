@@ -376,14 +376,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        try:
-            self.subscription = PageSubscription.objects.get(
-                page=self.page, user=self.request.user
-            )
-        except PageSubscription.DoesNotExist:
-            self.subscription = PageSubscription(
-                page=self.page, user=self.request.user, comment_notifications=False
-            )
+        self.subscription, created = PageSubscription.objects.get_or_create(
+            page=self.page,
+            user=self.request.user,
+            defaults={
+                "comment_notifications": False,
+            },
+        )
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.form_class = self.edit_handler.get_form_class()
