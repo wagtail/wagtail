@@ -129,15 +129,15 @@ This prompts you to create a new admin user account with full permissions. It's 
 python manage.py runserver
 ```
 
-After the server starts, go to <http://localhost:8000> to see Wagtail’s welcome page:
+After the server starts, go to <http://127.0.0.1:8000> to see Wagtail’s welcome page:
 
 ![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg preceding the title, and links to different resources. The page shows inside a browser tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
 
 ```{note}
-This tutorial uses `http://localhost:8000` as the URL for your development server but depending on your setup, this could be a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct URL for your local site.
+This tutorial uses `http://127.0.0.1:8000` as the URL for your development server but depending on your setup, this could be a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct URL for your local site.
 ```
 
-You can now access the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) by logging into <http://localhost:8000/admin> with the username and password that you entered while creating an admin user with `createsuperuser`.
+You can now access the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) by logging into <http://127.0.0.1:8000/admin> with the username and password that you entered while creating an admin user with `createsuperuser`.
 
 ![Screenshot of Wagtail’s dashboard, with "Welcome to the mysite Wagtail CMS" heading, 1 page, 0 images, 0 documents. Underneath is a "Your most recent edits" section, with the Home page listed](../_static/images/tutorial/tutorial_2.png)
 
@@ -340,13 +340,13 @@ If you have a Django background, then you will notice that the `pageurl` tag is 
 
 Now that this is complete, here is how you can create a page from the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface):
 
-1.  Go to <http://localhost:8000/admin> and sign in with your admin user details.
+1.  Go to <http://127.0.0.1:8000/admin> and sign in with your admin user details.
 2.  In the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), go to Pages, then click Home.
 3.  Add a child page to the Home page by clicking **...** at the top of the screen and selecting the option **Add child page**.
 4.  Choose **Blog index page** from the list of the page types.
 5.  Use "Our Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
 
-You can now access the URL, <http://localhost:8000/blog> on your site. This gives you an error page showing "TemplateDoesNotExist" because you are yet to create a template for the new page. Also, note how the slug from the Promote tab defines the page URL.
+You can now access the URL, <http://127.0.0.1:8000/blog> on your site. This gives you an error page showing "TemplateDoesNotExist" because you are yet to create a template for the new page. Also, note how the slug from the Promote tab defines the page URL.
 
 Now create a model and template for your blog posts. Edit `blog/models.py` to include:
 
@@ -440,7 +440,7 @@ other page type.
 Publish each blog post when you are done editing.
 
 Congratulations! You now have the beginnings of a working blog. If you go to
-<http://localhost:8000/blog> in your browser, you can see all the posts that you created by following the preceding steps:
+<http://127.0.0.1:8000/blog> in your browser, you can see all the posts that you created by following the preceding steps:
 
 ![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
 
