@@ -68,6 +68,7 @@ Changelog
  * Fix: Ensure very long words can wrap when viewing saved comments (Chiemezuo Akujobi)
  * Fix: Avoid forgotten password link text conflicting with the supplied aria-label (Thibaud Colas)
  * Fix: Fix log message to record the correct restriction type when removing a page view restriction (Rohit Sharma, Hazh. M. Adam)
+ * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
