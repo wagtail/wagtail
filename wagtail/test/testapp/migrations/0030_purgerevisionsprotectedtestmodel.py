@@ -5,18 +5,32 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0089_log_entry_data_json_null_to_object'),
-        ('tests', '0029_variousondeletemodel_cascading_toy'),
+        ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
+        ("tests", "0029_variousondeletemodel_cascading_toy"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PurgeRevisionsProtectedTestModel',
+            name="PurgeRevisionsProtectedTestModel",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('revision', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.revision')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "revision",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="+",
+                        to="wagtailcore.revision",
+                    ),
+                ),
             ],
         ),
     ]
