@@ -24,10 +24,16 @@ from wagtail.models import (
 )
 
 
+def get_actions_for_filter():
+    # Only return those actions used by model log entries.
+    actions = set(ModelLogEntry.objects.all().get_actions())
+    return [action for action in log_registry.get_choices() if action[0] in actions]
+
+
 class HistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=gettext_lazy("Action"),
-        choices=log_registry.get_choices,
+        # choices are set dynamically in __init__()
     )
     user = django_filters.ModelChoiceFilter(
         label=gettext_lazy("User"),
@@ -41,6 +47,10 @@ class HistoryReportFilterSet(WagtailFilterSet):
     class Meta:
         model = ModelLogEntry
         fields = ["action", "user", "timestamp"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters["action"].extra["choices"] = get_actions_for_filter()
 
 
 class HistoryView(IndexView):
