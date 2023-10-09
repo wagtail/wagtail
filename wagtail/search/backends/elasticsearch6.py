@@ -169,17 +169,7 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             }
 
         else:
-            if len(fields) == 1:
-                return self._compile_query(self.query, fields[0])
-            else:
-                # Compile a query for each field then combine with disjunction
-                # max (or operator which takes the max score out of each of the
-                # field queries)
-                field_queries = []
-                for field in fields:
-                    field_queries.append(self._compile_query(self.query, field))
-
-                return {"dis_max": {"queries": field_queries}}
+            return self._join_and_compile_queries(self.query, fields)
 
 
 class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
