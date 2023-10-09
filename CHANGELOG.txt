@@ -5,7 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix `SnippetBulkAction` not respecting `models` definition (Sandro Rodrigues)
-
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
 
 5.1.2 (25.09.2023)
 ~~~~~~~~~~~~~~~~~~
