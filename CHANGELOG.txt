@@ -918,7 +918,7 @@ Changelog
  * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
  * Add clarity to the search indexing documentation for how `boost` works when using Postgres with the database search backend (Tibor Leupold)
  * Rename `explorer_breadcrumb` template tag to `breadcrumbs` as it is now used in multiple locations (Paarth Agarwal)
- * Updated `django-filter` version to support 23 (Yuekui)
+ * Updated `django-filter` version to support 22 (Yuekui)
  * Use `.iterator()` in a few more places in the admin, to make it more stable on sites with many pages (Andy Babic)
  * Migrate some simple React component files to TypeScript (LB (Ben) Johnston)
  * Deprecate the usage and documentation of the `wagtail.contrib.modeladmin.menus.SubMenu` class, provide a warning if used directing developers to use `wagtail.admin.menu.Menu` instead (Matt Westcott)
