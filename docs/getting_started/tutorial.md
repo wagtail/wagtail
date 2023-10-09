@@ -440,7 +440,7 @@ other page type.
 Publish each blog post when you are done editing.
 
 Congratulations! You now have the beginnings of a working blog. If you go to
-<http://localhost:8000/blog> in your browser, you can see all the posts that you created by following the preceding steps:
+<http://127.0.0.1:8000/blog> in your browser, you can see all the posts that you created by following the preceding steps:
 
 ![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
 
