@@ -24,7 +24,7 @@ class RevertToPageRevisionAction:
         revision,
         user=None,
         log_action="wagtail.revert",
-        submitted_for_moderation=False,
+        submitted_for_moderation=False,  # RemovedInWagtail60Warning
         approved_go_live_at=None,
         changed=True,
         clean=True,

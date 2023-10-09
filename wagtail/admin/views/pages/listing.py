@@ -6,7 +6,10 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.side_panels import (
+    PageStatusSidePanel,
+)
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
@@ -44,14 +47,13 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             "title",
             label=_("Title"),
             sort_key="title",
-            classname="align-top title",
+            classname="title",
         ),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
             width="12%",
-            classname="align-top",
         ),
         Column(
             "type",
@@ -59,14 +61,12 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             accessor="page_type_display_name",
             sort_key="content_type",
             width="12%",
-            classname="align-top",
         ),
         PageStatusColumn(
             "status",
             label=_("Status"),
             sort_key="live",
             width="12%",
-            classname="align-top",
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]
@@ -89,6 +89,17 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             return redirect("wagtailadmin_explore", root_page.pk)
 
         self.parent_page = self.parent_page.specific
+        self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
+
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and not self.parent_page.is_root()
+        ):
+            self.locale = self.parent_page.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
 
         return super().get(request)
 
@@ -179,6 +190,20 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             }
         return kwargs
 
+    def get_side_panels(self):
+        side_panels = [
+            PageStatusSidePanel(
+                self.parent_page.get_latest_revision_as_object(),
+                self.request,
+                show_schedule_publishing_toggle=False,
+                live_object=self.parent_page,
+                scheduled_object=self.scheduled_page,
+                locale=self.locale,
+                translations=self.translations,
+            ),
+        ]
+        return MediaContainer(side_panels)
+
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
         if self.show_ordering_column:
@@ -187,45 +212,27 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         context = super().get_context_data(**kwargs)
-
-        side_panels = PageSidePanels(
-            self.request,
-            self.parent_page.get_latest_revision_as_object(),
-            show_schedule_publishing_toggle=False,
-            live_page=self.parent_page,
-            scheduled_page=self.parent_page.get_scheduled_revision_as_object(),
-            in_explorer=True,
-            preview_enabled=False,
-            comments_enabled=False,
-        )
+        side_panels = self.get_side_panels()
 
         context.update(
             {
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
                 "side_panels": side_panels,
-                "locale": None,
-                "translations": [],
+                "media": side_panels.media,
                 "index_url": self.get_index_url(),
             }
         )
 
-        if self.i18n_enabled and not self.parent_page.is_root():
-            context.update(
-                {
-                    "locale": self.parent_page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailadmin_explore", args=[translation.id]
-                            ),
-                        }
-                        for translation in self.parent_page.get_translations()
-                        .only("id", "locale")
-                        .select_related("locale")
-                    ],
-                }
-            )
-
         return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_explore", args=[translation.id]),
+            }
+            for translation in self.parent_page.get_translations()
+            .only("id", "locale")
+            .select_related("locale")
+        ]

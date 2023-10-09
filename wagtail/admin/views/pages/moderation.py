@@ -1,3 +1,5 @@
+import warnings
+
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -7,6 +9,7 @@ from django.views.decorators.http import require_GET
 from wagtail.admin import messages
 from wagtail.admin.mail import send_moderation_notification
 from wagtail.models import Revision
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 def approve_moderation(request, revision_id):
@@ -108,6 +111,18 @@ def preview_for_moderation(request, revision_id):
         return redirect("wagtailadmin_home")
 
     page = revision.as_object()
+    page_type = page._meta.verbose_name
+    page_title = page.get_admin_display_title()
+
+    warnings.warn(
+        f"The {page_type} '{page_title}' is undergoing moderation in "
+        "the legacy moderation system. Complete the moderation of this page "
+        "before upgrading Wagtail. Support for the legacy moderation system "
+        "will be completely removed in a future release. For more details, "
+        "refer to "
+        "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
+        RemovedInWagtail60Warning,
+    )
 
     try:
         preview_mode = page.default_preview_mode

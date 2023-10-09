@@ -25,8 +25,7 @@ describe('AutosizeController', () => {
       <textarea
         data-controller="w-autosize"
         id="text"
-      ></textarea>
-      `;
+      ></textarea>`;
     });
 
     afterEach(() => {

@@ -1,5 +1,9 @@
+/* eslint no-restricted-globals: ["error", { "name": "jest", "message": "jest is not available in Storybook." }] */
+
 /**
- * Test stubs to mirror available global variables.
+ * Test stubs to mirror available global variables in Jest tests
+ * and Storybook, avoid using the jest global as this is not
+ * available in Storybook.
  * Those variables usually come from the back-end via templates.
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
@@ -62,7 +66,7 @@ class PageChooserModal {}
 global.PageChooserModal = PageChooserModal;
 
 /** Mock window.scrollTo as not provided via JSDom */
-window.scrollTo = jest.fn();
+window.scrollTo = () => {};
 
 /** Mock console.warn to filter out warnings from React due to Draftail legacy Component API usage.
  * Draftail/Draft-js is unlikely to support these and the warnings are not useful for unit test output.

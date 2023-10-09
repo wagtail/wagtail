@@ -98,14 +98,14 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
     url,
     attrs,
     icon_name: iconName = null,
-    classnames = undefined,
+    classname = undefined,
   }) {
     this.name = name;
     this.label = label;
     this.url = url;
     this.attrs = attrs;
     this.iconName = iconName;
-    this.classNames = classnames;
+    this.classNames = classname;
   }
 
   render({ path, slim, state, dispatch, navigate }) {

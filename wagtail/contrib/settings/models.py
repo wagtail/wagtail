@@ -131,6 +131,12 @@ class BaseSiteSetting(AbstractSetting):
         setattr(request, attr_name, site_settings)
         return site_settings
 
+    def __getstate__(self):
+        # Leave out _request from the pickled state
+        state = super().__getstate__()
+        state.pop("_request", None)
+        return state
+
     @classmethod
     def for_site(cls, site):
         """

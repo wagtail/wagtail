@@ -1,13 +1,26 @@
 import datetime
 from io import BytesIO
 
+from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.formats import date_format
+from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
-from wagtail.test.testapp.models import FeatureCompleteToy, JSONStreamModel
+from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.models import ModelLogEntry
+from wagtail.test.testapp.models import (
+    FeatureCompleteToy,
+    JSONStreamModel,
+    VariousOnDeleteModel,
+)
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -609,10 +622,10 @@ class TestOrdering(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         objects = [
-            FeatureCompleteToy(name="CCCCCCCCCC"),
-            FeatureCompleteToy(name="AAAAAAAAAA"),
-            FeatureCompleteToy(name="DDDDDDDDDD"),
-            FeatureCompleteToy(name="BBBBBBBBBB"),
+            FeatureCompleteToy(name="CCCCCCCCCC", strid="1"),
+            FeatureCompleteToy(name="AAAAAAAAAA", strid="2"),
+            FeatureCompleteToy(name="DDDDDDDDDD", strid="3"),
+            FeatureCompleteToy(name="BBBBBBBBBB", strid="4"),
         ]
         FeatureCompleteToy.objects.bulk_create(objects)
 
@@ -643,3 +656,429 @@ class TestOrdering(WagtailTestUtils, TestCase):
                 "DDDDDDDDDD",
             ],
         )
+
+
+class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def test_index_view(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        items = [
+            {
+                "url": "",
+                "label": "Feature complete toys",
+            }
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_add_view(self):
+        response = self.client.get(reverse("feature_complete_toy:add"))
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": "",
+                "label": "New: Feature complete toy",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_edit_view(self):
+        edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": "",
+                "label": str(self.object),
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_delete_view(self):
+        delete_url = reverse(
+            "feature_complete_toy:delete",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(delete_url)
+        self.assertBreadcrumbsNotRendered(response.content)
+
+    def test_history_view(self):
+        history_url = reverse(
+            "feature_complete_toy:history",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(history_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": reverse(
+                    "feature_complete_toy:edit", args=(quote(self.object.pk),)
+                ),
+                "label": str(self.object),
+            },
+            {
+                "url": "",
+                "label": "History",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view(self):
+        usage_url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(usage_url)
+        items = [
+            {
+                "url": reverse("feature_complete_toy:index"),
+                "label": "Feature complete toys",
+            },
+            {
+                "url": reverse(
+                    "feature_complete_toy:edit", args=(quote(self.object.pk),)
+                ),
+                "label": str(self.object),
+            },
+            {
+                "url": "",
+                "label": "Usage",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+
+class TestLegacyPatterns(WagtailTestUtils, TestCase):
+    # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
+
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = JSONStreamModel.objects.create(
+            body='[{"type": "text", "value": "foo"}]',
+        )
+
+    def test_legacy_edit(self):
+        edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
+        legacy_edit_url = "/admin/streammodel/1/"
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
+        ):
+            response = self.client.get(legacy_edit_url)
+        self.assertEqual(edit_url, "/admin/streammodel/edit/1/")
+        self.assertRedirects(response, edit_url, 301)
+
+    def test_legacy_delete(self):
+        delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
+        legacy_delete_url = "/admin/streammodel/1/delete/"
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
+        ):
+            response = self.client.get(legacy_delete_url)
+        self.assertEqual(delete_url, "/admin/streammodel/delete/1/")
+        self.assertRedirects(response, delete_url, 301)
+
+
+class TestHistoryView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = cls.create_test_user()
+        cls.object = FeatureCompleteToy.objects.create(name="Buzz")
+        cls.url = reverse(
+            "feature_complete_toy:history",
+            args=(quote(cls.object.pk),),
+        )
+
+        content_type = ContentType.objects.get_for_model(FeatureCompleteToy)
+        cls.timestamp_1 = datetime.datetime(2021, 9, 30, 10, 1, 0)
+        cls.timestamp_2 = datetime.datetime(2022, 5, 10, 12, 34, 0)
+        if settings.USE_TZ:
+            cls.timestamp_1 = make_aware(cls.timestamp_1)
+            cls.timestamp_2 = make_aware(cls.timestamp_2)
+        ModelLogEntry.objects.create(
+            content_type=content_type,
+            label="Test Buzz",
+            action="wagtail.create",
+            user=cls.user,
+            timestamp=cls.timestamp_1,
+            object_id=cls.object.pk,
+        )
+        ModelLogEntry.objects.create(
+            content_type=content_type,
+            label="Test Buzz Updated",
+            action="wagtail.edit",
+            user=cls.user,
+            timestamp=cls.timestamp_2,
+            object_id=cls.object.pk,
+        )
+
+    def setUp(self):
+        self.login(self.user)
+
+    def test_simple(self):
+        expected = (
+            ("Edited", str(self.user), date_format(self.timestamp_2, "c")),
+            ("Created", str(self.user), date_format(self.timestamp_1, "c")),
+        )
+        response = self.client.get(self.url)
+        soup = self.get_soup(response.content)
+        rows = soup.select("tbody tr")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(rows), 2)
+
+        rendered_rows = []
+        for row in rows:
+            cells = []
+            tds = row.select("td")
+            self.assertEqual(len(tds), 3)
+            cells.append(tds[0].text.strip())
+            cells.append(tds[1].text.strip())
+            cells.append(tds[2].select_one("time").attrs.get("datetime"))
+            rendered_rows.append(cells)
+
+        for rendered_row, expected_row in zip(rendered_rows, expected):
+            self.assertSequenceEqual(rendered_row, expected_row)
+
+    def test_filters(self):
+        response = self.client.get(self.url, {"action": "wagtail.edit"})
+        soup = self.get_soup(response.content)
+        rows = soup.select("tbody tr")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0].select_one("td").text.strip(), "Edited")
+
+        response = self.client.get(self.url, {"action": "wagtail.create"})
+        soup = self.get_soup(response.content)
+        rows = soup.select("tbody tr")
+        heading = soup.select_one("h2")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(heading.text.strip(), "There is 1 match")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
+
+    def test_empty(self):
+        ModelLogEntry.objects.all().delete()
+        response = self.client.get(self.url)
+        soup = self.get_soup(response.content)
+        results = soup.select_one("#listing-results")
+        table = soup.select_one("table")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(results)
+        self.assertEqual(results.text.strip(), "No log entries found.")
+        self.assertIsNone(table)
+
+    def test_edit_view_links_to_history_view(self):
+        edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        soup = self.get_soup(response.content)
+        header = soup.select_one(".w-slim-header")
+        history_link = header.find("a", attrs={"href": self.url})
+        self.assertIsNotNone(history_link)
+
+
+class TestUsageView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = cls.create_test_user()
+        cls.object = FeatureCompleteToy.objects.create(name="Buzz")
+        cls.url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(cls.object.pk),),
+        )
+        cls.tbx = VariousOnDeleteModel.objects.create(
+            text="Toybox", cascading_toy=cls.object
+        )
+
+    def setUp(self):
+        self.user = self.login(self.user)
+
+    def test_simple(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), str(self.tbx))
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(tds[2].text.strip(), "Cascading toy")
+
+        tbx_edit_url = AdminURLFinder(self.user).get_edit_url(self.tbx)
+
+        # Link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+
+        # Link to referrer's edit view with parameters for the specific field
+        link = tds[2].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+    def test_usage_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_usage_without_permission_on_referrer(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        toy_edit_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_featurecompletetoy"
+        )
+        self.user.user_permissions.add(admin_permission, toy_edit_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), "(Private various on delete model)")
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(tds[2].text.strip(), "Cascading toy")
+
+        # Not link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNone(link)
+
+        # Not link to referrer's edit view
+        link = tds[2].select_one("a")
+        self.assertIsNone(link)
+
+    def test_usage_with_describe_on_delete(self):
+        response = self.client.get(self.url + "?describe_on_delete=1")
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        h1 = soup.select_one("h1")
+        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+
+        tds = soup.select("tbody tr td")
+        self.assertEqual(len(tds), 3)
+        self.assertEqual(tds[0].text.strip(), str(self.tbx))
+        self.assertEqual(tds[1].text.strip(), "Various on delete model")
+        self.assertEqual(
+            tds[2].text.strip(),
+            "Cascading toy: the various on delete model will also be deleted",
+        )
+
+        tbx_edit_url = AdminURLFinder(self.user).get_edit_url(self.tbx)
+
+        # Link to referrer's edit view
+        link = tds[0].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+
+        # Link to referrer's edit view with parameters for the specific field
+        link = tds[2].select_one("a")
+        self.assertIsNotNone(link)
+        self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+    def test_empty(self):
+        self.tbx.delete()
+        response = self.client.get(self.url)
+        soup = self.get_soup(response.content)
+        results = soup.select_one("#listing-results")
+        table = soup.select_one("table")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(results)
+        self.assertEqual(results.text.strip(), "There are no results.")
+        self.assertIsNone(table)
+
+    def test_edit_view_links_to_usage_view(self):
+        edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        soup = self.get_soup(response.content)
+        side_panel = soup.select_one("[data-side-panel='status']")
+        usage_link = side_panel.find("a", attrs={"href": self.url})
+        self.assertIsNotNone(usage_link)
+
+    def test_delete_view_links_to_usage_view(self):
+        edit_url = reverse("feature_complete_toy:delete", args=(quote(self.object.pk),))
+        response = self.client.get(edit_url)
+        soup = self.get_soup(response.content)
+        usage_link = soup.find("a", attrs={"href": self.url + "?describe_on_delete=1"})
+        self.assertIsNotNone(usage_link)
+
+
+class TestListingButtons(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def test_simple(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
+        self.assertIsNotNone(more_dropdown)
+        more_button = more_dropdown.select_one("button")
+        self.assertEqual(
+            more_button.attrs.get("aria-label").strip(),
+            f"More options for '{self.object}'",
+        )
+
+        expected_buttons = [
+            (
+                "Edit",
+                f"Edit '{self.object}'",
+                reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Delete",
+                f"Delete '{self.object}'",
+                reverse("feature_complete_toy:delete", args=[quote(self.object.pk)]),
+            ),
+        ]
+
+        rendered_buttons = more_dropdown.select("a")
+        self.assertEqual(len(rendered_buttons), len(expected_buttons))
+
+        for rendered_button, (label, aria_label, url) in zip(
+            rendered_buttons, expected_buttons
+        ):
+            self.assertEqual(rendered_button.text.strip(), label)
+            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
+            self.assertEqual(rendered_button.attrs.get("href"), url)

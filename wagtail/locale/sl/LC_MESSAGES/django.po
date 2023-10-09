@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -106,6 +106,10 @@ msgstr "Zaklenjeno s vaše strani"
 
 msgid "Locked by another user"
 msgstr "Zaklenil drug uporabnik"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Ko je %(model_name)s zaklenjen, lahko spreminja le %(user)s"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
@@ -549,6 +553,12 @@ msgstr "bo nastavljen na privzet %(model_name)s"
 msgid "will do nothing"
 msgstr "ne bo naredil nič"
 
+msgid "may prevent deletion"
+msgstr "lahko prepreči izbris"
+
+msgid "will unset the reference"
+msgstr "bo razveljavilo referenco"
+
 msgid "hostname"
 msgstr "ime strežnika"
 
@@ -642,6 +652,14 @@ msgstr "Za dostop do te strani potrebujete geslo."
 
 msgid "Continue"
 msgstr "Nadaljuj"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s zbirka potomcev"
+msgstr[1] "%(count)s zbirki potomcev"
+msgstr[2] "%(count)s zbirk potomcev"
+msgstr[3] "%(count)s zbirk potomcev"
 
 msgid "Create"
 msgstr "Ustvari"
@@ -775,6 +793,10 @@ msgstr "Stran je načrtovana za objavo"
 
 msgid "Unschedule publication"
 msgstr "Prekliči objavo"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Stran ni predvidena za objavo ob %(go_live_at)s"
 
 msgid "Page unscheduled from publishing"
 msgstr "Načrtovana objava strani odstranjena"

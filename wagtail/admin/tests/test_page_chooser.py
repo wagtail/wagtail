@@ -1,4 +1,5 @@
 import json
+import urllib.parse as urlparse
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings
@@ -868,6 +869,79 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
             result["title"], "contact"
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+    def test_create_link_with_subject_and_body(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-subject": "Awesome Subject",
+                "email-link-chooser-body": "An example body",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(
+            url,
+            "mailto:example@example.com?subject=Awesome%20Subject&body=An%20example%20body",
+        )
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["subject"][0], "Awesome Subject")
+        self.assertEqual(query["body"][0], "An example body")
+
+    def test_create_link_with_subject_only(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-subject": "Awesome Subject",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(url, "mailto:example@example.com?subject=Awesome%20Subject")
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["subject"][0], "Awesome Subject")
+        self.assertTrue("body" not in query)
+
+    def test_create_link_with_body_only(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-body": "An example body",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(url, "mailto:example@example.com?body=An%20example%20body")
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["body"][0], "An example body")
+        self.assertTrue("subject" not in query)
 
     def test_create_link_without_text(self):
         response = self.post(

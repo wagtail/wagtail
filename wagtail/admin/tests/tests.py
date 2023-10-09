@@ -37,13 +37,13 @@ class TestHome(WagtailTestUtils, TestCase):
         # check that custom menu items (including classname / icon_name) are pulled in
         self.assertContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classname": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
         # Check that the explorer menu item is here, with the right start page.
         self.assertContains(
             response,
-            '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
+            '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classname": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
         )
 
         # There should be a link to the friend admin in on the home page.
@@ -56,7 +56,7 @@ class TestHome(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home") + "?hide-kittens=true")
         self.assertNotContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classname": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
     def test_dashboard_panels(self):
@@ -408,6 +408,26 @@ class TestMenuItem(WagtailTestUtils, TestCase):
     def test_menuitem_reverse_lazy_url_pass(self):
         menuitem = MenuItem(_("Test"), reverse_lazy("wagtailadmin_home"))
         self.assertIs(menuitem.is_active(self.request), True)
+
+    def test_menuitem_with_classname(self):
+        menuitem = MenuItem(
+            _("Test"),
+            reverse_lazy("wagtailadmin_home"),
+            classname="highlight-item",
+        )
+        self.assertEqual(menuitem.classname, "highlight-item")
+
+    def test_menuitem_with_deprecated_classnames(self):
+        with self.assertWarnsRegex(
+            RemovedInWagtail60Warning,
+            "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
+        ):
+            menuitem = MenuItem(
+                _("Test"),
+                reverse_lazy("wagtailadmin_home"),
+                classnames="is-dimmed",
+            )
+        self.assertEqual(menuitem.classname, "is-dimmed")
 
 
 class TestUserPassesTestPermissionDecorator(WagtailTestUtils, TestCase):

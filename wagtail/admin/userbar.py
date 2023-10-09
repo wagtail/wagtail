@@ -1,5 +1,9 @@
+import warnings
+
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class BaseItem:
@@ -261,6 +265,13 @@ class ModeratePageItem(BaseItem):
             request.user
         ).can_publish():
             return ""
+
+        warnings.warn(
+            f"{self.__class__.__name__} is deprecated. "
+            "If you explicitly use this in your code, remove it from your "
+            "construct_wagtail_userbar hook.",
+            RemovedInWagtail60Warning,
+        )
 
         return super().render(request)
 

@@ -19,7 +19,7 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.html import avoid_wrapping, json_script
+from django.utils.html import avoid_wrapping, conditional_escape, json_script
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
@@ -39,7 +39,7 @@ from wagtail.admin.utils import (
     get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
-from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
     camelcase_to_underscore,
     escape_script,
@@ -65,8 +65,13 @@ register.filter("intcomma", intcomma)
 register.filter("naturaltime", naturaltime)
 
 
-@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html", takes_context=True)
-def breadcrumbs(
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
+def breadcrumbs(items, is_expanded=False, classname=None):
+    return {"items": items, "is_expanded": is_expanded, "classname": classname}
+
+
+@register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
+def page_breadcrumbs(
     context,
     page,
     url_name,
@@ -84,10 +89,10 @@ def breadcrumbs(
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
     cca = PagePermissionPolicy().explorable_root_instance(user)
     if not cca:
-        return {"pages": Page.objects.none()}
+        return {"items": Page.objects.none()}
 
     return {
-        "pages": page.get_ancestors(inclusive=include_self)
+        "items": page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
         .specific(),
         "current_page": page,
@@ -309,6 +314,10 @@ class EscapeScriptNode(template.Node):
 
     def __init__(self, nodelist):
         super().__init__()
+        warn(
+            "The `escapescript` template tag is deprecated - use `template` elements instead.",
+            category=RemovedInWagtail60Warning,
+        )
         self.nodelist = nodelist
 
     def render(self, context):
@@ -452,7 +461,7 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms):
     next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
@@ -480,36 +489,22 @@ def page_header_buttons(context, page, page_perms):
     for hook in button_hooks:
         buttons.extend(hook(page, page_perms, next_url))
 
+    buttons = [b for b in buttons if b.show]
     buttons.sort()
     return {
-        "page": page,
         "buttons": buttons,
-        "title": _("Actions"),
-        "icon_name": "dots-horizontal",
-        "button_classes": [
-            "w-p-0",
-            "w-w-12",
-            "w-h-slim-header",
-            "hover:w-scale-110",
-            "w-transition",
-            "w-outline-offset-inside",
-            "w-relative",
-            "w-z-30",
-        ],
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
     bulk_actions_list = list(
         bulk_action_registry.get_bulk_actions_for_model(app_label, model_name)
     )
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
-    bulk_action_more_list = []
-    if len(bulk_actions_list) > 4:
-        bulk_action_more_list = bulk_actions_list[4:]
-        bulk_actions_list = bulk_actions_list[:4]
+    bulk_action_more_list = bulk_actions_list[4:]
+    bulk_actions_list = bulk_actions_list[:4]
 
     next_url = get_valid_next_url_from_request(context["request"])
     if not next_url:
@@ -525,7 +520,7 @@ def bulk_action_choices(context, app_label, model_name):
             + urlencode({"next": next_url}),
             attrs={"aria-label": action.aria_label},
             priority=action.action_priority,
-            classes=action.classes | {"bulk-action-btn"},
+            classname=" ".join(action.classes | {"bulk-action-btn"}),
         )
         for action in bulk_actions_list
     ]
@@ -534,20 +529,20 @@ def bulk_action_choices(context, app_label, model_name):
         more_button = ButtonWithDropdown(
             label=_("More"),
             attrs={"title": _("More bulk actions")},
-            button_classes={"button", "button-secondary", "button-small"},
-            buttons_data=[
-                {
-                    "label": action.display_name,
-                    "url": reverse(
+            classname="button button-secondary button-small",
+            buttons=[
+                Button(
+                    label=action.display_name,
+                    url=reverse(
                         "wagtail_bulk_action",
                         args=[app_label, model_name, action.action_type],
                     )
                     + "?"
                     + urlencode({"next": next_url}),
-                    "attrs": {"aria-label": action.aria_label},
-                    "priority": action.action_priority,
-                    "classes": {"bulk-action-btn"},
-                }
+                    attrs={"aria-label": action.aria_label},
+                    priority=action.action_priority,
+                    classname="bulk-action-btn",
+                )
                 for action in bulk_action_more_list
             ],
         )
@@ -975,21 +970,107 @@ def resolve_url(url):
         return ""
 
 
-@register.simple_tag(takes_context=True)
-def component(context, obj, fallback_render_method=False):
-    # Render a component by calling its render_html method, passing request and context from the
-    # calling template.
-    # If fallback_render_method is true, objects without a render_html method will have render()
-    # called instead (with no arguments) - this is to provide deprecation path for things that have
-    # been newly upgraded to use the component pattern.
+class ComponentNode(template.Node):
+    def __init__(
+        self,
+        component,
+        extra_context=None,
+        isolated_context=False,
+        fallback_render_method=None,
+        target_var=None,
+    ):
+        self.component = component
+        self.extra_context = extra_context or {}
+        self.isolated_context = isolated_context
+        self.fallback_render_method = fallback_render_method
+        self.target_var = target_var
 
-    has_render_html_method = hasattr(obj, "render_html")
-    if fallback_render_method and not has_render_html_method and hasattr(obj, "render"):
-        return obj.render()
-    elif not has_render_html_method:
-        raise ValueError(f"Cannot render {obj!r} as a component")
+    def render(self, context: Context) -> str:
+        # Render a component by calling its render_html method, passing request and context from the
+        # calling template.
+        # If fallback_render_method is true, objects without a render_html method will have render()
+        # called instead (with no arguments) - this is to provide deprecation path for things that have
+        # been newly upgraded to use the component pattern.
 
-    return obj.render_html(context)
+        component = self.component.resolve(context)
+
+        if self.fallback_render_method:
+            fallback_render_method = self.fallback_render_method.resolve(context)
+        else:
+            fallback_render_method = False
+
+        values = {
+            name: var.resolve(context) for name, var in self.extra_context.items()
+        }
+
+        if hasattr(component, "render_html"):
+            if self.isolated_context:
+                html = component.render_html(context.new(values))
+            else:
+                with context.push(**values):
+                    html = component.render_html(context)
+        elif fallback_render_method and hasattr(component, "render"):
+            html = component.render()
+        else:
+            raise ValueError(f"Cannot render {component!r} as a component")
+
+        if self.target_var:
+            context[self.target_var] = html
+            return ""
+        else:
+            if context.autoescape:
+                html = conditional_escape(html)
+            return html
+
+
+@register.tag(name="component")
+def component(parser, token):
+    bits = token.split_contents()[1:]
+    if not bits:
+        raise template.TemplateSyntaxError(
+            "'component' tag requires at least one argument, the component object"
+        )
+
+    component = parser.compile_filter(bits.pop(0))
+
+    # the only valid keyword argument immediately following the component
+    # is fallback_render_method
+    flags = token_kwargs(bits, parser)
+    fallback_render_method = flags.pop("fallback_render_method", None)
+    if flags:
+        raise template.TemplateSyntaxError(
+            "'component' tag only accepts 'fallback_render_method' as a keyword argument"
+        )
+
+    extra_context = {}
+    isolated_context = False
+    target_var = None
+
+    while bits:
+        bit = bits.pop(0)
+        if bit == "with":
+            extra_context = token_kwargs(bits, parser)
+        elif bit == "only":
+            isolated_context = True
+        elif bit == "as":
+            try:
+                target_var = bits.pop(0)
+            except IndexError:
+                raise template.TemplateSyntaxError(
+                    "'component' tag with 'as' must be followed by a variable name"
+                )
+        else:
+            raise template.TemplateSyntaxError(
+                "'component' tag received an unknown argument: %r" % bit
+            )
+
+    return ComponentNode(
+        component,
+        extra_context=extra_context,
+        isolated_context=isolated_context,
+        fallback_render_method=fallback_render_method,
+        target_var=target_var,
+    )
 
 
 class FragmentNode(template.Node):
@@ -1196,8 +1277,9 @@ def workflow_status_with_date(workflow_state):
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
-def human_readable_date(date, description=None):
+def human_readable_date(date, description=None, placement="top"):
     return {
         "date": date,
         "description": description,
+        "placement": placement,
     }

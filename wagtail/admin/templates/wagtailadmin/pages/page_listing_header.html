@@ -7,7 +7,7 @@
         {{ title }}
     </h1>
     {# breadcrumbs #}
-    {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-3 lg:w-py-7' %}
+    {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-3 lg:w-py-7' %}
     {# Actions divider #}
     <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
     {# Page actions dropdown #}
@@ -18,17 +18,14 @@
         {% include "wagtailadmin/shared/side_panel_toggles.html" %}
         {# Page history #}
         {% if parent_page.get_latest_revision %}
-            <a href="{% url 'wagtailadmin_pages:history' parent_page.id %}"
-                class="{{ nav_icon_button_classes }}"
-                data-tippy-content="{% trans 'History' %}"
-                data-tippy-offset="[0, 0]"
-                data-tippy-placement="bottom"
-                aria-label="{% trans 'History' %}"
-            >
-                {% icon name="history" classname=nav_icon_classes %}
-            </a>
+            {% url 'wagtailadmin_pages:history' parent_page.id as history_url %}
+            {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
         {% endif %}
 
         {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
     {% endif %}
 {% endblock %}
+
+{% block side_panels %}
+    {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
+{% endblock side_panels %}

@@ -16,7 +16,7 @@
 {% endif %}
 
 {% querystring p=None as querystring_value %}
-{% breadcrumbs parent_page 'wagtailadmin_choose_page_child' include_self=False is_expanded=True querystring_value=querystring_value %}
+{% page_breadcrumbs parent_page 'wagtailadmin_choose_page_child' include_self=False is_expanded=True querystring_value=querystring_value %}
 
 {% component table %}
 

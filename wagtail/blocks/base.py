@@ -614,7 +614,7 @@ class BlockField(forms.Field):
         )
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=None)
 def get_help_icon():
     return render_to_string(
         "wagtailadmin/shared/icon.html", {"name": "help", "classname": "default"}

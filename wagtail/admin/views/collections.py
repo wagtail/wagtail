@@ -29,6 +29,7 @@ class Index(IndexView):
 
 class Create(CreateView):
     permission_policy = collection_permission_policy
+    model = Collection
     form_class = CollectionForm
     page_title = gettext_lazy("Add collection")
     success_message = gettext_lazy("Collection '%(object)s' created.")
@@ -138,6 +139,7 @@ class Delete(DeleteView):
     model = Collection
     success_message = gettext_lazy("Collection '%(object)s' deleted.")
     index_url_name = "wagtailadmin_collections:index"
+    edit_url_name = "wagtailadmin_collections:edit"
     delete_url_name = "wagtailadmin_collections:delete"
     page_title = gettext_lazy("Delete collection")
     confirmation_message = gettext_lazy(

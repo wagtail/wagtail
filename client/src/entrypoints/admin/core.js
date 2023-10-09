@@ -9,7 +9,7 @@ window.Stimulus = initStimulus({ definitions: coreControllerDefinitions });
 
 window.escapeHtml = escapeHtml;
 
-/*
+/**
  * Enables a "dirty form check", prompting the user if they are navigating away
  * from a page with unsaved changes, as well as optionally controlling other
  * behaviour via a callback
@@ -27,20 +27,29 @@ window.escapeHtml = escapeHtml;
  *  - callback - A function to be run when the dirty status of the form, or the comments
  *    system (if using) changes, taking formDirty, commentsDirty as arguments
  */
-
 function enableDirtyFormCheck(formSelector, options) {
   const $form = $(formSelector);
   const confirmationMessage = options.confirmationMessage || ' ';
   const alwaysDirty = options.alwaysDirty || false;
   const commentApp = options.commentApp || null;
-  const callback = options.callback || null;
   let initialData = null;
   let formSubmitted = false;
 
   const updateCallback = (formDirty, commentsDirty) => {
-    if (callback) {
-      callback(formDirty, commentsDirty);
+    if (!formDirty && !commentsDirty) {
+      document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
+      return;
     }
+
+    const [type] = [
+      formDirty && commentsDirty && 'all',
+      commentsDirty && 'comments',
+      formDirty && 'edits',
+    ].filter(Boolean);
+
+    document.dispatchEvent(
+      new CustomEvent('w-unsaved:add', { detail: { type } }),
+    );
   };
 
   $form.on('submit', () => {

@@ -1,4 +1,4 @@
-from functools import total_ordering
+from warnings import warn
 
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
@@ -9,18 +9,31 @@ from django.utils.text import slugify
 
 from wagtail import hooks
 from wagtail.admin.forms.search import SearchForm
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
-@total_ordering
 class SearchArea(metaclass=MediaDefiningClass):
     template = "wagtailadmin/shared/search_area.html"
 
     def __init__(
-        self, label, url, name=None, classnames="", icon_name="", attrs=None, order=1000
+        self,
+        label,
+        url,
+        name=None,
+        classname="",
+        classnames="",
+        icon_name="",
+        attrs=None,
+        order=1000,
     ):
+        if classnames:
+            warn(
+                "The `classnames` kwarg for SearchArea is deprecated - use `classname` instead.",
+                category=RemovedInWagtail60Warning,
+            )
         self.label = label
         self.url = url
-        self.classnames = classnames
+        self.classname = classname or classnames
         self.icon_name = icon_name
         self.name = name or slugify(str(label))
         self.order = order
@@ -31,9 +44,28 @@ class SearchArea(metaclass=MediaDefiningClass):
             self.attr_string = ""
 
     def __lt__(self, other):
+        if not isinstance(other, SearchArea):
+            return NotImplemented
         return (self.order, self.label) < (other.order, other.label)
 
+    def __le__(self, other):
+        if not isinstance(other, SearchArea):
+            return NotImplemented
+        return (self.order, self.label) <= (other.order, other.label)
+
+    def __gt__(self, other):
+        if not isinstance(other, SearchArea):
+            return NotImplemented
+        return (self.order, self.label) > (other.order, other.label)
+
+    def __ge__(self, other):
+        if not isinstance(other, SearchArea):
+            return NotImplemented
+        return (self.order, self.label) >= (other.order, other.label)
+
     def __eq__(self, other):
+        if not isinstance(other, SearchArea):
+            return NotImplemented
         return (self.order, self.label) == (other.order, other.label)
 
     def is_shown(self, request):
@@ -55,7 +87,7 @@ class SearchArea(metaclass=MediaDefiningClass):
             {
                 "name": self.name,
                 "url": self.url,
-                "classnames": self.classnames,
+                "classname": self.classname,
                 "icon_name": self.icon_name,
                 "attr_string": self.attr_string,
                 "label": self.label,

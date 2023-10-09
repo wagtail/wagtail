@@ -1,0 +1,32 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Apoorv Saini, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Apoorv Saini, 2023\n"
+"Language-Team: Hindi (http://app.transifex.com/torchbox/wagtail/language/"
+"hi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "मूलचर"
+
+msgid "Editing"
+msgstr "संपादन"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "यह सेटिंग खोली नहीं जा सकती क्योंकि कोई साइट परिभाषित नहीं है।"
+
+msgid "The setting could not be saved due to errors."
+msgstr "यह सेटिंग त्रुटियों के कारण सहेजी नहीं जा सकी।"

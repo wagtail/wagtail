@@ -273,6 +273,9 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
 
+        # Check if the default title exists
+        self.assertContains(response, "Name and Email")
+
     def test_change_name_post(self):
         response = self.post_form(
             {
@@ -331,6 +334,11 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/account/account.html")
         self.assertNotContains(response, "id_name_email-email")
+
+        # Check if the default title does not exist
+        self.assertNotContains(response, "Name and Email")
+        # When WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False, Check if title is "Name"
+        self.assertContains(response, "Name")
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):

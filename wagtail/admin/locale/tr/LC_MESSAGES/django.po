@@ -9,6 +9,7 @@
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Fatih Koç koç <fatihinemaili@gmail.com>, 2021
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
+# Halit Çelik, 2023
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
+"Last-Translator: Halit Çelik, 2023\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +45,12 @@ msgstr "Tekrar gönderildi %(task_name)s"
 msgid "Submit to %(workflow_name)s"
 msgstr "Gönderildi %(workflow_name)s"
 
+msgid "Restart workflow "
+msgstr " İş akışını yenile"
+
+msgid "Cancel workflow "
+msgstr " İş akışını iptal et"
+
 msgid "Unpublish"
 msgstr "Yayından Kaldır"
 
@@ -52,6 +59,10 @@ msgstr "Taslak Olarak Kaydet"
 
 msgid "Page locked"
 msgstr "Sayfa kilitlendi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ve yayınla"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Yönetim"
@@ -126,11 +137,23 @@ msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
 msgid "Add"
 msgstr "Ekle"
 
+msgid "Add collections"
+msgstr "Koleksiyon ekle"
+
 msgid "Edit"
 msgstr "Düzenle"
 
+msgid "Edit collections"
+msgstr "Koleksiyonu düzenle"
+
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Delete collections"
+msgstr "Koleksiyonu sil"
+
+msgid "You cannot edit another user's comment."
+msgstr "Başka bir kullanıcının yorumunu düzenleyemezsiniz."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
@@ -182,6 +205,9 @@ msgstr[1] ""
 "Kopyalanan sayfalardan %(count)s tanesi yayında. Kopyalarını yayınlamak "
 "ister misiniz?"
 
+msgid "Alias"
+msgstr "Diğer Ad"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "\"%(page_title)s\"  sayfasına kopyalamak için izniniz yok"
@@ -196,6 +222,19 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "'%(page_slug)s' slug'ı üst sayfada zaten kullanılıyor"
+
+msgid "Select a new parent for this page."
+msgstr "Bu sayfa için yeni bir üst sayfa seçin"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Etiket(ler) %(value_too_long)s maksimum %(max_tag_length)d karakter sayısı "
+"sınırını aşıyor"
+
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -204,6 +243,9 @@ msgstr "Bu alan zorunludur."
 
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
+
+msgid "All types"
+msgstr "Tüm türler"
 
 msgid "Content"
 msgstr "İçerik"
@@ -364,11 +406,11 @@ msgstr "İsim"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
-"\">eklemiyorsun</a>?"
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
+"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"

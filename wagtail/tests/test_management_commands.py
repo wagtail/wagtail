@@ -403,6 +403,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         self.assertFalse(p.expired)
 
     def test_expired_pages_are_dropped_from_mod_queue(self):
+        # RemovedInWagtail60Warning
+        # Remove this test when the deprecation period for the legacy
+        # moderation system ends.
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
@@ -657,6 +660,9 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.assertRevisionExists(revision_2)
 
     def test_revisions_in_moderation_or_workflow_not_purged(self):
+        # RemovedInWagtail60Warning
+        # Remove the lines until the first assertion when the deprecation period#
+        # for the legacy moderation system ends.
         revision = self.object.save_revision(submitted_for_moderation=True)
 
         # Save a new revision to ensure that the moderated revision

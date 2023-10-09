@@ -150,9 +150,15 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -   Configure `URLS` in the Elasticsearch entry in `WAGTAILSEARCH_BACKENDS` using the Cluster URL from your Bonsai dashboard
 -   Run `./manage.py update_index`
 
-### Amazon AWS Elasticsearch
+(opensearch)=
 
-The Elasticsearch backend is compatible with [Amazon Elasticsearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
+### OpenSearch
+
+OpenSearch is a community-driven search engine originally created as a fork of Elasticsearch 7. Wagtail supports OpenSearch through the `wagtail.search.backends.elasticsearch7` backend and version 7.13.4 of the [Elasticsearch Python library](https://pypi.org/project/elasticsearch/). Later versions of the library only permit connecting to Elastic-branded servers, and are not compatible with OpenSearch.
+
+### Amazon AWS OpenSearch
+
+The Elasticsearch backend is compatible with [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
 
 ```python
 from elasticsearch import RequestsHttpConnection
@@ -160,7 +166,7 @@ from requests_aws4auth import AWS4Auth
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch5',
+        'BACKEND': 'wagtail.search.backends.elasticsearch7',
         'INDEX': 'wagtail',
         'TIMEOUT': 5,
         'HOSTS': [{

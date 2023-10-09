@@ -520,7 +520,7 @@ speakerdeck = {
 
 
 spotify = {
-    "endpoint": "https://embed.spotify.com/oembed/",
+    "endpoint": "https://open.spotify.com/oembed",
     "urls": [
         r"^https?://open\.spotify\.com/.+$",
         r"^https?://spoti\.fi/.+$",

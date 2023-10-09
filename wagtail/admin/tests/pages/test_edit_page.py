@@ -47,6 +47,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -1891,6 +1892,21 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertContains(response, publish_button, html=True)
         self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
 
+    def test_override_publish_action_menu_item_label(self):
+        def hook_func(menu_items, request, context):
+            for item in menu_items:
+                if item.name == "action-publish":
+                    item.label = "Foobar"
+                    break
+
+        with self.register_hook("construct_page_action_menu", hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
+            )
+
+        # publish button should have another label
+        self.assertContains(response, "Foobar")
+
     def test_edit_alias_page(self):
         alias_page = self.event_page.create_alias(update_slug="new-event-page")
         response = self.client.get(
@@ -2512,6 +2528,10 @@ class TestIssue3982(WagtailTestUtils, TestCase):
             )
         )
 
+    # RemovedInWagtail60Warning
+    # Remove the following tests when the deprecation period for the legacy
+    # moderation system ends.
+
     def _approve_page(self, parent):
         self.client.post(
             reverse("wagtailadmin_pages:add", args=("tests", "simplepage", parent.pk)),
@@ -2527,10 +2547,14 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         revision = Revision.page_revisions.get(object_id=page.id)
         revision.submitted_for_moderation = True
         revision.save()
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
-            follow=True,
-        )
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+        ):
+            response = self.client.post(
+                reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
+                follow=True,
+            )
         page = SimplePage.objects.get()
         self.assertTrue(page.live)
         self.assertRedirects(response, reverse("wagtailadmin_home"))

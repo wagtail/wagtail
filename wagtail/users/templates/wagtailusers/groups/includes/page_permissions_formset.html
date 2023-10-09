@@ -44,13 +44,11 @@
         </tbody>
     </table>
 
-    <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-        {% escapescript %}
-            <tr id="inline_child_{{ formset.empty_form.prefix }}">
+    <template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+        <tr id="inline_child_{{ formset.empty_form.prefix }}">
             {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formset.empty_form only %}
-            </tr>
-        {% endescapescript %}
-    </script>
+        </tr>
+    </template>
 
     <p class="add">
         <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button">{% icon name="plus" wrapped=1 %}{% trans "Add a page permission" %}</button>

@@ -3,11 +3,13 @@
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if revision_enabled and instance.revision %}
         {% with revision=instance.revision latest_revision=object.get_latest_revision previous_revision=instance.revision.get_previous %}
-            <span>{{ value }}</span>
-            {% if draftstate_enabled %}
-                {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}{% trans 'Live version' as status_label %}{% status status_label classname="w-status--primary" %}
-                {% elif instance.content_changed and revision == latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
-            {% endif %}
+            <div class="w-flex w-items-center w-gap-2">
+                {{ value }}
+                {% if draftstate_enabled %}
+                    {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}{% trans 'Live version' as status_label %}{% status status_label classname="w-status--primary" %}
+                    {% elif instance.content_changed and revision == latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
+                {% endif %}
+            </div>
             <ul class="actions">
                 {% if preview_enabled and object.is_previewable %}
                     <li><a href="{% url view.revisions_view_url_name object.pk|admin_urlquote revision.pk %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>

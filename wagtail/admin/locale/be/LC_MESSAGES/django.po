@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
@@ -11,16 +12,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Публікаваць"
@@ -303,6 +304,14 @@ msgstr "Нумар тэлефона"
 msgid "Anchor link"
 msgstr "Якарная спасылка"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Ёсць %(counter)s супадзенне"
+msgstr[1] "Ёсць %(counter)s супадзенняў"
+msgstr[2] "Ёсць %(counter)s супадзенняў"
+msgstr[3] "Ёсць %(counter)s супадзенняў"
+
 msgid "Add an anchor link"
 msgstr "Дадаць прывязку"
 
@@ -377,11 +386,11 @@ msgstr "Імя"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
-"\">створым адну</a>?"
+"Калекцыі яшчэ не былі створаны. Давай <a "
+"href=\"%(add_collection_url)s\">створым адну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
@@ -398,6 +407,9 @@ msgstr "Так, апублікаваць"
 
 msgid "No, don't unpublish"
 msgstr "Не, не публікаваць"
+
+msgid "Cancel"
+msgstr "Адмена"
 
 msgid "Update"
 msgstr "Аднаўленне"
@@ -639,6 +651,15 @@ msgstr "На гэтай старонцы засталіся незахаваны
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Рэдагаванне %(page_type)s: %(title)s"
 
+msgid "User"
+msgstr "Карыстальнік"
+
+msgid "Date / Time"
+msgstr "Дата / час"
+
+msgid "Comment"
+msgstr "Каментар"
+
 msgid "Live version"
 msgstr "Апублікаваная версія"
 
@@ -689,6 +710,9 @@ msgstr "Наступная"
 
 msgid "This page is protected from public view"
 msgstr "Гэтая старонка ахоўваецца публічнага прагляду"
+
+msgid "History"
+msgstr "Гісторыя"
 
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
@@ -777,6 +801,9 @@ msgstr "Не, не адмяняць публікацыю па раскладзе
 msgid "Other searches"
 msgstr "Іншыя пошукі"
 
+msgid "Minimap"
+msgstr "Міні-карта"
+
 msgid "Unlocked"
 msgstr "Разблакавана"
 
@@ -798,11 +825,23 @@ msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
 msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
 msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
+msgid "with comment:"
+msgstr "з каментарамі:"
+
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"
 
 msgid "Show in Explorer"
 msgstr "Паказаць Правадыр"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Yes, disable"
+msgstr "Так, адключыць"
+
+msgid "Not used"
+msgstr "Не выкарыстоўваецца"
 
 msgid "Page"
 msgstr "Старонка"
@@ -998,6 +1037,18 @@ msgstr "Старонка '%(page_title)s' знята з публікацыі."
 msgid "Pages using"
 msgstr "Старонак выкарыстоўваецца"
 
+msgid "Date/Time"
+msgstr "Дата/час"
+
+msgid "Show"
+msgstr "Паказаць"
+
+msgid "Disable"
+msgstr "Адключан"
+
+msgid "Enable"
+msgstr "Уключан"
+
 msgid "Pages"
 msgstr "Старонкі"
 
@@ -1072,6 +1123,9 @@ msgstr "Код"
 
 msgid "Reports"
 msgstr "Справаздачы"
+
+msgid "Yes"
+msgstr "Так"
 
 msgid "Choose an item"
 msgstr "Выбраць элемент"

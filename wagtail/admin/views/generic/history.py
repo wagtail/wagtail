@@ -1,13 +1,106 @@
 from datetime import timedelta
 
+import django_filters
+from django.contrib.admin.utils import unquote
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import gettext_lazy
+from django.utils.text import capfirst
+from django.utils.translation import gettext, gettext_lazy
 from django.views.generic import TemplateView
 
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic.base import BaseObjectMixin, WagtailAdminTemplateMixin
-from wagtail.models import Revision, TaskState, WorkflowState
+from wagtail.admin.views.generic.models import IndexView
+from wagtail.log_actions import registry as log_registry
+from wagtail.models import (
+    DraftStateMixin,
+    ModelLogEntry,
+    Revision,
+    TaskState,
+    WorkflowState,
+)
+
+
+class HistoryReportFilterSet(WagtailFilterSet):
+    action = django_filters.ChoiceFilter(
+        label=gettext_lazy("Action"),
+        choices=log_registry.get_choices,
+    )
+    user = django_filters.ModelChoiceFilter(
+        label=gettext_lazy("User"),
+        field_name="user",
+        queryset=lambda request: ModelLogEntry.objects.all().get_users(),
+    )
+    timestamp = django_filters.DateFromToRangeFilter(
+        label=gettext_lazy("Date"), widget=DateRangePickerWidget
+    )
+
+    class Meta:
+        model = ModelLogEntry
+        fields = ["action", "user", "timestamp"]
+
+
+class HistoryView(IndexView):
+    any_permission_required = ["add", "change", "delete"]
+    page_title = gettext_lazy("History")
+    results_template_name = "wagtailadmin/generic/history_results.html"
+    header_icon = "history"
+    is_searchable = False
+    paginate_by = 20
+    filterset_class = HistoryReportFilterSet
+    table_class = InlineActionsTable
+
+    def setup(self, request, *args, pk, **kwargs):
+        self.pk = pk
+        self.object = self.get_object()
+        super().setup(request, *args, **kwargs)
+
+    def get_object(self):
+        object = get_object_or_404(self.model, pk=unquote(self.pk))
+        if isinstance(object, DraftStateMixin):
+            return object.get_latest_revision_as_object()
+        return object
+
+    def get_page_subtitle(self):
+        return str(self.object)
+
+    def get_columns(self):
+        return [
+            Column("message", label=gettext("Action")),
+            UserColumn("user", blank_display_name="system"),
+            DateColumn("timestamp", label=gettext("Date")),
+        ]
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {
+                "url": self.get_edit_url(self.object),
+                "label": str(self.object),
+            },
+            {"url": "", "label": gettext("History")},
+        ]
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context = super().get_context_data(*args, object_list=object_list, **kwargs)
+        context["object"] = self.object
+        context["header_action_url"] = self.get_edit_url(self.object)
+        context["header_action_label"] = gettext("Edit this %(model_name)s") % {
+            "model_name": self.model._meta.verbose_name
+        }
+        context["header_action_icon"] = "edit"
+        return context
+
+    def get_base_queryset(self):
+        return log_registry.get_logs_for_instance(self.object).select_related(
+            "revision", "user", "user__wagtail_userprofile"
+        )
 
 
 class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):

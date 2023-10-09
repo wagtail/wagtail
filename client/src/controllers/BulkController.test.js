@@ -13,8 +13,7 @@ describe('BulkController', () => {
       </div>
       <button id="clear" data-action="w-bulk#toggleAll" data-w-bulk-force-param="false">Clear all</button>
       <button id="set" data-action="w-bulk#toggleAll" data-w-bulk-force-param="true">Select all</button>
-    </div>
-    `;
+    </div>`;
     const application = Application.start();
     application.register('w-bulk', BulkController);
   });

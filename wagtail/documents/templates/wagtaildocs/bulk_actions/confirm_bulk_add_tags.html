@@ -20,7 +20,7 @@
         <ul>
             {% for document in items %}
                 <li>
-                    <a href="{% url 'wagtaildocs:edit' document.item.id %}"  target="_blank" rel="noreferrer">{{document.item.title}}</a>
+                    <a href="{% url 'wagtaildocs:edit' document.item.id %}" target="_blank" rel="noreferrer">{{document.item.title}}</a>
                 </li>
             {% endfor %}
         </ul>

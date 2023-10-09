@@ -1,7 +1,5 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n wagtailadmin_tags %}
-
-{% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
@@ -14,8 +12,14 @@
     {{ media.js }}
 {% endblock %}
 
+{% block main_header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
+{% endblock %}
+
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 only %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}

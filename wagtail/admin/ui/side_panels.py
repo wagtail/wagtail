@@ -1,7 +1,4 @@
-from django.conf import settings
-from django.forms import Media
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
@@ -46,7 +43,7 @@ class BaseSidePanel(Component):
         return context
 
 
-class BaseStatusSidePanel(BaseSidePanel):
+class StatusSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle status")
         icon_name = "info-circle"
@@ -71,22 +68,28 @@ class BaseStatusSidePanel(BaseSidePanel):
         show_schedule_publishing_toggle=None,
         live_object=None,
         scheduled_object=None,
-        in_explorer=False,
+        locale=None,
+        translations=None,
+        usage_url=None,
+        history_url=None,
+        last_updated_info=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.show_schedule_publishing_toggle = (
-            show_schedule_publishing_toggle and not in_explorer
-        )
+        self.show_schedule_publishing_toggle = show_schedule_publishing_toggle
         self.live_object = live_object
         self.scheduled_object = scheduled_object
-        self.in_explorer = in_explorer
+        self.locale = locale
+        self.translations = translations
+        self.usage_url = usage_url
+        self.history_url = history_url
+        self.last_updated_info = last_updated_info
         self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
         templates = ["wagtailadmin/shared/side_panels/includes/status/workflow.html"]
 
-        if context.get("locale"):
+        if self.locale:
             templates.append(
                 "wagtailadmin/shared/side_panels/includes/status/locale.html"
             )
@@ -97,9 +100,10 @@ class BaseStatusSidePanel(BaseSidePanel):
                     "wagtailadmin/shared/side_panels/includes/status/locked.html"
                 )
 
-            templates.append(
-                "wagtailadmin/shared/side_panels/includes/status/usage.html"
-            )
+            if self.usage_url:
+                templates.append(
+                    "wagtailadmin/shared/side_panels/includes/status/usage.html"
+                )
 
         return templates
 
@@ -204,17 +208,23 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_usage_context(self):
         return {
-            "usage_count": ReferenceIndex.get_references_to(self.object)
-            .group_by_source_object()
-            .count(),
-            "usage_url": getattr(self.object, "usage_url", None),
+            "usage_count": ReferenceIndex.get_grouped_references_to(
+                self.object
+            ).count(),
+            "usage_url": self.usage_url,
         }
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        context["locale"] = self.locale
+        context["translations"] = self.translations
+        if self.translations:
+            context["translations_total"] = len(self.translations) + 1
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
+        context["history_url"] = self.history_url
         context["status_templates"] = self.get_status_templates(context)
+        context["last_updated_info"] = self.last_updated_info
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
         if self.object.pk:
@@ -222,7 +232,15 @@ class BaseStatusSidePanel(BaseSidePanel):
         return context
 
 
-class PageStatusSidePanel(BaseStatusSidePanel):
+class PageStatusSidePanel(StatusSidePanel):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.object.pk:
+            self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
+            self.history_url = reverse(
+                "wagtailadmin_pages:history", args=(self.object.pk,)
+            )
+
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
         templates.insert(
@@ -232,9 +250,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
 
     def get_usage_context(self):
         context = super().get_usage_context()
-        context["usage_url"] = reverse(
-            "wagtailadmin_pages:usage", args=(self.object.id,)
-        )
         context["usage_url_text"] = ngettext(
             "Referenced %(count)s time",
             "Referenced %(count)s times",
@@ -249,52 +264,12 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
-                    "in_explorer": self.in_explorer,
-                    "live_object": self.live_object,
-                    "scheduled_object": self.scheduled_object,
-                    "history_url": reverse(
-                        "wagtailadmin_pages:history", args=(page.id,)
-                    ),
                     "workflow_history_url": reverse(
                         "wagtailadmin_pages:workflow_history", args=(page.id,)
                     ),
                     "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-        else:
-            context.update(
-                {
-                    "locale": None,
-                    "translations": [],
-                }
-            )
-
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            url_name = "wagtailadmin_pages:edit"
-            if self.in_explorer:
-                url_name = "wagtailadmin_explore"
-
-            context.update(
-                {
-                    "locale": page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(url_name, args=[translation.id]),
-                        }
-                        for translation in page.get_translations()
-                        .only("id", "locale", "depth")
-                        .select_related("locale")
-                        if translation.permissions_for_user(
-                            self.request.user
-                        ).can_edit()
-                    ],
-                    # The sum of translated pages plus 1 to account for the current page
-                    "translations_total": page.get_translations().count() + 1,
                 }
             )
 
@@ -326,7 +301,7 @@ class CommentsSidePanel(BaseSidePanel):
         return context
 
 
-class BasePreviewSidePanel(BaseSidePanel):
+class PreviewSidePanel(BaseSidePanel):
     class SidePanelToggle(BaseSidePanel.SidePanelToggle):
         aria_label = gettext_lazy("Toggle preview")
         icon_name = "mobile-alt"
@@ -337,81 +312,12 @@ class BasePreviewSidePanel(BaseSidePanel):
     template_name = "wagtailadmin/shared/side_panels/preview.html"
     order = 400
 
+    def __init__(self, object, request, *, preview_url):
+        super().__init__(object, request)
+        self.preview_url = preview_url
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        context["preview_url"] = self.preview_url
         context["has_multiple_modes"] = len(self.object.preview_modes) > 1
         return context
-
-
-class PagePreviewSidePanel(BasePreviewSidePanel):
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        if self.object.id:
-            context["preview_url"] = reverse(
-                "wagtailadmin_pages:preview_on_edit", args=[self.object.id]
-            )
-        else:
-            content_type = parent_context["content_type"]
-            parent_page = parent_context["parent_page"]
-            context["preview_url"] = reverse(
-                "wagtailadmin_pages:preview_on_add",
-                args=[content_type.app_label, content_type.model, parent_page.id],
-            )
-        return context
-
-
-class BaseSidePanels:
-    def __init__(self, request, object):
-        self.request = request
-        self.object = object
-
-        self.side_panels = [
-            BaseStatusSidePanel(object, self.request),
-        ]
-
-    def __iter__(self):
-        return iter(sorted(self.side_panels, key=lambda p: p.order))
-
-    @cached_property
-    def media(self):
-        media = Media()
-        for panel in self:
-            media += panel.media
-        return media
-
-
-class PageSidePanels(BaseSidePanels):
-    def __init__(
-        self,
-        request,
-        page,
-        *,
-        preview_enabled,
-        comments_enabled,
-        show_schedule_publishing_toggle,
-        live_page=None,
-        scheduled_page=None,
-        in_explorer=False,
-    ):
-        super().__init__(request, page)
-
-        self.side_panels = [
-            PageStatusSidePanel(
-                page,
-                self.request,
-                show_schedule_publishing_toggle=show_schedule_publishing_toggle,
-                live_object=live_page,
-                scheduled_object=scheduled_page,
-                in_explorer=in_explorer,
-            ),
-        ]
-
-        if preview_enabled and page.is_previewable():
-            self.side_panels += [
-                PagePreviewSidePanel(page, self.request),
-            ]
-
-        if comments_enabled:
-            self.side_panels += [
-                CommentsSidePanel(page, self.request),
-            ]

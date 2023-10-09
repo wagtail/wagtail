@@ -8,7 +8,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
 from django.test import TestCase, TransactionTestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -25,7 +24,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils, override_settings
 
 from .utils import Image, get_test_image_file
 

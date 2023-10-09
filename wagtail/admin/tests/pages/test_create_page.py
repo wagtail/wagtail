@@ -1,5 +1,4 @@
 import datetime
-import unittest
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
@@ -28,6 +27,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestPageCreation(WagtailTestUtils, TestCase):
@@ -1229,9 +1229,30 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
     @override_settings(WAGTAIL_MODERATION_ENABLED=False)
-    def test_hide_moderation_button(self):
+    def test_legacy_hide_moderation_button(self):
         """
         Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        """
+        # RemovedInWagtail60Warning: Remove this test in favour of test_hide_moderation_button
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
+        ):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                )
+            )
+        self.assertNotContains(
+            response,
+            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>',
+        )
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_hide_moderation_button(self):
+        """
+        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(
             reverse(
@@ -1636,7 +1657,6 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         )
         self.user = self.login()
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(
@@ -1713,7 +1733,6 @@ class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(

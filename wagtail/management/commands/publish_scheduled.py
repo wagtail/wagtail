@@ -88,6 +88,9 @@ class Command(BaseCommand):
                     )
 
         # 2. get all object revisions for moderation that have been expired
+        # RemovedInWagtail60Warning
+        # Remove this when the deprecation period for the legacy
+        # moderation system ends.
         expired_revs = [
             r
             for r in Revision.objects.filter(submitted_for_moderation=True)

@@ -114,7 +114,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
+                                <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
                             </div>
                         </td>
                         <td>My blog</td>
@@ -122,7 +122,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
+                                <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
                             </div>
                         </td>
                         <td>My gallery</td>

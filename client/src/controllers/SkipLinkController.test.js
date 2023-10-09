@@ -6,8 +6,7 @@ describe('skip to the main content on clicking the skiplink', () => {
   document.body.innerHTML = `
   <a id="skip" class="button" data-controller="w-skip-link" data-action="click->w-skip-link#skip">Skip to main content</a>
   <main>Main content</main>
-  <button id="other-content">other</button>
-  `;
+  <button id="other-content">other</button>`;
 
   const application = Application.start();
 

@@ -168,6 +168,7 @@ class PublishRevisionAction:
 
         object.save()
 
+        # RemovedInWagtail60Warning
         revision.submitted_for_moderation = False
         object.revisions.update(submitted_for_moderation=False)
 

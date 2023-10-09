@@ -44,7 +44,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property
+from django.utils.functional import Promise, cached_property, classproperty
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -369,7 +369,7 @@ class RevisionMixin(models.Model):
     def save_revision(
         self,
         user=None,
-        submitted_for_moderation=False,
+        submitted_for_moderation=False,  # RemovedInWagtail60Warning
         approved_go_live_at=None,
         changed=True,
         log_action=False,
@@ -380,7 +380,7 @@ class RevisionMixin(models.Model):
         Creates and saves a revision.
 
         :param user: The user performing the action.
-        :param submitted_for_moderation: Indicates whether the object was submitted for moderation.
+        :param submitted_for_moderation: **Deprecated** – Indicates whether the object was submitted for moderation.
         :param approved_go_live_at: The date and time the revision is approved to go live.
         :param changed: Indicates whether there were any content changes.
         :param log_action: Flag for logging the action. Pass ``True`` to also create a log entry. Can be passed an action string.
@@ -2685,6 +2685,9 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def submitted(self):
+        # RemovedInWagtail60Warning
+        # Remove this when the deprecation period for the legacy
+        # moderation system ends.
         return self.filter(submitted_for_moderation=True)
 
     def for_instance(self, instance):
@@ -2723,6 +2726,7 @@ class Revision(models.Model):
         max_length=255,
         verbose_name=_("object id"),
     )
+    # RemovedInWagtail60Warning
     submitted_for_moderation = models.BooleanField(
         verbose_name=_("submitted for moderation"), default=False, db_index=True
     )
@@ -2745,7 +2749,7 @@ class Revision(models.Model):
 
     objects = RevisionsManager()
     page_revisions = PageRevisionsManager()
-    submitted_revisions = SubmittedRevisionsManager()
+    _submitted_revisions = SubmittedRevisionsManager()
 
     content_object = GenericForeignKey(
         "content_type", "object_id", for_concrete_model=False
@@ -2756,6 +2760,14 @@ class Revision(models.Model):
     @cached_property
     def base_content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
+
+    @classproperty
+    def submitted_revisions(self):
+        warnings.warn(
+            "SubmittedRevisionsManager is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+        )
+        return self._submitted_revisions
 
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
@@ -2807,6 +2819,11 @@ class Revision(models.Model):
         return self.content_object.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
+        warnings.warn(
+            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
@@ -2823,6 +2840,11 @@ class Revision(models.Model):
             self.publish()
 
     def reject_moderation(self, user=None):
+        warnings.warn(
+            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
+            RemovedInWagtail60Warning,
+            stacklevel=2,
+        )
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',
