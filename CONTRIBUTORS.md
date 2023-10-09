@@ -741,6 +741,8 @@
 * Sandro Rodrigues
 * Brian Mugo
 * Panagiotis H.M. Issaris
+* Damilola Oladele
+* Olumide Micheal
 
 ## Translators
 

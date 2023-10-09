@@ -56,6 +56,8 @@ Changelog
  * Docs: Fix incorrect tag library import on focal points example (Hatim Makki Hoho)
  * Docs: Add reminder about including your custom Draftail feature in any overridden `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Charlie Sue)
  * Docs: Mention the need to install `python3-venv` on Ubuntu (Brian Mugo)
+ * Docs: Document the use of the Google developer documentation style guide in documentation (Damilola Oladele)
+ * Docs: Fix Inconsistent URL Format in Getting Started tutorial (Olumide Micheal)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier, Jest, a11y-dialog, axe-core and js-cookie npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
