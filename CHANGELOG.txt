@@ -51,6 +51,8 @@ Changelog
  * Fix: Update Spotify oEmbed provider URL parsing to resolve correctly (Dhrűv)
  * Fix: Update link colours within help blocks to meet accessible contrast requirements (Rohit Sharma)
  * Fix: Ensure the search promotions popular search terms picker correctly refers to the correct model (LB (Ben) Johnston)
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
@@ -95,7 +97,7 @@ Changelog
  * Maintenance: Update CI database versions (Jake Howard)
  * Maintenance: Add changelog and issue tracker links to the PyPI project page (Panagiotis H.M. Issaris)
  * Maintenance: Add better deprecation warnings to the `search.Query` & `search.QueryDailyHits` model, move final set of templates from the admin search module to the search promotions contrib module (LB (Ben) Johnston)
-
+ * Maintenance: Add generic `InspectView` to `ModelViewSet` (Sage Abdullah)
 
 5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
