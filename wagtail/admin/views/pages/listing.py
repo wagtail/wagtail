@@ -134,7 +134,13 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         return ordering
 
     def get_queryset(self):
-        pages = self.parent_page.get_children().prefetch_related(
+        is_searching = bool(self.query_string)
+        if is_searching:
+            pages = self.parent_page.get_descendants()
+        else:
+            pages = self.parent_page.get_children()
+
+        pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
 
@@ -172,6 +178,9 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
             pages = pages.prefetch_workflow_states()
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
+
+        if is_searching:
+            pages = pages.autocomplete(self.query_string)
 
         return pages
 
