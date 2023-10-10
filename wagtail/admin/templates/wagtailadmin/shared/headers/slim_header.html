@@ -4,31 +4,32 @@
 {% fragment as nav_icon_counter_classes %}-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-text-text-button w-border w-border-surface-page w-rounded-[1rem]{% endfragment %}
 {# Z index 99 to ensure header is always above  #}
 <div class="w-sticky w-top-0 w-z-header">
-    <header class="w-slim-header w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-surface-header w-border-b w-border-border-furniture w-px-0 w-py-0 w-mb-0 w-relative w-top-0 w-z-header sm:w-sticky w-min-h-slim-header">
+    <header class="w-slim-header w-bg-surface-header w-border-b w-border-border-furniture w-px-0 w-py-0 w-mb-0 w-relative w-top-0 w-z-header sm:w-sticky w-min-h-slim-header">
+        <div class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between">
+            {# Padding left on mobile to give space for navigation toggle, #}
+            <div class="w-pl-slim-header sm:w-pl-5 w-min-h-slim-header sm:w-pr-2 w-w-full w-flex-1 w-overflow-x-auto w-box-border">
+                <div class="w-flex w-flex-1 w-items-center w-overflow-hidden">
+                    {% block header_content %}
+                        {% if breadcrumbs_items %}
+                            {% breadcrumbs breadcrumbs_items %}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
 
-        {# Padding left on mobile to give space for navigation toggle, #}
-        <div class="w-pl-slim-header sm:w-pl-5 w-min-h-slim-header sm:w-pr-2 w-w-full w-flex-1 w-overflow-x-auto w-box-border">
-            <div class="w-flex w-flex-1 w-items-center w-overflow-hidden">
-                {% block header_content %}
-                    {% if breadcrumbs_items %}
-                        {% breadcrumbs breadcrumbs_items %}
+            <div class="w-w-full sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 sm:w-pr-4 sm:w-justify-end">
+                {% block actions %}
+                    {% if side_panels %}
+                        {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+                    {% endif %}
+                    {% if history_url %}
+                        {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
                     {% endif %}
                 {% endblock %}
             </div>
         </div>
-
-        <div class="w-w-full sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 sm:w-pr-4 sm:w-justify-end">
-            {% block actions %}
-                {% if side_panels %}
-                    {% include "wagtailadmin/shared/side_panel_toggles.html" %}
-                {% endif %}
-                {% if history_url %}
-                    {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
-                {% endif %}
-            {% endblock %}
-        </div>
+        {% block search_form %}{% endblock %}
     </header>
-    {% block search_form %}{% endblock %}
 
     {% block side_panels %}
         {% if side_panels %}
