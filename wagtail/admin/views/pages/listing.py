@@ -6,6 +6,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
@@ -24,8 +25,7 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(PermissionCheckedMixin, BaseListingView):
-    template_name = "wagtailadmin/pages/index.html"
+class BaseIndexView(PermissionCheckedMixin, BaseListingView):
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
         "add",
@@ -103,6 +103,17 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             self.locale = None
             self.translations = []
 
+        # Search
+        self.query_string = None
+        if "q" in self.request.GET:
+            self.search_form = SearchForm(
+                self.request.GET, placeholder=_("Search pages…")
+            )
+            if self.search_form.is_valid():
+                self.query_string = self.search_form.cleaned_data["q"]
+        else:
+            self.search_form = SearchForm(placeholder=_("Search pages…"))
+
         return super().get(request)
 
     def get_ordering(self):
@@ -178,6 +189,9 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
+    def get_results_url(self):
+        return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
+
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
@@ -191,6 +205,42 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 )
             }
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        self.show_ordering_column = self.ordering == "ord"
+        if self.show_ordering_column:
+            self.columns = self.columns.copy()
+            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
+        context = super().get_context_data(**kwargs)
+
+        context.update(
+            {
+                "parent_page": self.parent_page,
+                "ordering": self.ordering,
+                "index_url": self.get_index_url(),
+                "results_url": self.get_results_url(),
+                "search_form": self.search_form,
+            }
+        )
+
+        return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_explore", args=[translation.id]),
+            }
+            for translation in self.parent_page.get_translations()
+            .only("id", "locale")
+            .select_related("locale")
+        ]
+
+
+class IndexView(BaseIndexView):
+    template_name = "wagtailadmin/pages/index.html"
 
     def get_side_panels(self):
         side_panels = [
@@ -207,34 +257,16 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
-        self.show_ordering_column = self.ordering == "ord"
-        if self.show_ordering_column:
-            self.columns = self.columns.copy()
-            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
-        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-
         context = super().get_context_data(**kwargs)
         side_panels = self.get_side_panels()
-
         context.update(
             {
-                "parent_page": self.parent_page,
-                "ordering": self.ordering,
                 "side_panels": side_panels,
                 "media": side_panels.media,
-                "index_url": self.get_index_url(),
             }
         )
-
         return context
 
-    def get_translations(self):
-        return [
-            {
-                "locale": translation.locale,
-                "url": reverse("wagtailadmin_explore", args=[translation.id]),
-            }
-            for translation in self.parent_page.get_translations()
-            .only("id", "locale")
-            .select_related("locale")
-        ]
+
+class IndexResultsView(BaseIndexView):
+    template_name = "wagtailadmin/pages/index_results.html"
