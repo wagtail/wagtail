@@ -55,6 +55,7 @@ Changelog
  * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
  * Fix: Ensure that pages in moderation show as "Live + In Moderation" in the page explorer rather than "Live + Draft" (Sage Abdullah)
  * Fix: Prevent error when updating reference index for objects with a lazy ParentalKey-related object (Chris Shaw)
+ * Fix: Ignore conflicts when inserting reference index entries to prevent race conditions causing uniqueness errors (Chris Shaw)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
