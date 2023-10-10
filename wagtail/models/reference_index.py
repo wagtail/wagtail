@@ -2,7 +2,7 @@ import uuid
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.db import connection, models
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -456,6 +456,14 @@ class ReferenceIndex(models.Model):
         # Construct the set of reference records that have been found on the object but are not
         # already present in the database
         new_references = references - set(existing_references.keys())
+
+        # ignore_conflicts is not available on MSSQL server
+        # refs https://github.com/wagtail/wagtail/pull/11025#issuecomment-1755253875
+        if connection.vendor == "microsoft":
+            bulk_create_kwargs = {}
+        else:
+            bulk_create_kwargs = {"ignore_conflicts": True}
+
         # Create database records for those reference records
         cls.objects.bulk_create(
             [
@@ -471,7 +479,7 @@ class ReferenceIndex(models.Model):
                 )
                 for to_content_type_id, to_object_id, model_path, content_path in new_references
             ],
-            ignore_conflicts=True,
+            **bulk_create_kwargs,
         )
 
         # Delete removed references
