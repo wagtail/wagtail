@@ -117,19 +117,31 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         return super().get(request)
 
     def get_ordering(self):
-        ordering = self.request.GET.get("ordering", "-latest_revision_created_at")
-        if ordering not in [
+        valid_orderings = [
             "title",
             "-title",
-            "content_type",
-            "-content_type",
             "live",
             "-live",
             "latest_revision_created_at",
             "-latest_revision_created_at",
-            "ord",
-        ]:
-            ordering = "-latest_revision_created_at"
+        ]
+
+        if self.query_string:
+            # default to ordering by relevance
+            default_ordering = None
+        else:
+            default_ordering = "-latest_revision_created_at"
+            # ordering by page order is only available when not searching
+            valid_orderings.append("ord")
+
+            # ordering by content type not currently available when searching, due to
+            # https://github.com/wagtail/wagtail/issues/6616
+            valid_orderings.append("content_type")
+            valid_orderings.append("-content_type")
+
+        ordering = self.request.GET.get("ordering", default_ordering)
+        if ordering not in valid_orderings:
+            ordering = default_ordering
 
         return ordering
 
@@ -146,25 +158,26 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         self.ordering = self.get_ordering()
 
-        if self.ordering == "ord":
-            # preserve the native ordering from get_children()
-            pass
-        elif self.ordering == "latest_revision_created_at":
-            # order by oldest revision first.
-            # Special case NULL entries - these should go at the top of the list.
-            # Do this by annotating with Count('latest_revision_created_at'),
-            # which returns 0 for these
-            pages = pages.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("null_position", "latest_revision_created_at")
-        elif self.ordering == "-latest_revision_created_at":
-            # order by oldest revision first.
-            # Special case NULL entries - these should go at the end of the list.
-            pages = pages.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("-null_position", "-latest_revision_created_at")
-        else:
-            pages = pages.order_by(self.ordering)
+        if not is_searching:
+            if self.ordering == "ord":
+                # preserve the native ordering from get_children()
+                pass
+            elif self.ordering == "latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the top of the list.
+                # Do this by annotating with Count('latest_revision_created_at'),
+                # which returns 0 for these
+                pages = pages.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("null_position", "latest_revision_created_at")
+            elif self.ordering == "-latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the end of the list.
+                pages = pages.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("-null_position", "-latest_revision_created_at")
+            else:
+                pages = pages.order_by(self.ordering)
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -180,7 +193,12 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
         if is_searching:
-            pages = pages.autocomplete(self.query_string)
+            if self.ordering:
+                pages = pages.order_by(self.ordering).autocomplete(
+                    self.query_string, order_by_relevance=False
+                )
+            else:
+                pages = pages.autocomplete(self.query_string)
 
         return pages
 
