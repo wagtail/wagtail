@@ -33,24 +33,28 @@
 {% endblock %}
 
 {% block search_form %}
-    <form
-        class="search-form"
-        action="{{ index_url }}"
-        method="get"
-        novalidate
-        role="search"
-        data-controller="w-swap"
-        data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
-        data-w-swap-src-value="{{ results_url }}"
-        data-w-swap-target-value="#listing-results"
-    >
-        {% for field in search_form %}
-            {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
-        {% endfor %}
-        {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-        <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
-        <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
-    </form>
+    <div class="w-pl-5 w-pb-7.5">
+        <div class="w-pl-0 sm:w-pl-slim-header w-ml-2.5">
+            <form
+                class="search-form"
+                action="{{ index_url }}"
+                method="get"
+                novalidate
+                role="search"
+                data-controller="w-swap"
+                data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                data-w-swap-src-value="{{ results_url }}"
+                data-w-swap-target-value="#listing-results"
+            >
+                {% for field in search_form %}
+                    {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                {% endfor %}
+                {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
+                <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
 
 {% block side_panels %}
