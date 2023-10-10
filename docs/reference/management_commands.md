@@ -59,6 +59,24 @@ If deletion of a revision is not desirable, mark `Revision` with `on_delete=mode
 Support for deleting revisions of non-page models is added.
 ```
 
+Note: Purging Stale Revisions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Stale revisions are revisions that are no longer associated with any live objects. These revisions can accumulate over time as content is updated and new revisions are created.`purge_revisions` management command is used to remove stale revisions from the database.
+    Running the `purge_revisions` command  will permanently delete stale revisions that are no longer referenced by any live content. One method to prevent purging stale revisions is using a ForeignKey with `on_delete=models.PROTECT` which will prevent all stale revisions being referenced by the foreign key from being deleted.
+    Using ForeignKey with `on_delete=models.PROTECT`
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Here's an example of using `on_delete=models.PROTECT` with a `ForeignKey` field in your model definition:
+    .. code-block:: python
+        from django.db import models
+        from wagtail.core.models import Revision
+        class MyModel(models.Model):
+            revision = models.ForeignKey(
+                Revision,
+                on_delete=models.PROTECT,
+                )
+            # Add other fields for your model
+    With this setup, when a `Revision` instance is referenced by the `revision` field of `MyModel`, the `purge_revisions` command will not delete that particular revision, ensuring its preservation even if it becomes stale.
+
 (purge_embeds)=
 
 ## purge_embeds

@@ -681,7 +681,7 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
 -   The content of the page is JSON-serialisable and stored in the {attr}`~Revision.content` field.
 -   You can retrieve a `Revision` as an instance of the object's model by calling the {meth}`~Revision.as_object` method.
 
-You can use the [`purge_revisions`](docs/management_commands.md##purge_revisions) command to delete old revisions that are no longer in use.
+You can use the [`purge_revisions`](https://github.com/wagtail/wagtail/blob/a2c9e9ab2cf3e4f0808c340f8df94882de82b5f3/docs/reference/management_commands.md?plain=1#L45) command to delete old revisions that are no longer in use.
 
 ### Database fields
 
