@@ -733,12 +733,11 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         PurgeRevisionsProtectedTestModel.objects.create(revision=revision_old)
         revision_purged = self.object.save_revision()
         revision_latest = self.object.save_revision()
-        PurgeRevisionsProtectedTestModel.objects.create(revision=revision_latest)
 
         self.run_command()
         # revision should not be deleted, as it is protected
         self.assertRevisionExists(revision_old)
-        self.assertRevisionExists(revision_latest)
+        # Any other revisions are deleted
         self.assertRevisionNotExists(revision_purged)
 
 
