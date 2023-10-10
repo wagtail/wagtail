@@ -470,7 +470,8 @@ class ReferenceIndex(models.Model):
                     content_path_hash=cls._get_content_path_hash(content_path),
                 )
                 for to_content_type_id, to_object_id, model_path, content_path in new_references
-            ]
+            ],
+            ignore_conflicts=True,
         )
 
         # Delete removed references
