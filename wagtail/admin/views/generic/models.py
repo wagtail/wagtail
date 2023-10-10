@@ -102,6 +102,7 @@ class IndexView(
     add_url_name = None
     add_item_label = gettext_lazy("Add")
     edit_url_name = None
+    inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
     search_fields = None
@@ -364,6 +365,10 @@ class IndexView(
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
+    def get_inspect_url(self, instance):
+        if self.inspect_url_name:
+            return reverse(self.inspect_url_name, args=(quote(instance.pk),))
+
     def get_delete_url(self, instance):
         if self.delete_url_name:
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
@@ -413,6 +418,20 @@ class IndexView(
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
                     },
                     priority=10,
+                )
+            )
+        inspect_url = self.get_inspect_url(instance)
+        if inspect_url:
+            buttons.append(
+                ListingButton(
+                    _("Inspect"),
+                    url=inspect_url,
+                    icon_name="info-circle",
+                    attrs={
+                        "aria-label": _("Inspect '%(title)s'")
+                        % {"title": str(instance)}
+                    },
+                    priority=20,
                 )
             )
         delete_url = self.get_delete_url(instance)
@@ -956,6 +975,7 @@ class DeleteView(
 
 
 class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
+    any_permission_required = ["add", "change", "delete"]
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
@@ -1058,7 +1078,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.edit_url_name, args=(quote(self.pk),))
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
         if not self.delete_url_name or (
@@ -1068,7 +1088,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.delete_url_name, args=(quote(self.pk),))
+        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

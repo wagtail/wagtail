@@ -29,6 +29,31 @@ class BlogPage(Page):
     ])
 ```
 
+Permissions can be set using `permission` on the `ObjectList` to restrict entire groups of panels to specific users.
+
+```python
+from wagtail.admin.panels import TabbedInterface, ObjectList
+
+class FundingPage(Page):
+    # field definitions omitted
+
+    shared_panels = [
+        FieldPanel('title', classname="title"),
+        FieldPanel('date'),
+        FieldPanel('body'),
+    ]
+    private_panels = [
+        FieldPanel('approval'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(shared_panels, heading='Details'),
+        ObjectList(private_panels, heading='Admin only', permission="superuser"),
+    ])
+```
+
+For more details on how to work with `Panel`s and `PanelGroup`, see [](forms_panels_overview).
+
 (rich_text)=
 
 ## Rich Text (HTML)

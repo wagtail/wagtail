@@ -50,6 +50,9 @@ Changelog
  * Fix: Ensure the panel title for a user's settings correctly reflects the `WAGTAIL_EMAIL_MANAGEMENT_ENABLED` setting by not showing 'email' if disabled (Omkar Jadhav)
  * Fix: Update Spotify oEmbed provider URL parsing to resolve correctly (Dhrűv)
  * Fix: Update link colours within help blocks to meet accessible contrast requirements (Rohit Sharma)
+ * Fix: Ensure the search promotions popular search terms picker correctly refers to the correct model (LB (Ben) Johnston)
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
@@ -93,7 +96,8 @@ Changelog
  * Maintenance: Deprecate legacy moderation system (Sage Abdullah)
  * Maintenance: Update CI database versions (Jake Howard)
  * Maintenance: Add changelog and issue tracker links to the PyPI project page (Panagiotis H.M. Issaris)
-
+ * Maintenance: Add better deprecation warnings to the `search.Query` & `search.QueryDailyHits` model, move final set of templates from the admin search module to the search promotions contrib module (LB (Ben) Johnston)
+ * Maintenance: Add generic `InspectView` to `ModelViewSet` (Sage Abdullah)
 
 5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
@@ -224,7 +228,7 @@ Changelog
  * Maintenance: Migrate Tagit initialisation to a Stimulus Controller (LB (Ben) Johnston)
  * Maintenance: Refactor GroupPagePermission to use Django's Permission model (Sage Abdullah)
  * Maintenance: Convert the CONTRIBUTORS file to Markdown (Dan Braghis)
- * Maintenance: Move `django-filter` version upper bound to v24 (Yuekui)
+ * Maintenance: Move `django-filter` version upper bound to v23 (Yuekui)
  * Maintenance: Update Pillow dependency to allow 10.x, only include support for >= 9.1.0 (Yuekui)
  * Maintenance: Migrate async header search and search within the Task chooser modal to `w-swap`, a Stimulus controller (LB (Ben) Johnston)
  * Maintenance: Replace Bootstrap tooltips with a new `w-tooltip` Stimulus controller (LB (Ben) Johnston)
@@ -507,6 +511,7 @@ Changelog
  * Delay hiding the contents of the side panels when closing, so the animation is smoother (Thibaud Colas)
  * ListBlock now shows item-by-item differences when comparing versions (Tidiane Dia)
  * Implement a new design for chooser buttons with better accessibility (Thibaud Colas)
+ * API ordering now supports multiple fields (Rohit Sharma, Jake Howard)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
@@ -590,6 +595,7 @@ Changelog
  * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
  * Docs: Add documentation for the reference index mechanism (Daniel Kirkham)
  * Docs: Remove confusing `SettingsPanel` reference in the page editing `TabbedInterface` example as `SettingsPanel` no longer shows anything as of 4.1 (Kenny Wolf, Julian Bigler)
+ * Docs: Add more extensive documentation for the `permission` kwarg support in Panels (LB (Ben) Johnston)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
@@ -916,7 +922,7 @@ Changelog
  * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
  * Add clarity to the search indexing documentation for how `boost` works when using Postgres with the database search backend (Tibor Leupold)
  * Rename `explorer_breadcrumb` template tag to `breadcrumbs` as it is now used in multiple locations (Paarth Agarwal)
- * Updated `django-filter` version to support 23 (Yuekui)
+ * Updated `django-filter` version to support 22 (Yuekui)
  * Use `.iterator()` in a few more places in the admin, to make it more stable on sites with many pages (Andy Babic)
  * Migrate some simple React component files to TypeScript (LB (Ben) Johnston)
  * Deprecate the usage and documentation of the `wagtail.contrib.modeladmin.menus.SubMenu` class, provide a warning if used directing developers to use `wagtail.admin.menu.Menu` instead (Matt Westcott)

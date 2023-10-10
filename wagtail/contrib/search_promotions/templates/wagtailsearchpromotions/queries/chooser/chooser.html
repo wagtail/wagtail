@@ -3,7 +3,7 @@
 {% include "wagtailadmin/shared/header.html" with title=pop_str %}
 
 <div class="nice-padding">
-    <form class="query-search full-width" action="{% url 'wagtailsearch_admin:queries_chooserresults' %}" method="GET" autocomplete="off" novalidate>
+    <form class="query-search full-width" action="{% url 'wagtailsearchpromotions:chooserresults' %}" method="GET" autocomplete="off" novalidate>
         <ul class="fields">
             {% for field in searchform %}
                 <li>
@@ -15,6 +15,6 @@
     </form>
 
     <div id="query-results">
-        {% include "wagtailsearch/queries/chooser/results.html" %}
+        {% include "wagtailsearchpromotions/queries/chooser/results.html" %}
     </div>
 </div>

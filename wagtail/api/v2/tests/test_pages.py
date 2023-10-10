@@ -941,6 +941,71 @@ class TestPageListing(WagtailTestUtils, TestCase):
             content, {"message": "cannot order by 'not_a_field' (unknown field)"}
         )
 
+    def test_random_ordering_with_unknown_field_gives_error(self):
+        response = self.get_response(order=["random,id"])
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            content, {"message": "random ordering cannot be combined with other fields"}
+        )
+
+    def test_ordering_by_id_and_slug(self):
+        response = self.get_response(order=["id,slug"])
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        expected_order = [
+            2,
+            4,
+            5,
+            6,
+            8,
+            9,
+            10,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+        ]
+        self.assertEqual(page_id_list[:15], expected_order[:15])
+
+    def test_ordering_by_title_and_id_backwards(self):
+        response = self.get_response(order=["title,-id"])
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        expected_order = [
+            15,
+            10,
+            6,
+            17,
+            20,
+            13,
+            2,
+            4,
+            9,
+            8,
+            14,
+            12,
+            18,
+            16,
+            5,
+            23,
+            19,
+            22,
+            21,
+        ]
+        self.assertEqual(page_id_list[:5], expected_order[:5])
+
     # LIMIT
 
     def test_limit_only_two_items_returned(self):
