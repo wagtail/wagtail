@@ -457,12 +457,9 @@ class ReferenceIndex(models.Model):
         # already present in the database
         new_references = references - set(existing_references.keys())
 
-        # ignore_conflicts is not available on MSSQL server
-        # refs https://github.com/wagtail/wagtail/pull/11025#issuecomment-1755253875
-        if connection.vendor == "microsoft":
-            bulk_create_kwargs = {}
-        else:
-            bulk_create_kwargs = {"ignore_conflicts": True}
+        bulk_create_kwargs = {}
+        if connection.features.supports_ignore_conflicts:
+            bulk_create_kwargs["ignore_conflicts"] = True
 
         # Create database records for those reference records
         cls.objects.bulk_create(
