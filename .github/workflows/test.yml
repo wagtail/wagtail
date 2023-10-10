@@ -91,7 +91,7 @@ jobs:
             emailuser: emailuser
             parallel: '--parallel'
           - python: '3.12'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=4.2,<5.2'
             postgres: 'postgres:15'
             notz: notz
             experimental: false
@@ -158,7 +158,7 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
           - python: '3.11'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=4.2,<5.2'
             experimental: false
             parallel: '--parallel'
             mysql: 'mysql:8.1'
@@ -252,7 +252,7 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=4.2,<5.2'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
