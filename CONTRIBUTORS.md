@@ -745,6 +745,7 @@
 * Olumide Micheal
 * Chiemezuo Akujobi
 * Krish Soni
+* Chris Shaw
 
 ## Translators
 
