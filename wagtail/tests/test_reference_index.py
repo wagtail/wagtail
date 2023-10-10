@@ -3,6 +3,7 @@ from io import StringIO
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.test import TestCase
+from django.utils.functional import SimpleLazyObject
 
 from wagtail.blocks import StreamValue, StructValue
 from wagtail.documents import get_document_model
@@ -16,6 +17,7 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomUUIDPrimaryKey,
     EventPage,
     EventPageCarouselItem,
+    EventPageRelatedLink,
     GenericSnippetNoFieldIndexPage,
     GenericSnippetNoIndexPage,
     GenericSnippetPage,
@@ -188,6 +190,15 @@ class TestCreateOrUpdateForObject(TestCase):
         # instead. Since the ParentalKey is null here, no reference will be recorded.
         refs = ReferenceIndex.get_references_to(self.event_page)
         self.assertEqual(refs.count(), 0)
+
+    def test_lazy_parental_key(self):
+        event_page_related_link = EventPageRelatedLink()
+        # The parent model is a lazy object
+        event_page_related_link.page = SimpleLazyObject(lambda: self.event_page)
+        event_page_related_link.link_page = self.root_page
+        event_page_related_link.save()
+        refs = ReferenceIndex.get_references_to(self.root_page)
+        self.assertEqual(refs.count(), 1)
 
     def test_generic_foreign_key(self):
         page1 = GenericSnippetPage(
