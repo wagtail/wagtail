@@ -391,6 +391,43 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
 
+    def test_search(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+
+    def test_search_results(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore_results", args=(self.root_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index_results.html")
+
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+
+    def test_search_searches_descendants(self):
+        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "old"})
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+
+        # search results should not include pages outside parent_page's descendants
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [])
+
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
