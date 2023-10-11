@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/tables/column_header.html" %}
+
+{% block after_label %}
+    {% if page_obj %}
+        {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}
+    {% endif %}
+{% endblock %}
