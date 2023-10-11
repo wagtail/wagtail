@@ -59,6 +59,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.new_page.id, self.old_page.id, self.child_page.id]
         )
+        self.assertContains(response, "1-3 of 3")
 
     def test_explore_root(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
@@ -250,6 +251,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
+        self.assertContains(response, "51-100 of 153")
 
     def test_pagination_invalid(self):
         self.make_pages()
@@ -412,6 +414,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "1-1 of 1")
 
     def test_search_searches_descendants(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "old"})
