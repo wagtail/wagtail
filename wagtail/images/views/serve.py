@@ -64,8 +64,7 @@ class ServeView(View):
         with rendition.get_willow_image() as willow_image:
             mime_type = willow_image.mime_type
 
-        # Open and serve the file
-        rendition.file.open("rb")
+        # Serve the file
         return FileResponse(rendition.file, content_type=mime_type)
 
     def redirect(self, rendition):
