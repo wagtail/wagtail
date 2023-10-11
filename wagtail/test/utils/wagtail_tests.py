@@ -37,8 +37,8 @@ def override_settings(**kwargs):
 
 class WagtailTestUtils:
     @staticmethod
-    def get_soup(markup: Union[str, bytes], parser="html.parser") -> BeautifulSoup:
-        return BeautifulSoup(markup, parser)
+    def get_soup(markup: Union[str, bytes]) -> BeautifulSoup:
+        return BeautifulSoup(markup, "html.parser")
 
     @staticmethod
     def create_test_user():
