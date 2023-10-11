@@ -1,15 +1,30 @@
 {% extends "wagtailadmin/tables/column_header.html" %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags i18n %}
 
 {% block after_label %}
     {% if page_obj %}
-        {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}
-        {% if is_searching %}
-            {% if is_searching_whole_tree %}
-                across entire site. <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">Search within '{{ parent_page.get_admin_display_title }}'</a>
+        {% with start_index=page_obj.start_index end_index=page_obj.end_index result_count=page_obj.paginator.count %}
+            {% if is_searching %}
+                {% if is_searching_whole_tree %}
+                    {% blocktranslate trimmed %}
+                        {{ start_index }}-{{ end_index }} of {{ result_count }} across entire site.
+                    {% endblocktranslate %}
+                    <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">
+                        {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}Search within '{{ title }}'{% endblocktranslate %}
+                    </a>
+                {% else %}
+                    {% blocktrans trimmed with title=parent_page.get_admin_display_title %}
+                        {{ start_index }}-{{ end_index }} of {{ result_count }} within '{{ title }}'.
+                    {% endblocktrans %}
+                    <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
+                        {% translate "Search the whole site" %}
+                    </a>
+                {% endif %}
             {% else %}
-                within '{{ parent_page.get_admin_display_title }}'. <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">Search the whole site</a>
+                {% blocktrans trimmed %}
+                    {{ start_index }}-{{ end_index }} of {{ result_count }}
+                {% endblocktrans %}
             {% endif %}
-        {% endif %}
+        {% endwith %}
     {% endif %}
 {% endblock %}
