@@ -1,7 +1,15 @@
 {% extends "wagtailadmin/tables/column_header.html" %}
+{% load wagtailadmin_tags %}
 
 {% block after_label %}
     {% if page_obj %}
         {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}
+        {% if is_searching %}
+            {% if is_searching_whole_tree %}
+                across entire site. <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">Search within '{{ parent_page.get_admin_display_title }}'</a>
+            {% else %}
+                within '{{ parent_page.get_admin_display_title }}'. <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">Search the whole site</a>
+            {% endif %}
+        {% endif %}
     {% endif %}
 {% endblock %}
