@@ -403,6 +403,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "Search the whole site")
 
     def test_search_results(self):
         response = self.client.get(
@@ -430,6 +431,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [])
+
+    def test_search_whole_tree(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old", "search_all": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "Search within 'New page (simple page)'")
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):

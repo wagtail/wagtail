@@ -105,6 +105,8 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         # Search
         self.query_string = None
+        self.is_searching = False
+        self.is_searching_whole_tree = False
         if "q" in self.request.GET:
             self.search_form = SearchForm(
                 self.request.GET, placeholder=_("Search pages…")
@@ -113,6 +115,10 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
                 self.query_string = self.search_form.cleaned_data["q"]
         else:
             self.search_form = SearchForm(placeholder=_("Search pages…"))
+
+        if self.query_string:
+            self.is_searching = True
+            self.is_searching_whole_tree = bool(self.request.GET.get("search_all"))
 
         return super().get(request)
 
@@ -146,9 +152,11 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         return ordering
 
     def get_queryset(self):
-        is_searching = bool(self.query_string)
-        if is_searching:
-            pages = self.parent_page.get_descendants()
+        if self.is_searching:
+            if self.is_searching_whole_tree:
+                pages = Page.objects.all()
+            else:
+                pages = self.parent_page.get_descendants()
         else:
             pages = self.parent_page.get_children()
 
@@ -158,7 +166,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         self.ordering = self.get_ordering()
 
-        if not is_searching:
+        if not self.is_searching:
             if self.ordering == "ord":
                 # preserve the native ordering from get_children()
                 pass
@@ -192,7 +200,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
-        if is_searching:
+        if self.is_searching:
             if self.ordering:
                 pages = pages.order_by(self.ordering).autocomplete(
                     self.query_string, order_by_relevance=False
@@ -249,6 +257,8 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
                 "index_url": self.get_index_url(),
                 "results_url": self.get_results_url(),
                 "search_form": self.search_form,
+                "is_searching": self.is_searching,
+                "is_searching_whole_tree": self.is_searching_whole_tree,
             }
         )
 
