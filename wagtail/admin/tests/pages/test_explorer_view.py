@@ -422,6 +422,12 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
+        # Results that are not immediate children of the current page should show their parent
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/2/" class="icon icon-arrow-right">Welcome to your new Wagtail site!</a>',
+            html=True,
+        )
 
         # search results should not include pages outside parent_page's descendants
         response = self.client.get(

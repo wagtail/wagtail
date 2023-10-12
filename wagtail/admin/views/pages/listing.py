@@ -250,6 +250,21 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         context = super().get_context_data(**kwargs)
 
+        if self.is_searching:
+            # postprocess this page of results to annotate each result with its parent page
+            parent_page_paths = {
+                page.path[: -page.steplen] for page in context["object_list"]
+            }
+            parent_pages_by_path = {
+                page.path: page
+                for page in Page.objects.filter(path__in=parent_page_paths).specific()
+            }
+            for page in context["object_list"]:
+                parent_page = parent_pages_by_path.get(page.path[: -page.steplen])
+                # add annotation if parent page is found and is not the currently viewed parent
+                if parent_page and parent_page != self.parent_page:
+                    page.annotated_parent_page = parent_page
+
         context.update(
             {
                 "parent_page": self.parent_page,
