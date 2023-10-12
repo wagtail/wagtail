@@ -743,6 +743,7 @@
 * Panagiotis H.M. Issaris
 * Damilola Oladele
 * Olumide Micheal
+* Chiemezuo Akujobi
 
 ## Translators
 

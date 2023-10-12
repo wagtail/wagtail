@@ -169,4 +169,34 @@ describe('ActionController', () => {
       expect(window.location.assign).not.toHaveBeenCalled();
     });
   });
+
+  describe('select method', () => {
+    beforeEach(async () => {
+      await setup(`
+        <textarea
+          id="text"
+          rows="1"
+          data-controller="w-action"
+          data-action="focus->w-action#select"
+        >
+          some random text
+        </textarea>
+      `);
+    });
+
+    it('select should be called when you click on text in textarea', () => {
+      const textarea = document.getElementById('text');
+
+      // check that there is no selection initially
+      expect(textarea.selectionStart).toBe(0);
+      expect(textarea.selectionEnd).toBe(0);
+
+      // focus
+      textarea.focus();
+
+      // check that there is a selection after focus
+      expect(textarea.selectionStart).toBe(0);
+      expect(textarea.selectionEnd).toBe(textarea.value.length);
+    });
+  });
 });
