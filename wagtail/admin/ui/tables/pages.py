@@ -24,6 +24,7 @@ class PageTitleColumn(BaseColumn):
         context["page_perms"] = instance.permissions_for_user(
             parent_context["request"].user
         )
+        context["parent_page"] = getattr(instance, "annotated_parent_page", None)
         context["show_locale_labels"] = parent_context.get("show_locale_labels")
         context["perms"] = parent_context.get("perms")
         return context
