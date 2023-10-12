@@ -5,6 +5,15 @@ describe('ActionController', () => {
   let app;
   const oldWindowLocation = window.location;
 
+  const setup = async (html) => {
+    document.body.innerHTML = `<main>${html}</main>`;
+
+    app = Application.start();
+    app.register('w-action', ActionController);
+
+    await Promise.resolve();
+  };
+
   beforeAll(() => {
     delete window.location;
 
@@ -23,19 +32,16 @@ describe('ActionController', () => {
   });
 
   describe('post method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
-    <button
-      class="button no"
-      data-controller="w-action"
-      data-action="w-action#post"
-      data-w-action-url-value="https://www.github.com"
-    >
-      Enable
-    </button>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+    beforeEach(async () => {
+      await setup(`
+      <button
+        class="button no"
+        data-controller="w-action"
+        data-action="w-action#post"
+        data-w-action-url-value="https://www.github.com"
+      >
+        Enable
+      </button>`);
     });
 
     it('it should allow for a form POST with created data', () => {
@@ -54,8 +60,8 @@ describe('ActionController', () => {
   });
 
   describe('click method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
+    beforeEach(async () => {
+      await setup(`
       <button
         type="button"
         id="button"
@@ -63,10 +69,7 @@ describe('ActionController', () => {
         data-action="some-event->w-action#click"
       >
         Button
-      </button>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+      </button>`);
     });
 
     it('should call click method when button is clicked via Stimulus action', () => {
@@ -84,15 +87,12 @@ describe('ActionController', () => {
   });
 
   describe('redirect method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
+    beforeEach(async () => {
+      await setup(`
       <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
         <option value="http://localhost/place?option=1">1</option>
         <option value="http://localhost/place?option=2" selected>2</option>
-      </select>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+      </select>`);
     });
 
     it('should have a redirect method that falls back to any element value', () => {
