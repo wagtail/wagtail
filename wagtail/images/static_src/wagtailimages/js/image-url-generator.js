@@ -80,9 +80,5 @@ $(function () {
     $form.on('keyup', $.debounce(500, formChangeHandler));
     formChangeHandler();
 
-    // When the user clicks the URL, automatically select the whole thing (for easier copying)
-    $result.on('click', function () {
-      $(this).trigger('select');
-    });
   });
 });

@@ -50,6 +50,12 @@ export class ActionController extends Controller<
     this.element.click();
   }
 
+  select() {
+    if (this.element instanceof HTMLInputElement) {
+      this.element.select();
+    }
+  }
+
   post(event: Event) {
     event.preventDefault();
     event.stopPropagation();
