@@ -9,13 +9,17 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.encoding import force_str
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _ 
+from django.utils.translation import gettext_lazy
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.admin.views.generic import IndexView, EditView, CreateView, DeleteView
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.redirects import models
@@ -39,64 +43,66 @@ from wagtail.log_actions import log
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-@permission_checker.require_any("add", "change", "delete")
-@vary_on_headers("X-Requested-With")
-def index(request):
-    query_string = request.GET.get("q", "")
-    ordering = request.GET.get("ordering", "old_path")
+class Index(IndexView):
+    """
+    Lists all redirects for management within the admin.
+    """
 
-    redirects = models.Redirect.objects.prefetch_related("redirect_page", "site")
+    template_name = "wagtailredirects/index.html"
+    results_template_name = "wagtailredirects/results.html"
+    any_permission_required = ["add", "change", "delete"]
+    permission_policy = ModelPermissionPolicy(Redirect)
+    model = Redirect
+    header_icon = "redirects"
+    add_item_label = _("Add redirect")
+    context_object_name = "redirects"
+    index_url_name = "wagtailredirects:index"
+    add_url_name = "wagtailredirects:add"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    default_ordering = "old_path"
+    paginate_by = 20
+    is_searchable = True
+    page_title = gettext_lazy("Redirects")
 
-    # Search
-    if query_string:
-        redirects = redirects.filter(
-            Q(old_path__icontains=query_string)
-            | Q(redirect_page__url_path__icontains=query_string)
-            | Q(redirect_link__icontains=query_string)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.redirects = Redirect.objects.prefetch_related("redirect_page", "site")
+        self.query_string = request.GET.get("q", "")
+
+    def get_index_results_url(self):
+        if self.query_string:
+            return reverse("wagtailredirects:index_results")
+        else:
+            return reverse("wagtailredirects:index")
+
+    def get_valid_orderings(self):
+        return ["old_path"]
+
+    def get_queryset(self):
+        redirects = self.redirects
+        if self.is_searching:
+            if self.query_string:
+                redirects = redirects.filter(
+                Q(old_path__icontains=self.query_string)
+                | Q(redirect_page__url_path__icontains=self.query_string)
+                | Q(redirect_link__icontains=self.query_string)
+            )
+        
+        if self.get_ordering() == "old_path":
+            redirects = redirects.order_by(self.default_ordering)
+        
+        return redirects
+    
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context_data = super().get_context_data(
+            *args, object_list=object_list, **kwargs
         )
 
-    # Ordering (A bit useless at the moment as only 'old_path' is allowed)
-    if ordering not in ["old_path"]:
-        ordering = "old_path"
+        context_data["ordering"] = self.default_ordering
+        context_data["redirects"] = self.redirects
 
-    redirects = redirects.order_by(ordering)
-
-    # Pagination
-    paginator = Paginator(redirects, per_page=20)
-    try:
-        redirects = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
-
-    # Render template
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return TemplateResponse(
-            request,
-            "wagtailredirects/results.html",
-            {
-                "ordering": ordering,
-                "redirects": redirects,
-                "query_string": query_string,
-            },
-        )
-    else:
-        return TemplateResponse(
-            request,
-            "wagtailredirects/index.html",
-            {
-                "ordering": ordering,
-                "redirects": redirects,
-                "query_string": query_string,
-                "search_form": SearchForm(
-                    data={"q": query_string} if query_string else None,
-                    placeholder=_("Search redirects"),
-                ),
-                "user_can_add": permission_policy.user_has_permission(
-                    request.user, "add"
-                ),
-            },
-        )
-
+        return context_data
 
 @permission_checker.require("change")
 def edit(request, redirect_id):

@@ -1,10 +1,10 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n %}
 {% load static wagtailadmin_tags %}
 
 {% block bodyclass %}redirects{% endblock %}
 
-{% block titletag %}{% trans "Redirects" %}{% endblock %}
+<!-- {% block titletag %}{% trans "Redirects" %}{% endblock %} -->
 
 {% block content %}
     {% trans "Redirects" as redirects_str %}

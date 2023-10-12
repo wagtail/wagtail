@@ -618,7 +618,8 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["redirects"][0].old_path, "/aaargh")
+        last_index = len(response.context["redirects"]) - 1
+        self.assertEqual(response.context["redirects"][last_index].old_path, "/aaargh")
 
 
 class TestRedirectsAddView(WagtailTestUtils, TestCase):
