@@ -746,6 +746,7 @@
 * Chiemezuo Akujobi
 * Krish Soni
 * Chris Shaw
+* claudobahn
 
 ## Translators
 
