@@ -3489,10 +3489,13 @@ class PageViewRestriction(BaseViewRestriction):
         """
         Custom delete handler to aid in logging
         :param user: the user removing the view restriction
-        :param specific_instance: the specific model instance the restriction applies to
         """
         specific_instance = self.page.specific
         if specific_instance:
+            removed_restriction_type = (
+                PageViewRestriction.objects.filter(page=self.page)
+                .values_list('restriction_type', flat=True)[0]
+            )
             log(
                 instance=specific_instance,
                 action="wagtail.view_restriction.delete",
@@ -3501,7 +3504,7 @@ class PageViewRestriction(BaseViewRestriction):
                     "restriction": {
                         "type": self.restriction_type,
                         "title": force_str(
-                            dict(self.RESTRICTION_CHOICES).get(self.restriction_type)
+                            dict(self.RESTRICTION_CHOICES).get(removed_restriction_type)
                         ),
                     }
                 },
