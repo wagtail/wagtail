@@ -2,6 +2,7 @@ from datetime import datetime
 from io import BytesIO
 from unittest import mock
 
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
@@ -226,7 +227,7 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
 
         # chooser should include the creation form
         response_json = response.json()
-        soup = self.get_soup(response_json["html"])
+        soup = BeautifulSoup(response_json["html"], "html.parser")
         self.assertTrue(soup.select_one("form[data-chooser-modal-creation-form]"))
 
     def test_chosen(self):
