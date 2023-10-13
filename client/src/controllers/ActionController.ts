@@ -106,4 +106,31 @@ export class ActionController extends Controller<
     if (this.element instanceof HTMLButtonElement) return;
     this.element?.select();
   }
+
+  /**
+   * Reset the field to a supplied or the field's initial value (default).
+   * Only update if the value to change to is different from the current value.
+   */
+  reset(
+    event: CustomEvent<{ value?: string }> & { params?: { value?: string } },
+  ) {
+    const target = this.element;
+    const currentValue = target.value;
+
+    const { value: newValue = '' } = {
+      value: target instanceof HTMLInputElement ? target.defaultValue : '',
+      ...event?.params,
+      ...event?.detail,
+    };
+
+    if (currentValue === newValue) return;
+
+    target.value = newValue;
+    this.dispatch('change', {
+      bubbles: true,
+      cancelable: false,
+      prefix: '',
+      target,
+    });
+  }
 }
