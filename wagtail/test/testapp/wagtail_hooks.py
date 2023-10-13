@@ -22,6 +22,7 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail.test.testapp.models import (
     DraftStateModel,
@@ -270,12 +271,17 @@ class FullFeaturedSnippetFilterSet(WagtailFilterSet):
         fields = ["country_code", "some_date"]
 
 
+class FullFeaturedSnippetChooserViewSet(SnippetChooserViewSet):
+    form_fields = ["text", "country_code", "some_number"]
+
+
 class FullFeaturedSnippetViewSet(SnippetViewSet):
     icon = "cog"
     admin_url_namespace = "some_namespace"
     base_url_path = "deep/within/the/admin"
     chooser_admin_url_namespace = "my_chooser_namespace"
     chooser_base_url_path = "choose/wisely"
+    chooser_viewset_class = FullFeaturedSnippetChooserViewSet
     list_per_page = 5
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
