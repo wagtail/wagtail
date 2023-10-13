@@ -724,6 +724,7 @@
 * Scott Foster
 * Florent Lebreton
 * Sandro Rodrigues
+* claudobahn
 
 ## Translators
 
