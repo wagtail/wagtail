@@ -17,7 +17,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.coreutils import accept_kwarg
+from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
@@ -227,7 +227,7 @@ class Block(metaclass=BaseBlock):
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
         args = {'context': context}
-        if accept_kwarg(self.get_template, 'value'):
+        if accepts_kwarg(self.get_template, 'value'):
             args['value'] = value
         else:
             warnings.warn(
