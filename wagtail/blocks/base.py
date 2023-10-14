@@ -214,6 +214,9 @@ class Block(metaclass=BaseBlock):
         """
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
+
+        value contains the current value of the block, allowing overriden methods to
+        select the proper template based on the actual block value.
         """
         return getattr(self.meta, "template", None)
 
