@@ -3492,10 +3492,7 @@ class PageViewRestriction(BaseViewRestriction):
         """
         specific_instance = self.page.specific
         if specific_instance:
-            removed_restriction_type = (
-                PageViewRestriction.objects.filter(page=self.page)
-                .values_list('restriction_type', flat=True)[0]
-            )
+            removed_restriction_type = (PageViewRestriction.objects.filter(page=self.page).values_list('restriction_type', flat=True)[0])
             log(
                 instance=specific_instance,
                 action="wagtail.view_restriction.delete",
