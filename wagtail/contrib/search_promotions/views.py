@@ -21,24 +21,33 @@ from wagtail.search.utils import normalise_query_string
 from wagtail.admin.views.generic import IndexView as WagtailIndexView
 
 decorators = [vary_on_headers, any_permission_required]
-@method_decorator(any_permission_required("wagtailsearchpromotions.add_searchpromotion",
-                                          "wagtailsearchpromotions.change_searchpromotion",
-                                          "wagtailsearchpromotions.delete_searchpromotion",),
-                                           name='dispatch')
-@method_decorator(vary_on_headers("X-Requested-With"),name='dispatch')
+
+
+@method_decorator(
+    any_permission_required(
+        "wagtailsearchpromotions.add_searchpromotion",
+        "wagtailsearchpromotions.change_searchpromotion",
+        "wagtailsearchpromotions.delete_searchpromotion",
+    ),
+    name="dispatch",
+)
+@method_decorator(vary_on_headers("X-Requested-With"), name="dispatch")
 class IndexView(WagtailIndexView):
     template_name = "wagtailsearchpromotions/index.html"
-    result_template_name = "wagtailsearchpromotions/results.html" 
+    result_template_name = "wagtailsearchpromotions/results.html"
     paginate_by = 20
     is_searching = False
     ordering = "query_string"
-        
+
     def get_ordering(self):
         # Ordering
         valid_ordering = ["query_string", "-query_string", "views", "-views"]
         ordering = self.ordering
 
-        if "ordering" in self.request.GET and self.request.GET["ordering"] in valid_ordering:
+        if (
+            "ordering" in self.request.GET
+            and self.request.GET["ordering"] in valid_ordering
+        ):
             ordering = self.request.GET["ordering"]
         return ordering
 
@@ -46,18 +55,19 @@ class IndexView(WagtailIndexView):
         # Query
         queries = Query.objects.filter(editors_picks__isnull=False).distinct()
         ordering = self.get_ordering()
-        
         if "views" in ordering:
-            queries = queries.annotate(views=functions.Coalesce(Sum("daily_hits__hits"), 0))
+            queries = queries.annotate(
+                views=functions.Coalesce(Sum("daily_hits__hits"), 0)
+            )
         queries = queries.order_by(ordering)
-        
+
         # Search
         query_string = self.request.GET.get("q", "")
         if query_string:
             queries = queries.filter(query_string__icontains=query_string)
             self.is_searching = True
 
-        #Paginate
+        # Paginate
         paginator = Paginator(queries, per_page=self.paginate_by)
         page_number = self.request.GET.get("p", 1)
         try:
@@ -67,28 +77,31 @@ class IndexView(WagtailIndexView):
 
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             return render(
-            request,
-            self.result_template_name,
-            {
-                "is_searching": self.is_searching,
-                "ordering": self.get_ordering(),
-                "queries": queries,
-                "query_string": query_string,
-        })
+                request,
+                self.result_template_name,
+                {
+                    "is_searching": self.is_searching,
+                    "ordering": self.get_ordering(),
+                    "queries": queries,
+                    "query_string": query_string,
+                },
+            )
         else:
-            return render(request,
-            self.template_name,
-            {
-                "is_searching": self.is_searching,
-                "ordering": self.get_ordering(),
-                "queries": queries,
-                "query_string": query_string,
-                "search_form": SearchForm(
-                    data={"q": query_string} if query_string else None,
-                    placeholder=_("Search promoted results"),
-                ),
-            },
-        )
+            return render(
+                request,
+                self.template_name,
+                {
+                    "is_searching": self.is_searching,
+                    "ordering": self.get_ordering(),
+                    "queries": queries,
+                    "query_string": query_string,
+                    "search_form": SearchForm(
+                        data={"q": query_string} if query_string else None,
+                        placeholder=_("Search promoted results"),
+                    ),
+                },
+            )
+
 
 def save_searchpicks(query, new_query, searchpicks_formset):
     # Save
