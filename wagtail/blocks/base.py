@@ -2,6 +2,7 @@ import collections
 import itertools
 import json
 import re
+import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -17,6 +18,8 @@ from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import JSContext
+from wagtail.coreutils import accept_kwarg
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 __all__ = [
     "BaseBlock",
@@ -220,7 +223,16 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        template = self.get_template(value=value, context=context)
+        args = {'context': context}
+        if accept_kwarg(self.get_template, 'value'):
+            args['value'] = value
+        else:
+            warnings.warn(
+                "get_template should accept a 'value' argument as first argument, legacy call will be removed in Wagtail 6.0!.",
+                RemovedInWagtail60Warning,
+            )
+
+        template = self.get_template(**args)
         if not template:
             return self.render_basic(value, context=context)
 
