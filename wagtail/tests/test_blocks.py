@@ -5201,7 +5201,8 @@ class BlockChoosingTemplateBasedOnValue(blocks.Block):
         if value == "HEADING":
             return "tests/blocks/heading_block.html"
 
-        return None # using render_basic
+        return None  # using render_basic
+
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
     def test_template_is_overridden_by_get_template(self):
@@ -5213,7 +5214,7 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
         self.assertEqual(template, block.my_new_template)
 
     def test_block_render_passes_the_value_argument_to_get_template(self):
-        """ verifies Block.render() passes the value to get_template """
+        """verifies Block.render() passes the value to get_template"""
         block = BlockChoosingTemplateBasedOnValue()
 
         html = block.render("Hello World")
@@ -5221,7 +5222,6 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
 
         html = block.render("HEADING")
         self.assertEqual(html, "<h1>HEADING</h1>")
-
 
 
 class TestValidationErrorAsJsonData(TestCase):

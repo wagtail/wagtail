@@ -226,9 +226,9 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        args = {'context': context}
-        if accepts_kwarg(self.get_template, 'value'):
-            args['value'] = value
+        args = {"context": context}
+        if accepts_kwarg(self.get_template, "value"):
+            args["value"] = value
         else:
             warnings.warn(
                 "get_template should accept a 'value' argument as first argument, legacy call will be removed in Wagtail 6.0!.",
