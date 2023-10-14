@@ -2,23 +2,22 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Sum, functions
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
 
 from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.views.generic import IndexView as WagtailIndexView
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query
 from wagtail.log_actions import log
 from wagtail.search.utils import normalise_query_string
-from wagtail.admin.views.generic import IndexView as WagtailIndexView
 
 decorators = [vary_on_headers, any_permission_required]
 
