@@ -7,6 +7,8 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
 
 from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
@@ -16,63 +18,69 @@ from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query
 from wagtail.log_actions import log
 from wagtail.search.utils import normalise_query_string
+from wagtail.admin.views.generic import IndexView as WagtailIndexView
 
-
-@any_permission_required(
-    "wagtailsearchpromotions.add_searchpromotion",
-    "wagtailsearchpromotions.change_searchpromotion",
-    "wagtailsearchpromotions.delete_searchpromotion",
-)
-@vary_on_headers("X-Requested-With")
-def index(request):
-    # Ordering
-    valid_ordering = ["query_string", "-query_string", "views", "-views"]
-    ordering = valid_ordering[0]
-
-    if "ordering" in request.GET and request.GET["ordering"] in valid_ordering:
-        ordering = request.GET["ordering"]
-
-    # Query
-    queries = Query.objects.filter(editors_picks__isnull=False).distinct()
-
-    if "views" in ordering:
-        queries = queries.annotate(views=functions.Coalesce(Sum("daily_hits__hits"), 0))
-
-    queries = queries.order_by(ordering)
-
-    # Search
+decorators = [vary_on_headers, any_permission_required]
+@method_decorator(any_permission_required("wagtailsearchpromotions.add_searchpromotion",
+                                          "wagtailsearchpromotions.change_searchpromotion",
+                                          "wagtailsearchpromotions.delete_searchpromotion",),
+                                           name='dispatch')
+@method_decorator(vary_on_headers("X-Requested-With"),name='dispatch')
+class IndexView(WagtailIndexView):
+    template_name = "wagtailsearchpromotions/index.html"
+    result_template_name = "wagtailsearchpromotions/results.html" 
+    paginate_by = 20
     is_searching = False
-    query_string = request.GET.get("q", "")
+    ordering = "query_string"
+        
+    def get_ordering(self):
+        # Ordering
+        valid_ordering = ["query_string", "-query_string", "views", "-views"]
+        ordering = self.ordering
 
-    if query_string:
-        queries = queries.filter(query_string__icontains=query_string)
-        is_searching = True
+        if "ordering" in self.request.GET and self.request.GET["ordering"] in valid_ordering:
+            ordering = self.request.GET["ordering"]
+        return ordering
 
-    # Paginate
-    paginator = Paginator(queries, per_page=20)
-    try:
-        queries = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
+    def get(self, request):
+        # Query
+        queries = Query.objects.filter(editors_picks__isnull=False).distinct()
+        ordering = self.get_ordering()
+        
+        if "views" in ordering:
+            queries = queries.annotate(views=functions.Coalesce(Sum("daily_hits__hits"), 0))
+        queries = queries.order_by(ordering)
+        
+        # Search
+        query_string = self.request.GET.get("q", "")
+        if query_string:
+            queries = queries.filter(query_string__icontains=query_string)
+            self.is_searching = True
 
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return TemplateResponse(
+        #Paginate
+        paginator = Paginator(queries, per_page=self.paginate_by)
+        page_number = self.request.GET.get("p", 1)
+        try:
+            queries = paginator.page(page_number)
+        except InvalidPage:
+            raise Http404
+
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return render(
             request,
-            "wagtailsearchpromotions/results.html",
+            self.result_template_name,
             {
-                "is_searching": is_searching,
-                "ordering": ordering,
+                "is_searching": self.is_searching,
+                "ordering": self.get_ordering(),
                 "queries": queries,
                 "query_string": query_string,
-            },
-        )
-    else:
-        return TemplateResponse(
-            request,
-            "wagtailsearchpromotions/index.html",
+        })
+        else:
+            return render(request,
+            self.template_name,
             {
-                "is_searching": is_searching,
-                "ordering": ordering,
+                "is_searching": self.is_searching,
+                "ordering": self.get_ordering(),
                 "queries": queries,
                 "query_string": query_string,
                 "search_form": SearchForm(
@@ -81,7 +89,6 @@ def index(request):
                 ),
             },
         )
-
 
 def save_searchpicks(query, new_query, searchpicks_formset):
     # Save
