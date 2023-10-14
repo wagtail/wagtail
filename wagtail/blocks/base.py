@@ -17,8 +17,8 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import JSContext
 from wagtail.coreutils import accept_kwarg
+from wagtail.telepath import JSContext
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 __all__ = [
