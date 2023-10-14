@@ -364,6 +364,26 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(users.first().country, "testcountry")
         self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
+    def test_create_with_whitespaced_password(self):
+        """Password should not be stripped"""
+        self.post(
+            {
+                "username": "testuser2",
+                "email": "test@user2.com",
+                "first_name": "Test",
+                "last_name": "User",
+                "password1": "  whitespaced_password  ",
+                "password2": "  whitespaced_password  ",
+            },
+            follow=True,
+        )
+        # Try to login with the password
+        self.client.logout()
+        username = "testuser2"
+        if settings.AUTH_USER_MODEL == "emailuser.EmailUser":
+            username = "test@user2.com"
+        self.login(username=username, password="  whitespaced_password  ")
+
     def test_create_with_password_mismatch(self):
         response = self.post(
             {
