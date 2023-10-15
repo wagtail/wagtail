@@ -100,7 +100,7 @@ urlpatterns = [
     path(
         "reports/", include(wagtailadmin_reports_urls, namespace="wagtailadmin_reports")
     ),
-    path("account/", account.account, name="wagtailadmin_account"),
+    path("account/", account.AccountView.as_view(), name="wagtailadmin_account"),
     path("logout/", account.LogoutView.as_view(), name="wagtailadmin_logout"),
     path(
         "dismissibles/",
