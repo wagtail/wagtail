@@ -98,6 +98,10 @@ Changelog
  * Maintenance: Add changelog and issue tracker links to the PyPI project page (Panagiotis H.M. Issaris)
  * Maintenance: Add better deprecation warnings to the `search.Query` & `search.QueryDailyHits` model, move final set of templates from the admin search module to the search promotions contrib module (LB (Ben) Johnston)
  * Maintenance: Add generic `InspectView` to `ModelViewSet` (Sage Abdullah)
+ * Maintenance: Adopt `wagtail.admin.views.generic.IndexView` for Redirects index listing and search results (Temidayo Azeez)
+ * Maintenance: Adopt  `wagtail.views.generic.EditView for Redirects Edit View` (Temidayo Azeez)
+ *Maintenance: Adopt `wagtail.admin.views.generic.CreateView` for Redirects Create view (Temidayo Azeez)
+ * Maintenance: Adopt `wagtail.admin.views.generic.DeleteView` for Redirects Delete View (Temidayo Azeez)
 
 5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~

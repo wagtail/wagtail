@@ -1,26 +1,19 @@
 import os
 
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.core.paginator import InvalidPage, Paginator
+from django.core.exceptions import SuspiciousOperation
 from django.db import transaction
 from django.db.models import Q
-from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template.response import TemplateResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_str
-from django.utils.translation import gettext as _ 
-from django.utils.translation import gettext_lazy
-from django.utils.translation import ngettext
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.vary import vary_on_headers
 
-from wagtail.admin.views.generic import IndexView, EditView, CreateView, DeleteView
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.contrib.redirects.models import Redirect
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
@@ -30,6 +23,7 @@ from wagtail.contrib.redirects.forms import (
     ImportForm,
     RedirectForm,
 )
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
@@ -39,6 +33,7 @@ from wagtail.contrib.redirects.utils import (
     write_to_file_storage,
 )
 from wagtail.log_actions import log
+from wagtail.permission_policies import ModelPermissionPolicy
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -84,16 +79,16 @@ class Index(IndexView):
         if self.is_searching:
             if self.query_string:
                 redirects = redirects.filter(
-                Q(old_path__icontains=self.query_string)
-                | Q(redirect_page__url_path__icontains=self.query_string)
-                | Q(redirect_link__icontains=self.query_string)
-            )
-        
+                    Q(old_path__icontains=self.query_string)
+                    | Q(redirect_page__url_path__icontains=self.query_string)
+                    | Q(redirect_link__icontains=self.query_string)
+                )
+
         if self.get_ordering() == "old_path":
             redirects = redirects.order_by(self.default_ordering)
-        
+
         return redirects
-    
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context_data = super().get_context_data(
             *args, object_list=object_list, **kwargs
@@ -104,115 +99,73 @@ class Index(IndexView):
 
         return context_data
 
-@permission_checker.require("change")
-def edit(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", theredirect
-    ):
-        raise PermissionDenied
+class Edit(EditView):
+    """
+    Provide the ability to edit a redirect within the admin
+    """
 
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES, instance=theredirect)
-        if form.is_valid():
-            with transaction.atomic():
-                form.save()
-                log(instance=theredirect, action="wagtail.edit")
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' updated.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(request, _("The redirect could not be saved due to errors."))
-    else:
-        form = RedirectForm(instance=theredirect)
+    model = Redirect
+    permission_policy = ModelPermissionPolicy(Redirect)
+    form_class = RedirectForm
+    header_icon = "redirects"
+    template_name = "wagtailredirects/edit.html"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    success_message = gettext_lazy("Redirect '%(object)s' updated.")
+    context_object_name = "redirects"
+    error_message = gettext_lazy("The redirect could not be saved due to errors.")
 
-    return TemplateResponse(
-        request,
-        "wagtailredirects/edit.html",
-        {
-            "redirect": theredirect,
-            "form": form,
-            "user_can_delete": permission_policy.user_has_permission(
-                request.user, "delete"
-            ),
-        },
-    )
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = self.get_object()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["redirect"] = self.object
+        return context
 
 
-@permission_checker.require("delete")
-def delete(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+class Delete(DeleteView):
+    """
+    Provide the ability to delete a redirect within the admin
+    """
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", theredirect
-    ):
-        raise PermissionDenied
+    permission_policy = ModelPermissionPolicy(Redirect)
+    model = Redirect
+    template_name = "wagtailredirects/confirm_delete.html"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    page_title = gettext_lazy("Delete Redirect")
+    context_object_name = "redirect"
+    success_message = gettext_lazy("Redirect '%(object)s' deleted.")
 
-    if request.method == "POST":
-        with transaction.atomic():
-            log(instance=theredirect, action="wagtail.delete")
-            theredirect.delete()
-        messages.success(
-            request,
-            _("Redirect '%(redirect_title)s' deleted.")
-            % {"redirect_title": theredirect.title},
-        )
-        return redirect("wagtailredirects:index")
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/confirm_delete.html",
-        {
-            "redirect": theredirect,
-        },
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["redirect"] = self.object
+        return context
 
 
-@permission_checker.require("add")
-def add(request):
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES)
-        if form.is_valid():
-            with transaction.atomic():
-                theredirect = form.save()
-                log(instance=theredirect, action="wagtail.edit")
+class Create(CreateView):
+    """
+    Provide the ability to create a redirect within the admin
+    """
 
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' added.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(
-                request, _("The redirect could not be created due to errors.")
-            )
-    else:
-        form = RedirectForm()
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/add.html",
-        {
-            "form": form,
-        },
-    )
+    permission_policy = ModelPermissionPolicy(Redirect)
+    permission_required = "add"
+    model = Redirect
+    form_class = RedirectForm
+    template_name = "wagtailredirects/add.html"
+    add_url_name = "wagtailredirects:add"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    header_icon = "redirect"
+    page_title = gettext_lazy("Add redirect")
+    success_message = gettext_lazy("Redirect '%(object)s' created.")
+    error_message = "The redirect could not be created due to errors."
 
 
 @permission_checker.require_any("add")

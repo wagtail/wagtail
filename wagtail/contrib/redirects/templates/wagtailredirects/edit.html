@@ -7,7 +7,7 @@
 
     {% include "wagtailadmin/shared/non_field_errors.html" %}
 
-    <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding" novalidate>
+    <form action="{% url 'wagtailredirects:edit' redirect.pk %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}
 
         <ul class="fields">
