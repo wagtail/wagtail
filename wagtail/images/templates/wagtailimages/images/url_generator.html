@@ -19,7 +19,7 @@
 
         {% trans "URL" as heading %}
         {% panel id="url" icon="link" heading=heading %}
-            <textarea id="result-url" rows="1"></textarea>
+            <textarea id="result-url" rows="1" data-controller="w-action" data-action="focus->w-action#select"></textarea>
         {% endpanel %}
 
         {% trans "Preview" as heading %}

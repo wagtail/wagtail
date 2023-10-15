@@ -34,9 +34,16 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *     <option value="/path/to/2">2</option>
  *   </select>
  * </form>
+ *
+ * @example - triggering selection of the text in a field
+ * <form>
+ *   <textarea name="url" data-controller="w-action" data-action="click->w-action#select">
+ *     This text will all be selected on focus.
+ *   </textarea>
+ * </form>
  */
 export class ActionController extends Controller<
-  HTMLButtonElement | HTMLInputElement
+  HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
 > {
   static values = {
     continue: { type: Boolean, default: false },
@@ -90,5 +97,13 @@ export class ActionController extends Controller<
     const url = event?.params?.url ?? event?.detail?.url ?? this.element.value;
     if (!url) return;
     window.location.assign(url);
+  }
+
+  /**
+   * Select all the text in an input or textarea element.
+   */
+  select() {
+    if (this.element instanceof HTMLButtonElement) return;
+    this.element?.select();
   }
 }

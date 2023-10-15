@@ -53,6 +53,10 @@ Changelog
  * Fix: Ensure the search promotions popular search terms picker correctly refers to the correct model (LB (Ben) Johnston)
  * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
  * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
+ * Fix: Ensure that pages in moderation show as "Live + In Moderation" in the page explorer rather than "Live + Draft" (Sage Abdullah)
+ * Fix: Prevent error when updating reference index for objects with a lazy ParentalKey-related object (Chris Shaw)
+ * Fix: Ignore conflicts when inserting reference index entries to prevent race conditions causing uniqueness errors (Chris Shaw)
+ * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
@@ -98,11 +102,15 @@ Changelog
  * Maintenance: Add changelog and issue tracker links to the PyPI project page (Panagiotis H.M. Issaris)
  * Maintenance: Add better deprecation warnings to the `search.Query` & `search.QueryDailyHits` model, move final set of templates from the admin search module to the search promotions contrib module (LB (Ben) Johnston)
  * Maintenance: Add generic `InspectView` to `ModelViewSet` (Sage Abdullah)
+ * Maintenance: Migrate select all on focus/click behavior to Stimulus, used on the image URL generator (Chiemezuo Akujobi)
 
 5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix `SnippetBulkAction` not respecting `models` definition (Sandro Rodrigues)
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
+ * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
 
 
 5.1.2 (25.09.2023)

@@ -743,6 +743,10 @@
 * Panagiotis H.M. Issaris
 * Damilola Oladele
 * Olumide Micheal
+* Chiemezuo Akujobi
+* Krish Soni
+* Chris Shaw
+* claudobahn
 
 ## Translators
 

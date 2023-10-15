@@ -165,9 +165,10 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         self.request = get_dummy_request()
         self.request.user = self.user
         self.text = "Test full-featured snippet with icon text"
+        self.full_featured_snippet = FullFeaturedSnippet.objects.create(text=self.text)
         test_snippet = SnippetChooserModel.objects.create(
             advert=Advert.objects.create(text="foo"),
-            full_featured=FullFeaturedSnippet.objects.create(text=self.text),
+            full_featured=self.full_featured_snippet,
         )
 
         self.edit_handler = get_edit_handler(SnippetChooserModel)
@@ -226,6 +227,38 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         for key in response.context.keys():
             if "icon" in key:
                 self.assertNotIn("snippet", response.context[key])
+
+        # chooser should include the creation form
+        response_json = response.json()
+        soup = self.get_soup(response_json["html"])
+        self.assertTrue(soup.select_one("form[data-chooser-modal-creation-form]"))
+
+    def test_chosen(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.get(
+            reverse(
+                chooser_viewset.get_url_name("chosen"),
+                args=[self.full_featured_snippet.pk],
+            )
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(
+            response_json["result"]["id"], str(self.full_featured_snippet.pk)
+        )
+        self.assertEqual(response_json["result"]["string"], self.text)
+
+    def test_create_from_chooser(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.post(
+            reverse(chooser_viewset.get_url_name("create")),
+            {
+                "text": "New snippet",
+            },
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(response_json["result"]["string"], "New snippet")
 
 
 class TestAdminURLs(BaseSnippetViewSetTests):
