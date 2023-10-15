@@ -1,5 +1,3 @@
-import sys
-
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
@@ -34,12 +32,20 @@ class Command(BaseCommand):
         pages = options.get("pages")
         non_pages = options.get("non_pages")
 
-        revisions_deleted = purge_revisions(days=days, pages=pages, non_pages=non_pages)
+        revisions_deleted, protected_error_count = purge_revisions(
+            days=days, pages=pages, non_pages=non_pages
+        )
 
         if revisions_deleted:
             self.stdout.write(
                 self.style.SUCCESS(
                     "Successfully deleted %s revisions" % revisions_deleted
+                )
+            )
+            self.stdout.write(
+                self.style.SUCCESS(
+                    "Ignored %s revisions because one or more protected relations exist that prevent deletion."
+                    % protected_error_count
                 )
             )
         else:
@@ -88,9 +94,4 @@ def purge_revisions(days=None, pages=True, non_pages=True):
             except ProtectedError:
                 protected_error_count += 1
 
-    sys.stdout.write(
-        f"Deleted {deleted_revisions_count} revisions. "
-        f"Ignored {protected_error_count} revisions due to ProtectedError."
-    )
-
-    return deleted_revisions_count
+    return deleted_revisions_count, protected_error_count
