@@ -740,7 +740,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
         (dict)
 
         The JSON content for the object at the time the revision was created.
-
 ```
 
 ### Managers
