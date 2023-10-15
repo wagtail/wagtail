@@ -23,6 +23,7 @@
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
+    word-break: break-all;
 
     &--mode-deleting {
       color: theme('colors.text-context');
