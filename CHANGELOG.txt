@@ -57,6 +57,7 @@ Changelog
  * Fix: Prevent error when updating reference index for objects with a lazy ParentalKey-related object (Chris Shaw)
  * Fix: Ignore conflicts when inserting reference index entries to prevent race conditions causing uniqueness errors (Chris Shaw)
  * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
+ * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
