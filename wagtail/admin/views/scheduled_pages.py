@@ -14,9 +14,9 @@ from wagtail.models import Page
 from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
-def get_scheduled_pages_for_user(request):
+def get_scheduled_pages_for_user(user):
     user_pages = PagePermissionPolicy().instances_user_has_permission_for(
-        request.user, "publish"
+        user, "publish"
     )
     pages = (
         Page.objects.annotate_approved_schedule()
@@ -33,13 +33,13 @@ def get_scheduled_pages_for_user(request):
 
 class ScheduledPagesPanel(Component):
     name = "scheduled_pages"
-    template_name = "wagtailadmin/scheduled_pages/panel.html"
+    template_name = "wagtailadmin/home/scheduled_pages.html"
     order = 200
 
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        context["pages_to_be_scheduled"] = get_scheduled_pages_for_user(request)
+        context["pages_to_be_scheduled"] = get_scheduled_pages_for_user(request.user)
         context["request"] = request
         context["csrf_token"] = parent_context["csrf_token"]
         return context
@@ -76,7 +76,7 @@ def publish(request, page_id):
 
 def publish_all_scheduled_confirm(request):
 
-    revisions_to_publish = get_scheduled_pages_for_user(request)
+    revisions_to_publish = get_scheduled_pages_for_user(request.user)
 
     return TemplateResponse(
         request,
@@ -90,7 +90,7 @@ def publish_all_scheduled_confirm(request):
 def publish_all_scheduled(request):
     if request.method == "POST":
         new_go_live_timestamp = timezone.now() - timedelta(seconds=1)
-        revisions_to_publish = get_scheduled_pages_for_user(request)
+        revisions_to_publish = get_scheduled_pages_for_user(request.user)
         for page in revisions_to_publish:
             page.go_live_at = new_go_live_timestamp
             page.save()

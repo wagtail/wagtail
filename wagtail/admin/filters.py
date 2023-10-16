@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
+from wagtail.admin.widgets import AdminDateInput, AdminDateTimeInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_type_label
 
 
@@ -20,6 +20,27 @@ class DateRangePickerWidget(SuffixedMultiWidget):
         widgets = (
             AdminDateInput(attrs={"placeholder": _("Date from")}),
             AdminDateInput(attrs={"placeholder": _("Date to")}),
+        )
+        super().__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return [value.start, value.stop]
+        return [None, None]
+    
+
+class DateTimeRangePickerWidget(SuffixedMultiWidget):
+    """
+    A widget allowing a start and end date and time to be picked.
+    """
+
+    template_name = "wagtailadmin/widgets/daterange_input.html"
+    suffixes = ["after", "before"]
+
+    def __init__(self, attrs=None):
+        widgets = (
+            AdminDateTimeInput(attrs={"placeholder": _("Date/time from")}),
+            AdminDateTimeInput(attrs={"placeholder": _("Date/time to")}),
         )
         super().__init__(widgets, attrs)
 
