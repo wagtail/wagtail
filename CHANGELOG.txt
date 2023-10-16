@@ -39,6 +39,7 @@ Changelog
  * Add the ability to define listing buttons on generic `IndexView` (Sage Abdullah)
  * Add a visual progress bar to the output of the `wagtail_update_image_renditions` management command (Faishal Manzar)
  * Increase the read buffer size to improve efficiency and performance when generating file hashes for document or image uploads, use `hashlib.file_digest` if available (Python 3.11+) (Jake Howard)
+ * Pass block value to `Block.get_template` to allow varying template based on value (Florian Delizy)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)

@@ -747,6 +747,7 @@
 * Krish Soni
 * Chris Shaw
 * claudobahn
+* Florian Delizy
 
 ## Translators
 
