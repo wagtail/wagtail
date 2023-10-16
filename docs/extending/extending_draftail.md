@@ -57,6 +57,18 @@ def register_mark_feature(features):
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append('mark')
 ```
+Second, in `base.py` of the `settings` folder, configure `WAGTAILADMIN_RICH_TEXT_EDITORS` to display the block type in the toolbar by adding `mark` to `OPTIONS.features`
+
+```python
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['h2', 'bold', 'italic', 'link', 'document-link', 'mark']
+        }
+    },
+}
+```
 
 These steps will always be the same for all Draftail plugins. The important parts are to:
 
@@ -83,6 +95,7 @@ Blocks are nearly as simple as inline styles:
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
+from wagtail import hooks
 
 @hooks.register('register_rich_text_features')
 def register_help_text_feature(features):
@@ -352,6 +365,7 @@ Here is an example with a simple sentence counter – first, registering the edi
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')
@@ -422,6 +436,7 @@ Here is an example with highlighting of problematic punctuation – first, regis
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')
