@@ -28,6 +28,7 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -5184,37 +5185,31 @@ class TestIncludeBlockTag(TestCase):
         self.assertIn("<body>some <em>evil</em> HTML</body>", result)
 
 
-class BlockUsingGetTemplateMethod(blocks.Block):
-
-    my_new_template = "my_super_awesome_dynamic_template.html"
-
-    def get_template(self, value=None, context=None):
-        return self.my_new_template
-
-
-class BlockChoosingTemplateBasedOnValue(blocks.Block):
-
-    last_value = None
-
-    def get_template(self, value=None, context=None):
-        self.last_value = value
-        if value == "HEADING":
-            return "tests/blocks/heading_block.html"
-
-        return None  # using render_basic
-
-
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_template_is_overridden_by_get_template(self):
+    def test_get_template_old_signature(self):
+        class BlockUsingGetTemplateMethod(blocks.Block):
+            my_new_template = "tests/blocks/heading_block.html"
+
+            def get_template(self, context=None):
+                return self.my_new_template
 
         block = BlockUsingGetTemplateMethod(
             template="tests/blocks/this_shouldnt_be_used.html"
         )
-        template = block.get_template()
-        self.assertEqual(template, block.my_new_template)
+        with self.assertWarns(RemovedInWagtail60Warning):
+            html = block.render("Hello World")
+        self.assertEqual(html, "<h1>Hello World</h1>")
 
     def test_block_render_passes_the_value_argument_to_get_template(self):
         """verifies Block.render() passes the value to get_template"""
+
+        class BlockChoosingTemplateBasedOnValue(blocks.Block):
+            def get_template(self, value=None, context=None):
+                if value == "HEADING":
+                    return "tests/blocks/heading_block.html"
+
+                return None  # using render_basic
+
         block = BlockChoosingTemplateBasedOnValue()
 
         html = block.render("Hello World")
