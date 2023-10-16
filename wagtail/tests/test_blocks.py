@@ -5196,7 +5196,10 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
         block = BlockUsingGetTemplateMethod(
             template="tests/blocks/this_shouldnt_be_used.html"
         )
-        with self.assertWarns(RemovedInWagtail60Warning):
+        with self.assertWarnsMessage(
+            RemovedInWagtail60Warning,
+            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
+        ):
             html = block.render("Hello World")
         self.assertEqual(html, "<h1>Hello World</h1>")
 

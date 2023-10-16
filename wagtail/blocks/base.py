@@ -231,7 +231,7 @@ class Block(metaclass=BaseBlock):
             args["value"] = value
         else:
             warnings.warn(
-                "get_template should accept a 'value' argument as first argument, legacy call will be removed in Wagtail 6.0!.",
+                f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
                 RemovedInWagtail60Warning,
             )
 
