@@ -112,6 +112,7 @@ Changelog
  * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
  * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
  * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
+ * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
 
 
 5.1.2 (25.09.2023)
