@@ -748,6 +748,7 @@
 * Chris Shaw
 * claudobahn
 * Florian Delizy
+* Susheel Thapa
 
 ## Translators
 
