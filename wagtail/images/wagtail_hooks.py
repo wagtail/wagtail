@@ -1,6 +1,6 @@
 from django.urls import include, path, reverse, reverse_lazy
-from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
@@ -76,7 +76,7 @@ def register_image_feature(features):
             {
                 "type": "IMAGE",
                 "icon": "image",
-                "description": gettext("Image"),
+                "description": _("Image"),
                 # We do not want users to be able to copy-paste hotlinked images into rich text.
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["id", "src", "alt", "format"],
