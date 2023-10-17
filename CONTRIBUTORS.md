@@ -749,6 +749,7 @@
 * claudobahn
 * Florian Delizy
 * Susheel Thapa
+* Hazh. M. Adam
 
 ## Translators
 
