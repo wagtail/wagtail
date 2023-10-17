@@ -4,8 +4,8 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
 from django.utils.cache import add_never_cache_headers
-from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
@@ -78,7 +78,7 @@ def register_document_feature(features):
             {
                 "type": "DOCUMENT",
                 "icon": "doc-full-inverse",
-                "description": gettext("Document"),
+                "description": _("Document"),
                 "chooserUrls": {
                     "documentChooser": reverse_lazy("wagtaildocs_chooser:choose")
                 },
