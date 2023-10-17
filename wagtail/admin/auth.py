@@ -1,15 +1,13 @@
-import types
 from functools import wraps
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.timezone import override as override_tz
 from django.utils.translation import gettext as _
-from django.utils.translation import override
 
 from wagtail.admin import messages
+from wagtail.admin.localization import get_localized_response
 from wagtail.log_actions import LogContext
 from wagtail.permissions import page_permission_policy
 
@@ -135,42 +133,8 @@ def require_admin_access(view_func):
 
         if user.has_perms(["wagtailadmin.access_admin"]):
             try:
-                preferred_language = None
-                if hasattr(user, "wagtail_userprofile"):
-                    preferred_language = (
-                        user.wagtail_userprofile.get_preferred_language()
-                    )
-                    time_zone = user.wagtail_userprofile.get_current_time_zone()
-                else:
-                    time_zone = settings.TIME_ZONE
-                with override_tz(time_zone), LogContext(user=user):
-                    if preferred_language:
-                        with override(preferred_language):
-                            response = view_func(request, *args, **kwargs)
-                    else:
-                        response = view_func(request, *args, **kwargs)
-
-                    if hasattr(response, "render"):
-                        # If the response has a render() method, Django treats it
-                        # like a TemplateResponse, so we should do the same
-                        # In this case, we need to guarantee that when the TemplateResponse
-                        # is rendered, it is done within the override context manager
-                        # or the user preferred_language/timezone will not be used
-                        # (this could be replaced with simply rendering the TemplateResponse
-                        # for simplicity but this does remove some of its middleware modification
-                        # potential)
-                        render = response.render
-
-                        def overridden_render(response):
-                            with override_tz(time_zone):
-                                if preferred_language:
-                                    with override(preferred_language):
-                                        return render()
-                                return render()
-
-                        response.render = types.MethodType(overridden_render, response)
-                        # decorate the response render method with the override context manager
-                    return response
+                with LogContext(user=user):
+                    return get_localized_response(view_func, request, *args, **kwargs)
 
             except PermissionDenied:
                 if request.headers.get("x-requested-with") == "XMLHttpRequest":
