@@ -13,17 +13,17 @@
                         {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}Search within '{{ title }}'{% endblocktranslate %}
                     </a>
                 {% else %}
-                    {% blocktrans trimmed with title=parent_page.get_admin_display_title %}
+                    {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
                         {{ start_index }}-{{ end_index }} of {{ result_count }} within '{{ title }}'.
-                    {% endblocktrans %}
+                    {% endblocktranslate %}
                     <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
                         {% translate "Search the whole site" %}
                     </a>
                 {% endif %}
             {% else %}
-                {% blocktrans trimmed %}
+                {% blocktranslate trimmed %}
                     {{ start_index }}-{{ end_index }} of {{ result_count }}
-                {% endblocktrans %}
+                {% endblocktranslate %}
             {% endif %}
         {% endwith %}
     {% endif %}
