@@ -197,7 +197,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
             PageViewRestriction.objects.filter(page=self.private_page).exists()
         )
 
-        history_url = reverse("wagtailadmin_pages:history", kwargs={"page_id": self.private_page.id})
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.private_page.id}
+        )
         history_response = self.client.get(history_url)
 
         # Check that the expected log message is present
