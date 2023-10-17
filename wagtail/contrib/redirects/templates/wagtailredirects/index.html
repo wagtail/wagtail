@@ -4,8 +4,6 @@
 
 {% block bodyclass %}redirects{% endblock %}
 
-<!-- {% block titletag %}{% trans "Redirects" %}{% endblock %} -->
-
 {% block content %}
     {% trans "Redirects" as redirects_str %}
     {% url 'wagtailredirects:index' as search_results_url %}
