@@ -478,7 +478,7 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
 
         expected = (
             """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="%s">
                     Secret plans (simple page)
                 </a>
@@ -730,7 +730,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_explore", args=[6]))
         self.assertEqual(response.status_code, 200)
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/">
                     Root
                 </a>
@@ -742,7 +742,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/4/">
                     Welcome to example.com!
                 </a>
@@ -753,7 +753,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/5/">
                     Content
                 </a>
@@ -771,7 +771,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/4/">
                     Root
                 </a>
@@ -782,7 +782,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-w-breadcrumbs-target="content" hidden>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/5/">
                     Content
                 </a>

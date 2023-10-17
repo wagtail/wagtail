@@ -20,7 +20,7 @@
         {% endif %}
         {% if page.is_root %}
             <li
-                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
+                class="{{ breadcrumb_item_classes }} {% if forloop.last %}w-font-bold{% endif %} {% if not is_expanded %}w-max-w-0{% endif %}"
                 {% if not is_expanded %}hidden{% endif %}
                 data-w-breadcrumbs-target="content"
             >
@@ -46,7 +46,7 @@
             </li>
         {% elif forloop.last %}
             <li
-                class="{{ breadcrumb_item_classes }}"
+                class="{{ breadcrumb_item_classes }} w-font-bold"
                 {% if trailing_breadcrumb_title and not is_expanded %}hidden{% endif %}
                 {% if trailing_breadcrumb_title or is_expanded %}data-w-breadcrumbs-target="content"{% endif %}
             >
