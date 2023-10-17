@@ -4,10 +4,7 @@ from django import template
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
 
-from wagtail.images.models import Filter
-from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.images.utils import to_svg_safe_spec
-from wagtail.images.views.serve import generate_image_url
 
 register = template.Library()
 allowed_filter_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
@@ -106,11 +103,15 @@ class ImageNode(template.Node):
         self.preserve_svg = preserve_svg
 
     def get_filter(self, preserve_svg=False):
+        from wagtail.images.models import Filter
+
         if preserve_svg:
             return Filter(to_svg_safe_spec(self.filter_specs))
         return Filter(spec="|".join(self.filter_specs))
 
     def render(self, context):
+        from wagtail.images.shortcuts import get_rendition_or_not_found
+
         try:
             image = self.image_expr.resolve(context)
         except template.VariableDoesNotExist:
@@ -143,6 +144,8 @@ class ImageNode(template.Node):
 
 @register.simple_tag()
 def image_url(image, filter_spec, viewname="wagtailimages_serve"):
+    from wagtail.images.views.serve import generate_image_url
+
     try:
         return generate_image_url(image, filter_spec, viewname)
     except NoReverseMatch:

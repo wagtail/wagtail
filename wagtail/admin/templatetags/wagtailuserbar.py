@@ -12,8 +12,6 @@ from wagtail.admin.userbar import (
     ExplorePageItem,
     RejectModerationEditPageItem,
 )
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
-from wagtail.users.models import UserProfile
 
 register = template.Library()
 
@@ -23,6 +21,8 @@ def get_page_instance(context):
     Given a template context, try and find a Page variable in the common
     places. Returns None if a page can not be found.
     """
+    from wagtail.models import PAGE_TEMPLATE_VAR, Page
+
     possible_names = [PAGE_TEMPLATE_VAR, "self"]
     for name in possible_names:
         if name in context:
@@ -33,6 +33,9 @@ def get_page_instance(context):
 
 @register.simple_tag(takes_context=True)
 def wagtailuserbar(context, position="bottom-right"):
+    from wagtail.models import Revision
+    from wagtail.users.models import UserProfile
+
     # Find request object
     try:
         request = context["request"]
