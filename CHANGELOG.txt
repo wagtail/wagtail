@@ -62,6 +62,7 @@ Changelog
  * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
  * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
  * Fix: Ensure very long words can wrap when viewing saved comments (Chiemezuo Akujobi)
+ * Fix: Avoid forgotten password link text conflicting with the supplied aria-label (Thibaud Colas)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)

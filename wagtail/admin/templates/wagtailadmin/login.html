@@ -37,7 +37,7 @@
                     {% field field=form.password %}{% endfield %}
 
                     {% if show_password_reset %}
-                        <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
+                        <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten password?" %}</a>
                     {% endif %}
 
                     {% block extra_fields %}
