@@ -95,6 +95,7 @@
 * Scot Hacker
 * Kyungil Choi
 * Joss Ingram
+* Chandan Mali
 * Christoph Lipp
 * Michael Cordover
 * Timothy Allen
