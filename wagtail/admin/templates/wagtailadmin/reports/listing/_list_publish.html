@@ -8,21 +8,20 @@
 {% endblock %}
 
 
-{% block extra_page_data%}
+{% block extra_page_data %}
     <td valign="top">
-        {{ page.get_latest_revision.user }}
+        {% with user=page.get_latest_revision.user %}
+        {% avatar user=user size="small" %}
+        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+        {% endwith %}
     </td>
     <td valign="top">
         {% page_permissions page as perms %}
         <p>
-            {% with page.get_latest_revision.approved_go_live_at|date:"DATETIME_FORMAT" as locking_date %}
-                {% blocktrans %}
-                    <b>{{ locking_date }}</b>
-                {% endblocktrans %}
-            {% endwith %}
+            <b>{{ page.get_latest_revision.approved_go_live_at|date:"DATETIME_FORMAT" }}</b>
         </p>
         {% if perms.can_publish %}
-            <form action="{% url 'wagtailadmin_scheduled_pages:publish' page.id %}" method="post">
+            <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled_confirm' page_id=page.pk %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.path }}">
                 <button type="submit" class="button button-secondary button-small">{% trans 'Publish now' %}</button>

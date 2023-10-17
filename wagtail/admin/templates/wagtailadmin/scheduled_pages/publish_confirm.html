@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}3
+{% block titletag %}{% trans "Publish scheduled page" %}{% endblock %}
+
+{% block content %}
+    {% trans "Publish" as title %}
+    {% trans "scheduled page" as subtitle %}
+    {% include "wagtailadmin/shared/header.html" with title=title subtitle=subtitle icon="time" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Are you sure you want to publish the page? It will be immediately published." %}</p>
+        <ul>
+                <li>{{ page.title }}</li>
+        </ul>
+        <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled' page.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="button" type="submit">{% trans 'Yes, publish now' %}</button>
+        </form>
+    </div>
+{% endblock %}
