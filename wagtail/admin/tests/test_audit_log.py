@@ -92,7 +92,6 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
         self.assertContains(response, "Unlocked", 1)
         self.assertContains(response, "Page scheduled for publishing", 1)
         self.assertContains(response, "Published", 1)
-        self.assertContains(response, "The page is public.", 1)
 
         self.assertContains(
             response,
