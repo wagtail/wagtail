@@ -939,6 +939,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and user_perms.can_lock(),
                 "user_can_unlock": isinstance(self.lock, BasicLock)
                 and user_perms.can_unlock(),
+                "locale": self.locale,
                 "media": media,
             }
         )
