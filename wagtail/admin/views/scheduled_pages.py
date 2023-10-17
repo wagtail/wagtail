@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils import timezone
@@ -21,7 +22,7 @@ def get_scheduled_pages_for_user(user):
     )
     pages = (
         user_pages.annotate_approved_schedule()
-        .filter(_approved_schedule=True)
+        .filter(Q(_approved_schedule=True) | Q(expire_at__isnull=False))
         .prefetch_related("content_type")
         .prefetch_related("latest_revision", "latest_revision__user")
         .order_by("-first_published_at")
@@ -51,20 +52,35 @@ def publish(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
+    
+    if page.expire_at is not None:
+        page.unpublish(
+            set_expired=True, log_action="wagtail.unpublish.scheduled"
+        )
 
-    new_go_live_timestamp = timezone.now() - timedelta(seconds=1)
-    page.go_live_at = new_go_live_timestamp
-    page.save()
+        messages.success(
+            request,
+            _("Page '{0}' has been unpublished.").format(page.get_admin_display_title()),
+            extra_tags="time",
+        )
 
-    # Save revision
-    revision = page.save_revision(user=request.user, log_action=True)
-    revision.publish()
+    else:
+        page.go_live_at = None
+        page.live=True
+        page.save()
+        revision = page.latest_revision
+        revision.approved_go_live_at = None
+        revision.save()
 
-    messages.success(
-        request,
-        _("Page '{0}' has been published.").format(page.get_admin_display_title()),
-        extra_tags="time",
-    )
+        # Save revision
+        revision = page.save_revision(user=request.user, log_action=True)
+        revision.publish()
+
+        messages.success(
+            request,
+            _("Page '{0}' has been published.").format(page.get_admin_display_title()),
+            extra_tags="time",
+        )
 
     # Redirect
     redirect_to = request.POST.get("next", None)

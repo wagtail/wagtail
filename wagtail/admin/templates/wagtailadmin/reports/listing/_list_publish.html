@@ -4,7 +4,7 @@
 
 {% block extra_columns %}
     <th>{% trans 'Scheduled by' %}</th>
-    <th>{% trans 'Scheduled to be published' %}</th>
+    <th>{% trans 'Schedule' %}</th>
 {% endblock %}
 
 
@@ -18,13 +18,25 @@
     <td valign="top">
         {% page_permissions page as perms %}
         <p>
-            <b>{{ page.get_latest_revision.approved_go_live_at|date:"DATETIME_FORMAT" }}</b>
+            <b>
+                {% if page.scheduled_revision.approved_go_live_at %}
+                    {% trans "Goes live" %} {{ page.scheduled_revision.approved_go_live_at|date:"DATETIME_FORMAT" }}
+                {% elif page.expire_at %}
+                    {% trans "Expires" %} {{ page.expire_at|date:"DATETIME_FORMAT" }}
+                {% endif %}
+            </b>
         </p>
         {% if perms.can_publish %}
             <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled_confirm' page_id=page.pk %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.path }}">
-                <button type="submit" class="button button-secondary button-small">{% trans 'Publish now' %}</button>
+                <button type="submit" class="button button-secondary button-small">
+                    {% if page.scheduled_revision.approved_go_live_at %}
+                        {% trans 'Publish now' %}
+                    {% elif page.expire_at %}
+                        {% trans 'Unpublish now' %}
+                    {% endif %}
+                </button>
             </form>
         {% endif %}
     </td>

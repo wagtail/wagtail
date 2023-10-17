@@ -8,13 +8,24 @@
     {% include "wagtailadmin/shared/header.html" with title=title subtitle=subtitle icon="time" %}
 
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to publish the page? It will be immediately published." %}</p>
+        <p>
+            {% if page.scheduled_revision.approved_go_live_at %}
+                {% trans "Are you sure you want to publish the page? It will be immediately published." %}</p>
+            {% elif page.expire_at %}
+                {% trans "Are you sure you want to unpublish the page? It will be immediately unpublished." %}</p>
+            {% endif %}
         <ul>
                 <li>{{ page.title }}</li>
         </ul>
         <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled' page.pk %}" method="POST">
             {% csrf_token %}
-            <button class="button" type="submit">{% trans 'Yes, publish now' %}</button>
+            <button class="button" type="submit">
+                {% if page.scheduled_revision.approved_go_live_at %}
+                    {% trans 'Yes, publish now' %}
+                {% elif page.expire_at %}
+                    {% trans 'Yes, unpublish now' %}
+                {% endif %}
+            </button>
         </form>
     </div>
 {% endblock %}

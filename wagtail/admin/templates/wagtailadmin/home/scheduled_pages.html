@@ -9,14 +9,7 @@
             <col width="30%"/>
             <col width="15%"/>
             <col width="15%"/>
-            <thead>{# Note: the header is visually hidden behind .title-wrapper #}
-                <tr>
-                    <th class="title">{% trans "Title" %}</th>
-                    <th>{% trans "Type" %}</th>
-                    <th>{% trans 'Scheduled by' %}</th>
-                    <th>{% trans 'Scheduled to be published' %}</th>
-                </tr>
-            </thead>
+            <col width="15%"/>
             <tbody>
                 {% for page in pages_to_be_scheduled %}
                     {% page_permissions page as page_perms %}
@@ -33,8 +26,8 @@
 
                                 {% i18n_enabled as show_locale_labels %}
                                 {% if show_locale_labels and page.locale_id %}
-                                {% locale_label_from_id page.locale_id as locale_label %}
-                                <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                    {% locale_label_from_id page.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
                                 {% endif %}
                                 {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
                                 {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
@@ -44,7 +37,13 @@
                                     <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled_confirm' page.pk %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="next" value="{{ request.path }}">
-                                        <button type="submit" class="button button-secondary button-small">{% trans 'Publish now' %}</button>
+                                        <button typ+e="submit" class="button button-secondary button-small">
+                                            {% if page.latest_revision.approved_go_live_at %}
+                                                {% trans 'Publish now' %}
+                                            {% elif page.expire_at %}
+                                                {% trans 'Unpublish now' %}
+                                            {% endif %}
+                                        </button>
                                     </form>
                                 {% endif %}
                             </ul>
@@ -53,14 +52,25 @@
                             {{ page.content_type.model_class.get_verbose_name }}
                         </td>
                         <td class="type" valign="top">
-                            {% with user=page.get_latest_revision.user %}
+                            {% with user=page.latest_revision.user %}
                             {% avatar user=user size="small" %}
                             <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                             {% endwith %}
                         </td>
                         <td class="type" valign="top">
-                            {{ page.get_latest_revision.approved_go_live_at }}
+                            {% if page.latest_revision.approved_go_live_at %}
+                                {% trans "Goes live" %}
+                            {% elif page.expire_at %}
+                                {% trans "Expires" %}
+                            {% endif %}
                         </td>
+                        <td class="type" valign="top">
+                            {% if page.latest_revision.approved_go_live_at %}
+                                {{ page.latest_revision.approved_go_live_at }}
+                            {% elif page.expire_at %}
+                                {{ page.expire_at }}
+                            {% endif %}
+                            </td>
                     </tr>
                 {% endfor %}
             </tbody>
