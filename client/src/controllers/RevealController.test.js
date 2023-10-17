@@ -460,4 +460,68 @@ describe('RevealController', () => {
       expect(document.querySelector('header').outerHTML).toEqual(previousHTML);
     });
   });
+
+  describe('saves and loads the state to localStorage', () => {
+    beforeEach(async () => {
+      jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
+      jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('should load and save state if enabled', async () => {
+      localStorage.getItem.mockImplementation(() => 'true');
+
+      await setup(`
+      <section id="demo" class="w-reveal" data-controller="w-reveal" data-w-reveal-save-state-value="true">
+        <button type="button" data-w-reveal-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+        <div id="my-content">CONTENT</div>
+      </section>`);
+
+      expect(localStorage.getItem).toHaveBeenCalledWith(
+        'wagtail:reveal-demo-closed',
+      );
+
+      const toggleButton = document.querySelector('button');
+
+      await Promise.resolve(toggleButton.click());
+
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'wagtail:reveal-demo-closed',
+        'true',
+      );
+    });
+
+    it('should not load and save state if disabled', async () => {
+      await setup(`
+      <section id="demo" data-controller="w-reveal">
+        <button type="button" data-w-reveal-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+        <div id="my-content">CONTENT</div>
+      </section>`);
+
+      expect(localStorage.getItem).not.toHaveBeenCalled();
+
+      const toggleButton = document.querySelector('button');
+      await Promise.resolve(toggleButton.click());
+
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+    });
+
+    it('should not load and save state if id is missing', async () => {
+      await setup(`
+      <section class="w-reveal" data-controller="w-reveal" data-w-reveal-save-state-value="true">
+        <button type="button" data-w-reveal-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+        <div id="my-content">CONTENT</div>
+      </section>`);
+
+      expect(localStorage.getItem).not.toHaveBeenCalled();
+
+      const toggleButton = document.querySelector('button');
+      await Promise.resolve(toggleButton.click());
+
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+    });
+  });
 });
