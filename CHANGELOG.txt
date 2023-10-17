@@ -42,6 +42,10 @@ Changelog
  * API ordering now supports multiple fields (Rohit Sharma, Jake Howard)
  * Pass block value to `Block.get_template` to allow varying template based on value (Florian Delizy)
  * Add `InlinePanel` DOM events for when ready and when items added or removed (Faishal Manzar)
+ * Add a new `picture` template tag for Django Templates and Jinja (Thibaud Colas)
+ * Add a new `srcset_image` template tag for Django Templates and Jinja (Thibaud Colas)
+ * Support `Filter` instances as input for `AbstractImage.get_renditions()` (Thibaud Colas)
+ * Improve error messages for image template tags
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)

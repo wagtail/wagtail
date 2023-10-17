@@ -750,6 +750,7 @@
 * Florian Delizy
 * Susheel Thapa
 * Hazh. M. Adam
+* Chris Lawton
 
 ## Translators
 
