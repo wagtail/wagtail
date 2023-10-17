@@ -423,7 +423,7 @@ table.listing {
       font-weight: theme('fontWeight.extrabold');
 
       @include media-breakpoint-up(md) {
-        font-size: theme('fontSize.30');
+        font-size: theme('fontSize.22');
       }
     }
   }
