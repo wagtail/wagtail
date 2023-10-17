@@ -3,7 +3,6 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
 
@@ -492,7 +491,8 @@ def register_core_features(features):
             {
                 "icon": "h1",
                 "type": "header-one",
-                "description": gettext("Heading %(level)d") % {"level": 1},
+                # FIXME: interpolation causes immediate evaluation
+                "description": _("Heading %(level)d") % {"level": 1},
             }
         ),
     )
@@ -513,7 +513,7 @@ def register_core_features(features):
             {
                 "icon": "h2",
                 "type": "header-two",
-                "description": gettext("Heading %(level)d") % {"level": 2},
+                "description": _("Heading %(level)d") % {"level": 2},
             }
         ),
     )
@@ -534,7 +534,7 @@ def register_core_features(features):
             {
                 "icon": "h3",
                 "type": "header-three",
-                "description": gettext("Heading %(level)d") % {"level": 3},
+                "description": _("Heading %(level)d") % {"level": 3},
             }
         ),
     )
@@ -555,7 +555,7 @@ def register_core_features(features):
             {
                 "icon": "h4",
                 "type": "header-four",
-                "description": gettext("Heading %(level)d") % {"level": 4},
+                "description": _("Heading %(level)d") % {"level": 4},
             }
         ),
     )
@@ -576,7 +576,7 @@ def register_core_features(features):
             {
                 "icon": "h5",
                 "type": "header-five",
-                "description": gettext("Heading %(level)d") % {"level": 5},
+                "description": _("Heading %(level)d") % {"level": 5},
             }
         ),
     )
@@ -597,7 +597,7 @@ def register_core_features(features):
             {
                 "icon": "h6",
                 "type": "header-six",
-                "description": gettext("Heading %(level)d") % {"level": 6},
+                "description": _("Heading %(level)d") % {"level": 6},
             }
         ),
     )
@@ -618,7 +618,7 @@ def register_core_features(features):
             {
                 "type": "unordered-list-item",
                 "icon": "list-ul",
-                "description": gettext("Bulleted list"),
+                "description": _("Bulleted list"),
             }
         ),
     )
@@ -642,7 +642,7 @@ def register_core_features(features):
             {
                 "type": "ordered-list-item",
                 "icon": "list-ol",
-                "description": gettext("Numbered list"),
+                "description": _("Numbered list"),
             }
         ),
     )
@@ -666,7 +666,7 @@ def register_core_features(features):
             {
                 "type": "blockquote",
                 "icon": "openquote",
-                "description": gettext("Blockquote"),
+                "description": _("Blockquote"),
             }
         ),
     )
@@ -688,7 +688,7 @@ def register_core_features(features):
             {
                 "type": "BOLD",
                 "icon": "bold",
-                "description": gettext("Bold"),
+                "description": _("Bold"),
             }
         ),
     )
@@ -710,7 +710,7 @@ def register_core_features(features):
             {
                 "type": "ITALIC",
                 "icon": "italic",
-                "description": gettext("Italic"),
+                "description": _("Italic"),
             }
         ),
     )
@@ -733,7 +733,7 @@ def register_core_features(features):
             {
                 "type": "LINK",
                 "icon": "link",
-                "description": gettext("Link"),
+                "description": _("Link"),
                 # We want to enforce constraints on which links can be pasted into rich text.
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["url", "id", "parentId"],
@@ -765,7 +765,7 @@ def register_core_features(features):
             {
                 "type": "SUPERSCRIPT",
                 "icon": "superscript",
-                "description": gettext("Superscript"),
+                "description": _("Superscript"),
             }
         ),
     )
@@ -786,7 +786,7 @@ def register_core_features(features):
             {
                 "type": "SUBSCRIPT",
                 "icon": "subscript",
-                "description": gettext("Subscript"),
+                "description": _("Subscript"),
             }
         ),
     )
@@ -807,7 +807,7 @@ def register_core_features(features):
             {
                 "type": "STRIKETHROUGH",
                 "icon": "strikethrough",
-                "description": gettext("Strikethrough"),
+                "description": _("Strikethrough"),
             }
         ),
     )
@@ -828,7 +828,7 @@ def register_core_features(features):
             {
                 "type": "CODE",
                 "icon": "code",
-                "description": gettext("Code"),
+                "description": _("Code"),
             }
         ),
     )

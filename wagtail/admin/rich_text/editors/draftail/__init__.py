@@ -1,14 +1,23 @@
 import json
 import warnings
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import Media, widgets
-from django.utils.functional import cached_property
+from django.utils.encoding import force_str
+from django.utils.functional import Promise, cached_property
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.rich_text import features as feature_registry
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
+
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Promise):
+            return force_str(obj)
+        return super().default(obj)
 
 
 class DraftailRichTextArea(widgets.HiddenInput):
@@ -65,7 +74,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context["widget"]["options_json"] = json.dumps(self.options)
+        context["widget"]["options_json"] = json.dumps(self.options, cls=LazyEncoder)
         return context
 
     def value_from_datadict(self, data, files, name):
