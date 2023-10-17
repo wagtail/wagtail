@@ -46,6 +46,7 @@ class ScheduledPagesPanel(Component):
         return context
 
 
+@require_POST
 def publish(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_publish():
@@ -75,7 +76,6 @@ def publish(request, page_id):
         return redirect("wagtailadmin_explore", page.get_parent().id)
 
 
-@require_POST
 def publish_confirm(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_publish():
