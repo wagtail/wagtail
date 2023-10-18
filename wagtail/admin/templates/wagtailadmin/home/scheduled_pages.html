@@ -38,8 +38,8 @@
                         </td>
                         <td class="type" valign="top">
                             {% with user=page.latest_revision.user %}
-                            {% avatar user=user size="small" %}
-                            <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+                                {% avatar user=user size="small" %}
+                                <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                             {% endwith %}
                         </td>
                         <td class="type" valign="top">
@@ -55,7 +55,7 @@
                             {% elif page.expire_at %}
                                 {{ page.expire_at }}
                             {% endif %}
-                            </td>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

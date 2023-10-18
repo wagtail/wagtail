@@ -11,8 +11,8 @@
 {% block extra_page_data %}
     <td valign="top">
         {% with user=page.get_latest_revision.user %}
-        {% avatar user=user size="small" %}
-        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+            {% avatar user=user size="small" %}
+            <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
         {% endwith %}
     </td>
     <td valign="top">
