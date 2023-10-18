@@ -32,21 +32,6 @@
                                 {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
                                 {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
                             </div>
-                            <ul class="actions">
-                                {% if page_perms.can_publish %}
-                                    <form action="{% url 'wagtailadmin_scheduled_pages:publish_scheduled_confirm' page.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="next" value="{{ request.path }}">
-                                        <button typ+e="submit" class="button button-secondary button-small">
-                                            {% if page.latest_revision.approved_go_live_at %}
-                                                {% trans 'Publish now' %}
-                                            {% elif page.expire_at %}
-                                                {% trans 'Unpublish now' %}
-                                            {% endif %}
-                                        </button>
-                                    </form>
-                                {% endif %}
-                            </ul>
                         </td>
                         <td class="type" valign="top">
                             {{ page.content_type.model_class.get_verbose_name }}

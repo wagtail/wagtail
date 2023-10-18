@@ -4,7 +4,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.admin.widgets import AdminDateInput, AdminDateTimeInput, BooleanRadioSelect, FilteredSelect
+from wagtail.admin.widgets import (
+    AdminDateInput,
+    AdminDateTimeInput,
+    BooleanRadioSelect,
+    FilteredSelect,
+)
 from wagtail.coreutils import get_content_type_label
 
 
@@ -27,7 +32,7 @@ class DateRangePickerWidget(SuffixedMultiWidget):
         if value:
             return [value.start, value.stop]
         return [None, None]
-    
+
 
 class DateTimeRangePickerWidget(SuffixedMultiWidget):
     """

@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+
 from wagtail.models import get_page_models
 
 
