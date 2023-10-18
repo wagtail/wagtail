@@ -831,3 +831,21 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
+
+
+(reports_settings)=
+
+## Reports
+
+```python
+WAGTAIL_AGING_PAGES_ENABLED = True
+```
+
+This setting determines whether the Aging Pages Report is shown in the Reports menu.
+
+
+```python
+WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED = True
+```
+
+This setting determines whether the Scheduled Pages Report is shown in the Reports menu, and whether the Scheduled Pages Panel is shown in the admin dashboard. Additionally, the admin dashboard does not show the Scheduled Pages Panel unless there are scheduled pages to show.

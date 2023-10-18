@@ -312,6 +312,10 @@ class ScheduledPagesPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
+
+        if not getattr(settings, "WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED", True):
+            return context
+
         context["pages_to_be_scheduled"] = get_scheduled_pages_for_user(request.user)[
             :5
         ]
