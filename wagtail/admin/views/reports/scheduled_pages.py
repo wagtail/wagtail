@@ -60,12 +60,3 @@ class ScheduledPagesView(PageReportView):
             schedule_go_live_at=F("latest_revision__approved_go_live_at")
         )
         return super().get_queryset()
-
-    def dispatch(self, request, *args, **kwargs):
-        if (
-            not PagePermissionPolicy()
-            .instances_user_has_permission_for(request.user, "publish")
-            .exists()
-        ):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)
