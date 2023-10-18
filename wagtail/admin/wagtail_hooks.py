@@ -50,7 +50,6 @@ from wagtail.admin.views.pages.bulk_actions import (
     PublishBulkAction,
     UnpublishBulkAction,
 )
-from wagtail.admin.views.scheduled_pages import ScheduledPagesPanel
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.models import Collection, Page, Task, Workflow
@@ -1191,11 +1190,6 @@ def register_icons(icons):
 @hooks.register("construct_homepage_summary_items")
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
-
-
-@hooks.register("construct_homepage_panels")
-def register_scheduled_pages_panel(request, panels):
-    panels.append(ScheduledPagesPanel())
 
 
 class PageAdminURLFinder:

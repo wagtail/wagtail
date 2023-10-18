@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
-from django.core.exceptions import PermissionDenied
-from django.db.models import F
+from django.conf import settings
+from django.db.models import F, Q
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import (
@@ -10,10 +10,27 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.views.reports.base import PageReportView
-from wagtail.admin.views.scheduled_pages import get_scheduled_pages_for_user
 from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 from .utils import get_content_types_for_filter
+
+
+def get_scheduled_pages_for_user(user):
+    user_pages = PagePermissionPolicy().instances_user_has_permission_for(
+        user, "publish"
+    )
+    pages = (
+        user_pages.annotate_approved_schedule()
+        .filter(Q(_approved_schedule=True) | Q(expire_at__isnull=False))
+        .prefetch_related("content_type")
+        .prefetch_related("latest_revision", "latest_revision__user")
+        .order_by("-first_published_at")
+    )
+
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        pages = pages.select_related("locale")
+    return pages
 
 
 class ScheduledPagesReportFilterSet(WagtailFilterSet):
