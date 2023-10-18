@@ -419,7 +419,7 @@ class BoundDraftailWidget {
 
       if (split.enabled) {
         blockCommands.push({
-          label: 'Actions',
+          label: gettext('Actions'),
           type: 'custom-actions',
           items: [new DraftailSplitCommand(this, split)],
         });
