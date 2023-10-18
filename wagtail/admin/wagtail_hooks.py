@@ -491,8 +491,7 @@ def register_core_features(features):
             {
                 "icon": "h1",
                 "type": "header-one",
-                # FIXME: interpolation causes immediate evaluation
-                "description": _("Heading %(level)d") % {"level": 1},
+                "description": _("Heading 1"),
             }
         ),
     )
@@ -513,7 +512,7 @@ def register_core_features(features):
             {
                 "icon": "h2",
                 "type": "header-two",
-                "description": _("Heading %(level)d") % {"level": 2},
+                "description": _("Heading 2"),
             }
         ),
     )
@@ -534,7 +533,7 @@ def register_core_features(features):
             {
                 "icon": "h3",
                 "type": "header-three",
-                "description": _("Heading %(level)d") % {"level": 3},
+                "description": _("Heading 3"),
             }
         ),
     )
@@ -555,7 +554,7 @@ def register_core_features(features):
             {
                 "icon": "h4",
                 "type": "header-four",
-                "description": _("Heading %(level)d") % {"level": 4},
+                "description": _("Heading 4"),
             }
         ),
     )
@@ -576,7 +575,7 @@ def register_core_features(features):
             {
                 "icon": "h5",
                 "type": "header-five",
-                "description": _("Heading %(level)d") % {"level": 5},
+                "description": _("Heading 5"),
             }
         ),
     )
@@ -597,7 +596,7 @@ def register_core_features(features):
             {
                 "icon": "h6",
                 "type": "header-six",
-                "description": _("Heading %(level)d") % {"level": 6},
+                "description": _("Heading 6"),
             }
         ),
     )
