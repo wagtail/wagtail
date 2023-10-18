@@ -752,6 +752,7 @@
 * Hazh. M. Adam
 * Chris Lawton
 * Meghana Reddy
+* Chinedu Ihedioha
 
 ## Translators
 

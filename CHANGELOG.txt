@@ -50,6 +50,7 @@ Changelog
  * Use dropdown buttons on listings in dashboard panels (Sage Abdullah)
  * Implement breadcrumbs design refinements (Thibaud Colas)
  * Support extending Wagtail client-side with Stimulus (LB (Ben) Johnston)
+ * Update all `FieldPanel('title')` examples to use the recommended `TitleFieldPanel('title')` panel (Chinedu Ihedioha)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)

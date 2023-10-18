@@ -377,7 +377,7 @@ class Book(models.Model):
     )
 
     panels = [
-        FieldPanel('title', widget=title_widget), # then add them as a variable
+        TitleFieldPanel('title', widget=title_widget), # then add them as a variable
         FieldPanel('release_date', widget=date_widget),
         FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
     ]
