@@ -188,6 +188,7 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 @register("file_overwrite")
 def file_overwrite_check(app_configs, **kwargs):
     from django.conf import settings
+    from django import VERSION as DJANGO_VERSION
 
     if DJANGO_VERSION >= (4, 2):
         try:
