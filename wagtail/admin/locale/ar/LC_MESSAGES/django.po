@@ -1110,9 +1110,29 @@ msgstr "حذف الصفحة '%(title)s'"
 msgid "Unpublish page '%(title)s'"
 msgstr "إلغاء نشر الصفحة '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "ترويسة %(level)d"
+msgid "Heading 1"
+msgstr "ترويسة 1"
+
+
+msgid "Heading 2"
+msgstr "ترويسة 2"
+
+
+msgid "Heading 3"
+msgstr "ترويسة 3"
+
+
+msgid "Heading 4"
+msgstr "ترويسة 4"
+
+
+msgid "Heading 5"
+msgstr "ترويسة 5"
+
+
+msgid "Heading 6"
+msgstr "ترويسة 6"
+
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"

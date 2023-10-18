@@ -3338,9 +3338,29 @@ msgstr "Röðun undirsíðna"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Breyta röðun undirsíðna '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Fyrirsögn %(level)d"
+msgid "Heading 1"
+msgstr "Fyrirsögn 1"
+
+
+msgid "Heading 2"
+msgstr "Fyrirsögn 2"
+
+
+msgid "Heading 3"
+msgstr "Fyrirsögn 3"
+
+
+msgid "Heading 4"
+msgstr "Fyrirsögn 4"
+
+
+msgid "Heading 5"
+msgstr "Fyrirsögn 5"
+
+
+msgid "Heading 6"
+msgstr "Fyrirsögn 6"
+
 
 msgid "Bulleted list"
 msgstr "Ónúmeraður listi"

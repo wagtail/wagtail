@@ -2205,9 +2205,29 @@ msgstr "排序菜单顺序"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "更改“%(title)s”的子页面顺序"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "标题%(level)d"
+msgid "Heading 1"
+msgstr "标题1"
+
+
+msgid "Heading 2"
+msgstr "标题2"
+
+
+msgid "Heading 3"
+msgstr "标题3"
+
+
+msgid "Heading 4"
+msgstr "标题4"
+
+
+msgid "Heading 5"
+msgstr "标题5"
+
+
+msgid "Heading 6"
+msgstr "标题6"
+
 
 msgid "Bulleted list"
 msgstr "项目列表"

@@ -1406,9 +1406,29 @@ msgstr "Slett siden «%(title)s»"
 msgid "Unpublish page '%(title)s'"
 msgstr "Avpublisér siden «%(title)s»"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Overskrift %(level)d"
+msgid "Heading 1"
+msgstr "Overskrift 1"
+
+
+msgid "Heading 2"
+msgstr "Overskrift 2"
+
+
+msgid "Heading 3"
+msgstr "Overskrift 3"
+
+
+msgid "Heading 4"
+msgstr "Overskrift 4"
+
+
+msgid "Heading 5"
+msgstr "Overskrift 5"
+
+
+msgid "Heading 6"
+msgstr "Overskrift 6"
+
 
 msgid "Bulleted list"
 msgstr "Punktliste"

@@ -2188,9 +2188,29 @@ msgstr "Сортувати порядок меню"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Заголовок %(level)d"
+msgid "Heading 1"
+msgstr "Заголовок 1"
+
+
+msgid "Heading 2"
+msgstr "Заголовок 2"
+
+
+msgid "Heading 3"
+msgstr "Заголовок 3"
+
+
+msgid "Heading 4"
+msgstr "Заголовок 4"
+
+
+msgid "Heading 5"
+msgstr "Заголовок 5"
+
+
+msgid "Heading 6"
+msgstr "Заголовок 6"
+
 
 msgid "Bulleted list"
 msgstr "Маркований список"

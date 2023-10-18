@@ -1185,9 +1185,29 @@ msgstr "Nebepublikuoti '%(title)s' puslapio"
 msgid "Sort menu order"
 msgstr "Meniu rikiavimo tvarka"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Antraštė %(level)d"
+msgid "Heading 1"
+msgstr "Antraštė 1"
+
+
+msgid "Heading 2"
+msgstr "Antraštė 2"
+
+
+msgid "Heading 3"
+msgstr "Antraštė 3"
+
+
+msgid "Heading 4"
+msgstr "Antraštė 4"
+
+
+msgid "Heading 5"
+msgstr "Antraštė 5"
+
+
+msgid "Heading 6"
+msgstr "Antraštė 6"
+
 
 msgid "Bulleted list"
 msgstr "Pažymėtas sąrašas"
