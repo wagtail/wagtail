@@ -10,5 +10,5 @@
 >
     {% if icon_name %}{% icon name=icon_name classname="button-longrunning__icon" %}{% endif %}
     {% icon name="spinner" %}
-    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Publish this version' %}{% else %}{{ label }}{% endif %}</em>
 </button>

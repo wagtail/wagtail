@@ -1,10 +1,15 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/form.html" %}
 {% load wagtailimages_tags %}
 {% load i18n %}
-{% block content %}
 
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 icon="user" search_results_url=index_results_url %}
+{% block main_header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
 
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
@@ -99,12 +104,7 @@
     </div>
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ form.media.css }}
-{% endblock %}
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
 {% endblock %}

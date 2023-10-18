@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from elasticsearch import NotFoundError
 
 from wagtail.search.backends.elasticsearch7 import (
     Elasticsearch7AutocompleteQueryCompiler,
@@ -8,6 +9,7 @@ from wagtail.search.backends.elasticsearch7 import (
     Elasticsearch7SearchQueryCompiler,
     Elasticsearch7SearchResults,
 )
+from wagtail.search.index import class_is_indexed
 
 
 class Elasticsearch8Mapping(Elasticsearch7Mapping):
@@ -15,6 +17,18 @@ class Elasticsearch8Mapping(Elasticsearch7Mapping):
 
 
 class Elasticsearch8Index(Elasticsearch7Index):
+    def put(self):
+        self.es.indices.create(index=self.name, **self.backend.settings)
+
+    def delete(self):
+        try:
+            self.es.indices.delete(index=self.name)
+        except NotFoundError:
+            pass
+
+    def refresh(self):
+        self.es.indices.refresh(index=self.name)
+
     def add_model(self, model):
         # Get mapping
         mapping = self.mapping_class(model)
@@ -22,13 +36,31 @@ class Elasticsearch8Index(Elasticsearch7Index):
         # Put mapping
         self.es.indices.put_mapping(index=self.name, **mapping.get_mapping())
 
+    def add_item(self, item):
+        # Make sure the object can be indexed
+        if not class_is_indexed(item.__class__):
+            return
+
+        # Get mapping
+        mapping = self.mapping_class(item.__class__)
+
+        # Add document to index
+        self.es.index(
+            index=self.name,
+            document=mapping.get_document(item),
+            id=mapping.get_document_id(item),
+        )
+
 
 class Elasticsearch8SearchQueryCompiler(Elasticsearch7SearchQueryCompiler):
     mapping_class = Elasticsearch8Mapping
 
 
 class Elasticsearch8SearchResults(Elasticsearch7SearchResults):
-    pass
+    def _backend_do_search(self, body, **kwargs):
+        # As of Elasticsearch 7.15, the 'body' parameter is deprecated; instead, the top-level
+        # keys of the body dict are now kwargs in their own right
+        return self.backend.es.search(**body, **kwargs)
 
 
 class Elasticsearch8AutocompleteQueryCompiler(Elasticsearch7AutocompleteQueryCompiler):

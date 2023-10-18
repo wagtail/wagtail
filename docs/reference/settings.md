@@ -799,13 +799,18 @@ WAGTAIL_MODERATION_ENABLED = True
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
+```{versionchanged} 5.2
+
+This setting has been deprecated. Use `WAGTAIL_WORKFLOW_ENABLED` instead.
+```
+
 ### `WAGTAIL_WORKFLOW_ENABLED`
 
 ```python
-WAGTAIL_WORKFLOW_ENABLED = False
+WAGTAIL_WORKFLOW_ENABLED = True
 ```
 
-Specifies whether moderation workflows are enabled (default: True). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
+Specifies whether moderation workflows are enabled (default: `True`). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
 
 ### `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT`
 

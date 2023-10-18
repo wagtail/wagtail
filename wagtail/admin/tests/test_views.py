@@ -1,8 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.forms.auth import PasswordResetForm
-from wagtail.admin.tests.test_forms import CustomPasswordResetForm
+from wagtail.admin.tests.test_forms import CustomLoginForm, CustomPasswordResetForm
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
@@ -102,6 +103,37 @@ class TestLoginView(WagtailTestUtils, TestCase):
             """,
             html=True,
         )
+
+    @override_settings(
+        WAGTAILADMIN_USER_LOGIN_FORM="wagtail.admin.tests.test_forms.CustomLoginForm"
+    )
+    def test_login_page_renders_custom_form_non_field_errors(self):
+        response = self.client.post(
+            reverse("wagtailadmin_login"),
+            {
+                "username": "test@email.com",
+                "password": "password",
+                "captcha": "unsolved",
+            },
+        )
+        self.assertContains(response, "Captcha is invalid")
+
+    @override_settings(
+        WAGTAILADMIN_USER_LOGIN_FORM="wagtail.admin.tests.test_forms.CustomLoginForm"
+    )
+    def test_login_page_renders_custom_form_login_error(self):
+        response = self.client.post(
+            reverse("wagtailadmin_login"),
+            {
+                "username": "test@email.com",
+                "password": "bad-password",
+                "captcha": "solved",
+            },
+        )
+        msg = CustomLoginForm.error_messages["invalid_login"] % {
+            "username_field": get_user_model().USERNAME_FIELD
+        }
+        self.assertContains(response, msg, html=True)
 
     def test_session_expire_on_browser_close(self):
         self.client.post(

@@ -41,6 +41,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestIncorrectRegistration(SimpleTestCase):
@@ -164,9 +165,10 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         self.request = get_dummy_request()
         self.request.user = self.user
         self.text = "Test full-featured snippet with icon text"
+        self.full_featured_snippet = FullFeaturedSnippet.objects.create(text=self.text)
         test_snippet = SnippetChooserModel.objects.create(
             advert=Advert.objects.create(text="foo"),
-            full_featured=FullFeaturedSnippet.objects.create(text=self.text),
+            full_featured=self.full_featured_snippet,
         )
 
         self.edit_handler = get_edit_handler(SnippetChooserModel)
@@ -225,6 +227,38 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         for key in response.context.keys():
             if "icon" in key:
                 self.assertNotIn("snippet", response.context[key])
+
+        # chooser should include the creation form
+        response_json = response.json()
+        soup = self.get_soup(response_json["html"])
+        self.assertTrue(soup.select_one("form[data-chooser-modal-creation-form]"))
+
+    def test_chosen(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.get(
+            reverse(
+                chooser_viewset.get_url_name("chosen"),
+                args=[self.full_featured_snippet.pk],
+            )
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(
+            response_json["result"]["id"], str(self.full_featured_snippet.pk)
+        )
+        self.assertEqual(response_json["result"]["string"], self.text)
+
+    def test_create_from_chooser(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.post(
+            reverse(chooser_viewset.get_url_name("create")),
+            {
+                "text": "New snippet",
+            },
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(response_json["result"]["string"], "New snippet")
 
 
 class TestAdminURLs(BaseSnippetViewSetTests):
@@ -1344,6 +1378,7 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         )
         response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
 
+        self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
             f"<dt>Protected image</dt> <dd>{image.get_rendition('max-400x400').img_tag()}</dd>",
@@ -1354,3 +1389,107 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         self.assertContains(response, "Test document")
         self.assertContains(response, "TXT")
         self.assertContains(response, f"{document.file.size}\xa0bytes")
+
+    def test_image_and_document_fields_none_values(self):
+        self.model = VariousOnDeleteModel
+        object = self.model.objects.create()
+        response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "<dt>Protected image</dt> <dd>None</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Protected document</dt> <dd>None</dd>",
+            html=True,
+        )
+
+
+class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
+        {"label": "Snippets", "url": "/admin/snippets/"},
+    ]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Hello World")
+
+    def test_index_view(self):
+        response = self.client.get(self.get_url("list"))
+        items = [{"url": "", "label": "Full-featured snippets"}]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_add_view(self):
+        response = self.client.get(self.get_url("add"))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"url": "", "label": "New: Full-featured snippet"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_edit_view(self):
+        response = self.client.get(self.get_url("edit", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"url": "", "label": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_delete_view(self):
+        response = self.client.get(self.get_url("delete", args=(self.object.pk,)))
+        self.assertBreadcrumbsNotRendered(response.content)
+
+    def test_history_view(self):
+        response = self.client.get(self.get_url("history", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "History"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view(self):
+        response = self.client.get(self.get_url("usage", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Usage"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_inspect_view(self):
+        response = self.client.get(self.get_url("inspect", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Inspect"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)

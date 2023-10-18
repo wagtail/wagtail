@@ -52,18 +52,18 @@ class TestGenericSettingMenu(WagtailTestUtils, TestCase):
 
     def test_menu_item_icon(self):
         menu_item = SettingMenuItem(
-            IconGenericSetting, icon="tag", classnames="test-class"
+            IconGenericSetting, icon="tag", classname="test-class"
         )
         self.assertEqual(menu_item.icon_name, "tag")
-        self.assertEqual(menu_item.classnames, "test-class")
+        self.assertEqual(menu_item.classname, "test-class")
 
     def test_menu_item_icon_fontawesome(self):
         menu_item = SettingMenuItem(
-            IconGenericSetting, icon="fa-suitcase", classnames="test-class"
+            IconGenericSetting, icon="fa-suitcase", classname="test-class"
         )
         self.assertEqual(menu_item.icon_name, "")
         self.assertEqual(
-            set(menu_item.classnames.split(" ")),
+            set(menu_item.classname.split(" ")),
             {"icon", "icon-fa-suitcase", "test-class"},
         )
 

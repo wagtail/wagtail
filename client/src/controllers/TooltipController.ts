@@ -13,11 +13,16 @@ import { hideTooltipOnEsc } from '../includes/initTooltips';
 export class TooltipController extends Controller<HTMLElement> {
   static values = {
     content: String,
+    offset: Array,
     placement: { default: 'bottom', type: String },
   };
 
   declare contentValue: string;
+  declare offsetValue: [number, number];
   declare placementValue: Placement;
+
+  declare readonly hasOffsetValue: boolean;
+
   tippy?: Instance<Props>;
 
   connect() {
@@ -47,6 +52,7 @@ export class TooltipController extends Controller<HTMLElement> {
       content: this.contentValue,
       placement: this.placementValue,
       plugins: [hideTooltipOnEsc],
+      ...(this.hasOffsetValue && { offset: this.offsetValue }),
     };
   }
 

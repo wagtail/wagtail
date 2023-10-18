@@ -12,16 +12,16 @@ class ModelAdminMenuItem(MenuItem):
         url = model_admin.url_helper.index_url
         menu_icon = model_admin.get_menu_icon()
         if menu_icon[:3] == "fa-":
-            classnames = "icon icon-%s" % menu_icon
+            classname = "icon icon-%s" % menu_icon
             icon_name = None
         else:
-            classnames = ""
+            classname = ""
             icon_name = menu_icon
         super().__init__(
             label=model_admin.get_menu_label(),
             url=url,
             name=model_admin.get_menu_item_name(),
-            classnames=classnames,
+            classname=classname,
             icon_name=icon_name,
             order=order,
         )
@@ -40,16 +40,16 @@ class GroupMenuItem(SubmenuMenuItem):
     def __init__(self, modeladmingroup, order, menu):
         menu_icon = modeladmingroup.get_menu_icon()
         if menu_icon[:3] == "fa-":
-            classnames = "icon icon-%s" % menu_icon
+            classname = "icon icon-%s" % menu_icon
             icon_name = None
         else:
-            classnames = ""
+            classname = ""
             icon_name = menu_icon
         super().__init__(
             label=modeladmingroup.get_menu_label(),
             menu=menu,
             name=modeladmingroup.get_menu_item_name(),
-            classnames=classnames,
+            classname=classname,
             icon_name=icon_name,
             order=order,
         )

@@ -20,6 +20,16 @@ except ImportError:
     ELASTICSEARCH_VERSION = (0, 0, 0)
 
 
+use_new_elasticsearch_api = ELASTICSEARCH_VERSION >= (7, 15)
+
+if use_new_elasticsearch_api:
+    search_query_kwargs = {
+        "query": "QUERY",
+    }
+else:
+    search_query_kwargs = {"body": {"query": "QUERY"}}
+
+
 @unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
 class TestElasticsearch7SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = "wagtail.search.backends.elasticsearch7"
@@ -915,12 +925,12 @@ class TestElasticsearch7SearchResults(TestCase):
         list(results)  # Performs search
 
         search.assert_any_call(
-            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
             scroll="2m",
             size=100,
+            **search_query_kwargs,
         )
 
     @mock.patch("elasticsearch.Elasticsearch.search")
@@ -933,11 +943,11 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
             size=1,
+            **search_query_kwargs,
         )
 
     @mock.patch("elasticsearch.Elasticsearch.search")
@@ -949,11 +959,11 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=1,
-            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
             size=3,
+            **search_query_kwargs,
         )
 
     @mock.patch("elasticsearch.Elasticsearch.search")
@@ -965,11 +975,11 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
             size=10,
+            **search_query_kwargs,
         )
 
     @mock.patch("elasticsearch.Elasticsearch.search")
@@ -982,11 +992,11 @@ class TestElasticsearch7SearchResults(TestCase):
 
         search.assert_any_call(
             from_=20,
-            query="QUERY",
             _source=False,
             stored_fields="pk",
             index="wagtail__searchtests_book",
             size=1,
+            **search_query_kwargs,
         )
 
     @mock.patch("elasticsearch.Elasticsearch.search")

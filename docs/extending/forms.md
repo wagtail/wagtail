@@ -56,6 +56,8 @@ class WagtailVideosAppConfig(AppConfig):
 
 Wagtail's edit views for pages, snippets and ModelAdmin use `WagtailAdminModelForm` as standard, so this change will take effect across the Wagtail admin; a foreign key to `Video` on a page model will automatically use the `VideoChooser` widget, with no need to specify this explicitly.
 
+(forms_panels_overview)=
+
 ## Panels
 
 Panels (also known as edit handlers until Wagtail 3.0) are Wagtail's mechanism for specifying the content and layout of a model form without having to write a template. They are used for the editing interface for pages and snippets, as well as the [ModelAdmin](/reference/contrib/modeladmin/index) and [site settings](/reference/contrib/settings) contrib modules.
@@ -66,6 +68,7 @@ A view performs the following steps to render a model form through the panels me
 
 -   The top-level panel object for the model is retrieved. Usually this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, snippets can define their panels via the `SnippetViewSet` class.
 -   If the `PanelsGroup`s permissions do not allow a user to see this panel, then nothing more will be done.
+    -   This can be modified using the `permission` keyword argument, see examples of this usage in [](customising_the_tabbed_interface) and [](panels_permissions).
 -   The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialisation that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
 -   The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:
     -   Retrieve a base form class from the model's `base_form_class` property, falling back on `wagtail.admin.forms.WagtailAdminModelForm`

@@ -12,9 +12,9 @@
         {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
         {% if data_url %}data-url="{{ data_url }}"{% endif %}
     >
-        <div data-a11y-dialog-hide class="w-dialog__overlay"></div>
+        <div class="w-dialog__overlay" data-action="click->w-dialog#hide"></div>
         <div class="w-dialog__box">
-            <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-dialog__close-button">
+            <button type="button" class="w-dialog__close-button" aria-label="{% trans 'Close dialog' %}" data-action="w-dialog#hide">
                 {% icon name='cross' classname="w-dialog__close-icon" %}
             </button>
 

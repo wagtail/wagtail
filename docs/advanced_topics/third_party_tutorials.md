@@ -6,6 +6,7 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Deploy Wagtail CMS to PythonAnywhere using git push to a bare repo](https://www.nickmoreton.co.uk/articles/deploy-wagtail-cms-to-pythonanywhere/) (27 September 2023)
 -   [Creating Wagtail Streamfield StructBlocks with a Customised Editor Interface](https://enzedonline.com/en/tech-blog/how-to-create-wagtail-streamfield-structblocks-with-a-customised-editor-interface/) (9 July 2023)
 -   [Wagtail on Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0) (26 June 2023)
 -   [How to create a custom Wagtail CMS page type?](https://itcertifications.medium.com/how-to-create-a-custom-wagtail-cms-page-type-7bf72aff8413) (29 June 2023)

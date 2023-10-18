@@ -1,9 +1,12 @@
+import warnings
+
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 
 from wagtail.models import GroupPagePermission, Page, Revision
 from wagtail.permission_policies.base import OwnershipPermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class PagePermissionPolicy(OwnershipPermissionPolicy):
@@ -215,7 +218,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
         return explorable_pages
 
-    def revisions_for_moderation(self, user):
+    def _revisions_for_moderation(self, user):
         # Deal with the trivial cases first...
         if not user.is_active:
             return Revision.objects.none()
@@ -242,3 +245,10 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
                 Cast("pk", output_field=CharField()), flat=True
             )
         )
+
+    def revisions_for_moderation(self, user):
+        warnings.warn(
+            "The PagePermissionPolicy.revisions_for_moderation() method is deprecated.",
+            RemovedInWagtail60Warning,
+        )
+        return self._revisions_for_moderation(user)

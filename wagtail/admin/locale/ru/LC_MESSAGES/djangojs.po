@@ -1,27 +1,26 @@
 #
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2022
-# Vassily <zuber.kg@gmail.com>, 2022
 # Nikita Tonkoshkur <humapen@gmail.com>, 2022
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
 # sergeybe <sergeybe@gmail.com>, 2022
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2022
-# Mikalai Radchuk <radchuk.m@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
 # Loic Teixeira, 2022
 # Влад <integration.into.society@gmail.com>, 2023
+# Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2023\n"
+"Last-Translator: Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s новых элементов в этом меню)"
@@ -30,19 +29,19 @@ msgid "(1 new item in this menu)"
 msgstr "(1 новый элемент в этом меню)"
 
 msgid "(New)"
-msgstr "(New)"
+msgstr "(Новый)"
 
 msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s ошибка"
-msgstr[1] "%(num)s ошибок"
+msgstr[1] "%(num)s ошибки"
 msgstr[2] "%(num)s ошибок"
 msgstr[3] "%(num)s ошибок"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s пиксель"
-msgstr[1] "%(num)s пикселей"
+msgstr[1] "%(num)s пикселя"
 msgstr[2] "%(num)s пикселей"
 msgstr[3] "%(num)s пикселей"
 
@@ -98,13 +97,13 @@ msgid "Edit '%(title)s'"
 msgstr "Редактировать '%(title)s'"
 
 msgid "Edit your account"
-msgstr "Редактировать ваш аккаунт"
+msgstr "Редактировать вашу учётную запись"
 
 msgid "Enter your comments..."
 msgstr "Напишите ваши комментарии..."
 
 msgid "Enter your reply..."
-msgstr "Напишите ответ..."
+msgstr "Напишите ваш ответ..."
 
 msgid "Error while sending preview data."
 msgstr "Ошибка при отправке данных предварительного просмотра."
@@ -125,7 +124,7 @@ msgid "Line break"
 msgstr "Разрыв строки"
 
 msgid "Loading…"
-msgstr "Загрузка..."
+msgstr "Загрузка…"
 
 msgid "Main menu"
 msgstr "Главное меню"
@@ -148,8 +147,11 @@ msgstr "Просмотрщик страниц"
 msgid "Pages"
 msgstr "Страницы"
 
+msgid "Pin toolbar"
+msgstr "Закрепить панель инструментов"
+
 msgid "Reload saved content"
-msgstr "Перезагрузка сохраненного контента"
+msgstr "Перезагрузить сохранённое содержание"
 
 msgid "Reload the page"
 msgstr "Перезагрузить страницу"
@@ -190,6 +192,9 @@ msgstr "Сохранение..."
 msgid "Search"
 msgstr "Поиск"
 
+msgid "Search options…"
+msgstr "Параметры поиска…"
+
 msgid "See all"
 msgstr "Смотреть все"
 
@@ -208,10 +213,11 @@ msgstr "Разделить блок"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
+"Редактор только что сломался. Содержимое было возвращено к последней "
+"сохранённой версии."
 
 msgid "This field is required."
-msgstr "Требуется заполнить это поле."
+msgstr "Это поле обязательно для заполнения."
 
 msgid "Toggle side panel"
 msgstr "Переключить боковую панель"
@@ -221,6 +227,9 @@ msgstr "Переключить боковую панель"
 
 msgid "Unfocus comment"
 msgstr "Убрать фокус"
+
+msgid "Unpin toolbar"
+msgstr "Открепить панель инструментов"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Показать дочерние страницы '%(title)s'"

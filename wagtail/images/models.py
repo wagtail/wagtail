@@ -1,13 +1,15 @@
 import hashlib
+import itertools
 import logging
 import os.path
+import re
 import time
 from collections import OrderedDict, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Dict, Iterable, List, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import willow
 from django.apps import apps
@@ -34,8 +36,10 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
+from wagtail.images.fields import image_format_name_to_content_type
 from wagtail.images.image_operations import (
     FilterOperation,
+    FormatOperation,
     ImageTransform,
     TransformOperation,
 )
@@ -496,16 +500,20 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
         return rendition
 
-    def get_renditions(self, *filter_specs: str) -> Dict[str, "AbstractRendition"]:
+    def get_renditions(
+        self, *filters: Union["Filter", str]
+    ) -> Dict[str, "AbstractRendition"]:
         """
         Returns a ``dict`` of ``Rendition`` instances with image files reflecting
-        the supplied ``filter_specs``, keyed by the relevant ``filter_spec`` string.
+        the supplied ``filters``, keyed by filter spec patterns.
 
         Note: If using custom image models, instances of the custom rendition
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        filters = [Filter(spec) for spec in dict.fromkeys(filter_specs).keys()]
+        # We don’t support providing mixed Filter and string arguments in the same call.
+        if isinstance(filters[0], str):
+            filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
@@ -528,8 +536,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         if cache_additions:
             Rendition.cache_backend.set_many(cache_additions)
 
-        # Return a dict in the expected format
-        return {filter.spec: rendition for filter, rendition in renditions.items()}
+        # Make sure key insertion order matches the input order.
+        return {filter.spec: renditions[filter] for filter in filters}
 
     def find_existing_renditions(
         self, *filters: "Filter"
@@ -822,9 +830,44 @@ class Filter:
     but could potentially involve colour processing, etc.
     """
 
+    spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
+    pipe_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.\|]+$")
+    expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},]+$")
+    pipe_expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},\|]+$")
+
     def __init__(self, spec=None):
         # The spec pattern is operation1-var1-var2|operation2-var1
         self.spec = spec
+
+    @classmethod
+    def expand_spec(self, spec: Union["str", Iterable["str"]]) -> List["str"]:
+        """
+        Converts a spec pattern with brace-expansions, into a list of spec patterns.
+        For example, "width-{100,200}" becomes ["width-100", "width-200"].
+
+        Supports providing filter specs already split, or pipe or space-separated.
+        """
+        if isinstance(spec, str):
+            separator = "|" if "|" in spec else " "
+            spec = spec.split(separator)
+
+        expanded_segments = []
+        for segment in spec:
+            # Check if segment has braces to expand
+            if "{" in segment and "}" in segment:
+                prefix, options_suffixed = segment.split("{")
+                options_pattern, suffix = options_suffixed.split("}")
+                options = options_pattern.split(",")
+                expanded_segments.append(
+                    [prefix + option + suffix for option in options]
+                )
+            else:
+                expanded_segments.append([segment])
+
+        # Cartesian product of all expanded segments (equivalent to nested for loops).
+        combinations = itertools.product(*expanded_segments)
+
+        return ["|".join(combination) for combination in combinations]
 
     @cached_property
     def operations(self):
@@ -1000,6 +1043,121 @@ class Filter:
             return ""
 
         return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+
+
+class ResponsiveImage:
+    """
+    A custom object used to represent a collection of renditions.
+    Provides a 'renditions' property to access the renditions,
+    and renders to the front-end HTML.
+    """
+
+    def __init__(
+        self,
+        renditions: Dict[str, "AbstractRendition"],
+        attrs: Optional[Dict[str, Any]] = None,
+    ):
+        self.renditions = list(renditions.values())
+        self.attrs = attrs
+
+    @classmethod
+    def get_width_srcset(cls, renditions_list: List["AbstractRendition"]):
+        if len(renditions_list) == 1:
+            # No point in using width descriptors if there is a single image.
+            return renditions_list[0].url
+
+        return ", ".join([f"{r.url} {r.width}w" for r in renditions_list])
+
+    def __html__(self):
+        attrs = self.attrs or {}
+
+        # No point in adding a srcset if there is a single image.
+        if len(self.renditions) > 1:
+            attrs["srcset"] = self.get_width_srcset(self.renditions)
+
+        # The first rendition is the "base" / "fallback" image.
+        return self.renditions[0].img_tag(attrs)
+
+    def __str__(self):
+        return mark_safe(self.__html__())
+
+    def __bool__(self):
+        return bool(self.renditions)
+
+    def __eq__(self, other: "ResponsiveImage"):
+        if isinstance(other, ResponsiveImage):
+            return self.renditions == other.renditions and self.attrs == other.attrs
+        return False
+
+
+class Picture(ResponsiveImage):
+    # Keep this separate from FormatOperation.supported_formats,
+    # as the order our formats are defined in is essential for the picture tag.
+    # Defines the order of <source> elements in the tag when format operations
+    # are in use, and the priority order to identify the "fallback" format.
+    # The browser will pick the first supported format in this list.
+    source_format_order = ["avif", "webp", "jpeg", "png", "gif"]
+
+    def __init__(
+        self,
+        renditions: Dict[str, "AbstractRendition"],
+        attrs: Optional[Dict[str, Any]] = None,
+    ):
+        super().__init__(renditions, attrs)
+        # Store renditions grouped by format separately for access from templates.
+        self.formats = self.get_formats(renditions)
+
+    def get_formats(
+        self, renditions: Dict[str, "AbstractRendition"]
+    ) -> Dict[str, List["AbstractRendition"]]:
+        """
+        Group renditions by the format they are for, if any.
+        If there is only one format, no grouping is required.
+        """
+        formats = defaultdict(list)
+        for spec, rendition in renditions.items():
+            for fmt in FormatOperation.supported_formats:
+                # Identify the spec’s format (if any).
+                if f"format-{fmt}" in spec:
+                    formats[fmt].append(rendition)
+                    break
+        # Avoid the split by format if there is only one.
+        if len(formats.keys()) < 2:
+            return {}
+
+        return formats
+
+    def get_fallback_format(self):
+        for fmt in reversed(self.source_format_order):
+            if fmt in self.formats:
+                return fmt
+
+    def __html__(self):
+        # If there aren’t multiple formats, render a vanilla img tag with srcset.
+        if not self.formats:
+            return mark_safe(f"<picture>{super().__html__()}</picture>")
+
+        attrs = self.attrs or {}
+
+        sizes = f'sizes="{attrs["sizes"]}" ' if "sizes" in attrs else ""
+        fallback_format = self.get_fallback_format()
+        fallback_renditions = self.formats[fallback_format]
+
+        sources = []
+
+        for fmt in self.source_format_order:
+            if fmt != fallback_format and fmt in self.formats:
+                srcset = self.get_width_srcset(self.formats[fmt])
+                mime = image_format_name_to_content_type(fmt)
+                sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
+
+        if len(fallback_renditions) > 1:
+            attrs["srcset"] = self.get_width_srcset(fallback_renditions)
+
+        # The first rendition is the "base" / "fallback" image.
+        fallback = fallback_renditions[0].img_tag(attrs)
+
+        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")
 
 
 class AbstractRendition(ImageFileMixin, models.Model):

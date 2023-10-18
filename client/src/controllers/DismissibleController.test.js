@@ -28,8 +28,7 @@ describe('DismissibleController', () => {
       data-w-dismissible-target="content"
     >
       <button type="button" data-action="w-dismissible#toggle">X</button>
-    </section>
-    `;
+    </section>`;
 
     application = Application.start();
     application.register('w-dismissible', DismissibleController);

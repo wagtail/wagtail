@@ -1,14 +1,16 @@
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import AbstractBaseUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import paginator
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail import hooks
-from wagtail.models import GroupPagePermission, Locale, Page
+from wagtail.admin.widgets import Button
+from wagtail.models import GroupPagePermission, Locale, Page, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
+from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -57,6 +59,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.new_page.id, self.old_page.id, self.child_page.id]
         )
+        self.assertContains(response, "1-3 of 3")
 
     def test_explore_root(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
@@ -179,13 +182,47 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
         )
 
-    def test_construct_page_listing_buttons_hook(self):
-        # testapp implements a construct_page_listing_buttons hook
-        # that add's an dummy button with the label 'Dummy Button' which points
-        # to '/dummy-button'
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-        )
+    def test_construct_page_listing_buttons_hook_with_old_signature(self):
+        def add_dummy_button(buttons, page, page_perms, context=None):
+            item = Button(
+                label="Dummy Button",
+                url="/dummy-button",
+                priority=10,
+            )
+            buttons.append(item)
+
+        with hooks.register_temporarily(
+            "construct_page_listing_buttons", add_dummy_button
+        ):
+            with self.assertWarnsMessage(
+                RemovedInWagtail60Warning,
+                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+            ):
+                response = self.client.get(
+                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+        self.assertContains(response, "Dummy Button")
+        self.assertContains(response, "/dummy-button")
+
+    def test_construct_page_listing_buttons_hook_with_new_signature(self):
+        def add_dummy_button(buttons, page, user, context=None):
+            if not isinstance(user, AbstractBaseUser):
+                raise TypeError("expected a user instance")
+            item = Button(
+                label="Dummy Button",
+                url="/dummy-button",
+                priority=10,
+            )
+            buttons.append(item)
+
+        with hooks.register_temporarily(
+            "construct_page_listing_buttons", add_dummy_button
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertContains(response, "Dummy Button")
@@ -214,6 +251,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
+        self.assertContains(response, "51-100 of 153")
 
     def test_pagination_invalid(self):
         self.make_pages()
@@ -354,6 +392,61 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+    def test_search(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "Search the whole site")
+
+    def test_search_results(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore_results", args=(self.root_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index_results.html")
+
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "1-1 of 1")
+
+    def test_search_searches_descendants(self):
+        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "old"})
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        # Results that are not immediate children of the current page should show their parent
+        self.assertContains(
+            response,
+            '<a href="/admin/pages/2/" class="icon icon-arrow-right">Welcome to your new Wagtail site!</a>',
+            html=True,
+        )
+
+        # search results should not include pages outside parent_page's descendants
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [])
+
+    def test_search_whole_tree(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old", "search_all": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        self.assertContains(response, "Search within 'New page (simple page)'")
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
@@ -769,3 +862,43 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
             count=0,
         )
+
+
+class TestInWorkflowStatus(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.event_index = Page.objects.get(url_path="/home/events/")
+        cls.christmas = Page.objects.get(url_path="/home/events/christmas/").specific
+        cls.saint_patrick = Page.objects.get(
+            url_path="/home/events/saint-patrick/"
+        ).specific
+        cls.christmas.save_revision()
+        cls.saint_patrick.save_revision()
+        cls.url = reverse("wagtailadmin_explore", args=[cls.event_index.pk])
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_in_workflow_status(self):
+        workflow = Workflow.objects.first()
+        workflow.start(self.christmas, self.user)
+        workflow.start(self.saint_patrick, self.user)
+
+        # Warm up cache
+        self.client.get(self.url)
+
+        with self.assertNumQueries(47):
+            response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        for page in [self.christmas, self.saint_patrick]:
+            status = soup.select_one(f'a.w-status[href="{page.url}"]')
+            self.assertIsNotNone(status)
+            self.assertEqual(
+                status.text.strip(), "Current page status: live + in moderation"
+            )
+            self.assertEqual(page.status_string, "live + in moderation")

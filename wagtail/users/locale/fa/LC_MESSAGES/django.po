@@ -162,11 +162,11 @@ msgstr "هیچ گروهی با \"%(query)s\" همخوان نیست"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"هنوز گروهی تنظیم نشده. میتوانید یکی <a href="
-"\"%(wagtailusers_create_group_url)s\">ایجاد</a> کنید."
+"هنوز گروهی تنظیم نشده. میتوانید یکی <a "
+"href=\"%(wagtailusers_create_group_url)s\">ایجاد</a> کنید."
 
 msgid "Delete user"
 msgstr "حذف کاربر"
@@ -216,8 +216,8 @@ msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» 
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
 "مورد اضافه کنید</a>؟"

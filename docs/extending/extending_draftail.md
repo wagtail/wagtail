@@ -392,6 +392,23 @@ window.draftail.registerPlugin({
 }, 'controls');
 ```
 
+```{note}
+Remember to include this feature in any custom Draft configs set up in the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting. So that this new 'sentences' feature is available.
+```
+
+For example:
+
+```python
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['bold', 'italic', 'link', 'sentences'],  # Add 'sentences' here
+        },
+    },
+}
+```
+
 ### Text decorators
 
 The [decorators API](https://www.draftail.org/docs/decorators) is how Draftail / Draft.js supports highlighting text with special formatting in the editor. It uses the [CompositeDecorator](https://draftjs.org/docs/advanced-topics-decorators/#compositedecorator) API, with each entry having a `strategy` function to determine what text to target, and a `component` function to render the decoration.

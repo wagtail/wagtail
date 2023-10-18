@@ -85,4 +85,24 @@ describe('DropdownController', () => {
 
     expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
   });
+
+  it('should support an offset value passed to tippy.js', async () => {
+    application?.stop();
+    document
+      .querySelector('div')
+      .setAttribute('data-w-dropdown-offset-value', '[12,24]');
+
+    application = Application.start();
+    application = Application.start();
+    application.register('w-dropdown', DropdownController);
+
+    await Promise.resolve();
+
+    const tippy = application.getControllerForElementAndIdentifier(
+      document.querySelector('div'),
+      'w-dropdown',
+    ).tippy;
+
+    expect(tippy.props).toHaveProperty('offset', [12, 24]);
+  });
 });

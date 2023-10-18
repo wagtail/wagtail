@@ -1480,6 +1480,9 @@ class TestCopyPage(TestCase):
         )
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
+        # RemovedInWagtail60Warning
+        # Remove this test when the deprecation period for the legacy
+        # moderation system ends.
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.save_revision(submitted_for_moderation=True)
 
@@ -1504,6 +1507,9 @@ class TestCopyPage(TestCase):
 
     def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        # RemovedInWagtail60Warning
+        # Remove this line when the deprecation period for the legacy
+        # moderation system ends.
         christmas_event.save_revision(submitted_for_moderation=True)
 
         # Set the created_at of the revision to a time in the past

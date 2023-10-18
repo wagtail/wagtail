@@ -20,17 +20,17 @@ except ImportError:
 
 install_requires = [
     "Django>=3.2,<4.3",
-    "django-modelcluster>=6.0,<7.0",
+    "django-modelcluster>=6.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
     "django-taggit>=2.0,<5.0",
     "django-treebeard>=4.5.1,<5.0",
     "djangorestframework>=3.11.1,<4.0",
-    "django-filter>=2.2,<24",
+    "django-filter>=23.3,<24",
     "draftjs_exporter>=2.1.5,<3.0",
     "Pillow>=9.1.0,<11.0.0",
     "beautifulsoup4>=4.8,<4.12",
     "html5lib>=0.999,<2",
-    "Willow[heif]>=1.6,<1.7",
+    "Willow[heif]>=1.6.2,<1.7",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
@@ -44,7 +44,7 @@ testing_extras = [
     "python-dateutil>=2.7",
     "pytz>=2014.7",
     "Jinja2>=3.0,<3.2",
-    "boto3>=1.16,<1.17",
+    "boto3>=1.28,<2",
     "freezegun>=0.3.8",
     "azure-mgmt-cdn>=12.0,<13.0",
     "azure-mgmt-frontdoor>=1.0,<1.1",
@@ -53,9 +53,9 @@ testing_extras = [
     "coverage>=3.7.0",
     "black==22.3.0",
     "doc8==0.8.1",
-    "ruff==0.0.272",
+    "ruff==0.0.290",
     # For enforcing string formatting mechanism in source files
-    "semgrep==1.3.0",
+    "semgrep==1.40.0",
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting
@@ -87,8 +87,10 @@ setup(
     author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url="https://wagtail.org/",
     project_urls={
+        "Changelog": "https://github.com/wagtail/wagtail/blob/main/CHANGELOG.txt",
         "Documentation": "https://docs.wagtail.org",
         "Source": "https://github.com/wagtail/wagtail",
+        "Tracker": "https://github.com/wagtail/wagtail/issues",
     },
     packages=find_packages(),
     include_package_data=True,

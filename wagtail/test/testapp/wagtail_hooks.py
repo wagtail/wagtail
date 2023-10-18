@@ -20,7 +20,9 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
+from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail.test.testapp.models import (
     DraftStateModel,
@@ -72,7 +74,7 @@ def register_kittens_menu_item():
     return KittensMenuItem(
         "Kittens!",
         "http://www.tomroyal.com/teaandkittens/",
-        classnames="kitten--test",
+        classname="kitten--test",
         name="kittens",
         icon_name="kitten",
         attrs={"data-is-custom": "true"},
@@ -94,7 +96,7 @@ def register_custom_search_area():
     return MyCustomSearchArea(
         "My Search",
         "/customsearch/",
-        classnames="search--custom-class",
+        classname="search--custom-class",
         icon_name="custom",
         attrs={"is-custom": "true"},
         order=10000,
@@ -187,16 +189,6 @@ def register_relax_menu_item(menu_items, request, context):
     menu_items.append(RelaxMenuItem())
 
 
-@hooks.register("construct_page_listing_buttons")
-def register_page_listing_button_item(buttons, page, page_perms, context=None):
-    item = Button(
-        label="Dummy Button",
-        url="/dummy-button",
-        priority=10,
-    )
-    buttons.append(item)
-
-
 @hooks.register("construct_snippet_listing_buttons")
 def register_snippet_listing_button_item(buttons, snippet, user, context=None):
     item = Button(
@@ -269,12 +261,17 @@ class FullFeaturedSnippetFilterSet(WagtailFilterSet):
         fields = ["country_code", "some_date"]
 
 
+class FullFeaturedSnippetChooserViewSet(SnippetChooserViewSet):
+    form_fields = ["text", "country_code", "some_number"]
+
+
 class FullFeaturedSnippetViewSet(SnippetViewSet):
     icon = "cog"
     admin_url_namespace = "some_namespace"
     base_url_path = "deep/within/the/admin"
     chooser_admin_url_namespace = "my_chooser_namespace"
     chooser_base_url_path = "choose/wisely"
+    chooser_viewset_class = FullFeaturedSnippetChooserViewSet
     list_per_page = 5
     chooser_per_page = 15
     filterset_class = FullFeaturedSnippetFilterSet
@@ -384,6 +381,15 @@ register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 register_snippet(ModeratedModelViewSet())
 register_snippet(RevisableViewSetGroup)
 register_snippet(VariousOnDeleteModelViewSet)
+
+
+@hooks.register("register_bulk_action")
+class DisableBulkAction(SnippetBulkAction):
+    template_name = "wagtailadmin/bulk_actions/confirmation/base.html"
+    models = [FullFeaturedSnippet]
+    display_name = "Disable"
+    aria_label = "Disable selected full-featured snippets"
+    action_type = "disable"
 
 
 @hooks.register("register_admin_viewset")

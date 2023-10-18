@@ -277,8 +277,112 @@ msgstr "Todos los %(objects)s documentos en esta pantalla seleccionados"
 msgid "All documents in listing selected"
 msgstr "Todos los documentos en la lista seleccionados"
 
+msgid "1 image selected"
+msgstr "1 imagen seleccionada"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s imágenes seleccionadas"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Todas las %(objects)s imágenes en esta pantalla seleccionadas"
+
+msgid "All images in listing selected"
+msgstr "Todas las imágenes en la lista seleccionadas"
+
+msgid "1 user selected"
+msgstr "1 usuario seleccionado"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s usuarios seleccionados"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Todos los %(objects)s usuarios en esta pantalla seleccionados"
+
+msgid "All users in listing selected"
+msgstr "Todos los usuarios en la lista seleccionados"
+
+msgid "1 snippet selected"
+msgstr "1 snippet seleccionado"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s snippets seleccionados"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Todos los %(objects)s snippets en esta pantalla seleccionados"
+
+msgid "All snippets in listing selected"
+msgstr "Todos los snippets en la lista seleccionados"
+
+msgid "1 item selected"
+msgstr "1 elemento seleccionado"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s elementos seleccionados"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Todos los %(objects)s elementos en esta pantalla seleccionados"
+
+msgid "All items in listing selected"
+msgstr "Todos los elementos en la lista seleccionados"
+
+msgid "For search engines"
+msgstr "Para motores de búsqueda"
+
+msgid "For site menus"
+msgstr "Para los menús de la página"
+
+msgid "Content"
+msgstr "Contenido"
+
+msgid "Promote"
+msgstr "Promocionar"
+
 msgid "Settings"
 msgstr "Configuración"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Page title"
+msgstr "Título de la página"
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Página no encontrada"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "No se ha podido encontrar la página solicitada."
+
+msgid "Go to Wagtail admin"
+msgstr "Ir al administrador de Wagtail"
+
+msgid "Account"
+msgstr "Cuenta"
+
+msgid "More actions"
+msgstr "Más acciones"
+
+msgid "Save account details"
+msgstr "Guardar los datos de la cuenta"
+
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+msgid "Password change successful"
+msgstr "Cambio de contraseña realizado con éxito"
+
+msgid "Login"
+msgstr "Inicio de sesión"
 
 msgid "Save"
 msgstr "Guardar"

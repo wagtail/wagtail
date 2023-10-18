@@ -32,8 +32,7 @@ describe('TagController', () => {
     document.body.innerHTML = `
     <main>
       <input id="tag-input" type="text" value="abc" />
-    </main>
-    `;
+    </main>`;
 
     window.initTagField('tag-input', '/path/to/autocomplete/', {
       someOther: 'option',

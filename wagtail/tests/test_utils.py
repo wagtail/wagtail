@@ -1,5 +1,7 @@
+import hashlib
 import pickle
-from io import BytesIO, StringIO
+import unittest
+from io import BytesIO
 from pathlib import Path
 
 from django.contrib.contenttypes.models import ContentType
@@ -520,12 +522,9 @@ class HashFileLikeTestCase(SimpleTestCase):
         self.assertEqual(
             hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
         )
-        self.assertEqual(
-            hash_filelike(StringIO("test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
-        )
 
     def test_hashes_file(self):
-        with self.test_file.open(mode="r") as f:
+        with self.test_file.open(mode="rb") as f:
             self.assertEqual(
                 hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
             )
@@ -546,6 +545,10 @@ class HashFileLikeTestCase(SimpleTestCase):
             "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
         )
 
+    @unittest.skipIf(
+        hasattr(hashlib, "file_digest"),
+        reason="`file_digest` doesn't support this interface",
+    )
     def test_hashes_large_file(self):
         class FakeLargeFile:
             """
@@ -553,7 +556,7 @@ class HashFileLikeTestCase(SimpleTestCase):
             """
 
             def __init__(self):
-                self.iterations = 20000
+                self.iterations = 5000
 
             def read(self, bytes):
                 self.iterations -= 1
@@ -564,5 +567,5 @@ class HashFileLikeTestCase(SimpleTestCase):
 
         self.assertEqual(
             hash_filelike(FakeLargeFile()),
-            "187cc1db32624dccace20d042f6d631f1a483020",
+            "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
         )

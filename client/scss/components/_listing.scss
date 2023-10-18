@@ -10,6 +10,7 @@ ul.listing {
 
   ul {
     list-style-type: none;
+    margin: 0;
     padding-inline-start: 0;
   }
 
@@ -37,6 +38,15 @@ ul.listing {
     padding: 0.6em 1em;
   }
 
+  td {
+    vertical-align: top;
+  }
+
+  td.title {
+    padding: 1em;
+    line-height: 2em;
+  }
+
   thead {
     font-size: 1.1em;
     color: theme('colors.text-context');
@@ -53,7 +63,7 @@ ul.listing {
       border: 0;
     }
 
-    th a {
+    th a.label {
       text-decoration: none;
       color: inherit;
       position: relative;
@@ -104,11 +114,6 @@ ul.listing {
 
   &.full-width tbody {
     border: 0;
-  }
-
-  &.align-top td,
-  td.align-top {
-    vertical-align: top;
   }
 
   &.chooser {
@@ -207,7 +212,9 @@ ul.listing {
     .title-wrapper,
     h2 {
       @apply w-label-1;
+      display: inline;
       margin: 0;
+      vertical-align: middle;
 
       a {
         color: inherit;
@@ -219,13 +226,17 @@ ul.listing {
         }
       }
     }
+
+    .icon.initial {
+      margin: 3px 0.3em 0 0;
+      vertical-align: top;
+    }
   }
 
   .actions {
-    @include clearfix();
-    margin-top: 0.8em;
-    margin-bottom: -0.5em;
+    float: right;
     font-size: 0.8rem;
+    margin: 0;
 
     a {
       text-decoration: none;
@@ -234,15 +245,14 @@ ul.listing {
     > li {
       float: left;
       padding: 0 0.5em 0 0;
-      margin: 0 0 0.5em;
-
-      // line-height: 1em;
+      vertical-align: middle;
     }
   }
 
   &--inline-actions td.title {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
 
@@ -280,7 +290,7 @@ ul.listing {
 
     a {
       display: block;
-      padding: 2em 0;
+      padding: 0;
     }
   }
 
@@ -299,6 +309,7 @@ ul.listing {
     color: theme('colors.text-button-outline-default');
     display: block;
     text-align: center;
+    line-height: 3rem;
 
     .icon {
       width: 1.5rem;
@@ -556,19 +567,6 @@ table.listing {
           }
         }
       }
-    }
-
-    .actions {
-      visibility: hidden;
-    }
-
-    .index .actions {
-      visibility: visible;
-    }
-
-    td:hover .actions,
-    td:focus-within .actions {
-      visibility: visible;
     }
 
     .bulk-action-checkbox {

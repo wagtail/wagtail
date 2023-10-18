@@ -52,12 +52,11 @@ class TestPageSlugChangedSignal(WagtailTestUtils, TestCase):
 
         # Check the signal was fired
         self.assertEqual(handler.call_count, 1)
-        self.assertTrue(
-            handler.called_with(
-                sender=SimplePage,
-                instance=self.test_page,
-                instance_before=old_page,
-            )
+        handler.assert_called_with(
+            signal=mock.ANY,
+            sender=SimplePage,
+            instance=self.test_page,
+            instance_before=old_page,
         )
 
     def test_signal_not_emitted_on_title_change(self):

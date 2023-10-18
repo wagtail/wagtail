@@ -3,10 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Aydın Zafer Cengiz <basitlikiyidir@gmail.com>, 2020
+# A S <basitlikiyidir@gmail.com>, 2020
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
-# Aydın Zafer Cengiz <basitlikiyidir@gmail.com>, 2020
+# A S <basitlikiyidir@gmail.com>, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
@@ -361,11 +361,11 @@ msgstr "İsim"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
-"\">eklemiyorsun</a>?"
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
+"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"

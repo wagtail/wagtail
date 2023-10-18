@@ -20,7 +20,7 @@
         <ul>
             {% for image in items %}
                 <li>
-                    <a href="{% url 'wagtailimages:edit' image.item.id %}"  target="_blank" rel="noreferrer">{{image.item.title}}</a>
+                    <a href="{% url 'wagtailimages:edit' image.item.id %}" target="_blank" rel="noreferrer">{{image.item.title}}</a>
                 </li>
             {% endfor %}
         </ul>

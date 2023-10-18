@@ -67,6 +67,8 @@ Custom permissions starting with `add_`, `change_` or `delete_` are not currentl
 
 Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
 
-## `FieldPanel` permissions
+## `FieldPanel` and `PanelGroup` permissions
 
 Permissions can be used to restrict access to fields within the editor interface. See `permission` on [FieldPanel](field_panel).
+
+Permissions can be used to restrict groups of panels via the `permission` keyword argument on `PanelGroup` classes (`TabbedInterface`, `ObjectList`, `FieldRowPanel`, `MultiFieldPanel`). See how `PanelGroup` usage can be customised [](forms_panels_overview).

@@ -38,6 +38,12 @@ msgstr "Tekrar gönderildi %(task_name)s"
 msgid "Submit to %(workflow_name)s"
 msgstr "Gönderildi %(workflow_name)s"
 
+msgid "Restart workflow "
+msgstr "iş akışını yenile"
+
+msgid "Cancel workflow "
+msgstr " İş akışını iptal et"
+
 msgid "Unpublish"
 msgstr "Yayından kaldır"
 
@@ -49,6 +55,10 @@ msgstr "Kaydet"
 
 msgid "Locked"
 msgstr "Kilitlendi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ve yayınla"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail blokları"
@@ -130,11 +140,11 @@ msgstr "%(snippet_type_name)s ekle"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a href="
-"\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
+"Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a "
+"href=\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "Live version"
 msgstr "Canlı sürüm"

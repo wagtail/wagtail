@@ -12,7 +12,9 @@
             {% if messages or form.errors %}
                 <ul>
                     {% if form.errors %}
-                        <li class="error">{% blocktrans trimmed %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                        {% for error in form.non_field_errors %}
+                            <li class="error">{{ error }}</li>
+                        {% endfor %}
                     {% endif %}
                     {% for message in messages %}
                         <li class="{{ message.tags }}">{{ message }}</li>
@@ -35,7 +37,7 @@
                     {% field field=form.password %}{% endfield %}
 
                     {% if show_password_reset %}
-                        <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
+                        <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten password?" %}</a>
                     {% endif %}
 
                     {% block extra_fields %}

@@ -109,6 +109,50 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 ```
 
+(inline_panel_events)=
+
+#### JavaScript DOM events
+
+You may want to execute some JavaScript when `InlinePanel` items are ready, added or removed. The `w-formset:ready`, `w-formset:added` and `w-formset:removed` events allow this.
+
+For example, given a child model that provides a relationship between Blog and Person on `BlogPage`.
+
+```python
+class CustomInlinePanel(InlinePanel):
+    class BoundPanel(InlinePanel.BoundPanel):
+        class Media:
+            js = ["js/inline-panel.js"]
+
+
+class BlogPage(Page):
+        # .. fields
+
+        content_panels = Page.content_panels + [
+               CustomInlinePanel("blog_person_relationship"),
+              # ... other panels
+        ]
+```
+
+Using the JavaScript as follows.
+
+```javascript
+// static/js/inline-panel.js
+
+document.addEventListener('w-formset:ready', function (event) {
+    console.info('ready', event);
+});
+
+document.addEventListener('w-formset:added', function (event) {
+    console.info('added', event);
+});
+
+document.addEventListener('w-formset:removed', function (event) {
+    console.info('removed', event);
+});
+```
+
+Events will be dispatched and can trigger custom JavaScript logic such as setting up a custom widget.
+
 (multiple_chooser_panel)=
 
 ### MultipleChooserPanel
@@ -346,6 +390,31 @@ To make input or chooser selection mandatory for a field, add [`blank=False`](dj
 ### Hiding fields
 
 Without a top-level panel definition, a `FieldPanel` will be constructed for each field in your model. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable). If a field is not present in the panels definition, it will also be hidden.
+
+(panels_permissions)=
+
+### Permissions
+
+Most panels can accept a `permission` kwarg, allowing the set of panels or specific panels to be restricted to a set permissions.
+See [](permissions_overview) for details about working with permissions in Wagtail.
+
+In this example, 'notes' will be visible to all editors, 'cost' and 'details' will only be visible to those with the `submit` permission, 'budget approval' will be visible to super users only. Note that super users will have access to all fields.
+
+```python
+    content_panels = [
+        FieldPanel("notes"),
+        MultiFieldPanel(
+            [
+                FieldPanel("cost"),
+                FieldPanel("details"),
+            ],
+            heading="Budget details",
+            classname="collapsed",
+            permission="submit"
+        ),
+        FieldPanel("budget_approval", permission="superuser"),
+    ]
+```
 
 (panels_attrs)=
 

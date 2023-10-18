@@ -3,10 +3,11 @@ Tests for the search box in the admin side menu, and the custom search hooks.
 """
 from django.contrib.auth.models import Permission
 from django.template import Context, Template
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase
 from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.search import SearchArea
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -107,3 +108,91 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
 
         self.assertNotIn("Pages", rendered)
         self.assertIn("My Search", rendered)
+
+
+class SearchAreaComparisonTestCase(SimpleTestCase):
+    """Tests the comparison functions."""
+
+    def setUp(self):
+        self.search_area1 = SearchArea("Label 1", "/url1", order=100)
+        self.search_area2 = SearchArea("Label 2", "/url2", order=200)
+        self.search_area3 = SearchArea("Label 1", "/url3", order=300)
+        self.search_area4 = SearchArea("Label 1", "/url1", order=100)
+
+    def test_eq(self):
+        # Same label and order, should be equal
+        self.assertTrue(self.search_area1 == self.search_area4)
+
+        # Different order, should not be equal
+        self.assertFalse(self.search_area1 == self.search_area2)
+
+        # Not a SearchArea, should not be equal
+        self.assertFalse(self.search_area1 == "Something")
+
+    def test_lt(self):
+        # Less order, should be True
+        self.assertTrue(self.search_area1 < self.search_area2)
+
+        # Same label, but less order, should be True
+        self.assertTrue(self.search_area1 < self.search_area3)
+
+        # Greater order, should be False
+        self.assertFalse(self.search_area2 < self.search_area1)
+
+        # Not a SearchArea, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.search_area1 < "Something"
+
+    def test_le(self):
+        # Less order, should be True
+        self.assertTrue(self.search_area1 <= self.search_area2)
+
+        # Same label, but less order, should be True
+        self.assertTrue(self.search_area1 <= self.search_area3)
+
+        # Same object, should be True
+        self.assertTrue(self.search_area1 <= self.search_area1)
+
+        # Same label and order, should be True
+        self.assertTrue(self.search_area1 <= self.search_area4)
+
+        # Greater order, should be False
+        self.assertFalse(self.search_area2 <= self.search_area1)
+
+        # Not a SearchArea, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.search_area1 <= "Something"
+
+    def test_gt(self):
+        # Greater order, should be True
+        self.assertTrue(self.search_area2 > self.search_area1)
+
+        # Same label, but greater order, should be True
+        self.assertTrue(self.search_area3 > self.search_area1)
+
+        # Less order, should be False
+        self.assertFalse(self.search_area1 > self.search_area2)
+
+        # Not a SearchArea, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.search_area1 > "Something"
+
+    def test_ge(self):
+        # Greater order, should be True
+        self.assertTrue(self.search_area2 >= self.search_area1)
+
+        # Same label, but greater order, should be True
+        self.assertTrue(self.search_area3 >= self.search_area1)
+
+        # Same object, should be True
+        self.assertTrue(self.search_area1 >= self.search_area1)
+
+        # Same label and order, should be True
+        self.assertTrue(self.search_area1 >= self.search_area4)
+
+        # Less order, should be False
+        self.assertFalse(self.search_area1 >= self.search_area2)
+
+        # Not a SearchArea, should raise TypeError
+        with self.assertRaises(TypeError):
+            self.search_area1 >= "Something"

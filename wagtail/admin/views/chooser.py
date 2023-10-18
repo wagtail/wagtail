@@ -1,4 +1,5 @@
 import re
+import urllib.parse as urlparse
 
 from django.conf import settings
 from django.core.paginator import InvalidPage, Paginator
@@ -734,8 +735,65 @@ class EmailLinkView(BaseLinkFormView):
     step_name = "email_link"
     link_url_field_name = "email_address"
 
+    def get_initial_data(self):
+        parsed_email = self.parse_email_link(self.request.GET.get("link_url", ""))
+        return {
+            "email_address": parsed_email["email"],
+            "link_text": self.request.GET.get("link_text", ""),
+            "subject": parsed_email["subject"],
+            "body": parsed_email["body"],
+        }
+
     def get_url_from_field_value(self, value):
         return "mailto:" + value
+
+    def get_result_data(self):
+        params = {
+            "subject": self.form.cleaned_data["subject"],
+            "body": self.form.cleaned_data["body"],
+        }
+        encoded_params = urlparse.urlencode(
+            {k: v for k, v in params.items() if v is not None and v != ""},
+            quote_via=urlparse.quote,
+        )
+
+        url = "mailto:" + self.form.cleaned_data["email_address"]
+        if encoded_params:
+            url += "?" + encoded_params
+
+        return {
+            "url": url,
+            "title": self.form.cleaned_data["link_text"].strip()
+            or self.form.cleaned_data["email_address"],
+            # If the user has explicitly entered / edited something in the link_text field,
+            # always use that text. If not, we should favour keeping the existing link/selection
+            # text, where applicable.
+            "prefer_this_title_as_link_text": ("link_text" in self.form.changed_data),
+        }
+
+    def post(self, request):
+        self.form = self.form_class(
+            request.POST, initial=self.get_initial_data(), prefix=self.form_prefix
+        )
+
+        if self.form.is_valid():
+            result = self.get_result_data()
+            return self.render_chosen_response(result)
+        else:  # form invalid
+            return self.render_form_response()
+
+    def parse_email_link(self, mailto):
+        result = {}
+
+        mail_result = urlparse.urlparse(mailto)
+
+        result["email"] = mail_result.path
+
+        query = urlparse.parse_qs(mail_result.query)
+        result["subject"] = query["subject"][0] if "subject" in query else ""
+        result["body"] = query["body"][0] if "body" in query else ""
+
+        return result
 
 
 class PhoneLinkView(BaseLinkFormView):

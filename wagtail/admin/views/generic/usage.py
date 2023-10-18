@@ -1,3 +1,5 @@
+from django.contrib.admin.utils import quote
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -20,6 +22,9 @@ class TitleColumn(tables.TitleColumn):
 class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     paginate_by = 20
     page_title = gettext_lazy("Usage of")
+    index_url_name = None
+    edit_url_name = None
+    permission_required = "change"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -37,6 +42,25 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
 
     def get_page_subtitle(self):
         return get_latest_str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.object._meta.verbose_name_plural),
+                }
+            )
+        if self.edit_url_name:
+            items.append(
+                {
+                    "url": reverse(self.edit_url_name, args=(quote(self.object.pk),)),
+                    "label": get_latest_str(self.object),
+                }
+            )
+        items.append({"url": "", "label": _("Usage")})
+        return self.breadcrumbs_items + items
 
     def get_queryset(self):
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()

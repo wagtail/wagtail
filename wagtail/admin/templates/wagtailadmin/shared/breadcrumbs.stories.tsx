@@ -28,78 +28,36 @@ const Template = (args) => (
 export const Base = Template.bind({});
 
 Base.args = {
-  url_root_name: 'wagtailadmin_explore_root',
-  url_name: 'wagtailadmin_explore',
-  pages: [
+  items: [
     {
-      is_root: true,
-      id: 2,
-      get_admin_display_title: 'Root item',
+      url: '/admin/snippets/',
+      label: 'Snippets',
     },
     {
-      id: 3,
-      get_admin_display_title: 'First item',
+      url: '/admin/snippets/people/',
+      label: 'People',
+    },
+    {
+      url: '/admin/snippets/people/1/',
+      label: 'Muddy Waters',
     },
   ],
 };
 
-export const WithTrailingTitle = Template.bind({});
+export const WithNonLinkItem = Template.bind({});
 
-WithTrailingTitle.args = {
-  url_root_name: 'wagtailadmin_explore_root',
-  url_name: 'wagtailadmin_explore',
-  pages: [
+WithNonLinkItem.args = {
+  items: [
     {
-      is_root: true,
-      id: 2,
-      get_admin_display_title: 'Root item',
+      url: '/admin/snippets/',
+      label: 'Snippets',
     },
     {
-      id: 3,
-      get_admin_display_title: 'First item',
+      url: '/admin/snippets/people/',
+      label: 'People',
     },
     {
-      id: 4,
-      get_admin_display_title: 'Second item',
-    },
-    {
-      id: 5,
-      get_admin_display_title: 'Third item',
-    },
-  ],
-  trailing_breadcrumb_title: 'Trailing item',
-};
-
-export const MultipleItems = Template.bind({});
-
-MultipleItems.args = {
-  url_root_name: 'wagtailadmin_explore_root',
-  url_name: 'wagtailadmin_explore',
-  pages: [
-    {
-      is_root: true,
-      id: 2,
-      get_admin_display_title: 'Root item',
-    },
-    {
-      id: 3,
-      get_admin_display_title: 'First item',
-    },
-    {
-      id: 4,
-      get_admin_display_title: 'Second item',
-    },
-    {
-      id: 5,
-      get_admin_display_title: 'Third item',
-    },
-    {
-      id: 4,
-      get_admin_display_title: 'Fourth item',
-    },
-    {
-      id: 5,
-      get_admin_display_title: 'Fifth item',
+      label: 'New: Person',
     },
   ],
 };
@@ -107,26 +65,19 @@ MultipleItems.args = {
 export const Expanded = Template.bind({});
 
 Expanded.args = {
-  url_root_name: 'wagtailadmin_explore_root',
-  url_name: 'wagtailadmin_explore',
   is_expanded: 'True',
-  pages: [
+  items: [
     {
-      is_root: true,
-      id: 2,
-      get_admin_display_title: 'Root item',
+      url: '/admin/snippets/',
+      label: 'Snippets',
     },
     {
-      id: 3,
-      get_admin_display_title: 'First item',
+      url: '/admin/snippets/people/',
+      label: 'People',
     },
     {
-      id: 4,
-      get_admin_display_title: 'Second item',
-    },
-    {
-      id: 5,
-      get_admin_display_title: 'Third item',
+      url: '/admin/snippets/people/1/',
+      label: 'Muddy Waters',
     },
   ],
 };

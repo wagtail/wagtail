@@ -243,19 +243,19 @@ msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 msgid "Generating URL"
 msgstr "Genererer URL"

@@ -34,5 +34,8 @@ msgstr "Editando"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Title"
+msgstr "Título"
+
 msgid "Delete"
 msgstr "Borrar"

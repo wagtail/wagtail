@@ -69,31 +69,28 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         BulkActionsColumn("bulk_actions", width="10px"),
         PageTitleColumn(
             "title",
+            classname="title",
             label=_("Title"),
             sort_key="title",
-            classname="align-top",
         ),
-        ParentPageColumn("parent", label=_("Parent"), classname="align-top"),
+        ParentPageColumn("parent", label=_("Parent")),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
             width="12%",
-            classname="align-top",
         ),
         Column(
             "type",
             label=_("Type"),
             accessor="page_type_display_name",
             width="12%",
-            classname="align-top",
         ),
         PageStatusColumn(
             "status",
             label=_("Status"),
             sort_key="live",
             width="12%",
-            classname="align-top",
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]

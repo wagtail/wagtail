@@ -1,3 +1,5 @@
+import warnings
+
 from django import forms
 from django.core import validators
 from django.forms.widgets import TextInput
@@ -42,6 +44,8 @@ class AnchorLinkChooserForm(forms.Form):
 class EmailLinkChooserForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
+    subject = forms.CharField(required=False)
+    body = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 3}))
 
 
 class PhoneLinkChooserForm(forms.Form):
@@ -76,7 +80,18 @@ class SearchFilterMixin(forms.Form):
         search_query = self.cleaned_data.get("q")
         if search_query:
             search_backend = get_search_backend()
-            objects = search_backend.autocomplete(search_query, objects)
+            if objects.model.get_autocomplete_search_fields():
+                objects = search_backend.autocomplete(search_query, objects)
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{objects.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the chooser will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+
+                objects = search_backend.search(search_query, objects)
             self.is_searching = True
             self.search_query = search_query
         return objects

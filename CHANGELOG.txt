@@ -4,6 +4,8 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
+ * Add support for Python 3.12 (Matt Westcott)
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Always set help text element ID for form fields with help text in `field.html` template (Sage Abdullah)
  * Move `SnippetViewSet` menu registration mechanism to base `ViewSet` class (Sage Abdullah)
@@ -22,13 +24,59 @@ Changelog
  * Support specifying a `get_object_list` method on `ChooserViewSet` (Matt Westcott)
  * Add `linked_fields` mechanism on chooser widgets to allow choices to be limited by fields on the calling page (Matt Westcott)
  * Add support for merging cells within `TableBlock` with the `mergedCells` option (Gareth Palmer)
+ * When adding a panel within `InlinePanel`, focus will now shift to that content similar to `StreamField` (Faishal Manzar)
+ * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
+ * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
+ * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
+ * Add breadcrumbs to generic model views (Sage Abdullah)
+ * Support passing extra context variables via the `{% component %}` tag (Matt Westcott)
+ * Allow subclasses of `PagesAPIViewSet` override default Page model via the `model` attribute (Neeraj Yetheendran, Herbert Poul)
+ * Allow `ModelViewSet` to be used with models that have non-integer primary keys (Sage Abdullah)
+ * Add the ability to set an external link/text for promoted search result entries (TopDevPros, Brad Busenius)
+ * Add support for subject and body in the Email link chooser form (TopDevPros, Alexandre Joly)
+ * Extract generic `HistoryView` from snippets and add it to `ModelViewSet` (Sage Abdullah)
+ * Add generic `UsageView` to `ModelViewSet` (Sage Abdullah)
+ * Add the ability to define listing buttons on generic `IndexView` (Sage Abdullah)
+ * Add a visual progress bar to the output of the `wagtail_update_image_renditions` management command (Faishal Manzar)
+ * Increase the read buffer size to improve efficiency and performance when generating file hashes for document or image uploads, use `hashlib.file_digest` if available (Python 3.11+) (Jake Howard)
+ * API ordering now supports multiple fields (Rohit Sharma, Jake Howard)
+ * Pass block value to `Block.get_template` to allow varying template based on value (Florian Delizy)
+ * Add `InlinePanel` DOM events for when ready and when items added or removed (Faishal Manzar)
+ * Add a new `picture` template tag for Django Templates and Jinja (Thibaud Colas)
+ * Add a new `srcset_image` template tag for Django Templates and Jinja (Thibaud Colas)
+ * Support `Filter` instances as input for `AbstractImage.get_renditions()` (Thibaud Colas)
+ * Improve error messages for image template tags
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
  * Fix: Filter out comments on Page editing counts that do not correspond to a valid field / block path on the page such as when a field has been removed (Matt Westcott)
+ * Fix: Allow `PublishMenuItem` to more easily support overriding its label via `construct_page_action_menu` (Sébastien Corbin)
+ * Fix: Allow locale selection when creating a page at the root level (Sage Abdullah)
+ * Fix: Ensure the admin login template correctly displays all `non_fields_errors` for any custom form validation (Sébastien Corbin)
+ * Fix: Ensure 'mark as active' label in workflow bulk action set active form can be translated (Rohit Sharma)
+ * Fix: Ensure the panel title for a user's settings correctly reflects the `WAGTAIL_EMAIL_MANAGEMENT_ENABLED` setting by not showing 'email' if disabled (Omkar Jadhav)
+ * Fix: Update Spotify oEmbed provider URL parsing to resolve correctly (Dhrűv)
+ * Fix: Update link colours within help blocks to meet accessible contrast requirements (Rohit Sharma)
+ * Fix: Ensure the search promotions popular search terms picker correctly refers to the correct model (LB (Ben) Johnston)
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
+ * Fix: Ensure that pages in moderation show as "Live + In Moderation" in the page explorer rather than "Live + Draft" (Sage Abdullah)
+ * Fix: Prevent error when updating reference index for objects with a lazy ParentalKey-related object (Chris Shaw)
+ * Fix: Ignore conflicts when inserting reference index entries to prevent race conditions causing uniqueness errors (Chris Shaw)
+ * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
+ * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
+ * Fix: Ensure very long words can wrap when viewing saved comments (Chiemezuo Akujobi)
+ * Fix: Avoid forgotten password link text conflicting with the supplied aria-label (Thibaud Colas)
+ * Fix: Fix log message to record the correct restriction type when removing a page view restriction (Rohit Sharma, Hazh. M. Adam)
+ * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
+ * Docs: Fix incorrect tag library import on focal points example (Hatim Makki Hoho)
+ * Docs: Add reminder about including your custom Draftail feature in any overridden `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Charlie Sue)
+ * Docs: Mention the need to install `python3-venv` on Ubuntu (Brian Mugo)
+ * Docs: Document the use of the Google developer documentation style guide in documentation (Damilola Oladele)
+ * Docs: Fix Inconsistent URL Format in Getting Started tutorial (Olumide Micheal)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
  * Maintenance: Update Eslint, Prettier, Jest, a11y-dialog, axe-core and js-cookie npm packages (LB (Ben) Johnston)
  * Maintenance: Add npm scripts for TypeScript checks and formatting SCSS files (LB (Ben) Johnston)
@@ -42,15 +90,55 @@ Changelog
  * Maintenance: Rename groups `IndexView.results_template_name` to `results.html` (Sage Abdullah)
  * Maintenance: Migrate form submission listing checkbox toggling to the shared `w-bulk` Stimulus implementation (LB (Ben) Johnston)
  * Maintenance: Allow viewsets to define a common set of view kwargs (Matt Westcott)
+ * Maintenance: Migrate the editor unsaved messages popup to be driven by Stimulus using the shared `w-message` controller (LB (Ben) Johnston, Hussain Saherwala)
+ * Maintenance: Do not use jest inside `stubs.js` to prevent Storybook from crashing (LB (Ben) Johnston)
+ * Maintenance: Refactor snippets templates to reuse the shared `slim_header.html` template (Sage Abdullah)
+ * Maintenance: Refactor `slim_header.html` template to reduce code duplication (Sage Abdullah)
+ * Maintenance: Upgrade Willow to v1.6.2 to support MIME type data without reliance on `imghdr` (Jake Howard)
+ * Maintenance: Replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
+ * Maintenance: Migrate all other `data-tippy` HTML attribute usage to the Stimulus data-*-value attributes for w-tooltip & w-dropdown (Subhajit Ghosh, LB (Ben) Johnston)
+ * Maintenance: Replace `@total_ordering` usage with comparison functions implementation (Virag Jain)
+ * Maintenance: Replace `<script type="text/django-form-template"><-/script>` template approach with HTML `template` elements in InlinePanel and expanding formset (Mansi Gundre, Subhajit Ghosh, LB (Ben) Johnston)
+ * Maintenance: Refactor side panels code for better reuse in pages and snippets (Sage Abdullah)
+ * Maintenance: Deprecate legacy URL redirects in `ModelViewSet` and `SnippetViewSet` (Sage Abdullah)
+ * Maintenance: Simplify code for registering page listing action buttons (Matt Westcott)
+ * Maintenance: Removed the unused, legacy, Wagtail userbar views set up for an old iframe approach (Sage Abdullah)
+ * Maintenance: Optimise `lru_cache` usage (Jake Howard)
+ * Maintenance: Implement `date_since` in `get_most_popular` inside `search_promotions.models.Query` (TopDevPros)
+ * Maintenance: Refactor generic view subclasses to better reuse the generic templates and breadcrumbs (Sage Abdullah)
+ * Maintenance: Adopt consistent `classname` (not `classnames`) attributes for all `MenuItem` usage, including deprecation warnings (LB (Ben) Johnston)
+ * Maintenance: Adopt consistent `classname` (not `classnames`) attribute within the `wagtail.images.formats.Format` instance, including deprecation warnings (LB (Ben) Johnston)
+ * Maintenance: Deprecate `context` argument of `construct_snippet_listing_buttons` hook (Sage Abdullah)
+ * Maintenance: Deprecate legacy moderation system (Sage Abdullah)
+ * Maintenance: Update CI database versions (Jake Howard)
+ * Maintenance: Add changelog and issue tracker links to the PyPI project page (Panagiotis H.M. Issaris)
+ * Maintenance: Add better deprecation warnings to the `search.Query` & `search.QueryDailyHits` model, move final set of templates from the admin search module to the search promotions contrib module (LB (Ben) Johnston)
+ * Maintenance: Add generic `InspectView` to `ModelViewSet` (Sage Abdullah)
+ * Maintenance: Migrate select all on focus/click behavior to Stimulus, used on the image URL generator (Chiemezuo Akujobi)
+ * Maintenance: Add support for a `reset` method to support Stimulus driven dynamic field resets via the `w-action` controller (Chiemezuo Akujobi)
+ * Maintenance: Add support for a `notify` target on the Stimulus dialog for dispatching events internally (Chiemezuo Akujobi)
+
+5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix `SnippetBulkAction` not respecting `models` definition (Sandro Rodrigues)
+ * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
+ * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
+ * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
+ * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
 
 
-5.1.2 (xx.xx.20xx) - IN DEVELOPMENT
+5.1.2 (25.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
  * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
  * Fix: Change spreadsheet export headings to match listing view column headings (Christer Jensen, Sage Abdullah)
  * Fix: Fix numbers, booleans, and `None` from being exported as strings (Christer Jensen)
+ * Fix: Restore fallback on full-word search for snippet choosers and generic index views (Matt Westcott)
+ * Fix: Restore compatibility with pre-7.15 versions of the Elasticsearch Python library, allowing use of Opensearch (Matt Westcott)
+ * Fix: Fix error when pickling BaseSiteSetting instances (Matt Westcott)
+ * Maintenance: For Python 3.13 support - upgrade Willow to v1.6.2, replace `imghdr` with Willow's built-in MIME type detection (Jake Howard)
 
 
 5.1.1 (14.08.2023)
@@ -163,7 +251,7 @@ Changelog
  * Maintenance: Migrate Tagit initialisation to a Stimulus Controller (LB (Ben) Johnston)
  * Maintenance: Refactor GroupPagePermission to use Django's Permission model (Sage Abdullah)
  * Maintenance: Convert the CONTRIBUTORS file to Markdown (Dan Braghis)
- * Maintenance: Move `django-filter` version upper bound to v24 (Yuekui)
+ * Maintenance: Move `django-filter` version upper bound to v23 (Yuekui)
  * Maintenance: Update Pillow dependency to allow 10.x, only include support for >= 9.1.0 (Yuekui)
  * Maintenance: Migrate async header search and search within the Task chooser modal to `w-swap`, a Stimulus controller (LB (Ben) Johnston)
  * Maintenance: Replace Bootstrap tooltips with a new `w-tooltip` Stimulus controller (LB (Ben) Johnston)
@@ -179,11 +267,18 @@ Changelog
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
 
 
-5.0.3 (xx.xx.20xx) - IN DEVELOPMENT
+5.0.4 (04.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Relax Willow / Pillow dependency to allow use of current Pillow versions with security fixes (Dan Braghis)
+
+
+5.0.3 (25.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `ignore_conflicts` when creating extra permissions for snippets, for SQL Server compatibility (Sage Abdullah)
  * Fix: Ensure sequence on `wagtailsearchpromotions_query` table is correctly set after migrating data (Jake Howard)
+ * Fix: Update Pillow dependency to 9.1.0 (Daniel Kirkham)
 
 
 5.0.2 (21.06.2023)
@@ -522,6 +617,7 @@ Changelog
  * Docs: Document potential data loss for BaseLogEntry migration in 3.0 (Sage Abdullah)
  * Docs: Add documentation for the reference index mechanism (Daniel Kirkham)
  * Docs: Remove confusing `SettingsPanel` reference in the page editing `TabbedInterface` example as `SettingsPanel` no longer shows anything as of 4.1 (Kenny Wolf, Julian Bigler)
+ * Docs: Add more extensive documentation for the `permission` kwarg support in Panels (LB (Ben) Johnston)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
@@ -564,6 +660,18 @@ Changelog
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
  * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
+
+
+4.1.8 (28.09.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Additionally update Pillow dependency to allow use of versions with security fixes (Dan Braghis)
+
+
+4.1.7 (27.09.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Relax Willow dependency to allow use of current Pillow versions with security fixes (Dan Braghis)
 
 
 4.1.6 (25.05.2023)
@@ -836,7 +944,7 @@ Changelog
  * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
  * Add clarity to the search indexing documentation for how `boost` works when using Postgres with the database search backend (Tibor Leupold)
  * Rename `explorer_breadcrumb` template tag to `breadcrumbs` as it is now used in multiple locations (Paarth Agarwal)
- * Updated `django-filter` version to support 23 (Yuekui)
+ * Updated `django-filter` version to support 22 (Yuekui)
  * Use `.iterator()` in a few more places in the admin, to make it more stable on sites with many pages (Andy Babic)
  * Migrate some simple React component files to TypeScript (LB (Ben) Johnston)
  * Deprecate the usage and documentation of the `wagtail.contrib.modeladmin.menus.SubMenu` class, provide a warning if used directing developers to use `wagtail.admin.menu.Menu` instead (Matt Westcott)

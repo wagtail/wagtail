@@ -29,6 +29,31 @@ class BlogPage(Page):
     ])
 ```
 
+Permissions can be set using `permission` on the `ObjectList` to restrict entire groups of panels to specific users.
+
+```python
+from wagtail.admin.panels import TabbedInterface, ObjectList
+
+class FundingPage(Page):
+    # field definitions omitted
+
+    shared_panels = [
+        FieldPanel('title', classname="title"),
+        FieldPanel('date'),
+        FieldPanel('body'),
+    ]
+    private_panels = [
+        FieldPanel('approval'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(shared_panels, heading='Details'),
+        ObjectList(private_panels, heading='Admin only', permission="superuser"),
+    ])
+```
+
+For more details on how to work with `Panel`s and `PanelGroup`, see [](forms_panels_overview).
+
 (rich_text)=
 
 ## Rich Text (HTML)
@@ -115,11 +140,11 @@ The unique key used to identify the format. To unregister this format, call `unr
 **`label`**\
 The label used in the chooser form when inserting the image into the `RichTextField`.
 
-**`classnames`**\
+**`classname`**\
 The string to assign to the `class` attribute of the generated `<img>` tag.
 
 ```{note}
-Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a `classnames` value of `left` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
+Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a `classname` value of `left` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
 ```
 
 **`filter_spec`**

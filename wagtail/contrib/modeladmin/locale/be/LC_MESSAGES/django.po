@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Edit"
 msgstr "Рэдагаваць"
@@ -51,6 +51,9 @@ msgstr "Так. Выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
+msgid "History"
+msgstr "Гісторыя"
+
 msgid "Search"
 msgstr "Пошук"
 
@@ -71,6 +74,10 @@ msgstr "Новы"
 
 msgid "Editing"
 msgstr "Рэдагаванне"
+
+#, python-format
+msgid "Editing %(object)s"
+msgstr "Рэдагаванне %(object)s"
 
 msgid "Date"
 msgstr "Дата"

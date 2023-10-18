@@ -17,10 +17,16 @@ export class ExpandingFormset {
     const emptyFormElement = document.getElementById(
       prefix + '-EMPTY_FORM_TEMPLATE',
     );
-    if (emptyFormElement.innerText) {
-      this.emptyFormTemplate = emptyFormElement.innerText;
-    } else if (emptyFormElement.textContent) {
-      this.emptyFormTemplate = emptyFormElement.textContent;
+
+    if (emptyFormElement instanceof HTMLTemplateElement) {
+      this.emptyFormTemplate = emptyFormElement.innerHTML;
+    } else if (emptyFormElement instanceof HTMLScriptElement) {
+      /**
+       * Support legacy `<script type="text/django-form-template">` until removed
+       * @deprecated RemovedInWagtail60
+       */
+      this.emptyFormTemplate =
+        emptyFormElement.innerText || emptyFormElement.textContent;
     }
 
     addButton.on('click', () => {
@@ -28,14 +34,18 @@ export class ExpandingFormset {
     });
   }
 
+  /**
+   * @param {object?} opts
+   * @param {boolean?} opts.runCallbacks - (default: true) - if false, the onAdd and onInit callbacks will not be run
+   */
   addForm(opts = {}) {
-    /*
-    Supported opts:
-    runCallbacks (default: true) - if false, the onAdd and onInit callbacks will not be run
-    */
     const formIndex = this.formCount;
     const newFormHtml = this.emptyFormTemplate
       .replace(/__prefix__(.*?['"])/g, formIndex + '$1')
+      /**
+       * Replace inner escaped `<script>...<-/script>` tags with `<script>` tags
+       * @deprecated RemovedInWagtail60
+       */
       .replace(/<-(-*)\/script>/g, '<$1/script>');
 
     this.formContainer.append(newFormHtml);

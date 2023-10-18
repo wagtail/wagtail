@@ -34,8 +34,7 @@ describe('RevealController', () => {
     <section data-controller="w-reveal">
       <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content">Toggle</button>
       <div class="content" id="my-content" data-w-reveal-target="content">CONTENT</div>
-    </section>
-    `,
+    </section>`,
     identifier = 'w-reveal',
   ) => {
     document.body.innerHTML = `<main>${html}</main>`;
@@ -73,8 +72,7 @@ describe('RevealController', () => {
       <section class="w-reveal collapsed" data-controller="w-reveal" data-w-reveal-closed-class="collapsed">
         <button type="button" data-w-reveal-target="toggle" aria-controls="my-content" aria-expanded="true">Toggle</button>
         <div id="my-content">CONTENT</div>
-      </section>
-      `);
+      </section>`);
 
       expect(
         document.querySelector('button').getAttribute('aria-expanded'),
@@ -127,8 +125,7 @@ describe('RevealController', () => {
         <button id="close" type="button" data-action="w-reveal#close">close</button>
       </div>
       <div id="content" data-w-reveal-target="content">CONTENT</div>
-    </section>
-      `);
+    </section>`);
 
       const content = document.getElementById('content');
       expect(content.hidden).toEqual(false);
@@ -168,8 +165,7 @@ describe('RevealController', () => {
           <li class="item" data-w-reveal-target="content">CONTENT B</li>
           <li class="item" data-w-reveal-target="content">CONTENT C</li>
         </ul>
-      </section>
-        `);
+      </section>`);
 
       const icon = document.querySelector('.icon');
       const useElement = icon.querySelector('use');
@@ -219,8 +215,7 @@ describe('RevealController', () => {
           <button type="button" aria-controls="panel-blue-content" data-w-reveal-target="toggle" data-action="w-reveal#toggle">Toggle</button>
           <div data-w-reveal-target="content" id="panel-blue-content">CONTENT</div>
         </aside>
-      </main>
-      `);
+      </main>`);
 
       expect(events['w-reveal:ready']).toHaveLength(2);
       expect(events['w-reveal:toggled']).toHaveLength(0);
@@ -349,8 +344,7 @@ describe('RevealController', () => {
             </li>
           </ol>
         </div>
-      </header>
-      `,
+      </header>`,
         'w-breadcrumbs',
       );
 

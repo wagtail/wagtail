@@ -1,6 +1,9 @@
 <h1 align="center">
-    <img width="343" src=".github/wagtail.svg#gh-light-mode-only" alt="Wagtail">
-    <img width="343" src=".github/wagtail-inverse.svg#gh-dark-mode-only" alt="Wagtail">
+    <picture>
+        <source media="(prefers-color-scheme: light)" srcset=".github/wagtail.svg">
+        <source media="(prefers-color-scheme: dark)" srcset=".github/wagtail-inverse.svg">
+        <img width="343" src=".github/wagtail.svg" alt="Wagtail">
+    </picture>
 </h1>
 <p align="center">
     <br>
@@ -45,7 +48,7 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-To get started with using Wagtail, run the following in a virtual environment:
+To get started with using Wagtail, run the following in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
 
 ![Installing Wagtail](.github/install-animation.gif)
 
@@ -82,7 +85,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 Wagtail supports:
 
 -   Django 3.2.x, 4.1.x and 4.2.x
--   Python 3.8, 3.9, 3.10 and 3.11
+-   Python 3.8, 3.9, 3.10, 3.11 and 3.12
 -   PostgreSQL, MySQL and SQLite (with JSON1) as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7, 3.7 and earlier Django versions.
