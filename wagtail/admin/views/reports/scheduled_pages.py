@@ -12,7 +12,6 @@ from wagtail.admin.filters import (
 from wagtail.admin.views.reports.base import PageReportView
 from wagtail.admin.views.scheduled_pages import get_scheduled_pages_for_user
 from wagtail.models import Page
-from wagtail.permission_policies.pages import PagePermissionPolicy
 
 from .utils import get_content_types_for_filter
 
