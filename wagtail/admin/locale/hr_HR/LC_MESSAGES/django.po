@@ -1574,9 +1574,29 @@ msgstr "Pogledaj povijest stranice '%(title)s'"
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Naslov %(level)d"
+msgid "Heading 1"
+msgstr "Naslov 1"
+
+
+msgid "Heading 2"
+msgstr "Naslov 2"
+
+
+msgid "Heading 3"
+msgstr "Naslov 3"
+
+
+msgid "Heading 4"
+msgstr "Naslov 4"
+
+
+msgid "Heading 5"
+msgstr "Naslov 5"
+
+
+msgid "Heading 6"
+msgstr "Naslov 6"
+
 
 msgid "Bulleted list"
 msgstr "Popis s predznacima"

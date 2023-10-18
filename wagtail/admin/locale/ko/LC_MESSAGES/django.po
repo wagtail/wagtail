@@ -2129,9 +2129,29 @@ msgstr "메뉴 순서 분류"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "파생 페이지의 '%(title)s' 순서를 바꿈"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "머리말 %(level)d"
+msgid "Heading 1"
+msgstr "머리말 1"
+
+
+msgid "Heading 2"
+msgstr "머리말 2"
+
+
+msgid "Heading 3"
+msgstr "머리말 3"
+
+
+msgid "Heading 4"
+msgstr "머리말 4"
+
+
+msgid "Heading 5"
+msgstr "머리말 5"
+
+
+msgid "Heading 6"
+msgstr "머리말 6"
+
 
 msgid "Bulleted list"
 msgstr "머릿기호 목록"

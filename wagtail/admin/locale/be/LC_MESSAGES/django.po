@@ -1083,9 +1083,29 @@ msgstr "Выдаліць старонку '%(title)s'"
 msgid "Unpublish page '%(title)s'"
 msgstr "Выдаліць з публікацыі '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Заголовак %(level)d"
+msgid "Heading 1"
+msgstr "Заголовак 1"
+
+
+msgid "Heading 2"
+msgstr "Заголовак 2"
+
+
+msgid "Heading 3"
+msgstr "Заголовак 3"
+
+
+msgid "Heading 4"
+msgstr "Заголовак 4"
+
+
+msgid "Heading 5"
+msgstr "Заголовак 5"
+
+
+msgid "Heading 6"
+msgstr "Заголовак 6"
+
 
 msgid "Bulleted list"
 msgstr "Маркіраваны спіс"

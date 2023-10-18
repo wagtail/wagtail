@@ -2310,9 +2310,29 @@ msgstr "Peruuta sivun '%(title)s' julkaisu"
 msgid "View page history for '%(title)s'"
 msgstr "Näytä sivun '%(title)s' historia"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Otsikko %(level)d"
+msgid "Heading 1"
+msgstr "Otsikko 1"
+
+
+msgid "Heading 2"
+msgstr "Otsikko 2"
+
+
+msgid "Heading 3"
+msgstr "Otsikko 3"
+
+
+msgid "Heading 4"
+msgstr "Otsikko 4"
+
+
+msgid "Heading 5"
+msgstr "Otsikko 5"
+
+
+msgid "Heading 6"
+msgstr "Otsikko 6"
+
 
 msgid "Bulleted list"
 msgstr "Numeroimaton luettelo"
