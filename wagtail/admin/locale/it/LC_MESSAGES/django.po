@@ -3087,9 +3087,29 @@ msgstr "Gestisci l'ordine del menu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambia l'ordinamento delle pagine figlio di '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Titolo %(level)d"
+msgid "Heading 1"
+msgstr "Titolo 1"
+
+
+msgid "Heading 2"
+msgstr "Titolo 2"
+
+
+msgid "Heading 3"
+msgstr "Titolo 3"
+
+
+msgid "Heading 4"
+msgstr "Titolo 4"
+
+
+msgid "Heading 5"
+msgstr "Titolo 5"
+
+
+msgid "Heading 6"
+msgstr "Titolo 6"
+
 
 msgid "Bulleted list"
 msgstr "Elenco puntato"

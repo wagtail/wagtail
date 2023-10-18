@@ -3534,9 +3534,29 @@ msgstr "Menüreihenfolge sortieren"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Reihenfolge der Unterseiten von %(title)s ändern"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Überschrift %(level)d"
+msgid "Heading 1"
+msgstr "Überschrift 1"
+
+
+msgid "Heading 2"
+msgstr "Überschrift 2"
+
+
+msgid "Heading 3"
+msgstr "Überschrift 3"
+
+
+msgid "Heading 4"
+msgstr "Überschrift 4"
+
+
+msgid "Heading 5"
+msgstr "Überschrift 5"
+
+
+msgid "Heading 6"
+msgstr "Überschrift 6"
+
 
 msgid "Bulleted list"
 msgstr "Aufzählung"

@@ -3529,9 +3529,29 @@ msgstr "Ordre de tri des sous-pages"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "En-tête %(level)d "
+msgid "Heading 1"
+msgstr "En-tête 1 "
+
+
+msgid "Heading 2"
+msgstr "En-tête 2 "
+
+
+msgid "Heading 3"
+msgstr "En-tête 3 "
+
+
+msgid "Heading 4"
+msgstr "En-tête 4 "
+
+
+msgid "Heading 5"
+msgstr "En-tête 5 "
+
+
+msgid "Heading 6"
+msgstr "En-tête 6 "
+
 
 msgid "Bulleted list"
 msgstr "Liste à puce"
