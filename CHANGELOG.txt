@@ -74,6 +74,7 @@ Changelog
  * Fix: Fix log message to record the correct restriction type when removing a page view restriction (Rohit Sharma, Hazh. M. Adam)
  * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
+ * Fix: The `purge_revisions` management command now respects revisions that have a `on_delete=PROTECT` foreign key relation and won't delete them (Neeraj P Yetheendran, Meghana Reddy, Sage Abdullah, Storm Heg)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
