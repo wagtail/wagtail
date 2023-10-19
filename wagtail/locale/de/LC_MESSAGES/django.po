@@ -10,7 +10,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Florian Vogt <flori@vorlif.org>, 2015
-# Florian Vogt <flori@vorlif.org>, 2015,2017
+# Florian Vogt <flori@vorlif.org>, 2015,2017,2023
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Bohreromir, 2020
@@ -41,7 +41,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
+"Last-Translator: Florian Vogt <flori@vorlif.org>, 2015,2017,2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -172,7 +172,7 @@ msgstr ""
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr ""
-"Nur Gutachter für diese Aufgabe können dieses %(model_name)s-Objekt "
+"Nur Reviewer für diese Aufgabe können dieses %(model_name)s-Objekt "
 "bearbeiten."
 
 msgid "Unlocked"
@@ -186,13 +186,13 @@ msgid ""
 "Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
 "from editing"
 msgstr ""
-"Gutachter können dieses %(model_name)s-Objekt bearbeiten – sperren Sie es, "
-"um zu verhindern, dass andere Gutachter es bearbeiten"
+"Reviewer können dieses %(model_name)s-Objekt bearbeiten – sperren Sie es, um "
+"zu verhindern, dass andere Gutachter es bearbeiten"
 
 #, python-format
 msgid "Only reviewers can edit and approve the %(model_name)s"
 msgstr ""
-"Nur Gutachter können das %(model_name)s-Objekt bearbeiten und genehmigen"
+"Nur Reviewer können das %(model_name)s-Objekt bearbeiten und genehmigen"
 
 #, python-brace-format
 msgid ""

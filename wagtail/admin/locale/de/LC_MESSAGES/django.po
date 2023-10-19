@@ -1675,7 +1675,7 @@ msgstr "Diese Seite kopieren"
 
 #, python-format
 msgid "New %(page_type)s"
-msgstr "Neue %(page_type)s"
+msgstr "%(page_type)s erstellen"
 
 msgid "Actions"
 msgstr "Aktionen"
@@ -2041,7 +2041,7 @@ msgid "No, don't unschedule"
 msgstr "Nein, nicht aufheben"
 
 msgid "Other searches"
-msgstr "Andere Suchbegriffe"
+msgstr "Andere Suchanfragen"
 
 msgid "Minimap"
 msgstr "Minikarte"
