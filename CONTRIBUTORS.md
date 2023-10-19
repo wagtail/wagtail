@@ -756,6 +756,7 @@
 * Marcel Kornblum
 * Cameron Lamb
 * Sam Dudley
+* scott-8
 
 ## Translators
 
