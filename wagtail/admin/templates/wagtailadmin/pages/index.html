@@ -10,7 +10,7 @@
         {% include 'wagtailadmin/pages/index_results.html' %}
     </div>
     {% trans "Select all pages in listing" as select_all_text %}
-    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=page_obj %}
 {% endblock %}
 
 {% block extra_js %}
