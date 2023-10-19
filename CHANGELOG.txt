@@ -675,6 +675,12 @@ Changelog
  * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
 
 
+4.1.9 (19.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
+
+
 4.1.8 (28.09.2023)
 ~~~~~~~~~~~~~~~~~~
 
