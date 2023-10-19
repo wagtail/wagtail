@@ -93,6 +93,12 @@
     <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'));
+        document.querySelectorAll('[data-controller="w-dropdown"]').forEach((e) => {
+            e.addEventListener(
+                'w-dropdown:shown',
+                () => ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'),
+                { once: true },
+            );
+        });
     </script>
 {% endif %}

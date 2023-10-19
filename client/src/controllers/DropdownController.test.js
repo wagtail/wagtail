@@ -54,6 +54,9 @@ describe('DropdownController', () => {
 
   it('triggers custom event on activation', async () => {
     const toggle = document.querySelector('[data-w-dropdown-target="toggle"]');
+    const dropdownElement = document.querySelector(
+      '[data-controller="w-dropdown"]',
+    );
 
     const mock = new Promise((resolve) => {
       document.addEventListener('w-dropdown:shown', (event) => {
@@ -66,7 +69,10 @@ describe('DropdownController', () => {
     const event = await mock;
 
     expect(event).toEqual(
-      expect.objectContaining({ type: 'w-dropdown:shown', target: document }),
+      expect.objectContaining({
+        type: 'w-dropdown:shown',
+        target: dropdownElement,
+      }),
     );
   });
 

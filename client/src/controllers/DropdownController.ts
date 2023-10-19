@@ -76,7 +76,7 @@ export class DropdownController extends Controller<HTMLElement> {
     }
 
     const onShown = () => {
-      this.dispatch('shown', { target: window.document });
+      this.dispatch('shown');
     };
 
     return {
