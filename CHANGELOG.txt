@@ -130,9 +130,10 @@ Changelog
  * Maintenance: Add support for a `notify` target on the Stimulus dialog for dispatching events internally (Chiemezuo Akujobi)
  * Maintenance: Migrate publishing schedule dialog field resets to Stimulus (Chiemezuo Akujobi)
 
-5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
+5.1.3 (19.10.2023)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
  * Fix: Fix `SnippetBulkAction` not respecting `models` definition (Sandro Rodrigues)
  * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
  * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
