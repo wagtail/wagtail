@@ -280,6 +280,12 @@ Changelog
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
 
 
+5.0.5 (19.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
+
+
 5.0.4 (04.10.2023)
 ~~~~~~~~~~~~~~~~~~
 
