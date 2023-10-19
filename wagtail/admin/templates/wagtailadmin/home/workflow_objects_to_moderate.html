@@ -45,7 +45,7 @@
                                 {% if actions %}
                                     <ul class="actions">
                                         <li>
-                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") hide_on_click=True %}
                                                 {% for action_name, action_label, modal in actions %}
                                                     <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
                                                 {% endfor %}
