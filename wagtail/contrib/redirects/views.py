@@ -179,7 +179,7 @@ def add(request):
         if form.is_valid():
             with transaction.atomic():
                 theredirect = form.save()
-                log(instance=theredirect, action="wagtail.edit")
+                log(instance=theredirect, action="wagtail.create")
 
             messages.success(
                 request,

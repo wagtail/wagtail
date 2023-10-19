@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import Page, Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.utils import WagtailTestUtils
@@ -653,9 +654,14 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path="/test")
+        redirect = redirects.first()
         self.assertEqual(redirects.count(), 1)
-        self.assertEqual(redirects.first().redirect_link, "http://www.test.com/")
-        self.assertIsNone(redirects.first().site)
+        self.assertEqual(redirect.redirect_link, "http://www.test.com/")
+        self.assertIsNone(redirect.site)
+
+        # Check that the action log is marked as "created"
+        log_entry = log_registry.get_logs_for_instance(redirect).first()
+        self.assertEqual(log_entry.action, "wagtail.create")
 
     def test_add_with_site(self):
         localhost = Site.objects.get(hostname="localhost")
