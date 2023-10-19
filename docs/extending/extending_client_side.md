@@ -43,6 +43,7 @@ Wagtail supports some custom behaviour via listening or dispatching custom DOM e
 
 -   See [Images title generation on upload](images_title_generation_on_upload).
 -   See [Documents title generation on upload](docs_title_generation_on_upload).
+-   See [`InlinePanel` DOM events](inline_panel_events).
 
 (extending_client_side_stimulus)=
 
