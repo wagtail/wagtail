@@ -32,7 +32,9 @@
                     >
                         {% for panel in panels %}
                             {% panel id=panel.name heading=panel.title heading_size="label" %}
-                                {{ panel.render }}
+                                <div class="w-account-settings-panel w-mt-5">
+                                    {{ panel.render }}
+                                </div>
                             {% endpanel %}
                         {% endfor %}
 
