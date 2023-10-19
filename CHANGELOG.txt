@@ -28,7 +28,7 @@ Changelog
  * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
  * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
  * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
- * Add breadcrumbs to generic model views (Sage Abdullah)
+ * Add breadcrumbs support to custom `ModelViewSet` views (Sage Abdullah)
  * Support passing extra context variables via the `{% component %}` tag (Matt Westcott)
  * Allow subclasses of `PagesAPIViewSet` override default Page model via the `model` attribute (Neeraj Yetheendran, Herbert Poul)
  * Allow `ModelViewSet` to be used with models that have non-integer primary keys (Sage Abdullah)
@@ -45,7 +45,8 @@ Changelog
  * Add a new `picture` template tag for Django Templates and Jinja (Thibaud Colas)
  * Add a new `srcset_image` template tag for Django Templates and Jinja (Thibaud Colas)
  * Support `Filter` instances as input for `AbstractImage.get_renditions()` (Thibaud Colas)
- * Improve error messages for image template tags
+ * Improve error messages for image template tags (Thibaud Colas)
+ * Do not render minimap if there are no panel anchors (Sage Abdullah)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
