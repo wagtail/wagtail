@@ -11,6 +11,7 @@ Changelog
  * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
  * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
  * Fix: Prevent custom controls from stacking on top of the comment button in Draftail toolbar (Ben Morse)
+ * Fix: Avoid error when exporting Aging Pages report where a page has an empty `last_published_by_user` (Chiemezuo Akujobi)
 
 
 5.2.1 (16.11.2023)

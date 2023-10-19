@@ -620,6 +620,48 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
 
         self.assertEqual(worksheet["C2"].number_format, ExcelDateFormatter().get())
 
+    def test_xlsx_export_without_published_by(self):
+        """
+        Test that the xlsx export works when a page has no 'published_by' set.
+        See https://github.com/wagtail/wagtail/issues/10821
+        """
+
+        self.home.save_revision().publish()
+
+        if settings.USE_TZ:
+            self.home.last_published_at = "2013-01-01T12:00:00.000Z"
+        else:
+            self.home.last_published_at = "2013-01-01T12:00:00"
+
+        # mimic a page that does not have a 'published_by' on creation
+        self.home.last_published_by = None
+        self.home.save()
+
+        response = self.get(params={"export": "xlsx"})
+        self.assertEqual(response.status_code, 200)
+
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+
+        self.assertEqual(
+            cell_array[0],
+            ["Title", "Status", "Last published at", "Last published by", "Type"],
+        )
+        self.assertEqual(
+            cell_array[1],
+            [
+                "Welcome to your new Wagtail site!",
+                "live + draft",
+                datetime.datetime(2013, 1, 1, 12, 0),
+                None,
+                "Page",
+            ],
+        )
+        self.assertEqual(len(cell_array), 2)
+
+        self.assertEqual(worksheet["C2"].number_format, ExcelDateFormatter().get())
+
     def test_report_renders_when_page_publisher_deleted(self):
         temp_user = self.create_superuser(
             "temp", email="temp@user.com", password="tempuser"

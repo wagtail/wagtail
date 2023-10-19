@@ -82,6 +82,8 @@ class AgingPagesView(PageReportView):
                 user_id_value, get_deleted_user_display_name(user_id=user_id_value)
             )
             page.last_published_by_user = last_published_by_user
+        else:
+            page.last_published_by_user = ""
 
     def decorate_paginated_queryset(self, queryset):
         user_ids = set(queryset.values_list("last_published_by", flat=True))
