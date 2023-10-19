@@ -44,25 +44,31 @@
                                 </div>
                                 {% if actions %}
                                     <ul class="actions">
-                                        <li>
-                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
-                                                {% for action_name, action_label, modal in actions %}
-                                                    <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
-                                                {% endfor %}
-                                                {% if page_perms.can_edit or not is_page and edit_url %}
-                                                    <a href="{{ edit_url }}">{% trans 'Edit' %}</a>
-                                                {% endif %}
-                                                {% if obj.is_previewable %}
-                                                    <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
-                                                {% endif %}
-                                                {% if state.live_revision %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
-                                                {% endif %}
-                                                {% if state.previous_revision %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision.id revision.id %}">{% trans "Compare with previous version" %}</a>
-                                                {% endif %}
-                                            {% enddropdown %}
-                                        </li>
+                                        {% for action_name, action_label, modal in actions %}
+                                            <li>
+                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
+                                            </li>
+                                        {% endfor %}
+                                        {% if page_perms.can_edit or not is_page and edit_url %}
+                                            <li>
+                                                <a href="{{ edit_url }}" class="button button-small button-secondary">{% trans 'Edit' %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if obj.is_previewable %}
+                                            <li>
+                                                <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if state.live_revision %}
+                                            <li>
+                                                <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}" class="button button-small button-secondary">{% trans "Compare with live version" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if state.previous_revision %}
+                                            <li>
+                                                <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans "Compare with previous version" %}</a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 {% endif %}
                             </td>
