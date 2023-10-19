@@ -4,6 +4,7 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
  * Add support for Python 3.12 (Matt Westcott)
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
