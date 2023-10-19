@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,53 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: action_menu.py:70
+#: action_menu.py:72
 #: templates/wagtailsnippets/snippets/action_menu/publish.html:13
 msgid "Publish"
 msgstr ""
 
-#: action_menu.py:83
+#: action_menu.py:85
 msgid "Submit for moderation"
 msgstr ""
 
-#: action_menu.py:111
+#: action_menu.py:122
 #, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr ""
 
-#: action_menu.py:121
+#: action_menu.py:132
 #, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr ""
 
-#: action_menu.py:162
+#: action_menu.py:173
 msgid "Restart workflow "
 msgstr ""
 
-#: action_menu.py:183
+#: action_menu.py:203
 msgid "Cancel workflow "
 msgstr ""
 
-#: action_menu.py:197
+#: action_menu.py:217
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:218 bulk_actions/delete.py:15 views/snippets.py:389
-#: wagtail_hooks.py:96
+#: action_menu.py:238 bulk_actions/delete.py:15 views/snippets.py:396
 msgid "Delete"
 msgstr ""
 
-#: action_menu.py:239
+#: action_menu.py:259
 #: templates/wagtailsnippets/snippets/action_menu/save.html:25
 msgid "Save"
 msgstr ""
 
-#: action_menu.py:246
+#: action_menu.py:266
 #: templates/wagtailsnippets/snippets/action_menu/locked.html:4
 msgid "Locked"
 msgstr ""
 
-#: action_menu.py:323
+#: action_menu.py:343
 #, python-format
 msgid "%(label)s and Publish"
 msgstr ""
@@ -77,7 +76,7 @@ msgstr ""
 msgid "Delete selected snippets"
 msgstr ""
 
-#: bulk_actions/delete.py:88 views/snippets.py:400
+#: bulk_actions/delete.py:88 views/snippets.py:407
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
@@ -141,9 +140,9 @@ msgstr ""
 #: templates/wagtailsnippets/chooser/results.html:10
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/action_menu/publish.html:9
@@ -175,65 +174,18 @@ msgstr ""
 msgid "New  %(snippet_type_name)s"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/create.html:10
+#: templates/wagtailsnippets/snippets/create.html:7
 msgid "New"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/create.html:21
-#: templates/wagtailsnippets/snippets/edit.html:22
+#: templates/wagtailsnippets/snippets/create.html:18
+#: templates/wagtailsnippets/snippets/edit.html:19
 msgid "Actions"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/edit.html:3
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/_base_header.html:14
-msgid "Toggle breadcrumbs"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/_base_header.html:22
-msgid "Breadcrumb"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/_base_header.html:27
-#: templates/wagtailsnippets/snippets/headers/list_header.html:7
-#: views/snippets.py:79 wagtail_hooks.py:49
-msgid "Snippets"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/create_header.html:15
-#, python-format
-msgid "New: %(model_name)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/edit_header.html:17
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/edit_header.html:27
-#: templates/wagtailsnippets/snippets/headers/edit_header.html:30
-#: templates/wagtailsnippets/snippets/headers/history_header.html:14
-msgid "History"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/headers/usage_header.html:14
-msgid "Usage"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/history.html:4
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/history.html:8
-msgid "Edit this snippet"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/history.html:21
-msgid "No log entries found."
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/index.html:3
@@ -266,106 +218,92 @@ msgstr ""
 #: templates/wagtailsnippets/snippets/index_results.html:27
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:8
-msgid "Live version"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/revisions/_actions.html:9
+msgid "Live version"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:10
 msgid "Current draft"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:13
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:15
 msgid "Preview"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:16
-#: wagtail_hooks.py:71
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:18
 msgid "Edit"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:18
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:20
 msgid "Review this version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:21
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:23
 msgid "Compare with previous version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:24
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:26
 msgid "Compare with current version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:27
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:29
 msgid "Cancel scheduled publish"
 msgstr ""
 
-#: views/chooser.py:20
+#: views/chooser.py:21
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:114
+#: views/snippets.py:78 views/snippets.py:105 views/snippets.py:990
+#: wagtail_hooks.py:44
+msgid "Snippets"
+msgstr ""
+
+#: views/snippets.py:117
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:120
+#: views/snippets.py:123
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:224
+#: views/snippets.py:212
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr ""
+
+#: views/snippets.py:240
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:314
+#: views/snippets.py:330
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:415 views/snippets.py:489
+#: views/snippets.py:451
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:419
-msgid "User"
-msgstr ""
-
-#: views/snippets.py:424 views/snippets.py:492
+#: views/snippets.py:454
 msgid "Date"
 msgstr ""
 
-#: views/snippets.py:461
-msgid "Snippet history"
-msgstr ""
-
-#: views/snippets.py:530
+#: views/snippets.py:479
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:536
+#: views/snippets.py:485
 #, python-format
 msgid "%(model_name)s history"
 msgstr ""
 
-#: wagtail_hooks.py:76
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr ""
-
-#: wagtail_hooks.py:85
-msgid "Inspect"
-msgstr ""
-
-#: wagtail_hooks.py:90
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr ""
-
-#: wagtail_hooks.py:101
-#, python-format
-msgid "Delete '%(title)s'"
+#: views/snippets.py:989
+msgid "Home"
 msgstr ""
 
 #: widgets.py:22

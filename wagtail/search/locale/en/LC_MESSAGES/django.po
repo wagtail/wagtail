@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,38 +22,14 @@ msgstr ""
 msgid "Wagtail search"
 msgstr ""
 
-#: models.py:110 models.py:111
+#: models.py:128 models.py:129
 msgid "Query Daily Hits"
 msgstr ""
 
-#: models.py:174
+#: models.py:192
 msgid "index entry"
 msgstr ""
 
-#: models.py:175
+#: models.py:193
 msgid "index entries"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:2
-msgid "Popular search terms"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:13
-msgid "Search"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:9
-msgid "Terms"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:10
-msgid "Views (past week)"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:24
-msgid "No results found"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser_field.html:8
-msgid "Choose from popular search terms"
 msgstr ""

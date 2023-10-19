@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,15 +64,15 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr ""
 
-#: formats.py:101
+#: formats.py:112
 msgid "Full width"
 msgstr ""
 
-#: formats.py:104
+#: formats.py:115
 msgid "Left-aligned"
 msgstr ""
 
-#: formats.py:107
+#: formats.py:118
 msgid "Right-aligned"
 msgstr ""
 
@@ -160,39 +160,39 @@ msgstr ""
 msgid "Select images in choosers"
 msgstr ""
 
-#: models.py:239
+#: models.py:243
 msgid "title"
 msgstr ""
 
-#: models.py:242
+#: models.py:246
 msgid "file"
 msgstr ""
 
-#: models.py:247
+#: models.py:251
 msgid "width"
 msgstr ""
 
-#: models.py:248
+#: models.py:252
 msgid "height"
 msgstr ""
 
-#: models.py:250
+#: models.py:254
 msgid "created at"
 msgstr ""
 
-#: models.py:254 models.py:1175
+#: models.py:258 models.py:1333
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:262
+#: models.py:266
 msgid "tags"
 msgstr ""
 
-#: models.py:811
+#: models.py:819
 msgid "image"
 msgstr ""
 
-#: models.py:812
+#: models.py:820
 msgid "images"
 msgstr ""
 
@@ -501,15 +501,15 @@ msgstr ""
 #: templates/wagtailimages/images/results.html:48
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 
 #: templates/wagtailimages/images/results.html:50
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 
 #: templates/wagtailimages/images/url_generator.html:7
