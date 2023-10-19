@@ -216,11 +216,11 @@ function addBulkActionListeners() {
     el.addEventListener('change', onSelectAllChange);
   });
   document
-    .querySelectorAll(`${BULK_ACTION_FOOTER} .bulk-action-btn`)
+    .querySelectorAll(`${BULK_ACTION_FOOTER} [data-bulk-action-button]`)
     .forEach((elem) => elem.addEventListener('click', onClickActionButton));
   document.addEventListener('w-dropdown:shown', () => {
     document
-      .querySelectorAll(`${BULK_ACTION_FOOTER} .bulk-action-btn`)
+      .querySelectorAll(`${BULK_ACTION_FOOTER} [data-bulk-action-button]`)
       .forEach((elem) => {
         elem.removeEventListener('click', onClickActionButton);
         elem.addEventListener('click', onClickActionButton);

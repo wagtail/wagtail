@@ -556,7 +556,7 @@ def bulk_action_choices(context, app_label, model_name):
             )
             + "?"
             + urlencode({"next": next_url}),
-            attrs={"aria-label": action.aria_label},
+            attrs={"aria-label": action.aria_label, "data-bulk-action-button": ""},
             priority=action.action_priority,
             classname=" ".join(action.classes | {"bulk-action-btn"}),
         )
@@ -577,9 +577,11 @@ def bulk_action_choices(context, app_label, model_name):
                     )
                     + "?"
                     + urlencode({"next": next_url}),
-                    attrs={"aria-label": action.aria_label},
+                    attrs={
+                        "aria-label": action.aria_label,
+                        "data-bulk-action-button": "",
+                    },
                     priority=action.action_priority,
-                    classname="bulk-action-btn",
                 )
                 for action in bulk_action_more_list
             ],
