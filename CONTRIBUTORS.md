@@ -751,6 +751,7 @@
 * Susheel Thapa
 * Hazh. M. Adam
 * Chris Lawton
+* Meghana Reddy
 
 ## Translators
 
