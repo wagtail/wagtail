@@ -52,7 +52,14 @@ This command deletes old revisions which are not in moderation, live, approved t
 revision. If the `days` argument is supplied, only revisions older than the specified number of
 days will be deleted.
 
-If the `pages` argument is supplied, only revisions of page models will be deleted. If the `non-pages` argument is supplied, only revisions of non-page models will be deleted. If both or neither arguments are supplied, revisions of all models will be deleted.
+To prevent deleting important revisions when they become stale, you can refer to such revisions in a model using a `ForeignKey` with {attr}`on_delete=models.PROTECT <django.db.models.PROTECT>`.
+
+```{versionadded} 5.2
+Support for respecting `on_delete=models.PROTECT` is added.
+```
+
+If the `pages` argument is supplied, only revisions of page models will be deleted. If the `non-pages` argument is supplied, only revisions of non-page models will be deleted. If both or neither arguments are supplied, revisions of all models will be deleted. 
+If deletion of a revision is not desirable, mark `Revision` with `on_delete=models.PROTECT`. 
 
 ```{versionadded} 5.1
 Support for deleting revisions of non-page models is added.
