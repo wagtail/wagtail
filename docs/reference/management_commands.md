@@ -61,10 +61,6 @@ Support for respecting `on_delete=models.PROTECT` is added.
 If the `pages` argument is supplied, only revisions of page models will be deleted. If the `non-pages` argument is supplied, only revisions of non-page models will be deleted. If both or neither arguments are supplied, revisions of all models will be deleted. 
 If deletion of a revision is not desirable, mark `Revision` with `on_delete=models.PROTECT`. 
 
-```{versionadded} 5.1
-Support for deleting revisions of non-page models is added.
-```
-
 (purge_embeds)=
 
 ## purge_embeds

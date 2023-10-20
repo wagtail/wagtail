@@ -96,15 +96,7 @@ If you would like to make further customisations to the filtering mechanism, you
 
 You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
 
-```{versionadded} 5.1
-The ability to export the listing view was added.
-```
-
 ## Inspect view
-
-```{versionadded} 5.1
-The ability to enable inspect view was added.
-```
 
 The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.inspect_view_enabled` on your `SnippetViewSet` class.
 

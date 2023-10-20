@@ -67,10 +67,6 @@ class MySnippetViewSet(SnippetViewSet):
 
 The `BooleanColumn` class works with both model fields and custom properties that return booleans.
 
-```{versionadded} 5.1.1
-The `BooleanColumn` class was added.
-```
-
 ## Convert `ModelAdminGroup` class to `SnippetViewSetGroup`
 
 The {class}`~SnippetViewSetGroup` class is the snippets-equivalent to the `ModelAdminGroup` class. To migrate a `ModelAdminGroup` class to a `SnippetViewSetGroup` class, follow these instructions.
