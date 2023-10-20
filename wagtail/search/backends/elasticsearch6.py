@@ -81,7 +81,8 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        remapped_fields = self.remapped_fields or [Field(self.mapping.all_field_name)]
+        remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
+        remapped_fields = [Field(field) for field in remapped_fields]
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -94,9 +95,6 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             Field(self.mapping.get_boost_field_name(boost), boost)
             for boost in unique_boosts
         ]
-
-    def _remap_fields(self, fields):
-        return [Field(field) for field in super()._remap_fields(fields)]
 
     def get_boosted_fields(self, fields):
         boosted_fields = []
