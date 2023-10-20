@@ -59,6 +59,7 @@ The compatible versions of Django and Python for each Wagtail release are:
 
 | Wagtail release | Compatible Django versions | Compatible Python versions |
 | --------------- | -------------------------- | -------------------------- |
+| 5.3             | 3.2, 4.1, 4.2              | 3.8, 3.9, 3.10, 3.11, 3.12 |
 | 5.2             | 3.2, 4.1, 4.2              | 3.8, 3.9, 3.10, 3.11, 3.12 |
 | 5.1             | 3.2, 4.1, 4.2              | 3.8, 3.9, 3.10, 3.11       |
 | 5.0             | 3.2, 4.1, 4.2              | 3.7, 3.8, 3.9, 3.10, 3.11  |
