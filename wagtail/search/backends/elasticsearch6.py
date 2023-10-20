@@ -136,7 +136,10 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
 
     def get_inner_query(self):
-        fields = self.remapped_fields
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
