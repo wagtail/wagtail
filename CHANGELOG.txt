@@ -4,7 +4,7 @@ Changelog
 5.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Maintenance: Refactor Elasticsearch backend functionality for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
 
 
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
