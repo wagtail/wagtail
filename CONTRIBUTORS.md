@@ -790,6 +790,7 @@
 * Andreas Donig
 * Osaf AliSayed
 * ramchandra-st
+* Nix Asteri
 
 ## Translators
 
