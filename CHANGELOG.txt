@@ -4,7 +4,6 @@ Changelog
 5.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * Maintenance: Refactor Elasticsearch backend functionality for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
 
 
