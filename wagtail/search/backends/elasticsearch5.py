@@ -315,22 +315,25 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
-        self.remapped_fields = self._remap_fields(self.fields)
 
-    def _remap_fields(self, fields):
-        """Convert field names into index column names"""
-        if fields is None:
-            return None
+        # Convert field names into index column names
+        if self.fields:
+            fields = []
+            searchable_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_searchable_search_fields()
+            }
+            for field_name in self.fields:
+                if field_name in searchable_fields:
+                    field_name = self.mapping.get_field_column_name(
+                        searchable_fields[field_name]
+                    )
 
-        remapped_fields = []
-        searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
-        for field_name in fields:
-            if field_name in searchable_fields:
-                field_name = self.mapping.get_field_column_name(
-                    searchable_fields[field_name]
-                )
-            remapped_fields.append(field_name)
-        return remapped_fields
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
 
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
@@ -402,19 +405,6 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
                     column_name: value,
                 }
             }
-
-    def _join_and_compile_queries(self, query, fields, boost=1.0):
-        if len(fields) == 1:
-            return self._compile_query(query, fields[0], boost)
-        else:
-            # Compile a query for each field then combine with disjunction
-            # max (or operator which takes the max score out of each of the
-            # field queries)
-            field_queries = []
-            for field in fields:
-                field_queries.append(self._compile_query(query, field, boost))
-
-            return {"dis_max": {"queries": field_queries}}
 
     def _connect_filters(self, filters, connector, negated):
         if filters:
@@ -555,7 +545,17 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             return self._compile_fuzzy_query(self.query, fields)
 
         else:
-            return self._join_and_compile_queries(self.query, fields)
+            if len(fields) == 1:
+                return self._compile_query(self.query, fields[0])
+            else:
+                # Compile a query for each field then combine with disjunction
+                # max (or operator which takes the max score out of each of the
+                # field queries)
+                field_queries = []
+                for field in fields:
+                    field_queries.append(self._compile_query(self.query, field))
+
+                return {"dis_max": {"queries": field_queries}}
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
@@ -595,9 +595,6 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             }
         else:
             return inner_query
-
-    def get_searchable_fields(self):
-        return self.queryset.model.get_searchable_search_fields()
 
     def get_sort(self):
         # Ordering by relevance is the default in Elasticsearch
