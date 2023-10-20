@@ -33,9 +33,9 @@
     position: absolute;
     overflow: hidden;
     top: 100%;
-    inset-inline-start: -2000px;
     z-index: 500;
     opacity: 0;
+    pointer-events: none;
 
     li {
       float: none;
@@ -127,7 +127,7 @@
   &.open ul {
     box-shadow: 0 3px 3px 0 theme('colors.black-20');
     opacity: 1;
-    inset-inline-start: 0;
+    pointer-events: initial;
     display: block;
   }
 
