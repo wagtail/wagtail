@@ -755,6 +755,7 @@
 * Chinedu Ihedioha
 * scott-8
 * phijma-leukeleu
+* CheesyPhoenix
 
 ## Translators
 
