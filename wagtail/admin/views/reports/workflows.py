@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import PermissionDenied
 
 from wagtail.admin.filters import (
     DateRangePickerWidget,
@@ -190,6 +191,11 @@ class WorkflowView(ReportView):
         return WorkflowState.objects.filter(editable_pages | editable_objects).order_by(
             "-created_at"
         )
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not PagePermissionPolicy().user_has_permission(request.user, "edit"):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 class WorkflowTasksView(ReportView):
