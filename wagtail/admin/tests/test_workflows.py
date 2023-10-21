@@ -15,14 +15,30 @@ from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.utils import (get_admin_base_url, get_latest_str,
-                                 get_user_display_name)
-from wagtail.models import (GroupApprovalTask, Page, PageViewRestriction, Task,
-                            TaskState, Workflow, WorkflowContentType, WorkflowPage,
-                            WorkflowState, WorkflowTask)
+from wagtail.admin.utils import (
+    get_admin_base_url,
+    get_latest_str,
+    get_user_display_name,
+)
+from wagtail.models import (
+    GroupApprovalTask,
+    Page,
+    PageViewRestriction,
+    Task,
+    TaskState,
+    Workflow,
+    WorkflowContentType,
+    WorkflowPage,
+    WorkflowState,
+    WorkflowTask,
+)
 from wagtail.signals import page_published, published
-from wagtail.test.testapp.models import (FullFeaturedSnippet, ModeratedModel,
-                                         SimplePage, SimpleTask)
+from wagtail.test.testapp.models import (
+    FullFeaturedSnippet,
+    ModeratedModel,
+    SimplePage,
+    SimpleTask,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
