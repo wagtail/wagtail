@@ -15,30 +15,14 @@ from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.utils import (
-    get_admin_base_url,
-    get_latest_str,
-    get_user_display_name,
-)
-from wagtail.models import (
-    GroupApprovalTask,
-    Page,
-    PageViewRestriction,
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowContentType,
-    WorkflowPage,
-    WorkflowState,
-    WorkflowTask,
-)
+from wagtail.admin.utils import (get_admin_base_url, get_latest_str,
+                                 get_user_display_name)
+from wagtail.models import (GroupApprovalTask, Page, PageViewRestriction, Task,
+                            TaskState, Workflow, WorkflowContentType, WorkflowPage,
+                            WorkflowState, WorkflowTask)
 from wagtail.signals import page_published, published
-from wagtail.test.testapp.models import (
-    FullFeaturedSnippet,
-    ModeratedModel,
-    SimplePage,
-    SimpleTask,
-)
+from wagtail.test.testapp.models import (FullFeaturedSnippet, ModeratedModel,
+                                         SimplePage, SimpleTask)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -2393,7 +2377,39 @@ class TestApproveRejectSnippetWorkflowNotLockable(TestApproveRejectSnippetWorkfl
 
 @freeze_time("2020-03-31 12:00:00")
 class TestPageWorkflowReport(BasePageWorkflowTests):
-    pass
+    export_formats = ["xlsx", "csv"]
+
+    def setUp(self):
+        super().setUp()
+        self.submitter.first_name = "Sebastian"
+        self.submitter.last_name = "Mitter"
+        self.submitter.save()
+        self.post("submit")
+        self.login(user=self.moderator)
+
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        self.task_1.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+
+    def get_file_content(self, response, format):
+        if format == "xlsx":
+            workbook = load_workbook(io.BytesIO(response.getvalue()))
+            worksheet = workbook.active
+            return "".join(
+                str(worksheet.cell(row=i, column=j).value)
+                for j in range(1, worksheet.max_column + 1)
+                for i in range(1, worksheet.max_row + 1)
+            )
+        return response.getvalue().decode()
+
+    def test_workflow_report(self):
+        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
 class TestSnippetWorkflowReport(TestPageWorkflowReport, BaseSnippetWorkflowTests):
