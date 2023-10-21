@@ -6,7 +6,7 @@ Release notes
 
    upgrading
    5.3
-   5.2
+   5.2 LTS
    5.1.3
    5.1.2
    5.1.1
