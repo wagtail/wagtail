@@ -4,25 +4,17 @@ import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import PermissionDenied
 
-from wagtail.admin.filters import (
-    DateRangePickerWidget,
-    FilteredModelChoiceFilter,
-    WagtailFilterSet,
-)
+from wagtail.admin.filters import (DateRangePickerWidget, FilteredModelChoiceFilter,
+                                   WagtailFilterSet)
 from wagtail.admin.utils import get_latest_str
 from wagtail.coreutils import get_content_type_label
-from wagtail.models import (
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowState,
-    get_default_page_content_type,
-)
+from wagtail.models import (Task, TaskState, Workflow, WorkflowState,
+                            get_default_page_content_type)
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.snippets.models import get_editable_models
 
@@ -191,7 +183,7 @@ class WorkflowView(ReportView):
         return WorkflowState.objects.filter(editable_pages | editable_objects).order_by(
             "-created_at"
         )
-    
+
     def dispatch(self, request, *args, **kwargs):
         if not PagePermissionPolicy().user_has_permission(request.user, "edit"):
             raise PermissionDenied

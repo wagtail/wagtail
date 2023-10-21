@@ -413,8 +413,7 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
         self.user.save()
 
         response = self.get()
-        self.assertContains(response, "No pages found.")
-        self.assertNotContains(response, self.home.title)
+        self.assertEqual(response.status_code, 302)
 
     def test_csv_export(self):
         self.publish_home_page()

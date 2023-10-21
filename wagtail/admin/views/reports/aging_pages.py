@@ -1,7 +1,7 @@
 import django_filters
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
@@ -11,7 +11,6 @@ from wagtail.coreutils import get_content_type_label
 from wagtail.models import Page, PageLogEntry, get_page_models
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.utils import get_deleted_user_display_name
-from django.core.exceptions import PermissionDenied
 
 from .base import PageReportView
 
@@ -113,7 +112,7 @@ class AgingPagesView(PageReportView):
         )
 
         return super().get_queryset()
-    
+
     def dispatch(self, request, *args, **kwargs):
         if not PagePermissionPolicy().user_has_permission(request.user, "publish"):
             raise PermissionDenied

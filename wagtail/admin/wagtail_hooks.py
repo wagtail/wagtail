@@ -938,7 +938,9 @@ class LockedPagesMenuItem(MenuItem):
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True) and PagePermissionPolicy().user_has_permission(request.user, "edit")
+        return getattr(
+            settings, "WAGTAIL_WORKFLOW_ENABLED", True
+        ) and PagePermissionPolicy().user_has_permission(request.user, "edit")
 
 
 class SiteHistoryReportMenuItem(MenuItem):
@@ -948,7 +950,9 @@ class SiteHistoryReportMenuItem(MenuItem):
 
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True) and PagePermissionPolicy().user_has_permission(request.user, "publish")
+        return getattr(
+            settings, "WAGTAIL_AGING_PAGES_ENABLED", True
+        ) and PagePermissionPolicy().user_has_permission(request.user, "publish")
 
 
 @hooks.register("register_reports_menu_item")
