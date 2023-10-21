@@ -1,7 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 {% if states %}
-    {% trans "Awaiting your review" as heading %}
-    {% panel id="awaiting-review" heading=heading %}
+    {% panel id="awaiting-review" heading=_("Awaiting your review") %}
         <table class="listing">
             <col />
             <col width="15%"/>

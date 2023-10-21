@@ -2,8 +2,7 @@
 {% load i18n %}
 {% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Move {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% trans "Move" as header_title %}
-    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=page_to_move.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Move") subtitle=page_to_move.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtailadmin_pages:move' page_to_move.id %}" method="POST" novalidate>

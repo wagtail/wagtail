@@ -2,8 +2,7 @@
 
 {% load i18n wagtailadmin_tags %}
 {% if workflow_states %}
-    {% trans "Your pages and snippets in a workflow" as heading %}
-    {% panel id="objects-in-workflow" heading=heading %}
+    {% panel id="objects-in-workflow" heading=_("Your pages and snippets in a workflow") %}
         <table class="listing">
             <col />
             <col width="30%"/>

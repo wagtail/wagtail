@@ -1,7 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 {% if page_revisions_for_moderation %}
-    {% trans "Pages awaiting moderation" as heading %}
-    {% panel id="awaiting-moderation" heading=heading %}
+    {% panel id="awaiting-moderation" heading=_("Pages awaiting moderation") %}
         <table class="listing">
             <col />
             <col width="30%"/>

@@ -17,8 +17,7 @@
             <div class="chooser__title" data-chooser-title id="{{ title_id }}">{{ display_title }}</div>
         {% endblock %}
 
-        {% trans "Actions" as toggle_label %}
-        {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=toggle_label toggle_describedby=title_id hide_on_click=True %}
+        {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") toggle_describedby=title_id hide_on_click=True %}
             <button type="button" data-chooser-action-choose aria-describedby="{{ title_id }}">
                 {% icon name="resubmit" %}
                 {{ widget.choose_another_text }}
