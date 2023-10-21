@@ -9,10 +9,9 @@
     </li>
 
     {# Workflow tasks #}
-    {% trans "Not started" as not_started_text %}
     {% if workflow_state %}
         {% for task in workflow_state.all_tasks_with_state %}
-            {% with status=task.task_state.status status_display=task.task_state.get_status_display|default:not_started_text %}
+            {% with status=task.task_state.status status_display=task.task_state.get_status_display|default:_("Not started") %}
                 <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}" {% if status == "in_progress" %}aria-current="step"{% endif %}>
                     <div class="workflow-timeline__line"></div>
                     {% if status == "rejected" %}

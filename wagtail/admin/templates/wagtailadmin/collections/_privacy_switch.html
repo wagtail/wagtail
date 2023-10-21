@@ -3,10 +3,8 @@
 {% test_collection_is_public collection as is_public %}
 
 {% if not collection.is_root %}
-    {% trans 'Change privacy' as set_privacy_title %}
-    {% trans 'Privacy settings determine who is able to view documents in this collection.' as privacy_message_text %}
     {% url 'wagtailadmin_collections:set_privacy' collection.id as privacy_url %}
-    {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=set_privacy_title message_status='info' message_heading=privacy_message_text %}
+    {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=_("Change privacy") message_status='info' message_heading=_("Privacy settings determine who is able to view documents in this collection.") %}
     {% enddialog %}
 
     <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">

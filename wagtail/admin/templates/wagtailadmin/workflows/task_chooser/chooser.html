@@ -1,15 +1,12 @@
 {% load i18n %}
-{% trans "Choose a task" as  choose_str %}
-{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 icon="thumbtack" %}
+{% include "wagtailadmin/shared/header.html" with title=_("Choose a task") merged=1 icon="thumbtack" %}
 
 {% if can_create %}
     <div class="w-tabs" data-tabs data-tabs-disable-url>
         <div class="w-tabs__wrapper w-overflow-hidden">
             <div role="tablist" class="w-tabs__list w-w-full">
-                {% trans "New" as new_text %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='new' title=new_text %}
-                {% trans "Existing" as existing_text %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='existing' title=existing_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='new' title=_("New") %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='existing' title=_("Existing") %}
             </div>
         </div>
 
