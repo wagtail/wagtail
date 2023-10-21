@@ -38,11 +38,11 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 
 ## Marking strings for translation
 
-In code, strings can be marked for translation with using Django's [translation system](django:topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate` and `translate` in templates.
+In code, strings can be marked for translation with using Django's [translation system](django:topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate`, `translate`, and `_(" ")` in templates.
 
 In both Python and templates, make sure to always use named placeholder. In addition, in Python, only use the printf style formatting. This is to ensure compatibility with Transifex and help translators in their work.
 
-For example:
+### Translations within Python
 
 ```python
 from django.utils.translation import gettext_lazy as _
@@ -68,8 +68,43 @@ _("Page {page_title} with status {status}".format(page_title=page.title, status=
 _(f"Page {page.title} with status {page.status_string}")
 ```
 
+### Translations with templates
+
+You can import `i18n` and then translate with the `translate`/`blocktranslate` template tags. You can also translate string literals passed as arguments to tags and filters by using the familiar `_()` syntax.
+
+```html+django
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+<!-- preliminary lines of code -->
+
+<!-- Do this to use the translate tag. -->
+{% translate "Any string of your choosing" %}
+
+<!-- Do this to use the blocktranslate tag. -->
+{% blocktranslate %}
+    A multi-line translatable literal.
+{% endblocktranslate %}
+
+<!-- Do these to translate string literals passed to tags and filters. -->
+
+{% some_tag _("Any string of your choosing") %}
+{% some_tag arg_of_some_tag=_("Any string of your choosing") %}
+{% some_tag value_of_some_tag|filter=_("Any string of your choosing") value|yesno:_("yes,no") %}
+
+<!-- A typical example of when to use translation of string literals is -->
+{% translate "example with literal" as var_name %}
+{% some_tag arg_of_some_tag=var_name %}
+
+<!-- If the variable is only ever used once, you could do this instead -->
+{% some_tag arg_of_some_tag=_("example with literal") %}
+```
+
+**Note**: In Wagtail code, you might see `trans` and `blocktrans` instead of `translate` and `blocktranslate`.
+This still works fine. `trans` and `blocktrans` were the tags earlier on in Django, but were replaced in [Django 3.1](https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#translate-template-tag).
+
 ## Additional resources
 
 -   [](django:topics/i18n/translation)
 -   A screen-share [Wagtail Space US 2020 Lightning Talk](https://www.youtube.com/watch?v=sLI_AuOMUQw&t=17s) that walks through using Transifex step-by-step
 -   [Core development instructions for syncing Wagtail translations with Transifex](https://github.com/wagtail/wagtail/wiki/Managing-Wagtail-translations)
+-   [Django docs](django:topics/i18n/translation)
