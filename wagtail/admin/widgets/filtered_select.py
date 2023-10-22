@@ -1,12 +1,12 @@
-from django import forms
+import json
 
-from wagtail.admin.staticfiles import versioned_static
+from django import forms
 
 
 class FilteredSelect(forms.Select):
     """
     A select box where the options are shown and hidden dynamically in response to another
-    form field whose HTML `id` is specified in `filter_field`.
+    form field whose HTML `name` is specified in `filter_field`.
 
     The `choices` list accepts entries of the form `(value, label, filter_values)` in addition
     to the standard `(value, label)` tuples, where `filter_values` is a list of values;
@@ -14,23 +14,14 @@ class FilteredSelect(forms.Select):
     `filter_values` list are shown.
 
     filter_field and filter_values are inserted as 'data-' attributes on the rendered HTML, where
-    they are picked up by the JavaScript behaviour code -
-    see wagtailadmin/js/filtered-select.js for an example of how these attributes are configured.
+    they are picked up by the Stimulus `CondController` (w-cond).
+    Relies on the root form having the suitable data attributes set.
+    See examples and tests in client/src/controllers/CondController.ts for more details
     """
 
     def __init__(self, attrs=None, choices=(), filter_field=""):
         super().__init__(attrs, choices)
         self.filter_field = filter_field
-
-    def build_attrs(self, base_attrs, extra_attrs=None):
-        my_attrs = {
-            "data-widget": "filtered-select",
-            "data-filter-field": self.filter_field,
-        }
-        if extra_attrs:
-            my_attrs.update(extra_attrs)
-
-        return super().build_attrs(base_attrs, my_attrs)
 
     def optgroups(self, name, value, attrs=None):
         # copy of Django's Select.optgroups, modified to accept filter_value as a
@@ -107,16 +98,10 @@ class FilteredSelect(forms.Select):
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
         if filter_value is not None:
-            option["attrs"]["data-filter-value"] = ",".join(
-                [str(val) for val in filter_value]
+            # Ensure we match against empty selected values
+            option["attrs"]["data-match"] = json.dumps(
+                {self.filter_field: [None, *[str(val) for val in filter_value]]}
             )
+            option["attrs"]["data-w-cond-target"] = "enable show"
 
         return option
-
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/filtered-select.js"),
-            ]
-        )

@@ -1,7 +1,10 @@
+import json
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
+from django.utils.html import escape
 
 from wagtail.admin.filters import FilteredModelChoiceField
 from wagtail.test.utils import WagtailTestUtils
@@ -45,25 +48,30 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
                 queryset=User.objects.order_by(User.USERNAME_FIELD),
-                filter_field="id_group",
+                filter_field="group",
                 filter_accessor="groups",
             )
 
         form = UserForm()
         html = str(form["users"])
         expected_html = """
-            <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
+            <select name="users" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
-                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
-                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
+                <option value="{david}" data-match="{musicians_and_actors}" data-w-cond-target="enable show">{david_username}</option>
+                <option value="{kevin}" data-match="{actors}" data-w-cond-target="enable show">{kevin_username}</option>
+                <option value="{morten}" data-match="{musicians}" data-w-cond-target="enable show">{morten_username}</option>
             </select>
         """.format(
             david=self.david.pk,
             kevin=self.kevin.pk,
             morten=self.morten.pk,
-            musicians=self.musicians.pk,
-            actors=self.actors.pk,
+            musicians=escape(json.dumps({"group": [None, str(self.musicians.pk)]})),
+            actors=escape(json.dumps({"group": [None, str(self.actors.pk)]})),
+            musicians_and_actors=escape(
+                json.dumps(
+                    {"group": [None, str(self.musicians.pk), str(self.actors.pk)]}
+                )
+            ),
             david_username=self.david.get_username(),
             kevin_username=self.kevin.get_username(),
             morten_username=self.morten.get_username(),
@@ -74,25 +82,30 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
                 queryset=User.objects.order_by(User.USERNAME_FIELD),
-                filter_field="id_group",
+                filter_field="group",
                 filter_accessor=lambda user: user.groups.all(),
             )
 
         form = UserForm()
         html = str(form["users"])
         expected_html = """
-            <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
+            <select name="users" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
-                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
-                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
+                <option value="{david}" data-match="{musicians_and_actors}" data-w-cond-target="enable show">{david_username}</option>
+                <option value="{kevin}" data-match="{actors}" data-w-cond-target="enable show">{kevin_username}</option>
+                <option value="{morten}" data-match="{musicians}" data-w-cond-target="enable show">{morten_username}</option>
             </select>
         """.format(
             david=self.david.pk,
             kevin=self.kevin.pk,
             morten=self.morten.pk,
-            musicians=self.musicians.pk,
-            actors=self.actors.pk,
+            musicians=escape(json.dumps({"group": [None, str(self.musicians.pk)]})),
+            actors=escape(json.dumps({"group": [None, str(self.actors.pk)]})),
+            musicians_and_actors=escape(
+                json.dumps(
+                    {"group": [None, str(self.musicians.pk), str(self.actors.pk)]}
+                )
+            ),
             david_username=self.david.get_username(),
             kevin_username=self.kevin.get_username(),
             morten_username=self.morten.get_username(),

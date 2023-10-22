@@ -50,7 +50,7 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
     ModelChoiceField of related objects; an option will be shown whenever the selected related
     object is present in the result of filter_accessor for that option.
 
-    filter_field - the HTML `id` of the related ModelChoiceField
+    filter_field - the HTML `name` of the related ModelChoiceField
     filter_accessor - either the name of a relation, property or method on the model instance which
         returns a queryset of related objects, or a function which accepts the model instance and
         returns such a queryset.

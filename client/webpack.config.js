@@ -38,7 +38,6 @@ module.exports = function exports(env, argv) {
       'date-time-chooser',
       'draftail',
       'expanding-formset',
-      'filtered-select',
       'icons',
       'modal-workflow',
       'page-chooser-modal',
