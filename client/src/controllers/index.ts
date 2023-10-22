@@ -5,6 +5,7 @@ import { ActionController } from './ActionController';
 import { AutosizeController } from './AutosizeController';
 import { BulkController } from './BulkController';
 import { CloneController } from './CloneController';
+import { CondController } from './CondController';
 import { CountController } from './CountController';
 import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
@@ -32,6 +33,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
   { controllerConstructor: CloneController, identifier: 'w-clone' },
   { controllerConstructor: CloneController, identifier: 'w-messages' },
+  { controllerConstructor: CondController, identifier: 'w-cond' },
   { controllerConstructor: CountController, identifier: 'w-count' },
   { controllerConstructor: DialogController, identifier: 'w-dialog' },
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
