@@ -453,8 +453,6 @@ Pages already include this mixin, so there is no need to add it.
 
 ### Database fields
 
-The `locale` and `translation_key` fields have a unique key constraint to prevent the object being translated into a language more than once.
-
 ```{eval-rst}
 .. class:: TranslatableMixin
 
@@ -470,6 +468,18 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 
         A UUID that is randomly generated whenever a new model instance is created.
         This is shared with all translations of that instance so can be used for querying translations.
+```
+
+The `translation_key` and `locale` fields have a unique key constraint to prevent the object being translated into a language more than once.
+
+```{note}
+This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
+
+If your model defines a [`Meta` class](django:ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
+```
+
+```{versionchanged} 6.0
+The system check for `translation_key` and `locale` unique key constraint now allows a `UniqueConstraint` in `Meta.constraints` instead of `unique_together` in `Meta`.
 ```
 
 ### Methods and properties
