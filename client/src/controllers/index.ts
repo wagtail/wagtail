@@ -18,6 +18,7 @@ import { OrderableController } from './OrderableController';
 import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
+import { RulesController } from './RulesController';
 import { SessionController } from './SessionController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
@@ -55,6 +56,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
+  { controllerConstructor: RulesController, identifier: 'w-rules' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
