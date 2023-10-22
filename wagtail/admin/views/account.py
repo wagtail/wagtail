@@ -209,7 +209,6 @@ class ChangePasswordPanel(BaseSettingsPanel):
         if self.request.method == "POST":
             bind_form = any(
                 [
-                    self.request.POST.get(self.name + "-old_password"),
                     self.request.POST.get(self.name + "-new_password1"),
                     self.request.POST.get(self.name + "-new_password2"),
                 ]
