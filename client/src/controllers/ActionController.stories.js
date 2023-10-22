@@ -4,7 +4,7 @@ import { StimulusWrapper } from '../../storybook/StimulusWrapper';
 import { ActionController } from './ActionController';
 
 export default {
-  title: 'Shared / ActionController',
+  title: 'Stimulus / ActionController',
   argTypes: {
     debug: {
       control: 'boolean',
