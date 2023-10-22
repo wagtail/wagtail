@@ -419,6 +419,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("password"))
 
+    def test_ignore_change_password_if_only_old_password_supplied(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "",
+                "password-new_password2": "",
+            }
+        )
+
+        # Check that everything runs as usual (with a redirect), instead of a validation error
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        # Check that the password was not changed
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("password"))
+
     def test_change_notifications(self):
         response = self.post_form(
             {
