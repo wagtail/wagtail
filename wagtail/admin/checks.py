@@ -187,8 +187,8 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 
 @register("file_overwrite")
 def file_overwrite_check(app_configs, **kwargs):
-    from django.conf import settings
     from django import VERSION as DJANGO_VERSION
+    from django.conf import settings
 
     if DJANGO_VERSION >= (5, 1):
         file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
