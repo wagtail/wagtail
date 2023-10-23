@@ -24,6 +24,8 @@ See [Django's documentation on deploying static files](django:howto/static-files
 The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues.
 We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.storage.ManifestStaticFilesStorage) in the `STATICFILES_STORAGE` setting - this ensures that different versions of files are assigned distinct URLs.
 
+(user_uploaded_files)=
+
 ### User Uploaded Files
 
 Wagtail follows [Django's conventions for managing uploaded files](django:topics/files).
