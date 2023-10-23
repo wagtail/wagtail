@@ -746,7 +746,7 @@ class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
-        # Elasticsearch5Mapping.get_document for more details
+        # Elasticsearch6Mapping.get_document for more details
         content_type = self.mapping_class(self.queryset.model).get_content_type()
 
         return {"match": {"content_type": content_type}}
@@ -812,7 +812,7 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
         super().__init__(*args, **kwargs)
 
         # Convert field names into index column names
-        # Note: this overrides Elasticsearch5SearchQueryCompiler by using autocomplete fields instead of searchable fields
+        # Note: this overrides Elasticsearch6SearchQueryCompiler by using autocomplete fields instead of searchable fields
         if self.fields:
             fields = []
             autocomplete_fields = {
