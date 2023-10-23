@@ -1,21 +1,18 @@
-import copy
 import json
-import warnings
 from collections import OrderedDict
-from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
 from django.db.models.sql.constants import MULTI
 from django.utils.crypto import get_random_string
-from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend,
     BaseSearchQueryCompiler,
     BaseSearchResults,
     FilterFieldError,
+    get_model_root,
 )
 from wagtail.search.index import (
     AutocompleteField,
@@ -26,32 +23,6 @@ from wagtail.search.index import (
     class_is_indexed,
 )
 from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
-from wagtail.utils.utils import deep_update
-
-
-def get_model_root(model):
-    """
-    This function finds the root model for any given model. The root model is
-    the highest concrete model that it descends from. If the model doesn't
-    descend from another concrete model then the model is it's own root model so
-    it is returned.
-
-    Examples:
-    >>> get_model_root(wagtailcore.Page)
-    wagtailcore.Page
-
-    >>> get_model_root(myapp.HomePage)
-    wagtailcore.Page
-
-    >>> get_model_root(wagtailimages.Image)
-    wagtailimages.Image
-    """
-    if model._meta.parents:
-        parent_model = list(model._meta.parents.items())[0][0]
-        return get_model_root(parent_model)
-
-    return model
 
 
 class Elasticsearch5Mapping:
@@ -1043,147 +1014,3 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 
             # Create the alias
             self.index.put_alias(self.alias.name)
-
-
-class Elasticsearch5SearchBackend(BaseSearchBackend):
-    index_class = Elasticsearch5Index
-    query_compiler_class = Elasticsearch5SearchQueryCompiler
-    autocomplete_query_compiler_class = Elasticsearch5AutocompleteQueryCompiler
-    results_class = Elasticsearch5SearchResults
-    mapping_class = Elasticsearch5Mapping
-    basic_rebuilder_class = ElasticsearchIndexRebuilder
-    atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
-    catch_indexing_errors = True
-    timeout_kwarg_name = "timeout"
-    is_deprecated = True  # overriden on subclasses which are not deprecated
-
-    settings = {
-        "settings": {
-            "analysis": {
-                "analyzer": {
-                    "ngram_analyzer": {
-                        "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "ngram"],
-                    },
-                    "edgengram_analyzer": {
-                        "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "edgengram"],
-                    },
-                },
-                "tokenizer": {
-                    "ngram_tokenizer": {
-                        "type": "nGram",
-                        "min_gram": 3,
-                        "max_gram": 15,
-                    },
-                    "edgengram_tokenizer": {
-                        "type": "edgeNGram",
-                        "min_gram": 2,
-                        "max_gram": 15,
-                        "side": "front",
-                    },
-                },
-                "filter": {
-                    "ngram": {"type": "nGram", "min_gram": 3, "max_gram": 15},
-                    "edgengram": {"type": "edgeNGram", "min_gram": 1, "max_gram": 15},
-                },
-            }
-        }
-    }
-
-    def _get_host_config_from_url(self, url):
-        """Given a parsed URL, return the host configuration to be added to self.hosts"""
-        use_ssl = url.scheme == "https"
-        port = url.port or (443 if use_ssl else 80)
-
-        http_auth = None
-        if url.username is not None and url.password is not None:
-            http_auth = (url.username, url.password)
-
-        return {
-            "host": url.hostname,
-            "port": port,
-            "url_prefix": url.path,
-            "use_ssl": use_ssl,
-            "verify_certs": use_ssl,
-            "http_auth": http_auth,
-        }
-
-    def _get_options_from_host_urls(self, urls):
-        """Given a list of parsed URLs, return a dict of additional options to be passed into the
-        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
-        return {}
-
-    def __init__(self, params):
-        super().__init__(params)
-
-        if self.is_deprecated:
-            warnings.warn(
-                f"The {self.__module__} search backend is deprecated and will be removed in a future release. "
-                "Please upgrade to Elasticsearch 7 or above.",
-                RemovedInWagtail60Warning,
-            )
-
-        # Get settings
-        self.hosts = params.pop("HOSTS", None)
-        self.index_name = params.pop("INDEX", "wagtail")
-        self.timeout = params.pop("TIMEOUT", 10)
-
-        if params.pop("ATOMIC_REBUILD", False):
-            self.rebuilder_class = self.atomic_rebuilder_class
-        else:
-            self.rebuilder_class = self.basic_rebuilder_class
-
-        self.settings = copy.deepcopy(
-            self.settings
-        )  # Make the class settings attribute as instance settings attribute
-        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
-
-        # Get Elasticsearch interface
-        # Any remaining params are passed into the Elasticsearch constructor
-        options = params.pop("OPTIONS", {})
-
-        # If HOSTS is not set, convert URLS setting to HOSTS
-        if self.hosts is None:
-            es_urls = params.pop("URLS", ["http://localhost:9200"])
-            # if es_urls is not a list, convert it to a list
-            if isinstance(es_urls, str):
-                es_urls = [es_urls]
-
-            parsed_urls = [urlparse(url) for url in es_urls]
-
-            self.hosts = [self._get_host_config_from_url(url) for url in parsed_urls]
-            options.update(self._get_options_from_host_urls(parsed_urls))
-
-        options[self.timeout_kwarg_name] = self.timeout
-
-        self.es = Elasticsearch(hosts=self.hosts, **options)
-
-    def get_index_for_model(self, model):
-        # Split models up into separate indices based on their root model.
-        # For example, all page-derived models get put together in one index,
-        # while images and documents each have their own index.
-        root_model = get_model_root(model)
-        index_suffix = (
-            "__"
-            + root_model._meta.app_label.lower()
-            + "_"
-            + root_model.__name__.lower()
-        )
-
-        return self.index_class(self, self.index_name + index_suffix)
-
-    def get_index(self):
-        return self.index_class(self, self.index_name)
-
-    def get_rebuilder(self):
-        return self.rebuilder_class(self.get_index())
-
-    def reset_index(self):
-        # Use the rebuilder to reset the index
-        self.get_rebuilder().reset_index()
-
-
-SearchBackend = Elasticsearch5SearchBackend
