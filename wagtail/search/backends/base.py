@@ -519,3 +519,27 @@ class BaseSearchBackend:
             operator=operator,
             order_by_relevance=order_by_relevance,
         )
+
+
+def get_model_root(model):
+    """
+    This function finds the root model for any given model. The root model is
+    the highest concrete model that it descends from. If the model doesn't
+    descend from another concrete model then the model is it's own root model so
+    it is returned.
+
+    Examples:
+    >>> get_model_root(wagtailcore.Page)
+    wagtailcore.Page
+
+    >>> get_model_root(myapp.HomePage)
+    wagtailcore.Page
+
+    >>> get_model_root(wagtailimages.Image)
+    wagtailimages.Image
+    """
+    if model._meta.parents:
+        parent_model = list(model._meta.parents.items())[0][0]
+        return get_model_root(parent_model)
+
+    return model
