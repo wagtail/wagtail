@@ -2422,7 +2422,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             )
         return response.getvalue().decode()
 
-    def test_workflow_report(self):
+    def test_workflow_report_not_shown_without_permissions(self):
         response = self.client.get(reverse("wagtailadmin_reports:workflow"))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))

@@ -488,6 +488,52 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
         self.assertContains(response, expected_deleted_string)
 
 
+class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        self.editor = self.create_user(
+            username="editor",
+            email="editor@email.com",
+            password="password",
+        )
+        editors = Group.objects.get(name="Editors")
+        editors.user_set.add(self.editor)
+
+        self.moderator = self.create_user(
+            username="moderator",
+            email="moderator@email.com",
+            password="password",
+        )
+        moderators = Group.objects.get(name="Moderators")
+        moderators.user_set.add(self.moderator)
+
+    def test_aging_pages_are_shown_to_admin(self):
+        response = self.client.get("/admin/")
+        self.assertContains(response, '"url": "/admin/reports/aging-pages/"')
+
+    @override_settings(WAGTAIL_AGING_PAGES_ENABLED=False)
+    def test_Aging_pages_are_hidden_when_Aging_pages_are_disabled(self):
+        response = self.client.get("/admin/")
+        self.assertNotContains(response, '"url": "/admin/reports/aging-pages/"')
+
+    def test_Aging_pages_are_not_shown_to_editors(self):
+        self.login(user=self.editor)
+        response = self.client.get("/admin/")
+        self.assertNotContains(response, '"url": "/admin/reports/aging-pages/"')
+
+    def test_Aging_pages_are_shown_to_moderators(self):
+        self.login(user=self.moderator)
+        response = self.client.get("/admin/")
+        self.assertContains(response, '"url": "/admin/reports/aging-pages/"')
+
+    def test_Aging_pages_report_not_shown_without_permissions(self):
+        self.login(user=self.editor)
+        response = self.client.get(reverse("wagtailadmin_reports:aging_pages"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+
 class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
