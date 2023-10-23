@@ -1,12 +1,18 @@
 import copy
 import warnings
+from collections import OrderedDict
 from urllib.parse import urlparse
 
 from django.utils.crypto import get_random_string
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.search.backends.base import BaseSearchBackend, get_model_root
+from wagtail.search.backends.base import (
+    BaseSearchBackend,
+    BaseSearchResults,
+    FilterFieldError,
+    get_model_root,
+)
 from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import Fuzzy, MatchAll, Not, Phrase, PlainText
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
@@ -15,7 +21,6 @@ from wagtail.utils.utils import deep_update
 from .elasticsearch5 import (
     Elasticsearch5Mapping,
     Elasticsearch5SearchQueryCompiler,
-    Elasticsearch5SearchResults,
     ElasticsearchAutocompleteQueryCompilerImpl,
 )
 
@@ -311,8 +316,192 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
                 return {"dis_max": {"queries": field_queries}}
 
 
-class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
-    pass
+class Elasticsearch6SearchResults(BaseSearchResults):
+    fields_param_name = "stored_fields"
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "'
+                + field_name
+                + "\". Please add index.FilterField('"
+                + field_name
+                + "') to "
+                + self.query_compiler.queryset.model.__name__
+                + ".search_fields.",
+                field_name=field_name,
+            )
+
+        # Build body
+        body = self._get_es_body()
+        column_name = self.query_compiler.mapping.get_field_column_name(field)
+
+        body["aggregations"] = {
+            field_name: {
+                "terms": {
+                    "field": column_name,
+                    "missing": 0,
+                }
+            }
+        }
+
+        # Send to Elasticsearch
+        response = self._backend_do_search(
+            body,
+            index=self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
+            size=0,
+        )
+
+        return OrderedDict(
+            [
+                (bucket["key"] if bucket["key"] != 0 else None, bucket["doc_count"])
+                for bucket in response["aggregations"][field_name]["buckets"]
+            ]
+        )
+
+    def _get_es_body(self, for_count=False):
+        body = {"query": self.query_compiler.get_query()}
+
+        if not for_count:
+            sort = self.query_compiler.get_sort()
+
+            if sort is not None:
+                body["sort"] = sort
+
+        return body
+
+    def _get_results_from_hits(self, hits):
+        """
+        Yields Django model instances from a page of hits returned by Elasticsearch
+        """
+        # Get pks from results
+        pks = [hit["fields"]["pk"][0] for hit in hits]
+        scores = {str(hit["fields"]["pk"][0]): hit["_score"] for hit in hits}
+
+        # Initialise results dictionary
+        results = {str(pk): None for pk in pks}
+
+        # Find objects in database and add them to dict
+        for obj in self.query_compiler.queryset.filter(pk__in=pks):
+            results[str(obj.pk)] = obj
+
+            if self._score_field:
+                setattr(obj, self._score_field, scores.get(str(obj.pk)))
+
+        # Yield results in order given by Elasticsearch
+        for pk in pks:
+            result = results[str(pk)]
+            if result:
+                yield result
+
+    def _backend_do_search(self, body, **kwargs):
+        # Send the search query to the backend. Wrapped here so that it can be overridden
+        # to handle different calling conventions for the 'body' parameter
+        return self.backend.es.search(body=body, **kwargs)
+
+    def _do_search(self):
+        PAGE_SIZE = 100
+
+        if self.stop is not None:
+            limit = self.stop - self.start
+        else:
+            limit = None
+
+        use_scroll = limit is None or limit > PAGE_SIZE
+
+        body = self._get_es_body()
+        params = {
+            "index": self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
+            "_source": False,
+            self.fields_param_name: "pk",
+        }
+
+        if use_scroll:
+            params.update(
+                {
+                    "scroll": "2m",
+                    "size": PAGE_SIZE,
+                }
+            )
+
+            # The scroll API doesn't support offset, manually skip the first results
+            skip = self.start
+
+            # Send to Elasticsearch
+            page = self._backend_do_search(body, **params)
+
+            while True:
+                hits = page["hits"]["hits"]
+
+                if len(hits) == 0:
+                    break
+
+                # Get results
+                if skip < len(hits):
+                    for result in self._get_results_from_hits(hits):
+                        if limit is not None and limit == 0:
+                            break
+
+                        if skip == 0:
+                            yield result
+
+                            if limit is not None:
+                                limit -= 1
+                        else:
+                            skip -= 1
+
+                    if limit is not None and limit == 0:
+                        break
+                else:
+                    # Skip whole page
+                    skip -= len(hits)
+
+                # Fetch next page of results
+                if "_scroll_id" not in page:
+                    break
+
+                page = self.backend.es.scroll(scroll_id=page["_scroll_id"], scroll="2m")
+
+            # Clear the scroll
+            if "_scroll_id" in page:
+                self.backend.es.clear_scroll(scroll_id=page["_scroll_id"])
+        else:
+            params.update(
+                {
+                    "from_": self.start,
+                    "size": limit or PAGE_SIZE,
+                }
+            )
+
+            # Send to Elasticsearch
+            hits = self._backend_do_search(body, **params)["hits"]["hits"]
+
+            # Get results
+            for result in self._get_results_from_hits(hits):
+                yield result
+
+    def _do_count(self):
+        # Get count
+        hit_count = self.backend.es.count(
+            index=self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
+            body=self._get_es_body(for_count=True),
+        )["count"]
+
+        # Add limits
+        hit_count -= self.start
+        if self.stop is not None:
+            hit_count = min(hit_count, self.stop - self.start)
+
+        return max(hit_count, 0)
 
 
 class Elasticsearch6AutocompleteQueryCompiler(
