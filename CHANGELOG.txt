@@ -7,8 +7,8 @@ Changelog
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
 
 
-5.2 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+5.2 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
