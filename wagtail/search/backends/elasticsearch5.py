@@ -4,8 +4,6 @@ from collections import OrderedDict
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
 from django.db.models.sql.constants import MULTI
-from elasticsearch import NotFoundError
-from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
     BaseSearchQueryCompiler,
@@ -19,7 +17,6 @@ from wagtail.search.index import (
     Indexed,
     RelatedFields,
     SearchField,
-    class_is_indexed,
 )
 from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
 
@@ -816,127 +813,3 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             hit_count = min(hit_count, self.stop - self.start)
 
         return max(hit_count, 0)
-
-
-class Elasticsearch5Index:
-    def __init__(self, backend, name):
-        self.backend = backend
-        self.es = backend.es
-        self.mapping_class = backend.mapping_class
-        self.name = name
-
-    def put(self):
-        self.es.indices.create(self.name, self.backend.settings)
-
-    def delete(self):
-        try:
-            self.es.indices.delete(self.name)
-        except NotFoundError:
-            pass
-
-    def exists(self):
-        return self.es.indices.exists(self.name)
-
-    def is_alias(self):
-        return self.es.indices.exists_alias(name=self.name)
-
-    def aliased_indices(self):
-        """
-        If this index object represents an alias (which appear the same in the
-        Elasticsearch API), this method can be used to fetch the list of indices
-        the alias points to.
-
-        Use the is_alias method if you need to find out if this an alias. This
-        returns an empty list if called on an index.
-        """
-        return [
-            self.backend.index_class(self.backend, index_name)
-            for index_name in self.es.indices.get_alias(name=self.name).keys()
-        ]
-
-    def put_alias(self, name):
-        """
-        Creates a new alias to this index. If the alias already exists it will
-        be repointed to this index.
-        """
-        self.es.indices.put_alias(name=name, index=self.name)
-
-    def add_model(self, model):
-        # Get mapping
-        mapping = self.mapping_class(model)
-
-        # Put mapping
-        self.es.indices.put_mapping(
-            # pass update_all_types=True as a workaround to avoid "Can't redefine search field" errors -
-            # see https://github.com/wagtail/wagtail/issues/2968
-            index=self.name,
-            doc_type=mapping.get_document_type(),
-            body=mapping.get_mapping(),
-            update_all_types=True,
-        )
-
-    def add_item(self, item):
-        # Make sure the object can be indexed
-        if not class_is_indexed(item.__class__):
-            return
-
-        # Get mapping
-        mapping = self.mapping_class(item.__class__)
-
-        # Add document to index
-        self.es.index(
-            self.name,
-            mapping.get_document_type(),
-            mapping.get_document(item),
-            id=mapping.get_document_id(item),
-        )
-
-    def add_items(self, model, items):
-        if not class_is_indexed(model):
-            return
-
-        # Get mapping
-        mapping = self.mapping_class(model)
-        doc_type = mapping.get_document_type()
-
-        # Create list of actions
-        actions = []
-        for item in items:
-            # Create the action
-            action = {
-                "_type": doc_type,
-                "_id": mapping.get_document_id(item),
-            }
-            action.update(mapping.get_document(item))
-            actions.append(action)
-
-        # Run the actions
-        bulk(self.es, actions, index=self.name)
-
-    def delete_item(self, item):
-        # Make sure the object can be indexed
-        if not class_is_indexed(item.__class__):
-            return
-
-        # Get mapping
-        mapping = self.mapping_class(item.__class__)
-
-        # Delete document
-        try:
-            self.es.delete(
-                self.name,
-                mapping.get_document_type(),
-                mapping.get_document_id(item),
-            )
-        except NotFoundError:
-            pass  # Document doesn't exist, ignore this exception
-
-    def refresh(self):
-        self.es.indices.refresh(self.name)
-
-    def reset(self):
-        # Delete old index
-        self.delete()
-
-        # Create new index
-        self.put()
