@@ -423,6 +423,8 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         response = self.post_form(
             {
                 "password-old_password": "password",
+                "password-new_password1": "",
+                "password-new_password2": "",
             }
         )
 
