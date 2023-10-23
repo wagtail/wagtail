@@ -55,8 +55,7 @@ class SearchableSnippet(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
     search_fields = [
-        index.SearchField("text"),
-        index.AutocompleteField("text"),
+        index.IndexedField("text", search=True, autocomplete=True),
     ]
 
     def __str__(self):

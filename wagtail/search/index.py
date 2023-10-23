@@ -1,5 +1,6 @@
 import inspect
 import logging
+from typing import Optional
 from warnings import warn
 
 from django.apps import apps
@@ -48,11 +49,30 @@ class Indexed:
             return (cls._meta.app_label + "_" + cls.__name__).lower()
 
     @classmethod
-    def get_search_fields(cls):
+    def _get_search_field(cls, field_dict, field, parent_field):
+        if isinstance(field, IndexedField):
+            generated_fields = field.generate_fields(parent_field)
+            for generated_field in generated_fields:
+                field_dict[
+                    (type(generated_field), generated_field.field_name)
+                ] = generated_field
+        elif isinstance(field, RelatedFields):
+            related_fields = {}
+            for related_field in field.fields:
+                related_fields |= cls._get_search_field(related_field, field)
+            field_dict[(RelatedFields, field.field_name)] = RelatedFields(
+                field.model_field_name, list(related_fields.values())
+            )
+        else:
+            field_dict[(type(field), field.field_name, field.model_field_name)] = field
+        return field_dict
+
+    @classmethod
+    def get_search_fields(cls, parent_field=None):
         search_fields = {}
 
         for field in cls.search_fields:
-            search_fields[(type(field), field.field_name)] = field
+            search_fields |= cls._get_search_field(search_fields, field, parent_field)
 
         return list(search_fields.values())
 
@@ -113,7 +133,9 @@ class Indexed:
         errors = []
         for field in cls.get_search_fields():
             message = "{model}.search_fields contains non-existent field '{name}'"
-            if not cls._has_field(field.field_name):
+            if not cls._has_field(field.field_name) and not cls._has_field(
+                field.model_field_name
+            ):
                 errors.append(
                     checks.Warning(
                         message.format(model=cls.__name__, name=field.field_name),
@@ -121,6 +143,31 @@ class Indexed:
                         id="wagtailsearch.W004",
                     )
                 )
+
+        parent_fields = []
+        for parent_cls in cls.__bases__:
+            parent_fields += getattr(parent_cls, "search_fields", [])
+        model_fields = []
+        for field in cls.get_search_fields():
+            model_field_name = getattr(field, "model_field_name", None)
+            if not model_field_name:
+                model_field_name = field.field_name
+            if field not in parent_fields and model_field_name not in model_fields:
+                message = "indexed field '{name}' is defined in {model} and {parent}"
+                definition_model = field.get_definition_model(cls)
+                if definition_model != cls:
+                    errors.append(
+                        checks.Warning(
+                            message.format(
+                                model=cls.__name__,
+                                name=field.field_name,
+                                parent=definition_model.__name__,
+                            ),
+                            obj=cls,
+                            id="wagtailsearch.W005",
+                        )
+                    )
+                    model_fields.append(model_field_name)
         return errors
 
     search_fields = []
@@ -215,14 +262,20 @@ def remove_object(instance):
 
 
 class BaseField:
-    def __init__(self, field_name, **kwargs):
+    def __init__(self, field_name, model_field_name=None, **kwargs):
         self.field_name = field_name
+        self.model_field_name = model_field_name or field_name
         self.kwargs = kwargs
 
     def get_field(self, cls):
+        if self.model_field_name:
+            return cls._meta.get_field(self.model_field_name)
         return cls._meta.get_field(self.field_name)
 
     def get_attname(self, cls):
+        if self.model_field_name and self.model_field_name != self.field_name:
+            return self.field_name
+
         try:
             field = self.get_field(cls)
             return field.attname
@@ -234,9 +287,18 @@ class BaseField:
             field = self.get_field(cls)
             return field.model
         except FieldDoesNotExist:
+            model_field_name = self.model_field_name
+            if model_field_name:
+                name_parts = model_field_name.split(".")
+                if len(name_parts) > 1:
+                    model_field_name = name_parts[0]
+
             # Find where it was defined by walking the inheritance tree
             for base_cls in inspect.getmro(cls):
-                if self.field_name in base_cls.__dict__:
+                if (
+                    self.field_name in base_cls.__dict__
+                    or model_field_name in base_cls.__dict__
+                ):
                     return base_cls
 
     def get_type(self, cls):
@@ -286,6 +348,8 @@ class BaseField:
             return value
         except FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
+            if value is None:
+                value = getattr(obj, self.model_field_name, None)
             if hasattr(value, "__call__"):
                 value = value()
             return value
@@ -315,8 +379,9 @@ class FilterField(BaseField):
 
 
 class RelatedFields:
-    def __init__(self, field_name, fields):
+    def __init__(self, field_name, fields, model_field_name=None):
         self.field_name = field_name
+        self.model_field_name = model_field_name or field_name
         self.fields = fields
 
     def get_field(self, cls):
@@ -364,3 +429,62 @@ class RelatedFields:
                 queryset = queryset.prefetch_related(self.field_name)
 
         return queryset
+
+
+class IndexedField(BaseField):
+    def __init__(
+        self,
+        *args,
+        boost: Optional[float] = None,
+        search: bool = False,
+        search_kwargs: Optional[dict] = None,
+        autocomplete: bool = False,
+        autocomplete_kwargs: Optional[dict] = None,
+        filter: bool = False,
+        filter_kwargs: Optional[dict] = None,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self.boost = self.kwargs["boost"] = boost
+        self.search = self.kwargs["search"] = search
+        self.search_kwargs = self.kwargs["search_kwargs"] = search_kwargs
+        self.autocomplete = self.kwargs["autocomplete"] = autocomplete
+        self.autocomplete_kwargs = self.kwargs[
+            "autocomplete_kwargs"
+        ] = autocomplete_kwargs
+        self.filter = self.kwargs["filter"] = filter
+        self.filter_kwargs = self.kwargs["filter_kwargs"] = filter_kwargs
+
+    def generate_fields(self, parent_field: BaseField = None) -> list[BaseField]:
+        generated_fields = []
+        field_name = self.model_field_name
+        if parent_field:
+            field_name = f"{parent_field.model_field_name}.{field_name}"
+
+        if self.search:
+            generated_fields.append(self.generate_search_field(field_name))
+        if self.autocomplete:
+            generated_fields.append(self.generate_autocomplete_field(field_name))
+        if self.filter:
+            generated_fields.append(self.generate_filter_field(field_name))
+
+    def generate_search_field(self, field_name: str) -> SearchField:
+        return SearchField(
+            field_name,
+            model_field_name=self.model_field_name,
+            **self.search_kwargs,
+        )
+
+    def generate_autocomplete_field(self, field_name: str) -> AutocompleteField:
+        return AutocompleteField(
+            field_name,
+            model_field_name=self.model_field_name,
+            **self.autocomplete_kwargs,
+        )
+
+    def generate_filter_field(self, field_name: str) -> FilterField:
+        return FilterField(
+            field_name,
+            model_field_name=self.model_field_name,
+            **self.filter_kwargs,
+        )

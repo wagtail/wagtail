@@ -328,14 +328,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return reverse("wagtailimages:image_usage", args=(self.id,))
 
     search_fields = CollectionMember.search_fields + [
-        index.SearchField("title", boost=10),
-        index.AutocompleteField("title"),
-        index.FilterField("title"),
+        index.IndexedField(
+            "title",
+            search=True,
+            autocomplete=True,
+            filter=True,
+            boost=10,
+        ),
         index.RelatedFields(
             "tags",
             [
-                index.SearchField("name", boost=10),
-                index.AutocompleteField("name"),
+                index.IndexedField("name", search=True, autocomplete=True, boost=10),
             ],
         ),
         index.FilterField("uploaded_by_user"),

@@ -41,8 +41,7 @@ class Book(models.Model, index.Indexed):
     )
 
     search_fields = [
-        index.SearchField("title"),
-        index.FilterField("title"),
+        index.IndexedField("title", search=True, filter=True),
         index.FilterField("id"),
     ]
 
@@ -66,8 +65,7 @@ class TranslatableBook(TranslatableMixin, models.Model, index.Indexed):
     )
 
     search_fields = [
-        index.SearchField("title"),
-        index.FilterField("title"),
+        index.IndexedField("title", search=True, filter=True),
         index.FilterField("id"),
     ]
 
