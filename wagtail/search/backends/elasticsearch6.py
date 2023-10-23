@@ -1,26 +1,30 @@
 import copy
+import json
 import warnings
 from collections import OrderedDict
 from urllib.parse import urlparse
 
+from django.db import DEFAULT_DB_ALIAS
+from django.db.models.sql import Query
+from django.db.models.sql.constants import MULTI
 from django.utils.crypto import get_random_string
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
     BaseSearchBackend,
+    BaseSearchQueryCompiler,
     BaseSearchResults,
     FilterFieldError,
     get_model_root,
 )
 from wagtail.search.index import class_is_indexed, get_indexed_models
-from wagtail.search.query import Fuzzy, MatchAll, Not, Phrase, PlainText
+from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.utils import deep_update
 
 from .elasticsearch5 import (
     Elasticsearch5Mapping,
-    Elasticsearch5SearchQueryCompiler,
 )
 
 
@@ -209,11 +213,33 @@ class Elasticsearch6Index:
         self.put()
 
 
-class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
+class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
     mapping_class = Elasticsearch6Mapping
+    DEFAULT_OPERATOR = "or"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.mapping = self.mapping_class(self.queryset.model)
+
+        # Convert field names into index column names
+        if self.fields:
+            fields = []
+            searchable_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_searchable_search_fields()
+            }
+            for field_name in self.fields:
+                if field_name in searchable_fields:
+                    field_name = self.mapping.get_field_column_name(
+                        searchable_fields[field_name]
+                    )
+
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
+
         remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
         remapped_fields = [Field(field) for field in remapped_fields]
 
@@ -240,6 +266,112 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
                 boosted_fields.append(field.field_name)
         return boosted_fields
 
+    def _process_lookup(self, field, lookup, value):
+        column_name = self.mapping.get_field_column_name(field)
+
+        if lookup == "exact":
+            if value is None:
+                return {
+                    "missing": {
+                        "field": column_name,
+                    }
+                }
+            else:
+                return {
+                    "term": {
+                        column_name: value,
+                    }
+                }
+
+        if lookup == "isnull":
+            query = {
+                "exists": {
+                    "field": column_name,
+                }
+            }
+
+            if value:
+                query = {"bool": {"mustNot": query}}
+
+            return query
+
+        if lookup in ["startswith", "prefix"]:
+            return {
+                "prefix": {
+                    column_name: value,
+                }
+            }
+
+        if lookup in ["gt", "gte", "lt", "lte"]:
+            return {
+                "range": {
+                    column_name: {
+                        lookup: value,
+                    }
+                }
+            }
+
+        if lookup == "range":
+            lower, upper = value
+
+            return {
+                "range": {
+                    column_name: {
+                        "gte": lower,
+                        "lte": upper,
+                    }
+                }
+            }
+
+        if lookup == "in":
+            if isinstance(value, Query):
+                db_alias = self.queryset._db or DEFAULT_DB_ALIAS
+                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                value = [row[0] for chunk in resultset for row in chunk]
+
+            elif not isinstance(value, list):
+                value = list(value)
+            return {
+                "terms": {
+                    column_name: value,
+                }
+            }
+
+    def _connect_filters(self, filters, connector, negated):
+        if filters:
+            if len(filters) == 1:
+                filter_out = filters[0]
+            elif connector == "AND":
+                filter_out = {
+                    "bool": {"must": [fil for fil in filters if fil is not None]}
+                }
+            elif connector == "OR":
+                filter_out = {
+                    "bool": {"should": [fil for fil in filters if fil is not None]}
+                }
+
+            if negated:
+                filter_out = {"bool": {"mustNot": filter_out}}
+
+            return filter_out
+
+    def _compile_plaintext_query(self, query, fields, boost=1.0):
+        fields = self.get_boosted_fields(fields)
+        match_query = {"query": query.query_string}
+
+        if query.operator != "or":
+            match_query["operator"] = query.operator
+
+        if boost != 1.0:
+            match_query["boost"] = boost
+
+        if len(fields) == 1:
+            return {"match": {fields[0]: match_query}}
+        else:
+            match_query["fields"] = fields
+
+            return {"multi_match": match_query}
+
     def _compile_fuzzy_query(self, query, fields):
         if len(fields) == 1:
             return {
@@ -258,13 +390,70 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             }
         }
 
-    def _compile_plaintext_query(self, query, fields, boost=1.0):
-        return super()._compile_plaintext_query(
-            query, self.get_boosted_fields(fields), boost
-        )
-
     def _compile_phrase_query(self, query, fields):
-        return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
+        fields = self.get_boosted_fields(fields)
+        if len(fields) == 1:
+            return {"match_phrase": {fields[0]: query.query_string}}
+        else:
+            return {
+                "multi_match": {
+                    "query": query.query_string,
+                    "fields": fields,
+                    "type": "phrase",
+                }
+            }
+
+    def _compile_query(self, query, field, boost=1.0):
+        if isinstance(query, MatchAll):
+            match_all_query = {}
+
+            if boost != 1.0:
+                match_all_query["boost"] = boost
+
+            return {"match_all": match_all_query}
+
+        elif isinstance(query, And):
+            return {
+                "bool": {
+                    "must": [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.subqueries
+                    ]
+                }
+            }
+
+        elif isinstance(query, Or):
+            return {
+                "bool": {
+                    "should": [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.subqueries
+                    ]
+                }
+            }
+
+        elif isinstance(query, Not):
+            return {
+                "bool": {"mustNot": self._compile_query(query.subquery, field, boost)}
+            }
+
+        elif isinstance(query, PlainText):
+            return self._compile_plaintext_query(query, [field], boost)
+
+        elif isinstance(query, Fuzzy):
+            return self._compile_fuzzy_query(query, [field])
+
+        elif isinstance(query, Phrase):
+            return self._compile_phrase_query(query, [field])
+
+        elif isinstance(query, Boost):
+            return self._compile_query(query.subquery, field, boost * query.boost)
+
+        else:
+            raise NotImplementedError(
+                "`%s` is not supported by the Elasticsearch search backend."
+                % query.__class__.__name__
+            )
 
     def get_inner_query(self):
         if self.remapped_fields:
@@ -313,6 +502,68 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
                     field_queries.append(self._compile_query(self.query, field))
 
                 return {"dis_max": {"queries": field_queries}}
+
+    def get_content_type_filter(self):
+        # Query content_type using a "match" query. See comment in
+        # Elasticsearch5Mapping.get_document for more details
+        content_type = self.mapping_class(self.queryset.model).get_content_type()
+
+        return {"match": {"content_type": content_type}}
+
+    def get_filters(self):
+        # Filter by content type
+        filters = [self.get_content_type_filter()]
+
+        # Apply filters from queryset
+        queryset_filters = self._get_filters_from_queryset()
+        if queryset_filters:
+            filters.append(queryset_filters)
+
+        return filters
+
+    def get_query(self):
+        inner_query = self.get_inner_query()
+        filters = self.get_filters()
+
+        if len(filters) == 1:
+            return {
+                "bool": {
+                    "must": inner_query,
+                    "filter": filters[0],
+                }
+            }
+        elif len(filters) > 1:
+            return {
+                "bool": {
+                    "must": inner_query,
+                    "filter": filters,
+                }
+            }
+        else:
+            return inner_query
+
+    def get_sort(self):
+        # Ordering by relevance is the default in Elasticsearch
+        if self.order_by_relevance:
+            return
+
+        # Get queryset and make sure its ordered
+        if self.queryset.ordered:
+            sort = []
+
+            for reverse, field in self._get_order_by():
+                column_name = self.mapping.get_field_column_name(field)
+
+                sort.append({column_name: "desc" if reverse else "asc"})
+
+            return sort
+
+        else:
+            # Order by pk field
+            return ["pk"]
+
+    def __repr__(self):
+        return json.dumps(self.get_query())
 
 
 class ElasticsearchAutocompleteQueryCompilerImpl:
