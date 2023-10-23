@@ -161,6 +161,12 @@ class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_workflow_report_not_shown_to_editors(self):
+        self.login(user=self.editor)
+        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
 
 class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -2422,7 +2428,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             )
         return response.getvalue().decode()
 
-    def test_workflow_report_not_shown_without_permissions(self):
+    def test_workflow_report_not_shown_to_moderators(self):
         response = self.client.get(reverse("wagtailadmin_reports:workflow"))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
