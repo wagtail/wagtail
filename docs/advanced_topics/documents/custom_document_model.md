@@ -1,5 +1,3 @@
-(custom_document_model)=
-
 # Custom document model
 
 An alternate `Document` model can be used to add custom behaviour and
