@@ -37,10 +37,6 @@ If you have disabled auto-update, you must run the [](update_index) command on a
 
 ## `ATOMIC_REBUILD`
 
-```{warning}
-This option may not work on Elasticsearch version 5.4.x, due to [a bug in the handling of aliases](https://github.com/elastic/elasticsearch/issues/24644) - please upgrade to 5.5 or later.
-```
-
 By default (when using the Elasticsearch backend), when the `update_index` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't roll back if an error occurs.
 
 Setting the `ATOMIC_REBUILD` setting to `True` makes Wagtail rebuild into a separate index while keeping the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
@@ -62,22 +58,12 @@ This backend is intended to be used for development and also should be good enou
 
 ### Elasticsearch Backend
 
-Elasticsearch versions 5, 6, 7 and 8 are supported. Use the appropriate backend for your version:
+Elasticsearch versions 7 and 8 are supported. Use the appropriate backend for your version:
 
--   `wagtail.search.backends.elasticsearch5` (Elasticsearch 5.x)
--   `wagtail.search.backends.elasticsearch6` (Elasticsearch 6.x)
 -   `wagtail.search.backends.elasticsearch7` (Elasticsearch 7.x)
 -   `wagtail.search.backends.elasticsearch8` (Elasticsearch 8.x)
 
 Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.io/) package. The major version of the package must match the installed version of Elasticsearch:
-
-```sh
-pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
-```
-
-```sh
-pip install "elasticsearch>=6.4.0,<7.0.0"  # for Elasticsearch 6.x
-```
 
 ```sh
 pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
@@ -85,10 +71,6 @@ pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
 
 ```sh
 pip install "elasticsearch>=8.0.0,<9.0.0"  # for Elasticsearch 8.x
-```
-
-```{warning}
-Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.4.0 or above.
 ```
 
 The backend is configured in settings:
