@@ -1341,7 +1341,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
 
 
 @unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
-@mock.patch("wagtail.search.backends.elasticsearch5.Elasticsearch")
+@mock.patch("wagtail.search.backends.elasticsearch6.Elasticsearch")
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):
         Elasticsearch7SearchBackend(params={})
