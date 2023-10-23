@@ -377,4 +377,177 @@ describe('CondController', () => {
       });
     });
   });
+
+  describe('conditionally enabling a target', () => {
+    it('should provide a way to conditionally enable a target', async () => {
+      await setup(`
+    <form data-controller="w-cond" data-action="change->w-cond#resolve">
+      <input type="checkbox" id="agreement-field" name="agreement">
+      <button
+        type="button"
+        disabled
+        data-w-cond-target="enable"
+        data-match="${_({ agreement: 'on' })}"
+      >
+        Continue
+      </button>
+    </form>`);
+
+      const checkbox = document.querySelector('#agreement-field');
+      const button = document.querySelector('[data-w-cond-target="enable"]');
+
+      expect(checkbox.checked).toBe(false);
+      expect(button.disabled).toBe(true);
+
+      checkbox.click();
+      await jest.runAllTimersAsync();
+
+      expect(checkbox.checked).toBe(true);
+      expect(button.disabled).toBe(false);
+
+      checkbox.click();
+      await jest.runAllTimersAsync();
+
+      expect(checkbox.checked).toBe(false);
+      expect(button.disabled).toBe(true);
+    });
+
+    it('should ensure that the enabled/disabled attributes sync once connected', async () => {
+      await setup(`
+    <form id="form" data-controller="w-cond">
+      <fieldset>
+        <input type="password" name="password" />
+        <input type="email" name="email" />
+        <input type="checkbox" name="remember" />
+      </fieldset>
+      <label for="">This is my device.</label>
+      <input
+        type="checkbox"
+        id="my-device-check"
+        name="my-device"
+        data-w-cond-target="enable"
+        data-match="${_({ remember: 'on' })}"
+      />
+    </form>`);
+
+      expect(document.getElementById('my-device-check').disabled).toBe(true);
+    });
+
+    it('should support conditional enabling of sets of fields based on a select field', async () => {
+      await setup(`
+    <form class="w-mb-10" data-controller="w-cond" data-action="change->w-cond#resolve">
+      <select name="filter_method" id="id_filter_method" value="original">
+        <option value="original">Original size</option>
+        <option value="width">Resize to width</option>
+        <option value="height">Resize to height</option>
+        <option value="min">Resize to min</option>
+        <option value="max">Resize to max</option>
+        <option value="fill">Resize to fill</option>
+      </select>
+      <fieldset>
+        <input
+          type="number"
+          name="width"
+          value="150"
+          id="id_width"
+          disabled
+          data-w-cond-target="enable"
+          data-match="${_({
+            filter_method: ['fill', 'max', 'min', 'width'],
+          })}"
+        />
+        <input
+          type="number"
+          name="height"
+          value="162"
+          id="id_height"
+          disabled
+          data-w-cond-target="enable"
+          data-match="${_({
+            filter_method: ['fill', 'height', 'max', 'min'],
+          })}"
+        />
+        <input
+          type="number"
+          name="closeness"
+          value="0"
+          id="id_closeness"
+          disabled
+          data-w-cond-target="enable"
+          data-match="${_({ filter_method: ['fill'] })}"
+        />
+      </fieldset>
+    </form>
+      `);
+
+      const filterField = document.getElementById('id_filter_method');
+      const widthField = document.getElementById('id_width');
+      const heightField = document.getElementById('id_height');
+      const closenessField = document.getElementById('id_closeness');
+
+      expect(filterField.value).toEqual('original');
+
+      // should all be disabled at the start (original selected)
+
+      expect(widthField.disabled).toBe(true);
+      expect(heightField.disabled).toBe(true);
+      expect(closenessField.disabled).toBe(true);
+
+      // now change the filter to width
+
+      filterField.value = 'width';
+
+      filterField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(widthField.disabled).toBe(false);
+      expect(heightField.disabled).toBe(true);
+      expect(closenessField.disabled).toBe(true);
+
+      // now change the filter to height
+
+      filterField.value = 'height';
+
+      filterField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(widthField.disabled).toBe(true);
+      expect(heightField.disabled).toBe(false);
+      expect(closenessField.disabled).toBe(true);
+
+      // now change the filter to max
+
+      filterField.value = 'max';
+
+      filterField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(widthField.disabled).toBe(false);
+      expect(heightField.disabled).toBe(false);
+      expect(closenessField.disabled).toBe(true);
+
+      // now change the filter to fill
+
+      filterField.value = 'fill';
+
+      filterField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(widthField.disabled).toBe(false);
+      expect(heightField.disabled).toBe(false);
+      expect(closenessField.disabled).toBe(false);
+
+      // set back to original
+
+      filterField.value = 'original';
+
+      filterField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(filterField.value).toEqual('original');
+      expect(widthField.disabled).toBe(true);
+      expect(heightField.disabled).toBe(true);
+      expect(closenessField.disabled).toBe(true);
+    });
+  });
 });

@@ -5,7 +5,8 @@ import { debounce } from '../utils/debounce';
 
 /**
  * Adds the ability for a controlled form element to conditionally
- * show/hide targeted elements based on the controlled forms data.
+ * show/hide or enable/disable targeted elements based on the
+ * data from the controlled form.
  *
  * @example - Show an additional checkbox if a value is chosen
  * <form data-controller="w-cond" data-action="change->w-cond#resolve">
@@ -17,10 +18,26 @@ import { debounce } from '../utils/debounce';
  *   <input type="text" name="other-drink" data-w-cond-target="show" data-match='{"fav-drink": ["other"]}'>
  * </form>
  *
+ * @example - Enable a button if a value is chosen
+ * <form data-controller="w-cond" data-action="change->w-cond#resolve">
+ *   <select name="fav-drink" required>
+ *     <option value="">Select a drink</option>
+ *     <option value="coffee">Coffee</option>
+ *     <option value="other">Other</option>
+ *   </select>
+ *   <button type="button" data-w-cond-target="enable" data-match='{"fav-drink": ["coffee"]}'>
+ *     Continue
+ *   </button>
+ * </form>
+ *
  */
 export class CondController extends Controller<HTMLFormElement> {
-  static targets = ['show'];
+  static targets = ['enable', 'show'];
 
+  /** Targets will be enabled if the `data-match` matches the scoped form data, otherwise will be disabled. */
+  declare readonly enableTargets: HTMLElement[];
+  declare readonly hasEnableTarget: boolean;
+  declare readonly hasShowTarget: boolean;
   /** Targets will be shown if the `data-match` matches the scoped form data, otherwise will be hidden. */
   declare readonly showTargets: HTMLElement[];
 
@@ -40,7 +57,9 @@ export class CondController extends Controller<HTMLFormElement> {
    * Checks for any targets that will mean that the controller needs to be active.
    */
   checkTargets() {
-    this.active = this.showTargets.length > 0;
+    this.active = [() => this.hasEnableTarget, () => this.hasShowTarget].some(
+      (fn) => fn(),
+    );
   }
 
   /**
@@ -52,6 +71,17 @@ export class CondController extends Controller<HTMLFormElement> {
 
     const form = this.element;
     const formData = Object.fromEntries(new FormData(form).entries());
+
+    [
+      ...this.enableTargets.map((target) => ({ shouldDisable: false, target })),
+    ].forEach(({ shouldDisable, target }) => {
+      const isMatch = this.getIsMatch(formData, this.getMatchData(target));
+      this.toggleAttribute(
+        target,
+        shouldDisable ? !isMatch : isMatch,
+        'disabled',
+      );
+    });
 
     [
       ...this.showTargets.map((target) => ({ shouldHide: false, target })),
@@ -116,6 +146,9 @@ export class CondController extends Controller<HTMLFormElement> {
     } else if (attr === 'hidden') {
       // eslint-disable-next-line no-param-reassign
       target.hidden = true;
+    } else if (attr === 'disabled') {
+      // eslint-disable-next-line no-param-reassign
+      target.disabled = true;
     } else {
       target.setAttribute(attr, attr);
     }
@@ -134,6 +167,15 @@ export class CondController extends Controller<HTMLFormElement> {
 
     // intentionally not dispatching a change event, could cause an infinite loop
     this.dispatch('cleared', { bubbles: true, target: selectElement });
+  }
+
+  enableTargetDisconnected() {
+    this.checkTargets();
+  }
+
+  enableTargetConnected() {
+    this.active = true;
+    this.resolve();
   }
 
   showTargetDisconnected() {
