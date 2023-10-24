@@ -804,7 +804,7 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
 
     def get_inner_query(self):
         fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
-
+        fields = [Field(field) for field in fields]
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
             return {"bool": {"mustNot": {"match_all": {}}}}
@@ -1003,14 +1003,7 @@ class Elasticsearch6SearchResults(BaseSearchResults):
 class Elasticsearch6AutocompleteQueryCompiler(
     ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
 ):
-    def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
-        fields = [Field(field) for field in fields]
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
-            return {"bool": {"mustNot": {"match_all": {}}}}
-
-        return self._compile_plaintext_query(self.query, fields)
+    pass
 
 
 class ElasticsearchIndexRebuilder:
