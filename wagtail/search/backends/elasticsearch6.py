@@ -69,7 +69,6 @@ class Elasticsearch6Mapping:
 
     keyword_type = "keyword"
     text_type = "text"
-    set_index_not_analyzed_on_filter_fields = False
     edgengram_analyzer_config = {
         "analyzer": "edgengram_analyzer",
         "search_analyzer": "standard",
@@ -180,11 +179,6 @@ class Elasticsearch6Mapping:
                 if mapping["type"] == "string":
                     mapping["type"] = self.keyword_type
 
-                if self.set_index_not_analyzed_on_filter_fields:
-                    # Not required on ES5 as that uses the "keyword" type for
-                    # filtered string fields
-                    mapping["index"] = "not_analyzed"
-
             if "es_extra" in field.kwargs:
                 for key, value in field.kwargs["es_extra"].items():
                     mapping[key] = value
@@ -200,11 +194,6 @@ class Elasticsearch6Mapping:
         }
         fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
-        if self.set_index_not_analyzed_on_filter_fields:
-            # Not required on ES5 as that uses the "keyword" type for
-            # filtered string fields
-            fields["pk"]["index"] = "not_analyzed"
-            fields["content_type"]["index"] = "not_analyzed"
 
         for field in self.model.get_search_fields():
             key, val = self.get_field_mapping(field)
