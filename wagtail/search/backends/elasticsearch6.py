@@ -81,7 +81,8 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        remapped_fields = self.remapped_fields or [Field(self.mapping.all_field_name)]
+        remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
+        remapped_fields = [Field(field) for field in remapped_fields]
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -94,9 +95,6 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             Field(self.mapping.get_boost_field_name(boost), boost)
             for boost in unique_boosts
         ]
-
-    def _remap_fields(self, fields):
-        return [Field(field) for field in super()._remap_fields(fields)]
 
     def get_boosted_fields(self, fields):
         boosted_fields = []
@@ -136,7 +134,10 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
 
     def get_inner_query(self):
-        fields = self.remapped_fields
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
@@ -168,7 +169,17 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             }
 
         else:
-            return self._join_and_compile_queries(self.query, fields)
+            if len(fields) == 1:
+                return self._compile_query(self.query, fields[0])
+            else:
+                # Compile a query for each field then combine with disjunction
+                # max (or operator which takes the max score out of each of the
+                # field queries)
+                field_queries = []
+                for field in fields:
+                    field_queries.append(self._compile_query(self.query, field))
+
+                return {"dis_max": {"queries": field_queries}}
 
 
 class Elasticsearch6SearchResults(Elasticsearch5SearchResults):

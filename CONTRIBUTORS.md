@@ -753,9 +753,8 @@
 * Chris Lawton
 * Meghana Reddy
 * Chinedu Ihedioha
-* Marcel Kornblum
-* Cameron Lamb
-* Sam Dudley
+* scott-8
+* phijma-leukeleu
 
 ## Translators
 
