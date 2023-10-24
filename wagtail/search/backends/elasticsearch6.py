@@ -174,7 +174,6 @@ class Elasticsearch6Mapping:
 
             if isinstance(field, AutocompleteField):
                 mapping["type"] = self.text_type
-                mapping["include_in_all"] = False
                 mapping.update(self.edgengram_analyzer_config)
 
             elif isinstance(field, FilterField):
@@ -186,8 +185,6 @@ class Elasticsearch6Mapping:
                     # filtered string fields
                     mapping["index"] = "not_analyzed"
 
-                mapping["include_in_all"] = False
-
             if "es_extra" in field.kwargs:
                 for key, value in field.kwargs["es_extra"].items():
                     mapping[key] = value
@@ -197,12 +194,9 @@ class Elasticsearch6Mapping:
     def get_mapping(self):
         # Make field list
         fields = {
-            "pk": {"type": self.keyword_type, "store": True, "include_in_all": False},
-            "content_type": {"type": self.keyword_type, "include_in_all": False},
-            self.edgengrams_field_name: {
-                "type": self.text_type,
-                "include_in_all": False,
-            },
+            "pk": {"type": self.keyword_type, "store": True},
+            "content_type": {"type": self.keyword_type},
+            self.edgengrams_field_name: {"type": self.text_type},
         }
         fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
