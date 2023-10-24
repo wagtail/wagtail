@@ -68,7 +68,7 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 -   The `type` is the only mandatory piece of information.
 -   To display the control in the toolbar, combine `icon`, `label` and `description`.
--   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references for example `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
+-   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be a string, to use SVG paths, or SVG symbol references for example `'icon': 'M100 100 H 900 V 900 H 100 Z',`. The paths need to be set for a 1024x1024 viewbox.
 
 ### Creating new inline styles
 

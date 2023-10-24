@@ -13,13 +13,26 @@ const Icon: React.FunctionComponent<IconProps> = ({
   name,
   className,
   title,
-}) => (
-  <>
-    <svg className={`icon icon-${name} ${className || ''}`} aria-hidden="true">
-      <use href={`#icon-${name}`} />
-    </svg>
-    {title && <span className="visuallyhidden">{title}</span>}
-  </>
-);
+}) => {
+  if (name && name.startsWith('M')) {
+    return (
+      <svg className={`icon ${className || ''}`} aria-hidden="true">
+        <path d={name} />
+      </svg>
+    );
+  } else {
+    return (
+      <>
+        <svg
+          className={`icon icon-${name} ${className || ''}`}
+          aria-hidden="true"
+        >
+          <use href={`#icon-${name}`} />
+        </svg>
+        {title && <span className="visuallyhidden">{title}</span>}
+      </>
+    );
+  }
+};
 
 export default Icon;

@@ -26,6 +26,17 @@ exports[`Icon #name 1`] = `
 </Fragment>
 `;
 
+exports[`Icon #name for SVG path data 1`] = `
+<svg
+  aria-hidden="true"
+  className="icon "
+>
+  <path
+    d="M10 30 L20 10 L30 30 L40 30 L50 10 L60 30"
+  />
+</svg>
+`;
+
 exports[`Icon #title 1`] = `
 <Fragment>
   <svg
