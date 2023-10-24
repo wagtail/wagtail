@@ -464,7 +464,7 @@ class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
 
         # Convert field names into index column names
         if self.fields:
-            fields = []
+            self.remapped_fields = []
             searchable_fields = {
                 f.field_name: f
                 for f in self.queryset.model.get_searchable_search_fields()
@@ -475,14 +475,9 @@ class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
                         searchable_fields[field_name]
                     )
 
-                fields.append(field_name)
-
-            self.remapped_fields = fields
+                self.remapped_fields.append(Field(field_name))
         else:
-            self.remapped_fields = None
-
-        remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
-        remapped_fields = [Field(field) for field in remapped_fields]
+            self.remapped_fields = [Field(self.mapping.all_field_name)]
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -491,10 +486,12 @@ class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
                 if field.boost:
                     unique_boosts.add(float(field.boost))
 
-        self.remapped_fields = remapped_fields + [
-            Field(self.mapping.get_boost_field_name(boost), boost)
-            for boost in unique_boosts
-        ]
+        self.remapped_fields.extend(
+            [
+                Field(self.mapping.get_boost_field_name(boost), boost)
+                for boost in unique_boosts
+            ]
+        )
 
     def get_boosted_fields(self, fields):
         boosted_fields = []
