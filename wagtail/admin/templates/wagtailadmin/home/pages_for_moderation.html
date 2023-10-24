@@ -39,23 +39,23 @@
                             </div>
                             <ul class="actions">
                                 <li>
-                                    <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
-                                    </form>
+                                    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                                        <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit">{% trans 'Approve' %}</button>
+                                        </form>
+                                        <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit">{% trans 'Reject' %}</button>
+                                        </form>
+                                        {% if page_perms.can_edit %}
+                                            <a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}">{% trans 'Edit' %}</a>
+                                        {% endif %}
+                                        {% if revision.content_object.is_previewable %}
+                                            <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
+                                        {% endif %}
+                                    {% enddropdown %}
                                 </li>
-                                <li class="no-border">
-                                    <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="submit" class="button button-small no" value="{% trans 'Reject' %}">
-                                    </form>
-                                </li>
-                                {% if page_perms.can_edit %}
-                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
-                                {% endif %}
-                                {% if revision.content_object.is_previewable %}
-                                    <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
-                                {% endif %}
                             </ul>
                         </td>
                         <td valign="top">

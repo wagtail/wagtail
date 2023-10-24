@@ -49,6 +49,12 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the usage view; must be a subclass of ``wagtail.admin.views.generic.usage.UsageView``.
     usage_view_class = usage.UsageView
 
+    #: The view class to use for the inspect view; must be a subclass of ``wagtail.admin.views.generic.InspectView``.
+    inspect_view_class = generic.InspectView
+
+    # Breadcrumbs can be turned off until we have a design that can be consistently applied
+    _show_breadcrumbs = True
+
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
 
@@ -59,6 +65,25 @@ class ModelViewSet(ViewSet):
     #: Can be a string or a list/tuple in the same format as Django's
     #: :attr:`~django.db.models.Options.ordering`.
     ordering = None
+
+    #: Whether to enable the inspect view. Defaults to ``False``.
+    inspect_view_enabled = False
+
+    #: The model fields or attributes to display in the inspect view.
+    #:
+    #: If the field has a corresponding :meth:`~django.db.models.Model.get_FOO_display`
+    #: method on the model, the method's return value will be used instead.
+    #:
+    #: If you have ``wagtail.images`` installed, and the field's value is an instance of
+    #: ``wagtail.images.models.AbstractImage``, a thumbnail of that image will be rendered.
+    #:
+    #: If you have ``wagtail.documents`` installed, and the field's value is an instance of
+    #: ``wagtail.docs.models.AbstractDocument``, a link to that document will be rendered,
+    #: along with the document title, file extension and size.
+    inspect_view_fields = []
+
+    #: The fields to exclude from the inspect view.
+    inspect_view_fields_exclude = []
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
@@ -85,7 +110,7 @@ class ModelViewSet(ViewSet):
         return self.model_name
 
     def get_common_view_kwargs(self, **kwargs):
-        return super().get_common_view_kwargs(
+        view_kwargs = super().get_common_view_kwargs(
             **{
                 "model": self.model,
                 "permission_policy": self.permission_policy,
@@ -97,9 +122,13 @@ class ModelViewSet(ViewSet):
                 "edit_url_name": self.get_url_name("edit"),
                 "delete_url_name": self.get_url_name("delete"),
                 "header_icon": self.icon,
+                "_show_breadcrumbs": self._show_breadcrumbs,
                 **kwargs,
             }
         )
+        if self.inspect_view_enabled:
+            view_kwargs["inspect_url_name"] = self.get_url_name("inspect")
+        return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
         return {
@@ -146,7 +175,20 @@ class ModelViewSet(ViewSet):
         }
 
     def get_usage_view_kwargs(self, **kwargs):
-        return {**kwargs}
+        return {
+            "template_name": self.get_templates(
+                "usage", fallback=self.usage_view_class.template_name
+            ),
+            **kwargs,
+        }
+
+    def get_inspect_view_kwargs(self, **kwargs):
+        return {
+            "template_name": self.inspect_template_name,
+            "fields": self.inspect_view_fields,
+            "fields_exclude": self.inspect_view_fields_exclude,
+            **kwargs,
+        }
 
     @property
     def index_view(self):
@@ -214,6 +256,12 @@ class ModelViewSet(ViewSet):
     def usage_view(self):
         return self.construct_view(
             self.usage_view_class, **self.get_usage_view_kwargs()
+        )
+
+    @property
+    def inspect_view(self):
+        return self.construct_view(
+            self.inspect_view_class, **self.get_inspect_view_kwargs()
         )
 
     def get_templates(self, name="index", fallback=""):
@@ -321,6 +369,21 @@ class ModelViewSet(ViewSet):
         return self.get_templates(
             "history",
             fallback=self.history_view_class.template_name,
+        )
+
+    @cached_property
+    def inspect_template_name(self):
+        """
+        A template to be used when rendering ``inspect_view``.
+
+        Default: if :attr:`template_prefix` is specified, an ``inspect.html``
+        template in the prefix directory and its ``{app_label}/{model_name}/``
+        or ``{app_label}/`` subdirectories will be used. Otherwise, the
+        ``inspect_view_class.template_name`` will be used.
+        """
+        return self.get_templates(
+            "inspect",
+            fallback=self.inspect_view_class.template_name,
         )
 
     @cached_property
@@ -489,7 +552,7 @@ class ModelViewSet(ViewSet):
             ReferenceIndex.register_model(self.model)
 
     def get_urlpatterns(self):
-        return [
+        urlpatterns = [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
             path("new/", self.add_view, name="add"),
@@ -497,8 +560,17 @@ class ModelViewSet(ViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("history/<str:pk>/", self.history_view, name="history"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
-            # RemovedInWagtail60Warning: Remove legacy URL patterns
-        ] + self._legacy_urlpatterns
+        ]
+
+        if self.inspect_view_enabled:
+            urlpatterns.append(
+                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+            )
+
+        # RemovedInWagtail60Warning: Remove legacy URL patterns
+        urlpatterns += self._legacy_urlpatterns
+
+        return urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):

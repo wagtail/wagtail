@@ -13,6 +13,7 @@ from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
+from wagtail.test.testapp.models import Advert
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -222,6 +223,21 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(url_path="/home/")
+        self.custom_model = Advert.objects.get(pk=1)
+
+        self.editor = self.create_user(
+            username="the_editor", email="the_editor@example.com", password="password"
+        )
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page=self.home_page, permission_type="change"
+        )
+        editors.user_set.add(self.editor)
 
         self.create_log = PageLogEntry.objects.log_action(
             self.home_page, "wagtail.create"
@@ -267,11 +283,28 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
             },
         )
 
+        self.create_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.create",
+        )
+
+        self.edit_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.edit",
+        )
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:site_history"), params)
 
     def assert_log_entries(self, response, expected):
         actual = set(response.context["object_list"])
+        self.assertSetEqual(actual, set(expected))
+
+    def assert_filter_actions(self, response, expected):
+        actual = {
+            choice[0]
+            for choice in response.context["filters"].filters["action"].extra["choices"]
+        }
         self.assertSetEqual(actual, set(expected))
 
     def test_unfiltered(self):
@@ -287,6 +320,47 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.create_comment_log,
                 self.edit_comment_log,
                 self.create_reply_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
+                "wagtail.comments.create",
+                "wagtail.comments.edit",
+                "wagtail.comments.create_reply",
+            ],
+        )
+
+        # The editor should not see the Advert's log entries.
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
+                "wagtail.comments.create",
+                "wagtail.comments.edit",
+                "wagtail.comments.create_reply",
             ],
         )
 
@@ -299,10 +373,38 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"action": "wagtail.edit"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
             ],
         )
 
     def test_hide_commenting_actions(self):
+        response = self.get(params={"hide_commenting_actions": "on"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
         response = self.get(params={"hide_commenting_actions": "on"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(

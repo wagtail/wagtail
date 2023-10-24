@@ -8,6 +8,7 @@ from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
@@ -21,6 +22,12 @@ from wagtail.users.utils import get_deleted_user_display_name
 
 
 class LogEntryQuerySet(models.QuerySet):
+    def get_actions(self):
+        """
+        Returns a set of actions used by at least one log entry in this QuerySet
+        """
+        return set(self.order_by().values_list("action", flat=True).distinct())
+
     def get_user_ids(self):
         """
         Returns a set of user IDs of users who have created at least one log entry in this QuerySet
@@ -130,7 +137,37 @@ class BaseLogEntryManager(models.Manager):
         )
 
     def viewable_by_user(self, user):
-        return self.all()
+        if user.is_superuser:
+            return self.all()
+
+        # This will be called multiple times per request, so we cache those ids once.
+        if not hasattr(user, "_allowed_content_type_ids"):
+            # 1) Only query those permissions, where log entries exist for their content
+            # types.
+            used_content_type_ids = self.values_list(
+                "content_type_id", flat=True
+            ).distinct()
+            permissions = Permission.objects.filter(
+                content_type_id__in=used_content_type_ids
+            )
+            # 2) If the user has at least one permission for a content type, we add its
+            # id to the allowed-set.
+            allowed_content_type_ids = set()
+            for permission in permissions:
+                if permission.content_type_id in allowed_content_type_ids:
+                    continue
+
+                content_type = ContentType.objects.get_for_id(
+                    permission.content_type_id
+                )
+                if user.has_perm(
+                    "%s.%s" % (content_type.app_label, permission.codename)
+                ):
+                    allowed_content_type_ids.add(permission.content_type_id)
+
+            user._allowed_content_type_ids = allowed_content_type_ids
+
+        return self.filter(content_type_id__in=user._allowed_content_type_ids)
 
     def get_for_model(self, model):
         # Return empty queryset if the given object is not valid.

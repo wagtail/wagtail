@@ -1,12 +1,13 @@
 from io import StringIO
 from unittest import mock
 
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase, TransactionTestCase
 
-from wagtail.models import Locale, Page, PageViewRestriction, Site
+from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
@@ -588,6 +589,63 @@ class TestPageQuerySet(TestCase):
                 self.assertNotIn(page, translations)
             else:
                 self.assertIn(page, translations)
+
+    def test_prefetch_workflow_states(self):
+        home = Page.objects.get(url_path="/home/")
+        event_index = Page.objects.get(url_path="/home/events/")
+        user = get_user_model().objects.first()
+        workflow = Workflow.objects.first()
+
+        test_pages = [home.specific, event_index.specific]
+        workflow_states = {}
+        current_tasks = {}
+
+        for page in test_pages:
+            page.save_revision()
+            approved_workflow_state = workflow.start(page, user)
+            task_state = approved_workflow_state.current_task_state
+            task_state.task.on_action(task_state, user=None, action_name="approve")
+
+            workflow_state = workflow.start(page, user)
+
+            # Refresh so that the current_task_state.task is not the specific instance
+            workflow_state.refresh_from_db()
+
+            workflow_states[page.pk] = workflow_state
+            current_tasks[page.pk] = workflow_state.current_task_state.task
+
+        query = Page.objects.filter(pk__in=(home.pk, event_index.pk))
+        queries = [["base", query, 2], ["specific", query.specific(), 4]]
+
+        for case, query, num_queries in queries:
+            with self.subTest(case=case):
+                with self.assertNumQueries(num_queries):
+                    queried_pages = {
+                        page.pk: page for page in query.prefetch_workflow_states()
+                    }
+
+                for test_page in test_pages:
+                    page = queried_pages[test_page.pk]
+                    with self.assertNumQueries(0):
+                        self.assertEqual(
+                            page._current_workflow_states,
+                            [workflow_states[page.pk]],
+                        )
+
+                    with self.assertNumQueries(0):
+                        self.assertEqual(
+                            page._current_workflow_states[0].current_task_state.task,
+                            current_tasks[page.pk],
+                        )
+
+                    with self.assertNumQueries(0):
+                        self.assertTrue(page.workflow_in_progress)
+
+                    with self.assertNumQueries(0):
+                        self.assertTrue(
+                            page.current_workflow_state,
+                            workflow_states[page.pk],
+                        )
 
 
 class TestPageQueryInSite(TestCase):

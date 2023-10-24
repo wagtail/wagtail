@@ -41,6 +41,7 @@ from wagtail.admin.utils import (
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
+    accepts_kwarg,
     camelcase_to_underscore,
     escape_script,
     get_content_type_label,
@@ -462,18 +463,41 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 
 
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
-def page_listing_buttons(context, page, page_perms):
+def page_listing_buttons(context, page, user):
     next_url = context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, next_url))
+        if accepts_kwarg(hook, "user"):
+            buttons.extend(hook(page=page, next_url=next_url, user=user))
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            buttons.extend(hook(page, page_perms, next_url))
 
     buttons.sort()
 
+    page_perms = page.permissions_for_user(user)
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        hook(buttons, page, page_perms, context)
+        if accepts_kwarg(hook, "user"):
+            hook(buttons, page=page, user=user, context=context)
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            hook(buttons, page, page_perms, context)
 
     return {"page": page, "buttons": buttons}
 
@@ -481,13 +505,27 @@ def page_listing_buttons(context, page, page_perms):
 @register.inclusion_tag(
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
-def page_header_buttons(context, page, page_perms):
+def page_header_buttons(context, page, user, view_name):
     next_url = context["request"].path
+    page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, next_url))
+        if accepts_kwarg(hook, "user"):
+            buttons.extend(
+                hook(page=page, user=user, next_url=next_url, view_name=view_name)
+            )
+        else:
+            # old-style hook that accepts page_perms instead of user
+            warn(
+                "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
+                f" {hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail60Warning,
+            )
+
+            page_perms = page.permissions_for_user(user)
+            buttons.extend(hook(page, page_perms, next_url))
 
     buttons = [b for b in buttons if b.show]
     buttons.sort()
@@ -518,7 +556,7 @@ def bulk_action_choices(context, app_label, model_name):
             )
             + "?"
             + urlencode({"next": next_url}),
-            attrs={"aria-label": action.aria_label},
+            attrs={"aria-label": action.aria_label, "data-bulk-action-button": ""},
             priority=action.action_priority,
             classname=" ".join(action.classes | {"bulk-action-btn"}),
         )
@@ -539,9 +577,11 @@ def bulk_action_choices(context, app_label, model_name):
                     )
                     + "?"
                     + urlencode({"next": next_url}),
-                    attrs={"aria-label": action.aria_label},
+                    attrs={
+                        "aria-label": action.aria_label,
+                        "data-bulk-action-button": "",
+                    },
                     priority=action.action_priority,
-                    classname="bulk-action-btn",
                 )
                 for action in bulk_action_more_list
             ],

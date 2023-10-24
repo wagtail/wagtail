@@ -34,6 +34,11 @@ urlpatterns = [
         listing.IndexView.as_view(),
         name="wagtailadmin_explore",
     ),
+    path(
+        "pages/<int:parent_page_id>/results/",
+        listing.IndexResultsView.as_view(),
+        name="wagtailadmin_explore_results",
+    ),
     # bulk actions
     path(
         "bulk/<str:app_label>/<str:model_name>/<str:action>/",

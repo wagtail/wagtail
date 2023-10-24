@@ -5,6 +5,15 @@ describe('ActionController', () => {
   let app;
   const oldWindowLocation = window.location;
 
+  const setup = async (html) => {
+    document.body.innerHTML = `<main>${html}</main>`;
+
+    app = Application.start();
+    app.register('w-action', ActionController);
+
+    await Promise.resolve();
+  };
+
   beforeAll(() => {
     delete window.location;
 
@@ -23,19 +32,16 @@ describe('ActionController', () => {
   });
 
   describe('post method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
-    <button
-      class="button no"
-      data-controller="w-action"
-      data-action="w-action#post"
-      data-w-action-url-value="https://www.github.com"
-    >
-      Enable
-    </button>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+    beforeEach(async () => {
+      await setup(`
+      <button
+        class="button no"
+        data-controller="w-action"
+        data-action="w-action#post"
+        data-w-action-url-value="https://www.github.com"
+      >
+        Enable
+      </button>`);
     });
 
     it('it should allow for a form POST with created data', () => {
@@ -54,8 +60,8 @@ describe('ActionController', () => {
   });
 
   describe('click method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
+    beforeEach(async () => {
+      await setup(`
       <button
         type="button"
         id="button"
@@ -63,10 +69,7 @@ describe('ActionController', () => {
         data-action="some-event->w-action#click"
       >
         Button
-      </button>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+      </button>`);
     });
 
     it('should call click method when button is clicked via Stimulus action', () => {
@@ -84,15 +87,12 @@ describe('ActionController', () => {
   });
 
   describe('redirect method', () => {
-    beforeEach(() => {
-      document.body.innerHTML = `
+    beforeEach(async () => {
+      await setup(`
       <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
         <option value="http://localhost/place?option=1">1</option>
         <option value="http://localhost/place?option=2" selected>2</option>
-      </select>`;
-
-      app = Application.start();
-      app.register('w-action', ActionController);
+      </select>`);
     });
 
     it('should have a redirect method that falls back to any element value', () => {
@@ -167,6 +167,113 @@ describe('ActionController', () => {
       select.dispatchEvent(new CustomEvent('change'));
 
       expect(window.location.assign).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('select method', () => {
+    beforeEach(async () => {
+      await setup(`
+        <textarea
+          id="text"
+          rows="1"
+          data-controller="w-action"
+          data-action="focus->w-action#select"
+        >
+          some random text
+        </textarea>
+      `);
+    });
+
+    it('select should be called when you click on text in textarea', () => {
+      const textarea = document.getElementById('text');
+
+      // check that there is no selection initially
+      expect(textarea.selectionStart).toBe(0);
+      expect(textarea.selectionEnd).toBe(0);
+
+      // focus
+      textarea.focus();
+
+      // check that there is a selection after focus
+      expect(textarea.selectionStart).toBe(0);
+      expect(textarea.selectionEnd).toBe(textarea.value.length);
+    });
+  });
+
+  describe('reset method', () => {
+    const handleChangeEvent = jest.fn();
+    document.addEventListener('change', handleChangeEvent);
+
+    beforeEach(async () => {
+      jest.resetAllMocks();
+
+      await setup(
+        `<input
+          id="reset-test"
+          value="the default"
+          type="text"
+          data-controller="w-action"
+          data-action="some-event->w-action#reset"
+        />`,
+      );
+    });
+
+    it('should change value when existing value and new value are different', () => {
+      const input = document.getElementById('reset-test');
+
+      // Change the value to something else (via JS)
+      input.value = 'another input value';
+      expect(handleChangeEvent).not.toHaveBeenCalled();
+
+      input.dispatchEvent(
+        new CustomEvent('some-event', { detail: { value: 'not the default' } }),
+      );
+
+      expect(input.value).toBe('not the default');
+      expect(input.value).not.toBe('another input value');
+      expect(handleChangeEvent).toHaveBeenCalled();
+    });
+
+    it('should not change value when current value and new value are the same', () => {
+      expect(handleChangeEvent).not.toHaveBeenCalled();
+      const input = document.getElementById('reset-test');
+
+      input.dispatchEvent(
+        new CustomEvent('some-event', { detail: { value: 'the default' } }),
+      );
+
+      expect(input.value).toBe('the default');
+      expect(input.value).not.toBe('not the default');
+      expect(handleChangeEvent).not.toHaveBeenCalled();
+    });
+
+    it('should reset value to a new value supplied via custom event detail', () => {
+      expect(handleChangeEvent).not.toHaveBeenCalled();
+      const input = document.getElementById('reset-test');
+
+      input.dispatchEvent(
+        new CustomEvent('some-event', {
+          detail: { value: 'a new value from custom event detail' },
+        }),
+      );
+
+      expect(input.value).toBe('a new value from custom event detail');
+      expect(input.value).not.toBe('the default');
+      expect(handleChangeEvent).toHaveBeenCalled();
+    });
+
+    it('should reset value to a new value supplied in action param', () => {
+      expect(handleChangeEvent).not.toHaveBeenCalled();
+      const input = document.getElementById('reset-test');
+      input.setAttribute(
+        'data-w-action-value-param',
+        'a new value from action params',
+      );
+
+      input.dispatchEvent(new CustomEvent('some-event'));
+
+      expect(input.value).toBe('a new value from action params');
+      expect(handleChangeEvent).toHaveBeenCalled();
     });
   });
 });

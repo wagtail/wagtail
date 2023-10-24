@@ -102,6 +102,8 @@ PersonChooserBlock = person_chooser_viewset.get_block_class(
 )
 ```
 
+(chooser_viewsets_limiting_choices)=
+
 ## Limiting choices via linked fields
 
 Chooser viewsets provide a mechanism for limiting the options displayed in the chooser according to another input field on the calling page. For example, suppose the person model has a country field - we can then set up a page model with a country dropdown and a person chooser, where an editor first selects a country from the dropdown and then opens the person chooser to be presented with a list of people from that country.
@@ -133,6 +135,7 @@ class BlogPage(Page):
 ```
 
 A number of other lookup mechanisms are available:
+
 ```python
 PersonChooserWidget(linked_fields={
     'country': {'selector': '#id_country'}  # equivalent to 'country': '#id_country'
@@ -153,6 +156,7 @@ PersonChooserWidget(linked_fields={
 })
 ```
 
+(chooser_viewsets_non_model_data)=
 
 ## Chooser viewsets for non-model datasources
 

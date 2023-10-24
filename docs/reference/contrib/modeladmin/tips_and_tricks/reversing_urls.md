@@ -52,7 +52,7 @@ class AuthorModelAdmin(ModelAdmin):
 author_modeladmin = AuthorModelAdmin()
 
 @hooks.register('register_page_listing_buttons')
-def add_author_edit_buttons(page, page_perms, next_url=None):
+def add_author_edit_buttons(page, user, next_url=None):
     """
     For pages that have an author, add an additional button to the page listing,
     linking to the 'edit' page for that author.

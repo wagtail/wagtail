@@ -44,8 +44,8 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
     # Search
     if all_pages is not None:
-        all_pages = all_pages.search(query, order_by_relevance=not ordering)
-    pages = pages.search(query, order_by_relevance=not ordering)
+        all_pages = all_pages.autocomplete(query, order_by_relevance=not ordering)
+    pages = pages.autocomplete(query, order_by_relevance=not ordering)
 
     return pages, all_pages
 

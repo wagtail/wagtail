@@ -48,7 +48,6 @@ module.exports = function exports(env, argv) {
       'page-editor',
       'preview-panel',
       'privacy-switch',
-      'schedule-publishing',
       'sidebar',
       'task-chooser-modal',
       'task-chooser',
@@ -176,8 +175,8 @@ module.exports = function exports(env, argv) {
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
-            from: 'wagtail/search/static_src/',
-            to: 'wagtail/search/static/',
+            from: 'wagtail/contrib/search_promotions/static_src/',
+            to: 'wagtail/contrib/search_promotions/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {

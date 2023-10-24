@@ -52,6 +52,7 @@ class SiteViewSet(ModelViewSet):
     model = Site
     permission_policy = site_permission_policy
     add_to_reference_index = False
+    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
@@ -62,9 +63,11 @@ class SiteViewSet(ModelViewSet):
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
-            history_url_name=None,
-            usage_url_name=None,
-            **kwargs,
+            **{
+                "history_url_name": None,
+                "usage_url_name": None,
+                **kwargs,
+            }
         )
 
     def get_form_class(self, for_update=False):

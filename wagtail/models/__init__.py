@@ -1195,6 +1195,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for_concrete_model=False,
     )
 
+    # When using a specific queryset, accessing the _workflow_states GenericRelation
+    # will yield no results. This is because the _workflow_states GenericRelation
+    # uses the base_content_type as the content_type_field, which is not the same
+    # as the content type of the specific queryset. To work around this, we define
+    # a second GenericRelation that uses the specific content_type to be used
+    # when working with specific querysets.
+    _specific_workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
+
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
     # of the linked pages and is not editable by users.
@@ -3511,10 +3525,12 @@ class PageViewRestriction(BaseViewRestriction):
         """
         Custom delete handler to aid in logging
         :param user: the user removing the view restriction
-        :param specific_instance: the specific model instance the restriction applies to
         """
         specific_instance = self.page.specific
         if specific_instance:
+            removed_restriction_type = PageViewRestriction.objects.filter(
+                id=self.id
+            ).values_list("restriction_type", flat=True)[0]
             log(
                 instance=specific_instance,
                 action="wagtail.view_restriction.delete",
@@ -3523,7 +3539,7 @@ class PageViewRestriction(BaseViewRestriction):
                     "restriction": {
                         "type": self.restriction_type,
                         "title": force_str(
-                            dict(self.RESTRICTION_CHOICES).get(self.restriction_type)
+                            dict(self.RESTRICTION_CHOICES).get(removed_restriction_type)
                         ),
                     }
                 },

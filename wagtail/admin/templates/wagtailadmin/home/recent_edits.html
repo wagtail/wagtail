@@ -31,16 +31,20 @@
                                 {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
                             </div>
                             <ul class="actions">
-                                <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
-                                {% if page.has_unpublished_changes and page.is_previewable %}
-                                    <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a></li>
-                                {% endif %}
-                                {% if page.live %}
-                                    {% pageurl page as page_url %}
-                                    {% if page_url is not None %}
-                                        <li><a href="{{ page_url }}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Live' %}</a></li>
-                                    {% endif %}
-                                {% endif %}
+                                <li>
+                                    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' page.id %}">{% trans "Edit" %}</a>
+                                        {% if page.has_unpublished_changes and page.is_previewable %}
+                                            <a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a>
+                                        {% endif %}
+                                        {% if page.live %}
+                                            {% pageurl page as page_url %}
+                                            {% if page_url is not None %}
+                                                <a href="{{ page_url }}" target="_blank" rel="noreferrer">{% trans 'Live' %}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% enddropdown %}
+                                </li>
                             </ul>
                         </td>
                         <td valign="top">

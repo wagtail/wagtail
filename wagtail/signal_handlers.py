@@ -86,7 +86,7 @@ def update_reference_index_on_save(instance, **kwargs):
             # parent is null, so there is no valid object to record references against
             return
 
-    if ReferenceIndex.is_indexed(type(instance)):
+    if ReferenceIndex.is_indexed(instance._meta.model):
         with transaction.atomic():
             ReferenceIndex.create_or_update_for_object(instance)
 

@@ -437,13 +437,13 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         # The Updated column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after">Updated</a></th>',
+            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after label">Updated</a></th>',
             html=True,
         )
         # Should not contain the Status column header
         self.assertNotContains(
             response,
-            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after">Status</a></th>',
+            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after label">Status</a></th>',
             html=True,
         )
 
@@ -459,13 +459,13 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         # The Updated column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after">Updated</a></th>',
+            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after label">Updated</a></th>',
             html=True,
         )
         # The Status column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after">Status</a></th>',
+            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after label">Status</a></th>',
             html=True,
         )
 

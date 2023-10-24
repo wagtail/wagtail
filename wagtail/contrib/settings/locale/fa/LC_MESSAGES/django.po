@@ -10,13 +10,14 @@
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # Salar Yazdani, 2023
+# Vessal Daneshvar, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Salar Yazdani, 2023\n"
+"Last-Translator: Vessal Daneshvar, 2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,14 @@ msgstr ""
 
 msgid "default"
 msgstr "پیشفرض"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s برای %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "%(instance)s در حال ویرایش می باشد."
 
 msgid "Site"
 msgstr "سایت"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,32 +175,32 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/modeladmin/index.html:50
+#: templates/modeladmin/index.html:49
 msgid "Filter"
 msgstr ""
 
-#: templates/modeladmin/index.html:61
+#: templates/modeladmin/index.html:60
 #, python-format
 msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
 
-#: templates/modeladmin/index.html:66
+#: templates/modeladmin/index.html:65
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr ""
 
-#: templates/modeladmin/index.html:68
+#: templates/modeladmin/index.html:67
 #, python-format
 msgid "Why not <a href=\"%(url)s\">add one</a>?"
 msgstr ""
 
-#: templates/modeladmin/index.html:81
+#: templates/modeladmin/index.html:80
 msgid "Pagination"
 msgstr ""
 
-#: templates/modeladmin/index.html:82
+#: templates/modeladmin/index.html:81
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr ""

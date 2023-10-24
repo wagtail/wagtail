@@ -1987,6 +1987,17 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         form = form_class()
         self.assertTrue(form.show_schedule_publishing_toggle)
 
+        # Get the "expire_at" input field from the form
+        expire_at_input = form.fields["expire_at"].widget
+        data_controller = expire_at_input.attrs.get("data-controller", None)
+        data_action = expire_at_input.attrs.get("data-action", None)
+        data_w_dialog_target = expire_at_input.attrs.get("data-w-dialog-target", None)
+
+        # Check that suitable data attributes for resetting the fields on dialog close are added
+        self.assertEqual(data_controller, "w-action")
+        self.assertEqual(data_action, "w-dialog:hidden->w-action#reset")
+        self.assertEqual(data_w_dialog_target, "notify")
+
     def test_form(self):
         """
         Check that the form has the scheduled publishing fields

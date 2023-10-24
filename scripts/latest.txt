@@ -1,10 +1,10 @@
 {
-    "version": "5.1.2",
-    "url":     "https://docs.wagtail.org/en/stable/releases/5.1.2.html",
+    "version": "5.1.3",
+    "url":     "https://docs.wagtail.org/en/stable/releases/5.1.3.html",
     "minorUrl": "https://docs.wagtail.org/en/stable/releases/5.1.html",
     "lts": {
-        "version": "4.1.7",
-        "url": "https://docs.wagtail.org/en/v4.1.7/releases/4.1.7.html",
+        "version": "4.1.9",
+        "url": "https://docs.wagtail.org/en/stable/releases/4.1.9.html",
         "minorUrl": "https://docs.wagtail.org/en/stable/releases/4.1.html"
     }
 }

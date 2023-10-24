@@ -6,6 +6,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
@@ -24,8 +25,7 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.permission_policies.pages import Page, PagePermissionPolicy
 
 
-class IndexView(PermissionCheckedMixin, BaseListingView):
-    template_name = "wagtailadmin/pages/index.html"
+class BaseIndexView(PermissionCheckedMixin, BaseListingView):
     permission_policy = PagePermissionPolicy()
     any_permission_required = {
         "add",
@@ -73,7 +73,9 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
-            self.parent_page = get_object_or_404(Page, id=parent_page_id)
+            self.parent_page = get_object_or_404(
+                Page.objects.all().prefetch_workflow_states(), id=parent_page_id
+            )
         else:
             self.parent_page = Page.get_first_root_node()
 
@@ -101,51 +103,89 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             self.locale = None
             self.translations = []
 
+        # Search
+        self.query_string = None
+        self.is_searching = False
+        self.is_searching_whole_tree = False
+        if "q" in self.request.GET:
+            self.search_form = SearchForm(
+                self.request.GET, placeholder=_("Search pages…")
+            )
+            if self.search_form.is_valid():
+                self.query_string = self.search_form.cleaned_data["q"]
+        else:
+            self.search_form = SearchForm(placeholder=_("Search pages…"))
+
+        if self.query_string:
+            self.is_searching = True
+            self.is_searching_whole_tree = bool(self.request.GET.get("search_all"))
+
         return super().get(request)
 
     def get_ordering(self):
-        ordering = self.request.GET.get("ordering", "-latest_revision_created_at")
-        if ordering not in [
+        valid_orderings = [
             "title",
             "-title",
-            "content_type",
-            "-content_type",
             "live",
             "-live",
             "latest_revision_created_at",
             "-latest_revision_created_at",
-            "ord",
-        ]:
-            ordering = "-latest_revision_created_at"
+        ]
+
+        if self.query_string:
+            # default to ordering by relevance
+            default_ordering = None
+        else:
+            default_ordering = "-latest_revision_created_at"
+            # ordering by page order is only available when not searching
+            valid_orderings.append("ord")
+
+            # ordering by content type not currently available when searching, due to
+            # https://github.com/wagtail/wagtail/issues/6616
+            valid_orderings.append("content_type")
+            valid_orderings.append("-content_type")
+
+        ordering = self.request.GET.get("ordering", default_ordering)
+        if ordering not in valid_orderings:
+            ordering = default_ordering
 
         return ordering
 
     def get_queryset(self):
-        pages = self.parent_page.get_children().prefetch_related(
+        if self.is_searching:
+            if self.is_searching_whole_tree:
+                pages = Page.objects.all()
+            else:
+                pages = self.parent_page.get_descendants()
+        else:
+            pages = self.parent_page.get_children()
+
+        pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
 
         self.ordering = self.get_ordering()
 
-        if self.ordering == "ord":
-            # preserve the native ordering from get_children()
-            pass
-        elif self.ordering == "latest_revision_created_at":
-            # order by oldest revision first.
-            # Special case NULL entries - these should go at the top of the list.
-            # Do this by annotating with Count('latest_revision_created_at'),
-            # which returns 0 for these
-            pages = pages.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("null_position", "latest_revision_created_at")
-        elif self.ordering == "-latest_revision_created_at":
-            # order by oldest revision first.
-            # Special case NULL entries - these should go at the end of the list.
-            pages = pages.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("-null_position", "-latest_revision_created_at")
-        else:
-            pages = pages.order_by(self.ordering)
+        if not self.is_searching:
+            if self.ordering == "ord":
+                # preserve the native ordering from get_children()
+                pass
+            elif self.ordering == "latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the top of the list.
+                # Do this by annotating with Count('latest_revision_created_at'),
+                # which returns 0 for these
+                pages = pages.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("null_position", "latest_revision_created_at")
+            elif self.ordering == "-latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the end of the list.
+                pages = pages.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("-null_position", "-latest_revision_created_at")
+            else:
+                pages = pages.order_by(self.ordering)
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -159,6 +199,14 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
             pages = pages.prefetch_workflow_states()
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
+
+        if self.is_searching:
+            if self.ordering:
+                pages = pages.order_by(self.ordering).autocomplete(
+                    self.query_string, order_by_relevance=False
+                )
+            else:
+                pages = pages.autocomplete(self.query_string)
 
         return pages
 
@@ -176,6 +224,9 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
+    def get_results_url(self):
+        return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
+
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
@@ -189,6 +240,59 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
                 )
             }
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        self.show_ordering_column = self.ordering == "ord"
+        if self.show_ordering_column:
+            self.columns = self.columns.copy()
+            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
+        context = super().get_context_data(**kwargs)
+
+        if self.is_searching:
+            # postprocess this page of results to annotate each result with its parent page
+            parent_page_paths = {
+                page.path[: -page.steplen] for page in context["object_list"]
+            }
+            parent_pages_by_path = {
+                page.path: page
+                for page in Page.objects.filter(path__in=parent_page_paths).specific()
+            }
+            for page in context["object_list"]:
+                parent_page = parent_pages_by_path.get(page.path[: -page.steplen])
+                # add annotation if parent page is found and is not the currently viewed parent
+                if parent_page and parent_page != self.parent_page:
+                    page.annotated_parent_page = parent_page
+
+        context.update(
+            {
+                "parent_page": self.parent_page,
+                "ordering": self.ordering,
+                "index_url": self.get_index_url(),
+                "results_url": self.get_results_url(),
+                "search_form": self.search_form,
+                "is_searching": self.is_searching,
+                "is_searching_whole_tree": self.is_searching_whole_tree,
+            }
+        )
+
+        return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_explore", args=[translation.id]),
+            }
+            for translation in self.parent_page.get_translations()
+            .only("id", "locale")
+            .select_related("locale")
+        ]
+
+
+class IndexView(BaseIndexView):
+    template_name = "wagtailadmin/pages/index.html"
 
     def get_side_panels(self):
         side_panels = [
@@ -205,34 +309,16 @@ class IndexView(PermissionCheckedMixin, BaseListingView):
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
-        self.show_ordering_column = self.ordering == "ord"
-        if self.show_ordering_column:
-            self.columns = self.columns.copy()
-            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
-        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-
         context = super().get_context_data(**kwargs)
         side_panels = self.get_side_panels()
-
         context.update(
             {
-                "parent_page": self.parent_page,
-                "ordering": self.ordering,
                 "side_panels": side_panels,
                 "media": side_panels.media,
-                "index_url": self.get_index_url(),
             }
         )
-
         return context
 
-    def get_translations(self):
-        return [
-            {
-                "locale": translation.locale,
-                "url": reverse("wagtailadmin_explore", args=[translation.id]),
-            }
-            for translation in self.parent_page.get_translations()
-            .only("id", "locale")
-            .select_related("locale")
-        ]
+
+class IndexResultsView(BaseIndexView):
+    template_name = "wagtailadmin/pages/index_results.html"

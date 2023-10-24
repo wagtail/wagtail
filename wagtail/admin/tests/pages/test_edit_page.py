@@ -3105,6 +3105,11 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
             response,
             '<input type="checkbox" name="comment_notifications" id="id_comment_notifications">',
         )
+        self.assertTrue(
+            PageSubscription.objects.filter(
+                page=self.child_page, user=self.user, comment_notifications=False
+            ).exists()
+        )
 
     def test_commment_notifications_switched_on(self):
         PageSubscription.objects.create(

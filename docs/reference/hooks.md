@@ -551,7 +551,7 @@ This example will add a simple button to the secondary dropdown menu:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_header_buttons')
-def page_header_buttons(page, page_perms, next_url=None):
+def page_header_buttons(page, user, view_name, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A dropdown button',
         '/goes/to/a/url/',
@@ -562,10 +562,15 @@ def page_header_buttons(page, page_perms, next_url=None):
 The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
+-   `user` - the logged-in user
+-   `view_name` - either `index` or `edit`, depending on whether the button is being generated for the page listing or edit view
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument, and a `view_name` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 ## Editor workflow
 
@@ -787,10 +792,6 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `request` - the current request object
 -   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
 
-```{versionchanged} 5.1
-The `user_page_permissions` context variable is deprecated. If you use `user_page_permissions.for_page(page)`, replace it with `page.permissions_for_user(user)` instead. To make queries based on the user's permissions, use `wagtail.permission_policies.pages.PagePermissionPolicy`.
-```
-
 ```python
 from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
@@ -831,19 +832,6 @@ def make_publish_default_action(menu_items, request, context):
             menu_items.pop(index)
             menu_items.insert(0, item)
             break
-```
-
-(construct_page_listing_buttons)=
-
-### `construct_page_listing_buttons`
-
-Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a page perms object, and a context dictionary as per `register_page_listing_buttons`, and should modify the list of listing items in-place.
-
-```python
-@hooks.register('construct_page_listing_buttons')
-def remove_page_listing_button_item(buttons, page, page_perms, context=None):
-    if page.is_root:
-        buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
 ```
 
 (construct_wagtail_userbar)=
@@ -1023,7 +1011,7 @@ This example will add a simple button to the listing:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, next_url=None):
+def page_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.PageListingButton(
         'A page listing button',
         '/goes/to/a/url/',
@@ -1034,10 +1022,14 @@ def page_listing_buttons(page, page_perms, next_url=None):
 The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
+-   `user` - the logged-in user
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 (register_page_listing_more_buttons)=
 
@@ -1051,7 +1043,7 @@ This example will add a simple button to the dropdown menu:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, next_url=None):
+def page_listing_more_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A dropdown button',
         '/goes/to/a/url/',
@@ -1062,10 +1054,14 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
 The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
+-   `user` - the logged-in user
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 #### Buttons with dropdown lists
 
@@ -1074,24 +1070,25 @@ The admin widgets also provide `ButtonWithDropdownFromHook`, which allows you to
 Creating a button with a dropdown menu involves two steps. Firstly, you add your button to the `register_page_listing_buttons` hook, just like the example above.
 Secondly, you register a new hook that yields the contents of the dropdown menu.
 
-This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the `page_perms`:
+This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by testing the user's permission with `page.permissions_for_user`:
 
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_custom_listing_buttons(page, page_perms, next_url=None):
+def page_custom_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
         'More actions',
         hook_name='my_button_dropdown_hook',
         page=page,
-        page_perms=page_perms,
+        user=user,
         next_url=next_url,
         priority=50
     )
 
 @hooks.register('my_button_dropdown_hook')
-def page_custom_listing_more_buttons(page, page_perms, next_url=None):
+def page_custom_listing_more_buttons(page, user, next_url=None):
+    page_perms = page.permissions_for_user(user)
     if page_perms.can_move():
         yield wagtailadmin_widgets.Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
     if page_perms.can_delete():
@@ -1101,6 +1098,27 @@ def page_custom_listing_more_buttons(page, page_perms, next_url=None):
 ```
 
 The template for the dropdown button can be customised by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. Make sure to leave the dropdown UI component itself as-is.
+
+```{versionchanged} 5.2
+The `ButtonWithDropdownFromHook` constructor, and the corresponding hook function, now receive a `user` argument instead of a `page_perms` argument.
+```
+
+(construct_page_listing_buttons)=
+
+### `construct_page_listing_buttons`
+
+Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
+
+```python
+@hooks.register('construct_page_listing_buttons')
+def remove_page_listing_button_item(buttons, page, user, context=None):
+    if page.is_root:
+        buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
+```
+
+```{versionchanged} 5.2
+The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
+```
 
 ## Page serving
 

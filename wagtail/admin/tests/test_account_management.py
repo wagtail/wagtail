@@ -371,6 +371,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("newpassword"))
 
+    def test_change_password_whitespaced(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "  whitespaced_password  ",
+                "password-new_password2": "  whitespaced_password  ",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        # Check that the password was changed and whitespace was not stripped
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("  whitespaced_password  "))
+
     def test_change_password_post_password_mismatch(self):
         response = self.post_form(
             {
@@ -398,6 +414,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
             "The two password fields didn’t match.",
             password_form.errors["new_password2"],
         )
+
+        # Check that the password was not changed
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("password"))
+
+    def test_ignore_change_password_if_only_old_password_supplied(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "",
+                "password-new_password2": "",
+            }
+        )
+
+        # Check that everything runs as usual (with a redirect), instead of a validation error
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
 
         # Check that the password was not changed
         self.user.refresh_from_db()

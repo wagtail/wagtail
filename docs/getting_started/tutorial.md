@@ -178,7 +178,7 @@ python manage.py migrate
 
 You must run the preceding commands each time you make changes to the model definition. Here is the expected output from the terminal:
 
-```txt
+```text
 Migrations for 'home':
   home/migrations/0003_homepage_body.py
     - Add field body to homepage

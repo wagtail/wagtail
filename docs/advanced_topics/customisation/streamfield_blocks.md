@@ -88,6 +88,8 @@ A form template for a StructBlock must include the output of `render_form` for e
 </div>
 ```
 
+(custom_streamfield_blocks_media)=
+
 ## Additional JavaScript on `StructBlock` forms
 
 Often it may be desirable to attach custom JavaScript behaviour to a StructBlock form. For example, given a block such as:

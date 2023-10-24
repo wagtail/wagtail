@@ -116,10 +116,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": "Workflows"}],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -207,13 +204,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"label": "Workflows", "url": "/admin/workflows/list/"},
-                {"label": "New: Workflow", "url": ""},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         response = self.post(
@@ -437,13 +428,7 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"url": "/admin/workflows/list/", "label": "Workflows"},
-                {"url": "", "label": str(self.workflow)},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
@@ -756,10 +741,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
-        self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": "Tasks"}],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Initially there should be no tasks listed
         self.assertContains(response, "There are no enabled tasks")
@@ -854,13 +836,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create_task.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"label": "Tasks", "url": "/admin/workflows/tasks/index/"},
-                {"label": "New: Simple task", "url": ""},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_get_with_non_task_model(self):
         response = self.get(
@@ -978,13 +954,7 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit_task.html")
-        self.assertBreadcrumbsItemsRendered(
-            [
-                {"url": "/admin/workflows/tasks/index/", "label": "Tasks"},
-                {"url": "", "label": str(self.task)},
-            ],
-            response.content,
-        )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         self.assertEqual(self.task.groups.count(), 0)

@@ -5,14 +5,26 @@ from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn, Colum
 
 
 class PageTitleColumn(BaseColumn):
+    header_template_name = "wagtailadmin/pages/listing/_page_title_column_header.html"
     cell_template_name = "wagtailadmin/pages/listing/_page_title_cell.html"
     classname = "title"
+
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        context["page_obj"] = parent_context.get("page_obj")
+        context["parent_page"] = parent_context.get("parent_page")
+        context["is_searching"] = parent_context.get("is_searching")
+        context["is_searching_whole_tree"] = parent_context.get(
+            "is_searching_whole_tree"
+        )
+        return context
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["page_perms"] = instance.permissions_for_user(
             parent_context["request"].user
         )
+        context["parent_page"] = getattr(instance, "annotated_parent_page", None)
         context["show_locale_labels"] = parent_context.get("show_locale_labels")
         context["perms"] = parent_context.get("perms")
         return context
@@ -132,4 +144,10 @@ class PageTable(Table):
         context = super().get_context_data(parent_context)
         context["show_locale_labels"] = self.show_locale_labels
         context["perms"] = parent_context.get("perms")
+        context["page_obj"] = parent_context.get("page_obj")
+        context["parent_page"] = parent_context.get("parent_page")
+        context["is_searching"] = parent_context.get("is_searching")
+        context["is_searching_whole_tree"] = parent_context.get(
+            "is_searching_whole_tree"
+        )
         return context

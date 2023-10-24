@@ -2181,3 +2181,9 @@ class FeatureCompleteToy(index.Indexed, models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.release_date})"
+
+
+class PurgeRevisionsProtectedTestModel(models.Model):
+    revision = models.OneToOneField(
+        "wagtailcore.Revision", on_delete=models.PROTECT, related_name="+"
+    )

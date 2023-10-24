@@ -681,6 +681,8 @@ Every time a page is edited, a new `Revision` is created and saved to the databa
 -   The content of the page is JSON-serialisable and stored in the {attr}`~Revision.content` field.
 -   You can retrieve a `Revision` as an instance of the object's model by calling the {meth}`~Revision.as_object` method.
 
+You can use the [`purge_revisions`](purge_revisions) command to delete old revisions that are no longer in use.
+
 ### Database fields
 
 ```{eval-rst}

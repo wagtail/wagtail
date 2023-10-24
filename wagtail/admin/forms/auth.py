@@ -13,7 +13,8 @@ class LoginForm(AuthenticationForm):
             attrs={
                 "placeholder": gettext_lazy("Enter password"),
             }
-        )
+        ),
+        strip=False,
     )
 
     remember = forms.BooleanField(required=False)
