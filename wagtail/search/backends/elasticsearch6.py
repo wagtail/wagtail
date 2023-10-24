@@ -1,5 +1,3 @@
-from typing import Any, List, Union
-
 from wagtail.search.index import get_indexed_models
 from wagtail.search.query import Fuzzy, MatchAll, Not, Phrase, PlainText
 
@@ -83,8 +81,8 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields = self.to_field_objects(self.fields)
-        remapped_fields = self.remapped_fields or [self.to_field(self.mapping.all_field_name)]
+        remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
+        remapped_fields = [Field(field) for field in remapped_fields]
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -97,12 +95,6 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             Field(self.mapping.get_boost_field_name(boost), boost)
             for boost in unique_boosts
         ]
-
-    def _remap_fields(self, fields):
-        if fields is None:
-            return None
-
-        return self.to_field_objects(super()._remap_fields(fields))
 
     def get_boosted_fields(self, fields):
         boosted_fields = []
@@ -119,7 +111,7 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         if len(fields) == 1:
             return {
                 "match": {
-                    self.to_string(fields[0]): {
+                    fields[0]: {
                         "query": query.query_string,
                         "fuzziness": "AUTO",
                     }
@@ -128,23 +120,24 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         return {
             "multi_match": {
                 "query": query.query_string,
-                "fields": self.to_field_names(self.get_boosted_fields(fields)),
+                "fields": self.get_boosted_fields(fields),
                 "fuzziness": "AUTO",
             }
         }
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
         return super()._compile_plaintext_query(
-            query, self.to_field_names(self.get_boosted_fields(fields)), boost
+            query, self.get_boosted_fields(fields), boost
         )
 
     def _compile_phrase_query(self, query, fields):
-        return super()._compile_phrase_query(
-            query, self.to_field_names(self.get_boosted_fields(fields))
-        )
+        return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
 
     def get_inner_query(self):
-        fields = self.to_field_objects(self.remapped_fields)
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
@@ -177,47 +170,6 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
 
         else:
             return self._join_and_compile_queries(self.query, fields)
-
-    # Helpers to manage type-safe transition between field names
-    # and field objects stored in e.g. self.fields
-
-    def to_string(self, field: Union[str, Field]) -> str:
-        if isinstance(field, Field):
-            return field.field_name
-        return field
-
-    def to_field(self, field: Union[str, Field]) -> Field:
-        if isinstance(field, Field):
-            return field
-        return Field(field)
-
-    def to_field_names(self, fields: List[Any]) -> List[str]:
-        """
-        Convert a list of Field objects to a list of strings to be compatible
-        with older versions of the code.
-        """
-        if not fields:
-            return fields
-
-        if not isinstance(fields[0], list):
-            return [self.to_string(f) for f in fields]
-
-        new_fields = []
-        for field in fields:
-            backported_fields = self.to_field_names(field)
-            for backported_field in backported_fields:
-                new_fields.append(backported_field)
-        return new_fields
-
-    def to_field_objects(self, fields: List[Any]) -> List[Field]:
-        """
-        Convert a list of Field name strings to a list of objects to be
-        compatible with newer versions of the code.
-        """
-        if not fields:
-            return fields
-
-        return [self.to_field(f) for f in fields]
 
 
 class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
