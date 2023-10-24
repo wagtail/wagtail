@@ -20,19 +20,19 @@ const Icon: React.FunctionComponent<IconProps> = ({
         <path d={name} />
       </svg>
     );
-  } else {
-    return (
-      <>
-        <svg
-          className={`icon icon-${name} ${className || ''}`}
-          aria-hidden="true"
-        >
-          <use href={`#icon-${name}`} />
-        </svg>
-        {title && <span className="visuallyhidden">{title}</span>}
-      </>
-    );
   }
+
+  return (
+    <>
+      <svg
+        className={`icon icon-${name} ${className || ''}`}
+        aria-hidden="true"
+      >
+        <use href={`#icon-${name}`} />
+      </svg>
+      {title && <span className="visuallyhidden">{title}</span>}
+    </>
+  );
 };
 
 export default Icon;
