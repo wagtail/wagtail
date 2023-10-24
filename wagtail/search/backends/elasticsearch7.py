@@ -8,11 +8,11 @@ from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import BaseSearchBackend, get_model_root
 from wagtail.search.backends.elasticsearch6 import (
-    Elasticsearch6AutocompleteQueryCompiler,
     Elasticsearch6Index,
     Elasticsearch6Mapping,
     Elasticsearch6SearchQueryCompiler,
     Elasticsearch6SearchResults,
+    Field,
 )
 from wagtail.search.index import class_is_indexed
 from wagtail.utils.utils import deep_update
@@ -125,8 +125,42 @@ class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
             return self.backend.es.search(**body, **kwargs)
 
 
+class ElasticsearchAutocompleteQueryCompilerImpl:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Convert field names into index column names
+        # Note: this overrides Elasticsearch7SearchQueryCompiler by using autocomplete fields instead of searchable fields
+        if self.fields:
+            fields = []
+            autocomplete_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_autocomplete_search_fields()
+            }
+            for field_name in self.fields:
+                if field_name in autocomplete_fields:
+                    field_name = self.mapping.get_field_column_name(
+                        autocomplete_fields[field_name]
+                    )
+
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
+
+    def get_inner_query(self):
+        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
+        fields = [Field(field) for field in fields]
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {"bool": {"mustNot": {"match_all": {}}}}
+
+        return self._compile_plaintext_query(self.query, fields)
+
+
 class Elasticsearch7AutocompleteQueryCompiler(
-    Elasticsearch6AutocompleteQueryCompiler, Elasticsearch6SearchQueryCompiler
+    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch7SearchQueryCompiler
 ):
     pass
 

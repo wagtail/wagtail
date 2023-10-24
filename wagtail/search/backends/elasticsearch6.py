@@ -770,40 +770,6 @@ class Elasticsearch6SearchQueryCompiler(BaseSearchQueryCompiler):
         return json.dumps(self.get_query())
 
 
-class ElasticsearchAutocompleteQueryCompilerImpl:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Convert field names into index column names
-        # Note: this overrides Elasticsearch6SearchQueryCompiler by using autocomplete fields instead of searchable fields
-        if self.fields:
-            fields = []
-            autocomplete_fields = {
-                f.field_name: f
-                for f in self.queryset.model.get_autocomplete_search_fields()
-            }
-            for field_name in self.fields:
-                if field_name in autocomplete_fields:
-                    field_name = self.mapping.get_field_column_name(
-                        autocomplete_fields[field_name]
-                    )
-
-                fields.append(field_name)
-
-            self.remapped_fields = fields
-        else:
-            self.remapped_fields = None
-
-    def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
-        fields = [Field(field) for field in fields]
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
-            return {"bool": {"mustNot": {"match_all": {}}}}
-
-        return self._compile_plaintext_query(self.query, fields)
-
-
 class Elasticsearch6SearchResults(BaseSearchResults):
     fields_param_name = "stored_fields"
     supports_facet = True
@@ -990,9 +956,3 @@ class Elasticsearch6SearchResults(BaseSearchResults):
             hit_count = min(hit_count, self.stop - self.start)
 
         return max(hit_count, 0)
-
-
-class Elasticsearch6AutocompleteQueryCompiler(
-    ElasticsearchAutocompleteQueryCompilerImpl, Elasticsearch6SearchQueryCompiler
-):
-    pass
