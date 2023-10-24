@@ -206,12 +206,9 @@ class Elasticsearch6Mapping:
             fields["pk"]["index"] = "not_analyzed"
             fields["content_type"]["index"] = "not_analyzed"
 
-        fields.update(
-            {
-                self.get_field_mapping(field)[0]: self.get_field_mapping(field)[1]
-                for field in self.model.get_search_fields()
-            }
-        )
+        for field in self.model.get_search_fields():
+            key, val = self.get_field_mapping(field)
+            fields[key] = val
 
         # Add _all_text field
         fields[self.all_field_name] = {"type": "text"}
