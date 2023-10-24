@@ -213,22 +213,14 @@ class Elasticsearch6Mapping:
             }
         )
 
-        mapping = {
-            self.get_document_type(): {
-                "properties": fields,
-            }
-        }
-
         # Add _all_text field
-        mapping[self.get_document_type()]["properties"][self.all_field_name] = {
-            "type": "text"
-        }
+        fields[self.all_field_name] = {"type": "text"}
 
         unique_boosts = set()
 
         # Replace {"include_in_all": true} with {"copy_to": ["_all_text", "_all_text_boost_2"]}
-        def replace_include_in_all(mapping):
-            for field_mapping in mapping["properties"].values():
+        def replace_include_in_all(properties):
+            for field_mapping in properties.values():
                 if "include_in_all" in field_mapping:
                     if field_mapping["include_in_all"]:
                         field_mapping["copy_to"] = self.all_field_name
@@ -245,15 +237,17 @@ class Elasticsearch6Mapping:
                     del field_mapping["include_in_all"]
 
                 if field_mapping["type"] == "nested":
-                    replace_include_in_all(field_mapping)
+                    replace_include_in_all(field_mapping["properties"])
 
-        replace_include_in_all(mapping[self.get_document_type()])
+        replace_include_in_all(fields)
         for boost in unique_boosts:
-            mapping[self.get_document_type()]["properties"][
-                self.get_boost_field_name(boost)
-            ] = {"type": "text"}
+            fields[self.get_boost_field_name(boost)] = {"type": "text"}
 
-        return mapping
+        return {
+            self.get_document_type(): {
+                "properties": fields,
+            }
+        }
 
     def get_document_id(self, obj):
         return str(obj.pk)
