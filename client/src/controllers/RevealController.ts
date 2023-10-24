@@ -29,10 +29,12 @@ export class RevealController extends Controller<HTMLElement> {
     closed: { default: false, type: Boolean },
     peeking: { default: false, type: Boolean },
     peekTarget: { default: '', type: String },
+    saveState: { default: false, type: Boolean },
   };
 
   declare closedValue: boolean;
   declare peekingValue: boolean;
+  declare saveStateValue: boolean;
 
   declare readonly closedClass: string;
   declare readonly closedClasses: string[];
@@ -55,8 +57,13 @@ export class RevealController extends Controller<HTMLElement> {
   cleanUpPeekListener?: () => void;
 
   connect() {
-    // If peeking is being used, set up listener and its removal on disconnect
+    const initialClosedValue = this.getSavedClosedValue(this.closedValue);
 
+    if (initialClosedValue !== this.closedValue) {
+      this.closedValue = initialClosedValue;
+    }
+
+    // If peeking is being used, set up listener and its removal on disconnect
     const peekZone = this.peekTargetValue
       ? this.element.closest<HTMLElement>(this.peekTargetValue)
       : false;
@@ -84,7 +91,7 @@ export class RevealController extends Controller<HTMLElement> {
         this.dispatch('ready', {
           cancelable: false,
           detail: {
-            closed: this.closedValue,
+            closed: initialClosedValue,
           },
         });
       });
@@ -143,6 +150,8 @@ export class RevealController extends Controller<HTMLElement> {
         target,
       });
     });
+
+    this.setSavedClosedValue(shouldClose);
   }
 
   close() {
@@ -217,6 +226,35 @@ export class RevealController extends Controller<HTMLElement> {
           useElement.setAttribute('href', `#${closeIconClass}`);
         }
       });
+  }
+
+  setSavedClosedValue(closed) {
+    const id = this.element.id;
+
+    if (!this.saveStateValue || !id) return;
+
+    try {
+      localStorage.setItem(
+        `wagtail:reveal-${id}-closed`,
+        closed ? 'true' : 'false',
+      );
+    } catch {
+      // Skip saving the preference if localStorage isn’t available.
+    }
+  }
+
+  getSavedClosedValue(defaultClosed) {
+    const id = this.element.id;
+
+    if (!this.saveStateValue || !id) return defaultClosed;
+
+    let saved;
+    try {
+      saved = localStorage.getItem(`wagtail:reveal-${id}-closed`);
+    } catch {
+      // Use the default if localStorage isn’t available.
+    }
+    return saved ? saved === 'true' : defaultClosed;
   }
 
   disconnect() {
