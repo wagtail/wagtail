@@ -1,5 +1,6 @@
-import '../tests/stubs';
+import { domReady } from '../src/utils/domReady';
 
+import '../tests/stubs';
 import '../../wagtail/admin/static_src/wagtailadmin/scss/core.scss';
 import './preview.scss';
 
@@ -43,5 +44,11 @@ const loadIconSprite = () => {
       }
     });
 };
+
+domReady().then(() => {
+  // Add ready class to body to enable CSS transitions
+  // Emulates what happens in Wagtail admin when initial content is loaded
+  document.body.classList.add('ready');
+});
 
 loadIconSprite();
