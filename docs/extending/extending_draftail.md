@@ -57,18 +57,6 @@ def register_mark_feature(features):
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append('mark')
 ```
-Second, in `base.py` of the `settings` folder, configure `WAGTAILADMIN_RICH_TEXT_EDITORS` to display the block type in the toolbar by adding `mark` to `OPTIONS.features`
-
-```python
-WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
-        'OPTIONS': {
-            'features': ['h2', 'bold', 'italic', 'link', 'document-link', 'mark']
-        }
-    },
-}
-```
 
 These steps will always be the same for all Draftail plugins. The important parts are to:
 
