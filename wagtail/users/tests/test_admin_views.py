@@ -1558,6 +1558,11 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
 
+    def test_view_permission_if_model_has_verbose(self):
+        response = self.get()
+
+        self.assertContains(response, "Can view")
+
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):

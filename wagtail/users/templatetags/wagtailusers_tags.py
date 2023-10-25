@@ -1,5 +1,4 @@
 import itertools
-import re
 
 from django import template
 
@@ -98,9 +97,9 @@ def format_permissions(permission_bound_field):
                 custom_perms.append(
                     {
                         "perm": perm,
-                        "name": re.sub(
-                            f"{perm.content_type.name}$", "", perm.name, flags=re.I
-                        ).strip(),
+                        "name": "Can view"
+                        if permission_action == "view"
+                        else perm.name,
                         "selected": checkbox.data["selected"],
                     }
                 )
