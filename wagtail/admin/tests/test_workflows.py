@@ -167,6 +167,18 @@ class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
+    def test_workflow_report_not_shown_without_permission(self):
+        user = self.editor
+        self.login(user)
+        user.is_superuser = False
+        user.save()
+        edit_permission = Permission.objects.get(codename="add_workflow")
+
+        user.user_permissions.add(edit_permission)
+
+        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
 
 class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
