@@ -1479,38 +1479,9 @@ class TestCopyPage(TestCase):
             msg="Child objects in revisions were not given a new primary key",
         )
 
-    def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
-        # RemovedInWagtail60Warning
-        # Remove this test when the deprecation period for the legacy
-        # moderation system ends.
-        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.save_revision(submitted_for_moderation=True)
-
-        # Copy it
-        new_christmas_event = christmas_event.copy(
-            update_attrs={"title": "New christmas event", "slug": "new-christmas-event"}
-        )
-
-        # Check that the old revision is still submitted for moderation
-        self.assertTrue(
-            christmas_event.revisions.order_by("created_at")
-            .first()
-            .submitted_for_moderation
-        )
-
-        # Check that the new revision is not submitted for moderation
-        self.assertFalse(
-            new_christmas_event.revisions.order_by("created_at")
-            .first()
-            .submitted_for_moderation
-        )
-
     def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        # RemovedInWagtail60Warning
-        # Remove this line when the deprecation period for the legacy
-        # moderation system ends.
-        christmas_event.save_revision(submitted_for_moderation=True)
+        christmas_event.save_revision()
 
         # Set the created_at of the revision to a time in the past
         revision = christmas_event.get_latest_revision()

@@ -1,6 +1,5 @@
 import itertools
 import re
-import warnings
 from typing import Any, Mapping, Union
 
 from django.conf import settings
@@ -28,7 +27,6 @@ from wagtail.models import (
     get_default_page_content_type,
 )
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 User = get_user_model()
 
@@ -92,35 +90,6 @@ class WhatsNewInWagtailVersionPanel(Component):
         if not self.is_shown(parent_context):
             return ""
         return super().render_html(parent_context)
-
-
-class PagesForModerationPanel(Component):
-    name = "pages_for_moderation"
-    template_name = "wagtailadmin/home/pages_for_moderation.html"
-    order = 200
-
-    def get_context_data(self, parent_context):
-        request = parent_context["request"]
-        context = super().get_context_data(parent_context)
-        revisions = (
-            PagePermissionPolicy()
-            ._revisions_for_moderation(request.user)
-            .select_related("user")
-            .order_by("-created_at")
-        )
-        if revisions:
-            warnings.warn(
-                "You have pages undergoing moderation in the legacy moderation system. "
-                "Complete the moderation of these pages before upgrading Wagtail. "
-                "Support for the legacy moderation system will be completely removed "
-                "in a future release. For more details, refer to "
-                "https://docs.wagtail.org/en/stable/releases/2.10.html#move-to-new-configurable-moderation-system-workflow",
-                RemovedInWagtail60Warning,
-            )
-        context["page_revisions_for_moderation"] = revisions
-        context["request"] = request
-        context["csrf_token"] = parent_context["csrf_token"]
-        return context
 
 
 class UserObjectsInWorkflowModerationPanel(Component):
@@ -347,7 +316,6 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
             # WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
-            PagesForModerationPanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),
             LockedPagesPanel(),

@@ -1,6 +1,4 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
-import warnings
-
 from django.conf import settings
 from django.forms import Media
 from django.template.loader import render_to_string
@@ -10,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class ActionMenuItem(Component):
@@ -100,15 +97,6 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     icon_name = "resubmit"
 
     def is_shown(self, context):
-        legacy_setting = getattr(settings, "WAGTAIL_MODERATION_ENABLED", None)
-        if legacy_setting is not None:
-            warnings.warn(
-                "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-                RemovedInWagtail60Warning,
-            )
-            if not legacy_setting:
-                return False
-
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
@@ -175,15 +163,6 @@ class RestartWorkflowMenuItem(ActionMenuItem):
     icon_name = "login"
 
     def is_shown(self, context):
-        legacy_setting = getattr(settings, "WAGTAIL_MODERATION_ENABLED", None)
-        if legacy_setting is not None:
-            warnings.warn(
-                "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-                RemovedInWagtail60Warning,
-            )
-            if not legacy_setting:
-                return False
-
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
         elif context["view"] == "edit":

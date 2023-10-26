@@ -7,10 +7,8 @@ from wagtail.admin.userbar import (
     AccessibilityItem,
     AddPageItem,
     AdminItem,
-    ApproveModerationEditPageItem,
     EditPageItem,
     ExplorePageItem,
-    RejectModerationEditPageItem,
 )
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
@@ -70,8 +68,6 @@ def wagtailuserbar(context, position="bottom-right"):
                     AdminItem(),
                     ExplorePageItem(revision.content_object),
                     EditPageItem(revision.content_object),
-                    ApproveModerationEditPageItem(revision),
-                    RejectModerationEditPageItem(revision),
                     AccessibilityItem(),
                 ]
             else:
