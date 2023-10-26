@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
