@@ -575,6 +575,10 @@ hero_image = my_page.body.first_block_by_name('image')
 <div class="hero-image">{{ page.body.first_block_by_name.image }}</div>
 ```
 
+## Search considerations
+
+a `search_index` argument is added to block's constructor with `get_searchable_content` method so that if `search_index` is False it could return a empty list so that the given type of block should not be included in the search index.
+
 ## Custom validation
 
 Custom validation logic can be added to blocks by overriding the block's `clean` method. For more information, see [](streamfield_validation).
