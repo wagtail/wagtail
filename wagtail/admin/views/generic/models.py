@@ -377,7 +377,7 @@ class IndexView(
 
     def get_add_url(self):
         if self.add_url_name:
-            return reverse(self.add_url_name)
+            return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_page_title(self):
         if not self.page_title and self.model:

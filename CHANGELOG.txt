@@ -9,6 +9,7 @@ Changelog
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
  * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
  * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
+ * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
