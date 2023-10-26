@@ -125,6 +125,12 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Hello world!"])
 
+    def test_search_index_searchable_content(self):
+        block = blocks.CharBlock(search_index=False)
+        content = block.get_searchable_content("Hello world!")
+
+        self.assertEqual(content, [])
+
     def test_charfield_with_validator(self):
         def validate_is_foo(value):
             if value != "foo":
@@ -665,6 +671,18 @@ class TestRichTextBlock(TestCase):
             ],
         )
 
+    def test_search_index_get_searchable_content(self):
+        block = blocks.RichTextBlock(search_index=False)
+        value = RichText(
+            '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
+            "<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>"
+        )
+        result = block.get_searchable_content(value)
+        self.assertEqual(
+            result,
+            [],
+        )
+
     def test_get_searchable_content_whitespace(self):
         block = blocks.RichTextBlock()
         value = RichText("<p>mashed</p><p>po<i>ta</i>toes</p>")
@@ -927,6 +945,16 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
 
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():
@@ -1304,6 +1332,16 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
 
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():

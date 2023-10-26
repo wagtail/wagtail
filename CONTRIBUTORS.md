@@ -756,6 +756,7 @@
 * scott-8
 * phijma-leukeleu
 * CheesyPhoenix
+* Vedant Pandey
 
 ## Translators
 
