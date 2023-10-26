@@ -6,13 +6,14 @@ from collections import defaultdict
 from django import forms
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
+from django.views.generic.base import TemplateView
 
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
+from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput,
     AdminDateInput,
@@ -95,58 +96,65 @@ icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")
 icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
 
 
-def index(request):
+class IndexView(WagtailAdminTemplateMixin, TemplateView):
+    template_name = "wagtailstyleguide/base.html"
+    page_title = _("Styleguide")
 
-    form = SearchForm(placeholder=_("Search something"))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    example_form = ExampleForm()
-
-    messages.success(
-        request,
-        _("Success message"),
-        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
-    )
-    messages.warning(
-        request,
-        _("Warning message"),
-        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
-    )
-    messages.error(
-        request,
-        _("Error message"),
-        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
-    )
-
-    paginator = Paginator(list(range(100)), 10)
-    page = paginator.page(2)
-
-    icon_hooks = hooks.get_hooks("register_icons")
-    registered_icons = itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
-    all_icons = defaultdict(list)
-    for icon_path in registered_icons:
-        folder, filename = os.path.split(icon_path)
-        icon = render_to_string(icon_path)
-        id_match = icon_id_pattern.search(icon)
-        name = id_match.group(1) if id_match else None
-        source_match = icon_comment_pattern.search(icon)
-
-        all_icons[folder].append(
-            {
-                "folder": folder,
-                "file_path": icon_path,
-                "name": name,
-                "source": source_match.group(1) if source_match else None,
-                "icon": icon,
-            }
+        messages.success(
+            self.request,
+            _("Success message"),
+            buttons=[
+                messages.button("", _("View live")),
+                messages.button("", _("Edit")),
+            ],
+        )
+        messages.warning(
+            self.request,
+            _("Warning message"),
+            buttons=[
+                messages.button("", _("View live")),
+                messages.button("", _("Edit")),
+            ],
+        )
+        messages.error(
+            self.request,
+            _("Error message"),
+            buttons=[
+                messages.button("", _("View live")),
+                messages.button("", _("Edit")),
+            ],
         )
 
-    return TemplateResponse(
-        request,
-        "wagtailstyleguide/base.html",
-        {
-            "all_icons": all_icons.items(),
-            "search_form": form,
-            "example_form": example_form,
-            "example_page": page,
-        },
-    )
+        context["all_icons"] = self.get_icons()
+        context["example_form"] = ExampleForm()
+        context["example_page"] = Paginator(list(range(100)), 10).page(2)
+        context["search_form"] = SearchForm(placeholder=_("Search something"))
+
+        return context
+
+    def get_icons(self):
+        icon_hooks = hooks.get_hooks("register_icons")
+        registered_icons = itertools.chain.from_iterable(
+            hook([]) for hook in icon_hooks
+        )
+        all_icons = defaultdict(list)
+        for icon_path in registered_icons:
+            folder, filename = os.path.split(icon_path)
+            icon = render_to_string(icon_path)
+            id_match = icon_id_pattern.search(icon)
+            name = id_match.group(1) if id_match else None
+            source_match = icon_comment_pattern.search(icon)
+
+            all_icons[folder].append(
+                {
+                    "folder": folder,
+                    "file_path": icon_path,
+                    "name": name,
+                    "source": source_match.group(1) if source_match else None,
+                    "icon": icon,
+                }
+            )
+        return all_icons.items()
