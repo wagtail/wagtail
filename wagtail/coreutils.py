@@ -25,7 +25,7 @@ from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -104,7 +104,7 @@ def escape_script(text):
     """
     warn(
         "The `escape_script` hook is deprecated - use `template` elements instead.",
-        category=RemovedInWagtail60Warning,
+        category=RemovedInWagtail70Warning,
     )
     return SCRIPT_RE.sub(r"<-\1/script>", text)
 

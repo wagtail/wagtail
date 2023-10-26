@@ -71,7 +71,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -286,7 +286,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             "construct_snippet_listing_buttons",
             register_snippet_listing_button_item,
         ), self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "construct_snippet_listing_buttons hook no longer accepts a context argument",
         ):
             response = self.get()
@@ -5374,7 +5374,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_edit(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
         ):
             response = self.client.get(
@@ -5388,7 +5388,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_delete(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
         ):
             response = self.client.get(
@@ -5402,7 +5402,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_usage(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/usage/` usage view URL pattern has been deprecated in favour of /usage/<pk>/.",
         ):
             response = self.client.get(

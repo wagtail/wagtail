@@ -19,7 +19,7 @@ from django.utils.text import capfirst
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 __all__ = [
     "BaseBlock",
@@ -232,7 +232,7 @@ class Block(metaclass=BaseBlock):
         else:
             warnings.warn(
                 f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
-                RemovedInWagtail60Warning,
+                RemovedInWagtail70Warning,
             )
 
         template = self.get_template(**args)

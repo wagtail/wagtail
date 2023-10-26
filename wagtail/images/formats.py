@@ -4,7 +4,7 @@ from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.utils.apps import get_app_submodules
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .shortcuts import get_rendition_or_not_found
 
@@ -28,7 +28,7 @@ class Format:
     def classnames(self):
         warn(
             "The class property `classnames` is deprecated - use `classname` instead.",
-            category=RemovedInWagtail60Warning,
+            category=RemovedInWagtail70Warning,
         )
         return self.classname
 

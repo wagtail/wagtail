@@ -20,6 +20,7 @@ from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import (
     RemovedInWagtail60Warning,
+    RemovedInWagtail70Warning,
 )
 
 
@@ -421,7 +422,7 @@ class TestMenuItem(WagtailTestUtils, TestCase):
 
     def test_menuitem_with_deprecated_classnames(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
         ):
             menuitem = MenuItem(

@@ -57,7 +57,10 @@ from wagtail.models import (
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail60Warning,
+    RemovedInWagtail70Warning,
+)
 
 register = template.Library()
 
@@ -301,7 +304,7 @@ class EscapeScriptNode(template.Node):
         super().__init__()
         warn(
             "The `escapescript` template tag is deprecated - use `template` elements instead.",
-            category=RemovedInWagtail60Warning,
+            category=RemovedInWagtail70Warning,
         )
         self.nodelist = nodelist
 
@@ -460,7 +463,7 @@ def page_listing_buttons(context, page, user):
             warn(
                 "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
                 f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
 
             page_perms = page.permissions_for_user(user)
@@ -476,7 +479,7 @@ def page_listing_buttons(context, page, user):
             warn(
                 "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
                 f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
 
             page_perms = page.permissions_for_user(user)
@@ -504,7 +507,7 @@ def page_header_buttons(context, page, user, view_name):
             warn(
                 "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
                 f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
 
             page_perms = page.permissions_for_user(user)

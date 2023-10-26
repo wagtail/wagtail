@@ -7,7 +7,7 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, adapter
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class BaseSidebarAdapter(Adapter):
@@ -36,7 +36,7 @@ class MenuItem:
         if classnames:
             warn(
                 "The `classnames` kwarg for sidebar MenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         self.name = name
         self.label = label
@@ -71,7 +71,7 @@ class LinkMenuItem(MenuItem):
         if classnames:
             warn(
                 "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         super().__init__(
             name,
@@ -115,7 +115,7 @@ class ActionMenuItem(MenuItem):
         if classnames:
             warn(
                 "The `classnames` kwarg for sidebar ActionMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         super().__init__(
             name,
@@ -162,7 +162,7 @@ class SubMenuItem(MenuItem):
         if classnames:
             warn(
                 "The `classnames` kwarg for sidebar SubMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         super().__init__(
             name,
@@ -209,7 +209,7 @@ class PageExplorerMenuItem(LinkMenuItem):
         if classnames:
             warn(
                 "The `classnames` kwarg for sidebar PageExplorerMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         super().__init__(
             name,

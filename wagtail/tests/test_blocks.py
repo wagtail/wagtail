@@ -28,7 +28,7 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -5235,7 +5235,7 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
             template="tests/blocks/this_shouldnt_be_used.html"
         )
         with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
         ):
             html = block.render("Hello World")

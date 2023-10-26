@@ -14,7 +14,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .base import ViewSet, ViewSetGroup
 
@@ -227,7 +227,7 @@ class ModelViewSet(ViewSet):
                     "deprecated in favour of /edit/<pk>/."
                 )
                 % (self.__class__.__name__),
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
             return redirect(self.get_url_name("edit"), pk, permanent=True)
 
@@ -242,7 +242,7 @@ class ModelViewSet(ViewSet):
                     "deprecated in favour of /delete/<pk>/."
                 )
                 % (self.__class__.__name__),
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
             return redirect(self.get_url_name("delete"), pk, permanent=True)
 
@@ -569,14 +569,14 @@ class ModelViewSet(ViewSet):
                 path("inspect/<str:pk>/", self.inspect_view, name="inspect")
             )
 
-        # RemovedInWagtail60Warning: Remove legacy URL patterns
+        # RemovedInWagtail70Warning: Remove legacy URL patterns
         urlpatterns += self._legacy_urlpatterns
 
         return urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
-        # RemovedInWagtail60Warning: Remove legacy URL patterns
+        # RemovedInWagtail70Warning: Remove legacy URL patterns
         return [
             path("<int:pk>/", self.redirect_to_edit_view),
             path("<int:pk>/delete/", self.redirect_to_delete_view),

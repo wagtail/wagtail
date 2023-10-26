@@ -51,7 +51,7 @@ from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 # == Helper functions ==
@@ -199,7 +199,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             except TypeError:
                 warn(
                     "construct_snippet_listing_buttons hook no longer accepts a context argument",
-                    RemovedInWagtail60Warning,
+                    RemovedInWagtail70Warning,
                     stacklevel=2,
                 )
                 hook(more_buttons, instance, self.request.user, {})
@@ -894,7 +894,7 @@ class SnippetViewSet(ModelViewSet):
                     "deprecated in favour of /usage/<pk>/."
                 )
                 % (self.__class__.__name__),
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
             return redirect(self.get_url_name("usage"), pk, permanent=True)
 
@@ -1259,13 +1259,13 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
-        # RemovedInWagtail60Warning: Remove legacy URL patterns
+        # RemovedInWagtail70Warning: Remove legacy URL patterns
         return urlpatterns + self._legacy_urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
         return [
-            # RemovedInWagtail60Warning: Remove legacy URL patterns
+            # RemovedInWagtail70Warning: Remove legacy URL patterns
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),
