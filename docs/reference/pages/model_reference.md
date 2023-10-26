@@ -712,17 +712,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
         The primary key of the object this revision belongs to.
 
-    .. attribute:: submitted_for_moderation
-
-        (boolean)
-
-        ``True`` if this revision is in moderation.
-
-        .. versionchanged:: 5.2
-
-            This field is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
-
-
     .. attribute:: created_at
 
         (date/time)
@@ -768,20 +757,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
         .. code-block:: python
 
             Revision.page_revisions.all()
-
-    .. attribute:: submitted_revisions
-
-        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
-
-        Example:
-
-        .. code-block:: python
-
-            Revision.submitted_revisions.all()
-
-        .. versionchanged:: 5.2
-
-            This manager is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
 ```
 
 ### Methods and properties
@@ -793,22 +768,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. automethod:: as_object
 
         This method retrieves this revision as an instance of its object's specific class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
-
-    .. automethod:: approve_moderation
-
-        Calling this on a revision that's in moderation will mark it as approved and publish it.
-
-        .. versionchanged:: 5.2
-
-            This method is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
-
-    .. automethod:: reject_moderation
-
-        Calling this on a revision that's in moderation will mark it as rejected.
-
-        .. versionchanged:: 5.2
-
-            This method is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
 
     .. automethod:: is_latest_revision
 

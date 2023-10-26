@@ -87,42 +87,7 @@ class Command(BaseCommand):
                         set_expired=True, log_action="wagtail.unpublish.scheduled"
                     )
 
-        # 2. get all object revisions for moderation that have been expired
-        # RemovedInWagtail60Warning
-        # Remove this when the deprecation period for the legacy
-        # moderation system ends.
-        expired_revs = [
-            r
-            for r in Revision.objects.filter(submitted_for_moderation=True)
-            if revision_date_expired(r)
-        ]
-        if dryrun:
-            self.stdout.write("\n---------------------------------")
-            if expired_revs:
-                self.stdout.write(
-                    "Expired revisions to be dropped from moderation queue:"
-                )
-                self.stdout.write("Expiry datetime\t\tSlug\t\tName")
-                self.stdout.write("---------------\t\t----\t\t----")
-                for er in expired_revs:
-                    rev_data = er.content
-                    self.stdout.write(
-                        "{}\t{}\t{}".format(
-                            dateparse.parse_datetime(
-                                rev_data.get("expire_at")
-                            ).strftime("%Y-%m-%d %H:%M"),
-                            rev_data.get("slug"),
-                            rev_data.get("title"),
-                        )
-                    )
-            else:
-                self.stdout.write("No expired revision to be dropped from moderation.")
-        else:
-            for er in expired_revs:
-                er.submitted_for_moderation = False
-                er.save()
-
-        # 3. get all revisions that need to be published
+        # 2. get all revisions that need to be published
         revs_for_publishing = Revision.objects.filter(
             approved_go_live_at__lt=timezone.now()
         ).order_by("approved_go_live_at")

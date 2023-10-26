@@ -47,7 +47,6 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -2520,66 +2519,6 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         not have a "View live" button.
         """
         response, page = self._edit_page(Page.objects.get(pk=1))
-        self.assertIsNone(page.url)
-        self.assertFalse(
-            any(
-                "View live" in message.message
-                for message in response.context["messages"]
-            )
-        )
-
-    # RemovedInWagtail60Warning
-    # Remove the following tests when the deprecation period for the legacy
-    # moderation system ends.
-
-    def _approve_page(self, parent):
-        self.client.post(
-            reverse("wagtailadmin_pages:add", args=("tests", "simplepage", parent.pk)),
-            {
-                "title": "Hello, world!",
-                "content": "Some content",
-                "slug": "hello-world",
-            },
-            follow=True,
-        )
-        page = SimplePage.objects.get()
-        self.assertFalse(page.live)
-        revision = Revision.page_revisions.get(object_id=page.id)
-        revision.submitted_for_moderation = True
-        revision.save()
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
-        ):
-            response = self.client.post(
-                reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
-                follow=True,
-            )
-        page = SimplePage.objects.get()
-        self.assertTrue(page.live)
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
-        return response, page
-
-    def test_approve_accessible(self):
-        """
-        Edit a page under the site root, check the flash message has a valid
-        "View live" button.
-        """
-        response, page = self._approve_page(Page.objects.get(pk=2))
-        self.assertIsNotNone(page.url)
-        self.assertTrue(
-            any(
-                "View live" in message.message and page.url in message.message
-                for message in response.context["messages"]
-            )
-        )
-
-    def test_approve_inaccessible(self):
-        """
-        Edit a page outside of the site root, check the flash message does
-        not have a "View live" button.
-        """
-        response, page = self._approve_page(Page.objects.get(pk=1))
         self.assertIsNone(page.url)
         self.assertFalse(
             any(
