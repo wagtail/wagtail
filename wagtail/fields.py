@@ -53,7 +53,7 @@ class RichTextField(models.TextField):
 
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
-        if self.search_index == False:
+        if self.search_index is False:
             return []
         source = force_str(value)
         return [get_text_for_indexing(source)]

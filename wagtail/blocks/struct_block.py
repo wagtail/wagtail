@@ -254,7 +254,7 @@ class BaseStructBlock(Block):
         }
 
     def get_searchable_content(self, value):
-        if self.search_index == False:
+        if self.search_index is False:
             return []
         content = []
 

@@ -162,7 +162,7 @@ class CharBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index == True else []
+        return [force_str(value)] if self.search_index is True else []
 
 
 class TextBlock(FieldBlock):
@@ -197,7 +197,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index == True else []
+        return [force_str(value)] if self.search_index is True else []
 
     class Meta:
         icon = "pilcrow"
@@ -605,7 +605,7 @@ class ChoiceBlock(BaseChoiceBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
-        if self.search_index == False:
+        if self.search_index is False:
             return []
         text_value = force_str(value)
         for k, v in self.field.choices:
@@ -641,7 +641,7 @@ class MultipleChoiceBlock(BaseChoiceBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
-        if self.search_index == False:
+        if self.search_index is False:
             return []
         content = []
         text_value = force_str(value)
@@ -720,7 +720,7 @@ class RichTextBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
-        if self.search_index == False:
+        if self.search_index is False:
             return []
         source = force_str(value.source)
         return [get_text_for_indexing(source)]
