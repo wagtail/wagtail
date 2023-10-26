@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load wagtailadmin_tags i18n %}
 
 {% block extra_css %}
@@ -7,7 +7,6 @@
     {{ example_form.media.css }}
 {% endblock %}
 
-{% block titletag %}{% trans 'Styleguide' %}{% endblock %}
 {% block bodyclass %}styleguide{% endblock %}
 
 {% block content %}
