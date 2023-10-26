@@ -155,7 +155,7 @@ export default function initSidePanel() {
       newWidth,
     ).replace('%(num)s', newWidth);
 
-    sidePanelWrapper.parentElement.style.setProperty(
+    document.documentElement.style.setProperty(
       '--side-panel-width',
       `${newWidth}px`,
     );
