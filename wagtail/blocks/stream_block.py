@@ -75,8 +75,9 @@ class StreamBlockValidationError(ValidationError):
 
 
 class BaseStreamBlock(Block):
-    def __init__(self, local_blocks=None, **kwargs):
+    def __init__(self, local_blocks=None,search_index=True, **kwargs):
         self._constructor_kwargs = kwargs
+        self.search_index=search_index
 
         super().__init__(**kwargs)
 
@@ -340,6 +341,9 @@ class BaseStreamBlock(Block):
         )
 
     def get_searchable_content(self, value):
+        if self.search_index==False:
+            return []
+        
         content = []
 
         for child in value:
