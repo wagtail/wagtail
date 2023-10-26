@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                     "old_path",
                     models.CharField(
                         verbose_name="Redirect from",
-                        max_length=255,
+                        max_length=2000,
                         unique=True,
                         db_index=True,
                     ),
