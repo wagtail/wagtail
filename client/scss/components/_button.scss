@@ -414,4 +414,8 @@
       }
     }
   }
+  &.scrollable-container{
+    max-height: 6.25em;
+    overflow-y: auto;
+  }
 }
