@@ -1140,9 +1140,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         on_delete=models.SET(get_default_page_content_type),
     )
     content_type.wagtail_reference_index_ignore = True
-    url_path = models.TextField(
-        verbose_name=_("URL path"), blank=True, editable=False, max_length=2000
-    )
+    url_path = models.TextField(verbose_name=_("URL path"), blank=True, editable=False)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("owner"),
