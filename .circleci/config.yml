@@ -33,7 +33,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:18.12
+      - image: cimg/node:20.9
     steps:
       - checkout
       - restore_cache:
