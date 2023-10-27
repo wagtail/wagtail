@@ -814,7 +814,6 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
 -   `parent_page` - for `view` = `'create'`, the parent page of the page being created
 -   `request` - the current request object
--   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
 
 ```python
 from wagtail import hooks
