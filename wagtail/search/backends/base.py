@@ -9,7 +9,6 @@ from django.db.models.sql.where import SubqueryConstraint, WhereNode
 
 from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class FilterError(Exception):
@@ -44,7 +43,6 @@ class BaseSearchQueryCompiler:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=None,  # RemovedInWagtail60Warning
     ):
         self.queryset = queryset
         if query is None:
@@ -58,18 +56,6 @@ class BaseSearchQueryCompiler:
         self.query = query
         self.fields = fields
         self.order_by_relevance = order_by_relevance
-        if partial_match:
-            warn(
-                "The partial_match=True argument on `search` is no longer supported. "
-                "Use the `autocomplete` method instead",
-                category=RemovedInWagtail60Warning,
-            )
-        elif partial_match is not None:
-            warn(
-                "The partial_match=False argument on `search` is no longer required "
-                "and should be removed",
-                category=RemovedInWagtail60Warning,
-            )
 
     def _get_filterable_field(self, field_attname):
         # Get field
@@ -486,7 +472,6 @@ class BaseSearchBackend:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=None,  # RemovedInWagtail60Warning
     ):
         return self._search(
             self.query_compiler_class,
@@ -495,7 +480,6 @@ class BaseSearchBackend:
             fields=fields,
             operator=operator,
             order_by_relevance=order_by_relevance,
-            partial_match=partial_match,  # RemovedInWagtail60Warning
         )
 
     def autocomplete(
