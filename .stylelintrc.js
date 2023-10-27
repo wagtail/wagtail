@@ -28,6 +28,13 @@ module.exports = {
       // 'float': ['inline-start', 'inline-end', 'none', 'unset'],
       'text-align': ['start', 'end', 'center'],
     },
+    // Refined ordering to align with media mixin usage - see https://github.com/wagtail/stylelint-config-wagtail/issues/37
+    'order/order': [
+      'dollar-variables',
+      'custom-properties',
+      { type: 'at-rule', hasBlock: false }, // @-rules that have no nesting.
+      'declarations',
+    ],
     // Some parts of declaration-strict-value commented out until we are in a position to enforce them.
     'scale-unlimited/declaration-strict-value': [
       [
@@ -79,5 +86,13 @@ module.exports = {
         ],
       },
     ],
+    // Ignore rule until all existing selectors can be updated.
+    'scss/selector-no-union-class-name': null,
+    // Ignore rule until all existing classes can be updated to use BEM.
+    'selector-class-pattern': null,
+    // Allow more specificity until styles can be updated to match the more strict rules.
+    'selector-max-specificity': '0,6,3',
+    // Ignore rule until we confirmed we prefer shorthand properties for positioning.
+    'declaration-block-no-redundant-longhand-properties': null,
   },
 };
