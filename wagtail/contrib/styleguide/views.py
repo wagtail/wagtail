@@ -99,6 +99,7 @@ icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
 class IndexView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailstyleguide/base.html"
     page_title = _("Styleguide")
+    header_icon = "image"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
