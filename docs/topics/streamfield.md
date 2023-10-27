@@ -577,7 +577,15 @@ hero_image = my_page.body.first_block_by_name('image')
 
 ## Search considerations
 
-a `search_index` argument is added to block's constructor with `get_searchable_content` method so that if `search_index` is False it could return a empty list so that the given type of block should not be included in the search index.
+Like any other field, content in a StreamField can be made searchable by adding the field to the model's search_fields definition - see [Indexing extra fields](https://docs.wagtail.org/en/stable/topics/search/indexing.html#indexing-extra-fields). By default, all text content from the stream will be added to the search index. If you wish to exclude certain block types from being indexed, pass the keyword argument `search_index=False` as part of the block's definition. For example:
+
+```python
+body = StreamField([
+    ('normal_text', blocks.RichTextBlock()),
+    ('pull_quote', blocks.RichTextBlock(search_index=False)),
+    ('footnotes', blocks.ListBlock(blocks.CharBlock(), search_index=False)),
+], use_json_field=True)
+```
 
 ## Custom validation
 

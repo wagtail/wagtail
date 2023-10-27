@@ -124,9 +124,9 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         content = block.get_searchable_content("Hello world!")
 
         self.assertEqual(content, ["Hello world!"])
-    
+
     def test_search_index_searchable_content(self):
-        block=blocks.CharBlock(search_index=False)
+        block = blocks.CharBlock(search_index=False)
         content = block.get_searchable_content("Hello world!")
 
         self.assertEqual(content, [])
@@ -945,13 +945,14 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
-    
+
     def test_search_index_searchable_content(self):
         block = blocks.ChoiceBlock(
             choices=[
                 ("choice-1", "Choice 1"),
                 ("choice-2", "Choice 2"),
-            ],search_index=False
+            ],
+            search_index=False,
         )
         self.assertEqual(block.get_searchable_content("choice-1"), [])
 
@@ -1338,7 +1339,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ("choice-1", "Choice 1"),
                 ("choice-2", "Choice 2"),
             ],
-            search_index=False
+            search_index=False,
         )
         self.assertEqual(block.get_searchable_content("choice-1"), [])
 

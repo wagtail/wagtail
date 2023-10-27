@@ -162,7 +162,7 @@ class CharBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index is True else []
+        return [force_str(value)] if self.search_index else []
 
 
 class TextBlock(FieldBlock):
@@ -197,7 +197,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index is True else []
+        return [force_str(value)] if self.search_index else []
 
     class Meta:
         icon = "pilcrow"
@@ -719,10 +719,10 @@ class RichTextBlock(FieldBlock):
         return RichText(value)
 
     def get_searchable_content(self, value):
-        # Strip HTML tags to prevent search backend from indexing them
         if self.search_index is False:
             return []
         source = force_str(value.source)
+        # Strip HTML tags to prevent search backend from indexing them
         return [get_text_for_indexing(source)]
 
     def extract_references(self, value):

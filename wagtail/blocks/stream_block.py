@@ -342,7 +342,7 @@ class BaseStreamBlock(Block):
 
     def get_searchable_content(self, value):
         if self.search_index is False:
-            return []  
+            return []
         content = []
 
         for child in value:

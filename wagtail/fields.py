@@ -22,7 +22,6 @@ class RichTextField(models.TextField):
         # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop("editor", "default")
         self.features = kwargs.pop("features", None)
-        self.search_index = True
 
         super().__init__(*args, **kwargs)
 
@@ -53,8 +52,6 @@ class RichTextField(models.TextField):
 
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
-        if self.search_index is False:
-            return []
         source = force_str(value)
         return [get_text_for_indexing(source)]
 
@@ -255,7 +252,7 @@ class StreamField(models.Field):
         return self.get_prep_value(value)
 
     def get_searchable_content(self, value):
-        
+
         return self.stream_block.get_searchable_content(value)
 
     def extract_references(self, value):
