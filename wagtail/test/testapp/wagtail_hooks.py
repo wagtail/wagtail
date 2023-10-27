@@ -242,12 +242,7 @@ def add_broken_links_summary_item(request, items):
 
 @hooks.register("register_admin_viewset")
 def register_viewsets():
-    return MiscellaneousViewSetGroup()
-
-
-@hooks.register("register_admin_viewset")
-def register_json_model_viewsets():
-    return JSONModelViewSetGroup()
+    return [MiscellaneousViewSetGroup(), JSONModelViewSetGroup()]
 
 
 @hooks.register("register_admin_viewset")
