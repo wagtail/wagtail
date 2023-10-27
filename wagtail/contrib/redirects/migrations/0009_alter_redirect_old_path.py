@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailredirects', '0008_add_verbose_name_plural'),
+        ("wagtailredirects", "0008_add_verbose_name_plural"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='redirect',
-            name='old_path',
-            field=models.CharField(db_index=True, max_length=2000, verbose_name='redirect from'),
+            model_name="redirect",
+            name="old_path",
+            field=models.CharField(
+                db_index=True, max_length=2000, verbose_name="redirect from"
+            ),
         ),
     ]
