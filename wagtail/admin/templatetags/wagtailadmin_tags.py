@@ -484,7 +484,6 @@ def page_listing_buttons(context, page, user):
 
     buttons.sort()
 
-    page_perms = page.permissions_for_user(user)
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
         if accepts_kwarg(hook, "user"):
             hook(buttons, page=page, user=user, context=context)
