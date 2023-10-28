@@ -105,14 +105,14 @@
   }
 
   @include media-breakpoint-down(xs) {
+    margin-top: $mobile-nice-padding;
+
     .actions,
     .preview,
     &__container,
     .preview .dropdown {
       width: 100%;
     }
-
-    margin-top: $mobile-nice-padding;
 
     .meta {
       p {

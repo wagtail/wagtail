@@ -85,8 +85,8 @@ $explorer-header-horizontal-padding: 10px;
 }
 
 .c-page-explorer__header__select {
-  @apply w-text-text-label-menus-default w-bg-surface-menus;
   $margin: 10px;
+  @apply w-text-text-label-menus-default w-bg-surface-menus;
   margin-inline-end: $margin;
 
   > select {
