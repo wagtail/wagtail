@@ -1,3 +1,4 @@
+/* stylelint-disable selector-max-combinators */
 // General listings, like for pages, images or snippets
 ul.listing {
   @include unlist();
