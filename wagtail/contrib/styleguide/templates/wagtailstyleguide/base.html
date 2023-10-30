@@ -500,8 +500,8 @@
     {% endpanel %}
 
     {% panel id="progress" heading="Progress indicators" %}
-        <div id="progress-example" class="progress active">
-            <div class="bar">60%</div>
+        <div id="progress-example" class="progress active" data-controller="x" data-x-delay-value="[2000,3000]" data-x-min-value="20" data-x-max-value="80">
+            <div class="bar" data-x-target="bar">60%</div>
         </div>
 
         <p>&nbsp;</p>
@@ -584,18 +584,5 @@
 
     {{ example_form.media.js }}
 
-    <script>
-        $(function(){
-            (function runprogress(){
-                var to = setTimeout(function(){
-                    runprogress();
-                    clearTimeout(to);
-                    setTimeout(function(){
-                        $('#progress-example .bar').css('width', '20%');
-                    }, 2000);
-                }, 3000);
-                $('#progress-example .bar').css('width', '80%');
-            })();
-        })
-    </script>
+    <script src="{% versioned_static 'wagtailstyleguide/js/controller.js' %}" type="module"></script>
 {% endblock %}
