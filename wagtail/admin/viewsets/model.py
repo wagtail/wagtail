@@ -25,6 +25,8 @@ class ModelViewSet(ViewSet):
 
     All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet`
     are available.
+
+    For more information on how to use this class, see :ref:`generic_views`.
     """
 
     #: Register the model to the reference index to track its usage.
