@@ -837,10 +837,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: page
 
         (foreign key to :class:`~wagtail.models.Page`)
-
-    .. attribute:: permission_type
-
-        (choice list)
 ```
 
 ## `PageViewRestriction`
