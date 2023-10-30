@@ -8,7 +8,7 @@
          aria-hidden="true"
          class="w-dialog {% if theme %}w-dialog--{{ theme }}{% endif %} {% if classname %} {{ classname }}{% endif %}"
          data-controller="w-dialog"
-         data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show {% comment %} RemovedInWagtail60 - Remove the following two actions. {% endcomment %}wagtail:hide->w-dialog#hide wagtail:show->w-dialog#show"
+         data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show"
          {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
          {% if data_url %}data-url="{{ data_url }}"{% endif %}
     >
