@@ -32,7 +32,7 @@ from django.core.exceptions import (
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import DatabaseError, models, transaction
+from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
@@ -2958,45 +2958,13 @@ class GroupPagePermissionManager(models.Manager):
         # Simplify creation of GroupPagePermission objects by allowing one
         # of permission or permission_type to be passed in.
         permission = kwargs.get("permission")
-        permission_type = kwargs.get("permission_type")
+        permission_type = kwargs.pop("permission_type", None)
         if not permission and permission_type:
-            # Not raising a warning here as we will still support this even after
-            # the permission_type field is removed.
             kwargs["permission"] = Permission.objects.get(
                 content_type=get_default_page_content_type(),
                 codename=f"{permission_type}_page",
             )
-        if permission and not permission_type:
-            kwargs["permission_type"] = permission.codename[:-5]
         return super().create(**kwargs)
-
-    def _migrate_permission_type(self):
-        # RemovedInWagtail60Warning: remove this method
-        # This follows the same logic as the
-        # 0086_populate_grouppagepermission_permission migration, but is run as
-        # part of a system check to ensure any objects that are created after
-        # that migration is run are also updated.
-        return (
-            self.filter(
-                models.Q(permission__isnull=True) | models.Q(permission_type="edit")
-            )
-            .annotate(
-                normalised_permission_type=models.Case(
-                    models.When(permission_type="edit", then=models.Value("change")),
-                    default=models.F("permission_type"),
-                )
-            )
-            .update(
-                permission=Permission.objects.filter(
-                    content_type=get_default_page_content_type(),
-                    codename=Concat(
-                        models.OuterRef("normalised_permission_type"),
-                        models.Value("_page"),
-                    ),
-                ).values_list("pk", flat=True)[:1],
-                permission_type=models.F("normalised_permission_type"),
-            )
-        )
 
 
 class GroupPagePermission(models.Model):
@@ -3015,66 +2983,20 @@ class GroupPagePermission(models.Model):
     permission = models.ForeignKey(
         Permission,
         verbose_name=_("permission"),
-        null=True,
-        blank=True,
         on_delete=models.CASCADE,
-    )
-    permission_type = models.CharField(
-        verbose_name=_("permission type"),
-        null=True,
-        blank=True,
-        max_length=20,
-        choices=PAGE_PERMISSION_TYPE_CHOICES,
     )
 
     objects = GroupPagePermissionManager()
 
     class Meta:
         constraints = [
-            models.CheckConstraint(
-                check=(
-                    models.Q(permission__isnull=False)
-                    | models.Q(permission_type__isnull=False)
-                ),
-                name="permission_or_permission_type_not_null",
-            ),
             models.UniqueConstraint(
                 fields=("group", "page", "permission"),
                 name="unique_permission",
             ),
-            models.UniqueConstraint(
-                fields=("group", "page", "permission_type"),
-                name="unique_permission_type",
-            ),
         ]
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
-
-    @classmethod
-    def check(cls, **kwargs):
-        messages = super().check(**kwargs)
-        try:
-            outdated_objs = cls.objects._migrate_permission_type()
-        except DatabaseError:
-            # Migration hasn't been run yet
-            outdated_objs = 0
-
-        if outdated_objs:
-            # RemovedInWagtail60Warning
-            messages.append(
-                checks.Warning(
-                    f"Found and fixed {outdated_objs} GroupPagePermission object(s) with a null value in `permission` field and/or an outdated 'edit' value in `permission_type` field.",
-                    hint=(
-                        "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
-                        "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
-                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission. "
-                        "The `permission_type` field will be removed in Wagtail 6.0."
-                    ),
-                    obj=cls,
-                    id="wagtailcore.W002",
-                )
-            )
-        return messages
 
     def __str__(self):
         return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
@@ -3084,26 +3006,6 @@ class GroupPagePermission(models.Model):
             self.page.id,
             self.page,
         )
-
-    def save(self, **kwargs):
-        # Automatically fill an empty permission or permission_type.
-        # This will be removed in Wagtail 6.0.
-        if not self.permission and self.permission_type:
-            warnings.warn(
-                "GroupPagePermission.permission_type is deprecated. Use the "
-                "GroupPagePermission.permission foreign key to the Permission model instead.",
-                category=RemovedInWagtail60Warning,
-                stacklevel=2,
-            )
-            self.permission = Permission.objects.get(
-                content_type=get_default_page_content_type(),
-                codename=f"{self.permission_type}_page",
-            )
-        if self.permission and not self.permission_type:
-            # No need to raise a warning here as we will remove the permission_type
-            # field in Wagtail 6.0
-            self.permission_type = self.permission.codename[:-5]
-        return super().save(**kwargs)
 
 
 class PagePermissionTester:
