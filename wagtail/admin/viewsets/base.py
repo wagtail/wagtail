@@ -11,8 +11,10 @@ class ViewSet(WagtailMenuRegisterable):
 
     All properties of the viewset can be defined as class-level attributes, or passed as
     keyword arguments to the constructor (in which case they will override any class-level
-    attributes). Additionally, the `name` property can be passed as the first positional
+    attributes). Additionally, the ``name`` property can be passed as the first positional
     argument to the constructor.
+
+    For more information on how to use this class, see :ref:`using_base_viewset`.
     """
 
     #: A name for this viewset, used as the default URL prefix and namespace.
@@ -133,6 +135,8 @@ class ViewSetGroup(WagtailMenuRegisterableGroup):
     """
     A container for grouping together multiple ViewSet instances.
     Creates a menu item with a submenu for accessing the main URL for each instances.
+
+    For more information on how to use this class, see :ref:`using_base_viewsetgroup`.
     """
 
     def on_register(self):
