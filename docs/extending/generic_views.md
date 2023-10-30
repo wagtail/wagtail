@@ -104,7 +104,7 @@ PersonChooserBlock = person_chooser_viewset.get_block_class(
 
 (chooser_viewsets_limiting_choices)=
 
-## Limiting choices via linked fields
+### Limiting choices via linked fields
 
 Chooser viewsets provide a mechanism for limiting the options displayed in the chooser according to another input field on the calling page. For example, suppose the person model has a country field - we can then set up a page model with a country dropdown and a person chooser, where an editor first selects a country from the dropdown and then opens the person chooser to be presented with a list of people from that country.
 
@@ -158,7 +158,7 @@ PersonChooserWidget(linked_fields={
 
 (chooser_viewsets_non_model_data)=
 
-## Chooser viewsets for non-model datasources
+### Chooser viewsets for non-model datasources
 
 While the generic chooser views are primarily designed to use Django models as the data source, choosers based on other sources such as REST API endpoints can be implemented through the use of the [queryish](https://pypi.org/project/queryish/) library, which allows any data source to be wrapped in a Django QuerySet-like interface. This can then be passed to ChooserViewSet like a normal model. For example, the Pokemon example from the _queryish_ documentation could be made into a chooser as follows:
 
