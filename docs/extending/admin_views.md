@@ -232,7 +232,9 @@ The 'Calendar' item will now appear as a group of menu items. When expanded, the
 
 ## Using `ViewSet` to group custom admin views
 
-Wagtail provides a {class}`~wagtail.admin.viewsets.base.ViewSet` class that combines the registration of views and the associated menu item into a single class. For example, you can group the calendar views from the previous example into a single menu item by creating a `ViewSet` subclass in `views.py`:
+Registering admin views along with their URLs and menu items is a common pattern in Wagtail. This often involves several related views with shared properties such as the model that we're working with, and its associated icon. To support the pattern, Wagtail implements the concept of a _viewset_, which allows a bundle of views and their URLs to be defined collectively, along with a menu item to be registered with the admin app as a single operation through the [`register_admin_viewset`](register_admin_viewset) hook.
+
+For example, you can group the calendar views from the previous example into a single menu item by creating a {class}`~wagtail.admin.viewsets.base.ViewSet` subclass in `views.py`:
 
 ```{code-block} python
 from wagtail.admin.viewsets.base import ViewSet
@@ -261,7 +263,7 @@ class CalendarViewSet(ViewSet):
         ]
 ```
 
-Then, remove the `register_admin_urls` and `register_admin_menu_item` hooks in `wagtail_hooks.py` in favor of registering the `ViewSet` subclass with the [`register_admin_viewset`](register_admin_viewset) hook:
+Then, remove the `register_admin_urls` and `register_admin_menu_item` hooks in `wagtail_hooks.py` in favor of registering the `ViewSet` subclass with the `register_admin_viewset` hook:
 
 ```{code-block} python
 from .views import CalendarViewSet
