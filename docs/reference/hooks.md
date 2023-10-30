@@ -290,6 +290,30 @@ def urlconf_time():
   ]
 ```
 
+(register_admin_viewset)=
+
+### `register_admin_viewset`
+
+Register a {class}`~wagtail.admin.viewsets.base.ViewSet` or {class}`~wagtail.admin.viewsets.base.ViewSetGroup` to the admin, which combines a set of views, URL patterns, and menu item into a single unit. The callable fed into this hook should return an instance of `ViewSet` or `ViewSetGroup`.
+
+```python
+from .views import CalendarViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return CalendarViewSet()
+```
+
+Alternatively, it can also return a list of `ViewSet` or `ViewSetGroup` instances.
+
+```python
+from .views import AgendaViewSetGroup, VenueViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return [AgendaViewSetGroup(), VenueViewSet()]
+```
+
 (register_group_permission_panel)=
 
 ### `register_group_permission_panel`
