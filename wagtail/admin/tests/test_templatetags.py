@@ -583,27 +583,6 @@ class IconTagTest(SimpleTestCase):
 
         self.assertHTMLEqual(expected, Template(template).render(Context()))
 
-    def test_with_classes_obsolete_keyword(self):
-        template = """
-            {% load wagtailadmin_tags %}
-            {% icon name="doc-empty" class_name="myclass" %}
-        """
-
-        expected = """
-            <svg aria-hidden="true" class="icon icon-doc-empty myclass"><use href="#icon-doc-empty"></svg>
-        """
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            (
-                "Icon template tag `class_name` has been renamed to `classname`, "
-                "please adopt the new usage instead. Replace "
-                '`{% icon ... class_name="myclass" %}` with '
-                '`{% icon ... classname="myclass" %}`'
-            ),
-        ):
-            self.assertHTMLEqual(expected, Template(template).render(Context()))
-
     def test_with_deprecated_icon(self):
         template = """
             {% load wagtailadmin_tags %}

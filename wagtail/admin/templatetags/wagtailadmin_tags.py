@@ -681,7 +681,7 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
+def icon(name=None, classname=None, title=None, wrapped=False):
     """
     Abstracts away the actual icon implementation.
 
@@ -697,15 +697,6 @@ def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
     """
     if not name:
         raise ValueError("You must supply an icon name")
-
-    if class_name:
-        warn(
-            (
-                "Icon template tag `class_name` has been renamed to `classname`, please adopt the new usage instead. "
-                f'Replace `{{% icon ... class_name="{class_name}" %}}` with `{{% icon ... classname="{class_name}" %}}`'
-            ),
-            category=RemovedInWagtail60Warning,
-        )
 
     deprecated_icons = [
         "angle-double-left",
@@ -750,8 +741,7 @@ def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
 
     return {
         "name": name,
-        # supporting class_name for backwards compatibility
-        "classname": classname or class_name or "icon",
+        "classname": classname or "icon",
         "title": title,
         "wrapped": wrapped,
     }
