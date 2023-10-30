@@ -28,7 +28,7 @@ class BlogPage(Page):
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ], use_json_field=True)
+    ])
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
@@ -124,7 +124,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], use_json_field=True)
+])
 ```
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a StructBlock is a dict-like object with keys corresponding to the block names given in the definition:
@@ -165,7 +165,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], use_json_field=True)
+])
 ```
 
 ### Block icons
@@ -185,7 +185,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], use_json_field=True)
+])
 ```
 
 ```{code-block} python
@@ -215,7 +215,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], use_json_field=True)
+])
 ```
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a ListBlock is a list of child values:
@@ -251,7 +251,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], use_json_field=True)
+])
 ```
 
 `StreamBlock` can also be subclassed in the same way as `StructBlock`, with the child blocks being specified as attributes on the class:
@@ -275,7 +275,7 @@ class CommonContentBlock(blocks.StreamBlock):
 
 
 class BlogPage(Page):
-    body = StreamField(CommonContentBlock(), use_json_field=True)
+    body = StreamField(CommonContentBlock())
 ```
 
 When reading back the content of a StreamField, the value of a StreamBlock is a sequence of block objects with `block_type` and `value` properties, just like the top-level value of the StreamField itself.
@@ -309,7 +309,7 @@ body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
-], min_num=2, max_num=5, use_json_field=True)
+], min_num=2, max_num=5)
 ```
 
 Or equivalently:
@@ -334,7 +334,7 @@ body = StreamField([
     ('image', ImageChooserBlock()),
 ], block_counts={
     'heading': {'min_num': 1, 'max_num': 3},
-}, use_json_field=True)
+})
 ```
 
 Or equivalently:

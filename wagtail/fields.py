@@ -1,6 +1,5 @@
 import json
 
-from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxLengthValidator
 from django.db import models
@@ -83,7 +82,10 @@ class Creator:
 
 
 class StreamField(models.Field):
-    def __init__(self, block_types, use_json_field=None, **kwargs):
+    def __init__(self, block_types, use_json_field=True, **kwargs):
+        # use_json_field no longer has any effect but is recognised to support historical
+        # migrations
+
         # extract kwargs that are to be passed on to the block, not handled by super
         block_opts = {}
         for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
@@ -96,8 +98,6 @@ class StreamField(models.Field):
         block_opts["required"] = not kwargs.get("blank", False)
 
         super().__init__(**kwargs)
-
-        self.use_json_field = use_json_field
 
         if isinstance(block_types, Block):
             # use the passed block as the top-level block
@@ -115,13 +115,6 @@ class StreamField(models.Field):
     def json_field(self):
         return models.JSONField(encoder=DjangoJSONEncoder)
 
-    def _check_json_field(self):
-        if self.use_json_field is not True:
-            # RemovedInWagtail60Warning - make use_json_field optional and default to True
-            raise ImproperlyConfigured(
-                "StreamField must explicitly set use_json_field=True"
-            )
-
     def get_internal_type(self):
         return "JSONField"
 
@@ -135,7 +128,6 @@ class StreamField(models.Field):
         name, path, _, kwargs = super().deconstruct()
         block_types = list(self.stream_block.child_blocks.items())
         args = [block_types]
-        kwargs["use_json_field"] = self.use_json_field
         return name, path, args, kwargs
 
     def to_python(self, value):
@@ -272,11 +264,6 @@ class StreamField(models.Field):
 
     def contribute_to_class(self, cls, name, **kwargs):
         super().contribute_to_class(cls, name, **kwargs)
-
-        # Output error on missing use_json_field=True argument, unless this is a fake model
-        # for a migration
-        if cls.__module__ != "__fake__":
-            self._check_json_field()
 
         # Add Creator descriptor to allow the field to be set from a list or a
         # JSON string.

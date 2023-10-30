@@ -9,12 +9,11 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```{eval-rst}
-.. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
+.. class:: wagtail.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
    :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
-   :param use_json_field: Must be set to ``True``. This causes the field to use :class:`~django.db.models.JSONField` as its internal type, allowing the use of ``JSONField`` lookups and transforms.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
@@ -30,8 +29,14 @@ body = StreamField([
 ], block_counts={
     'heading': {'min_num': 1},
     'image': {'max_num': 5},
-}, use_json_field=True)
+})
 ```
+
+```{versionchanged} 6.0
+
+The `use_json_field` argument is no longer required.
+```
+
 
 ## Block options
 
@@ -414,7 +419,7 @@ All block definitions accept the following optional keyword arguments:
                ('photo', ImageChooserBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
-       ], use_json_field=True)
+       ])
 
 
     Alternatively, StructBlock can be subclassed to specify a reusable set of sub-blocks:
@@ -443,7 +448,7 @@ All block definitions accept the following optional keyword arguments:
            ('paragraph', blocks.RichTextBlock()),
            ('image', ImageChooserBlock()),
            ('person', PersonBlock()),
-       ], use_json_field=True)
+       ])
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -466,7 +471,7 @@ All block definitions accept the following optional keyword arguments:
        body = StreamField([
            # ...
            ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
-       ], use_json_field=True)
+       ])
 
 
 
@@ -480,7 +485,7 @@ All block definitions accept the following optional keyword arguments:
                ('ingredient', blocks.CharBlock()),
                ('amount', blocks.CharBlock(required=False)),
            ]))),
-       ], use_json_field=True)
+       ])
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -512,7 +517,7 @@ All block definitions accept the following optional keyword arguments:
                ],
                icon='cogs'
            )),
-       ], use_json_field=True)
+       ])
 
 
     As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
@@ -537,7 +542,6 @@ All block definitions accept the following optional keyword arguments:
         class HomePage(Page):
             carousel = StreamField(
                 CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
-                use_json_field=True
             )
 
     ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
@@ -559,7 +563,7 @@ All block definitions accept the following optional keyword arguments:
                 ('hashtag', blocks.CharBlock()),
                 ('post_date', blocks.DateBlock()),
             ], form_classname='event-promotions')),
-        ], use_json_field=True)
+        ])
 
     .. code-block:: python
         :emphasize-lines: 6

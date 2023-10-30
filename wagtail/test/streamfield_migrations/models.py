@@ -42,8 +42,8 @@ class BaseStreamBlock(StreamBlock):
 
 
 class SampleModel(models.Model):
-    content = StreamField(BaseStreamBlock(), use_json_field=True)
+    content = StreamField(BaseStreamBlock())
 
 
 class SamplePage(Page):
-    content = StreamField(BaseStreamBlock(), use_json_field=True)
+    content = StreamField(BaseStreamBlock())
