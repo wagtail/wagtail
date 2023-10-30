@@ -47,11 +47,8 @@ class TestHome(WagtailTestUtils, TestCase):
             '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classname": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
         )
 
-        # There should be a link to the friend admin in on the home page.
-        self.assertContains(response, '"url": "/admin/friendadmin/"')
-
-        # Since we've marked this as not being shown, it shouldn't be shown.
-        self.assertNotContains(response, '"url": "/admin/enemyadmin/"')
+        # There should be a link to the full-featured snippet admin in on the home page.
+        self.assertContains(response, '"url": "/admin/deep/within/the/admin/"')
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse("wagtailadmin_home") + "?hide-kittens=true")

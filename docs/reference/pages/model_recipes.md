@@ -194,7 +194,7 @@ Here, `blog_entries.filter(tags__name=tag)` follows the `tags` relation on `Blog
 
 Iterating through `page.tags.all` will display each tag associated with `page`, while the links back to the index make use of the filter option added to the `BlogIndexPage` model. A Django query could also use the `tagged_items` related name field to get `BlogPage` objects associated with a tag.
 
-The same approach can be used to add tagging to non-page models managed through [](snippets) and [](../contrib/modeladmin/index). In this case, the model must inherit from `modelcluster.models.ClusterableModel` to be compatible with `ClusterTaggableManager`.
+The same approach can be used to add tagging to non-page models managed through [](snippets). In this case, the model must inherit from `modelcluster.models.ClusterableModel` to be compatible with `ClusterTaggableManager`.
 
 ### Custom tag models
 

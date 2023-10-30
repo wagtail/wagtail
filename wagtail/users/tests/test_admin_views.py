@@ -1966,7 +1966,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_is_custom_permission_checked(self):
         # Add a permission from the 'custom permission' column to the user's group
-        custom_permission = Permission.objects.get(codename="view_person")
+        custom_permission = Permission.objects.get(codename="view_fancysnippet")
         self.test_group.permissions.add(custom_permission)
 
         response = self.get()
