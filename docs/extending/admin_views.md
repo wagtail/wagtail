@@ -227,3 +227,90 @@ def register_calendar_menu_item():
 The 'Calendar' item will now appear as a group of menu items. When expanded, the 'Calendar' item will now show our two custom menu items.
 
 ![Wagtail admin sidebar menu, showing an expanded "Calendar" group menu item with a date icon, showing two child menu items, 'Calendar' and 'Month'.](../_static/images/adminviews_menu_group_expanded.png)
+
+(using_base_viewset)=
+
+## Using `ViewSet` to group custom admin views
+
+Wagtail provides a {class}`~wagtail.admin.viewsets.base.ViewSet` class that combines the registration of views and the associated menu item into a single class. For example, you can group the calendar views from the previous example into a single menu item by creating a `ViewSet` subclass in `views.py`:
+
+```{code-block} python
+from wagtail.admin.viewsets.base import ViewSet
+
+...
+
+class CalendarViewSet(ViewSet):
+    add_to_admin_menu = True
+    menu_label = "Calendar"
+    icon = "date"
+    # The `name` will be used for both the URL prefix and the URL namespace.
+    # They can be customised individually via `url_prefix` and `url_namespace`.
+    name = "calendar"
+
+    def get_urlpatterns(self):
+        return [
+            # This can be accessed at `/admin/calendar/`
+            # and reverse-resolved with the name `calendar:index`.
+            # This first URL will be used for the menu item, but it can be
+            # customised by overriding the `menu_url` property.
+            path('', index, name='index'),
+
+            # This can be accessed at `/admin/calendar/month/`
+            # and reverse-resolved with the name `calendar:month`.
+            path('month/', month, name='month'),
+        ]
+```
+
+Then, remove the `register_admin_urls` and `register_admin_menu_item` hooks in `wagtail_hooks.py` in favor of registering the `ViewSet` subclass with the [`register_admin_viewset`](register_admin_viewset) hook:
+
+```{code-block} python
+from .views import CalendarViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return CalendarViewSet()
+```
+
+Compared to the previous example with the two separate hooks, this will result in a single menu item "Calendar" that takes you to the  `/admin/calendar/` URL. The second URL will not have its own menu item, but it will still be accessible at `/admin/calendar/month/`. This is useful for grouping related views together, that may not necessarily need their own menu items.
+
+For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSet` documentation.
+
+```{versionadded} 5.2
+Support for registering a menu item in the base `ViewSet` class was added.
+```
+
+(using_base_viewsetgroup)=
+
+## Combining multiple `ViewSet`s using a `ViewSetGroup`
+
+The {class}`~wagtail.admin.viewsets.base.ViewSetGroup` class can be used to group multiple `ViewSet`s inside a top-level menu item. For example, if you have a different viewset e.g. `EventViewSet` that you want to group with the `CalendarViewSet` from the previous example, you can do so by creating a `ViewSetGroup` subclass in `views.py`:
+
+```{code-block} python
+from wagtail.admin.viewsets.base import ViewSetGroup
+
+...
+
+class AgendaViewSetGroup(ViewSetGroup):
+    menu_label = "Agenda"
+    menu_icon = "table"
+    # You can specify instances or subclasses of `ViewSet` in `items`.
+    items = (CalendarViewSet(), EventViewSet)
+```
+
+Then, remove `add_to_admin_menu` from the viewsets and update the `register_admin_viewset` hook in `wagtail_hooks.py` to register the `ViewSetGroup` instead of the individual viewsets:
+
+```{code-block} python
+from .views import AgendaViewSetGroup
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return AgendaViewSetGroup()
+```
+
+This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
+
+For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
+
+```{versionadded} 5.2
+The `ViewSetGroup` class was added.
+```
