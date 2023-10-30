@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.conf import settings
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -7,7 +5,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from wagtail.admin.utils import get_latest_str, get_user_display_name
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -82,16 +79,6 @@ class BasicLock(BaseLock):
 
     def for_user(self, user):
         global_edit_lock = getattr(settings, "WAGTAILADMIN_GLOBAL_EDIT_LOCK", None)
-        if global_edit_lock is None and hasattr(
-            settings, "WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK"
-        ):
-            warn(
-                "settings.WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK has been renamed to "
-                "settings.WAGTAILADMIN_GLOBAL_EDIT_LOCK",
-                category=RemovedInWagtail60Warning,
-            )
-            global_edit_lock = settings.WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK
-
         return global_edit_lock or user.pk != self.object.locked_by_id
 
     def get_message(self, user):

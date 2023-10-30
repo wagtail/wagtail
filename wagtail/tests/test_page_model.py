@@ -68,7 +68,6 @@ from wagtail.test.testapp.models import (
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 def get_ct(model):
@@ -3813,46 +3812,6 @@ class TestGetLock(TestCase):
         self.assertIsInstance(lock, BasicLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertTrue(lock.for_user(moderator))
-
-        if settings.USE_TZ:
-            # the default timezone is "Asia/Tokyo", so we expect UTC +9
-            expected_date_string = "July 29, 2022, 9:19 p.m."
-        else:
-            expected_date_string = "July 29, 2022, 12:19 p.m."
-
-        self.assertEqual(
-            lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
-        )
-        self.assertEqual(
-            lock.get_message(moderator),
-            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
-        )
-
-    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
-    def test_when_locked_globally_with_old_setting_name(self):
-        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
-
-        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.locked = True
-        christmas_event.locked_by = moderator
-        if settings.USE_TZ:
-            christmas_event.locked_at = datetime.datetime(
-                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
-            )
-        else:
-            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
-
-        lock = christmas_event.get_lock()
-        self.assertIsInstance(lock, BasicLock)
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "settings.WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK has been renamed to "
-            "settings.WAGTAILADMIN_GLOBAL_EDIT_LOCK",
-        ):
-            self.assertTrue(lock.for_user(christmas_event.owner))
-            self.assertTrue(lock.for_user(moderator))
 
         if settings.USE_TZ:
             # the default timezone is "Asia/Tokyo", so we expect UTC +9
