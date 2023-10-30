@@ -278,12 +278,6 @@ def hook_output(hook_name):
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
 
-    if hook_name == "insert_editor_css" and snippets:
-        warn(
-            "The `insert_editor_css` hook is deprecated - use `insert_global_admin_css` instead.",
-            category=RemovedInWagtail60Warning,
-        )
-
     return mark_safe("".join(snippets))
 
 

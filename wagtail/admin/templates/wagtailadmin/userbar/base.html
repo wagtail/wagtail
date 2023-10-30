@@ -5,7 +5,6 @@
         <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar part="userbar">
             <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
             {% hook_output 'insert_global_admin_css' %}
-            {% hook_output 'insert_editor_css' %}
             <div class="w-userbar-nav">
 
                 <svg class="w-hidden">
