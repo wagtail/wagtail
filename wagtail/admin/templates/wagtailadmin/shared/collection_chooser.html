@@ -5,7 +5,7 @@
         <option value="">{% trans "All collections" %}</option>
         {% for pk, display_name in collections.get_indented_choices %}
             <option value="{{ pk|unlocalize }}"
-                {% if pk == current_collection.pk %}selected="selected"{% endif %}>
+                    {% if pk == current_collection.pk %}selected="selected"{% endif %}>
                 {{ display_name }}
             </option>
         {% endfor %}
