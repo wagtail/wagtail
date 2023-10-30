@@ -74,7 +74,7 @@
                         <div class="w-mx-2" aria-hidden="true">|</div>
                     {% endif %}
                     <a href="{% url revisions_compare_url_name object.pk|admin_urlquote previous_revision.id latest_revision.id %}"
-                        class="workflow-timeline__footer-link">{% trans 'Compare with previous version' %}</a>
+                       class="workflow-timeline__footer-link">{% trans 'Compare with previous version' %}</a>
                 {% endif %}
             {% endwith %}
         </div>

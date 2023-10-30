@@ -10,16 +10,16 @@
 {% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0' icon_classes='w-w-4 w-h-4 w-ml-3' %}
     {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
     <div class="w-breadcrumbs w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin {{ classname }} {% if is_expanded %} w-pl-3{% endif %}"
-        {% if not items %}hidden{% endif %}
-        {% if not is_expanded %}
-            data-controller="w-breadcrumbs"
-            data-action="keyup.esc@document->w-breadcrumbs#close w-breadcrumbs:open@document->w-breadcrumbs#open w-breadcrumbs:close@document->w-breadcrumbs#close"
-            data-w-breadcrumbs-close-icon-class="icon-cross"
-            data-w-breadcrumbs-closed-value="true"
-            data-w-breadcrumbs-open-icon-class="icon-breadcrumb-expand"
-            data-w-breadcrumbs-opened-content-class="w-max-w-4xl"
-            data-w-breadcrumbs-peek-target-value="header"
-        {% endif %}
+         {% if not items %}hidden{% endif %}
+         {% if not is_expanded %}
+             data-controller="w-breadcrumbs"
+             data-action="keyup.esc@document->w-breadcrumbs#close w-breadcrumbs:open@document->w-breadcrumbs#open w-breadcrumbs:close@document->w-breadcrumbs#close"
+             data-w-breadcrumbs-close-icon-class="icon-cross"
+             data-w-breadcrumbs-closed-value="true"
+             data-w-breadcrumbs-open-icon-class="icon-breadcrumb-expand"
+             data-w-breadcrumbs-opened-content-class="w-max-w-4xl"
+             data-w-breadcrumbs-peek-target-value="header"
+         {% endif %}
     >
         {% if not is_expanded %}
             <button
@@ -35,7 +35,7 @@
         {% endif %}
         <div class="w-relative w-h-slim-header w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
             <nav class="w-flex w-items-center w-flex-row w-h-full"
-                aria-label="{% trans 'Breadcrumb' %}">
+                 aria-label="{% trans 'Breadcrumb' %}">
                 <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
                     {% block breadcrumbs_items %}
                         {% for item in items %}
