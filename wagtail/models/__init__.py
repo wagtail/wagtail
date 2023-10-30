@@ -13,7 +13,6 @@ import functools
 import logging
 import posixpath
 import uuid
-import warnings
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -93,7 +92,6 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -3431,14 +3429,6 @@ class Task(SpecificMixin, models.Model):
         Returns True if the object should be locked to a given user's edits.
         This can be used to prevent editing by non-reviewers.
         """
-        if hasattr(self, "page_locked_for_user"):
-            warnings.warn(
-                "Tasks should use .locked_for_user() instead of "
-                ".page_locked_for_user().",
-                category=RemovedInWagtail60Warning,
-                stacklevel=2,
-            )
-            return self.page_locked_for_user(obj, user)
         return False
 
     def user_can_lock(self, obj, user):
