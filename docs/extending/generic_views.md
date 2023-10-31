@@ -1,3 +1,6 @@
+```{currentmodule} wagtail.admin.viewsets.model
+```
+
 (generic_views)=
 
 # Generic views
@@ -6,7 +9,7 @@ Wagtail provides several generic views for handling common tasks such as creatin
 
 ## ModelViewSet
 
-The {class}`wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
+The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
 
 ```python
 from django.db import models
@@ -30,6 +33,8 @@ class PersonViewSet(ModelViewSet):
     model = Person
     form_fields = ["first_name", "last_name"]
     icon = "user"
+    add_to_admin_menu = True
+    inspect_view_enabled = True
 
 
 person_viewset = PersonViewSet("person")  # defines /admin/person/ as the base URL
@@ -48,11 +53,75 @@ def register_viewset():
     return person_viewset
 ```
 
-Various additional attributes are available to customise the viewset - see [](../reference/viewsets).
+The viewset can be further customised by overriding other attributes and methods.
+
+### Icon
+
+You can define an {attr}`~.ViewSet.icon` attribute on the `ModelViewSet` to specify the icon that is used across the views in the viewset. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons).
+
+### URL prefix and namespace
+
+The {attr}`~.ViewSet.url_prefix` and {attr}`~.ViewSet.url_namespace` properties can be overridden to use a custom URL prefix and namespace for the views. If unset, they default to the model's `model_name`.
+
+### Menu item
+
+By default, registering a `ModelViewSet` will not register a main menu item. To add a menu item, set {attr}`~.ViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the "Settings" menu, you can set {attr}`~.ViewSet.add_to_settings_menu` to `True`. Unless {attr}`~.ViewSet.menu_icon` is specified, the menu will use the same {attr}`~.ViewSet.icon` used for the views. The {attr}`~.ViewSet.menu_url` property can be overridden to customise the menu item's link, which defaults to the listing view for the model.
+
+Unless specified, the menu item will be labelled after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~.ViewSet.menu_label`, {attr}`~.ViewSet.menu_name`, and {attr}`~.ViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~.ViewSet.get_menu_item` method.
+
+You can group multiple `ModelViewSet`s' menu items inside a single top-level menu item using the {class}`~wagtail.admin.viewsets.model.ModelViewSetGroup` class. It is similar to `ViewSetGroup`, except it takes the {attr}`~django.db.models.Options.app_label` of the first viewset's model as the default {attr}`~.ViewSetGroup.menu_label`. Refer to [the examples for `ViewSetGroup`](using_base_viewsetgroup) for more details.
+
+### Listing view
+
+The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
+
+You can add the ability to filter the listing view by defining a {attr}`~ModelViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
+
+If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~ModelViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
+
+You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+
+### Inspect view
+
+The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~ModelViewSet.inspect_view_enabled` on your `ModelViewSet` class.
+
+When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular instance.
+
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
+
+### Templates
+
+If {attr}`~ModelViewSet.template_prefix` is set, Wagtail will look for the views' templates in the following directories within your project or app, before resorting to the defaults:
+
+1. `templates/{template_prefix}/{app_label}/{model_name}/`
+2. `templates/{template_prefix}/{app_label}/`
+3. `templates/{template_prefix}/`
+
+To override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, given `custom/campaign` as the `template_prefix` and a `Shirt` model in a `merch` app, you could add your custom template as `templates/custom/campaign/merch/shirt/index.html`.
+
+For some common views, Wagtail also allows you to override the template used by overriding the `{view_name}_template_name` property on the viewset. The following is a list of customisation points for the views:
+
+-   `IndexView`: `index.html` or {attr}`~ModelViewSet.index_template_name`
+    -   For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
+-   `CreateView`: `create.html` or {attr}`~ModelViewSet.create_template_name`
+-   `EditView`: `edit.html` or {attr}`~ModelViewSet.edit_template_name`
+-   `DeleteView`: `delete.html` or {attr}`~ModelViewSet.delete_template_name`
+-   `HistoryView`: `history.html` or {attr}`~ModelViewSet.history_template_name`
+-   `InspectView`: `inspect.html` or {attr}`~ModelViewSet.inspect_template_name`
+
+### Other customisations
+
+By default, the model registered with a `ModelViewSet` will also be registered to the [reference index](managing_the_reference_index). You can turn off this behavior by setting {attr}`~ModelViewSet.add_to_reference_index` to `False`.
+
+Various additional attributes are available to customise the viewset - see the {class}`ModelViewSet` documentation.
+
+```{versionadded} 5.2
+The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
+```
 
 ## ChooserViewSet
 
-The `wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
+The {class}`~wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
 
 ```python
 from wagtail.admin.viewsets.chooser import ChooserViewSet
