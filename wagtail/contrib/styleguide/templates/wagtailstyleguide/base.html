@@ -581,19 +581,4 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     {{ example_form.media.js }}
-
-    <script>
-        $(function(){
-            (function runprogress(){
-                var to = setTimeout(function(){
-                    runprogress();
-                    clearTimeout(to);
-                    setTimeout(function(){
-                        $('#progress-example .bar').css('width', '20%');
-                    }, 2000);
-                }, 3000);
-                $('#progress-example .bar').css('width', '80%');
-            })();
-        })
-    </script>
 {% endblock %}
