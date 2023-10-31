@@ -1347,6 +1347,15 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["search_form"]["q"].value(), "Hello")
 
+    def test_default_ordering(self):
+        # This group should display after the default groups but will display
+        # before them if default_ordering is lost.
+        Group.objects.create(name="Photographers")
+        response = self.get()
+        # groups should be returned in alpha order by name
+        names = [group.name for group in response.context_data["object_list"]]
+        self.assertEqual(names, ["Editors", "Moderators", "Photographers"])
+
 
 class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
     def setUp(self):
