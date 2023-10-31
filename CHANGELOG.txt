@@ -95,6 +95,7 @@ Changelog
  * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
  * Fix: Ensure that all password fields consistently allow leading & trailing whitespace (Neeraj P Yetheendran)
+ * Docs: Expand documentation on using `ViewSet` and `ModelViewSet` (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
