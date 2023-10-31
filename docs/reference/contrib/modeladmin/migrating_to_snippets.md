@@ -2,6 +2,15 @@
 
 To provide a single, unified way to manage non-page Django models, the `modeladmin` contrib module has been deprecated in favor of the `snippets` module. This page explains how to migrate from `modeladmin` to `snippets`.
 
+```{versionadded} 5.2
+If you would rather not register the models as snippets, you can also use `ModelViewSet`. The migration explained with `SnippetViewSet` and `SnippetViewSetGroup` on this page can be substituted with `ModelViewSet` and `ModelViewSetGroup`. However, as of this release, the `ModelViewSet` does not support the following:
+
+- The use of `panels`, `edit_handler` as described in [](modeladmin_edit_handler_customisation).
+- The `get_queryset` method as described in [](modeladmin_get_queryset).
+
+See [](generic_views) for more details on using `ModelViewSet`.
+```
+
 ## Installation
 
 Ensure `wagtail.snippets` is in your `INSTALLED_APPS`:
