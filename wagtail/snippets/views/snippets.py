@@ -577,13 +577,13 @@ class SnippetViewSet(ModelViewSet):
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_namespace``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_namespace`.
     admin_url_namespace = None
 
     #: The base URL path to use for the admin views.
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_prefix``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_prefix`.
     base_url_path = None
 
     #: The URL namespace to use for the chooser admin views.
