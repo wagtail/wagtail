@@ -4,13 +4,13 @@
     {% if dialog_root_selector %}data-w-teleport-target-value="{{ dialog_root_selector }}"{% endif %}
 >
     <div id="{{ id }}"
-        aria-labelledby="title-{{ id }}"
-        aria-hidden="true"
-        class="w-dialog {% if theme %}w-dialog--{{ theme }}{% endif %} {% if classname %} {{ classname }}{% endif %}"
-        data-controller="w-dialog"
-        data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show {% comment %} RemovedInWagtail60 - Remove the following two actions. {% endcomment %}wagtail:hide->w-dialog#hide wagtail:show->w-dialog#show"
-        {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
-        {% if data_url %}data-url="{{ data_url }}"{% endif %}
+         aria-labelledby="title-{{ id }}"
+         aria-hidden="true"
+         class="w-dialog {% if theme %}w-dialog--{{ theme }}{% endif %} {% if classname %} {{ classname }}{% endif %}"
+         data-controller="w-dialog"
+         data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show {% comment %} RemovedInWagtail60 - Remove the following two actions. {% endcomment %}wagtail:hide->w-dialog#hide wagtail:show->w-dialog#show"
+         {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
+         {% if data_url %}data-url="{{ data_url }}"{% endif %}
     >
         <div class="w-dialog__overlay" data-action="click->w-dialog#hide"></div>
         <div class="w-dialog__box">
