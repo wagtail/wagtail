@@ -11,7 +11,7 @@ class ViewSet(WagtailMenuRegisterable):
 
     All properties of the viewset can be defined as class-level attributes, or passed as
     keyword arguments to the constructor (in which case they will override any class-level
-    attributes). Additionally, the ``name`` property can be passed as the first positional
+    attributes). Additionally, the :attr:`name` property can be passed as the first positional
     argument to the constructor.
 
     For more information on how to use this class, see :ref:`using_base_viewset`.
@@ -77,11 +77,11 @@ class ViewSet(WagtailMenuRegisterable):
     def url_prefix(self):
         """
         The preferred URL prefix for views within this viewset. When registered through
-        Wagtail's ``register_admin_viewset`` hook, this will be used as the URL path component
-        following ``/admin/``. Other URL registration mechanisms (e.g. editing urls.py manually)
+        Wagtail's :ref:`register_admin_viewset` hook, this will be used as the URL path component
+        following ``/admin/``. Other URL registration mechanisms (e.g. editing ``urls.py`` manually)
         may disregard this and use a prefix of their own choosing.
 
-        Defaults to the viewset's name.
+        Defaults to the viewset's ``name``.
         """
         if not self.name:
             raise ImproperlyConfigured(
@@ -96,7 +96,7 @@ class ViewSet(WagtailMenuRegisterable):
         application namespace for the viewset's URLs, and generally be the instance namespace
         too.
 
-        Defaults to the viewset's name.
+        Defaults to the viewset's ``name``.
         """
         if not self.name:
             raise ImproperlyConfigured(
@@ -133,7 +133,7 @@ class ViewSet(WagtailMenuRegisterable):
 
 class ViewSetGroup(WagtailMenuRegisterableGroup):
     """
-    A container for grouping together multiple ViewSet instances.
+    A container for grouping together multiple :class:`ViewSet` instances.
     Creates a menu item with a submenu for accessing the main URL for each instances.
 
     For more information on how to use this class, see :ref:`using_base_viewsetgroup`.
