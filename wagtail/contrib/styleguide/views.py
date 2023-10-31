@@ -13,6 +13,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput,
@@ -90,6 +91,9 @@ class ExampleForm(forms.Form):
     image_chooser = forms.BooleanField(required=True)
     document_chooser = forms.BooleanField(required=True)
     snippet_chooser = forms.BooleanField(required=True)
+
+    class Media:
+        css = {"all": [versioned_static("wagtailstyleguide/css/animate-progress.css")]}
 
 
 icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")

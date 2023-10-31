@@ -105,6 +105,7 @@ Changelog
  * Maintenance: Remove `initTooltips` in favour of Stimulus controller (LB (Ben) Johnston)
  * Maintenance: Enhance the Stimulus `InitController` to allow for custom event dispatching when ready (Aditya, LB (Ben) Johnston)
  * Maintenance: Remove inline script usage for comment initialization and adopt an event listener/dispatch approach for better CSP compliance (Aditya, LB (Ben) Johnston)
+ * Maintenance: Migrate styleguide ad-hoc JavaScript to use styles only to avoid CSP issues (LB (Ben) Johnston)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
