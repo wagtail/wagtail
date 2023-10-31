@@ -63,6 +63,8 @@ You can define an {attr}`~.ViewSet.icon` attribute on the `ModelViewSet` to spec
 
 The {attr}`~.ViewSet.url_prefix` and {attr}`~.ViewSet.url_namespace` properties can be overridden to use a custom URL prefix and namespace for the views. If unset, they default to the model's `model_name`.
 
+(modelviewset_menu)=
+
 ### Menu item
 
 By default, registering a `ModelViewSet` will not register a main menu item. To add a menu item, set {attr}`~.ViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the "Settings" menu, you can set {attr}`~.ViewSet.add_to_settings_menu` to `True`. Unless {attr}`~.ViewSet.menu_icon` is specified, the menu will use the same {attr}`~.ViewSet.icon` used for the views. The {attr}`~.ViewSet.menu_url` property can be overridden to customise the menu item's link, which defaults to the listing view for the model.
@@ -70,6 +72,8 @@ By default, registering a `ModelViewSet` will not register a main menu item. To 
 Unless specified, the menu item will be labelled after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~.ViewSet.menu_label`, {attr}`~.ViewSet.menu_name`, and {attr}`~.ViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~.ViewSet.get_menu_item` method.
 
 You can group multiple `ModelViewSet`s' menu items inside a single top-level menu item using the {class}`~wagtail.admin.viewsets.model.ModelViewSetGroup` class. It is similar to `ViewSetGroup`, except it takes the {attr}`~django.db.models.Options.app_label` of the first viewset's model as the default {attr}`~.ViewSetGroup.menu_label`. Refer to [the examples for `ViewSetGroup`](using_base_viewsetgroup) for more details.
+
+(modelviewset_listing)=
 
 ### Listing view
 
@@ -81,6 +85,8 @@ If you would like to make further customisations to the filtering mechanism, you
 
 You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
 
+(modelviewset_inspect)=
+
 ### Inspect view
 
 The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~ModelViewSet.inspect_view_enabled` on your `ModelViewSet` class.
@@ -88,6 +94,8 @@ The inspect view is disabled by default, as it's not often useful for most model
 When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular instance.
 
 By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
+
+(modelviewset_templates)=
 
 ### Templates
 

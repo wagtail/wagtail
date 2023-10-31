@@ -5,7 +5,7 @@
 
 # Customising admin views for snippets
 
-Additional customisations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. This allows you to customise the listing view (e.g. adding custom columns, filters), create a custom menu item, and more.
+Additional customisations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customisations provided by `ModelViewSet` such as customising the listing view (e.g. adding custom columns, filters), creating a custom menu item, and more.
 
 Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
 
@@ -77,62 +77,33 @@ register_snippet(MemberViewSet)
 
 ## Icon
 
-You can define an {attr}`~SnippetViewSet.icon` attribute on the `SnippetViewSet` to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
+You can define an {attr}`~.ViewSet.icon` attribute on the `SnippetViewSet` to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
 
 ## URL namespace and base URL path
 
-The {attr}`~SnippetViewSet.admin_url_namespace` attribute can be set to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, setting {attr}`~SnippetViewSet.base_url_path` allows you to customise the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`.
-
-If you need further customisations, you can also override the {meth}`~SnippetViewSet.get_admin_url_namespace` and {meth}`~SnippetViewSet.get_admin_base_path` methods to override the namespace and base URL path, respectively.
+The {attr}`~.ViewSet.url_namespace` property can be overridden to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, overriding {attr}`~.ViewSet.url_prefix` allows you to customise the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`.
 
 Similar URL customisations are also possible for the snippet chooser views through {attr}`~SnippetViewSet.chooser_admin_url_namespace`, {attr}`~SnippetViewSet.chooser_base_url_path`, {meth}`~SnippetViewSet.get_chooser_admin_url_namespace`, and {meth}`~SnippetViewSet.get_chooser_admin_base_path`.
 
 ## Listing view
 
-The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_per_page` attribute (or {attr}`~SnippetViewSet.chooser_per_page` for the chooser listing).
+You can customise the listing view to add custom columns, filters, pagination, etc. via various attributes available on the `SnippetViewSet`. Refer to [the listing view customisations for `ModelViewSet`](modelviewset_listing) for more details.
 
-To customise the base queryset for the listing view, you could override the {meth}`~SnippetViewSet.get_queryset` method. Additionally, the {attr}`~SnippetViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
-
-You can add the ability to filter the listing view by defining a {attr}`~SnippetViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
-
-If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~SnippetViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
-
-You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~wagtail.admin.viewsets.model.ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~wagtail.admin.viewsets.model.ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+Additionally, you can customise the base queryset for the listing view by overriding the {meth}`~SnippetViewSet.get_queryset` method.
 
 ## Inspect view
 
-The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~SnippetViewSet.inspect_view_enabled` on your `SnippetViewSet` class.
-
-When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular snippet.
-
-By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~SnippetViewSet.inspect_view_fields` or the {attr}`~SnippetViewSet.inspect_view_fields_exclude` attributes to your `SnippetViewSet` class.
+The inspect view is disabled by default, as it's not often useful for most models. To enable it, set {attr}`~.ModelViewSet.inspect_view_enabled` to `True`. Refer to [the inspect view customisations for `ModelViewSet`](modelviewset_inspect) for more details.
 
 (wagtailsnippets_templates)=
 
 ## Templates
 
-For all views that are used for a snippet model, Wagtail looks for templates in the following directories within your project or app, before resorting to the defaults:
-
-1. `templates/wagtailsnippets/snippets/{app_label}/{model_name}/`
-2. `templates/wagtailsnippets/snippets/{app_label}/`
-3. `templates/wagtailsnippets/snippets/`
-
-So, to override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, if you wanted to do this for a `Shirt` model in a `shirts` app, you could add your custom template as `shirts/templates/wagtailsnippets/snippets/shirts/shirt/index.html`. You could change the `wagtailsnippets/snippets/` prefix for the templates by overriding the {attr}`~SnippetViewSet.template_prefix` attribute.
-
-For some common views, Wagtail also allows you to override the template used by either specifying the `{view_name}_template_name` attribute or overriding the `get_{view_name}_template()` method on the viewset. The following is a list of customisation points for the views:
-
--   `IndexView`: `index.html`, {attr}`~SnippetViewSet.index_template_name`, or {meth}`~SnippetViewSet.get_index_template()`
-    -   For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html`, {attr}`~SnippetViewSet.index_results_template_name`, or {meth}`~SnippetViewSet.get_index_results_template()`.
--   `CreateView`: `create.html`, {attr}`~SnippetViewSet.create_template_name`, or {meth}`~SnippetViewSet.get_create_template()`
--   `EditView`: `edit.html`, {attr}`~SnippetViewSet.edit_template_name`, or {meth}`~SnippetViewSet.get_edit_template()`
--   `DeleteView`: `delete.html`, {attr}`~SnippetViewSet.delete_template_name`, or {meth}`~SnippetViewSet.get_delete_template()`
--   `HistoryView`: `history.html`, {attr}`~SnippetViewSet.history_template_name`, or {meth}`~SnippetViewSet.get_history_template()`
+Template customisations work the same way as for `ModelViewSet`, except that the {attr}`~.ModelViewSet.template_prefix` defaults to `wagtailsnippets/snippets/`. Refer to [the template customisations for `ModelViewSet`](modelviewset_templates) for more details.
 
 ## Menu item
 
-By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. You can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~SnippetViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the Settings menu, you can set {attr}`~SnippetViewSet.add_to_settings_menu` to `True`. The menu item will use the icon specified on the `SnippetViewSet` and it will link to the index view for the snippet model.
-
-Unless specified, the menu item will be named after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~SnippetViewSet.menu_label`, {attr}`~SnippetViewSet.menu_name`, and {attr}`~SnippetViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~SnippetViewSet.get_menu_item` method.
+By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. However, you can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~.ViewSet.add_to_admin_menu` to `True`. Refer to [the menu customisations for `ModelViewSet`](modelviewset_menu) for more details.
 
 An example of a custom `SnippetViewSet` subclass with `add_to_admin_menu` set to `True`:
 
