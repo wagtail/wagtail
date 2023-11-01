@@ -1124,9 +1124,7 @@ class FullFeaturedSnippet(
     some_attribute = "some value"
 
     search_fields = [
-        index.SearchField("text"),
-        index.AutocompleteField("text"),
-        index.FilterField("text"),
+        index.IndexedField("text", search=True, autocomplete=True, filter=True),
         index.FilterField("country_code"),
     ]
 
@@ -2166,9 +2164,7 @@ class FeatureCompleteToy(index.Indexed, models.Model):
     release_date = models.DateField(default=datetime.date.today)
 
     search_fields = [
-        index.SearchField("name"),
-        index.AutocompleteField("name"),
-        index.FilterField("name"),
+        index.IndexedField("name", search=True, autocomplete=True, filter=True),
         index.FilterField("release_date"),
     ]
 

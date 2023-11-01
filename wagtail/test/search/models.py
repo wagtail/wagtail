@@ -9,8 +9,7 @@ class Author(index.Indexed, models.Model):
     date_of_birth = models.DateField(null=True)
 
     search_fields = [
-        index.SearchField("name"),
-        index.AutocompleteField("name"),
+        index.IndexedField("name", search=True, autocomplete=True),
         index.FilterField("date_of_birth"),
     ]
 
@@ -26,9 +25,13 @@ class Book(index.Indexed, models.Model):
     tags = TaggableManager()
 
     search_fields = [
-        index.SearchField("title", boost=2.0),
-        index.AutocompleteField("title"),
-        index.FilterField("title"),
+        index.IndexedField(
+            "title",
+            search=True,
+            autocomplete=True,
+            filter=True,
+            boost=2.0,
+        ),
         index.FilterField("authors"),
         index.RelatedFields("authors", Author.search_fields),
         index.FilterField("publication_date"),
@@ -91,8 +94,7 @@ class Novel(Book):
     )
 
     search_fields = Book.search_fields + [
-        index.SearchField("setting"),
-        index.AutocompleteField("setting"),
+        index.IndexedField("setting", search=True, autocomplete=True),
         index.RelatedFields(
             "characters",
             [
