@@ -12,6 +12,7 @@ from django.views.i18n import JavaScriptCatalog
 from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
 from wagtail.admin.auth import require_admin_access
+from wagtail.admin.localization import get_localized_response
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
@@ -133,6 +134,17 @@ def get_sprite_hash():
     return sprite_hash
 
 
+def localized_js_catalog():
+    js_catalog_view = JavaScriptCatalog.as_view(packages=["wagtail.admin"])
+
+    def view(request, *args, **kwargs):
+        return get_localized_response(
+            request.user, js_catalog_view, request, *args, **kwargs
+        )
+
+    return view
+
+
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
     path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
@@ -142,7 +154,7 @@ urlpatterns += [
     # JS translation catalog
     path(
         "jsi18n/",
-        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
+        localized_js_catalog(),
         name="wagtailadmin_javascript_catalog",
     ),
 ]

@@ -4,6 +4,7 @@ from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils import translation
 
 from wagtail.admin.rich_text import DraftailRichTextArea, get_rich_text_editor_widget
 from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
@@ -471,3 +472,16 @@ class TestDraftailFeature(SimpleTestCase):
         media_html = str(feature.media)
         self.assertRegex(media_html, r"feature.js\?v=(\w+)")
         self.assertRegex(media_html, r"feature.css\?v=(\w+)")
+
+
+class TestDraftailLazyTranslations(SimpleTestCase):
+    def test_context_i18n(self):
+        widget = DraftailRichTextArea(features=["h2"])
+        context_default_language = widget.get_context(None, None, {})
+        with translation.override("de"):
+            context_de = widget.get_context(None, None, {})
+        # At least the description of the h2 feature should be different
+        self.assertNotEqual(
+            context_default_language["widget"]["options_json"],
+            context_de["widget"]["options_json"],
+        )
