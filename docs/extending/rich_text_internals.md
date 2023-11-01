@@ -42,7 +42,7 @@ which is converted into an `img` element when rendered:
     alt="A pied wagtail"
     class="richtext-image left"
     height="294"
-    src="/media/images/pied-wagtail.width-500_ENyKffb.jpg"
+    src="/media/images/pied-wagtail.width-500.jpg"
     width="500"
 />
 ```

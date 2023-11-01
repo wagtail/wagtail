@@ -98,7 +98,7 @@ The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#size
 This outputs:
 
 ```html
-<img srcset="/media/images/pied-wagtail.width-400_ENyKffb.jpg 400w, /media/images/pied-wagtail.width-800_ENyKffb.jpg 800w" src="/media/images/pied-wagtail.width-400_ENyKffb.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
+<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
 ```
 
 Or resize an image and retrieve the renditions for more bespoke use:
@@ -110,7 +110,7 @@ Or resize an image and retrieve the renditions for more bespoke use:
 
 ### `picture()`
 
-Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes, and a fallback `<img` tag.
+Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes, and a fallback `<img>` tag.
 Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image-formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
 `picture` can render an image in multiple formats:
@@ -123,9 +123,9 @@ This outputs:
 
 ```html
 <picture>
-    <source srcset="/media/images/pied-wagtail.width-400_ENyKffb.avif" type="image/avif">
-    <source srcset="/media/images/pied-wagtail.width-400_ENyKffb.webp" type="image/webp">
-    <img src="/media/images/pied-wagtail.width-400_ENyKffb.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
+    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
+    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
 </picture>
 ```
 
@@ -139,9 +139,9 @@ This outputs:
 
 ```html
 <picture>
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400_ENyKffb.avif 400w, /media/images/pied-wagtail.width-800_ENyKffb.avif 800w" type="image/avif">
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400_ENyKffb.webp 400w, /media/images/pied-wagtail.width-800_ENyKffb.webp 800w" type="image/webp">
-    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400_ENyKffb.jpg 400w, /media/images/pied-wagtail.width-800_ENyKffb.jpg 800w" src="/media/images/pied-wagtail.width-400_ENyKffb.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
+    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
 </picture>
 ```
 
