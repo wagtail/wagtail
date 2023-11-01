@@ -16,8 +16,8 @@ Changelog
  * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
 
 
-5.2 LTS (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5.2 LTS (01.11.2023)
+~~~~~~~~~~~~~~~~~~~~
 
  * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
