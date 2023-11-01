@@ -11,11 +11,11 @@ describe('Icon', () => {
     expect(shallow(<Icon name="test" />)).toMatchSnapshot();
   });
 
-  it('#svg_path', () => {
+  it('#svgPath', () => {
     const iconName = 'exampleIcon';
     const svgPathData = 'M10 30 L20 10 L30 30 L40 30 L50 10 L60 30';
 
-    const wrapper = shallow(<Icon name={iconName} svg_path={svgPathData} />);
+    const wrapper = shallow(<Icon name={iconName} svgPath={svgPathData} />);
     expect(wrapper).toMatchSnapshot();
 
     const svgElement = wrapper.find('svg');

@@ -237,7 +237,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                   if (typeof item.icon === 'object') {
                     const iconArray = [item.icon];
                     const iconString = iconArray.join(' ');
-                    return <Icon name={iconString} svg_path={iconString} />;
+                    return <Icon name={iconString} svgPath={iconString} />;
                   }
                 }
 

@@ -4,7 +4,7 @@ export interface IconProps {
   name: string;
   className?: string;
   title?: string;
-  svg_path?: string;
+  svgPath?: string;
 }
 
 /**
@@ -14,16 +14,16 @@ const Icon: React.FunctionComponent<IconProps> = ({
   name,
   className,
   title,
-  svg_path,
+  svgPath,
 }) => {
-  if (name && svg_path) {
+  if (name && svgPath) {
     return (
       <>
         <svg
           className={`icon icon-${name} ${className || ''}`}
           aria-hidden="true"
         >
-          <path d={svg_path} />
+          <path d={svgPath} />
         </svg>
         {title && <span className="visuallyhidden">{title}</span>}
       </>
