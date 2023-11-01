@@ -1,8 +1,7 @@
 from django.contrib.auth import get_permission_codename, get_user_model
-from django.db.models import CharField, Q
-from django.db.models.functions import Cast
+from django.db.models import Q
 
-from wagtail.models import GroupPagePermission, Page, Revision
+from wagtail.models import GroupPagePermission, Page
 from wagtail.permission_policies.base import OwnershipPermissionPolicy
 
 
@@ -214,31 +213,3 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         fca_page = Page.objects.first_common_ancestor_of(page_permissions)
         explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
         return explorable_pages
-
-    def _revisions_for_moderation(self, user):
-        # Deal with the trivial cases first...
-        if not user.is_active:
-            return Revision.objects.none()
-        if user.is_superuser:
-            return Revision.page_revisions.submitted()
-
-        # get the list of pages for which they have direct publish permission
-        # (i.e. they can publish any page within this subtree)
-        publishable_pages_paths = list(
-            {perm.page.path for perm in self.get_cached_permissions_for_user(user)}
-        )
-        if not publishable_pages_paths:
-            return Revision.objects.none()
-
-        # compile a filter expression to apply to the Revision.page_revisions.submitted() queryset:
-        # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(path__startswith=publishable_pages_paths[0])
-        for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(path__startswith=page_path)
-
-        # return the filtered queryset
-        return Revision.page_revisions.submitted().filter(
-            object_id__in=Page.objects.filter(only_my_sections).values_list(
-                Cast("pk", output_field=CharField()), flat=True
-            )
-        )
