@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,39 +163,6 @@ msgstr "Dejanja"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Urejam %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Preklop navigacijske sledi"
-
-msgid "Breadcrumb"
-msgstr "Drobtina"
-
-msgid "Snippets"
-msgstr "Delci"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nov: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Urejam %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Zgodovina"
-
-msgid "Usage"
-msgstr "Uporaba"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Zgodovina delca za %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Uredite ta delček"
-
-msgid "No log entries found."
-msgstr "Najden ni bil noben vnos v dnevnik."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Delci %(snippet_type_name_plural)s"
@@ -254,11 +221,18 @@ msgstr "Prekliči načrtovano objavo"
 msgid "Choose"
 msgstr "Izberite"
 
+msgid "Snippets"
+msgstr "Delci"
+
 msgid "Name"
 msgstr "Ime"
 
 msgid "Instances"
 msgstr "Število"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Več možnosti za '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
@@ -269,14 +243,8 @@ msgstr "Delca, zaradi napak, ni bilo možno shraniti."
 msgid "Action"
 msgstr "Dejanje"
 
-msgid "User"
-msgstr "Uporabnik"
-
 msgid "Date"
 msgstr "Datum"
-
-msgid "Snippet history"
-msgstr "Zgodovina delca"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -286,20 +254,8 @@ msgstr "Uredi ta %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Zgodovina %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
-msgid "Inspect"
-msgstr "Preglejte"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Preglejte '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Izbriši '%(title)s'"
+msgid "Home"
+msgstr "Domov"
 
 #, python-format
 msgid "Choose %(object)s"

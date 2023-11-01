@@ -9,6 +9,7 @@
 # Alexey Sveshnikov, 2022
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Andrey <talkerbox@live.com>, 2016
 # Andrey <talkerbox@live.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017
@@ -43,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -130,6 +131,11 @@ msgstr "Загрузить изображение профиля"
 
 msgid "Enter password"
 msgstr "Введите пароль"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ваши %(username_field)s и пароль не совпали. Пожалуйста, попробуйте еще раз."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -682,8 +688,8 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "К сожалению, нет совпадений для \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Элементов не было создано"
+msgid "There are no results."
+msgstr "Нет результатов."
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
@@ -735,6 +741,17 @@ msgstr "Вы все еще хотите опубликовать %(model_name)s?
 
 msgid "Cancel"
 msgstr "Отмена"
+
+msgid "No log entries found."
+msgstr "Записи в журнале не найдены."
+
+#, python-format
+msgid "No %(model_name)s match your query"
+msgstr "По запросу %(model_name)s нет совпадений."
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "Нет %(model_name)s для отображения"
 
 msgid "Update"
 msgstr "Обновить"
@@ -800,6 +817,9 @@ msgstr "Заблокирован в"
 
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
+
+msgid "Actions"
+msgstr "Действия"
 
 msgid "Unlock"
 msgstr "Разблокировать"
@@ -920,16 +940,17 @@ msgstr "Задачи"
 msgid "Task submitted by"
 msgstr "Задание отправлено"
 
+msgid "Compare with live version"
+msgstr "Сравнить с опубликованной версией"
+
+msgid "Compare with previous version"
+msgstr "Сравнить с предыдущей версией"
+
 msgid "Sign in"
 msgstr "Войти"
 
 msgid "Sign in to Wagtail"
 msgstr "Войти в Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Ваши %(username_field)s и пароль не совпали. Пожалуйста, попробуйте еще раз."
 
 msgid "Forgotten password?"
 msgstr "Забыли пароль?"
@@ -1221,6 +1242,9 @@ msgstr "Приватность страницы"
 msgid "This page has been made private by a parent page."
 msgstr "Страница приватна в соответствии с родительской страницей."
 
+msgid "Save the page before leaving"
+msgstr "Сохраните страницу перед выходом"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас есть <span> несохраненные изменения</span>"
 
@@ -1231,9 +1255,6 @@ msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr ""
 "У вас есть <span> несохраненные изменения </span> и <span> комментарии </"
 "span>"
-
-msgid "Save the page before leaving"
-msgstr "Сохраните страницу перед выходом"
 
 msgid "Publishing…"
 msgstr "Публикуется..."
@@ -1747,9 +1768,6 @@ msgstr "Копировать эту страницу"
 msgid "New %(page_type)s"
 msgstr "Добавление %(page_type)s"
 
-msgid "Actions"
-msgstr "Действия"
-
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
 
@@ -1788,12 +1806,12 @@ msgstr "Опубликованная версия"
 msgid "Current draft"
 msgstr "Черновик"
 
-msgid "No log entries found."
-msgstr "Записи в журнале не найдены."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Обзор %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Выбрать все страницы из списка"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1837,9 +1855,6 @@ msgstr ""
 "Для этого местоположения нет записи сайта. Страницы, созданные здесь, не "
 "будут доступны ни по одному URL."
 
-msgid "Select all pages in listing"
-msgstr "Выбрать все страницы из списка"
-
 msgid "This page is locked, by you, to further editing"
 msgstr "Эта страница заблокирована вами для дальнейшего редактирования"
 
@@ -1866,6 +1881,26 @@ msgstr "Порядок"
 msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s из %(result_count)s по всему сайту."
+
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Поиск в пределах '%(title)s'"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgstr ""
+"%(start_index)s-%(end_index)s из %(result_count)s в пределах '%(title)s'."
+
+msgid "Search the whole site"
+msgstr "Поиск по всему сайту"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s из %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Список сайтов"
 
@@ -1888,14 +1923,11 @@ msgstr "Эта страница защищена от публичного пр�
 msgid "Confirm"
 msgstr "Подтвердить"
 
-msgid "History"
-msgstr "История"
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
 
 msgid "Review this version"
 msgstr "Проверить эту версию"
-
-msgid "Compare with previous version"
-msgstr "Сравнить с предыдущей версией"
 
 msgid "Compare with current version"
 msgstr "Сравнить с текущей версией"
@@ -2043,9 +2075,6 @@ msgstr "Переключить хлебные крошки"
 msgid "Breadcrumb"
 msgstr "Путь по сайту"
 
-msgid "Root"
-msgstr "Главная"
-
 msgid "Close dialog"
 msgstr "Закрыть"
 
@@ -2064,6 +2093,9 @@ msgstr "Фильтр"
 msgid "Apply filters"
 msgstr "Применить фильтры"
 
+msgid "History"
+msgstr "История"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Новый: %(model_name)s"
@@ -2071,6 +2103,9 @@ msgstr "Новый: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Редактирование %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Главная"
 
 msgid "Current page status:"
 msgstr "Текущий статус страницы:"
@@ -2123,9 +2158,6 @@ msgstr "Ширина боковой панели"
 
 msgid "Comment notifications"
 msgstr "Уведомления о комментариях"
-
-msgid "Page Locale: "
-msgstr "Язык страницы:"
 
 msgid "Locale: "
 msgstr "Локализация:"
@@ -2185,9 +2217,6 @@ msgstr[0] "Использован %(usage_count)s раз."
 msgstr[1] "Использован %(usage_count)s раз."
 msgstr[2] "Использован %(usage_count)s раз."
 msgstr[3] "Использован %(usage_count)s раз."
-
-msgid "Page status: "
-msgstr "Статус страницы:"
 
 msgid "Status: "
 msgstr "Статус:"
@@ -2254,8 +2283,8 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Режим предпросмотра"
 
-msgid "First published "
-msgstr "Впервые опубликовано "
+msgid "First published"
+msgstr "Впервые опубликовано"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2576,9 +2605,6 @@ msgstr "Опубликовано"
 msgid "See full history"
 msgstr "Посмотреть полную историю"
 
-msgid "Compare with live version"
-msgstr "Сравнить с опубликованной версией"
-
 msgid "More"
 msgstr "Больше"
 
@@ -2778,6 +2804,13 @@ msgstr "Коллекция '%(object)s' удалена."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Вы уверены что хотите удалить эту коллекцию?"
 
+msgid "Home"
+msgstr "Главная"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Редактировать %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Прогресс рабочего процесса"
 
@@ -2867,6 +2900,25 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Поиск %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Редактировать '%(title)s'"
+
+msgid "Inspect"
+msgstr "Просмотр"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Проверить '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Удалить '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Дополнительные опции для '%(title)s'"
 
 msgid "Editing"
 msgstr "Редактирование"
@@ -3169,6 +3221,9 @@ msgstr "Скрыть действия комментирования"
 msgid "Page history"
 msgstr "Страница истории"
 
+msgid "Search pages…"
+msgstr "Поиск страниц..."
+
 msgid ""
 "Press enter to select an item, use up and down arrows to move the item, "
 "press enter to complete the move or escape to cancel the current move."
@@ -3410,27 +3465,12 @@ msgid "Pages"
 msgstr "Страницы"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редактировать '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Предпросмотр черновой версии '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Посмотреть опубликованную версию '%(title)s'"
-
-msgid "Add child page"
-msgstr "Добавить дочернюю страницу"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Добавить дочернюю страницу '%(title)s'"
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Дополнительные опции для '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,9 +88,6 @@ msgstr "下に移動"
 msgid "Promoted search results"
 msgstr "提案された検索結果"
 
-msgid "Add recommended page"
-msgstr "提案ページを追加"
-
 msgid "Search Terms"
 msgstr "検索ワード"
 
@@ -109,8 +106,26 @@ msgstr "閲覧数（一週間）"
 msgid "Edit this promotion"
 msgstr "このプロモーションを編集"
 
+msgid "External link"
+msgstr "外部リンク"
+
 msgid "None"
 msgstr "なし"
+
+msgid "Popular search terms"
+msgstr "人気の検索ワード"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Terms"
+msgstr "語句"
+
+msgid "No results found"
+msgstr "結果は見つかりませんでした。"
+
+msgid "Choose from popular search terms"
+msgstr "人気の検索ワードから選択"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

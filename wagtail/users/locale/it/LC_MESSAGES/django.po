@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -195,9 +195,6 @@ msgstr "Sì, cambia stato"
 msgid "No, don't change state"
 msgstr "No, non cambiare stato"
 
-msgid "Delete group"
-msgstr "Elimina gruppo"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -223,14 +220,14 @@ msgstr "Sei sicuro di voler eliminare questo gruppo?"
 msgid "Add group"
 msgstr "Aggiungi gruppo"
 
-msgid "Editing"
-msgstr "Modifica"
-
 msgid "View users in this group"
 msgstr "Visualizza utenti in questo gruppo"
 
 msgid "Save"
 msgstr "Salva"
+
+msgid "Delete group"
+msgstr "Elimina gruppo"
 
 msgid "Object permissions"
 msgstr "Permessi oggetto"
@@ -280,14 +277,8 @@ msgstr ""
 "Nessun gruppo configurato. Perché non <a "
 "href=\"%(wagtailusers_create_group_url)s\">ne aggiungi qualcuno</a>?"
 
-msgid "Delete user"
-msgstr "Elimina utente"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Sei sicuro di voler eliminare questo utente?"
-
-msgid "Add user"
-msgstr "Aggiungi utente"
 
 msgid "Account"
 msgstr "Account"
@@ -295,11 +286,11 @@ msgstr "Account"
 msgid "Roles"
 msgstr "Ruoli"
 
-msgid "Users"
-msgstr "Utenti"
+msgid "Add user"
+msgstr "Aggiungi utente"
 
-msgid "Add a user"
-msgstr "Aggiungi un utente"
+msgid "Delete user"
+msgstr "Elimina utente"
 
 msgid "Select all users in listing"
 msgstr "Seleziona tutti gli utenti nella lista"
@@ -418,6 +409,12 @@ msgstr "Il gruppo non può essere salvato a causa di errori."
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppo '%(object)s' eliminato."
 
+msgid "Add a user"
+msgstr "Aggiungi un utente"
+
+msgid "Users"
+msgstr "Utenti"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utente '%(object)s' aggiornato."
@@ -426,18 +423,8 @@ msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Modifica %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utente '%(object)s' eliminato."
 
 msgid "Edit"
 msgstr "Modifica"
-
-msgid "Edit this user"
-msgstr "Modifica questo utente"
-
-msgid "Delete this user"
-msgstr "Elimina questo utente"

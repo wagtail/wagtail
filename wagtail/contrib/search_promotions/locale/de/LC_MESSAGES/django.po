@@ -12,6 +12,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -48,14 +49,39 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Wenn Sie eine externe Link-URL eingeben, müssen Sie einen externen Linktext "
+"eingeben."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Sie müssen eine Seite ODER einen externen Link empfehlen."
+
+msgid "Please only select a page OR enter an external link."
+msgstr ""
+"Bitte wählen Sie nur eine Seite aus ODER geben Sie einen externen Link ein."
+
 msgid "Query Daily Hits"
 msgstr "Nach täglichen Treffern suchen"
 
 msgid "page"
 msgstr "Seite"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Wählen Sie eine interne Seite für diese Hervorhebung"
+
+msgid "External link URL"
+msgstr "Externe Link-URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+"Alternativ können Sie für diese Hervorhebung einen externen Link nutzen"
+
 msgid "description"
 msgstr "Beschreibung"
+
+msgid "Applies to internal page or external link"
+msgstr "Gilt für interne Seite oder externen Link"
 
 msgid "search promotion"
 msgstr "Hervorgehobenes Suchergebnis"
@@ -67,15 +93,16 @@ msgid "Add search pick"
 msgstr "Suchauswahl hinzufügen"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte Seiten zu "
-"empfehlen, die von sich aus nicht sehr weit oben in den Suchergebnissen "
-"auftauchen würden. So könnte zum Beispiel Ihre Spendenseite auftauchen wenn "
-"nach dem Suchbegriff „<em>unterstützen</em>“ gesucht wird.</p>"
+"<p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte Seiten "
+"oder externe Links zu empfehlen, die von sich aus nicht sehr weit oben in "
+"den Suchergebnissen auftauchen würden. So könnte zum Beispiel Ihre "
+"Spendenseite auftauchen wenn nach dem Suchbegriff „<em>unterstützen</em>“ "
+"gesucht wird.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -120,14 +147,14 @@ msgstr "Nach oben"
 msgid "Move down"
 msgstr "Nach unten"
 
-msgid "Recommended page"
-msgstr "Empfohlene Seite"
+msgid "Recommended search result"
+msgstr "Empfohlenes Suchergebnis"
 
 msgid "Promoted search results"
 msgstr "Hervorgehobene Suchergebnisse"
 
-msgid "Add recommended page"
-msgstr "Empfohlene Seite hinzufügen"
+msgid "Add a recommended result"
+msgstr "Empfohlenes Ergebnis hinzufügen"
 
 msgid "Search Terms"
 msgstr "Suchbegriffe"
@@ -159,8 +186,26 @@ msgstr "Sortiere nach View (höchster zuerst)"
 msgid "Edit this promotion"
 msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"
 
+msgid "External link"
+msgstr "Externer Link"
+
 msgid "None"
 msgstr "Keine"
+
+msgid "Popular search terms"
+msgstr "Häufige Suchbegriffe"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Terms"
+msgstr "Begriffe"
+
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+msgid "Choose from popular search terms"
+msgstr "Wählen Sie aus populären Suchbegriffen"
 
 #, python-format
 msgid "There is %(counter)s match"

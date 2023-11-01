@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023
-# saevarom <saevar@saevar.is>, 2019-2022
+# saevarom <saevar@saevar.is>, 2019-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2020-2021,2023\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2019-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -882,8 +881,8 @@ msgid "Remove view restrictions"
 msgstr "Fjarlægja skoðunartakmarkanir"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Fjarlægði skoðunartakmörkunina '%(restriction)s'"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "Fjarlægði '%(restriction)s' skoðunartakmörkunina. Síðan er í birtingu."
 
 msgid "Removed view restriction"
 msgstr "Fjarlægði skoðunartakmarkanir"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -104,18 +104,6 @@ msgstr "Newydd"
 msgid "Actions"
 msgstr "Gweithredoedd"
 
-msgid "Breadcrumb"
-msgstr "Briwsion Bara"
-
-msgid "Snippets"
-msgstr "Pytiau"
-
-msgid "History"
-msgstr "Hanes"
-
-msgid "Usage"
-msgstr "Defnydd"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pytiau %(snippet_type_name_plural)s"
@@ -141,6 +129,9 @@ msgstr "Golygu"
 msgid "Choose"
 msgstr "Dewis"
 
+msgid "Snippets"
+msgstr "Pytiau"
+
 msgid "Name"
 msgstr "Enw"
 
@@ -156,19 +147,8 @@ msgstr "Gweithred"
 msgid "Date"
 msgstr "Dyddiad"
 
-msgid "Snippet history"
-msgstr "Hanes pytiau"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Golygu '%(title)s'"
-
-msgid "Inspect"
-msgstr "Archwilio"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Dileu '%(title)s'"
+msgid "Home"
+msgstr "Adref"
 
 #, python-format
 msgid "Choose %(object)s"

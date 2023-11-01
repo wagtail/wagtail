@@ -7,15 +7,15 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -88,14 +88,14 @@ msgstr "Siirrä ylös"
 msgid "Move down"
 msgstr "Siirrä alas"
 
-msgid "Recommended page"
-msgstr "Suositeltu sivu"
+msgid "Recommended search result"
+msgstr "Suositeltu hakutulos"
 
 msgid "Promoted search results"
 msgstr "Nostetut hakutulokset"
 
-msgid "Add recommended page"
-msgstr "Lisää suositeltu sivu"
+msgid "Add a recommended result"
+msgstr "Lisää suositeltu tulos"
 
 msgid "Search Terms"
 msgstr "Hakutermit"
@@ -127,8 +127,26 @@ msgstr "Järjestä näyttöjen mukaan (eniten ensin)"
 msgid "Edit this promotion"
 msgstr "Muokkaa nostoa"
 
+msgid "External link"
+msgstr "Ulkoinen linkki"
+
 msgid "None"
 msgstr "Ei mitään"
+
+msgid "Popular search terms"
+msgstr "Suositut hakutermit"
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "Terms"
+msgstr "Termit"
+
+msgid "No results found"
+msgstr "Ei tuloksia"
+
+msgid "Choose from popular search terms"
+msgstr "Valitse suosituista hakutermeistä"
 
 #, python-format
 msgid "There is %(counter)s match"

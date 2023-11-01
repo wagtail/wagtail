@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -38,14 +38,37 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifiqueu com a mínim una recomanació per a aquest terme de cerca."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Heu d'escriure un text d'enllaç extern si introduïu una URL d'enllaç extern."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Heu de recomanar una pàgina O un enllaç extern. "
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Seleccioneu només una pàgina O un enllaç extern."
+
 msgid "Query Daily Hits"
 msgstr "Consultar Visites Diàries"
 
 msgid "page"
 msgstr "pàgina"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Trieu una pàgina interna per aquesta promoció"
+
+msgid "External link URL"
+msgstr "URL d'enllaç extern"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+"Alternativament, podeu fer servir un enllaç extern per aquesta promoció"
+
 msgid "description"
 msgstr "descripció"
+
+msgid "Applies to internal page or external link"
+msgstr "S'aplica a una pàgina interna o un enllaç extern"
 
 msgid "search promotion"
 msgstr "promoció de cerca"
@@ -57,15 +80,16 @@ msgid "Add search pick"
 msgstr "Afegir triar de cercar"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Els resultats de la cerca promocionada són un mitjà per recomanar pàgines "
-"específiques que podrien no aparèixer de manera orgànica als resultats de la "
-"cerca. P.e.: recomanar la teva pàgina de donació principal a un usuari que "
-"està cercant amb el menys comú terme \"ofrena\".</p>"
+"<p>Els resultats de cerca promocionats són un mitjà per recomanar pàgines "
+"específiques o enllaços externs que potser no apareixen orgànicament als "
+"resultats de la cerca. Per exemple, recomanar la teva pàgina de donació "
+"principal a un usuari que cerqui amb el terme menys comú \"<em>aportació</"
+"em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -111,14 +135,14 @@ msgstr "Puja"
 msgid "Move down"
 msgstr "Baixa"
 
-msgid "Recommended page"
-msgstr "Pàgina recomanada"
+msgid "Recommended search result"
+msgstr "Resultat de cerca recomanat"
 
 msgid "Promoted search results"
 msgstr "Resultats de cerca promocionada"
 
-msgid "Add recommended page"
-msgstr "Afegeix una pàgina recomanada"
+msgid "Add a recommended result"
+msgstr "Afegir un resultat recomanat"
 
 msgid "Search Terms"
 msgstr "Termini de cerca"
@@ -150,8 +174,26 @@ msgstr "Ordena per vistes (primer les majors)"
 msgid "Edit this promotion"
 msgstr "Editeu aquesta promoció"
 
+msgid "External link"
+msgstr "Enllaç extern"
+
 msgid "None"
 msgstr "Cap"
+
+msgid "Popular search terms"
+msgstr "Termes de cerca populars"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Terms"
+msgstr "Termes"
+
+msgid "No results found"
+msgstr "No s'han trobat resultats"
+
+msgid "Choose from popular search terms"
+msgstr "Trieu entre els termes de cerca populars"
 
 #, python-format
 msgid "There is %(counter)s match"

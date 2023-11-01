@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,21 +25,3 @@ msgstr "Wagtail検索"
 
 msgid "Query Daily Hits"
 msgstr "人気の検索クエリ"
-
-msgid "Popular search terms"
-msgstr "人気の検索ワード"
-
-msgid "Search"
-msgstr "検索"
-
-msgid "Terms"
-msgstr "語句"
-
-msgid "Views (past week)"
-msgstr "閲覧数（一週間）"
-
-msgid "No results found"
-msgstr "結果は見つかりませんでした。"
-
-msgid "Choose from popular search terms"
-msgstr "人気の検索ワードから選択"

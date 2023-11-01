@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022-2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,39 +155,6 @@ msgstr "Accions"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Editant %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Commutar rutes de navegació"
-
-msgid "Breadcrumb"
-msgstr "Ruta de navegació"
-
-msgid "Snippets"
-msgstr "Fragments"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nou: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Editant %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historial"
-
-msgid "Usage"
-msgstr "Ús"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Historial de fragment de %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Editar aquest fragment"
-
-msgid "No log entries found."
-msgstr "No s'han trobat entrades de registre."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragments %(snippet_type_name_plural)s"
@@ -244,11 +211,18 @@ msgstr "Cancel·lar la publicació programada"
 msgid "Choose"
 msgstr "Triar"
 
+msgid "Snippets"
+msgstr "Fragments"
+
 msgid "Name"
 msgstr "Nom"
 
 msgid "Instances"
 msgstr "Instàncies"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Més opcions per '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."
@@ -259,14 +233,8 @@ msgstr "El fragment no s'ha pogut desar degut a errors."
 msgid "Action"
 msgstr "Acció"
 
-msgid "User"
-msgstr "Usuari"
-
 msgid "Date"
 msgstr "Data"
-
-msgid "Snippet history"
-msgstr "Historial del fragment"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -276,20 +244,8 @@ msgstr "Editar aquest %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Historial de %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspeccionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspeccionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Esborrar '%(title)s'"
+msgid "Home"
+msgstr "Inici"
 
 #, python-format
 msgid "Choose %(object)s"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
+"2019-2020,2022-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -37,14 +38,36 @@ msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Kérjük adjon meg legalább egy javaslatot ehhez a keresési kifejezéshez."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Külső hivatkozás esetén meg kell adni a link szövegét is."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Az ajánláshoz szükséges egy oldal VAGY külső hivatkozás."
+
+msgid "Please only select a page OR enter an external link."
+msgstr ""
+"Kérjük VAGY válasszon egy oldalt, VAGY adjon meg egy külső hivatkozást."
+
 msgid "Query Daily Hits"
 msgstr "Napi találatok lekérdezése"
 
 msgid "page"
 msgstr "oldal"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Válasszon egy belső oldalt"
+
+msgid "External link URL"
+msgstr "Külső hivatkozás URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Alternatívaként használhat egy külső hivatkozást is"
+
 msgid "description"
 msgstr "leírás"
+
+msgid "Applies to internal page or external link"
+msgstr "Belső oldalra és külső hivatkozásra is vonatkozik"
 
 msgid "search promotion"
 msgstr "kiemelt keresés"
@@ -56,15 +79,15 @@ msgid "Add search pick"
 msgstr "Keresési választás hozzáadása"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>A kiemelt keresések lehetővé teszik olyan oldalak ajánlását, amelyek "
-"amúgy nem feltétlenül jelennének meg az eredmények között. Például az "
-"adománygyűjtő oldal ajánlása azoknak a látogatóknak, akik a \"<em>segítség</"
-"em>\" szóra keresnek.</p>"
+"<p>A kiemelt keresések lehetővé teszik olyan oldalak vagy külső linkek "
+"ajánlását, amelyek amúgy nem feltétlenül jelennének meg az eredmények "
+"között. Például az adománygyűjtő oldal ajánlása azoknak a látogatóknak, akik "
+"a \"<em>segítség</em>\" szóra keresnek.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -109,14 +132,14 @@ msgstr "Mozgatás felfelé"
 msgid "Move down"
 msgstr "Mozgatás lefelé"
 
-msgid "Recommended page"
-msgstr "Javasolt oldalt"
+msgid "Recommended search result"
+msgstr "Kiemelt keresés találat"
 
 msgid "Promoted search results"
 msgstr "Kiemelt keresés találatok"
 
-msgid "Add recommended page"
-msgstr "Javasolt oldal hozzáadása"
+msgid "Add a recommended result"
+msgstr "Javasolt keresési eredmény hozzáadása"
 
 msgid "Search Terms"
 msgstr "Keresési kifejezések"
@@ -148,8 +171,26 @@ msgstr "Rendezés megtekintések alapján (több elöl)"
 msgid "Edit this promotion"
 msgstr "Kiemelt keresés szerkesztése"
 
+msgid "External link"
+msgstr "Külső link"
+
 msgid "None"
 msgstr "Üres"
+
+msgid "Popular search terms"
+msgstr "Népszerű keresések"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Terms"
+msgstr "Kifejezések"
+
+msgid "No results found"
+msgstr "Nincs találat."
+
+msgid "Choose from popular search terms"
+msgstr "Válassz a népszerű keresések közül"
 
 #, python-format
 msgid "There is %(counter)s match"

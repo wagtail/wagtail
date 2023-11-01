@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -328,6 +328,9 @@ msgstr "向前"
 msgid "Next"
 msgstr "往后"
 
+msgid "Add child page"
+msgstr "添加子页面"
+
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
 
@@ -352,6 +355,9 @@ msgstr "登出"
 
 msgid "Password"
 msgstr "密码"
+
+msgid "Home"
+msgstr "主页"
 
 msgid "Editing"
 msgstr "正在编辑"
@@ -401,9 +407,6 @@ msgstr "第 '%(page_title)s' 页已取消发布"
 
 msgid "Pages using"
 msgstr "页面在用"
-
-msgid "Add child page"
-msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

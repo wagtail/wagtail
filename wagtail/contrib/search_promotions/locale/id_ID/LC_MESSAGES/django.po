@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -90,9 +90,6 @@ msgstr "Geser ke bawah"
 msgid "Promoted search results"
 msgstr "Hasil pencarian terpromosi"
 
-msgid "Add recommended page"
-msgstr "Tambah halaman yang direkomendasi"
-
 msgid "Search Terms"
 msgstr "Kata kunci pencarian"
 
@@ -111,8 +108,26 @@ msgstr "Tampilan (seminggu lalu)"
 msgid "Edit this promotion"
 msgstr "Ubah promosi ini"
 
+msgid "External link"
+msgstr "Tautan luar"
+
 msgid "None"
 msgstr "Tidak ada"
+
+msgid "Popular search terms"
+msgstr "Kata kunci pencarian populer"
+
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Terms"
+msgstr "Kata kunci"
+
+msgid "No results found"
+msgstr "Tidak ada hasil"
+
+msgid "Choose from popular search terms"
+msgstr "Pilih dari kata kunci pencarian populer"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

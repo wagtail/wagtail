@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -717,10 +717,6 @@ msgstr "Ažurirano je ograničenje pogleda"
 
 msgid "Remove view restrictions"
 msgstr "Ukloni ograničenja pogleda"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Uklonjeno '%(restriction)s' ograničenje pogleda"
 
 msgid "Removed view restriction"
 msgstr "Uklonjeno je ograničenje pogleda"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -107,6 +107,10 @@ msgstr "Nahrát profilovou fotografii"
 
 msgid "Enter password"
 msgstr "Zadejte heslo"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -536,6 +540,9 @@ msgstr "Ne, nerušit publikaci"
 msgid "Cancel"
 msgstr "Storno"
 
+msgid "No log entries found."
+msgstr "Nenalezeny žádné záznamy v logu."
+
 msgid "Update"
 msgstr "Uložit"
 
@@ -575,6 +582,9 @@ msgstr "Uzamčeno: "
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
+
+msgid "Actions"
+msgstr "Akce"
 
 msgid "Unlock"
 msgstr "Odemknout"
@@ -636,15 +646,17 @@ msgstr "Očekává se vaše revize"
 msgid "Tasks"
 msgstr "Úkoly"
 
+msgid "Compare with live version"
+msgstr "Porovnat s publikovánou verzí"
+
+msgid "Compare with previous version"
+msgstr "Porovnat s předchozí verzí"
+
 msgid "Sign in"
 msgstr "Přihlásit se"
 
 msgid "Sign in to Wagtail"
 msgstr "Přihlášení do redakčního systému"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
 
 msgid "Forgotten password?"
 msgstr "Zapomenuté heslo?"
@@ -815,6 +827,9 @@ msgstr "Viditelnost"
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
+msgid "Save the page before leaving"
+msgstr "Uložit stránku před jejím opuštěním"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Máte <span>neuložené změny</span>"
 
@@ -823,9 +838,6 @@ msgstr "You have <span>neuložené komentáře</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Máte <span>neuložené změny</span> a <span>komentáře</span>"
-
-msgid "Save the page before leaving"
-msgstr "Uložit stránku před jejím opuštěním"
 
 msgid "Publishing…"
 msgstr "Publikování..."
@@ -958,9 +970,6 @@ msgstr "Kopírovat tuto stránku"
 msgid "New %(page_type)s"
 msgstr "Nový %(page_type)s"
 
-msgid "Actions"
-msgstr "Akce"
-
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
 
@@ -995,9 +1004,6 @@ msgstr "Publikovaná verze"
 
 msgid "Current draft"
 msgstr "Aktuální koncept"
-
-msgid "No log entries found."
-msgstr "Nenalezeny žádné záznamy v logu."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1047,14 +1053,11 @@ msgstr "Tato stránka není veřejně viditelná"
 msgid "Confirm"
 msgstr "Potvrdit"
 
-msgid "History"
-msgstr "Historie"
+msgid "Add child page"
+msgstr "Přidat podstránku"
 
 msgid "Review this version"
 msgstr "Revidovat tuto verzi"
-
-msgid "Compare with previous version"
-msgstr "Porovnat s předchozí verzí"
 
 msgid "Compare with current version"
 msgstr "Porovnat s aktuální verzí"
@@ -1137,9 +1140,6 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Drobečková navigace"
 
-msgid "Root"
-msgstr "Počátek"
-
 msgid "Download XLSX"
 msgstr "Stáhnout XLSX"
 
@@ -1154,6 +1154,12 @@ msgstr "Filtr"
 
 msgid "Apply filters"
 msgstr "Použít filtry"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Root"
+msgstr "Počátek"
 
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
@@ -1214,6 +1220,9 @@ msgstr[3] "Použito %(usage_count)s -krát"
 
 msgid "View history"
 msgstr "Zobrazit historii"
+
+msgid "First published"
+msgstr "Poprvé publikováno"
 
 msgid "Edit / Review"
 msgstr "Editovat / Revidovat"
@@ -1428,9 +1437,6 @@ msgstr "Publikováno"
 msgid "See full history"
 msgstr "Zobraz celou historii"
 
-msgid "Compare with live version"
-msgstr "Porovnat s publikovánou verzí"
-
 msgid "More"
 msgstr "Více"
 
@@ -1515,6 +1521,9 @@ msgstr "Kolekce '%(object)s' byla smazána."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Opravdu chcete smazat tuto kolekci?"
 
+msgid "Home"
+msgstr "Domů"
+
 msgid "Workflow progress"
 msgstr "Průběh postupu"
 
@@ -1525,6 +1534,17 @@ msgstr "%(model_name)s '%(object)s' aktualizováno."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' vytvořeno."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editovat '%(title)s'"
+
+msgid "Inspect"
+msgstr "Prozkoumat"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Zrušit '%(title)s'"
 
 msgid "Editing"
 msgstr "Úprava"
@@ -1810,23 +1830,12 @@ msgid "Pages"
 msgstr "Stránky"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editovat '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Prohlédnout koncept stránky '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Zobrazit publikovanou verzi '%(title)s'"
-
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Přidat podstránku k '%(title)s' "
 
 #, python-format
 msgid "Move page '%(title)s'"

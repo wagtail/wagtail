@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2023\n"
@@ -107,6 +107,12 @@ msgstr "Завантажити зображення для профілю"
 
 msgid "Enter password"
 msgstr "Введіть пароль"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ваші %(username_field)s та пароль не відповідають один одному. Будь ласка, "
+"спробуйте ще раз."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -577,6 +583,9 @@ msgstr "Ні, не знімати з публікації"
 msgid "Cancel"
 msgstr "Скасувати"
 
+msgid "No log entries found."
+msgstr "Записи в журналі не знайдені. "
+
 msgid "Update"
 msgstr "Оновити"
 
@@ -615,6 +624,9 @@ msgstr "Заблоковано в "
 
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
+
+msgid "Actions"
+msgstr "Дії"
 
 msgid "Unlock"
 msgstr "Розблокувати"
@@ -676,17 +688,17 @@ msgstr "В очікуванні огляду"
 msgid "Tasks"
 msgstr "Завдання"
 
+msgid "Compare with live version"
+msgstr "Порівняти із версією наживо"
+
+msgid "Compare with previous version"
+msgstr "Порівняти з попередньою версією"
+
 msgid "Sign in"
 msgstr "Увійти"
 
 msgid "Sign in to Wagtail"
 msgstr "Увійдіть до Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Ваші %(username_field)s та пароль не відповідають один одному. Будь ласка, "
-"спробуйте ще раз."
 
 msgid "Forgotten password?"
 msgstr "Забули пароль?"
@@ -862,6 +874,9 @@ msgstr "Приватність сторінки"
 msgid "This page has been made private by a parent page."
 msgstr "Батьківська сторінка зробила цю сторінку приватною."
 
+msgid "Save the page before leaving"
+msgstr "Збережіть сторінку перед виходом"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас є <span>незбережені зміни</span>"
 
@@ -870,9 +885,6 @@ msgstr "У вас є <span>незбережені коментарі</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "У вас є <span>незбережені зміни</span> і <span>коментарі</span>"
-
-msgid "Save the page before leaving"
-msgstr "Збережіть сторінку перед виходом"
 
 msgid "Publishing…"
 msgstr "Опубліковується..."
@@ -1071,9 +1083,6 @@ msgstr "Копіювати цю сторінку"
 msgid "New %(page_type)s"
 msgstr "Створити %(page_type)s"
 
-msgid "Actions"
-msgstr "Дії"
-
 msgid "This page has unsaved changes."
 msgstr "Ця сторінка має незбережені зміни"
 
@@ -1112,18 +1121,15 @@ msgstr "Версія наживо"
 msgid "Current draft"
 msgstr "Поточна чернетка"
 
-msgid "No log entries found."
-msgstr "Записи в журналі не знайдені. "
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Перегляд %(title)s"
 
-msgid "Configure a site now."
-msgstr "Сконфігурувати сайт зараз."
-
 msgid "Select all pages in listing"
 msgstr "Обрати всі сторінки у списку"
+
+msgid "Configure a site now."
+msgstr "Сконфігурувати сайт зараз."
 
 msgid "This page is locked to further editing"
 msgstr "Сторінку заблоковану для майбутнього редагування"
@@ -1170,14 +1176,11 @@ msgstr "Ця сторінка захищена від публічного пе�
 msgid "Confirm"
 msgstr "Підтвердити"
 
-msgid "History"
-msgstr "Історія змін"
+msgid "Add child page"
+msgstr "Додати дочірню сторінку"
 
 msgid "Review this version"
 msgstr "Переглянути цю версію"
-
-msgid "Compare with previous version"
-msgstr "Порівняти з попередньою версією"
 
 msgid "Compare with current version"
 msgstr "Порівняти з поточною версією"
@@ -1263,9 +1266,6 @@ msgstr "Сторінка %(page_num)s з %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
 
-msgid "Root"
-msgstr "Корінь"
-
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
 
@@ -1280,6 +1280,12 @@ msgstr "Фільтр"
 
 msgid "Apply filters"
 msgstr "Застосувати фільтри"
+
+msgid "History"
+msgstr "Історія змін"
+
+msgid "Root"
+msgstr "Корінь"
 
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
@@ -1344,9 +1350,6 @@ msgstr[3] "Використано %(usage_count)s разів"
 
 msgid "View history"
 msgstr "Переглянути історію"
-
-msgid "First published "
-msgstr "Вперше опубліковано "
 
 msgid "Edit / Review"
 msgstr "Редагувати / Перевірити"
@@ -1565,9 +1568,6 @@ msgstr "Опубліковано"
 msgid "See full history"
 msgstr "Переглянути повну історію"
 
-msgid "Compare with live version"
-msgstr "Порівняти із версією наживо"
-
 msgid "More"
 msgstr "Більше"
 
@@ -1664,6 +1664,9 @@ msgstr "Колекцію '%(object)s' видалено."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ви впевнені, що хочете видалили цю колекцію?"
 
+msgid "Home"
+msgstr "Головна"
+
 msgid "Workflow progress"
 msgstr "Прогрес робочого процесу"
 
@@ -1674,6 +1677,17 @@ msgstr "%(model_name)s '%(object)s' оновлено."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' створено."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Редагувати '%(title)s'"
+
+msgid "Inspect"
+msgstr "Переглянути"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Видалити '%(title)s'"
 
 msgid "Editing"
 msgstr "Редагування"
@@ -2097,23 +2111,12 @@ msgid "Pages"
 msgstr "Сторінки"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редагувати '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Попередньо переглянути чернетку для '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Переглянути живу версію для '%(title)s'"
-
-msgid "Add child page"
-msgstr "Додати дочірню сторінку"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Додати дочірню сторінку для'%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

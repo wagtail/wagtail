@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,9 +91,6 @@ msgstr "Symyd i lawr"
 msgid "Promoted search results"
 msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 
-msgid "Add recommended page"
-msgstr "Ychwanegu tudalen a argymhellir"
-
 msgid "Search Terms"
 msgstr "Termau Chwilio"
 
@@ -126,6 +123,21 @@ msgstr "Golygu'r hyrwyddiad hwn"
 
 msgid "None"
 msgstr "Ddim"
+
+msgid "Popular search terms"
+msgstr "Termau chwilio poblogaidd"
+
+msgid "Search"
+msgstr "Chwilio"
+
+msgid "Terms"
+msgstr "Termau"
+
+msgid "No results found"
+msgstr "Dim chanfuwyd canlyniadau"
+
+msgid "Choose from popular search terms"
+msgstr "Dewiswch o dermau chwilio poblogaidd"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

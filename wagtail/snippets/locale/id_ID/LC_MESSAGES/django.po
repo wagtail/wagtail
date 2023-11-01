@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -100,12 +100,6 @@ msgstr "%(snippet_type_name)s Baru"
 msgid "New"
 msgstr "Baru"
 
-msgid "Snippets"
-msgstr "Potongan"
-
-msgid "Usage"
-msgstr "Penggunaan"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Potongan %(snippet_type_name_plural)s"
@@ -140,6 +134,9 @@ msgstr "Batalkan publikasi terjadwal"
 msgid "Choose"
 msgstr "Pilih"
 
+msgid "Snippets"
+msgstr "Potongan"
+
 msgid "Name"
 msgstr "Nama"
 
@@ -152,12 +149,8 @@ msgstr "Potongan tidak dapat disimpan karena suatu kesalahan."
 msgid "Date"
 msgstr "Tanggal"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Ubah '%(title)s'"
-
-msgid "Inspect"
-msgstr "Periksa"
+msgid "Home"
+msgstr "Beranda"
 
 #, python-format
 msgid "Choose %(object)s"

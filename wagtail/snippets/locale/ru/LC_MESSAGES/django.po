@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,39 +170,6 @@ msgstr "Действия"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Редактирование %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Переключить хлебные крошки"
-
-msgid "Breadcrumb"
-msgstr "Навигационная цепочка"
-
-msgid "Snippets"
-msgstr "Фрагменты"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Новый: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Редактирование %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "История"
-
-msgid "Usage"
-msgstr "Использование"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "История фрагмента для %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Редактировать этот фрагмент"
-
-msgid "No log entries found."
-msgstr "Записи в журнале не найдены."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Фрагменты %(snippet_type_name_plural)s"
@@ -263,11 +230,18 @@ msgstr "Отменить запланированную публикацию"
 msgid "Choose"
 msgstr "Выбрать"
 
+msgid "Snippets"
+msgstr "Фрагменты"
+
 msgid "Name"
 msgstr "Имя"
 
 msgid "Instances"
 msgstr "Экземпляры"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Дополнительные опции для '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
@@ -278,14 +252,8 @@ msgstr "Фрагмент не может быть сохранен из-за о�
 msgid "Action"
 msgstr "Действие"
 
-msgid "User"
-msgstr "Пользователь"
-
 msgid "Date"
 msgstr "Дата"
-
-msgid "Snippet history"
-msgstr "История фрагмента"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -295,20 +263,8 @@ msgstr "Редактировать %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s история"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редактировать '%(title)s'"
-
-msgid "Inspect"
-msgstr "Просмотр"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Проверить '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Удалить '%(title)s'"
+msgid "Home"
+msgstr "Главная"
 
 #, python-format
 msgid "Choose %(object)s"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,17 +57,6 @@ msgid "Add search pick"
 msgstr "Lägg till sökträff"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
-msgstr ""
-"<p>Premierade sökresultat är ett sätt att rekommendera specifika sidor som "
-"kanske inte rankas högt bland de organiska sökresultaten. Ex. rekommendera "
-"din primära donationssida till en användare som söker med den mindre vanliga "
-"termen \"<em>ge gåvor</em>\".</p>"
-
-msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
 "any misspellings/user error. To help, you can choose from search terms that "
@@ -110,14 +99,8 @@ msgstr "Flytta upp"
 msgid "Move down"
 msgstr "Flytta ner"
 
-msgid "Recommended page"
-msgstr "Rekommenderad sida"
-
 msgid "Promoted search results"
 msgstr "Premierade sökresultat"
-
-msgid "Add recommended page"
-msgstr "Lägg till rekommenderad sida"
 
 msgid "Search Terms"
 msgstr "Söktermer"
@@ -149,8 +132,26 @@ msgstr "Sortera efter antal visningar (högst först)"
 msgid "Edit this promotion"
 msgstr "Redigera denna premiering"
 
+msgid "External link"
+msgstr "Extern länk"
+
 msgid "None"
 msgstr "Ingen"
+
+msgid "Popular search terms"
+msgstr "Populära söktermer"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Terms"
+msgstr "Termer"
+
+msgid "No results found"
+msgstr "Inga resultat funna"
+
+msgid "Choose from popular search terms"
+msgstr "Välj från populära söktermer"
 
 #, python-format
 msgid "There is %(counter)s match"
