@@ -216,6 +216,19 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                   typeof item.icon !== 'undefined' && item.icon !== null;
                 let icon: JSX.Element | null | undefined = null;
 
+                function renderIcon(items: ComboBoxItem) {
+                  if (items.icon === undefined) {
+                    return null;
+                  }
+
+                  if (typeof items.icon === 'object') {
+                    const iconArray = [items.icon];
+                    const iconString = iconArray.join(' ');
+                    return <Icon name={iconString} svgPath={iconString} />;
+                  }
+                  return null;
+                }
+
                 if (hasIcon) {
                   if (Array.isArray(item.icon)) {
                     icon = renderIcon({ icon: item.icon });
@@ -226,18 +239,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                       ) : (
                         item.icon
                       );
-                  }
-                }
-
-                function renderIcon(item: ComboBoxItem) {
-                  if (item.icon == undefined) {
-                    return null;
-                  }
-
-                  if (typeof item.icon === 'object') {
-                    const iconArray = [item.icon];
-                    const iconString = iconArray.join(' ');
-                    return <Icon name={iconString} svgPath={iconString} />;
                   }
                 }
 
