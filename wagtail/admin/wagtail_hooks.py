@@ -375,10 +375,12 @@ class PageListingSortMenuOrderButton(PageListingButton):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
-    yield PageListingEditButton(page=page, user=user, priority=2)
+    yield PageListingEditButton(page=page, user=user, next_url=next_url, priority=2)
     yield PageListingViewDraftButton(page=page, user=user, priority=4)
     yield PageListingViewLiveButton(page=page, user=user, url=page.url, priority=6)
-    yield PageListingAddChildPageButton(page=page, user=user, priority=8)
+    yield PageListingAddChildPageButton(
+        page=page, user=user, next_url=next_url, priority=8
+    )
     yield PageListingMoveButton(page=page, user=user, priority=10)
     yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=20)
     yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=30)
