@@ -216,13 +216,13 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                   typeof item.icon !== 'undefined' && item.icon !== null;
                 let icon: JSX.Element | null | undefined = null;
 
-                function renderIcon(items: ComboBoxItem) {
-                  if (items.icon === undefined) {
+                function renderIcon(svgs: ComboBoxItem) {
+                  if (svgs.icon === undefined) {
                     return null;
                   }
 
-                  if (typeof items.icon === 'object') {
-                    const iconArray = [items.icon];
+                  if (typeof svgs.icon === 'object') {
+                    const iconArray = [svgs.icon];
                     const iconString = iconArray.join(' ');
                     return <Icon name={iconString} svgPath={iconString} />;
                   }
