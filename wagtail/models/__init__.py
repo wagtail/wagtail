@@ -2701,14 +2701,6 @@ class PageRevisionsManager(RevisionsManager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).page_revisions()
 
-    def submitted(self):
-        return self.get_queryset().submitted()
-
-
-class SubmittedRevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db).submitted()
-
 
 class Revision(models.Model):
     content_type = models.ForeignKey(
