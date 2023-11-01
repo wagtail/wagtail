@@ -11,9 +11,19 @@ describe('Icon', () => {
     expect(shallow(<Icon name="test" />)).toMatchSnapshot();
   });
 
-  it('#name for SVG path data', () => {
+  it('#svg_path', () => {
+    const iconName = 'exampleIcon';
     const svgPathData = 'M10 30 L20 10 L30 30 L40 30 L50 10 L60 30';
-    expect(shallow(<Icon name={svgPathData} />)).toMatchSnapshot();
+
+    const wrapper = shallow(<Icon name={iconName} svg_path={svgPathData} />);
+    expect(wrapper).toMatchSnapshot();
+
+    const svgElement = wrapper.find('svg');
+    const pathElement = wrapper.find('path');
+
+    expect(svgElement.hasClass(`icon-${iconName}`)).toBe(true);
+
+    expect(pathElement.props().d).toBe(svgPathData);
   });
 
   it('#className', () => {

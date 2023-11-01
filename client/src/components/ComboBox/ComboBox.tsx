@@ -217,12 +217,28 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                 let icon: JSX.Element | null | undefined = null;
 
                 if (hasIcon) {
-                  icon =
-                    typeof item.icon === 'string' ? (
-                      <Icon name={item.icon} />
-                    ) : (
-                      item.icon
-                    );
+                  if (Array.isArray(item.icon)) {
+                    icon = renderIcon({ icon: item.icon });
+                  } else {
+                    icon =
+                      typeof item.icon === 'string' ? (
+                        <Icon name={item.icon} />
+                      ) : (
+                        item.icon
+                      );
+                  }
+                }
+
+                function renderIcon(item: ComboBoxItem) {
+                  if (item.icon == undefined) {
+                    return null;
+                  }
+
+                  if (typeof item.icon === 'object') {
+                    const iconArray = [item.icon];
+                    const iconString = iconArray.join(' ');
+                    return <Icon name={iconString} svg_path={iconString} />;
+                  }
                 }
 
                 return (
