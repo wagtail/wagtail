@@ -789,21 +789,6 @@ Enabling this option will allow editors to insert arbitrary HTML into the page, 
 
 ## Workflow
 
-(wagtail_moderation_enabled)=
-
-### `WAGTAIL_MODERATION_ENABLED`
-
-```python
-WAGTAIL_MODERATION_ENABLED = True
-```
-
-Changes whether the Submit for Moderation button is displayed in the action menu.
-
-```{versionchanged} 5.2
-
-This setting has been deprecated. Use `WAGTAIL_WORKFLOW_ENABLED` instead.
-```
-
 ### `WAGTAIL_WORKFLOW_ENABLED`
 
 ```python
