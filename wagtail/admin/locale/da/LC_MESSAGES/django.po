@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -86,6 +86,11 @@ msgstr "Upload et profilbillede"
 
 msgid "Enter password"
 msgstr "Skriv adgangskode"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Dit %(username_field)s og adgangskode matcher ikke. Prøv venligst igen."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -412,11 +417,6 @@ msgstr "Log Ind"
 msgid "Sign in to Wagtail"
 msgstr "Log ind i Wagtail"
 
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Dit %(username_field)s og adgangskode matcher ikke. Prøv venligst igen."
-
 msgid "Signing in…"
 msgstr "Logger ind..."
 
@@ -570,6 +570,9 @@ msgstr "Næste"
 msgid "This page is protected from public view"
 msgstr "Denne side er beskyttet mod offentlig skue"
 
+msgid "Add child page"
+msgstr "Tilføj en underside"
+
 #, python-format
 msgid "Add %(label)s"
 msgstr "Tilføj %(label)s"
@@ -619,6 +622,13 @@ msgstr "%(time_period)s siden"
 
 msgid "Log out"
 msgstr "Log ud"
+
+msgid "Home"
+msgstr "Hjem"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Rediger '%(title)s'"
 
 msgid "Editing"
 msgstr "Redigerer"
@@ -679,13 +689,6 @@ msgstr "Sider der bruger"
 
 msgid "Pages"
 msgstr "Sider"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediger '%(title)s'"
-
-msgid "Add child page"
-msgstr "Tilføj en underside"
 
 msgid "Bulleted list"
 msgstr "Liste med prikker"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -156,39 +156,6 @@ msgstr "Postupci"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Uređivanje %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Prikaži/sakrij navigacijsku traku"
-
-msgid "Breadcrumb"
-msgstr "Navigacijska traka"
-
-msgid "Snippets"
-msgstr "Izresci"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Novi: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Uređivanje %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Povijest"
-
-msgid "Usage"
-msgstr "Upotreba"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Povijest izreska %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Uredi ovaj izrezak"
-
-msgid "No log entries found."
-msgstr "Nema pronađenih zapisa."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Izresci %(snippet_type_name_plural)s"
@@ -246,6 +213,9 @@ msgstr "Otkaži zakazano objavljivanje"
 msgid "Choose"
 msgstr "Odaberi"
 
+msgid "Snippets"
+msgstr "Izresci"
+
 msgid "Name"
 msgstr "Naziv"
 
@@ -261,14 +231,8 @@ msgstr "Nije moguće sačuvati izrezak zbog grešaka."
 msgid "Action"
 msgstr "Radnja"
 
-msgid "User"
-msgstr "Korisnik"
-
 msgid "Date"
 msgstr "Datum"
-
-msgid "Snippet history"
-msgstr "Povijest izreska"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -278,20 +242,8 @@ msgstr "Uredi ovaj %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Povijest %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
-msgid "Inspect"
-msgstr "Pregledaj"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Pregledaj '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Izbriši '%(title)s'"
+msgid "Home"
+msgstr "Naslovna"
 
 #, python-format
 msgid "Choose %(object)s"

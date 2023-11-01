@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,21 +28,3 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Καθημερινές Εμφανίσεις Ερωτημάτων"
-
-msgid "Popular search terms"
-msgstr "Δημοφιλείς όροι αναζήτησης"
-
-msgid "Search"
-msgstr "Αναζήτηση"
-
-msgid "Terms"
-msgstr "Όροι"
-
-msgid "Views (past week)"
-msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
-
-msgid "No results found"
-msgstr "Δε βρέθηκαν αποτελέσματα"
-
-msgid "Choose from popular search terms"
-msgstr "Επιλέξτε από δημοφιλείς όρους αναζήτησης"

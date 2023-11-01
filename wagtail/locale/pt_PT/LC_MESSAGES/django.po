@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -730,10 +730,6 @@ msgstr "Restrição de visualização atualizada"
 
 msgid "Remove view restrictions"
 msgstr "Retirar restrições de visualização"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Retirar restrição de visualização '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "Restrição de visualização retirada"

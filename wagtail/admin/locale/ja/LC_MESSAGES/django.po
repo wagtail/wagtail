@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -111,6 +111,11 @@ msgstr "プロフィール写真をアップロード"
 
 msgid "Enter password"
 msgstr "パスワードを入力してください"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)sとパスワードが一致しませんでした。再度ためしてください。"
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -498,6 +503,9 @@ msgstr "ロック時刻"
 msgid "Edit this page"
 msgstr "ページを編集"
 
+msgid "Actions"
+msgstr "操作"
+
 msgid "Unlock"
 msgstr "ロックを解除"
 
@@ -558,16 +566,17 @@ msgstr "あなたのレビューの待機中"
 msgid "Tasks"
 msgstr "タスク"
 
+msgid "Compare with live version"
+msgstr "ライブ版と比較する"
+
+msgid "Compare with previous version"
+msgstr "前の改定と比較する"
+
 msgid "Sign in"
 msgstr "サインイン"
 
 msgid "Sign in to Wagtail"
 msgstr "Wagtailへサインイン"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)sとパスワードが一致しませんでした。再度ためしてください。"
 
 msgid "Forgotten password?"
 msgstr "パスワードをお忘れですか？"
@@ -749,9 +758,6 @@ msgstr "このページを複製"
 msgid "New %(page_type)s"
 msgstr "新規の%(page_type)s"
 
-msgid "Actions"
-msgstr "操作"
-
 msgid "This page has unsaved changes."
 msgstr "このページは変更が保存されなかった"
 
@@ -829,11 +835,8 @@ msgstr "このページは非公開です"
 msgid "Confirm"
 msgstr "確認"
 
-msgid "History"
-msgstr "履歴"
-
-msgid "Compare with previous version"
-msgstr "前の改定と比較する"
+msgid "Add child page"
+msgstr "子ページを追加"
 
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
@@ -891,9 +894,6 @@ msgstr "%(total_pages)sページ中%(page_num)sページ目"
 msgid "Breadcrumb"
 msgstr "パンくず"
 
-msgid "Root"
-msgstr "ルート"
-
 msgid "Download XLSX"
 msgstr "XLSXファイルをダウンロード"
 
@@ -908,6 +908,12 @@ msgstr "フィルター"
 
 msgid "Apply filters"
 msgstr "フィルターを適用"
+
+msgid "History"
+msgstr "履歴"
+
+msgid "Root"
+msgstr "ルート"
 
 msgid "Current page status:"
 msgstr "現在のページ状況："
@@ -976,9 +982,6 @@ msgstr "ページ"
 msgid "New"
 msgstr "新規作成"
 
-msgid "Compare with live version"
-msgstr "ライブ版と比較する"
-
 msgid "More"
 msgstr "詳細表示"
 
@@ -1039,6 +1042,16 @@ msgstr "'%(object)s'コレクションを削除済み"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "コレクションを完全に削除しますか"
+
+msgid "Home"
+msgstr "ホーム"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s'を編集します"
+
+msgid "Inspect"
+msgstr "詳細"
 
 msgid "Editing"
 msgstr "編集中"
@@ -1224,13 +1237,6 @@ msgstr "ワークフローのタスクを編集"
 
 msgid "Pages"
 msgstr "ページ"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s'を編集します"
-
-msgid "Add child page"
-msgstr "子ページを追加"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

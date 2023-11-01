@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,21 +25,3 @@ msgstr "Wagtail otsing"
 
 msgid "Query Daily Hits"
 msgstr "Päringu Igapäevased Kordused"
-
-msgid "Popular search terms"
-msgstr "Populaarsed otsinguterminid"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Terms"
-msgstr "Terminid"
-
-msgid "Views (past week)"
-msgstr "Vaatamised (eelmine nädal) "
-
-msgid "No results found"
-msgstr "Tulemusi ei leitud"
-
-msgid "Choose from popular search terms"
-msgstr "Valige populaarsete otsinguterminite hulgast"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Yu Hsun Lee <andylee0914.tw@gmail.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -24,21 +24,3 @@ msgstr "Wagtail 搜尋"
 
 msgid "Query Daily Hits"
 msgstr "每日查詢次數"
-
-msgid "Popular search terms"
-msgstr "熱門關鍵字"
-
-msgid "Search"
-msgstr "搜尋"
-
-msgid "Terms"
-msgstr "詞語"
-
-msgid "Views (past week)"
-msgstr "查看 (上周)"
-
-msgid "No results found"
-msgstr "沒有找到結果"
-
-msgid "Choose from popular search terms"
-msgstr "從熱門關鍵字中選擇"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,6 +100,11 @@ msgstr "Lähetä profiilikuva"
 
 msgid "Enter password"
 msgstr "Syötä salasana"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s ja salasana eivät täsmänneet. Ole hyvä ja yritä uudelleen."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -553,9 +558,6 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Ei tuloksia haulla \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Kohteita ei ole luotu."
-
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -578,6 +580,9 @@ msgstr "Julkaise %(model_name)s"
 
 msgid "Cancel"
 msgstr "Peruuta"
+
+msgid "No log entries found."
+msgstr "Lokimerkintöjä ei löytynyt."
 
 msgid "Update"
 msgstr "Päivitä"
@@ -632,6 +637,9 @@ msgstr "Lukittu"
 
 msgid "Edit this page"
 msgstr "Muokkaa tätä sivua"
+
+msgid "Actions"
+msgstr "Toimet"
 
 msgid "Unlock"
 msgstr "Poista lukitus"
@@ -733,16 +741,17 @@ msgstr "Odottaa tarkastustasi"
 msgid "Tasks"
 msgstr "Tehtävät"
 
+msgid "Compare with live version"
+msgstr "Vertaile julkaistun version kanssa"
+
+msgid "Compare with previous version"
+msgstr "Vertaa edelliseen versioon"
+
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
 
 msgid "Sign in to Wagtail"
 msgstr "Kirjaudu sisään Wagtailiin"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)s ja salasana eivät täsmänneet. Ole hyvä ja yritä uudelleen."
 
 msgid "Forgotten password?"
 msgstr "Unohtuiko salasana?"
@@ -851,6 +860,9 @@ msgstr "Sivun yksityisyys"
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
+msgid "Save the page before leaving"
+msgstr "Tallenna sivu ennen poistumista"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Sinulla on <span>tallentamattomia muokkauksia</span>"
 
@@ -861,9 +873,6 @@ msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr ""
 "Sinulla on <span>tallentamattomia muokkauksia</span> ja <span>kommentteja</"
 "span>"
-
-msgid "Save the page before leaving"
-msgstr "Tallenna sivu ennen poistumista"
 
 msgid "Publishing…"
 msgstr "Julkaistaan…"
@@ -1085,9 +1094,6 @@ msgstr "Kopioi tämä sivu"
 msgid "New %(page_type)s"
 msgstr "Uusi %(page_type)s"
 
-msgid "Actions"
-msgstr "Toimet"
-
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
@@ -1126,18 +1132,15 @@ msgstr "Esillä oleva versio"
 msgid "Current draft"
 msgstr "Nykyinen luonnos"
 
-msgid "No log entries found."
-msgstr "Lokimerkintöjä ei löytynyt."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Selataan kohdetta %(title)s"
 
-msgid "Configure a site now."
-msgstr "Konfiguroi sivusto nyt."
-
 msgid "Select all pages in listing"
 msgstr "Valitse listauksen kaikki sivut"
+
+msgid "Configure a site now."
+msgstr "Konfiguroi sivusto nyt."
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Tämä sivu on lukittu toimestasi muokkausta varten"
@@ -1165,6 +1168,13 @@ msgstr "Järjestä"
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
+msgid "Search the whole site"
+msgstr "Hae koko sivustolta"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s / %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Sivustot-valikko"
 
@@ -1187,14 +1197,11 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 msgid "Confirm"
 msgstr "Vahvista"
 
-msgid "History"
-msgstr "Historia"
+msgid "Add child page"
+msgstr "Lisää alasivu"
 
 msgid "Review this version"
 msgstr "Tarkasta tämä versio"
-
-msgid "Compare with previous version"
-msgstr "Vertaa edelliseen versioon"
 
 msgid "Compare with current version"
 msgstr "Vertaa nykyiseen versioon"
@@ -1310,9 +1317,6 @@ msgstr "Murupolut päälle/pois"
 msgid "Breadcrumb"
 msgstr "Linkkipolku"
 
-msgid "Root"
-msgstr "Juuri"
-
 msgid "Download XLSX"
 msgstr "Hae XLSX"
 
@@ -1328,6 +1332,9 @@ msgstr "Suodatin"
 msgid "Apply filters"
 msgstr "Toteuta suodatukset"
 
+msgid "History"
+msgstr "Historia"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Uusi: %(model_name)s"
@@ -1335,6 +1342,9 @@ msgstr "Uusi: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Muokataan %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Juuri"
 
 msgid "Current page status:"
 msgstr "Sivun tila nyt:"
@@ -1384,9 +1394,6 @@ msgstr "Sivupaneelin leveys"
 
 msgid "Comment notifications"
 msgstr "Kommentti-ilmoitukset"
-
-msgid "Page Locale: "
-msgstr "Sivun maa-asetus:"
 
 msgid "Locale: "
 msgstr "Maa-asetusto:"
@@ -1444,9 +1451,6 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Käytetty %(usage_count)s kerran"
 msgstr[1] "Käytetty %(usage_count)s kertaa"
 
-msgid "Page status: "
-msgstr "Sivun tila:"
-
 msgid "Status: "
 msgstr "Tila:"
 
@@ -1501,7 +1505,7 @@ msgstr "Esikatselu ei ole ajan tasalla"
 msgid "Preview mode"
 msgstr "Esikatselutila"
 
-msgid "First published "
+msgid "First published"
 msgstr "Ensin julkaistu"
 
 msgid "Edit / Review"
@@ -1723,9 +1727,6 @@ msgstr "Julkaistu"
 msgid "See full history"
 msgstr "Näytä koko historia"
 
-msgid "Compare with live version"
-msgstr "Vertaile julkaistun version kanssa"
-
 msgid "More"
 msgstr "Lisää"
 
@@ -1825,6 +1826,13 @@ msgstr "Kokoelma '%(object)s' poistettu."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
+msgid "Home"
+msgstr "Koti"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Muokkaa tätä %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Työnkulun edistyminen"
 
@@ -1851,6 +1859,17 @@ msgstr "%(model_name)s '%(object)s' luotu ja julkaistu."
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Etsi %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Muokkaa sivua '%(title)s'"
+
+msgid "Inspect"
+msgstr "Tarkastele"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Poista '%(title)s'"
 
 msgid "Editing"
 msgstr "Muokataan"
@@ -2169,23 +2188,12 @@ msgid "Pages"
 msgstr "Sivut"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Muokkaa sivua '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Esikatsele sivun '%(title)s' vedosta"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Lisää sivulle '%(title)s' alasivu"
 
 #, python-format
 msgid "Move page '%(title)s'"

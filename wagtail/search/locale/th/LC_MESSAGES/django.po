@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,21 +24,3 @@ msgstr "ค้นหา Wagtail"
 
 msgid "Query Daily Hits"
 msgstr "คำถามประจำวันที่นิยมถามบ่อย"
-
-msgid "Popular search terms"
-msgstr "วาระที่ค้นหามากที่สุด"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Terms"
-msgstr "วาระ"
-
-msgid "Views (past week)"
-msgstr "ดู(อาทิตย์ที่แล้ว)"
-
-msgid "No results found"
-msgstr "ไม่พบผล"
-
-msgid "Choose from popular search terms"
-msgstr "เลือกจากวาระที่ค้นหามากที่สุด"

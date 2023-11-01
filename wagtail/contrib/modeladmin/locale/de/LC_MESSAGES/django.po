@@ -13,15 +13,16 @@
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Oliver Engel <codeangel@posteo.de>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2023
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -177,7 +178,7 @@ msgstr "Es wurden noch keine %(name)s erstellt."
 
 #, python-format
 msgid "Why not <a href=\"%(url)s\">add one</a>?"
-msgstr "Warum nicht <a href=\"%(url)s\">eins hinzufügen</a>?"
+msgstr "Warum nicht <a href=\"%(url)s\">einen Eintrag hinzufügen</a>?"
 
 msgid "Pagination"
 msgstr "Seitennummerierung"

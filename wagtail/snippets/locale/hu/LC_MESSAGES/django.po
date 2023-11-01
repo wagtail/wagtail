@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -154,39 +154,6 @@ msgstr "Akciók"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "%(object)s - %(snippet_type_name)s szerkesztése"
 
-msgid "Toggle breadcrumbs"
-msgstr "Morzsamenü kapcsolása"
-
-msgid "Breadcrumb"
-msgstr "Morzsamenü"
-
-msgid "Snippets"
-msgstr "Elemek"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Új: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "%(title)s %(snippet_type)s szerkesztése"
-
-msgid "History"
-msgstr "Történet"
-
-msgid "Usage"
-msgstr "Használat"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "%(subtitle)s elem törénete"
-
-msgid "Edit this snippet"
-msgstr "Elem szerkesztése"
-
-msgid "No log entries found."
-msgstr "Nincs naplóbejegyzés."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s "
@@ -245,11 +212,18 @@ msgstr "Időzített közzététel visszavonása"
 msgid "Choose"
 msgstr "Kiválasztás"
 
+msgid "Snippets"
+msgstr "Elemek"
+
 msgid "Name"
 msgstr "Név"
 
 msgid "Instances"
 msgstr "Példányok"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "'%(title)s' további lehetőségei"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Hiba történt az elem létrehozása közben."
@@ -260,14 +234,8 @@ msgstr "Hiba történt az elem frissítése közben."
 msgid "Action"
 msgstr "Akció"
 
-msgid "User"
-msgstr "Felhasználó"
-
 msgid "Date"
 msgstr "Dátum"
-
-msgid "Snippet history"
-msgstr "Elem történet"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -277,20 +245,8 @@ msgstr "%(model_name)s szerkesztése"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s története"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' szerkesztése"
-
-msgid "Inspect"
-msgstr "Vizsgálat"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "'%(title)s' vizsgálata"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "'%(title)s' törlése"
+msgid "Home"
+msgstr "Nyitólap"
 
 #, python-format
 msgid "Choose %(object)s"

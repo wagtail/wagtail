@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -98,6 +98,11 @@ msgstr "Профайл зураг оруулах"
 
 msgid "Enter password"
 msgstr "Нууц үг оруулна уу"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Таны %(username_field)s болон нууц үг тохирохгүй байна. Дахин оролдоно уу."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -563,16 +568,14 @@ msgstr "Үүрэг даалгавар"
 msgid "Task submitted by"
 msgstr "Үүрэг даалгавар бүртгэсэн"
 
+msgid "Compare with live version"
+msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
+
 msgid "Sign in"
 msgstr "Нэвтрэх"
 
 msgid "Sign in to Wagtail"
 msgstr "Нэвтрэх"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Таны %(username_field)s болон нууц үг тохирохгүй байна. Дахин оролдоно уу."
 
 msgid "Forgotten password?"
 msgstr "Нууц үг марсан уу?"
@@ -829,8 +832,8 @@ msgstr "Дараагийнх"
 msgid "This page is protected from public view"
 msgstr "Энэ хуудас олон нийтэд харагдахгүй хамгаалагдсан"
 
-msgid "History"
-msgstr "Түүх"
+msgid "Add child page"
+msgstr "Шинэ мэдээ нэмэх"
 
 msgid "Cancel scheduled publish"
 msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
@@ -870,9 +873,6 @@ msgstr "Энэ зүйлийг засах"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
-msgid "Root"
-msgstr "Үндэс"
-
 msgid "Download XLSX"
 msgstr "XLSX-р татах"
 
@@ -881,6 +881,12 @@ msgstr "CSV татах"
 
 msgid "Filter"
 msgstr "Шүүлтүүр"
+
+msgid "History"
+msgstr "Түүх"
+
+msgid "Root"
+msgstr "Үндэс"
 
 msgid "Unschedule"
 msgstr "Төлөвлөгөөг болиулах"
@@ -920,9 +926,6 @@ msgstr "Хуудас"
 
 msgid "New"
 msgstr "Шинэ"
-
-msgid "Compare with live version"
-msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
 msgid "More"
 msgstr "Дэлгэрэнгүй"
@@ -970,6 +973,9 @@ msgstr "'%(object)s' цуглуулга устлаа."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
 
+msgid "Home"
+msgstr "Нүүр хуудас"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
@@ -977,6 +983,13 @@ msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s%(object)s боллоо."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' засах"
+
+msgid "Inspect"
+msgstr "Шалгалт"
 
 msgid "Editing"
 msgstr "Засч байна"
@@ -1090,13 +1103,6 @@ msgstr "Ашиглаж буй хуудсууд"
 
 msgid "Pages"
 msgstr "Хуудсууд"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' засах"
-
-msgid "Add child page"
-msgstr "Шинэ мэдээ нэмэх"
 
 #, python-format
 msgid "Move page '%(title)s'"

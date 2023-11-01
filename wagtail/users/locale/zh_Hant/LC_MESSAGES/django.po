@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -116,9 +116,6 @@ msgstr "確認刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-msgid "Delete group"
-msgstr "刪除群組"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -130,14 +127,14 @@ msgstr "確定要刪除該群組？"
 msgid "Add group"
 msgstr "新增群群組"
 
-msgid "Editing"
-msgstr "編輯"
-
 msgid "View users in this group"
 msgstr "檢視群組中的使用者"
 
 msgid "Save"
 msgstr "儲存"
+
+msgid "Delete group"
+msgstr "刪除群組"
 
 msgid "Object permissions"
 msgstr "對象權限"
@@ -183,14 +180,8 @@ msgid ""
 msgstr ""
 "目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
 
-msgid "Delete user"
-msgstr "刪除使用者"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "確定刪除此使用者？"
-
-msgid "Add user"
-msgstr "新增使用者"
 
 msgid "Account"
 msgstr "帳號"
@@ -198,11 +189,11 @@ msgstr "帳號"
 msgid "Roles"
 msgstr "角色"
 
-msgid "Users"
-msgstr "使用者"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "新增使用者"
+
+msgid "Delete user"
+msgstr "刪除使用者"
 
 msgid "Username"
 msgstr "使用者名"
@@ -255,6 +246,12 @@ msgstr "無法儲存該群組。出現錯誤。"
 msgid "Group '%(object)s' deleted."
 msgstr "群組 '%(object)s' 已刪除。"
 
+msgid "Add a user"
+msgstr "新增使用者"
+
+msgid "Users"
+msgstr "使用者"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "使用者 '%(object)s' 已更新。"
@@ -263,18 +260,8 @@ msgid "The user could not be saved due to errors."
 msgstr "無法儲存使用者。出現錯誤。"
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "正在編輯%(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "使用者 '%(object)s' 已刪除。"
 
 msgid "Edit"
 msgstr "編輯"
-
-msgid "Edit this user"
-msgstr "編輯此使用者"
-
-msgid "Delete this user"
-msgstr "刪除此使用者"

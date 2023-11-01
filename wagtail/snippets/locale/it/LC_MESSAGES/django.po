@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,24 +131,6 @@ msgstr "Nuovo"
 msgid "Actions"
 msgstr "Azioni"
 
-msgid "Toggle breadcrumbs"
-msgstr "Attiva / disattiva breadcrumbs"
-
-msgid "Breadcrumb"
-msgstr "Breadcrumb"
-
-msgid "Snippets"
-msgstr "Snippets"
-
-msgid "History"
-msgstr "Storico"
-
-msgid "Usage"
-msgstr "Uso"
-
-msgid "No log entries found."
-msgstr "Nessun log trovato."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -199,6 +181,9 @@ msgstr "Cancella programma pubblicazione"
 msgid "Choose"
 msgstr "Scegli"
 
+msgid "Snippets"
+msgstr "Snippets"
+
 msgid "Name"
 msgstr "Nome"
 
@@ -211,29 +196,15 @@ msgstr "Lo snippet non può essere salvato a causa di errori."
 msgid "Action"
 msgstr "Azione"
 
-msgid "User"
-msgstr "Utente"
-
 msgid "Date"
 msgstr "Data"
-
-msgid "Snippet history"
-msgstr "Storico snippet"
 
 #, python-format
 msgid "%(model_name)s history"
 msgstr "storico %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Modifica '%(title)s'"
-
-msgid "Inspect"
-msgstr "Controlla"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Elimina '%(title)s'"
+msgid "Home"
+msgstr "Home"
 
 #, python-format
 msgid "Choose %(object)s"

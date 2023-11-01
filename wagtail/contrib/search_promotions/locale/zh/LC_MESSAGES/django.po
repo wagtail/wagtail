@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -47,9 +47,6 @@ msgstr "向上移动"
 msgid "Move down"
 msgstr "向下移动"
 
-msgid "Add recommended page"
-msgstr "添加推荐页"
-
 msgid "Search Terms"
 msgstr "搜索关键词"
 
@@ -59,8 +56,23 @@ msgstr "搜索关键词"
 msgid "Views (past week)"
 msgstr "查看 （上周）"
 
+msgid "External link"
+msgstr "外部链接"
+
 msgid "None"
 msgstr "没有"
+
+msgid "Popular search terms"
+msgstr "流行的搜索关键词"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Terms"
+msgstr "关键词"
+
+msgid "No results found"
+msgstr "没有找到任何结果"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

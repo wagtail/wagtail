@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,9 +54,6 @@ msgstr "Дээшээ зөөх"
 msgid "Move down"
 msgstr "Доошоо зөөх"
 
-msgid "Add recommended page"
-msgstr "Санал болгох хуудас нэмэх"
-
 msgid "Search Terms"
 msgstr "Хайлтын утгууд"
 
@@ -66,8 +63,26 @@ msgstr "Хайлтын утга(утгууд)"
 msgid "Views (past week)"
 msgstr "Үзэлт (өнгөрсөн долоо хоногийн)"
 
+msgid "External link"
+msgstr "Гадаад холбоос"
+
 msgid "None"
 msgstr "Хоосон"
+
+msgid "Popular search terms"
+msgstr "Түгээмэл хайлтын утга"
+
+msgid "Search"
+msgstr "Хайлт"
+
+msgid "Terms"
+msgstr "Утгууд"
+
+msgid "No results found"
+msgstr "Үр дүн олдсонгүй"
+
+msgid "Choose from popular search terms"
+msgstr "Түгээмэл хайлтын утгуудаас сонгох"
 
 msgid "Edit"
 msgstr "Засах"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -82,12 +82,6 @@ msgstr "ใหม่ %(snippet_type_name)s"
 msgid "New"
 msgstr "ใหม่"
 
-msgid "Snippets"
-msgstr "เกร็ดเล็กเกร็ดน้อย"
-
-msgid "Usage"
-msgstr "การใช้"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
@@ -122,6 +116,9 @@ msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 msgid "Choose"
 msgstr "เลือก"
 
+msgid "Snippets"
+msgstr "เกร็ดเล็กเกร็ดน้อย"
+
 msgid "Name"
 msgstr "ชื่อ"
 
@@ -134,12 +131,8 @@ msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่
 msgid "Date"
 msgstr "วันที่"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "แก้ไข'%(title)s'"
-
-msgid "Inspect"
-msgstr "ตรวจ"
+msgid "Home"
+msgstr "หน้าหลักของเว็บไซด์"
 
 #, python-format
 msgid "Choose %(object)s"

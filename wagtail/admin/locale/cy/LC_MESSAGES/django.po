@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -322,6 +322,9 @@ msgstr "Diweddariad"
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
 
+msgid "Actions"
+msgstr "Gweithredoedd"
+
 msgid "Unlock"
 msgstr "Datgloi"
 
@@ -355,9 +358,6 @@ msgstr "Ia, ei drosi"
 msgid "Copy"
 msgstr "Copio"
 
-msgid "Actions"
-msgstr "Gweithredoedd"
-
 msgid "Action"
 msgstr "Gweithred"
 
@@ -375,9 +375,6 @@ msgstr "Nesaf"
 
 msgid "Confirm"
 msgstr "Cadarnhau"
-
-msgid "History"
-msgstr "Hanes"
 
 msgid "Move up"
 msgstr "Symyd i fyny"
@@ -405,6 +402,9 @@ msgstr "Lawrlwythwch CSV"
 
 msgid "Filter"
 msgstr "Hidlydd"
+
+msgid "History"
+msgstr "Hanes"
 
 msgid "Lock"
 msgstr "Clo"
@@ -436,6 +436,9 @@ msgstr "%(time_period)s yn ôl"
 msgid "Password"
 msgstr "Cyfrinair"
 
+msgid "Home"
+msgstr "Adref"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
@@ -443,6 +446,17 @@ msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' wedi'i greu."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Golygu '%(title)s'"
+
+msgid "Inspect"
+msgstr "Archwilio"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Dileu '%(title)s'"
 
 msgid "Editing"
 msgstr "Golygu"
@@ -474,10 +488,6 @@ msgstr "Galluogi"
 
 msgid "Pages"
 msgstr "Tudalennau"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Golygu '%(title)s'"
 
 msgid "Clear choice"
 msgstr "Dewis clir"

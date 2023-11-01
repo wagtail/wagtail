@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023
 # Andrey <talkerbox@live.com>, 2016
 # Andrey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2015
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -48,14 +49,38 @@ msgstr ""
 "Пожалуйста, сформулируйте по крайней мере одну рекомендацию по этому "
 "поисковому запросу."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"При вводе URL-адреса внешней ссылки Вам необходимо ввести текст внешней "
+"ссылки."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Вы должны порекомендовать страницу ИЛИ внешнюю ссылку."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Пожалуйста, выберите только страницу ИЛИ введите внешнюю ссылку."
+
 msgid "Query Daily Hits"
 msgstr "Запрос Ежедневных Хитов"
 
 msgid "page"
 msgstr "страница"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Выберите внутреннюю страницу для этого продвижения"
+
+msgid "External link URL"
+msgstr "URL-адрес внешней ссылки"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+"В качестве альтернативы используйте внешнюю ссылку для этого продвижения"
+
 msgid "description"
 msgstr "описание"
+
+msgid "Applies to internal page or external link"
+msgstr "Применяется к внутренней странице или внешней ссылке"
 
 msgid "search promotion"
 msgstr "поисковое продвижение"
@@ -67,16 +92,16 @@ msgid "Add search pick"
 msgstr "Добавить поисковую подборку"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Рекламные результаты поиска — это средство рекомендации определенных "
-"страниц, которые могут не занимать первые места в результатах поиска. "
-"Например, рекомендуя вашу основную страницу донатов пользователю, "
-"выполняющему поиск по менее распространенному термину «<em>пожертвование</"
-"em>».</p>"
+"<p>Продвигаемые результаты поиска - это способ рекомендовать определенные "
+"страницы или внешние ссылки, которые могут не занимать высокие позиции в "
+"результатах поиска. Например, рекомендовать пользователю вашу основную "
+"страницу пожертвований, который ищет менее распространенный термин "
+"\"<em>дарение</em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -122,14 +147,14 @@ msgstr "Двигать вверх"
 msgid "Move down"
 msgstr "Двигать вниз"
 
-msgid "Recommended page"
-msgstr "Рекомендуемая страница"
+msgid "Recommended search result"
+msgstr "Рекомендуемый результат поиска"
 
 msgid "Promoted search results"
 msgstr "Продвигаемые результаты поиска"
 
-msgid "Add recommended page"
-msgstr "Добавить рекомендованную страницу"
+msgid "Add a recommended result"
+msgstr "Добавить рекомендуемый результат"
 
 msgid "Search Terms"
 msgstr "Поисковые запросы"
@@ -161,8 +186,26 @@ msgstr "Упорядочить по видам (высшие первые)"
 msgid "Edit this promotion"
 msgstr "Редактировать это продвижение"
 
+msgid "External link"
+msgstr "Внешняя ссылка"
+
 msgid "None"
 msgstr "Ничего"
+
+msgid "Popular search terms"
+msgstr "Популярные поисковые запросы"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Terms"
+msgstr "Критерии"
+
+msgid "No results found"
+msgstr "Ничего не найдено"
+
+msgid "Choose from popular search terms"
+msgstr "Выбрать из популярных поисковых запросов"
 
 #, python-format
 msgid "There is %(counter)s match"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -58,16 +58,6 @@ msgid "Add search pick"
 msgstr "검색 선별 추가"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
-msgstr ""
-"<p>검색된 검색 결과는 검색 결과에 유기적으로 높게 표시되지 않을 수 있는 특정 "
-"페이지를 추천하는 수단입니다. 예를 들어, 기본 기부 페이지를 \"<em>기부</"
-"em>\"라는 용어로 검색하는 사용자에게 추천합니다.</p>"
-
-msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
 "any misspellings/user error. To help, you can choose from search terms that "
@@ -110,9 +100,6 @@ msgstr "아래로 이동"
 msgid "Promoted search results"
 msgstr "프로모션 검색 결과"
 
-msgid "Add recommended page"
-msgstr "추천 페이지 추가"
-
 msgid "Search Terms"
 msgstr "검색어"
 
@@ -143,8 +130,26 @@ msgstr "보기별 순서(최대값부터)"
 msgid "Edit this promotion"
 msgstr "이 프로모션 수정"
 
+msgid "External link"
+msgstr "외부 링크"
+
 msgid "None"
 msgstr "없음"
+
+msgid "Popular search terms"
+msgstr "인기있는 검색어"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Terms"
+msgstr "단어"
+
+msgid "No results found"
+msgstr "검색 결과가 없습니다"
+
+msgid "Choose from popular search terms"
+msgstr "인기있는 검색어로부터 선택"
 
 #, python-format
 msgid "There is %(counter)s match"
