@@ -51,7 +51,7 @@ Compared to `image`, this will render a `<picture>` element with a fallback `<im
 
 In this case, if the browser supports the [AVIF](https://en.wikipedia.org/wiki/AVIF) format it will load the AVIF file. Otherwise, if the browser supports the [WebP](https://en.wikipedia.org/wiki/WebP) format, it will try to load the WebP file. If none of those formats are supported, the browser will load the JPEG image. The order of the provided formats isn’t configurable – Wagtail will always output source elements in the following order: AVIF, WebP, JPEG, PNG, GIF. This ensures the most optimized format is provided whenever possible.
 
-`picture` can also be used with multiple image resize rules, to generate responsive images.
+The `picture` tag can also be used with multiple image resize rules to generate responsive images.
 
 (responsive_images)=
 
