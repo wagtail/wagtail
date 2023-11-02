@@ -446,6 +446,9 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def page_listing_buttons(context, page, user):
     next_url = context["request"].path
+    # When searching a page title, the next_url gets index results path
+    if next_url.endswith('/results/'):
+        next_url = next_url.replace('/results/', '/')
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
