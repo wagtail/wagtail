@@ -584,7 +584,7 @@ body = StreamField([
     ('normal_text', blocks.RichTextBlock()),
     ('pull_quote', blocks.RichTextBlock(search_index=False)),
     ('footnotes', blocks.ListBlock(blocks.CharBlock(), search_index=False)),
-], use_json_field=True)
+])
 ```
 
 ## Custom validation
