@@ -4,7 +4,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.db import DEFAULT_DB_ALIAS, models
+from django.db import DEFAULT_DB_ALIAS, models, router
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
@@ -121,6 +121,10 @@ def register_deferred_snippets():
 
 
 def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
+    permissions_db = router.db_for_write(Permission)
+    if using != permissions_db:
+        return
+
     model_cts = ContentType.objects.get_for_models(
         *get_snippet_models(), for_concrete_models=False
     )
