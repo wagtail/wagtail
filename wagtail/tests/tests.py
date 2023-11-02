@@ -1,5 +1,3 @@
-import json
-
 from django import template
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -16,10 +14,6 @@ from wagtail.coreutils import (
     resolve_model_string,
 )
 from wagtail.models import Locale, Page, Site, SiteRootPath
-from wagtail.models.sites import (
-    SITE_ROOT_PATHS_CACHE_KEY,
-    SITE_ROOT_PATHS_CACHE_VERSION,
-)
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
@@ -266,9 +260,7 @@ class TestSiteRootPathsCache(TestCase):
     fixtures = ["test.json"]
 
     def get_cached_site_root_paths(self):
-        return cache.get(
-            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
-        )
+        return Site._get_cached_site_root_paths()
 
     def test_cache(self):
         """
@@ -281,47 +273,18 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url
 
         # Check that the cache has been set correctly
-        self.assertEqual(
-            self.get_cached_site_root_paths(),
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-    def test_cache_backend_uses_json_serialization(self):
-        """
-        This tests that, even if the cache backend uses JSON serialization,
-        get_site_root_paths() returns a list of SiteRootPath objects.
-        """
-        result = Site.get_site_root_paths()
-
-        self.assertEqual(
-            result,
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-        # Go through JSON (de)serialisation to check that the result is
-        # still a list of named tuples.
-        cache.set(
-            SITE_ROOT_PATHS_CACHE_KEY,
-            json.loads(json.dumps(result)),
-            version=SITE_ROOT_PATHS_CACHE_VERSION,
-        )
-
-        result = Site.get_site_root_paths()
-        self.assertIsInstance(result[0], SiteRootPath)
+        with self.assertNumQueries(0):
+            self.assertEqual(
+                self.get_cached_site_root_paths(),
+                [
+                    SiteRootPath(
+                        site_id=1,
+                        root_path="/home/",
+                        root_url="http://localhost",
+                        language_code="en",
+                    )
+                ],
+            )
 
     def test_cache_clears_when_site_saved(self):
         """
