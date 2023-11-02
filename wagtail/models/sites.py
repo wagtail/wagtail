@@ -7,6 +7,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Case, IntegerField, Q, When
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
@@ -35,42 +36,73 @@ def get_site_for_hostname(hostname, port):
     if isinstance(port, str):
         port = int(port)
 
-    sites = []
-    for site in Site.objects.get_all():
-        match_rank = None
-        if site.hostname == hostname and site.port == port:
-            # put exact hostname+port match first
-            match_rank = MATCH_HOSTNAME_PORT
-        elif site.hostname == hostname and site.is_default_site:
-            # then put hostname+default (better than just hostname or just default)
-            match_rank = MATCH_HOSTNAME_DEFAULT
-        elif site.is_default_site:
-            # then match default with different hostname. there is only ever
-            # one default, so order it above (possibly multiple) hostname
-            # matches so we can use sites[0] below to access it
-            match_rank = MATCH_DEFAULT
-        elif site.hostname == hostname:
-            match_rank = MATCH_HOSTNAME
+    if per_thread_site_caching_enabled():
+        # NOTE: While we may spend a little more time evaluating irrelevant
+        # sites here, the benefits of work from a cached site list are
+        # definitely worthwhile
+        suitable_sites = []
+        for site in Site.objects.get_all():
+            match_rank = None
+            if site.hostname == hostname and site.port == port:
+                # put exact hostname+port match first
+                match_rank = MATCH_HOSTNAME_PORT
+            elif site.hostname == hostname and site.is_default_site:
+                # then put hostname+default (better than just hostname or just default)
+                match_rank = MATCH_HOSTNAME_DEFAULT
+            elif site.is_default_site:
+                # then match default with different hostname. there is only ever
+                # one default, so order it above (possibly multiple) hostname
+                # matches so we can use sites[0] below to access it
+                match_rank = MATCH_DEFAULT
+            elif site.hostname == hostname:
+                match_rank = MATCH_HOSTNAME
 
-        if match_rank is not None:
-            site.match = match_rank
-            sites.append(site)
+            if match_rank is not None:
+                site.match = match_rank
+                suitable_sites.append(site)
 
-    sites.sort(key=lambda x: (x.match, x.hostname.lower()))
-
-    if sites:
+        suitable_sites.sort(key=lambda x: (x.match, x.hostname.lower()))
+    else:
+        # NOTE: Where we cannot use cached site data, a well-optimised query
+        # that retreives only the items we're interested in is preferable
+        suitable_sites = list(
+            Site.objects.annotate(
+                match=Case(
+                    # annotate the results by best choice descending
+                    # put exact hostname+port match first
+                    When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+                    # then put hostname+default (better than just hostname or just default)
+                    When(
+                        hostname=hostname,
+                        is_default_site=True,
+                        then=MATCH_HOSTNAME_DEFAULT,
+                    ),
+                    # then match default with different hostname. there is only ever
+                    # one default, so order it above (possibly multiple) hostname
+                    # matches so we can use sites[0] below to access it
+                    When(is_default_site=True, then=MATCH_DEFAULT),
+                    # because of the filter below, if it's not default then its a hostname match
+                    default=MATCH_HOSTNAME,
+                    output_field=IntegerField(),
+                )
+            )
+            .filter(Q(hostname=hostname) | Q(is_default_site=True))
+            .order_by("match")
+            .select_related("root_page")
+        )
+    if suitable_sites:
         # if there's a unique match or hostname (with port or default) match
-        if len(sites) == 1 or sites[0].match in (
+        if len(suitable_sites) == 1 or suitable_sites[0].match in (
             MATCH_HOSTNAME_PORT,
             MATCH_HOSTNAME_DEFAULT,
         ):
-            return sites[0]
+            return suitable_sites[0]
 
         # if there is a default match with a different hostname, see if
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
-        if sites[0].match == MATCH_DEFAULT:
-            return sites[len(sites) == 2]
+        if suitable_sites[0].match == MATCH_DEFAULT:
+            return suitable_sites[len(suitable_sites) == 2]
 
     raise Site.DoesNotExist()
 
